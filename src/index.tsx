@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import "./Fonts.css";
+
 import reportWebVitals from './reportWebVitals';
+import { Settings } from './screens/config/Settings';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Settings />
   </React.StrictMode>
 );
 
