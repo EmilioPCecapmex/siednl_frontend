@@ -7,8 +7,9 @@ import {
   Breadcrumbs,
   Link,
 } from "@mui/material";
-import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from '@mui/icons-material/NotificationsNone';
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+
 
 interface BreadcrumbsDetails {
     name1: string;
@@ -23,6 +24,7 @@ export const Header = ({
 }: {
   details: BreadcrumbsDetails;
 }) => {
+
   return (
     <Box
       sx={{
@@ -49,10 +51,14 @@ export const Header = ({
           <Link underline="hover" color="inherit" href={details.path1}>
             {details.name1}
           </Link>
-          <Link underline="hover" color="inherit" href={details.path2}>
+
+          {details.name2 != '' ? (<Link underline="hover" color="inherit" href={details.path2}>
             {details.name2}
-          </Link>
-          <Typography color="text.primary">{details.name3}</Typography>
+          </Link>) : null }
+
+          
+          {details.name3 != '' ? (<Typography color="text.primary">{details.name3}</Typography>) : null }
+          
         </Breadcrumbs>
       </Box>
 
@@ -71,7 +77,7 @@ export const Header = ({
         <Box sx={{ ml: ".5vw" }}>
           <IconButton>
             <Badge badgeContent={4} color="primary">
-              <MailIcon color="action" />
+              <NotificationsIcon color="action" />
             </Badge>
           </IconButton>
         </Box>

@@ -4,14 +4,14 @@ import './index.css';
 import "./Fonts.css";
 
 import reportWebVitals from './reportWebVitals';
-import { Settings } from './screens/config/Settings';
+import App from './App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Settings />
+    <App />
   </React.StrictMode>
 );
 
