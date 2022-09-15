@@ -5,13 +5,15 @@ import "./Fonts.css";
 
 import reportWebVitals from './reportWebVitals';
 import { Settings } from './screens/config/Settings';
+import { Usuarios } from './screens/config/Usuarios';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Settings />
+    {/* <Settings /> */}
+    <Usuarios />
   </React.StrictMode>
 );
 
