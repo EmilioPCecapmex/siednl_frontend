@@ -190,7 +190,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
             fontFamily: "MontserratMedium",
           }}
         >
-          <ListItemButton onClick={() => navigate('../')}>
+          <ListItemButton onClick={() => navigate('../Home')}>
             <ListItemIcon>
               <HomeOutlinedIcon />
             </ListItemIcon>
@@ -332,7 +332,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
         }}
       >
         <List component="nav" aria-labelledby="nested-list-subheader">
-          <ListItemButton onClick={() => navigate('./Settings')}>
+          <ListItemButton onClick={() => navigate('../settings')}>
             <ListItemIcon>
               <SettingsOutlinedIcon />
             </ListItemIcon>
