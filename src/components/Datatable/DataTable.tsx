@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -18,7 +18,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Avatar } from "@mui/material";
 import { text } from "stream/consumers";
 import axios from "axios";
-import { DataUsuariosTiCentral, EnhancedTableProps, HeadCell } from "./interface";
+import {
+  DataUsuariosTiCentral,
+  EnhancedTableProps,
+  HeadCell,
+} from "./interface";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -37,7 +41,7 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
-  return `${Nombre.split(" ")[0][0]}${ApellidoPaterno.split(" ")[0][0]}`; 
+  return `${Nombre.split(" ")[0][0]}${ApellidoPaterno.split(" ")[0][0]}`;
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -81,8 +85,6 @@ function stableSort<T>(
   return stabilizedThis.map((el) => el[0]);
 }
 
-
-
 const headCells: readonly HeadCell[] = [
   {
     Id: "Nombre",
@@ -97,7 +99,7 @@ const headCells: readonly HeadCell[] = [
     label: "Correo Electrónico",
   },
   {
-    Id: "EstaActivo",
+    Id: "ApellidoMaterno",
     numeric: true,
     disablePadding: false,
     label: "Teléfono",
@@ -120,7 +122,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     onRequestSort,
   } = props;
   const createSortHandler =
-    (property: keyof DataUsuariosTiCentral) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof DataUsuariosTiCentral) =>
+    (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -166,45 +169,51 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export const DataTable = ({textFind}:{textFind: string})  => {
+export const DataTable = ({ textFind }: { textFind: string }) => {
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] =
+    useState<keyof DataUsuariosTiCentral>("CorreoElectronico");
+  const [selected, setSelected] = useState<readonly string[]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(7);
+  const [usuarios, setUsuarios] = useState<Array<DataUsuariosTiCentral>>([
+    {
+      Id: "",
+      EstaActivo: 0,
+      Nombre: "",
+      ApellidoPaterno: "",
+      ApellidoMaterno: "",
+      NombreUsuario: "",
+      CorreoElectronico: "",
+      CreadoPor: "",
+      ModificadoPor: "",
+    },
+  ]);
 
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof DataUsuariosTiCentral>("CorreoElectronico");
-  const [selected, setSelected] = React.useState<readonly string[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(7);
-  const [usuarios, setUsuarios] = React.useState<Array<DataUsuariosTiCentral>>([{
-    Id:                "",
-    EstaActivo:        0,
-    Nombre:            "",
-    ApellidoPaterno:   "",
-    ApellidoMaterno:   "",
-    NombreUsuario:     "",
-    CorreoElectronico: "",
-    CreadoPor:         "",
-    ModificadoPor: "",
-  }])
-
-  const [usersFiltered,setUsersFiltered] = React.useState<Array<DataUsuariosTiCentral>>([{
-    Id:                "",
-    EstaActivo:        0,
-    Nombre:            "",
-    ApellidoPaterno:   "",
-    ApellidoMaterno:   "",
-    NombreUsuario:     "",
-    CorreoElectronico: "",
-    CreadoPor:         "",
-    ModificadoPor: "",
-  }])
+  const [usersFiltered, setUsersFiltered] = useState<
+    Array<DataUsuariosTiCentral>
+  >([
+    {
+      Id: "",
+      EstaActivo: 0,
+      Nombre: "",
+      ApellidoPaterno: "",
+      ApellidoMaterno: "",
+      NombreUsuario: "",
+      CorreoElectronico: "",
+      CreadoPor: "",
+      ModificadoPor: "",
+    },
+  ]);
 
   const getUsuarios = () => {
     axios
       .get("http://10.200.4.105:5000/api/users", {
         headers: {
-          'Authorization':
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoiU3BpZGVyTWFuIiwiSWRVc3VhcmlvIjoiYTY4NjBiNDQtMzA4Ny0xMWVkLWFlZDAtMDQwMzAwMDAwMDAwIiwiaWF0IjoxNjYzMjYwOTU2LCJleHAiOjE2NjMyNjM2NTZ9.RjUB4QL_LT4WtB9qZf0bj9xzvFZbShtquMTmmuWvMVA",
-            'Content-Type': 'application/json'
-          },
+          Authorization:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoiRW1wZXJleiIsIklkVXN1YXJpbyI6IjNkNDcyYTdhLTMwODctMTFlZC1hZWQwLTA0MDMwMDAwMDAwMCIsImlhdCI6MTY2MzI2NDE2MSwiZXhwIjoxNjYzMjY2ODYxfQ.xReNwRMGQWvZGMjS3dDKyCcc9fnIMWuTwbuWnCAQXSk",
+          "Content-Type": "application/json",
+        },
       })
       .then((response) => {
         setUsuarios(response.data.data);
@@ -216,15 +225,20 @@ export const DataTable = ({textFind}:{textFind: string})  => {
   };
 
   const findText = () => {
-    setUsersFiltered(usuarios.filter( x => x.Nombre.toLowerCase().includes("Emilio")))
-    console.log(usuarios.filter( x => x.Nombre.toLowerCase().includes("Emilio")))
-  }
-  
-  React.useEffect(() => {
+    if (textFind !== "") {
+      setUsersFiltered(
+        usuarios.filter((x) => x.Nombre.toLowerCase().includes(textFind))
+      );
+    } else {
+      setUsersFiltered(usuarios);
+    }
+  };
+
+  useEffect(() => {
     findText();
   }, [textFind]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getUsuarios();
   }, []);
 
@@ -295,15 +309,15 @@ export const DataTable = ({textFind}:{textFind: string})  => {
       >
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={usuarios.length}
-            />
             <TableBody>
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={usuarios.length}
+              />
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
               {stableSort(usersFiltered, getComparator(order, orderBy))
@@ -320,7 +334,7 @@ export const DataTable = ({textFind}:{textFind: string})  => {
                       tabIndex={-1}
                       key={row.Id}
                       selected={isItemSelected}
-                      sx={{overflow: "scroll"}}
+                      sx={{ overflow: "scroll" }}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -354,7 +368,11 @@ export const DataTable = ({textFind}:{textFind: string})  => {
                           >
                             {stringAvatar(row.Nombre, row.ApellidoPaterno)}
                           </Avatar>{" "}
-                          {row.Nombre + " " + row.ApellidoPaterno + " " + row.ApellidoMaterno}
+                          {row.Nombre +
+                            " " +
+                            row.ApellidoPaterno +
+                            " " +
+                            row.ApellidoMaterno}
                         </Box>
                       </TableCell>
 
@@ -435,6 +453,6 @@ export const DataTable = ({textFind}:{textFind: string})  => {
       </Paper>
     </Box>
   );
-}
+};
 
 export default DataTable;
