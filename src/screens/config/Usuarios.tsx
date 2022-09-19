@@ -10,59 +10,20 @@ import {
   Input,
   TextField,
 } from "@mui/material";
-import MailIcon from "@mui/icons-material/Mail";
-import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { Header } from "../../components/header/Header";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { SettingsCard } from "../../components/settings/SettingsCard";
 import DataTable from "../../components/Datatable/DataTable";
-import axios from "axios";
-import { DataUsuariosTiCentral } from "../../components/Datatable/interface";
 
 export const Usuarios = () => {
 
-  const [users, setUsers] = useState<Array<DataUsuariosTiCentral>>([{
-    Id:                "",
-    EstaActivo:        0,
-    Nombre:            "",
-    ApellidoPaterno:   "",
-    ApellidoMaterno:   "",
-    NombreUsuario:     "",
-    CorreoElectronico: "",
-    CreadoPor:         "",
-    ModificadoPor: "",
-  }])
+
 
   const [usersFiltered,setUsersFiltered] = useState("")
-
-  const jwt =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoiRW1wZXJleiIsIklkVXN1YXJpbyI6IjNkNDcyYTdhLTMwODctMTFlZC1hZWQwLTA0MDMwMDAwMDAwMCIsImlhdCI6MTY2MzI2NDE2MSwiZXhwIjoxNjYzMjY2ODYxfQ.xReNwRMGQWvZGMjS3dDKyCcc9fnIMWuTwbuWnCAQXSk"
-
-  const getUsers = () => {
-    axios
-      .get("http://10.200.4.105:5000/api/users", {
-        headers: {
-          Authorization: jwt,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setUsers(response.data.data);
-        setUsersFiltered(response.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   const dataFilter = (text: string) => {
     setUsersFiltered(text)
   };
-
-  useEffect(() => {
-    getUsers();
-  }, []);
 
   return (
     <Box
@@ -155,7 +116,9 @@ export const Usuarios = () => {
             alignItems: "center",
           }}
         >
+          {/* <DataTable textFind={usersFiltered}></DataTable> */}
           <DataTable textFind={usersFiltered}></DataTable>
+
         </Box>
       </Box>
     </Box>

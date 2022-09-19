@@ -2,33 +2,21 @@
 
   export interface DataUsuariosTiCentral {
     Id:                string;
-    EstaActivo:        number;
+    IdUsuarioTiCentral:string;
     Nombre:            string;
     ApellidoPaterno:   string;
     ApellidoMaterno:   string;
-    NombreUsuario:     string;
     CorreoElectronico: string;
+    NombreUsuario:     string;
+    Cargo:             string;
+    Telefono:          string;
+    Celular:           string;
+    IdRol:             string;
+    Rol:               string;
+    IdInstitucion:     string;
+    NombreInstitucion: string;
     CreadoPor:         string;
     ModificadoPor:     string;
   }
 
-  type Order = "asc" | "desc";
-
-  export interface EnhancedTableProps {
-    numSelected: number;
-    onRequestSort: (
-      event: React.MouseEvent<unknown>,
-      property: keyof DataUsuariosTiCentral
-    ) => void;
-    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    order: Order;
-    orderBy: string;
-    rowCount: number;
-  }
-
-  export interface HeadCell {
-    disablePadding: boolean;
-    Id: keyof DataUsuariosTiCentral;
-    label: string;
-    numeric: boolean;
-  }
+  
