@@ -14,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Avatar } from "@mui/material";
 import axios from "axios";
 import { DataUsuariosTiCentral } from "./interface";
-import AlertDialog, { DeleteDialog } from "../DeleteDialog/DeleteDialog";
+import AlertDialog, { DeleteDialog } from "../deleteDialog/DeleteDialog";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
