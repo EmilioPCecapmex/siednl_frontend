@@ -78,7 +78,7 @@ export const DataTable = ({ textFind }: { textFind: string }) => {
       .get("http://10.200.4.105:8000/api/usuarios", {
         headers: {
           Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoiU3BpZGVyTWFuIiwiSWRVc3VhcmlvIjoiYTY4NjBiNDQtMzA4Ny0xMWVkLWFlZDAtMDQwMzAwMDAwMDAwIiwiaWF0IjoxNjYzNjA2NDE0LCJleHAiOjE2NjM2MDkxMTR9.A3goG1amf85k-Klk_w_gsuUgBtGC6e6R7rR-D23vR4g",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoiRW1wZXJleiIsIklkVXN1YXJpbyI6IjNkNDcyYTdhLTMwODctMTFlZC1hZWQwLTA0MDMwMDAwMDAwMCIsImlhdCI6MTY2MzYwOTI1OSwiZXhwIjoxNjYzNjExOTU5fQ.okJa_AcZuwRQgKz4yMvzs6cqW99-S0lwWw3utOYZQDo",
           "Content-Type": "application/json",
         },
       })

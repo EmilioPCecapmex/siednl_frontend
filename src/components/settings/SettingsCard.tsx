@@ -1,7 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export const SettingsCard = () => {
+  const navigate = useNavigate();
+
     const configOptions = [
         { id: 1, label: "Años Fiscales" },
         { id: 2, label: "Beneficiarios" },
@@ -137,6 +140,7 @@ export const SettingsCard = () => {
                 <Button
                   variant="text"
                   key={item.id}
+                  onClick={() => navigate('../users')}
                   sx={{ width: "90%", height: "7vh", ":hover": {
                     backgroundColor: '#c4a55a'
                   } }}

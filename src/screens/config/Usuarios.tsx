@@ -13,10 +13,17 @@ import {
 import { Header } from "../../components/header/Header";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import DataTable from "../../components/Datatable/DataTable";
-import DataTable2 from "../../components/Datatable/DataTable2";
+import DataTable from "../../components/datatable/DataTable";
+import ModalCrearUsuario from "../../components/modalUsuarios/ModalCrearUsuario";
 
 export const Usuarios = () => {
+
+  const [openModalUsuarios, setOpenModalUsuarios] = useState(false);
+
+  const handleCloseModalUsuarios = () => {
+    setOpenModalUsuarios(false);
+  }
+
 
 
 
@@ -56,6 +63,8 @@ export const Usuarios = () => {
           flexWrap: "wrap",
         }}
       >
+              <ModalCrearUsuario open={openModalUsuarios} handleClose={handleCloseModalUsuarios}/>
+
         <Box
           sx={{
             mt: "3vh",
@@ -96,6 +105,7 @@ export const Usuarios = () => {
                 backgroundColor: "#ccc",
               },
             }}
+            onClick={() => setOpenModalUsuarios(true)}
           >
             <PersonAddIcon sx={{ mr: 1 }} />
             <Typography
