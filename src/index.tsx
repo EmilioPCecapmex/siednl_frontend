@@ -4,7 +4,10 @@ import './index.css';
 import "./Fonts.css";
 
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
 import { Settings } from './screens/config/Settings';
+=======
+>>>>>>> ef96f529d41098ec2e73d9138eee68eece8814aa
 import App from './App';
 
 const root = ReactDOM.createRoot(
@@ -12,7 +15,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+<<<<<<< HEAD
     <App/>
+=======
+    <App />
+>>>>>>> ef96f529d41098ec2e73d9138eee68eece8814aa
   </React.StrictMode>
 );
 

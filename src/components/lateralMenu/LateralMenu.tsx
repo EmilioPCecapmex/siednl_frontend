@@ -18,9 +18,12 @@ import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 
 
 export const LateralMenu = ({selection} : {selection: number}) => {
+  const navigate = useNavigate();
 
 
 
@@ -187,7 +190,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
             fontFamily: "MontserratMedium",
           }}
         >
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate('../Home')}>
             <ListItemIcon>
               <HomeOutlinedIcon />
             </ListItemIcon>
@@ -329,7 +332,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
         }}
       >
         <List component="nav" aria-labelledby="nested-list-subheader">
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate('../settings')}>
             <ListItemIcon>
               <SettingsOutlinedIcon />
             </ListItemIcon>
