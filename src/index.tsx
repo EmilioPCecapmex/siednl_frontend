@@ -4,16 +4,31 @@ import './index.css';
 import "./Fonts.css";
 
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
 import { Settings } from './screens/config/Settings';
+<<<<<<< HEAD
 import { Usuarios } from './screens/config/Usuarios';
+=======
+=======
+>>>>>>> ef96f529d41098ec2e73d9138eee68eece8814aa
+import App from './App';
+>>>>>>> dev_pedro
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
+<<<<<<< HEAD
     {/* <Settings /> */}
     <Usuarios />
+=======
+<<<<<<< HEAD
+    <App/>
+=======
+    <App />
+>>>>>>> ef96f529d41098ec2e73d9138eee68eece8814aa
+>>>>>>> dev_pedro
   </React.StrictMode>
 );
 
