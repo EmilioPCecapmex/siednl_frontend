@@ -14,6 +14,7 @@ import { Header } from "../../components/header/Header";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DataTable from "../../components/Datatable/DataTable";
+import DataTable2 from "../../components/Datatable/DataTable2";
 
 export const Usuarios = () => {
 
@@ -116,8 +117,8 @@ export const Usuarios = () => {
             alignItems: "center",
           }}
         >
-          {/* <DataTable textFind={usersFiltered}></DataTable> */}
           <DataTable textFind={usersFiltered}></DataTable>
+          {/* <DataTable2 textFind={usersFiltered}></DataTable2> */}
 
         </Box>
       </Box>

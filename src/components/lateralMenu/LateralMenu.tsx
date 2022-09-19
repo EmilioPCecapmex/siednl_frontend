@@ -23,7 +23,7 @@ import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 export const LateralMenu = ({selection} : {selection: number}) => {
 
 
-
+const UsuarioEnSesion = "José Perez"
 
   const [openProgramas, setOpenProgramas] = useState(true);
 
@@ -97,7 +97,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
       >
         <Avatar
           sx={{
-            bgcolor: stringToColor("Juan Alvarez"),
+            bgcolor: stringToColor(UsuarioEnSesion),
             width: "5vw",
             height: "10vh",
             fontSize: "1.5vw",
@@ -105,7 +105,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
             boxShadow: 4,
           }}
         >
-          {stringAvatar("Juan Alvarez")}
+          {stringAvatar(UsuarioEnSesion)}
         </Avatar>
       </Box>
 
@@ -119,7 +119,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
           fontFamily: "MontserratBold",
         }}
       >
-        Pedro Pardo
+        {UsuarioEnSesion}
         <Typography
           sx={{
             fontFamily: "MontserratMedium",

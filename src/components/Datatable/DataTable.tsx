@@ -14,6 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Avatar } from "@mui/material";
 import axios from "axios";
 import { DataUsuariosTiCentral } from "./interface";
+import AlertDialog, { DeleteDialog } from "../DeleteDialog/DeleteDialog";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
@@ -77,7 +78,7 @@ export const DataTable = ({ textFind }: { textFind: string }) => {
       .get("http://10.200.4.105:8000/api/usuarios", {
         headers: {
           Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoiU3BpZGVyTWFuIiwiSWRVc3VhcmlvIjoiYTY4NjBiNDQtMzA4Ny0xMWVkLWFlZDAtMDQwMzAwMDAwMDAwIiwiaWF0IjoxNjYzNTk5MTYzLCJleHAiOjE2NjM2MDE4NjN9.yEKr2wWWEYJ5FAnv46wnFD4nrt-ktG6AdkoWvOVH8AQ",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoiU3BpZGVyTWFuIiwiSWRVc3VhcmlvIjoiYTY4NjBiNDQtMzA4Ny0xMWVkLWFlZDAtMDQwMzAwMDAwMDAwIiwiaWF0IjoxNjYzNjA2NDE0LCJleHAiOjE2NjM2MDkxMTR9.A3goG1amf85k-Klk_w_gsuUgBtGC6e6R7rR-D23vR4g",
           "Content-Type": "application/json",
         },
       })
@@ -140,7 +141,7 @@ export const DataTable = ({ textFind }: { textFind: string }) => {
                 <TableCell align="left">Celular</TableCell>
                 <TableCell align="left">Institucion</TableCell>
                 <TableCell align="left">Rol</TableCell>
-                <TableCell align="left">Accion</TableCell>
+                <TableCell align="center">Accion</TableCell>
               </TableRow>
             </TableHead>
 
@@ -191,20 +192,12 @@ export const DataTable = ({ textFind }: { textFind: string }) => {
 
                   <TableCell>{row.Rol}</TableCell>
 
-                  <TableCell>
+                  <TableCell sx={{display: "flex"}}>
+
                     <Tooltip title="Eliminar">
-                      <IconButton>
-                        <DeleteIcon
-                          sx={[
-                            {
-                              "&:hover": {
-                                color: "red",
-                              },
-                            },
-                          ]}
-                        />
-                      </IconButton>
+                      <DeleteDialog></DeleteDialog>
                     </Tooltip>
+                  
 
                     <Tooltip title="Editar">
                       <IconButton>
