@@ -7,6 +7,8 @@ import { Home } from './screens/home/Home';
 import { Settings } from './screens/config/Settings';
 import { E404 } from './screens/e404/E404';
 import { Usuarios } from './screens/config/Usuarios';
+import { Config } from './screens/config/Config';
+
 
 
 
@@ -21,7 +23,9 @@ function App() {
           <Route index element={<Home />} />
           <Route path="settings" element={<Settings />} />
           <Route path="users" element={<Usuarios />} />
+          <Route path="config" element={<Config />} />
           <Route path="*" element={<E404 />} />
+          
         </Routes>
       </Router>
    </>
