@@ -7,7 +7,12 @@ import { Home } from './screens/home/Home';
 import { Settings } from './screens/config/Settings';
 import { E404 } from './screens/e404/E404';
 import { Usuarios } from './screens/config/Usuarios';
+<<<<<<< HEAD
 import { Init } from './screens/init/Init';
+=======
+import { Config } from './screens/config/Config';
+
+>>>>>>> dev_pedro
 
 
 
@@ -20,7 +25,9 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="settings" element={<Settings />} />
           <Route path="users" element={<Usuarios />} />
+          <Route path="config" element={<Config />} />
           <Route path="*" element={<E404 />} />
+          
         </Routes>
       </Router>
    </>

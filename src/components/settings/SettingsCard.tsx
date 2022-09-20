@@ -31,6 +31,14 @@ export const SettingsCard = () => {
         { id: 23, label: "Unidades de Medida" },
         { id: 24, label: "Usuarios" },
       ];
+
+      const navigationOptions = (value: number) => {
+        if(value === 24){
+          navigate('../users')
+        }else{
+          navigate('../config')
+        }
+      }
   return (
     <Box
         sx={{
@@ -140,7 +148,7 @@ export const SettingsCard = () => {
                 <Button
                   variant="text"
                   key={item.id}
-                  onClick={() => navigate('../users')}
+                  onClick={() => navigationOptions(item.id)}
                   sx={{ width: "90%", height: "7vh", ":hover": {
                     backgroundColor: '#c4a55a'
                   } }}
