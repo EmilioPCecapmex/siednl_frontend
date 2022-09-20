@@ -1,408 +1,505 @@
-import React, {useState} from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Box from "@mui/material/Box";
-import Input from "@mui/material/Input";
-import Autocomplete from "@mui/material/Autocomplete";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import IRegistroUsuario from "./InterfazUsuario";
-import { width } from "@mui/system";
-import { red } from "@mui/material/colors";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+import {
+  Box,
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  AlertColor,
+} from "@mui/material";
 
-export default function ModalCrearUsuario({open, handleClose} : {open: boolean, handleClose: Function}) {
-  const jwt =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoicHJwYXJkbyIsIklkVXN1YXJpbyI6ImE0Zjc5ZTU3LTMyYjctMTFlZC1hZWQwLTA0MDMwMDAwMDAwMCIsImlhdCI6MTY2MzI2MzMwMCwiZXhwIjoxNjYzMjY2MDAwfQ.zsy2hWV_gK7tVPwzEjz0LoUFdXERuqrI13xly_SQiWQ";
+export default function ModalCrearUsuario({
+  title,
+  open,
+  handleClose,
+}: {
+  title: string;
+  open: boolean;
+  handleClose: Function;
+}) {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [names, setNames] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [secondName, setSecondName] = useState("");
+  const [institution, setInstitution] = useState("0");
+  const [rol, setRol] = useState("");
+  const [userType, setUserType] = useState("0");
+  const [telephone, setTelephone] = useState("");
+  const [cellphone, setCellphone] = useState("");
+  const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
+
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState([{Id: "",
+  NombreInstitucion: ""
+  },]);
+
+  const [userTypeCatalogue, setUserTypeCatalogue] = useState([{Id: "",
+  Rol: ""
+  },]);
 
 
-
-
-  const [usuario, setUsuario] = useState<IRegistroUsuario>({
-    Id: "",
-    EstaActivo: 0,
-    Nombre: "",
-    ApellidoPaterno: "",
-    ApellidoMaterno: "",
-    NombreUsuario: "",
-    CorreoElectronico: "",
-    CreadoPor: "",
-    ModificadoPor: "",
+  const [errorForm, setErrorsForm] = useState({
+    visible: false,
+    text: "",
+    type: "",
   });
 
-  const [TipoDeUsuario, setTipoDeUsuario] = useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setTipoDeUsuario(event.target.value);
+  const AlertForm = () => {
+    return (
+      <Box sx={{ mt: "1vh", mb: "2vh" }}>
+        <Alert severity={errorForm.type as AlertColor}>{errorForm.text}</Alert>
+      </Box>
+    );
   };
 
+  const cleanForm = () => {
+    setUsername("");
+    setEmail("");
+    setNames("");
+    setFirstName("");
+    setSecondName("");
+    setInstitution("0");
+    setRol("");
+    setUserType("0");
+    setTelephone("");
+    setCellphone("");
+  };
+
+  const getInstituciones = () => {
+    axios.get("http://10.200.4.105:8000/api/instituciones", {
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      }
+    }).then(
+      (r) => {
+        setCatalogoInstituciones(r.data.data)
+      }
+
+    )
+  }
+
+  const getUserType = () => {
+    axios.get("http://10.200.4.105:8000/api/roles", {
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      }
+    }).then(
+      (r) => {
+        setUserTypeCatalogue(r.data.data)
+      }
+
+    )
+  }
+
+  const userTypes = [
+    {
+      id: 1,
+      desc: "Administrador",
+    },
+    {
+      id: 2,
+      desc: "Capturador",
+    },
+    {
+      id: 3,
+      desc: "Verificador",
+    },
+  ];
+
+  const signUp = () => {
+    axios
+      .post(
+        "http://10.200.4.105:5000/api/sign-up",
+        {
+          Nombre: names,
+          ApellidoPaterno: firstName,
+          ApellidoMaterno: secondName,
+          NombreUsuario: username,
+          CorreoElectronico: email,
+          IdUsuarioModificador: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 201) {
+          cleanForm();
+          handleClose();
+          setIdUsuarioCentral(r.data.IdUsuario)         
+          siednlSignUp(r.data.IdUsuario);
+        }
+      })
+      .catch((r) => {
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
+      });
+  };
+
+  const siednlSignUp = (idUsrCentral: string) => {
+    axios
+    .post(
+      "http://10.200.4.105:8000/api/user-add",
+      {
+        IdUsuarioCentral: idUsrCentral,
+        IdInstitucion: institution,
+        Cargo: rol,
+        Telefono: telephone,
+        Celular: cellphone,
+        CreadoPor: localStorage.getItem("IdUsuario"),
+        IdRol: userType
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then((r) => {
+      if(r.status === 200){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "¡Registro exitoso!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    })
+  }
+
+  const checkForm = () => {
+    setErrorsForm({
+      visible: false,
+      text: "",
+      type: "",
+    });
+
+    if (username === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un nombre de usuario.",
+        type: "error",
+      });
+    } else if (email === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    } else if (names === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa nombre del usuario.",
+        type: "error",
+      });
+    } else if (firstName === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa apellido paterno del usuario.",
+        type: "error",
+      });
+    } else if (secondName === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa apellido materno del usuario.",
+        type: "error",
+      });
+    } else if (institution === "0") {
+      setErrorsForm({
+        visible: true,
+        text: "Selecciona la institucion a la que pertenece el usuario.",
+        type: "error",
+      });
+    } else if (rol === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa el cargo del usuario en la institución.",
+        type: "error",
+      });
+    } else if (userType === "0") {
+      setErrorsForm({
+        visible: true,
+        text: "Selecciona el tipo de usuario a crear.",
+        type: "error",
+      });
+    } else if (telephone === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un teléfono de contacto.",
+        type: "error",
+      });
+    } else if (cellphone === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un número celular de contacto.",
+        type: "error",
+      });
+    } else {
+      signUp();
+    }
+  };
+
+  useEffect(() => {
+ getInstituciones();
+ getUserType();
+  }, [])
+  
+
   return (
-    <Box sx={{ width: "100vw" }}>
+    <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
+      <DialogTitle sx={{fontFamily: 'MontserratBold'}}>{title.toUpperCase()}</DialogTitle>
 
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box
+          sx={{
+            backgroundColor: "#BBBABA",
+            width: "60vw",
+            height: "0.1vh",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        />
+      </Box>
 
-      <Dialog fullWidth maxWidth="lg" open={open} onClose={handleChange}>
-        <DialogTitle>Crear Usuario </DialogTitle>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box
+      <DialogContent
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {errorForm.visible ? <AlertForm /> : null}
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <TextField
+            label="Usuario"
+            variant="outlined"
+            value={username}
             sx={{
-              backgroundColor: "#BBBABA",
-              width: "60vw",
-              height: "0.2vh",
-              display: "flex",
-              justifyContent: "center",
+              width: "40%",
+              ml: "2vw",
             }}
-          ></Box>
+            onChange={(v) => setUsername(v.target.value)}
+          />
+
+          <TextField
+            label="Correo Electrónico"
+            variant="outlined"
+            type="email"
+            onChange={(v) => setEmail(v.target.value)}
+            value={email}
+            sx={{
+              width: "40%",
+              mr: "2vw",
+            }}
+          />
         </Box>
 
-        <DialogContent
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            mt: "3vh",
+          }}
+        >
+          <TextField
+            label="Nombre(s)"
+            variant="outlined"
+            value={names}
+            onChange={(x) => setNames(x.target.value)}
+            sx={{
+              width: "30%",
+              ml: "2vw",
+            }}
+          />
+
+          <TextField
+            label="Apellido Paterno"
+            variant="outlined"
+            value={firstName}
+            onChange={(x) => setFirstName(x.target.value)}
+            sx={{
+              width: "30%",
+            }}
+          />
+          <TextField
+            label="Apellido Materno"
+            variant="outlined"
+            value={secondName}
+            onChange={(x) => setSecondName(x.target.value)}
+            sx={{
+              width: "30%",
+              mr: "2vw",
+            }}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            mt: "3vh",
+          }}
+        >
+          <FormControl
+            sx={{
+              width: "30%",
+              ml: "2vw",
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">Institución</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={institution}
+              label="Institución"
+              onChange={(x) => setInstitution(x.target.value)}
+            >
+              <MenuItem value={"0"} key={0} disabled>
+                Selecciona
+              </MenuItem>
+              {catalogoInstituciones.map((item) => {
+                return (
+                  <MenuItem value={item.Id} key={item.Id}>
+                    {item.NombreInstitucion}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+
+          <TextField
+            label="Cargo"
+            variant="outlined"
+            value={rol}
+            onChange={(x) => setRol(x.target.value)}
+            sx={{
+              width: "30%",
+            }}
+          />
+          <FormControl
+            sx={{
+              width: "30%",
+              mr: "2vw",
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">
+              Tipo de Usuario
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={userType}
+              label="Tipo de Usuario"
+              onChange={(x) => setUserType(x.target.value)}
+            >
+              <MenuItem value={"0"} key={0} disabled>
+                Selecciona
+              </MenuItem>
+
+              {userTypeCatalogue.map((item) => {
+                return (
+                  <MenuItem value={item.Id} key={item.Id}>
+                    {item.Rol}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            mt: "3vh",
+          }}
+        >
+          <TextField
+            label="Teléfono"
+            variant="outlined"
+            sx={{
+              width: "30%",
+              ml: "10vw",
+            }}
+            type="tel"
+            value={telephone}
+            onChange={(x) => setTelephone(x.target.value)}
+          />
+
+          <TextField
+            label="Celular"
+            variant="outlined"
+            type="tel"
+            sx={{
+              width: "30%",
+              mr: "10vw",
+            }}
+            value={cellphone}
+            onChange={(x) => setCellphone(x.target.value)}
+          />
+        </Box>
+
+        <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
+            justifyContent: "space-between",
+            marginBlockEnd: "1vh",
+            paddingBlockEnd: "1vh",
           }}
         >
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
+              alignItems: "flex-end",
+              justifyContent: "space-evenly",
+              width: "100vw",
+              mt: "4vh",
             }}
           >
-            <Box
-              sx={{
-                paddingBlockEnd: "1vh",
-                borderRadius: 4,
-                backgroundColor: red,
-                border: 1,
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: "2vh",
-              }}
+            <Button
+              sx={{ display: "flex", width: "10vw" }}
+              variant="contained"
+              color="error"
+              onClick={() => handleClose()}
             >
-              <Input
-                id="InIdUsuarioCentral"
-                disableUnderline
-                sx={{
-                  width: "48vw",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingLeft: "3vw",
-                  paddingRight: "3vw",
-                  paddingTop: "1vh",
-                }}
-                placeholder="ID Usuario Central"
-              />
-            </Box>
+              Cancelar
+            </Button>
+            <Button
+              sx={{ display: "flex", width: "10vw" }}
+              variant="contained"
+              color="primary"
+              onClick={() => checkForm()}
+            >
+              Registrar
+            </Button>
           </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
-            }}
-          >
-            <Box
-              sx={{
-                paddingBlockEnd: "1vh",
-                borderRadius: 4,
-                backgroundColor: red,
-                border: 1,
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: "2vh",
-              }}
-            >
-              <Input
-                id="InApellidoMAterno"
-                disableUnderline
-                sx={{
-                  width: "28vw",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingLeft: "3vw",
-                  paddingRight: "3vw",
-                  paddingTop: "1vh",
-                }}
-                placeholder="Apellido Materno"
-              />
-            </Box>
-
-            <Box
-              sx={{
-                paddingBlockEnd: "1vh",
-                borderRadius: 4,
-                border: 1,
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: "2vh",
-              }}
-            >
-              <FormControl variant="standard" sx={{ width: "28vw" }}>
-                <InputLabel
-                  id="InInstitucion"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    paddingLeft: "2vw",
-                    paddingRight: "3vw",
-                    paddingTop: "1vh",
-                  }}
-                >
-                  Institucion
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="InInstitucion"
-                  value={TipoDeUsuario}
-                  onChange={handleChange}
-                  label="Institucion"
-                  disableUnderline
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    paddingLeft: "3vw",
-                    paddingRight: "3vw",
-                  }}
-                >
-                  <MenuItem value=""></MenuItem>
-                  <MenuItem value={10}>Policia civil</MenuItem>
-                  <MenuItem value={20}>Capullos</MenuItem>
-                  <MenuItem value={30}>Fuerza Civil</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
-            }}
-          >
-            <Box
-              sx={{
-                paddingBlockEnd: "1vh",
-                borderRadius: 4,
-                backgroundColor: red,
-                border: 1,
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: "2vh",
-              }}
-            >
-              <Input
-                id="InCargo"
-                disableUnderline
-                sx={{
-                  width: "28vw",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingLeft: "3vw",
-                  paddingRight: "3vw",
-                  paddingTop: "1vh",
-                }}
-                placeholder="Cargo"
-              />
-            </Box>
-
-            <Box
-              sx={{
-                paddingBlockEnd: "1vh",
-                borderRadius: 4,
-                border: 1,
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: "2vh",
-              }}
-            >
-              <FormControl variant="standard" sx={{ width: "28vw" }}>
-                <InputLabel
-                  id="InRol"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    paddingLeft: "2vw",
-                    paddingRight: "3vw",
-                    paddingTop: "1vh",
-                  }}
-                >
-                  Tipo de Usuario
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="InRol"
-                  value={TipoDeUsuario}
-                  onChange={handleChange}
-                  label="Institucion"
-                  disableUnderline
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    paddingLeft: "3vw",
-                    paddingRight: "3vw",
-                  }}
-                >
-                  <MenuItem value=""></MenuItem>
-                  <MenuItem value={15}>Administrador</MenuItem>
-                  <MenuItem value={25}>Capturador</MenuItem>
-                  <MenuItem value={35}>Verificado</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
-            }}
-          >
-            <Box
-              sx={{
-                paddingBlockEnd: "1vh",
-                borderRadius: 4,
-                backgroundColor: red,
-                border: 1,
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: "2vh",
-              }}
-            >
-              <Input
-                id="InTelefono"
-                disableUnderline
-                sx={{
-                  width: "28vw",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingLeft: "3vw",
-                  paddingRight: "3vw",
-                  paddingTop: "1vh",
-                }}
-                placeholder="Telefono"
-              />
-            </Box>
-
-            <Box
-              sx={{
-                paddingBlockEnd: "1vh",
-                borderRadius: 4,
-                backgroundColor: red,
-                border: 1,
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: "2vh",
-              }}
-            >
-              <Input
-                id="InCelular"
-                disableUnderline
-                sx={{
-                  width: "28vw",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingLeft: "3vw",
-                  paddingRight: "3vw",
-                  paddingTop: "1vh",
-                }}
-                placeholder="Celular"
-              />
-            </Box>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
-            }}
-          >
-            <Box
-              sx={{
-                paddingBlockEnd: "1vh",
-                borderRadius: 4,
-                backgroundColor: red,
-                border: 1,
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: "2vh",
-              }}
-            >
-              <Input
-                id="InCorreoelectronico"
-                disableUnderline
-                sx={{
-                  width: "28vw",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingLeft: "3vw",
-                  paddingRight: "3vw",
-                  paddingTop: "1vh",
-                }}
-                placeholder="Correo electronico"
-              />
-            </Box>
-
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "space-evenly",
-                width: "28vw",
-              }}
-            >
-              <Button
-                sx={{ display: "flex", width: "10vw" }}
-                variant="contained"
-                color="error"
-                onClick={() => handleClose()}
-              >
-                Cancelar
-              </Button>
-              <Button
-                sx={{ display: "flex", width: "10vw" }}
-                variant="contained"
-                color="success"
-              >
-                Aplicar Cambios
-              </Button>
-            </Box>
-          </Box>
-        </DialogContent>
-      </Dialog>
-    </Box>
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
 }

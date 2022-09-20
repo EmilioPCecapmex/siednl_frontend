@@ -21,7 +21,7 @@ export const DeleteDialog = () => {
 
   return (
     <div>
-      <IconButton>
+      <IconButton onClick={handleClickOpen}>
         <DeleteIcon
           sx={[
             {
@@ -30,7 +30,6 @@ export const DeleteDialog = () => {
               },
             },
           ]}
-          onClick={handleClickOpen}
         />
       </IconButton>
       <Dialog open={open} onClose={handleClose}>

@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { Avatar } from "@mui/material";
 import axios from "axios";
 import { DataUsuariosTiCentral } from "./interface";
 import AlertDialog, { DeleteDialog } from "../deleteDialog/DeleteDialog";
+import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Avatar, Tooltip, IconButton, TablePagination } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
   return `${Nombre.split(" ")[0][0]}${ApellidoPaterno.split(" ")[0][0]}`;
 }
 
-export const DataTable = ({ textFind }: { textFind: string }) => {
-
+export const DataTable = ({ textFind, actualizar }: { textFind: string, actualizar: number }) => {
   const [page, setPage] = useState(0);
+
+  useEffect(() => {
+ getUsuarios()
+  }, [actualizar])
+  
 
   //# Renglones por pag
   const [rowsPerPage, setRowsPerPage] = useState(7);
@@ -77,17 +71,13 @@ export const DataTable = ({ textFind }: { textFind: string }) => {
     axios
       .get("http://10.200.4.105:8000/api/usuarios", {
         headers: {
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVVc3VhcmlvIjoiRW1wZXJleiIsIklkVXN1YXJpbyI6IjNkNDcyYTdhLTMwODctMTFlZC1hZWQwLTA0MDMwMDAwMDAwMCIsImlhdCI6MTY2MzYwOTI1OSwiZXhwIjoxNjYzNjExOTU5fQ.okJa_AcZuwRQgKz4yMvzs6cqW99-S0lwWw3utOYZQDo",
+          Authorization: localStorage.getItem("jwtToken") || "",
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
         setUsuarios(response.data.data);
         setUsersFiltered(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -118,7 +108,7 @@ export const DataTable = ({ textFind }: { textFind: string }) => {
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 5));
     setPage(0);
   };
 
@@ -127,112 +117,104 @@ export const DataTable = ({ textFind }: { textFind: string }) => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - usuarios.length) : 0;
 
   return (
-    <Box sx={{ width: "100%", height: "100%", paddingTop: "2rem" }}>
-        <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-            
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell align="left">Correo Electrónico</TableCell>
-                <TableCell align="left">Usuario</TableCell>
-                <TableCell align="left">Cargo</TableCell>
-                <TableCell align="left">Telefono</TableCell>
-                <TableCell align="left">Celular</TableCell>
-                <TableCell align="left">Institucion</TableCell>
-                <TableCell align="left">Rol</TableCell>
-                <TableCell align="center">Accion</TableCell>
-              </TableRow>
-            </TableHead>
+    <Box sx={{ width: "100%", height: "60vh"}}>
+      <TableContainer>
+        <Table sx={{ minWidth: 750}} aria-labelledby="tableTitle" >
+          <TableHead >
+            <TableRow >
+              <TableCell sx={{fontFamily: 'MontserratBold'}} >Nombre</TableCell>
+              <TableCell sx={{fontFamily: 'MontserratBold'}} align="left">Correo Electrónico</TableCell>
+              <TableCell sx={{fontFamily: 'MontserratBold'}} align="left">Usuario</TableCell>
+              <TableCell sx={{fontFamily: 'MontserratBold'}} align="left">Cargo</TableCell>
+              <TableCell sx={{fontFamily: 'MontserratBold'}} align="left">Teléfono</TableCell>
+              <TableCell sx={{fontFamily: 'MontserratBold'}}align="left">Celular</TableCell>
+              <TableCell sx={{fontFamily: 'MontserratBold'}}  align="left">Institución</TableCell>
+              <TableCell sx={{fontFamily: 'MontserratBold'}} align="left">Rol</TableCell>
+              <TableCell sx={{fontFamily: 'MontserratBold'}} align="center">Acción</TableCell>
+            </TableRow>
+          </TableHead>
 
-            <TableBody>
-              {usersFiltered.map((row) => (
-                <TableRow>
-                  <TableCell>
-                    <Box
+          <TableBody>
+            { usersFiltered.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row) => (
+              <TableRow key={row.Id}>
+                <TableCell>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "1vh",
+                      justifyContent: "left",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Avatar
                       sx={{
-                        width: "100%",
-                        height: "1vh",
-                        justifyContent: "left",
-                        display: "flex",
-                        alignItems: "center",
+                        bgcolor: "lightblue",
+                        width: "2vw",
+                        height: "4vh",
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                        marginRight: "1vw",
                       }}
                     >
-                      <Avatar
-                        sx={{
-                          bgcolor: "lightblue",
-                          width: "2vw",
-                          height: "4vh",
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                          marginRight: "1vw",
-                        }}
-                      >
-                        {stringAvatar(row.Nombre, row.ApellidoPaterno)}
-                      </Avatar>{" "}
-                      {row.Nombre +
-                        " " +
-                        row.ApellidoPaterno +
-                        " " +
-                        row.ApellidoMaterno}
-                    </Box>
-                  </TableCell>
-                  
-                  <TableCell>{row.CorreoElectronico}</TableCell>
+                      {stringAvatar(row.Nombre, row.ApellidoPaterno)}
+                    </Avatar>{" "}
+                    {row.Nombre +
+                      " " +
+                      row.ApellidoPaterno +
+                      " " +
+                      row.ApellidoMaterno}
+                  </Box>
+                </TableCell>
 
-                  <TableCell>{row.NombreUsuario}</TableCell>
+                <TableCell>{row.CorreoElectronico}</TableCell>
 
-                  <TableCell>{row.Cargo}</TableCell>
+                <TableCell>{row.NombreUsuario}</TableCell>
 
-                  <TableCell>{row.Telefono}</TableCell>
+                <TableCell>{row.Cargo}</TableCell>
 
-                  <TableCell>{row.Celular}</TableCell>
+                <TableCell>{row.Telefono}</TableCell>
 
-                  <TableCell>{row.NombreInstitucion}</TableCell>
+                <TableCell>{row.Celular}</TableCell>
 
-                  <TableCell>{row.Rol}</TableCell>
+                <TableCell>{row.NombreInstitucion}</TableCell>
 
-                  <TableCell sx={{display: "flex"}}>
+                <TableCell>{row.Rol}</TableCell>
 
-                    <Tooltip title="Eliminar">
-                      <DeleteDialog></DeleteDialog>
-                    </Tooltip>
-                  
+                <TableCell sx={{ display: "flex" }}>
+                  <DeleteDialog></DeleteDialog>
 
-                    <Tooltip title="Editar">
-                      <IconButton>
-                        <EditIcon
-                          sx={[
-                            {
-                              "&:hover": {
-                                color: "blue",
-                              },
+                  <Tooltip title="Editar">
+                    <IconButton>
+                      <EditIcon
+                        sx={[
+                          {
+                            "&:hover": {
+                              color: "blue",
                             },
-                          ]}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {emptyRows > 0 && (
-                <TableRow style={{}}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          sx={{ border: "none" }}
-          rowsPerPageOptions={[7]}
-          component="div"
-          count={usuarios.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+                          },
+                        ]}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+      sx={{
+        mt: '1vh'
+      }}
+        rowsPerPageOptions={[9]}
+        component="div"
+        count={usuarios.length}
+        rowsPerPage={7}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Box>
   );
 };

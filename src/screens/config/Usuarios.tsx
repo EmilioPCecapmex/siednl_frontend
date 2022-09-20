@@ -15,22 +15,29 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DataTable from "../../components/datatable/DataTable";
 import ModalCrearUsuario from "../../components/modalUsuarios/ModalCrearUsuario";
+import AddLinkIcon from '@mui/icons-material/AddLink';
+import ModalVincularUsuario from "../../components/modalUsuarios/ModalVincularUsuario";
 
 export const Usuarios = () => {
-
   const [openModalUsuarios, setOpenModalUsuarios] = useState(false);
+  const [openModalVincularUsuario, setOpenModalVincularUsuario] = useState(false);
+
+  const [actualizarDatos, setActualizarDatos] = useState(0)
+
 
   const handleCloseModalUsuarios = () => {
     setOpenModalUsuarios(false);
-  }
+    setActualizarDatos(actualizarDatos + 1);
+  };
 
+  const handleCloseModalVincularUsuario = () => {
+    setOpenModalVincularUsuario(false);
+  };
 
-
-
-  const [usersFiltered,setUsersFiltered] = useState("")
+  const [usersFiltered, setUsersFiltered] = useState("");
 
   const dataFilter = (text: string) => {
-    setUsersFiltered(text)
+    setUsersFiltered(text);
   };
 
   return (
@@ -63,7 +70,17 @@ export const Usuarios = () => {
           flexWrap: "wrap",
         }}
       >
-              <ModalCrearUsuario open={openModalUsuarios} handleClose={handleCloseModalUsuarios}/>
+        <ModalCrearUsuario
+        title="Crear Usuario"
+          open={openModalUsuarios}
+          handleClose={handleCloseModalUsuarios}
+        />
+
+<ModalVincularUsuario
+        title="Vincular Usuario"
+          open={openModalVincularUsuario}
+          handleClose={handleCloseModalVincularUsuario}
+        />
 
         <Box
           sx={{
@@ -96,7 +113,25 @@ export const Usuarios = () => {
             <SearchIcon sx={{ color: "action.active", mr: 1 }} />
           </Box>
 
+          <Box>
           <Button
+            variant="contained"
+            sx={{
+              mr: 3,
+              backgroundColor: "#15212F",
+              ":hover": {
+                backgroundColor: "#ccc",
+              },
+            }}
+            onClick={() => setOpenModalVincularUsuario(true)}
+          >
+            <AddLinkIcon sx={{ mr: 1 }} />
+            <Typography
+              sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+            >
+              Vincular
+            </Typography>
+          </Button>  <Button
             variant="contained"
             sx={{
               mr: 3,
@@ -114,6 +149,8 @@ export const Usuarios = () => {
               Añadir
             </Typography>
           </Button>
+          </Box>
+          
         </Box>
 
         {/* ----- */}
@@ -127,9 +164,8 @@ export const Usuarios = () => {
             alignItems: "center",
           }}
         >
-          <DataTable textFind={usersFiltered}></DataTable>
+          <DataTable textFind={usersFiltered} actualizar={actualizarDatos}></DataTable>
           {/* <DataTable2 textFind={usersFiltered}></DataTable2> */}
-
         </Box>
       </Box>
     </Box>

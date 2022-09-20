@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import escudo from "../../assets/logos/escudo.png";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { sessionValid } from "../../funcs/validation";
 
 
 export const Init = () => {
@@ -12,8 +13,9 @@ export const Init = () => {
     const params = new URLSearchParams(useLocation().search);
 
     useEffect(() => {
-        localStorage.setItem("jwt", params.get('jwt') || "")
-        if(params.get('jwt') != ''){
+      const jt = params.get('jwt');
+        if(params.get('jwt') != null){
+          sessionValid(jt || "")
             navigate('../home')
         }
     }, [params])
