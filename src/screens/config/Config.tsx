@@ -47,10 +47,10 @@ export const Config = () => {
       <Header
         details={{
           name1: "Inicio",
-          path1: "./",
+          path1: "../home",
           name2: "Configuración",
-          path2: "./",
-          name3: "Usuarios",
+          path2: "../settings",
+          name3: "Catálogos",
         }}
       />
       {/* <SettingsCard/> */}

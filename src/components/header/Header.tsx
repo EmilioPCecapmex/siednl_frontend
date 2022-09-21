@@ -7,24 +7,18 @@ import {
   Breadcrumbs,
   Link,
 } from "@mui/material";
-import NotificationsIcon from '@mui/icons-material/NotificationsNone';
+import NotificationsIcon from "@mui/icons-material/NotificationsNone";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 
-
 interface BreadcrumbsDetails {
-    name1: string;
-    path1: string;
-    name2: string;
-    path2: string;
-    name3: string;
+  name1: string;
+  path1: string;
+  name2: string;
+  path2: string;
+  name3: string;
 }
 
-export const Header = ({
-  details,
-}: {
-  details: BreadcrumbsDetails;
-}) => {
-
+export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
   return (
     <Box
       sx={{
@@ -52,13 +46,20 @@ export const Header = ({
             {details.name1}
           </Link>
 
-          {details.name2 != '' ? (<Link underline="hover" color="inherit" href={details.path2}>
-            {details.name2}
-          </Link>) : null }
+          {details.name2 != "" ? (
+            <Link underline="hover" color="inherit" href={details.path2}>
+              {details.name2}
+            </Link>
+          ) : null}
 
-          
-          {details.name3 != '' ? (<Typography color="text.primary">{details.name3}</Typography>) : null }
-          
+          {details.name3 != "" ? (
+            <Typography
+              color="text.primary"
+              sx={{ fontFamily: "MontserratMedium", fontSize: "1.5vw" }}
+            >
+              {details.name3}
+            </Typography>
+          ) : null}
         </Breadcrumbs>
       </Box>
 

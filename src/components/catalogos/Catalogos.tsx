@@ -45,16 +45,18 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(Descripcion: string) {
-  return { Descripcion };
-}
 
 const rows = [
-  createData("Frozen yoghurt"),
-  createData("Ice cream sandwich"),
-  createData("Eclair"),
-  createData("Cupcake"),
-  createData("Gingerbread"),
+ {
+  id: 1,
+  label: 'Rol',
+  fnc: 'getRoles()'
+ },
+ {
+  id: 1,
+  label: 'Instituciones',
+  fnc: 'getInstituciones()'
+ },
 ];
 
 export const Catalogos = () => {
@@ -129,13 +131,23 @@ export const Catalogos = () => {
           <Divider />
 
           <List component="div" disablePadding>
-            <ListItemButton sx={{ pl: 4 }} onClick={() => getRoles()}>
+
+            {rows.map((item) => {
+              return(
+                <ListItemButton key={item.id} sx={{ pl: 4 }} onClick={() => eval(item.fnc)}>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+              )
+            })}
+
+
+            {/* <ListItemButton sx={{ pl: 4 }} onClick={() => getRoles()}>
               <ListItemText primary="Roles" />
             </ListItemButton>
             <Divider />
             <ListItemButton sx={{ pl: 4 }} onClick={() => getInstituciones()}>
               <ListItemText primary="Instituciones" />
-            </ListItemButton>
+            </ListItemButton> */}
           </List>
         </List>
       </Box>

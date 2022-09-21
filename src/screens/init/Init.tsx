@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import escudo from "../../assets/logos/escudo.png";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -29,9 +29,13 @@ export const Init = () => {
         alignItems: "center",
         width: "100vw",
         height: "100vh",
+        flexDirection: 'column'
       }}
     >
       <img src={escudo} alt="Escudo" style={{ width: "20vw" }} />
+      <Button variant="contained" sx={{mt: '2vh', backgroundColor: '#ccc'}}>
+        Iniciar Sesión
+      </Button>
     </Box>
   );
 };
