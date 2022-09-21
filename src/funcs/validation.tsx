@@ -1,5 +1,8 @@
 import axios from "axios";
 
+export let sessionUntil = '';
+
+const params = new URLSearchParams(window.location.search);
 
 export const getUserDetails = (idCentral: string) => {
   return axios
@@ -28,7 +31,9 @@ export const getUserDetails = (idCentral: string) => {
 }
 
 
-export const sessionValid = (jwt: string) => {
+export const sessionValid = () => {
+  const jt = params.get("jwt") || "";
+
     return axios
       .post(
         "http://10.200.4.105:5000/api/verify",
@@ -36,21 +41,54 @@ export const sessionValid = (jwt: string) => {
         {
           headers: {
             "Content-Type": "application/json",
-            authorization: jwt,
+            authorization: jt,
           },
         }
       )
       .then((r) => {
         if (r.status === 200) {
-          localStorage.setItem("jwtToken", jwt)
+          sessionUntil = r.data.expDateTime;
+          localStorage.setItem("jwtToken", jt)
           localStorage.setItem("validation", "true");
           localStorage.setItem("IdCentral", r.data.data.IdUsuario)
           getUserDetails(r.data.data.IdUsuario)
+          return true
         }
       })
       .catch((error) => {
         if (error.response.status === 401) {
           localStorage.clear();
+          return false
+        }
+      });
+  };
+
+
+export const continueSession = () => {
+  return axios
+      .post(
+        "http://10.200.4.105:5000/api/verify",
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: localStorage.getItem('jwtToken') || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          sessionUntil = r.data.expDateTime;
+          localStorage.setItem("validation", "true");
+          localStorage.setItem("IdCentral", r.data.data.IdUsuario);
+          getUserDetails(r.data.data.IdUsuario);
+          return true
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          localStorage.clear();
+          return false
         }
       });
   };
