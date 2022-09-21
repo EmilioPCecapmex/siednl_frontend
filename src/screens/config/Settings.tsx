@@ -1,20 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import {
-  Badge,
-  IconButton,
-  Grid,
-  Button,
-  Typography,
-  Input,
-  TextField,
-} from "@mui/material";
-import MailIcon from "@mui/icons-material/Mail";
-import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { Header } from "../../components/header/Header";
-import SearchIcon from "@mui/icons-material/Search";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { SettingsCard } from "../../components/settings/SettingsCard";
 export const Settings = () => {
   return (
@@ -30,10 +17,10 @@ export const Settings = () => {
       <Header
         details={{
           name1: "Inicio",
-          path1: "./",
+          path1: "./home",
           name2: "Configuración",
-          path2: "./",
-          name3: "Usuarios",
+          path2: "./settings",
+          name3: "",
         }}
       />
       <SettingsCard/>

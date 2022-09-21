@@ -25,6 +25,11 @@ import { useNavigate } from "react-router-dom";
 export const LateralMenu = ({selection} : {selection: number}) => {
   const navigate = useNavigate();
 
+  const logout = () => {
+    localStorage.clear();
+    window.location.assign("http://login.com");
+  }
+
 
 const UsuarioEnSesion = "José Perez"
 
@@ -351,7 +356,7 @@ const UsuarioEnSesion = "José Perez"
               }}
             />
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton onClick={() => logout()}>
             <ListItemIcon>
               <LogoutOutlinedIcon />
             </ListItemIcon>

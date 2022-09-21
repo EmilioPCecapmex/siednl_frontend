@@ -47,34 +47,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const configOptions = [
-    { id: 1, Desc: "Años Fiscales", fnc: 'getAniosFiscales()'},
-    { id: 2, Desc: "Beneficiarios" , fnc: 'getBeneficiarios()'},
-    { id: 3, Desc: "Clasificaciones Programaticas" , fnc: 'getClasificacionesProgramaticas()'},
-    { id: 4, Desc: "Dimensiones del Indicador" , fnc: 'getDimensionesDelIndicador()'},
-    { id: 5, Desc: "Ejes", fnc: 'getEjes()'},
-    { id: 6, Desc: "Estrategias", fnc: 'getEstrategias()' },
-    { id: 7, Desc: "Fechas de Captura", fnc: 'getFechasDeCaptura()' },
-    { id: 8, Desc: "Formulas", fnc: 'getFormulas()' },
-    { id: 9, Desc: "Frecuencias" , fnc: 'getFrecuencias()'},
-    { id: 10, Desc: "Instituciones" , fnc: 'getInstituciones()'},
-    { id: 11, Desc: "Lineas de Acción" , fnc: 'getLineasDeAccion()'},
-    { id: 12, Desc: "Metas ODS", fnc: 'getMetasODS()' },
-    { id: 13, Desc: "Modalidades" , fnc: 'getModalidades()'},
-    { id: 14, Desc: "Objetivos", fnc: 'getObjetivos()' },
-    { id: 15, Desc: "Objetivos DS", fnc: 'getObjetivosDS()' },
-    { id: 16, Desc: "Objetivos PEENL", fnc: 'getObjetivosPEENL()' },
-    { id: 17, Desc: "PED" , fnc: 'getRoles()'},
-    { id: 18, Desc: "Programas Presupestarios", fnc: 'getProgramaPresupuestario()' },
-    { id: 19, Desc: "Roles", fnc: 'getRoles()' },
-    { id: 20, Desc: "Tematicas", fnc: 'getTematicas()' },
-    { id: 21, Desc: "Tipos de Formula", fnc: 'getTipoDeFormula()' },
-    { id: 22, Desc: "Tipos de Indicador" , fnc: 'getTipoDeIndicador()'},
-    { id: 23, Desc: "Unidades de Medida", fnc: 'getUnidadDeMedida()' },
-    { id: 24, Desc: "Usuarios", fnc: 'getRoles()' },
-  ];
-  
 
+const rows = [
+ {
+  id: 1,
+  label: 'Rol',
+  fnc: 'getRoles()'
+ },
+ {
+  id: 1,
+  label: 'Instituciones',
+  fnc: 'getInstituciones()'
+ },
+];
 
 export const Catalogos = () => {
 
@@ -587,6 +572,7 @@ export const Catalogos = () => {
           </ListItemButton>
           <Divider />
 
+<<<<<<< HEAD
         
             <List component="div" disablePadding >
             
@@ -604,6 +590,26 @@ export const Catalogos = () => {
             );
           })}
 
+=======
+          <List component="div" disablePadding>
+
+            {rows.map((item) => {
+              return(
+                <ListItemButton key={item.id} sx={{ pl: 4 }} onClick={() => eval(item.fnc)}>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+              )
+            })}
+
+
+            {/* <ListItemButton sx={{ pl: 4 }} onClick={() => getRoles()}>
+              <ListItemText primary="Roles" />
+            </ListItemButton>
+            <Divider />
+            <ListItemButton sx={{ pl: 4 }} onClick={() => getInstituciones()}>
+              <ListItemText primary="Instituciones" />
+            </ListItemButton> */}
+>>>>>>> dev_emilio
           </List>
 
 

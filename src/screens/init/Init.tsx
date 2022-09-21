@@ -1,26 +1,25 @@
-import React, {useEffect} from "react";
+import React, { useLayoutEffect } from "react";
 import { Box } from "@mui/material";
 import escudo from "../../assets/logos/escudo.png";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { sessionValid } from "../../funcs/validation";
-
+import { continueSession, sessionValid } from "../../funcs/validation";
 
 export const Init = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
-    const params = new URLSearchParams(useLocation().search);
+  useLayoutEffect(() => {
+    continueSession().then((r) => {
+      if ((r as boolean) === true) {
+        navigate("../home");
+      } else if (r as boolean === false) {
+        window.location.assign("http://login.com");
+      }
+    });
+  }, [])
 
-    useEffect(() => {
-      const jt = params.get('jwt');
-        if(params.get('jwt') != null){
-          sessionValid(jt || "")
-            navigate('../home')
-        }
-    }, [params])
-    
-    
+
   return (
     <Box
       sx={{
@@ -29,6 +28,7 @@ export const Init = () => {
         alignItems: "center",
         width: "100vw",
         height: "100vh",
+        flexDirection: "column",
       }}
     >
       <img src={escudo} alt="Escudo" style={{ width: "20vw" }} />

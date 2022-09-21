@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -36,23 +36,46 @@ export default function ModalVincularUsuario({
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
 
+  const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
+
+
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState([
+    { Id: "", NombreInstitucion: "" },
+  ]);
+
+  const [userTypeCatalogue, setUserTypeCatalogue] = useState([
+    { Id: "", Rol: "" },
+  ]);
+
   const [errorForm, setErrorsForm] = useState({
     visible: false,
     text: "",
     type: "",
-  })
+  });
+  
+  const [fullView, setFullView] = useState(false);
 
-
+  const [notEditable, setNotEditable] = useState(false)
 
   const AlertForm = () => {
     return (
       <Box sx={{ mt: "1vh", mb: "2vh" }}>
-        <Alert severity={errorForm.type as AlertColor}>
-          {errorForm.text}
-        </Alert>
+        <Alert severity={errorForm.type as AlertColor}>{errorForm.text}</Alert>
       </Box>
     );
   };
+
+  const closeModal = () => {
+    handleClose();
+    cleanForm();
+    setErrorsForm({
+      visible: false,
+      text: "",
+      type: "",
+    })
+    setFullView(false);
+    setNotEditable(false);
+  }
 
   const cleanForm = () => {
     setUsername("");
@@ -65,64 +88,96 @@ export default function ModalVincularUsuario({
     setUserType("0");
     setTelephone("");
     setCellphone("");
+  };
 
+  const getInstituciones = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/instituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+      });
+  };
+
+  const getUserType = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/roles", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setUserTypeCatalogue(r.data.data);
+      });
+  };
+
+
+  const verifyUser = () => {
+    axios.post("http://10.200.4.105:8000/api/user-exist",
+    {
+        NombreUsuario: username,
+        CorreoElectronico: email.toLowerCase()
+    
+    },{
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    }).then((r) => {
+      if(r.data.data.message === 'Usuario valido, sin vinculo a la plataforma.'){
+        setErrorsForm({
+          visible: true,
+          text: r.data.data.message,
+          type: 'success'
+        })
+        setIdUsuarioCentral(r.data.data.Id)
+        setFullView(true)
+        setNotEditable(true)
+      }else{
+        setErrorsForm({
+          visible: true,
+          text: r.data.data.message,
+          type: 'warning'
+        })
+        setFullView(false)
+        setNotEditable(false)
+      }
+
+    })
+    
   }
 
-
-  const userTypes = [
-    {
-      id: 1,
-      desc: "Administrador",
-    },
-    {
-      id: 2,
-      desc: "Capturador",
-    },
-    {
-      id: 3,
-      desc: "Verificador",
-    },
-  ];
-
-
-  const signUp = () => {
+  const siednlSignUp = (idUsrCentral: string) => {
     axios
       .post(
-        "http://10.200.4.105:5000/api/sign-up",
-        { 
-          Nombre: names,
-          ApellidoPaterno: firstName,
-          ApellidoMaterno: secondName,
-          NombreUsuario: username,
-          CorreoElectronico: email,
-          IdUsuarioModificador: "0"
+        "http://10.200.4.105:8000/api/user-add",
+        {
+          IdUsuarioCentral: idUsrCentral,
+          IdInstitucion: institution,
+          Cargo: rol,
+          Telefono: telephone,
+          Celular: cellphone,
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdRol: userType,
         },
         {
           headers: {
-            Authorization: localStorage.getItem("jwt") || "",
+            Authorization: localStorage.getItem("jwtToken") || "",
           },
         }
       )
       .then((r) => {
-        if (r.status === 201) {
-       cleanForm();
-       handleClose();
+        if (r.status === 200) {
+          closeModal()
           Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: '¡Registro exitoso!',
+            position: "top-end",
+            icon: "success",
+            title: "¡Registro exitoso!",
             showConfirmButton: false,
-            timer: 1500
-          })
-        }
-      })
-      .catch((r) => {
-        if (r.response.status === 409) {
-          setErrorsForm({
-            visible: true,
-            text: r.response.data.msg,
-            type: "error"
-          })
+            timer: 1500,
+          });
         }
       });
   };
@@ -132,312 +187,318 @@ export default function ModalVincularUsuario({
       visible: false,
       text: "",
       type: "",
-     })
+    });
+ if (names === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa nombre del usuario.",
+        type: "error",
+      });
+    } else if (firstName === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa apellido paterno del usuario.",
+        type: "error",
+      });
+    } else if (secondName === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa apellido materno del usuario.",
+        type: "error",
+      });
+    } else if (institution === "0") {
+      setErrorsForm({
+        visible: true,
+        text: "Selecciona la institucion a la que pertenece el usuario.",
+        type: "error",
+      });
+    } else if (rol === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa el cargo del usuario en la institución.",
+        type: "error",
+      });
+    } else if (userType === "0") {
+      setErrorsForm({
+        visible: true,
+        text: "Selecciona el tipo de usuario a crear.",
+        type: "error",
+      });
+    } else if (telephone === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un teléfono de contacto.",
+        type: "error",
+      });
+    } else if (cellphone === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un número celular de contacto.",
+        type: "error",
+      });
+    } else {
+      siednlSignUp(idUsuarioCentral);
+    }
+  };
 
-    if(username === ""){
-     setErrorsForm({
-      visible: true,
-      text: "Ingresa un nombre de usuario.",
-      type: "error",
-     })
-    }else if(email === ""){
-      setErrorsForm({
-       visible: true,
-       text: "Ingresa un correo electrónico.",
-       type: "error",
-      })
-     }else if(names === ""){
-      setErrorsForm({
-       visible: true,
-       text: "Ingresa nombre del usuario.",
-       type: "error",
-      })
-     }else if(firstName === ""){
-      setErrorsForm({
-       visible: true,
-       text: "Ingresa apellido paterno del usuario.",
-       type: "error",
-      })
-     }else if(secondName === ""){
-      setErrorsForm({
-       visible: true,
-       text: "Ingresa apellido materno del usuario.",
-       type: "error",
-      })
-     }else if(institution === "0"){
-      setErrorsForm({
-       visible: true,
-       text: "Selecciona la institucion a la que pertenece el usuario.",
-       type: "error",
-      })
-     }else if(rol === ""){
-      setErrorsForm({
-       visible: true,
-       text: "Ingresa el cargo del usuario en la institución.",
-       type: "error",
-      })
-     }else if(userType === "0"){
-      setErrorsForm({
-       visible: true,
-       text: "Selecciona el tipo de usuario a crear.",
-       type: "error",
-      })
-     }else if(telephone === ""){
-      setErrorsForm({
-       visible: true,
-       text: "Ingresa un teléfono de contacto.",
-       type: "error",
-      })
-     }else if(cellphone === ""){
-      setErrorsForm({
-       visible: true,
-       text: "Ingresa un número celular de contacto.",
-       type: "error",
-      })
-     }else{
-      signUp()
-     }
-
-
-  }
+  useEffect(() => {
+    getInstituciones();
+    getUserType();
+  }, []);
 
   return (
-      <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
-        <DialogTitle>{title}</DialogTitle>
+    <Dialog fullWidth maxWidth="lg" open={open} onClose={() => closeModal()}>
+      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+        {title.toUpperCase()}
+      </DialogTitle>
 
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box
-            sx={{
-              backgroundColor: "#BBBABA",
-              width: "60vw",
-              height: "0.2vh",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          />
-        </Box>
-
-        <DialogContent
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box
           sx={{
+            backgroundColor: "#BBBABA",
+            width: "60vw",
+            height: "0.1vh",
             display: "flex",
-            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        />
+      </Box>
+
+      <DialogContent
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {errorForm.visible ? <AlertForm /> : null}
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          {errorForm.visible ? <AlertForm /> : null}
-
-          <Box
+          <TextField
+            label="Usuario"
+            disabled={notEditable}
+            variant="outlined"
+            value={username}
             sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
+              width: "40%",
+              ml: "2vw",
             }}
-          >
-            <TextField
-              label="Usuario"
-              variant="outlined"
-              value={username}
-              sx={{
-                width: "40%",
-                ml: "2vw",
-              }}
-              onChange={(v) => setUsername(v.target.value)}
-            />
+            onChange={(v) => setUsername(v.target.value)}
+          />
 
-            <TextField
-              label="Correo Electrónico"
-              variant="outlined"
-              type="email"
-              onChange={(v) => setEmail(v.target.value)}
-              value={email}
-              sx={{
-                width: "40%",
-                mr: "2vw",
-              }}
-            />
-          </Box>
-
-          <Box
+          <TextField
+            label="Correo Electrónico"
+            disabled={notEditable}
+            variant="outlined"
+            type="email"
+            onChange={(v) => setEmail(v.target.value)}
+            value={email}
             sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              mt: "3vh",
+              width: "40%",
+              mr: "2vw",
             }}
-          >
-            <TextField
-              label="Nombre(s)"
-              variant="outlined"
-              value={names}
-              onChange={(x) => setNames(x.target.value)}
-              sx={{
-                width: "30%",
-                ml: "2vw",
-              }}
-            />
+          />
+          <Button variant="outlined" color="success" onClick={() => verifyUser()} disabled={notEditable}>
+            Verificar
+          </Button>
+        </Box>
 
-            <TextField
-              label="Apellido Paterno"
-              variant="outlined"
-              value={firstName}
-              onChange={(x) => setFirstName(x.target.value)}
-              sx={{
-                width: "30%",
-              }}
-            />
-            <TextField
-              label="Apellido Materno"
-              variant="outlined"
-              value={secondName}
-              onChange={(x) => setSecondName(x.target.value)}
-              sx={{
-                width: "30%",
-                mr: "2vw",
-              }}
-            />
-          </Box>
-
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              mt: "3vh",
-            }}
-          >
-            <FormControl
-              sx={{
-                width: "30%",
-                ml: "2vw",
-              }}
-            >
-              <InputLabel id="demo-simple-select-label">Institución</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={institution}
-                label="Institución"
-                onChange={(x) => setInstitution(x.target.value)}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Selecciona
-                </MenuItem>
-                <MenuItem value={1}>Policia civil</MenuItem>
-                <MenuItem value={2}>Capullos</MenuItem>
-                <MenuItem value={3}>Fuerza Civil</MenuItem>
-              </Select>
-            </FormControl>
-
-            <TextField
-              label="Cargo"
-              variant="outlined"
-              value={rol}
-              onChange={(x) => setRol(x.target.value)}
-              sx={{
-                width: "30%",
-              }}
-            />
-            <FormControl
-              sx={{
-                width: "30%",
-                mr: "2vw",
-              }}
-            >
-              <InputLabel id="demo-simple-select-label">
-                Tipo de Usuario
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={userType}
-                label="Tipo de Usuario"
-                onChange={(x) => setUserType(x.target.value)}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Selecciona
-                </MenuItem>
-
-                {userTypes.map((item) => {
-                  return (
-                    <MenuItem value={item.id} key={item.id}>
-                      {item.desc}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </Box>
-
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              mt: "3vh",
-            }}
-          >
-            <TextField
-              label="Teléfono"
-              variant="outlined"
-              sx={{
-                width: "30%",
-                ml: "10vw",
-              }}
-              type="tel"
-              value={telephone}
-              onChange={(x) => setTelephone(x.target.value)}
-            />
-
-            <TextField
-              label="Celular"
-              variant="outlined"
-              type="tel"
-              sx={{
-                width: "30%",
-                mr: "10vw",
-              }}
-              value={cellphone}
-              onChange={(x) => setCellphone(x.target.value)}
-            />
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
-            }}
-          >
+        {fullView ? (
+          <Box>
             <Box
               sx={{
+                width: "100%",
                 display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "space-evenly",
-                width: "100vw",
-                mt: "4vh",
+                justifyContent: "space-between",
+                mt: "3vh",
               }}
             >
-              <Button
-                sx={{ display: "flex", width: "10vw" }}
-                variant="contained"
-                color="error"
-                onClick={() => handleClose()}
+              <TextField
+                label="Nombre(s)"
+                variant="outlined"
+                value={names}
+                onChange={(x) => setNames(x.target.value)}
+                sx={{
+                  width: "30%",
+                  ml: "2vw",
+                }}
+              />
+
+              <TextField
+                label="Apellido Paterno"
+                variant="outlined"
+                value={firstName}
+                onChange={(x) => setFirstName(x.target.value)}
+                sx={{
+                  width: "30%",
+                }}
+              />
+              <TextField
+                label="Apellido Materno"
+                variant="outlined"
+                value={secondName}
+                onChange={(x) => setSecondName(x.target.value)}
+                sx={{
+                  width: "30%",
+                  mr: "2vw",
+                }}
+              />
+            </Box>
+
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                mt: "3vh",
+              }}
+            >
+              <FormControl
+                sx={{
+                  width: "30%",
+                  ml: "2vw",
+                }}
               >
-                Cancelar
-              </Button>
-              <Button
-                sx={{ display: "flex", width: "10vw" }}
-                variant="contained"
-                color="primary"
-                onClick={() =>
-                 checkForm()
-                }
+                <InputLabel id="demo-simple-select-label">
+                  Institución
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={institution}
+                  label="Institución"
+                  onChange={(x) => setInstitution(x.target.value)}
+                >
+                  <MenuItem value={"0"} key={0} disabled>
+                    Selecciona
+                  </MenuItem>
+                  {catalogoInstituciones.map((item) => {
+                    return (
+                      <MenuItem value={item.Id} key={item.Id}>
+                        {item.NombreInstitucion}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+
+              <TextField
+                label="Cargo"
+                variant="outlined"
+                value={rol}
+                onChange={(x) => setRol(x.target.value)}
+                sx={{
+                  width: "30%",
+                }}
+              />
+              <FormControl
+                sx={{
+                  width: "30%",
+                  mr: "2vw",
+                }}
               >
-                Registrar
-              </Button>
+                <InputLabel id="demo-simple-select-label">
+                  Tipo de Usuario
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={userType}
+                  label="Tipo de Usuario"
+                  onChange={(x) => setUserType(x.target.value)}
+                >
+                  <MenuItem value={"0"} key={0} disabled>
+                    Selecciona
+                  </MenuItem>
+
+                  {userTypeCatalogue.map((item) => {
+                    return (
+                      <MenuItem value={item.Id} key={item.Id}>
+                        {item.Rol}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Box>
+
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                mt: "3vh",
+              }}
+            >
+              <TextField
+                label="Teléfono"
+                variant="outlined"
+                sx={{
+                  width: "30%",
+                  ml: "10vw",
+                }}
+                type="tel"
+                value={telephone}
+                onChange={(x) => setTelephone(x.target.value)}
+              />
+
+              <TextField
+                label="Celular"
+                variant="outlined"
+                type="tel"
+                sx={{
+                  width: "30%",
+                  mr: "10vw",
+                }}
+                value={cellphone}
+                onChange={(x) => setCellphone(x.target.value)}
+              />
             </Box>
           </Box>
-        </DialogContent>
-      </Dialog>
+        ) : null}
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBlockEnd: "1vh",
+            paddingBlockEnd: "1vh",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-evenly",
+              width: "100vw",
+              mt: "4vh",
+            }}
+          >
+            <Button
+              sx={{ display: "flex", width: "10vw" }}
+              variant="contained"
+              color="error"
+              onClick={() => closeModal()}
+            >
+              Cancelar
+            </Button>
+            <Button
+            disabled={!notEditable}
+              sx={{ display: "flex", width: "10vw" }}
+              variant="contained"
+              color="primary"
+              onClick={() => checkForm()}
+            >
+              Registrar
+            </Button>
+          </Box>
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
 }
