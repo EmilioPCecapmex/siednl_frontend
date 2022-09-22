@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import {
-  Badge,
-  IconButton,
-  Grid,
   Button,
   Typography,
   Input,
-  TextField,
 } from "@mui/material";
 import { Header } from "../../components/header/Header";
 import SearchIcon from "@mui/icons-material/Search";
@@ -53,9 +49,9 @@ export const Usuarios = () => {
       <Header
         details={{
           name1: "Inicio",
-          path1: "./",
+          path1: "../home",
           name2: "Configuración",
-          path2: "./",
+          path2: "../settings",
           name3: "Usuarios",
         }}
       />

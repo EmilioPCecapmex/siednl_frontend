@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/NotificationsNone";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import { useNavigate } from "react-router-dom";
+
 
 interface BreadcrumbsDetails {
   name1: string;
@@ -19,6 +21,8 @@ interface BreadcrumbsDetails {
 }
 
 export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -42,12 +46,12 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           aria-label="breadcrumb"
           sx={{ fontFamily: "MontserratBold", fontSize: "1.5vw" }}
         >
-          <Link underline="hover" color="inherit" href={details.path1}>
+          <Link underline="hover" color="inherit" onClick={() => navigate(details.path1)}>
             {details.name1}
           </Link>
 
           {details.name2 != "" ? (
-            <Link underline="hover" color="inherit" href={details.path2}>
+            <Link underline="hover" color="inherit" onClick={() => navigate(details.path2)}>
               {details.name2}
             </Link>
           ) : null}

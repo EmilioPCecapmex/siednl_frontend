@@ -19,14 +19,13 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../funcs/validation";
 
 
 
 export const LateralMenu = ({selection} : {selection: number}) => {
   const navigate = useNavigate();
 
-
-const UsuarioEnSesion = "José Perez"
 
   const [openProgramas, setOpenProgramas] = useState(true);
 
@@ -40,7 +39,7 @@ const UsuarioEnSesion = "José Perez"
     let hash = 0;
     let i;
     for (i = 0; i < string.length; i += 1) {
-      hash = string.charCodeAt(i) + ((hash << 10) - hash);
+      hash = string.charCodeAt(i) + ((hash << 11) - hash);
     }
 
     let color = "#";
@@ -100,7 +99,7 @@ const UsuarioEnSesion = "José Perez"
       >
         <Avatar
           sx={{
-            bgcolor: stringToColor(UsuarioEnSesion),
+            bgcolor: stringToColor(localStorage.getItem("NombreUsuario") as string),
             width: "5vw",
             height: "10vh",
             fontSize: "1.5vw",
@@ -108,7 +107,7 @@ const UsuarioEnSesion = "José Perez"
             boxShadow: 4,
           }}
         >
-          {stringAvatar(UsuarioEnSesion)}
+          {stringAvatar(localStorage.getItem("NombreUsuario") as string)}
         </Avatar>
       </Box>
 
@@ -122,7 +121,7 @@ const UsuarioEnSesion = "José Perez"
           fontFamily: "MontserratBold",
         }}
       >
-        {UsuarioEnSesion}
+        {localStorage.getItem("NombreUsuario")}
         <Typography
           sx={{
             fontFamily: "MontserratMedium",
@@ -130,7 +129,7 @@ const UsuarioEnSesion = "José Perez"
             fontStyle: "oblique",
           }}
         >
-          Verificador
+          {localStorage.getItem("Rol")}
         </Typography>
       </Box>
 
@@ -190,7 +189,7 @@ const UsuarioEnSesion = "José Perez"
             fontFamily: "MontserratMedium",
           }}
         >
-          <ListItemButton onClick={() => navigate('../Home')}>
+          <ListItemButton onClick={() => navigate('../home')}>
             <ListItemIcon>
               <HomeOutlinedIcon />
             </ListItemIcon>
@@ -351,7 +350,7 @@ const UsuarioEnSesion = "José Perez"
               }}
             />
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton onClick={() => logout()}>
             <ListItemIcon>
               <LogoutOutlinedIcon />
             </ListItemIcon>

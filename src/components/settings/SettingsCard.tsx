@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export const SettingsCard = () => {
+export const SettingsCard = ({showConfig} : {showConfig: Function}) => {
   const navigate = useNavigate();
 
     const configOptions = [
@@ -23,7 +23,7 @@ export const SettingsCard = () => {
         { id: 15, label: "Objetivos DS" },
         { id: 16, label: "Objetivos PEENL" },
         { id: 17, label: "PED" },
-        { id: 18, label: "Programas Presupestarios" },
+        { id: 18, label: "Programas Presupuestarios" },
         { id: 19, label: "Roles" },
         { id: 20, label: "Tematicas" },
         { id: 21, label: "Tipos de Formula" },
@@ -32,11 +32,11 @@ export const SettingsCard = () => {
         { id: 24, label: "Usuarios" },
       ];
 
-      const navigationOptions = (value: number) => {
+      const navigationOptions = (value: number, label: string) => {
         if(value === 24){
           navigate('../users')
         }else{
-          navigate('../config')
+          showConfig(label);
         }
       }
   return (
@@ -148,7 +148,7 @@ export const SettingsCard = () => {
                 <Button
                   variant="text"
                   key={item.id}
-                  onClick={() => navigationOptions(item.id)}
+                  onClick={() => navigationOptions(item.id, item.label)}
                   sx={{ width: "90%", height: "7vh", ":hover": {
                     backgroundColor: '#c4a55a'
                   } }}
