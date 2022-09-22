@@ -831,7 +831,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 <EditIcon />
                               </IconButton>
 
-                              <DeleteDialog deleteText='elemento'  />
+                              <DeleteDialog deleteText='elemento' id="" actualizado={()=>""}/>
                             </Stack>
                           </TableCell>
                         </StyledTableRow>

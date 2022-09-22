@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalEditarUsuario from "../modalUsuarios/ModalEditarUsuario";
+import Swal from "sweetalert2";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
@@ -60,6 +61,7 @@ export const DataTable = ({
     },
   ]);
 
+
   //
   const [usersFiltered, setUsersFiltered] = useState<
     Array<DataUsuariosTiCentral>
@@ -99,6 +101,8 @@ export const DataTable = ({
       });
   };
 
+
+
   // Filtrado por caracter
   const findText = () => {
     if (textFind !== "") {
@@ -114,9 +118,21 @@ export const DataTable = ({
     findText();
   }, [textFind]);
 
+  const [actualizacion, setActualizacion] = useState(0);
   useEffect(() => {
     getUsuarios();
-  }, []);
+  }, [actualizacion]);
+
+  const actualizaContador = () =>{
+    setActualizacion(actualizacion+1);
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Usuario eliminado con éxito.',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
 
   // Realiza el cambio de pagina
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -229,11 +245,12 @@ export const DataTable = ({
                   <TableCell>{row.Rol}</TableCell>
 
                   <TableCell sx={{ display: "flex" }}>
-                    <DeleteDialog deleteText="usuario" />
+                    <DeleteDialog deleteText="usuario" id={row.IdUsuarioTiCentral} actualizado={actualizaContador} />
 
-                    <Tooltip title="Editar">
+                    <Tooltip title="Editar" >
                       <IconButton
                         onClick={() => handleClickOpen(row.IdUsuarioTiCentral)}
+                        
                       >
                         <EditIcon
                           sx={[
@@ -267,10 +284,12 @@ export const DataTable = ({
 
       {openModalEditarUsuario ? (
         <ModalEditarUsuario
+          actualizado={actualizaContador}
           title="Editar Usuario"
           open={openModalEditarUsuario}
           handleClose={handleCloseModalEditarUsuario}
           IdUsuario={idUsuarioEditar}
+          
         />
       ) : null}
     </Box>

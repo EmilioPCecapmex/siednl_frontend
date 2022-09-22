@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -7,12 +8,20 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import  Tooltip  from "@mui/material/Tooltip";
+import Tooltip from "@mui/material/Tooltip";
+import axios from "axios";
+import Alert from "@mui/material/Alert";
+import { Box } from "@mui/material";
+import Swal from "sweetalert2";
 
 export const DeleteDialog = ({
   deleteText,
+  id,
+  actualizado
 }: {
   deleteText: string;
+  id: string;
+  actualizado: Function;
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -24,8 +33,33 @@ export const DeleteDialog = ({
     setOpen(false);
   };
 
+  const deleteUsuario = () => {
+    axios
+      .delete("http://10.200.4.105:8000/api/deleteUser", {
+        data: {
+          IdUsuarioTiCentral: id,
+          ModificadoPor: localStorage.getItem("IdUsuario"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        actualizado();
+      })
+      .catch((err) => 
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Permisos denegados',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      )
+  };
+
   return (
-    <div>
+    <Box>
       <Tooltip title="Eliminar">
         <IconButton onClick={handleClickOpen}>
           <DeleteIcon
@@ -48,14 +82,15 @@ export const DeleteDialog = ({
           </DialogContentText>
         </DialogContent>
 
-        <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleClose} autoFocus>
+        <DialogActions onClick={handleClose}>
+          <Button>Cancelar</Button>
+
+          <Button onClick={deleteUsuario} autoFocus>
             De Acuerdo
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 

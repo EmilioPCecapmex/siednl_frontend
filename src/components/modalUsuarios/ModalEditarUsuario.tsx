@@ -21,12 +21,14 @@ export default function ModalEditarUsuario({
   title,
   open,
   handleClose,
-  IdUsuario
+  IdUsuario,
+  actualizado
 }: {
   title: string;
   open: boolean;
   handleClose: Function;
   IdUsuario: string;
+  actualizado: Function;
 }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -102,7 +104,6 @@ export default function ModalEditarUsuario({
     )
   }
   
-
   const getUserType = () => {
     axios.get("http://10.200.4.105:8000/api/roles", {
       headers: {
@@ -115,6 +116,112 @@ export default function ModalEditarUsuario({
 
     )
   }
+  
+  const userModify = (idUsrCentral: string) => {
+    axios
+    .post(
+      "http://localHost:8000/api/user-modify",
+      {
+        IdUsuarioTiCentral: idUsrCentral,
+        Nombre: names,
+        ApellidoPaterno: firstName,
+        ApellidoMaterno: secondName,
+        IdInstitucion: institution,
+        IdRol: userType,
+        Cargo: rol,
+        Telefono: telephone,
+        Celular: cellphone,
+        ModificadoPor: localStorage.getItem("IdUsuario"),
+        
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then((r) => {
+      if(r.status === 200){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "¡Usuario Modificado con Éxito!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        actualizado();
+      }
+    })
+    .catch((err) => 
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Permisos denegados',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      )
+  }
+
+  const checkForm = () => {
+    setErrorsForm({
+      visible: false,
+      text: "",
+      type: "",
+    });
+
+    if (names === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa nombre del usuario.",
+        type: "error",
+      });
+    } else if (firstName === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa apellido paterno del usuario.",
+        type: "error",
+      });
+    } else if (secondName === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa apellido materno del usuario.",
+        type: "error",
+      });
+    } else if (institution === "0") {
+      setErrorsForm({
+        visible: true,
+        text: "Selecciona la institucion a la que pertenece el usuario.",
+        type: "error",
+      });
+    } else if (rol === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa el cargo del usuario en la institución.",
+        type: "error",
+      });
+    } else if (userType === "0") {
+      setErrorsForm({
+        visible: true,
+        text: "Selecciona el tipo de usuario a crear.",
+        type: "error",
+      });
+    } else if (telephone === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un teléfono de contacto.",
+        type: "error",
+      });
+    } else if (cellphone === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un número celular de contacto.",
+        type: "error",
+      });
+    } else {
+      userModify(IdUsuario);
+    }
+  };
 
 
   useEffect(() => {
@@ -344,19 +451,22 @@ export default function ModalEditarUsuario({
               width: "100vw",
               mt: "4vh",
             }}
+            onClick={() => handleClose()}
           >
             <Button
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
-              onClick={() => handleClose()}
+              
             >
               Cancelar
             </Button>
+
             <Button
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
+              onClick={() => checkForm()}
             >
               Actualizar
             </Button>
