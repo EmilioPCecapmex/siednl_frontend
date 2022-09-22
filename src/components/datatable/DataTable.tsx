@@ -15,9 +15,7 @@ import {
   IconButton,
   TablePagination,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import EditDialog from "../deleteDialog/EditDialog";
 import ModalEditarUsuario from "../modalUsuarios/ModalEditarUsuario";
 
 // Selecciona inicial Nombre + inicial Apellido
