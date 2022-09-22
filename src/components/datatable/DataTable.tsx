@@ -38,7 +38,8 @@ export const DataTable = ({
   }, [actualizar]);
 
   //# Renglones por pag
-  const [rowsPerPage, setRowsPerPage] = useState(7);
+  const renglonesPagina = 7;
+  const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [usuarios, setUsuarios] = useState<Array<DataUsuariosTiCentral>>([
     {
       Id: "",
@@ -136,7 +137,7 @@ export const DataTable = ({
 
   return (
     <Box sx={{ width: "100%", height: "60vh" }}>
-      <TableContainer>
+      <TableContainer >
         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
           <TableHead>
             <TableRow>
@@ -220,7 +221,7 @@ export const DataTable = ({
                   <TableCell>{row.Rol}</TableCell>
 
                   <TableCell sx={{ display: "flex" }}>
-                    <DeleteDialog />
+                    <DeleteDialog deleteText="usuario"/>
 
                     <EditDialog IdUsuario = {row.IdUsuarioTiCentral} />
                   </TableCell>
@@ -233,10 +234,10 @@ export const DataTable = ({
         sx={{
           mt: "1vh",
         }}
-        rowsPerPageOptions={[9]}
+        rowsPerPageOptions={[renglonesPagina]}
         component="div"
         count={usuarios.length}
-        rowsPerPage={7}
+        rowsPerPage={renglonesPagina}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}

@@ -114,6 +114,7 @@ export default function ModalEditarUsuario({
 
     )
   }
+  
 
   const getUserType = () => {
     axios.get("http://10.200.4.105:8000/api/roles", {
@@ -191,6 +192,7 @@ export default function ModalEditarUsuario({
               width: "40%",
               ml: "2vw",
             }}
+            disabled
             onChange={(v) => setUsername(v.target.value)}
           />
 
@@ -198,6 +200,7 @@ export default function ModalEditarUsuario({
             label="Correo Electrónico"
             variant="outlined"
             type="email"
+            disabled
             onChange={(v) => setEmail(v.target.value)}
             value={email}
             sx={{

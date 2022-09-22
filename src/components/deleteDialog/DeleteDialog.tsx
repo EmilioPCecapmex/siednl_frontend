@@ -9,7 +9,11 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import  Tooltip  from "@mui/material/Tooltip";
 
-export const DeleteDialog = () => {
+export const DeleteDialog = ({
+  deleteText,
+}: {
+  deleteText: string;
+}) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -36,11 +40,11 @@ export const DeleteDialog = () => {
         </IconButton>
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{"¿Desea eliminar este usuario?"}</DialogTitle>
+        <DialogTitle>{`¿Desea eliminar este ${deleteText}?`}</DialogTitle>
 
         <DialogContent>
           <DialogContentText>
-            Al confirmar, se eliminara todo registro de este usuario.
+            Al confirmar, se eliminara todo registro de este {deleteText}.
           </DialogContentText>
         </DialogContent>
 
