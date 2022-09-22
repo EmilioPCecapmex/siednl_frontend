@@ -10,6 +10,7 @@ import { Usuarios } from "./screens/config/Usuarios";
 import { Init } from "./screens/init/Init";
 import { continueSession, sessionValid } from "./funcs/validation";
 import { useLocation } from "react-router-dom";
+import { SessionDialog } from "./components/sessionDialog/SessionDialog";
 
 function App() {
   useLayoutEffect(() => {
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <>
+    <SessionDialog/>
       <Router>
         <Routes>
           <Route index element={<Init />} />

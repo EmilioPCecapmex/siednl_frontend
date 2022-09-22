@@ -19,16 +19,12 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../funcs/validation";
 
 
 
 export const LateralMenu = ({selection} : {selection: number}) => {
   const navigate = useNavigate();
-
-  const logout = () => {
-    localStorage.clear();
-    window.location.assign("http://login.com");
-  }
 
 
   const [openProgramas, setOpenProgramas] = useState(true);

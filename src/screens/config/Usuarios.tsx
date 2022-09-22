@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import {
-  Badge,
-  IconButton,
-  Grid,
   Button,
   Typography,
   Input,
-  TextField,
 } from "@mui/material";
 import { Header } from "../../components/header/Header";
 import SearchIcon from "@mui/icons-material/Search";

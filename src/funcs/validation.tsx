@@ -98,3 +98,8 @@ export const continueSession = () => {
   };
 
 
+
+  export const logout = () => {
+    localStorage.clear();
+    window.location.assign("http://login.com");
+  }
