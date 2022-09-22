@@ -13,9 +13,15 @@ export const Settings = () => {
   const [optionSelected, setOptionSelected] = useState("")
 
 
+
+
   const showConfig = (selected: string) => {
-    setShowCards(!showCards)
     setOptionSelected(selected);
+    setShowCards(false)
+  }
+
+  const resetView = () => {
+    setShowCards(true);
   }
 
   return (
@@ -27,7 +33,7 @@ export const Settings = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={6} />
+      <LateralMenu selection={6} settingsCard={resetView} />
       <Header
         details={{
           name1: "Inicio",

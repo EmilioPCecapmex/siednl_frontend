@@ -50,13 +50,13 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
             {details.name1}
           </Link>
 
-          {details.name2 != "" ? (
+          {details.name2 !== "" ? (
             <Link underline="hover" color="inherit" onClick={() => navigate(details.path2)}>
               {details.name2}
             </Link>
           ) : null}
 
-          {details.name3 != "" ? (
+          {details.name3 !== "" ? (
             <Typography
               color="text.primary"
               sx={{ fontFamily: "MontserratMedium", fontSize: "1.5vw" }}
