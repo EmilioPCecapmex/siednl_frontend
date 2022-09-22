@@ -125,13 +125,6 @@ export const DataTable = ({
 
   const actualizaContador = () =>{
     setActualizacion(actualizacion+1);
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Usuario eliminado con éxito.',
-      showConfirmButton: false,
-      timer: 1500
-    })
   }
 
   // Realiza el cambio de pagina

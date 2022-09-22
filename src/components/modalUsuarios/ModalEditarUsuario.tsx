@@ -120,7 +120,7 @@ export default function ModalEditarUsuario({
   const userModify = (idUsrCentral: string) => {
     axios
     .post(
-      "http://localHost:8000/api/user-modify",
+      "http://10.200.4.105:8000/api/user-modify",
       {
         IdUsuarioTiCentral: idUsrCentral,
         Nombre: names,
@@ -145,7 +145,7 @@ export default function ModalEditarUsuario({
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "¡Usuario Modificado con Éxito!",
+          title: "¡Usuario modificado con éxito!",
           showConfirmButton: false,
           timer: 1500,
         });
