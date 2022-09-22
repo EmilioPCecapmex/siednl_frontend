@@ -23,7 +23,7 @@ import { logout } from "../../funcs/validation";
 
 
 
-export const LateralMenu = ({selection} : {selection: number}) => {
+export const LateralMenu = ({selection, settingsCard} : {selection: number, settingsCard?: Function}) => {
   const navigate = useNavigate();
 
 
@@ -60,6 +60,13 @@ export const LateralMenu = ({selection} : {selection: number}) => {
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
+
+  const goSettings = () => {
+    if(settingsCard){
+      settingsCard()
+    }
+    navigate('../settings');
+  }
 
   return (
     <Box
@@ -197,7 +204,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
               Inicio
             </Typography>
             <Box
-              visibility={selection == 0 ? 'visible' : 'hidden' }
+              visibility={selection === 0 ? 'visible' : 'hidden' }
               sx={{
                 width: ".5vw",
                 backgroundColor: "#c4a57b",
@@ -218,7 +225,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
             </Typography>
             {openProgramas ? <ExpandLess /> : <ExpandMore />}
             <Box
-              visibility={selection == 1 ? 'visible' : 'hidden' }
+              visibility={selection === 1 ? 'visible' : 'hidden' }
               sx={{
                 width: ".5vw",
                 backgroundColor: "#c4a57b",
@@ -240,7 +247,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
                   MIR
                 </Typography>
                 <Box
-              visibility={selection == 2 ? 'visible' : 'hidden' }
+              visibility={selection === 2 ? 'visible' : 'hidden' }
               sx={{
                     width: ".5vw",
                     backgroundColor: "#c4a57b",
@@ -261,7 +268,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
                   Meta Anual
                 </Typography>
                 <Box
-              visibility={selection == 3 ? 'visible' : 'hidden' }
+              visibility={selection === 3 ? 'visible' : 'hidden' }
               sx={{
                     width: ".5vw",
                     backgroundColor: "#c4a57b",
@@ -282,7 +289,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
                   Ficha Técnica
                 </Typography>
                 <Box
-              visibility={selection == 4 ? 'visible' : 'hidden' }
+              visibility={selection === 4 ? 'visible' : 'hidden' }
               sx={{
                     width: ".5vw",
                     backgroundColor: "#c4a57b",
@@ -302,7 +309,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
               Actividades Institucionales
             </Typography>
             <Box
-              visibility={selection == 5 ? 'visible' : 'hidden' }
+              visibility={selection === 5 ? 'visible' : 'hidden' }
               sx={{
                 width: ".5vw",
                 backgroundColor: "#c4a57b",
@@ -331,7 +338,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
         }}
       >
         <List component="nav" aria-labelledby="nested-list-subheader">
-          <ListItemButton onClick={() => navigate('../settings')}>
+          <ListItemButton onClick={() => goSettings()}>
             <ListItemIcon>
               <SettingsOutlinedIcon />
             </ListItemIcon>
@@ -340,7 +347,7 @@ export const LateralMenu = ({selection} : {selection: number}) => {
             </Typography>
 
             <Box
-              visibility={selection == 6 ? 'visible' : 'hidden' }
+              visibility={selection === 6 ? 'visible' : 'hidden' }
               sx={{
                 width: ".5vw",
                 backgroundColor: "#c4a57b",
@@ -363,12 +370,3 @@ export const LateralMenu = ({selection} : {selection: number}) => {
     </Box>
   );
 };
-
-interface IInstituciones {
-  Institucion: string;
-}
-
-const Instituciones = [
-  { Institucion: "DIF" },
-  { Institucion: "BIBLIOTECA CENTRAL DEL ESTADO" },
-];
