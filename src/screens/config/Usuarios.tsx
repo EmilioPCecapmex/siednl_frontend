@@ -53,9 +53,9 @@ export const Usuarios = () => {
       <Header
         details={{
           name1: "Inicio",
-          path1: "./",
+          path1: "../home",
           name2: "Configuración",
-          path2: "./",
+          path2: "../settings",
           name3: "Usuarios",
         }}
       />

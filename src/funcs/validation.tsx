@@ -20,7 +20,11 @@ export const getUserDetails = (idCentral: string) => {
       )
       .then((r) => {
         if (r.status === 200) {
-          localStorage.setItem("IdUsuario", r.data.data.Id)         
+          localStorage.setItem("IdUsuario", r.data.data.Id)    
+          localStorage.setItem("NombreUsuario",  r.data.data.Nombre.split(' ')[0] + ' ' + r.data.data.ApellidoPaterno)
+          localStorage.setItem("NombreInstitucion", r.data.data.NombreInstitucion)
+          localStorage.setItem("Rol", r.data.data.Rol)
+
         }
       })
       .catch((error) => {

@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
 import { SettingsCard } from "../../components/settings/SettingsCard";
+import {Catalogos} from "../../components/catalogos/Catalogos";
+
+
 export const Settings = () => {
+
+
+  const [showCards, setShowCards] = useState(true);
+  const [optionSelected, setOptionSelected] = useState("")
+
+
+  const showConfig = (selected: string) => {
+    setShowCards(!showCards)
+    setOptionSelected(selected);
+  }
+
   return (
     <Box
       sx={{
@@ -17,13 +31,19 @@ export const Settings = () => {
       <Header
         details={{
           name1: "Inicio",
-          path1: "./home",
+          path1: "../home",
           name2: "Configuración",
-          path2: "./settings",
+          path2: "../settings",
           name3: "",
         }}
       />
-      <SettingsCard/>
+      
+      {showCards ? <SettingsCard showConfig={showConfig}/> : null}
+
+      {!showCards ? <Catalogos defSelected={optionSelected}/> : null}
+
+      
+
      
     </Box>
     
