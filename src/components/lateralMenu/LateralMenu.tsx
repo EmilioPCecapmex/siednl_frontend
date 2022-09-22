@@ -3,6 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import logo from "../../assets/logos/logo.svg";
 
+
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -17,23 +18,40 @@ import LocationCityOutlinedIcon from "@mui/icons-material/LocationCityOutlined";
 import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  TextField,
+  ListItemAvatar,
+  Button,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../funcs/validation";
+import { logout, sessionUntil } from "../../funcs/validation";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import { TimerCounter } from "../timer/TimerCounter";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+export const LateralMenu = ({
+  selection,
+  settingsCard,
+}: {
+  selection: number;
+  settingsCard?: Function;
+}) => {
 
 
-
-export const LateralMenu = ({selection, settingsCard} : {selection: number, settingsCard?: Function}) => {
   const navigate = useNavigate();
-
 
   const [openProgramas, setOpenProgramas] = useState(true);
 
   const handleClickProgramas = () => {
     setOpenProgramas(!openProgramas);
   };
-
-
 
   function stringToColor(string: string) {
     let hash = 0;
@@ -62,11 +80,84 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
   };
 
   const goSettings = () => {
-    if(settingsCard){
-      settingsCard()
+    if (settingsCard) {
+      settingsCard();
     }
-    navigate('../settings');
-  }
+    navigate("../settings");
+  };
+
+  const [openPasswordChange, setOpenPasswordChange] = useState(false);
+
+  const handleClosePasswordChange = () => {
+    setOpenPasswordChange(false);
+  };
+
+
+
+
+  const ChangePasswordModal = () => {
+    const [newPassword, setNewPassword] = useState("");
+
+    const cambiarContrasena = () => {
+      axios
+        .put(
+          "http://10.200.4.105:5000/api/change-password",
+          {
+            ContrasenaNueva: newPassword,
+            IdUsuario: localStorage.getItem("IdCentral"),
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 200) {
+            handleClosePasswordChange()
+           setNewPassword("")
+           Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Contraseña actualizada',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          }
+        })
+        .catch((r) => {
+          if (r.response.status === 409) {
+            handleClosePasswordChange()
+
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'Error',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          
+          }
+        });
+    };
+    return (
+      <Dialog onClose={handleClosePasswordChange} open={openPasswordChange} maxWidth={'sm'}>
+        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: '2vh'}}>
+          <Typography sx={{fontFamily: 'MontserratBold', fontSize: '1vw'}}>Cambiar Contraseña</Typography>
+        </Box>
+        <Box sx={{height: '20vh', width: '20vw', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'column'}}>
+          <TextField label='Nueva Contraseña' onChange={(v) => setNewPassword(v.target.value)}/>
+          <Box sx={{display: 'flex', justifyContent: 'space-evenly', width: '100%'}}>
+
+          <Button variant="contained" color="error" onClick={() => handleClosePasswordChange()}> Cancelar</Button>
+
+          <Button variant="contained" onClick={() => cambiarContrasena()}>Cambiar</Button>
+          </Box>
+
+        </Box>
+      </Dialog>
+    );
+  };
 
   return (
     <Box
@@ -78,6 +169,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
         boxShadow: 5,
       }}
     >
+      <ChangePasswordModal />
       <Box
         sx={{
           paddingTop: "3vh",
@@ -106,7 +198,9 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
       >
         <Avatar
           sx={{
-            bgcolor: stringToColor(localStorage.getItem("NombreUsuario") as string),
+            bgcolor: stringToColor(
+              localStorage.getItem("NombreUsuario") as string
+            ),
             width: "5vw",
             height: "10vh",
             fontSize: "1.5vw",
@@ -185,7 +279,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
       <Box
         sx={{
           width: "100%",
-          height: "55vh",
+          height: "50vh",
           fontSize: "h1",
         }}
       >
@@ -196,7 +290,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
             fontFamily: "MontserratMedium",
           }}
         >
-          <ListItemButton onClick={() => navigate('../home')}>
+          <ListItemButton onClick={() => navigate("../home")}>
             <ListItemIcon>
               <HomeOutlinedIcon />
             </ListItemIcon>
@@ -204,7 +298,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
               Inicio
             </Typography>
             <Box
-              visibility={selection === 0 ? 'visible' : 'hidden' }
+              visibility={selection === 0 ? "visible" : "hidden"}
               sx={{
                 width: ".5vw",
                 backgroundColor: "#c4a57b",
@@ -225,7 +319,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
             </Typography>
             {openProgramas ? <ExpandLess /> : <ExpandMore />}
             <Box
-              visibility={selection === 1 ? 'visible' : 'hidden' }
+              visibility={selection === 1 ? "visible" : "hidden"}
               sx={{
                 width: ".5vw",
                 backgroundColor: "#c4a57b",
@@ -247,8 +341,8 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
                   MIR
                 </Typography>
                 <Box
-              visibility={selection === 2 ? 'visible' : 'hidden' }
-              sx={{
+                  visibility={selection === 2 ? "visible" : "hidden"}
+                  sx={{
                     width: ".5vw",
                     backgroundColor: "#c4a57b",
                     height: "3vh",
@@ -268,8 +362,8 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
                   Meta Anual
                 </Typography>
                 <Box
-              visibility={selection === 3 ? 'visible' : 'hidden' }
-              sx={{
+                  visibility={selection === 3 ? "visible" : "hidden"}
+                  sx={{
                     width: ".5vw",
                     backgroundColor: "#c4a57b",
                     height: "3vh",
@@ -289,8 +383,8 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
                   Ficha Técnica
                 </Typography>
                 <Box
-              visibility={selection === 4 ? 'visible' : 'hidden' }
-              sx={{
+                  visibility={selection === 4 ? "visible" : "hidden"}
+                  sx={{
                     width: ".5vw",
                     backgroundColor: "#c4a57b",
                     height: "3vh",
@@ -309,7 +403,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
               Actividades Institucionales
             </Typography>
             <Box
-              visibility={selection === 5 ? 'visible' : 'hidden' }
+              visibility={selection === 5 ? "visible" : "hidden"}
               sx={{
                 width: ".5vw",
                 backgroundColor: "#c4a57b",
@@ -334,7 +428,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
           width: "100%",
           height: "auto",
           bgcolor: "background.paper",
-          paddingTop: "1vh",
+          mt: "1vh",
         }}
       >
         <List component="nav" aria-labelledby="nested-list-subheader">
@@ -347,7 +441,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
             </Typography>
 
             <Box
-              visibility={selection === 6 ? 'visible' : 'hidden' }
+              visibility={selection === 6 ? "visible" : "hidden"}
               sx={{
                 width: ".5vw",
                 backgroundColor: "#c4a57b",
@@ -356,6 +450,14 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
                 right: -4,
               }}
             />
+          </ListItemButton>
+          <ListItemButton onClick={() => setOpenPasswordChange(true)}>
+            <ListItemIcon>
+              <LockResetIcon />
+            </ListItemIcon>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              Cambiar Contraseña
+            </Typography>
           </ListItemButton>
           <ListItemButton onClick={() => logout()}>
             <ListItemIcon>
@@ -366,6 +468,7 @@ export const LateralMenu = ({selection, settingsCard} : {selection: number, sett
             </Typography>
           </ListItemButton>
         </List>
+       <TimerCounter/>
       </Box>
     </Box>
   );

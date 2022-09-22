@@ -1,23 +1,16 @@
-import React, { useLayoutEffect } from "react";
 import { Box } from "@mui/material";
-import escudo from "../../assets/logos/escudo.png";
-import { useLocation } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from "react-router-dom";
-import { continueSession, sessionValid } from "../../funcs/validation";
+
 
 export const Init = () => {
   const navigate = useNavigate();
 
+  
+  setTimeout(() => {
+    navigate('../home')
 
-  useLayoutEffect(() => {
-    continueSession().then((r) => {
-      if ((r as boolean) === true) {
-        navigate("../home");
-      } else if (r as boolean === false) {
-        window.location.assign("http://login.com");
-      }
-    });
-  }, [])
+  },500);
 
 
   return (
@@ -31,7 +24,7 @@ export const Init = () => {
         flexDirection: "column",
       }}
     >
-      <img src={escudo} alt="Escudo" style={{ width: "20vw" }} />
+      <CircularProgress />
     </Box>
   );
 };
