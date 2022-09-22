@@ -7,14 +7,7 @@ import { sessionUntil } from "../../funcs/validation";
 
 export const Home = () => {
 
-  const session = new Date(sessionUntil);
-  const [actualDate, setActualDate] = useState(new Date())
-  const rest = session.getTime()  - actualDate.getTime() 
-
-  setTimeout(() => {
-    setActualDate(new Date())
-  }, 1000);
-
+ 
 
 
   return (
@@ -48,13 +41,7 @@ export const Home = () => {
           flexDirection: 'column'
         }}
       >
-        <Box sx={{position: 'absolute', left: '50vw', top: '10vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-        <Box sx={{fontFamily: 'MontserratMedium', fontSize: '1vw'}}>
-        {Math.round((rest / 1000 / 60 )).toString() + ":" + Math.round((rest / 1000 % 60)).toString()} minutos restantes
-      </Box>
-    
-        </Box>
-         
+   
         <img src={escudo} alt="Escudo" style={{ width: "20vw" }} />
       </Box>
     </Box>

@@ -11,17 +11,25 @@ import { Init } from "./screens/init/Init";
 import { continueSession, sessionValid } from "./funcs/validation";
 import { useLocation } from "react-router-dom";
 import { SessionDialog } from "./components/sessionDialog/SessionDialog";
+import { useNavigate } from "react-router-dom";
+
 
 function App() {
-  useLayoutEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const jt = params.get("jwt") || null;
+  
+  const navigate = useNavigate();
+  const params = new URLSearchParams(window.location.search);
+  const jt = params.get("jwt") || null;
 
+
+  useLayoutEffect(() => {
     if (jt !== null) {
-      console.log(jt);
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
           window.location.assign("http://login.com");
+        }else  if ((r as boolean) === true) {
+          setTimeout(() => {
+            navigate('../home')
+          },100);
         }
       });
     } else {
@@ -33,10 +41,10 @@ function App() {
     }
   }, []);
 
+
   return (
     <>
     <SessionDialog/>
-      <Router>
         <Routes>
           <Route index element={<Init />} />
           <Route path="home" element={<Home />} />
@@ -44,7 +52,6 @@ function App() {
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
         </Routes>
-      </Router>
     </>
   );
 }

@@ -99,20 +99,6 @@ export default function ModalCrearUsuario({
     )
   }
 
-  const userTypes = [
-    {
-      id: 1,
-      desc: "Administrador",
-    },
-    {
-      id: 2,
-      desc: "Capturador",
-    },
-    {
-      id: 3,
-      desc: "Verificador",
-    },
-  ];
 
   const signUp = () => {
     axios
