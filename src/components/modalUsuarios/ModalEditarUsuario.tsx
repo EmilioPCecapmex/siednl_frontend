@@ -39,26 +39,6 @@ export default function ModalEditarUsuario({
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
   const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
-  const [usuario, setUsuario] = useState([
-    {
-      Id: "",
-      IdUsuarioTiCentral: "",
-      Nombre: "",
-      ApellidoPaterno: "",
-      ApellidoMaterno: "",
-      CorreoElectronico: "",
-      NombreUsuario: "",
-      Cargo: "",
-      Telefono: "",
-      Celular: "",
-      IdRol: "",
-      Rol: "",
-      IdInstitucion: "",
-      NombreInstitucion: "",
-      CreadoPor: "",
-      ModificadoPor: "",
-    },
-  ]);
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([{Id: "",
   NombreInstitucion: ""
@@ -106,10 +86,17 @@ export default function ModalEditarUsuario({
       }
     }).then(
       (r) => {
-        console.log(r.data.data);
-        // setUsuario(r.data.data);
-        // console.log(usuario);
-        
+        const user = r.data.data;
+        setUsername(user.NombreUsuario);
+        setEmail(user.CorreoElectronico);
+        setNames(user.Nombre);
+        setFirstName(user.ApellidoPaterno);
+        setSecondName(user.ApellidoMaterno);
+        setInstitution(user.IdInstitucion);
+        setRol(user.Cargo);
+        setUserType(user.IdRol);
+        setTelephone(user.Telefono);
+        setCellphone(user.Celular);
       }
 
     )
@@ -129,20 +116,6 @@ export default function ModalEditarUsuario({
     )
   }
 
-  const userTypes = [
-    {
-      id: 1,
-      desc: "Administrador",
-    },
-    {
-      id: 2,
-      desc: "Capturador",
-    },
-    {
-      id: 3,
-      desc: "Verificador",
-    },
-  ];
 
   useEffect(() => {
  getInstituciones();
@@ -166,10 +139,7 @@ export default function ModalEditarUsuario({
           }}
         />
       </Box>
-
-      {usuario.map((row) => (
       <DialogContent
-      key={row.Id}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -187,7 +157,7 @@ export default function ModalEditarUsuario({
           <TextField
             label="Usuario"
             variant="outlined"
-            value={row.NombreUsuario}
+            value={username}
             sx={{
               width: "40%",
               ml: "2vw",
@@ -393,7 +363,6 @@ export default function ModalEditarUsuario({
           </Box>
         </Box>
       </DialogContent>
-      ))}
     </Dialog>
   );
 }

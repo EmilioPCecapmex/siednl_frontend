@@ -18,6 +18,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import EditDialog from "../deleteDialog/EditDialog";
+import ModalEditarUsuario from "../modalUsuarios/ModalEditarUsuario";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
@@ -131,13 +132,22 @@ export const DataTable = ({
     setPage(0);
   };
 
-  // Evita un salto de diseño al llegar a la última página con filas vacías
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - usuarios.length) : 0;
+  const [openModalEditarUsuario, setOpenModalEditarUsuario] = useState(false);
+
+  const handleCloseModalEditarUsuario = () => {
+    setOpenModalEditarUsuario(false);
+  };
+
+  const handleClickOpen = (id: string) => {
+    setOpenModalEditarUsuario(true);
+    setIdUsuarioEditar(id);
+  };
+
+  const [idUsuarioEditar, setIdUsuarioEditar] = useState("");
 
   return (
     <Box sx={{ width: "100%", height: "60vh" }}>
-      <TableContainer >
+      <TableContainer>
         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
           <TableHead>
             <TableRow>
@@ -221,9 +231,23 @@ export const DataTable = ({
                   <TableCell>{row.Rol}</TableCell>
 
                   <TableCell sx={{ display: "flex" }}>
-                    <DeleteDialog deleteText="usuario"/>
+                    <DeleteDialog deleteText="usuario" />
 
-                    <EditDialog IdUsuario = {row.IdUsuarioTiCentral} />
+                    <Tooltip title="Editar">
+                      <IconButton
+                        onClick={() => handleClickOpen(row.IdUsuarioTiCentral)}
+                      >
+                        <EditIcon
+                          sx={[
+                            {
+                              "&:hover": {
+                                color: "red",
+                              },
+                            },
+                          ]}
+                        />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}
@@ -242,6 +266,15 @@ export const DataTable = ({
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
+      {openModalEditarUsuario ? (
+        <ModalEditarUsuario
+          title="Editar Usuario"
+          open={openModalEditarUsuario}
+          handleClose={handleCloseModalEditarUsuario}
+          IdUsuario={idUsuarioEditar}
+        />
+      ) : null}
     </Box>
   );
 };
