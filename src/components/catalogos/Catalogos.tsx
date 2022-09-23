@@ -20,10 +20,12 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import DeleteDialog from "../deleteDialog/DeleteDialog";
 import Add from "@mui/icons-material/Add";
+import DeleteDialogCatalogos from "../deleteDialog/DeleteDialogCatalogos";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -51,24 +53,28 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 1,
       Desc: "Años Fiscales",
       fnc: "getAniosFiscales()",
+      Tabla:"AniosFiscales",
       selected: false,
     },
     {
       id: 2,
       Desc: "Beneficiarios",
       fnc: "getBeneficiarios()",
+      Tabla:"Beneficiarios",
       selected: false,
     },
     {
       id: 3,
       Desc: "Clasificación Programática",
       fnc: "getClasificacionesProgramaticas()",
+      Tabla:"ClasificacionesProgramaticas",
       selected: false,
     },
     {
       id: 4,
       Desc: "Dimensiones del Indicador",
       fnc: "getDimensionesDelIndicador()",
+      Tabla:"DimensionesDelIndicador",
       selected: false,
     },
     { id: 5, Desc: "Ejes", fnc: "getEjes()", selected: true },
@@ -78,6 +84,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 8,
       Desc: "Fechas de Captura",
       fnc: "getFechasDeCaptura()",
+      Tabla:"FechasDeCaptura",
       selected: false,
     },
     { id: 9, Desc: "Fórmulas", fnc: "getFormulas()", selected: false },
@@ -86,12 +93,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 11,
       Desc: "Instituciones",
       fnc: "getInstituciones()",
+      Tabla:"Instituciones",
       selected: false,
     },
     {
       id: 12,
       Desc: "Lineas de Acción",
       fnc: "getLineasDeAccion()",
+      Tabla:"LineasDeAccion",
       selected: false,
     },
     { id: 13, Desc: "Metas ODS", fnc: "getMetasODS()", selected: false },
@@ -102,6 +111,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 17,
       Desc: "Objetivos del Plan Estrategico del Estado de Nuevo León",
       fnc: "getObjetivosPEENL()",
+      Tabla:"ObjetivosPEENL",
       selected: false,
     },
     {
@@ -114,6 +124,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 19,
       Desc: "Programas Presupuestarios",
       fnc: "getProgramaPresupuestario()",
+      Tabla:"ProgramasPresupuestarios",
       selected: false,
     },
     { id: 20, Desc: "Roles", fnc: "getRoles()", selected: false },
@@ -122,18 +133,21 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 22,
       Desc: "Tipos de Fórmula",
       fnc: "getTipoDeFormula()",
+      Tabla:"TiposDeFormula",
       selected: false,
     },
     {
       id: 23,
       Desc: "Tipos de Indicador",
       fnc: "getTipoDeIndicador()",
+      Tabla:"TiposDeIndicador",
       selected: false,
     },
     {
       id: 24,
       Desc: "Unidades de Medida",
       fnc: "getUnidadDeMedida()",
+      Tabla:"UnidadesDeMedida",
       selected: false,
     },
   ];
@@ -142,6 +156,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     {
       Id: "",
       Desc: "",
+      fnc:"",
+      Tabla:"",
+      selected:"",
     },
   ]);
 
@@ -155,10 +172,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         },
       })
       .then((r) => {
+        
+        
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; AnioFiscal: string }) => {
-            return { Id: item.Id, Desc: item.AnioFiscal };
+          update = update.map((item: { Id: string; AnioFiscal: string, Tabla: string }) => {
+            return { Id: item.Id, Desc: item.AnioFiscal, Tabla: "AniosFiscales" };
           });
           setDatosTabla(update);
         }
@@ -178,8 +197,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Beneficiario: string }) => {
-            return { Id: item.Id, Desc: item.Beneficiario };
+          update = update.map((item: { Id: string; Beneficiario: string; Tabla: string}) => {
+            return { Id: item.Id, Desc: item.Beneficiario, Tabla: "Beneficiarios" };
           });
           setDatosTabla(update);
         }
@@ -200,8 +219,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; ClasificacionProgramatica: string }) => {
-              return { Id: item.Id, Desc: item.ClasificacionProgramatica };
+            (item: { Id: string; ClasificacionProgramatica: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.ClasificacionProgramatica, Tabla: "ClasificacionesProgramaticas" };
             }
           );
           setDatosTabla(update);
@@ -223,8 +242,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; DimensionDelIndicador: string }) => {
-              return { Id: item.Id, Desc: item.DimensionDelIndicador };
+            (item: { Id: string; DimensionDelIndicador: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.DimensionDelIndicador, Tabla: "DimensionesDelIndicador" };
             }
           );
           setDatosTabla(update);
@@ -245,8 +264,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Eje: string }) => {
-            return { Id: item.Id, Desc: item.Eje };
+          update = update.map((item: { Id: string; Eje: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Eje, Tabla: "Ejes" };
           });
           setDatosTabla(update);
         }
@@ -287,8 +306,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Estrategia: string }) => {
-            return { Id: item.Id, Desc: item.Estrategia };
+          update = update.map((item: { Id: string; Estrategia: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Estrategia, Tabla: "Estrategias" };
           });
           setDatosTabla(update);
         }
@@ -308,8 +327,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Formula: string }) => {
-            return { Id: item.Id, Desc: item.Formula };
+          update = update.map((item: { Id: string; Formula: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Formula, Tabla: "Formulas" };
           });
           setDatosTabla(update);
         }
@@ -352,8 +371,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Frecuencia: string }) => {
-            return { Id: item.Id, Desc: item.Frecuencia };
+          update = update.map((item: { Id: string; Frecuencia: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Frecuencia, Tabla: "Frecuencias" };
           });
           setDatosTabla(update);
         }
@@ -374,8 +393,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; NombreInstitucion: string }) => {
-              return { Id: item.Id, Desc: item.NombreInstitucion };
+            (item: { Id: string; NombreInstitucion: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.NombreInstitucion, Tabla: "Instituciones" };
             }
           );
           setDatosTabla(update);
@@ -395,8 +414,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; LineaDeAccion: string }) => {
-            return { Id: item.Id, Desc: item.LineaDeAccion };
+          update = update.map((item: { Id: string; LineaDeAccion: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.LineaDeAccion, Tabla: "LineasDeAccion" };
           });
           setDatosTabla(update);
         }
@@ -416,8 +435,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; MetaODS: string }) => {
-            return { Id: item.Id, Desc: item.MetaODS };
+          update = update.map((item: { Id: string; MetaODS: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.MetaODS, Tabla: "MetasODS" };
           });
           setDatosTabla(update);
         }
@@ -437,8 +456,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Modalidad: string }) => {
-            return { Id: item.Id, Desc: item.Modalidad };
+          update = update.map((item: { Id: string; Modalidad: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Modalidad, Tabla: "Modalidades" };
           });
           setDatosTabla(update);
         }
@@ -458,8 +477,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Objetivo: string }) => {
-            return { Id: item.Id, Desc: item.Objetivo };
+          update = update.map((item: { Id: string; Objetivo: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Objetivo , Tabla: "Objetivos"};
           });
           setDatosTabla(update);
         }
@@ -479,8 +498,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; ObjetivoPEENL: string }) => {
-            return { Id: item.Id, Desc: item.ObjetivoPEENL };
+          update = update.map((item: { Id: string; ObjetivoPEENL: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.ObjetivoPEENL, Tabla: "ObjetivosPEENL" };
           });
           setDatosTabla(update);
         }
@@ -500,8 +519,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; ObjetivoDS: string }) => {
-            return { Id: item.Id, Desc: item.ObjetivoDS };
+          update = update.map((item: { Id: string; ObjetivoDS: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.ObjetivoDS, Tabla: "ObjetivosDS" };
           });
           setDatosTabla(update);
         }
@@ -545,8 +564,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; NombrePrograma: string }) => {
-              return { Id: item.Id, Desc: item.NombrePrograma };
+            (item: { Id: string; NombrePrograma: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.NombrePrograma, Tabla: "ProgramasPresupuestarios" };
             }
           );
           setDatosTabla(update);
@@ -567,8 +586,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Rol: string }) => {
-            return { Id: item.Id, Desc: item.Rol };
+          update = update.map((item: { Id: string; Rol: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Rol, Tabla: "Roles" };
           });
           setDatosTabla(update);
         }
@@ -588,8 +607,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Tematica: string }) => {
-            return { Id: item.Id, Desc: item.Tematica };
+          update = update.map((item: { Id: string; Tematica: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Tematica, Tabla: "Tematicas" };
           });
           setDatosTabla(update);
         }
@@ -609,8 +628,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; TipoDeFormula: string }) => {
-            return { Id: item.Id, Desc: item.TipoDeFormula };
+          update = update.map((item: { Id: string; TipoDeFormula: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.TipoDeFormula, Tabla: "TiposDeFormula" };
           });
           setDatosTabla(update);
         }
@@ -631,8 +650,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; TipoDeIndicador: string }) => {
-              return { Id: item.Id, Desc: item.TipoDeIndicador };
+            (item: { Id: string; TipoDeIndicador: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.TipoDeIndicador, Tabla: "TiposDeIndicador" };
             }
           );
           setDatosTabla(update);
@@ -654,8 +673,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; UnidadDeMedida: string }) => {
-              return { Id: item.Id, Desc: item.UnidadDeMedida };
+            (item: { Id: string; UnidadDeMedida: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.UnidadDeMedida, Tabla: "UnidadesDeMedida" };
             }
           );
           setDatosTabla(update);
@@ -673,6 +692,26 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       }
     });
   }, []);
+
+  const [actualizacion, setActualizacion] = useState(0);
+
+  useEffect(() => {
+
+    configOptions.map((item) => {
+      if (item.Desc === defSelected) {
+        eval(item.fnc);
+      }
+    });
+
+  }, [actualizacion]);
+
+
+
+  const actualizaContador = () => {
+
+    setActualizacion(actualizacion + 1);
+
+  };
 
   return (
     <Box
@@ -879,11 +918,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 flexDirection: 'row',
                               }}
                             >
-                              <IconButton aria-label="delete" color="info">
+                              <IconButton aria-label="edit" color="info">
                                 <EditIcon />
                               </IconButton>
 
-                              <DeleteDialog deleteText={item.Desc} id="" actualizado={()=>""}/>
+                              <DeleteDialogCatalogos deleteText={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={actualizaContador}/>
                             </Stack>
                           </TableCell>
                         </StyledTableRow>
