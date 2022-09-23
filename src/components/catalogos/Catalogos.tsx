@@ -24,6 +24,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import DeleteDialog from "../deleteDialog/DeleteDialog";
 import Add from "@mui/icons-material/Add";
+import DeleteDialogCatalogos from "../deleteDialog/DeleteDialogCatalogos";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -51,82 +52,94 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 1,
       Desc: "Años Fiscales",
       fnc: "getAniosFiscales()",
+      Tabla:"AniosFiscales",
       selected: false,
     },
     {
       id: 2,
       Desc: "Beneficiarios",
       fnc: "getBeneficiarios()",
+      Tabla:"Beneficiarios",
       selected: false,
     },
     {
       id: 3,
       Desc: "Clasificaciones Programaticas",
       fnc: "getClasificacionesProgramaticas()",
+      Tabla:"ClasificacionesProgramaticas",
       selected: false,
     },
     {
       id: 4,
       Desc: "Dimensiones del Indicador",
       fnc: "getDimensionesDelIndicador()",
+      Tabla:"DimensionesDelIndicador",
       selected: false,
     },
-    { id: 5, Desc: "Ejes", fnc: "getEjes()", selected: true },
-    { id: 6, Desc: "Estrategias", fnc: "getEstrategias()", selected: false },
+    { id: 5, Desc: "Ejes", fnc: "getEjes()",Tabla:"Ejes", selected: true },
+    { id: 6, Desc: "Estrategias", fnc: "getEstrategias()",Tabla:"Estrategias", selected: false },
     {
       id: 7,
       Desc: "Fechas de Captura",
       fnc: "getFechasDeCaptura()",
+      Tabla:"FechasDeCaptura",
       selected: false,
     },
-    { id: 8, Desc: "Formulas", fnc: "getFormulas()", selected: false },
-    { id: 9, Desc: "Frecuencias", fnc: "getFrecuencias()", selected: false },
+    { id: 8, Desc: "Formulas", fnc: "getFormulas()",Tabla:"Formulas", selected: false },
+    { id: 9, Desc: "Frecuencias", fnc: "getFrecuencias()",Tabla:"Frecuencias", selected: false },
     {
       id: 10,
       Desc: "Instituciones",
       fnc: "getInstituciones()",
+      Tabla:"Instituciones",
       selected: false,
     },
     {
       id: 11,
       Desc: "Lineas de Acción",
       fnc: "getLineasDeAccion()",
+      Tabla:"LineasDeAccion",
       selected: false,
     },
-    { id: 12, Desc: "Metas ODS", fnc: "getMetasODS()", selected: false },
-    { id: 13, Desc: "Modalidades", fnc: "getModalidades()", selected: false },
-    { id: 14, Desc: "Objetivos", fnc: "getObjetivos()", selected: false },
-    { id: 15, Desc: "Objetivos DS", fnc: "getObjetivosDS()", selected: false },
+    { id: 12, Desc: "Metas ODS", fnc: "getMetasODS()",Tabla:"MetasODS", selected: false },
+    { id: 13, Desc: "Modalidades", fnc: "getModalidades()",Tabla:"Modalidades", selected: false },
+    { id: 14, Desc: "Objetivos", fnc: "getObjetivos()", Tabla:"Objetivos",selected: false },
+    { id: 15, Desc: "Objetivos DS", fnc: "getObjetivosDS()",Tabla:"ObjetivosDS", selected: false },
     {
       id: 16,
       Desc: "Objetivos PEENL",
       fnc: "getObjetivosPEENL()",
+      Tabla:"ObjetivosPEENL",
       selected: false,
     },
     {
       id: 18,
       Desc: "Programas Presupuestarios",
       fnc: "getProgramaPresupuestario()",
+      Tabla:"ProgramasPresupuestarios",
       selected: false,
     },
-    { id: 19, Desc: "Roles", fnc: "getRoles()", selected: false },
-    { id: 20, Desc: "Tematicas", fnc: "getTematicas()", selected: false },
+    { id: 19, Desc: "Roles", fnc: "getRoles()", Tabla:"Roles",selected: false },
+    { id: 20, Desc: "Tematicas", fnc: "getTematicas()", Tabla:"Tematicas",selected: false },
     {
       id: 21,
       Desc: "Tipos de Formula",
       fnc: "getTipoDeFormula()",
+      Tabla:"TiposDeFormula",
       selected: false,
     },
     {
       id: 22,
       Desc: "Tipos de Indicador",
       fnc: "getTipoDeIndicador()",
+      Tabla:"TiposDeIndicador",
       selected: false,
     },
     {
       id: 23,
       Desc: "Unidades de Medida",
       fnc: "getUnidadDeMedida()",
+      Tabla:"UnidadesDeMedida",
       selected: false,
     },
   ];
@@ -135,6 +148,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     {
       Id: "",
       Desc: "",
+      fnc:"",
+      Tabla:"",
+      selected:"",
     },
   ]);
 
@@ -831,7 +847,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 <EditIcon />
                               </IconButton>
 
-                              <DeleteDialog deleteText='elemento' id="" actualizado={()=>""}/>
+                              <DeleteDialogCatalogos deleteText={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={()=>""}/>
                             </Stack>
                           </TableCell>
                         </StyledTableRow>
