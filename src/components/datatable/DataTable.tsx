@@ -61,7 +61,6 @@ export const DataTable = ({
     },
   ]);
 
-
   //
   const [usersFiltered, setUsersFiltered] = useState<
     Array<DataUsuariosTiCentral>
@@ -101,8 +100,6 @@ export const DataTable = ({
       });
   };
 
-
-
   // Filtrado por caracter
   const findText = () => {
     if (textFind !== "") {
@@ -123,9 +120,9 @@ export const DataTable = ({
     getUsuarios();
   }, [actualizacion]);
 
-  const actualizaContador = () =>{
-    setActualizacion(actualizacion+1);
-  }
+  const actualizaContador = () => {
+    setActualizacion(actualizacion + 1);
+  };
 
   // Realiza el cambio de pagina
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -238,12 +235,15 @@ export const DataTable = ({
                   <TableCell>{row.Rol}</TableCell>
 
                   <TableCell sx={{ display: "flex" }}>
-                    <DeleteDialog deleteText="usuario" id={row.IdUsuarioTiCentral} actualizado={actualizaContador} />
+                    <DeleteDialog
+                      deleteText="usuario"
+                      id={row.IdUsuarioTiCentral}
+                      actualizado={actualizaContador}
+                    />
 
-                    <Tooltip title="Editar" >
+                    <Tooltip title="Editar">
                       <IconButton
                         onClick={() => handleClickOpen(row.IdUsuarioTiCentral)}
-                        
                       >
                         <EditIcon
                           sx={[
@@ -282,7 +282,6 @@ export const DataTable = ({
           open={openModalEditarUsuario}
           handleClose={handleCloseModalEditarUsuario}
           IdUsuario={idUsuarioEditar}
-          
         />
       ) : null}
     </Box>

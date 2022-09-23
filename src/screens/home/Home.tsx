@@ -15,8 +15,10 @@ export const Home = () => {
       sx={{
         width: "100vw",
         height: "100vh",
-        display: "flex",
+        display: "grid",
+        gridTemplateColumns: '1fr 10fr',
         backgroundColor: "#F2F2F2",
+
       }}
     >
       <LateralMenu selection={0} />
@@ -35,14 +37,16 @@ export const Home = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          width: "87%",
-          height: "92%",
-          mt: "8vh",
-          flexDirection: 'column'
+          width: "100%",
+          height: "100%",
         }}
       >
+
+        <Box>
+        <img src={escudo} alt="Escudo" style={{ width: "20vw",  }} />
+
+        </Box>
    
-        <img src={escudo} alt="Escudo" style={{ width: "20vw" }} />
       </Box>
     </Box>
   );

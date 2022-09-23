@@ -45,7 +45,7 @@ export const SettingsCard = ({showConfig} : {showConfig: Function}) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          width: "87%",
+          width: "100%",
           height: "92%",
           mt: "8vh",
         }}
@@ -55,7 +55,7 @@ export const SettingsCard = ({showConfig} : {showConfig: Function}) => {
             display: "grid",
             width: "70%",
             height: "60%",
-            backgroundColor: "#ffffff",
+            backgroundColor: '#fff',
             borderRadius: 5,
             boxShadow: 10,
             pt: 2,
@@ -64,85 +64,7 @@ export const SettingsCard = ({showConfig} : {showConfig: Function}) => {
             gridTemplateColumns: "repeat(4,1fr)",
           }}
         >
-          <Box
-            sx={{
-              height: "55vh",
-              backgroundColor: "#ccc",
-              width: ".1vw",
-              position: "absolute",
-              left: "41vw",
-            }}
-          />
-          <Box
-            sx={{
-              height: "55vh",
-              backgroundColor: "#ccc",
-              width: ".1vw",
-              position: "absolute",
-              left: "56.5vw",
-            }}
-          />
-          <Box
-            sx={{
-              height: "55vh",
-              backgroundColor: "#ccc",
-              width: ".1vw",
-              position: "absolute",
-              left: "71.5vw",
-            }}
-          />
-          <Box
-            sx={{
-              height: ".1vh",
-              backgroundColor: "#ccc",
-              width: "59vw",
-              position: "absolute",
-              left: "27vw",
-              top: "35vh",
-            }}
-          />
-          <Box
-            sx={{
-              height: ".1vh",
-              backgroundColor: "#ccc",
-              width: "59vw",
-              position: "absolute",
-              left: "27vw",
-              top: "44vh",
-            }}
-          />
-          <Box
-            sx={{
-              height: ".1vh",
-              backgroundColor: "#ccc",
-              width: "59vw",
-              position: "absolute",
-              left: "27vw",
-              top: "53vh",
-            }}
-          />
-          <Box
-            sx={{
-              height: ".1vh",
-              backgroundColor: "#ccc",
-              width: "59vw",
-              position: "absolute",
-              left: "27vw",
-              top: "62vh",
-            }}
-          />
-          <Box
-            sx={{
-              height: ".1vh",
-              backgroundColor: "#ccc",
-              width: "59vw",
-              position: "absolute",
-              left: "27vw",
-              top: "71vh",
-            }}
-          />
-
-
+         
           {configOptions.map((item) => {
             return (
                 <Button
@@ -151,7 +73,10 @@ export const SettingsCard = ({showConfig} : {showConfig: Function}) => {
                   onClick={() => navigationOptions(item.id, item.label)}
                   sx={{ width: "90%", height: "7vh", ":hover": {
                     backgroundColor: '#c4a55a'
-                  } }}
+                  }, 
+                  background: 'linear-gradient(135deg, #E4E4E470 90%, #bbb 100%)',
+                  
+                }}
                 >
                   <Typography
                     sx={{

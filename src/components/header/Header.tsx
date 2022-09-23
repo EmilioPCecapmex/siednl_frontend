@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Badge,
   IconButton,
@@ -10,6 +10,7 @@ import {
 import NotificationsIcon from "@mui/icons-material/NotificationsNone";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { useNavigate } from "react-router-dom";
+import { TimerCounter } from "../timer/TimerCounter";
 
 
 interface BreadcrumbsDetails {
@@ -20,18 +21,31 @@ interface BreadcrumbsDetails {
   name3: string;
 }
 
+
 export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
   const navigate = useNavigate();
+
+  const [fullScreen, setFullScreen] = useState(true)
+
+  const changeFullScreen = () => {
+    if(fullScreen){
+      document.documentElement.requestFullscreen()
+      setFullScreen(false)
+    }else{
+      document.exitFullscreen();
+      setFullScreen(true)
+    }
+  }
 
   return (
     <Box
       sx={{
         display: "flex",
-        width: "87vw",
+        width: "80vw",
         height: "8vh",
         justifyContent: "space-between",
         alignItems: "center",
-        left: "13vw",
+        left: "19vw",
         position: "absolute",
       }}
     >
@@ -71,7 +85,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         sx={{
           mr: "2vw",
           backgroundColor: "#fff",
-          width: "6vw",
+          width: "10vw",
           height: "5vh",
           display: "flex",
           justifyContent: "space-between",
@@ -88,9 +102,15 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         </Box>
         <Box
           sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }}
-        ></Box>
+        />
+        <Box>
+          <TimerCounter/>
+        </Box>
+        <Box
+          sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }}
+        />
         <Box sx={{ mr: ".5vw" }}>
-          <IconButton>
+          <IconButton onClick={() => changeFullScreen()}>
             <FullscreenIcon />
           </IconButton>
         </Box>

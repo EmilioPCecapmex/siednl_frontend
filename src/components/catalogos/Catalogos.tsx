@@ -628,8 +628,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       sx={{
         display: "flex",
         justifyContent: "center",
-        width: "87%",
-        height: "92%",
+        width: "100%",
+        height: "92vh",
         mt: "8vh",
       }}
     >
@@ -641,33 +641,32 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           borderRadius: 5,
           display: "flex",
           alignItems: "center",
-          mt: "5vh",
+          mt: "10vh",
           boxShadow: 10,
         }}
       >
-        <Box sx={{ width: "100vw", height: "100%", display: "flex" }}>
+        <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
           <Box
             sx={{
               width: "22%",
-              height: "100%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
             }}
           >
-            <Divider />
-
             <List
-              disablePadding
+              
               sx={{
+                pb: 2,
+                pt: 2,
+                height: "100vh",
                 borderRight: "solid 1px",
                 overflow: "auto",
                 borderRadius: ".4vw",
                 borderColor: "#BCBCBC",
                 "&::-webkit-scrollbar": {
                   width: ".3vw",
-                  mt: 10,
                 },
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: "rgba(0,0,0,.5)",
@@ -767,7 +766,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     alignItems: "center",
                     justifyContent: "center",
                     display: "flex",
-                    width: "30%",
+                    width: "40%",
                     backgroundColor: "#EBEBEB",
                     border: 1,
                     borderRadius: 10,
@@ -803,8 +802,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   boxShadow: 10,
                   mt: 1,
                   "&::-webkit-scrollbar": {
-                    width: ".3vw",
-                    mt: 10,
+                    width: ".1vw",
+                    height: ".4vh",
                   },
                   "&::-webkit-scrollbar-thumb": {
                     backgroundColor: "rgba(0,0,0,.5)",
@@ -813,25 +812,37 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   },
                 }}
               >
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <Table>
                   <TableBody>
                     {datosTabla.map((item) => {
                       return (
                         <StyledTableRow key={item.Id}>
-                          <TableCell sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '1.1vh', fontFamily: 'MontserratMedium'}}>
-                              {item.Desc}
+                          <TableCell
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              height: "1.1vh",
+                              fontFamily: "MontserratMedium",
+                            }}
+                          >
+                            {item.Desc}
                             <Stack
                               sx={{
                                 display: "flex",
                                 justifyContent: "flex-end",
-                                flexDirection: 'row',
+                                flexDirection: "row",
                               }}
                             >
                               <IconButton aria-label="delete" color="info">
                                 <EditIcon />
                               </IconButton>
 
-                              <DeleteDialog deleteText='elemento' id="" actualizado={()=>""}/>
+                              <DeleteDialog
+                                deleteText="elemento"
+                                id=""
+                                actualizado={() => ""}
+                              />
                             </Stack>
                           </TableCell>
                         </StyledTableRow>
@@ -844,7 +855,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           </Box>
 
           <IconButton
-          title="Agregar"
+            title="Agregar"
             sx={{
               width: 50,
               height: 50,
@@ -854,7 +865,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 backgroundColor: "#ffdcac",
               },
               right: "30vh",
-              bottom: "17vh",
+              bottom: "12vh",
             }}
           >
             <AddIcon />

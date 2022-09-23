@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import logo from "../../assets/logos/logo.svg";
 
-
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import Collapse from "@mui/material/Collapse";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 
@@ -18,6 +16,7 @@ import LocationCityOutlinedIcon from "@mui/icons-material/LocationCityOutlined";
 import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import LockIcon from "@mui/icons-material/Lock";
 import {
   Dialog,
   DialogTitle,
@@ -28,6 +27,8 @@ import {
   Select,
   SelectChangeEvent,
   Typography,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logout, sessionUntil } from "../../funcs/validation";
@@ -35,6 +36,7 @@ import LockResetIcon from "@mui/icons-material/LockReset";
 import { TimerCounter } from "../timer/TimerCounter";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
 
 export const LateralMenu = ({
   selection,
@@ -43,10 +45,28 @@ export const LateralMenu = ({
   selection: number;
   settingsCard?: Function;
 }) => {
+  const theme = useTheme();
+  let st = lstXl;
 
+  const isXl = useMediaQuery(theme.breakpoints.up("xl"));
+  const isLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const isMd = useMediaQuery(theme.breakpoints.up("md"));
+  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
+  const isXs = useMediaQuery(theme.breakpoints.up("xs"));
+
+  if (isXl) st = lstXl;
+  else if (isLg) st = lstLg;
+  else if (isMd) st = lstMd;
+  else if (isSm) st = lstSm;
+  // else if (isXs) st = lstXs;
+
+  if (isXl) console.log("Xl");
+  else if (isLg) console.log("Lg");
+  else if (isMd) console.log("Md");
+  else if (isSm) console.log("Sm");
+  else if (isXs) console.log("Xs");
 
   const navigate = useNavigate();
-
   const [openProgramas, setOpenProgramas] = useState(true);
 
   const handleClickProgramas = () => {
@@ -73,10 +93,12 @@ export const LateralMenu = ({
     return `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`;
   }
 
-  const [age, setAge] = useState("10");
+  const [institucionSeleccionada, setInstitucionSeleccionada] = useState(
+    localStorage.getItem("IdInstitucion") as string
+  );
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setInstitucionSeleccionada(event.target.value as string);
   };
 
   const goSettings = () => {
@@ -92,13 +114,16 @@ export const LateralMenu = ({
     setOpenPasswordChange(false);
   };
 
-
-
-
   const ChangePasswordModal = () => {
     const [newPassword, setNewPassword] = useState("");
+    const [error, setError] = useState({ label: "", show: false });
 
     const cambiarContrasena = () => {
+      if (newPassword == "") {
+        setError({ label: "Ingresa una contraseña.", show: true });
+
+        return null;
+      }
       axios
         .put(
           "http://10.200.4.105:5000/api/change-password",
@@ -114,362 +139,290 @@ export const LateralMenu = ({
         )
         .then((r) => {
           if (r.status === 200) {
-            handleClosePasswordChange()
-           setNewPassword("")
-           Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Contraseña actualizada',
-            showConfirmButton: false,
-            timer: 1500
-          })
+            handleClosePasswordChange();
+            setNewPassword("");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Contraseña actualizada",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
         })
         .catch((r) => {
           if (r.response.status === 409) {
-            handleClosePasswordChange()
+            handleClosePasswordChange();
 
             Swal.fire({
-              position: 'top-end',
-              icon: 'error',
-              title: 'Error',
+              position: "top-end",
+              icon: "error",
+              title: "Error",
               showConfirmButton: false,
-              timer: 1500
-            })
-          
+              timer: 1500,
+            });
           }
         });
     };
+
     return (
-      <Dialog onClose={handleClosePasswordChange} open={openPasswordChange} maxWidth={'sm'}>
-        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: '2vh'}}>
-          <Typography sx={{fontFamily: 'MontserratBold', fontSize: '1vw'}}>Cambiar Contraseña</Typography>
+      <Dialog
+        onClose={handleClosePasswordChange}
+        open={openPasswordChange}
+        maxWidth={"sm"}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            mt: "2vh",
+          }}
+        >
+
+          <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}>
+            MODIFICAR CONTRASEÑA
+          </Typography>
+
         </Box>
-        <Box sx={{height: '20vh', width: '20vw', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'column'}}>
-          <TextField label='Nueva Contraseña' onChange={(v) => setNewPassword(v.target.value)}/>
-          <Box sx={{display: 'flex', justifyContent: 'space-evenly', width: '100%'}}>
+        <Box
+          sx={{
+            height: "20vh",
+            width: "20vw",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            flexDirection: "column",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
 
-          <Button variant="contained" color="error" onClick={() => handleClosePasswordChange()}> Cancelar</Button>
+            <TextField
+              label="Contraseña"
+              error={error.show}
+              helperText={error.label}
+              onChange={(v) => setNewPassword(v.target.value)}
+            />
 
-          <Button variant="contained" onClick={() => cambiarContrasena()}>Cambiar</Button>
           </Box>
 
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              width: "100%",
+            }}
+          >
+            <Button
+              color="error"
+              onClick={() => handleClosePasswordChange()}
+              variant="outlined"
+            >
+              Cancelar
+            </Button>
+
+            <Button variant="outlined" onClick={() => cambiarContrasena()}>
+              Cambiar
+            </Button>
+          </Box>
         </Box>
       </Dialog>
     );
   };
 
+  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [renderInfo, setRenderInfo] = useState(false);
+
+  const getInstituciones = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/instituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") as string,
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setInstituciones(r.data.data);
+          setRenderInfo(true);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getInstituciones();
+  }, []);
+
   return (
-    <Box
-      sx={{
-        width: "13vw",
-        height: "100vh ",
-        backgroundColor: "#fff",
-        flexDirection: "column",
-        boxShadow: 5,
-      }}
-    >
+    <Box sx={st.parentBox}>
       <ChangePasswordModal />
-      <Box
-        sx={{
-          paddingTop: "3vh",
-          width: "100%",
-          height: "6vh",
-        }}
-      >
-        <img
-          src={logo}
-          alt="Logo"
-          style={{
-            width: "100%",
-            height: "70%",
-          }}
-        />
+      <Box sx={st.imgBox}>
+        <img src={logo} alt="Logo" style={st.imgSize} />
       </Box>
 
-      <Box
-        sx={{
-          width: "100%",
-          height: "14vh",
-          justifyContent: "center",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+      <Box sx={st.avatarBox}>
         <Avatar
-          sx={{
-            bgcolor: stringToColor(
+          style={{
+            backgroundColor: stringToColor(
               localStorage.getItem("NombreUsuario") as string
             ),
-            width: "5vw",
-            height: "10vh",
-            fontSize: "1.5vw",
-            fontFamily: "MontserratMedium",
-            boxShadow: 4,
           }}
+          sx={st.avatarStyle}
         >
           {stringAvatar(localStorage.getItem("NombreUsuario") as string)}
         </Avatar>
       </Box>
 
-      <Box
-        sx={{
-          width: "100%",
-          height: "2vh",
-          textAlign: "center",
-          font: "MontserratBold",
-          fontSize: ".8vw",
-          fontFamily: "MontserratBold",
-        }}
-      >
+      <Box sx={st.userInfoBox}>
         {localStorage.getItem("NombreUsuario")}
-        <Typography
-          sx={{
-            fontFamily: "MontserratMedium",
-            fontSize: ".7vw",
-            fontStyle: "oblique",
-          }}
-        >
-          {localStorage.getItem("Rol")}
-        </Typography>
+        <Typography sx={st.rolStyle}>{localStorage.getItem("Rol")}</Typography>
       </Box>
 
-      <Typography
-        sx={{ fontFamily: "MontserratMedium", fontSize: ".6vw", ml: 1, mt: 3 }}
-      >
-        Institución
-      </Typography>
+      <Typography sx={st.institucionStyle}>Institución</Typography>
 
-      <Box
-        sx={{
-          width: "100%",
-          height: "4vh",
-          justifyContent: "center",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Select
-          value={age}
-          label="Age"
-          onChange={handleChange}
-          variant="standard"
-          disableUnderline
-          sx={{
-            width: "100%",
-            textAlign: "center",
-            fontFamily: "MontserratMedium",
-            fontSize: ".7vw",
-          }}
-        >
-          <MenuItem value={10}>Secretaria de Economia</MenuItem>
-          <MenuItem value={20}>Fuerza Civil</MenuItem>
-          <MenuItem value={30}>Secretaria de Finanzas</MenuItem>
-        </Select>
+      <Box sx={st.selectInstitucionBox}>
+        {renderInfo ? (
+          <Select
+            value={institucionSeleccionada}
+            label="Institución"
+            onChange={handleChange}
+            variant="standard"
+            disableUnderline
+            sx={st.selectInstitucionStyle}
+          >
+            {instituciones?.map((item) => {
+              return (
+                <MenuItem value={item.Id} key={item.Id}>
+                  {item.NombreInstitucion}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        ) : null}
       </Box>
 
-      <Box
-        sx={{
-          backgroundColor: "#ccc",
-          width: "100%",
-          height: "0.1vh",
-        }}
-      ></Box>
-      <Divider light />
-      <Box
-        sx={{
-          width: "100%",
-          height: "50vh",
-          fontSize: "h1",
-        }}
-      >
-        <List
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          sx={{
-            fontFamily: "MontserratMedium",
-          }}
-        >
+      <Box sx={st.dividerBox} />
+      <Box sx={st.menuListBox}>
+        <List>
           <ListItemButton onClick={() => navigate("../home")}>
-            <ListItemIcon>
+            <Box sx={st.iconMenuList}>
               <HomeOutlinedIcon />
-            </ListItemIcon>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
-              Inicio
-            </Typography>
+            </Box>
+            <Typography sx={st.firstItemsStyle}>Inicio</Typography>
             <Box
               visibility={selection === 0 ? "visible" : "hidden"}
-              sx={{
-                width: ".5vw",
-                backgroundColor: "#c4a57b",
-                height: "3vh",
-                position: "absolute",
-                right: -4,
-              }}
+              sx={st.selectedBox}
             />
           </ListItemButton>
 
           <ListItemButton onClick={handleClickProgramas}>
-            <ListItemIcon>
+            <Box sx={st.iconMenuList}>
               <FolderOutlinedIcon />
-            </ListItemIcon>
+            </Box>
 
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={st.firstItemsStyle}>
               Programas Presupuestarios
             </Typography>
             {openProgramas ? <ExpandLess /> : <ExpandMore />}
             <Box
               visibility={selection === 1 ? "visible" : "hidden"}
-              sx={{
-                width: ".5vw",
-                backgroundColor: "#c4a57b",
-                height: "3vh",
-                position: "absolute",
-                right: -4,
-              }}
+              sx={st.selectedBox}
             />
           </ListItemButton>
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 2 }}>
-                <ListItemIcon>
+              <ListItemButton sx={st.subMenuItemStyle}>
+                <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
-                </ListItemIcon>
-                <Typography
-                  sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
-                >
-                  MIR
-                </Typography>
+                </Box>
+                <Typography sx={st.subMenuItemsText}>MIR</Typography>
                 <Box
                   visibility={selection === 2 ? "visible" : "hidden"}
-                  sx={{
-                    width: ".5vw",
-                    backgroundColor: "#c4a57b",
-                    height: "3vh",
-                    position: "absolute",
-                    right: -4,
-                  }}
+                  sx={st.selectedBox}
                 />
               </ListItemButton>
 
-              <ListItemButton sx={{ pl: 2 }}>
-                <ListItemIcon>
+              <ListItemButton sx={st.subMenuItemStyle}>
+                <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
-                </ListItemIcon>
-                <Typography
-                  sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
-                >
-                  Meta Anual
-                </Typography>
+                </Box>
+                <Typography sx={st.subMenuItemsText}>Meta Anual</Typography>
                 <Box
                   visibility={selection === 3 ? "visible" : "hidden"}
-                  sx={{
-                    width: ".5vw",
-                    backgroundColor: "#c4a57b",
-                    height: "3vh",
-                    position: "absolute",
-                    right: -4,
-                  }}
+                  sx={st.selectedBox}
                 />
               </ListItemButton>
 
-              <ListItemButton sx={{ pl: 2 }}>
-                <ListItemIcon>
+              <ListItemButton sx={st.subMenuItemStyle}>
+                <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
-                </ListItemIcon>
-                <Typography
-                  sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
-                >
-                  Ficha Técnica
-                </Typography>
+                </Box>
+                <Typography sx={st.subMenuItemsText}>Ficha Técnica</Typography>
                 <Box
                   visibility={selection === 4 ? "visible" : "hidden"}
-                  sx={{
-                    width: ".5vw",
-                    backgroundColor: "#c4a57b",
-                    height: "3vh",
-                    position: "absolute",
-                    right: -4,
-                  }}
+                  sx={st.selectedBox}
                 />
               </ListItemButton>
             </List>
           </Collapse>
           <ListItemButton>
-            <ListItemIcon>
+            <Box sx={st.iconMenuList}>
               <LocationCityOutlinedIcon />
-            </ListItemIcon>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            </Box>
+            <Typography sx={st.firstItemsStyle}>
               Actividades Institucionales
             </Typography>
             <Box
               visibility={selection === 5 ? "visible" : "hidden"}
-              sx={{
-                width: ".5vw",
-                backgroundColor: "#c4a57b",
-                height: "3vh",
-                position: "absolute",
-                right: -4,
-              }}
+              sx={st.selectedBox}
             />
           </ListItemButton>
         </List>
       </Box>
 
-      <Box
-        sx={{
-          backgroundColor: "#ccc",
-          width: "100%",
-          height: "0.1vh",
-        }}
-      ></Box>
-      <Box
-        sx={{
-          width: "100%",
-          height: "auto",
-          bgcolor: "background.paper",
-          mt: "1vh",
-        }}
-      >
-        <List component="nav" aria-labelledby="nested-list-subheader">
+      <Box sx={st.dividerBox} />
+      <Box sx={st.bottomMenuBox}>
+        <List>
           <ListItemButton onClick={() => goSettings()}>
-            <ListItemIcon>
+            <Box sx={st.iconMenuList}>
               <SettingsOutlinedIcon />
-            </ListItemIcon>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
-              Configuración
-            </Typography>
+            </Box>
+            <Typography sx={st.bottomItemsStyle}>Configuración</Typography>
 
             <Box
               visibility={selection === 6 ? "visible" : "hidden"}
-              sx={{
-                width: ".5vw",
-                backgroundColor: "#c4a57b",
-                height: "3vh",
-                position: "absolute",
-                right: -4,
-              }}
+              sx={st.selectedBox}
             />
           </ListItemButton>
           <ListItemButton onClick={() => setOpenPasswordChange(true)}>
-            <ListItemIcon>
+            <Box sx={st.iconMenuList}>
               <LockResetIcon />
-            </ListItemIcon>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
-              Cambiar Contraseña
-            </Typography>
+            </Box>
+            <Typography sx={st.bottomItemsStyle}>Cambiar Contraseña</Typography>
           </ListItemButton>
           <ListItemButton onClick={() => logout()}>
-            <ListItemIcon>
+            <Box sx={st.iconMenuList}>
               <LogoutOutlinedIcon />
-            </ListItemIcon>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
-              Cerrar Sesión
-            </Typography>
+            </Box>
+            <Typography sx={st.bottomItemsStyle}>Cerrar Sesión</Typography>
           </ListItemButton>
         </List>
-       <TimerCounter/>
       </Box>
     </Box>
   );
 };
+
+export interface IInstituciones {
+  Id: string;
+  NombreInstitucion: string;
+  FechaCreacion: string;
+  CreadoPor: string;
+  UltimaModificacion: string;
+  ModificadoPor: string;
+  Deleted: number;
+}
