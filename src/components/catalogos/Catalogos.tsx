@@ -235,8 +235,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; DimensionDelIndicador: string }) => {
-              return { Id: item.Id, Desc: item.DimensionDelIndicador };
+            (item: { Id: string; DimensionDelIndicador: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.DimensionDelIndicador, Tabla: "DimensionesDelIndicador" };
             }
           );
           setDatosTabla(update);
@@ -257,8 +257,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Eje: string }) => {
-            return { Id: item.Id, Desc: item.Eje };
+          update = update.map((item: { Id: string; Eje: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Eje, Tabla: "Ejes" };
           });
           setDatosTabla(update);
         }
@@ -278,8 +278,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Estrategia: string }) => {
-            return { Id: item.Id, Desc: item.Estrategia };
+          update = update.map((item: { Id: string; Estrategia: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Estrategia, Tabla: "Estrategias" };
           });
           setDatosTabla(update);
         }
@@ -299,8 +299,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Formula: string }) => {
-            return { Id: item.Id, Desc: item.Formula };
+          update = update.map((item: { Id: string; Formula: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Formula, Tabla: "Formulas" };
           });
           setDatosTabla(update);
         }
@@ -321,8 +321,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; FechaDeCaptura: string }) => {
-              return { Id: item.Id, Desc: item.FechaDeCaptura };
+            (item: { Id: string; FechaDeCaptura: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.FechaDeCaptura, Tabla: "FechasDeCaptura" };
             }
           );
           setDatosTabla(update);
@@ -343,8 +343,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Frecuencia: string }) => {
-            return { Id: item.Id, Desc: item.Frecuencia };
+          update = update.map((item: { Id: string; Frecuencia: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Frecuencia, Tabla: "Frecuencias" };
           });
           setDatosTabla(update);
         }
@@ -365,8 +365,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; NombreInstitucion: string }) => {
-              return { Id: item.Id, Desc: item.NombreInstitucion };
+            (item: { Id: string; NombreInstitucion: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.NombreInstitucion, Tabla: "Instituciones" };
             }
           );
           setDatosTabla(update);
@@ -386,8 +386,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; LineaDeAccion: string }) => {
-            return { Id: item.Id, Desc: item.LineaDeAccion };
+          update = update.map((item: { Id: string; LineaDeAccion: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.LineaDeAccion, Tabla: "LineasDeAccion" };
           });
           setDatosTabla(update);
         }
@@ -407,8 +407,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; MetaODS: string }) => {
-            return { Id: item.Id, Desc: item.MetaODS };
+          update = update.map((item: { Id: string; MetaODS: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.MetaODS, Tabla: "MetasODS" };
           });
           setDatosTabla(update);
         }
@@ -428,8 +428,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Modalidad: string }) => {
-            return { Id: item.Id, Desc: item.Modalidad };
+          update = update.map((item: { Id: string; Modalidad: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Modalidad, Tabla: "Modalidades" };
           });
           setDatosTabla(update);
         }
@@ -449,8 +449,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Objetivo: string }) => {
-            return { Id: item.Id, Desc: item.Objetivo };
+          update = update.map((item: { Id: string; Objetivo: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Objetivo , Tabla: "Objetivos"};
           });
           setDatosTabla(update);
         }
@@ -470,8 +470,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; ObjetivoPEENL: string }) => {
-            return { Id: item.Id, Desc: item.ObjetivoPEENL };
+          update = update.map((item: { Id: string; ObjetivoPEENL: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.ObjetivoPEENL, Tabla: "ObjetivosPEENL" };
           });
           setDatosTabla(update);
         }
@@ -491,8 +491,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; ObjetivoDS: string }) => {
-            return { Id: item.Id, Desc: item.ObjetivoDS };
+          update = update.map((item: { Id: string; ObjetivoDS: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.ObjetivoDS, Tabla: "ObjetivosDS" };
           });
           setDatosTabla(update);
         }
@@ -513,8 +513,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; NombrePrograma: string }) => {
-              return { Id: item.Id, Desc: item.NombrePrograma };
+            (item: { Id: string; NombrePrograma: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.NombrePrograma, Tabla: "ProgramasPresupuestarios" };
             }
           );
           setDatosTabla(update);
@@ -535,8 +535,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Rol: string }) => {
-            return { Id: item.Id, Desc: item.Rol };
+          update = update.map((item: { Id: string; Rol: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Rol, Tabla: "Roles" };
           });
           setDatosTabla(update);
         }
@@ -556,8 +556,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Tematica: string }) => {
-            return { Id: item.Id, Desc: item.Tematica };
+          update = update.map((item: { Id: string; Tematica: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.Tematica, Tabla: "Tematicas" };
           });
           setDatosTabla(update);
         }
@@ -577,8 +577,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; TipoDeFormula: string }) => {
-            return { Id: item.Id, Desc: item.TipoDeFormula };
+          update = update.map((item: { Id: string; TipoDeFormula: string; Tabla: string }) => {
+            return { Id: item.Id, Desc: item.TipoDeFormula, Tabla: "TiposDeFormula" };
           });
           setDatosTabla(update);
         }
@@ -599,8 +599,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; TipoDeIndicador: string }) => {
-              return { Id: item.Id, Desc: item.TipoDeIndicador };
+            (item: { Id: string; TipoDeIndicador: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.TipoDeIndicador, Tabla: "TiposDeIndicador" };
             }
           );
           setDatosTabla(update);
@@ -622,8 +622,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; UnidadDeMedida: string }) => {
-              return { Id: item.Id, Desc: item.UnidadDeMedida };
+            (item: { Id: string; UnidadDeMedida: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.UnidadDeMedida, Tabla: "UnidadesDeMedida" };
             }
           );
           setDatosTabla(update);
