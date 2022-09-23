@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -13,6 +12,7 @@ import axios from "axios";
 import Alert from "@mui/material/Alert";
 import { Box } from "@mui/material";
 import Swal from "sweetalert2";
+import { Console } from "console";
 
 export const DeleteDialogCatalogos = ({
     
@@ -22,9 +22,10 @@ export const DeleteDialogCatalogos = ({
   actualizado
 }: {
   deleteText: string;
+  tabla:string;
   id: string;
   actualizado: Function;
-  tabla:string;
+  
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -38,7 +39,7 @@ export const DeleteDialogCatalogos = ({
 
   const deletePorCatalogo = () => {
     axios
-      .delete("localhost:8000/api/catalogos", {
+      .delete("http://localhost:8000/api/catalogos", {
         data: {
 
             Id:id,

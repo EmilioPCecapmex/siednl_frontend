@@ -20,6 +20,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import DeleteDialog from "../deleteDialog/DeleteDialog";
@@ -164,10 +165,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         },
       })
       .then((r) => {
+        
+        
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; AnioFiscal: string }) => {
-            return { Id: item.Id, Desc: item.AnioFiscal };
+          update = update.map((item: { Id: string; AnioFiscal: string, Tabla: string }) => {
+            return { Id: item.Id, Desc: item.AnioFiscal, Tabla: "AniosFiscales" };
           });
           setDatosTabla(update);
         }
@@ -187,8 +190,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Beneficiario: string }) => {
-            return { Id: item.Id, Desc: item.Beneficiario };
+          update = update.map((item: { Id: string; Beneficiario: string; Tabla: string}) => {
+            return { Id: item.Id, Desc: item.Beneficiario, Tabla: "Beneficiarios" };
           });
           setDatosTabla(update);
         }
@@ -209,8 +212,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; ClasificacionProgramatica: string }) => {
-              return { Id: item.Id, Desc: item.ClasificacionProgramatica };
+            (item: { Id: string; ClasificacionProgramatica: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.ClasificacionProgramatica, Tabla: "ClasificacionesProgramaticas" };
             }
           );
           setDatosTabla(update);
@@ -639,6 +642,26 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     });
   }, []);
 
+  const [actualizacion, setActualizacion] = useState(0);
+
+  useEffect(() => {
+
+    configOptions.map((item) => {
+      if (item.Desc === defSelected) {
+        eval(item.fnc);
+      }
+    });
+
+  }, [actualizacion]);
+
+
+
+  const actualizaContador = () => {
+
+    setActualizacion(actualizacion + 1);
+
+  };
+
   return (
     <Box
       sx={{
@@ -843,11 +866,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 flexDirection: 'row',
                               }}
                             >
-                              <IconButton aria-label="delete" color="info">
+                              <IconButton aria-label="edit" color="info">
                                 <EditIcon />
                               </IconButton>
 
-                              <DeleteDialogCatalogos deleteText={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={()=>""}/>
+                              <DeleteDialogCatalogos deleteText={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={actualizaContador}/>
                             </Stack>
                           </TableCell>
                         </StyledTableRow>
