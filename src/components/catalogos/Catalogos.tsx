@@ -25,7 +25,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import DeleteDialog from "../deleteDialog/DeleteDialog";
 import Add from "@mui/icons-material/Add";
-import DeleteDialogCatalogos from "../deleteDialog/DeleteDialogCatalogos";
+import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
+import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -918,9 +919,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 flexDirection: 'row',
                               }}
                             >
-                              <IconButton aria-label="edit" color="info">
-                                <EditIcon />
-                              </IconButton>
+                              <ModifyDialogCatalogos deleteText={item.Desc} descripcion={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={actualizaContador}/>
 
                               <DeleteDialogCatalogos deleteText={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={actualizaContador}/>
                             </Stack>
