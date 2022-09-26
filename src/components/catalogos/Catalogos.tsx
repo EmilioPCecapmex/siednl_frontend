@@ -27,6 +27,8 @@ import DeleteDialog from "../deleteDialog/DeleteDialog";
 import Add from "@mui/icons-material/Add";
 import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
+import AddDialogCatalogo from "./AddDialogCatalogo";
+import { log } from "console";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -78,9 +80,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla:"DimensionesDelIndicador",
       selected: false,
     },
-    { id: 5, Desc: "Ejes", fnc: "getEjes()", selected: true },
-    { id: 6, Desc: "Ejes del Plan Nacional de Desarrollo", fnc: "getEjesPND()", selected: true },
-    { id: 7, Desc: "Estrategias", fnc: "getEstrategias()", selected: false },
+    { id: 5, Desc: "Ejes", fnc: "getEjes()",Tabla:"Ejes" ,selected: true },
+    { id: 6, Desc: "Ejes del Plan Nacional de Desarrollo",Tabla:"EjesPND", fnc: "getEjesPND()", selected: true },
+    { id: 7, Desc: "Estrategias", fnc: "getEstrategias()",Tabla:"Estrategias ",selected: false },
     {
       id: 8,
       Desc: "Fechas de Captura",
@@ -88,8 +90,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla:"FechasDeCaptura",
       selected: false,
     },
-    { id: 9, Desc: "Fórmulas", fnc: "getFormulas()", selected: false },
-    { id: 10, Desc: "Frecuencias", fnc: "getFrecuencias()", selected: false },
+    { id: 9, Desc: "Fórmulas", fnc: "getFormulas()",Tabla:"Formulas", selected: false },
+    { id: 10, Desc: "Frecuencias", fnc: "getFrecuencias()",Tabla:"Frecuencias", selected: false },
     {
       id: 11,
       Desc: "Instituciones",
@@ -104,10 +106,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla:"LineasDeAccion",
       selected: false,
     },
-    { id: 13, Desc: "Metas ODS", fnc: "getMetasODS()", selected: false },
-    { id: 14, Desc: "Modalidades", fnc: "getModalidades()", selected: false },
-    { id: 15, Desc: "Objetivos", fnc: "getObjetivos()", selected: false },
-    { id: 16, Desc: "Objetivos Desarrollo Sostenible", fnc: "getObjetivosDS()", selected: false },
+    { id: 13, Desc: "Metas ODS", fnc: "getMetasODS()",Tabla:"MetasODS", selected: false },
+    { id: 14, Desc: "Modalidades", fnc: "getModalidades()",Tabla:"Modalidades", selected: false },
+    { id: 15, Desc: "Objetivos", fnc: "getObjetivos()",Tabla:"Objetivos", selected: false },
+    { id: 16, Desc: "Objetivos Desarrollo Sostenible", fnc: "getObjetivosDS()",Tabla:"ObjetivosDS", selected: false },
     {
       id: 17,
       Desc: "Objetivos del Plan Estrategico del Estado de Nuevo León",
@@ -119,6 +121,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 18,
       Desc: "PED",
       fnc: "getPED()",
+      Tabla:"Instituciones",
       selected: false,
     },
     {
@@ -128,8 +131,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla:"ProgramasPresupuestarios",
       selected: false,
     },
-    { id: 20, Desc: "Roles", fnc: "getRoles()", selected: false },
-    { id: 21, Desc: "Temáticas", fnc: "getTematicas()", selected: false },
+    { id: 20, Desc: "Roles", fnc: "getRoles()",Tabla:"Roles", selected: false },
+    { id: 21, Desc: "Temáticas", fnc: "getTematicas()",Tabla:"Tematicas", selected: false },
     {
       id: 22,
       Desc: "Tipos de Fórmula",
@@ -683,6 +686,21 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       });
   };
 
+  interface Datos{
+    id: number,
+      Desc: string,
+      fnc: string,
+      Tabla:string,
+      selected: string,
+  };
+
+  const asignarElemntosDeTabla=(item: Datos)=>{
+    eval(item.fnc)
+    setTablaActual(item.Tabla)
+  }
+
+
+  const [tablaActual, setTablaActual] = React.useState("");
   const [catalogoActual, setCatalogoActual] = React.useState("");
   const [selected, setSelected] = React.useState(defSelected);
 
@@ -783,7 +801,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       }}
                       autoFocus
                       selected={selected == item.Desc ? true : false}
-                      onClick={() => eval(item.fnc)}
+                      onClick={() => {eval(item.fnc)
+                                      setTablaActual(item.Tabla)
+                                      }}
                     >
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         {item.Desc}
@@ -912,6 +932,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                         <StyledTableRow key={item.Id}>
                           <TableCell sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '1.1vh', fontFamily: 'MontserratMedium'}}>
                               {item.Desc}
+                              
                             <Stack
                               sx={{
                                 display: "flex",
@@ -919,6 +940,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 flexDirection: 'row',
                               }}
                             >
+
                               <ModifyDialogCatalogos deleteText={item.Desc} descripcion={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={actualizaContador}/>
 
                               <DeleteDialogCatalogos deleteText={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={actualizaContador}/>
@@ -931,24 +953,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 </Table>
               </TableContainer>
             </Box>
+            <Box sx={{display:"flex", justifyContent:"flex-end", borderRadius:""}}>
+              <AddDialogCatalogo catalogo={catalogoActual}  tabla={tablaActual} actualizado={actualizaContador}/>
+            </Box>
+            
           </Box>
-
-          <IconButton
-          title="Agregar"
-            sx={{
-              width: 50,
-              height: 50,
-              backgroundColor: "#c4a57b",
-              position: "absolute",
-              ":hover": {
-                backgroundColor: "#ffdcac",
-              },
-              right: "30vh",
-              bottom: "17vh",
-            }}
-          >
-            <AddIcon />
-          </IconButton>
+         
+         
         </Box>
       </Box>
     </Box>
