@@ -107,7 +107,7 @@ export const DeleteDialogCatalogos = ({
           <Button>Cancelar</Button>
 
           <Button onClick={deletePorCatalogo} autoFocus>
-            De Acuerdo
+            De AcuerdoNPM 
           </Button>
         </DialogActions>
       </Dialog>
