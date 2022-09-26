@@ -286,8 +286,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; EjePND: string }) => {
-            return { Id: item.Id, Desc: item.EjePND };
+          update = update.map((item: { Id: string; EjePND: string; Tabla: string}) => {
+            return { Id: item.Id, Desc: item.EjePND, Tabla:"EjesPND" };
           });
           setDatosTabla(update);
         }

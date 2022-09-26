@@ -41,12 +41,14 @@ export const ModifyDialogCatalogos = ({
     setOpen(false);
   };
   const [nuevaDescripcion, setnuevaDescripcion] = React.useState("");
+
   const ModifyPorCatalogo = () => {
+   
     axios
       .put("http://10.200.4.105:8000/api/catalogos",  {
-            Id:"ac2d1a6a-338a-11ed-aed0-040300000000",
-            NuevaDescripcion:"Despues",
-            Tabla:"Frecuencias",
+            Id:id,
+            NuevaDescripcion:descripcion,
+            Tabla:tabla,
             IdUser: localStorage.getItem("IdUsuario"),
         },
         {headers: {
@@ -72,13 +74,13 @@ export const ModifyDialogCatalogos = ({
 
   return (
     <Box>
-      <Tooltip title="Eliminar">
+      <Tooltip title="Editar">
         <IconButton onClick={handleClickOpen}>
           <EditIcon
             sx={[
               {
                 "&:hover": {
-                  color: "red",
+                  color: "blue",
                 },
               },
             ]}
@@ -86,7 +88,7 @@ export const ModifyDialogCatalogos = ({
         </IconButton>
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`Modificar  ' ${deleteText} '`}</DialogTitle>
+        <DialogTitle>{`Modificar  ' ${descripcion} '`}</DialogTitle>
 
         <DialogContent>
         <TextField id="outlined-basic" placeholder={descripcion} variant="outlined" onChange={(v)=>setnuevaDescripcion(v.target.value)} />
