@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -15,7 +15,6 @@ import {
   Button,
   AlertColor,
 } from "@mui/material";
-import { DataUsuariosTiCentral } from "../datatable/interface";
 
 export default function ModalEditarUsuario({
   title,
@@ -40,7 +39,6 @@ export default function ModalEditarUsuario({
   const [userType, setUserType] = useState("0");
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
-  const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([{Id: "",
   NombreInstitucion: ""
