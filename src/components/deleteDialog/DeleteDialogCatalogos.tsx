@@ -38,8 +38,13 @@ export const DeleteDialogCatalogos = ({
   };
 
   const deletePorCatalogo = () => {
-    axios
-      .delete("http://localhost:8000/api/catalogos", {
+    if( tabla == 'PEDs'){
+
+    } else if (tabla == 'ProgramasPresupuestarios'){
+
+    } else {
+      axios
+      .delete("http://10.200.4.105:8000/api/catalogos", {
         data: {
 
             Id:id,
@@ -53,6 +58,13 @@ export const DeleteDialogCatalogos = ({
       })
       .then((r) => {
         actualizado();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Eliminado con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
       .catch((err) => 
       Swal.fire({
@@ -63,6 +75,8 @@ export const DeleteDialogCatalogos = ({
         timer: 1500
       })
       )
+    }
+    
   };
 
   return (

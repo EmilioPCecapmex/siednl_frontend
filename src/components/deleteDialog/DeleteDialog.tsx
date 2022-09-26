@@ -46,6 +46,13 @@ export const DeleteDialog = ({
       })
       .then((r) => {
         actualizado();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Usuario eliminado con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
       .catch((err) => 
       Swal.fire({
