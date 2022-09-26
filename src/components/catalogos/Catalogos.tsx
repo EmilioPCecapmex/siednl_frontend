@@ -353,8 +353,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; FechaDeCaptura: string; Descripcion: string }) => {
-              return { Id: item.Id, Desc: item.FechaDeCaptura + " / " + item.Descripcion };
+            (item: { Id: string; FechaDeCaptura: string; Descripcion: string; Tabla:string}) => {
+              return { Id: item.Id, Desc: item.FechaDeCaptura + " / " + item.Descripcion,Tabla:"FechasDeCaptura"};
             }
           );
           setDatosTabla(update);

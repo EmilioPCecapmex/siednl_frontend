@@ -12,7 +12,7 @@ import axios from "axios";
 import Alert from "@mui/material/Alert";
 import { Box } from "@mui/material";
 import Swal from "sweetalert2";
-import { Console } from "console";
+import { Console, log } from "console";
 
 export const DeleteDialogCatalogos = ({
     
@@ -27,6 +27,7 @@ export const DeleteDialogCatalogos = ({
   actualizado: Function;
   
 }) => {
+  
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
