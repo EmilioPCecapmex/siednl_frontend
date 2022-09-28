@@ -18,14 +18,12 @@ import {
   Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 
 import AddDialogCatalogo from "./AddDialogCatalogo";
-import { log } from "console";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 
 export const Catalogos = ({
@@ -727,7 +725,7 @@ export const Catalogos = ({
             }) => {
               return {
                 Id: item.Id,
-                Desc: `${item.Eje}; \n ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDs}; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`,
+                Desc: `${item.Eje}; ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDs}; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`,
                 Tabla: "PEDs",
               };
             }
@@ -1248,6 +1246,7 @@ export const Catalogos = ({
                         </StyledTableRow>
                       );
                     })}
+                    
                   </TableBody>
                 </Table>
               </TableContainer>

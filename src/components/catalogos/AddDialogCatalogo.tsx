@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import EditIcon from "@mui/icons-material/Edit";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
-import { Typography } from '@mui/material';
+import { Typography, FormControl } from '@mui/material';
 import { PED } from "./PED";
 
 export const AddDialogCatalogo = ({
@@ -76,13 +76,20 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Elemento registrado con éxito",
+          showConfirmButton: false,
+          timer: 1500,
+        })
         actualizado();
       })
       .catch((err) =>
         Swal.fire({
           position: "top-end",
           icon: "error",
-          title: "Permisos denegados",
+          title: err.response.data.result.error,
           showConfirmButton: false,
           timer: 1500,
         })
@@ -105,13 +112,21 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Elemento registrado con éxito",
+          showConfirmButton: false,
+          timer: 1500,
+        })
         actualizado();
+        
       })
       .catch((err) =>
         Swal.fire({
           position: "top-end",
           icon: "error",
-          title: "Permisos denegados",
+          title: err.response.data.result.error,
           showConfirmButton: false,
           timer: 1500,
         })
@@ -131,14 +146,20 @@ export const AddDialogCatalogo = ({
         }},
       )
       .then((r) => {
-        
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Elemento registrado con éxito",
+          showConfirmButton: false,
+          timer: 1500,
+        })
         actualizado();
       })
       .catch((err) => 
       Swal.fire({
         position: 'top-end',
         icon: 'error',
-        title: 'Permisos denegados',
+        title: err.response.data.result.error,
         showConfirmButton: false,
         timer: 1500
       })
@@ -154,22 +175,19 @@ export const AddDialogCatalogo = ({
              
           />
         </IconButton>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog fullWidth maxWidth={"md"} open={open} onClose={handleClose}>
           <DialogTitle>{`Agregar nuevo elemento`}</DialogTitle>
 
-          <DialogContent sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box sx={{ display: "flex" }}>
-              <TextField
-                label={"Descripcion"}
-                variant="outlined"
-                onChange={(v) => setDescripcion(v.target.value)}
-                sx={{ mt: "2vh" }}
-              />
+          <DialogContent sx={{display:"flex", justifyContent:"space-around", mt:'1vh'}}>
+              <Box sx={{pt:'1vh'}}>
+                 <TextField sx={{width:'20vw'}} label={"Nombre del programa"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)}  />
+              </Box>
+              <Box sx={{pt:'1vh'}}>
               <TextField
                 label={"Fecha de captura"}
                 variant="outlined"
                 onChange={(x) => setFechaCaptura(x.target.value)}
-                sx={{ mt: "2vh" }}
+                sx={{width:'20vw'}}
               />
             </Box>
           </DialogContent>
@@ -184,8 +202,83 @@ export const AddDialogCatalogo = ({
         </Dialog>
       </Box>
     );
-  } else {
-    if (tabla != "PEDs") {
+  } else if (tabla === "PEDs") {
+
+    return (
+      <Box>
+        <IconButton onClick={handleClickOpen}>
+          <AddIcon
+            sx={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        </IconButton>
+        <Dialog fullWidth maxWidth={"xl"} open={open} onClose={handleClose}>
+          <PED />
+          <DialogActions onClick={handleClose}>
+
+          <Button sx={{backgroundColor:'#ffa4a4', color:'black'}} onClick={handleClose}> Cancelar </Button>
+
+          </DialogActions>
+        </Dialog>
+      </Box>
+    );
+      
+    } else if(tabla=== "ProgramasPresupuestarios")
+    {
+      return(
+      <Box sx={{display:"flex"}}>
+        <Tooltip title="Editar">
+          <IconButton onClick={handleClickOpen} >
+            <AddIcon
+               
+            />
+          </IconButton>
+        </Tooltip>
+        <Dialog fullWidth maxWidth={"md"} open={open} onClose={handleClose}>
+          <DialogTitle>{`Agregar nuevo elemento`}</DialogTitle>
+  
+          <DialogContent sx={{display:"flex", justifyContent:"space-around", mt:'1vh'}}>
+              <Box sx={{pt:'1vh'}}>
+                 <TextField sx={{width:'20vw'}} label={"Nombre del programa"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)}  />
+              </Box>
+
+             <Box sx={{pt:'1vh'}}>
+             <FormControl sx={{width:'20vw'}}>
+            <InputLabel id="demo-simple-select-label">Institución</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={institution}
+              label="Institución"
+              onChange={(x) => setInstitution(x.target.value)}
+            >
+              <MenuItem value={"0"} key={0} disabled>
+              Selecciona Institución
+              </MenuItem>
+              {catalogoInstituciones.map((item) => {
+                return (
+                  <MenuItem value={item.Id} key={item.Id}>
+                    {item.NombreInstitucion}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+             </Box>
+          </DialogContent>
+  
+          <DialogActions onClick={handleClose}>
+            <Button>Cancelar</Button>
+  
+            <Button onClick={CreatePorCatalogoProgramap} autoFocus>
+              De Acuerdo
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>);
+    } else {
       return (
         <Box>
           <IconButton onClick={handleClickOpen}>
@@ -219,108 +312,7 @@ export const AddDialogCatalogo = ({
           </Dialog>
         </Box>
       );
-    } else {
-      return (
-        <Box>
-          <IconButton onClick={handleClickOpen}>
-            <AddIcon
-              sx={{
-                width: 50,
-                height: 50,
-              }}
-            />
-          </IconButton>
-          <Dialog fullWidth maxWidth={"xl"} open={open} onClose={handleClose}>
-            <PED />
-            <DialogActions onClick={handleClose}>
-
-            <Button sx={{backgroundColor:'#ffa4a4', color:'black'}} onClick={handleClose}> Cancelar </Button>
-
-            </DialogActions>
-          </Dialog>
-        </Box>
-      );
     }
-  }
-
-  if(tabla=== "ProgramasPresupuestarios")
-  {
-    return(
-    <Box sx={{display:"flex"}}>
-      <Tooltip title="Editar">
-        <IconButton onClick={handleClickOpen} >
-          <AddIcon
-             
-          />
-        </IconButton>
-      </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`Agregar  ' ${catalogo} '`}</DialogTitle>
-
-        <DialogContent sx={{display:"flex"}}>
-          <Box sx={{display:"flex",justifyContent:"space-between" }}>
-            <TextField  label={"Nombre del programa"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)} sx={{mt:"2vh"}} />
-           
-            <InputLabel id="demo-simple-select-label">Institución</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={institution}
-              label="Institución"
-              onChange={(x) => setInstitution(x.target.value)}
-            >
-              <MenuItem value={"0"} key={0} disabled>
-                Selecciona
-              </MenuItem>
-              {catalogoInstituciones.map((item) => {
-                return (
-                  <MenuItem value={item.Id} key={item.Id}>
-                    {item.NombreInstitucion}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-
-          </Box>
-        </DialogContent>
-
-        <DialogActions onClick={handleClose}>
-          <Button>Cancelar</Button>
-
-          <Button onClick={CreatePorCatalogoProgramap} autoFocus>
-            De Acuerdo
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>);
-  }
-
-  return (
-    <Box>
-      <Tooltip title="Editar">
-        <IconButton onClick={handleClickOpen} >
-          <AddIcon
-             
-          />
-        </IconButton>
-      </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`Agregar  ' ${tabla} '`}</DialogTitle>
-
-        <DialogContent>
-        <TextField id="outlined-basic" placeholder={"Descripcion"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)} sx={{mt:"2"}} />
-        </DialogContent>
-
-        <DialogActions onClick={handleClose}>
-          <Button>Cancelar</Button>
-
-          <Button onClick={CreatePorCatalogo} autoFocus>
-            De Acuerdo
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
-  );
 };
 
 export default AddDialogCatalogo;

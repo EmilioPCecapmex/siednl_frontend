@@ -20,9 +20,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import {
   Dialog,
-  DialogTitle,
   TextField,
-  ListItemAvatar,
   Button,
   MenuItem,
   Select,
