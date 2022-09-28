@@ -77,20 +77,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "DimensionesDelIndicador",
       selected: false,
     },
-<<<<<<< HEAD
-    { id: 5, Desc: "Ejes", fnc: "getEjes()", selected: true },
-    {
-      id: 6,
-      Desc: "Ejes del Plan Nacional de Desarrollo",
-      fnc: "getEjesPND()",
-      selected: true,
-    },
-    { id: 7, Desc: "Estrategias", fnc: "getEstrategias()", selected: false },
-=======
     { id: 5, Desc: "Ejes", fnc: "getEjes()",Tabla:"Ejes" ,selected: true },
     { id: 6, Desc: "Ejes del Plan Nacional de Desarrollo",Tabla:"EjesPND", fnc: "getEjesPND()", selected: true },
     { id: 7, Desc: "Estrategias", fnc: "getEstrategias()",Tabla:"Estrategias ",selected: false },
->>>>>>> dev_pedro
     {
       id: 8,
       Desc: "Fechas de Captura",
@@ -114,22 +103,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "LineasDeAccion",
       selected: false,
     },
-<<<<<<< HEAD
-    { id: 13, Desc: "Metas ODS", fnc: "getMetasODS()", selected: false },
-    { id: 14, Desc: "Modalidades", fnc: "getModalidades()", selected: false },
-    { id: 15, Desc: "Objetivos", fnc: "getObjetivos()", selected: false },
-    {
-      id: 16,
-      Desc: "Objetivos Desarrollo Sostenible",
-      fnc: "getObjetivosDS()",
-      selected: false,
-    },
-=======
     { id: 13, Desc: "Metas ODS", fnc: "getMetasODS()",Tabla:"MetasODS", selected: false },
     { id: 14, Desc: "Modalidades", fnc: "getModalidades()",Tabla:"Modalidades", selected: false },
     { id: 15, Desc: "Objetivos", fnc: "getObjetivos()",Tabla:"Objetivos", selected: false },
     { id: 16, Desc: "Objetivos Desarrollo Sostenible", fnc: "getObjetivosDS()",Tabla:"ObjetivosDS", selected: false },
->>>>>>> dev_pedro
     {
       id: 17,
       Desc: "Objetivos del Plan Estrategico del Estado de Nuevo León",
@@ -411,20 +388,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-<<<<<<< HEAD
-            (item: {
-              Id: string;
-              FechaDeCaptura: string;
-              Descripcion: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc: item.FechaDeCaptura + " / " + item.Descripcion,
-              };
-=======
             (item: { Id: string; FechaDeCaptura: string; Descripcion: string; Tabla:string}) => {
               return { Id: item.Id, Desc: item.FechaDeCaptura + " / " + item.Descripcion,Tabla:"FechasDeCaptura"};
->>>>>>> dev_pedro
             }
           );
           setDatosTabla(update);
@@ -1073,7 +1038,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     {datosTabla.map((item) => {
                       return (
                         <StyledTableRow key={item.Id}>
-<<<<<<< HEAD
                           <TableCell
                             sx={{
                               display: "flex",
@@ -1084,11 +1048,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                             }}
                           >
                             {item.Desc}
-=======
-                          <TableCell sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '1.1vh', fontFamily: 'MontserratMedium'}}>
-                              {item.Desc}
-                              
->>>>>>> dev_pedro
                             <Stack
                               sx={{
                                 display: "flex",
@@ -1096,17 +1055,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 flexDirection: "row",
                               }}
                             >
-<<<<<<< HEAD
                               <ModifyDialogCatalogos
                                 descripcion={item.Desc}
                                 id={item.Id}
                                 tabla={item.Tabla}
                                 actualizado={actualizaContador}
                               />
-=======
-
-                              <ModifyDialogCatalogos deleteText={item.Desc} descripcion={item.Desc} id={item.Id} tabla={item.Tabla} actualizado={actualizaContador}/>
->>>>>>> dev_pedro
 
                               <DeleteDialogCatalogos
                                 deleteText={item.Desc}
@@ -1128,7 +1082,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             </Box>
             
           </Box>
-<<<<<<< HEAD
 
           <IconButton
             title="Agregar"
@@ -1146,10 +1099,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           >
             <AddIcon />
           </IconButton>
-=======
-         
-         
->>>>>>> dev_pedro
         </Box>
       </Box>
     </Box>

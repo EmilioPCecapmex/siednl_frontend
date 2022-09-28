@@ -153,87 +153,105 @@ export const ModifyDialogCatalogos = ({
     }
   };
 
-  
   const [institution, setInstitution] = useState("0");
 
   const getInstituciones = () => {
-    axios.get("http://10.200.4.105:8000/api/instituciones", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      }
-    }).then(
-      (r) => {
-        setCatalogoInstituciones(r.data.data)
-      }
-
-    )
-  }
+    axios
+      .get("http://10.200.4.105:8000/api/instituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+      });
+  };
 
   useEffect(() => {
     getInstituciones();
-     }, [])
+  }, []);
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState([{Id: "",
-  NombreInstitucion: ""
-  },]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState([
+    { Id: "", NombreInstitucion: "" },
+  ]);
 
   if (tabla === "ProgramasPresupuestarios") {
-  const ModifyPorCatalogoProgramasP = () => {
-   
-    axios
-      .put("http://10.200.4.105:8000/api/programaPresupuestario",  {
-        IdProgramaPresupuestario:id,
-        NuevoProgramaPresupuestario:nuevaDescripcion,
-        IdInstitucion:tabla,
-        ModificadoPor: localStorage.getItem("IdUsuario"),
-        },
-        {headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        }},
-      )
-      .then((r) => {
-        
-        actualizado();
-      })
-      .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      )
-  };
+    return (
+      <Box>
+        <Tooltip title="Editar">
+          <IconButton onClick={handleClickOpen}>
+            <EditIcon
+              sx={[
+                {
+                  "&:hover": {
+                    color: "blue",
+                  },
+                },
+              ]}
+            />
+          </IconButton>
+        </Tooltip>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>{`Modificar  '${descripcion}'`}</DialogTitle>
 
-  const ModifyPorCatalogoFechas = () => {
-   
-    axios
-      .put("http://10.200.4.105:8000/api/fechaDeCaptura",  {
-        IdFechaDeCaptura:id,
-        NuevoDescripcion:nuevaDescripcion,
-        NuevoFechaDeCaptura:fechaCaptura,
-        ModificadoPor: localStorage.getItem("IdUsuario"),
-        },
-        {headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        }},
-      )
-      .then((r) => {
-        
-        actualizado();
-      })
-      .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      )
-  };
-  } else if (tabla === 'PEDs'){
+          <DialogContent>
+            <TextField
+              id="outlined-basic"
+              placeholder={"Introduzca elemento"}
+              variant="outlined"
+              onChange={(v) => setnuevaDescripcion(v.target.value)}
+            />
+          </DialogContent>
+
+          <DialogActions onClick={handleClose}>
+            <Button>Cancelar</Button>
+
+            <Button onClick={ModifyPorCatalogo} autoFocus>
+              De Acuerdo
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    );
+  } else if (tabla === "FechasDeCaptura") {
+    return (
+      <Box>
+        <Tooltip title="Editar">
+          <IconButton onClick={handleClickOpen}>
+            <EditIcon
+              sx={[
+                {
+                  "&:hover": {
+                    color: "blue",
+                  },
+                },
+              ]}
+            />
+          </IconButton>
+        </Tooltip>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>{`Modificar  '${descripcion}'`}</DialogTitle>
+
+          <DialogContent>
+            <TextField
+              id="outlined-basic"
+              placeholder={"Introduzca elemento"}
+              variant="outlined"
+              onChange={(v) => setnuevaDescripcion(v.target.value)}
+            />
+          </DialogContent>
+
+          <DialogActions onClick={handleClose}>
+            <Button>Cancelar</Button>
+
+            <Button onClick={ModifyPorCatalogo} autoFocus>
+              De Acuerdo
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    );
+  } else if (tabla === "PEDs") {
     return (
       <Box>
         <Tooltip title="Editar">
