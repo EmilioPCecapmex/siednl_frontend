@@ -55,7 +55,6 @@ export const Usuarios = () => {
           name3: "Usuarios",
         }}
       />
-      {/* <SettingsCard/> */}
       <Box
         sx={{
           display: "flex",
