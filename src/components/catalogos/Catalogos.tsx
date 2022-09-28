@@ -23,9 +23,10 @@ import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
-import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
+
 import AddDialogCatalogo from "./AddDialogCatalogo";
 import { log } from "console";
+import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -153,15 +154,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     },
   ];
 
-  const [datosTabla, setDatosTabla] = React.useState([
-    {
-      Id: "",
-      Desc: "",
-      fnc: "",
-      Tabla: "",
-      selected: "",
-    },
-  ]);
+  
 
   const getAniosFiscales = () => {
     setSelected("Años Fiscales");
@@ -185,6 +178,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -212,6 +206,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -243,6 +238,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -274,6 +270,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -297,6 +294,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -320,6 +318,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -347,6 +346,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -370,6 +370,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -393,6 +394,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+          
         }
       });
   };
@@ -420,6 +423,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -451,6 +455,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -477,6 +482,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -500,6 +506,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -527,6 +534,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -550,6 +558,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -579,6 +588,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -606,6 +616,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -629,6 +640,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             return { Id: item.Id, Desc: "Eje: " + item.Eje };
           });
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -665,6 +677,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -688,6 +701,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -711,6 +725,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -738,6 +753,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -765,6 +781,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -792,12 +809,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
   interface Datos{
-    id: number,
+      id: string,
+      Id: string,
       Desc: string,
       fnc: string,
       Tabla:string,
@@ -808,11 +827,52 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     eval(item.fnc)
     setTablaActual(item.Tabla)
   }
+ 
+ 
 
 
   const [tablaActual, setTablaActual] = React.useState("");
   const [catalogoActual, setCatalogoActual] = React.useState("");
   const [selected, setSelected] = React.useState(defSelected);
+  const [descripctionFiltered, setDescripctionFiltered] = useState("");
+
+  const dataFilter = (text: string) => {
+    setDescripctionFiltered(text);
+  };
+
+  const [datosTabla, setDatosTabla] = React.useState([
+    {
+      Id: "",
+      Desc: "",
+      fnc: "",
+      Tabla: "",
+      selected: "",
+    },
+  ]);
+
+  const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState([
+  {
+      
+      Id: "",
+      Desc: "",
+      fnc: "",
+      Tabla:"",
+      selected: "", 
+  },
+]);
+  const findText = () => {
+    if (descripctionFiltered !== "") {
+      setDataDescripctionFiltered(
+        DataDescripctionFiltered.filter((x) => x.Desc.toLowerCase().includes(descripctionFiltered))
+      );
+    } else {
+      setDataDescripctionFiltered(datosTabla);
+    }
+  };
+
+  useEffect(() => {
+    findText();
+  }, [descripctionFiltered]);
 
   React.useEffect(() => {
     configOptions.map((item) => {
@@ -907,6 +967,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       selected={selected == item.Desc ? true : false}
                       onClick={() => {eval(item.fnc)
                                       setTablaActual(item.Tabla)
+                                      
                                       }}
                     >
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -997,12 +1058,15 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   <Input
                     disableUnderline
                     size="small"
+                    placeholder="Buscar"
+                    name="InSearch"
                     sx={{
                       backgroundColor: "#EBEBEB",
                       fontFamily: "MontserratLight",
                     }}
+                    onChange={(v) => dataFilter(v.target.value)}
                   />
-                  <SearchIcon />
+                  <SearchIcon sx={{ color: "action.active", mr: 1 }}/>
                 </Box>
 
                 <Typography
@@ -1035,7 +1099,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               >
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                   <TableBody>
-                    {datosTabla.map((item) => {
+                    {DataDescripctionFiltered.map((item) => {
                       return (
                         <StyledTableRow key={item.Id}>
                           <TableCell
@@ -1077,9 +1141,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 </Table>
               </TableContainer>
             </Box>
-            <Box sx={{display:"flex", justifyContent:"flex-end", borderRadius:""}}>
-              <AddDialogCatalogo catalogo={catalogoActual}  tabla={tablaActual} actualizado={actualizaContador}/>
-            </Box>
+            
+              
+            
             
           </Box>
 
@@ -1097,7 +1161,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               bottom: "17vh",
             }}
           >
-            <AddIcon />
+            <AddDialogCatalogo catalogo={catalogoActual}  tabla={tablaActual} actualizado={actualizaContador}/>
           </IconButton>
         </Box>
       </Box>

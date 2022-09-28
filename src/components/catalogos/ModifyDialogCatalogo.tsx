@@ -5,6 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import Swal from "sweetalert2";
 import EditIcon from "@mui/icons-material/Edit";
+
 import {
   Box,
   Alert,
@@ -42,7 +43,8 @@ export const ModifyDialogCatalogos = ({
   };
   const [nuevaDescripcion, setnuevaDescripcion] = React.useState("");
   const [fechaCaptura, setFechaCaptura] = React.useState("");
-  const [institucion, setInstitucion] = React.useState("");
+  //const [Descripcion, setDescripcion] = React.useState("");
+  //const [institucion, setInstitucion] = React.useState("");
 
   const ModifyPorCatalogo = () => {
     if (tabla === "PEDs") {
@@ -153,6 +155,61 @@ export const ModifyDialogCatalogos = ({
     }
   };
 
+  const ModifyPorCatalogoFechas = () => {
+
+    axios
+      .put("http://10.200.4.105:8000/api/fechaDeCaptura",  {
+        IdFechaDeCaptura:id,
+        NuevoDescripcion:nuevaDescripcion,
+        NuevoFechaDeCaptura:fechaCaptura,
+        ModificadoPor: localStorage.getItem("IdUsuario"),
+        },
+        {headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        }},
+      )
+      .then((r) => {
+
+        actualizado();
+      })
+      .catch((err) => 
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Permisos denegados',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      )
+  };
+
+  const ModifyPorCatalogoProgramasP = () => {
+
+    axios
+      .put("http://10.200.4.105:8000/api/programaPresupuestario",  {
+        IdProgramaPresupuestario:id,
+        NuevoProgramaPresupuestario:nuevaDescripcion,
+        IdInstitucion:institution,
+        ModificadoPor: localStorage.getItem("IdUsuario"),
+        },
+        {headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        }},
+      )
+      .then((r) => {
+
+        actualizado();
+      })
+      .catch((err) => 
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Permisos denegados',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      )
+  };
   const [institution, setInstitution] = useState("0");
 
   const getInstituciones = () => {
@@ -201,12 +258,32 @@ export const ModifyDialogCatalogos = ({
               variant="outlined"
               onChange={(v) => setnuevaDescripcion(v.target.value)}
             />
+
+            <InputLabel id="demo-simple-select-label">Institución</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={institution}
+              label="Institución"
+              onChange={(x) => setInstitution(x.target.value)}
+            >
+              <MenuItem value={"0"} key={0} disabled>
+                Selecciona
+              </MenuItem>
+              {catalogoInstituciones.map((item) => {
+                return (
+                  <MenuItem value={item.NombreInstitucion} key={item.Id}>
+                    {item.NombreInstitucion}
+                  </MenuItem>
+                );
+              })}
+            </Select>
           </DialogContent>
 
           <DialogActions onClick={handleClose}>
             <Button>Cancelar</Button>
 
-            <Button onClick={ModifyPorCatalogo} autoFocus>
+            <Button onClick={ModifyPorCatalogoProgramasP} autoFocus>
               De Acuerdo
             </Button>
           </DialogActions>
@@ -214,12 +291,12 @@ export const ModifyDialogCatalogos = ({
       </Box>
     );
   } else if (tabla === "FechasDeCaptura") {
-    return (
-      <Box>
+    return(
+      <Box sx={{display:"flex"}}>
         <Tooltip title="Editar">
-          <IconButton onClick={handleClickOpen}>
+          <IconButton onClick={handleClickOpen} >
             <EditIcon
-              sx={[
+               sx={[
                 {
                   "&:hover": {
                     color: "blue",
@@ -230,27 +307,24 @@ export const ModifyDialogCatalogos = ({
           </IconButton>
         </Tooltip>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>{`Modificar  '${descripcion}'`}</DialogTitle>
-
-          <DialogContent>
-            <TextField
-              id="outlined-basic"
-              placeholder={"Introduzca elemento"}
-              variant="outlined"
-              onChange={(v) => setnuevaDescripcion(v.target.value)}
-            />
+          <DialogTitle>{`Editar  ' ${descripcion} '`}</DialogTitle>
+  
+          <DialogContent sx={{display:"flex"}}>
+            <Box sx={{display:"flex",justifyContent:"space-between" }}>
+              <TextField  label={"Descripcion"} variant="outlined" onChange={(v)=>setnuevaDescripcion(v.target.value)} sx={{mt:"2vh"}} />
+              <TextField  label={"Fecha de captura"} variant="outlined" onChange={(x)=>setFechaCaptura(x.target.value)} sx={{mt:"2vh"}} />
+            </Box>
           </DialogContent>
-
+  
           <DialogActions onClick={handleClose}>
             <Button>Cancelar</Button>
-
-            <Button onClick={ModifyPorCatalogo} autoFocus>
+  
+            <Button onClick={ModifyPorCatalogoFechas} autoFocus>
               De Acuerdo
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>
-    );
+      </Box>);
   } else if (tabla === "PEDs") {
     return (
       <Box>
