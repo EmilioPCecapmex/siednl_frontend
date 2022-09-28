@@ -25,6 +25,7 @@ export const DeleteDialogCatalogos = ({
   actualizado: Function;
   
 }) => {
+  
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
