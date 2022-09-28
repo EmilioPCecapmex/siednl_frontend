@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
-import { SettingsCard } from "../../components/settings/SettingsCard";
-import {Catalogos} from "../../components/catalogos/Catalogos";
 
 
 export const MIR = () => {
 
-
   const [showCards, setShowCards] = useState(true);
-
 
   const resetView = () => {
     setShowCards(true);

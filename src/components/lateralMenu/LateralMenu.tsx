@@ -84,14 +84,12 @@ export const LateralMenu = ({
     navigate("../settings");
   };
 
+
   const [openPasswordChange, setOpenPasswordChange] = useState(false);
 
   const handleClosePasswordChange = () => {
     setOpenPasswordChange(false);
   };
-
-
-
 
   const ChangePasswordModal = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -329,7 +327,7 @@ export const LateralMenu = ({
           </ListItemButton>
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 2 }}>
+              <ListItemButton onClick={() => navigate("../MIR")} sx={{ pl: 2 }}>
                 <ListItemIcon>
                   <KeyboardDoubleArrowRightIcon />
                 </ListItemIcon>
