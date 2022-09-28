@@ -12,7 +12,7 @@ import { continueSession, sessionValid } from "./funcs/validation";
 import { useLocation } from "react-router-dom";
 import { SessionDialog } from "./components/sessionDialog/SessionDialog";
 import { useNavigate } from "react-router-dom";
-import { PED } from "./screens/config/PED";
+import { MIR } from "./screens/config/MIR";
 
 
 function App() {
@@ -52,7 +52,7 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
-          <Route path="PED" element={<PED/>}/>
+          <Route path="MIR" element={<MIR/>}/>
         </Routes>
     </>
   );

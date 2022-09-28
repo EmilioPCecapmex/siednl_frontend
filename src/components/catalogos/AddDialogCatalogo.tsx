@@ -10,19 +10,20 @@ import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import { Box } from "@mui/material";
 import Swal from "sweetalert2";
-import EditIcon from '@mui/icons-material/Edit';
-import TextField from '@mui/material/TextField';
+import EditIcon from "@mui/icons-material/Edit";
+import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
+import { Typography } from '@mui/material';
+import { PED } from "./PED";
 
 export const AddDialogCatalogo = ({
-  catalogo, 
+  catalogo,
   tabla,
-  actualizado
+  actualizado,
 }: {
-  catalogo:string;
-  tabla:string;
+  catalogo: string;
+  tabla: string;
   actualizado: Function;
-  
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -33,135 +34,167 @@ export const AddDialogCatalogo = ({
   const handleClose = () => {
     setOpen(false);
   };
+
   const [descripcion, setDescripcion] = React.useState("");
   const [fechaCaptura, setFechaCaptura] = React.useState("");
 
   const CreatePorCatalogo = () => {
     axios
-      .post("http://10.200.4.105:8000/api/create-catalogos",  {
-            Descripcion:descripcion,
-            Tabla:tabla,
-            IdUser: localStorage.getItem("IdUsuario"),
+      .post(
+        "http://10.200.4.105:8000/api/create-catalogos",
+        {
+          Descripcion: descripcion,
+          Tabla: tabla,
+          IdUser: localStorage.getItem("IdUsuario"),
         },
-        {headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        }},
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
       )
       .then((r) => {
-        
         actualizado();
       })
-      .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      )
+      .catch((err) =>
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Permisos denegados",
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      );
   };
 
   const CreatePorCatalogoFechas = () => {
     axios
-      .post("http://10.200.4.105:8000/api/create-fechaDeCaptura",  {
-            Descripcion:descripcion,
-            FechaDeCaptura:fechaCaptura,
-            CreadoPor: localStorage.getItem("IdUsuario"),
+      .post(
+        "http://10.200.4.105:8000/api/create-fechaDeCaptura",
+        {
+          Descripcion: descripcion,
+          FechaDeCaptura: fechaCaptura,
+          CreadoPor: localStorage.getItem("IdUsuario"),
         },
-        {headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        }},
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
       )
       .then((r) => {
-        
         actualizado();
       })
-      .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      )
+      .catch((err) =>
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Permisos denegados",
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      );
   };
 
-  if(tabla=== "FechasDeCaptura")
-  {
-    return(
-    <Box sx={{display:"flex"}}>
-      <Tooltip title="Editar">
-        <IconButton onClick={handleClickOpen} >
+  if (tabla === "FechasDeCaptura") {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <IconButton onClick={handleClickOpen}>
           <AddIcon
-             sx={{
+            sx={{
               width: 50,
               height: 50,
-              backgroundColor: "#c4a57b",
-              position: "absolute",
-              ":hover": {
-                backgroundColor: "#ffdcac",
-              },
             }}
           />
         </IconButton>
-      </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`Agregar  ' ${catalogo} '`}</DialogTitle>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>{`Agregar  ' ${catalogo} '`}</DialogTitle>
 
-        <DialogContent sx={{display:"flex"}}>
-          <Box sx={{display:"flex",justifyContent:"space-between" }}>
-            <TextField  label={"Descripcion"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)} sx={{mt:"2vh"}} />
-            <TextField  label={"Fecha de captura"} variant="outlined" onChange={(x)=>setFechaCaptura(x.target.value)} sx={{mt:"2vh"}} />
-          </Box>
-        </DialogContent>
+          <DialogContent sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <TextField
+                label={"Descripcion"}
+                variant="outlined"
+                onChange={(v) => setDescripcion(v.target.value)}
+                sx={{ mt: "2vh" }}
+              />
+              <TextField
+                label={"Fecha de captura"}
+                variant="outlined"
+                onChange={(x) => setFechaCaptura(x.target.value)}
+                sx={{ mt: "2vh" }}
+              />
+            </Box>
+          </DialogContent>
 
-        <DialogActions onClick={handleClose}>
-          <Button>Cancelar</Button>
+          <DialogActions onClick={handleClose}>
+            <Button>Cancelar</Button>
 
-          <Button onClick={CreatePorCatalogoFechas} autoFocus>
-            De Acuerdo
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>);
+            <Button onClick={CreatePorCatalogoFechas} autoFocus>
+              De Acuerdo
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    );
+  } else {
+    if (tabla != "PEDs") {
+      return (
+        <Box>
+          <IconButton onClick={handleClickOpen}>
+            <AddIcon
+              sx={{
+                width: 50,
+                height: 50,
+              }}
+            />
+          </IconButton>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>{`Agregar  ' ${tabla} '`}</DialogTitle>
+
+            <DialogContent>
+              <TextField
+                id="outlined-basic"
+                placeholder={"Descripcion"}
+                variant="outlined"
+                onChange={(v) => setDescripcion(v.target.value)}
+                sx={{ mt: "2" }}
+              />
+            </DialogContent>
+
+            <DialogActions onClick={handleClose}>
+              <Button>Cancelar</Button>
+
+              <Button onClick={CreatePorCatalogo} autoFocus>
+                De Acuerdo
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Box>
+      );
+    } else {
+      return (
+        <Box>
+          <IconButton onClick={handleClickOpen}>
+            <AddIcon
+              sx={{
+                width: 50,
+                height: 50,
+              }}
+            />
+          </IconButton>
+          <Dialog fullWidth maxWidth={"xl"} open={open} onClose={handleClose}>
+            <PED />
+            <DialogActions onClick={handleClose}>
+
+            <Button sx={{backgroundColor:'#ffa4a4', color:'black'}} onClick={handleClose}> Cancelar </Button>
+
+            </DialogActions>
+          </Dialog>
+        </Box>
+      );
+    }
   }
-
-  return (
-    <Box>
-      <Tooltip title="Editar">
-        <IconButton onClick={handleClickOpen} >
-          <AddIcon
-             sx={{
-              width: 50,
-              height: 50,
-              backgroundColor: "#c4a57b",
-              position: "absolute",
-              ":hover": {
-                backgroundColor: "#ffdcac",
-              },
-            }}
-          />
-        </IconButton>
-      </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`Agregar  ' ${tabla} '`}</DialogTitle>
-
-        <DialogContent>
-        <TextField id="outlined-basic" placeholder={"Descripcion"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)} sx={{mt:"2"}} />
-        </DialogContent>
-
-        <DialogActions onClick={handleClose}>
-          <Button>Cancelar</Button>
-
-          <Button onClick={CreatePorCatalogo} autoFocus>
-            De Acuerdo
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
-  );
 };
 
 export default AddDialogCatalogo;

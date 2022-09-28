@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
+import Dialog from "@mui/material/Dialog";
 import {
   Box,
   Alert,
@@ -9,10 +9,11 @@ import {
   MenuItem,
   Button,
   AlertColor,
+  Typography,
+  DialogActions
 } from "@mui/material";
-import { Header } from "../../components/header/Header";
 
-const PEDS = () => {
+export const PED = () => {
   const [eje, setEje] = useState("0");
   const [tematica, setTematica] = useState("0");
   const [objetivo, setObjetivo] = useState("0");
@@ -145,22 +146,24 @@ const PEDS = () => {
         }
       )
       .then((r) => {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "!PED creado con éxito!",
-          showConfirmButton: false,
-          timer: 1500,
+        // Swal.fire({
+        //   position: "top-end",
+        //   icon: "success",
+        //   title: "!PED creado con éxito!",
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // });
+        setErrorsForm({
+          visible: true,
+          text: "!PED creado con éxito!",
+          type: "success",
         });
       })
       .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: err.response.data.result.error,
-          showConfirmButton: false,
-          timer: 1500,
+        setErrorsForm({
+          visible: true,
+          text: err.response.data.result.error,
+          type: "error",
         });
       });
   };
@@ -283,221 +286,201 @@ const PEDS = () => {
     }
   };
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Box
+      <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         width: "100%",
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
-        <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
-          {errorForm.visible ? <AlertForm /> : null}
-          <Select value={eje} onChange={(x) => setEje(x.target.value)}>
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Eje
-            </MenuItem>
-            {catalogoEjes.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.Eje}
-                </MenuItem>
-              );
-            })}
-          </Select>
-
-          <Select
-            sx={{ mt: "0.5vw" }}
-            value={tematica}
-            onChange={(x) => setTematica(x.target.value)}
+      <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+        {errorForm.visible ? (
+          <AlertForm />
+        ) : (
+          <Typography
+            sx={{
+              m: "2vh",
+              width: "20vw",
+              fontFamily: "Montserrat",
+              fontSize: "1vw",
+            }}
           >
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Tematica
-            </MenuItem>
-            {catalogoTematicas.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.Tematica}
-                </MenuItem>
-              );
-            })}
-          </Select>
+            Seleccione elementos
+          </Typography>
+        )}
 
-          <Select
-            sx={{ mt: "0.5vw" }}
-            value={objetivo}
-            onChange={(x) => setObjetivo(x.target.value)}
-          >
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Objetivo
-            </MenuItem>
-            {catalogoObjetivos.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.Objetivo}
-                </MenuItem>
-              );
-            })}
-          </Select>
-
-          <Select
-            sx={{ mt: "0.5vw" }}
-            value={estrategia}
-            onChange={(x) => setEstrategia(x.target.value)}
-          >
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Estrategia
-            </MenuItem>
-            {catalogoEstrategias.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.Estrategia}
-                </MenuItem>
-              );
-            })}
-          </Select>
-
-          <Select
-            sx={{ mt: "0.5vw" }}
-            value={lineaDeAccion}
-            onChange={(x) => setLineaDeAccion(x.target.value)}
-          >
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Linea de Accion
-            </MenuItem>
-            {catalogoLineasDeAccion.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.LineaDeAccion}
-                </MenuItem>
-              );
-            })}
-          </Select>
-
-          <Select
-            sx={{ mt: "0.5vw" }}
-            value={objetivoDS}
-            onChange={(x) => setObjetivoDS(x.target.value)}
-          >
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Objetivo DS
-            </MenuItem>
-            {catalogoObjetivosDS.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.ObjetivoDS}
-                </MenuItem>
-              );
-            })}
-          </Select>
-
-          <Select
-            sx={{ mt: "0.5vw" }}
-            value={metaODS}
-            onChange={(x) => setMetaODS(x.target.value)}
-          >
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Meta ODS
-            </MenuItem>
-            {catalogoMetasODS.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.MetaODS}
-                </MenuItem>
-              );
-            })}
-          </Select>
-
-          <Select
-            sx={{ mt: "0.5vw" }}
-            value={ejePND}
-            onChange={(x) => setEjePND(x.target.value)}
-          >
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Eje PND
-            </MenuItem>
-            {catalogoEjesPND.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.EjePND}
-                </MenuItem>
-              );
-            })}
-          </Select>
-
-          <Select
-            sx={{ mt: "0.5vw" }}
-            value={objetivoPEENL}
-            onChange={(x) => setObjetivoPEENL(x.target.value)}
-          >
-            <MenuItem value={"0"} key={0} disabled>
-              Selecciona Objetivo PEENL
-            </MenuItem>
-            {catalogoObjetivosPEENL.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id}>
-                  {item.ObjetivoPEENL}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </Box>
-
-        <Button onClick={checkForm}>De Acuerdo</Button>
-      </Box>
-    </Box>
-  );
-};
-
-export const PED = () => {
-  return (
-    <Box
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        backgroundColor: "#F2F2F2",
-      }}
-    >
-      <LateralMenu selection={6} />
-      <Header
-        details={{
-          name1: "Inicio",
-          path1: "../home",
-          name2: "Configuración",
-          path2: "../settings",
-          name3: "Usuarios",
-        }}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          width: "87%",
-          height: "92%",
-          mt: "8vh",
-          flexWrap: "wrap",
-          alignContent:"center"
-        }}
-      >
-        <Box>
-        </Box>
-
-        {/* ----- */}
-        <Box
-          sx={{
-            width: "85vw",
-            height: "70vh",
-            backgroundColor: "#fff",
-            borderRadius: 5,
-            display: "flex",
-            alignItems: "center",
-          }}
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={eje}
+          onChange={(x) => setEje(x.target.value)}
         >
-          <PEDS/>
-        </Box>
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Eje
+          </MenuItem>
+          {catalogoEjes.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.Eje}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={tematica}
+          onChange={(x) => setTematica(x.target.value)}
+        >
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Tematica
+          </MenuItem>
+          {catalogoTematicas.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.Tematica}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={objetivo}
+          onChange={(x) => setObjetivo(x.target.value)}
+        >
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Objetivo
+          </MenuItem>
+          {catalogoObjetivos.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.Objetivo}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={estrategia}
+          onChange={(x) => setEstrategia(x.target.value)}
+        >
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Estrategia
+          </MenuItem>
+          {catalogoEstrategias.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.Estrategia}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={lineaDeAccion}
+          onChange={(x) => setLineaDeAccion(x.target.value)}
+        >
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Linea de Accion
+          </MenuItem>
+          {catalogoLineasDeAccion.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.LineaDeAccion}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={objetivoDS}
+          onChange={(x) => setObjetivoDS(x.target.value)}
+        >
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Objetivo DS
+          </MenuItem>
+          {catalogoObjetivosDS.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.ObjetivoDS}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={metaODS}
+          onChange={(x) => setMetaODS(x.target.value)}
+        >
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Meta ODS
+          </MenuItem>
+          {catalogoMetasODS.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.MetaODS}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={ejePND}
+          onChange={(x) => setEjePND(x.target.value)}
+        >
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Eje PND
+          </MenuItem>
+          {catalogoEjesPND.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.EjePND}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Select
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          value={objetivoPEENL}
+          onChange={(x) => setObjetivoPEENL(x.target.value)}
+        >
+          <MenuItem value={"0"} key={0} disabled>
+            Selecciona Objetivo PEENL
+          </MenuItem>
+          {catalogoObjetivosPEENL.map((item) => {
+            return (
+              <MenuItem value={item.Id} key={item.Id}>
+                {item.ObjetivoPEENL}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </Box>
+      <Box sx={{ mt:'3vh', mb:"1vh", textAlign: "end" }}>
+      <DialogActions onClick={handleClose}>
+
+            <Button sx={{position:'absolute', backgroundColor:'lightGreen', color:'black'}} onClick={checkForm}> Agregar </Button>
+
+      </DialogActions>
       </Box>
     </Box>
+    
   );
 };

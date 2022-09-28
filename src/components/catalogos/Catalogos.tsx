@@ -118,7 +118,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 18,
       Desc: "PED",
       fnc: "getPED()",
-      Tabla:"Instituciones",
+      Tabla:"PEDs",
       selected: false,
     },
     {
@@ -615,7 +615,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("PED");
     axios
-      .get("http://localHost:8000/api/ped", {
+      .get("http://10.200.4.105:8000/api/ped", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -625,8 +625,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Eje: string }) => {
-            return { Id: item.Id, Desc: "Eje: " + item.Eje };
+          update = update.map((item: { Id: string; Eje: string; Tematica: string; Objetivo: string; Estrategia: string; LineaDeAccion: string; ObjetivoDs: string; MetaODS: string; EjePND: string; ObjetivoPEENL: string; Tabla: string; }) => {
+            return { Id: item.Id, Desc:  `${item.Eje}; ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDs }; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`, Tabla: "PEDs" };
           });
           setDatosTabla(update);
         }
@@ -844,6 +844,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         width: "87%",
         height: "92%",
         mt: "8vh",
+        
       }}
     >
       <Box
@@ -1033,17 +1034,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   },
                 }}
               >
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <Table aria-label="customized table">
                   <TableBody>
                     {datosTabla.map((item) => {
                       return (
-                        <StyledTableRow key={item.Id}>
+                        <StyledTableRow key={item.Id} >
                           <TableCell
                             sx={{
                               display: "flex",
                               justifyContent: "space-between",
                               alignItems: "center",
-                              height: "1.1vh",
+                              height: "auto",
                               fontFamily: "MontserratMedium",
                             }}
                           >
@@ -1077,9 +1078,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 </Table>
               </TableContainer>
             </Box>
-            <Box sx={{display:"flex", justifyContent:"flex-end", borderRadius:""}}>
-              <AddDialogCatalogo catalogo={catalogoActual}  tabla={tablaActual} actualizado={actualizaContador}/>
-            </Box>
             
           </Box>
 
@@ -1097,7 +1095,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               bottom: "17vh",
             }}
           >
-            <AddIcon />
+            <AddDialogCatalogo catalogo={catalogoActual}  tabla={tablaActual} actualizado={actualizaContador}/>
           </IconButton>
         </Box>
       </Box>
