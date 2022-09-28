@@ -180,7 +180,7 @@ export const AddDialogCatalogo = ({
 
           <DialogContent sx={{display:"flex", justifyContent:"space-around", mt:'1vh'}}>
               <Box sx={{pt:'1vh'}}>
-                 <TextField sx={{width:'20vw'}} label={"Nombre del programa"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)}  />
+                 <TextField sx={{width:'20vw'}} label={"Descripción"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)}  />
               </Box>
               <Box sx={{pt:'1vh'}}>
               <TextField

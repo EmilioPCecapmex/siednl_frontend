@@ -328,19 +328,6 @@ export const ModifyDialogCatalogos = ({
   } else if (tabla === "PEDs") {
     return (
       <Box>
-        <Tooltip title="Editar">
-          <IconButton onClick={handleClickOpen}>
-            <EditIcon
-              sx={[
-                {
-                  "&:hover": {
-                    color: "blue",
-                  },
-                },
-              ]}
-            />
-          </IconButton>
-        </Tooltip>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>{`Modificar  '${descripcion}'`}</DialogTitle>
 
