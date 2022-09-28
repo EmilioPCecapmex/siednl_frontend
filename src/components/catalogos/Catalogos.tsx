@@ -23,9 +23,10 @@ import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
-import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
+
 import AddDialogCatalogo from "./AddDialogCatalogo";
 import { log } from "console";
+import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 
 export const Catalogos = ({
   defSelected,
@@ -218,15 +219,7 @@ export const Catalogos = ({
     },
   ];
 
-  const [datosTabla, setDatosTabla] = React.useState([
-    {
-      Id: "",
-      Desc: "",
-      fnc: "",
-      Tabla: "",
-      selected: "",
-    },
-  ]);
+  
 
   const getAniosFiscales = () => {
 
@@ -251,6 +244,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -278,6 +272,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -309,6 +304,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -340,6 +336,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -363,6 +360,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -386,6 +384,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -413,6 +412,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -436,6 +436,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -468,6 +469,8 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+          
         }
       });
   };
@@ -495,6 +498,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -526,6 +530,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -552,6 +557,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -575,6 +581,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -602,6 +609,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -625,6 +633,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -654,6 +663,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -681,6 +691,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -722,6 +733,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -758,6 +770,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -781,6 +794,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -804,6 +818,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -831,6 +846,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -858,6 +874,7 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -885,17 +902,19 @@ export const Catalogos = ({
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
-  interface Datos {
-    id: number;
-    Desc: string;
-    fnc: string;
-    Tabla: string;
-    selected: string;
-  }
+  interface Datos{
+      id: string,
+      Id: string,
+      Desc: string,
+      fnc: string,
+      Tabla:string,
+      selected: string,
+  };
 
   const asignarElemntosDeTabla = (item: Datos) => {
     eval(item.fnc);
@@ -905,6 +924,45 @@ export const Catalogos = ({
   const [tablaActual, setTablaActual] = React.useState("");
   const [catalogoActual, setCatalogoActual] = React.useState("");
   const [selected, setSelected] = React.useState(defSelected);
+  const [descripctionFiltered, setDescripctionFiltered] = useState("");
+
+  const dataFilter = (text: string) => {
+    setDescripctionFiltered(text);
+  };
+
+  const [datosTabla, setDatosTabla] = React.useState([
+    {
+      Id: "",
+      Desc: "",
+      fnc: "",
+      Tabla: "",
+      selected: "",
+    },
+  ]);
+
+  const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState([
+  {
+      
+      Id: "",
+      Desc: "",
+      fnc: "",
+      Tabla:"",
+      selected: "", 
+  },
+]);
+  const findText = () => {
+    if (descripctionFiltered !== "") {
+      setDataDescripctionFiltered(
+        DataDescripctionFiltered.filter((x) => x.Desc.toLowerCase().includes(descripctionFiltered))
+      );
+    } else {
+      setDataDescripctionFiltered(datosTabla);
+    }
+  };
+
+  useEffect(() => {
+    findText();
+  }, [descripctionFiltered]);
 
   React.useEffect(() => {
     configOptions.map((item) => {
@@ -997,10 +1055,10 @@ export const Catalogos = ({
                       }}
                       autoFocus
                       selected={selected == item.Desc ? true : false}
-                      onClick={() => {
-                        eval(item.fnc);
-                        setTablaActual(item.Tabla);
-                      }}
+                      onClick={() => {eval(item.fnc)
+                                      setTablaActual(item.Tabla)
+                                      
+                                      }}
                     >
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         {item.Desc}
@@ -1090,13 +1148,16 @@ export const Catalogos = ({
                   <Input
                     disableUnderline
                     size="small"
+                    placeholder="Buscar"
+                    name="InSearch"
                     sx={{
                       backgroundColor: "#EBEBEB",
                       fontFamily: "MontserratLight",
                       borderRadius: 100
                     }}
+                    onChange={(v) => dataFilter(v.target.value)}
                   />
-                  <SearchIcon />
+                  <SearchIcon sx={{ color: "action.active", mr: 1 }}/>
                 </Box>
 
                 <Typography
@@ -1129,7 +1190,7 @@ export const Catalogos = ({
               >
                 <Table aria-label="customized table">
                   <TableBody>
-                    {datosTabla.map((item) => {
+                    {DataDescripctionFiltered.map((item) => {
                       return (
                         <StyledTableRow key={item.Id}>
                           <TableCell
