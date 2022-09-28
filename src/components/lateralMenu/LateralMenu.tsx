@@ -19,9 +19,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import LockIcon from "@mui/icons-material/Lock";
 import {
   Dialog,
-  DialogTitle,
   TextField,
-  ListItemAvatar,
   Button,
   MenuItem,
   Select,
@@ -107,6 +105,7 @@ export const LateralMenu = ({
     }
     navigate("../settings");
   };
+
 
   const [openPasswordChange, setOpenPasswordChange] = useState(false);
 
@@ -336,8 +335,8 @@ export const LateralMenu = ({
           </ListItemButton>
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={st.subMenuItemStyle}>
-                <Box sx={st.iconMenuList}>
+              <ListItemButton onClick={() => navigate("../MIR")} sx={{ pl: 2 }}>
+              <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
                 </Box>
                 <Typography sx={st.subMenuItemsText}>MIR</Typography>

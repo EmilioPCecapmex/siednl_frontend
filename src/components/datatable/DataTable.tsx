@@ -38,7 +38,7 @@ export const DataTable = ({
   }, [actualizar]);
 
   //# Renglones por pag
-  const renglonesPagina = 7;
+  const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [usuarios, setUsuarios] = useState<Array<DataUsuariosTiCentral>>([
     {
@@ -150,7 +150,23 @@ export const DataTable = ({
   const [idUsuarioEditar, setIdUsuarioEditar] = useState("");
 
   return (
-    <Box sx={{ width: "100%", height: "60vh" }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "60vh",
+        overflow: "hidden",
+        overflowY: "unset",
+        "&::-webkit-scrollbar": {
+          width: ".3vw",
+          mt: 1,
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0,0,0,.5)",
+          outline: "1px solid slategrey",
+          borderRadius: 1,
+        },
+      }}
+    >
       <TableContainer>
         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
           <TableHead>
@@ -263,9 +279,6 @@ export const DataTable = ({
         </Table>
       </TableContainer>
       <TablePagination
-        sx={{
-          mt: "1vh",
-        }}
         rowsPerPageOptions={[renglonesPagina]}
         component="div"
         count={usuarios.length}

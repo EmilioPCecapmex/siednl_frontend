@@ -1,35 +1,34 @@
 import { Box, Button, Typography } from '@mui/material';
-import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export const SettingsCard = ({showConfig} : {showConfig: Function}) => {
   const navigate = useNavigate();
 
     const configOptions = [
-        { id: 1, label: "Años Fiscales" },
-        { id: 2, label: "Beneficiarios" },
-        { id: 3, label: "Clasificaciones Programaticas" },
-        { id: 4, label: "Dimensiones del Indicador" },
-        { id: 5, label: "Ejes" },
-        { id: 6, label: "Estrategias" },
-        { id: 7, label: "Fechas de Captura" },
-        { id: 8, label: "Formulas" },
-        { id: 9, label: "Frecuencias" },
-        { id: 10, label: "Instituciones" },
-        { id: 11, label: "Lineas de Acción" },
-        { id: 12, label: "Metas ODS" },
-        { id: 13, label: "Modalidades" },
-        { id: 14, label: "Objetivos" },
-        { id: 15, label: "Objetivos DS" },
-        { id: 16, label: "Objetivos PEENL" },
-        { id: 17, label: "PED" },
-        { id: 18, label: "Programas Presupuestarios" },
-        { id: 19, label: "Roles" },
-        { id: 20, label: "Tematicas" },
-        { id: 21, label: "Tipos de Formula" },
-        { id: 22, label: "Tipos de Indicador" },
-        { id: 23, label: "Unidades de Medida" },
-        { id: 24, label: "Usuarios" },
+        { id: 1, label: "Años Fiscales"},
+        { id: 2, label: "Beneficiarios"},
+        { id: 3, label: "Clasificación Programática"},
+        { id: 4, label: "Dimensiones del Indicador"},
+        { id: 5, label: "Ejes"},
+        { id: 6, label: "Ejes del Plan Nacional de Desarrollo"},
+        { id: 7, label: "Estrategias"},
+        { id: 8, label: "Fechas de Captura"},
+        { id: 9, label: "Fórmulas"},
+        { id: 10, label: "Frecuencias"},
+        { id: 11, label: "Instituciones"},
+        { id: 12, label: "Lineas de Acción"},
+        { id: 13, label: "Metas ODS"},
+        { id: 14, label: "Modalidades"},
+        { id: 15, label: "Objetivos"},
+        { id: 16, label: "Objetivos Desarrollo Sostenible"},
+        { id: 17, label: "Objetivos del Plan Estrategico del Estado de Nuevo León"},
+        { id: 18, label: "PED"},
+        { id: 19, label: "Programas Presupuestarios"},
+        { id: 20, label: "Temáticas"},
+        { id: 21, label: "Tipos de Fórmula"},
+        { id: 22, label: "Tipos de Indicador"},
+        { id: 23, label: "Unidades de Medida"},
+        { id: 24, label: "Usuarios"},
       ];
 
       const navigationOptions = (value: number, label: string) => {

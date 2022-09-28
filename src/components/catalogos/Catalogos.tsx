@@ -18,14 +18,20 @@ import {
   Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
 
-import EditIcon from "@mui/icons-material/Edit";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import DeleteDialog from "../deleteDialog/DeleteDialog";
-import Add from "@mui/icons-material/Add";
+import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 
-export const Catalogos = ({ defSelected }: { defSelected: string }) => {
+import AddDialogCatalogo from "./AddDialogCatalogo";
+import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
+
+export const Catalogos = ({
+  defSelected,
+}: {
+  defSelected: string;
+}) => {
+  
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: "#ccc",
@@ -51,94 +57,170 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 1,
       Desc: "Años Fiscales",
       fnc: "getAniosFiscales()",
+      Tabla: "AniosFiscales",
       selected: false,
     },
     {
       id: 2,
       Desc: "Beneficiarios",
       fnc: "getBeneficiarios()",
+      Tabla: "Beneficiarios",
       selected: false,
     },
     {
       id: 3,
-      Desc: "Clasificaciones Programaticas",
+      Desc: "Clasificación Programática",
       fnc: "getClasificacionesProgramaticas()",
+      Tabla: "ClasificacionesProgramaticas",
       selected: false,
     },
     {
       id: 4,
       Desc: "Dimensiones del Indicador",
       fnc: "getDimensionesDelIndicador()",
+      Tabla: "DimensionesDelIndicador",
       selected: false,
     },
-    { id: 5, Desc: "Ejes", fnc: "getEjes()", selected: true },
-    { id: 6, Desc: "Estrategias", fnc: "getEstrategias()", selected: false },
+    { id: 5, Desc: "Ejes", fnc: "getEjes()", Tabla: "Ejes", selected: true },
+    {
+      id: 6,
+      Desc: "Ejes del Plan Nacional de Desarrollo",
+      Tabla: "EjesPND",
+      fnc: "getEjesPND()",
+      selected: true,
+    },
     {
       id: 7,
-      Desc: "Fechas de Captura",
-      fnc: "getFechasDeCaptura()",
+      Desc: "Estrategias",
+      fnc: "getEstrategias()",
+      Tabla: "Estrategias ",
       selected: false,
     },
-    { id: 8, Desc: "Formulas", fnc: "getFormulas()", selected: false },
-    { id: 9, Desc: "Frecuencias", fnc: "getFrecuencias()", selected: false },
+    {
+      id: 8,
+      Desc: "Fechas de Captura",
+      fnc: "getFechasDeCaptura()",
+      Tabla: "FechasDeCaptura",
+      selected: false,
+    },
+    {
+      id: 9,
+      Desc: "Fórmulas",
+      fnc: "getFormulas()",
+      Tabla: "Formulas",
+      selected: false,
+    },
     {
       id: 10,
-      Desc: "Instituciones",
-      fnc: "getInstituciones()",
+      Desc: "Frecuencias",
+      fnc: "getFrecuencias()",
+      Tabla: "Frecuencias",
       selected: false,
     },
     {
       id: 11,
-      Desc: "Lineas de Acción",
-      fnc: "getLineasDeAccion()",
+      Desc: "Instituciones",
+      fnc: "getInstituciones()",
+      Tabla: "Instituciones",
       selected: false,
     },
-    { id: 12, Desc: "Metas ODS", fnc: "getMetasODS()", selected: false },
-    { id: 13, Desc: "Modalidades", fnc: "getModalidades()", selected: false },
-    { id: 14, Desc: "Objetivos", fnc: "getObjetivos()", selected: false },
-    { id: 15, Desc: "Objetivos DS", fnc: "getObjetivosDS()", selected: false },
+    {
+      id: 12,
+      Desc: "Lineas de Acción",
+      fnc: "getLineasDeAccion()",
+      Tabla: "LineasDeAccion",
+      selected: false,
+    },
+    {
+      id: 13,
+      Desc: "Metas ODS",
+      fnc: "getMetasODS()",
+      Tabla: "MetasODS",
+      selected: false,
+    },
+    {
+      id: 14,
+      Desc: "Modalidades",
+      fnc: "getModalidades()",
+      Tabla: "Modalidades",
+      selected: false,
+    },
+    {
+      id: 15,
+      Desc: "Objetivos",
+      fnc: "getObjetivos()",
+      Tabla: "Objetivos",
+      selected: false,
+    },
     {
       id: 16,
-      Desc: "Objetivos PEENL",
+      Desc: "Objetivos Desarrollo Sostenible",
+      fnc: "getObjetivosDS()",
+      Tabla: "ObjetivosDS",
+      selected: false,
+    },
+    {
+      id: 17,
+      Desc: "Objetivos del Plan Estrategico del Estado de Nuevo León",
       fnc: "getObjetivosPEENL()",
+      Tabla: "ObjetivosPEENL",
       selected: false,
     },
     {
       id: 18,
-      Desc: "Programas Presupuestarios",
-      fnc: "getProgramaPresupuestario()",
+      Desc: "PED",
+      fnc: "getPED()",
+      Tabla: "PEDs",
       selected: false,
     },
-    { id: 19, Desc: "Roles", fnc: "getRoles()", selected: false },
-    { id: 20, Desc: "Tematicas", fnc: "getTematicas()", selected: false },
+    {
+      id: 19,
+      Desc: "Programas Presupuestarios",
+      fnc: "getProgramaPresupuestario()",
+      Tabla: "ProgramasPresupuestarios",
+      selected: false,
+    },
+    {
+      id: 20,
+      Desc: "Roles",
+      fnc: "getRoles()",
+      Tabla: "Roles",
+      selected: false,
+    },
     {
       id: 21,
-      Desc: "Tipos de Formula",
-      fnc: "getTipoDeFormula()",
+      Desc: "Temáticas",
+      fnc: "getTematicas()",
+      Tabla: "Tematicas",
       selected: false,
     },
     {
       id: 22,
-      Desc: "Tipos de Indicador",
-      fnc: "getTipoDeIndicador()",
+      Desc: "Tipos de Fórmula",
+      fnc: "getTipoDeFormula()",
+      Tabla: "TiposDeFormula",
       selected: false,
     },
     {
       id: 23,
+      Desc: "Tipos de Indicador",
+      fnc: "getTipoDeIndicador()",
+      Tabla: "TiposDeIndicador",
+      selected: false,
+    },
+    {
+      id: 24,
       Desc: "Unidades de Medida",
       fnc: "getUnidadDeMedida()",
+      Tabla: "UnidadesDeMedida",
       selected: false,
     },
   ];
 
-  const [datosTabla, setDatosTabla] = React.useState([
-    {
-      Id: "",
-      Desc: "",
-    },
-  ]);
+  
 
   const getAniosFiscales = () => {
+
     setSelected("Años Fiscales");
     setCatalogoActual("Años Fiscales");
     axios
@@ -150,10 +232,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; AnioFiscal: string }) => {
-            return { Id: item.Id, Desc: item.AnioFiscal };
-          });
+          update = update.map(
+            (item: { Id: string; AnioFiscal: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.AnioFiscal,
+                Tabla: "AniosFiscales",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -171,18 +260,25 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Beneficiario: string }) => {
-            return { Id: item.Id, Desc: item.Beneficiario };
-          });
+          update = update.map(
+            (item: { Id: string; Beneficiario: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.Beneficiario,
+                Tabla: "Beneficiarios",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
   const getClasificacionesProgramaticas = () => {
-    setSelected("Clasificaciones Programaticas");
+    setSelected("Clasificación Programática");
 
-    setCatalogoActual("Clasificaciones Programaticas");
+    setCatalogoActual("Clasificación Programática");
     axios
       .get("http://10.200.4.105:8000/api/clasificacionesProgramaticas", {
         headers: {
@@ -193,11 +289,20 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; ClasificacionProgramatica: string }) => {
-              return { Id: item.Id, Desc: item.ClasificacionProgramatica };
+            (item: {
+              Id: string;
+              ClasificacionProgramatica: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.ClasificacionProgramatica,
+                Tabla: "ClasificacionesProgramaticas",
+              };
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -205,7 +310,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const getDimensionesDelIndicador = () => {
     setSelected("Dimensiones del Indicador");
 
-    setCatalogoActual("Dimension del indicador");
+    setCatalogoActual("Dimensiones del Indicador");
     axios
       .get("http://10.200.4.105:8000/api/dimensionesDelIndicador", {
         headers: {
@@ -216,11 +321,20 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; DimensionDelIndicador: string }) => {
-              return { Id: item.Id, Desc: item.DimensionDelIndicador };
+            (item: {
+              Id: string;
+              DimensionDelIndicador: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.DimensionDelIndicador,
+                Tabla: "DimensionesDelIndicador",
+              };
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -238,10 +352,37 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Eje: string }) => {
-            return { Id: item.Id, Desc: item.Eje };
-          });
+          update = update.map(
+            (item: { Id: string; Eje: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.Eje, Tabla: "Ejes" };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+        }
+      });
+  };
+
+  const getEjesPND = () => {
+    setSelected("Ejes del Plan Nacional de Desarrollo");
+
+    setCatalogoActual("Ejes del Plan Nacional de Desarrollo");
+    axios
+      .get("http://10.200.4.105:8000/api/ejesPND", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          let update = r.data.data;
+          update = update.map(
+            (item: { Id: string; EjePND: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.EjePND, Tabla: "EjesPND" };
+            }
+          );
+          setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -259,18 +400,25 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Estrategia: string }) => {
-            return { Id: item.Id, Desc: item.Estrategia };
-          });
+          update = update.map(
+            (item: { Id: string; Estrategia: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.Estrategia,
+                Tabla: "Estrategias",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
   const getFormulas = () => {
-    setSelected("Formulas");
+    setSelected("Fórmulas");
 
-    setCatalogoActual("Formulas");
+    setCatalogoActual("Fórmulas");
     axios
       .get("http://10.200.4.105:8000/api/Formulas", {
         headers: {
@@ -280,10 +428,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Formula: string }) => {
-            return { Id: item.Id, Desc: item.Formula };
-          });
+          update = update.map(
+            (item: { Id: string; Formula: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.Formula, Tabla: "Formulas" };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -302,11 +453,22 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; FechaDeCaptura: string }) => {
-              return { Id: item.Id, Desc: item.FechaDeCaptura };
+            (item: {
+              Id: string;
+              FechaDeCaptura: string;
+              Descripcion: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.FechaDeCaptura + " / " + item.Descripcion,
+                Tabla: "FechasDeCaptura",
+              };
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+          
         }
       });
   };
@@ -324,10 +486,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Frecuencia: string }) => {
-            return { Id: item.Id, Desc: item.Frecuencia };
-          });
+          update = update.map(
+            (item: { Id: string; Frecuencia: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.Frecuencia,
+                Tabla: "Frecuencias",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -346,18 +515,27 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; NombreInstitucion: string }) => {
-              return { Id: item.Id, Desc: item.NombreInstitucion };
+            (item: {
+              Id: string;
+              NombreInstitucion: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.NombreInstitucion,
+                Tabla: "Instituciones",
+              };
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
   const getLineasDeAccion = () => {
     setSelected("Lineas de Acción");
 
-    setCatalogoActual("Lineas de accion");
+    setCatalogoActual("Lineas de acción");
     axios
       .get("http://10.200.4.105:8000/api/lineasDeAccion", {
         headers: {
@@ -367,10 +545,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; LineaDeAccion: string }) => {
-            return { Id: item.Id, Desc: item.LineaDeAccion };
-          });
+          update = update.map(
+            (item: { Id: string; LineaDeAccion: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.LineaDeAccion,
+                Tabla: "LineasDeAccion",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -378,7 +563,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const getMetasODS = () => {
     setSelected("Metas ODS");
 
-    setCatalogoActual("Meta ODS");
+    setCatalogoActual("Metas ODS");
     axios
       .get("http://10.200.4.105:8000/api/metasODS", {
         headers: {
@@ -388,10 +573,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; MetaODS: string }) => {
-            return { Id: item.Id, Desc: item.MetaODS };
-          });
+          update = update.map(
+            (item: { Id: string; MetaODS: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.MetaODS, Tabla: "MetasODS" };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -409,10 +597,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Modalidad: string }) => {
-            return { Id: item.Id, Desc: item.Modalidad };
-          });
+          update = update.map(
+            (item: { Id: string; Modalidad: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.Modalidad,
+                Tabla: "Modalidades",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -430,18 +625,23 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Objetivo: string }) => {
-            return { Id: item.Id, Desc: item.Objetivo };
-          });
+          update = update.map(
+            (item: { Id: string; Objetivo: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.Objetivo, Tabla: "Objetivos" };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
   const getObjetivosPEENL = () => {
-    setSelected("Objetivos PEENL");
+    setSelected("Objetivos del Plan Estrategico del Estado de Nuevo León");
 
-    setCatalogoActual("Ojetivos PEENL");
+    setCatalogoActual(
+      "Objetivos del Plan Estrategico del Estado de Nuevo León"
+    );
     axios
       .get("http://10.200.4.105:8000/api/objetivosPEENL", {
         headers: {
@@ -451,18 +651,25 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; ObjetivoPEENL: string }) => {
-            return { Id: item.Id, Desc: item.ObjetivoPEENL };
-          });
+          update = update.map(
+            (item: { Id: string; ObjetivoPEENL: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.ObjetivoPEENL,
+                Tabla: "ObjetivosPEENL",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
   const getObjetivosDS = () => {
-    setSelected("Objetivos DS");
+    setSelected("Objetivos Desarrollo Sostenible");
 
-    setCatalogoActual("Objetivos DS");
+    setCatalogoActual("Objetivos Desarrollo Sostenible");
     axios
       .get("http://10.200.4.105:8000/api/objetivosDS", {
         headers: {
@@ -472,10 +679,59 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; ObjetivoDS: string }) => {
-            return { Id: item.Id, Desc: item.ObjetivoDS };
-          });
+          update = update.map(
+            (item: { Id: string; ObjetivoDS: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.ObjetivoDS,
+                Tabla: "ObjetivosDS",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+        }
+      });
+  };
+
+  const getPED = () => {
+    setSelected("PED");
+
+    setCatalogoActual("PED");
+    axios
+      .get("http://10.200.4.105:8000/api/ped", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        console.log(r.data.data);
+
+        if (r.status === 200) {
+          let update = r.data.data;
+          update = update.map(
+            (item: {
+              Id: string;
+              Eje: string;
+              Tematica: string;
+              Objetivo: string;
+              Estrategia: string;
+              LineaDeAccion: string;
+              ObjetivoDs: string;
+              MetaODS: string;
+              EjePND: string;
+              ObjetivoPEENL: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: `${item.Eje}; ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDs}; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`,
+                Tabla: "PEDs",
+              };
+            }
+          );
+          setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -494,11 +750,25 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; NombrePrograma: string }) => {
-              return { Id: item.Id, Desc: item.NombrePrograma };
+            (item: {
+              Id: string;
+              NombrePrograma: string;
+              NombreInstitucion: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc:
+                  "Programa: " +
+                  item.NombrePrograma +
+                  " / Institución: " +
+                  item.NombreInstitucion,
+                Tabla: "ProgramasPresupuestarios",
+              };
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -516,18 +786,21 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Rol: string }) => {
-            return { Id: item.Id, Desc: item.Rol };
-          });
+          update = update.map(
+            (item: { Id: string; Rol: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.Rol, Tabla: "Roles" };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
   const getTematicas = () => {
-    setSelected("Tematicas");
+    setSelected("Temáticas");
 
-    setCatalogoActual("Tematicas");
+    setCatalogoActual("Temáticas");
     axios
       .get("http://10.200.4.105:8000/api/tematica", {
         headers: {
@@ -537,18 +810,21 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Tematica: string }) => {
-            return { Id: item.Id, Desc: item.Tematica };
-          });
+          update = update.map(
+            (item: { Id: string; Tematica: string; Tabla: string }) => {
+              return { Id: item.Id, Desc: item.Tematica, Tabla: "Tematicas" };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
   const getTipoDeFormula = () => {
-    setSelected("Tipos de Formula");
+    setSelected("Tipos de Fórmula");
 
-    setCatalogoActual("Tipos de Formula");
+    setCatalogoActual("Tipos de Fórmula");
     axios
       .get("http://10.200.4.105:8000/api/TipoDeFormula", {
         headers: {
@@ -558,10 +834,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; TipoDeFormula: string }) => {
-            return { Id: item.Id, Desc: item.TipoDeFormula };
-          });
+          update = update.map(
+            (item: { Id: string; TipoDeFormula: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.TipoDeFormula,
+                Tabla: "TiposDeFormula",
+              };
+            }
+          );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -569,7 +852,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const getTipoDeIndicador = () => {
     setSelected("Tipos de Indicador");
 
-    setCatalogoActual("Tipos de indicadores");
+    setCatalogoActual("Tipos de indicador");
     axios
       .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
         headers: {
@@ -580,11 +863,16 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; TipoDeIndicador: string }) => {
-              return { Id: item.Id, Desc: item.TipoDeIndicador };
+            (item: { Id: string; TipoDeIndicador: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.TipoDeIndicador,
+                Tabla: "TiposDeIndicador",
+              };
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
@@ -592,7 +880,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const getUnidadDeMedida = () => {
     setSelected("Unidades de Medida");
 
-    setCatalogoActual("Unidades de medidas");
+    setCatalogoActual("Unidades de medida");
     axios
       .get("http://10.200.4.105:8000/api/unidadDeMedida", {
         headers: {
@@ -603,17 +891,76 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; UnidadDeMedida: string }) => {
-              return { Id: item.Id, Desc: item.UnidadDeMedida };
+            (item: { Id: string; UnidadDeMedida: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.UnidadDeMedida,
+                Tabla: "UnidadesDeMedida",
+              };
             }
           );
           setDatosTabla(update);
+          setDataDescripctionFiltered(update);
         }
       });
   };
 
+  interface Datos{
+      id: string,
+      Id: string,
+      Desc: string,
+      fnc: string,
+      Tabla:string,
+      selected: string,
+  };
+
+  const asignarElemntosDeTabla = (item: Datos) => {
+    eval(item.fnc);
+    setTablaActual(item.Tabla);
+  };
+
+  const [tablaActual, setTablaActual] = React.useState("");
   const [catalogoActual, setCatalogoActual] = React.useState("");
   const [selected, setSelected] = React.useState(defSelected);
+  const [descripctionFiltered, setDescripctionFiltered] = useState("");
+
+  const dataFilter = (text: string) => {
+    setDescripctionFiltered(text);
+  };
+
+  const [datosTabla, setDatosTabla] = React.useState([
+    {
+      Id: "",
+      Desc: "",
+      fnc: "",
+      Tabla: "",
+      selected: "",
+    },
+  ]);
+
+  const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState([
+  {
+      
+      Id: "",
+      Desc: "",
+      fnc: "",
+      Tabla:"",
+      selected: "", 
+  },
+]);
+  const findText = () => {
+    if (descripctionFiltered !== "") {
+      setDataDescripctionFiltered(
+        DataDescripctionFiltered.filter((x) => x.Desc.toLowerCase().includes(descripctionFiltered))
+      );
+    } else {
+      setDataDescripctionFiltered(datosTabla);
+    }
+  };
+
+  useEffect(() => {
+    findText();
+  }, [descripctionFiltered]);
 
   React.useEffect(() => {
     configOptions.map((item) => {
@@ -622,6 +969,20 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       }
     });
   }, []);
+
+  const [actualizacion, setActualizacion] = useState(0);
+
+  useEffect(() => {
+    configOptions.map((item) => {
+      if (item.Desc === defSelected) {
+        eval(item.fnc);
+      }
+    });
+  }, [actualizacion]);
+
+  const actualizaContador = () => {
+    setActualizacion(actualizacion + 1);
+  };
 
   return (
     <Box
@@ -689,8 +1050,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                           backgroundColor: "#cbcbcb",
                         },
                       }}
+                      autoFocus
                       selected={selected == item.Desc ? true : false}
-                      onClick={() => eval(item.fnc)}
+                      onClick={() => {eval(item.fnc)
+                                      setTablaActual(item.Tabla)
+                                      
+                                      }}
                     >
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         {item.Desc}
@@ -724,7 +1089,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               }}
             >
               <Typography
-                sx={{ fontFamily: "MontserratSemiBold", fontSize: "2vw" }}
+                sx={{
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: "2vw",
+                  textAlign: "center",
+                }}
               >
                 {catalogoActual}
               </Typography>
@@ -776,12 +1145,16 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   <Input
                     disableUnderline
                     size="small"
+                    placeholder="Buscar"
+                    name="InSearch"
                     sx={{
                       backgroundColor: "#EBEBEB",
                       fontFamily: "MontserratLight",
+                      borderRadius: 100
                     }}
+                    onChange={(v) => dataFilter(v.target.value)}
                   />
-                  <SearchIcon />
+                  <SearchIcon sx={{ color: "action.active", mr: 1 }}/>
                 </Box>
 
                 <Typography
@@ -812,9 +1185,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   },
                 }}
               >
-                <Table>
+                <Table aria-label="customized table">
                   <TableBody>
-                    {datosTabla.map((item) => {
+                    {DataDescripctionFiltered.map((item) => {
                       return (
                         <StyledTableRow key={item.Id}>
                           <TableCell
@@ -822,7 +1195,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               display: "flex",
                               justifyContent: "space-between",
                               alignItems: "center",
-                              height: "1.1vh",
+                              height: "auto",
                               fontFamily: "MontserratMedium",
                             }}
                           >
@@ -834,42 +1207,50 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 flexDirection: "row",
                               }}
                             >
-                              <IconButton aria-label="delete" color="info">
-                                <EditIcon />
-                              </IconButton>
+                              <ModifyDialogCatalogos
+                                descripcion={item.Desc}
+                                id={item.Id}
+                                tabla={item.Tabla}
+                                actualizado={actualizaContador}
+                              />
 
-                              <DeleteDialog
-                                deleteText="elemento"
-                                id=""
-                                actualizado={() => ""}
+                              <DeleteDialogCatalogos
+                                deleteText={item.Desc}
+                                id={item.Id}
+                                tabla={item.Tabla}
+                                actualizado={actualizaContador}
                               />
                             </Stack>
                           </TableCell>
+                          <IconButton
+                            title="Agregar"
+                            sx={{
+                              width: 50,
+                              height: 50,
+                              backgroundColor: "#c4a57b",
+                              position: "absolute",
+                              ":hover": {
+                                backgroundColor: "#ffdcac",
+                              },
+                              right: "30vh",
+                              bottom: "17vh",
+                            }}
+                          >
+                            <AddDialogCatalogo
+                              catalogo={item.Tabla}
+                              tabla={item.Tabla}
+                              actualizado={actualizaContador}
+                            />
+                          </IconButton>
                         </StyledTableRow>
                       );
                     })}
+                    
                   </TableBody>
                 </Table>
               </TableContainer>
             </Box>
           </Box>
-
-          <IconButton
-            title="Agregar"
-            sx={{
-              width: 50,
-              height: 50,
-              backgroundColor: "#c4a57b",
-              position: "absolute",
-              ":hover": {
-                backgroundColor: "#ffdcac",
-              },
-              right: "30vh",
-              bottom: "12vh",
-            }}
-          >
-            <AddIcon />
-          </IconButton>
         </Box>
       </Box>
     </Box>

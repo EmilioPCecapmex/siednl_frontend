@@ -161,7 +161,6 @@ export const Usuarios = () => {
           }}
         >
           <DataTable textFind={usersFiltered} actualizar={actualizarDatos}></DataTable>
-          {/* <DataTable2 textFind={usersFiltered}></DataTable2> */}
         </Box>
       </Box>
     </Box>
