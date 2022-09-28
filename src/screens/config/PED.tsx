@@ -126,7 +126,7 @@ const PEDS = () => {
   const postPED = () => {
     axios
       .post(
-        "http://localhost:8000/api/ped-add",
+        "http://10.200.4.105:8000/api/ped-add",
         {
           IdEje: eje,
           IdTematicas: tematica,
@@ -155,7 +155,6 @@ const PEDS = () => {
       })
       .catch((err) => {
         console.log(err);
-
         Swal.fire({
           position: "top-end",
           icon: "error",
