@@ -478,27 +478,17 @@ export const PED = () => {
           height: "92%",
           mt: "8vh",
           flexWrap: "wrap",
+          alignContent:"center"
         }}
       >
-        <Box
-          sx={{
-            mt: "3vh",
-            width: "70vw",
-            height: "10vh",
-            backgroundColor: "#fff",
-            borderRadius: 5,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <Box>
         </Box>
 
         {/* ----- */}
         <Box
           sx={{
-            width: "70vw",
-            height: "65vh",
+            width: "85vw",
+            height: "70vh",
             backgroundColor: "#fff",
             borderRadius: 5,
             display: "flex",
