@@ -108,10 +108,10 @@ export const AddDialogCatalogo = ({
           />
         </IconButton>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>{`Agregar  ' ${catalogo} '`}</DialogTitle>
+          <DialogTitle>{`Agregar nuevo elemento`}</DialogTitle>
 
-          <DialogContent sx={{ display: "flex" }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <DialogContent sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ display: "flex" }}>
               <TextField
                 label={"Descripcion"}
                 variant="outlined"
@@ -150,7 +150,7 @@ export const AddDialogCatalogo = ({
             />
           </IconButton>
           <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>{`Agregar  ' ${tabla} '`}</DialogTitle>
+            <DialogTitle>{`Agregar nuevo elemento`}</DialogTitle>
 
             <DialogContent>
               <TextField

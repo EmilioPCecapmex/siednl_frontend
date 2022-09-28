@@ -27,7 +27,12 @@ import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 import AddDialogCatalogo from "./AddDialogCatalogo";
 import { log } from "console";
 
-export const Catalogos = ({ defSelected }: { defSelected: string }) => {
+export const Catalogos = ({
+  defSelected,
+}: {
+  defSelected: string;
+}) => {
+  
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: "#ccc",
@@ -77,9 +82,21 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "DimensionesDelIndicador",
       selected: false,
     },
-    { id: 5, Desc: "Ejes", fnc: "getEjes()",Tabla:"Ejes" ,selected: true },
-    { id: 6, Desc: "Ejes del Plan Nacional de Desarrollo",Tabla:"EjesPND", fnc: "getEjesPND()", selected: true },
-    { id: 7, Desc: "Estrategias", fnc: "getEstrategias()",Tabla:"Estrategias ",selected: false },
+    { id: 5, Desc: "Ejes", fnc: "getEjes()", Tabla: "Ejes", selected: true },
+    {
+      id: 6,
+      Desc: "Ejes del Plan Nacional de Desarrollo",
+      Tabla: "EjesPND",
+      fnc: "getEjesPND()",
+      selected: true,
+    },
+    {
+      id: 7,
+      Desc: "Estrategias",
+      fnc: "getEstrategias()",
+      Tabla: "Estrategias ",
+      selected: false,
+    },
     {
       id: 8,
       Desc: "Fechas de Captura",
@@ -87,8 +104,20 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "FechasDeCaptura",
       selected: false,
     },
-    { id: 9, Desc: "Fórmulas", fnc: "getFormulas()",Tabla:"Formulas", selected: false },
-    { id: 10, Desc: "Frecuencias", fnc: "getFrecuencias()",Tabla:"Frecuencias", selected: false },
+    {
+      id: 9,
+      Desc: "Fórmulas",
+      fnc: "getFormulas()",
+      Tabla: "Formulas",
+      selected: false,
+    },
+    {
+      id: 10,
+      Desc: "Frecuencias",
+      fnc: "getFrecuencias()",
+      Tabla: "Frecuencias",
+      selected: false,
+    },
     {
       id: 11,
       Desc: "Instituciones",
@@ -103,10 +132,34 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "LineasDeAccion",
       selected: false,
     },
-    { id: 13, Desc: "Metas ODS", fnc: "getMetasODS()",Tabla:"MetasODS", selected: false },
-    { id: 14, Desc: "Modalidades", fnc: "getModalidades()",Tabla:"Modalidades", selected: false },
-    { id: 15, Desc: "Objetivos", fnc: "getObjetivos()",Tabla:"Objetivos", selected: false },
-    { id: 16, Desc: "Objetivos Desarrollo Sostenible", fnc: "getObjetivosDS()",Tabla:"ObjetivosDS", selected: false },
+    {
+      id: 13,
+      Desc: "Metas ODS",
+      fnc: "getMetasODS()",
+      Tabla: "MetasODS",
+      selected: false,
+    },
+    {
+      id: 14,
+      Desc: "Modalidades",
+      fnc: "getModalidades()",
+      Tabla: "Modalidades",
+      selected: false,
+    },
+    {
+      id: 15,
+      Desc: "Objetivos",
+      fnc: "getObjetivos()",
+      Tabla: "Objetivos",
+      selected: false,
+    },
+    {
+      id: 16,
+      Desc: "Objetivos Desarrollo Sostenible",
+      fnc: "getObjetivosDS()",
+      Tabla: "ObjetivosDS",
+      selected: false,
+    },
     {
       id: 17,
       Desc: "Objetivos del Plan Estrategico del Estado de Nuevo León",
@@ -118,7 +171,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       id: 18,
       Desc: "PED",
       fnc: "getPED()",
-      Tabla:"PEDs",
+      Tabla: "PEDs",
       selected: false,
     },
     {
@@ -128,8 +181,20 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "ProgramasPresupuestarios",
       selected: false,
     },
-    { id: 20, Desc: "Roles", fnc: "getRoles()",Tabla:"Roles", selected: false },
-    { id: 21, Desc: "Temáticas", fnc: "getTematicas()",Tabla:"Tematicas", selected: false },
+    {
+      id: 20,
+      Desc: "Roles",
+      fnc: "getRoles()",
+      Tabla: "Roles",
+      selected: false,
+    },
+    {
+      id: 21,
+      Desc: "Temáticas",
+      fnc: "getTematicas()",
+      Tabla: "Tematicas",
+      selected: false,
+    },
     {
       id: 22,
       Desc: "Tipos de Fórmula",
@@ -164,6 +229,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   ]);
 
   const getAniosFiscales = () => {
+
     setSelected("Años Fiscales");
     setCatalogoActual("Años Fiscales");
     axios
@@ -388,8 +454,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
-            (item: { Id: string; FechaDeCaptura: string; Descripcion: string; Tabla:string}) => {
-              return { Id: item.Id, Desc: item.FechaDeCaptura + " / " + item.Descripcion,Tabla:"FechasDeCaptura"};
+            (item: {
+              Id: string;
+              FechaDeCaptura: string;
+              Descripcion: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.FechaDeCaptura + " / " + item.Descripcion,
+                Tabla: "FechasDeCaptura",
+              };
             }
           );
           setDatosTabla(update);
@@ -625,9 +700,27 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
         if (r.status === 200) {
           let update = r.data.data;
-          update = update.map((item: { Id: string; Eje: string; Tematica: string; Objetivo: string; Estrategia: string; LineaDeAccion: string; ObjetivoDs: string; MetaODS: string; EjePND: string; ObjetivoPEENL: string; Tabla: string; }) => {
-            return { Id: item.Id, Desc:  `${item.Eje}; ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDs }; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`, Tabla: "PEDs" };
-          });
+          update = update.map(
+            (item: {
+              Id: string;
+              Eje: string;
+              Tematica: string;
+              Objetivo: string;
+              Estrategia: string;
+              LineaDeAccion: string;
+              ObjetivoDs: string;
+              MetaODS: string;
+              EjePND: string;
+              ObjetivoPEENL: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: `${item.Eje}; \n ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDs}; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`,
+                Tabla: "PEDs",
+              };
+            }
+          );
           setDatosTabla(update);
         }
       });
@@ -796,19 +889,18 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       });
   };
 
-  interface Datos{
-    id: number,
-      Desc: string,
-      fnc: string,
-      Tabla:string,
-      selected: string,
-  };
-
-  const asignarElemntosDeTabla=(item: Datos)=>{
-    eval(item.fnc)
-    setTablaActual(item.Tabla)
+  interface Datos {
+    id: number;
+    Desc: string;
+    fnc: string;
+    Tabla: string;
+    selected: string;
   }
 
+  const asignarElemntosDeTabla = (item: Datos) => {
+    eval(item.fnc);
+    setTablaActual(item.Tabla);
+  };
 
   const [tablaActual, setTablaActual] = React.useState("");
   const [catalogoActual, setCatalogoActual] = React.useState("");
@@ -844,7 +936,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         width: "87%",
         height: "92%",
         mt: "8vh",
-        
       }}
     >
       <Box
@@ -906,9 +997,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       }}
                       autoFocus
                       selected={selected == item.Desc ? true : false}
-                      onClick={() => {eval(item.fnc)
-                                      setTablaActual(item.Tabla)
-                                      }}
+                      onClick={() => {
+                        eval(item.fnc);
+                        setTablaActual(item.Tabla);
+                      }}
                     >
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         {item.Desc}
@@ -1001,6 +1093,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     sx={{
                       backgroundColor: "#EBEBEB",
                       fontFamily: "MontserratLight",
+                      borderRadius: 100
                     }}
                   />
                   <SearchIcon />
@@ -1038,7 +1131,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   <TableBody>
                     {datosTabla.map((item) => {
                       return (
-                        <StyledTableRow key={item.Id} >
+                        <StyledTableRow key={item.Id}>
                           <TableCell
                             sx={{
                               display: "flex",
@@ -1071,6 +1164,26 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               />
                             </Stack>
                           </TableCell>
+                          <IconButton
+                            title="Agregar"
+                            sx={{
+                              width: 50,
+                              height: 50,
+                              backgroundColor: "#c4a57b",
+                              position: "absolute",
+                              ":hover": {
+                                backgroundColor: "#ffdcac",
+                              },
+                              right: "30vh",
+                              bottom: "17vh",
+                            }}
+                          >
+                            <AddDialogCatalogo
+                              catalogo={item.Tabla}
+                              tabla={item.Tabla}
+                              actualizado={actualizaContador}
+                            />
+                          </IconButton>
                         </StyledTableRow>
                       );
                     })}
@@ -1078,25 +1191,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 </Table>
               </TableContainer>
             </Box>
-            
           </Box>
-
-          <IconButton
-            title="Agregar"
-            sx={{
-              width: 50,
-              height: 50,
-              backgroundColor: "#c4a57b",
-              position: "absolute",
-              ":hover": {
-                backgroundColor: "#ffdcac",
-              },
-              right: "30vh",
-              bottom: "17vh",
-            }}
-          >
-            <AddDialogCatalogo catalogo={catalogoActual}  tabla={tablaActual} actualizado={actualizaContador}/>
-          </IconButton>
         </Box>
       </Box>
     </Box>
