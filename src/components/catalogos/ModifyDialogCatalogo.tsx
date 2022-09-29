@@ -43,46 +43,9 @@ export const ModifyDialogCatalogos = ({
   };
   const [nuevaDescripcion, setnuevaDescripcion] = React.useState("");
   const [fechaCaptura, setFechaCaptura] = React.useState("");
-  //const [Descripcion, setDescripcion] = React.useState("");
-  //const [institucion, setInstitucion] = React.useState("");
 
   const ModifyPorCatalogo = () => {
-    if (tabla === "PEDs") {
-      axios
-        .put(
-          "http://10.200.4.105:8000/api/catalogos",
-          {
-            Id: id,
-            NuevaDescripcion: nuevaDescripcion,
-            Tabla: tabla,
-            IdUser: localStorage.getItem("IdUsuario"),
-          },
-          {
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          actualizado();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "!Elemento modificado con éxito!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        })
-        .catch((err) =>
-          Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "Permisos denegados",
-            showConfirmButton: false,
-            timer: 1500,
-          })
-        );
-    } else if (tabla === "ProgramasPresupuestarios") {
+     if (tabla === "ProgramasPresupuestarios") {
       axios
         .put(
           "http://10.200.4.105:8000/api/programaPresupuestario",

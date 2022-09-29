@@ -17,7 +17,6 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalEditarUsuario from "../modalUsuarios/ModalEditarUsuario";
-import Swal from "sweetalert2";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {

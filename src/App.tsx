@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { SessionDialog } from "./components/sessionDialog/SessionDialog";
 import { useNavigate } from "react-router-dom";
 import { MIR } from "./screens/config/MIR";
+import ModalCrearMir from "./components/mir/ModalCrearMIR";
 
 
 function App() {
@@ -53,6 +54,8 @@ function App() {
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
           <Route path="MIR" element={<MIR/>}/>
+          <Route path="MIR2" element={<ModalCrearMir/>}/>
+
         </Routes>
     </>
   );

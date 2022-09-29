@@ -18,6 +18,7 @@ import {
   Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import AddIcon from "@mui/icons-material/Add";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -964,7 +965,7 @@ export const Catalogos = ({
 
   React.useEffect(() => {
     configOptions.map((item) => {
-      if (item.Desc === defSelected) {
+      if (item.Desc === selected) {
         eval(item.fnc);
       }
     });
@@ -974,7 +975,7 @@ export const Catalogos = ({
 
   useEffect(() => {
     configOptions.map((item) => {
-      if (item.Desc === defSelected) {
+      if (item.Desc === selected) {
         eval(item.fnc);
       }
     });

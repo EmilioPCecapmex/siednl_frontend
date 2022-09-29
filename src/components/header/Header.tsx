@@ -33,25 +33,26 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         alignItems: "center",
         left: "13vw",
         position: "absolute",
+        
       }}
     >
       <Box
         sx={{
           ml: "2vw",
           width: "30vw",
-          height: "4vh",
+          height: "4vh"
         }}
       >
         <Breadcrumbs
           aria-label="breadcrumb"
           sx={{ fontFamily: "MontserratBold", fontSize: "1.5vw" }}
         >
-          <Link underline="hover" color="inherit" onClick={() => navigate(details.path1)}>
+          <Link underline="hover" color="inherit" onClick={() => navigate(details.path1)} sx={{ cursor:'pointer' }}>
             {details.name1}
           </Link>
 
           {details.name2 !== "" ? (
-            <Link underline="hover" color="inherit" onClick={() => navigate(details.path2)}>
+            <Link underline="hover" color="inherit" onClick={() => navigate(details.path2)} sx={{ cursor:'pointer' }}>
               {details.name2}
             </Link>
           ) : null}
@@ -59,7 +60,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           {details.name3 !== "" ? (
             <Typography
               color="text.primary"
-              sx={{ fontFamily: "MontserratMedium", fontSize: "1.5vw" }}
+              sx={{ fontFamily: "MontserratMedium", fontSize: "1.5vw", cursor:'pointer' }}
             >
               {details.name3}
             </Typography>
