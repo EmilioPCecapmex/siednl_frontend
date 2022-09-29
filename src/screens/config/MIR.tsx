@@ -26,7 +26,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
-import ModalCrearMir from "../../components/mir/ModalCrearMIR";
+import FullModalMir from "../../components/modalMir/FullModalMir";
+import FullModalMir2 from "../../components/modalMir/FullModalMir copy";
 
 export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
@@ -422,7 +423,27 @@ export const MIR = () => {
           </Box>
         </Box>
       ) : (
-        <ModalCrearMir />
+        <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        width: "87%",
+        height: "92%",
+        mt: "8vh",
+        flexWrap: "wrap",
+      }}
+    >
+      <Box
+        sx={{
+          width: "80vw",
+          height: "86vh",
+          backgroundColor: "#fff",
+          borderRadius: 5,
+        }}
+      >
+        <FullModalMir />
+        </Box>
+        </Box>
       )}
     </Box>
   );
