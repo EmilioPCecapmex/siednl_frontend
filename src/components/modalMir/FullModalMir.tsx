@@ -245,6 +245,7 @@ export default function FullModalMir() {
               label="Resumen"
               value={50}
               sx={{
+                
                 color: "black",
                 fontFamily: "MontserratBold",
                 backgroundColor: "#ccc",
@@ -259,14 +260,14 @@ export default function FullModalMir() {
               width: "75vw",
               height: "77vh",
               justifyContent: "center",
-              alignItems: "top",
+              alignItems: "center",
               justifyItems: "center",
               backgroundColor: "#fff",
               borderRadius: 5,
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
 
-              gridTemplateRows: "repeat(4, 1fr)",
+              gridTemplateRows: "1fr 1fr 1fr 2fr",
             }}
           >
             <FormControl
@@ -293,12 +294,12 @@ export default function FullModalMir() {
                 {
                   border: "5px dotted #ccc",
                   display: "flex",
-                  flexDirection:'column',
-                  justifyContent:'center',
+                  flexDirection: "column",
+                  justifyContent: "center",
                   mt: "5vh",
                   cursor: "pointer",
-                  height:'10vh',
-                  width:'15vw',
+                  height: "10vh",
+                  width: "15vw",
                 },
                 {
                   "&:hover": {
@@ -310,19 +311,19 @@ export default function FullModalMir() {
             >
               {nombreArchivo}
               <Input
-                onChange={() => setNombreArchivo(" ")}
+                onChange={(e) =>
+                  setNombreArchivo(e.target.value.split("\\")[2])
+                }
                 id="file-upload"
                 type="file"
-
-                sx={{ border: "5px dotted #ccc"}}
+                sx={{}}
               />
             </InputLabel>
 
-            <FormControl
-              sx={{ gridRow: "2", width: "20vw", height: "15vh", mt: "4vh" }}
-            >
+            <FormControl sx={{ gridRow: "2", width: "20vw", mt: "6vh" }}>
               <InputLabel id="demo-simple-select-label">Institución</InputLabel>
               <Select
+              required
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={institution}
@@ -343,13 +344,12 @@ export default function FullModalMir() {
               </Select>
             </FormControl>
 
-            <FormControl
-              sx={{ gridRow: "2", width: "20vw", height: "15vh", mt: "4vh" }}
-            >
+            <FormControl sx={{ gridRow: "2", width: "20vw", mt: "6vh" }}>
               <InputLabel id="demo-simple-select-label">
                 Nombre del Programa
               </InputLabel>
               <Select
+              required
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={programa}
@@ -370,21 +370,19 @@ export default function FullModalMir() {
               </Select>
             </FormControl>
 
-            <FormControl
-              sx={{ gridRow: "2", width: "20vw", height: "15vh", mt: "4vh" }}
-            >
+            <FormControl required sx={{ gridRow: "2", width: "20vw", mt: "6vh" }}>
               <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoEjes}
                 getOptionLabel={(option) => option.Eje}
-                renderInput={(params) => <TextField {...params} label="Eje" />}
-                onChange={(event, value) => setEje(value?.Id as string)}
+                renderInput={(params) => <TextField {...params} label="Eje"/>}
+                onChange={(event, value) => setEje(value?.Eje as string)}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
 
-            <FormControl sx={{ gridRow: "3", width: "20vw", height: "15vh" }}>
+            <FormControl required sx={{ gridRow: "3", width: "20vw", mt:'4vh'}}>
               <Autocomplete
                 disablePortal
                 sx={{}}
@@ -398,7 +396,7 @@ export default function FullModalMir() {
               />
             </FormControl>
 
-            <FormControl sx={{ gridRow: "3", width: "20vw", height: "15vh" }}>
+            <FormControl required sx={{ gridRow: "3", width: "20vw", mt:'4vh' }}>
               <Autocomplete
                 disablePortal
                 sx={{}}
@@ -412,7 +410,7 @@ export default function FullModalMir() {
               />
             </FormControl>
 
-            <FormControl sx={{ gridRow: "3", width: "20vw", height: "15vh" }}>
+            <FormControl required sx={{ gridRow: "3", width: "20vw", mt:'4vh' }}>
               <Autocomplete
                 disablePortal
                 sx={{}}
@@ -426,11 +424,10 @@ export default function FullModalMir() {
               />
             </FormControl>
 
-            <FormControl
-            
+            <FormControl required
               sx={{
-                gridColumnStart:'1',
-                gridColumnEnd:'3',
+                gridColumnStart: "1",
+                gridColumnEnd: "3",
                 gridRow: "4",
                 width: "35vw",
               }}
@@ -438,8 +435,7 @@ export default function FullModalMir() {
               <Autocomplete
                 multiple
                 disablePortal
-                sx={{}}
-                
+                limitTags={4}
                 options={catalogoLineasDeAccion}
                 getOptionLabel={(option) => option.LineaDeAccion}
                 renderInput={(params) => (
@@ -450,7 +446,7 @@ export default function FullModalMir() {
               />
             </FormControl>
 
-            <FormControl sx={{gridColumn:'3', gridRow: "4", width: "20vw", height: "15vh" }}>
+            <FormControl required sx={{ gridColumn: "3", gridRow: "4", width: "20vw" }}>
               <Autocomplete
                 disablePortal
                 sx={{}}
@@ -480,14 +476,15 @@ export default function FullModalMir() {
               borderRadius: 5,
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gridTemplateRows: "1fr 3fr 3fr 1fr 3fr 3fr",
+              gridTemplateRows: "repeat(1fr 3fr 3fr)",
             }}
           >
             <Typography
               sx={{
-                gridRow: "1",
-                width: "20vw",
+                gridColumn: "1/4",
+                alignContent: "flex-start",
                 fontFamily: "MontserratBold",
+                fontSize: "1.5rem",
               }}
             >
               FIN
@@ -499,7 +496,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Resumen Narrativo"
               variant="outlined"
-              sx={{ gridRow: "2", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -508,7 +505,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Indicador"
               variant="outlined"
-              sx={{ gridRow: "2", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -517,7 +514,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Fórmula"
               variant="outlined"
-              sx={{ gridRow: "2", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -526,7 +523,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Frecuencia"
               variant="outlined"
-              sx={{ gridRow: "3", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -535,7 +532,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Medios de verificación y fuente de información"
               variant="outlined"
-              sx={{ gridRow: "3", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -544,10 +541,14 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Supuestos"
               variant="outlined"
-              sx={{ gridRow: "3", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <Typography
-              sx={{ gridRow: "4", width: "20vw", fontFamily: "MontserratBold" }}
+              sx={{
+                gridColumn: "1/4",
+                fontFamily: "MontserratBold",
+                fontSize: "1.5rem",
+              }}
             >
               PROPÓSITO
             </Typography>
@@ -558,7 +559,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Resumen Narrativo"
               variant="outlined"
-              sx={{ gridRow: "5", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -567,7 +568,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Indicador"
               variant="outlined"
-              sx={{ gridRow: "5", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -576,7 +577,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Fórmula"
               variant="outlined"
-              sx={{ gridRow: "5", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -585,7 +586,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Frecuencia"
               variant="outlined"
-              sx={{ gridRow: "6", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -594,7 +595,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Medios de verificación y fuente de información"
               variant="outlined"
-              sx={{ gridRow: "6", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
             <TextField
               multiline
@@ -603,7 +604,7 @@ export default function FullModalMir() {
               id="outlined-basic"
               label="Supuestos"
               variant="outlined"
-              sx={{ gridRow: "6", width: "20vw" }}
+              sx={{ width: "20vw" }}
             />
           </Box>
         ) : null}
