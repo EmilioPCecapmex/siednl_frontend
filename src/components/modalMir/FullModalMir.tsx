@@ -24,6 +24,14 @@ import {
   TablePagination,
 } from "@mui/material";
 import axios from "axios";
+import { styled } from '@mui/material/styles';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import MuiAccordionSummary, {
+  AccordionSummaryProps,
+} from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+
 
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
@@ -489,6 +497,7 @@ export default function FullModalMir() {
             >
               FIN
             </Typography>
+            
             <TextField
               multiline
               rows={4}
