@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   FormControl,
   InputLabel,
@@ -34,6 +39,68 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
 
 export default function FullModalMir() {
+
+  const [numeroComponentes, setNumeroComponentes] = React.useState([
+    {
+      componente: "Componente No. 1",
+      nombre: "C1",
+      visible: true,
+      nocomponente: 0,
+    },
+    {
+      componente: "Componente No. 2",
+      nombre: "C2",
+      visible: true,
+      nocomponente: 1,
+    },
+    {
+      componente: "Componente No. 3",
+      nombre: "C3",
+      visible: false,
+      nocomponente: 2,
+    },
+    {
+      componente: "Componente No. 4",
+      nombre: "C4",
+      visible: false,
+      nocomponente: 3,
+    },
+    {
+      componente: "Componente No. 5",
+      nombre: "C5",
+      visible: false,
+      nocomponente: 4,
+    },
+    {
+      componente: "Componente No. 6",
+      nombre: "C6",
+      visible: false,
+      nocomponente: 5,
+    },
+  ]);
+  //Componentes 
+  const [componentesActivos, setComponentesActivos] = React.useState(2);
+    
+  const incrementaComponente = () => {
+    if (componentesActivos < 6){
+      setComponentesActivos((componentesActivos + 1));
+      numeroComponentes[componentesActivos].visible = true;
+      console.log(componentesActivos)
+    } else {
+      console.log("excedido")
+    }
+    
+    
+  };
+
+  const eliminaComponente = () => {
+    if (componentesActivos >= 2){
+      numeroComponentes[componentesActivos].visible = false;
+      setComponentesActivos((componentesActivos - 1));
+    }
+    console.log(componentesActivos)
+  };
+  //________________________________
   const [value, setValue] = React.useState(10);
 
   const [nombreArchivo, setNombreArchivo] = useState(
@@ -76,6 +143,7 @@ export default function FullModalMir() {
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
     { Id: "", Beneficiario: "" },
   ]);
+
 
   const getInstituciones = () => {
     axios
@@ -180,6 +248,13 @@ export default function FullModalMir() {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  const [expanded, setExpanded] = React.useState<string | false>(false);
+
+  const handleChangeAcordion =
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+    };
 
   return (
     <Box
@@ -617,16 +692,114 @@ export default function FullModalMir() {
             />
           </Box>
         ) : null}
-
+        {/* Componentes */}
         {value === 30 ? (
           <Box
-            sx={{ backgroundColor: "brown", with: "100vw", height: "80vh" }}
-          ></Box>
-        ) : null}
-        {value === 40 ? (
-          <Box
-            sx={{ backgroundColor: "red", with: "100vw", height: "80vh" }}
-          ></Box>
+            sx={{
+              width: "75vw",
+              height: "77vh",
+              justifyContent: "center",
+              alignItems: "center",
+              justifyItems: "center",
+              backgroundColor: "#fff",
+            }}
+
+          >
+            <Button variant="contained" onClick={() => incrementaComponente()}>
+              Agregar Componente
+            </Button>
+            
+            {numeroComponentes.map((item) => {
+              if (item.visible) {
+                return <TextField value={item.componente}></TextField>;
+              }
+            })}
+
+            <Button variant="contained" onClick={() => eliminaComponente()}>
+              Eliminar Componente
+            </Button>
+            <Box>
+              <Accordion expanded={expanded === 'panel1'} onChange={handleChangeAcordion('panel1')}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+
+                  <Typography sx={{ width: '33%', flexShrink: 0, justifyContent: "center" }}>
+                    Componente
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Box sx={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                    gridTemplateRows: "3fr 1fr 3fr ",
+                  }}>
+
+
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Resumen Narrativo"
+                      variant="outlined"
+                      sx={{ gridRow: "1", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Indicador"
+                      variant="outlined"
+                      sx={{ gridRow: "1", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Fórmula"
+                      variant="outlined"
+                      sx={{ gridRow: "1", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Frecuencia"
+                      variant="outlined"
+                      sx={{ gridRow: "3", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Medios de verificación y fuente de información"
+                      variant="outlined"
+                      sx={{ gridRow: "3", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Supuestos"
+                      variant="outlined"
+                      sx={{ gridRow: "3", width: "20vw" }}
+                    />
+
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+
+            </Box>
+
+          </Box>
         ) : null}
         {value === 50 ? (
           <Box
