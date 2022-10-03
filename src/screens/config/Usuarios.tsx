@@ -41,7 +41,8 @@ export const Usuarios = () => {
       sx={{
         width: "100vw",
         height: "100vh",
-        display: "flex",
+        display: "grid",
+        gridTemplateColumns: '1fr 13fr',
         backgroundColor: "#F2F2F2",
       }}
     >
@@ -59,7 +60,7 @@ export const Usuarios = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          width: "87%",
+          width: "100%",
           height: "92%",
           mt: "8vh",
           flexWrap: "wrap",

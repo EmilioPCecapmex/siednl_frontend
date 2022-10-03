@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { DataUsuariosTiCentral } from "./interface";
-import AlertDialog, { DeleteDialog } from "../deleteDialog/DeleteDialog";
+import { DeleteDialog } from "../deleteDialog/DeleteDialog";
 import {
   Box,
   TableContainer,
@@ -283,6 +283,7 @@ export const DataTable = ({
         count={usuarios.length}
         rowsPerPage={renglonesPagina}
         page={page}
+        
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />

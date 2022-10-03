@@ -12,6 +12,7 @@ import { continueSession, sessionValid } from "./funcs/validation";
 import { useLocation } from "react-router-dom";
 import { SessionDialog } from "./components/sessionDialog/SessionDialog";
 import { useNavigate } from "react-router-dom";
+import { LateralMenu } from "./components/lateralMenu/LateralMenu";
 import { MIR } from "./screens/config/MIR";
 
 
@@ -48,7 +49,7 @@ function App() {
     <SessionDialog/>
         <Routes>
           <Route index element={<Init />} />
-          <Route path="home" element={<Home />} />
+          <Route path="home" element={<Home  />} />
           <Route path="settings" element={<Settings />} />
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />

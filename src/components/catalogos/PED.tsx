@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
-import Dialog from "@mui/material/Dialog";
 import {
   Box,
   Alert,
@@ -10,19 +8,51 @@ import {
   Button,
   AlertColor,
   Typography,
-  DialogActions
+  DialogActions,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
 
-export const PED = () => {
+export const PED = ({handleClose} : {handleClose : Function}) => {
   const [eje, setEje] = useState("0");
   const [tematica, setTematica] = useState("0");
   const [objetivo, setObjetivo] = useState("0");
   const [estrategia, setEstrategia] = useState("0");
-  const [lineaDeAccion, setLineaDeAccion] = useState("0");
-  const [objetivoDS, setObjetivoDS] = useState("0");
-  const [metaODS, setMetaODS] = useState("0");
-  const [ejePND, setEjePND] = useState("0");
-  const [objetivoPEENL, setObjetivoPEENL] = useState("0");
+  const [ejesPND, setEjesPND] = useState([
+    {
+      Id: "",
+      EjePND: "",
+    },
+  ]);
+
+  const [lineasDeAccion, setLineasDeAccion] = useState([
+    {
+      Id: "",
+      LineaDeAccion: "",
+    },
+  ]);
+
+  const [objetivosDs, setObjetivosDs] = useState([
+    {
+      Id: "",
+      ObjetivoDS: "",
+    },
+  ]);
+
+  const [metasODs, setMetasODs] = useState([
+    {
+      Id: "",
+      MetaODS: "",
+    },
+  ]);
+
+  const [objetivosPEENL, setObjetivosPEENL] = useState([
+    {
+      Id: "",
+      ObjetivoPEENL: "",
+    },
+  ]);
+
 
   const getEje = () => {
     axios
@@ -127,17 +157,17 @@ export const PED = () => {
   const postPED = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/ped-add",
+        "http://10.200.4.202:8000/api/ped-add",
         {
           IdEje: eje,
           IdTematicas: tematica,
           IdObjetivos: objetivo,
           IdEstrategias: estrategia,
-          IdLineasDeAccion: lineaDeAccion,
-          IdObjetivosDS: objetivoDS,
-          IdMetasODS: metaODS,
-          IdEjePND: ejePND,
-          IdObjetivosPEENL: objetivoPEENL,
+          IdLineasDeAccion: lineasDeAccion,
+          IdObjetivosDS: objetivosDs,
+          IdMetasODS: metasODs,
+          IdEjePND: ejesPND,
+          IdObjetivosPEENL: objetivosPEENL,
         },
         {
           headers: {
@@ -146,23 +176,21 @@ export const PED = () => {
         }
       )
       .then((r) => {
-        // Swal.fire({
-        //   position: "top-end",
-        //   icon: "success",
-        //   title: "!PED creado con éxito!",
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        // });
-        setErrorsForm({
-          visible: true,
-          text: "!PED creado con éxito!",
-          type: "success",
-        });
+        
+        if(r.status === 200){
+          setErrorsForm({
+            visible: true,
+            text: "!PED creado con éxito!",
+            type: "success",
+          });
+          handleClose()
+        }
+        
       })
       .catch((err) => {
         setErrorsForm({
           visible: true,
-          text: err.response.data.result.error,
+          text: err.response.data.error,
           type: "error",
         });
       });
@@ -251,31 +279,31 @@ export const PED = () => {
         text: "Selecciona estrategia.",
         type: "error",
       });
-    } else if (lineaDeAccion === "0") {
+    } else if (lineasDeAccion[0].Id === "") {
       setErrorsForm({
         visible: true,
-        text: "Selecciona lineaDeAccion.",
+        text: "Selecciona linea de acción.",
         type: "error",
       });
-    } else if (objetivoDS === "0") {
+    } else if (objetivosDs[0].Id === "") {
       setErrorsForm({
         visible: true,
-        text: "Selecciona objetivoDS.",
+        text: "Selecciona objetivo DS.",
         type: "error",
       });
-    } else if (metaODS === "0") {
+    } else if (metasODs[0].Id === "") {
       setErrorsForm({
         visible: true,
-        text: "Selecciona metaODS.",
+        text: "Selecciona meta ODS.",
         type: "error",
       });
-    } else if (ejePND === "0") {
+    } else if (ejesPND[0].Id === "") {
       setErrorsForm({
         visible: true,
         text: "Selecciona ejePND.",
         type: "error",
       });
-    } else if (objetivoPEENL === "0") {
+    } else if (objetivosPEENL[0].Id === "") {
       setErrorsForm({
         visible: true,
         text: "Selecciona objetivoPEENL.",
@@ -286,18 +314,10 @@ export const PED = () => {
     }
   };
 
-  const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
-      <Box
+    <Box
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -320,167 +340,129 @@ export const PED = () => {
           </Typography>
         )}
 
-        <Select
+        <Autocomplete
+          disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
-          value={eje}
-          onChange={(x) => setEje(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Eje
-          </MenuItem>
-          {catalogoEjes.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.Eje}
-              </MenuItem>
-            );
-          })}
-        </Select>
+          options={catalogoEjes}
+          getOptionLabel={(option) => option.Eje}
+          renderInput={(params) => <TextField {...params} label="Eje" />}
+          onChange={(event, value) => setEje(value?.Id as string)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
 
-        <Select
-          sx={{ m: "1vh 1vh 0 1vh" }}
-          value={tematica}
-          onChange={(x) => setTematica(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Tematica
-          </MenuItem>
-          {catalogoTematicas.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.Tematica}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        />
 
-        <Select
+        <Autocomplete
+          disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
-          value={objetivo}
-          onChange={(x) => setObjetivo(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Objetivo
-          </MenuItem>
-          {catalogoObjetivos.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.Objetivo}
-              </MenuItem>
-            );
-          })}
-        </Select>
+          options={catalogoTematicas}
+          getOptionLabel={(option) => option.Tematica}
+          renderInput={(params) => <TextField {...params} label="Tematica" />}
+          onChange={(event, value) => setTematica(value?.Id as string)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
 
-        <Select
-          sx={{ m: "1vh 1vh 0 1vh" }}
-          value={estrategia}
-          onChange={(x) => setEstrategia(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Estrategia
-          </MenuItem>
-          {catalogoEstrategias.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.Estrategia}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        />
 
-        <Select
+        <Autocomplete
+          disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
-          value={lineaDeAccion}
-          onChange={(x) => setLineaDeAccion(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Linea de Accion
-          </MenuItem>
-          {catalogoLineasDeAccion.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.LineaDeAccion}
-              </MenuItem>
-            );
-          })}
-        </Select>
+          options={catalogoObjetivos}
+          getOptionLabel={(option) => option.Objetivo}
+          renderInput={(params) => <TextField {...params} label="Objetivo" />}
+          onChange={(event, value) => setObjetivo(value?.Id as string)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
 
-        <Select
-          sx={{ m: "1vh 1vh 0 1vh" }}
-          value={objetivoDS}
-          onChange={(x) => setObjetivoDS(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Objetivo DS
-          </MenuItem>
-          {catalogoObjetivosDS.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.ObjetivoDS}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        />
 
-        <Select
+        <Autocomplete
+          disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
-          value={metaODS}
-          onChange={(x) => setMetaODS(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Meta ODS
-          </MenuItem>
-          {catalogoMetasODS.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.MetaODS}
-              </MenuItem>
-            );
-          })}
-        </Select>
+          options={catalogoEstrategias}
+          getOptionLabel={(option) => option.Estrategia}
+          renderInput={(params) => <TextField {...params} label="Estrategia" />}
+          onChange={(event, value) => setEstrategia(value?.Id as string)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
 
-        <Select
-          sx={{ m: "1vh 1vh 0 1vh" }}
-          value={ejePND}
-          onChange={(x) => setEjePND(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Eje PND
-          </MenuItem>
-          {catalogoEjesPND.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.EjePND}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        />
 
-        <Select
+        <Autocomplete
+          multiple
+          disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
-          value={objetivoPEENL}
-          onChange={(x) => setObjetivoPEENL(x.target.value)}
-        >
-          <MenuItem value={"0"} key={0} disabled>
-            Selecciona Objetivo PEENL
-          </MenuItem>
-          {catalogoObjetivosPEENL.map((item) => {
-            return (
-              <MenuItem value={item.Id} key={item.Id}>
-                {item.ObjetivoPEENL}
-              </MenuItem>
-            );
-          })}
-        </Select>
+          options={catalogoLineasDeAccion}
+          getOptionLabel={(option) => option.LineaDeAccion}
+          renderInput={(params) => (
+            <TextField {...params} label="Linea de Acción" />
+          )}
+          onChange={(event, value) => setLineasDeAccion(value)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
+        />
+
+        <Autocomplete
+          multiple
+          disablePortal
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          options={catalogoObjetivosDS}
+          getOptionLabel={(option) => option.ObjetivoDS}
+          renderInput={(params) => (
+            <TextField {...params} label="Objetivo DS" />
+          )}
+          onChange={(event, value) => setObjetivosDs(value)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
+        />
+
+        <Autocomplete
+          multiple
+          disablePortal
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          options={catalogoMetasODS}
+          getOptionLabel={(option) => option.MetaODS}
+          renderInput={(params) => <TextField {...params} label="Meta ODS" />}
+          onChange={(event, value) => setMetasODs(value)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
+        />
+
+ 
+        
+<Autocomplete
+          multiple
+          disablePortal
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          options={catalogoEjesPND}
+          getOptionLabel={(option) => option.EjePND}
+          renderInput={(params) => <TextField {...params} label="Eje PND" />}        
+          onChange={(event, value) => setEjesPND(value)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
+        />
+
+<Autocomplete
+          multiple
+          disablePortal
+          sx={{ m: "1vh 1vh 0 1vh" }}
+          options={catalogoObjetivosPEENL}
+          getOptionLabel={(option) => option.ObjetivoPEENL}
+          renderInput={(params) => (
+            <TextField {...params} label="Objetivo PEENL" />
+          )}          
+          onChange={(event, value) => setObjetivosPEENL(value)}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
+        />
+
+        
       </Box>
-      <Box sx={{ mt:'3vh', mb:"1vh", textAlign: "end" }}>
-      <DialogActions onClick={handleClose}>
-
-            <Button sx={{position:'absolute', backgroundColor:'lightGreen', color:'black'}} onClick={checkForm}> Agregar </Button>
-
-      </DialogActions>
+      <Box sx={{ mt: "3vh", mb: "2vh", textAlign: "end" }}>
+        <DialogActions>
+          <Button
+            sx={{
+              position: "absolute",
+              backgroundColor: "#15212f",
+              color: "#fff",
+            }}
+            onClick={checkForm}
+          >
+            Agregar
+          </Button>
+        </DialogActions>
       </Box>
     </Box>
-    
   );
 };

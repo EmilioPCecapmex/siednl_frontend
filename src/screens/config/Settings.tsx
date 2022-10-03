@@ -29,10 +29,13 @@ export const Settings = () => {
       sx={{
         width: "100vw",
         height: "100vh",
-        display: "flex",
+        display: "grid",
+        gridTemplateColumns: '1fr 13fr',
         backgroundColor: "#F2F2F2",
+
       }}
     >
+
       <LateralMenu selection={6} settingsCard={resetView} />
       <Header
         details={{
@@ -43,10 +46,16 @@ export const Settings = () => {
           name3: "",
         }}
       />
-      
+
+      <Box>
+
       {showCards ? <SettingsCard showConfig={showConfig}/> : null}
 
       {!showCards ? <Catalogos defSelected={optionSelected}/> : null}
+      
+      </Box>
+
+
 
       
 
