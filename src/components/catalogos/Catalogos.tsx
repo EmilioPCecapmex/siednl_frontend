@@ -1190,7 +1190,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       : DataDescripctionFiltered
                     ).map((row) => (
                       <TableRow key={row.Id}>
-                        <TableCell component="th" scope="row" width="90%" onClick={() => console.log(row.Desc)}>
+                        <TableCell component="th" scope="row" width="90%">
                           {row.Desc}
                         </TableCell>
 

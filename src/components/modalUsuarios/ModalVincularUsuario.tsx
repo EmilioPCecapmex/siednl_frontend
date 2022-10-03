@@ -149,6 +149,18 @@ export default function ModalVincularUsuario({
     
   }
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   const siednlSignUp = (idUsrCentral: string) => {
     axios
       .post(
@@ -171,12 +183,9 @@ export default function ModalVincularUsuario({
       .then((r) => {
         if (r.status === 200) {
           closeModal()
-          Swal.fire({
-            position: "top-end",
+          Toast.fire({
             icon: "success",
-            title: "¡Registro exitoso!",
-            showConfirmButton: false,
-            timer: 1500,
+            title: "Registro exitoso.",
           });
         }
       });

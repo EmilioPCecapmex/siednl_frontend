@@ -31,6 +31,18 @@ export const ModifyDialogCatalogos = ({
 }) => {
   const [open, setOpen] = React.useState(false);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -60,22 +72,18 @@ export const ModifyDialogCatalogos = ({
         )
         .then((r) => {
           actualizado();
-          Swal.fire({
-            position: "top-end",
+          Toast.fire({
             icon: "success",
             title: "!Elemento modificado con éxito!",
-            showConfirmButton: false,
-            timer: 1500,
           });
+
         })
         .catch((err) =>
-          Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "Permisos denegados",
-            showConfirmButton: false,
-            timer: 1500,
-          })
+
+        Toast.fire({
+          icon: "error",
+          title: "Permisos denegados",
+        })
         );
     } else {
       axios
@@ -95,22 +103,16 @@ export const ModifyDialogCatalogos = ({
         )
         .then((r) => {
           actualizado();
-          Swal.fire({
-            position: "top-end",
+          Toast.fire({
             icon: "success",
             title: "!Elemento modificado con éxito!",
-            showConfirmButton: false,
-            timer: 1500,
           });
         })
         .catch((err) =>
-          Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "Permisos denegados",
-            showConfirmButton: false,
-            timer: 1500,
-          })
+        Toast.fire({
+          icon: "error",
+          title: "Permisos denegados",
+        })
         );
     }
   };
@@ -133,13 +135,11 @@ export const ModifyDialogCatalogos = ({
         actualizado();
       })
       .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
+      Toast.fire({
+        icon: "error",
+        title: "Permisos denegados",
       })
+      
       )
   };
 
@@ -161,12 +161,9 @@ export const ModifyDialogCatalogos = ({
         actualizado();
       })
       .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
+      Toast.fire({
+        icon: "error",
+        title: "Permisos denegados",
       })
       )
   };
@@ -241,7 +238,7 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={handleClose}>
-            <Button>Cancelar</Button>
+            <Button color='error'>Cancelar</Button>
 
             <Button onClick={ModifyPorCatalogoProgramasP} autoFocus>
               De Acuerdo
@@ -277,7 +274,7 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
   
           <DialogActions onClick={handleClose}>
-            <Button>Cancelar</Button>
+            <Button color='error'>Cancelar</Button>
   
             <Button onClick={ModifyPorCatalogoFechas} autoFocus>
               De Acuerdo
@@ -301,7 +298,7 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={handleClose}>
-            <Button>Cancelar</Button>
+            <Button color='error'>Cancelar</Button>
 
             <Button onClick={ModifyPorCatalogo} autoFocus>
               De Acuerdo
@@ -339,7 +336,7 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={handleClose}>
-            <Button>Cancelar</Button>
+            <Button color='error'>Cancelar</Button>
 
             <Button onClick={ModifyPorCatalogo} autoFocus>
               De Acuerdo

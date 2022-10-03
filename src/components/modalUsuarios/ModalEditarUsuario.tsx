@@ -48,6 +48,18 @@ export default function ModalEditarUsuario({
   Rol: ""
   },]);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
 
   const [errorForm, setErrorsForm] = useState({
     visible: false,
@@ -140,24 +152,19 @@ export default function ModalEditarUsuario({
     )
     .then((r) => {
       if(r.status === 200){
-        Swal.fire({
-          position: "top-end",
+        Toast.fire({
           icon: "success",
           title: "¡Usuario modificado con éxito!",
-          showConfirmButton: false,
-          timer: 1500,
         });
+   
         actualizado();
       }
     })
     .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
-      })
+    Toast.fire({
+      icon: "success",
+      title: 'Permisos denegados',
+    })
       )
   }
 

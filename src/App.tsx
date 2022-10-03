@@ -21,6 +21,8 @@ function App() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const jt = params.get("jwt") || null;
+  const rft = params.get("rf") || null;
+
 
 
   useLayoutEffect(() => {

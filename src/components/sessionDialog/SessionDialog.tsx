@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { Box } from "@mui/material";
-import { logout, sessionUntil } from "../../funcs/validation";
+import { continueSession, logout, sessionUntil, sessionValid } from "../../funcs/validation";
+import axios from "axios";
 
 export const SessionDialog = () => {
   const session = new Date(sessionUntil);
@@ -21,6 +22,21 @@ export const SessionDialog = () => {
       }
     }, 1000);
 
+    const renewSession = () => {
+      axios.post("http://10.200.4.105:5000/api/refresh-token",
+      {
+          refreshToken: localStorage.getItem("refreshToken"),
+      }).then((r) => {
+
+        if(r.data.token)
+        localStorage.setItem("jwtToken",r.data.token)
+        continueSession()
+  
+      }).catch((err) => {
+        logout();
+      })
+    }
+
   const alertaSession = () => {
     return Swal.fire({
       title: "Limite de tiempo",
@@ -35,6 +51,8 @@ export const SessionDialog = () => {
       cancelButtonText: "Salir",
     }).then((result) => {
       if (result.isConfirmed) {
+        renewSession();
+      }else{
         logout();
       }
     });

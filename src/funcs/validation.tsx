@@ -37,6 +37,8 @@ export const getUserDetails = (idCentral: string) => {
 
 export const sessionValid = () => {
   const jt = params.get("jwt") || "";
+  const rft = params.get("rf") || "";
+
 
     return axios
       .post(
@@ -53,6 +55,7 @@ export const sessionValid = () => {
         if (r.status === 200) {
           sessionUntil = r.data.expDateTime;
           localStorage.setItem("jwtToken", jt)
+          localStorage.setItem("refreshToken", rft)
           localStorage.setItem("validation", "true");
           localStorage.setItem("IdCentral", r.data.data.IdUsuario)
           getUserDetails(r.data.data.IdUsuario)

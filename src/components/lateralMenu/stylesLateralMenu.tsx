@@ -49,11 +49,12 @@ export const lstXl = {
     mt: 3,
   },
   selectInstitucionBox: {
-    width: "100%",
+    width: "90%",
     height: "4vh",
     justifyContent: "center",
     display: "flex",
     alignItems: "center",
+    ml: 2,
   },
   selectInstitucionStyle: {
     width: "100%",
@@ -142,11 +143,12 @@ export const lstLg = {
     mt: 3,
   },
   selectInstitucionBox: {
-    width: "100%",
+    width: "90%",
     height: "4vh",
     justifyContent: "center",
     display: "flex",
     alignItems: "center",
+    ml: 2,
   },
   selectInstitucionStyle: {
     width: "100%",
@@ -235,11 +237,13 @@ export const lstMd = {
     mt: 3,
   },
   selectInstitucionBox: {
-    width: "100%",
+    width: "90%",
     height: "4vh",
     justifyContent: "center",
     display: "flex",
     alignItems: "center",
+    ml: 2,
+
   },
   selectInstitucionStyle: {
     width: "100%",
@@ -329,11 +333,13 @@ export const lstSm = {
     mt: 3,
   },
   selectInstitucionBox: {
-    width: "100%",
+    width: "90%",
     height: "4vh",
     justifyContent: "center",
     display: "flex",
     alignItems: "center",
+    ml: 2,
+
   },
   selectInstitucionStyle: {
     width: "100%",
