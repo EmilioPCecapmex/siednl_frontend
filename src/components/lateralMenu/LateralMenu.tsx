@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import logo from "../../assets/logos/logo.svg";
 
 import List from "@mui/material/List";
@@ -16,7 +15,6 @@ import LocationCityOutlinedIcon from "@mui/icons-material/LocationCityOutlined";
 import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import LockIcon from "@mui/icons-material/Lock";
 import {
   Dialog,
   TextField,
@@ -29,9 +27,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { logout, sessionUntil } from "../../funcs/validation";
+import { logout } from "../../funcs/validation";
 import LockResetIcon from "@mui/icons-material/LockReset";
-import { TimerCounter } from "../timer/TimerCounter";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
@@ -50,20 +47,13 @@ export const LateralMenu = ({
   const isLg = useMediaQuery(theme.breakpoints.up("lg"));
   const isMd = useMediaQuery(theme.breakpoints.up("md"));
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
-  const isXs = useMediaQuery(theme.breakpoints.up("xs"));
+  // const isXs = useMediaQuery(theme.breakpoints.up("xs"));
 
   if (isXl) st = lstXl;
   else if (isLg) st = lstLg;
   else if (isMd) st = lstMd;
   else if (isSm) st = lstSm;
   // else if (isXs) st = lstXs;
-
-  if (isXl) console.log("Xl");
-  else if (isLg) console.log("Lg");
-  else if (isMd) console.log("Md");
-  else if (isSm) console.log("Sm");
-  else if (isXs) console.log("Xs");
-
   const navigate = useNavigate();
   const [openProgramas, setOpenProgramas] = useState(true);
 
@@ -118,7 +108,7 @@ export const LateralMenu = ({
     const [error, setError] = useState({ label: "", show: false });
 
     const cambiarContrasena = () => {
-      if (newPassword == "") {
+      if (newPassword === "") {
         setError({ label: "Ingresa una contraseña.", show: true });
 
         return null;
@@ -335,7 +325,7 @@ export const LateralMenu = ({
           </ListItemButton>
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton onClick={() => navigate("../MIR")} sx={{ pl: 2 }}>
+              <ListItemButton onClick={() => navigate("../MIR")} sx={st.subMenuItemStyle}>
               <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
                 </Box>

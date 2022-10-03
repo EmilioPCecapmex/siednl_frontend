@@ -1,14 +1,10 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import {
   ListItemButton,
   TableCell,
-  tableCellClasses,
   List,
   Paper,
   Divider,
-  IconButton,
-  Stack,
   Typography,
   TableRow,
   TableContainer,
@@ -16,6 +12,7 @@ import {
   TableBody,
   Input,
   Box,
+  TablePagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -25,32 +22,17 @@ import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 
 import AddDialogCatalogo from "./AddDialogCatalogo";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
-export const Catalogos = ({
-  defSelected,
-}: {
-  defSelected: string;
-}) => {
-  
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: "#ccc",
-      color: "#000",
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
+export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
-  }));
+  const [defaultSelection, setDefaultSelection] = useState(defSelected)
+
+
+  useEffect(() => {
+    let tableOption = configOptions.find((item) => item.Desc == defSelected);
+    setTablaActual(tableOption?.Tabla as string)
+  }, [])
 
   const configOptions = [
     {
@@ -217,10 +199,7 @@ export const Catalogos = ({
     },
   ];
 
-  
-
   const getAniosFiscales = () => {
-
     setSelected("Años Fiscales");
     setCatalogoActual("Años Fiscales");
     axios
@@ -468,7 +447,6 @@ export const Catalogos = ({
           );
           setDatosTabla(update);
           setDataDescripctionFiltered(update);
-          
         }
       });
   };
@@ -705,8 +683,6 @@ export const Catalogos = ({
         },
       })
       .then((r) => {
-        console.log(r.data.data);
-
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
@@ -905,23 +881,9 @@ export const Catalogos = ({
       });
   };
 
-  interface Datos{
-      id: string,
-      Id: string,
-      Desc: string,
-      fnc: string,
-      Tabla:string,
-      selected: string,
-  };
-
-  const asignarElemntosDeTabla = (item: Datos) => {
-    eval(item.fnc);
-    setTablaActual(item.Tabla);
-  };
-
-  const [tablaActual, setTablaActual] = React.useState("");
+  const [tablaActual, setTablaActual] = React.useState(defSelected);
   const [catalogoActual, setCatalogoActual] = React.useState("");
-  const [selected, setSelected] = React.useState(defSelected);
+  const [selected, setSelected] = React.useState("");
   const [descripctionFiltered, setDescripctionFiltered] = useState("");
 
   const dataFilter = (text: string) => {
@@ -939,19 +901,20 @@ export const Catalogos = ({
   ]);
 
   const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState([
-  {
-      
+    {
       Id: "",
       Desc: "",
       fnc: "",
-      Tabla:"",
-      selected: "", 
-  },
-]);
+      Tabla: "",
+      selected: "",
+    },
+  ]);
   const findText = () => {
     if (descripctionFiltered !== "") {
       setDataDescripctionFiltered(
-        DataDescripctionFiltered.filter((x) => x.Desc.toLowerCase().includes(descripctionFiltered))
+        DataDescripctionFiltered.filter((x) =>
+          x.Desc.toLowerCase().includes(descripctionFiltered)
+        )
       );
     } else {
       setDataDescripctionFiltered(datosTabla);
@@ -962,26 +925,47 @@ export const Catalogos = ({
     findText();
   }, [descripctionFiltered]);
 
-  React.useEffect(() => {
-    configOptions.map((item) => {
-      if (item.Desc === defSelected) {
-        eval(item.fnc);
-      }
-    });
-  }, []);
-
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
     configOptions.map((item) => {
-      if (item.Desc === defSelected) {
+      if (item.Desc === defaultSelection) {
         eval(item.fnc);
       }
     });
   }, [actualizacion]);
 
+  useEffect(() => {
+    configOptions.map((item) => {
+      if (item.Desc === defaultSelection) {
+        eval(item.fnc);
+      }
+    });
+  }, []);
+
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
+  };
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datosTabla.length) : 0;
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   return (
@@ -1017,7 +1001,6 @@ export const Catalogos = ({
             }}
           >
             <List
-              
               sx={{
                 pb: 2,
                 pt: 2,
@@ -1050,12 +1033,12 @@ export const Catalogos = ({
                           backgroundColor: "#cbcbcb",
                         },
                       }}
-                      autoFocus
-                      selected={selected == item.Desc ? true : false}
-                      onClick={() => {eval(item.fnc)
-                                      setTablaActual(item.Tabla)
-                                      
-                                      }}
+                      selected={selected === item.Desc ? true : false}
+                      onClick={() => {
+                        eval(item.fnc);
+                        setTablaActual(item.Tabla);
+                        setDefaultSelection(item.Desc)
+                      }}
                     >
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         {item.Desc}
@@ -1150,11 +1133,11 @@ export const Catalogos = ({
                     sx={{
                       backgroundColor: "#EBEBEB",
                       fontFamily: "MontserratLight",
-                      borderRadius: 100
+                      borderRadius: 100,
                     }}
                     onChange={(v) => dataFilter(v.target.value)}
                   />
-                  <SearchIcon sx={{ color: "action.active", mr: 1 }}/>
+                  <SearchIcon sx={{ color: "action.active", mr: 1 }} />
                 </Box>
 
                 <Typography
@@ -1185,9 +1168,48 @@ export const Catalogos = ({
                   },
                 }}
               >
-                <Table aria-label="customized table">
+                <Table
+                  sx={{ minWidth: 500 }}
+                  aria-label="custom pagination table"
+                >
                   <TableBody>
-                    {DataDescripctionFiltered.map((item) => {
+                    {(rowsPerPage > 0
+                      ? DataDescripctionFiltered.slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                      : DataDescripctionFiltered
+                    ).map((row) => (
+                      <TableRow key={row.Id}>
+                        <TableCell component="th" scope="row" width="90%" onClick={() => console.log(row.Desc)}>
+                          {row.Desc}
+                        </TableCell>
+
+                        <TableCell component="th" scope="row">
+                          <Box sx={{ display: "flex" }}>
+                            <ModifyDialogCatalogos
+                              descripcion={row.Desc}
+                              id={row.Id}
+                              tabla={row.Tabla}
+                              actualizado={actualizaContador}
+                            />
+
+                            <DeleteDialogCatalogos
+                              deleteText={row.Desc}
+                              id={row.Id}
+                              tabla={row.Tabla}
+                              actualizado={actualizaContador}
+                            />
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    {emptyRows > 0 && (
+                      <TableRow style={{ height: 53 * emptyRows }}>
+                        <TableCell colSpan={6} />
+                      </TableRow>
+                    )}
+                    {/* {DataDescripctionFiltered.map((item) => {
                       return (
                         <StyledTableRow key={item.Id}>
                           <TableCell
@@ -1222,7 +1244,7 @@ export const Catalogos = ({
                               />
                             </Stack>
                           </TableCell>
-                          <IconButton
+                          {/* <IconButton
                             title="Agregar"
                             sx={{
                               width: 50,
@@ -1241,14 +1263,61 @@ export const Catalogos = ({
                               tabla={item.Tabla}
                               actualizado={actualizaContador}
                             />
-                          </IconButton>
-                        </StyledTableRow>
-                      );
-                    })}
-                    
+                          </IconButton> */}
+                    {/* </StyledTableRow> */}
+                    {/* );
+                    })} */}
                   </TableBody>
                 </Table>
               </TableContainer>
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  mt: 1,
+                }}
+              >
+                <TablePagination
+                  rowsPerPageOptions={[
+                    5,
+                    10,
+                    25,
+                    { label: "Todos", value: -1 },
+                  ]}
+                  count={DataDescripctionFiltered.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  component="div"
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </Box>
+              <Box
+                title="Agregar"
+                borderRadius={100}
+                sx={{
+                  width: 50,
+                  height: 50,
+                  backgroundColor: "#c4a57b",
+                  position: "absolute",
+                  ":hover": {
+                    backgroundColor: "#ffdcac",
+                  },
+                  right: "30vh",
+                  bottom: "11vh",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <AddDialogCatalogo
+                  catalogo={tablaActual}
+                  tabla={tablaActual}
+                  actualizado={actualizaContador}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>

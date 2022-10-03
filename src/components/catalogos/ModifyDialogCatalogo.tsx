@@ -8,17 +8,14 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import {
   Box,
-  Alert,
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
-  FormControl,
   InputLabel,
   Select,
   MenuItem,
   Button,
-  AlertColor,
 } from "@mui/material";
 
 export const ModifyDialogCatalogos = ({

@@ -7,7 +7,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import { Box } from "@mui/material";
 import Swal from "sweetalert2";
@@ -136,7 +135,6 @@ export const DeleteDialogCatalogos = ({
 
   return (
     <Box>
-      <Tooltip title="Eliminar">
         <IconButton onClick={handleClickOpen}>
           <DeleteIcon
             sx={[
@@ -148,7 +146,6 @@ export const DeleteDialogCatalogos = ({
             ]}
           />
         </IconButton>
-      </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{`¿Desea eliminar '${deleteText}'?`}</DialogTitle>
 
@@ -158,8 +155,10 @@ export const DeleteDialogCatalogos = ({
           </DialogContentText>
         </DialogContent>
 
-        <DialogActions onClick={handleClose}>
-          <Button>Cancelar</Button>
+        <DialogActions >
+
+
+          <Button onClick={handleClose}>Cancelar</Button>
 
           <Button onClick={deletePorCatalogo} autoFocus>
             De Acuerdo

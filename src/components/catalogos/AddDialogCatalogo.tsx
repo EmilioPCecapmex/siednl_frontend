@@ -13,7 +13,11 @@ import Swal from "sweetalert2";
 import EditIcon from "@mui/icons-material/Edit";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
-import { Typography, FormControl } from '@mui/material';
+import { Typography, FormControl } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+
 import { PED } from "./PED";
 
 export const AddDialogCatalogo = ({
@@ -33,32 +37,32 @@ export const AddDialogCatalogo = ({
 
   const handleClose = () => {
     setOpen(false);
+    actualizado();
+
   };
 
   const [descripcion, setDescripcion] = React.useState("");
   const [fechaCaptura, setFechaCaptura] = React.useState("");
   const [institution, setInstitution] = React.useState("0");
-  const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([{Id: "",
-  NombreInstitucion: ""
-  },]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([
+    { Id: "", NombreInstitucion: "" },
+  ]);
 
   React.useEffect(() => {
     getInstituciones();
+  }, []);
 
-     }, [])
-     
   const getInstituciones = () => {
-    axios.get("http://10.200.4.105:8000/api/instituciones", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      }
-    }).then(
-      (r) => {
-        setCatalogoInstituciones(r.data.data)
-      }
-
-    )
-  }
+    axios
+      .get("http://10.200.4.105:8000/api/instituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+      });
+  };
 
   const CreatePorCatalogo = () => {
     axios
@@ -76,13 +80,14 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
+        handleClose()
         Swal.fire({
           position: "top-end",
           icon: "success",
           title: "Elemento registrado con éxito",
           showConfirmButton: false,
           timer: 1500,
-        })
+        });
         actualizado();
       })
       .catch((err) =>
@@ -95,6 +100,7 @@ export const AddDialogCatalogo = ({
         })
       );
   };
+
 
   const CreatePorCatalogoFechas = () => {
     axios
@@ -118,9 +124,8 @@ export const AddDialogCatalogo = ({
           title: "Elemento registrado con éxito",
           showConfirmButton: false,
           timer: 1500,
-        })
+        });
         actualizado();
-        
       })
       .catch((err) =>
         Swal.fire({
@@ -133,17 +138,20 @@ export const AddDialogCatalogo = ({
       );
   };
 
-  const CreatePorCatalogoProgramap= () => {
-    
+  const CreatePorCatalogoProgramap = () => {
     axios
-      .post("http://10.200.4.105:8000/api/create-programaPresupuestario",  {
-            NombrePrograma:descripcion,
-            IdInstitucion:institution,
-            CreadoPor: localStorage.getItem("IdUsuario"),
+      .post(
+        "http://10.200.4.105:8000/api/create-programaPresupuestario",
+        {
+          NombrePrograma: descripcion,
+          IdInstitucion: institution,
+          CreadoPor: localStorage.getItem("IdUsuario"),
         },
-        {headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        }},
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
       )
       .then((r) => {
         Swal.fire({
@@ -152,42 +160,47 @@ export const AddDialogCatalogo = ({
           title: "Elemento registrado con éxito",
           showConfirmButton: false,
           timer: 1500,
-        })
+        });
         actualizado();
       })
-      .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: err.response.data.result.error,
-        showConfirmButton: false,
-        timer: 1500
-      })
-      )
+      .catch((err) =>
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: err.response.data.result.error,
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      );
   };
 
-  if(tabla=== "FechasDeCaptura")
-  {
-    return(
-    <Box sx={{display:"flex"}}>
-        <IconButton onClick={handleClickOpen} >
-          <AddIcon
-             
-          />
+  if (tabla === "FechasDeCaptura") {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <IconButton onClick={handleClickOpen}>
+          <AddIcon />
         </IconButton>
         <Dialog fullWidth maxWidth={"md"} open={open} onClose={handleClose}>
-          <DialogTitle>{`Agregar nuevo elemento`}</DialogTitle>
-
-          <DialogContent sx={{display:"flex", justifyContent:"space-around", mt:'1vh'}}>
-              <Box sx={{pt:'1vh'}}>
-                 <TextField sx={{width:'20vw'}} label={"Descripción"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)}  />
-              </Box>
-              <Box sx={{pt:'1vh'}}>
+        <DialogTitle sx={{ fontFamily: "MontserratSemiBold" }}>
+            Añadir {tabla}
+          </DialogTitle>
+          <DialogContent
+            sx={{ display: "flex", justifyContent: "space-around", mt: "1vh" }}
+          >
+            <Box sx={{ pt: "1vh" }}>
+              <TextField
+                sx={{ width: "20vw" }}
+                label={"Descripción"}
+                variant="outlined"
+                onChange={(v) => setDescripcion(v.target.value)}
+              />
+            </Box>
+            <Box sx={{ pt: "1vh" }}>
               <TextField
                 label={"Fecha de captura"}
                 variant="outlined"
                 onChange={(x) => setFechaCaptura(x.target.value)}
-                sx={{width:'20vw'}}
+                sx={{ width: "20vw" }}
               />
             </Box>
           </DialogContent>
@@ -203,7 +216,6 @@ export const AddDialogCatalogo = ({
       </Box>
     );
   } else if (tabla === "PEDs") {
-
     return (
       <Box>
         <IconButton onClick={handleClickOpen}>
@@ -215,104 +227,121 @@ export const AddDialogCatalogo = ({
           />
         </IconButton>
         <Dialog fullWidth maxWidth={"xl"} open={open} onClose={handleClose}>
-          <PED />
-          <DialogActions onClick={handleClose}>
-
-          <Button sx={{backgroundColor:'#ffa4a4', color:'black'}} onClick={handleClose}> Cancelar </Button>
-
-          </DialogActions>
+        <AppBar sx={{ position: 'relative', backgroundColor: '#bdbdbd' }}>
+          <Toolbar >
+            <IconButton
+              edge="end"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+          <PED handleClose={handleClose} />
         </Dialog>
       </Box>
     );
-      
-    } else if(tabla=== "ProgramasPresupuestarios")
-    {
-      return(
-      <Box sx={{display:"flex"}}>
+  } else if (tabla === "ProgramasPresupuestarios") {
+    return (
+      <Box sx={{ display: "flex" }}>
         <Tooltip title="Editar">
-          <IconButton onClick={handleClickOpen} >
-            <AddIcon
-               
-            />
+          <IconButton onClick={handleClickOpen}>
+            <AddIcon />
           </IconButton>
         </Tooltip>
         <Dialog fullWidth maxWidth={"md"} open={open} onClose={handleClose}>
-          <DialogTitle>{`Agregar nuevo elemento`}</DialogTitle>
-  
-          <DialogContent sx={{display:"flex", justifyContent:"space-around", mt:'1vh'}}>
-              <Box sx={{pt:'1vh'}}>
-                 <TextField sx={{width:'20vw'}} label={"Nombre del programa"} variant="outlined" onChange={(v)=>setDescripcion(v.target.value)}  />
-              </Box>
+        <DialogTitle sx={{ fontFamily: "MontserratSemiBold" }}>
+            Añadir Elemento
+          </DialogTitle>
+          <DialogContent
+            sx={{ display: "flex", justifyContent: "space-around", mt: "1vh" }}
+          >
+            <Box sx={{ pt: "1vh" }}>
+              <TextField
+                sx={{ width: "20vw" }}
+                label={"Nombre del programa"}
+                variant="outlined"
+                onChange={(v) => setDescripcion(v.target.value)}
+              />
+            </Box>
 
-             <Box sx={{pt:'1vh'}}>
-             <FormControl sx={{width:'20vw'}}>
-            <InputLabel id="demo-simple-select-label">Institución</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={institution}
-              label="Institución"
-              onChange={(x) => setInstitution(x.target.value)}
-            >
-              <MenuItem value={"0"} key={0} disabled>
-              Selecciona Institución
-              </MenuItem>
-              {catalogoInstituciones.map((item) => {
-                return (
-                  <MenuItem value={item.Id} key={item.Id}>
-                    {item.NombreInstitucion}
+            <Box sx={{ pt: "1vh" }}>
+              <FormControl sx={{ width: "20vw" }}>
+                <InputLabel id="demo-simple-select-label">
+                  Institución
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={institution}
+                  label="Institución"
+                  onChange={(x) => setInstitution(x.target.value)}
+                >
+                  <MenuItem value={"0"} key={0} disabled>
+                    Selecciona Institución
                   </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-             </Box>
+                  {catalogoInstituciones.map((item) => {
+                    return (
+                      <MenuItem value={item.Id} key={item.Id}>
+                        {item.NombreInstitucion}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Box>
           </DialogContent>
-  
-          <DialogActions onClick={handleClose}>
-            <Button>Cancelar</Button>
-  
+
+          <DialogActions >
+            <Button onClick={handleClose} color="error">Cancelar</Button>
+
             <Button onClick={CreatePorCatalogoProgramap} autoFocus>
               De Acuerdo
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>);
-    } else {
-      return (
-        <Box>
-          <IconButton onClick={handleClickOpen}>
-            <AddIcon
-              sx={{
-                width: 50,
-                height: 50,
-              }}
+      </Box>
+    );
+  } else {
+    return (
+      <Box>
+        <IconButton onClick={handleClickOpen}>
+          <AddIcon
+            sx={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        </IconButton>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle sx={{ fontFamily: "MontserratSemiBold" }}>
+            Añadir Elemento
+          </DialogTitle>
+
+          <DialogContent>
+            <TextField
+              label={"Descripcion"}
+              variant="outlined"
+              onChange={(v) => setDescripcion(v.target.value)}
+              sx={{ marginTop: 1 }}
             />
-          </IconButton>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>{`Agregar nuevo elemento`}</DialogTitle>
+          </DialogContent>
 
-            <DialogContent>
-              <TextField
-                id="outlined-basic"
-                placeholder={"Descripcion"}
-                variant="outlined"
-                onChange={(v) => setDescripcion(v.target.value)}
-                sx={{ mt: "2" }}
-              />
-            </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="error">
+              Cancelar
+            </Button>
 
-            <DialogActions onClick={handleClose}>
-              <Button>Cancelar</Button>
-
-              <Button onClick={CreatePorCatalogo} autoFocus>
-                De Acuerdo
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Box>
-      );
-    }
+            <Button onClick={CreatePorCatalogo} autoFocus>
+              De Acuerdo
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    );
+  }
 };
 
 export default AddDialogCatalogo;
