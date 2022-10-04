@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { LateralMenu } from "./components/lateralMenu/LateralMenu";
 import { MIR } from "./screens/config/MIR";
+import { Notification } from "./screens/notification/Notifications";
 
 
 function App() {
@@ -54,6 +55,8 @@ function App() {
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
           <Route path="MIR" element={<MIR/>}/>
+          <Route path="notifications" element={<Notification/>}/>
+
         </Routes>
     </>
   );

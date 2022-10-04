@@ -15,6 +15,7 @@ import LocationCityOutlinedIcon from "@mui/icons-material/LocationCityOutlined";
 import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import CampaignIcon from '@mui/icons-material/Campaign';
 import {
   Dialog,
   TextField,
@@ -368,6 +369,18 @@ export const LateralMenu = ({
             </Typography>
             <Box
               visibility={selection === 5 ? "visible" : "hidden"}
+              sx={st.selectedBox}
+            />
+          </ListItemButton>
+          <ListItemButton onClick={() => navigate("../notifications")}>
+            <Box sx={st.iconMenuList}>
+              <CampaignIcon />
+            </Box>
+            <Typography sx={st.firstItemsStyle}>
+               Notificaciones
+            </Typography>
+            <Box
+              visibility={selection === 7 ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
           </ListItemButton>

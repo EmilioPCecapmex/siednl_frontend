@@ -11,6 +11,7 @@ import NotificationsIcon from "@mui/icons-material/NotificationsNone";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { useNavigate } from "react-router-dom";
 import { TimerCounter } from "../timer/TimerCounter";
+import NotificationsPanel from "../notifications/NotificationsPanel";
 
 interface BreadcrumbsDetails {
   name1: string;
@@ -34,6 +35,17 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
       setFullScreen(true);
     }
   };
+
+  const [openNotifPanel, setOpenNotifPanel] = useState(false);
+
+  const handleOpenNotifPanel = () => {
+    setOpenNotifPanel(true);
+  };
+
+  const handleCloseNotifPanel = () => {
+    setOpenNotifPanel(false);
+  };
+
 
   return (
     <Box
@@ -106,11 +118,9 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         }}
       >
         <Box sx={{ ml: ".5vw" }}>
-          <IconButton>
-            <Badge badgeContent={4} color="primary">
-              <NotificationsIcon color="action" />
-            </Badge>
-          </IconButton>
+          <NotificationsPanel/>
+
+
         </Box>
         <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
         <Box>
