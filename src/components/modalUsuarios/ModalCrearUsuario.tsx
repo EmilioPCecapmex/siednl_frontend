@@ -45,6 +45,17 @@ export default function ModalCrearUsuario({
   Rol: ""
   },]);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const [errorForm, setErrorsForm] = useState({
     visible: false,
@@ -158,12 +169,9 @@ export default function ModalCrearUsuario({
     )
     .then((r) => {
       if(r.status === 200){
-        Swal.fire({
-          position: "top-end",
+        Toast.fire({
           icon: "success",
           title: "¡Registro exitoso!",
-          showConfirmButton: false,
-          timer: 1500,
         });
       }
     })

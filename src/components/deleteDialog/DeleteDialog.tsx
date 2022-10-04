@@ -23,6 +23,18 @@ export const DeleteDialog = ({
 }) => {
   const [open, setOpen] = React.useState(false);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -44,21 +56,16 @@ export const DeleteDialog = ({
       })
       .then((r) => {
         actualizado();
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Usuario eliminado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        Toast.fire({
+          icon: "success",
+          title: "Usuario eliminado con éxito.",
+        });
+        
       })
       .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
+      Toast.fire({
+        icon: "error",
+        title: "Permisos denegados.",
       })
       )
   };

@@ -24,6 +24,18 @@ export const DeleteDialogCatalogos = ({
   actualizado: Function;
   
 }) => {
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
   
   const [open, setOpen] = React.useState(false);
 
@@ -49,21 +61,17 @@ export const DeleteDialogCatalogos = ({
       })
       .then((r) => {
         actualizado();
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Eliminado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        })
+
+        Toast.fire({
+          icon: "success",
+          title: "Eliminado con éxito.",
+        });
       })
       .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
+
+      Toast.fire({
+        icon: "error",
+        title: "Permisos denegados.",
       })
       )
     } else if (tabla === 'ProgramasPresupuestarios'){
@@ -79,21 +87,15 @@ export const DeleteDialogCatalogos = ({
       })
       .then((r) => {
         actualizado();
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Eliminado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        Toast.fire({
+          icon: "success",
+          title: "Eliminado con éxito.",
+        });
       })
       .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
+      Toast.fire({
+        icon: "error",
+        title: "Permisos denegados.",
       })
       )
     } else {
@@ -112,21 +114,16 @@ export const DeleteDialogCatalogos = ({
       })
       .then((r) => {
         actualizado();
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Eliminado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        Toast.fire({
+          icon: "success",
+          title: "Eliminado con éxito.",
+        });
+
       })
       .catch((err) => 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Permisos denegados',
-        showConfirmButton: false,
-        timer: 1500
+      Toast.fire({
+        icon: "error",
+        title: "Permisos denegados.",
       })
       )
     }
@@ -160,7 +157,7 @@ export const DeleteDialogCatalogos = ({
 
           <Button onClick={handleClose}>Cancelar</Button>
 
-          <Button onClick={deletePorCatalogo} autoFocus>
+          <Button onClick={deletePorCatalogo} color='error' autoFocus>
             De Acuerdo
           </Button>
         </DialogActions>

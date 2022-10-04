@@ -205,7 +205,7 @@ export const DataTable = ({
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <TableRow key={row.Id}>
-                  <TableCell>
+                  <TableCell sx={{ height: "1vh" }}>
                     <Box
                       sx={{
                         width: "100%",
@@ -235,28 +235,34 @@ export const DataTable = ({
                     </Box>
                   </TableCell>
 
-                  <TableCell>{row.CorreoElectronico}</TableCell>
+                  <TableCell sx={{ height: "1vh" }}>
+                    {row.CorreoElectronico}
+                  </TableCell>
 
-                  <TableCell>{row.NombreUsuario}</TableCell>
+                  <TableCell sx={{ height: "1vh" }}>
+                    {row.NombreUsuario}
+                  </TableCell>
 
-                  <TableCell>{row.Cargo}</TableCell>
+                  <TableCell sx={{ height: "1vh" }}>{row.Cargo}</TableCell>
 
-                  <TableCell>{row.Telefono}</TableCell>
+                  <TableCell sx={{ height: "1vh" }}>{row.Telefono}</TableCell>
 
-                  <TableCell>{row.Celular}</TableCell>
+                  <TableCell sx={{ height: "1vh" }}>{row.Celular}</TableCell>
 
-                  <TableCell>{row.NombreInstitucion}</TableCell>
+                  <TableCell sx={{ height: "1vh" }}>
+                    {row.NombreInstitucion}
+                  </TableCell>
 
-                  <TableCell>{row.Rol}</TableCell>
+                  <TableCell sx={{ height: "1vh" }}>{row.Rol}</TableCell>
 
-                  <TableCell sx={{ display: "flex" }}>
-                    <DeleteDialog
-                      deleteText="usuario"
-                      id={row.IdUsuarioTiCentral}
-                      actualizado={actualizaContador}
-                    />
+                  <TableCell sx={{ height: "auto" }}>
+                    <Box display={"flex"}>
+                      <DeleteDialog
+                        deleteText="usuario"
+                        id={row.IdUsuarioTiCentral}
+                        actualizado={actualizaContador}
+                      />
 
-                    <Tooltip title="Editar">
                       <IconButton
                         onClick={() => handleClickOpen(row.IdUsuarioTiCentral)}
                       >
@@ -270,7 +276,7 @@ export const DataTable = ({
                           ]}
                         />
                       </IconButton>
-                    </Tooltip>
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}
@@ -283,7 +289,6 @@ export const DataTable = ({
         count={usuarios.length}
         rowsPerPage={renglonesPagina}
         page={page}
-        
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
