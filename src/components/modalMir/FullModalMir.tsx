@@ -99,7 +99,7 @@ export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
 
   const [nombreArchivo, setNombreArchivo] = useState(
-    "Arrastre o seleccione para cargar archivo"
+    " Arrastre o de click aquí para seleccionar archivo"
   );
 
   const [anioFiscal, setAnioFiscal] = useState("Ejercicio Fiscal");
@@ -365,12 +365,59 @@ export default function FullModalMir() {
                 sx={{}}
                 options={catalogoAniosFiscales}
                 getOptionLabel={(option) => option.AnioFiscal}
-                renderInput={(params) => <TextField {...params} label={anioFiscal} placeholder="Ejercicio Fiscal" ></TextField>}
-                onChange={(event, value) => setAnioFiscal(value?.AnioFiscal as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={anioFiscal}
+                    placeholder="Ejercicio Fiscal"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setAnioFiscal(value?.AnioFiscal as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
+            <Box
+              sx={{
+                width: "20vw",
+                height: "10vh",
+                border: 1,
+                borderRadius: 3,
+                borderColor: "#af8c55",
+                borderStyle: "dashed",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mt: "6vh",
+              }}
+            >
+              <Typography
+                sx={{
+                  position: "absolute",
+                  fontFamily: "MontserratLight",
+                  fontSize: ".7vw",
+                }}
+              >
+                {nombreArchivo}
+              </Typography>
+              <TextField
+                type="file"
+                onChange={(v) =>
+                  setNombreArchivo(v.target.value.split("\\")[2])
+                }
+                sx={{
+                  color: "#fff",
+                  opacity: 0,
+                  width: "100%",
+                  "& .MuiInputBase-root": {
+                    height: "10vh",
+                  },
+                }}
+              ></TextField>
+            </Box>
 
+            {/* 
             <InputLabel
               id="file-upload"
               sx={[
@@ -402,39 +449,61 @@ export default function FullModalMir() {
                 type="file"
                 sx={{}}
               />
-            </InputLabel>
+            </InputLabel> */}
 
             <FormControl sx={{ width: "20vw", mt: "6vh" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoInstituciones}
                 getOptionLabel={(option) => option.NombreInstitucion}
-                renderInput={(params) => <TextField {...params} label={institution} placeholder="Institución" ></TextField>}
-                onChange={(event, value) => setInstitution(value?.NombreInstitucion as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={institution}
+                    placeholder="Institución"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setInstitution(value?.NombreInstitucion as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
 
             <FormControl sx={{ width: "20vw", mt: "6vh" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoProgramas}
                 getOptionLabel={(option) => option.NombrePrograma}
-                renderInput={(params) => <TextField {...params} label={programa} placeholder="Nombre del Programa" ></TextField>}
-                onChange={(event, value) => setPrograma(value?.NombrePrograma as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={programa}
+                    placeholder="Nombre del Programa"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setPrograma(value?.NombrePrograma as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
 
             <FormControl required sx={{ width: "20vw", mt: "6vh" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoEjes}
                 getOptionLabel={(option) => option.Eje}
-                renderInput={(params) => <TextField {...params} label={eje} placeholder="Eje" ></TextField>}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={eje}
+                    placeholder="Eje"
+                  ></TextField>
+                )}
                 onChange={(event, value) => setEje(value?.Eje as string)}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
@@ -446,7 +515,13 @@ export default function FullModalMir() {
                 sx={{}}
                 options={catalogoTematicas}
                 getOptionLabel={(option) => option.Tematica}
-                renderInput={(params) => <TextField {...params} label={tematica} placeholder="Temática" ></TextField>}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={tematica}
+                    placeholder="Temática"
+                  ></TextField>
+                )}
                 onChange={(event, value) =>
                   setTematica(value?.Tematica as string)
                 }
@@ -455,25 +530,41 @@ export default function FullModalMir() {
             </FormControl>
 
             <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoObjetivos}
                 getOptionLabel={(option) => option.Objetivo}
-                renderInput={(params) => <TextField {...params} label={objetivo} placeholder="Objetivo" ></TextField>}
-                onChange={(event, value) => setObjetivo(value?.Objetivo as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={objetivo}
+                    placeholder="Objetivo"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setObjetivo(value?.Objetivo as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
 
             <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoEstrategias}
                 getOptionLabel={(option) => option.Estrategia}
-                renderInput={(params) => <TextField {...params} label={estrategia} placeholder="Estrategia" ></TextField>}
-                onChange={(event, value) => setEstrategia(value?.Estrategia as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={estrategia}
+                    placeholder="Estrategia"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setEstrategia(value?.Estrategia as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
@@ -503,13 +594,21 @@ export default function FullModalMir() {
             </FormControl>
 
             <FormControl required sx={{ width: "20vw" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoBeneficiarios}
                 getOptionLabel={(option) => option.Beneficiario}
-                renderInput={(params) => <TextField {...params} label={beneficiario} placeholder="Beneficiario" ></TextField>}
-                onChange={(event, value) => setBeneficiario(value?.Beneficiario as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={beneficiario}
+                    placeholder="Beneficiario"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setBeneficiario(value?.Beneficiario as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>

@@ -102,12 +102,11 @@ export const MIR = () => {
   };
 
   const getInstituciones = () => {
-    console.log(localStorage.getItem("IdUsuario"));
-    
+       
     axios
       .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
         params:{
-            "IdUsuario": localStorage.getItem("IdUsuario") as string
+            "IdUsuario": "a7933377-32ba-11ed-aed0-040300000000"
         },
       headers: {
         Authorization: localStorage.getItem("jwtToken") || "",
@@ -182,7 +181,7 @@ export const MIR = () => {
           name1: "Inicio",
           path1: "../home",
           name2: "MIR",
-          path2: "../MIR",
+          path2: "../mir",
           name3: "",
         }}
         
@@ -201,11 +200,12 @@ export const MIR = () => {
           <Box
             sx={{
               mt: "3vh",
-              width: "50vw",
+              width: "80%",
               height: "15vh",
               backgroundColor: "#fff",
               borderRadius: 5,
               display: "grid",
+              boxShadow: 5,
               gridTemplateColumns: "1fr 1fr",
               alignItems: "center",
               justifyItems: "center",
@@ -265,12 +265,13 @@ export const MIR = () => {
 
           <Box
             sx={{
-              width: "70vw",
+              width: "80%",
               height: "65vh",
               backgroundColor: "#ffff",
               borderRadius: 5,
               display: "flex",
               alignItems: "center",
+              boxShadow: 5
             }}
           >
             <Box

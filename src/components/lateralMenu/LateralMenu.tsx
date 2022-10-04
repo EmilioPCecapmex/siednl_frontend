@@ -326,7 +326,7 @@ export const LateralMenu = ({
           </ListItemButton>
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton onClick={() => navigate("../MIR")} sx={st.subMenuItemStyle}>
+              <ListItemButton onClick={() => navigate("../mir")} sx={st.subMenuItemStyle}>
               <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
                 </Box>
