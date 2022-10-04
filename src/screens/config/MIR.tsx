@@ -105,7 +105,7 @@ export const MIR = () => {
     console.log(localStorage.getItem("IdUsuario"));
     
     axios
-      .get("http://localHost:8000/api/usuarioInsitucion", {
+      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
         params:{
             "IdUsuario": localStorage.getItem("IdUsuario") as string
         },

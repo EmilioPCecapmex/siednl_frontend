@@ -78,7 +78,7 @@ export const Notification = () => {
   const enviarNotificacion = () => {
     axios
       .post(
-        "http://localhost:8000/api/create-notif",
+        "http://10.200.4.105:8000/api/create-notif",
         {
           IdUsuarioDestino: usuarioSeleccionado,
           Titulo: titulo,

@@ -26,7 +26,7 @@ export default function NotificationsPanel() {
   const obtenerNotificaciones = () => {
     axios
       .post(
-        "http://localhost:8000/api/obtener-notif",
+        "http://10.200.4.105:8000/api/obtener-notif",
         {
           IdUsuarioDestino: localStorage.getItem("IdUsuario"),
         },
@@ -46,7 +46,7 @@ export default function NotificationsPanel() {
   const eliminaNotificacion = (v: string) => {
     axios
       .delete(
-        "http://localhost:8000/api/borra-notif",
+        "http://10.200.4.105:8000/api/borra-notif",
         { data: {
           IdNotificacion: v,
 
