@@ -87,8 +87,14 @@ export const continueSession = () => {
         if (r.status === 200) {
           sessionUntil = r.data.expDateTime;
           localStorage.setItem("validation", "true");
-          localStorage.setItem("IdCentral", r.data.data.IdUsuario);
-          getUserDetails(r.data.data.IdUsuario);
+          if(r.data.data.IdUsuario){
+            localStorage.setItem("IdCentral", r.data.data.IdUsuario);
+            getUserDetails(r.data.data.IdUsuario);
+
+          }else{
+            getUserDetails(localStorage.getItem("IdCentral") as string);
+
+          }
           return true
         }
       })

@@ -12,7 +12,6 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { useNavigate } from "react-router-dom";
 import { TimerCounter } from "../timer/TimerCounter";
 
-
 interface BreadcrumbsDetails {
   name1: string;
   path1: string;
@@ -21,21 +20,20 @@ interface BreadcrumbsDetails {
   name3: string;
 }
 
-
 export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
   const navigate = useNavigate();
 
-  const [fullScreen, setFullScreen] = useState(true)
+  const [fullScreen, setFullScreen] = useState(true);
 
   const changeFullScreen = () => {
-    if(fullScreen){
-      document.documentElement.requestFullscreen()
-      setFullScreen(false)
-    }else{
+    if (fullScreen) {
+      document.documentElement.requestFullscreen();
+      setFullScreen(false);
+    } else {
       document.exitFullscreen();
-      setFullScreen(true)
+      setFullScreen(true);
     }
-  }
+  };
 
   return (
     <Box
@@ -47,26 +45,35 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         alignItems: "center",
         left: "19vw",
         position: "absolute",
-        
       }}
     >
       <Box
         sx={{
           ml: "2vw",
           width: "30vw",
-          height: "4vh"
+          height: "4vh",
         }}
       >
         <Breadcrumbs
           aria-label="breadcrumb"
           sx={{ fontFamily: "MontserratBold", fontSize: "1.5vw" }}
         >
-          <Link underline="hover" color="inherit" onClick={() => navigate(details.path1)} sx={{ cursor:'pointer' }}>
+          <Link
+            underline="hover"
+            color="inherit"
+            onClick={() => navigate(details.path1)}
+            sx={{ cursor: "pointer" }}
+          >
             {details.name1}
           </Link>
 
           {details.name2 !== "" ? (
-            <Link underline="hover" color="inherit" onClick={() => navigate(details.path2)} sx={{ cursor:'pointer' }}>
+            <Link
+              underline="hover"
+              color="inherit"
+              onClick={() => navigate(details.path2)}
+              sx={{ cursor: "pointer" }}
+            >
               {details.name2}
             </Link>
           ) : null}
@@ -74,7 +81,11 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           {details.name3 !== "" ? (
             <Typography
               color="text.primary"
-              sx={{ fontFamily: "MontserratMedium", fontSize: "1.5vw", cursor:'pointer' }}
+              sx={{
+                fontFamily: "MontserratMedium",
+                fontSize: "1.5vw",
+                cursor: "pointer",
+              }}
             >
               {details.name3}
             </Typography>
@@ -101,15 +112,11 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
             </Badge>
           </IconButton>
         </Box>
-        <Box
-          sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }}
-        />
+        <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
         <Box>
-          <TimerCounter/>
+          <TimerCounter />
         </Box>
-        <Box
-          sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }}
-        />
+        <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
         <Box sx={{ mr: ".5vw" }}>
           <IconButton onClick={() => changeFullScreen()}>
             <FullscreenIcon />
