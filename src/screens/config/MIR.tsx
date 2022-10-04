@@ -15,7 +15,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Avatar,
+  Autocomplete,
   Tooltip,
   IconButton,
   Button,
@@ -45,8 +45,12 @@ export const MIR = () => {
     setPage(0);
   };
 
-  const [institution, setInstitution] = useState("0");
-  const [programaPresupuestario, setProgramaPresupuestario] = useState("0");
+  const [anioFiscal, setAnioFiscal] = useState("");
+  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
+    { Id: "", AnioFiscal: "" },
+  ]);
+  const [institution, setInstitution] = useState("");
+  const [programaPresupuestario, setProgramaPresupuestario] = useState("");
   const [descripctionFiltered, setDescripctionFiltered] = useState("");
 
   const dataFilter = (text: string) => {
@@ -85,15 +89,34 @@ export const MIR = () => {
     }
   };
 
-  const getInstituciones = () => {
+  const getAniosFiscales = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get("http://10.200.4.105:8000/api/aniosFiscales", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
-        setDatosTabla(r.data.data);
+        setCatalogoAniosFiscales(r.data.data);
+      });
+  };
+
+  const getInstituciones = () => {
+    console.log(localStorage.getItem("IdUsuario"));
+    
+    axios
+      .get("http://localHost:8000/api/usuarioInsitucion", {
+        params:{
+            "IdUsuario": localStorage.getItem("IdUsuario") as string
+        },
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      }
+    })
+      .then((r) => {
+        console.log(r.data.data);
+        
+        setCatalogoInstituciones(r.data.data);
       });
   };
 
@@ -110,6 +133,7 @@ export const MIR = () => {
   };
 
   useEffect(() => {
+    getAniosFiscales();
     getInstituciones();
     getProgramaPresupuestario();
   }, []);
@@ -188,67 +212,38 @@ export const MIR = () => {
             }}
           >
             <Box sx={{ width: "20vw", height: "5vh" }}>
-              <FormControl sx={{ width: "20vw", height: "5vh" }}>
-                <TextField
-                  label="Ejercicio Fiscal"
-                  variant="outlined"
-                  sx={{}}
-                  onChange={(v) => dataFilter(v.target.value)}
-                />
-              </FormControl>
+            <Autocomplete
+                disablePortal
+                sx={{}}
+                options={catalogoAniosFiscales}
+                getOptionLabel={(option) => option.AnioFiscal}
+                renderInput={(params) => <TextField {...params} label="Ejercicio Fiscal" placeholder="Ejercicio Fiscal" ></TextField>}
+                onChange={(event, value) => setAnioFiscal(value?.AnioFiscal as string)}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </Box>
 
             <Box sx={{ width: "20vw", height: "5vh" }}>
-              <FormControl sx={{ width: "20vw", height: "5vh" }}>
-                <InputLabel id="demo-simple-select-label">
-                  Programa Presupuestario
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={programaPresupuestario}
-                  label="Programa Presupuestario"
-                  onChange={(x) => setProgramaPresupuestario(x.target.value)}
-                >
-                  <MenuItem value={"0"} key={0} disabled>
-                    Programa
-                  </MenuItem>
-                  {catalogoProgramasPresupuestarios.map((item) => {
-                    return (
-                      <MenuItem value={item.Id} key={item.Id}>
-                        {item.NombrePrograma}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
+            <Autocomplete
+                disablePortal
+                sx={{}}
+                options={catalogoProgramasPresupuestarios}
+                getOptionLabel={(option) => option.NombrePrograma}
+                renderInput={(params) => <TextField {...params} label="Nombre del Programa" placeholder="Nombre del Programa" ></TextField>}
+                onChange={(event, value) => setProgramaPresupuestario(value?.NombrePrograma as string)}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </Box>
 
-            <Box>
-              <FormControl sx={{ width: "20vw", height: "5vh" }}>
-                <InputLabel id="demo-simple-select-label">
-                  Institución
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={institution}
-                  label="Instituciónes"
-                  onChange={(x) => setInstitution(x.target.value)}
-                  sx={{}}
-                >
-                  <MenuItem value={"0"} key={0} disabled>
-                    Institución
-                  </MenuItem>
-                  {catalogoInstituciones.map((item) => {
-                    return (
-                      <MenuItem value={item.Id} key={item.Id}>
-                        {item.NombreInstitucion}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
+            <Box sx={{ width: "20vw", height: "5vh" }}>
+            <Autocomplete
+                disablePortal
+                options={catalogoInstituciones}
+                getOptionLabel={(option) => option.NombreInstitucion}
+                renderInput={(params) => <TextField {...params} label="Institución" placeholder="Institución" ></TextField>}
+                onChange={(event, value) => setInstitution(value?.NombreInstitucion as string)}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </Box>
 
             <Box>

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   FormControl,
   InputLabel,
@@ -29,17 +29,15 @@ import {
   TablePagination,
 } from "@mui/material";
 import axios from "axios";
-import { styled } from '@mui/material/styles';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import { styled } from "@mui/material/styles";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary, {
   AccordionSummaryProps,
-} from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
-
+} from "@mui/material/AccordionSummary";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
 
 export default function FullModalMir() {
-
   const [numeroComponentes, setNumeroComponentes] = React.useState([
     {
       componente: "Componente No. 1",
@@ -78,27 +76,24 @@ export default function FullModalMir() {
       nocomponente: 5,
     },
   ]);
-  //Componentes 
-  const [componentesActivos, setComponentesActivos] = React.useState(2);
-    
+  //Componentes
+  var [componentesActivos, setComponentesActivos] = React.useState(2);
+
   const incrementaComponente = () => {
-    if (componentesActivos < 6){
-      setComponentesActivos((componentesActivos + 1));
+    if (componentesActivos < 6) {
+      console.log(componentesActivos);
+      setComponentesActivos(componentesActivos++);
       numeroComponentes[componentesActivos].visible = true;
-      console.log(componentesActivos)
-    } else {
-      console.log("excedido")
+      console.log("+1: " + componentesActivos);
     }
-    
-    
   };
 
   const eliminaComponente = () => {
-    if (componentesActivos >= 2){
+    if (componentesActivos >= 2) {
       numeroComponentes[componentesActivos].visible = false;
-      setComponentesActivos((componentesActivos - 1));
+      setComponentesActivos(componentesActivos--);
     }
-    console.log(componentesActivos)
+    console.log(componentesActivos);
   };
   //________________________________
   const [value, setValue] = React.useState(10);
@@ -107,20 +102,21 @@ export default function FullModalMir() {
     "Arrastre o seleccione para cargar archivo"
   );
 
-  const [institution, setInstitution] = useState("0");
-  const [programa, setPrograma] = useState("0");
-  const [eje, setEje] = useState("0");
-  const [tematica, setTematica] = useState("0");
-  const [objetivo, setObjetivo] = useState("0");
-  const [estrategia, setEstrategia] = useState("0");
+  const [anioFiscal, setAnioFiscal] = useState("Ejercicio Fiscal");
+  const [institution, setInstitution] = useState("Institución");
+  const [programa, setPrograma] = useState("Programa");
+  const [eje, setEje] = useState("Eje");
+  const [tematica, setTematica] = useState("Temática");
+  const [objetivo, setObjetivo] = useState("Objetivo");
+  const [estrategia, setEstrategia] = useState("Estrategia");
   const [lineaDeAccion, setLineaDeAccion] = useState([
-    {
-      Id: "",
-      LineaDeAccion: "",
-    },
+    { Id: "", LineaDeAccion: "Lineas de Acción" },
   ]);
-  const [beneficiario, setBeneficiario] = useState("0");
+  const [beneficiario, setBeneficiario] = useState("Beneficiario");
 
+  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
+    { Id: "", AnioFiscal: "" },
+  ]);
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
     { Id: "", NombreInstitucion: "" },
   ]);
@@ -144,7 +140,17 @@ export default function FullModalMir() {
     { Id: "", Beneficiario: "" },
   ]);
 
-
+  const getAniosFiscales = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/aniosFiscales", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoAniosFiscales(r.data.data);
+      });
+  };
   const getInstituciones = () => {
     axios
       .get("http://10.200.4.105:8000/api/instituciones", {
@@ -235,6 +241,7 @@ export default function FullModalMir() {
   };
 
   useEffect(() => {
+    getAniosFiscales();
     getInstituciones();
     getProgramas();
     getEjes();
@@ -328,7 +335,6 @@ export default function FullModalMir() {
               label="Resumen"
               value={50}
               sx={{
-                
                 color: "black",
                 fontFamily: "MontserratBold",
                 backgroundColor: "#ccc",
@@ -353,28 +359,23 @@ export default function FullModalMir() {
               gridTemplateRows: "1fr 1fr 1fr 2fr",
             }}
           >
-            <FormControl
-              sx={{ gridRow: "1", width: "20vw", height: "5vh", mt: "8vh" }}
-            >
-              <InputLabel id="demo-simple-select-label">
-                Ejercicio Fiscal
-              </InputLabel>
-              <Select
-                required
-                label="Ejercicio Fiscal"
-                value="0"
-                sx={{ width: "15vw" }}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Seleccione Ejercicio Fiscal
-                </MenuItem>
-              </Select>
+            <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
+              <Autocomplete
+                disablePortal
+                sx={{}}
+                options={catalogoAniosFiscales}
+                getOptionLabel={(option) => option.AnioFiscal}
+                renderInput={(params) => <TextField {...params} label={anioFiscal} placeholder="Ejercicio Fiscal" ></TextField>}
+                onChange={(event, value) => setAnioFiscal(value?.AnioFiscal as string)}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </FormControl>
 
             <InputLabel
               id="file-upload"
               sx={[
                 {
+                  gridColumn: "2/4",
                   border: "5px dotted #ccc",
                   display: "flex",
                   flexDirection: "column",
@@ -403,121 +404,93 @@ export default function FullModalMir() {
               />
             </InputLabel>
 
-            <FormControl sx={{ gridRow: "2", width: "20vw", mt: "6vh" }}>
-              <InputLabel id="demo-simple-select-label">Institución</InputLabel>
-              <Select
-              required
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={institution}
-                label="Institución"
-                onChange={(x) => setInstitution(x.target.value)}
+            <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+            <Autocomplete
+                disablePortal
                 sx={{}}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Institución
-                </MenuItem>
-                {catalogoInstituciones.map((item) => {
-                  return (
-                    <MenuItem value={item.Id} key={item.Id}>
-                      {item.NombreInstitucion}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
+                options={catalogoInstituciones}
+                getOptionLabel={(option) => option.NombreInstitucion}
+                renderInput={(params) => <TextField {...params} label={institution} placeholder="Institución" ></TextField>}
+                onChange={(event, value) => setInstitution(value?.NombreInstitucion as string)}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </FormControl>
 
-            <FormControl sx={{ gridRow: "2", width: "20vw", mt: "6vh" }}>
-              <InputLabel id="demo-simple-select-label">
-                Nombre del Programa
-              </InputLabel>
-              <Select
-              required
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={programa}
-                label="Nombre del Programa"
-                onChange={(x) => setPrograma(x.target.value)}
+            <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+            <Autocomplete
+                disablePortal
                 sx={{}}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Programa Presupuestario
-                </MenuItem>
-                {catalogoProgramas.map((item) => {
-                  return (
-                    <MenuItem value={item.Id} key={item.Id}>
-                      {item.NombrePrograma}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
+                options={catalogoProgramas}
+                getOptionLabel={(option) => option.NombrePrograma}
+                renderInput={(params) => <TextField {...params} label={programa} placeholder="Nombre del Programa" ></TextField>}
+                onChange={(event, value) => setPrograma(value?.NombrePrograma as string)}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </FormControl>
 
-            <FormControl required sx={{ gridRow: "2", width: "20vw", mt: "6vh" }}>
-              <Autocomplete
+            <FormControl required sx={{ width: "20vw", mt: "6vh" }}>
+            <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoEjes}
                 getOptionLabel={(option) => option.Eje}
-                renderInput={(params) => <TextField {...params} label="Eje"/>}
+                renderInput={(params) => <TextField {...params} label={eje} placeholder="Eje" ></TextField>}
                 onChange={(event, value) => setEje(value?.Eje as string)}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
 
-            <FormControl required sx={{ gridRow: "3", width: "20vw", mt:'4vh'}}>
+            <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
               <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoTematicas}
                 getOptionLabel={(option) => option.Tematica}
-                renderInput={(params) => (
-                  <TextField {...params} label="Temática" />
-                )}
-                onChange={(event, value) => setTematica(value?.Id as string)}
+                renderInput={(params) => <TextField {...params} label={tematica} placeholder="Temática" ></TextField>}
+                onChange={(event, value) =>
+                  setTematica(value?.Tematica as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
 
-            <FormControl required sx={{ gridRow: "3", width: "20vw", mt:'4vh' }}>
-              <Autocomplete
+            <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+            <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoObjetivos}
                 getOptionLabel={(option) => option.Objetivo}
-                renderInput={(params) => (
-                  <TextField {...params} label="Objetivo" />
-                )}
-                onChange={(event, value) => setObjetivo(value?.Id as string)}
+                renderInput={(params) => <TextField {...params} label={objetivo} placeholder="Objetivo" ></TextField>}
+                onChange={(event, value) => setObjetivo(value?.Objetivo as string)}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
 
-            <FormControl required sx={{ gridRow: "3", width: "20vw", mt:'4vh' }}>
-              <Autocomplete
+            <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+            <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoEstrategias}
                 getOptionLabel={(option) => option.Estrategia}
-                renderInput={(params) => (
-                  <TextField {...params} label="Estrategia" />
-                )}
-                onChange={(event, value) => setEstrategia(value?.Id as string)}
+                renderInput={(params) => <TextField {...params} label={estrategia} placeholder="Estrategia" ></TextField>}
+                onChange={(event, value) => setEstrategia(value?.Estrategia as string)}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
 
-            <FormControl required
+            <FormControl
+              required
               sx={{
                 gridColumnStart: "1",
                 gridColumnEnd: "3",
-                gridRow: "4",
                 width: "35vw",
               }}
             >
               <Autocomplete
                 multiple
                 disablePortal
+                disableCloseOnSelect
+                // inputValue={lineaDeAccion}
                 limitTags={4}
                 options={catalogoLineasDeAccion}
                 getOptionLabel={(option) => option.LineaDeAccion}
@@ -529,18 +502,14 @@ export default function FullModalMir() {
               />
             </FormControl>
 
-            <FormControl required sx={{ gridColumn: "3", gridRow: "4", width: "20vw" }}>
-              <Autocomplete
+            <FormControl required sx={{ width: "20vw" }}>
+            <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoBeneficiarios}
                 getOptionLabel={(option) => option.Beneficiario}
-                renderInput={(params) => (
-                  <TextField {...params} label="Beneficiario" />
-                )}
-                onChange={(event, value) =>
-                  setBeneficiario(value?.Id as string)
-                }
+                renderInput={(params) => <TextField {...params} label={beneficiario} placeholder="Beneficiario" ></TextField>}
+                onChange={(event, value) => setBeneficiario(value?.Beneficiario as string)}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
@@ -572,7 +541,7 @@ export default function FullModalMir() {
             >
               FIN
             </Typography>
-            
+
             <TextField
               multiline
               rows={4}
@@ -703,12 +672,11 @@ export default function FullModalMir() {
               justifyItems: "center",
               backgroundColor: "#fff",
             }}
-
           >
             <Button variant="contained" onClick={() => incrementaComponente()}>
               Agregar Componente
             </Button>
-            
+
             {numeroComponentes.map((item) => {
               if (item.visible) {
                 return <TextField value={item.componente}></TextField>;
@@ -719,25 +687,33 @@ export default function FullModalMir() {
               Eliminar Componente
             </Button>
             <Box>
-              <Accordion expanded={expanded === 'panel1'} onChange={handleChangeAcordion('panel1')}>
+              <Accordion
+                expanded={expanded === "panel1"}
+                onChange={handleChangeAcordion("panel1")}
+              >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1bh-content"
                   id="panel1bh-header"
                 >
-
-                  <Typography sx={{ width: '33%', flexShrink: 0, justifyContent: "center" }}>
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      justifyContent: "center",
+                    }}
+                  >
                     Componente
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Box sx={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr)",
-                    gridTemplateRows: "3fr 1fr 3fr ",
-                  }}>
-
-
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(2, 1fr)",
+                      gridTemplateRows: "3fr 1fr 3fr ",
+                    }}
+                  >
                     <TextField
                       multiline
                       rows={4}
@@ -792,13 +768,10 @@ export default function FullModalMir() {
                       variant="outlined"
                       sx={{ gridRow: "3", width: "20vw" }}
                     />
-
                   </Box>
                 </AccordionDetails>
               </Accordion>
-
             </Box>
-
           </Box>
         ) : null}
         {value === 50 ? (
