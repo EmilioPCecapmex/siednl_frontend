@@ -106,7 +106,7 @@ export const MIR = () => {
     axios
       .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
         params:{
-            "IdUsuario": "a7933377-32ba-11ed-aed0-040300000000"
+          "IdUsuario": localStorage.getItem("IdUsuario")
         },
       headers: {
         Authorization: localStorage.getItem("jwtToken") || "",
@@ -191,7 +191,7 @@ export const MIR = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            width: "87%",
+            width: "85%",
             height: "92%",
             mt: "8vh",
             flexWrap: "wrap",

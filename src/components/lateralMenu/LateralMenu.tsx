@@ -231,10 +231,13 @@ export const LateralMenu = ({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") as string,
-        },
+    .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
+      params:{
+          "IdUsuario": localStorage.getItem("IdUsuario")
+      },
+    headers: {
+      Authorization: localStorage.getItem("jwtToken") || "",
+    }
       })
       .then((r) => {
         if (r.status === 200) {
@@ -278,7 +281,7 @@ export const LateralMenu = ({
       <Box sx={st.selectInstitucionBox}>
         {renderInfo ? (
           <Select
-            value={institucionSeleccionada}
+            value={institucionSeleccionada || localStorage.getItem("IdInstitucion") as string}
             label="Institución"
             onChange={handleChange}
             variant="standard"
