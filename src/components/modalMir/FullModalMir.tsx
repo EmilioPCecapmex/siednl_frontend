@@ -76,6 +76,7 @@ export default function FullModalMir() {
 
   const [numeroActividades, setNumeroActividades] = React.useState([
     {
+      index: 0,
       label: "Actividad No. 1",
       nombre: "C1",
       visible: true,
@@ -83,6 +84,7 @@ export default function FullModalMir() {
       Actividad: 0,
     },
     {
+      index: 1,
       label: "Actividad No. 2",
       nombre: "C2",
       visible: true,
@@ -90,6 +92,7 @@ export default function FullModalMir() {
       Actividad: 1,
     },
     {
+      index: 2,
       label: "Actividad No. 3",
       nombre: "C3",
       visible: false,
@@ -97,6 +100,7 @@ export default function FullModalMir() {
       Actividad: 2,
     },
     {
+      index: 3,
       label: "Actividad No. 4",
       nombre: "C4",
       visible: false,
@@ -104,6 +108,7 @@ export default function FullModalMir() {
       Actividad: 3,
     },
     {
+      index: 4,
       label: "Actividad No. 5",
       nombre: "C5",
       visible: false,
@@ -111,12 +116,260 @@ export default function FullModalMir() {
       Actividad: 4,
     },
     {
+      index: 5,
       label: "Actividad No. 6",
       nombre: "C6",
       visible: false,
       Componente: 0,
       Actividad: 5,
     },
+
+    {
+      index: 6,
+      label: "Actividad No. 1",
+      nombre: "C1",
+      visible: true,
+      Componente: 1,
+      Actividad: 0,
+    },
+    {
+      index: 7,
+      label: "Actividad No. 2",
+      nombre: "C2",
+      visible: true,
+      Componente: 1,
+      Actividad: 1,
+    },
+    {
+      index: 8,
+      label: "Actividad No. 3",
+      nombre: "C3",
+      visible: false,
+      Componente: 1,
+      Actividad: 2,
+    },
+    {
+      index: 9,
+      label: "Actividad No. 4",
+      nombre: "C4",
+      visible: false,
+      Componente: 1,
+      Actividad: 3,
+    },
+    {
+      index: 10,
+      label: "Actividad No. 5",
+      nombre: "C5",
+      visible: false,
+      Componente: 1,
+      Actividad: 4,
+    },
+    {
+      index: 11,
+      label: "Actividad No. 6",
+      nombre: "C6",
+      visible: false,
+      Componente: 1,
+      Actividad: 5,
+    },
+
+    {
+      index: 12,
+      label: "Actividad No. 1",
+      nombre: "C1",
+      visible: true,
+      Componente: 2,
+      Actividad: 0,
+    },
+    {
+      index: 13,
+      label: "Actividad No. 2",
+      nombre: "C2",
+      visible: true,
+      Componente: 2,
+      Actividad: 1,
+    },
+    {
+      index: 14,
+      label: "Actividad No. 3",
+      nombre: "C3",
+      visible: false,
+      Componente: 2,
+      Actividad: 2,
+    },
+    {
+      index: 15,
+      label: "Actividad No. 4",
+      nombre: "C4",
+      visible: false,
+      Componente: 2,
+      Actividad: 3,
+    },
+    {
+      index: 16,
+      label: "Actividad No. 5",
+      nombre: "C5",
+      visible: false,
+      Componente: 2,
+      Actividad: 4,
+    },
+    {
+      index: 17,
+      label: "Actividad No. 6",
+      nombre: "C6",
+      visible: false,
+      Componente: 2,
+      Actividad: 5,
+    },
+
+    {
+      index: 18,
+      label: "Actividad No. 1",
+      nombre: "C1",
+      visible: true,
+      Componente: 3,
+      Actividad: 0,
+    },
+    {
+      index: 19,
+      label: "Actividad No. 2",
+      nombre: "C2",
+      visible: true,
+      Componente: 3,
+      Actividad: 1,
+    },
+    {
+      index: 20,
+      label: "Actividad No. 3",
+      nombre: "C3",
+      visible: false,
+      Componente: 3,
+      Actividad: 2,
+    },
+    {
+      index: 21,
+      label: "Actividad No. 4",
+      nombre: "C4",
+      visible: false,
+      Componente: 3,
+      Actividad: 3,
+    },
+    {
+      index: 22,
+      label: "Actividad No. 5",
+      nombre: "C5",
+      visible: false,
+      Componente: 3,
+      Actividad: 4,
+    },
+    {
+      index: 23,
+      label: "Actividad No. 6",
+      nombre: "C6",
+      visible: false,
+      Componente: 3,
+      Actividad: 5,
+    },
+
+
+    {
+      index: 24,
+      label: "Actividad No. 1",
+      nombre: "C1",
+      visible: true,
+      Componente: 4,
+      Actividad: 0,
+    },
+    {
+      index: 25,
+      label: "Actividad No. 2",
+      nombre: "C2",
+      visible: true,
+      Componente: 4,
+      Actividad: 1,
+    },
+    {
+      index: 26,
+      label: "Actividad No. 3",
+      nombre: "C3",
+      visible: false,
+      Componente: 4,
+      Actividad: 2,
+    },
+    {
+      index: 27,
+      label: "Actividad No. 4",
+      nombre: "C4",
+      visible: false,
+      Componente: 4,
+      Actividad: 3,
+    },
+    {
+      index: 28,
+      label: "Actividad No. 5",
+      nombre: "C5",
+      visible: false,
+      Componente: 4,
+      Actividad: 4,
+    },
+    {
+      index: 29,
+      label: "Actividad No. 6",
+      nombre: "C6",
+      visible: false,
+      Componente: 4,
+      Actividad: 5,
+    },
+
+    {
+      index: 30,
+      label: "Actividad No. 1",
+      nombre: "C1",
+      visible: true,
+      Componente: 5,
+      Actividad: 0,
+    },
+    {
+      index: 31,
+      label: "Actividad No. 2",
+      nombre: "C2",
+      visible: true,
+      Componente: 5,
+      Actividad: 1,
+    },
+    {
+      index: 32,
+      label: "Actividad No. 3",
+      nombre: "C3",
+      visible: false,
+      Componente: 5,
+      Actividad: 2,
+    },
+    {
+      index: 33,
+      label: "Actividad No. 4",
+      nombre: "C4",
+      visible: false,
+      Componente: 5,
+      Actividad: 3,
+    },
+    {
+      index: 34,
+      label: "Actividad No. 5",
+      nombre: "C5",
+      visible: false,
+      Componente: 5,
+      Actividad: 4,
+    },
+    {
+      index: 35,
+      label: "Actividad No. 6",
+      nombre: "C6",
+      visible: false,
+      Componente: 5,
+      Actividad: 5,
+    },
+
   ]);
 
   const [fin, setFin] = React.useState([
@@ -1786,21 +2039,108 @@ export default function FullModalMir() {
     }
   };
 
-  let [actividadesActivas, setActividadesActivas] = React.useState(2);
+  let [actividadesActivasC0, setActividadesActivasC0] = React.useState(2);
+  let [actividadesActivasC1, setActividadesActivasC1] = React.useState(8);
+  let [actividadesActivasC2, setActividadesActivasC2] = React.useState(14);
+  let [actividadesActivasC3, setActividadesActivasC3] = React.useState(20);
+  let [actividadesActivasC4, setActividadesActivasC4] = React.useState(26);
+  let [actividadesActivasC5, setActividadesActivasC5] = React.useState(32);
 
   const incrementaActividades = () => {
-    if (actividadesActivas < 6) {
-      setActividadesActivas((actividadesActivas + 1));
-      numeroActividades[actividadesActivas].visible = true;
+    switch (componenteSeleccionado) {
+      case 0:
+        // setActividadesActivas()
+        if (actividadesActivasC0 < 6) {
+          setActividadesActivasC0((actividadesActivasC0 + 1));
+          numeroActividades[actividadesActivasC0].visible = true;
+        }
+        break;
+
+      case 1:
+        if (actividadesActivasC1 < 12) {
+          setActividadesActivasC1((actividadesActivasC1 + 1));
+          numeroActividades[actividadesActivasC1].visible = true;
+        }
+        break;
+
+      case 2:
+        if (actividadesActivasC2 < 18) {
+          setActividadesActivasC2((actividadesActivasC2 + 1));
+          numeroActividades[actividadesActivasC2].visible = true;
+        }
+        break;
+
+      case 3:
+        if (actividadesActivasC3 < 24) {
+          setActividadesActivasC3((actividadesActivasC3 + 1));
+          numeroActividades[actividadesActivasC3].visible = true;
+        }
+        break;
+
+      case 4:
+        if (actividadesActivasC4 < 30) {
+          setActividadesActivasC4((actividadesActivasC4 + 1));
+          numeroActividades[actividadesActivasC4].visible = true;
+        }
+        break;
+
+      case 5:
+        if (actividadesActivasC5 < 36) {
+          setActividadesActivasC5((actividadesActivasC5 + 1));
+          numeroActividades[actividadesActivasC5].visible = true;
+        }
+        break;
+
     }
   };
 
   const eliminaActividades = () => {
-    console.log(actividadesActivas)
-    if (actividadesActivas >= 2) {
-      setActividadesActivas((actividadesActivas - 1));
-      numeroActividades[actividadesActivas].visible = false;
+    switch (componenteSeleccionado) {
+      case 0:
+        if (actividadesActivasC0 >= 2) {
+          setActividadesActivasC0((actividadesActivasC0 - 1));
+          numeroActividades[actividadesActivasC0].visible = false;
+        }
+        break;
+
+      case 1:
+        if (actividadesActivasC1 >= 8) {
+          setActividadesActivasC1((actividadesActivasC1 - 1));
+          numeroActividades[actividadesActivasC1].visible = false;
+        }
+        break;
+
+      case 2:
+        if (actividadesActivasC2 >= 14) {
+          setActividadesActivasC2((actividadesActivasC2 - 1));
+          numeroActividades[actividadesActivasC2].visible = false;
+        }
+        break;
+
+      case 3:
+        if (actividadesActivasC3 >= 20) {
+          setActividadesActivasC3((actividadesActivasC3 - 1));
+          numeroActividades[actividadesActivasC3].visible = false;
+        }
+        break;
+
+      case 4:
+        if (actividadesActivasC4 >= 26) {
+          setActividadesActivasC4((actividadesActivasC4 - 1));
+          numeroActividades[actividadesActivasC4].visible = false;
+        }
+        break;
+
+      case 5:
+        if (actividadesActivasC5 >= 32) {
+          setActividadesActivasC5((actividadesActivasC5 - 1));
+          numeroActividades[actividadesActivasC5].visible = false;
+        }
+        break;
+
     }
+
+
   };
   //________________________________
   const [value, setValue] = React.useState(10);
@@ -2292,7 +2632,7 @@ export default function FullModalMir() {
                           }}>
 
                             {numeroActividades.map((itemNumeroActividades) => {
-                              if (itemNumeroActividades.visible && itemNumeroActividades.Componente===item.nocomponente) {
+                              if (itemNumeroActividades.visible && itemNumeroActividades.Componente === item.nocomponente) {
                                 return <Box sx={{ backgroundColor: "", width: "100%", boxShadow: 4, }}>
                                   <Accordion id={itemNumeroActividades.nombre} key={itemNumeroActividades.nombre} expanded={expandedActividades === itemNumeroActividades.nombre} onChange={handleChangeAcordionActividades(itemNumeroActividades.nombre)} sx={{ mt: "3vh" }}>
                                     <AccordionSummary
@@ -2308,7 +2648,22 @@ export default function FullModalMir() {
                                         display: "flex", justifyContent: "space-around", flexWrap: "wrap", gap: "10px"
                                       }}>
 
-
+                                        {actividades.map((itemActividades) => {
+                                          if (item.visible && itemActividades.componente === componenteSeleccionado && itemActividades.actividad===itemNumeroActividades.Actividad) {
+                                            return (
+                                              <TextField
+                                                key={itemActividades.index}
+                                                multiline
+                                                rows={6}
+                                                id="outlined-basic"
+                                                label={`${itemActividades.componente}` + ` ${itemActividades.actividad} `}
+                                                variant="outlined"
+                                                onChange={(x) => changeValor(itemActividades.index, x.target.value, "componentes")}
+                                                sx={{ width: "30%" }}
+                                              />
+                                            );
+                                          }
+                                        })}
 
 
                                       </Box>
