@@ -84,8 +84,19 @@ export default function NotificationsPanel() {
         width: "15vw",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
         flexDirection: "column",
+        overflow: "hidden",
+        overflowY: "scroll",
+        
+        "&::-webkit-scrollbar": {
+          width: ".3vw",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0,0,0,.5)",
+          outline: "1px solid slategrey",
+          borderRadius: 10,
+        },
+        
       }}
     >
       <Box
@@ -95,6 +106,9 @@ export default function NotificationsPanel() {
           alignItems: "center",
           justifyContent: "space-evenly",
           mt: "2vh",
+          borderBottom: 1,
+          borderColor: '#616161',
+          
         }}
       >
         <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -102,17 +116,9 @@ export default function NotificationsPanel() {
         </Typography>
       </Box>
 
-      <Box
-        sx={{
-          width: "15vw",
-          height: ".1vh",
-          backgroundColor: "#ccc",
-          mt: "1vh",
-          boxShadow: 1,
-        }}
-      />
+     
 
-      <List sx={{ width: "15vw", height: "auto" }}>
+      <List sx={{ width: "15vw", height: "auto",  }}>
         {notificaciones?.map((index) => (
           <ListItem key={index.Id} disablePadding>
             <Box
@@ -124,20 +130,33 @@ export default function NotificationsPanel() {
                 mt: "1vh",
               }}
             >
+              <Box sx={{display: 'flex', justifyContent: 'space-around', width: '100%', alignItems: 'center'}}>
               <Typography
                 sx={{
                   fontFamily: "MontserratSemiBold",
                   fontSize: ".5vw",
-                  ml: ".5vw",
                   color: "#af8c55",
                 }}
               >
                 {index.Titulo}
               </Typography>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".4vw",
+                  color: "#909090",
+                }}
+              >
+                {index.FechaCreacion.toString().replace('T',' ').replace('.000Z','')}
+              </Typography>
+              </Box>
+              
+              
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: 'center',
                   width: "95%",
                 }}
               >
@@ -151,6 +170,7 @@ export default function NotificationsPanel() {
                 >
                   {index.Mensaje}
                 </Typography>
+                
                 <ToggleButton
                   sx={{
                     width: "1vw",
@@ -162,6 +182,8 @@ export default function NotificationsPanel() {
                   <CheckIcon />
                 </ToggleButton>
               </Box>
+
+          
 
               <Box
                 sx={{

@@ -5,4 +5,5 @@ export interface INotificacion {
     Mensaje:   string;
     CreadoPor: string;
     Deleted:   number;
+    FechaCreacion: string;
 }

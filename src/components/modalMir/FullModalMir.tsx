@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import {
   FormControl,
   InputLabel,
@@ -14,7 +17,7 @@ import {
   Input,
   TextField,
   Box,
-  Autocomplete,
+  // Autocomplete,
   TableContainer,
   Typography,
   Alert,
@@ -28,6 +31,9 @@ import {
   IconButton,
   Button,
   TablePagination,
+  Autocomplete,
+  SelectChangeEvent,
+  ButtonGroup,
 } from "@mui/material";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
@@ -37,64 +43,58 @@ import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import { IComponente } from "./IComponente";
 
 export default function FullModalMir() {
-  const [numeroComponentes, setNumeroComponentes] = React.useState([
+  //arrays
+  const [fin, setFin] = React.useState([
     {
-      componente: "Componente No. 1",
-      nombre: "C1",
-      visible: true,
-      nocomponente: 0,
+      index: 0,
+      label: "Resumen Narrativo",
+      descripcion: "",
     },
     {
-      componente: "Componente No. 2",
-      nombre: "C2",
-      visible: true,
-      nocomponente: 1,
+      index: 1,
+
+      label: "Indicador",
+      descripcion: "",
     },
     {
-      componente: "Componente No. 3",
-      nombre: "C3",
-      visible: false,
-      nocomponente: 2,
+      index: 2,
+
+      label: "Formula",
+      descripcion: "",
     },
     {
-      componente: "Componente No. 4",
-      nombre: "C4",
-      visible: false,
-      nocomponente: 3,
+      index: 3,
+
+      label: "Frecuencia",
+      descripcion: "",
     },
     {
-      componente: "Componente No. 5",
-      nombre: "C5",
-      visible: false,
-      nocomponente: 4,
+      index: 4,
+
+      label: "Medios de verificacion y fuentes de informacion",
+      descripcion: "",
     },
     {
-      componente: "Componente No. 6",
-      nombre: "C6",
-      visible: false,
-      nocomponente: 5,
+      index: 5,
+
+      label: "Supuestos",
+      descripcion: "",
     },
   ]);
-  //Componentes
-  var [componentesActivos, setComponentesActivos] = React.useState(2);
 
-  const incrementaComponente = () => {
-    if (componentesActivos < 6) {
-      setComponentesActivos(componentesActivos++);
-      numeroComponentes[componentesActivos].visible = true;
-      console.log("+1: " + componentesActivos);
-    }
-  };
+  const [componenteSeleccionado, setComponenteSeleccionado] = React.useState(0);
+  console.log(componenteSeleccionado);
 
-  const eliminaComponente = () => {
-    if (componentesActivos >= 2) {
-      numeroComponentes[componentesActivos].visible = false;
-      setComponentesActivos(componentesActivos--);
+  const changeValue = (index: number, v: string) => {
+    if (fin[index].descripcion != "") {
+      return fin[index].descripcion
     }
-  };
-  //________________________________
+    else
+      return null
+  }
   const [value, setValue] = React.useState(10);
 
   const [nombreArchivo, setNombreArchivo] = useState(
@@ -472,12 +472,299 @@ export default function FullModalMir() {
   };
 
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expandedActividades, setExpandedActividades] = React.useState<string | false>(false);
 
   const handleChangeAcordion =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+  const handleChangeAcordionActividades =
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpandedActividades(isExpanded ? panel : false);
+    };
 
+
+
+
+  // business logic-------------------------------------------------------------------------------
+  const [componentes, setComponentes] = React.useState([1, 2]);
+  const [actividades, setActividades] = React.useState([1, 2]);
+
+  const [componenteActividad, setComponenteActividad] = React.useState([
+    {
+      componentes: componentes.map((x) => actividades),
+    },
+  ]);
+
+  const [componenteValor, setComponenteValor] = React.useState<
+    Array<IComponente>
+  >([]);
+
+  const agregarFnc = () => {
+    let v = componentes.length + 1;
+    if (v > 6) {
+    } else {
+      setComponentes([...componentes, v]);
+
+      let array = [...componentes, v].map((x) => {
+        return {
+          resumen: "",
+          indicador: "",
+          frecuencia: "",
+          formula: "",
+          medios: "",
+          supuestos: "",
+        };
+      });
+      setComponenteValor(array);
+    }
+  };
+
+  const eliminarFnc = () => {
+    let v = componentes.length - 1;
+    if (v < 2) {
+    } else {
+      setComponentes(componentes.splice(0, v));
+    }
+  };
+
+  const agregarAFnc = (index: number) => {
+    let v = actividades.length + 1;
+    if (v > 6) {
+    } else {
+      setActividades([...actividades, v]);
+
+      let xArray = [...componenteActividad];
+
+      xArray[0]["componentes"][parseInt(componenteSelect)] = [
+        ...actividades,
+        v,
+      ];
+
+      setComponenteActividad(xArray);
+
+      console.log(xArray);
+    }
+  };
+
+  const eliminarAFnc = () => {
+    let act = componenteActividad[0]["componentes"][parseInt(componenteSelect)];
+    let v = act.length - 1;
+    if (v < 2) {
+    } else {
+      let xArray = [...componenteActividad];
+
+      xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
+
+      setComponenteActividad(xArray);
+      console.log(xArray);
+    }
+  };
+
+  useEffect(() => {
+    let array = componentes.map((x) => {
+      return {
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    });
+    setComponenteValor(array);
+  }, []);
+
+  const cargarArray = () => {
+    let arrayComponente = [
+      {
+        componentes: componenteValor,
+      },
+    ];
+    console.log(arrayComponente);
+  };
+
+  const AcordeonComponentes = ({ x }: { x: number }) => {
+    return (
+      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography sx={{ width: "33%", flexShrink: 0 , alignItems:"center", justifyContent:"center", display:"flex"}}>
+            Componente {x}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{}}>
+
+          <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", backgroundColor: "", }}>
+
+            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Resumen Narrativo"}
+                onChange={(c) => {
+                  componenteValor[x - 1].resumen = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Indicador"}
+                onChange={(c) => {
+                  componenteValor[x - 1].indicador = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Fórmula"}
+                onChange={(c) => {
+                  componenteValor[x - 1].formula = c.target.value;
+                  cargarArray();
+                }}
+              />
+            </Box>
+            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
+
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Frecuencia"}
+                onChange={(c) => {
+                  componenteValor[x - 1].frecuencia = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Medios de Verificación"}
+                onChange={(c) => {
+                  componenteValor[x - 1].medios = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Supuestos"}
+                onChange={(c) => {
+                  componenteValor[x - 1].supuestos = c.target.value;
+                  cargarArray();
+                }}
+              />
+            </Box>
+
+
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+    );
+  };
+
+  const AcordeonActividades = ({ x, comp }: { x: number; comp: string }) => {
+    return (
+      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap",  boxShadow: 4}}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography sx={{ width: "33%", flexShrink: 0 ,height:"5vh", alignItems:"center", justifyContent:"center", display:"flex"}}>
+            Actividad {x} - Componente {comp}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", backgroundColor: "", }}>
+          <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly",  display: "flex", alignItems: "center" }}>
+            <TextField
+              sx={{ with: "30%", maxWidth: '30%' }}
+              fullWidth
+              multiline
+              rows={5}
+              label={"Resumen Narrativo"}
+              onChange={(c) => {
+                componenteValor[x - 1].resumen = c.target.value;
+                cargarArray();
+              }}
+            />
+            <TextField
+              sx={{ with: "30%", maxWidth: '30%' }}
+              fullWidth
+              multiline
+              rows={5}
+              label={"Indicador"}
+              onChange={(c) => {
+                componenteValor[x - 1].indicador = c.target.value;
+                cargarArray();
+              }}
+            />
+            <TextField
+              sx={{ with: "30%", maxWidth: '30%' }}
+              fullWidth
+              multiline
+              rows={5}
+              label={"Fórmula"}
+              onChange={(c) => {
+                componenteValor[x - 1].formula = c.target.value;
+                cargarArray();
+              }}
+            />
+
+          </Box>
+          <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
+            <TextField
+              sx={{ with: "30%", maxWidth: '30%' }}
+              fullWidth
+              multiline
+              rows={5}
+              label={"Frecuencia"}
+              onChange={(c) => {
+                componenteValor[x - 1].frecuencia = c.target.value;
+                cargarArray();
+              }}
+            />
+            <TextField
+              sx={{ with: "30%", maxWidth: '30%' }}
+              fullWidth
+              multiline
+              rows={5}
+              label={"Medios de Verificación"}
+              onChange={(c) => {
+                componenteValor[x - 1].medios = c.target.value;
+                cargarArray();
+              }}
+            />
+            <TextField
+              sx={{ with: "30%", maxWidth: '30%' }}
+              fullWidth
+              multiline
+              rows={5}
+              label={"Supuestos"}
+              onChange={(c) => {
+                componenteValor[x - 1].supuestos = c.target.value;
+                cargarArray();
+              }}
+            />
+          </Box>
+
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+    );
+  };
+
+  const [componenteSelect, setComponenteSelect] = React.useState("0");
+  //----------------------------------------------------------------------------------------------
   return (
     <Box
       sx={{
@@ -818,146 +1105,18 @@ export default function FullModalMir() {
               alignItems: "center",
               justifyItems: "center",
               backgroundColor: "#fff",
-              borderRadius: 5,
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gridTemplateRows: "repeat(1fr 3fr 3fr)",
             }}
           >
-            <Typography
-              sx={{
-                gridColumn: "1/4",
-                alignContent: "flex-start",
-                fontFamily: "MontserratBold",
-                fontSize: "1.5rem",
-              }}
-            >
-              FIN
-            </Typography>
 
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Resumen Narrativo"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Indicador"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Fórmula"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Frecuencia"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Medios de verificación y fuente de información"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Supuestos"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <Typography
-              sx={{
-                gridColumn: "1/4",
-                fontFamily: "MontserratBold",
-                fontSize: "1.5rem",
-              }}
-            >
-              PROPÓSITO
-            </Typography>
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Resumen Narrativo"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Indicador"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Fórmula"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Frecuencia"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Medios de verificación y fuente de información"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="Supuestos"
-              variant="outlined"
-              sx={{ width: "20vw" }}
-            />
+
+
           </Box>
         ) : null}
         {/* Componentes */}
         {value === 30 ? (
           <Box
             sx={{
+              display: "flex",
               width: "75vw",
               height: "77vh",
               justifyContent: "center",
@@ -966,113 +1125,165 @@ export default function FullModalMir() {
               backgroundColor: "#fff",
             }}
           >
-            <Button variant="contained" onClick={() => incrementaComponente()}>
-              Agregar Componente
-            </Button>
+            <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
 
-            {numeroComponentes.map((item) => {
-              if (item.visible) {
-                return <TextField value={item.componente}></TextField>;
-              }
-            })}
+              <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "flex-end", mr: "15vw" }}>
+                {/* Botones Componentes */}
+                <IconButton onClick={() => agregarFnc()}>
+                  <AddCircleIcon fontSize="large" />
 
-            <Button variant="contained" onClick={() => eliminaComponente()}>
-              Eliminar Componente
-            </Button>
-            <Box>
-              <Accordion
-                expanded={expanded === "panel1"}
-                onChange={handleChangeAcordion("panel1")}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1bh-content"
-                  id="panel1bh-header"
-                >
-                  <Typography
-                    sx={{
-                      width: "33%",
-                      flexShrink: 0,
-                      justifyContent: "center",
-                    }}
-                  >
-                    Componente
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(2, 1fr)",
-                      gridTemplateRows: "3fr 1fr 3fr ",
-                    }}
-                  >
-                    <TextField
-                      multiline
-                      rows={4}
-                      required
-                      id="outlined-basic"
-                      label="Resumen Narrativo"
-                      variant="outlined"
-                      sx={{ gridRow: "1", width: "20vw" }}
-                    />
-                    <TextField
-                      multiline
-                      rows={4}
-                      required
-                      id="outlined-basic"
-                      label="Indicador"
-                      variant="outlined"
-                      sx={{ gridRow: "1", width: "20vw" }}
-                    />
-                    <TextField
-                      multiline
-                      rows={4}
-                      required
-                      id="outlined-basic"
-                      label="Fórmula"
-                      variant="outlined"
-                      sx={{ gridRow: "1", width: "20vw" }}
-                    />
-                    <TextField
-                      multiline
-                      rows={4}
-                      required
-                      id="outlined-basic"
-                      label="Frecuencia"
-                      variant="outlined"
-                      sx={{ gridRow: "3", width: "20vw" }}
-                    />
-                    <TextField
-                      multiline
-                      rows={4}
-                      required
-                      id="outlined-basic"
-                      label="Medios de verificación y fuente de información"
-                      variant="outlined"
-                      sx={{ gridRow: "3", width: "20vw" }}
-                    />
-                    <TextField
-                      multiline
-                      rows={4}
-                      required
-                      id="outlined-basic"
-                      label="Supuestos"
-                      variant="outlined"
-                      sx={{ gridRow: "3", width: "20vw" }}
-                    />
-                  </Box>
-                </AccordionDetails>
-              </Accordion>
+                </IconButton >
+
+
+                <IconButton onClick={() => eliminarFnc()}>
+                  <DoDisturbOnIcon fontSize="large" />
+                </IconButton >
+              </Box>
+
+              <Box sx={{
+                width: "95%",
+                height: "90%",
+                backgroundColor: "",
+                pb: 2,
+                pt: 2,
+                borderRight: "solid 1px",
+                overflow: "auto",
+                borderRadius: ".4vw",
+                borderColor: "#BCBCBC",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                "&::-webkit-scrollbar": {
+                  width: ".3vw",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "rgba(0,0,0,.5)",
+                  outline: "1px solid slategrey",
+                  borderRadius: 10,
+
+                },
+              }}>
+                {/* Render Componentes */}
+                {componentes.map((x) => {
+                  return <AcordeonComponentes key={x} x={x} />;
+                })}
+              </Box>
+
             </Box>
           </Box>
         ) : null}
-        {value === 50 ? (
+        {value === 40 ? (
           <Box
-            sx={{ backgroundColor: "blue", with: "100vw", height: "80vh" }}
-          ></Box>
+            sx={{
+              display: "flex",
+              width: "75vw",
+              height: "77vh",
+              justifyContent: "center",
+              alignItems: "center",
+              justifyItems: "center",
+              backgroundColor: "#fff",
+            }}
+
+          >
+            <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+
+              <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "space-between" }}>
+                {/* Render seleccionar componente */}
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: "center",
+                  '& > *': {
+                    m: 1,
+                  },
+                }}
+                >
+                  <ButtonGroup variant="text" sx={{}}>
+                    {componentes.map((x) => {
+                      return (
+                        <Button
+                          key={x}
+                          onClick={() => {
+                            setActividades([1, 2]);
+                            setComponenteSelect((x - 1).toString());
+                            let xArray = [...componenteActividad];
+
+                            xArray[0]["componentes"][x - 1] = xArray[0]["componentes"][
+                              x - 1
+                            ] || [1, 2];
+
+                            setComponenteActividad(xArray);
+                          }}
+                        >
+                          Componente No. {x}
+                        </Button>
+                      );
+                    })}
+                  </ButtonGroup>
+
+                </Box >
+
+                <Box sx={{ display: "flex", mr: "9vw"}}>
+                  <IconButton onClick={() => { agregarAFnc(parseInt(componenteSelect)); }}>
+                    <AddCircleIcon fontSize="large" />
+                  </IconButton >
+
+                  <IconButton onClick={() => eliminarAFnc()}>
+                    <DoDisturbOnIcon fontSize="large" />
+                  </IconButton >
+                </Box>
+              </Box>
+              <Box sx={{
+                width: "95%",
+                height: "90%",
+                backgroundColor: "",
+                pb: 2,
+                pt: 2,
+                borderRight: "solid 1px",
+                overflow: "auto",
+                borderRadius: ".4vw",
+                borderColor: "#BCBCBC",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                "&::-webkit-scrollbar": {
+                  width: ".3vw",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "rgba(0,0,0,.5)",
+                  outline: "1px solid slategrey",
+                  borderRadius: 10,
+
+                },
+              }}>
+                {/* Renderizado de Actividades */}
+
+
+                {componenteActividad[0]["componentes"][parseInt(componenteSelect)].map(
+                  (x) => {
+                    return (
+                      <AcordeonActividades
+                        comp={(parseInt(componenteSelect) + 1).toString()}
+                        key={x.toString()}
+                        x={x}
+                      />
+                    );
+                  }
+                )}
+
+
+              </Box>
+
+            </Box>
+          </Box>
         ) : null}
       </Box>
     </Box>
   );
+
+
+
 }
