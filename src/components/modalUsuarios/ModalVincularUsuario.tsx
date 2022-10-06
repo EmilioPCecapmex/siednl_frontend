@@ -38,7 +38,6 @@ export default function ModalVincularUsuario({
 
   const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
-
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
     { Id: "", NombreInstitucion: "" },
   ]);
@@ -52,10 +51,10 @@ export default function ModalVincularUsuario({
     text: "",
     type: "",
   });
-  
+
   const [fullView, setFullView] = useState(false);
 
-  const [notEditable, setNotEditable] = useState(false)
+  const [notEditable, setNotEditable] = useState(false);
 
   const AlertForm = () => {
     return (
@@ -72,10 +71,10 @@ export default function ModalVincularUsuario({
       visible: false,
       text: "",
       type: "",
-    })
+    });
     setFullView(false);
     setNotEditable(false);
-  }
+  };
 
   const cleanForm = () => {
     setUsername("");
@@ -114,40 +113,55 @@ export default function ModalVincularUsuario({
       });
   };
 
-
   const verifyUser = () => {
-    axios.post("http://10.200.4.105:8000/api/user-exist",
-    {
-        NombreUsuario: username,
-        CorreoElectronico: email.toLowerCase()
-    
-    },{
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    }).then((r) => {
-      if(r.data.data.message === 'Usuario valido, sin vinculo a la plataforma.'){
-        setErrorsForm({
-          visible: true,
-          text: r.data.data.message,
-          type: 'success'
-        })
-        setIdUsuarioCentral(r.data.data.Id)
-        setFullView(true)
-        setNotEditable(true)
-      }else{
-        setErrorsForm({
-          visible: true,
-          text: r.data.data.message,
-          type: 'warning'
-        })
-        setFullView(false)
-        setNotEditable(false)
-      }
+    axios
+      .post(
+        "http://10.200.4.105:8000/api/user-exist",
+        {
+          NombreUsuario: username,
+          CorreoElectronico: email.toLowerCase(),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (
+          r.data.data.message === "Usuario valido, sin vinculo a la plataforma."
+        ) {
+          setErrorsForm({
+            visible: true,
+            text: r.data.data.message,
+            type: "success",
+          });
+          setIdUsuarioCentral(r.data.data.Id);
+          setFullView(true);
+          setNotEditable(true);
+        } else {
+          setErrorsForm({
+            visible: true,
+            text: r.data.data.message,
+            type: "warning",
+          });
+          setFullView(false);
+          setNotEditable(false);
+        }
+      });
+  };
 
-    })
-    
-  }
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const siednlSignUp = (idUsrCentral: string) => {
     axios
@@ -170,13 +184,10 @@ export default function ModalVincularUsuario({
       )
       .then((r) => {
         if (r.status === 200) {
-          closeModal()
-          Swal.fire({
-            position: "top-end",
+          closeModal();
+          Toast.fire({
             icon: "success",
-            title: "¡Registro exitoso!",
-            showConfirmButton: false,
-            timer: 1500,
+            title: "Registro exitoso.",
           });
         }
       });
@@ -188,7 +199,7 @@ export default function ModalVincularUsuario({
       text: "",
       type: "",
     });
- if (names === "") {
+    if (names === "") {
       setErrorsForm({
         visible: true,
         text: "Ingresa nombre del usuario.",
@@ -303,7 +314,12 @@ export default function ModalVincularUsuario({
               mr: "2vw",
             }}
           />
-          <Button variant="outlined" color="success" onClick={() => verifyUser()} disabled={notEditable}>
+          <Button
+            variant="outlined"
+            color="success"
+            onClick={() => verifyUser()}
+            disabled={notEditable}
+          >
             Verificar
           </Button>
         </Box>
@@ -488,7 +504,7 @@ export default function ModalVincularUsuario({
               Cancelar
             </Button>
             <Button
-            disabled={!notEditable}
+              disabled={!notEditable}
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"

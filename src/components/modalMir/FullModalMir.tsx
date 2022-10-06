@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+<<<<<<< HEAD
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+=======
+
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+>>>>>>> dev_emilio
 import {
   FormControl,
   InputLabel,
@@ -15,6 +23,7 @@ import {
   Input,
   TextField,
   Box,
+  Autocomplete,
   TableContainer,
   Typography,
   Table,
@@ -31,10 +40,19 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import axios from "axios";
-import { hover } from "@testing-library/user-event/dist/hover";
+import { styled } from "@mui/material/styles";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
+import MuiAccordionSummary, {
+  AccordionSummaryProps,
+} from "@mui/material/AccordionSummary";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
 
 export default function FullModalMir() {
+<<<<<<< HEAD
   //arrays
+=======
+>>>>>>> dev_emilio
   const [numeroComponentes, setNumeroComponentes] = React.useState([
     {
       label: "Componente No. 1",
@@ -73,6 +91,7 @@ export default function FullModalMir() {
       nocomponente: 5,
     },
   ]);
+<<<<<<< HEAD
 
   const [numeroActividades, setNumeroActividades] = React.useState([
     {
@@ -2028,10 +2047,22 @@ export default function FullModalMir() {
     if (componentesActivos < 6) {
       setComponentesActivos((componentesActivos + 1));
       numeroComponentes[componentesActivos].visible = true;
+=======
+  //Componentes
+  var [componentesActivos, setComponentesActivos] = React.useState(2);
+
+  const incrementaComponente = () => {
+    if (componentesActivos < 6) {
+      console.log(componentesActivos);
+      setComponentesActivos(componentesActivos++);
+      numeroComponentes[componentesActivos].visible = true;
+      console.log("+1: " + componentesActivos);
+>>>>>>> dev_emilio
     }
   };
 
   const eliminaComponente = () => {
+<<<<<<< HEAD
     console.log(componentesActivos)
     if (componentesActivos >= 2) {
       setComponentesActivos((componentesActivos - 1));
@@ -2142,16 +2173,36 @@ export default function FullModalMir() {
     }
 
 
+=======
+    if (componentesActivos >= 2) {
+      numeroComponentes[componentesActivos].visible = false;
+      setComponentesActivos(componentesActivos--);
+    }
+    console.log(componentesActivos);
+>>>>>>> dev_emilio
   };
   //________________________________
   const [value, setValue] = React.useState(10);
 
-  const [nombreArchivo, setNombreArchivo] = useState('Arrastre o seleccione para cargar archivo');
+  const [nombreArchivo, setNombreArchivo] = useState(
+    " Arrastre o de click aquí para seleccionar archivo"
+  );
 
-  const [institution, setInstitution] = useState("0");
-  const [programa, setPrograma] = useState("0");
-  const [eje, setEje] = useState("0");
+  const [anioFiscal, setAnioFiscal] = useState("Ejercicio Fiscal");
+  const [institution, setInstitution] = useState("Institución");
+  const [programa, setPrograma] = useState("Programa");
+  const [eje, setEje] = useState("Eje");
+  const [tematica, setTematica] = useState("Temática");
+  const [objetivo, setObjetivo] = useState("Objetivo");
+  const [estrategia, setEstrategia] = useState("Estrategia");
+  const [lineaDeAccion, setLineaDeAccion] = useState([
+    { Id: "", LineaDeAccion: "Lineas de Acción" },
+  ]);
+  const [beneficiario, setBeneficiario] = useState("Beneficiario");
 
+  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
+    { Id: "", AnioFiscal: "" },
+  ]);
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
     { Id: "", NombreInstitucion: "" },
   ]);
@@ -2159,8 +2210,33 @@ export default function FullModalMir() {
     { Id: "", NombrePrograma: "" },
   ]);
   const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "", Eje: "" }]);
+  const [catalogoTematicas, setCatalogoTematicas] = useState([
+    { Id: "", Tematica: "" },
+  ]);
+  const [catalogoObjetivos, setCatalogoObjetivos] = useState([
+    { Id: "", Objetivo: "" },
+  ]);
+  const [catalogoEstrategias, setCatalogoEstrategias] = useState([
+    { Id: "", Estrategia: "" },
+  ]);
+  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState([
+    { Id: "", LineaDeAccion: "" },
+  ]);
+  const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
+    { Id: "", Beneficiario: "" },
+  ]);
 
-
+  const getAniosFiscales = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/aniosFiscales", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoAniosFiscales(r.data.data);
+      });
+  };
   const getInstituciones = () => {
     axios
       .get("http://10.200.4.105:8000/api/instituciones", {
@@ -2194,11 +2270,72 @@ export default function FullModalMir() {
         setCatalogoEjes(r.data.data);
       });
   };
+  const getTematicas = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/tematica", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoTematicas(r.data.data);
+      });
+  };
+  const getObjetivos = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/objetivos", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoObjetivos(r.data.data);
+      });
+  };
+  const getEstrategias = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/estrategias", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoEstrategias(r.data.data);
+      });
+  };
+  const getLineasDeAccion = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/lineasDeAccion", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoLineasDeAccion(r.data.data);
+      });
+  };
+  const getBeneficiarios = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/beneficiarios", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoBeneficiarios(r.data.data);
+      });
+  };
 
   useEffect(() => {
+    getAniosFiscales();
     getInstituciones();
     getProgramas();
     getEjes();
+    getTematicas();
+    getObjetivos();
+    getEstrategias();
+    getLineasDeAccion();
+    getBeneficiarios();
   }, []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -2231,28 +2368,69 @@ export default function FullModalMir() {
         sx={{
           width: "80vw",
           height: "86vh",
-          backgroundColor: "#dedbdb",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Box sx={{ borderBottom: 1, borderColor: "black" }}>
+        <Box>
           <Tabs
             value={value}
             onChange={handleChange}
-            aria-label="basic tabs example"
+            aria-label="basic tabs"
+            textColor="inherit"
+            sx={{ backgroundColor: "#fff", borderRadius: "10px 10px 0 0" }}
           >
             <Tab
               label="Encabezado"
               value={10}
-            // sx={{ backgroundColor: "yellow", borderRadius: 50 }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
             />
-            <Tab label="Fin / Propósito" value={20} />
-            <Tab label="Componentes" value={30} />
-            <Tab label="Actividades" value={40} />
-            <Tab label="Resumen" value={50} />
+            <Tab
+              label="Fin / Propósito"
+              value={20}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
+            <Tab
+              label="Componentes"
+              value={30}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
+            <Tab
+              label="Actividades"
+              value={40}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
+            <Tab
+              label="Resumen"
+              value={50}
+              sx={{
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
           </Tabs>
         </Box>
 
@@ -2265,171 +2443,266 @@ export default function FullModalMir() {
               alignItems: "center",
               justifyItems: "center",
               backgroundColor: "#fff",
+              borderRadius: 5,
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
 
-              gridTemplateRows: "repeat(4, 1fr)",
+              gridTemplateRows: "1fr 1fr 1fr 2fr",
             }}
           >
-            <FormControl sx={{ gridRow: "1", width: "20vw", height: "5vh" }}>
-              <InputLabel id="demo-simple-select-label">
-                Ejercicio Fiscal
-              </InputLabel>
-              <Select
-                required
-                label="Ejercicio Fiscal"
-                value="0"
-                sx={{ width: "15vw" }}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Seleccione Ejercicio Fiscal
-                </MenuItem>
-              </Select>
+            <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
+              <Autocomplete
+                disablePortal
+                sx={{}}
+                options={catalogoAniosFiscales}
+                getOptionLabel={(option) => option.AnioFiscal}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={anioFiscal}
+                    placeholder="Ejercicio Fiscal"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setAnioFiscal(value?.AnioFiscal as string)
+                }
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </FormControl>
+            <Box
+              sx={{
+                width: "20vw",
+                height: "10vh",
+                border: 1,
+                borderRadius: 3,
+                borderColor: "#af8c55",
+                borderStyle: "dashed",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mt: "6vh",
+              }}
+            >
+              <Typography
+                sx={{
+                  position: "absolute",
+                  fontFamily: "MontserratLight",
+                  fontSize: ".7vw",
+                }}
+              >
+                {nombreArchivo}
+              </Typography>
+              <TextField
+                type="file"
+                onChange={(v) =>
+                  setNombreArchivo(v.target.value.split("\\")[2])
+                }
+                sx={{
+                  color: "#fff",
+                  opacity: 0,
+                  width: "100%",
+                  "& .MuiInputBase-root": {
+                    height: "10vh",
+                  },
+                }}
+              ></TextField>
+            </Box>
 
+            {/* 
             <InputLabel
               id="file-upload"
-              sx={[{
-                border: "5px dotted #ccc",
-                display: "inline-block",
-                padding: "3vh 2vw",
-                cursor: 'pointer',
-              }, {
-                "&:hover": {
-                  color: "Blue",
-                  border: "5px dotted blue",
+              sx={[
+                {
+                  gridColumn: "2/4",
+                  border: "5px dotted #ccc",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  mt: "5vh",
+                  cursor: "pointer",
+                  height: "10vh",
+                  width: "15vw",
                 },
-              },]}
+                {
+                  "&:hover": {
+                    color: "Blue",
+                    border: "5px dotted blue",
+                  },
+                },
+              ]}
             >
               {nombreArchivo}
               <Input
+                onChange={(e) =>
+                  setNombreArchivo(e.target.value.split("\\")[2])
+                }
                 id="file-upload"
                 type="file"
-                sx={{
-                  position: "absolute",
-                  width: "1px",
-                  height: "1px",
-                  padding: "0",
-                  margin: "-1px",
-                  border: "0"
-                }}
+                sx={{}}
               />
-            </InputLabel>
+            </InputLabel> */}
 
-            <FormControl sx={{ gridRow: "2", width: "20vw" }}>
-              <InputLabel id="demo-simple-select-label">Institución</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={institution}
-                label="Institución"
-                onChange={(x) => setInstitution(x.target.value)}
+            <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+              <Autocomplete
+                disablePortal
                 sx={{}}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Institución
-                </MenuItem>
-                {catalogoInstituciones.map((item) => {
-                  return (
-                    <MenuItem value={item.Id} key={item.Id}>
-                      {item.NombreInstitucion}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
+                options={catalogoInstituciones}
+                getOptionLabel={(option) => option.NombreInstitucion}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={institution}
+                    placeholder="Institución"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setInstitution(value?.NombreInstitucion as string)
+                }
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </FormControl>
 
-            <FormControl sx={{ gridRow: "2", width: "20vw", height: "5vh" }}>
-              <InputLabel id="demo-simple-select-label">Programa</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={programa}
-                label="Programa"
-                onChange={(x) => setPrograma(x.target.value)}
+            <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+              <Autocomplete
+                disablePortal
                 sx={{}}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Programa Presupuestario
-                </MenuItem>
-                {catalogoProgramas.map((item) => {
-                  return (
-                    <MenuItem value={item.Id} key={item.Id}>
-                      {item.NombrePrograma}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
+                options={catalogoProgramas}
+                getOptionLabel={(option) => option.NombrePrograma}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={programa}
+                    placeholder="Nombre del Programa"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setPrograma(value?.NombrePrograma as string)
+                }
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </FormControl>
 
-            <FormControl sx={{ gridRow: "2", width: "20vw", height: "5vh" }}>
-              <InputLabel id="demo-simple-select-label">Eje</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={eje}
-                label="Eje"
-                onChange={(x) => setEje(x.target.value)}
+            <FormControl required sx={{ width: "20vw", mt: "6vh" }}>
+              <Autocomplete
+                disablePortal
                 sx={{}}
-              >
-                <MenuItem value={"0"} key={0} disabled>
-                  Eje
-                </MenuItem>
-                {catalogoEjes.map((item) => {
-                  return (
-                    <MenuItem value={item.Id} key={item.Id}>
-                      {item.Eje}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
+                options={catalogoEjes}
+                getOptionLabel={(option) => option.Eje}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={eje}
+                    placeholder="Eje"
+                  ></TextField>
+                )}
+                onChange={(event, value) => setEje(value?.Eje as string)}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
             </FormControl>
 
-            <TextField
-              multiline
-              rows={4}
+            <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+              <Autocomplete
+                disablePortal
+                sx={{}}
+                options={catalogoTematicas}
+                getOptionLabel={(option) => option.Tematica}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={tematica}
+                    placeholder="Temática"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setTematica(value?.Tematica as string)
+                }
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
+            </FormControl>
+
+            <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+              <Autocomplete
+                disablePortal
+                sx={{}}
+                options={catalogoObjetivos}
+                getOptionLabel={(option) => option.Objetivo}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={objetivo}
+                    placeholder="Objetivo"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setObjetivo(value?.Objetivo as string)
+                }
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
+            </FormControl>
+
+            <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+              <Autocomplete
+                disablePortal
+                sx={{}}
+                options={catalogoEstrategias}
+                getOptionLabel={(option) => option.Estrategia}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={estrategia}
+                    placeholder="Estrategia"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setEstrategia(value?.Estrategia as string)
+                }
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
+            </FormControl>
+
+            <FormControl
               required
-              id="outlined-basic"
-              label="1"
-              variant="outlined"
-              sx={{ gridRow: "3", width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="1"
-              variant="outlined"
-              sx={{ gridRow: "3", width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="1"
-              variant="outlined"
-              sx={{ gridRow: "3", width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="1"
-              variant="outlined"
-              sx={{ gridRow: "4", width: "20vw" }}
-            />
-            <TextField
-              multiline
-              rows={4}
-              required
-              id="outlined-basic"
-              label="1"
-              variant="outlined"
-              sx={{ gridRow: "4", width: "20vw" }}
-            />
+              sx={{
+                gridColumnStart: "1",
+                gridColumnEnd: "3",
+                width: "35vw",
+              }}
+            >
+              <Autocomplete
+                multiple
+                disablePortal
+                disableCloseOnSelect
+                // inputValue={lineaDeAccion}
+                limitTags={4}
+                options={catalogoLineasDeAccion}
+                getOptionLabel={(option) => option.LineaDeAccion}
+                renderInput={(params) => (
+                  <TextField {...params} label="Lineas de Acción" />
+                )}
+                onChange={(event, value) => setLineaDeAccion(value)}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
+            </FormControl>
+
+            <FormControl required sx={{ width: "20vw" }}>
+              <Autocomplete
+                disablePortal
+                sx={{}}
+                options={catalogoBeneficiarios}
+                getOptionLabel={(option) => option.Beneficiario}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={beneficiario}
+                    placeholder="Beneficiario"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setBeneficiario(value?.Beneficiario as string)
+                }
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
+            </FormControl>
           </Box>
         ) : null}
 
@@ -2442,6 +2715,7 @@ export default function FullModalMir() {
               alignItems: "center",
               justifyItems: "center",
               backgroundColor: "#fff",
+<<<<<<< HEAD
             }}
           >
 
@@ -2459,6 +2733,142 @@ export default function FullModalMir() {
               />);
             })}
 
+=======
+              borderRadius: 5,
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateRows: "repeat(1fr 3fr 3fr)",
+            }}
+          >
+            <Typography
+              sx={{
+                gridColumn: "1/4",
+                alignContent: "flex-start",
+                fontFamily: "MontserratBold",
+                fontSize: "1.5rem",
+              }}
+            >
+              FIN
+            </Typography>
+
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Resumen Narrativo"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Indicador"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Fórmula"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Frecuencia"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Medios de verificación y fuente de información"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Supuestos"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <Typography
+              sx={{
+                gridColumn: "1/4",
+                fontFamily: "MontserratBold",
+                fontSize: "1.5rem",
+              }}
+            >
+              PROPÓSITO
+            </Typography>
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Resumen Narrativo"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Indicador"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Fórmula"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Frecuencia"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Medios de verificación y fuente de información"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              required
+              id="outlined-basic"
+              label="Supuestos"
+              variant="outlined"
+              sx={{ width: "20vw" }}
+            />
+>>>>>>> dev_emilio
           </Box>
         ) : null}
         {/* Componentes */}
@@ -2473,8 +2883,8 @@ export default function FullModalMir() {
               justifyItems: "center",
               backgroundColor: "#fff",
             }}
-
           >
+<<<<<<< HEAD
             <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
 
               <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "flex-end", mr: "15vw" }}>
@@ -2551,6 +2961,106 @@ export default function FullModalMir() {
                 })}
               </Box>
 
+=======
+            <Button variant="contained" onClick={() => incrementaComponente()}>
+              Agregar Componente
+            </Button>
+
+            {numeroComponentes.map((item) => {
+              if (item.visible) {
+                return <TextField value={item.componente}></TextField>;
+              }
+            })}
+
+            <Button variant="contained" onClick={() => eliminaComponente()}>
+              Eliminar Componente
+            </Button>
+            <Box>
+              <Accordion
+                expanded={expanded === "panel1"}
+                onChange={handleChangeAcordion("panel1")}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      justifyContent: "center",
+                    }}
+                  >
+                    Componente
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(2, 1fr)",
+                      gridTemplateRows: "3fr 1fr 3fr ",
+                    }}
+                  >
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Resumen Narrativo"
+                      variant="outlined"
+                      sx={{ gridRow: "1", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Indicador"
+                      variant="outlined"
+                      sx={{ gridRow: "1", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Fórmula"
+                      variant="outlined"
+                      sx={{ gridRow: "1", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Frecuencia"
+                      variant="outlined"
+                      sx={{ gridRow: "3", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Medios de verificación y fuente de información"
+                      variant="outlined"
+                      sx={{ gridRow: "3", width: "20vw" }}
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      required
+                      id="outlined-basic"
+                      label="Supuestos"
+                      variant="outlined"
+                      sx={{ gridRow: "3", width: "20vw" }}
+                    />
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+>>>>>>> dev_emilio
             </Box>
           </Box>
         ) : null}

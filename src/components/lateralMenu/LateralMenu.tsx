@@ -15,6 +15,7 @@ import LocationCityOutlinedIcon from "@mui/icons-material/LocationCityOutlined";
 import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import CampaignIcon from "@mui/icons-material/Campaign";
 import {
   Dialog,
   TextField,
@@ -96,7 +97,6 @@ export const LateralMenu = ({
     navigate("../settings");
   };
 
-
   const [openPasswordChange, setOpenPasswordChange] = useState(false);
 
   const handleClosePasswordChange = () => {
@@ -165,14 +165,15 @@ export const LateralMenu = ({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            mt: "2vh",
+            borderBottom: 1,
+            height: "5vh",
+            boxShadow: 1,
+            borderColor: "#ccc",
           }}
         >
-
-          <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}>
+          <Typography sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}>
             MODIFICAR CONTRASEÑA
           </Typography>
-
         </Box>
         <Box
           sx={{
@@ -189,16 +190,17 @@ export const LateralMenu = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              flexDirection: "column",
             }}
           >
-
             <TextField
               label="Contraseña"
               error={error.show}
               helperText={error.label}
+              size="small"
+              type="password"
               onChange={(v) => setNewPassword(v.target.value)}
             />
-
           </Box>
 
           <Box
@@ -213,11 +215,19 @@ export const LateralMenu = ({
               onClick={() => handleClosePasswordChange()}
               variant="outlined"
             >
-              Cancelar
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
             </Button>
 
             <Button variant="outlined" onClick={() => cambiarContrasena()}>
-              Cambiar
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cambiar
+              </Typography>{" "}
             </Button>
           </Box>
         </Box>
@@ -230,9 +240,12 @@ export const LateralMenu = ({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+        },
         headers: {
-          Authorization: localStorage.getItem("jwtToken") as string,
+          Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
@@ -277,7 +290,10 @@ export const LateralMenu = ({
       <Box sx={st.selectInstitucionBox}>
         {renderInfo ? (
           <Select
-            value={institucionSeleccionada}
+            value={
+              institucionSeleccionada ||
+              (localStorage.getItem("IdInstitucion") as string)
+            }
             label="Institución"
             onChange={handleChange}
             variant="standard"
@@ -325,8 +341,11 @@ export const LateralMenu = ({
           </ListItemButton>
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton onClick={() => navigate("../MIR")} sx={st.subMenuItemStyle}>
-              <Box sx={st.iconMenuList}>
+              <ListItemButton
+                onClick={() => navigate("../mir")}
+                sx={st.subMenuItemStyle}
+              >
+                <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
                 </Box>
                 <Typography sx={st.subMenuItemsText}>MIR</Typography>
@@ -368,6 +387,16 @@ export const LateralMenu = ({
             </Typography>
             <Box
               visibility={selection === 5 ? "visible" : "hidden"}
+              sx={st.selectedBox}
+            />
+          </ListItemButton>
+          <ListItemButton onClick={() => navigate("../notifications")}>
+            <Box sx={st.iconMenuList}>
+              <CampaignIcon />
+            </Box>
+            <Typography sx={st.firstItemsStyle}>Notificaciones</Typography>
+            <Box
+              visibility={selection === 7 ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
           </ListItemButton>

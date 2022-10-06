@@ -30,6 +30,17 @@ export const AddDialogCatalogo = ({
   actualizado: Function;
 }) => {
   const [open, setOpen] = React.useState(false);
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -81,23 +92,19 @@ export const AddDialogCatalogo = ({
       )
       .then((r) => {
         handleClose()
-        Swal.fire({
-          position: "top-end",
+
+        Toast.fire({
           icon: "success",
-          title: "Elemento registrado con éxito",
-          showConfirmButton: false,
-          timer: 1500,
+          title: "Elemento registrado con éxito.",
         });
+        
         actualizado();
       })
       .catch((err) =>
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: err.response.data.result.error,
-          showConfirmButton: false,
-          timer: 1500,
-        })
+      Toast.fire({
+        icon: "error",
+        title: err.response.data.result.error,
+      })
       );
   };
 
@@ -118,23 +125,19 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
-        Swal.fire({
-          position: "top-end",
+        Toast.fire({
           icon: "success",
-          title: "Elemento registrado con éxito",
-          showConfirmButton: false,
-          timer: 1500,
+          title: "Elemento registrado con éxito.",
         });
+        
         actualizado();
       })
       .catch((err) =>
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: err.response.data.result.error,
-          showConfirmButton: false,
-          timer: 1500,
-        })
+
+      Toast.fire({
+        icon: "error",
+        title: err.response.data.result.error,
+      })
       );
   };
 
@@ -154,23 +157,17 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
-        Swal.fire({
-          position: "top-end",
+        Toast.fire({
           icon: "success",
-          title: "Elemento registrado con éxito",
-          showConfirmButton: false,
-          timer: 1500,
+          title: "Elemento registrado con éxito.",
         });
         actualizado();
       })
       .catch((err) =>
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: err.response.data.result.error,
-          showConfirmButton: false,
-          timer: 1500,
-        })
+      Toast.fire({
+        icon: "error",
+        title: err.response.data.result.error,
+      })
       );
   };
 

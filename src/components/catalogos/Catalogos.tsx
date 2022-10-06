@@ -694,7 +694,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               Objetivo: string;
               Estrategia: string;
               LineaDeAccion: string;
-              ObjetivoDs: string;
+              ObjetivoDS: string;
               MetaODS: string;
               EjePND: string;
               ObjetivoPEENL: string;
@@ -702,7 +702,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: `${item.Eje}; ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDs}; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`,
+                Desc: `${item.Eje}; ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDS}; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`,
                 Tabla: "PEDs",
               };
             }
@@ -1190,7 +1190,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       : DataDescripctionFiltered
                     ).map((row) => (
                       <TableRow key={row.Id}>
-                        <TableCell component="th" scope="row" width="90%" onClick={() => console.log(row.Desc)}>
+                        <TableCell component="th" scope="row" width="90%" onClick={() => console.log(row.Id)}>
                           {row.Desc}
                         </TableCell>
 
