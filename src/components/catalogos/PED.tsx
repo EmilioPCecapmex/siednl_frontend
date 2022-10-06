@@ -157,7 +157,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   const postPED = () => {
     axios
       .post(
-        "http://10.200.4.202:8000/api/ped-add",
+        "http://10.200.4.105:8000/api/ped-add",
         {
           IdEje: eje,
           IdTematicas: tematica,

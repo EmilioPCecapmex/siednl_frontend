@@ -14,6 +14,7 @@ import { SessionDialog } from "./components/sessionDialog/SessionDialog";
 import { useNavigate } from "react-router-dom";
 import { LateralMenu } from "./components/lateralMenu/LateralMenu";
 import { MIR } from "./screens/config/MIR";
+import { Prueba } from "./screens/Prueba";
 
 
 function App() {
@@ -54,6 +55,8 @@ function App() {
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
           <Route path="MIR" element={<MIR/>}/>
+          <Route path="prueba" element={<Prueba/>}/>
+
 
         </Routes>
     </>

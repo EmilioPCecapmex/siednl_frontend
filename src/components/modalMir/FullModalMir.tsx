@@ -2039,6 +2039,7 @@ export default function FullModalMir() {
     }
   };
 
+
   let [actividadesActivasC0, setActividadesActivasC0] = React.useState(2);
   let [actividadesActivasC1, setActividadesActivasC1] = React.useState(8);
   let [actividadesActivasC2, setActividadesActivasC2] = React.useState(14);
