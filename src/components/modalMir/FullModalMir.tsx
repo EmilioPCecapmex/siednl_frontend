@@ -100,26 +100,49 @@ export default function FullModalMir() {
     " Arrastre o de click aquí para seleccionar archivo"
   );
 
+  function enCambioAnio(Id: string, Anio: string) {
+    setAnioFiscal(Anio);
+    if (Anio === null || Anio === "" || Anio === undefined) {
+      setAnioFiscal("Ejercicio Fiscal");
+    }
+  }
   function enCambioInstitucion(Id: string, Inst: string) {
     setInstitution(Inst);
-    setPrograma("");
-    getProgramas(Id);
-    setDisabledProgramas(false);
+    setPrograma("Programa Presupuestario");
+    if (Inst === null || Inst === "" || Inst === undefined) {
+      setInstitution("");
+      setDisabledProgramas(true);
+      setPrograma("");
+    } else {
+      getProgramas(Id);
+      setDisabledProgramas(false);
+    }
+  }
+  function enCambioPrograma(Id: string, Prog: string) {
+    setPrograma(Prog);
+    if (Prog === null || Prog === "" || Prog === undefined) {
+      setPrograma("");
+    }
   }
   function enCambioEje(Id: string, Eje: string) {
     setEje(Eje);
-    setTematica("");
-    if (Eje == null || Eje == " " || Eje === undefined) {
+    setTematica("Temática");
+    setDisabledObjetivos(true);
+    setObjetivo("Objetivo");
+    setDisabledEstrategias(true);
+    setEstrategia("Estrategia");
+    setDisabledLineasDeAccion(true);
+    setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
+    if (Eje === null || Eje === "" || Eje === undefined) {
+      setEje("Eje");
       setDisabledTematicas(true);
-      setTematica("");
+      setTematica("Temática");
       setDisabledObjetivos(true);
-      setObjetivo("");
+      setObjetivo("Objetivo");
       setDisabledEstrategias(true);
-      setEstrategia("");
+      setEstrategia("Estrategia");
       setDisabledLineasDeAccion(true);
-      setLineaDeAccion([
-        { Id: "", LineaDeAccion: "Estrategia sin Lineas de acción asignadas" },
-      ]);
+      setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
     } else {
       getTematicas(Id);
       setDisabledTematicas(false);
@@ -127,16 +150,19 @@ export default function FullModalMir() {
   }
   function enCambioTematica(Id: string, Tematica: string) {
     setTematica(Tematica);
-    setObjetivo("");
-    if (Tematica == null || Tematica == " " || Tematica === undefined) {
+    setObjetivo("Objetivo");
+    setDisabledEstrategias(true);
+    setEstrategia("Estrategia");
+    setDisabledLineasDeAccion(true);
+    setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
+    if (Tematica === null || Tematica === "" || Tematica === undefined) {
+      setTematica("Temática");
       setDisabledObjetivos(true);
-      setObjetivo("");
+      setObjetivo("Objetivo");
       setDisabledEstrategias(true);
-      setEstrategia("");
+      setEstrategia("Estrategia");
       setDisabledLineasDeAccion(true);
-      setLineaDeAccion([
-        { Id: "", LineaDeAccion: "Estrategia sin Lineas de acción asignadas" },
-      ]);
+      setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
     } else {
       getObjetivos(Id);
       setDisabledObjetivos(false);
@@ -144,14 +170,15 @@ export default function FullModalMir() {
   }
   function enCambioObjetivo(Id: string, Objetivo: string) {
     setObjetivo(Objetivo);
-    setEstrategia("");
-    if (Objetivo == null || Objetivo == " " || Objetivo === undefined) {
+    setEstrategia("Estrategia");
+    setDisabledLineasDeAccion(true);
+    setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
+    if (Objetivo === null || Objetivo === "" || Objetivo === undefined) {
+      setObjetivo("Objetivo");
       setDisabledEstrategias(true);
-      setEstrategia("");
+      setEstrategia("Estrategia");
       setDisabledLineasDeAccion(true);
-      setLineaDeAccion([
-        { Id: "", LineaDeAccion: "Estrategia sin Lineas de acción asignadas" },
-      ]);
+      setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
     } else {
       getEstrategias(Id);
       setDisabledEstrategias(false);
@@ -159,23 +186,27 @@ export default function FullModalMir() {
   }
   function enCambioEstrategia(Id: string, Estrategia: string) {
     setEstrategia(Estrategia);
-    setLineaDeAccion([
-      { Id: "", LineaDeAccion: "" },
-    ]);
-    if (Estrategia == null || Estrategia == " " || Estrategia === undefined) {
+    setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
+    if (Estrategia === null || Estrategia === "" || Estrategia === undefined) {
+      setEstrategia("Estrategia");
       setDisabledLineasDeAccion(true);
-      setLineaDeAccion([
-        { Id: "", LineaDeAccion: "Estrategia sin Lineas de acción asignadas" },
-      ]);
+      setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
     } else {
       getLineasDeAccion(Id);
       setDisabledLineasDeAccion(false);
     }
   }
   function enCambioLineasDeAccion(Id: string, LDA: string) {
-    setLineaDeAccion([
-      { Id: Id, LineaDeAccion: LDA },
-    ])
+    setLineaDeAccion([{ Id: Id, LineaDeAccion: LDA }]);
+    if (LDA === null || LDA === "" || LDA === undefined) {
+      setLineaDeAccion([{ Id: Id, LineaDeAccion: "Lineas de Acción" }]);
+    }
+  }
+  function enCambioBeneficiario(Id: string, Ben: string) {
+    setBeneficiario(Ben);
+    if (Ben === null || Ben === "" || Ben === undefined) {
+      setBeneficiario("");
+    }
   }
 
   const [disabledProgramas, setDisabledProgramas] = useState(true);
@@ -186,13 +217,13 @@ export default function FullModalMir() {
 
   const [anioFiscal, setAnioFiscal] = useState("Ejercicio Fiscal");
   const [institution, setInstitution] = useState("Institución");
-  const [programa, setPrograma] = useState("Programa");
+  const [programa, setPrograma] = useState("Programa Presupuestario");
   const [eje, setEje] = useState("Eje");
   const [tematica, setTematica] = useState("Temática");
   const [objetivo, setObjetivo] = useState("Objetivo");
   const [estrategia, setEstrategia] = useState("Estrategia");
   const [lineaDeAccion, setLineaDeAccion] = useState([
-    { Id: "", LineaDeAccion: "Lineas de Acción" },
+    { Id: "", LineaDeAccion: "Lineas de Accion" },
   ]);
   const [beneficiario, setBeneficiario] = useState("Beneficiario");
 
@@ -207,7 +238,7 @@ export default function FullModalMir() {
   ]);
   const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "", Eje: "" }]);
   const [catalogoTematicas, setCatalogoTematicas] = useState([
-    { IdTematica: "", Temática: "" },
+    { IdTematica: "", Tematica: "" },
   ]);
   const [catalogoObjetivos, setCatalogoObjetivos] = useState([
     { IdObjetivo: "", Objetivo: "" },
@@ -249,7 +280,7 @@ export default function FullModalMir() {
   };
   const getProgramas = (id: string) => {
     axios
-      .get("http://localhost:8000/api/programaInstitucion", {
+      .get("http://10.200.4.105:8000/api/programaInstitucion", {
         params: {
           IdInstitucion: id,
         },
@@ -267,7 +298,7 @@ export default function FullModalMir() {
   };
   const getEjes = () => {
     axios
-      .get("http://localHost:8000/api/ped-columns", {
+      .get("http://10.200.4.105:8000/api/ped-columns", {
         params: {
           Col: "Ejes",
           Id: " ",
@@ -282,7 +313,7 @@ export default function FullModalMir() {
   };
   const getTematicas = (id: string) => {
     axios
-      .get("http://localHost:8000/api/ped-columns", {
+      .get("http://10.200.4.105:8000/api/ped-columns", {
         params: {
           Col: "Temáticas",
           Id: id,
@@ -301,7 +332,7 @@ export default function FullModalMir() {
   };
   const getObjetivos = (id: string) => {
     axios
-      .get("http://localHost:8000/api/ped-columns", {
+      .get("http://10.200.4.105:8000/api/ped-columns", {
         params: {
           Col: "Objetivos",
           Id: id,
@@ -314,13 +345,13 @@ export default function FullModalMir() {
         setCatalogoObjetivos(r.data.data);
       })
       .catch((err) => {
-        setObjetivo("Temática sin objetivos asignados");
+        setObjetivo("Tematica sin objetivos asignados");
         setDisabledObjetivos(true);
       });
   };
   const getEstrategias = (id: string) => {
     axios
-      .get("http://localHost:8000/api/ped-columns", {
+      .get("http://10.200.4.105:8000/api/ped-columns", {
         params: {
           Col: "Estrategias",
           Id: id,
@@ -339,7 +370,7 @@ export default function FullModalMir() {
   };
   const getLineasDeAccion = (id: string) => {
     axios
-      .get("http://localHost:8000/api/ped-columns", {
+      .get("http://10.200.4.105:8000/api/ped-columns", {
         params: {
           Col: "Lineas de Acción",
           Id: id,
@@ -417,7 +448,11 @@ export default function FullModalMir() {
             onChange={handleChange}
             aria-label="basic tabs"
             textColor="inherit"
-            sx={{ backgroundColor: "#fff", borderRadius: "10px 10px 0 0" }}
+            sx={{
+              backgroundColor: "#fff",
+              borderRadius: "10px 10px 0 0",
+              boxShadow: 20,
+            }}
           >
             <Tab
               label="Encabezado"
@@ -480,28 +515,24 @@ export default function FullModalMir() {
               alignItems: "center",
               justifyItems: "center",
               backgroundColor: "#fff",
+              boxShadow: 20,
               borderRadius: 5,
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-
               gridTemplateRows: "1fr 1fr 1fr 2fr",
             }}
           >
             <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
               <Autocomplete
                 disablePortal
-                sx={{}}
+                sx={{ boxShadow: 5 }}
                 options={catalogoAniosFiscales}
                 getOptionLabel={(option) => option.AnioFiscal}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={anioFiscal}
-                    placeholder="Ejercicio Fiscal"
-                  ></TextField>
+                  <TextField {...params} label={anioFiscal}></TextField>
                 )}
                 onChange={(event, value) =>
-                  setAnioFiscal(value?.AnioFiscal as string)
+                  enCambioAnio(value?.Id as string, value?.AnioFiscal as string)
                 }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
@@ -513,6 +544,7 @@ export default function FullModalMir() {
                 height: "10vh",
                 border: 1,
                 borderRadius: 3,
+                boxShadow: 10,
                 borderColor: "#af8c55",
                 borderStyle: "dashed",
                 display: "flex",
@@ -552,14 +584,11 @@ export default function FullModalMir() {
             <FormControl sx={{ width: "20vw", mt: "6vh" }}>
               <Autocomplete
                 disablePortal
+                sx={{ boxShadow: 4 }}
                 options={catalogoInstituciones}
                 getOptionLabel={(option) => option.NombreInstitucion}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={institution}
-                    placeholder="Institución"
-                  ></TextField>
+                  <TextField {...params} label={institution}></TextField>
                 )}
                 onChange={(event, value) =>
                   enCambioInstitucion(
@@ -574,18 +603,17 @@ export default function FullModalMir() {
             <FormControl sx={{ width: "20vw", mt: "6vh" }}>
               <Autocomplete
                 disabled={disabledProgramas}
-                sx={{}}
+                sx={{ boxShadow: disabledProgramas ? 0 : 4 }}
                 options={catalogoProgramas}
                 getOptionLabel={(option) => option.NombrePrograma}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={programa}
-                    placeholder="Nombre del Programa"
-                  ></TextField>
+                  <TextField {...params} label={programa}></TextField>
                 )}
                 onChange={(event, value) =>
-                  setPrograma(value?.NombrePrograma as string)
+                  enCambioPrograma(
+                    value?.Id as string,
+                    value?.NombrePrograma as string
+                  )
                 }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
@@ -594,19 +622,15 @@ export default function FullModalMir() {
             <FormControl required sx={{ width: "20vw", mt: "6vh" }}>
               <Autocomplete
                 disablePortal
-                sx={{}}
+                sx={{ boxShadow: 4 }}
                 options={catalogoEjes}
                 getOptionLabel={(option) => option.Eje}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={eje}
-                    placeholder="Eje"
-                  ></TextField>
+                  <TextField {...params} label={eje}></TextField>
                 )}
-                onChange={(event, value) =>
-                  enCambioEje(value?.Id as string, value?.Eje as string)
-                }
+                onChange={(event, value) => {
+                  enCambioEje(value?.Id as string, value?.Eje as string);
+                }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
@@ -614,22 +638,18 @@ export default function FullModalMir() {
             <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
               <Autocomplete
                 disabled={disabledTematicas}
-                sx={{}}
+                sx={{ boxShadow: disabledTematicas ? 0 : 4 }}
                 options={catalogoTematicas}
-                getOptionLabel={(option) => option.Temática}
+                getOptionLabel={(option) => option.Tematica}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={tematica}
-                    placeholder="Temática"
-                  ></TextField>
+                  <TextField {...params} label={tematica}></TextField>
                 )}
-                onChange={(event, value) =>
+                onChange={(event, value) => {
                   enCambioTematica(
                     value?.IdTematica as string,
-                    value?.Temática as string
-                  )
-                }
+                    value?.Tematica as string
+                  );
+                }}
                 isOptionEqualToValue={(option, value) =>
                   option.IdTematica === value.IdTematica
                 }
@@ -639,15 +659,11 @@ export default function FullModalMir() {
             <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
               <Autocomplete
                 disabled={disabledObjetivos}
-                sx={{}}
+                sx={{ boxShadow: disabledObjetivos ? 0 : 4 }}
                 options={catalogoObjetivos}
                 getOptionLabel={(option) => option.Objetivo}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={objetivo}
-                    placeholder="Objetivo"
-                  ></TextField>
+                  <TextField {...params} label={objetivo}></TextField>
                 )}
                 onChange={(event, value) =>
                   enCambioObjetivo(
@@ -664,15 +680,11 @@ export default function FullModalMir() {
             <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
               <Autocomplete
                 disabled={disabledEstrategias}
-                sx={{}}
+                sx={{ boxShadow: disabledEstrategias ? 0 : 4 }}
                 options={catalogoEstrategias}
                 getOptionLabel={(option) => option.Estrategia}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={estrategia}
-                    placeholder="Estrategia"
-                  ></TextField>
+                  <TextField {...params} label={estrategia}></TextField>
                 )}
                 onChange={(event, value) =>
                   enCambioEstrategia(
@@ -696,38 +708,44 @@ export default function FullModalMir() {
             >
               <Autocomplete
                 multiple
+                sx={{ boxShadow: disabledLineasDeAccion ? 0 : 4 }}
                 disabled={disabledLineasDeAccion}
                 disableCloseOnSelect
                 limitTags={4}
                 options={catalogoLineasDeAccion}
                 getOptionLabel={(option) => option.LineaDeAccion}
                 renderInput={(params) => (
-                  <TextField {...params} label="Lineas de Acción" />
+                  <TextField
+                    {...params}
+                    label={lineaDeAccion[0].LineaDeAccion}
+                  />
                 )}
-                onChange={(event, value) => enCambioLineasDeAccion(
-                  value[0]?.IdLineasdeAccion as string,
-                  value[0]?.LineaDeAccion as string
-                  
-                )}
-                isOptionEqualToValue={(option, value) => option.IdLineasdeAccion === value.IdLineasdeAccion}
+                onChange={(event, value) =>
+                  enCambioLineasDeAccion(
+                    value[0]?.IdLineasdeAccion as string,
+                    value[0]?.LineaDeAccion as string
+                  )
+                }
+                isOptionEqualToValue={(option, value) =>
+                  option.IdLineasdeAccion === value.IdLineasdeAccion
+                }
               />
             </FormControl>
 
             <FormControl required sx={{ width: "20vw" }}>
               <Autocomplete
                 disablePortal
-                sx={{}}
+                sx={{ boxShadow: 5 }}
                 options={catalogoBeneficiarios}
                 getOptionLabel={(option) => option.Beneficiario}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={beneficiario}
-                    placeholder="Beneficiario"
-                  ></TextField>
+                  <TextField {...params} label={beneficiario}></TextField>
                 )}
                 onChange={(event, value) =>
-                  setBeneficiario(value?.Beneficiario as string)
+                  enCambioBeneficiario(
+                    value?.Id as string,
+                    value?.Beneficiario as string
+                  )
                 }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
