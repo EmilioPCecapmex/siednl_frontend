@@ -154,7 +154,7 @@ export const Notification = () => {
   const getNotifEnviadas = () => {
     axios
       .post(
-        "http://localhost:8000/api/notif-enviadas",
+        "http://10.200.4.105:8000/api/notif-enviadas",
         {
           IdUsuario: localStorage.getItem("IdUsuario"),
         },
@@ -169,6 +169,8 @@ export const Notification = () => {
           setNotif(r.data.data);
           setNotifFilter(r.data.data);
         }
+      }).catch((err) => {
+        
       });
   };
 
@@ -430,7 +432,7 @@ export const Notification = () => {
                     textAlign: "center",
                   }}
                 >
-                  Usuario
+                  Usuario Destino
                 </Typography>
                 <Typography
                   sx={{
