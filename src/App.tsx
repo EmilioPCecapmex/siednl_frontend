@@ -12,13 +12,9 @@ import { continueSession, sessionValid } from "./funcs/validation";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { LateralMenu } from "./components/lateralMenu/LateralMenu";
-<<<<<<< HEAD
-import { MIR } from "./screens/config/MIR";
 import { Prueba } from "./screens/Prueba";
-=======
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
->>>>>>> dev_emilio
 
 
 function App() {
@@ -59,14 +55,10 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
-<<<<<<< HEAD
-          <Route path="MIR" element={<MIR/>}/>
           <Route path="prueba" element={<Prueba/>}/>
 
-=======
           <Route path="mir" element={<MIR/>}/>
           <Route path="notifications" element={<Notification/>}/>
->>>>>>> dev_emilio
 
         </Routes>
     </>
