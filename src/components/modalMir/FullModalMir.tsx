@@ -17,6 +17,7 @@ import {
   Autocomplete,
   TableContainer,
   Typography,
+  Alert,
   Table,
   TableHead,
   TableRow,
@@ -209,6 +210,20 @@ export default function FullModalMir() {
     }
   }
 
+  function enCambioFile(event: any) {
+    setUploadFile(event.target.files[0]);
+    setNombreArchivo(event.target.value.split("\\")[2]);
+    submitForm(event);
+  }
+
+  const AlertDisplay = () => {
+    return (
+      <Alert severity="error" onClose={() => setShowAlert(false)}>
+        {errorMsg}
+      </Alert>
+    );
+  };
+
   const [disabledProgramas, setDisabledProgramas] = useState(true);
   const [disabledTematicas, setDisabledTematicas] = useState(true);
   const [disabledObjetivos, setDisabledObjetivos] = useState(true);
@@ -252,6 +267,12 @@ export default function FullModalMir() {
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
     { Id: "", Beneficiario: "" },
   ]);
+
+  const [uploadFile, setUploadFile] = React.useState("");
+  const [dataAvailable, setDataAvailable] = useState(false);
+  const [res, setRes] = useState({});
+  const [errorMsg, setErrorMsg] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const getAniosFiscales = () => {
     axios
@@ -401,6 +422,41 @@ export default function FullModalMir() {
       })
       .then((r) => {
         setCatalogoBeneficiarios(r.data.data);
+      });
+  };
+
+  const submitForm = (event: any) => {
+    event.preventDefault();
+
+    const dataArray = new FormData();
+    dataArray.append("file", uploadFile);
+
+    axios
+      .post("http://10.200.4.105:7000/upload", dataArray, {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((response) => {
+        console.log(response.data.encabezado[0]);
+        setInstitution(response.data.encabezado[0].institucion);
+        setPrograma(response.data.encabezado[0].nombre_del_programa);
+        setDisabledProgramas(false)
+        setEje(response.data.encabezado[0].eje);
+        setTematica(response.data.encabezado[0].tema);
+        setDisabledTematicas(false)
+        setObjetivo(response.data.encabezado[0].objetivo);
+        setEstrategia(response.data.encabezado[0].estrategia);
+        setLineaDeAccion([{ Id: '', LineaDeAccion: response.data.encabezado[0].lineas_de_accion }]);
+        setBeneficiario(response.data.encabezado[0].beneficiario);
+
+        // setRes(response.data);
+        // setRes("");
+      })
+      .catch((error) => {
+        setErrorMsg(error.response.data);
+        setShowAlert(true);
+        setRes("");
       });
   };
 
@@ -564,14 +620,14 @@ export default function FullModalMir() {
               >
                 {nombreArchivo}
               </Typography>
+              
               <TextField
                 type="file"
                 onChange={(v) =>
-                  setNombreArchivo(v.target.value.split("\\")[2])
+                  enCambioFile(v)
                 }
                 sx={{
                   color: "#fff",
-                  opacity: 0,
                   width: "100%",
                   "& .MuiInputBase-root": {
                     height: "10vh",
