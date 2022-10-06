@@ -583,11 +583,31 @@ export default function FullModalMir() {
     ];
     console.log(arrayComponente);
   };
+  
+  const obtenerValor=( x:number)=>{
+    let arrayComponente = [
+      {
+        componentes: componenteValor,
+      },
+    ];
 
+    return (arrayComponente[0].componentes[x-1].resumen);
+  };
+  
+    
+    // const changeValor = (x:number, c :string) => {
+    //   setComponenteValor([...componenteValor,[ componenteValor[x-1]]])
+    // }
+
+    const [componentExpanded, setComponentExpanded] = useState(0)
+  
   const AcordeonComponentes = ({ x }: { x: number }) => {
     return (
-      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion  sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }} expanded={componentExpanded === x}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => {
+        let y = componentExpanded == x ? 0 : x
+        setComponentExpanded(y)
+      }}>
           <Typography sx={{ width: "33%", flexShrink: 0 , alignItems:"center", justifyContent:"center", display:"flex"}}>
             Componente {x}
           </Typography>
@@ -603,10 +623,11 @@ export default function FullModalMir() {
                 multiline
                 rows={5}
                 label={"Resumen Narrativo"}
-                onChange={(c) => {
-                  componenteValor[x - 1].resumen = c.target.value;
-                  cargarArray();
-                }}
+                // value={()=>{
+                //   obtenerValor(x)
+                // }}
+
+                //onChange={ (c) => setComponenteValor([...componenteValor,componenteValor[x-1].resumen=c.target.value]) }
               />
               <TextField
                 sx={{ with: "30%", maxWidth: '30%' }}
@@ -614,9 +635,11 @@ export default function FullModalMir() {
                 multiline
                 rows={5}
                 label={"Indicador"}
+                //value={componenteValor[x - 1].indicador}
                 onChange={(c) => {
                   componenteValor[x - 1].indicador = c.target.value;
-                  cargarArray();
+                  //setComponenteValor([...componenteValor,componenteValor[x-1]]);
+                  
                 }}
               />
               <TextField
@@ -627,7 +650,7 @@ export default function FullModalMir() {
                 label={"Fórmula"}
                 onChange={(c) => {
                   componenteValor[x - 1].formula = c.target.value;
-                  cargarArray();
+                 
                 }}
               />
             </Box>
@@ -677,7 +700,7 @@ export default function FullModalMir() {
 
   const AcordeonActividades = ({ x, comp }: { x: number; comp: string }) => {
     return (
-      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap",  boxShadow: 4}}>
+      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap",  boxShadow: 4}} >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography sx={{ width: "33%", flexShrink: 0 ,height:"5vh", alignItems:"center", justifyContent:"center", display:"flex"}}>
             Actividad {x} - Componente {comp}
