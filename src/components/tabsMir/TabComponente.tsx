@@ -13,7 +13,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import { IComponente } from "./IComponente";
 
-export const TabComponente = () => {
+export const TabComponente = ({show}:{show: boolean}) => {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
 
@@ -76,6 +76,7 @@ export const TabComponente = () => {
 
   return (
     <Box
+    visibility={show ? "visible" : "hidden"}
       sx={{
         display: "flex",
         width: "75vw",
@@ -85,6 +86,7 @@ export const TabComponente = () => {
         justifyItems: "center",
         backgroundColor: "#fff",
       }}
+      
     >
       <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
 

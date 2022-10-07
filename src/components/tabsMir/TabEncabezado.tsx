@@ -488,6 +488,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   return (
     <Box
     visibility={show ? "visible" : "hidden"}
+
       sx={{
         width: "75vw",
         height: "77vh",
@@ -501,6 +502,7 @@ export function TabEncabezado({show}:{show: boolean}) {
         gridTemplateColumns: "repeat(3, 1fr)",
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
+      
     >
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <Autocomplete

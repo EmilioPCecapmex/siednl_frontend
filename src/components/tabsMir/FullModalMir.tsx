@@ -134,31 +134,48 @@ export default function FullModalMir() {
       },
     ];
 
-    return (arrayComponente[0].componentes[x - 1].resumen);
+    return arrayComponente[0].componentes[x - 1].resumen;
   };
-
 
   // const changeValor = (x:number, c :string) => {
   //   setComponenteValor([...componenteValor,[ componenteValor[x-1]]])
   // }
 
-  const [componentExpanded, setComponentExpanded] = useState(0)
-  const [focusTextField, setFocusTextField] = useState(2)
+  const [componentExpanded, setComponentExpanded] = useState(0);
+  const [focusTextField, setFocusTextField] = useState(2);
 
   const GuardarComponente = (x: number) => {
-
     setComponenteValor([...componenteValor, componenteValor[x - 1]]);
-
-  }
+  };
 
   const AcordeonComponentes = ({ x }: { x: number }) => {
     return (
-      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }} expanded={componentExpanded === x}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => {
-          let y = componentExpanded == x ? 0 : x
-          setComponentExpanded(y)
-        }}>
-          <Typography sx={{ width: "33%", flexShrink: 0, alignItems: "center", justifyContent: "center", display: "flex" }}>
+      <Accordion
+        sx={{
+          width: "95%",
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          boxShadow: 4,
+        }}
+        expanded={componentExpanded === x}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          onClick={() => {
+            let y = componentExpanded == x ? 0 : x;
+            setComponentExpanded(y);
+          }}
+        >
+          <Typography
+            sx={{
+              width: "33%",
+              flexShrink: 0,
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
             Componente {x}
           </Typography>
         </AccordionSummary>
@@ -192,12 +209,15 @@ export default function FullModalMir() {
                 value={componenteValor[x - 1].resumen}
                 onChange={(c) => {
                   componenteValor[x - 1].resumen = c.target.value;
-                  setComponenteValor([...componenteValor, componenteValor[x - 1]]);
+                  setComponenteValor([
+                    ...componenteValor,
+                    componenteValor[x - 1],
+                  ]);
                   //setFocusTextField(1);
                 }}
               />
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -207,11 +227,14 @@ export default function FullModalMir() {
                 value={componenteValor[x - 1].indicador}
                 onChange={(c) => {
                   componenteValor[x - 1].indicador = c.target.value;
-                  setComponenteValor([...componenteValor, componenteValor[x - 1]]);
+                  setComponenteValor([
+                    ...componenteValor,
+                    componenteValor[x - 1],
+                  ]);
                 }}
               />
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -219,19 +242,28 @@ export default function FullModalMir() {
                 label={"Fórmula"}
                 onChange={(c) => {
                   componenteValor[x - 1].formula = c.target.value;
-                  setComponenteValor([...componenteValor, componenteValor[x - 1]]);
-
+                  setComponenteValor([
+                    ...componenteValor,
+                    componenteValor[x - 1],
+                  ]);
                 }}
               />
             </Box>
-            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
-
+            <Box
+              sx={{
+                width: "100%",
+                height: "50%",
+                justifyContent: "space-evenly",
+                backgroundColor: "",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
-
                 label={"Frecuencia"}
                 value={componenteValor[x - 1].frecuencia}
                 onChange={(c) => {
@@ -240,7 +272,7 @@ export default function FullModalMir() {
                 }}
               />
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -252,7 +284,7 @@ export default function FullModalMir() {
                 }}
               />
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -264,10 +296,8 @@ export default function FullModalMir() {
                 }}
               />
             </Box>
-
-
           </Box>
-          <Box >
+          <Box>
             <Button> Guardar</Button>
           </Box>
         </AccordionDetails>
@@ -277,17 +307,50 @@ export default function FullModalMir() {
 
   const AcordeonActividades = ({ x, comp }: { x: number; comp: string }) => {
     return (
-      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }} >
+      <Accordion
+        sx={{
+          width: "95%",
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          boxShadow: 4,
+        }}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography sx={{ width: "33%", flexShrink: 0, height: "5vh", alignItems: "center", justifyContent: "center", display: "flex" }}>
+          <Typography
+            sx={{
+              width: "33%",
+              flexShrink: 0,
+              height: "5vh",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
             Actividad {x} - Componente {comp}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", backgroundColor: "", }}>
-            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "40vh",
+              flexDirection: "column",
+              backgroundColor: "",
+            }}
+          >
+            <Box
+              sx={{
+                width: "100%",
+                height: "50%",
+                justifyContent: "space-evenly",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -319,9 +382,17 @@ export default function FullModalMir() {
                   cargarArray();
                 }}
               />
-
             </Box>
-            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{
+                width: "100%",
+                height: "50%",
+                justifyContent: "space-evenly",
+                backgroundColor: "",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <TextField
                 sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
@@ -448,7 +519,14 @@ export default function FullModalMir() {
           </Tabs>
         </Box>
 
-        <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
+        <Box sx={{ display: "grid" }}>
+          <Box sx={{gridRow: value === 10 ? 1 : 2}}>
+            <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
+          </Box>
+          <Box>
+            <TabComponente show={value === 30 ? true : false}></TabComponente>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

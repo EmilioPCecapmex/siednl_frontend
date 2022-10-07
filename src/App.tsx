@@ -56,7 +56,6 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
-          <Route path="prueba" element={<TabComponente/>}/>
 
           <Route path="mir" element={<MIR/>}/>
           <Route path="notifications" element={<Notification/>}/>
