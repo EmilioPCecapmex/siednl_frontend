@@ -263,6 +263,7 @@ export default function FullModalMir() {
       setExpanded(isExpanded ? panel : false);
     };
 
+
   return (
     <Box
       sx={{

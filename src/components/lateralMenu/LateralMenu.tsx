@@ -199,6 +199,14 @@ export const LateralMenu = ({
               helperText={error.label}
               size="small"
               type="password"
+              InputLabelProps={{style: {
+                fontFamily: "MontserratLight",
+              },}}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
               onChange={(v) => setNewPassword(v.target.value)}
             />
           </Box>

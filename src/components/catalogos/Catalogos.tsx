@@ -15,7 +15,6 @@ import {
   TablePagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -31,7 +30,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
 
   useEffect(() => {
-    let tableOption = configOptions.find((item) => item.Desc == defSelected);
+    let tableOption = configOptions.find((item) => item.Desc === defSelected);
     setTablaActual(tableOption?.Tabla as string)
   }, [])
 
@@ -977,6 +976,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setPage(0);
   };
 
+  const [colorB, setColorB] = useState("#fff");
+  const [rowColorB, setRowColorB] = useState("");
+
+
   return (
     <Box
       sx={{
@@ -1083,11 +1086,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               <Typography
                 sx={{
                   fontFamily: "MontserratSemiBold",
-                  fontSize: "2vw",
+                  fontSize: "1.5vw",
                   textAlign: "center",
                 }}
               >
-                {catalogoActual}
+                {catalogoActual.toLocaleUpperCase()}
               </Typography>
             </Box>
 
@@ -1190,12 +1193,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       : DataDescripctionFiltered
                     ).map((row) => (
                       <TableRow key={row.Id}>
-                        <TableCell component="th" scope="row" width="90%" onClick={() => console.log(row.Id)}>
-                          {row.Desc}
+                        <TableCell component="th" sx={row.Id === rowColorB ? {backgroundColor: colorB} : null} scope="row" width="90%" onClick={() => {
+                          setRowColorB(row.Id)
+                          setColorB('#E7E7E7')}}>
+                            <Typography sx={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
+                            {row.Desc}
+                            </Typography>
                         </TableCell>
 
-                        <TableCell component="th" scope="row">
-                          <Box sx={{ display: "flex" }}>
+                        <TableCell component="th" sx={row.Id === rowColorB ? {backgroundColor: colorB} : null} scope="row" width="90%" onClick={() => {
+                          setRowColorB(row.Id)
+                          setColorB('#E7E7E7')}}>                          <Box sx={{ display: "flex" }}>
                             <ModifyDialogCatalogos
                               descripcion={row.Desc}
                               id={row.Id}
