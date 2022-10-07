@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import {
   FormControl,
@@ -86,19 +86,16 @@ export default function FullModalMir() {
   ]);
 
   const [componenteSeleccionado, setComponenteSeleccionado] = React.useState(0);
-  console.log(componenteSeleccionado);
 
   const changeValue = (index: number, v: string) => {
     if (fin[index].descripcion != "") {
-      return fin[index].descripcion
-    }
-    else
-      return null
-  }
+      return fin[index].descripcion;
+    } else return null;
+  };
   const [value, setValue] = React.useState(10);
 
   const [nombreArchivo, setNombreArchivo] = useState(
-    " Arrastre o de click aquí para seleccionar archivo"
+    "Arrastre o de click aquí para seleccionar archivo"
   );
 
   function enCambioAnio(Id: string, Anio: string) {
@@ -213,15 +210,22 @@ export default function FullModalMir() {
   function enCambioFile(event: any) {
     setUploadFile(event.target.files[0]);
     setNombreArchivo(event.target.value.split("\\")[2]);
-    submitForm(event);
+    { nombreArchivo == null || uploadFile == null ? setDisabledButton(true) : setDisabledButton(false)}
+    
   }
 
   const AlertDisplay = () => {
-    return (
-      <Alert severity="error" onClose={() => setShowAlert(false)}>
-        {errorMsg}
-      </Alert>
-    );
+    setDisabledButton(true);
+      return (
+        <Alert
+          sx={{ borderRadius: 5, width: "80%", alignItems: "center", mt: 2 }}
+          severity="error"
+          onClose={() => {setShowAlert(false); setNombreArchivo("Arrastre o de click aquí para seleccionar archivo");}}
+        >
+          {errorMsg}
+        </Alert>
+      );
+    
   };
 
   const [disabledProgramas, setDisabledProgramas] = useState(true);
@@ -229,6 +233,7 @@ export default function FullModalMir() {
   const [disabledObjetivos, setDisabledObjetivos] = useState(true);
   const [disabledEstrategias, setDisabledEstrategias] = useState(true);
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
+  const [disabledButton, setDisabledButton] = useState(true);
 
   const [anioFiscal, setAnioFiscal] = useState("Ejercicio Fiscal");
   const [institution, setInstitution] = useState("Institución");
@@ -269,7 +274,6 @@ export default function FullModalMir() {
   ]);
 
   const [uploadFile, setUploadFile] = React.useState("");
-  const [dataAvailable, setDataAvailable] = useState(false);
   const [res, setRes] = useState({});
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -424,9 +428,151 @@ export default function FullModalMir() {
         setCatalogoBeneficiarios(r.data.data);
       });
   };
+  const getIdInstitucion = (Description: string) => {
+    axios
+      .get("http://localHost:8000/api/mir-id", {
+        params: {
+          Col: "Instituciones",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        // console.log(r.data.data[0].NombreInstitucion);
+        setInstitution(r.data.data[0].NombreInstitucion);
+        // getProgramas(r.data.data[0].Id);
+        // setDisabledProgramas(false);
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
+  };
+  const getIdPrograma = (Description: string) => {
+    console.log(Description);
+
+    axios
+      .get("http://localHost:8000/api/mir-id", {
+        params: {
+          Col: "Programas",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setPrograma(r.data.data[0].Programa);
+      });
+  };
+  const getIdEje = (Description: string) => {
+    axios
+      .get("http://localHost:8000/api/mir-id", {
+        params: {
+          Col: "Ejes",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setEje(r.data.data[0].Eje);
+        getTematicas(r.data.data[0].Id);
+        setDisabledTematicas(false);
+      });
+  };
+  const getIdTematica = (Description: string) => {
+    axios
+      .get("http://localHost:8000/api/mir-id", {
+        params: {
+          Col: "Temáticas",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setTematica(r.data.data[0].Tematica);
+        getObjetivos(r.data.data[0].Id);
+        setDisabledObjetivos(false);
+      });
+  };
+  const getIdObjetivo = (Description: string) => {
+    axios
+      .get("http://localHost:8000/api/mir-id", {
+        params: {
+          Col: "Objetivos",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setObjetivo(r.data.data[0].Objetivo);
+        getEstrategias(r.data.data[0].Id);
+        setDisabledEstrategias(false);
+      });
+  };
+  const getIdEstrategia = (Description: string) => {
+    axios
+      .get("http://localHost:8000/api/mir-id", {
+        params: {
+          Col: "Estrategias",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setEstrategia(r.data.data[0].Estrategia);
+        getLineasDeAccion(r.data.data[0].Id);
+        setDisabledLineasDeAccion(false);
+      });
+  };
+  const getIdLineaDeAccion = (Description: string) => {
+    axios
+      .get("http://localHost:8000/api/mir-id", {
+        params: {
+          Col: "Lineas de Acción",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setLineaDeAccion([
+          {
+            Id: "",
+            LineaDeAccion: r.data.data[0].LineaDeAccion,
+          },
+        ]);
+      });
+  };
+  const getIdBeneficiario = (Description: string) => {
+    axios
+      .get("http://localHost:8000/api/mir-id", {
+        params: {
+          Col: "Beneficiarios",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setBeneficiario(r.data.data[0].Beneficiario);
+      });
+  };
 
   const submitForm = (event: any) => {
     event.preventDefault();
+    setDisabledButton(true);
 
     const dataArray = new FormData();
     dataArray.append("file", uploadFile);
@@ -438,18 +584,16 @@ export default function FullModalMir() {
         },
       })
       .then((response) => {
-        console.log(response.data.encabezado[0]);
-        setInstitution(response.data.encabezado[0].institucion);
+        // console.log(response.data);
+        getIdInstitucion(response.data.encabezado[0].institucion);
+        // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);
-        setDisabledProgramas(false)
-        setEje(response.data.encabezado[0].eje);
-        setTematica(response.data.encabezado[0].tema);
-        setDisabledTematicas(false)
-        setObjetivo(response.data.encabezado[0].objetivo);
-        setEstrategia(response.data.encabezado[0].estrategia);
-        setLineaDeAccion([{ Id: '', LineaDeAccion: response.data.encabezado[0].lineas_de_accion }]);
-        setBeneficiario(response.data.encabezado[0].beneficiario);
-
+        getIdEje(response.data.encabezado[0].eje);
+        getIdTematica(response.data.encabezado[0].tema);
+        getIdObjetivo(response.data.encabezado[0].objetivo);
+        getIdEstrategia(response.data.encabezado[0].estrategia);
+        // getIdLineaDeAccion(response.data.encabezado[0].linea_de_accion);
+        getIdBeneficiario(response.data.encabezado[0].beneficiario);
         // setRes(response.data);
         // setRes("");
       })
@@ -472,7 +616,9 @@ export default function FullModalMir() {
   };
 
   const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [expandedActividades, setExpandedActividades] = React.useState<string | false>(false);
+  const [expandedActividades, setExpandedActividades] = React.useState<
+    string | false
+  >(false);
 
   const handleChangeAcordion =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -482,9 +628,6 @@ export default function FullModalMir() {
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpandedActividades(isExpanded ? panel : false);
     };
-
-
-
 
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
@@ -542,8 +685,6 @@ export default function FullModalMir() {
       ];
 
       setComponenteActividad(xArray);
-
-      console.log(xArray);
     }
   };
 
@@ -557,7 +698,6 @@ export default function FullModalMir() {
       xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
 
       setComponenteActividad(xArray);
-      console.log(xArray);
     }
   };
 
@@ -581,24 +721,54 @@ export default function FullModalMir() {
         componentes: componenteValor,
       },
     ];
-    console.log(arrayComponente);
   };
 
   const AcordeonComponentes = ({ x }: { x: number }) => {
     return (
-      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }}>
+      <Accordion
+        sx={{
+          width: "95%",
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          boxShadow: 4,
+        }}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography sx={{ width: "33%", flexShrink: 0 , alignItems:"center", justifyContent:"center", display:"flex"}}>
+          <Typography
+            sx={{
+              width: "33%",
+              flexShrink: 0,
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
             Componente {x}
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{}}>
-
-          <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", backgroundColor: "", }}>
-
-            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "40vh",
+              flexDirection: "column",
+              backgroundColor: "",
+            }}
+          >
+            <Box
+              sx={{
+                width: "100%",
+                height: "50%",
+                justifyContent: "space-evenly",
+                backgroundColor: "",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -609,7 +779,7 @@ export default function FullModalMir() {
                 }}
               />
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -620,7 +790,7 @@ export default function FullModalMir() {
                 }}
               />
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -631,10 +801,18 @@ export default function FullModalMir() {
                 }}
               />
             </Box>
-            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
-
+            <Box
+              sx={{
+                width: "100%",
+                height: "50%",
+                justifyContent: "space-evenly",
+                backgroundColor: "",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -645,7 +823,7 @@ export default function FullModalMir() {
                 }}
               />
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -656,7 +834,7 @@ export default function FullModalMir() {
                 }}
               />
               <TextField
-                sx={{ with: "30%", maxWidth: '30%' }}
+                sx={{ with: "30%", maxWidth: "30%" }}
                 fullWidth
                 multiline
                 rows={5}
@@ -667,8 +845,6 @@ export default function FullModalMir() {
                 }}
               />
             </Box>
-
-
           </Box>
         </AccordionDetails>
       </Accordion>
@@ -677,86 +853,126 @@ export default function FullModalMir() {
 
   const AcordeonActividades = ({ x, comp }: { x: number; comp: string }) => {
     return (
-      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap",  boxShadow: 4}}>
+      <Accordion
+        sx={{
+          width: "95%",
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          boxShadow: 4,
+        }}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography sx={{ width: "33%", flexShrink: 0 ,height:"5vh", alignItems:"center", justifyContent:"center", display:"flex"}}>
+          <Typography
+            sx={{
+              width: "33%",
+              flexShrink: 0,
+              height: "5vh",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
             Actividad {x} - Componente {comp}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-        <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", backgroundColor: "", }}>
-          <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly",  display: "flex", alignItems: "center" }}>
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Resumen Narrativo"}
-              onChange={(c) => {
-                componenteValor[x - 1].resumen = c.target.value;
-                cargarArray();
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "40vh",
+              flexDirection: "column",
+              backgroundColor: "",
+            }}
+          >
+            <Box
+              sx={{
+                width: "100%",
+                height: "50%",
+                justifyContent: "space-evenly",
+                display: "flex",
+                alignItems: "center",
               }}
-            />
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Indicador"}
-              onChange={(c) => {
-                componenteValor[x - 1].indicador = c.target.value;
-                cargarArray();
+            >
+              <TextField
+                sx={{ with: "30%", maxWidth: "30%" }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Resumen Narrativo"}
+                onChange={(c) => {
+                  componenteValor[x - 1].resumen = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: "30%" }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Indicador"}
+                onChange={(c) => {
+                  componenteValor[x - 1].indicador = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: "30%" }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Fórmula"}
+                onChange={(c) => {
+                  componenteValor[x - 1].formula = c.target.value;
+                  cargarArray();
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                height: "50%",
+                justifyContent: "space-evenly",
+                backgroundColor: "",
+                display: "flex",
+                alignItems: "center",
               }}
-            />
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Fórmula"}
-              onChange={(c) => {
-                componenteValor[x - 1].formula = c.target.value;
-                cargarArray();
-              }}
-            />
-
-          </Box>
-          <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Frecuencia"}
-              onChange={(c) => {
-                componenteValor[x - 1].frecuencia = c.target.value;
-                cargarArray();
-              }}
-            />
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Medios de Verificación"}
-              onChange={(c) => {
-                componenteValor[x - 1].medios = c.target.value;
-                cargarArray();
-              }}
-            />
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Supuestos"}
-              onChange={(c) => {
-                componenteValor[x - 1].supuestos = c.target.value;
-                cargarArray();
-              }}
-            />
-          </Box>
-
+            >
+              <TextField
+                sx={{ with: "30%", maxWidth: "30%" }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Frecuencia"}
+                onChange={(c) => {
+                  componenteValor[x - 1].frecuencia = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: "30%" }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Medios de Verificación"}
+                onChange={(c) => {
+                  componenteValor[x - 1].medios = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: "30%" }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Supuestos"}
+                onChange={(c) => {
+                  componenteValor[x - 1].supuestos = c.target.value;
+                  cargarArray();
+                }}
+              />
+            </Box>
           </Box>
         </AccordionDetails>
       </Accordion>
@@ -883,7 +1099,7 @@ export default function FullModalMir() {
             <Box
               sx={{
                 gridColumn: "2/4",
-                width: "20vw",
+                width: "30vw",
                 height: "10vh",
                 border: 1,
                 borderRadius: 3,
@@ -891,37 +1107,50 @@ export default function FullModalMir() {
                 borderColor: "#af8c55",
                 borderStyle: "dashed",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
                 mt: "6vh",
                 cursor: "pointer",
               }}
             >
-              <Typography
-                sx={{
-                  position: "absolute",
-                  fontFamily: "MontserratLight",
-                  fontSize: ".7vw",
-                  cursor: "pointer",
-                }}
-              >
-                {nombreArchivo}
-              </Typography>
-              
-              <TextField
+              {showAlert ? (
+                <AlertDisplay />
+              ) : (
+                <Typography
+                  sx={{
+                    position: "absolute",
+                    fontFamily: "MontserratLight",
+                    fontSize: ".7vw",
+                  }}
+                >
+                  {nombreArchivo}
+                </Typography>
+              )}
+
+              <input
                 type="file"
-                onChange={(v) =>
-                  enCambioFile(v)
-                }
-                sx={{
-                  color: "#fff",
+                onChange={(v) => enCambioFile(v)}
+                style={{
+                  color: "#000",
+                  backgroundColor: "red",
+                  opacity: 0,
                   width: "100%",
-                  "& .MuiInputBase-root": {
-                    height: "10vh",
-                  },
+                  height: "10vh",
                   cursor: "pointer",
                 }}
-              ></TextField>
+              />
+              {disabledButton ? null : (
+                <Button
+                  disabled={disabledButton}
+                  onClick={submitForm}
+                  sx={{
+                    backgroundColor: "#dbdbdb",
+                  }}
+                >
+                  Cargar
+                </Button>
+              )}
             </Box>
 
             <FormControl sx={{ width: "20vw", mt: "6vh" }}>
@@ -1106,11 +1335,7 @@ export default function FullModalMir() {
               justifyItems: "center",
               backgroundColor: "#fff",
             }}
-          >
-
-
-
-          </Box>
+          ></Box>
         ) : null}
         {/* Componentes */}
         {value === 30 ? (
@@ -1125,51 +1350,68 @@ export default function FullModalMir() {
               backgroundColor: "#fff",
             }}
           >
-            <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-
-              <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "flex-end", mr: "15vw" }}>
+            <Box
+              sx={{
+                display: "flex",
+                backgroundColor: "",
+                width: "100%",
+                height: "100%",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  backgroundColor: "",
+                  width: "100%",
+                  height: "10%",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  mr: "15vw",
+                }}
+              >
                 {/* Botones Componentes */}
                 <IconButton onClick={() => agregarFnc()}>
                   <AddCircleIcon fontSize="large" />
-
-                </IconButton >
-
+                </IconButton>
 
                 <IconButton onClick={() => eliminarFnc()}>
                   <DoDisturbOnIcon fontSize="large" />
-                </IconButton >
+                </IconButton>
               </Box>
 
-              <Box sx={{
-                width: "95%",
-                height: "90%",
-                backgroundColor: "",
-                pb: 2,
-                pt: 2,
-                borderRight: "solid 1px",
-                overflow: "auto",
-                borderRadius: ".4vw",
-                borderColor: "#BCBCBC",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                "&::-webkit-scrollbar": {
-                  width: ".3vw",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "rgba(0,0,0,.5)",
-                  outline: "1px solid slategrey",
-                  borderRadius: 10,
-
-                },
-              }}>
+              <Box
+                sx={{
+                  width: "95%",
+                  height: "90%",
+                  backgroundColor: "",
+                  pb: 2,
+                  pt: 2,
+                  borderRight: "solid 1px",
+                  overflow: "auto",
+                  borderRadius: ".4vw",
+                  borderColor: "#BCBCBC",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  "&::-webkit-scrollbar": {
+                    width: ".3vw",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "rgba(0,0,0,.5)",
+                    outline: "1px solid slategrey",
+                    borderRadius: 10,
+                  },
+                }}
+              >
                 {/* Render Componentes */}
                 {componentes.map((x) => {
                   return <AcordeonComponentes key={x} x={x} />;
                 })}
               </Box>
-
             </Box>
           </Box>
         ) : null}
@@ -1184,21 +1426,39 @@ export default function FullModalMir() {
               justifyItems: "center",
               backgroundColor: "#fff",
             }}
-
           >
-            <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-
-              <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "space-between" }}>
-                {/* Render seleccionar componente */}
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: "center",
-                  '& > *': {
-                    m: 1,
-                  },
+            <Box
+              sx={{
+                display: "flex",
+                backgroundColor: "",
+                width: "100%",
+                height: "100%",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  backgroundColor: "",
+                  width: "100%",
+                  height: "10%",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
+              >
+                {/* Render seleccionar componente */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    "& > *": {
+                      m: 1,
+                    },
+                  }}
                 >
                   <ButtonGroup variant="text" sx={{}}>
                     {componentes.map((x) => {
@@ -1210,9 +1470,9 @@ export default function FullModalMir() {
                             setComponenteSelect((x - 1).toString());
                             let xArray = [...componenteActividad];
 
-                            xArray[0]["componentes"][x - 1] = xArray[0]["componentes"][
-                              x - 1
-                            ] || [1, 2];
+                            xArray[0]["componentes"][x - 1] = xArray[0][
+                              "componentes"
+                            ][x - 1] || [1, 2];
 
                             setComponenteActividad(xArray);
                           }}
@@ -1222,68 +1482,65 @@ export default function FullModalMir() {
                       );
                     })}
                   </ButtonGroup>
+                </Box>
 
-                </Box >
-
-                <Box sx={{ display: "flex", mr: "9vw"}}>
-                  <IconButton onClick={() => { agregarAFnc(parseInt(componenteSelect)); }}>
+                <Box sx={{ display: "flex", mr: "9vw" }}>
+                  <IconButton
+                    onClick={() => {
+                      agregarAFnc(parseInt(componenteSelect));
+                    }}
+                  >
                     <AddCircleIcon fontSize="large" />
-                  </IconButton >
+                  </IconButton>
 
                   <IconButton onClick={() => eliminarAFnc()}>
                     <DoDisturbOnIcon fontSize="large" />
-                  </IconButton >
+                  </IconButton>
                 </Box>
               </Box>
-              <Box sx={{
-                width: "95%",
-                height: "90%",
-                backgroundColor: "",
-                pb: 2,
-                pt: 2,
-                borderRight: "solid 1px",
-                overflow: "auto",
-                borderRadius: ".4vw",
-                borderColor: "#BCBCBC",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                "&::-webkit-scrollbar": {
-                  width: ".3vw",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "rgba(0,0,0,.5)",
-                  outline: "1px solid slategrey",
-                  borderRadius: 10,
-
-                },
-              }}>
+              <Box
+                sx={{
+                  width: "95%",
+                  height: "90%",
+                  backgroundColor: "",
+                  pb: 2,
+                  pt: 2,
+                  borderRight: "solid 1px",
+                  overflow: "auto",
+                  borderRadius: ".4vw",
+                  borderColor: "#BCBCBC",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  "&::-webkit-scrollbar": {
+                    width: ".3vw",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "rgba(0,0,0,.5)",
+                    outline: "1px solid slategrey",
+                    borderRadius: 10,
+                  },
+                }}
+              >
                 {/* Renderizado de Actividades */}
 
-
-                {componenteActividad[0]["componentes"][parseInt(componenteSelect)].map(
-                  (x) => {
-                    return (
-                      <AcordeonActividades
-                        comp={(parseInt(componenteSelect) + 1).toString()}
-                        key={x.toString()}
-                        x={x}
-                      />
-                    );
-                  }
-                )}
-
-
+                {componenteActividad[0]["componentes"][
+                  parseInt(componenteSelect)
+                ].map((x) => {
+                  return (
+                    <AcordeonActividades
+                      comp={(parseInt(componenteSelect) + 1).toString()}
+                      key={x.toString()}
+                      x={x}
+                    />
+                  );
+                })}
               </Box>
-
             </Box>
           </Box>
         ) : null}
       </Box>
     </Box>
   );
-
-
-
 }
