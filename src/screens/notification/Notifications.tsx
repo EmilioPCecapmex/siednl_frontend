@@ -59,6 +59,7 @@ export const Notification = () => {
     setTitulo("");
     setMensaje("");
     setUsuarioSeleccionado("");
+    setCheckedEmail(false)
     setErrorForm({
       visible: false,
       text: "",
@@ -108,6 +109,42 @@ export const Notification = () => {
       )
       .then((r) => {
         if (r.status === 200) {
+
+          if(checkedEmail) {
+            enviarNotificacionMail();
+          }else{
+            limpiaForm();
+            getNotifEnviadas();
+            Toast.fire({
+              icon: "success",
+              title: "Notificación enviada",
+            });
+          }
+          }
+
+
+     
+      });
+  };
+
+  const enviarNotificacionMail = () => {
+    axios
+      .post(
+        "http://10.200.4.202:8000/api/send-email",
+        {
+          IdDestinatario: usuarioSeleccionado,
+          IdRemitente: localStorage.getItem("IdUsuario"),
+          subject: titulo,
+          message: mensaje
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 201) {
           limpiaForm();
           getNotifEnviadas();
           Toast.fire({
@@ -154,7 +191,7 @@ export const Notification = () => {
   const getNotifEnviadas = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/notif-enviadas",
+        "http://localhost:8000/api/notif-enviadas",
         {
           IdUsuario: localStorage.getItem("IdUsuario"),
         },
@@ -169,8 +206,6 @@ export const Notification = () => {
           setNotif(r.data.data);
           setNotifFilter(r.data.data);
         }
-      }).catch((err) => {
-        
       });
   };
 
@@ -198,6 +233,8 @@ export const Notification = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const [checkedEmail, setCheckedEmail] = useState(false)
 
   return (
     <Box
@@ -338,7 +375,7 @@ export const Notification = () => {
               sx={{ width: "70%", display: "flex", alignItems: "center" }}
             >
               <FormControlLabel
-                control={<Checkbox />}
+                control={<Checkbox checked={checkedEmail} onChange={(v) => setCheckedEmail(v.target.checked)} />}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
@@ -422,7 +459,6 @@ export const Notification = () => {
                   display: "flex",
                   alignItems: "center",
                   height: "3vh",
-                  backgroundColor: '#E7E7E7'
                 }}
               >
                 <Typography
@@ -433,7 +469,7 @@ export const Notification = () => {
                     textAlign: "center",
                   }}
                 >
-                  Usuario Destino
+                  Usuario
                 </Typography>
                 <Typography
                   sx={{
@@ -581,6 +617,7 @@ export const Notification = () => {
                   count={notifFilter.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
+                  component="div"
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                   ActionsComponent={TablePaginationActions}
