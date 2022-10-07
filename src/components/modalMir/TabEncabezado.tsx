@@ -501,7 +501,11 @@ export function TabEncabezado() {
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
           renderInput={(params) => (
-            <TextField {...params} label={"Ejercicio Fiscal"}></TextField>
+            <TextField
+              {...params}
+              label={"Ejercicio Fiscal"}
+              placeholder={anioFiscal}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioAnio(value?.Id as string, value?.AnioFiscal as string)
@@ -573,7 +577,12 @@ export function TabEncabezado() {
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion}
           renderInput={(params) => (
-            <TextField {...params} placeholder={institution} value={institution} label={"Institución"}></TextField>
+            <TextField
+              {...params}
+              placeholder={institution}
+              value={institution}
+              label={"Institución"}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioInstitucion(
@@ -592,7 +601,11 @@ export function TabEncabezado() {
           options={catalogoProgramas}
           getOptionLabel={(option) => option.NombrePrograma}
           renderInput={(params) => (
-            <TextField {...params} label={"Programa"}></TextField>
+            <TextField
+              {...params}
+              label={"Programa"}
+              placeholder={programa}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioPrograma(
@@ -611,7 +624,7 @@ export function TabEncabezado() {
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje}
           renderInput={(params) => (
-            <TextField {...params} label={"Eje"}></TextField>
+            <TextField {...params} label={"Eje"} placeholder={eje}></TextField>
           )}
           onChange={(event, value) => {
             enCambioEje(value?.Id as string, value?.Eje as string);
@@ -627,7 +640,7 @@ export function TabEncabezado() {
           options={catalogoTematicas}
           getOptionLabel={(option) => option.Tematica}
           renderInput={(params) => (
-            <TextField {...params} label={"Temática"}></TextField>
+            <TextField {...params} label={"Temática"} placeholder={tematica}></TextField>
           )}
           onChange={(event, value) => {
             enCambioTematica(
@@ -648,7 +661,7 @@ export function TabEncabezado() {
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo}
           renderInput={(params) => (
-            <TextField {...params} label={"Objetivo"}></TextField>
+            <TextField {...params} label={"Objetivo"} placeholder={objetivo}></TextField>
           )}
           onChange={(event, value) =>
             enCambioObjetivo(
@@ -669,7 +682,7 @@ export function TabEncabezado() {
           options={catalogoEstrategias}
           getOptionLabel={(option) => option.Estrategia}
           renderInput={(params) => (
-            <TextField {...params} label={"Estrategia"}></TextField>
+            <TextField {...params} label={"Estrategia"} placeholder={estrategia}></TextField>
           )}
           onChange={(event, value) =>
             enCambioEstrategia(
@@ -700,7 +713,7 @@ export function TabEncabezado() {
           options={catalogoLineasDeAccion}
           getOptionLabel={(option) => option.LineaDeAccion}
           renderInput={(params) => (
-            <TextField {...params} label={"Lineas de Acción"} />
+            <TextField {...params} label={"Lineas de Acción"} placeholder={lineaDeAccion[0].LineaDeAccion}/>
           )}
           onChange={(event, value) =>
             enCambioLineasDeAccion(
@@ -721,7 +734,7 @@ export function TabEncabezado() {
           options={catalogoBeneficiarios}
           getOptionLabel={(option) => option.Beneficiario}
           renderInput={(params) => (
-            <TextField {...params} label={"Beneficiario"}></TextField>
+            <TextField {...params} label={"Beneficiario"} placeholder={beneficiario}></TextField>
           )}
           onChange={(event, value) =>
             enCambioBeneficiario(

@@ -10,81 +10,18 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Input,
   TextField,
   Box,
-  // Autocomplete,
-  TableContainer,
   Typography,
-  Alert,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Avatar,
-  Tooltip,
   IconButton,
   Button,
-  TablePagination,
-  Autocomplete,
-  SelectChangeEvent,
   ButtonGroup,
 } from "@mui/material";
-import axios from "axios";
-import { styled } from "@mui/material/styles";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
-import MuiAccordionSummary, {
-  AccordionSummaryProps,
-} from "@mui/material/AccordionSummary";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import { IComponente } from "./IComponente";
 import TabEncabezado from "./TabEncabezado";
 
 export default function FullModalMir() {
-  //arrays
-  const [fin, setFin] = React.useState([
-    {
-      index: 0,
-      label: "Resumen Narrativo",
-      descripcion: "",
-    },
-    {
-      index: 1,
 
-      label: "Indicador",
-      descripcion: "",
-    },
-    {
-      index: 2,
-
-      label: "Formula",
-      descripcion: "",
-    },
-    {
-      index: 3,
-
-      label: "Frecuencia",
-      descripcion: "",
-    },
-    {
-      index: 4,
-
-      label: "Medios de verificacion y fuentes de informacion",
-      descripcion: "",
-    },
-    {
-      index: 5,
-
-      label: "Supuestos",
-      descripcion: "",
-    },
-  ]);
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -95,15 +32,6 @@ export default function FullModalMir() {
   const [expandedActividades, setExpandedActividades] = React.useState<
     string | false
   >(false);
-
-  const handleChangeAcordion =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
-  const handleChangeAcordionActividades =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpandedActividades(isExpanded ? panel : false);
-    };
 
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
