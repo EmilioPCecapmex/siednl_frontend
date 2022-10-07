@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-export function TabEncabezado() {
+export function TabEncabezado({show}:{show: boolean}) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
   );
@@ -87,9 +87,11 @@ export function TabEncabezado() {
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
 
+
+
   //Values
   const [anioFiscal, setAnioFiscal] = useState("Ejercicio Fiscal");
-  const [institution, setInstitution] = useState("Institución");
+  const [institution, setInstitution] = useState("");
   const [programa, setPrograma] = useState("Programa Presupuestario");
   const [eje, setEje] = useState("Eje");
   const [tematica, setTematica] = useState("Temática");
@@ -99,6 +101,10 @@ export function TabEncabezado() {
     { Id: "", LineaDeAccion: "Lineas de Accion" },
   ]);
   const [beneficiario, setBeneficiario] = useState("Beneficiario");
+
+  useEffect(() => {
+    console.log("i:", institution)
+      },[institution])
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
@@ -478,8 +484,10 @@ export function TabEncabezado() {
     getBeneficiarios();
   }, []);
 
+
   return (
     <Box
+    visibility={show ? "visible" : "hidden"}
       sx={{
         width: "75vw",
         height: "77vh",
