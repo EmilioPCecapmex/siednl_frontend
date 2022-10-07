@@ -20,427 +20,24 @@ import {
 import { IComponente } from "./IComponente";
 import TabEncabezado from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
+import { TabActividades } from "./TabActividades";
+import TabFinProposito from "./TabFinProposito";
+import TabResumen from "./TabResumen";
 
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (newValue: number) => {
     setValue(newValue);
   };
 
-  const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [expandedActividades, setExpandedActividades] = React.useState<
-    string | false
-  >(false);
-
-  // business logic-------------------------------------------------------------------------------
-  const [componentes, setComponentes] = React.useState([1, 2]);
-  const [actividades, setActividades] = React.useState([1, 2]);
-
-  const [componenteActividad, setComponenteActividad] = React.useState([
-    {
-      componentes: componentes.map((x) => actividades),
-    },
-  ]);
-
-  const [componenteValor, setComponenteValor] = React.useState<
-    Array<IComponente>
-  >([]);
-
-  const agregarFnc = () => {
-    let v = componentes.length + 1;
-    if (v > 6) {
-    } else {
-      setComponentes([...componentes, v]);
-
-      let array = [...componentes, v].map((x) => {
-        return {
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        };
-      });
-      setComponenteValor(array);
-    }
-  };
-
-  const eliminarFnc = () => {
-    let v = componentes.length - 1;
-    if (v < 2) {
-    } else {
-      setComponentes(componentes.splice(0, v));
-    }
-  };
-
-  const agregarAFnc = (index: number) => {
-    let v = actividades.length + 1;
-    if (v > 6) {
-    } else {
-      setActividades([...actividades, v]);
-
-      let xArray = [...componenteActividad];
-
-      xArray[0]["componentes"][parseInt(componenteSelect)] = [
-        ...actividades,
-        v,
-      ];
-
-      setComponenteActividad(xArray);
-    }
-  };
-
-  const eliminarAFnc = () => {
-    let act = componenteActividad[0]["componentes"][parseInt(componenteSelect)];
-    let v = act.length - 1;
-    if (v < 2) {
-    } else {
-      let xArray = [...componenteActividad];
-
-      xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
-
-      setComponenteActividad(xArray);
-    }
-  };
-
-  useEffect(() => {
-    let array = componentes.map((x) => {
-      return {
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    });
-    setComponenteValor(array);
-  }, []);
-
-  const cargarArray = () => {
-    let arrayComponente = [
-      {
-        componentes: componenteValor,
-      },
-    ];
-  };
-
-  const obtenerValor = (x: number) => {
-    let arrayComponente = [
-      {
-        componentes: componenteValor,
-      },
-    ];
-
-    return arrayComponente[0].componentes[x - 1].resumen;
-  };
-
-  // const changeValor = (x:number, c :string) => {
-  //   setComponenteValor([...componenteValor,[ componenteValor[x-1]]])
-  // }
-
-  const [componentExpanded, setComponentExpanded] = useState(0);
-  const [focusTextField, setFocusTextField] = useState(2);
-
-  const GuardarComponente = (x: number) => {
-    setComponenteValor([...componenteValor, componenteValor[x - 1]]);
-  };
-
-  const AcordeonComponentes = ({ x }: { x: number }) => {
-    return (
-      <Accordion
-        sx={{
-          width: "95%",
-          display: "flex",
-          flexDirection: "column",
-          flexWrap: "wrap",
-          boxShadow: 4,
-        }}
-        expanded={componentExpanded === x}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          onClick={() => {
-            let y = componentExpanded == x ? 0 : x;
-            setComponentExpanded(y);
-          }}
-        >
-          <Typography
-            sx={{
-              width: "33%",
-              flexShrink: 0,
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
-            }}
-          >
-            Componente {x}
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails sx={{}}>
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              height: "40vh",
-              flexDirection: "column",
-              backgroundColor: "",
-            }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                height: "50%",
-                justifyContent: "space-evenly",
-                backgroundColor: "",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Resumen Narrativo"}
-                autoFocus
-                value={componenteValor[x - 1].resumen}
-                onChange={(c) => {
-                  componenteValor[x - 1].resumen = c.target.value;
-                  setComponenteValor([
-                    ...componenteValor,
-                    componenteValor[x - 1],
-                  ]);
-                  //setFocusTextField(1);
-                }}
-              />
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Indicador"}
-                placeholder={componenteValor[x - 1].indicador}
-                //autoFocus={focusTextField === 1 ? true:false}
-                value={componenteValor[x - 1].indicador}
-                onChange={(c) => {
-                  componenteValor[x - 1].indicador = c.target.value;
-                  setComponenteValor([
-                    ...componenteValor,
-                    componenteValor[x - 1],
-                  ]);
-                }}
-              />
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                value={componenteValor[x - 1].formula}
-                label={"Fórmula"}
-                onChange={(c) => {
-                  componenteValor[x - 1].formula = c.target.value;
-                  setComponenteValor([
-                    ...componenteValor,
-                    componenteValor[x - 1],
-                  ]);
-                }}
-              />
-            </Box>
-            <Box
-              sx={{
-                width: "100%",
-                height: "50%",
-                justifyContent: "space-evenly",
-                backgroundColor: "",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Frecuencia"}
-                value={componenteValor[x - 1].frecuencia}
-                onChange={(c) => {
-                  componenteValor[x - 1].frecuencia = c.target.value;
-                  cargarArray();
-                }}
-              />
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Medios de Verificación"}
-                value={componenteValor[x - 1].medios}
-                onChange={(c) => {
-                  componenteValor[x - 1].medios = c.target.value;
-                  cargarArray();
-                }}
-              />
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Supuestos"}
-                value={componenteValor[x - 1].supuestos}
-                onChange={(c) => {
-                  componenteValor[x - 1].supuestos = c.target.value;
-                  cargarArray();
-                }}
-              />
-            </Box>
-          </Box>
-          <Box>
-            <Button> Guardar</Button>
-          </Box>
-        </AccordionDetails>
-      </Accordion>
-    );
-  };
-
-  const AcordeonActividades = ({ x, comp }: { x: number; comp: string }) => {
-    return (
-      <Accordion
-        sx={{
-          width: "95%",
-          display: "flex",
-          flexDirection: "column",
-          flexWrap: "wrap",
-          boxShadow: 4,
-        }}
-      >
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography
-            sx={{
-              width: "33%",
-              flexShrink: 0,
-              height: "5vh",
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
-            }}
-          >
-            Actividad {x} - Componente {comp}
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              height: "40vh",
-              flexDirection: "column",
-              backgroundColor: "",
-            }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                height: "50%",
-                justifyContent: "space-evenly",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Resumen Narrativo"}
-                onChange={(c) => {
-                  componenteValor[x - 1].resumen = c.target.value;
-                  cargarArray();
-                }}
-              />
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Indicador"}
-                onChange={(c) => {
-                  componenteValor[x - 1].indicador = c.target.value;
-                  cargarArray();
-                }}
-              />
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Fórmula"}
-                onChange={(c) => {
-                  componenteValor[x - 1].formula = c.target.value;
-                  cargarArray();
-                }}
-              />
-            </Box>
-            <Box
-              sx={{
-                width: "100%",
-                height: "50%",
-                justifyContent: "space-evenly",
-                backgroundColor: "",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Frecuencia"}
-                onChange={(c) => {
-                  componenteValor[x - 1].frecuencia = c.target.value;
-                  cargarArray();
-                }}
-              />
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Medios de Verificación"}
-                onChange={(c) => {
-                  componenteValor[x - 1].medios = c.target.value;
-                  cargarArray();
-                }}
-              />
-              <TextField
-                sx={{ with: "30%", maxWidth: "30%" }}
-                fullWidth
-                multiline
-                rows={5}
-                label={"Supuestos"}
-                onChange={(c) => {
-                  componenteValor[x - 1].supuestos = c.target.value;
-                  cargarArray();
-                }}
-              />
-            </Box>
-          </Box>
-        </AccordionDetails>
-      </Accordion>
-    );
-  };
-
-  const [componenteSelect, setComponenteSelect] = React.useState("0");
   //----------------------------------------------------------------------------------------------
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
-        width: "87%",
+        width: "100%",
         height: "92%",
         mt: "8vh",
       }}
@@ -458,8 +55,7 @@ export default function FullModalMir() {
         <Box>
           <Tabs
             value={value}
-            onChange={handleChange}
-            aria-label="basic tabs"
+            onChange={() => handleChange(value)}
             textColor="inherit"
             sx={{
               backgroundColor: "#fff",
@@ -469,6 +65,7 @@ export default function FullModalMir() {
           >
             <Tab
               label="Encabezado"
+              onClick={() => setValue(10)}
               value={10}
               sx={{
                 borderRight: "5px solid #b3afaf",
@@ -479,6 +76,7 @@ export default function FullModalMir() {
             />
             <Tab
               label="Fin / Propósito"
+              onClick={() => setValue(20)}
               value={20}
               sx={{
                 borderRight: "5px solid #b3afaf",
@@ -489,6 +87,7 @@ export default function FullModalMir() {
             />
             <Tab
               label="Componentes"
+              onClick={() => setValue(30)}
               value={30}
               sx={{
                 borderRight: "5px solid #b3afaf",
@@ -499,6 +98,7 @@ export default function FullModalMir() {
             />
             <Tab
               label="Actividades"
+              onClick={() => setValue(40)}
               value={40}
               sx={{
                 borderRight: "5px solid #b3afaf",
@@ -509,6 +109,7 @@ export default function FullModalMir() {
             />
             <Tab
               label="Resumen"
+              onClick={() => setValue(50)}
               value={50}
               sx={{
                 color: "black",
@@ -519,13 +120,16 @@ export default function FullModalMir() {
           </Tabs>
         </Box>
 
-        <Box sx={{ display: "grid" }}>
-          <Box sx={{gridRow: value === 10 ? 1 : 2}}>
-            <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
-          </Box>
-          <Box>
-            <TabComponente show={value === 30 ? true : false}></TabComponente>
-          </Box>
+        <Box
+          sx={{
+            width: "75vw",
+            height: "77vh",
+          }}
+        >
+          <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
+          <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
+          <TabComponente show={value === 30 ? true : false}></TabComponente>
+          <TabResumen show={value === 50 ? true : false}></TabResumen>
         </Box>
       </Box>
     </Box>

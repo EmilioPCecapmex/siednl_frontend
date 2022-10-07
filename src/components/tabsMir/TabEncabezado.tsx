@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-export function TabEncabezado({show}:{show: boolean}) {
+export function TabEncabezado({ show }: { show: boolean }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
   );
@@ -87,8 +87,6 @@ export function TabEncabezado({show}:{show: boolean}) {
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
 
-
-
   //Values
   const [anioFiscal, setAnioFiscal] = useState("");
   const [institution, setInstitution] = useState("");
@@ -103,8 +101,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   const [beneficiario, setBeneficiario] = useState("");
 
   useEffect(() => {
-    console.log("i:", institution)
-      },[institution])
+  }, [institution]);
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
@@ -325,8 +322,6 @@ export function TabEncabezado({show}:{show: boolean}) {
       });
   };
   const getIdPrograma = (Description: string) => {
-    console.log(Description);
-
     axios
       .get("http://localHost:8000/api/mir-id", {
         params: {
@@ -484,11 +479,10 @@ export function TabEncabezado({show}:{show: boolean}) {
     getBeneficiarios();
   }, []);
 
-
   return (
     <Box
-    visibility={show ? "visible" : "hidden"}
-
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
       sx={{
         width: "75vw",
         height: "77vh",
@@ -502,7 +496,6 @@ export function TabEncabezado({show}:{show: boolean}) {
         gridTemplateColumns: "repeat(3, 1fr)",
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
-      
     >
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <Autocomplete
@@ -530,7 +523,7 @@ export function TabEncabezado({show}:{show: boolean}) {
           height: "10vh",
           border: 1,
           borderRadius: 3,
-          boxShadow: 10,
+          boxShadow: disabledButton ? 4 : 4, //'0px 5px 7px -6px #a5dc86, 0px 5px 15px 3px #a5dc86, 0px 1px 1px 1px #a5dc86'
           borderColor: "#af8c55",
           borderStyle: "dashed",
           display: "flex",
@@ -572,7 +565,11 @@ export function TabEncabezado({show}:{show: boolean}) {
             disabled={disabledButton}
             onClick={submitForm}
             sx={{
-              backgroundColor: "#dbdbdb",
+              backgroundColor: "#b0e2ff8f",
+              color:'black',
+              height:'5vh',
+              width:'10vw',
+              mb:0.5
             }}
           >
             Cargar
@@ -651,7 +648,11 @@ export function TabEncabezado({show}:{show: boolean}) {
           options={catalogoTematicas}
           getOptionLabel={(option) => option.Tematica}
           renderInput={(params) => (
-            <TextField {...params} label={"Temática"} placeholder={tematica}></TextField>
+            <TextField
+              {...params}
+              label={"Temática"}
+              placeholder={tematica}
+            ></TextField>
           )}
           onChange={(event, value) => {
             enCambioTematica(
@@ -672,7 +673,11 @@ export function TabEncabezado({show}:{show: boolean}) {
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo}
           renderInput={(params) => (
-            <TextField {...params} label={"Objetivo"} placeholder={objetivo}></TextField>
+            <TextField
+              {...params}
+              label={"Objetivo"}
+              placeholder={objetivo}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioObjetivo(
@@ -693,7 +698,11 @@ export function TabEncabezado({show}:{show: boolean}) {
           options={catalogoEstrategias}
           getOptionLabel={(option) => option.Estrategia}
           renderInput={(params) => (
-            <TextField {...params} label={"Estrategia"} placeholder={estrategia}></TextField>
+            <TextField
+              {...params}
+              label={"Estrategia"}
+              placeholder={estrategia}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioEstrategia(
@@ -724,7 +733,11 @@ export function TabEncabezado({show}:{show: boolean}) {
           options={catalogoLineasDeAccion}
           getOptionLabel={(option) => option.LineaDeAccion}
           renderInput={(params) => (
-            <TextField {...params} label={"Lineas de Acción"} placeholder={lineaDeAccion[0].LineaDeAccion}/>
+            <TextField
+              {...params}
+              label={"Lineas de Acción"}
+              placeholder={lineaDeAccion[0].LineaDeAccion}
+            />
           )}
           onChange={(event, value) =>
             enCambioLineasDeAccion(
@@ -745,7 +758,11 @@ export function TabEncabezado({show}:{show: boolean}) {
           options={catalogoBeneficiarios}
           getOptionLabel={(option) => option.Beneficiario}
           renderInput={(params) => (
-            <TextField {...params} label={"Beneficiario"} placeholder={beneficiario}></TextField>
+            <TextField
+              {...params}
+              label={"Beneficiario"}
+              placeholder={beneficiario}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioBeneficiario(

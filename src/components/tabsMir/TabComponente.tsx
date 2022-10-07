@@ -9,11 +9,11 @@ import {
   TextField,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 
-export const TabComponente = ({show}:{show: boolean}) => {
+export const TabComponente = ({ show }: { show: boolean }) => {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
 
@@ -63,20 +63,19 @@ export const TabComponente = ({show}:{show: boolean}) => {
     setComponenteValor(array);
   }, []);
 
-  const [componentExpanded, setComponentExpanded] = useState(0)
+  const [componentExpanded, setComponentExpanded] = useState(0);
 
   const [valor, setValor] = useState("");
 
   const cargarArray = () => {
     let arrayComponente = [{ componentes: componenteValor }];
-    
-    console.log(arrayComponente);
   };
   //----------------------------------------------------------------------------------------------
 
   return (
     <Box
-    visibility={show ? "visible" : "hidden"}
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
       sx={{
         display: "flex",
         width: "75vw",
@@ -85,68 +84,122 @@ export const TabComponente = ({show}:{show: boolean}) => {
         alignItems: "center",
         justifyItems: "center",
         backgroundColor: "#fff",
+        boxShadow: 20,
+        borderRadius: 5,
       }}
-      
     >
-      <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-
-        <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "flex-end", mr: "15vw" }}>
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: "",
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            backgroundColor: "",
+            width: "100%",
+            height: "10%",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            mr: "15vw",
+          }}
+        >
           {/* Botones Componentes */}
           <IconButton onClick={() => agregarFnc()}>
             <AddCircleIcon fontSize="large" />
-          </IconButton >
+          </IconButton>
           <IconButton onClick={() => eliminarFnc()}>
             <DoDisturbOnIcon fontSize="large" />
-          </IconButton >
+          </IconButton>
         </Box>
 
-        <Box sx={{
-          width: "95%",
-          height: "90%",
-          backgroundColor: "",
-          pb: 2,
-          pt: 2,
-          borderRight: "solid 1px",
-          overflow: "auto",
-          borderRadius: ".4vw",
-          borderColor: "#BCBCBC",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          "&::-webkit-scrollbar": {
-            width: ".3vw",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "rgba(0,0,0,.5)",
-            outline: "1px solid slategrey",
-            borderRadius: 10,
-
-          },
-        }}>
+        <Box
+          sx={{
+            width: "95%",
+            height: "90%",
+            backgroundColor: "",
+            pb: 2,
+            pt: 2,
+            borderRight: "solid 1px",
+            overflow: "auto",
+            borderRadius: ".4vw",
+            borderColor: "#BCBCBC",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            },
+          }}
+        >
           {/* Render Componentes */}
           {componentes.map((x) => {
             return (
-              <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }} expanded={componentExpanded === x}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => {
-                  let y = componentExpanded === x ? 0 : x
-                  setComponentExpanded(y)
-                }}>
-                  <Typography sx={{ width: "33%", flexShrink: 0, alignItems: "center", justifyContent: "center", display: "flex" }}>
+              <Accordion
+                key={x}
+                sx={{
+                  width: "95%",
+                  display: "flex",
+                  flexDirection: "column",
+                  flexWrap: "wrap",
+                  boxShadow: 4,
+                }}
+                expanded={componentExpanded === x}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  onClick={() => {
+                    let y = componentExpanded === x ? 0 : x;
+                    setComponentExpanded(y);
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      display: "flex",
+                    }}
+                  >
                     Componente {x}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{}}>
-
-                  <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", }}>
-
-                    <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", display: "flex", alignItems: "center" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "100%",
+                      height: "40vh",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: "100%",
+                        height: "50%",
+                        justifyContent: "space-evenly",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
                       <TextField
                         label={"Resumen Narrativo"}
                         onChange={(c) => {
                           componenteValor[x - 1].resumen = c.target.value;
                           cargarArray();
-
                         }}
                       />
                       <TextField
@@ -164,8 +217,15 @@ export const TabComponente = ({show}:{show: boolean}) => {
                         }}
                       />
                     </Box>
-                    <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", display: "flex", alignItems: "center" }}>
-
+                    <Box
+                      sx={{
+                        width: "100%",
+                        height: "50%",
+                        justifyContent: "space-evenly",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
                       <TextField
                         label={"Frecuencia"}
                         onChange={(c) => {
@@ -192,13 +252,10 @@ export const TabComponente = ({show}:{show: boolean}) => {
                   </Box>
                 </AccordionDetails>
               </Accordion>
-
             );
           })}
         </Box>
-
       </Box>
     </Box>
-
   );
 };
