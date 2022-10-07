@@ -15,6 +15,7 @@ import { LateralMenu } from "./components/lateralMenu/LateralMenu";
 import { Prueba } from "./screens/Prueba";
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
+import { TabComponente } from "./components/tabsMir/TabComponente";
 
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
-          <Route path="prueba" element={<Prueba/>}/>
+          <Route path="prueba" element={<TabComponente/>}/>
 
           <Route path="mir" element={<MIR/>}/>
           <Route path="notifications" element={<Notification/>}/>

@@ -26,7 +26,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
-import FullModalMir from "../../components/modalMir/FullModalMir";
+import FullModalMir from "../../components/tabsMir/FullModalMir";
 
 export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
