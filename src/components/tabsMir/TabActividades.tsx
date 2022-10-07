@@ -8,7 +8,6 @@ import {
     IconButton,
     Typography,
     TextField,
-    ButtonGroup,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -18,9 +17,9 @@ import { IComponente } from "./IComponente";
 export const TabActividades = () => {
 
     //return main
-    return (
-        <></>
-        // <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+    return (<></>
+        // <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center",boxShadow: 20,
+        // borderRadius: 5,}}>
 
         //     <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "space-between" }}>
         //         {/* Render seleccionar componente */}
@@ -99,7 +98,11 @@ export const TabActividades = () => {
         //         {componenteActividad[0]["componentes"][parseInt(componenteSelect)].map(
         //             (x) => {
         //                 return (
-                            
+        //                     <AcordeonActividades
+        //                         comp={(parseInt(componenteSelect) + 1).toString()}
+        //                         key={x.toString()}
+        //                         x={x}
+        //                     />
         //                 );
         //             }
         //         )}

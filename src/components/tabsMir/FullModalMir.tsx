@@ -47,63 +47,11 @@ export default function FullModalMir() {
     Array<IComponente>
   >([]);
 
-  const agregarFnc = () => {
-    let v = componentes.length + 1;
-    if (v > 6) {
-    } else {
-      setComponentes([...componentes, v]);
-
-      let array = [...componentes, v].map((x) => {
-        return {
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        };
-      });
-      setComponenteValor(array);
-    }
-  };
-
-  const eliminarFnc = () => {
-    let v = componentes.length - 1;
-    if (v < 2) {
-    } else {
-      setComponentes(componentes.splice(0, v));
-    }
-  };
-
-  const agregarAFnc = (index: number) => {
-    let v = actividades.length + 1;
-    if (v > 6) {
-    } else {
-      setActividades([...actividades, v]);
-
-      let xArray = [...componenteActividad];
-
-      xArray[0]["componentes"][parseInt(componenteSelect)] = [
-        ...actividades,
-        v,
-      ];
-
-      setComponenteActividad(xArray);
-    }
-  };
-
-  const eliminarAFnc = () => {
-    let act = componenteActividad[0]["componentes"][parseInt(componenteSelect)];
-    let v = act.length - 1;
-    if (v < 2) {
-    } else {
-      let xArray = [...componenteActividad];
-
-      xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
-
-      setComponenteActividad(xArray);
-    }
-  };
+  const asignarComponente=( state:[number])=>{
+    setComponentes(state);
+    let a =componentes;
+    console.log(a)
+  }
 
   useEffect(() => {
     let array = componentes.map((x) => {
@@ -136,10 +84,6 @@ export default function FullModalMir() {
 
     return arrayComponente[0].componentes[x - 1].resumen;
   };
-
-  // const changeValor = (x:number, c :string) => {
-  //   setComponenteValor([...componenteValor,[ componenteValor[x-1]]])
-  // }
 
   const [componentExpanded, setComponentExpanded] = useState(0);
   const [focusTextField, setFocusTextField] = useState(2);
@@ -524,7 +468,7 @@ export default function FullModalMir() {
             <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
           </Box>
           <Box>
-            <TabComponente show={value === 30 ? true : false}></TabComponente>
+            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} ></TabComponente>
           </Box>
         </Box>
       </Box>

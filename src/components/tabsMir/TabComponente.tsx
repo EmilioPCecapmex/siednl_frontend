@@ -13,20 +13,20 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import { IComponente } from "./IComponente";
 
-export const TabComponente = ({show}:{show: boolean}) => {
+export const TabComponente = ({show, asignarComponente}:{show: boolean, asignarComponente:Function}) => {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
 
-  const [componenteValor, setComponenteValor] = React.useState<
-    Array<IComponente>
-  >([]);
+  const [componenteValor, setComponenteValor] = React.useState<Array<IComponente>>([]);
+
+  
 
   const agregarFnc = () => {
     let v = componentes.length + 1;
     if (v > 6) {
     } else {
       setComponentes([...componentes, v]);
-
+      asignarComponente([...componentes, v])
       let array = [...componentes, v].map((x) => {
         return {
           resumen: "",
@@ -39,6 +39,7 @@ export const TabComponente = ({show}:{show: boolean}) => {
       });
       setComponenteValor(array);
     }
+    asignarComponente(componentes);
   };
 
   const eliminarFnc = () => {
@@ -47,6 +48,7 @@ export const TabComponente = ({show}:{show: boolean}) => {
     } else {
       setComponentes(componentes.splice(0, v));
     }
+    asignarComponente(componentes);
   };
 
   useEffect(() => {
@@ -60,18 +62,24 @@ export const TabComponente = ({show}:{show: boolean}) => {
         supuestos: "",
       };
     });
+    
     setComponenteValor(array);
+
   }, []);
+
+  
 
   const [componentExpanded, setComponentExpanded] = useState(0)
 
   const [valor, setValor] = useState("");
 
-  const cargarArray = () => {
-    let arrayComponente = [{ componentes: componenteValor }];
-    
-    console.log(arrayComponente);
-  };
+  // const cargarArray = () => {
+  //   let arrayComponente = [{ componentes: componenteValor }];
+  //   let aComponente=componentes;
+  //   let xComponente=componenteValor;
+  //   console.log(aComponente);
+  //   console.log(xComponente);
+  // };
   //----------------------------------------------------------------------------------------------
 
   return (
@@ -106,10 +114,7 @@ export const TabComponente = ({show}:{show: boolean}) => {
           backgroundColor: "",
           pb: 2,
           pt: 2,
-          borderRight: "solid 1px",
           overflow: "auto",
-          borderRadius: ".4vw",
-          borderColor: "#BCBCBC",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
@@ -138,14 +143,15 @@ export const TabComponente = ({show}:{show: boolean}) => {
                 </AccordionSummary>
                 <AccordionDetails sx={{}}>
 
-                  <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", }}>
 
+                  <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", }}>
                     <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", display: "flex", alignItems: "center" }}>
                       <TextField
                         label={"Resumen Narrativo"}
                         onChange={(c) => {
                           componenteValor[x - 1].resumen = c.target.value;
-                          cargarArray();
+                          //cargarArray();
+                          
 
                         }}
                       />
@@ -153,14 +159,14 @@ export const TabComponente = ({show}:{show: boolean}) => {
                         label={"Indicador"}
                         onChange={(c) => {
                           componenteValor[x - 1].indicador = c.target.value;
-                          cargarArray();
+                          
                         }}
                       />
                       <TextField
                         label={"Fórmula"}
                         onChange={(c) => {
                           componenteValor[x - 1].formula = c.target.value;
-                          cargarArray();
+                          
                         }}
                       />
                     </Box>
@@ -170,7 +176,7 @@ export const TabComponente = ({show}:{show: boolean}) => {
                         label={"Frecuencia"}
                         onChange={(c) => {
                           componenteValor[x - 1].frecuencia = c.target.value;
-                          cargarArray();
+                          
                         }}
                       />
                       <TextField
@@ -178,21 +184,21 @@ export const TabComponente = ({show}:{show: boolean}) => {
                         //value={componenteValor[x - 1].medios}
                         onChange={(c) => {
                           componenteValor[x - 1].medios = c.target.value;
-                          cargarArray();
+                          
                         }}
                       />
                       <TextField
                         label={"Supuestos"}
                         onChange={(c) => {
                           componenteValor[x - 1].supuestos = c.target.value;
-                          cargarArray();
+                          
                         }}
                       />
                     </Box>
                   </Box>
                 </AccordionDetails>
               </Accordion>
-
+             
             );
           })}
         </Box>
