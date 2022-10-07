@@ -44,6 +44,7 @@ import MuiAccordionSummary, {
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import { IComponente } from "./IComponente";
+import { TabComponente } from "./TabComponente";
 
 export default function FullModalMir() {
   //arrays
@@ -583,32 +584,39 @@ export default function FullModalMir() {
     ];
     console.log(arrayComponente);
   };
-  
-  const obtenerValor=( x:number)=>{
+
+  const obtenerValor = (x: number) => {
     let arrayComponente = [
       {
         componentes: componenteValor,
       },
     ];
 
-    return (arrayComponente[0].componentes[x-1].resumen);
+    return (arrayComponente[0].componentes[x - 1].resumen);
   };
-  
-    
-    // const changeValor = (x:number, c :string) => {
-    //   setComponenteValor([...componenteValor,[ componenteValor[x-1]]])
-    // }
 
-    const [componentExpanded, setComponentExpanded] = useState(0)
-  
+
+  // const changeValor = (x:number, c :string) => {
+  //   setComponenteValor([...componenteValor,[ componenteValor[x-1]]])
+  // }
+
+  const [componentExpanded, setComponentExpanded] = useState(0)
+  const [focusTextField, setFocusTextField] = useState(2)
+
+  const GuardarComponente = (x: number) => {
+
+    setComponenteValor([...componenteValor, componenteValor[x - 1]]);
+
+  }
+
   const AcordeonComponentes = ({ x }: { x: number }) => {
     return (
-      <Accordion  sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }} expanded={componentExpanded === x}>
+      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }} expanded={componentExpanded === x}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => {
-        let y = componentExpanded == x ? 0 : x
-        setComponentExpanded(y)
-      }}>
-          <Typography sx={{ width: "33%", flexShrink: 0 , alignItems:"center", justifyContent:"center", display:"flex"}}>
+          let y = componentExpanded == x ? 0 : x
+          setComponentExpanded(y)
+        }}>
+          <Typography sx={{ width: "33%", flexShrink: 0, alignItems: "center", justifyContent: "center", display: "flex" }}>
             Componente {x}
           </Typography>
         </AccordionSummary>
@@ -623,11 +631,13 @@ export default function FullModalMir() {
                 multiline
                 rows={5}
                 label={"Resumen Narrativo"}
-                // value={()=>{
-                //   obtenerValor(x)
-                // }}
-
-                //onChange={ (c) => setComponenteValor([...componenteValor,componenteValor[x-1].resumen=c.target.value]) }
+                autoFocus
+                value={componenteValor[x - 1].resumen}
+                onChange={(c) => {
+                  componenteValor[x - 1].resumen = c.target.value;
+                  setComponenteValor([...componenteValor, componenteValor[x - 1]]);
+                  //setFocusTextField(1);
+                }}
               />
               <TextField
                 sx={{ with: "30%", maxWidth: '30%' }}
@@ -635,11 +645,110 @@ export default function FullModalMir() {
                 multiline
                 rows={5}
                 label={"Indicador"}
-                //value={componenteValor[x - 1].indicador}
+                placeholder={componenteValor[x - 1].indicador}
+                //autoFocus={focusTextField === 1 ? true:false}
+                value={componenteValor[x - 1].indicador}
                 onChange={(c) => {
                   componenteValor[x - 1].indicador = c.target.value;
-                  //setComponenteValor([...componenteValor,componenteValor[x-1]]);
-                  
+                  setComponenteValor([...componenteValor, componenteValor[x - 1]]);
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                value={componenteValor[x - 1].formula}
+                label={"Fórmula"}
+                onChange={(c) => {
+                  componenteValor[x - 1].formula = c.target.value;
+                  setComponenteValor([...componenteValor, componenteValor[x - 1]]);
+
+                }}
+              />
+            </Box>
+            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
+
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+
+                label={"Frecuencia"}
+                value={componenteValor[x - 1].frecuencia}
+                onChange={(c) => {
+                  componenteValor[x - 1].frecuencia = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Medios de Verificación"}
+                value={componenteValor[x - 1].medios}
+                onChange={(c) => {
+                  componenteValor[x - 1].medios = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Supuestos"}
+                value={componenteValor[x - 1].supuestos}
+                onChange={(c) => {
+                  componenteValor[x - 1].supuestos = c.target.value;
+                  cargarArray();
+                }}
+              />
+            </Box>
+
+
+          </Box>
+          <Box >
+            <Button> Guardar</Button>
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+    );
+  };
+
+  const AcordeonActividades = ({ x, comp }: { x: number; comp: string }) => {
+    return (
+      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }} >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography sx={{ width: "33%", flexShrink: 0, height: "5vh", alignItems: "center", justifyContent: "center", display: "flex" }}>
+            Actividad {x} - Componente {comp}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", backgroundColor: "", }}>
+            <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", display: "flex", alignItems: "center" }}>
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Resumen Narrativo"}
+                onChange={(c) => {
+                  componenteValor[x - 1].resumen = c.target.value;
+                  cargarArray();
+                }}
+              />
+              <TextField
+                sx={{ with: "30%", maxWidth: '30%' }}
+                fullWidth
+                multiline
+                rows={5}
+                label={"Indicador"}
+                onChange={(c) => {
+                  componenteValor[x - 1].indicador = c.target.value;
+                  cargarArray();
                 }}
               />
               <TextField
@@ -650,12 +759,12 @@ export default function FullModalMir() {
                 label={"Fórmula"}
                 onChange={(c) => {
                   componenteValor[x - 1].formula = c.target.value;
-                 
+                  cargarArray();
                 }}
               />
+
             </Box>
             <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
-
               <TextField
                 sx={{ with: "30%", maxWidth: '30%' }}
                 fullWidth
@@ -690,95 +799,6 @@ export default function FullModalMir() {
                 }}
               />
             </Box>
-
-
-          </Box>
-        </AccordionDetails>
-      </Accordion>
-    );
-  };
-
-  const AcordeonActividades = ({ x, comp }: { x: number; comp: string }) => {
-    return (
-      <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap",  boxShadow: 4}} >
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography sx={{ width: "33%", flexShrink: 0 ,height:"5vh", alignItems:"center", justifyContent:"center", display:"flex"}}>
-            Actividad {x} - Componente {comp}
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-        <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", backgroundColor: "", }}>
-          <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly",  display: "flex", alignItems: "center" }}>
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Resumen Narrativo"}
-              onChange={(c) => {
-                componenteValor[x - 1].resumen = c.target.value;
-                cargarArray();
-              }}
-            />
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Indicador"}
-              onChange={(c) => {
-                componenteValor[x - 1].indicador = c.target.value;
-                cargarArray();
-              }}
-            />
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Fórmula"}
-              onChange={(c) => {
-                componenteValor[x - 1].formula = c.target.value;
-                cargarArray();
-              }}
-            />
-
-          </Box>
-          <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", backgroundColor: "", display: "flex", alignItems: "center" }}>
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Frecuencia"}
-              onChange={(c) => {
-                componenteValor[x - 1].frecuencia = c.target.value;
-                cargarArray();
-              }}
-            />
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Medios de Verificación"}
-              onChange={(c) => {
-                componenteValor[x - 1].medios = c.target.value;
-                cargarArray();
-              }}
-            />
-            <TextField
-              sx={{ with: "30%", maxWidth: '30%' }}
-              fullWidth
-              multiline
-              rows={5}
-              label={"Supuestos"}
-              onChange={(c) => {
-                componenteValor[x - 1].supuestos = c.target.value;
-                cargarArray();
-              }}
-            />
-          </Box>
 
           </Box>
         </AccordionDetails>
@@ -930,7 +950,7 @@ export default function FullModalMir() {
               >
                 {nombreArchivo}
               </Typography>
-              
+
               <TextField
                 type="file"
                 onChange={(v) =>
@@ -1148,52 +1168,7 @@ export default function FullModalMir() {
               backgroundColor: "#fff",
             }}
           >
-            <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-
-              <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "flex-end", mr: "15vw" }}>
-                {/* Botones Componentes */}
-                <IconButton onClick={() => agregarFnc()}>
-                  <AddCircleIcon fontSize="large" />
-
-                </IconButton >
-
-
-                <IconButton onClick={() => eliminarFnc()}>
-                  <DoDisturbOnIcon fontSize="large" />
-                </IconButton >
-              </Box>
-
-              <Box sx={{
-                width: "95%",
-                height: "90%",
-                backgroundColor: "",
-                pb: 2,
-                pt: 2,
-                borderRight: "solid 1px",
-                overflow: "auto",
-                borderRadius: ".4vw",
-                borderColor: "#BCBCBC",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                "&::-webkit-scrollbar": {
-                  width: ".3vw",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "rgba(0,0,0,.5)",
-                  outline: "1px solid slategrey",
-                  borderRadius: 10,
-
-                },
-              }}>
-                {/* Render Componentes */}
-                {componentes.map((x) => {
-                  return <AcordeonComponentes key={x} x={x} />;
-                })}
-              </Box>
-
-            </Box>
+            <TabComponente></TabComponente>
           </Box>
         ) : null}
         {value === 40 ? (
@@ -1248,7 +1223,7 @@ export default function FullModalMir() {
 
                 </Box >
 
-                <Box sx={{ display: "flex", mr: "9vw"}}>
+                <Box sx={{ display: "flex", mr: "9vw" }}>
                   <IconButton onClick={() => { agregarAFnc(parseInt(componenteSelect)); }}>
                     <AddCircleIcon fontSize="large" />
                   </IconButton >
