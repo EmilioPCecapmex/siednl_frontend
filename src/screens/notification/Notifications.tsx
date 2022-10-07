@@ -422,6 +422,7 @@ export const Notification = () => {
                   display: "flex",
                   alignItems: "center",
                   height: "3vh",
+                  backgroundColor: '#E7E7E7'
                 }}
               >
                 <Typography
