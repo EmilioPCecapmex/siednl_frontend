@@ -21,7 +21,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   }
   function enCambioInstitucion(Id: string, Inst: string) {
     setInstitution(Inst);
-    setPrograma("Programa Presupuestario");
+    setPrograma("");
     getProgramas(Id);
     setDisabledProgramas(false);
   }
@@ -30,36 +30,36 @@ export function TabEncabezado({show}:{show: boolean}) {
   }
   function enCambioEje(Id: string, Eje: string) {
     setEje(Eje);
-    setTematica("Temática");
+    setTematica("");
     setDisabledObjetivos(true);
-    setObjetivo("Objetivo");
+    setObjetivo("");
     setDisabledEstrategias(true);
-    setEstrategia("Estrategia");
+    setEstrategia("");
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
+    setLineaDeAccion([{ Id: "", LineaDeAccion: "" }]);
     getTematicas(Id);
     setDisabledTematicas(false);
   }
   function enCambioTematica(Id: string, Tematica: string) {
     setTematica(Tematica);
-    setObjetivo("Objetivo");
+    setObjetivo("");
     setDisabledEstrategias(true);
-    setEstrategia("Estrategia");
+    setEstrategia("");
     setDisabledLineasDeAccion(true);
     getObjetivos(Id);
     setDisabledObjetivos(false);
   }
   function enCambioObjetivo(Id: string, Objetivo: string) {
     setObjetivo(Objetivo);
-    setEstrategia("Estrategia");
+    setEstrategia("");
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
+    setLineaDeAccion([{ Id: "", LineaDeAccion: "" }]);
     getEstrategias(Id);
     setDisabledEstrategias(false);
   }
   function enCambioEstrategia(Id: string, Estrategia: string) {
     setEstrategia(Estrategia);
-    setLineaDeAccion([{ Id: "", LineaDeAccion: "Lineas de Acción" }]);
+    setLineaDeAccion([{ Id: "", LineaDeAccion: "" }]);
     getLineasDeAccion(Id);
     setDisabledLineasDeAccion(false);
   }
@@ -90,17 +90,17 @@ export function TabEncabezado({show}:{show: boolean}) {
 
 
   //Values
-  const [anioFiscal, setAnioFiscal] = useState("Ejercicio Fiscal");
+  const [anioFiscal, setAnioFiscal] = useState("");
   const [institution, setInstitution] = useState("");
-  const [programa, setPrograma] = useState("Programa Presupuestario");
-  const [eje, setEje] = useState("Eje");
-  const [tematica, setTematica] = useState("Temática");
-  const [objetivo, setObjetivo] = useState("Objetivo");
-  const [estrategia, setEstrategia] = useState("Estrategia");
+  const [programa, setPrograma] = useState("");
+  const [eje, setEje] = useState("");
+  const [tematica, setTematica] = useState("");
+  const [objetivo, setObjetivo] = useState("");
+  const [estrategia, setEstrategia] = useState("");
   const [lineaDeAccion, setLineaDeAccion] = useState([
-    { Id: "", LineaDeAccion: "Lineas de Accion" },
+    { Id: "", LineaDeAccion: "" },
   ]);
-  const [beneficiario, setBeneficiario] = useState("Beneficiario");
+  const [beneficiario, setBeneficiario] = useState("");
 
   useEffect(() => {
     console.log("i:", institution)
@@ -612,6 +612,7 @@ export function TabEncabezado({show}:{show: boolean}) {
             <TextField
               {...params}
               label={"Programa"}
+              value={programa}
               placeholder={programa}
             ></TextField>
           )}
