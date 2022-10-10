@@ -78,7 +78,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
       <TextField
         label={"Fórmula"}
         onChange={(c) => {
-          console.log(c.target.value);
+          // console.log(c.target.value);
 
           valor[0].formula = c.target.value;
           cargarArray();
@@ -132,7 +132,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
       <TextField
         label={"Fórmula"}
         onChange={(c) => {
-          console.log(c.target.value);
+          // console.log(c.target.value);
 
           valor[1].formula = c.target.value;
           cargarArray();

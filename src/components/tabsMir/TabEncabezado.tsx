@@ -158,7 +158,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
         },
       })
       .then((r) => {
-        console.log(r.data.data);
+        // console.log(r.data.data);
         
         setCatalogoAniosFiscales(r.data.data);
       });

@@ -21,7 +21,7 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
 
   useEffect(() => {
     asignarComponente(componentes);
-    console.log(componentes)
+    // console.log(componentes)
   }, [componentes]);
 
   const asignarCV=()=>{
@@ -80,7 +80,7 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
     let arrayComponente = [{ componentes: componenteValor }];
     let xComponente=componenteValor;
     //console.log(aComponente);
-    console.log(xComponente);
+    // console.log(xComponente);
   };
   //----------------------------------------------------------------------------------------------
   return (
