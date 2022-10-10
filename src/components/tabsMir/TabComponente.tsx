@@ -75,7 +75,7 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
   }, []);
 
   const [componentExpanded, setComponentExpanded] = useState(0)
-  const [valor, setValor] = useState("");
+ 
   const cargarArray = () => {
     let arrayComponente = [{ componentes: componenteValor }];
     let xComponente=componenteValor;
@@ -152,7 +152,6 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
                         label={"Resumen Narrativo"}
                         onChange={(c) => {
                           componenteValor[x - 1].resumen = c.target.value;
-                          
                           asignarCV();
                         }}
                       />
@@ -160,14 +159,14 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
                         label={"Indicador"}
                         onChange={(c) => {
                           componenteValor[x - 1].indicador = c.target.value;
-                          
+                          asignarCV();
                         }}
                       />
                       <TextField
                         label={"Fórmula"}
                         onChange={(c) => {
                           componenteValor[x - 1].formula = c.target.value;
-                          
+                          asignarCV();
                         }}
                       />
                     </Box>
@@ -177,7 +176,7 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
                         label={"Frecuencia"}
                         onChange={(c) => {
                           componenteValor[x - 1].frecuencia = c.target.value;
-                          
+                          asignarCV();
                         }}
                       />
                       <TextField
@@ -185,14 +184,14 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
                         //value={componenteValor[x - 1].medios}
                         onChange={(c) => {
                           componenteValor[x - 1].medios = c.target.value;
-                          
+                          asignarCV();
                         }}
                       />
                       <TextField
                         label={"Supuestos"}
                         onChange={(c) => {
                           componenteValor[x - 1].supuestos = c.target.value;
-                          
+                          asignarCV();
                         }}
                       />
                     </Box>

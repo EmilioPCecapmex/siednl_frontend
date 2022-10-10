@@ -31,6 +31,7 @@ export default function FullModalMir() {
 
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
+  
   const [actividades, setActividades] = React.useState([1, 2]);
 
   const [componenteActividad, setComponenteActividad] = React.useState([
@@ -95,9 +96,7 @@ export default function FullModalMir() {
   const [componentExpanded, setComponentExpanded] = useState(0);
   const [focusTextField, setFocusTextField] = useState(2);
 
-  const GuardarComponente = (x: number) => {
-    setComponenteValor([...componenteValor, componenteValor[x - 1]]);
-  };
+
   //----------------------------------------------------------------------------------------------
   return (
     <Box
@@ -191,7 +190,7 @@ export default function FullModalMir() {
             <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           </Box>
           <Box>
-          <TabActividades show={value === 40 ? true : false} componentesX={componentes}></TabActividades>
+          <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
           </Box>
         </Box>
       </Box>

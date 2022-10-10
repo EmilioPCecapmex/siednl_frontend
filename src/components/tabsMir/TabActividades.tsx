@@ -15,18 +15,18 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import { IComponente } from "./IComponente";
 //funcion main
-    export const TabActividades = ({ show, componentesX }: { show: boolean, componentesX: number[]}) => {
+export const TabActividades = ({ show, componentes }: { show: boolean, componentes: number[] }) => {
     // business logic-------------------------------------------------------------------------------
     const [actividades, setActividades] = React.useState([1, 2]);
 
     const [componenteActividad, setComponenteActividad] = React.useState([
         {
-            componentes: componentesX.map((x) => actividades)
+            componentes: componentes.map((x) => actividades)
         },
     ]);
 
     const [ActividadValor, setActividadValor] = React.useState<
-        Array<IComponente>
+       Array< Array<IComponente>>
     >([]);
 
     const agregarAFnc = (index: number) => {
@@ -63,7 +63,7 @@ import { IComponente } from "./IComponente";
     };
 
     useEffect(() => {
-        let array = componentesX.map((x) => {
+        let array = componenteActividad.map((x) => {
             return {
                 resumen: "",
                 indicador: "",
@@ -109,7 +109,7 @@ import { IComponente } from "./IComponente";
                 }}
                 >
                     <ButtonGroup variant="text" sx={{}}>
-                        {componentesX.map((x) => {
+                        {componentes.map((x) => {
                             return (
                                 <Button
                                     key={x}
@@ -132,6 +132,7 @@ import { IComponente } from "./IComponente";
                     </ButtonGroup>
 
                 </Box >
+
 
                 <Box sx={{ display: "flex", mr: "9vw" }}>
                     <IconButton onClick={() => { agregarAFnc(parseInt(componenteSelect)); }}>
@@ -188,6 +189,7 @@ import { IComponente } from "./IComponente";
                                             />
                                             <TextField
                                                 label={"Indicador"}
+                                                rows={5}
                                                 onChange={(c) => {
                                                     ActividadValor[x - 1].indicador = c.target.value;
                                                     cargarArray();
