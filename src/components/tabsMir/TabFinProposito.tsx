@@ -19,24 +19,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
   const cargarArray = () => {
     let arrayComponente = [{ componentes: valor }];
   };
-
-  const agregarFnc = () => {
-    let v = componentes.length;
-    setComponentes([...componentes, v]);
-
-    let array = [...componentes, v].map((x) => {
-      return {
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    });
-    setValor(array);
-  };
-
+  
   useEffect(() => {
     let array = componentes.map((x) => {
       return {
