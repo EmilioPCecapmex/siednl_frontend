@@ -13,13 +13,20 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import { IComponente } from "./IComponente";
 
-export const TabComponente = ({show, asignarComponente}:{show: boolean, asignarComponente:Function}) => {
+export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:{show: boolean, asignarComponente:Function, asignarComponenteValor:Function}) => {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
 
   const [componenteValor, setComponenteValor] = React.useState<Array<IComponente>>([]);
 
-  
+  useEffect(() => {
+    asignarComponente(componentes);
+    console.log(componentes)
+  }, [componentes]);
+
+  const asignarCV=()=>{
+    asignarComponenteValor(componenteValor);
+  }
 
   const agregarFnc = () => {
     let v = componentes.length + 1;
@@ -67,24 +74,19 @@ export const TabComponente = ({show, asignarComponente}:{show: boolean, asignarC
 
   }, []);
 
-  
-
   const [componentExpanded, setComponentExpanded] = useState(0)
-
   const [valor, setValor] = useState("");
-
-  // const cargarArray = () => {
-  //   let arrayComponente = [{ componentes: componenteValor }];
-  //   let aComponente=componentes;
-  //   let xComponente=componenteValor;
-  //   console.log(aComponente);
-  //   console.log(xComponente);
-  // };
+  const cargarArray = () => {
+    let arrayComponente = [{ componentes: componenteValor }];
+    let xComponente=componenteValor;
+    //console.log(aComponente);
+    console.log(xComponente);
+  };
   //----------------------------------------------------------------------------------------------
-
   return (
     <Box
     visibility={show ? "visible" : "hidden"}
+    position="absolute"
       sx={{
         display: "flex",
         width: "75vw",
@@ -150,9 +152,8 @@ export const TabComponente = ({show, asignarComponente}:{show: boolean, asignarC
                         label={"Resumen Narrativo"}
                         onChange={(c) => {
                           componenteValor[x - 1].resumen = c.target.value;
-                          //cargarArray();
                           
-
+                          asignarCV();
                         }}
                       />
                       <TextField
