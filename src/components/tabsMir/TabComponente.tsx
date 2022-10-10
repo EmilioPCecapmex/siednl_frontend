@@ -9,8 +9,8 @@ import {
   TextField,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 
 export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:{show: boolean, asignarComponente:Function, asignarComponenteValor:Function}) => {
@@ -95,19 +95,39 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
         alignItems: "center",
         justifyItems: "center",
         backgroundColor: "#fff",
+        boxShadow: 20,
+        borderRadius: 5,
       }}
-      
     >
-      <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "100%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-
-        <Box sx={{ display: "flex", backgroundColor: "", width: "100%", height: "10%", alignItems: "center", justifyContent: "flex-end", mr: "15vw" }}>
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: "",
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            backgroundColor: "",
+            width: "100%",
+            height: "10%",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            mr: "15vw",
+          }}
+        >
           {/* Botones Componentes */}
           <IconButton onClick={() => agregarFnc()}>
             <AddCircleIcon fontSize="large" />
-          </IconButton >
+          </IconButton>
           <IconButton onClick={() => eliminarFnc()}>
             <DoDisturbOnIcon fontSize="large" />
-          </IconButton >
+          </IconButton>
         </Box>
 
         <Box sx={{
@@ -134,12 +154,33 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
           {/* Render Componentes */}
           {componentes.map((x) => {
             return (
-              <Accordion sx={{ width: "95%", display: "flex", flexDirection: "column", flexWrap: "wrap", boxShadow: 4 }} expanded={componentExpanded === x}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => {
-                  let y = componentExpanded === x ? 0 : x
-                  setComponentExpanded(y)
-                }}>
-                  <Typography sx={{ width: "33%", flexShrink: 0, alignItems: "center", justifyContent: "center", display: "flex" }}>
+              <Accordion
+                key={x}
+                sx={{
+                  width: "95%",
+                  display: "flex",
+                  flexDirection: "column",
+                  flexWrap: "wrap",
+                  boxShadow: 4,
+                }}
+                expanded={componentExpanded === x}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  onClick={() => {
+                    let y = componentExpanded === x ? 0 : x;
+                    setComponentExpanded(y);
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      display: "flex",
+                    }}
+                  >
                     Componente {x}
                   </Typography>
                 </AccordionSummary>
@@ -170,8 +211,15 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
                         }}
                       />
                     </Box>
-                    <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", display: "flex", alignItems: "center" }}>
-
+                    <Box
+                      sx={{
+                        width: "100%",
+                        height: "50%",
+                        justifyContent: "space-evenly",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
                       <TextField
                         label={"Frecuencia"}
                         onChange={(c) => {
@@ -202,9 +250,7 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
             );
           })}
         </Box>
-
       </Box>
     </Box>
-
   );
 };

@@ -1,101 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-
 import {
-  TextField,
   Box,
-  Typography,
-  IconButton,
-  Button,
-  ButtonGroup,
 } from "@mui/material";
-import { IComponente } from "./IComponente";
 import TabEncabezado from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
-import { TabActividades } from "./TabActividades";
+import TabFinProposito from "./TabFinProposito";
+import TabResumen from "./TabResumen";
 
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
-
-  const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [expandedActividades, setExpandedActividades] = React.useState<
-    string | false
-  >(false);
-
-  
-
-  // business logic-------------------------------------------------------------------------------
-  const [componentes, setComponentes] = React.useState([1, 2]);
-  
-  const [actividades, setActividades] = React.useState([1, 2]);
-
-  const [componenteActividad, setComponenteActividad] = React.useState([
-    {
-      componentes: componentes.map((x) => actividades),
-    },
-  ]);
-
-  const [componenteValor, setComponenteValor] = React.useState<
-    Array<IComponente>
-  >([]);
-
-  const asignarComponente=( state:[])=>{
-    setComponentes(state);
-    let a =componentes;
-    //console.log(a)
-  }
-  const asignarComponenteValor=( state:Array<IComponente>)=>{
-    setComponenteValor(state);
-    let a =componenteValor;
-    console.log(a)
-  }
-
-  function obtenerComponentes (params:any){
-    return params;
-  }
-
-
-
-  useEffect(() => {
-    let array = componentes.map((x) => {
-      return {
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    });
-    setComponenteValor(array);
-  }, []);
-
-  const cargarArray = () => {
-    let arrayComponente = [
-      {
-        componentes: componenteValor,
-      },
-    ];
-  };
-
-  const obtenerValor = (x: number) => {
-    let arrayComponente = [
-      {
-        componentes: componenteValor,
-      },
-    ];
-
-    return arrayComponente[0].componentes[x - 1].resumen;
-  };
-
-  const [componentExpanded, setComponentExpanded] = useState(0);
-  const [focusTextField, setFocusTextField] = useState(2);
-
 
   //----------------------------------------------------------------------------------------------
   return (
@@ -103,7 +22,7 @@ export default function FullModalMir() {
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
-        width: "87%",
+        width: "100%",
         height: "92%",
         mt: "8vh",
       }}
@@ -122,7 +41,6 @@ export default function FullModalMir() {
           <Tabs
             value={value}
             onChange={handleChange}
-            aria-label="basic tabs"
             textColor="inherit"
             sx={{
               backgroundColor: "#fff",
@@ -182,16 +100,16 @@ export default function FullModalMir() {
           </Tabs>
         </Box>
 
-        <Box sx={{ display: "grid" }}>
-          <Box sx={{gridRow: value === 10 ? 1 : 3}}>
-            <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
-          </Box>
-          <Box>
-            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
-          </Box>
-          <Box>
-          <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
-          </Box>
+        <Box
+          sx={{
+            width: "75vw",
+            height: "77vh",
+          }}
+        >
+          <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
+          <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
+          <TabComponente show={value === 30 ? true : false}></TabComponente>
+          <TabResumen show={value === 50 ? true : false}></TabResumen>
         </Box>
       </Box>
     </Box>

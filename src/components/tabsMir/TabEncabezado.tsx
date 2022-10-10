@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-export function TabEncabezado({show}:{show: boolean}) {
+export function TabEncabezado({ show }: { show: boolean }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
   );
@@ -87,8 +87,6 @@ export function TabEncabezado({show}:{show: boolean}) {
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
 
-
-
   //Values
   const [anioFiscal, setAnioFiscal] = useState("");
   const [institution, setInstitution] = useState("");
@@ -97,40 +95,38 @@ export function TabEncabezado({show}:{show: boolean}) {
   const [tematica, setTematica] = useState("");
   const [objetivo, setObjetivo] = useState("");
   const [estrategia, setEstrategia] = useState("");
-  const [lineaDeAccion, setLineaDeAccion] = useState([
-    { Id: "", LineaDeAccion: "" },
-  ]);
+  const [lineaDeAccion, setLineaDeAccion] = useState([{ Id: "", LineaDeAccion: "" }]);
   const [beneficiario, setBeneficiario] = useState("");
 
-  useEffect(() => {
-    console.log("i:", institution)
-      },[institution])
+  useEffect(() => {}, [institution]);
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
-    { Id: "", AnioFiscal: "" },
+    { Id: "", AnioFiscal: anioFiscal},
   ]);
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
-    { Id: "", NombreInstitucion: "" },
+    { Id: "", NombreInstitucion: institution },
   ]);
   const [catalogoProgramas, setCatalogoProgramas] = useState([
-    { Id: "", NombrePrograma: "" },
+    { Id: "", NombrePrograma: programa},
   ]);
-  const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "", Eje: "" }]);
+  const [catalogoEjes, setCatalogoEjes] = useState([
+    { Id: "", Eje: eje },
+  ]);
   const [catalogoTematicas, setCatalogoTematicas] = useState([
-    { IdTematica: "", Tematica: "" },
+    { IdTematica: "", Tematica: tematica  },
   ]);
   const [catalogoObjetivos, setCatalogoObjetivos] = useState([
-    { IdObjetivo: "", Objetivo: "" },
+    { IdObjetivo: "", Objetivo: objetivo},
   ]);
   const [catalogoEstrategias, setCatalogoEstrategias] = useState([
-    { IdEstrategia: "", Estrategia: "" },
+    { IdEstrategia: "", Estrategia: estrategia  },
   ]);
   const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState([
     { IdLineasdeAccion: "", LineaDeAccion: "" },
   ]);
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
-    { Id: "", Beneficiario: "" },
+    { Id: "", Beneficiario: beneficiario  },
   ]);
 
   //Alerta de archivo incorrecto
@@ -162,6 +158,8 @@ export function TabEncabezado({show}:{show: boolean}) {
         },
       })
       .then((r) => {
+        console.log(r.data.data);
+        
         setCatalogoAniosFiscales(r.data.data);
       });
   };
@@ -193,7 +191,6 @@ export function TabEncabezado({show}:{show: boolean}) {
         setCatalogoProgramas(r.data.data);
       })
       .catch((err) => {
-        setPrograma("Institucion sin programas asignados");
         setDisabledProgramas(true);
       });
   };
@@ -227,7 +224,6 @@ export function TabEncabezado({show}:{show: boolean}) {
         setCatalogoTematicas(r.data.data);
       })
       .catch((err) => {
-        setTematica("Eje sin temáticas asignadas");
         setDisabledTematicas(true);
       });
   };
@@ -246,7 +242,6 @@ export function TabEncabezado({show}:{show: boolean}) {
         setCatalogoObjetivos(r.data.data);
       })
       .catch((err) => {
-        setObjetivo("Tematica sin objetivos asignados");
         setDisabledObjetivos(true);
       });
   };
@@ -265,7 +260,6 @@ export function TabEncabezado({show}:{show: boolean}) {
         setCatalogoEstrategias(r.data.data);
       })
       .catch((err) => {
-        setEstrategia("Objetivo sin estrategias asignadas");
         setDisabledEstrategias(true);
       });
   };
@@ -284,12 +278,6 @@ export function TabEncabezado({show}:{show: boolean}) {
         setCatalogoLineasDeAccion(r.data.data);
       })
       .catch((err) => {
-        setLineaDeAccion([
-          {
-            Id: "",
-            LineaDeAccion: "Estrategia sin Lineas de acción asignadas",
-          },
-        ]);
         setDisabledLineasDeAccion(true);
       });
   };
@@ -308,7 +296,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   //Obtener Id de la descripción extraida de la MIR
   const getIdInstitucion = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Instituciones",
           Descripcion: Description,
@@ -325,10 +313,8 @@ export function TabEncabezado({show}:{show: boolean}) {
       });
   };
   const getIdPrograma = (Description: string) => {
-    console.log(Description);
-
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Programas",
           Descripcion: Description,
@@ -343,7 +329,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   };
   const getIdEje = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Ejes",
           Descripcion: Description,
@@ -360,7 +346,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   };
   const getIdTematica = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Temáticas",
           Descripcion: Description,
@@ -377,7 +363,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   };
   const getIdObjetivo = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Objetivos",
           Descripcion: Description,
@@ -394,7 +380,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   };
   const getIdEstrategia = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Estrategias",
           Descripcion: Description,
@@ -411,7 +397,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   };
   const getIdLineaDeAccion = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Lineas de Acción",
           Descripcion: Description,
@@ -431,7 +417,7 @@ export function TabEncabezado({show}:{show: boolean}) {
   };
   const getIdBeneficiario = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Beneficiarios",
           Descripcion: Description,
@@ -484,11 +470,10 @@ export function TabEncabezado({show}:{show: boolean}) {
     getBeneficiarios();
   }, []);
 
-
   return (
     <Box
-    visibility={show ? "visible" : "hidden"}
-
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
       sx={{
         width: "75vw",
         height: "77vh",
@@ -502,14 +487,29 @@ export function TabEncabezado({show}:{show: boolean}) {
         gridTemplateColumns: "repeat(3, 1fr)",
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
-      
     >
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
+        
         <Autocomplete
           disablePortal
           sx={{ boxShadow: 5 }}
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
+          getOptionDisabled={(option) => {
+            if(option.Id === '0'){
+              return true;
+            }
+            return false;
+          }}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.Id}>
+                <p style={{fontFamily: 'MontserratSemiBold'}}>
+                {option.AnioFiscal}
+                </p>
+              </li>
+            )
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -518,11 +518,16 @@ export function TabEncabezado({show}:{show: boolean}) {
             ></TextField>
           )}
           onChange={(event, value) =>
-            enCambioAnio(value?.Id as string, value?.AnioFiscal as string)
+            enCambioAnio(
+              value?.Id as string,
+              (value?.AnioFiscal as string) || ""
+            )
           }
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
+          value={{ Id: '0', AnioFiscal: 'Selecciona' }}
+          isOptionEqualToValue={(option, value) => option.AnioFiscal === value.AnioFiscal}
         />
       </FormControl>
+
       <Box
         sx={{
           gridColumn: "2/4",
@@ -530,7 +535,7 @@ export function TabEncabezado({show}:{show: boolean}) {
           height: "10vh",
           border: 1,
           borderRadius: 3,
-          boxShadow: 10,
+          boxShadow: disabledButton ? 4 : 4, //'0px 5px 7px -6px #a5dc86, 0px 5px 15px 3px #a5dc86, 0px 1px 1px 1px #a5dc86'
           borderColor: "#af8c55",
           borderStyle: "dashed",
           display: "flex",
@@ -572,7 +577,11 @@ export function TabEncabezado({show}:{show: boolean}) {
             disabled={disabledButton}
             onClick={submitForm}
             sx={{
-              backgroundColor: "#dbdbdb",
+              backgroundColor: "#b0e2ff8f",
+              color: "black",
+              height: "5vh",
+              width: "10vw",
+              mb: 0.5,
             }}
           >
             Cargar
@@ -586,20 +595,36 @@ export function TabEncabezado({show}:{show: boolean}) {
           sx={{ boxShadow: 4 }}
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion}
+          // getOptionDisabled={(option) => {
+          //   if(option.Id === '0'){
+          //     return true;
+          //   }
+          //   return false;
+          // }}
+          // renderOption={(props, option) => {
+          //   return (
+          //     <li {...props} key={option.Id}>
+          //       <p style={{fontFamily: 'MontserratSemiBold'}}>
+          //       {option.NombreInstitucion}
+          //       </p>
+          //     </li>
+          //   )
+          // }}
           renderInput={(params) => (
             <TextField
               {...params}
               placeholder={institution}
-              value={institution}
               label={"Institución"}
             ></TextField>
           )}
           onChange={(event, value) =>
             enCambioInstitucion(
               value?.Id as string,
-              value?.NombreInstitucion as string
+              (value?.NombreInstitucion as string) || ''
             )
           }
+          defaultValue={{ Id: "0", NombreInstitucion: institution}}
+          value={{ Id: "0", NombreInstitucion: institution }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -610,20 +635,36 @@ export function TabEncabezado({show}:{show: boolean}) {
           sx={{ boxShadow: disabledProgramas ? 0 : 4 }}
           options={catalogoProgramas}
           getOptionLabel={(option) => option.NombrePrograma}
+          // getOptionDisabled={(option) => {
+          //   if(option.Id === '0'){
+          //     return true;
+          //   }
+          //   return false;
+          // }}
+          // renderOption={(props, option) => {
+          //   return (
+          //     <li {...props} key={option.Id}>
+          //       <p style={{fontFamily: 'MontserratSemiBold'}}>
+          //       {option.NombreInstitucion}
+          //       </p>
+          //     </li>
+          //   )
+          // }}
           renderInput={(params) => (
             <TextField
               {...params}
               label={"Programa"}
-              value={programa}
               placeholder={programa}
             ></TextField>
           )}
           onChange={(event, value) =>
             enCambioPrograma(
               value?.Id as string,
-              value?.NombrePrograma as string
+              (value?.NombrePrograma as string) || ""
             )
           }
+          defaultValue={{ Id: "", NombrePrograma: programa }}
+          value={{ Id: "", NombrePrograma: programa }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -634,12 +675,29 @@ export function TabEncabezado({show}:{show: boolean}) {
           sx={{ boxShadow: 4 }}
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje}
+          getOptionDisabled={(option) => {
+            if(option.Id === '0'){
+              return true;
+            }
+            return false;
+          }}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.Id}>
+                <p style={{fontFamily: 'MontserratSemiBold'}}>
+                {option.Eje}
+                </p>
+              </li>
+            )
+          }}
           renderInput={(params) => (
             <TextField {...params} label={"Eje"} placeholder={eje}></TextField>
           )}
           onChange={(event, value) => {
-            enCambioEje(value?.Id as string, value?.Eje as string);
+            enCambioEje(value?.Id as string, (value?.Eje as string) || "");
           }}
+          defaultValue={{ Id: "", Eje: eje }}
+          value={{ Id: "", Eje: eje }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -650,17 +708,38 @@ export function TabEncabezado({show}:{show: boolean}) {
           sx={{ boxShadow: disabledTematicas ? 0 : 4 }}
           options={catalogoTematicas}
           getOptionLabel={(option) => option.Tematica}
+          getOptionDisabled={(option) => {
+            if(option.IdTematica === '0'){
+              return true;
+            }
+            return false;
+          }}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.IdTematica}>
+                <p style={{fontFamily: 'MontserratSemiBold'}}>
+                {option.Tematica}
+                </p>
+              </li>
+            )
+          }}
           renderInput={(params) => (
-            <TextField {...params} label={"Temática"} placeholder={tematica}></TextField>
+            <TextField
+              {...params}
+              label={"Temática"}
+              placeholder={tematica}
+            ></TextField>
           )}
           onChange={(event, value) => {
             enCambioTematica(
               value?.IdTematica as string,
-              value?.Tematica as string
+              (value?.Tematica as string) || ""
             );
           }}
+          defaultValue={{ IdTematica: "", Tematica: tematica }}
+          value={{ IdTematica: "", Tematica: tematica }}
           isOptionEqualToValue={(option, value) =>
-            option.IdTematica === value.IdTematica
+            option.Tematica === value.Tematica
           }
         />
       </FormControl>
@@ -672,14 +751,20 @@ export function TabEncabezado({show}:{show: boolean}) {
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo}
           renderInput={(params) => (
-            <TextField {...params} label={"Objetivo"} placeholder={objetivo}></TextField>
+            <TextField
+              {...params}
+              label={"Objetivo"}
+              placeholder={objetivo}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioObjetivo(
               value?.IdObjetivo as string,
-              value?.Objetivo as string
+              (value?.Objetivo as string) || ""
             )
           }
+          defaultValue={{ IdObjetivo: "", Objetivo: objetivo }}
+          value={{ IdObjetivo: "", Objetivo: objetivo }}
           isOptionEqualToValue={(option, value) =>
             option.IdObjetivo === value.IdObjetivo
           }
@@ -693,14 +778,20 @@ export function TabEncabezado({show}:{show: boolean}) {
           options={catalogoEstrategias}
           getOptionLabel={(option) => option.Estrategia}
           renderInput={(params) => (
-            <TextField {...params} label={"Estrategia"} placeholder={estrategia}></TextField>
+            <TextField
+              {...params}
+              label={"Estrategia"}
+              placeholder={estrategia}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioEstrategia(
               value?.IdEstrategia as string,
-              value?.Estrategia as string
+              (value?.Estrategia as string) || ""
             )
           }
+          defaultValue={{ IdEstrategia: "", Estrategia: estrategia }}
+          value={{ IdEstrategia: "", Estrategia: estrategia }}
           isOptionEqualToValue={(option, value) =>
             option.IdEstrategia === value.IdEstrategia
           }
@@ -724,12 +815,16 @@ export function TabEncabezado({show}:{show: boolean}) {
           options={catalogoLineasDeAccion}
           getOptionLabel={(option) => option.LineaDeAccion}
           renderInput={(params) => (
-            <TextField {...params} label={"Lineas de Acción"} placeholder={lineaDeAccion[0].LineaDeAccion}/>
+            <TextField
+              {...params}
+              label={"Lineas de Acción"}
+              placeholder={lineaDeAccion[0].LineaDeAccion}
+            />
           )}
           onChange={(event, value) =>
             enCambioLineasDeAccion(
               value[0]?.IdLineasdeAccion as string,
-              value[0]?.LineaDeAccion as string
+              (value[0]?.LineaDeAccion as string) || ""
             )
           }
           isOptionEqualToValue={(option, value) =>
@@ -744,15 +839,30 @@ export function TabEncabezado({show}:{show: boolean}) {
           sx={{ boxShadow: 5 }}
           options={catalogoBeneficiarios}
           getOptionLabel={(option) => option.Beneficiario}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.Id}>
+                <p style={{fontFamily: 'MontserratSemiBold'}}>
+                {option.Beneficiario}
+                </p>
+              </li>
+            )
+          }}
           renderInput={(params) => (
-            <TextField {...params} label={"Beneficiario"} placeholder={beneficiario}></TextField>
+            <TextField
+              {...params}
+              label={"Beneficiario"}
+              placeholder={beneficiario}
+            ></TextField>
           )}
           onChange={(event, value) =>
             enCambioBeneficiario(
               value?.Id as string,
-              value?.Beneficiario as string
+              (value?.Beneficiario as string) || ""
             )
           }
+          defaultValue={{ Id: "", Beneficiario: beneficiario }}
+          value={{ Id: "", Beneficiario: beneficiario }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
