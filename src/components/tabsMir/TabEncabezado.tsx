@@ -306,7 +306,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
   //Obtener Id de la descripción extraida de la MIR
   const getIdInstitucion = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Instituciones",
           Descripcion: Description,
@@ -324,7 +324,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
   };
   const getIdPrograma = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Programas",
           Descripcion: Description,
@@ -339,7 +339,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
   };
   const getIdEje = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Ejes",
           Descripcion: Description,
@@ -356,7 +356,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
   };
   const getIdTematica = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Temáticas",
           Descripcion: Description,
@@ -373,7 +373,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
   };
   const getIdObjetivo = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Objetivos",
           Descripcion: Description,
@@ -390,7 +390,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
   };
   const getIdEstrategia = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Estrategias",
           Descripcion: Description,
@@ -407,7 +407,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
   };
   const getIdLineaDeAccion = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Lineas de Acción",
           Descripcion: Description,
@@ -427,7 +427,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
   };
   const getIdBeneficiario = (Description: string) => {
     axios
-      .get("http://localHost:8000/api/mir-id", {
+      .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Beneficiarios",
           Descripcion: Description,
@@ -505,8 +505,24 @@ export function TabEncabezado({ show }: { show: boolean }) {
           sx={{ boxShadow: 5 }}
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
+          getOptionDisabled={(option) => {
+            if(option.Id === '0'){
+              return true;
+            }
+            return false;
+          }}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.Id} >
+                <p style={{fontFamily: 'MontserratSemiBold', fontSize: '.8vw'}}>
+                {option.AnioFiscal}
+                </p>
+              </li>
+            )
+          }}
           renderInput={(params) => (
             <TextField
+            
               {...params}
               label={"Ejercicio Fiscal"}
               placeholder={anioFiscal}
@@ -518,8 +534,8 @@ export function TabEncabezado({ show }: { show: boolean }) {
               (value?.AnioFiscal as string) || ""
             )
           }
-          defaultValue={{ Id: "", AnioFiscal: anioFiscal }}
-          value={{ Id: "", AnioFiscal: anioFiscal }}
+          defaultValue={{ Id: "0", AnioFiscal: anioFiscal }}
+          value={{ Id: "0", AnioFiscal: anioFiscal }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>

@@ -154,7 +154,7 @@ export const Notification = () => {
   const getNotifEnviadas = () => {
     axios
       .post(
-        "http://localhost:8000/api/notif-enviadas",
+        "http://10.200.4.105:8000/api/notif-enviadas",
         {
           IdUsuario: localStorage.getItem("IdUsuario"),
         },
