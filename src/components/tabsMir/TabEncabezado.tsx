@@ -100,34 +100,35 @@ export function TabEncabezado({ show }: { show: boolean }) {
   ]);
   const [beneficiario, setBeneficiario] = useState("");
 
-  useEffect(() => {
-  }, [institution]);
+  useEffect(() => {}, [institution]);
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
-    { Id: "", AnioFiscal: "" },
+    { Id: "", AnioFiscal: anioFiscal || "" },
   ]);
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
-    { Id: "", NombreInstitucion: "" },
+    { Id: "", NombreInstitucion: institution || "" },
   ]);
   const [catalogoProgramas, setCatalogoProgramas] = useState([
-    { Id: "", NombrePrograma: "" },
+    { Id: "", NombrePrograma: programa || "" },
   ]);
-  const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "", Eje: "" }]);
+  const [catalogoEjes, setCatalogoEjes] = useState([
+    { Id: "", Eje: eje || "" },
+  ]);
   const [catalogoTematicas, setCatalogoTematicas] = useState([
-    { IdTematica: "", Tematica: "" },
+    { IdTematica: "", Tematica: tematica || "" },
   ]);
   const [catalogoObjetivos, setCatalogoObjetivos] = useState([
-    { IdObjetivo: "", Objetivo: "" },
+    { IdObjetivo: "", Objetivo: objetivo || "" },
   ]);
   const [catalogoEstrategias, setCatalogoEstrategias] = useState([
-    { IdEstrategia: "", Estrategia: "" },
+    { IdEstrategia: "", Estrategia: estrategia || "" },
   ]);
   const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState([
-    { IdLineasdeAccion: "", LineaDeAccion: "" },
+    { IdLineasdeAccion: "", LineaDeAccion: "" || "" },
   ]);
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
-    { Id: "", Beneficiario: "" },
+    { Id: "", Beneficiario: beneficiario || "" },
   ]);
 
   //Alerta de archivo incorrecto
@@ -190,7 +191,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
         setCatalogoProgramas(r.data.data);
       })
       .catch((err) => {
-        setPrograma("Institucion sin programas asignados");
+        setPrograma("");
         setDisabledProgramas(true);
       });
   };
@@ -457,6 +458,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
       .then((response) => {
         // console.log(response.data);
         getIdInstitucion(response.data.encabezado[0].institucion);
+        // setInstitution(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);
         getIdEje(response.data.encabezado[0].eje);
@@ -511,8 +513,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
             ></TextField>
           )}
           onChange={(event, value) =>
-            enCambioAnio(value?.Id as string, value?.AnioFiscal as string)
+            enCambioAnio(
+              value?.Id as string,
+              (value?.AnioFiscal as string) || ""
+            )
           }
+          defaultValue={{ Id: "", AnioFiscal: anioFiscal }}
+          value={{ Id: "", AnioFiscal: anioFiscal }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -566,10 +573,10 @@ export function TabEncabezado({ show }: { show: boolean }) {
             onClick={submitForm}
             sx={{
               backgroundColor: "#b0e2ff8f",
-              color:'black',
-              height:'5vh',
-              width:'10vw',
-              mb:0.5
+              color: "black",
+              height: "5vh",
+              width: "10vw",
+              mb: 0.5,
             }}
           >
             Cargar
@@ -587,16 +594,17 @@ export function TabEncabezado({ show }: { show: boolean }) {
             <TextField
               {...params}
               placeholder={institution}
-              value={institution}
               label={"Institución"}
             ></TextField>
           )}
           onChange={(event, value) =>
             enCambioInstitucion(
               value?.Id as string,
-              value?.NombreInstitucion as string
+              (value?.NombreInstitucion as string) || ""
             )
           }
+          defaultValue={{ Id: "", NombreInstitucion: institution }}
+          value={{ Id: "", NombreInstitucion: institution }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -611,16 +619,17 @@ export function TabEncabezado({ show }: { show: boolean }) {
             <TextField
               {...params}
               label={"Programa"}
-              value={programa}
               placeholder={programa}
             ></TextField>
           )}
           onChange={(event, value) =>
             enCambioPrograma(
               value?.Id as string,
-              value?.NombrePrograma as string
+              (value?.NombrePrograma as string) || ""
             )
           }
+          defaultValue={{ Id: "", NombrePrograma: programa }}
+          value={{ Id: "", NombrePrograma: programa }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -635,8 +644,10 @@ export function TabEncabezado({ show }: { show: boolean }) {
             <TextField {...params} label={"Eje"} placeholder={eje}></TextField>
           )}
           onChange={(event, value) => {
-            enCambioEje(value?.Id as string, value?.Eje as string);
+            enCambioEje(value?.Id as string, (value?.Eje as string) || "");
           }}
+          defaultValue={{ Id: "", Eje: eje }}
+          value={{ Id: "", Eje: eje }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -657,11 +668,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
           onChange={(event, value) => {
             enCambioTematica(
               value?.IdTematica as string,
-              value?.Tematica as string
+              (value?.Tematica as string) || ""
             );
           }}
+          defaultValue={{ IdTematica: "", Tematica: tematica }}
+          value={{ IdTematica: "", Tematica: tematica }}
           isOptionEqualToValue={(option, value) =>
-            option.IdTematica === value.IdTematica
+            option.Tematica === value.Tematica
           }
         />
       </FormControl>
@@ -682,9 +695,11 @@ export function TabEncabezado({ show }: { show: boolean }) {
           onChange={(event, value) =>
             enCambioObjetivo(
               value?.IdObjetivo as string,
-              value?.Objetivo as string
+              (value?.Objetivo as string) || ""
             )
           }
+          defaultValue={{ IdObjetivo: "", Objetivo: objetivo }}
+          value={{ IdObjetivo: "", Objetivo: objetivo }}
           isOptionEqualToValue={(option, value) =>
             option.IdObjetivo === value.IdObjetivo
           }
@@ -707,9 +722,11 @@ export function TabEncabezado({ show }: { show: boolean }) {
           onChange={(event, value) =>
             enCambioEstrategia(
               value?.IdEstrategia as string,
-              value?.Estrategia as string
+              (value?.Estrategia as string) || ""
             )
           }
+          defaultValue={{ IdEstrategia: "", Estrategia: estrategia }}
+          value={{ IdEstrategia: "", Estrategia: estrategia }}
           isOptionEqualToValue={(option, value) =>
             option.IdEstrategia === value.IdEstrategia
           }
@@ -742,7 +759,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
           onChange={(event, value) =>
             enCambioLineasDeAccion(
               value[0]?.IdLineasdeAccion as string,
-              value[0]?.LineaDeAccion as string
+              (value[0]?.LineaDeAccion as string) || ""
             )
           }
           isOptionEqualToValue={(option, value) =>
@@ -767,9 +784,11 @@ export function TabEncabezado({ show }: { show: boolean }) {
           onChange={(event, value) =>
             enCambioBeneficiario(
               value?.Id as string,
-              value?.Beneficiario as string
+              (value?.Beneficiario as string) || ""
             )
           }
+          defaultValue={{ Id: "", Beneficiario: beneficiario }}
+          value={{ Id: "", Beneficiario: beneficiario }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
