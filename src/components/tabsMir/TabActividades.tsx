@@ -15,15 +15,13 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import { IComponente } from "./IComponente";
 //funcion main
-    export const TabActividades = ({ show, obtenerComponentes }: { show: boolean,obtenerComponentes:Array<>}) => {
+    export const TabActividades = ({ show, componentesX }: { show: boolean, componentesX: number[]}) => {
     // business logic-------------------------------------------------------------------------------
-    const [componentes, setComponentes] = React.useState([1, 2]);
     const [actividades, setActividades] = React.useState([1, 2]);
 
     const [componenteActividad, setComponenteActividad] = React.useState([
         {
-            setComponentes(obtenerComponentes());
-            componentes: a.map((x) => actividades);
+            componentes: componentesX.map((x) => actividades)
         },
     ]);
 
@@ -65,7 +63,7 @@ import { IComponente } from "./IComponente";
     };
 
     useEffect(() => {
-        let array = componentes.map((x) => {
+        let array = componentesX.map((x) => {
             return {
                 resumen: "",
                 indicador: "",
@@ -111,7 +109,7 @@ import { IComponente } from "./IComponente";
                 }}
                 >
                     <ButtonGroup variant="text" sx={{}}>
-                        {componentes.map((x) => {
+                        {componentesX.map((x) => {
                             return (
                                 <Button
                                     key={x}

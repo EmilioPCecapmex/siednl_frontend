@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import {
   TextField,
   Box,
@@ -33,6 +26,8 @@ export default function FullModalMir() {
   const [expandedActividades, setExpandedActividades] = React.useState<
     string | false
   >(false);
+
+  
 
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
@@ -196,7 +191,7 @@ export default function FullModalMir() {
             <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           </Box>
           <Box>
-          <TabActividades show={value === 40 ? true : false   } obtenerComponentes={obtenerComponentes(componentes)}></TabActividades>
+          <TabActividades show={value === 40 ? true : false} componentesX={componentes}></TabActividades>
           </Box>
         </Box>
       </Box>
