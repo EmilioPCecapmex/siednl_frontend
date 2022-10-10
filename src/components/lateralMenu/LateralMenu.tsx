@@ -260,6 +260,7 @@ export const LateralMenu = ({
         if (r.status === 200) {
           setInstituciones(r.data.data);
           setRenderInfo(true);
+          console.log(r.data.data)
         }
       });
   };
@@ -310,7 +311,7 @@ export const LateralMenu = ({
           >
             {instituciones?.map((item) => {
               return (
-                <MenuItem value={item.Id} key={item.Id}>
+                <MenuItem value={item.Id} key={item.Id || Math.random()}>
                   {item.NombreInstitucion}
                 </MenuItem>
               );

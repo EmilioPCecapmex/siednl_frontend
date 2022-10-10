@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalEditarUsuario from "../modalUsuarios/ModalEditarUsuario";
+import AppsDialog from "../appsDialog/AppsDialog";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
@@ -205,19 +206,23 @@ export const DataTable = ({
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <TableRow key={row.Id}>
-                  <TableCell sx={{ height: "1vh" }}>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                  >
                     <Box
                       sx={{
-                        width: "100%",
+                        width: "6vw",
                         height: "1vh",
                         justifyContent: "left",
                         display: "flex",
                         alignItems: "center",
+                        fontFamily: "MontserratLight",
+                        fontSize: ".7vw",
                       }}
                     >
                       <Avatar
                         sx={{
-                          bgcolor: "lightblue",
+                          bgcolor: "grey",
                           width: "2vw",
                           height: "4vh",
                           fontSize: "0.8vw",
@@ -226,37 +231,63 @@ export const DataTable = ({
                         }}
                       >
                         {stringAvatar(row.Nombre, row.ApellidoPaterno)}
-                      </Avatar>{" "}
-                      {row.Nombre +
-                        " " +
-                        row.ApellidoPaterno +
-                        " " +
-                        row.ApellidoMaterno}
+                      </Avatar>
+                      {row.Nombre + " " + row.ApellidoPaterno}
                     </Box>
                   </TableCell>
 
-                  <TableCell sx={{ height: "1vh" }}>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                  >
                     {row.CorreoElectronico}
                   </TableCell>
 
-                  <TableCell sx={{ height: "1vh" }}>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                  >
                     {row.NombreUsuario}
                   </TableCell>
 
-                  <TableCell sx={{ height: "1vh" }}>{row.Cargo}</TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                  >
+                    {row.Cargo}
+                  </TableCell>
 
-                  <TableCell sx={{ height: "1vh" }}>{row.Telefono}</TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                  >
+                    {row.Telefono}
+                  </TableCell>
 
-                  <TableCell sx={{ height: "1vh" }}>{row.Celular}</TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                  >
+                    {row.Celular}
+                  </TableCell>
 
-                  <TableCell sx={{ height: "1vh" }}>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                  >
                     {row.NombreInstitucion}
                   </TableCell>
 
-                  <TableCell sx={{ height: "1vh" }}>{row.Rol}</TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                  >
+                    {row.Rol}
+                  </TableCell>
 
                   <TableCell sx={{ height: "auto" }}>
                     <Box display={"flex"}>
+
+                    <AppsDialog
+                        deleteText="usuario"
+                        id={row.IdUsuarioTiCentral}
+                        actualizado={actualizaContador}
+                      />
+
+
                       <DeleteDialog
                         deleteText="usuario"
                         id={row.IdUsuarioTiCentral}
