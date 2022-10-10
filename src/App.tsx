@@ -10,8 +10,14 @@ import { Usuarios } from "./screens/config/Usuarios";
 import { Init } from "./screens/init/Init";
 import { continueSession, sessionValid } from "./funcs/validation";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+=======
+import { LateralMenu } from "./components/lateralMenu/LateralMenu";
+import { Prueba } from "./screens/Prueba";
+>>>>>>> dev_angel
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
+import { TabComponente } from "./components/tabsMir/TabComponente";
 
 function App() {
   const navigate = useNavigate();
@@ -40,15 +46,17 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route index element={<Init />} />
-        <Route path="home" element={<Home />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="users" element={<Usuarios />} />
-        <Route path="*" element={<E404 />} />
-        <Route path="mir" element={<MIR />} />
-        <Route path="notifications" element={<Notification />} />
-      </Routes>
+        <Routes>
+          <Route index element={<Init />} />
+          <Route path="home" element={<Home  />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="users" element={<Usuarios />} />
+          <Route path="*" element={<E404 />} />
+
+          <Route path="mir" element={<MIR/>}/>
+          <Route path="notifications" element={<Notification/>}/>
+
+        </Routes>
     </>
   );
 }

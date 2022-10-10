@@ -26,7 +26,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
-import FullModalMir from "../../components/modalMir/FullModalMir";
+import FullModalMir from "../../components/tabsMir/FullModalMir";
 
 export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
@@ -102,19 +102,16 @@ export const MIR = () => {
   };
 
   const getInstituciones = () => {
-       
     axios
       .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
-        params:{
-          "IdUsuario": localStorage.getItem("IdUsuario")
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
         },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      }
-    })
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
       .then((r) => {
-        console.log(r.data.data);
-        
         setCatalogoInstituciones(r.data.data);
       });
   };
@@ -176,7 +173,7 @@ export const MIR = () => {
       }}
     >
       <LateralMenu selection={2} />
-      <Header 
+      <Header
         details={{
           name1: "Inicio",
           path1: "../home",
@@ -184,7 +181,6 @@ export const MIR = () => {
           path2: "../mir",
           name3: "",
         }}
-        
       />
       {showResume ? (
         <Box
@@ -212,36 +208,60 @@ export const MIR = () => {
             }}
           >
             <Box sx={{ width: "20vw", height: "5vh" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoAniosFiscales}
                 getOptionLabel={(option) => option.AnioFiscal}
-                renderInput={(params) => <TextField {...params} label="Ejercicio Fiscal" placeholder="Ejercicio Fiscal" ></TextField>}
-                onChange={(event, value) => setAnioFiscal(value?.AnioFiscal as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Ejercicio Fiscal"
+                    placeholder="Ejercicio Fiscal"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setAnioFiscal(value?.AnioFiscal as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </Box>
 
             <Box sx={{ width: "20vw", height: "5vh" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 sx={{}}
                 options={catalogoProgramasPresupuestarios}
                 getOptionLabel={(option) => option.NombrePrograma}
-                renderInput={(params) => <TextField {...params} label="Nombre del Programa" placeholder="Nombre del Programa" ></TextField>}
-                onChange={(event, value) => setProgramaPresupuestario(value?.NombrePrograma as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Nombre del Programa"
+                    placeholder="Nombre del Programa"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setProgramaPresupuestario(value?.NombrePrograma as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </Box>
 
             <Box sx={{ width: "20vw", height: "5vh" }}>
-            <Autocomplete
+              <Autocomplete
                 disablePortal
                 options={catalogoInstituciones}
                 getOptionLabel={(option) => option.NombreInstitucion}
-                renderInput={(params) => <TextField {...params} label="Institución" placeholder="Institución" ></TextField>}
-                onChange={(event, value) => setInstitution(value?.NombreInstitucion as string)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Institución"
+                    placeholder="Institución"
+                  ></TextField>
+                )}
+                onChange={(event, value) =>
+                  setInstitution(value?.NombreInstitucion as string)
+                }
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </Box>
@@ -271,7 +291,7 @@ export const MIR = () => {
               borderRadius: 5,
               display: "flex",
               alignItems: "center",
-              boxShadow: 5
+              boxShadow: 5,
             }}
           >
             <Box
@@ -418,9 +438,7 @@ export const MIR = () => {
           </Box>
         </Box>
       ) : (
-        
         <FullModalMir />
-
       )}
     </Box>
   );
