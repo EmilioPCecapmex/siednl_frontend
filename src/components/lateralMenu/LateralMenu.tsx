@@ -260,7 +260,6 @@ export const LateralMenu = ({
         if (r.status === 200) {
           setInstituciones(r.data.data);
           setRenderInfo(true);
-          console.log(r.data.data)
         }
       });
   };

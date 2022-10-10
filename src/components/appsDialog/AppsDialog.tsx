@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -10,12 +10,12 @@ import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import { Box, Autocomplete, TextField, Typography } from "@mui/material";
 import Swal from "sweetalert2";
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 export const AppsDialog = ({
   deleteText,
   id,
-  actualizado
+  actualizado,
 }: {
   deleteText: string;
   id: string;
@@ -23,14 +23,15 @@ export const AppsDialog = ({
 }) => {
   const [open, setOpen] = React.useState(false);
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>([])
+  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>([]);
 
   const [instSel, setInstSel] = useState([
     {
       Id: "",
       NombreInstitucion: "",
+      Secretaria: "",
     },
-  ])
+  ]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -52,33 +53,69 @@ export const AppsDialog = ({
     setOpen(false);
   };
 
-  const deleteUsuario = () => {
+  const verifica = () => {
+
+    if(instSel.length <= 0){
+      Toast.fire({
+        icon: "error",
+        title: "Debes seleccionar al menos una institución.",
+      });
+    }else{
+      agregaVinculo()
+    }
+  }
+
+  const agregaVinculo = () => {
     axios
-      .delete("http://10.200.4.105:8000/api/deleteUser", {
-        data: {
-          IdUsuarioTiCentral: id,
-          ModificadoPor: localStorage.getItem("IdUsuario"),
+      .post("http://10.200.4.202:8000/api/vincular-usuarioInsitucion",
+       {
+          IdUsuario: id,
+          IdInstitucion: instSel.map((item) => {
+            return {IdInstitucion: item.Id}
+          }),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+        },
+       { 
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        }
+      }
+      )
+      .then((r) => {
+        if(r.status === 200){
+          handleClose();
+          Toast.fire({
+            icon: "success",
+            title: "Vinculación exitosa",
+          });
+          actualizado();
+        }
+       
+      })
+      .catch((err) =>
+        Toast.fire({
+          icon: "error",
+          title: "Permisos denegados.",
+        })
+      );
+  };
+
+  const getInstitucionesX = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
-        actualizado();
-        Toast.fire({
-          icon: "success",
-          title: "Usuario eliminado con éxito.",
-        });
-        
-      })
-      .catch((err) => 
-      Toast.fire({
-        icon: "error",
-        title: "Permisos denegados.",
-      })
-      )
+        if (r.status === 200) {
+          setInstSel(r.data.data);
+        }
+      });
   };
-
   const getInstituciones = () => {
     axios
       .get("http://10.200.4.105:8000/api/instituciones", {
@@ -87,16 +124,16 @@ export const AppsDialog = ({
         },
       })
       .then((r) => {
-        if(r.status === 200){
-            setInstituciones(r.data.data)
+        if (r.status === 200) {
+          setInstituciones(r.data.data);
         }
       });
   };
 
-useEffect(() => {
-  getInstituciones()
-  }, [])
-  
+  useEffect(() => {
+    getInstituciones();
+    getInstitucionesX();
+  }, [open]);
 
   return (
     <Box>
@@ -113,46 +150,90 @@ useEffect(() => {
           />
         </IconButton>
       </Tooltip>
-      <Dialog open={open} onClose={handleClose} fullWidth >
-        <Box sx={{width: '100%', height: '4vh', display: 'flex', alignItems: 'center',  justifyContent: 'center', borderBottom: 1, boxShadow: 1, borderColor: '#cbcbcb'}}>
-        <Typography sx={{fontFamily: 'MontserratBold', fontSize: '1vw'}}>
-        Vincular Usuario - Institución
-        </Typography>
-        </Box>
-      
-
-        <DialogContent >
-        <Autocomplete
-        multiple
-          disablePortal
-          sx={{ m: "1vh 1vh 0 1vh" }}
-          options={instituciones}
-          getOptionLabel={(option) => option.NombreInstitucion}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id} >
-                <p style={{fontFamily: 'MontserratSemiBold', fontSize: '.8vw'}}>
-                {option.NombreInstitucion + " "}
-                </p>
-                <p style={{fontFamily: 'MontserratLight', fontSize: '.6vw'}}>
-                {
-                    option.Secretaria
-                }                 </p>
-                
-              </li>
-            )
+      <Dialog open={open} onClose={handleClose} fullWidth>
+        <Box
+          sx={{
+            width: "100%",
+            height: "4vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderBottom: 1,
+            boxShadow: 1,
+            borderColor: "#cbcbcb",
           }}
-          renderInput={(params) => <TextField {...params} label="Institucion" />}
-          onChange={(event, value) => setInstSel(value)}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
+        >
+          <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
+            Vincular Usuario - Institución
+          </Typography>
+        </Box>
+
+        <DialogContent
+          sx={{
+            height: "40vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Autocomplete
+            multiple
+            sx={{ width: "95%" }}
+            options={instituciones}
+            getOptionLabel={(option) => option.NombreInstitucion}
+            value={instSel}
+            renderOption={(props, option) => {
+              return (
+                <li {...props} key={option.Id}>
+                  <div
+                    style={{
+                      fontFamily: "MontserratSemiBold",
+                      fontSize: ".8vw",
+                    }}
+                  >
+                    {option.NombreInstitucion}
+                    <br></br>
+                    <div
+                      style={{
+                        fontFamily: "MontserratLight",
+                        fontSize: ".6vw",
+                      }}
+                    >
+                      {option.Secretaria}
+                    </div>
+                  </div>
+                </li>
+              );
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Institucion" />
+            )}
+            onChange={(event, value) => setInstSel(value)}
+            isOptionEqualToValue={(option, value) => option.Id === value.Id}
+          />
         </DialogContent>
 
-        <DialogActions onClick={handleClose}>
-          <Button>Cancelar</Button>
+        <DialogActions
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Button color="error" onClick={handleClose}>
+            <Typography
+              sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+            >
+              Cancelar
+            </Typography>
+          </Button>
 
-          <Button onClick={deleteUsuario} autoFocus>
-            De Acuerdo
+          <Button onClick={verifica} autoFocus>
+            <Typography
+              sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+            >
+              De Acuerdo
+            </Typography>
           </Button>
         </DialogActions>
       </Dialog>
@@ -163,12 +244,12 @@ useEffect(() => {
 export default AppsDialog;
 
 export interface IInstituciones {
-    Id:                 string;
-    NombreInstitucion:  string;
-    FechaCreacion:      string;
-    CreadoPor:          string;
-    UltimaModificacion: string;
-    ModificadoPor:      string;
-    Deleted:            number;
-    Secretaria:         string;
+  Id: string;
+  NombreInstitucion: string;
+  FechaCreacion: string;
+  CreadoPor: string;
+  UltimaModificacion: string;
+  ModificadoPor: string;
+  Deleted: number;
+  Secretaria: string;
 }

@@ -283,7 +283,7 @@ export const DataTable = ({
 
                     <AppsDialog
                         deleteText="usuario"
-                        id={row.IdUsuarioTiCentral}
+                        id={row.Id}
                         actualizado={actualizaContador}
                       />
 

@@ -25,14 +25,12 @@ import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
-
-  const [defaultSelection, setDefaultSelection] = useState(defSelected)
-
+  const [defaultSelection, setDefaultSelection] = useState(defSelected);
 
   useEffect(() => {
     let tableOption = configOptions.find((item) => item.Desc === defSelected);
-    setTablaActual(tableOption?.Tabla as string)
-  }, [])
+    setTablaActual(tableOption?.Tabla as string);
+  }, []);
 
   const configOptions = [
     {
@@ -979,7 +977,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [colorB, setColorB] = useState("#fff");
   const [rowColorB, setRowColorB] = useState("");
 
-
   return (
     <Box
       sx={{
@@ -1049,7 +1046,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       onClick={() => {
                         eval(item.fnc);
                         setTablaActual(item.Tabla);
-                        setDefaultSelection(item.Desc)
+                        setDefaultSelection(item.Desc);
                       }}
                     >
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -1192,34 +1189,66 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                         )
                       : DataDescripctionFiltered
                     ).map((row) => (
-                      <TableRow key={row.Id}>
-                        <TableCell component="th" sx={row.Id === rowColorB ? {backgroundColor: colorB} : null} scope="row" width="90%" onClick={() => {
-                          setRowColorB(row.Id)
-                          setColorB('#E7E7E7')}}>
-                            <Typography sx={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                            {row.Desc}
-                            </Typography>
-                        </TableCell>
+                      <>
+                        {row.Desc == "Selecciona" ? null : (
+                          <TableRow key={row.Id}>
+                            <TableCell
+                              component="th"
+                              sx={
+                                row.Id === rowColorB
+                                  ? { backgroundColor: colorB }
+                                  : null
+                              }
+                              scope="row"
+                              width="90%"
+                              onClick={() => {
+                                setRowColorB(row.Id);
+                                setColorB("#E7E7E7");
+                              }}
+                            >
+                              <Typography
+                                sx={{
+                                  fontFamily: "MontserratRegular",
+                                  fontSize: ".7vw",
+                                }}
+                              >
+                                {row.Desc}
+                              </Typography>
+                            </TableCell>
 
-                        <TableCell component="th" sx={row.Id === rowColorB ? {backgroundColor: colorB} : null} scope="row" width="90%" onClick={() => {
-                          setRowColorB(row.Id)
-                          setColorB('#E7E7E7')}}>                          <Box sx={{ display: "flex" }}>
-                            <ModifyDialogCatalogos
-                              descripcion={row.Desc}
-                              id={row.Id}
-                              tabla={row.Tabla}
-                              actualizado={actualizaContador}
-                            />
+                            <TableCell
+                              component="th"
+                              sx={
+                                row.Id === rowColorB
+                                  ? { backgroundColor: colorB }
+                                  : null
+                              }
+                              scope="row"
+                              width="90%"
+                              onClick={() => {
+                                setRowColorB(row.Id);
+                                setColorB("#E7E7E7");
+                              }}
+                            >
+                              <Box sx={{ display: "flex" }}>
+                                <ModifyDialogCatalogos
+                                  descripcion={row.Desc}
+                                  id={row.Id}
+                                  tabla={row.Tabla}
+                                  actualizado={actualizaContador}
+                                />
 
-                            <DeleteDialogCatalogos
-                              deleteText={row.Desc}
-                              id={row.Id}
-                              tabla={row.Tabla}
-                              actualizado={actualizaContador}
-                            />
-                          </Box>
-                        </TableCell>
-                      </TableRow>
+                                <DeleteDialogCatalogos
+                                  deleteText={row.Desc}
+                                  id={row.Id}
+                                  tabla={row.Tabla}
+                                  actualizado={actualizaContador}
+                                />
+                              </Box>
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </>
                     ))}
                     {emptyRows > 0 && (
                       <TableRow style={{ height: 53 * emptyRows }}>
@@ -1324,9 +1353,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   },
                   right: "30vh",
                   bottom: "11vh",
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <AddDialogCatalogo
