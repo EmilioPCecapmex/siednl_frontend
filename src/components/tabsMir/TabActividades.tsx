@@ -26,7 +26,7 @@ export const TabActividades = ({ show, componentes }: { show: boolean, component
     ]);
 
     const [ActividadValor, setActividadValor] = React.useState<
-       Array< Array<IComponente>>
+       Array<IComponente>
     >([]);
 
     const agregarAFnc = (index: number) => {
@@ -93,7 +93,7 @@ export const TabActividades = ({ show, componentes }: { show: boolean, component
             visibility={show ? "visible" : "hidden"}
             position="absolute"
             sx={{
-                display: "flex", width: "75vw", height: "77vh", justifyContent: "center", flexDirection: "column", alignItems: "center", boxShadow: 20,
+                display: "flex", width: "75vw", height: "77vh", justifyContent: "center", flexDirection: "column", alignItems: "center", boxShadow: 10,
             }}>
 
             <Box sx={{ display: "flex", width: "100%", height: "10%", alignItems: "center", justifyContent: "space-between" }}>
@@ -149,10 +149,7 @@ export const TabActividades = ({ show, componentes }: { show: boolean, component
                 height: "90%",
                 pb: 2,
                 pt: 2,
-                borderRight: "solid 1px",
                 overflow: "auto",
-                borderRadius: ".4vw",
-                borderColor: "#BCBCBC",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
