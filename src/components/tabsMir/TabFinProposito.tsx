@@ -4,35 +4,35 @@ import {
   TextField,
   Box,
   Typography,
-  Alert,
-  Button,
-  Autocomplete,
+  IconButton,
 } from "@mui/material";
 import axios from "axios";
 import { IComponente } from "./IComponente";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 export function TabFinProposito({ show }: { show: boolean }) {
-  const [componentes, setComponentes] = React.useState([1, 2]);
 
-  const [valor, setValor] = React.useState<Array<IComponente>>([]);
+  const [fin, setFin] = useState({
+    resumen: "",
+    indicador: "",
+    formula: "",
+    frecuencia: "",
+    medios: "",
+    supuestos: "",
+  });
 
-  const cargarArray = () => {
-    let arrayComponente = [{ componentes: valor }];
-  };
-  
-  useEffect(() => {
-    let array = componentes.map((x) => {
-      return {
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    });
-    setValor(array);
-  }, []);
+  const [proposito, setProposito] = useState({
+    resumen: "",
+    indicador: "",
+    formula: "",
+    frecuencia: "",
+    medios: "",
+    supuestos: "",
+  });
+
+  const [showFin, setShowFin] = useState(true);
+  const [showProposito, setShowProposito] = useState(false);
 
   return (
     <Box
@@ -52,114 +52,318 @@ export function TabFinProposito({ show }: { show: boolean }) {
         gridTemplateRows: "repeat(2, 1fr 2fr 2fr)",
       }}
     >
-      <Typography
+      <Box
         sx={{
+          width: "100%",
           gridColumn: "1/4",
-          fontFamily: "monsterratBold",
-          fontSize: "40px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        Fin
-      </Typography>
-      <TextField
-        label={"Resumen Narrativo"}
-        onChange={(c) => {
-          valor[0].resumen = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Indicador"}
-        onChange={(c) => {
-          valor[0].indicador = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Fórmula"}
-        onChange={(c) => {
-          console.log(c.target.value);
+        <Typography
+          sx={{
+            width: "90%",
+            fontFamily: "MontserratBold",
+            fontSize: "40px",
+            borderBottom: 1,
+            textAlign: "left",
+            borderColor: "#3c3f42",
+          }}
+        >
+          Fin
+        </Typography>
+        <IconButton onClick={() => setShowFin(!showFin)}>
+          {showFin ? <VisibilityOffIcon /> : <VisibilityIcon />}
+        </IconButton>
+      </Box>
 
-          valor[0].formula = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Frecuencia"}
-        onChange={(c) => {
-          valor[0].frecuencia = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Medios de Verificación"}
-        //value={componenteValor[x - 1].medios}
-        onChange={(c) => {
-          valor[0].medios = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Supuestos"}
-        onChange={(c) => {
-          valor[0].supuestos = c.target.value;
-          cargarArray();
-        }}
-      />
-      <Typography
+      {showFin ? (
+        <>
+          <TextField
+            rows={3}
+            multiline
+            sx={{ width: "90%" }}
+            variant="filled"
+            label={"Resumen Narrativo"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              setFin({...fin, resumen: c.target.value})
+            }}
+            value={fin.resumen}
+          />
+          <TextField
+            rows={3}
+            multiline
+            sx={{ width: "90%" }}
+            variant="filled"
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            label={"Indicador"}
+            onChange={(c) => {
+              // valor[0].indicador = c.target.value;
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            sx={{ width: "90%" }}
+            label={"Fórmula"}
+            onChange={(c) => {
+              console.log(c.target.value);
+
+              // valor[0].formula = c.target.value;
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            label={"Frecuencia"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              // valor[0].frecuencia = c.target.value;
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            label={"Medios de Verificación"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            //value={componenteValor[x - 1].medios}
+            onChange={(c) => {
+              // valor[0].medios = c.target.value;
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            label={"Supuestos"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              // valor[0].supuestos = c.target.value;
+            }}
+          />
+        </>
+      ) : null}
+
+      <Box
         sx={{
+          width: "100%",
           gridColumn: "1/4",
-          fontFamily: "monsterratBold",
-          fontSize: "40px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        Propósito
-      </Typography>
-      <TextField
-        label={"Resumen Narrativo"}
-        onChange={(c) => {
-          valor[1].resumen = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Indicador"}
-        onChange={(c) => {
-          valor[1].indicador = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Fórmula"}
-        onChange={(c) => {
-          console.log(c.target.value);
+        <Typography
+          sx={{
+            width: "90%",
+            fontFamily: "MontserratBold",
+            fontSize: "40px",
+            borderBottom: 1,
+            textAlign: "left",
+            borderColor: "#3c3f42",
+          }}
+        >
+          Propósito
+        </Typography>
+        <IconButton onClick={() => setShowProposito(!showProposito)}>
+          {showProposito ? <VisibilityOffIcon /> : <VisibilityIcon />}
+        </IconButton>
+      </Box>
+      {showProposito ? (
+        <>
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            label={"Resumen Narrativo"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              // valor[1].resumen = c.target.value;
+              // cargarArray();
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            label={"Indicador"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              // valor[1].indicador = c.target.value;
+              // cargarArray();
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            label={"Fórmula"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              console.log(c.target.value);
 
-          valor[1].formula = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Frecuencia"}
-        onChange={(c) => {
-          valor[1].frecuencia = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Medios de Verificación"}
-        //value={componenteValor[x - 1].medios}
-        onChange={(c) => {
-          valor[1].medios = c.target.value;
-          cargarArray();
-        }}
-      />
-      <TextField
-        label={"Supuestos"}
-        onChange={(c) => {
-          valor[1].supuestos = c.target.value;
-          cargarArray();
-        }}
-      />
+              // valor[1].formula = c.target.value;
+              // cargarArray();
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            label={"Frecuencia"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              // valor[1].frecuencia = c.target.value;
+              // cargarArray();
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            label={"Medios de Verificación"}
+            onChange={(c) => {
+              // valor[1].medios = c.target.value;
+              // cargarArray();
+            }}
+          />
+          <TextField
+            rows={3}
+            multiline
+            variant="filled"
+            sx={{ width: "90%" }}
+            label={"Supuestos"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              // valor[1].supuestos = c.target.value;
+              // cargarArray();
+            }}
+          />
+        </>
+      ) : null}
     </Box>
   );
 }
