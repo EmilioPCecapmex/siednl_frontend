@@ -118,8 +118,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             label={"Indicador"}
             onChange={(c) => {
-              // valor[0].indicador = c.target.value;
+              setFin({...fin, indicador: c.target.value})
             }}
+            value={fin.indicador}
           />
           <TextField
             rows={3}
@@ -138,10 +139,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
             sx={{ width: "90%" }}
             label={"Fórmula"}
             onChange={(c) => {
-              console.log(c.target.value);
-
-              // valor[0].formula = c.target.value;
+              setFin({...fin, formula: c.target.value})
             }}
+            value={fin.formula}
           />
           <TextField
             rows={3}
@@ -160,8 +160,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              // valor[0].frecuencia = c.target.value;
+              setFin({...fin, frecuencia: c.target.value})
             }}
+            value={fin.frecuencia}
           />
           <TextField
             rows={3}
@@ -181,8 +182,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             //value={componenteValor[x - 1].medios}
             onChange={(c) => {
-              // valor[0].medios = c.target.value;
+              setFin({...fin, medios: c.target.value})
             }}
+            value={fin.medios}
           />
           <TextField
             rows={3}
@@ -201,8 +203,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              // valor[0].supuestos = c.target.value;
+              setFin({...fin, supuestos: c.target.value})
             }}
+            value={fin.supuestos}
           />
         </>
       ) : null}
@@ -251,9 +254,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              // valor[1].resumen = c.target.value;
-              // cargarArray();
+              setProposito({...proposito, resumen: c.target.value})
             }}
+            value={proposito.resumen}
           />
           <TextField
             rows={3}
@@ -272,9 +275,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              // valor[1].indicador = c.target.value;
-              // cargarArray();
+              setProposito({...proposito, indicador: c.target.value})
             }}
+            value={proposito.indicador}
           />
           <TextField
             rows={3}
@@ -293,11 +296,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              console.log(c.target.value);
-
-              // valor[1].formula = c.target.value;
-              // cargarArray();
+              setProposito({...proposito, formula: c.target.value})
             }}
+            value={proposito.formula}
           />
           <TextField
             rows={3}
@@ -316,9 +317,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              // valor[1].frecuencia = c.target.value;
-              // cargarArray();
+              setProposito({...proposito, frecuencia: c.target.value})
             }}
+            value={proposito.frecuencia}
           />
           <TextField
             rows={3}
@@ -337,9 +338,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             label={"Medios de Verificación"}
             onChange={(c) => {
-              // valor[1].medios = c.target.value;
-              // cargarArray();
+              setProposito({...proposito, medios: c.target.value})
             }}
+            value={proposito.medios}
           />
           <TextField
             rows={3}
@@ -358,9 +359,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              // valor[1].supuestos = c.target.value;
-              // cargarArray();
+              setProposito({...proposito, supuestos: c.target.value})
             }}
+            value={proposito.supuestos}
           />
         </>
       ) : null}
