@@ -22,15 +22,69 @@ export const TabActividades = ({
   show: boolean;
   componentes: number[];
 }) => {
+
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
 
-  const [componenteActividad, setComponenteActividad] = React.useState([
+  const [componenteActividad, setComponenteActividad] = useState([
     {
       componentes: componentes.map((x) => actividades),
     },
   ]);
 
+  const [cValor, setCValor] = useState(
+    componenteActividad.map((item) => {
+      return {
+        components: item.componentes.map((x) => {
+          return {
+            c: x.map((c) => {
+              return {
+                a: {
+                  resumen: "",
+                  indicador: "",
+                  formula: "",
+                  frecuencia: "",
+                  medios: "",
+                  supuestos: "",
+                },
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
+  useEffect(() => {
+    setComponenteActividad([
+        {
+          componentes: componentes.map((x) => actividades),
+        },
+      ])
+    setCValor(
+      componenteActividad.map((item) => {
+        return {
+          components: item.componentes.map((x) => {
+            return {
+              c: x.map((c) => {
+                return {
+                  a: {
+                    resumen: "",
+                    indicador: "",
+                    formula: "",
+                    frecuencia: "",
+                    medios: "",
+                    supuestos: "",
+                  },
+                };
+              }),
+            };
+          }),
+        };
+      })
+    );
+    console.log(cValor);
+  }, [actividades]);
 
   const [ActividadValor, setActividadValor] = React.useState<
     Array<IComponente>
@@ -50,8 +104,6 @@ export const TabActividades = ({
       ];
 
       setComponenteActividad(xArray);
-
-    //   console.log(xArray);
     }
   };
 
@@ -65,7 +117,6 @@ export const TabActividades = ({
       xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
 
       setComponenteActividad(xArray);
-    //   console.log(xArray);
     }
   };
 
@@ -81,10 +132,7 @@ export const TabActividades = ({
       };
     });
     setActividadValor(array);
-    // console.log(ActividadValor);
-    
   }, []);
-
 
   const cargarArray = () => {
     let arrayComponente = [
@@ -92,12 +140,9 @@ export const TabActividades = ({
         componentes: ActividadValor,
       },
     ];
-    // console.log(arrayComponente);
   };
 
   const [componenteSelect, setComponenteSelect] = React.useState("0");
-  
-  let activ = Array(parseInt(componenteSelect)).fill('').map(row => new Array(6).fill(1)) 
 
   //return main
   return (
@@ -233,22 +278,22 @@ export const TabActividades = ({
                       <TextField
                         label={"Resumen Narrativo"}
                         onChange={(c) => {
-                          ActividadValor[x - 1].resumen = c.target.value;
-                          cargarArray();
+                           cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen = c.target.value;
+                          
                         }}
                       />
                       <TextField
                         label={"Indicador"}
                         rows={5}
                         onChange={(c) => {
-                          ActividadValor[x - 1].indicador = c.target.value;
+                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.indicador = c.target.value;
                           cargarArray();
                         }}
                       />
                       <TextField
                         label={"Fórmula"}
                         onChange={(c) => {
-                          ActividadValor[x - 1].formula = c.target.value;
+                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.formula = c.target.value;
                           cargarArray();
                         }}
                       />

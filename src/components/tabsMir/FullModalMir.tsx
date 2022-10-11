@@ -48,6 +48,7 @@ export default function FullModalMir() {
     setComponenteValor(array);
   }, []);
 
+  
   //----------------------------------------------------------------------------------------------
   return (
     <Box
@@ -140,15 +141,8 @@ export default function FullModalMir() {
         >
           <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-          <TabComponente
-            show={value === 30 ? true : false}
-            asignarComponente={asignarComponente}
-            asignarComponenteValor={asignarComponenteValor}
-          ></TabComponente>
-          <TabActividades
-            show={value === 40 ? true : false}
-            componentes={componentes}
-          ></TabActividades>
+           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
+          <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
           <TabResumen show={value === 50 ? true : false}></TabResumen>
         </Box>
       </Box>
