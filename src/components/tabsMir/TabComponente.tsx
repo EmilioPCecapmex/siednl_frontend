@@ -7,6 +7,9 @@ import {
   IconButton,
   Typography,
   TextField,
+  Divider,
+  List,
+  ListItemButton,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -15,36 +18,43 @@ import { IComponente } from "./IComponente";
 
 export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:{show: boolean, asignarComponente:Function, asignarComponenteValor:Function}) => {
   // business logic-------------------------------------------------------------------------------
-  const [componentes, setComponentes] = React.useState([1, 2]);
+  const [componentes, setComponentes] = useState([1, 2]);
 
-  const [componenteValor, setComponenteValor] = React.useState<Array<IComponente>>([]);
-
-  useEffect(() => {
-    asignarComponente(componentes);
-    // console.log(componentes)
-  }, [componentes]);
-
-  const asignarCV=()=>{
-    asignarComponenteValor(componenteValor);
-  }
+  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
+    componentes.map((x) => {
+    return {
+      resumen: "",
+      indicador: "",
+      frecuencia: "",
+      formula: "",
+      medios: "",
+      supuestos: "",
+    };
+  })
+);
 
   const agregarFnc = () => {
     let v = componentes.length + 1;
     if (v > 6) {
     } else {
       setComponentes([...componentes, v]);
-      asignarComponente([...componentes, v])
-      let array = [...componentes, v].map((x) => {
-        return {
+    
+      if(componenteValor.length < 6){
+        let prevState = [...componenteValor]
+      prevState.push(
+        {
           resumen: "",
           indicador: "",
           frecuencia: "",
           formula: "",
           medios: "",
           supuestos: "",
-        };
-      });
-      setComponenteValor(array);
+        }
+      )
+        setComponenteValor(prevState);
+
+      }
+    
     }
     asignarComponente(componentes);
   };
@@ -54,34 +64,21 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
     if (v < 2) {
     } else {
       setComponentes(componentes.splice(0, v));
+      let prevState = [...componenteValor];
+      prevState.pop()
+      setComponenteValor(prevState)
+      if(v < componentSelect){
+        setComponentSelect(v)
+
+      }
     }
-    asignarComponente(componentes);
+
+
   };
 
-  useEffect(() => {
-    let array = componentes.map((x) => {
-      return {
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    });
-    
-    setComponenteValor(array);
+  const [componentSelect, setComponentSelect] = useState(1);
 
-  }, []);
 
-  const [componentExpanded, setComponentExpanded] = useState(0)
- 
-  const cargarArray = () => {
-    let arrayComponente = [{ componentes: componenteValor }];
-    let xComponente=componenteValor;
-    //console.log(aComponente);
-    // console.log(xComponente);
-  };
   //----------------------------------------------------------------------------------------------
   return (
     <Box
@@ -91,164 +88,253 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
         display: "flex",
         width: "75vw",
         height: "77vh",
-        justifyContent: "center",
-        alignItems: "center",
-        justifyItems: "center",
-        backgroundColor: "#fff",
-        boxShadow: 20,
+        boxShadow: 10,
         borderRadius: 5,
+        flexDirection: "column",
+        backgroundColor: "#fff",
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          backgroundColor: "",
           width: "100%",
-          height: "100%",
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
+          display: "flex",
+          justifyContent: "flex-end",
         }}
       >
+        {/* Botones Componentes */}
+        <IconButton onClick={() => agregarFnc()}>
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
+        <IconButton onClick={() => eliminarFnc()} sx={{ mr: "1vw" }}>
+          <DoDisturbOnIcon fontSize="large" />
+        </IconButton>
+      </Box>
+
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+        }}
+      >
+        <List
+          sx={{
+            width: "10vw",
+            height: "65vh",
+            borderRight: "solid",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            borderColor: "#BCBCBC",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            },
+          }}
+        >
+          {componentes.map((item) => {
+            return (
+              <Box
+                key={item}
+                sx={{
+                  height: "10vh",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <Divider />
+
+                <ListItemButton
+                  selected={item === componentSelect ? true : false}
+                  key={item}
+                  onClick={() => setComponentSelect(item)}
+                  sx={{
+                    "&.Mui-selected ": {
+                      backgroundColor: "#c4a57b",
+                    },
+                    "&.Mui-selected:hover": {
+                      backgroundColor: "#cbcbcb",
+                    },
+                  }}
+                >
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    Componente {item}
+                  </Typography>
+                </ListItemButton>
+
+                <Divider />
+              </Box>
+            );
+          })}
+        </List>
+
         <Box
           sx={{
             display: "flex",
-            backgroundColor: "",
-            width: "100%",
-            height: "10%",
+            flexDirection: "column",
+            width: "90%",
             alignItems: "center",
-            justifyContent: "flex-end",
-            mr: "15vw",
+            justifyContent: "center",
           }}
         >
-          {/* Botones Componentes */}
-          <IconButton onClick={() => agregarFnc()}>
-            <AddCircleIcon fontSize="large" />
-          </IconButton>
-          <IconButton onClick={() => eliminarFnc()}>
-            <DoDisturbOnIcon fontSize="large" />
-          </IconButton>
-        </Box>
+          <Box
+            sx={{
+              width: "100%",
+              height: "40%",
+              justifyContent: "space-evenly",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <TextField
+              variant="filled"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              rows={4}
+              sx={{ width: "30%" }}
+              label={"Resumen Narrativo"}
+              value={componenteValor[componentSelect - 1].resumen}
+              onChange={(c) => {
+                componenteValor[componentSelect - 1].resumen = c.target.value;
+                setComponenteValor([...componenteValor]);
+              }}
+            />
+            <TextField
+              multiline
+              rows={4}
+              variant="filled"
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              sx={{ width: "30%" }}
+              label={"Indicador"}
+              value={componenteValor[componentSelect - 1].indicador}
+              onChange={(c) => {
+                componenteValor[componentSelect - 1].indicador = c.target.value;
+                setComponenteValor([...componenteValor]);
+              }}
+            />
+            <TextField
+              variant="filled"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              rows={4}
+              sx={{ width: "30%" }}
+              label={"Fórmula"}
+              value={componenteValor[componentSelect - 1].formula }
+              onChange={(c) => {
+                componenteValor[componentSelect - 1].formula = c.target.value;
+                setComponenteValor([...componenteValor]);
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              height: "40%",
 
-        <Box sx={{
-          width: "95%",
-          height: "90%",
-          backgroundColor: "",
-          pb: 2,
-          pt: 2,
-          overflow: "auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          "&::-webkit-scrollbar": {
-            width: ".3vw",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "rgba(0,0,0,.5)",
-            outline: "1px solid slategrey",
-            borderRadius: 10,
-
-          },
-        }}>
-          {/* Render Componentes */}
-          {componentes.map((x) => {
-            return (
-              <Accordion
-                key={x}
-                sx={{
-                  width: "95%",
-                  display: "flex",
-                  flexDirection: "column",
-                  flexWrap: "wrap",
-                  boxShadow: 4,
-                }}
-                expanded={componentExpanded === x}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  onClick={() => {
-                    let y = componentExpanded === x ? 0 : x;
-                    setComponentExpanded(y);
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      width: "33%",
-                      flexShrink: 0,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      display: "flex",
-                    }}
-                  >
-                    Componente {x}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails sx={{}}>
-
-
-                  <Box sx={{ display: "flex", width: "100%", height: "40vh", flexDirection: "column", }}>
-                    <Box sx={{ width: "100%", height: "50%", justifyContent: "space-evenly", display: "flex", alignItems: "center" }}>
-                      <TextField
-                        label={"Resumen Narrativo"}
-                        onChange={(c) => {
-                          componenteValor[x - 1].resumen = c.target.value;
-                          asignarCV();
-                        }}
-                      />
-                      <TextField
-                        label={"Indicador"}
-                        onChange={(c) => {
-                          componenteValor[x - 1].indicador = c.target.value;
-                          asignarCV();
-                        }}
-                      />
-                      <TextField
-                        label={"Fórmula"}
-                        onChange={(c) => {
-                          componenteValor[x - 1].formula = c.target.value;
-                          asignarCV();
-                        }}
-                      />
-                    </Box>
-                    <Box
-                      sx={{
-                        width: "100%",
-                        height: "50%",
-                        justifyContent: "space-evenly",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <TextField
-                        label={"Frecuencia"}
-                        onChange={(c) => {
-                          componenteValor[x - 1].frecuencia = c.target.value;
-                          asignarCV();
-                        }}
-                      />
-                      <TextField
-                        label={"Medios de Verificación"}
-                        //value={componenteValor[x - 1].medios}
-                        onChange={(c) => {
-                          componenteValor[x - 1].medios = c.target.value;
-                          asignarCV();
-                        }}
-                      />
-                      <TextField
-                        label={"Supuestos"}
-                        onChange={(c) => {
-                          componenteValor[x - 1].supuestos = c.target.value;
-                          asignarCV();
-                        }}
-                      />
-                    </Box>
-                  </Box>
-                </AccordionDetails>
-              </Accordion>
-             
-            );
-          })}
+              justifyContent: "space-evenly",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <TextField
+              multiline
+              variant="filled"
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              rows={4}
+              sx={{ width: "30%" }}
+              label={"Frecuencia"}
+              value={componenteValor[componentSelect - 1].frecuencia }
+              onChange={(c) => {
+                componenteValor[componentSelect - 1].frecuencia = c.target.value;
+                setComponenteValor([...componenteValor]);
+              }}
+            />
+            <TextField
+              multiline
+              variant="filled"
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              rows={4}
+              sx={{ width: "30%" }}
+              label={"Medios de Verificación"}
+              value={componenteValor[componentSelect - 1].medios }
+              onChange={(c) => {
+                componenteValor[componentSelect - 1].medios = c.target.value;
+                setComponenteValor([...componenteValor]);
+              }}
+            />
+            <TextField
+              variant="filled"
+              multiline
+              rows={4}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              sx={{ width: "30%" }}
+              label={"Supuestos"}
+              value={componenteValor[componentSelect - 1].supuestos }
+              onChange={(c) => {
+                componenteValor[componentSelect - 1].supuestos = c.target.value;
+                setComponenteValor([...componenteValor]);
+              }}
+            />
+          </Box>
         </Box>
       </Box>
     </Box>

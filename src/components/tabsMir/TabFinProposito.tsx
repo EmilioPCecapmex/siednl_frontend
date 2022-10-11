@@ -64,8 +64,8 @@ export function TabFinProposito({ show }: { show: boolean }) {
         <Typography
           sx={{
             width: "90%",
-            fontFamily: "MontserratBold",
-            fontSize: "40px",
+            fontFamily: "MontserratSemiBold",
+            fontSize: "2vw",
             borderBottom: 1,
             textAlign: "left",
             borderColor: "#3c3f42",
@@ -222,8 +222,8 @@ export function TabFinProposito({ show }: { show: boolean }) {
         <Typography
           sx={{
             width: "90%",
-            fontFamily: "MontserratBold",
-            fontSize: "40px",
+            fontFamily: "MontserratSemiBold",
+            fontSize: "2vw",
             borderBottom: 1,
             textAlign: "left",
             borderColor: "#3c3f42",

@@ -130,7 +130,7 @@ export const Notification = () => {
   const enviarNotificacionMail = () => {
     axios
       .post(
-        "http://10.200.4.202:8000/api/send-email",
+        "http://10.200.4.105:8000/api/send-email",
         {
           IdDestinatario: usuarioSeleccionado,
           IdRemitente: localStorage.getItem("IdUsuario"),
