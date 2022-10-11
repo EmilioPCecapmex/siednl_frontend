@@ -26,6 +26,9 @@ export const TabActividades = ({
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
 
+  const[btnAgregar,setBtnAgregar]=React.useState(true);
+  const[btnEliminar,setBttnEliminar]=React.useState(false);
+
   const [componenteActividad, setComponenteActividad] = useState([
     {
       componentes: componentes.map((x) => actividades),
@@ -55,94 +58,93 @@ export const TabActividades = ({
     })
   );
 
-  useEffect(() => {
-    setComponenteActividad([
-      {
-        componentes: componentes.map((x) => actividades),
-      },
-    ])
-    setCValor(
-      componenteActividad.map((item) => {
-        return {
-          components: item.componentes.map((x) => {
-            return {
-              c: x.map((c) => {
-                return {
-                  a: {
-                    resumen: "",
-                    indicador: "",
-                    frecuencia: "",
-                    formula: "",
-                    medios: "",
-                    supuestos: "",
-                  },
-                };
-              }),
-            };
-          }),
-        };
-      })
-    );
-    console.log(cValor);
-  }, [actividades]);
-
-  const [ActividadValor, setActividadValor] = React.useState<
-    Array<IComponente>
-  >([]);
-
   const agregarAFnc = (index: number) => {
-    let v = actividades.length + 1;
-    if (v > 6) {
-    } else {
-      setActividades([...actividades, v]);
+    // let v = actividades.length + 1;
+    // if (v > 6) {
+    // } else {
+    //   setActividades([...actividades, v]);
 
-      let xArray = [...componenteActividad];
+    //   let xArray = [...componenteActividad];
 
-      xArray[0]["componentes"][parseInt(componenteSelect)] = [
-        ...actividades,
-        v,
-      ];
+    //   xArray[0]["componentes"][index] = [
+    //     ...actividades,
+    //     v,
+    //   ];
 
-      setComponenteActividad(xArray);
-    }
+    //   setComponenteActividad(xArray);
+
+      if (actividades.length + 1 < 7){
+        setBtnAgregar(false);
+        setBttnEliminar(false);
+        
+        let a =[...actividades];
+        a.push(actividades.length + 1);
+        setActividades(a);
+
+        let xArray = [...componenteActividad];
+
+        xArray[0]["componentes"][index] = [...actividades,actividades.length + 1];
+
+        setComponenteActividad(xArray);
+
+      
+
+        if(cValor[0].components[index].c.length < 6){
+          let prevState = [...cValor]
+          prevState[0].components[index].c.push(
+          {a:{
+            resumen: "",
+            indicador: "",
+            frecuencia: "",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          }}
+        )
+          setCValor(prevState);
+        }
+      }
+    console.log(cValor);
+    console.log(actividades)
   };
+
+
+
 
   const eliminarAFnc = () => {
     let act = componenteActividad[0]["componentes"][parseInt(componenteSelect)];
     let v = act.length - 1;
     if (v < 2) {
     } else {
+      
+      setBttnEliminar(false);
+      setBtnAgregar(false);
+      let a =actividades;
+      a.pop();
+      setActividades(a);
+      
+
       let xArray = [...componenteActividad];
 
       xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
 
       setComponenteActividad(xArray);
+      let prevState = [...cValor];
+      prevState[0].components[parseInt(componenteSelect)].c.pop()
+      setCValor(prevState)
     }
-  };
-
-  useEffect(() => {
-    let array = componenteActividad.map((x) => {
-      return {
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    });
-    setActividadValor(array);
-  }, []);
-
-  const cargarArray = () => {
-    let arrayComponente = [
-      {
-        componentes: ActividadValor,
-      },
-    ];
+    console.log(cValor);
+    console.log(actividades)
   };
 
   const [componenteSelect, setComponenteSelect] = React.useState("0");
+
+ 
+
+  useEffect(() => {
+    setBtnAgregar(true);
+    setBttnEliminar(true);
+  }, [actividades]);
 
   //return main
   return (
@@ -185,6 +187,7 @@ export const TabActividades = ({
               return (
                 <Button
                   key={x}
+                  
                   onClick={() => {
                     setActividades([1, 2]);
                     setComponenteSelect((x - 1).toString());
@@ -206,6 +209,7 @@ export const TabActividades = ({
 
         <Box sx={{ display: "flex", mr: "9vw" }}>
           <IconButton
+            disabled={btnAgregar? false:true}
             onClick={() => {
               agregarAFnc(parseInt(componenteSelect));
             }}
@@ -213,7 +217,7 @@ export const TabActividades = ({
             <AddCircleIcon fontSize="large" />
           </IconButton>
 
-          <IconButton onClick={() => eliminarAFnc()}>
+          <IconButton onClick={() => eliminarAFnc()}  disabled={btnEliminar? false:true}>
             <DoDisturbOnIcon fontSize="large" />
           </IconButton>
         </Box>
@@ -251,7 +255,7 @@ export const TabActividades = ({
                   boxShadow: 4,
                 }}
               >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <AccordionSummary key={x} expandIcon={<ExpandMoreIcon />}>
                   <Typography sx={{ width: "33%", flexShrink: 0 }}>
                     Actividad {x} - Componente{" "}
                     {(parseInt(componenteSelect) + 1).toString()}
@@ -279,9 +283,9 @@ export const TabActividades = ({
                         label={"Resumen Narrativo"}
                         value={cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen}
                         onChange={(c) => {
-                          
-                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen = c.target.value;
-                          setCValor(cValor);
+                          let y=[...cValor]
+                          y[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen = c.target.value;
+                          setCValor(y);
 
                           console.log(cValor);
                         }}
@@ -291,14 +295,14 @@ export const TabActividades = ({
                         rows={5}
                         onChange={(c) => {
                           cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.indicador = c.target.value;
-                          cargarArray();
+                           
                         }}
                       />
                       <TextField
                         label={"Fórmula"}
                         onChange={(c) => {
                           cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.formula = c.target.value;
-                          cargarArray();
+                           
                         }}
                       />
                     </Box>
@@ -314,22 +318,22 @@ export const TabActividades = ({
                       <TextField
                         label={"Frecuencia"}
                         onChange={(c) => {
-                          ActividadValor[x - 1].frecuencia = c.target.value;
-                          cargarArray();
+                         
+                           
                         }}
                       />
                       <TextField
                         label={"Medios de Verificación"}
                         onChange={(c) => {
-                          ActividadValor[x - 1].medios = c.target.value;
-                          cargarArray();
+                          
+                           
                         }}
                       />
                       <TextField
                         label={"Supuestos"}
                         onChange={(c) => {
-                          ActividadValor[x - 1].supuestos = c.target.value;
-                          cargarArray();
+                         
+                           
                         }}
                       />
                     </Box>
