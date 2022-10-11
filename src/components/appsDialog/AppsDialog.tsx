@@ -67,7 +67,7 @@ export const AppsDialog = ({
 
   const agregaVinculo = () => {
     axios
-      .post("http://10.200.4.202:8000/api/vincular-usuarioInsitucion",
+      .post("http://10.200.4.105:8000/api/vincular-usuarioInsitucion",
        {
           IdUsuario: id,
           IdInstitucion: instSel.map((item) => {
