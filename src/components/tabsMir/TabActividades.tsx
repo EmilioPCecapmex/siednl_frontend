@@ -278,24 +278,22 @@ export const TabActividades = ({
                       <TextField
                         label={"Resumen Narrativo"}
                         onChange={(c) => {
-                          //     cValor[0].comp[x - 1].resumen = c.target.value;
-                          //     console.log(cValor)
-                          //   ActividadValor[x - 1].resumen = c.target.value;
-                          //   cargarArray();
+                           cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen = c.target.value;
+                          
                         }}
                       />
                       <TextField
                         label={"Indicador"}
                         rows={5}
                         onChange={(c) => {
-                          ActividadValor[x - 1].indicador = c.target.value;
+                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.indicador = c.target.value;
                           cargarArray();
                         }}
                       />
                       <TextField
                         label={"Fórmula"}
                         onChange={(c) => {
-                          ActividadValor[x - 1].formula = c.target.value;
+                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.formula = c.target.value;
                           cargarArray();
                         }}
                       />
