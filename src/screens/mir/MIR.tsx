@@ -27,6 +27,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
@@ -196,7 +197,7 @@ export const MIR = () => {
           <Box
             sx={{
               mt: "3vh",
-              width: "80%",
+              width: "60%",
               height: "15vh",
               backgroundColor: "#fff",
               borderRadius: 5,
@@ -210,14 +211,35 @@ export const MIR = () => {
             <Box sx={{ width: "20vw", height: "5vh" }}>
               <Autocomplete
                 disablePortal
-                sx={{}}
+                size="small"
                 options={catalogoAniosFiscales}
                 getOptionLabel={(option) => option.AnioFiscal}
+                getOptionDisabled={(option) => option.Id === "0" ? true: false }
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.Id}>
+                      <div
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".8vw",
+                        }}
+                      >
+                        {option.AnioFiscal}
+                      </div>
+                    </li>
+                  );
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Ejercicio Fiscal"
                     placeholder="Ejercicio Fiscal"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: 'MontserratSemiBold',
+                        fontSize: '.7vw'
+                      }
+                    }}
                   ></TextField>
                 )}
                 onChange={(event, value) =>
@@ -230,14 +252,35 @@ export const MIR = () => {
             <Box sx={{ width: "20vw", height: "5vh" }}>
               <Autocomplete
                 disablePortal
-                sx={{}}
+                size="small"
+                getOptionDisabled={(option) => option.Id === "0" ? true: false }
                 options={catalogoProgramasPresupuestarios}
                 getOptionLabel={(option) => option.NombrePrograma}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.Id}>
+                      <div
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".8vw",
+                        }}
+                      >
+                        {option.NombrePrograma}
+                      </div>
+                    </li>
+                  );
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Nombre del Programa"
                     placeholder="Nombre del Programa"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: 'MontserratSemiBold',
+                        fontSize: '.7vw'
+                      }
+                    }}
                   ></TextField>
                 )}
                 onChange={(event, value) =>
@@ -250,13 +293,35 @@ export const MIR = () => {
             <Box sx={{ width: "20vw", height: "5vh" }}>
               <Autocomplete
                 disablePortal
+                size="small"
                 options={catalogoInstituciones}
                 getOptionLabel={(option) => option.NombreInstitucion}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.Id}>
+                      <div
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".8vw",
+                        }}
+                      >
+                        {option.NombreInstitucion}
+                      </div>
+                    </li>
+                  );
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Institución"
                     placeholder="Institución"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: 'MontserratSemiBold',
+                        fontSize: '.7vw'
+                      }
+                    }}
+                   
                   ></TextField>
                 )}
                 onChange={(event, value) =>
@@ -278,7 +343,7 @@ export const MIR = () => {
                 }}
                 onClick={() => handleClickOpen()}
               >
-                Añadir nuevo registro
+                Añadir registro
               </Button>
             </Box>
           </Box>
@@ -291,6 +356,7 @@ export const MIR = () => {
               borderRadius: 5,
               display: "flex",
               alignItems: "center",
+              flexDirection: 'column',
               boxShadow: 5,
             }}
           >
@@ -425,7 +491,10 @@ export const MIR = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <TablePagination
+              
+            </Box>
+            <Box sx={{width: '100%'}}>
+            <TablePagination
                 rowsPerPageOptions={[renglonesPagina]}
                 component="div"
                 count={institution.length}
@@ -435,10 +504,22 @@ export const MIR = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </Box>
+            
           </Box>
+         
         </Box>
       ) : (
+        <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "85%",
+          height: "92%",
+          flexWrap: "wrap",
+        }}
+      >
         <FullModalMir />
+        </Box>
       )}
     </Box>
   );

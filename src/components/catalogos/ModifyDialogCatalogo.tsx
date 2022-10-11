@@ -16,6 +16,7 @@ import {
   Select,
   MenuItem,
   Button,
+  Typography,
 } from "@mui/material";
 
 export const ModifyDialogCatalogos = ({
@@ -35,7 +36,7 @@ export const ModifyDialogCatalogos = ({
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 5000,
+    timer: 2000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -72,6 +73,7 @@ export const ModifyDialogCatalogos = ({
         )
         .then((r) => {
           actualizado();
+          handleClose();
           Toast.fire({
             icon: "success",
             title: "!Elemento modificado con éxito!",
@@ -103,10 +105,13 @@ export const ModifyDialogCatalogos = ({
         )
         .then((r) => {
           actualizado();
+          
+          handleClose();
           Toast.fire({
             icon: "success",
             title: "!Elemento modificado con éxito!",
           });
+
         })
         .catch((err) =>
         Toast.fire({
@@ -133,6 +138,8 @@ export const ModifyDialogCatalogos = ({
       .then((r) => {
 
         actualizado();
+        handleClose();
+
       })
       .catch((err) => 
       Toast.fire({
@@ -159,6 +166,8 @@ export const ModifyDialogCatalogos = ({
       .then((r) => {
 
         actualizado();
+        handleClose();
+
       })
       .catch((err) => 
       Toast.fire({
@@ -205,21 +214,32 @@ export const ModifyDialogCatalogos = ({
             />
           </IconButton>
         </Tooltip>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>{`Modificar  '${descripcion}'`}</DialogTitle>
-
-          <DialogContent>
-            <TextField
+        <Dialog open={open} onClose={handleClose} fullWidth>
+        <Box sx={{width: '100%', height: '5vh', alignItems: 'center', display: 'flex', justifyContent: 'center', flexDirection: 'column', borderBottom: .5, borderColor: '#ccc', boxShadow: 1}}>
+          <Typography sx={{fontFamily: 'MontserratSemiBold', width: '90%', fontSize: '1vw', textAlign: 'center'}}>Editar Elemento</Typography>
+          </Box>
+          <DialogContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <TextField
+            multiline={descripcion.length < 20 ? false : true}
+            sx={descripcion.length < 20 ? {width: '60%'} : {width: '80%'}}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratLight",
+              },
+            }}
+            rows={3}
               id="outlined-basic"
-              placeholder={"Introduzca elemento"}
+              value={nuevaDescripcion || descripcion}
               variant="outlined"
               onChange={(v) => setnuevaDescripcion(v.target.value)}
             />
+
 
             <InputLabel id="demo-simple-select-label">Institución</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
+              sx={descripcion.length < 20 ? {width: '60%'} : {width: '80%'}}
               value={institution}
               label="Institución"
               onChange={(x) => setInstitution(x.target.value)}
@@ -237,11 +257,16 @@ export const ModifyDialogCatalogos = ({
             </Select>
           </DialogContent>
 
-          <DialogActions onClick={handleClose}>
-            <Button color='error'>Cancelar</Button>
+          <DialogActions sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
+            <Button color='error' onClick={handleClose}>
+              <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
+              Cancelar
+              </Typography></Button>
 
             <Button onClick={ModifyPorCatalogoProgramasP} autoFocus>
-              De Acuerdo
+            <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
+            De Acuerdo
+              </Typography>
             </Button>
           </DialogActions>
         </Dialog>
@@ -263,21 +288,26 @@ export const ModifyDialogCatalogos = ({
             />
           </IconButton>
         </Tooltip>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>{`Editar  ' ${descripcion} '`}</DialogTitle>
+        <Dialog open={open} onClose={handleClose} fullWidth>
+        <Box sx={{width: '100%', height: '5vh', alignItems: 'center', display: 'flex', justifyContent: 'center', flexDirection: 'column', borderBottom: .5, borderColor: '#ccc', boxShadow: 1}}>
+          <Typography sx={{fontFamily: 'MontserratSemiBold', width: '90%', fontSize: '1vw', textAlign: 'center'}}>Editar Elemento</Typography>
+          </Box>
   
-          <DialogContent sx={{display:"flex"}}>
-            <Box sx={{display:"flex",justifyContent:"space-between" }}>
+          <DialogContent sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}}>
               <TextField  label={"Descripcion"} variant="outlined" onChange={(v)=>setnuevaDescripcion(v.target.value)} sx={{mt:"2vh"}} />
               <TextField  label={"Fecha de captura"} variant="outlined" onChange={(x)=>setFechaCaptura(x.target.value)} sx={{mt:"2vh"}} />
-            </Box>
           </DialogContent>
   
-          <DialogActions onClick={handleClose}>
-            <Button color='error'>Cancelar</Button>
-  
+          <DialogActions sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
+          <Button color='error' onClick={handleClose}>
+              <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
+              Cancelar
+              </Typography></Button>
+
             <Button onClick={ModifyPorCatalogoFechas} autoFocus>
-              De Acuerdo
+             <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
+            De Acuerdo
+              </Typography>
             </Button>
           </DialogActions>
         </Dialog>
@@ -323,23 +353,38 @@ export const ModifyDialogCatalogos = ({
             />
           </IconButton>
         </Tooltip>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>{`Modificar  ' ${descripcion} '`}</DialogTitle>
+        <Dialog open={open} onClose={handleClose} fullWidth>
+          <Box sx={{width: '100%', height: '5vh', alignItems: 'center', display: 'flex', justifyContent: 'center', flexDirection: 'column', borderBottom: .5, borderColor: '#ccc', boxShadow: 1}}>
+          <Typography sx={{fontFamily: 'MontserratSemiBold', width: '90%', fontSize: '1vw', textAlign: 'center'}}>Editar Elemento</Typography>
+          </Box>
 
-          <DialogContent>
+          <DialogContent sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <TextField
+            multiline={descripcion.length < 20 ? false : true}
+            sx={descripcion.length < 20 ? {width: '60%'} : {width: '80%'}}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratLight",
+              },
+            }}
+            rows={5}
               id="outlined-basic"
-              placeholder={"Introduzca elemento modificado"}
+              value={nuevaDescripcion || descripcion}
               variant="outlined"
               onChange={(v) => setnuevaDescripcion(v.target.value)}
             />
           </DialogContent>
 
-          <DialogActions onClick={handleClose}>
-            <Button color='error'>Cancelar</Button>
+          <DialogActions sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
+            <Button color='error' onClick={handleClose}>
+              <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
+              Cancelar
+              </Typography></Button>
 
             <Button onClick={ModifyPorCatalogo} autoFocus>
-              De Acuerdo
+            <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
+            De Acuerdo
+              </Typography>
             </Button>
           </DialogActions>
         </Dialog>

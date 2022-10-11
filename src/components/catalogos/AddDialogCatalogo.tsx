@@ -3,20 +3,17 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import { Box, InputLabel, MenuItem, Select } from "@mui/material";
 import Swal from "sweetalert2";
-import EditIcon from "@mui/icons-material/Edit";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
 import { Typography, FormControl } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import CloseIcon from "@mui/icons-material/Close";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 
 import { PED } from "./PED";
 
@@ -34,7 +31,7 @@ export const AddDialogCatalogo = ({
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 5000,
+    timer: 1500,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -49,11 +46,39 @@ export const AddDialogCatalogo = ({
   const handleClose = () => {
     setOpen(false);
     actualizado();
-
   };
 
   const [descripcion, setDescripcion] = React.useState("");
-  const [fechaCaptura, setFechaCaptura] = React.useState("");
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth();
+  let date = today.getDate();
+  let monthS = "";
+  let dateS = "";
+
+  React.useEffect(() => {
+    today = new Date();
+    year = today.getFullYear();
+    month = today.getMonth();
+    month = month + 1;
+    date = today.getDate();
+
+    if (month < 10) {
+      monthS = "0" + month;
+    } else {
+      monthS = month.toString();
+    }
+
+    if (date < 10) {
+      dateS = "0" + date;
+    }
+
+    setFechaCaptura(year + "-" + monthS + "-" + dateS);
+  }, [actualizado]);
+
+  const [fechaCaptura, setFechaCaptura] = React.useState(
+    year + "-" + monthS + "-" + dateS
+  );
   const [institution, setInstitution] = React.useState("0");
   const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([
     { Id: "", NombreInstitucion: "" },
@@ -91,23 +116,22 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
-        handleClose()
+        handleClose();
 
         Toast.fire({
           icon: "success",
           title: "Elemento registrado con éxito.",
         });
-        
+
         actualizado();
       })
       .catch((err) =>
-      Toast.fire({
-        icon: "error",
-        title: err.response.data.result.error,
-      })
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        })
       );
   };
-
 
   const CreatePorCatalogoFechas = () => {
     axios
@@ -125,19 +149,19 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
+        handleClose();
         Toast.fire({
           icon: "success",
           title: "Elemento registrado con éxito.",
         });
-        
+
         actualizado();
       })
       .catch((err) =>
-
-      Toast.fire({
-        icon: "error",
-        title: err.response.data.result.error,
-      })
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        })
       );
   };
 
@@ -164,10 +188,10 @@ export const AddDialogCatalogo = ({
         actualizado();
       })
       .catch((err) =>
-      Toast.fire({
-        icon: "error",
-        title: err.response.data.result.error,
-      })
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        })
       );
   };
 
@@ -177,36 +201,101 @@ export const AddDialogCatalogo = ({
         <IconButton onClick={handleClickOpen}>
           <AddIcon />
         </IconButton>
-        <Dialog fullWidth maxWidth={"md"} open={open} onClose={handleClose}>
-        <DialogTitle sx={{ fontFamily: "MontserratSemiBold" }}>
-            Añadir {tabla}
-          </DialogTitle>
-          <DialogContent
-            sx={{ display: "flex", justifyContent: "space-around", mt: "1vh" }}
+        <Dialog fullWidth open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
           >
-            <Box sx={{ pt: "1vh" }}>
-              <TextField
-                sx={{ width: "20vw" }}
-                label={"Descripción"}
-                variant="outlined"
-                onChange={(v) => setDescripcion(v.target.value)}
-              />
-            </Box>
-            <Box sx={{ pt: "1vh" }}>
-              <TextField
-                label={"Fecha de captura"}
-                variant="outlined"
-                onChange={(x) => setFechaCaptura(x.target.value)}
-                sx={{ width: "20vw" }}
-              />
-            </Box>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Añadir Fecha de Captura
+            </Typography>
+          </Box>
+          <DialogContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline={descripcion.length < 20 ? false : true}
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
+              rows={3}
+              label={"Descripción"}
+              variant="outlined"
+              onChange={(v) => setDescripcion(v.target.value)}
+            />
+            <TextField
+              label={"Fecha de captura"}
+              variant="outlined"
+              onChange={(x) => setFechaCaptura(x.target.value)}
+              multiline={descripcion.length < 20 ? false : true}
+              defaultValue={fechaCaptura}
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              style={{ marginTop: "2vh" }}
+              type="date"
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              rows={3}
+            />
           </DialogContent>
 
-          <DialogActions onClick={handleClose}>
-            <Button>Cancelar</Button>
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="error" onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
 
             <Button onClick={CreatePorCatalogoFechas} autoFocus>
-              De Acuerdo
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
+              </Typography>
             </Button>
           </DialogActions>
         </Dialog>
@@ -224,18 +313,18 @@ export const AddDialogCatalogo = ({
           />
         </IconButton>
         <Dialog fullWidth maxWidth={"xl"} open={open} onClose={handleClose}>
-        <AppBar sx={{ position: 'relative', backgroundColor: '#bdbdbd' }}>
-          <Toolbar >
-            <IconButton
-              edge="end"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+          <AppBar sx={{ position: "relative", backgroundColor: "#bdbdbd" }}>
+            <Toolbar>
+              <IconButton
+                edge="end"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
           <PED handleClose={handleClose} />
         </Dialog>
       </Box>
@@ -248,55 +337,124 @@ export const AddDialogCatalogo = ({
             <AddIcon />
           </IconButton>
         </Tooltip>
-        <Dialog fullWidth maxWidth={"md"} open={open} onClose={handleClose}>
-        <DialogTitle sx={{ fontFamily: "MontserratSemiBold" }}>
-            Añadir Elemento
-          </DialogTitle>
-          <DialogContent
-            sx={{ display: "flex", justifyContent: "space-around", mt: "1vh" }}
+        <Dialog fullWidth open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
           >
-            <Box sx={{ pt: "1vh" }}>
-              <TextField
-                sx={{ width: "20vw" }}
-                label={"Nombre del programa"}
-                variant="outlined"
-                onChange={(v) => setDescripcion(v.target.value)}
-              />
-            </Box>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Añadir Programa Presupuestario
+            </Typography>
+          </Box>
+          <DialogContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              label={"Nombre del programa"}
+              variant="outlined"
+              multiline={descripcion.length < 20 ? false : true}
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              onChange={(v) => setDescripcion(v.target.value)}
+              style={{ marginTop: 1 }}
+              rows={3}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
+            />
 
-            <Box sx={{ pt: "1vh" }}>
-              <FormControl sx={{ width: "20vw" }}>
-                <InputLabel id="demo-simple-select-label">
-                  Institución
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={institution}
-                  label="Institución"
-                  onChange={(x) => setInstitution(x.target.value)}
+            <FormControl
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              style={{ marginTop: "2vh" }}
+            >
+              <InputLabel
+                id="labelInst"
+                sx={{ fontFamily: "MontserratRegular" }}
+              >
+                Institución
+              </InputLabel>
+              <Select
+                labelId="labelInst"
+                value={institution}
+                label="Institución"
+                onChange={(x) => setInstitution(x.target.value)}
+                style={{ marginTop: 1,                     fontFamily: "MontserratLight",
+              }}
+                rows={3}
+                multiline={descripcion.length < 20 ? false : true}
+              >
+                <MenuItem
+                  value={"0"}
+                  key={0}
+                  disabled
+                  sx={{ fontFamily: "MontserratLight" }}
                 >
-                  <MenuItem value={"0"} key={0} disabled>
-                    Selecciona Institución
-                  </MenuItem>
-                  {catalogoInstituciones.map((item) => {
-                    return (
-                      <MenuItem value={item.Id} key={item.Id}>
-                        {item.NombreInstitucion}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </Box>
+                  Selecciona Institución
+                </MenuItem>
+                {catalogoInstituciones.map((item) => {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratLight" }}
+                    >
+                      {item.NombreInstitucion}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
           </DialogContent>
 
-          <DialogActions >
-            <Button onClick={handleClose} color="error">Cancelar</Button>
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="error" onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
+
 
             <Button onClick={CreatePorCatalogoProgramap} autoFocus>
-              De Acuerdo
-            </Button>
+            <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
+              </Typography>            </Button>
           </DialogActions>
         </Dialog>
       </Box>
@@ -312,27 +470,82 @@ export const AddDialogCatalogo = ({
             }}
           />
         </IconButton>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle sx={{ fontFamily: "MontserratSemiBold" }}>
-            Añadir Elemento
-          </DialogTitle>
+        <Dialog open={open} onClose={handleClose} fullWidth>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Añadir Elemento
+            </Typography>
+          </Box>
 
-          <DialogContent>
+          <DialogContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <TextField
-              label={"Descripcion"}
+              label={"Descripción"}
               variant="outlined"
+              multiline={descripcion.length < 20 ? false : true}
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
               onChange={(v) => setDescripcion(v.target.value)}
-              sx={{ marginTop: 1 }}
+              style={{ marginTop: 1 }}
+              rows={3}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
             />
           </DialogContent>
 
-          <DialogActions>
-            <Button onClick={handleClose} color="error">
-              Cancelar
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="error" onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
             </Button>
 
             <Button onClick={CreatePorCatalogo} autoFocus>
-              De Acuerdo
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
+              </Typography>
             </Button>
           </DialogActions>
         </Dialog>

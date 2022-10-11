@@ -21,7 +21,7 @@ export default function ModalEditarUsuario({
   open,
   handleClose,
   IdUsuario,
-  actualizado
+  actualizado,
 }: {
   title: string;
   open: boolean;
@@ -40,13 +40,13 @@ export default function ModalEditarUsuario({
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState([{Id: "",
-  NombreInstitucion: ""
-  },]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState([
+    { Id: "", NombreInstitucion: "" },
+  ]);
 
-  const [userTypeCatalogue, setUserTypeCatalogue] = useState([{Id: "",
-  Rol: ""
-  },]);
+  const [userTypeCatalogue, setUserTypeCatalogue] = useState([
+    { Id: "", Rol: "" },
+  ]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -59,7 +59,6 @@ export default function ModalEditarUsuario({
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
 
   const [errorForm, setErrorsForm] = useState({
     visible: false,
@@ -76,28 +75,28 @@ export default function ModalEditarUsuario({
   };
 
   const getInstituciones = () => {
-    axios.get("http://10.200.4.105:8000/api/instituciones", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      }
-    }).then(
-      (r) => {
-        setCatalogoInstituciones(r.data.data)
-      }
-
-    )
-  }
+    axios
+      .get("http://10.200.4.105:8000/api/instituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+      });
+  };
 
   const getUsuario = () => {
-    axios.get("http://10.200.4.105:8000/api/usuario", {
-        params:{
-            "IdUsuario": IdUsuario
+    axios
+      .get("http://10.200.4.105:8000/api/usuario", {
+        params: {
+          IdUsuario: IdUsuario,
         },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      }
-    }).then(
-      (r) => {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
         const user = r.data.data;
         setUsername(user.NombreUsuario);
         setEmail(user.CorreoElectronico);
@@ -109,64 +108,60 @@ export default function ModalEditarUsuario({
         setUserType(user.IdRol);
         setTelephone(user.Telefono);
         setCellphone(user.Celular);
-      }
+      });
+  };
 
-    )
-  }
-  
   const getUserType = () => {
-    axios.get("http://10.200.4.105:8000/api/roles", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      }
-    }).then(
-      (r) => {
-        setUserTypeCatalogue(r.data.data)
-      }
-
-    )
-  }
-  
-  const userModify = (idUsrCentral: string) => {
     axios
-    .post(
-      "http://10.200.4.105:8000/api/user-modify",
-      {
-        IdUsuarioTiCentral: idUsrCentral,
-        Nombre: names,
-        ApellidoPaterno: firstName,
-        ApellidoMaterno: secondName,
-        IdInstitucion: institution,
-        IdRol: userType,
-        Cargo: rol,
-        Telefono: telephone,
-        Celular: cellphone,
-        ModificadoPor: localStorage.getItem("IdUsuario"),
-        
-      },
-      {
+      .get("http://10.200.4.105:8000/api/roles", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
-      }
-    )
-    .then((r) => {
-      if(r.status === 200){
+      })
+      .then((r) => {
+        setUserTypeCatalogue(r.data.data);
+      });
+  };
+
+  const userModify = (idUsrCentral: string) => {
+    axios
+      .post(
+        "http://10.200.4.105:8000/api/user-modify",
+        {
+          IdUsuarioTiCentral: idUsrCentral,
+          Nombre: names,
+          ApellidoPaterno: firstName,
+          ApellidoMaterno: secondName,
+          IdInstitucion: institution,
+          IdRol: userType,
+          Cargo: rol,
+          Telefono: telephone,
+          Celular: cellphone,
+          ModificadoPor: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          Toast.fire({
+            icon: "success",
+            title: "¡Usuario modificado con éxito!",
+          });
+
+          actualizado();
+        }
+      })
+      .catch((err) =>
         Toast.fire({
           icon: "success",
-          title: "¡Usuario modificado con éxito!",
-        });
-   
-        actualizado();
-      }
-    })
-    .catch((err) => 
-    Toast.fire({
-      icon: "success",
-      title: 'Permisos denegados',
-    })
-      )
-  }
+          title: "Permisos denegados",
+        })
+      );
+  };
 
   const checkForm = () => {
     setErrorsForm({
@@ -228,17 +223,17 @@ export default function ModalEditarUsuario({
     }
   };
 
-
   useEffect(() => {
- getInstituciones();
- getUserType();
- getUsuario();
-  }, [])
-  
+    getInstituciones();
+    getUserType();
+    getUsuario();
+  }, []);
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{fontFamily: 'MontserratBold'}}>{title.toUpperCase()}</DialogTitle>
+      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+        {title.toUpperCase()}
+      </DialogTitle>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Box
@@ -270,6 +265,16 @@ export default function ModalEditarUsuario({
             label="Usuario"
             variant="outlined"
             value={username}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
             sx={{
               width: "40%",
               ml: "2vw",
@@ -288,6 +293,16 @@ export default function ModalEditarUsuario({
             sx={{
               width: "40%",
               mr: "2vw",
+            }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
             }}
           />
         </Box>
@@ -309,6 +324,16 @@ export default function ModalEditarUsuario({
               width: "30%",
               ml: "2vw",
             }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
           />
 
           <TextField
@@ -319,6 +344,16 @@ export default function ModalEditarUsuario({
             sx={{
               width: "30%",
             }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
           />
           <TextField
             label="Apellido Materno"
@@ -328,6 +363,16 @@ export default function ModalEditarUsuario({
             sx={{
               width: "30%",
               mr: "2vw",
+            }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
             }}
           />
         </Box>
@@ -346,20 +391,34 @@ export default function ModalEditarUsuario({
               ml: "2vw",
             }}
           >
-            <InputLabel id="demo-simple-select-label">Institución</InputLabel>
+            <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+              Institución Principal
+            </InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               value={institution}
-              label="Institución"
+              label="Institución Principal"
               onChange={(x) => setInstitution(x.target.value)}
+              sx={{
+                fontFamily: "MontserratRegular",
+              }}
             >
-              <MenuItem value={"0"} key={0} disabled>
+              <MenuItem
+                value={"0"}
+                key={0}
+                disabled
+                sx={{
+                  fontFamily: "MontserratRegular",
+                }}
+              >
                 Selecciona
               </MenuItem>
               {catalogoInstituciones.map((item) => {
                 return (
-                  <MenuItem value={item.Id} key={item.Id}>
+                  <MenuItem
+                    value={item.Id}
+                    key={item.Id}
+                    sx={{ fontFamily: "MontserratRegular" }}
+                  >
                     {item.NombreInstitucion}
                   </MenuItem>
                 );
@@ -375,6 +434,16 @@ export default function ModalEditarUsuario({
             sx={{
               width: "30%",
             }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
           />
           <FormControl
             sx={{
@@ -382,23 +451,33 @@ export default function ModalEditarUsuario({
               mr: "2vw",
             }}
           >
-            <InputLabel id="demo-simple-select-label">
+            <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
               Tipo de Usuario
             </InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               value={userType}
               label="Tipo de Usuario"
               onChange={(x) => setUserType(x.target.value)}
+              sx={{
+                fontFamily: "MontserratRegular",
+              }}
             >
-              <MenuItem value={"0"} key={0} disabled>
+              <MenuItem
+                value={"0"}
+                key={0}
+                disabled
+                sx={{ fontFamily: "MontserratRegular" }}
+              >
                 Selecciona
               </MenuItem>
 
               {userTypeCatalogue.map((item) => {
                 return (
-                  <MenuItem value={item.Id} key={item.Id}>
+                  <MenuItem
+                    value={item.Id}
+                    key={item.Id}
+                    sx={{ fontFamily: "MontserratRegular" }}
+                  >
                     {item.Rol}
                   </MenuItem>
                 );
@@ -425,6 +504,16 @@ export default function ModalEditarUsuario({
             type="tel"
             value={telephone}
             onChange={(x) => setTelephone(x.target.value)}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
           />
 
           <TextField
@@ -437,6 +526,16 @@ export default function ModalEditarUsuario({
             }}
             value={cellphone}
             onChange={(x) => setCellphone(x.target.value)}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
           />
         </Box>
 
@@ -462,7 +561,6 @@ export default function ModalEditarUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
-              
             >
               Cancelar
             </Button>
