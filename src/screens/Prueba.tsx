@@ -67,7 +67,7 @@ export const Prueba = () => {
 
       setComponenteActividad(xArray);
 
-      console.log(xArray);
+      // console.log(xArray);
     }
   };
 
@@ -81,7 +81,7 @@ export const Prueba = () => {
       xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
 
       setComponenteActividad(xArray);
-      console.log(xArray);
+      // console.log(xArray);
     }
   };
 
@@ -105,7 +105,7 @@ export const Prueba = () => {
         componentes: componenteValor,
       },
     ];
-    console.log(arrayComponente);
+    // console.log(arrayComponente);
   };
 
   const AcordeonComponentes = ({ x }: { x: number }) => {

@@ -199,6 +199,14 @@ export const LateralMenu = ({
               helperText={error.label}
               size="small"
               type="password"
+              InputLabelProps={{style: {
+                fontFamily: "MontserratLight",
+              },}}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
               onChange={(v) => setNewPassword(v.target.value)}
             />
           </Box>
@@ -302,7 +310,7 @@ export const LateralMenu = ({
           >
             {instituciones?.map((item) => {
               return (
-                <MenuItem value={item.Id} key={item.Id}>
+                <MenuItem value={item.Id} key={item.Id || Math.random()}>
                   {item.NombreInstitucion}
                 </MenuItem>
               );

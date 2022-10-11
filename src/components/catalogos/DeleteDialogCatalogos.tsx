@@ -4,11 +4,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 
 export const DeleteDialogCatalogos = ({
@@ -143,23 +142,65 @@ export const DeleteDialogCatalogos = ({
             ]}
           />
         </IconButton>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`¿Desea eliminar '${deleteText}'?`}</DialogTitle>
-
-        <DialogContent>
-          <DialogContentText>
-            Al confirmar, se eliminara '{deleteText}' del registro.
-          </DialogContentText>
+        <Dialog fullWidth open={open} onClose={handleClose}>
+        <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              ¿Desea eliminar elemento?
+            </Typography>
+          </Box>
+          <DialogContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+                      <Typography sx={{fontFamily: 'MontserratLight', fontSize: '.7vw'}}>
+                        {deleteText}
+          </Typography>
         </DialogContent>
 
-        <DialogActions >
-
-
-          <Button onClick={handleClose}>Cancelar</Button>
+        <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
 
           <Button onClick={deletePorCatalogo} color='error' autoFocus>
-            De Acuerdo
-          </Button>
+          <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
+              </Typography>          </Button>
         </DialogActions>
       </Dialog>
     </Box>
