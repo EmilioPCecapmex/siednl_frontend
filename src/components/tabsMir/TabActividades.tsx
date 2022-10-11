@@ -57,10 +57,10 @@ export const TabActividades = ({
 
   useEffect(() => {
     setComponenteActividad([
-        {
-          componentes: componentes.map((x) => actividades),
-        },
-      ])
+      {
+        componentes: componentes.map((x) => actividades),
+      },
+    ])
     setCValor(
       componenteActividad.map((item) => {
         return {
@@ -71,8 +71,8 @@ export const TabActividades = ({
                   a: {
                     resumen: "",
                     indicador: "",
-                    formula: "",
                     frecuencia: "",
+                    formula: "",
                     medios: "",
                     supuestos: "",
                   },
@@ -277,9 +277,13 @@ export const TabActividades = ({
                     >
                       <TextField
                         label={"Resumen Narrativo"}
+                        value={cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen}
                         onChange={(c) => {
-                           cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen = c.target.value;
                           
+                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen = c.target.value;
+                          setCValor(cValor);
+
+                          console.log(cValor);
                         }}
                       />
                       <TextField
