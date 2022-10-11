@@ -100,45 +100,45 @@ export function TabEncabezado({ show }: { show: boolean }) {
   const [disabledButton, setDisabledButton] = useState(true);
 
   //Values
-  const [anioFiscal, setAnioFiscal] = useState("");
-  const [institution, setInstitution] = useState("");
-  const [programa, setPrograma] = useState("");
-  const [eje, setEje] = useState("");
-  const [tematica, setTematica] = useState("");
-  const [objetivo, setObjetivo] = useState("");
-  const [estrategia, setEstrategia] = useState("");
-  const [lineaDeAccion, setLineaDeAccion] = useState([{ Id: "", LineaDeAccion: "" }]);
-  const [beneficiario, setBeneficiario] = useState("");
+  const [anioFiscal, setAnioFiscal] = useState("Selecciona");
+  const [institution, setInstitution] = useState("Selecciona");
+  const [programa, setPrograma] = useState("Selecciona");
+  const [eje, setEje] = useState("Selecciona");
+  const [tematica, setTematica] = useState("Selecciona");
+  const [objetivo, setObjetivo] = useState("Selecciona");
+  const [estrategia, setEstrategia] = useState("Selecciona");
+  const [lineaDeAccion, setLineaDeAccion] = useState([
+    { Id: "", LineaDeAccion: "Selecciona" },
+  ]);
+  const [beneficiario, setBeneficiario] = useState("Selecciona");
 
   useEffect(() => {}, [institution]);
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
-    { Id: "", AnioFiscal: anioFiscal},
+    { Id: "0", AnioFiscal: '' },
   ]);
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
-    { Id: "", NombreInstitucion: institution },
+    { Id: "0", NombreInstitucion: '' },
   ]);
   const [catalogoProgramas, setCatalogoProgramas] = useState([
-    { Id: "", NombrePrograma: programa},
+    { Id: "0", NombrePrograma: '' },
   ]);
-  const [catalogoEjes, setCatalogoEjes] = useState([
-    { Id: "", Eje: eje },
-  ]);
+  const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "0", Eje: '' }]);
   const [catalogoTematicas, setCatalogoTematicas] = useState([
-    { IdTematica: "", Tematica: tematica  },
+    { IdTematica: "0", Tematica: '' },
   ]);
   const [catalogoObjetivos, setCatalogoObjetivos] = useState([
-    { IdObjetivo: "", Objetivo: objetivo},
+    { IdObjetivo: "0", Objetivo: '' },
   ]);
   const [catalogoEstrategias, setCatalogoEstrategias] = useState([
-    { IdEstrategia: "", Estrategia: estrategia  },
+    { IdEstrategia: "0", Estrategia: '' },
   ]);
   const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState([
-    { IdLineasdeAccion: "", LineaDeAccion: "" },
+    { IdLineasdeAccion: "0", LineaDeAccion: '' },
   ]);
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
-    { Id: "", Beneficiario: beneficiario  },
+    { Id: "0", Beneficiario: '' },
   ]);
 
   //Alerta de archivo incorrecto
@@ -169,7 +169,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
-      .then((r) => {        
+      .then((r) => {
         setCatalogoAniosFiscales(r.data.data);
       });
   };
@@ -188,28 +188,27 @@ export function TabEncabezado({ show }: { show: boolean }) {
       });
   };
   const getProgramas = (id: string) => {
-    if(id !== undefined){
+    if (id !== undefined) {
       axios
-      .get("http://10.200.4.105:8000/api/programaInstitucion", {
-        params: {
-          IdInstitucion: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoProgramas(r.data.data);
-      })
-      .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: "No existen programas asociados a esta institución.",
+        .get("http://10.200.4.105:8000/api/programaInstitucion", {
+          params: {
+            IdInstitucion: id,
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
+        .then((r) => {
+          setCatalogoProgramas(r.data.data);
+        })
+        .catch((err) => {
+          Toast.fire({
+            icon: "error",
+            title: "No existen programas asociados a esta institución.",
+          });
+          setDisabledProgramas(true);
         });
-        setDisabledProgramas(true);
-      });
     }
- 
   };
   const getEjes = () => {
     axios
@@ -506,14 +505,14 @@ export function TabEncabezado({ show }: { show: boolean }) {
       }}
     >
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
-        
         <Autocomplete
           disablePortal
           size="small"
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
+          value={{Id:catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal }}
           getOptionDisabled={(option) => {
-            if(option.Id === '0'){
+            if (option.Id === "0") {
               return true;
             }
             return false;
@@ -521,11 +520,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.AnioFiscal}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.AnioFiscal}
                 </p>
               </li>
-            )
+            );
           }}
           renderInput={(params) => (
             <TextField
@@ -534,13 +535,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
               variant="standard"
               InputLabelProps={{
                 style: {
-                  fontFamily: 'MontserratSemiBold',
-                  fontSize: '.8vw',
-                }
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
               }}
               sx={{
-                '& .MuiAutocomplete-input': {
-                  fontFamily: 'MontserratRegular',
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
                 },
               }}
             ></TextField>
@@ -551,7 +552,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
               (value?.AnioFiscal as string) || ""
             )
           }
-          isOptionEqualToValue={(option, value) => option === value}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
@@ -620,15 +621,18 @@ export function TabEncabezado({ show }: { show: boolean }) {
           disablePortal
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion}
+          value={{Id:catalogoInstituciones[0].Id, NombreInstitucion: institution }}
           size="small"
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.NombreInstitucion}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.NombreInstitucion}
                 </p>
               </li>
-            )
+            );
           }}
           renderInput={(params) => (
             <TextField
@@ -637,24 +641,25 @@ export function TabEncabezado({ show }: { show: boolean }) {
               variant="standard"
               InputLabelProps={{
                 style: {
-                  fontFamily: 'MontserratSemiBold',
-                  fontSize: '.8vw',
-                }
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
               }}
               sx={{
-                '& .MuiAutocomplete-input': {
-                  fontFamily: 'MontserratRegular',
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
                 },
               }}
             ></TextField>
           )}
+          
           onChange={(event, value) =>
             enCambioInstitucion(
               value?.Id as string,
-              (value?.NombreInstitucion as string) || ''
+              (value?.NombreInstitucion as string) || ""
             )
           }
-          isOptionEqualToValue={(option, value) => option === value}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
@@ -664,16 +669,18 @@ export function TabEncabezado({ show }: { show: boolean }) {
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma}
+          value={{Id:catalogoProgramas[0].Id, NombrePrograma: programa }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.NombrePrograma}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.NombrePrograma}
                 </p>
               </li>
-            )
+            );
           }}
-       
           renderInput={(params) => (
             <TextField
               {...params}
@@ -681,13 +688,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
               variant="standard"
               InputLabelProps={{
                 style: {
-                  fontFamily: 'MontserratSemiBold',
-                  fontSize: '.8vw',
-                }
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
               }}
               sx={{
-                '& .MuiAutocomplete-input': {
-                  fontFamily: 'MontserratRegular',
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
                 },
               }}
             ></TextField>
@@ -698,7 +705,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
               (value?.NombrePrograma as string) || ""
             )
           }
-          isOptionEqualToValue={(option, value) => option === value}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
@@ -708,8 +715,9 @@ export function TabEncabezado({ show }: { show: boolean }) {
           size="small"
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje}
+          value={{Id:catalogoEjes[0].Id, Eje: eje }}
           getOptionDisabled={(option) => {
-            if(option.Id === '0'){
+            if (option.Id === "0") {
               return true;
             }
             return false;
@@ -717,31 +725,36 @@ export function TabEncabezado({ show }: { show: boolean }) {
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.Eje}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.Eje}
                 </p>
               </li>
-            )
+            );
           }}
           renderInput={(params) => (
-            <TextField {...params} label={"Eje"} variant="standard"
-            InputLabelProps={{
-              style: {
-                fontFamily: 'MontserratSemiBold',
-                fontSize: '.8vw',
-              }
-            }}
-            sx={{
-              '& .MuiAutocomplete-input': {
-                fontFamily: 'MontserratRegular',
-              },
-            }}
+            <TextField
+              {...params}
+              label={"Eje"}
+              variant="standard"
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
+              }}
+              sx={{
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
             ></TextField>
           )}
           onChange={(event, value) => {
             enCambioEje(value?.Id as string, (value?.Eje as string) || "");
           }}
-          isOptionEqualToValue={(option, value) => option === value}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
@@ -751,8 +764,9 @@ export function TabEncabezado({ show }: { show: boolean }) {
           options={catalogoTematicas}
           size="small"
           getOptionLabel={(option) => option.Tematica}
+          value={{IdTematica:catalogoTematicas[0].IdTematica, Tematica: tematica }}
           getOptionDisabled={(option) => {
-            if(option.IdTematica === '0'){
+            if (option.IdTematica === "0") {
               return true;
             }
             return false;
@@ -760,11 +774,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.IdTematica}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.Tematica}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.Tematica}
                 </p>
               </li>
-            )
+            );
           }}
           renderInput={(params) => (
             <TextField
@@ -773,15 +789,15 @@ export function TabEncabezado({ show }: { show: boolean }) {
               variant="standard"
               InputLabelProps={{
                 style: {
-                  fontFamily: 'MontserratSemiBold',
-                  fontSize: '.8vw',
-                }
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
               }}
               sx={{
-                '& .MuiAutocomplete-input': {
-                  fontFamily: 'MontserratRegular',
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
                 },
-              }}             
+              }}
             ></TextField>
           )}
           onChange={(event, value) => {
@@ -790,10 +806,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
               (value?.Tematica as string) || ""
             );
           }}
-        
-          isOptionEqualToValue={(option, value) =>
-            option === value
-          }
+          isOptionEqualToValue={(option, value) => option.IdTematica === value.IdTematica}
         />
       </FormControl>
 
@@ -802,15 +815,18 @@ export function TabEncabezado({ show }: { show: boolean }) {
           disabled={disabledObjetivos}
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo}
+          value={{IdObjetivo:catalogoObjetivos[0].IdObjetivo, Objetivo: objetivo }}
           size="small"
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.IdObjetivo}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.Objetivo}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.Objetivo}
                 </p>
               </li>
-            )
+            );
           }}
           renderInput={(params) => (
             <TextField
@@ -819,13 +835,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
               variant="standard"
               InputLabelProps={{
                 style: {
-                  fontFamily: 'MontserratSemiBold',
-                  fontSize: '.8vw',
-                }
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
               }}
               sx={{
-                '& .MuiAutocomplete-input': {
-                  fontFamily: 'MontserratRegular',
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
                 },
               }}
             ></TextField>
@@ -836,9 +852,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
               (value?.Objetivo as string) || ""
             )
           }
-          isOptionEqualToValue={(option, value) =>
-            option === value
-          }
+          isOptionEqualToValue={(option, value) => option.IdObjetivo === value.IdObjetivo}
         />
       </FormControl>
 
@@ -848,14 +862,17 @@ export function TabEncabezado({ show }: { show: boolean }) {
           options={catalogoEstrategias}
           size="small"
           getOptionLabel={(option) => option.Estrategia}
+          value={{IdEstrategia:catalogoEstrategias[0].IdEstrategia, Estrategia: estrategia }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.IdEstrategia}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.Estrategia}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.Estrategia}
                 </p>
               </li>
-            )
+            );
           }}
           renderInput={(params) => (
             <TextField
@@ -864,13 +881,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
               variant="standard"
               InputLabelProps={{
                 style: {
-                  fontFamily: 'MontserratSemiBold',
-                  fontSize: '.8vw',
-                }
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
               }}
               sx={{
-                '& .MuiAutocomplete-input': {
-                  fontFamily: 'MontserratRegular',
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
                 },
               }}
             ></TextField>
@@ -881,9 +898,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
               (value?.Estrategia as string) || ""
             )
           }
-          isOptionEqualToValue={(option, value) =>
-            option === value
-          }
+          isOptionEqualToValue={(option, value) => option.IdEstrategia === value.IdEstrategia}
         />
       </FormControl>
 
@@ -903,14 +918,17 @@ export function TabEncabezado({ show }: { show: boolean }) {
           limitTags={4}
           options={catalogoLineasDeAccion}
           getOptionLabel={(option) => option.LineaDeAccion}
+          // value={{IdLine:catalogoLineasDeAccion[0].Id, lineaDeAccion: lineaDeAccion }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.IdLineasdeAccion}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.LineaDeAccion}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.LineaDeAccion}
                 </p>
               </li>
-            )
+            );
           }}
           renderInput={(params) => (
             <TextField
@@ -919,13 +937,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
               variant="standard"
               InputLabelProps={{
                 style: {
-                  fontFamily: 'MontserratSemiBold',
-                  fontSize: '.8vw',
-                }
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
               }}
               sx={{
-                '& .MuiAutocomplete-input': {
-                  fontFamily: 'MontserratRegular',
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
                 },
               }}
             />
@@ -936,9 +954,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
               (value[0]?.LineaDeAccion as string) || ""
             )
           }
-          isOptionEqualToValue={(option, value) =>
-            option === value
-          }
+          isOptionEqualToValue={(option, value) => option.IdLineasdeAccion === value.IdLineasdeAccion}
         />
       </FormControl>
 
@@ -948,15 +964,17 @@ export function TabEncabezado({ show }: { show: boolean }) {
           size="small"
           options={catalogoBeneficiarios}
           getOptionLabel={(option) => option.Beneficiario}
-          
+          value={{Id:catalogoBeneficiarios[0].Id, Beneficiario: beneficiario }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
-                <p style={{fontFamily: 'MontserratRegular', fontSize: '.7vw'}}>
-                {option.Beneficiario}
+                <p
+                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                >
+                  {option.Beneficiario}
                 </p>
               </li>
-            )
+            );
           }}
           renderInput={(params) => (
             <TextField
@@ -965,13 +983,13 @@ export function TabEncabezado({ show }: { show: boolean }) {
               variant="standard"
               InputLabelProps={{
                 style: {
-                  fontFamily: 'MontserratSemiBold',
-                  fontSize: '.8vw',
-                }
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: ".8vw",
+                },
               }}
               sx={{
-                '& .MuiAutocomplete-input': {
-                  fontFamily: 'MontserratRegular',
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
                 },
               }}
             ></TextField>
@@ -982,7 +1000,7 @@ export function TabEncabezado({ show }: { show: boolean }) {
               (value?.Beneficiario as string) || ""
             )
           }
-          isOptionEqualToValue={(option, value) => option === value}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
     </Box>
