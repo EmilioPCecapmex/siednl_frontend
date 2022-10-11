@@ -5,6 +5,7 @@ import {
   Box,
   Typography,
   IconButton,
+  Autocomplete,
 } from "@mui/material";
 import axios from "axios";
 import { IComponente } from "./IComponente";
@@ -12,7 +13,6 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 export function TabFinProposito({ show }: { show: boolean }) {
-
   const [fin, setFin] = useState({
     resumen: "",
     indicador: "",
@@ -31,8 +31,56 @@ export function TabFinProposito({ show }: { show: boolean }) {
     supuestos: "",
   });
 
-  const [showFin, setShowFin] = useState(true);
-  const [showProposito, setShowProposito] = useState(false);
+  const [showFin, setShowFin] = useState(false);
+  const [showProposito, setShowProposito] = useState(true);
+
+
+  const [indicadorSelect, setIndicadorSelect] = useState<Array<IIndicadores>>([]);
+  const [indicadorTxt, setIndicadorTxt] = useState("hola")
+
+  const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
+
+const getIndicadores = () => {
+  axios
+    .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      if (r.status === 200) {
+        setIndicador(r.data.data)
+      }
+    });
+};
+
+useEffect(() => {
+  getIndicadores()
+},[])
+
+const [errorIndicador, setErrorIndicador] = useState(false);
+const [tipoIndicador, setTipoIndicador] = useState("");
+
+const evalueTxtindicador = () => {
+if(fin.indicador.toLowerCase().includes("porcentaje")){
+  setErrorIndicador(false)
+  setTipoIndicador("Porcentaje")
+}else if(fin.indicador.toLowerCase().includes("tasa")) {
+  setErrorIndicador(false)
+  setTipoIndicador("Tasa")
+  }
+  else if(fin.indicador.toLowerCase().includes("indice" || "índice")) {
+    setErrorIndicador(false)
+    setTipoIndicador("Indice")
+    }
+    else if(fin.indicador.toLowerCase().includes("promedio")) {
+      setErrorIndicador(false)
+      setTipoIndicador("Promedio")
+      }else{
+        setErrorIndicador(true)
+      }
+} 
+
 
   return (
     <Box
@@ -97,13 +145,15 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setFin({...fin, resumen: c.target.value})
+              setFin({ ...fin, resumen: c.target.value });
             }}
             value={fin.resumen}
           />
           <TextField
             rows={3}
             multiline
+            error={errorIndicador}
+            helperText={errorIndicador? "Incluir tipo de indicador en descripción: Porcentaje, Índice, Tasa de Variación ó Promedio." : null}
             sx={{ width: "90%" }}
             variant="filled"
             InputLabelProps={{
@@ -116,9 +166,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
                 fontFamily: "MontserratRegular",
               },
             }}
+            onBlur={() => evalueTxtindicador()}
             label={"Indicador"}
             onChange={(c) => {
-              setFin({...fin, indicador: c.target.value})
+              setFin({ ...fin, indicador: c.target.value });
             }}
             value={fin.indicador}
           />
@@ -139,7 +190,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             sx={{ width: "90%" }}
             label={"Fórmula"}
             onChange={(c) => {
-              setFin({...fin, formula: c.target.value})
+              setFin({ ...fin, formula: c.target.value });
             }}
             value={fin.formula}
           />
@@ -160,7 +211,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setFin({...fin, frecuencia: c.target.value})
+              setFin({ ...fin, frecuencia: c.target.value });
             }}
             value={fin.frecuencia}
           />
@@ -182,7 +233,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             //value={componenteValor[x - 1].medios}
             onChange={(c) => {
-              setFin({...fin, medios: c.target.value})
+              setFin({ ...fin, medios: c.target.value });
             }}
             value={fin.medios}
           />
@@ -203,7 +254,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setFin({...fin, supuestos: c.target.value})
+              setFin({ ...fin, supuestos: c.target.value });
             }}
             value={fin.supuestos}
           />
@@ -254,10 +305,12 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, resumen: c.target.value})
+              setProposito({ ...proposito, resumen: c.target.value });
             }}
             value={proposito.resumen}
           />
+
+
           <TextField
             rows={3}
             multiline
@@ -279,6 +332,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             value={proposito.indicador}
           />
+
           <TextField
             rows={3}
             multiline
@@ -296,7 +350,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, formula: c.target.value})
+              setProposito({ ...proposito, formula: c.target.value });
             }}
             value={proposito.formula}
           />
@@ -317,7 +371,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, frecuencia: c.target.value})
+              setProposito({ ...proposito, frecuencia: c.target.value });
             }}
             value={proposito.frecuencia}
           />
@@ -338,7 +392,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             label={"Medios de Verificación"}
             onChange={(c) => {
-              setProposito({...proposito, medios: c.target.value})
+              setProposito({ ...proposito, medios: c.target.value });
             }}
             value={proposito.medios}
           />
@@ -359,7 +413,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, supuestos: c.target.value})
+              setProposito({ ...proposito, supuestos: c.target.value });
             }}
             value={proposito.supuestos}
           />
@@ -370,3 +424,15 @@ export function TabFinProposito({ show }: { show: boolean }) {
 }
 
 export default TabFinProposito;
+
+
+
+export interface IIndicadores {
+  Id:                 string;
+  TipoDeIndicador:    string;
+  FechaCreacion:      string;
+  CreadoPor:          string;
+  UltimaModificacion: string;
+  ModificadoPor:      string;
+  Deleted:            number;
+}

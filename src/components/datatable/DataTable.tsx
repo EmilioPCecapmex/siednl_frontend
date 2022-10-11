@@ -216,7 +216,7 @@ export const DataTable = ({
                         justifyContent: "left",
                         display: "flex",
                         alignItems: "center",
-                        fontFamily: "MontserratLight",
+                        fontFamily: "MontserratRegular",
                         fontSize: ".7vw",
                       }}
                     >
@@ -237,43 +237,43 @@ export const DataTable = ({
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                   >
                     {row.CorreoElectronico}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                   >
                     {row.NombreUsuario}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                   >
                     {row.Cargo}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                   >
                     {row.Telefono}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                   >
                     {row.Celular}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                   >
                     {row.NombreInstitucion}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                   >
                     {row.Rol}
                   </TableCell>
@@ -282,7 +282,6 @@ export const DataTable = ({
                     <Box display={"flex"}>
 
                     <AppsDialog
-                        deleteText="usuario"
                         id={row.Id}
                         actualizado={actualizaContador}
                       />
@@ -293,6 +292,8 @@ export const DataTable = ({
                         id={row.IdUsuarioTiCentral}
                         actualizado={actualizaContador}
                       />
+
+<Tooltip title="Editar">
 
                       <IconButton
                         onClick={() => handleClickOpen(row.IdUsuarioTiCentral)}
@@ -307,6 +308,7 @@ export const DataTable = ({
                           ]}
                         />
                       </IconButton>
+                      </Tooltip>
                     </Box>
                   </TableCell>
                 </TableRow>

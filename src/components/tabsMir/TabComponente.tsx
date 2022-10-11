@@ -22,39 +22,35 @@ export const TabComponente = ({ show }: { show: boolean }) => {
 
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
     componentes.map((x) => {
-    return {
-      resumen: "",
-      indicador: "",
-      frecuencia: "",
-      formula: "",
-      medios: "",
-      supuestos: "",
-    };
-  })
-);
+      return {
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    })
+  );
 
   const agregarFnc = () => {
     let v = componentes.length + 1;
     if (v > 6) {
     } else {
       setComponentes([...componentes, v]);
-    
-      if(componenteValor.length < 6){
-        let prevState = [...componenteValor]
-      prevState.push(
-        {
+
+      if (componenteValor.length < 6) {
+        let prevState = [...componenteValor];
+        prevState.push({
           resumen: "",
           indicador: "",
           frecuencia: "",
           formula: "",
           medios: "",
           supuestos: "",
-        }
-      )
+        });
         setComponenteValor(prevState);
-
       }
-    
     }
   };
 
@@ -64,19 +60,15 @@ export const TabComponente = ({ show }: { show: boolean }) => {
     } else {
       setComponentes(componentes.splice(0, v));
       let prevState = [...componenteValor];
-      prevState.pop()
-      setComponenteValor(prevState)
-      if(v < componentSelect){
-        setComponentSelect(v)
-
+      prevState.pop();
+      setComponenteValor(prevState);
+      if (v < componentSelect) {
+        setComponentSelect(v);
       }
     }
-
-
   };
 
   const [componentSelect, setComponentSelect] = useState(1);
-
 
   //----------------------------------------------------------------------------------------------
 
@@ -251,7 +243,7 @@ export const TabComponente = ({ show }: { show: boolean }) => {
               rows={4}
               sx={{ width: "30%" }}
               label={"Fórmula"}
-              value={componenteValor[componentSelect - 1].formula }
+              value={componenteValor[componentSelect - 1].formula}
               onChange={(c) => {
                 componenteValor[componentSelect - 1].formula = c.target.value;
                 setComponenteValor([...componenteValor]);
@@ -284,9 +276,10 @@ export const TabComponente = ({ show }: { show: boolean }) => {
               rows={4}
               sx={{ width: "30%" }}
               label={"Frecuencia"}
-              value={componenteValor[componentSelect - 1].frecuencia }
+              value={componenteValor[componentSelect - 1].frecuencia}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].frecuencia = c.target.value;
+                componenteValor[componentSelect - 1].frecuencia =
+                  c.target.value;
                 setComponenteValor([...componenteValor]);
               }}
             />
@@ -306,7 +299,7 @@ export const TabComponente = ({ show }: { show: boolean }) => {
               rows={4}
               sx={{ width: "30%" }}
               label={"Medios de Verificación"}
-              value={componenteValor[componentSelect - 1].medios }
+              value={componenteValor[componentSelect - 1].medios}
               onChange={(c) => {
                 componenteValor[componentSelect - 1].medios = c.target.value;
                 setComponenteValor([...componenteValor]);
@@ -328,7 +321,7 @@ export const TabComponente = ({ show }: { show: boolean }) => {
               }}
               sx={{ width: "30%" }}
               label={"Supuestos"}
-              value={componenteValor[componentSelect - 1].supuestos }
+              value={componenteValor[componentSelect - 1].supuestos}
               onChange={(c) => {
                 componenteValor[componentSelect - 1].supuestos = c.target.value;
                 setComponenteValor([...componenteValor]);

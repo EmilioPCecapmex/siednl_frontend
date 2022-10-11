@@ -417,7 +417,7 @@ export const Notification = () => {
               sx={{
                 display: "flex",
                 borderBottom: 1,
-                borderColor: "#051c2c",
+                borderColor: "#D7D7D7",
                 height: "6vh",
                 width: "100%",
                 alignItems: "center",
@@ -458,6 +458,7 @@ export const Notification = () => {
                   width: "100%",
                   display: "flex",
                   alignItems: "center",
+                  backgroundColor: '#E8E8E8',
                   height: "3vh",
                 }}
               >
