@@ -11,7 +11,6 @@ import { Init } from "./screens/init/Init";
 import { continueSession, sessionValid } from "./funcs/validation";
 import { useNavigate } from "react-router-dom";
 import { LateralMenu } from "./components/lateralMenu/LateralMenu";
-import { Prueba } from "./screens/Prueba";
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
 import { TabComponente } from "./components/tabsMir/TabComponente";
