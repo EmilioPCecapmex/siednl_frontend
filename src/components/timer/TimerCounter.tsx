@@ -49,7 +49,7 @@ export const TimerCounter = () => {
         }
       })
       .catch((err) => {
-        console.log(err)
+        // console.log(err)
         logout();
       });
   };
