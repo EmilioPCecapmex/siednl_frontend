@@ -83,7 +83,6 @@ export const TabComponente = ({ show, asignarComponente }: { show: boolean, asig
 
   const [componentSelect, setComponentSelect] = useState(1);
 
-
   //----------------------------------------------------------------------------------------------
   return (
     <Box
@@ -291,7 +290,8 @@ export const TabComponente = ({ show, asignarComponente }: { show: boolean, asig
               label={"Frecuencia"}
               value={componenteValor[componentSelect - 1].frecuencia}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].frecuencia = c.target.value;
+                componenteValor[componentSelect - 1].frecuencia =
+                  c.target.value;
                 setComponenteValor([...componenteValor]);
               }}
             />

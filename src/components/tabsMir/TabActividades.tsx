@@ -60,20 +60,17 @@ export const TabActividades = ({
         });
         setCValor(prevState);
       }
-      console.log(prevState);
     } else if (
       show === true &&
       componentes.length < cValor[0].componentes.length
     ) {
       let prevState = [...cValor];
       let restantes = cValor[0].componentes.length - componentes.length;
-      console.log(restantes);
       for (let index = 1; index <= restantes; index++) {
         prevState[0].componentes.pop();
         setCValor(prevState);
       }
       setComponenteSelect("0");
-      console.log(prevState);
     }
   }, [show]);
 
@@ -179,17 +176,18 @@ export const TabActividades = ({
             },
           }}
         >
-          <ButtonGroup variant="text" sx={{}}>
+          <ButtonGroup variant="text">
             {componentes.map((x) => {
               return (
                 <Button
                   key={x}
                   onClick={() => {
-                    setActividades([1, 2]);
                     setComponenteSelect((x - 1).toString());
+
+                    setActividades([1, 2]);
                     let xArray = [...componenteActividad];
 
-                    xArray[0]["componentes"][x - 1] = xArray[0]["componentes"][
+                    xArray[0]["componentes"][x] = xArray[0]["componentes"][
                       x - 1
                     ] || [1, 2];
 
@@ -239,11 +237,11 @@ export const TabActividades = ({
         }}
       >
         {/* Renderizado de Actividades */}
-        {componenteActividad[0]["componentes"][parseInt(componenteSelect)].map(
-          (x) => {
+        {cValor[0].componentes[parseInt(componenteSelect)].actividades.map(
+          (value, x) => {
             return (
               <Accordion
-                key={x}
+              key={x}
                 sx={{
                   width: "95%",
                   display: "flex",
@@ -251,10 +249,9 @@ export const TabActividades = ({
                   boxShadow: 4,
                 }}
               >
-                <AccordionSummary key={x} expandIcon={<ExpandMoreIcon />}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                    Actividad {x} - Componente{" "}
-                    {(parseInt(componenteSelect) + 1).toString()}
+                    Actividad {x + 1} - Componente {" "}{(parseInt(componenteSelect) + 1).toString()}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -279,13 +276,13 @@ export const TabActividades = ({
                         label={"Resumen Narrativo"}
                         value={
                           cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x - 1].resumen
+                            .actividades[x].resumen
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
                             parseInt(componenteSelect)
-                          ].actividades[x - 1].resumen = c.target.value;
+                          ].actividades[x].resumen = c.target.value;
                           setCValor(y);
                         }}
                       />
@@ -294,13 +291,13 @@ export const TabActividades = ({
                         rows={5}
                         value={
                           cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x - 1].indicador
+                            .actividades[x].indicador
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
                             parseInt(componenteSelect)
-                          ].actividades[x - 1].indicador = c.target.value;
+                          ].actividades[x].indicador = c.target.value;
                           setCValor(y);
                         }}
                       />
@@ -308,13 +305,13 @@ export const TabActividades = ({
                         label={"Fórmula"}
                         value={
                           cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x - 1].formula
+                            .actividades[x].formula
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
                             parseInt(componenteSelect)
-                          ].actividades[x - 1].formula = c.target.value;
+                          ].actividades[x].formula = c.target.value;
                           setCValor(y);
                         }}
                       />
@@ -332,13 +329,13 @@ export const TabActividades = ({
                         label={"Frecuencia"}
                         value={
                           cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x - 1].frecuencia
+                            .actividades[x].frecuencia
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
                             parseInt(componenteSelect)
-                          ].actividades[x - 1].frecuencia = c.target.value;
+                          ].actividades[x].frecuencia = c.target.value;
                           setCValor(y);
                         }}
                       />
@@ -346,13 +343,13 @@ export const TabActividades = ({
                         label={"Medios de Verificación"}
                         value={
                           cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x - 1].medios
+                            .actividades[x].medios
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
                             parseInt(componenteSelect)
-                          ].actividades[x - 1].medios = c.target.value;
+                          ].actividades[x].medios = c.target.value;
                           setCValor(y);
                         }}
                       />
@@ -360,15 +357,14 @@ export const TabActividades = ({
                         label={"Supuestos"}
                         value={
                           cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x - 1].supuestos
+                            .actividades[x].supuestos
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
                             parseInt(componenteSelect)
-                          ].actividades[x - 1].supuestos = c.target.value;
+                          ].actividades[x].supuestos = c.target.value;
                           setCValor(y);
-                          console.log(y);
                         }}
                       />
                     </Box>
@@ -379,6 +375,9 @@ export const TabActividades = ({
           }
         )}
       </Box>
+      <Button onClick={() => console.log(cValor)}>
+        Enviar
+      </Button>
     </Box>
   );
 };

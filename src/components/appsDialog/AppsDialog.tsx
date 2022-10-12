@@ -13,11 +13,9 @@ import Swal from "sweetalert2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 export const AppsDialog = ({
-  deleteText,
   id,
   actualizado,
 }: {
-  deleteText: string;
   id: string;
   actualizado: Function;
 }) => {
@@ -137,7 +135,7 @@ export const AppsDialog = ({
 
   return (
     <Box>
-      <Tooltip title="Eliminar">
+      <Tooltip title="Instituciones">
         <IconButton onClick={handleClickOpen}>
           <AppRegistrationIcon
             sx={[

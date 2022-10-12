@@ -283,7 +283,7 @@ export default function ModalCrearUsuario({
           sx={{
             width: "100%",
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-evenly",
           }}
         >
           <TextField
@@ -291,7 +291,7 @@ export default function ModalCrearUsuario({
             variant="outlined"
             value={username}
             sx={{
-              width: "40%",
+              width: "30%",
               ml: "2vw",
             }}
             onChange={(v) => setUsername(v.target.value)}

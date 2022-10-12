@@ -258,7 +258,7 @@ export default function ModalVincularUsuario({
   }, []);
 
   return (
-    <Dialog fullWidth maxWidth="lg" open={open} onClose={() => closeModal()}>
+    <Dialog fullWidth maxWidth="md" open={open} onClose={() => closeModal()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
         {title.toUpperCase()}
       </DialogTitle>
@@ -296,7 +296,7 @@ export default function ModalVincularUsuario({
             variant="outlined"
             value={username}
             sx={{
-              width: "40%",
+              width: "30%",
               ml: "2vw",
             }}
             onChange={(v) => setUsername(v.target.value)}
