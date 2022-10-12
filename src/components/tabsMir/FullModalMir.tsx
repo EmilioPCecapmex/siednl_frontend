@@ -26,8 +26,8 @@ export default function FullModalMir() {
   const asignarComponente = (state: []) => {
     setComponentes(state);
     let a = componentes;
-    //console.log(a)
   };
+
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
     let a = componenteValor;
