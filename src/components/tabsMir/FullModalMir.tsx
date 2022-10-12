@@ -18,16 +18,20 @@ export default function FullModalMir() {
 
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
+  const [actualizoComponentes, setActualizoComponentes] = React.useState(2);
 
+
+
+
+  const asignarComponente=( state:[])=>{
+    setComponentes(state);
+    setActualizoComponentes(state.length)
+  }
   const [componenteValor, setComponenteValor] = React.useState<
     Array<IComponente>
   >([]);
 
 
-  const asignarComponentes = (state: []) => {
-    setComponentes(state);
-    let a = componentes;
-  };
 
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
@@ -146,9 +150,9 @@ export default function FullModalMir() {
         >
           <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-           <TabComponente show={value === 30 ? true : false } asignarComponentes={asignarComponentes} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
-          <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
           <TabResumen show={value === 50 ? true : false} componentes={componentes}></TabResumen>
+           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} ></TabComponente>
+          <TabActividades show={value === 40 ? true : false} componentes={componentes} actualizoComponentes={actualizoComponentes}></TabActividades>
         </Box>
       </Box>
     </Box>

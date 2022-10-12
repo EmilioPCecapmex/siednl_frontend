@@ -18,16 +18,14 @@ import { IComponente } from "./IComponente";
 export const TabActividades = ({
   show,
   componentes,
+  actualizoComponentes,
 }: {
   show: boolean;
   componentes: number[];
+  actualizoComponentes: number;
 }) => {
-
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
-
-  const[btnAgregar,setBtnAgregar]=React.useState(true);
-  const[btnEliminar,setBttnEliminar]=React.useState(false);
 
   const [componenteActividad, setComponenteActividad] = useState([
     {
@@ -35,21 +33,63 @@ export const TabActividades = ({
     },
   ]);
 
+  useEffect(() => {
+    if (show === true && componentes.length > cValor[0].componentes.length) {
+      let restantes = componentes.length - cValor[0].componentes.length;
+      let prevState = [...cValor];
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.push({
+          actividades: [
+            {
+              resumen: "",
+              indicador: "",
+              frecuencia: "",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            },
+            {
+              resumen: "",
+              indicador: "",
+              frecuencia: "",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            },
+          ],
+        });
+        setCValor(prevState);
+      }
+      console.log(prevState);
+    } else if (
+      show === true &&
+      componentes.length < cValor[0].componentes.length
+    ) {
+      let prevState = [...cValor];
+      let restantes = cValor[0].componentes.length - componentes.length;
+      console.log(restantes);
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.pop();
+        setCValor(prevState);
+      }
+      setComponenteSelect("0");
+      console.log(prevState);
+    }
+  }, [show]);
+
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
       return {
-        components: item.componentes.map((x) => {
+        componentes: item.componentes.map((x) => {
           return {
-            c: x.map((c) => {
+            actividades: x.map((c) => {
               return {
-                a: {
-                  resumen: "",
-                  indicador: "",
-                  formula: "",
-                  frecuencia: "",
-                  medios: "",
-                  supuestos: "",
-                },
+                resumen: "",
+                indicador: "",
+                formula: "",
+                frecuencia: "",
+                medios: "",
+                supuestos: "",
               };
             }),
           };
@@ -59,92 +99,49 @@ export const TabActividades = ({
   );
 
   const agregarAFnc = (index: number) => {
-    // let v = actividades.length + 1;
-    // if (v > 6) {
-    // } else {
-    //   setActividades([...actividades, v]);
-
-    //   let xArray = [...componenteActividad];
-
-    //   xArray[0]["componentes"][index] = [
-    //     ...actividades,
-    //     v,
-    //   ];
-
-    //   setComponenteActividad(xArray);
-
-      if (actividades.length + 1 < 7){
-        setBtnAgregar(false);
-        setBttnEliminar(false);
-        
-        let a =[...actividades];
-        a.push(actividades.length + 1);
-        setActividades(a);
-
-        let xArray = [...componenteActividad];
-
-        xArray[0]["componentes"][index] = [...actividades,actividades.length + 1];
-
-        setComponenteActividad(xArray);
-
-      
-
-        if(cValor[0].components[index].c.length < 6){
-          let prevState = [...cValor]
-          prevState[0].components[index].c.push(
-          {a:{
-            resumen: "",
-            indicador: "",
-            frecuencia: "",
-            formula: "",
-            medios: "",
-            supuestos: "",
-          }}
-        )
-          setCValor(prevState);
-        }
+    if (actividades.length + 1 < 7) {
+      let a = [...actividades];
+      a.push(actividades.length + 1);
+      setActividades(a);
+      let xArray = [...componenteActividad];
+      xArray[0]["componentes"][index] = [
+        ...actividades,
+        actividades.length + 1,
+      ];
+      setComponenteActividad(xArray);
+      if (cValor[0].componentes[index].actividades.length < 6) {
+        let prevState = [...cValor];
+        prevState[0].componentes[index].actividades.push({
+          resumen: "",
+          indicador: "",
+          frecuencia: "",
+          formula: "",
+          medios: "",
+          supuestos: "",
+        });
+        setCValor(prevState);
       }
-    console.log(cValor);
-    console.log(actividades)
+    }
   };
-
-
-
 
   const eliminarAFnc = () => {
     let act = componenteActividad[0]["componentes"][parseInt(componenteSelect)];
     let v = act.length - 1;
     if (v < 2) {
     } else {
-      
-      setBttnEliminar(false);
-      setBtnAgregar(false);
-      let a =actividades;
+      let a = actividades;
       a.pop();
       setActividades(a);
-      
-
       let xArray = [...componenteActividad];
-
       xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
-
       setComponenteActividad(xArray);
       let prevState = [...cValor];
-      prevState[0].components[parseInt(componenteSelect)].c.pop()
-      setCValor(prevState)
+      prevState[0].componentes[parseInt(componenteSelect)].actividades.pop();
+      setCValor(prevState);
     }
-    console.log(cValor);
-    console.log(actividades)
   };
 
   const [componenteSelect, setComponenteSelect] = React.useState("0");
-
- 
-
-  useEffect(() => {
-    setBtnAgregar(true);
-    setBttnEliminar(true);
-  }, [actividades]);
 
   //return main
   return (
@@ -187,7 +184,6 @@ export const TabActividades = ({
               return (
                 <Button
                   key={x}
-                  
                   onClick={() => {
                     setActividades([1, 2]);
                     setComponenteSelect((x - 1).toString());
@@ -209,7 +205,6 @@ export const TabActividades = ({
 
         <Box sx={{ display: "flex", mr: "9vw" }}>
           <IconButton
-            disabled={btnAgregar? false:true}
             onClick={() => {
               agregarAFnc(parseInt(componenteSelect));
             }}
@@ -217,7 +212,7 @@ export const TabActividades = ({
             <AddCircleIcon fontSize="large" />
           </IconButton>
 
-          <IconButton onClick={() => eliminarAFnc()}  disabled={btnEliminar? false:true}>
+          <IconButton onClick={() => eliminarAFnc()}>
             <DoDisturbOnIcon fontSize="large" />
           </IconButton>
         </Box>
@@ -248,6 +243,7 @@ export const TabActividades = ({
           (x) => {
             return (
               <Accordion
+                key={x}
                 sx={{
                   width: "95%",
                   display: "flex",
@@ -281,28 +277,45 @@ export const TabActividades = ({
                     >
                       <TextField
                         label={"Resumen Narrativo"}
-                        value={cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x - 1].resumen
+                        }
                         onChange={(c) => {
-                          let y=[...cValor]
-                          y[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen = c.target.value;
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x - 1].resumen = c.target.value;
                           setCValor(y);
-
-                          console.log(cValor);
                         }}
                       />
                       <TextField
                         label={"Indicador"}
                         rows={5}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x - 1].indicador
+                        }
                         onChange={(c) => {
-                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.indicador = c.target.value;
-                           
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x - 1].indicador = c.target.value;
+                          setCValor(y);
                         }}
                       />
                       <TextField
                         label={"Fórmula"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x - 1].formula
+                        }
                         onChange={(c) => {
-                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.formula = c.target.value;
-                           
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x - 1].formula = c.target.value;
+                          setCValor(y);
                         }}
                       />
                     </Box>
@@ -317,23 +330,45 @@ export const TabActividades = ({
                     >
                       <TextField
                         label={"Frecuencia"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x - 1].frecuencia
+                        }
                         onChange={(c) => {
-                         
-                           
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x - 1].frecuencia = c.target.value;
+                          setCValor(y);
                         }}
                       />
                       <TextField
                         label={"Medios de Verificación"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x - 1].medios
+                        }
                         onChange={(c) => {
-                          
-                           
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x - 1].medios = c.target.value;
+                          setCValor(y);
                         }}
                       />
                       <TextField
                         label={"Supuestos"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x - 1].supuestos
+                        }
                         onChange={(c) => {
-                         
-                           
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x - 1].supuestos = c.target.value;
+                          setCValor(y);
+                          console.log(y);
                         }}
                       />
                     </Box>
