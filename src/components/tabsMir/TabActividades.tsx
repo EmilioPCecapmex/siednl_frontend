@@ -122,16 +122,13 @@ export const TabActividades = ({
   };
 
   const eliminarAFnc = () => {
-    let act = componenteActividad[0]["componentes"][parseInt(componenteSelect)];
-    let v = act.length - 1;
-    if (v < 2) {
-    } else {
+    let act = cValor[0].componentes[parseInt(componenteSelect)].actividades;
+    let v = act.length;
+    console.log(v)
+    if (v > 2) {
       let a = actividades;
       a.pop();
       setActividades(a);
-      let xArray = [...componenteActividad];
-      xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
-      setComponenteActividad(xArray);
       let prevState = [...cValor];
       prevState[0].componentes[parseInt(componenteSelect)].actividades.pop();
       setCValor(prevState);
