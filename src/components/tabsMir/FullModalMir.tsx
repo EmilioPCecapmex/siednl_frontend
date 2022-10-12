@@ -48,6 +48,17 @@ export default function FullModalMir() {
     setComponenteValor(array);
   }, []);
 
+  const [encabezado, setEncabezado] = useState({
+    ejercicioFiscal: '',
+    institucion:'',
+    programa:'',
+    eje:'',
+    tematica:'',
+    objetivo:'',
+    estrategia:'',
+    lineasDeAccion:'',
+    beneficiario:''
+  })
   
   //----------------------------------------------------------------------------------------------
   return (
@@ -139,7 +150,7 @@ export default function FullModalMir() {
             height: "77vh",
           }}
         >
-          <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
+          <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={encabezado}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>

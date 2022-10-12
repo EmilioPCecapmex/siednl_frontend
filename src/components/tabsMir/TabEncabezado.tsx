@@ -11,10 +11,24 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export function TabEncabezado({ show }: { show: boolean }) {
+export function TabEncabezado({ show, resumenEncabezado }: { show: boolean, resumenEncabezado: object}) {
+
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
   );
+
+  interface IEncabezado {
+    ejercicioFiscal: string,
+    institucion:string,
+    programa:string,
+    eje:string,
+    tematica:string,
+    objetivo:string,
+    estrategia:string,
+    lineasDeAccion:string,
+    beneficiario:string
+  }
+
 
   const Toast = Swal.mixin({
     toast: true,
