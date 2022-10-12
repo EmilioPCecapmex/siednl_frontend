@@ -16,7 +16,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 
-export const TabComponente = ({ show, asignarComponente, asignarComponenteValor }: { show: boolean, asignarComponente: Function, asignarComponenteValor: Function }) => {
+export const TabComponente = ({ show, asignarComponentes, asignarComponenteValor }: { show: boolean, asignarComponentes: Function, asignarComponenteValor: Function }) => {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = useState([1, 2]);
 
@@ -56,7 +56,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
       }
 
     }
-    asignarComponente(componentes);
+    asignarComponentes(componentes);
   };
 
   const eliminarFnc = () => {
@@ -75,8 +75,12 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
   };
 
   useEffect(() => {
-    asignarComponente(componentes)
+    asignarComponentes(componentes)
   }, [componentes])
+
+  useEffect(() => {
+    asignarComponenteValor(componenteValor);
+  }, [componenteValor])
 
 
   const [componentSelect, setComponentSelect] = useState(1);

@@ -23,7 +23,8 @@ export default function FullModalMir() {
     Array<IComponente>
   >([]);
 
-  const asignarComponente = (state: []) => {
+
+  const asignarComponentes = (state: []) => {
     setComponentes(state);
     let a = componentes;
   };
@@ -31,7 +32,11 @@ export default function FullModalMir() {
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
     let a = componenteValor;
-    // console.log(a);
+    console.log(a);
+  };
+
+  const retornarComponentes = () => {
+    return componentes
   };
 
   useEffect(() => {
@@ -141,9 +146,9 @@ export default function FullModalMir() {
         >
           <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
+           <TabComponente show={value === 30 ? true : false } asignarComponentes={asignarComponentes} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
-          <TabResumen show={value === 50 ? true : false}></TabResumen>
+          <TabResumen show={value === 50 ? true : false} componentes={componentes}></TabResumen>
         </Box>
       </Box>
     </Box>

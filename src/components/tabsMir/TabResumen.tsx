@@ -20,8 +20,9 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 
-export function TabResumen({ show }: { show: boolean }) {
-  const [componentes, setComponentes] = useState([1, 2, 3, 4, 5, 6]);
+export function TabResumen({show,componentes}: {show: boolean;componentes: number[];}) {
+  //
+   //setComponentes(retornarComponentes());
   const [actividades, setActividades] = useState([1, 2, 3, 4, 5, 6]);
 
   const [componentSelect, setComponentSelect] = useState(1);
@@ -40,11 +41,12 @@ export function TabResumen({ show }: { show: boolean }) {
         height: "85vh",
         boxShadow: 10,
         borderRadius: 5,
-        flexDirection: "column",
+        flexDirection: "row",
         backgroundColor: "#fff",
       }}
     >
-      <List
+      <Box>
+        <List
         sx={{
           width: "10vw",
           height: "85vh",
@@ -169,6 +171,23 @@ export function TabResumen({ show }: { show: boolean }) {
           </List>
         </Collapse>
       </List>
+      </Box>
+      
+      <Box sx={{width:"65vw",}}>
+
+        <Box>
+
+
+        </Box>
+
+        </Box>
+
+
+      
+      {componentes.map((item) => { 
+        return(
+          <Box>{componentes[item-1]}</Box>);})}
+      
     </Box>
   );
 }
