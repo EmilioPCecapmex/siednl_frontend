@@ -20,6 +20,8 @@ export default function FullModalMir() {
   const [componentes, setComponentes] = React.useState([1, 2]);
   const [actualizoComponentes, setActualizoComponentes] = React.useState(2);
 
+  
+
 
 
 
@@ -27,9 +29,20 @@ export default function FullModalMir() {
     setComponentes(state);
     setActualizoComponentes(state.length)
   }
-  const [componenteValor, setComponenteValor] = React.useState<
-    Array<IComponente>
-  >([]);
+
+
+  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
+    componentes.map((x) => {
+      return {
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    })
+  );
 
 
 
@@ -150,8 +163,8 @@ export default function FullModalMir() {
         >
           <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-          <TabResumen show={value === 50 ? true : false} componentes={componentes}></TabResumen>
-           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} ></TabComponente>
+          <TabResumen show={value === 50 ? true : false} componentes={componentes} ></TabResumen>
+           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes} actualizoComponentes={actualizoComponentes}></TabActividades>
         </Box>
       </Box>

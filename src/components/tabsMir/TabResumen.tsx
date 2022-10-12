@@ -20,8 +20,10 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { IComponente } from "./IComponente";
 
-export function TabResumen({ show, componentes }: { show: boolean; componentes: number[]; }) {
+
+export function TabResumen({ show, componentes, componenteValor }: { show: boolean; componentes: number[]; componenteValor: IComponente[]}) {
   //
   //setComponentes(retornarComponentes());
   const [actividades, setActividades] = useState([1, 2, 3, 4, 5, 6]);
