@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {
-  Box,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import TabEncabezado from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito from "./TabFinProposito";
@@ -18,6 +16,7 @@ export default function FullModalMir() {
     setValue(newValue);
   };
 
+  // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
   const [actualizoComponentes, setActualizoComponentes] = React.useState(2);
 
@@ -28,6 +27,30 @@ export default function FullModalMir() {
     setComponentes(state);
     setActualizoComponentes(state.length)
   }
+  const [componenteValor, setComponenteValor] = React.useState<
+    Array<IComponente>
+  >([]);
+
+
+  const asignarComponenteValor = (state: Array<IComponente>) => {
+    setComponenteValor(state);
+    let a = componenteValor;
+    // console.log(a);
+  };
+
+  useEffect(() => {
+    let array = componentes.map((x) => {
+      return {
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    });
+    setComponenteValor(array);
+  }, []);
 
   
   //----------------------------------------------------------------------------------------------

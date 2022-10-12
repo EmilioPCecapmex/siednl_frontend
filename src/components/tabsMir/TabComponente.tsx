@@ -80,7 +80,6 @@ export const TabComponente = ({ show, asignarComponente }: { show: boolean, asig
   const [componentSelect, setComponentSelect] = useState(1);
 
 
-
   //----------------------------------------------------------------------------------------------
   return (
     <Box

@@ -49,13 +49,14 @@ export function TabFinProposito({ show }: { show: boolean }) {
         borderRadius: 5,
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        gridTemplateRows: "repeat(2, 1fr 2fr 2fr)",
+        gridTemplateRows: showFin ? "1fr 1fr 1fr 2fr" : showProposito ? "1fr 1fr 1fr 2fr" : "repeat(2, 1fr 2fr)",
       }}
     >
       <Box
         sx={{
           width: "100%",
           gridColumn: "1/4",
+          gridRow: showFin ? '1': showProposito ? '1':'2',
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -73,7 +74,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
         >
           Fin
         </Typography>
-        <IconButton onClick={() => setShowFin(!showFin)}>
+        <IconButton onClick={() => {setShowFin(!showFin); setShowProposito(false)}}>
           {showFin ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </Box>
@@ -81,10 +82,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
       {showFin ? (
         <>
           <TextField
-            rows={3}
+            rows={4}
             multiline
-            sx={{ width: "90%" }}
-            variant="filled"
+            sx={{ width: "90%", boxShadow:4}}
+            variant={'filled'}
             label={"Resumen Narrativo"}
             InputLabelProps={{
               style: {
@@ -102,9 +103,9 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={fin.resumen}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             variant="filled"
             InputLabelProps={{
               style: {
@@ -123,7 +124,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={fin.indicador}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
             InputLabelProps={{
@@ -136,7 +137,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
                 fontFamily: "MontserratRegular",
               },
             }}
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Fórmula"}
             onChange={(c) => {
               setFin({...fin, formula: c.target.value})
@@ -144,10 +145,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={fin.formula}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Frecuencia"}
             InputLabelProps={{
               style: {
@@ -165,10 +166,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={fin.frecuencia}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Medios de Verificación"}
             InputLabelProps={{
               style: {
@@ -187,10 +188,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={fin.medios}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Supuestos"}
             InputLabelProps={{
               style: {
@@ -214,6 +215,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
         sx={{
           width: "100%",
           gridColumn: "1/4",
+          gridRow: showProposito ? '2': showFin ? '4':'3',
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -226,22 +228,22 @@ export function TabFinProposito({ show }: { show: boolean }) {
             fontSize: "2vw",
             borderBottom: 1,
             textAlign: "left",
-            borderColor: "#3c3f42",
+            borderColor: "#3c3f42"
           }}
         >
           Propósito
         </Typography>
-        <IconButton onClick={() => setShowProposito(!showProposito)}>
+        <IconButton onClick={() => {setShowProposito(!showProposito); setShowFin(false)}}>
           {showProposito ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </Box>
       {showProposito ? (
         <>
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Resumen Narrativo"}
             InputLabelProps={{
               style: {
@@ -259,10 +261,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={proposito.resumen}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Indicador"}
             InputLabelProps={{
               style: {
@@ -280,10 +282,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={proposito.indicador}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Fórmula"}
             InputLabelProps={{
               style: {
@@ -301,10 +303,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={proposito.formula}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Frecuencia"}
             InputLabelProps={{
               style: {
@@ -322,10 +324,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={proposito.frecuencia}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
@@ -343,10 +345,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
             value={proposito.medios}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Supuestos"}
             InputLabelProps={{
               style: {
