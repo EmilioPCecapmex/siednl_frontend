@@ -16,7 +16,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 
-export const TabComponente = ({ show }: { show: boolean }) => {
+export const TabComponente = ({ show, asignarComponente }: { show: boolean, asignarComponente: Function }) => {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = useState([1, 2]);
 
@@ -40,18 +40,21 @@ export const TabComponente = ({ show }: { show: boolean }) => {
       setComponentes([...componentes, v]);
 
       if (componenteValor.length < 6) {
-        let prevState = [...componenteValor];
-        prevState.push({
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        });
+        let prevState = [...componenteValor]
+        prevState.push(
+          {
+            resumen: "",
+            indicador: "",
+            frecuencia: "",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          }
+        )
         setComponenteValor(prevState);
       }
     }
+    asignarComponente(componentes);
   };
 
   const eliminarFnc = () => {
@@ -60,18 +63,27 @@ export const TabComponente = ({ show }: { show: boolean }) => {
     } else {
       setComponentes(componentes.splice(0, v));
       let prevState = [...componenteValor];
-      prevState.pop();
-      setComponenteValor(prevState);
+      prevState.pop()
+      setComponenteValor(prevState)
       if (v < componentSelect) {
-        setComponentSelect(v);
+        setComponentSelect(v)
+
       }
     }
   };
 
+  useEffect(() => {
+    asignarComponente(componentes);
+  }, [componentes])
+
+  // useEffect(() => {
+  //   asignarComponenteValor(componenteValor);
+  // }, [componenteValor])
+
+
   const [componentSelect, setComponentSelect] = useState(1);
 
   //----------------------------------------------------------------------------------------------
-
   return (
     <Box
       visibility={show ? "visible" : "hidden"}

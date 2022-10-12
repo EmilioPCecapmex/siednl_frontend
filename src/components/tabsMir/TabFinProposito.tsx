@@ -97,13 +97,14 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
         borderRadius: 5,
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        gridTemplateRows: "repeat(2, 1fr 2fr 2fr)",
+        gridTemplateRows: showFin ? "1fr 1fr 1fr 2fr" : showProposito ? "1fr 1fr 1fr 2fr" : "repeat(2, 1fr 2fr)",
       }}
     >
       <Box
         sx={{
           width: "100%",
           gridColumn: "1/4",
+          gridRow: showFin ? '1': showProposito ? '1':'2',
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -121,7 +122,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
         >
           Fin
         </Typography>
-        <IconButton onClick={() => setShowFin(!showFin)}>
+        <IconButton onClick={() => {setShowFin(!showFin); setShowProposito(false)}}>
           {showFin ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </Box>
@@ -129,10 +130,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
       {showFin ? (
         <>
           <TextField
-            rows={3}
+            rows={4}
             multiline
-            sx={{ width: "90%" }}
-            variant="filled"
+            sx={{ width: "90%", boxShadow:4}}
+            variant={'filled'}
             label={"Resumen Narrativo"}
             InputLabelProps={{
               style: {
@@ -150,11 +151,9 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             value={fin.resumen}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
-            error={errorIndicador}
-            helperText={errorIndicador? "Incluir tipo de indicador en descripción: Porcentaje, Índice, Tasa de Variación ó Promedio." : null}
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             variant="filled"
             InputLabelProps={{
               style: {
@@ -174,7 +173,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             value={fin.indicador}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
             InputLabelProps={{
@@ -187,7 +186,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
                 fontFamily: "MontserratRegular",
               },
             }}
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Fórmula"}
             onChange={(c) => {
               setFin({ ...fin, formula: c.target.value });
@@ -195,10 +194,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             value={fin.formula}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Frecuencia"}
             InputLabelProps={{
               style: {
@@ -216,10 +215,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             value={fin.frecuencia}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Medios de Verificación"}
             InputLabelProps={{
               style: {
@@ -238,10 +237,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             value={fin.medios}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Supuestos"}
             InputLabelProps={{
               style: {
@@ -265,6 +264,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
         sx={{
           width: "100%",
           gridColumn: "1/4",
+          gridRow: showProposito ? '2': showFin ? '4':'3',
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -277,22 +277,22 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             fontSize: "2vw",
             borderBottom: 1,
             textAlign: "left",
-            borderColor: "#3c3f42",
+            borderColor: "#3c3f42"
           }}
         >
           Propósito
         </Typography>
-        <IconButton onClick={() => setShowProposito(!showProposito)}>
+        <IconButton onClick={() => {setShowProposito(!showProposito); setShowFin(false)}}>
           {showProposito ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </Box>
       {showProposito ? (
         <>
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Resumen Narrativo"}
             InputLabelProps={{
               style: {
@@ -312,10 +312,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
 
 
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Indicador"}
             InputLabelProps={{
               style: {
@@ -334,10 +334,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
           />
 
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Fórmula"}
             InputLabelProps={{
               style: {
@@ -355,10 +355,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             value={proposito.formula}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Frecuencia"}
             InputLabelProps={{
               style: {
@@ -376,10 +376,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             value={proposito.frecuencia}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
@@ -397,10 +397,10 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             value={proposito.medios}
           />
           <TextField
-            rows={3}
+            rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%" }}
+            sx={{ width: "90%", boxShadow:4 }}
             label={"Supuestos"}
             InputLabelProps={{
               style: {
