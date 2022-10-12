@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import {
@@ -19,23 +19,16 @@ export default function FullModalMir() {
   };
 
   const [componentes, setComponentes] = React.useState([1, 2]);
+  const [actualizoComponentes, setActualizoComponentes] = React.useState(2);
+
+
 
 
   const asignarComponente=( state:[])=>{
     setComponentes(state);
-    let a =componentes;
-    //console.log(a)
+    setActualizoComponentes(state.length)
   }
 
-  const [componenteValor, setComponenteValor] = React.useState<
-    Array<IComponente>
-  >([]); 
-
-  const asignarComponenteValor=( state:Array<IComponente>)=>{
-    setComponenteValor(state);
-    let a =componenteValor;
-    console.log(a)
-  }
   
   //----------------------------------------------------------------------------------------------
   return (
@@ -129,8 +122,8 @@ export default function FullModalMir() {
         >
           <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
-          <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
+           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} ></TabComponente>
+          <TabActividades show={value === 40 ? true : false} componentes={componentes} actualizoComponentes={actualizoComponentes}></TabActividades>
           <TabResumen show={value === 50 ? true : false}></TabResumen>
         </Box>
       </Box>
