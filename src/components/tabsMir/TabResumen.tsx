@@ -581,6 +581,7 @@ export function TabResumen({
             >
               Propósito
             </Typography>
+            
             <TextField
               variant="standard"
               multiline

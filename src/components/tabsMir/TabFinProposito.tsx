@@ -312,7 +312,17 @@ export function TabFinProposito({
             borderBottom: 1,
             textAlign: "left",
             borderColor: "#3c3f42",
+            cursor:'pointer',
+            ":hover":{
+              backgroundColor:'#f0f0f0'
+            }
+            
           }}
+          onClick={() => {
+            setShowProposito(!showProposito);
+            setShowFin(false);
+          }}
+          
         >
           Propósito
         </Typography>
