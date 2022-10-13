@@ -8,6 +8,7 @@ import TabFinProposito from "./TabFinProposito";
 import TabResumen from "./TabResumen";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
+import {ICValor} from "./ICValor"
 
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
@@ -19,11 +20,6 @@ export default function FullModalMir() {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
   const [actualizoComponentes, setActualizoComponentes] = React.useState(2);
-
-  
-
-
-
 
   const asignarComponente=( state:[])=>{
     setComponentes(state);
@@ -43,17 +39,19 @@ export default function FullModalMir() {
       };
     })
   );
-
-
-
+  
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
     let a = componenteValor;
     console.log(a);
   };
 
-  const retornarComponentes = () => {
-    return componentes
+  const[cValor,setCValor]=useState<Array<ICValor>>([])
+
+  const asignarCValor = (state: Array<ICValor>) => {
+    setCValor(state);
+    let a = cValor;
+    console.log(a);
   };
 
   useEffect(() => {
@@ -163,9 +161,9 @@ export default function FullModalMir() {
         >
           <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-          <TabResumen show={value === 50 ? true : false} componentes={componentes} ></TabResumen>
+          <TabResumen show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor}></TabResumen>
            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
-          <TabActividades show={value === 40 ? true : false} componentes={componentes} actualizoComponentes={actualizoComponentes}></TabActividades>
+          <TabActividades show={value === 40 ? true : false} componentes={componentes} actualizoComponentes={actualizoComponentes} asignarCValor={asignarCValor}></TabActividades>
         </Box>
       </Box>
     </Box>

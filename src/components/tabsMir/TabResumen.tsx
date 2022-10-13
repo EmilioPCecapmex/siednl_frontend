@@ -21,18 +21,27 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { IComponente } from "./IComponente";
+import { ICValor } from "./ICValor";
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
 
-
-export function TabResumen({ show, componentes, componenteValor }: { show: boolean; componentes: number[]; componenteValor: IComponente[]}) {
+export function TabResumen({ show, componentes, componenteValor, cValor, }: { show: boolean; componentes: number[]; componenteValor: IComponente[]; cValor: ICValor[]; }) {
   //
   //setComponentes(retornarComponentes());
   const [actividades, setActividades] = useState([1, 2, 3, 4, 5, 6]);
 
-  const [componentSelect, setComponentSelect] = useState(1);
-  const [activitySelect, setActivitySelect] = useState(1);
+  const [tabSelect, setTapSelect] = useState(103);
+  const [componenteSelect, setComponenteSelect] = useState(0);
+  const [actividadSelect, setActividadSelect] = useState(0);
+  
 
   const [openComponentes, setOpenComponentes] = useState(false);
   const [openActividades, setOpenActividades] = useState(false);
+
+  useEffect(() => {
+    console.log(cValor[0]?.componentes)
+  }, [cValor])
+
 
   return (
     <Box
@@ -57,22 +66,12 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
             display: "flex",
             flexDirection: "column",
             borderColor: "#BCBCBC",
-            // overflow:'hidden',
-            // overflowY:'scroll',
-            // "&::-webkit-scrollbar": {
-            //   width: ".3vw",
-            // },
-            // "&::-webkit-scrollbar-thumb": {
-            //   backgroundColor: "rgba(0,0,0,.5)",
-            //   outline: "1px solid slategrey",
-            //   borderRadius: 10,
-            // },
           }}
         >
           <ListItemButton
             key={100}
-            selected={100 === componentSelect ? true : false}
-            onClick={() => setComponentSelect(100)}
+            selected={100 === tabSelect ? true : false}
+            onClick={() => setTapSelect(100)}
             sx={{
               "&.Mui-selected ": {
                 backgroundColor: "#c4a57b",
@@ -91,8 +90,8 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
 
           <ListItemButton
             key={101}
-            selected={101 === componentSelect ? true : false}
-            onClick={() => setComponentSelect(101)}
+            selected={101 === tabSelect ? true : false}
+            onClick={() => setTapSelect(101)}
             sx={{
               "&.Mui-selected ": {
                 backgroundColor: "#c4a57b",
@@ -109,8 +108,8 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
 
           <ListItemButton
             key={102}
-            selected={102 === componentSelect ? true : false}
-            onClick={() => setComponentSelect(102)}
+            selected={102 === tabSelect ? true : false}
+            onClick={() => setTapSelect(102)}
             sx={{
               "&.Mui-selected ": {
                 backgroundColor: "#c4a57b",
@@ -129,9 +128,9 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
 
           <ListItemButton
             key={103}
-            selected={103 === componentSelect ? true : false}
+            selected={103 === tabSelect ? true : false}
             onClick={() => {
-              setComponentSelect(103);
+              setTapSelect(103);
               setOpenComponentes(!openComponentes);
             }}
             sx={{
@@ -149,13 +148,14 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
           </ListItemButton>
           <Collapse in={openComponentes} timeout="auto" unmountOnExit>
             <List disablePadding>
+
               {componentes.map((item) => {
                 return (
                   <ListItemButton
-                    selected={item === componentSelect ? true : false}
+                    selected={item === tabSelect ? true : false}
                     key={item}
                     onClick={() => {
-                      setComponentSelect(item);
+                      setComponenteSelect(item - 1);
                     }}
                     sx={{
                       "&.Mui-selected ": {
@@ -176,49 +176,232 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
         </List>
       </Box>
 
-      <Box sx={{ width: "65vw", }}>
+
+      <Box
+        sx={{
+          width: "65vw", display: "flex",
+          flexDirection: "column",
+        }}>
         {/* mi box*/}
         <Box sx={{
           width: "100%",
           height: "100%",
           display: "flex",
+          flexDirection: "column",
         }}>
           <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               width: "100%",
-              alignItems: "center",
+              alignItems: "flex-start",
               justifyContent: "center",
-              backgroundColor: "blueviolet"
+              // backgroundColor: ""
             }}
           >
 
-            <Accordion sx={{
-                    width: "100%",
-                    height: "60%",
-                    justifyContent: "space-evenly",
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    backgroundColor:"pink"
-                    
-                  }}>
+            <Accordion
+              sx={{
+                width: "100%",
+                height: "100%",
+                justifyContent: "space-evenly",
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+                //     backgroundColor:"pink"
+
+              }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
               >
-                <Typography>Accordion 1</Typography>
+                <Typography>Componente {componenteSelect + 1}</Typography>
               </AccordionSummary>
 
-              <AccordionDetails>
+              <AccordionDetails >
+                <Box sx={{ display: "flex", justifyContent: "space-evenly", flexDirection: "column", }}>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      
+                      justifyContent: "space-evenly",
+                      display: "flex",
+                      alignItems: "center",
+                      //   backgroundColor: "brown"
+                    }}
+                  >
+                    <TextField
+                      variant="filled"
+                      multiline
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
+                      label={"Resumen Narrativo"}
+                      value={componenteValor[componenteSelect].resumen}
+
+                    />
+                    <TextField
+                      multiline
+                      rows={4}
+                      variant="filled"
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      sx={{ width: "30%" }}
+                      label={"Indicador"}
+                      value={componenteValor[componenteSelect].indicador}
+
+                    />
+                    <TextField
+                      variant="filled"
+                      multiline
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
+                      label={"Fórmula"}
+                      value={componenteValor[componenteSelect].formula}
+
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "40%",
+
+                      justifyContent: "space-evenly",
+                      display: "flex",
+                      alignItems: "center",
+                      // backgroundColor: "pink"
+                    }}
+                  >
+                    <TextField
+                      multiline
+                      variant="filled"
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
+                      label={"Frecuencia"}
+                      value={componenteValor[componenteSelect].frecuencia}
+
+                    />
+                    <TextField
+                      multiline
+                      variant="filled"
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
+                      label={"Medios de Verificación"}
+                      value={componenteValor[componenteSelect].medios}
+
+                    />
+                    <TextField
+                      variant="filled"
+                      multiline
+                      rows={4}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      sx={{ width: "30%" }}
+                      label={"Supuestos"}
+                      value={componenteValor[componenteSelect].supuestos}
+
+                    />
+                  </Box>
+
+                </Box>
+
+              </AccordionDetails>
+            </Accordion>
+
+
+
+
+          </Box>
+          {/* Actividades */}
+
+
+          <Box>
+            <Box>
+              <ButtonGroup variant="text" aria-label="text button group">
+                {cValor[0]?.componentes[componenteSelect].actividades.map((value,x) => {
+                  return (
+                    <Button onClick={()=>{ setActividadSelect(x) }}>Actividad No. {x+1}</Button>
+                  )
+                })}
+              </ButtonGroup>
+            </Box>
+            {/* Textfield Actividades */}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                alignItems: "flex-start",
+                justifyContent: "center",
+                // backgroundColor: ""
+              }}
+            >
+
+
+
+              <Box sx={{ display: "flex", justifyContent: "space-evenly", flexDirection: "column",backgroundColor:"pink" }}>
                 <Box
                   sx={{
                     width: "100%",
-                    height: "40%",
+                    height: "0%",
                     justifyContent: "space-evenly",
                     display: "flex",
                     alignItems: "center",
-                    backgroundColor: "brown"
+                    //   backgroundColor: "brown"
                   }}
                 >
                   <TextField
@@ -237,6 +420,7 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Resumen Narrativo"}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].resumen}
 
                   />
                   <TextField
@@ -255,6 +439,7 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
                     }}
                     sx={{ width: "30%" }}
                     label={"Indicador"}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].indicador}
 
                   />
                   <TextField
@@ -273,6 +458,7 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Fórmula"}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].formula}
 
                   />
                 </Box>
@@ -284,7 +470,7 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
                     justifyContent: "space-evenly",
                     display: "flex",
                     alignItems: "center",
-                    backgroundColor: "pink"
+                    // backgroundColor: "pink"
                   }}
                 >
                   <TextField
@@ -303,6 +489,7 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Frecuencia"}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].frecuencia}
 
                   />
                   <TextField
@@ -321,6 +508,7 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Medios de Verificación"}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].medios}
 
                   />
                   <TextField
@@ -339,22 +527,21 @@ export function TabResumen({ show, componentes, componenteValor }: { show: boole
                     }}
                     sx={{ width: "30%" }}
                     label={"Supuestos"}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].supuestos}
 
                   />
                 </Box>
-              </AccordionDetails>
-            </Accordion>
-          
-          {actividades.map((act)=>{return(<>hola </>);})}
 
+              </Box>
 
+            </Box>
           </Box>
+
+
 
         </Box>
 
       </Box>
-
-
 
 
 
