@@ -18,11 +18,9 @@ import { IComponente } from "./IComponente";
 export const TabActividades = ({
   show,
   componentes,
-  actualizoComponentes,
 }: {
   show: boolean;
   componentes: number[];
-  actualizoComponentes: number;
 }) => {
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);

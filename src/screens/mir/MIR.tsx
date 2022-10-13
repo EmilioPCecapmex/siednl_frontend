@@ -331,7 +331,6 @@ export const MIR = () => {
               />
             </Box>
 
-            <Box>
               <Button
                 sx={{
                   backgroundColor: "#c2a37b",
@@ -345,7 +344,6 @@ export const MIR = () => {
               >
                 Añadir registro
               </Button>
-            </Box>
           </Box>
 
           <Box
