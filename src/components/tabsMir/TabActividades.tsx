@@ -148,17 +148,19 @@ export const TabActividades = ({
   //return main
   return (
     <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
-      sx={{
-        display: "flex",
-        width: "75vw",
-        height: "77vh",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        boxShadow: 10,
-      }}
+    visibility={show ? "visible" : "hidden"}
+    position="absolute"
+    sx={{
+      display: "flex",
+      width: "75vw",
+      height: "85vh",
+      boxShadow: 10,
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: 'column',
+      backgroundColor: "#fff",
+    }}
     >
       <Box
         sx={{
