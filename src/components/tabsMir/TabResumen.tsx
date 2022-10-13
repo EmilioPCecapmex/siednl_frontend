@@ -20,16 +20,22 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import { grid } from "@mui/system";
+import { IEncabezado } from "./TabEncabezado";
 
-export function TabResumen({ show }: { show: boolean }) {
+export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Array<IEncabezado> }) {
   const [componentes, setComponentes] = useState([1, 2, 3, 4, 5, 6]);
   const [actividades, setActividades] = useState([1, 2, 3, 4, 5, 6]);
 
-  const [componentSelect, setComponentSelect] = useState(1);
+  const [tabSelect, setTabSelect] = useState(100);
   const [activitySelect, setActivitySelect] = useState(1);
 
   const [openComponentes, setOpenComponentes] = useState(false);
   const [openActividades, setOpenActividades] = useState(false);
+
+  useEffect(()=>{
+    console.log(encabezado[0]?.eje);
+    
+  },[encabezado])
 
   return (
     <Box
@@ -69,8 +75,8 @@ export function TabResumen({ show }: { show: boolean }) {
         >
           <ListItemButton
             key={100}
-            selected={100 === componentSelect ? true : false}
-            onClick={() => setComponentSelect(100)}
+            selected={100 === tabSelect ? true : false}
+            onClick={() => setTabSelect(100)}
             sx={{
               "&.Mui-selected ": {
                 backgroundColor: "#c4a57b",
@@ -90,8 +96,8 @@ export function TabResumen({ show }: { show: boolean }) {
 
           <ListItemButton
             key={101}
-            selected={101 === componentSelect ? true : false}
-            onClick={() => setComponentSelect(101)}
+            selected={101 === tabSelect ? true : false}
+            onClick={() => setTabSelect(101)}
             sx={{
               "&.Mui-selected ": {
                 backgroundColor: "#c4a57b",
@@ -108,8 +114,8 @@ export function TabResumen({ show }: { show: boolean }) {
 
           <ListItemButton
             key={102}
-            selected={102 === componentSelect ? true : false}
-            onClick={() => setComponentSelect(102)}
+            selected={102 === tabSelect ? true : false}
+            onClick={() => setTabSelect(102)}
             sx={{
               "&.Mui-selected ": {
                 backgroundColor: "#c4a57b",
@@ -128,9 +134,9 @@ export function TabResumen({ show }: { show: boolean }) {
 
           <ListItemButton
             key={103}
-            selected={103 === componentSelect ? true : false}
+            selected={103 === tabSelect ? true : false}
             onClick={() => {
-              setComponentSelect(103);
+              setTabSelect(103);
               setOpenComponentes(!openComponentes);
             }}
             sx={{
@@ -152,10 +158,10 @@ export function TabResumen({ show }: { show: boolean }) {
               {componentes.map((item) => {
                 return (
                   <ListItemButton
-                    selected={item === componentSelect ? true : false}
+                    selected={item === tabSelect ? true : false}
                     key={item}
                     onClick={() => {
-                      setComponentSelect(item);
+                      setTabSelect(item);
                     }}
                     sx={{
                       "&.Mui-selected ": {
@@ -184,7 +190,7 @@ export function TabResumen({ show }: { show: boolean }) {
           alignItems: "center",
         }}
       >
-        {componentSelect === 100 ? (
+        {tabSelect === 100 ? (
           <Box
             sx={{
               display: "grid",
@@ -209,7 +215,7 @@ export function TabResumen({ show }: { show: boolean }) {
                 },
               }}
               rows={3}
-              value="3"
+              value={'encabezado[0].ejercicioFiscal || '}
               sx={{ width: "25vw" }}
               label={"Ejercicio Fiscal"}
             />
@@ -227,7 +233,7 @@ export function TabResumen({ show }: { show: boolean }) {
                 },
               }}
               rows={3}
-              value="3"
+              value={'encabezado[0]'}
               sx={{ width: "25vw" }}
               label={"Institución"}
             />

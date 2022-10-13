@@ -83,7 +83,7 @@ export const TabActividades = ({
         };
       })
     );
-    console.log(cValor);
+    // console.log(cValor);
   }, [actividades]);
 
   const [ActividadValor, setActividadValor] = React.useState<
@@ -244,6 +244,7 @@ export const TabActividades = ({
           (x) => {
             return (
               <Accordion
+              key={x}
                 sx={{
                   width: "95%",
                   display: "flex",

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";
-import TabEncabezado from "./TabEncabezado";
+import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito from "./TabFinProposito";
 import TabResumen from "./TabResumen";
@@ -48,17 +48,16 @@ export default function FullModalMir() {
     setComponenteValor(array);
   }, []);
 
-  const [encabezado, setEncabezado] = useState({
-    ejercicioFiscal: '',
-    institucion:'',
-    programa:'',
-    eje:'',
-    tematica:'',
-    objetivo:'',
-    estrategia:'',
-    lineasDeAccion:'',
-    beneficiario:''
-  })
+  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([])
+
+  const resumenEncabezado = (arr:Array<IEncabezado>) => {
+    setEncabezado(arr);
+  };
+
+  useEffect(()=>{
+    // console.log(encabezado);
+    
+  },[encabezado])
   
   //----------------------------------------------------------------------------------------------
   return (
@@ -150,11 +149,11 @@ export default function FullModalMir() {
             height: "77vh",
           }}
         >
-          <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={encabezado}></TabEncabezado>
+          <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
+          <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
-          <TabResumen show={value === 50 ? true : false}></TabResumen>
+          <TabResumen show={value === 50 ? true : false} encabezado={encabezado}></TabResumen>
         </Box>
       </Box>
     </Box>
