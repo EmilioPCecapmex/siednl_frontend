@@ -8,6 +8,7 @@ import TabFinProposito from "./TabFinProposito";
 import TabResumen from "./TabResumen";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
+import TabResumen2 from "./TabResumen2";
 
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
@@ -161,7 +162,7 @@ export default function FullModalMir() {
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} ></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
-          <TabResumen show={value === 50 ? true : false} encabezado={encabezado}></TabResumen>
+          <TabResumen2 show={value === 50 ? true : false} encabezado={encabezado}></TabResumen2>
         </Box>
       </Box>
     </Box>

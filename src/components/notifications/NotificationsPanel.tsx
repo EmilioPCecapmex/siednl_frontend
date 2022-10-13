@@ -147,7 +147,7 @@ export default function NotificationsPanel() {
                   color: "#909090",
                 }}
               >
-                {index.FechaCreacion.toString().replace('T',' ').replace('.000Z','')}
+                {index.FechaCreacion?.toString().replace('T',' ').replace('.000Z','')}
               </Typography>
               </Box>
               

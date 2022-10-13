@@ -31,56 +31,58 @@ export function TabFinProposito({ show }: { show: boolean }) {
     supuestos: "",
   });
 
-  const [showFin, setShowFin] = useState(false);
-  const [showProposito, setShowProposito] = useState(true);
+  const [showFin, setShowFin] = useState(true);
+  const [showProposito, setShowProposito] = useState(false);
 
-
-  const [indicadorSelect, setIndicadorSelect] = useState<Array<IIndicadores>>([]);
-  const [indicadorTxt, setIndicadorTxt] = useState("hola")
+  const [indicadorSelect, setIndicadorSelect] = useState<Array<IIndicadores>>(
+    []
+  );
+  const [indicadorTxt, setIndicadorTxt] = useState("hola");
 
   const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
 
-const getIndicadores = () => {
-  axios
-    .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      if (r.status === 200) {
-        setIndicador(r.data.data)
-      }
-    });
-};
+  const getIndicadores = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setIndicador(r.data.data);
+        }
+      });
+  };
 
-useEffect(() => {
-  getIndicadores()
-},[])
+  useEffect(() => {
+    getIndicadores();
+  }, []);
 
-const [errorIndicador, setErrorIndicador] = useState(false);
-const [tipoIndicador, setTipoIndicador] = useState("");
+  const [errorIndicador, setErrorIndicador] = useState("");
 
-const evalueTxtindicador = () => {
-if(fin.indicador.toLowerCase().includes("porcentaje")){
-  setErrorIndicador(false)
-  setTipoIndicador("Porcentaje")
-}else if(fin.indicador.toLowerCase().includes("tasa")) {
-  setErrorIndicador(false)
-  setTipoIndicador("Tasa")
-  }
-  else if(fin.indicador.toLowerCase().includes("indice" || "índice")) {
-    setErrorIndicador(false)
-    setTipoIndicador("Indice")
+  const evalueTxtindicador = (v: string) => {
+    const findicador = fin.indicador.toLowerCase();
+    const pindicador = proposito.indicador.toLowerCase();
+
+    if (
+      findicador.includes("porcentaje") ||
+      findicador.includes("tasa") ||
+      findicador.includes("indice" || "índice") ||
+      findicador.includes("promedio")
+    ) {
+      setErrorIndicador("");
+    } else if (
+      pindicador.includes("porcentaje") ||
+      pindicador.includes("tasa") ||
+      pindicador.includes("indice" || "índice") ||
+      pindicador.includes("promedio")
+    ) {
+      setErrorIndicador("");
+    } else {
+      setErrorIndicador(v);
     }
-    else if(fin.indicador.toLowerCase().includes("promedio")) {
-      setErrorIndicador(false)
-      setTipoIndicador("Promedio")
-      }else{
-        setErrorIndicador(true)
-      }
-} 
-
+  };
 
   return (
     <Box
@@ -97,14 +99,18 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
         borderRadius: 5,
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        gridTemplateRows: showFin ? "1fr 1fr 1fr 2fr" : showProposito ? "1fr 1fr 1fr 2fr" : "repeat(2, 1fr 2fr)",
+        gridTemplateRows: showFin
+          ? "1fr 1fr 1fr 2fr"
+          : showProposito
+          ? "1fr 1fr 1fr 2fr"
+          : "repeat(2, 1fr 2fr)",
       }}
     >
       <Box
         sx={{
           width: "100%",
           gridColumn: "1/4",
-          gridRow: showFin ? '1': showProposito ? '1':'2',
+          gridRow: showFin ? "1" : showProposito ? "1" : "2",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -122,7 +128,12 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
         >
           Fin
         </Typography>
-        <IconButton onClick={() => {setShowFin(!showFin); setShowProposito(false)}}>
+        <IconButton
+          onClick={() => {
+            setShowFin(!showFin);
+            setShowProposito(false);
+          }}
+        >
           {showFin ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </Box>
@@ -132,8 +143,8 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
           <TextField
             rows={4}
             multiline
-            sx={{ width: "90%", boxShadow:4}}
-            variant={'filled'}
+            sx={{ width: "90%", boxShadow: 4 }}
+            variant={"filled"}
             label={"Resumen Narrativo"}
             InputLabelProps={{
               style: {
@@ -153,7 +164,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
           <TextField
             rows={4}
             multiline
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             variant="filled"
             InputLabelProps={{
               style: {
@@ -165,8 +176,16 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
                 fontFamily: "MontserratRegular",
               },
             }}
-            onBlur={() => evalueTxtindicador()}
+            onBlur={() =>
+              fin.indicador === "" ? null : evalueTxtindicador("fin")
+            }
             label={"Indicador"}
+            error={errorIndicador === "fin" ? true : false}
+            helperText={
+              errorIndicador
+                ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                : null
+            }
             onChange={(c) => {
               setFin({ ...fin, indicador: c.target.value });
             }}
@@ -186,7 +205,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
                 fontFamily: "MontserratRegular",
               },
             }}
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Fórmula"}
             onChange={(c) => {
               setFin({ ...fin, formula: c.target.value });
@@ -197,7 +216,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Frecuencia"}
             InputLabelProps={{
               style: {
@@ -218,7 +237,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Medios de Verificación"}
             InputLabelProps={{
               style: {
@@ -240,7 +259,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Supuestos"}
             InputLabelProps={{
               style: {
@@ -264,7 +283,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
         sx={{
           width: "100%",
           gridColumn: "1/4",
-          gridRow: showProposito ? '2': showFin ? '4':'3',
+          gridRow: showProposito ? "2" : showFin ? "4" : "3",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -277,12 +296,17 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             fontSize: "2vw",
             borderBottom: 1,
             textAlign: "left",
-            borderColor: "#3c3f42"
+            borderColor: "#3c3f42",
           }}
         >
           Propósito
         </Typography>
-        <IconButton onClick={() => {setShowProposito(!showProposito); setShowFin(false)}}>
+        <IconButton
+          onClick={() => {
+            setShowProposito(!showProposito);
+            setShowFin(false);
+          }}
+        >
           {showProposito ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </Box>
@@ -292,7 +316,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Resumen Narrativo"}
             InputLabelProps={{
               style: {
@@ -307,16 +331,14 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             onChange={(c) => {
               setProposito({ ...proposito, resumen: c.target.value });
             }}
-            value={proposito.resumen}
+            value={proposito.resumen + '( / )'}
           />
-
 
           <TextField
             rows={4}
             multiline
+            sx={{ width: "90%", boxShadow: 4 }}
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
-            label={"Indicador"}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
@@ -327,8 +349,20 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
                 fontFamily: "MontserratRegular",
               },
             }}
+            onBlur={() =>
+              proposito.indicador === ""
+                ? null
+                : evalueTxtindicador("proposito")
+            }
+            label={"Indicador"}
+            error={errorIndicador === "proposito" ? true : false}
+            helperText={
+              errorIndicador
+                ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                : null
+            }
             onChange={(c) => {
-              setProposito({...proposito, indicador: c.target.value})
+              setProposito({ ...proposito, indicador: c.target.value });
             }}
             value={proposito.indicador}
           />
@@ -337,7 +371,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Fórmula"}
             InputLabelProps={{
               style: {
@@ -354,11 +388,12 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             }}
             value={proposito.formula}
           />
+
           <TextField
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Frecuencia"}
             InputLabelProps={{
               style: {
@@ -379,7 +414,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
@@ -400,7 +435,7 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Supuestos"}
             InputLabelProps={{
               style: {
@@ -425,14 +460,12 @@ if(fin.indicador.toLowerCase().includes("porcentaje")){
 
 export default TabFinProposito;
 
-
-
 export interface IIndicadores {
-  Id:                 string;
-  TipoDeIndicador:    string;
-  FechaCreacion:      string;
-  CreadoPor:          string;
+  Id: string;
+  TipoDeIndicador: string;
+  FechaCreacion: string;
+  CreadoPor: string;
   UltimaModificacion: string;
-  ModificadoPor:      string;
-  Deleted:            number;
+  ModificadoPor: string;
+  Deleted: number;
 }

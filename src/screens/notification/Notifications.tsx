@@ -558,7 +558,7 @@ export const Notification = () => {
                           component="th"
                           scope="row"
                         >
-                          {row.FechaCreacion.toString()
+                          {row.FechaCreacion?.toString()
                             .replace("T", " ")
                             .replace(".000Z", "")}
                         </TableCell>
