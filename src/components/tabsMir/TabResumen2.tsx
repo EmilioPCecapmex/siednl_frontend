@@ -22,22 +22,22 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import { grid } from "@mui/system";
 import { IEncabezado } from "./TabEncabezado";
+import { IComponente } from "./IComponente";
+import { ICValor } from "./ICValor";
+import { IFin, IProposito } from "./TabFinProposito";
 
 export function TabResumen2({
   show,
   encabezado,
+  fin,
+  proposito, componentes,componenteValor, cValor,asignarCValor 
 }: {
   show: boolean;
   encabezado: Array<IEncabezado>;
+  fin: Array<IFin>;
+  proposito: Array<IProposito>; componentes: number[]; componenteValor: Array<IComponente>; cValor: Array<ICValor>;asignarCValor:Function; 
 }) {
-  const [componentes, setComponentes] = useState([1, 2, 3, 4, 5, 6]);
-  const [actividades, setActividades] = useState([1, 2, 3, 4, 5, 6]);
 
-  const [tabSelect, setTabSelect] = useState(100);
-  const [activitySelect, setActivitySelect] = useState(1);
-
-  const [openComponentes, setOpenComponentes] = useState(false);
-  const [openActividades, setOpenActividades] = useState(false);
 
   useEffect(() => {
     //  console.log(encabezado[0].eje);
