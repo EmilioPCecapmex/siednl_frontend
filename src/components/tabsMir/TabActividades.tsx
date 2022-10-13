@@ -14,13 +14,16 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
+import { ICValor } from "./ICValor";
 //funcion main
 export const TabActividades = ({
   show,
   componentes,
+  asignarCValor,
 }: {
   show: boolean;
   componentes: number[];
+  asignarCValor:Function;
 }) => {
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -72,6 +75,7 @@ export const TabActividades = ({
     }
   }, [show]);
 
+
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
       return {
@@ -92,6 +96,12 @@ export const TabActividades = ({
       };
     })
   );
+
+ useEffect(() => {
+  asignarCValor(cValor);
+  
+ }, [cValor,componentes])
+ 
 
   const agregarAFnc = (index: number) => {
     if (actividades.length + 1 < 7) {
@@ -122,7 +132,7 @@ export const TabActividades = ({
   const eliminarAFnc = () => {
     let act = cValor[0].componentes[parseInt(componenteSelect)].actividades;
     let v = act.length;
-    console.log(v)
+   
     if (v > 2) {
       let a = actividades;
       a.pop();
@@ -370,9 +380,7 @@ export const TabActividades = ({
           }
         )}
       </Box>
-      <Button onClick={() => console.log(cValor)}>
-        Enviar
-      </Button>
+
     </Box>
   );
 };

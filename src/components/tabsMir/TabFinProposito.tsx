@@ -12,7 +12,54 @@ import { IComponente } from "./IComponente";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-export function TabFinProposito({ show }: { show: boolean }) {
+export interface IFin {
+  resumen: string;
+  indicador: string;
+  formula: string;
+  frecuencia: string;
+  medios: string;
+  supuestos: string;
+}
+export interface IProposito {
+  resumen: string;
+  indicador: string;
+  formula: string;
+  frecuencia: string;
+  medios: string;
+  supuestos: string;
+}
+
+export function TabFinProposito({
+  show,
+  resumenFin,
+  resumenProposito,
+}: {
+  show: boolean;
+  resumenFin: Function;
+  resumenProposito: Function;
+}) {
+  const [tabFin, setTabFin] = useState([
+    {
+      resumen: "",
+      indicador: "",
+      formula: "",
+      frecuencia: "",
+      medios: "",
+      supuestos: "",
+    },
+  ]);
+
+  const [tabProposito, setTabProposito] = useState([
+    {
+      resumen: "",
+      indicador: "",
+      formula: "",
+      frecuencia: "",
+      medios: "",
+      supuestos: "",
+    },
+  ]);
+
   const [fin, setFin] = useState({
     resumen: "",
     indicador: "",
@@ -83,6 +130,34 @@ export function TabFinProposito({ show }: { show: boolean }) {
       setErrorIndicador(v);
     }
   };
+
+  useEffect(() => {
+    setTabFin([
+      {
+        resumen: fin.resumen,
+        indicador: fin.indicador,
+        formula: fin.formula,
+        frecuencia: fin.frecuencia,
+        medios: fin.medios,
+        supuestos: fin.supuestos,
+      },
+    ]);
+    setTabProposito([
+      {
+        resumen: proposito.resumen,
+        indicador: proposito.indicador,
+        formula: proposito.formula,
+        frecuencia: proposito.frecuencia,
+        medios: proposito.medios,
+        supuestos: proposito.supuestos,
+      },
+    ]);
+  }, [fin, proposito]);
+
+  useEffect(() => {
+    resumenFin(tabFin);
+    resumenProposito(tabProposito);
+  }, [tabFin, tabProposito]);
 
   return (
     <Box
@@ -297,7 +372,17 @@ export function TabFinProposito({ show }: { show: boolean }) {
             borderBottom: 1,
             textAlign: "left",
             borderColor: "#3c3f42",
+            cursor:'pointer',
+            ":hover":{
+              backgroundColor:'#f0f0f0'
+            }
+            
           }}
+          onClick={() => {
+            setShowProposito(!showProposito);
+            setShowFin(false);
+          }}
+          
         >
           Propósito
         </Typography>

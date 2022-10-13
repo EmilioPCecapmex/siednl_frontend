@@ -4,11 +4,12 @@ import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
-import TabFinProposito from "./TabFinProposito";
+import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import TabResumen from "./TabResumen";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
 import TabResumen2 from "./TabResumen2";
+import {ICValor} from "./ICValor"
 
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
@@ -20,27 +21,34 @@ export default function FullModalMir() {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
 
-
-
-
   const asignarComponente=( state:[])=>{
     setComponentes(state);
   }
+
+
+  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
+    componentes.map((x) => {
+      return {
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    })
+  );
   
-  const [componenteValor, setComponenteValor] = React.useState<
-    Array<IComponente>
-  >([]);
-
-
-
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
-    let a = componenteValor;
-    console.log(a);
+
   };
 
-  const retornarComponentes = () => {
-    return componentes
+  const[cValor,setCValor]=useState<Array<ICValor>>([])
+
+  const asignarCValor = (state: Array<ICValor>) => {
+    setCValor(state);
+
   };
 
   useEffect(() => {
@@ -58,15 +66,31 @@ export default function FullModalMir() {
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([])
+  const [fin, setFin] = useState<Array<IFin>>([])
+  const [proposito, setProposito] = useState<Array<IProposito>>([])
 
   const resumenEncabezado = (arr:Array<IEncabezado>) => {
     setEncabezado(arr);
+  };
+  const resumenFin = (arr:Array<IFin>) => {
+    setFin(arr);
+  };
+  const resumenProposito = (arr:Array<IProposito>) => {
+    setProposito(arr);
   };
 
   useEffect(()=>{
     // console.log(encabezado);
     
   },[encabezado])
+
+  useEffect(() => {
+
+    console.log(cValor)
+  }, [cValor,componentes])
+  
+  
+
   
   //----------------------------------------------------------------------------------------------
   return (
@@ -159,10 +183,11 @@ export default function FullModalMir() {
           }}
         >
           <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado}></TabEncabezado>
-          <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} ></TabComponente>
-          <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
-          <TabResumen2 show={value === 50 ? true : false} encabezado={encabezado}></TabResumen2>
+          <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito}></TabFinProposito>
+          <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
+          <TabResumen2 show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen2>
+           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
+          <TabActividades show={value === 40 ? true : false} componentes={componentes} asignarCValor={asignarCValor}></TabActividades>
         </Box>
       </Box>
     </Box>

@@ -16,7 +16,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 
-export const TabComponente = ({ show, asignarComponente }: { show: boolean, asignarComponente: Function }) => {
+export const TabComponente = ({ show, asignarComponente, asignarComponenteValor }: { show: boolean, asignarComponente: Function, asignarComponenteValor:Function}) => {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = useState([1, 2]);
 
@@ -74,11 +74,8 @@ export const TabComponente = ({ show, asignarComponente }: { show: boolean, asig
 
   useEffect(() => {
     asignarComponente(componentes);
-  }, [componentes])
-
-  // useEffect(() => {
-  //   asignarComponenteValor(componenteValor);
-  // }, [componenteValor])
+    asignarComponenteValor(componenteValor);
+  }, [componentes,componenteValor])
 
 
   const [componentSelect, setComponentSelect] = useState(1);
