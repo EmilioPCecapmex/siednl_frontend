@@ -11,7 +11,53 @@ import { IComponente } from "./IComponente";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-export function TabFinProposito({ show }: { show: boolean }) {
+export interface IFin {
+  resumen: string;
+  indicador: string;
+  formula: string;
+  frecuencia: string;
+  medios: string;
+  supuestos: string;
+}
+export interface IProposito {
+  resumen: string;
+  indicador: string;
+  formula: string;
+  frecuencia: string;
+  medios: string;
+  supuestos: string;
+}
+
+export function TabFinProposito({
+  show,
+  resumenFin,
+  resumenProposito,
+}: {
+  show: boolean;
+  resumenFin: Function;
+  resumenProposito: Function;
+}) {
+  const [tabFin, setTabFin] = useState([
+    {
+      resumen: "",
+      indicador: "",
+      formula: "",
+      frecuencia: "",
+      medios: "",
+      supuestos: "",
+    },
+  ]);
+
+  const [tabProposito, setTabProposito] = useState([
+    {
+      resumen: "",
+      indicador: "",
+      formula: "",
+      frecuencia: "",
+      medios: "",
+      supuestos: "",
+    },
+  ]);
 
   const [fin, setFin] = useState({
     resumen: "",
@@ -34,6 +80,34 @@ export function TabFinProposito({ show }: { show: boolean }) {
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
 
+  useEffect(() => {
+    setTabFin([
+      {
+        resumen: fin.resumen,
+        indicador: fin.indicador,
+        formula: fin.formula,
+        frecuencia: fin.frecuencia,
+        medios: fin.medios,
+        supuestos: fin.supuestos,
+      },
+    ]);
+    setTabProposito([
+      {
+        resumen: proposito.resumen,
+        indicador: proposito.indicador,
+        formula: proposito.formula,
+        frecuencia: proposito.frecuencia,
+        medios: proposito.medios,
+        supuestos: proposito.supuestos,
+      },
+    ]);
+  }, [fin, proposito]);
+
+  useEffect(() => {
+    resumenFin(tabFin);
+    resumenProposito(tabProposito);
+  }, [tabFin, tabProposito]);
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -49,14 +123,18 @@ export function TabFinProposito({ show }: { show: boolean }) {
         borderRadius: 5,
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        gridTemplateRows: showFin ? "1fr 1fr 1fr 2fr" : showProposito ? "1fr 1fr 1fr 2fr" : "repeat(2, 1fr 2fr)",
+        gridTemplateRows: showFin
+          ? "1fr 1fr 1fr 2fr"
+          : showProposito
+          ? "1fr 1fr 1fr 2fr"
+          : "repeat(2, 1fr 2fr)",
       }}
     >
       <Box
         sx={{
           width: "100%",
           gridColumn: "1/4",
-          gridRow: showFin ? '1': showProposito ? '1':'2',
+          gridRow: showFin ? "1" : showProposito ? "1" : "2",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -74,7 +152,12 @@ export function TabFinProposito({ show }: { show: boolean }) {
         >
           Fin
         </Typography>
-        <IconButton onClick={() => {setShowFin(!showFin); setShowProposito(false)}}>
+        <IconButton
+          onClick={() => {
+            setShowFin(!showFin);
+            setShowProposito(false);
+          }}
+        >
           {showFin ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </Box>
@@ -84,8 +167,8 @@ export function TabFinProposito({ show }: { show: boolean }) {
           <TextField
             rows={4}
             multiline
-            sx={{ width: "90%", boxShadow:4}}
-            variant={'filled'}
+            sx={{ width: "90%", boxShadow: 4 }}
+            variant={"filled"}
             label={"Resumen Narrativo"}
             InputLabelProps={{
               style: {
@@ -98,14 +181,14 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setFin({...fin, resumen: c.target.value})
+              setFin({ ...fin, resumen: c.target.value });
             }}
             value={fin.resumen}
           />
           <TextField
             rows={4}
             multiline
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             variant="filled"
             InputLabelProps={{
               style: {
@@ -119,7 +202,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             label={"Indicador"}
             onChange={(c) => {
-              setFin({...fin, indicador: c.target.value})
+              setFin({ ...fin, indicador: c.target.value });
             }}
             value={fin.indicador}
           />
@@ -137,10 +220,10 @@ export function TabFinProposito({ show }: { show: boolean }) {
                 fontFamily: "MontserratRegular",
               },
             }}
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Fórmula"}
             onChange={(c) => {
-              setFin({...fin, formula: c.target.value})
+              setFin({ ...fin, formula: c.target.value });
             }}
             value={fin.formula}
           />
@@ -148,7 +231,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Frecuencia"}
             InputLabelProps={{
               style: {
@@ -161,7 +244,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setFin({...fin, frecuencia: c.target.value})
+              setFin({ ...fin, frecuencia: c.target.value });
             }}
             value={fin.frecuencia}
           />
@@ -169,7 +252,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Medios de Verificación"}
             InputLabelProps={{
               style: {
@@ -183,7 +266,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             //value={componenteValor[x - 1].medios}
             onChange={(c) => {
-              setFin({...fin, medios: c.target.value})
+              setFin({ ...fin, medios: c.target.value });
             }}
             value={fin.medios}
           />
@@ -191,7 +274,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Supuestos"}
             InputLabelProps={{
               style: {
@@ -204,7 +287,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setFin({...fin, supuestos: c.target.value})
+              setFin({ ...fin, supuestos: c.target.value });
             }}
             value={fin.supuestos}
           />
@@ -215,7 +298,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
         sx={{
           width: "100%",
           gridColumn: "1/4",
-          gridRow: showProposito ? '2': showFin ? '4':'3',
+          gridRow: showProposito ? "2" : showFin ? "4" : "3",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -228,12 +311,17 @@ export function TabFinProposito({ show }: { show: boolean }) {
             fontSize: "2vw",
             borderBottom: 1,
             textAlign: "left",
-            borderColor: "#3c3f42"
+            borderColor: "#3c3f42",
           }}
         >
           Propósito
         </Typography>
-        <IconButton onClick={() => {setShowProposito(!showProposito); setShowFin(false)}}>
+        <IconButton
+          onClick={() => {
+            setShowProposito(!showProposito);
+            setShowFin(false);
+          }}
+        >
           {showProposito ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </Box>
@@ -243,7 +331,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Resumen Narrativo"}
             InputLabelProps={{
               style: {
@@ -256,7 +344,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, resumen: c.target.value})
+              setProposito({ ...proposito, resumen: c.target.value });
             }}
             value={proposito.resumen}
           />
@@ -264,7 +352,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Indicador"}
             InputLabelProps={{
               style: {
@@ -277,7 +365,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, indicador: c.target.value})
+              setProposito({ ...proposito, indicador: c.target.value });
             }}
             value={proposito.indicador}
           />
@@ -285,7 +373,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Fórmula"}
             InputLabelProps={{
               style: {
@@ -298,7 +386,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, formula: c.target.value})
+              setProposito({ ...proposito, formula: c.target.value });
             }}
             value={proposito.formula}
           />
@@ -306,7 +394,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Frecuencia"}
             InputLabelProps={{
               style: {
@@ -319,7 +407,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, frecuencia: c.target.value})
+              setProposito({ ...proposito, frecuencia: c.target.value });
             }}
             value={proposito.frecuencia}
           />
@@ -327,7 +415,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
@@ -340,7 +428,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             }}
             label={"Medios de Verificación"}
             onChange={(c) => {
-              setProposito({...proposito, medios: c.target.value})
+              setProposito({ ...proposito, medios: c.target.value });
             }}
             value={proposito.medios}
           />
@@ -348,7 +436,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
             rows={4}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow:4 }}
+            sx={{ width: "90%", boxShadow: 4 }}
             label={"Supuestos"}
             InputLabelProps={{
               style: {
@@ -361,7 +449,7 @@ export function TabFinProposito({ show }: { show: boolean }) {
               },
             }}
             onChange={(c) => {
-              setProposito({...proposito, supuestos: c.target.value})
+              setProposito({ ...proposito, supuestos: c.target.value });
             }}
             value={proposito.supuestos}
           />

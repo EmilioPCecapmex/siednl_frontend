@@ -21,20 +21,31 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import { grid } from "@mui/system";
 import { IEncabezado } from "./TabEncabezado";
+import { IFin, IProposito } from "./TabFinProposito";
 
-export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Array<IEncabezado> }) {
+export function TabResumen({
+  show,
+  encabezado,
+  fin,
+  proposito,
+}: {
+  show: boolean;
+  encabezado: Array<IEncabezado>;
+  fin: Array<IFin>;
+  proposito: Array<IProposito>;
+}) {
   const [componentes, setComponentes] = useState([1, 2, 3, 4, 5, 6]);
   const [actividades, setActividades] = useState([1, 2, 3, 4, 5, 6]);
 
-  const [tabSelect, setTabSelect] = useState(100);
-  const [activitySelect, setActivitySelect] = useState(1);
+  const [tabSelect, setTabSelect] = useState(1);
 
   const [openComponentes, setOpenComponentes] = useState(false);
   const [openActividades, setOpenActividades] = useState(false);
 
-  useEffect(()=>{
-    console.log(encabezado[0].eje);
-  },[encabezado])
+  useEffect(() => {
+    // console.log(encabezado[0]?.eje);
+    setTabSelect(100);
+  }, [encabezado]);
 
   return (
     <Box
@@ -199,24 +210,34 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
               height: "60vh",
             }}
           >
-
+            
             <TextField
               variant="standard"
               multiline
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                  color:
+                    encabezado[0]?.ejercicioFiscal === "Selecciona"
+                      ? "red"
+                      : "rgba(0, 0, 0, 0.6)",
                 },
               }}
               InputProps={{
                 style: {
                   fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
                 },
               }}
-              rows={3}
-              value={'encabezado[0].ejercicioFiscal || '}
-              sx={{ width: "25vw" }}
+              rows={1.5}
               label={"Ejercicio Fiscal"}
+              value={
+                encabezado[0]?.ejercicioFiscal === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.ejercicioFiscal
+              }
+              sx={{ width: "25vw" }}
             />
             <TextField
               variant="standard"
@@ -224,6 +245,11 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                  color:
+                    encabezado[0]?.institucion === "Selecciona"
+                      ? "red"
+                      : "rgba(0, 0, 0, 0.6)",
                 },
               }}
               InputProps={{
@@ -231,8 +257,12 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={3}
-              value={'encabezado[0]'}
+              rows={2}
+              value={
+                encabezado[0]?.institucion === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.institucion
+              }
               sx={{ width: "25vw" }}
               label={"Institución"}
             />
@@ -242,6 +272,7 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
+                  color: "black",
                 },
               }}
               InputProps={{
@@ -250,7 +281,11 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
                 },
               }}
               rows={3}
-              value="3"
+              value={
+                encabezado[0]?.programa === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.programa
+              }
               sx={{ width: "25vw" }}
               label={"Programa"}
             />
@@ -268,7 +303,9 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
                 },
               }}
               rows={3}
-              value="3"
+              value={
+                encabezado[0]?.eje === "Selecciona" ? "" : encabezado[0]?.eje
+              }
               sx={{ width: "25vw" }}
               label={"Eje"}
             />
@@ -286,7 +323,11 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
                 },
               }}
               rows={3}
-              value="3"
+              value={
+                encabezado[0]?.tematica === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.tematica
+              }
               sx={{ width: "25vw" }}
               label={"Temática"}
             />
@@ -304,7 +345,11 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
                 },
               }}
               rows={3}
-              value="3"
+              value={
+                encabezado[0]?.objetivo === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.objetivo
+              }
               sx={{ width: "25vw" }}
               label={"Objetivo"}
             />
@@ -322,7 +367,11 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
                 },
               }}
               rows={3}
-              value="3"
+              value={
+                encabezado[0]?.estrategia === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.estrategia
+              }
               sx={{ width: "25vw" }}
               label={"Estrategia"}
             />
@@ -340,7 +389,11 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
                 },
               }}
               rows={3}
-              value="3"
+              value={
+                encabezado[0]?.lineasDeAccion === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.lineasDeAccion
+              }
               sx={{ width: "25vw" }}
               label={"Lineas de acción"}
             />
@@ -358,11 +411,296 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
                 },
               }}
               rows={3}
-              value="3"
+              value={
+                encabezado[0]?.beneficiario === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.beneficiario
+              }
               sx={{ width: "25vw" }}
               label={"Beneficiario"}
             />
-
+          </Box>
+        ) : null}
+        {tabSelect === 101 ? (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateRows: "1fr 2fr 2fr 2fr",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              width: "60vw",
+              height: "60vh",
+            }}
+          >
+            <Typography
+              sx={{
+                gridColumn: "1/3",
+                fontFamily: "MontserratMedium",
+                fontSize: "1.5vw",
+              }}
+            >
+              Fin
+            </Typography>
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Resumen Narrativo"}
+              value={fin[0]?.resumen}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Indicador"}
+              value={fin[0]?.indicador}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Fórmula"}
+              value={fin[0]?.formula}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Frecuencia"}
+              value={fin[0]?.frecuencia}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Medios de verificación"}
+              value={fin[0]?.medios}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Supuestos"}
+              value={fin[0]?.supuestos}
+              sx={{ width: "25vw" }}
+            />
+          </Box>
+        ) : null}
+        {tabSelect === 102 ? (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateRows: "1fr 2fr 2fr 2fr",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              width: "60vw",
+              height: "60vh",
+            }}
+          >
+            <Typography
+              sx={{
+                gridColumn: "1/3",
+                fontFamily: "MontserratMedium",
+                fontSize: "1.5vw",
+              }}
+            >
+              Propósito
+            </Typography>
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Resumen Narrativo"}
+              value={proposito[0]?.resumen}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Indicador"}
+              value={proposito[0]?.indicador}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Fórmula"}
+              value={proposito[0]?.formula}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Frecuencia"}
+              value={proposito[0]?.frecuencia}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Medios de verificación"}
+              value={proposito[0]?.medios}
+              sx={{ width: "25vw" }}
+            />
+            <TextField
+              variant="standard"
+              multiline
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "0.8vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                  marginTop: "2.4vh",
+                },
+              }}
+              rows={3}
+              label={"Supuestos"}
+              value={proposito[0]?.supuestos}
+              sx={{ width: "25vw" }}
+            />
           </Box>
         ) : null}
       </Box>

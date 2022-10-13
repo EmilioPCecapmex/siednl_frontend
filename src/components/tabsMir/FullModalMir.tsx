@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
-import TabFinProposito from "./TabFinProposito";
+import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import TabResumen from "./TabResumen";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
@@ -49,9 +49,17 @@ export default function FullModalMir() {
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([])
+  const [fin, setFin] = useState<Array<IFin>>([])
+  const [proposito, setProposito] = useState<Array<IProposito>>([])
 
   const resumenEncabezado = (arr:Array<IEncabezado>) => {
     setEncabezado(arr);
+  };
+  const resumenFin = (arr:Array<IFin>) => {
+    setFin(arr);
+  };
+  const resumenProposito = (arr:Array<IProposito>) => {
+    setProposito(arr);
   };
 
   useEffect(()=>{
@@ -150,10 +158,10 @@ export default function FullModalMir() {
           }}
         >
           <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado}></TabEncabezado>
-          <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
+          <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito}></TabFinProposito>
           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
-          <TabResumen show={value === 50 ? true : false} encabezado={encabezado}></TabResumen>
+          <TabResumen show={value === 50 ? true : false} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen>
         </Box>
       </Box>
     </Box>
