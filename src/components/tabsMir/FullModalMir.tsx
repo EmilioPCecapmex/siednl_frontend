@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";
-import TabEncabezado from "./TabEncabezado";
+import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito from "./TabFinProposito";
 import TabResumen from "./TabResumen";
@@ -56,6 +56,16 @@ export default function FullModalMir() {
     setComponenteValor(array);
   }, []);
 
+  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([])
+
+  const resumenEncabezado = (arr:Array<IEncabezado>) => {
+    setEncabezado(arr);
+  };
+
+  useEffect(()=>{
+    // console.log(encabezado);
+    
+  },[encabezado])
   
   //----------------------------------------------------------------------------------------------
   return (
@@ -147,11 +157,11 @@ export default function FullModalMir() {
             height: "77vh",
           }}
         >
-          <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
+          <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-          <TabResumen show={value === 50 ? true : false} componentes={componentes}></TabResumen>
            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} ></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
+          <TabResumen show={value === 50 ? true : false} encabezado={encabezado}></TabResumen>
         </Box>
       </Box>
     </Box>
