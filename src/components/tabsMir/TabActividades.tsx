@@ -101,7 +101,8 @@ export const TabActividades = ({
 
  useEffect(() => {
   asignarCValor(cValor);
- }, [cValor])
+  
+ }, [cValor,componentes])
  
 
   const agregarAFnc = (index: number) => {
@@ -133,7 +134,7 @@ export const TabActividades = ({
   const eliminarAFnc = () => {
     let act = cValor[0].componentes[parseInt(componenteSelect)].actividades;
     let v = act.length;
-    console.log(v)
+   
     if (v > 2) {
       let a = actividades;
       a.pop();
@@ -381,9 +382,7 @@ export const TabActividades = ({
           }
         )}
       </Box>
-      <Button onClick={() => console.log(cValor)}>
-        Enviar
-      </Button>
+
     </Box>
   );
 };

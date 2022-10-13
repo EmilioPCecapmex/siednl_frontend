@@ -42,16 +42,14 @@ export default function FullModalMir() {
   
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
-    let a = componenteValor;
-    console.log(a);
+
   };
 
   const[cValor,setCValor]=useState<Array<ICValor>>([])
 
   const asignarCValor = (state: Array<ICValor>) => {
     setCValor(state);
-    let a = cValor;
-    console.log(a);
+
   };
 
   useEffect(() => {
@@ -67,6 +65,14 @@ export default function FullModalMir() {
     });
     setComponenteValor(array);
   }, []);
+
+
+  useEffect(() => {
+
+    console.log(cValor)
+  }, [cValor,componentes])
+  
+  
 
   
   //----------------------------------------------------------------------------------------------
@@ -161,7 +167,7 @@ export default function FullModalMir() {
         >
           <TabEncabezado show={value === 10 ? true : false}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false}></TabFinProposito>
-          <TabResumen show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor}></TabResumen>
+          <TabResumen show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor}></TabResumen>
            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes} actualizoComponentes={actualizoComponentes} asignarCValor={asignarCValor}></TabActividades>
         </Box>

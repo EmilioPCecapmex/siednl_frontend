@@ -25,7 +25,7 @@ import { ICValor } from "./ICValor";
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 
-export function TabResumen({ show, componentes, componenteValor, cValor, }: { show: boolean; componentes: number[]; componenteValor: IComponente[]; cValor: ICValor[]; }) {
+export function TabResumen({ show, componentes, componenteValor, cValor,asignarCValor }: { show: boolean; componentes: number[]; componenteValor: Array<IComponente>; cValor: Array<ICValor>;asignarCValor:Function; }) {
   //
   //setComponentes(retornarComponentes());
   const [actividades, setActividades] = useState([1, 2, 3, 4, 5, 6]);
@@ -33,14 +33,55 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
   const [tabSelect, setTapSelect] = useState(103);
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
-  
+
 
   const [openComponentes, setOpenComponentes] = useState(false);
   const [openActividades, setOpenActividades] = useState(false);
 
+  // useEffect(() => {
+  //   console.log(cValor)
+  // }, [cValor,componentes])
+
   useEffect(() => {
-    console.log(cValor[0]?.componentes)
-  }, [cValor])
+    if (show === true && componentes.length > cValor[0].componentes.length) {
+      let restantes = componentes.length - cValor[0].componentes.length;
+      let prevState = [...cValor];
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.push({
+          actividades: [
+            {
+              resumen: "",
+              indicador: "",
+              frecuencia: "",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            },
+            {
+              resumen: "",
+              indicador: "",
+              frecuencia: "",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            },
+          ],
+        });
+        asignarCValor(prevState);
+      }
+    } else if (
+      show === true &&
+      componentes.length < cValor[0].componentes.length
+    ) {
+      let prevState = [...cValor];
+      let restantes = cValor[0].componentes.length - componentes.length;
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.pop();
+        asignarCValor(prevState);
+      }
+      setComponenteSelect(0);
+    }
+  }, [show]);
 
 
   return (
@@ -149,7 +190,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
           <Collapse in={openComponentes} timeout="auto" unmountOnExit>
             <List disablePadding>
 
-              {componentes.map((item) => {
+              {componentes?.map((item) => {
                 return (
                   <ListItemButton
                     selected={item === tabSelect ? true : false}
@@ -222,7 +263,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                   <Box
                     sx={{
                       width: "100%",
-                      
+
                       justifyContent: "space-evenly",
                       display: "flex",
                       alignItems: "center",
@@ -245,7 +286,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                       rows={4}
                       sx={{ width: "30%" }}
                       label={"Resumen Narrativo"}
-                      value={componenteValor[componenteSelect].resumen}
+                      value={componenteValor[componenteSelect]?.resumen}
 
                     />
                     <TextField
@@ -264,7 +305,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                       }}
                       sx={{ width: "30%" }}
                       label={"Indicador"}
-                      value={componenteValor[componenteSelect].indicador}
+                      value={componenteValor[componenteSelect]?.indicador}
 
                     />
                     <TextField
@@ -283,7 +324,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                       rows={4}
                       sx={{ width: "30%" }}
                       label={"Fórmula"}
-                      value={componenteValor[componenteSelect].formula}
+                      value={componenteValor[componenteSelect]?.formula}
 
                     />
                   </Box>
@@ -314,7 +355,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                       rows={4}
                       sx={{ width: "30%" }}
                       label={"Frecuencia"}
-                      value={componenteValor[componenteSelect].frecuencia}
+                      value={componenteValor[componenteSelect]?.frecuencia}
 
                     />
                     <TextField
@@ -333,7 +374,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                       rows={4}
                       sx={{ width: "30%" }}
                       label={"Medios de Verificación"}
-                      value={componenteValor[componenteSelect].medios}
+                      value={componenteValor[componenteSelect]?.medios}
 
                     />
                     <TextField
@@ -352,7 +393,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                       }}
                       sx={{ width: "30%" }}
                       label={"Supuestos"}
-                      value={componenteValor[componenteSelect].supuestos}
+                      value={componenteValor[componenteSelect]?.supuestos}
 
                     />
                   </Box>
@@ -372,9 +413,9 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
           <Box>
             <Box>
               <ButtonGroup variant="text" aria-label="text button group">
-                {cValor[0]?.componentes[componenteSelect].actividades.map((value,x) => {
+                {cValor[0]?.componentes[componenteSelect].actividades?.map((value, x) => {
                   return (
-                    <Button onClick={()=>{ setActividadSelect(x) }}>Actividad No. {x+1}</Button>
+                    <Button onClick={() => { setActividadSelect(x) }}>Actividad No. {x + 1}</Button>
                   )
                 })}
               </ButtonGroup>
@@ -393,7 +434,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
 
 
 
-              <Box sx={{ display: "flex", justifyContent: "space-evenly", flexDirection: "column",backgroundColor:"pink" }}>
+              <Box sx={{ display: "flex", justifyContent: "space-evenly", flexDirection: "column", }}>
                 <Box
                   sx={{
                     width: "100%",
@@ -420,7 +461,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Resumen Narrativo"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].resumen}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.resumen}
 
                   />
                   <TextField
@@ -439,7 +480,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                     }}
                     sx={{ width: "30%" }}
                     label={"Indicador"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].indicador}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.indicador}
 
                   />
                   <TextField
@@ -458,7 +499,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Fórmula"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].formula}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.formula}
 
                   />
                 </Box>
@@ -489,7 +530,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Frecuencia"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].frecuencia}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.frecuencia}
 
                   />
                   <TextField
@@ -508,7 +549,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Medios de Verificación"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].medios}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.medios}
 
                   />
                   <TextField
@@ -527,7 +568,7 @@ export function TabResumen({ show, componentes, componenteValor, cValor, }: { sh
                     }}
                     sx={{ width: "30%" }}
                     label={"Supuestos"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect].supuestos}
+                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.supuestos}
 
                   />
                 </Box>

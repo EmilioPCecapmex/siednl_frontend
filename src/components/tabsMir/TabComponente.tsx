@@ -74,11 +74,8 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
 
   useEffect(() => {
     asignarComponente(componentes);
-  }, [componentes])
-
-  useEffect(() => {
     asignarComponenteValor(componenteValor);
-  }, [componenteValor])
+  }, [componentes,componenteValor])
 
 
   const [componentSelect, setComponentSelect] = useState(1);
