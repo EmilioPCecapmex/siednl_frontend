@@ -14,15 +14,19 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
+import { ICValor } from "./ICValor";
 //funcion main
 export const TabActividades = ({
   show,
   componentes,
+  actualizoComponentes,
+  asignarCValor,
 }: {
   show: boolean;
   componentes: number[];
+  actualizoComponentes: number;
+  asignarCValor:Function;
 }) => {
-
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
 
@@ -32,21 +36,61 @@ export const TabActividades = ({
     },
   ]);
 
+  useEffect(() => {
+    if (show === true && componentes.length > cValor[0].componentes.length) {
+      let restantes = componentes.length - cValor[0].componentes.length;
+      let prevState = [...cValor];
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.push({
+          actividades: [
+            {
+              resumen: "",
+              indicador: "",
+              frecuencia: "",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            },
+            {
+              resumen: "",
+              indicador: "",
+              frecuencia: "",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            },
+          ],
+        });
+        setCValor(prevState);
+      }
+    } else if (
+      show === true &&
+      componentes.length < cValor[0].componentes.length
+    ) {
+      let prevState = [...cValor];
+      let restantes = cValor[0].componentes.length - componentes.length;
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.pop();
+        setCValor(prevState);
+      }
+      setComponenteSelect("0");
+    }
+  }, [show]);
+
+
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
       return {
-        components: item.componentes.map((x) => {
+        componentes: item.componentes.map((x) => {
           return {
-            c: x.map((c) => {
+            actividades: x.map((c) => {
               return {
-                a: {
-                  resumen: "",
-                  indicador: "",
-                  formula: "",
-                  frecuencia: "",
-                  medios: "",
-                  supuestos: "",
-                },
+                resumen: "",
+                indicador: "",
+                formula: "",
+                frecuencia: "",
+                medios: "",
+                supuestos: "",
               };
             }),
           };
@@ -55,91 +99,50 @@ export const TabActividades = ({
     })
   );
 
-  useEffect(() => {
-    setComponenteActividad([
-        {
-          componentes: componentes.map((x) => actividades),
-        },
-      ])
-    setCValor(
-      componenteActividad.map((item) => {
-        return {
-          components: item.componentes.map((x) => {
-            return {
-              c: x.map((c) => {
-                return {
-                  a: {
-                    resumen: "",
-                    indicador: "",
-                    formula: "",
-                    frecuencia: "",
-                    medios: "",
-                    supuestos: "",
-                  },
-                };
-              }),
-            };
-          }),
-        };
-      })
-    );
-    // console.log(cValor);
-  }, [actividades]);
-
-  const [ActividadValor, setActividadValor] = React.useState<
-    Array<IComponente>
-  >([]);
+ useEffect(() => {
+  asignarCValor(cValor);
+  
+ }, [cValor,componentes])
+ 
 
   const agregarAFnc = (index: number) => {
-    let v = actividades.length + 1;
-    if (v > 6) {
-    } else {
-      setActividades([...actividades, v]);
-
+    if (actividades.length + 1 < 7) {
+      let a = [...actividades];
+      a.push(actividades.length + 1);
+      setActividades(a);
       let xArray = [...componenteActividad];
-
-      xArray[0]["componentes"][parseInt(componenteSelect)] = [
+      xArray[0]["componentes"][index] = [
         ...actividades,
-        v,
+        actividades.length + 1,
       ];
-
       setComponenteActividad(xArray);
+      if (cValor[0].componentes[index].actividades.length < 6) {
+        let prevState = [...cValor];
+        prevState[0].componentes[index].actividades.push({
+          resumen: "",
+          indicador: "",
+          frecuencia: "",
+          formula: "",
+          medios: "",
+          supuestos: "",
+        });
+        setCValor(prevState);
+      }
     }
   };
 
   const eliminarAFnc = () => {
-    let act = componenteActividad[0]["componentes"][parseInt(componenteSelect)];
-    let v = act.length - 1;
-    if (v < 2) {
-    } else {
-      let xArray = [...componenteActividad];
-
-      xArray[0]["componentes"][parseInt(componenteSelect)] = act.splice(0, v);
-
-      setComponenteActividad(xArray);
+    let act = cValor[0].componentes[parseInt(componenteSelect)].actividades;
+    let v = act.length;
+   
+    if (v > 2) {
+      let a = actividades;
+      a.pop();
+      setActividades(a);
+      let prevState = [...cValor];
+      prevState[0].componentes[parseInt(componenteSelect)].actividades.pop();
+      setCValor(prevState);
     }
-  };
-
-  useEffect(() => {
-    let array = componenteActividad.map((x) => {
-      return {
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    });
-    setActividadValor(array);
-  }, []);
-
-  const cargarArray = () => {
-    let arrayComponente = [
-      {
-        componentes: ActividadValor,
-      },
-    ];
   };
 
   const [componenteSelect, setComponenteSelect] = React.useState("0");
@@ -180,17 +183,18 @@ export const TabActividades = ({
             },
           }}
         >
-          <ButtonGroup variant="text" sx={{}}>
+          <ButtonGroup variant="text">
             {componentes.map((x) => {
               return (
                 <Button
                   key={x}
                   onClick={() => {
-                    setActividades([1, 2]);
                     setComponenteSelect((x - 1).toString());
+
+                    setActividades([1, 2]);
                     let xArray = [...componenteActividad];
 
-                    xArray[0]["componentes"][x - 1] = xArray[0]["componentes"][
+                    xArray[0]["componentes"][x] = xArray[0]["componentes"][
                       x - 1
                     ] || [1, 2];
 
@@ -240,8 +244,8 @@ export const TabActividades = ({
         }}
       >
         {/* Renderizado de Actividades */}
-        {componenteActividad[0]["componentes"][parseInt(componenteSelect)].map(
-          (x) => {
+        {cValor[0].componentes[parseInt(componenteSelect)].actividades.map(
+          (value, x) => {
             return (
               <Accordion
               key={x}
@@ -254,8 +258,7 @@ export const TabActividades = ({
               >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                    Actividad {x} - Componente{" "}
-                    {(parseInt(componenteSelect) + 1).toString()}
+                    Actividad {x + 1} - Componente {" "}{(parseInt(componenteSelect) + 1).toString()}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -278,24 +281,45 @@ export const TabActividades = ({
                     >
                       <TextField
                         label={"Resumen Narrativo"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x].resumen
+                        }
                         onChange={(c) => {
-                           cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.resumen = c.target.value;
-                          
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x].resumen = c.target.value;
+                          setCValor(y);
                         }}
                       />
                       <TextField
                         label={"Indicador"}
                         rows={5}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x].indicador
+                        }
                         onChange={(c) => {
-                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.indicador = c.target.value;
-                          cargarArray();
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x].indicador = c.target.value;
+                          setCValor(y);
                         }}
                       />
                       <TextField
                         label={"Fórmula"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x].formula
+                        }
                         onChange={(c) => {
-                          cValor[0].components[parseInt(componenteSelect)].c[x - 1].a.formula = c.target.value;
-                          cargarArray();
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x].formula = c.target.value;
+                          setCValor(y);
                         }}
                       />
                     </Box>
@@ -310,23 +334,44 @@ export const TabActividades = ({
                     >
                       <TextField
                         label={"Frecuencia"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x].frecuencia
+                        }
                         onChange={(c) => {
-                          ActividadValor[x - 1].frecuencia = c.target.value;
-                          cargarArray();
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x].frecuencia = c.target.value;
+                          setCValor(y);
                         }}
                       />
                       <TextField
                         label={"Medios de Verificación"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x].medios
+                        }
                         onChange={(c) => {
-                          ActividadValor[x - 1].medios = c.target.value;
-                          cargarArray();
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x].medios = c.target.value;
+                          setCValor(y);
                         }}
                       />
                       <TextField
                         label={"Supuestos"}
+                        value={
+                          cValor[0].componentes[parseInt(componenteSelect)]
+                            .actividades[x].supuestos
+                        }
                         onChange={(c) => {
-                          ActividadValor[x - 1].supuestos = c.target.value;
-                          cargarArray();
+                          let y = [...cValor];
+                          y[0].componentes[
+                            parseInt(componenteSelect)
+                          ].actividades[x].supuestos = c.target.value;
+                          setCValor(y);
                         }}
                       />
                     </Box>
@@ -337,6 +382,7 @@ export const TabActividades = ({
           }
         )}
       </Box>
+
     </Box>
   );
 };

@@ -5,6 +5,7 @@ import {
   Box,
   Typography,
   IconButton,
+  Autocomplete,
 } from "@mui/material";
 import axios from "axios";
 import { IComponente } from "./IComponente";
@@ -77,8 +78,56 @@ export function TabFinProposito({
     supuestos: "",
   });
 
-  const [showFin, setShowFin] = useState(true);
-  const [showProposito, setShowProposito] = useState(false);
+  const [showFin, setShowFin] = useState(false);
+  const [showProposito, setShowProposito] = useState(true);
+
+
+  const [indicadorSelect, setIndicadorSelect] = useState<Array<IIndicadores>>([]);
+  const [indicadorTxt, setIndicadorTxt] = useState("hola")
+
+  const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
+
+const getIndicadores = () => {
+  axios
+    .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      if (r.status === 200) {
+        setIndicador(r.data.data)
+      }
+    });
+};
+
+useEffect(() => {
+  getIndicadores()
+},[])
+
+const [errorIndicador, setErrorIndicador] = useState(false);
+const [tipoIndicador, setTipoIndicador] = useState("");
+
+const evalueTxtindicador = () => {
+if(fin.indicador.toLowerCase().includes("porcentaje")){
+  setErrorIndicador(false)
+  setTipoIndicador("Porcentaje")
+}else if(fin.indicador.toLowerCase().includes("tasa")) {
+  setErrorIndicador(false)
+  setTipoIndicador("Tasa")
+  }
+  else if(fin.indicador.toLowerCase().includes("indice" || "índice")) {
+    setErrorIndicador(false)
+    setTipoIndicador("Indice")
+    }
+    else if(fin.indicador.toLowerCase().includes("promedio")) {
+      setErrorIndicador(false)
+      setTipoIndicador("Promedio")
+      }else{
+        setErrorIndicador(true)
+      }
+} 
+
 
   useEffect(() => {
     setTabFin([
@@ -200,6 +249,7 @@ export function TabFinProposito({
                 fontFamily: "MontserratRegular",
               },
             }}
+            onBlur={() => evalueTxtindicador()}
             label={"Indicador"}
             onChange={(c) => {
               setFin({ ...fin, indicador: c.target.value });
@@ -358,6 +408,8 @@ export function TabFinProposito({
             }}
             value={proposito.resumen}
           />
+
+
           <TextField
             rows={4}
             multiline
@@ -379,6 +431,7 @@ export function TabFinProposito({
             }}
             value={proposito.indicador}
           />
+
           <TextField
             rows={4}
             multiline
@@ -470,3 +523,15 @@ export function TabFinProposito({
 }
 
 export default TabFinProposito;
+
+
+
+export interface IIndicadores {
+  Id:                 string;
+  TipoDeIndicador:    string;
+  FechaCreacion:      string;
+  CreadoPor:          string;
+  UltimaModificacion: string;
+  ModificadoPor:      string;
+  Deleted:            number;
+}

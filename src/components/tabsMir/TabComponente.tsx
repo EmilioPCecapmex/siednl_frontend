@@ -16,45 +16,43 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 
-export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:{show: boolean, asignarComponente:Function, asignarComponenteValor:Function}) => {
+export const TabComponente = ({ show, asignarComponente, asignarComponenteValor }: { show: boolean, asignarComponente: Function, asignarComponenteValor:Function}) => {
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = useState([1, 2]);
 
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
     componentes.map((x) => {
-    return {
-      resumen: "",
-      indicador: "",
-      frecuencia: "",
-      formula: "",
-      medios: "",
-      supuestos: "",
-    };
-  })
-);
+      return {
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    })
+  );
 
   const agregarFnc = () => {
     let v = componentes.length + 1;
     if (v > 6) {
     } else {
       setComponentes([...componentes, v]);
-    
-      if(componenteValor.length < 6){
-        let prevState = [...componenteValor]
-      prevState.push(
-        {
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        }
-      )
-        setComponenteValor(prevState);
 
+      if (componenteValor.length < 6) {
+        let prevState = [...componenteValor]
+        prevState.push(
+          {
+            resumen: "",
+            indicador: "",
+            frecuencia: "",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          }
+        )
+        setComponenteValor(prevState);
       }
-    
     }
     asignarComponente(componentes);
   };
@@ -67,23 +65,26 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
       let prevState = [...componenteValor];
       prevState.pop()
       setComponenteValor(prevState)
-      if(v < componentSelect){
+      if (v < componentSelect) {
         setComponentSelect(v)
 
       }
     }
-
-
   };
 
-  const [componentSelect, setComponentSelect] = useState(1);
+  useEffect(() => {
+    asignarComponente(componentes);
+    asignarComponenteValor(componenteValor);
+  }, [componentes,componenteValor])
 
+
+  const [componentSelect, setComponentSelect] = useState(1);
 
   //----------------------------------------------------------------------------------------------
   return (
     <Box
-    visibility={show ? "visible" : "hidden"}
-    position="absolute"
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
       sx={{
         display: "flex",
         width: "75vw",
@@ -251,7 +252,7 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
               rows={4}
               sx={{ width: "30%" }}
               label={"Fórmula"}
-              value={componenteValor[componentSelect - 1].formula }
+              value={componenteValor[componentSelect - 1].formula}
               onChange={(c) => {
                 componenteValor[componentSelect - 1].formula = c.target.value;
                 setComponenteValor([...componenteValor]);
@@ -284,9 +285,10 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
               rows={4}
               sx={{ width: "30%" }}
               label={"Frecuencia"}
-              value={componenteValor[componentSelect - 1].frecuencia }
+              value={componenteValor[componentSelect - 1].frecuencia}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].frecuencia = c.target.value;
+                componenteValor[componentSelect - 1].frecuencia =
+                  c.target.value;
                 setComponenteValor([...componenteValor]);
               }}
             />
@@ -306,7 +308,7 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
               rows={4}
               sx={{ width: "30%" }}
               label={"Medios de Verificación"}
-              value={componenteValor[componentSelect - 1].medios }
+              value={componenteValor[componentSelect - 1].medios}
               onChange={(c) => {
                 componenteValor[componentSelect - 1].medios = c.target.value;
                 setComponenteValor([...componenteValor]);
@@ -328,7 +330,7 @@ export const TabComponente = ({show, asignarComponente, asignarComponenteValor}:
               }}
               sx={{ width: "30%" }}
               label={"Supuestos"}
-              value={componenteValor[componentSelect - 1].supuestos }
+              value={componenteValor[componentSelect - 1].supuestos}
               onChange={(c) => {
                 componenteValor[componentSelect - 1].supuestos = c.target.value;
                 setComponenteValor([...componenteValor]);

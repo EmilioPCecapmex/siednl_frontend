@@ -8,6 +8,7 @@ import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import TabResumen from "./TabResumen";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
+import {ICValor} from "./ICValor"
 
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
@@ -18,20 +19,37 @@ export default function FullModalMir() {
 
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
+  const [actualizoComponentes, setActualizoComponentes] = React.useState(2);
 
-  const [componenteValor, setComponenteValor] = React.useState<
-    Array<IComponente>
-  >([]);
-
-  const asignarComponente = (state: []) => {
+  const asignarComponente=( state:[])=>{
     setComponentes(state);
-    let a = componentes;
-  };
+    setActualizoComponentes(state.length)
+  }
 
+
+  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
+    componentes.map((x) => {
+      return {
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    })
+  );
+  
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
-    let a = componenteValor;
-    // console.log(a);
+
+  };
+
+  const[cValor,setCValor]=useState<Array<ICValor>>([])
+
+  const asignarCValor = (state: Array<ICValor>) => {
+    setCValor(state);
+
   };
 
   useEffect(() => {
@@ -66,6 +84,14 @@ export default function FullModalMir() {
     // console.log(encabezado);
     
   },[encabezado])
+
+  useEffect(() => {
+
+    console.log(cValor)
+  }, [cValor,componentes])
+  
+  
+
   
   //----------------------------------------------------------------------------------------------
   return (
@@ -160,8 +186,9 @@ export default function FullModalMir() {
           <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito}></TabFinProposito>
           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
-          <TabActividades show={value === 40 ? true : false} componentes={componentes}></TabActividades>
-          <TabResumen show={value === 50 ? true : false} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen>
+          <TabResumen show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen>
+           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
+          <TabActividades show={value === 40 ? true : false} componentes={componentes} actualizoComponentes={actualizoComponentes} asignarCValor={asignarCValor}></TabActividades>
         </Box>
       </Box>
     </Box>
