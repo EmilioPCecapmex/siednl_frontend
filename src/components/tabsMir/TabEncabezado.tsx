@@ -70,6 +70,7 @@ export function TabEncabezado({
     setInstitution(Inst);
     setPrograma("");
     getProgramas(Id);
+    setDisabledProgramas(false);
   }
   function enCambioPrograma(Id: string, Prog: string) {
     setPrograma(Prog);
@@ -496,8 +497,8 @@ export function TabEncabezado({
       .then((response) => {
         // console.log(response.data);
         getIdInstitucion(response.data.encabezado[0].institucion);
-        // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
-        setPrograma(response.data.encabezado[0].nombre_del_programa);
+        getIdPrograma(response.data.encabezado[0].nombre_del_programa);
+        // setPrograma(response.data.encabezado[0].nombre_del_programa);
         getIdEje(response.data.encabezado[0].eje);
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
