@@ -36,7 +36,7 @@ export function TabEncabezado({
 
   
 
-  const [encabezado, setEncabezado] = useState({
+  const [encabezado, setEncabezado] = useState([{
     ejercicioFiscal: "",
     institucion: "",
     programa: "",
@@ -46,7 +46,7 @@ export function TabEncabezado({
     estrategia: "",
     lineasDeAccion: "",
     beneficiario: "",
-  });
+  }]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -517,7 +517,7 @@ export function TabEncabezado({
   }, []);
 
   useEffect(() => {
-    setEncabezado({
+    setEncabezado([{
       ejercicioFiscal: anioFiscal,
       institucion: institution,
       programa: programa,
@@ -527,7 +527,7 @@ export function TabEncabezado({
       estrategia: estrategia,
       lineasDeAccion: lineaDeAccion[0].LineaDeAccion,
       beneficiario: beneficiario,
-    })
+    }])
 
   }, [anioFiscal, institution, programa, eje, tematica, objetivo, estrategia, lineaDeAccion, beneficiario]);
 

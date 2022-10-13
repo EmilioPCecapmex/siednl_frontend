@@ -33,8 +33,7 @@ export function TabResumen({ show, encabezado }: { show: boolean, encabezado:Arr
   const [openActividades, setOpenActividades] = useState(false);
 
   useEffect(()=>{
-    console.log(encabezado[0]?.eje);
-    
+    console.log(encabezado[0].eje);
   },[encabezado])
 
   return (
