@@ -163,7 +163,7 @@ export function TabFinProposito({
         supuestos: proposito.supuestos,
       },
     ]);
-  }, [fin, proposito]);
+  }, [fin, proposito, show]);
 
   useEffect(() => {
     setFin({
@@ -182,7 +182,7 @@ export function TabFinProposito({
       medios: cargaProposito[0]?.medios,
       supuestos: cargaProposito[0]?.supuestos,
     });
-  }, [cargaFin, cargaProposito]);
+  }, [cargaFin, cargaProposito, show]);
 
   useEffect(() => {
     resumenFin(tabFin);
@@ -227,7 +227,6 @@ export function TabFinProposito({
       >
         <List
           sx={{
-            padding: 0,
             width: "10vw",
             height: "65vh",
             borderRight: "solid",
@@ -247,7 +246,7 @@ export function TabFinProposito({
         >
           <Box
             sx={{
-              height: "35vh",
+              height: "10vh",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -275,7 +274,15 @@ export function TabFinProposito({
             </ListItemButton>
 
             <Divider />
-
+            </Box>
+            <Box
+            sx={{
+              height: "10vh",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
             <ListItemButton
               selected={showProposito}
               onClick={() => {

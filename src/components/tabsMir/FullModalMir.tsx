@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box } from "@mui/material";
+import { Box, Button, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
-import TabResumen2 from "./TabResumen2";
 import {ICValor} from "./ICValor"
-
+import TabResumen from "./TabResumen";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
 
@@ -109,6 +109,7 @@ export default function FullModalMir() {
         }}
       >
         <Box>
+          
           <Tabs
             value={value}
             onChange={handleChange}
@@ -170,6 +171,7 @@ export default function FullModalMir() {
             />
           </Tabs>
         </Box>
+        
 
         <Box
           sx={{
@@ -177,14 +179,19 @@ export default function FullModalMir() {
             height: "77vh",
           }}
         >
+
+
+       
           <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado} cargaFin={loadFin} cargaProposito={loadProposito}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito} cargaFin={cargaFin} cargaProposito={cargaProposito}></TabFinProposito>
           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
-          <TabResumen2 show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen2>
-           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
+          <TabResumen show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen>
           <TabActividades show={value === 40 ? true : false} componentes={componentes} asignarCValor={asignarCValor}></TabActividades>
         </Box>
-      </Box>
+     
+              </Box>
+
+              
     </Box>
   );
 }
