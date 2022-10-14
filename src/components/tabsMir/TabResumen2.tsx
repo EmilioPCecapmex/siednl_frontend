@@ -25,6 +25,7 @@ import { IEncabezado } from "./TabEncabezado";
 import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
 import { IFin, IProposito } from "./TabFinProposito";
+import { IMIR } from "./IMIR";
 
 export function TabResumen2({
   show,
@@ -45,10 +46,30 @@ export function TabResumen2({
   cValor: Array<ICValor>;
   asignarCValor: Function;
 }) {
+
+
+
+  const [MIR, setMIR] = useState<IMIR>();
+
+  const asignarMIR = (encabezadoM: Array<IEncabezado>, finM: Array<IFin>, propositoM: Array<IProposito>, componentesM: Array<IComponente>, actividadesM: Array<ICValor>) => {
+    setMIR({
+      Encabezado: encabezadoM[0],
+      Fin: finM[0],
+      Proposito: propositoM[0],
+      Componentes: componentesM[0],
+      Actividades: actividadesM[0]
+    })
+  }
   useEffect(() => {
     //  console.log(encabezado[0].eje);
-  }, [encabezado]);
+    asignarMIR(encabezado,
+      fin,
+      proposito,
+      componenteValor,
+      cValor)
+    console.log(MIR);
 
+  }, [encabezado]);
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
