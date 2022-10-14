@@ -12,7 +12,6 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { fontFamily } from "@mui/system";
 
-
 export function TabFinProposito({
   show,
   resumenFin,
@@ -76,7 +75,6 @@ export function TabFinProposito({
 
   const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
 
-  
   const [frecuencias, setFrecuencias] = useState<Array<IFrecuencias>>([]);
 
   const getIndicadores = () => {
@@ -99,6 +97,29 @@ export function TabFinProposito({
   }, []);
 
   const [errorIndicador, setErrorIndicador] = useState("");
+  const [errorFrecuenciaFin, setErrorFrecuenciaFin] = useState("");
+  const [errorFrecuenciaProposito, setErrorFrecuenciaProposito] = useState("");
+
+
+  const evalueTxtFrecuenciaFin = () => {
+    let txt = fin.frecuencia.toLowerCase();
+      if(txt === "anual" || txt === "bienal"){
+        setErrorFrecuenciaFin("")
+      }else{
+        setErrorFrecuenciaFin("Frecuencia debe ser tipo Anual ó Bienal.")
+      }
+  }
+
+  const evalueTxtFrecuenciaProposito = () => {
+    let txt = proposito.frecuencia.toLowerCase();
+      if(txt === "anual" || txt === "bienal"){
+        setErrorFrecuenciaProposito("")
+      }else{
+        setErrorFrecuenciaProposito("Frecuencia debe ser tipo Anual.")
+      }
+  }
+
+
 
   const evalueTxtindicador = (v: string) => {
     const findicador = fin.indicador.toLowerCase();
@@ -147,26 +168,22 @@ export function TabFinProposito({
   }, [fin, proposito]);
 
   useEffect(() => {
-    setFin(
-      {
-        resumen: cargaFin[0]?.resumen,
-        indicador: cargaFin[0]?.indicador,
-        formula: cargaFin[0]?.formula,
-        frecuencia: cargaFin[0]?.frecuencia,
-        medios: cargaFin[0]?.medios,
-        supuestos: cargaFin[0]?.supuestos,
-      },
-    );
-    setProposito(
-      {
-        resumen: cargaProposito[0]?.resumen,
-        indicador: cargaProposito[0]?.indicador,
-        formula: cargaProposito[0]?.formula,
-        frecuencia: cargaProposito[0]?.frecuencia,
-        medios: cargaProposito[0]?.medios,
-        supuestos: cargaProposito[0]?.supuestos,
-      },
-    );
+    setFin({
+      resumen: cargaFin[0]?.resumen,
+      indicador: cargaFin[0]?.indicador,
+      formula: cargaFin[0]?.formula,
+      frecuencia: cargaFin[0]?.frecuencia,
+      medios: cargaFin[0]?.medios,
+      supuestos: cargaFin[0]?.supuestos,
+    });
+    setProposito({
+      resumen: cargaProposito[0]?.resumen,
+      indicador: cargaProposito[0]?.indicador,
+      formula: cargaProposito[0]?.formula,
+      frecuencia: cargaProposito[0]?.frecuencia,
+      medios: cargaProposito[0]?.medios,
+      supuestos: cargaProposito[0]?.supuestos,
+    });
   }, [cargaFin, cargaProposito]);
 
   useEffect(() => {
@@ -182,12 +199,11 @@ export function TabFinProposito({
         },
       })
       .then((r) => {
-        if(r.status === 200){
-          setFrecuencias(r.data.data)
+        if (r.status === 200) {
+          setFrecuencias(r.data.data);
         }
-      
       });
-  }
+  };
 
   return (
     <Box
@@ -205,9 +221,9 @@ export function TabFinProposito({
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
         gridTemplateRows: showFin
-          ? "1fr 1fr 1fr 2fr"
+          ? "1fr 2fr 1fr 2fr"
           : showProposito
-          ? "1fr 1fr 1fr 2fr"
+          ? "1fr 2fr 1fr 2fr"
           : "repeat(2, 1fr 2fr)",
       }}
     >
@@ -246,7 +262,7 @@ export function TabFinProposito({
       {showFin ? (
         <>
           <TextField
-            rows={4}
+            rows={5}
             multiline
             sx={{ width: "90%", boxShadow: 4 }}
             variant={"filled"}
@@ -259,6 +275,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             onChange={(c) => {
@@ -267,7 +284,7 @@ export function TabFinProposito({
             value={fin.resumen}
           />
           <TextField
-            rows={4}
+            rows={5}
             multiline
             sx={{ width: "90%", boxShadow: 4 }}
             variant="filled"
@@ -279,6 +296,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             onBlur={() =>
@@ -297,7 +315,7 @@ export function TabFinProposito({
             value={fin.indicador}
           />
           <TextField
-            rows={4}
+            rows={5}
             multiline
             variant="filled"
             InputLabelProps={{
@@ -308,6 +326,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             sx={{ width: "90%", boxShadow: 4 }}
@@ -317,42 +336,36 @@ export function TabFinProposito({
             }}
             value={fin.formula}
           />
-          
-                    
-        <Autocomplete
-          disablePortal
-          sx={{ width: "90%", boxShadow: 4}}
-          options={frecuencias}
-          renderOption={(props, option) => {
-            if(option.Frecuencia === "Anual" || option.Frecuencia === "Bienal" ){
-              return (
-                <li {...props} key={option.Id}>
-                  <p
-                    style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                  >
-                    {option.Frecuencia}
-                  </p>
-                </li>
-              );
-            }
-         
-          }}
-          getOptionLabel={(option) => option.Frecuencia}
-          renderInput={(params) => <TextField {...params} 
-          InputLabelProps={{
-            style: {
-              fontFamily: "MontserratSemiBold",
-            },
-          }} 
-          inputProps={{ ...params.inputProps, style: { fontFamily: "MontserratRegular" } }}
-           variant="filled"
-          rows={3.6}
-          multiline label="Frecuencias" />}
-          onChange={(event, value) => setFin({...fin, frecuencia: value?.Frecuencia as string})}
-        />
 
           <TextField
-            rows={4}
+            rows={5}
+            multiline
+            variant="filled"
+            error={errorFrecuenciaFin === "" ? false : true}
+            helperText={errorFrecuenciaFin === "" ?  null : errorFrecuenciaFin  }
+            sx={{ width: "90%", boxShadow: 4 }}
+            label={"Frecuencia"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+ 
+              },
+            }}
+            onBlur={() => evalueTxtFrecuenciaFin()
+          }
+            onChange={(c) => {
+              setFin({ ...fin, frecuencia: c.target.value });
+            }}
+            value={fin.frecuencia}
+          />
+
+          <TextField
+            rows={5}
             multiline
             variant="filled"
             sx={{ width: "90%", boxShadow: 4 }}
@@ -365,6 +378,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             //value={componenteValor[x - 1].medios}
@@ -374,7 +388,7 @@ export function TabFinProposito({
             value={fin.medios}
           />
           <TextField
-            rows={4}
+            rows={5}
             multiline
             variant="filled"
             sx={{ width: "90%", boxShadow: 4 }}
@@ -387,6 +401,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             onChange={(c) => {
@@ -440,7 +455,7 @@ export function TabFinProposito({
       {showProposito ? (
         <>
           <TextField
-            rows={4}
+            rows={5}
             multiline
             variant="filled"
             sx={{ width: "90%", boxShadow: 4 }}
@@ -453,6 +468,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             onChange={(c) => {
@@ -462,7 +478,7 @@ export function TabFinProposito({
           />
 
           <TextField
-            rows={4}
+            rows={5}
             multiline
             sx={{ width: "90%", boxShadow: 4 }}
             variant="filled"
@@ -474,6 +490,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             onBlur={() =>
@@ -495,7 +512,7 @@ export function TabFinProposito({
           />
 
           <TextField
-            rows={4}
+            rows={5}
             multiline
             variant="filled"
             sx={{ width: "90%", boxShadow: 4 }}
@@ -508,6 +525,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             onChange={(c) => {
@@ -522,15 +540,14 @@ export function TabFinProposito({
             }
           />
 
-
-
-
           <TextField
-            rows={4}
+            rows={5}
             multiline
             variant="filled"
             sx={{ width: "90%", boxShadow: 4 }}
             label={"Frecuencia"}
+            error={errorFrecuenciaProposito === "" ? false : true}
+            helperText={errorFrecuenciaProposito === "" ?  null : errorFrecuenciaProposito  }
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
@@ -539,15 +556,18 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             onChange={(c) => {
               setProposito({ ...proposito, frecuencia: c.target.value });
             }}
+            onBlur={() => evalueTxtFrecuenciaProposito()}
+
             value={proposito.frecuencia}
           />
           <TextField
-            rows={4}
+            rows={5}
             multiline
             variant="filled"
             sx={{ width: "90%", boxShadow: 4 }}
@@ -559,6 +579,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             label={"Medios de Verificación"}
@@ -568,7 +589,7 @@ export function TabFinProposito({
             value={proposito.medios}
           />
           <TextField
-            rows={4}
+            rows={5}
             multiline
             variant="filled"
             sx={{ width: "90%", boxShadow: 4 }}
@@ -581,6 +602,7 @@ export function TabFinProposito({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+ 
               },
             }}
             onChange={(c) => {
@@ -607,15 +629,14 @@ export interface IIndicadores {
 }
 
 export interface IFrecuencias {
-  Id:                 string;
-  Frecuencia:         string;
-  FechaCreacion:      string;
-  CreadoPor:          string;
+  Id: string;
+  Frecuencia: string;
+  FechaCreacion: string;
+  CreadoPor: string;
   UltimaModificacion: string;
-  ModificadoPor:      string;
-  Deleted:            number;
+  ModificadoPor: string;
+  Deleted: number;
 }
-
 
 export interface IFin {
   resumen: string;
