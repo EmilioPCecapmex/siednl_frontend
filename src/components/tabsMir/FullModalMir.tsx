@@ -5,7 +5,6 @@ import { Box } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
-import TabResumen from "./TabResumen";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
 import TabResumen2 from "./TabResumen2";

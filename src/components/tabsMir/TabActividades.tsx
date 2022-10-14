@@ -8,13 +8,20 @@ import {
   ButtonGroup,
   IconButton,
   Typography,
+  List,
+  ListItemButton,
   TextField,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Divider from '@mui/material/Divider';
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
+import Collapse from '@mui/material/Collapse';
+import ListItemText from '@mui/material/ListItemText';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 //funcion main
 export const TabActividades = ({
   show,
@@ -23,7 +30,7 @@ export const TabActividades = ({
 }: {
   show: boolean;
   componentes: number[];
-  asignarCValor:Function;
+  asignarCValor: Function;
 }) => {
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -71,7 +78,7 @@ export const TabActividades = ({
         prevState[0].componentes.pop();
         setCValor(prevState);
       }
-      setComponenteSelect("0");
+      setComponenteSelect(0);
     }
   }, [show]);
 
@@ -97,11 +104,11 @@ export const TabActividades = ({
     })
   );
 
- useEffect(() => {
-  asignarCValor(cValor);
-  
- }, [cValor,componentes])
- 
+  useEffect(() => {
+    asignarCValor(cValor);
+
+  }, [cValor, componentes])
+
 
   const agregarAFnc = (index: number) => {
     if (actividades.length + 1 < 7) {
@@ -130,195 +137,320 @@ export const TabActividades = ({
   };
 
   const eliminarAFnc = () => {
-    let act = cValor[0].componentes[parseInt(componenteSelect)].actividades;
+    let act = cValor[0].componentes[componenteSelect].actividades;
     let v = act.length;
-   
+
     if (v > 2) {
       let a = actividades;
       a.pop();
       setActividades(a);
       let prevState = [...cValor];
-      prevState[0].componentes[parseInt(componenteSelect)].actividades.pop();
+      prevState[0].componentes[componenteSelect].actividades.pop();
       setCValor(prevState);
     }
   };
 
-  const [componenteSelect, setComponenteSelect] = React.useState("0");
+  const [componenteSelect, setComponenteSelect] = React.useState(0);
+  const [actividadSelect, setActividadSelect] = React.useState(0);
+
+
+  const [open, setOpen] = React.useState(0);
+
+  const handleClickComponente = (index: number) => {
+    setOpen(index);
+  };
+
+  
 
   //return main
   return (
     <Box
-    visibility={show ? "visible" : "hidden"}
-    position="absolute"
-    sx={{
-      display: "flex",
-      width: "75vw",
-      height: "85vh",
-      boxShadow: 10,
-      borderRadius: 5,
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: 'column',
-      backgroundColor: "#fff",
-    }}
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
+      sx={{
+        display: "flex",
+        width: "75vw",
+        height: "77vh",
+        boxShadow: 10,
+        borderRadius: 5,
+        flexDirection: "column",
+        backgroundColor: "#fff",
+      }}
     >
       <Box
         sx={{
-          display: "flex",
           width: "100%",
-          height: "10%",
-          alignItems: "center",
-          justifyContent: "space-between",
+          display: "flex",
+          justifyContent: "flex-end",
         }}
       >
-        {/* Render seleccionar componente */}
+        {/* Botones Componentes */}
+        <IconButton
+          onClick={() => {
+            agregarAFnc(componenteSelect);
+          }}
+        >
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
+
+        <IconButton onClick={() => eliminarAFnc()}>
+          <DoDisturbOnIcon fontSize="large" />
+        </IconButton>
+      </Box>
+
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+        }}
+      >
+        <List
+          sx={{
+            width: "10vw",
+            height: "65vh",
+            borderRight: "solid",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            borderColor: "#BCBCBC",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            },
+          }}
+        >
+          {componentes.map((item) => {
+            return (
+              <Box
+                key={item}
+                sx={{
+                  
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <Divider />
+                <List>
+
+                  <List
+                    sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                  >
+                    <ListItemButton
+                      selected={item == componenteSelect+1 ? true : false}
+                      key={item}
+                      onClick={() => {
+                        setComponenteSelect((item - 1));
+
+                        setActividades([1, 2]);
+                        let xArray = [...componenteActividad];
+
+                        xArray[0]["componentes"][item] = xArray[0]["componentes"][
+                          item - 1
+                        ] || [1, 2];
+
+                        setComponenteActividad(xArray);
+
+                        handleClickComponente(item);
+                        setActividadSelect(0);
+                        
+                      }}
+
+                      
+                      
+                      
+
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium"}}>
+                      Componente {item}
+                      </Typography>
+                      
+                      {open===item? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                    <Collapse in={open===item} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+
+                        {cValor[0].componentes[componenteSelect].actividades.map(
+                          (value, x) => {
+                            return (
+
+                              <ListItemButton 
+                              selected={x == actividadSelect ? true : false}
+                              
+                              onClick={()=>{
+                                setActividadSelect(x);
+                              }}
+                              
+                              sx={{
+                                pl: 4,
+                                "&.Mui-selected ": {
+                                  backgroundColor: "#efd8b9",
+                                },
+                                "&.Mui-selected:hover": {
+                                  backgroundColor: "#cbcbcb",
+                                },
+                              }}
+                              >
+                                
+                                Actividad {x+1}
+                                
+                              </ListItemButton>
+                            );})}
+                      </List>
+                    </Collapse>
+                  </List>
+
+                </List>
+
+
+                <Divider />
+              </Box>
+            );
+          })}
+
+
+        </List>
+
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
+            width: "90%",
             alignItems: "center",
             justifyContent: "center",
-            "& > *": {
-              m: 1,
-            },
           }}
         >
-          <ButtonGroup variant="text">
-            {componentes.map((x) => {
-              return (
-                <Button
-                  key={x}
-                  onClick={() => {
-                    setComponenteSelect((x - 1).toString());
-
-                    setActividades([1, 2]);
-                    let xArray = [...componenteActividad];
-
-                    xArray[0]["componentes"][x] = xArray[0]["componentes"][
-                      x - 1
-                    ] || [1, 2];
-
-                    setComponenteActividad(xArray);
-                  }}
-                >
-                  Componente No. {x}
-                </Button>
-              );
-            })}
-          </ButtonGroup>
-        </Box>
-
-        <Box sx={{ display: "flex", mr: "9vw" }}>
-          <IconButton
-            onClick={() => {
-              agregarAFnc(parseInt(componenteSelect));
+          {/* Textfields box */}
+          <Box
+            sx={{
+              width: "95%",
+              height: "90%",
+              pb: 2,
+              pt: 2,
+              overflow: "auto",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
             }}
           >
-            <AddCircleIcon fontSize="large" />
-          </IconButton>
+            {/* Renderizado de Actividades */}
 
-          <IconButton onClick={() => eliminarAFnc()}>
-            <DoDisturbOnIcon fontSize="large" />
-          </IconButton>
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          width: "95%",
-          height: "90%",
-          pb: 2,
-          pt: 2,
-          overflow: "auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          "&::-webkit-scrollbar": {
-            width: ".3vw",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "rgba(0,0,0,.5)",
-            outline: "1px solid slategrey",
-            borderRadius: 10,
-          },
-        }}
-      >
-        {/* Renderizado de Actividades */}
-        {cValor[0].componentes[parseInt(componenteSelect)].actividades.map(
-          (value, x) => {
-            return (
-              <Accordion
-              key={x}
-                sx={{
-                  width: "95%",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: 4,
-                }}
-              >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                    Actividad {x + 1} - Componente {" "}{(parseInt(componenteSelect) + 1).toString()}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      width: "100%",
-                      height: "40vh",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Box
+            {/* <Box>
+              <Typography>Actividad {actividadSelect + 1} - Componente {parseInt(componenteSelect) + 1}</Typography>
+            </Box> */}
+            <Box
                       sx={{
                         width: "100%",
-                        height: "100%",
+                        height: "40%",
                         justifyContent: "space-evenly",
                         display: "flex",
                         alignItems: "center",
                       }}
                     >
+                      
                       <TextField
+                        variant="filled"
+                        multiline
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratMedium",
+                          },
+                        }}
+                        InputProps={{
+                          style: {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                        rows={4}
+                        sx={{ width: "30%" }}
                         label={"Resumen Narrativo"}
                         value={
-                          cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x].resumen
+                          cValor[0].componentes[componenteSelect]
+                            .actividades[actividadSelect].resumen
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
-                            parseInt(componenteSelect)
-                          ].actividades[x].resumen = c.target.value;
+                          componenteSelect
+                          ].actividades[actividadSelect].resumen = c.target.value;
                           setCValor(y);
                         }}
                       />
                       <TextField
-                        label={"Indicador"}
-                        rows={5}
+                      variant="filled"
+                      multiline
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
+                      label={"Indicador"}
                         value={
-                          cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x].indicador
+                          cValor[0].componentes[componenteSelect]
+                            .actividades[actividadSelect].indicador
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
-                            parseInt(componenteSelect)
-                          ].actividades[x].indicador = c.target.value;
+                            componenteSelect
+                          ].actividades[actividadSelect].indicador = c.target.value;
                           setCValor(y);
                         }}
                       />
                       <TextField
+                      variant="filled"
+                      multiline
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
                         label={"Fórmula"}
                         value={
-                          cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x].formula
+                          cValor[0].componentes[componenteSelect]
+                            .actividades[actividadSelect].formula
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
-                            parseInt(componenteSelect)
-                          ].actividades[x].formula = c.target.value;
+                            componenteSelect
+                          ].actividades[actividadSelect].formula = c.target.value;
                           setCValor(y);
                         }}
                       />
@@ -326,63 +458,103 @@ export const TabActividades = ({
                     <Box
                       sx={{
                         width: "100%",
-                        height: "50%",
+                        height: "40%",
+          
                         justifyContent: "space-evenly",
                         display: "flex",
                         alignItems: "center",
                       }}
                     >
                       <TextField
+                      variant="filled"
+                      multiline
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
                         label={"Frecuencia"}
                         value={
-                          cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x].frecuencia
+                          cValor[0].componentes[componenteSelect]
+                            .actividades[actividadSelect].frecuencia
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
-                            parseInt(componenteSelect)
-                          ].actividades[x].frecuencia = c.target.value;
+                            componenteSelect
+                          ].actividades[actividadSelect].frecuencia = c.target.value;
                           setCValor(y);
                         }}
                       />
                       <TextField
+                      variant="filled"
+                      multiline
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
                         label={"Medios de Verificación"}
                         value={
-                          cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x].medios
+                          cValor[0].componentes[componenteSelect]
+                            .actividades[actividadSelect].medios
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
-                            parseInt(componenteSelect)
-                          ].actividades[x].medios = c.target.value;
+                            componenteSelect
+                          ].actividades[actividadSelect].medios = c.target.value;
                           setCValor(y);
                         }}
                       />
                       <TextField
+                      variant="filled"
+                      multiline
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      rows={4}
+                      sx={{ width: "30%" }}
                         label={"Supuestos"}
                         value={
-                          cValor[0].componentes[parseInt(componenteSelect)]
-                            .actividades[x].supuestos
+                          cValor[0].componentes[componenteSelect]
+                            .actividades[actividadSelect].supuestos
                         }
                         onChange={(c) => {
                           let y = [...cValor];
                           y[0].componentes[
-                            parseInt(componenteSelect)
-                          ].actividades[x].supuestos = c.target.value;
+                            componenteSelect
+                          ].actividades[actividadSelect].supuestos = c.target.value;
                           setCValor(y);
                         }}
                       />
                     </Box>
-                  </Box>
-                </AccordionDetails>
-              </Accordion>
-            );
-          }
-        )}
-      </Box>
 
+          </Box>
+
+        </Box>
+      </Box>
     </Box>
   );
 };

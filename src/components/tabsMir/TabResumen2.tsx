@@ -514,1419 +514,337 @@ export function TabResumen2({
           >
             Componentes
           </Typography>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 1
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 2
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 3
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
+
+          {componentes.map((index) => {
+            return (
+              <Box>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                    borderBottom: 1,
+                    mt: 5,
+                    textAlign: "center",
+                  }}
+                >
+                  Componente {index}
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Resumen Narrativo:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].resumen}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Indicador:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].indicador}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Fórmula:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].formula}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Frecuencia:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].frecuencia}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Medios de Verificación:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].medios}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Supuestos:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].supuestos}
+                  </Typography>
+                </Box>
+              </Box>
+            );
+          })}
+
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
             Actividades
           </Typography>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 1 - Actividad 1
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 1 - Actividad 2
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 2 - Actividad 1
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 2 - Actividad 2
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 2 - Actividad 3
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 3 - Actividad 1
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 3 - Actividad 1
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "MontserratMedium",
-              borderBottom: 1,
-              mt: 5,
-              textAlign: "center",
-            }}
-          >
-            Componente 3 - Actividad 4
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Resumen Narrativo:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat
-              voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Indicador:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-              consequatur?.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Fórmula:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-              esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-              fugiat quo voluptas nulla pariatu.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Frecuencia:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Medios de Verificación:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder
-              of human happiness. No one rejects, dislikes, or avoids pleasure
-              itself, because it is pleasure, but because those.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Supuestos:
-            </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              know how to pursue pleasure rationally encounter consequences that
-              are extremely painful. Nor again is there anyone who loves or
-              pursues.
-            </Typography>
-          </Box>
+
+          {cValor[0]?.componentes.map((item, indexComponentes) => {
+            return item.actividades.map((value, indexActividades) => {
+              return (
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      borderBottom: 1,
+                      mt: 5,
+                      textAlign: "center",
+                    }}
+                  >
+                    Componente {indexComponentes + 1} - Actividad{" "}
+                    {indexActividades + 1}
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Resumen Narrativo:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].resumen
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Indicador:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].indicador
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Fórmula:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].formula
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Frecuencia:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].frecuencia
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Medios de Verificación:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].medios
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Supuestos:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].supuestos
+                      }
+                    </Typography>
+                  </Box>
+                </Box>
+              );
+            });
+          })}
         </Box>
       </Box>
       <Box
