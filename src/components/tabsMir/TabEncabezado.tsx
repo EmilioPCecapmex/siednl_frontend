@@ -44,9 +44,20 @@ export function TabEncabezado({
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
   const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
-  const [loadComponentes, setLoadComponentes] = useState<Array<IComponente>>(
-    []
-  );
+  const [loadComponentes, setLoadComponentes] = useState<Array<number>>([]);
+  const [loadComponenteValor, setLoadComponenteValor] = useState<Array<IComponente>>([]);
+
+  // useEffect(() => {
+  //   loadComponenteValor.map(()=>{return();})
+  // }, [loadComponenteValor])
+  
+  
+
+  useEffect(() => {
+    console.log(loadComponenteValor)
+  }, [loadComponenteValor])
+  
+  
   const [loadActividades, setLoadActividades] = useState<Array<ICValor>>([]);
 
   const Toast = Swal.mixin({
@@ -455,7 +466,7 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        console.log(r);
+        // console.log(r);
         // console.log(Description);
 
         setLineaDeAccion(r.data.data[0].LineaDeAccion);
@@ -503,7 +514,7 @@ export function TabEncabezado({
         // console.log(response.data.encabezado[0].lineas_de_accion);
         getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
         getIdBeneficiario(response.data.encabezado[0].beneficiario);
-
+        
         setLoadFin([
           {
             resumen: response.data.fin[0].resumen,
@@ -525,6 +536,22 @@ export function TabEncabezado({
             supuestos: response.data.propositos[0].supuestos,
           },
         ]);
+
+        setLoadProposito([
+          {
+            resumen: response.data.propositos[0].resumen,
+            indicador: response.data.propositos[0].indicador,
+            formula: response.data.propositos[0].formula,
+            frecuencia: response.data.propositos[0].frecuencia,
+            medios: response.data.propositos[0].medios_verificacion,
+            supuestos: response.data.propositos[0].supuestos,
+          },
+        ]);
+        
+        setLoadComponenteValor(response.data.componentes);
+        
+      
+        
       })
       .catch((error) => {
         setErrorMsg(error.response.data);
