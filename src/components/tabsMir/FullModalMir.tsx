@@ -79,16 +79,7 @@ export default function FullModalMir() {
     setProposito(arr);
   };
 
-  useEffect(()=>{
-    // console.log(encabezado);
-    
-  },[encabezado])
 
-  useEffect(() => {
-
-    console.log(cValor)
-  }, [cValor,componentes])
-  
   
 
   

@@ -8,26 +8,10 @@ import {
   Autocomplete,
 } from "@mui/material";
 import axios from "axios";
-import { IComponente } from "./IComponente";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { fontFamily } from "@mui/system";
 
-export interface IFin {
-  resumen: string;
-  indicador: string;
-  formula: string;
-  frecuencia: string;
-  medios: string;
-  supuestos: string;
-}
-export interface IProposito {
-  resumen: string;
-  indicador: string;
-  formula: string;
-  frecuencia: string;
-  medios: string;
-  supuestos: string;
-}
 
 export function TabFinProposito({
   show,
@@ -88,6 +72,9 @@ export function TabFinProposito({
 
   const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
 
+  
+  const [frecuencias, setFrecuencias] = useState<Array<IFrecuencias>>([]);
+
   const getIndicadores = () => {
     axios
       .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
@@ -104,6 +91,7 @@ export function TabFinProposito({
 
   useEffect(() => {
     getIndicadores();
+    getFrecuencias();
   }, []);
 
   const [errorIndicador, setErrorIndicador] = useState("");
@@ -158,6 +146,21 @@ export function TabFinProposito({
     resumenFin(tabFin);
     resumenProposito(tabProposito);
   }, [tabFin, tabProposito]);
+
+  const getFrecuencias = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/frecuencias", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if(r.status === 200){
+          setFrecuencias(r.data.data)
+        }
+      
+      });
+  }
 
   return (
     <Box
@@ -287,27 +290,40 @@ export function TabFinProposito({
             }}
             value={fin.formula}
           />
-          <TextField
-            rows={4}
-            multiline
-            variant="filled"
-            sx={{ width: "90%", boxShadow: 4 }}
-            label={"Frecuencia"}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratSemiBold",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-            onChange={(c) => {
-              setFin({ ...fin, frecuencia: c.target.value });
-            }}
-            value={fin.frecuencia}
-          />
+          
+                    
+        <Autocomplete
+          disablePortal
+          sx={{ width: "90%", boxShadow: 4}}
+          options={frecuencias}
+          renderOption={(props, option) => {
+            if(option.Frecuencia === "Anual" || option.Frecuencia === "Bienal" ){
+              return (
+                <li {...props} key={option.Id}>
+                  <p
+                    style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                  >
+                    {option.Frecuencia}
+                  </p>
+                </li>
+              );
+            }
+         
+          }}
+          getOptionLabel={(option) => option.Frecuencia}
+          renderInput={(params) => <TextField {...params} 
+          InputLabelProps={{
+            style: {
+              fontFamily: "MontserratSemiBold",
+            },
+          }} 
+          inputProps={{ ...params.inputProps, style: { fontFamily: "MontserratRegular" } }}
+           variant="filled"
+          rows={3.6}
+          multiline label="Frecuencias" />}
+          onChange={(event, value) => setFin({...fin, frecuencia: value?.Frecuencia as string})}
+        />
+
           <TextField
             rows={4}
             multiline
@@ -474,6 +490,9 @@ export function TabFinProposito({
             value={proposito.formula}
           />
 
+
+
+
           <TextField
             rows={4}
             multiline
@@ -553,4 +572,32 @@ export interface IIndicadores {
   UltimaModificacion: string;
   ModificadoPor: string;
   Deleted: number;
+}
+
+export interface IFrecuencias {
+  Id:                 string;
+  Frecuencia:         string;
+  FechaCreacion:      string;
+  CreadoPor:          string;
+  UltimaModificacion: string;
+  ModificadoPor:      string;
+  Deleted:            number;
+}
+
+
+export interface IFin {
+  resumen: string;
+  indicador: string;
+  formula: string;
+  frecuencia: string;
+  medios: string;
+  supuestos: string;
+}
+export interface IProposito {
+  resumen: string;
+  indicador: string;
+  formula: string;
+  frecuencia: string;
+  medios: string;
+  supuestos: string;
 }

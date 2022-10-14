@@ -358,7 +358,6 @@ export function TabEncabezado({
         setInstitution(r.data.data[0].NombreInstitucion);
       })
       .catch((err) => {
-        // console.log(err);
       });
   };
   const getIdPrograma = (Description: string) => {

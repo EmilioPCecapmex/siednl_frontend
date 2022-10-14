@@ -910,7 +910,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const findText = () => {
     if (descripctionFiltered !== "") {
       setDataDescripctionFiltered(
-        DataDescripctionFiltered.filter((x) =>
+        datosTabla.filter((x) =>
           x.Desc.toLowerCase().includes(descripctionFiltered)
         )
       );
