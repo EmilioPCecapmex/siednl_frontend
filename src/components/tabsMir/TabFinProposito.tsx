@@ -17,10 +17,14 @@ export function TabFinProposito({
   show,
   resumenFin,
   resumenProposito,
+  cargaFin,
+  cargaProposito,
 }: {
   show: boolean;
   resumenFin: Function;
   resumenProposito: Function;
+  cargaFin: Array<IFin>;
+  cargaProposito: Array<IProposito>;
 }) {
   const [tabFin, setTabFin] = useState([
     {
@@ -141,6 +145,29 @@ export function TabFinProposito({
       },
     ]);
   }, [fin, proposito]);
+
+  useEffect(() => {
+    setFin(
+      {
+        resumen: cargaFin[0]?.resumen,
+        indicador: cargaFin[0]?.indicador,
+        formula: cargaFin[0]?.formula,
+        frecuencia: cargaFin[0]?.frecuencia,
+        medios: cargaFin[0]?.medios,
+        supuestos: cargaFin[0]?.supuestos,
+      },
+    );
+    setProposito(
+      {
+        resumen: cargaProposito[0]?.resumen,
+        indicador: cargaProposito[0]?.indicador,
+        formula: cargaProposito[0]?.formula,
+        frecuencia: cargaProposito[0]?.frecuencia,
+        medios: cargaProposito[0]?.medios,
+        supuestos: cargaProposito[0]?.supuestos,
+      },
+    );
+  }, [cargaFin, cargaProposito]);
 
   useEffect(() => {
     resumenFin(tabFin);
@@ -388,23 +415,22 @@ export function TabFinProposito({
             borderBottom: 1,
             textAlign: "left",
             borderColor: "#3c3f42",
-            cursor:'pointer',
-            ":hover":{
-              backgroundColor:'#f0f0f0'
-            }
-            
+            cursor: "pointer",
+            ":hover": {
+              backgroundColor: "#f0f0f0",
+            },
           }}
           onClick={() => {
             setShowProposito(!showProposito);
             setShowFin(false);
           }}
-          
         >
           Propósito
         </Typography>
         <IconButton
           onClick={() => {
             setShowProposito(!showProposito);
+            setErrorIndicador("");
             setShowFin(false);
           }}
         >
@@ -432,7 +458,7 @@ export function TabFinProposito({
             onChange={(c) => {
               setProposito({ ...proposito, resumen: c.target.value });
             }}
-            value={proposito.resumen + '( / )'}
+            value={proposito.resumen}
           />
 
           <TextField
@@ -487,7 +513,13 @@ export function TabFinProposito({
             onChange={(c) => {
               setProposito({ ...proposito, formula: c.target.value });
             }}
-            value={proposito.formula}
+            value={
+              proposito.indicador.split(" ")[0] === "Porcentaje"
+                ? `(${proposito.indicador.split(" ")[2]} / ${
+                    proposito.indicador.split(" ")[4]
+                  } )*100`
+                : proposito.formula
+            }
           />
 
 
