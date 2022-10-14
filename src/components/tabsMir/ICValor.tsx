@@ -1,4 +1,5 @@
 export interface ICValor {
+    [x: string]: any;
     componentes: {
         actividades: {
             resumen: string;
