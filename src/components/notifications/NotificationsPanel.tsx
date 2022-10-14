@@ -22,6 +22,7 @@ import { INotificacion } from "./NotificacionesInterfaz";
 
 export default function NotificationsPanel() {
   const [notificaciones, setNotificaciones] = useState<Array<INotificacion>>();
+  const [sinNotificaciones, setSinNotificaciones] = useState(true)
 
   const obtenerNotificaciones = () => {
     axios
@@ -38,7 +39,12 @@ export default function NotificationsPanel() {
       )
       .then((r) => {
         if (r.status === 200) {
-          setNotificaciones(r.data.data);
+          if(r.data.error){
+            setSinNotificaciones(true)
+          }else{
+            setNotificaciones(r.data.data);
+            setSinNotificaciones(false);
+          }
         }
       });
   };
@@ -116,88 +122,96 @@ export default function NotificationsPanel() {
         </Typography>
       </Box>
 
+     {sinNotificaciones ? ( <List sx={{ width: "15vw", height: "auto",  }}>
+
+{notificaciones?.map((index) => (
+  <ListItem key={index.Id} disablePadding>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "flex-start",
+        flexDirection: "column",
+        width: "100%",
+        mt: "1vh",
+      }}
+    >
+      <Box sx={{display: 'flex', justifyContent: 'space-around', width: '100%', alignItems: 'center'}}>
+      <Typography
+        sx={{
+          fontFamily: "MontserratSemiBold",
+          fontSize: ".5vw",
+          color: "#af8c55",
+        }}
+      >
+        {index.Titulo}
+      </Typography>
+      <Typography
+        sx={{
+          fontFamily: "MontserratSemiBold",
+          fontSize: ".4vw",
+          color: "#909090",
+        }}
+      >
+        {index.FechaCreacion?.toString().replace('T',' ').replace('.000Z','')}
+      </Typography>
+      </Box>
+      
+      
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: 'center',
+          width: "95%",
+        }}
+      >
+        <Typography
+          sx={{
+            fontFamily: "MontserratLight",
+            fontSize: ".7vw",
+            ml: "1vw",
+            mt: "1vh",
+          }}
+        >
+          {index.Mensaje}
+        </Typography>
+        
+        <ToggleButton
+          sx={{
+            width: "1vw",
+            height: "1vh",
+          }}
+          value="check"
+          onClick={() => eliminaNotificacion(index.Id)}
+        >
+          <CheckIcon />
+        </ToggleButton>
+      </Box>
+
+  
+
+      <Box
+        sx={{
+          width: "15vw",
+          height: ".1vh",
+          backgroundColor: "#ccc",
+          mt: "1vh",
+          boxShadow: 0.1,
+        }}
+      />
+    </Box>
+  </ListItem>
+))}
+</List>) :  <Typography  sx={{
+            fontFamily: "MontserratLight",
+            fontSize: ".9vw",
+            ml: "1vw",
+            mt: "1vh",
+          }}>
+  Sin Notificaciones
+</Typography>}
+
      
-
-      <List sx={{ width: "15vw", height: "auto",  }}>
-        {notificaciones?.map((index) => (
-          <ListItem key={index.Id} disablePadding>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "flex-start",
-                flexDirection: "column",
-                width: "100%",
-                mt: "1vh",
-              }}
-            >
-              <Box sx={{display: 'flex', justifyContent: 'space-around', width: '100%', alignItems: 'center'}}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".5vw",
-                  color: "#af8c55",
-                }}
-              >
-                {index.Titulo}
-              </Typography>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".4vw",
-                  color: "#909090",
-                }}
-              >
-                {index.FechaCreacion?.toString().replace('T',' ').replace('.000Z','')}
-              </Typography>
-              </Box>
-              
-              
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: 'center',
-                  width: "95%",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratLight",
-                    fontSize: ".7vw",
-                    ml: "1vw",
-                    mt: "1vh",
-                  }}
-                >
-                  {index.Mensaje}
-                </Typography>
-                
-                <ToggleButton
-                  sx={{
-                    width: "1vw",
-                    height: "1vh",
-                  }}
-                  value="check"
-                  onClick={() => eliminaNotificacion(index.Id)}
-                >
-                  <CheckIcon />
-                </ToggleButton>
-              </Box>
-
-          
-
-              <Box
-                sx={{
-                  width: "15vw",
-                  height: ".1vh",
-                  backgroundColor: "#ccc",
-                  mt: "1vh",
-                  boxShadow: 0.1,
-                }}
-              />
-            </Box>
-          </ListItem>
-        ))}
-      </List>
       <Divider />
 
       <Button onClick={() => handleCloseNotifPanel()} color="error">
@@ -209,7 +223,7 @@ export default function NotificationsPanel() {
   return (
     <React.Fragment key={"right"}>
       <IconButton onClick={() => handleOpenNotifPanel()}>
-        <Badge badgeContent={notificaciones?.length} color="info">
+        <Badge badgeContent={ sinNotificaciones ?   notificaciones?.length : 0} color="info">
           <NotificationsIcon color="action" />
         </Badge>
       </IconButton>
@@ -219,6 +233,7 @@ export default function NotificationsPanel() {
         open={openNotifPanel}
         onClose={() => handleCloseNotifPanel()}
       >
+
         {list()}
       </Drawer>
     </React.Fragment>

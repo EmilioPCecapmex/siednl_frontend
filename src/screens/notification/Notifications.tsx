@@ -537,7 +537,7 @@ export const Notification = () => {
                         )
                       : notifFilter
                     ).map((row) => (
-                      <TableRow key={row.Id}>
+                      <TableRow key={row.Id || 0}>
                         <TableCell
                           sx={{
                             fontFamily: "MontserratLight",
@@ -571,7 +571,7 @@ export const Notification = () => {
                           component="th"
                           scope="row"
                         >
-                          {row.Deleted ? "Leído" : "No Leído"}
+                          {row.Deleted ? "Leído" : (row.Deleted === 0 ? "No Leído" : "Sin historial") }
                         </TableCell>
                         <TableCell
                           sx={{

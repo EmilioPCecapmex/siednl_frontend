@@ -7,11 +7,12 @@ import {
   Alert,
   Button,
   Autocomplete,
-  InputAdornment,
 } from "@mui/material";
 import axios from "axios";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import Swal from "sweetalert2";
+import { IFin, IProposito } from "./TabFinProposito";
+import { IComponente } from "./IComponente";
+import { ICValor } from "./ICValor";
 
 export interface IEncabezado {
   ejercicioFiscal: string;
@@ -28,27 +29,25 @@ export interface IEncabezado {
 export function TabEncabezado({
   show,
   resumenEncabezado,
+  cargaFin,
+  cargaProposito,
 }: {
   show: boolean;
   resumenEncabezado: Function;
+  cargaFin: Function;
+  cargaProposito: Function;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
   );
 
-  const [encabezado, setEncabezado] = useState([
-    {
-      ejercicioFiscal: "",
-      institucion: "",
-      programa: "",
-      eje: "",
-      tematica: "",
-      objetivo: "",
-      estrategia: "",
-      lineasDeAccion: "",
-      beneficiario: "",
-    },
-  ]);
+  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
+  const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
+  const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
+  const [loadComponentes, setLoadComponentes] = useState<Array<IComponente>>(
+    []
+  );
+  const [loadActividades, setLoadActividades] = useState<Array<ICValor>>([]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -83,7 +82,7 @@ export function TabEncabezado({
     setDisabledEstrategias(true);
     setEstrategia("");
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion([{ Id: "", LineaDeAccion: "" }]);
+    setLineaDeAccion("");
     getTematicas(Id);
     setDisabledTematicas(false);
   }
@@ -100,22 +99,23 @@ export function TabEncabezado({
     setObjetivo(Objetivo);
     setEstrategia("");
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion([{ Id: "", LineaDeAccion: "" }]);
+    setLineaDeAccion("");
     getEstrategias(Id);
     setDisabledEstrategias(false);
   }
   function enCambioEstrategia(Id: string, Estrategia: string) {
     setEstrategia(Estrategia);
-    setLineaDeAccion([{ Id: "", LineaDeAccion: "" }]);
+    setLineaDeAccion("");
     getLineasDeAccion(Id);
     setDisabledLineasDeAccion(false);
   }
   function enCambioLineasDeAccion(Id: string, LDA: string) {
-    setLineaDeAccion([{ Id: Id, LineaDeAccion: LDA }]);
+    setLineaDeAccion(LDA);
   }
   function enCambioBeneficiario(Id: string, Ben: string) {
     setBeneficiario(Ben);
   }
+
   function enCambioFile(event: any) {
     setUploadFile(event.target.files[0]);
     setNombreArchivo(event.target.value.split("\\")[2]);
@@ -142,9 +142,10 @@ export function TabEncabezado({
   const [tematica, setTematica] = useState("Selecciona");
   const [objetivo, setObjetivo] = useState("Selecciona");
   const [estrategia, setEstrategia] = useState("Selecciona");
-  const [lineaDeAccion, setLineaDeAccion] = useState([
-    { Id: "", LineaDeAccion: "Selecciona" },
-  ]);
+  // const [lineaDeAccion, setLineaDeAccion] = useState([
+  //   { IdLineasdeAccion: "", LineaDeAccion: "Selecciona" },
+  // ]);
+  const [lineaDeAccion, setLineaDeAccion] = useState("Selecciona");
   const [beneficiario, setBeneficiario] = useState("Selecciona");
 
   //Catalogos
@@ -357,9 +358,7 @@ export function TabEncabezado({
       .then((r) => {
         setInstitution(r.data.data[0].NombreInstitucion);
       })
-      .catch((err) => {
-        // console.log(err);
-      });
+      .catch((err) => {});
   };
   const getIdPrograma = (Description: string) => {
     axios
@@ -456,12 +455,10 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setLineaDeAccion([
-          {
-            Id: "",
-            LineaDeAccion: r.data.data[0].LineaDeAccion,
-          },
-        ]);
+        console.log(r);
+        // console.log(Description);
+
+        setLineaDeAccion(r.data.data[0].LineaDeAccion);
       });
   };
   const getIdBeneficiario = (Description: string) => {
@@ -497,14 +494,37 @@ export function TabEncabezado({
       .then((response) => {
         // console.log(response.data);
         getIdInstitucion(response.data.encabezado[0].institucion);
-        getIdPrograma(response.data.encabezado[0].nombre_del_programa);
-        // setPrograma(response.data.encabezado[0].nombre_del_programa);
+        // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
+        setPrograma(response.data.encabezado[0].nombre_del_programa);
         getIdEje(response.data.encabezado[0].eje);
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
-        // getIdLineaDeAccion(response.data.encabezado[0].linea_de_accion);
+        // console.log(response.data.encabezado[0].lineas_de_accion);
+        getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
         getIdBeneficiario(response.data.encabezado[0].beneficiario);
+
+        setLoadFin([
+          {
+            resumen: response.data.fin[0].resumen,
+            indicador: response.data.fin[0].indicador,
+            formula: response.data.fin[0].formula,
+            frecuencia: response.data.fin[0].frecuencia,
+            medios: response.data.fin[0].medios,
+            supuestos: response.data.fin[0].supuestos,
+          },
+        ]);
+
+        setLoadProposito([
+          {
+            resumen: response.data.propositos[0].resumen,
+            indicador: response.data.propositos[0].indicador,
+            formula: response.data.propositos[0].formula,
+            frecuencia: response.data.propositos[0].frecuencia,
+            medios: response.data.propositos[0].medios_verificacion,
+            supuestos: response.data.propositos[0].supuestos,
+          },
+        ]);
       })
       .catch((error) => {
         setErrorMsg(error.response.data);
@@ -529,7 +549,7 @@ export function TabEncabezado({
         tematica: tematica,
         objetivo: objetivo,
         estrategia: estrategia,
-        lineasDeAccion: lineaDeAccion[0].LineaDeAccion,
+        lineasDeAccion: lineaDeAccion,
         beneficiario: beneficiario,
       },
     ]);
@@ -547,9 +567,13 @@ export function TabEncabezado({
 
   useEffect(() => {
     resumenEncabezado(encabezado);
-    // console.log(encabezado);
   }, [encabezado]);
-  
+
+  useEffect(() => {
+    cargaFin(loadFin);
+    cargaProposito(loadProposito);
+  }, [loadFin, loadProposito]);
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -601,10 +625,6 @@ export function TabEncabezado({
                 style: {
                   fontFamily: "MontserratSemiBold",
                   fontSize: ".8vw",
-                  color:
-                    anioFiscal === "" || anioFiscal === "Selecciona"
-                      ? "#f27474"
-                      : "",
                 },
               }}
               sx={{
@@ -995,16 +1015,13 @@ export function TabEncabezado({
         }}
       >
         <Autocomplete
-          multiple
+          // multiple
           disabled={disabledLineasDeAccion}
-          disableCloseOnSelect
           size="small"
           limitTags={4}
           options={catalogoLineasDeAccion}
           getOptionLabel={(option) => option.LineaDeAccion}
-          // value={[
-          //   { IdLineasdeAccion: "", LineaDeAccion: "Selecciona" }
-          // ]}
+          value={{ IdLineasdeAccion: catalogoLineasDeAccion[0].IdLineasdeAccion, LineaDeAccion: lineaDeAccion }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.IdLineasdeAccion}>
@@ -1025,11 +1042,6 @@ export function TabEncabezado({
                 style: {
                   fontFamily: "MontserratSemiBold",
                   fontSize: ".8vw",
-                  color:
-                    lineaDeAccion[0].LineaDeAccion === "" ||
-                    lineaDeAccion[0].LineaDeAccion === "Selecciona"
-                      ? "#f27474"
-                      : "",
                 },
               }}
               sx={{
@@ -1041,8 +1053,8 @@ export function TabEncabezado({
           )}
           onChange={(event, value) =>
             enCambioLineasDeAccion(
-              value[0]?.IdLineasdeAccion as string,
-              (value[0]?.LineaDeAccion as string) || ""
+              value?.IdLineasdeAccion as string,
+              (value?.LineaDeAccion as string) || ""
             )
           }
           isOptionEqualToValue={(option, value) =>

@@ -30,16 +30,21 @@ export function TabResumen2({
   show,
   encabezado,
   fin,
-  proposito, componentes, componenteValor, cValor, asignarCValor
+  proposito,
+  componentes,
+  componenteValor,
+  cValor,
+  asignarCValor,
 }: {
   show: boolean;
   encabezado: Array<IEncabezado>;
   fin: Array<IFin>;
-  proposito: Array<IProposito>; componentes: number[]; componenteValor: Array<IComponente>; cValor: Array<ICValor>; asignarCValor: Function;
+  proposito: Array<IProposito>;
+  componentes: number[];
+  componenteValor: Array<IComponente>;
+  cValor: Array<ICValor>;
+  asignarCValor: Function;
 }) {
-
-  const[componenteActual,setComponenteActual]=useState(0);
-
   useEffect(() => {
     //  console.log(encabezado[0].eje);
   }, [encabezado]);
@@ -56,17 +61,17 @@ export function TabResumen2({
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: 'column',
+        flexDirection: "column",
         backgroundColor: "#fff",
       }}
     >
       <Box
         sx={{
           width: "90%",
-          border: .1,
-          borderColor: '#909090',
+          border: 0.1,
+          borderColor: "#909090",
           height: "80%",
-          overflow: 'auto',
+          overflow: "auto",
           borderRadius: 1,
           "&::-webkit-scrollbar": {
             width: ".3vw",
@@ -100,7 +105,9 @@ export function TabResumen2({
                 Ejercicio Fiscal:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                Lorem ipsum dolor sit amet consectetur.
+                {encabezado[0]?.ejercicioFiscal === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.ejercicioFiscal}
               </Typography>
             </Box>
 
@@ -119,7 +126,9 @@ export function TabResumen2({
                 Institución:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                Lorem ipsum dolor sit amet consectetur.
+                {encabezado[0]?.institucion === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.institucion}
               </Typography>
             </Box>
           </Box>
@@ -139,7 +148,9 @@ export function TabResumen2({
                 Programa:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                Lorem ipsum dolor sit amet consectetur.
+                {encabezado[0]?.programa === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.programa}
               </Typography>
             </Box>
 
@@ -158,7 +169,7 @@ export function TabResumen2({
                 Eje:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                Lorem ipsum dolor sit amet consectetur.
+                {encabezado[0]?.eje === "Selecciona" ? "" : encabezado[0]?.eje}
               </Typography>
             </Box>
           </Box>
@@ -179,7 +190,9 @@ export function TabResumen2({
                 Temática:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                Lorem ipsum dolor sit amet adipisicing elit.
+                {encabezado[0]?.tematica === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.tematica}
               </Typography>
             </Box>
 
@@ -198,7 +211,9 @@ export function TabResumen2({
                 Objetivo:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                Lorem ipsum dolor sit amet facere harum velit.
+                {encabezado[0]?.objetivo === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.objetivo}
               </Typography>
             </Box>
           </Box>
@@ -219,7 +234,9 @@ export function TabResumen2({
                 Estrategia:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                Lorem ipsum dolor sit amet adipisicing elit.
+                {encabezado[0]?.estrategia === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.estrategia}
               </Typography>
             </Box>
 
@@ -238,7 +255,9 @@ export function TabResumen2({
                 Lineas de Acción:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                Lorem ipsum dolor sit amet facere harum velit.
+                {encabezado[0]?.lineasDeAccion === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.lineasDeAccion}
               </Typography>
             </Box>
           </Box>
@@ -258,10 +277,15 @@ export function TabResumen2({
               Beneficiario:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Lorem ipsum dolor sit amet facere harum velit.
+              {encabezado[0]?.beneficiario === "Selecciona"
+                ? ""
+                : encabezado[0]?.beneficiario}
             </Typography>
           </Box>
-          <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}>
+
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
             Fin
           </Typography>
           <Box
@@ -279,7 +303,7 @@ export function TabResumen2({
               Resumen Narrativo:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              {fin[0]?.resumen}
             </Typography>
           </Box>
           <Box
@@ -297,7 +321,7 @@ export function TabResumen2({
               Indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              {fin[0]?.indicador}
             </Typography>
           </Box>
           <Box
@@ -315,7 +339,7 @@ export function TabResumen2({
               Fórmula:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+              {fin[0]?.formula}
             </Typography>
           </Box>
           <Box
@@ -333,7 +357,7 @@ export function TabResumen2({
               Frecuencia:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              {fin[0]?.frecuencia}
             </Typography>
           </Box>
           <Box
@@ -351,7 +375,7 @@ export function TabResumen2({
               Medios de Verificación:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptate.
+              {fin[0]?.medios}
             </Typography>
           </Box>
           <Box
@@ -369,10 +393,12 @@ export function TabResumen2({
               Supuestos:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eiu.
+              {fin[0]?.supuestos}
             </Typography>
           </Box>
-          <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}>
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
             Propósito
           </Typography>
           <Box
@@ -390,7 +416,7 @@ export function TabResumen2({
               Resumen Narrativo:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem.
+              {proposito[0]?.resumen}
             </Typography>
           </Box>
           <Box
@@ -408,7 +434,7 @@ export function TabResumen2({
               Indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?.
+              {proposito[0]?.indicador}
             </Typography>
           </Box>
           <Box
@@ -426,7 +452,7 @@ export function TabResumen2({
               Fórmula:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatu.
+              {proposito[0]?.formula}
             </Typography>
           </Box>
           <Box
@@ -444,7 +470,7 @@ export function TabResumen2({
               Frecuencia:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual.
+              {proposito[0]?.frecuencia}
             </Typography>
           </Box>
           <Box
@@ -462,7 +488,7 @@ export function TabResumen2({
               Medios de Verificación:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those.
+              {proposito[0]?.medios}
             </Typography>
           </Box>
           <Box
