@@ -32,14 +32,21 @@ export function TabResumen({
   show,
   encabezado,
   fin,
-  proposito, componentes,componenteValor, cValor,asignarCValor 
+  proposito,
+  componentes,
+  componenteValor,
+  cValor,
+  asignarCValor,
 }: {
   show: boolean;
   encabezado: Array<IEncabezado>;
   fin: Array<IFin>;
-  proposito: Array<IProposito>; componentes: number[]; componenteValor: Array<IComponente>; cValor: Array<ICValor>;asignarCValor:Function; 
+  proposito: Array<IProposito>;
+  componentes: number[];
+  componenteValor: Array<IComponente>;
+  cValor: Array<ICValor>;
+  asignarCValor: Function;
 }) {
-
   const [tabSelect, setTabSelect] = useState(1);
 
   //
@@ -47,7 +54,6 @@ export function TabResumen({
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
-
 
   const [openComponentes, setOpenComponentes] = useState(false);
 
@@ -95,7 +101,6 @@ export function TabResumen({
       setComponenteSelect(0);
     }
   }, [show]);
-
 
   return (
     <Box
@@ -215,7 +220,6 @@ export function TabResumen({
           </ListItemButton>
           <Collapse in={openComponentes} timeout="auto" unmountOnExit>
             <List disablePadding>
-
               {componentes?.map((item) => {
                 return (
                   <ListItemButton
@@ -234,7 +238,6 @@ export function TabResumen({
                     }}
                   >
                     <ListItemText primary={`Componente ${item}`} />
-
                   </ListItemButton>
                 );
               })}
@@ -261,7 +264,6 @@ export function TabResumen({
               height: "60vh",
             }}
           >
-            
             <TextField
               variant="standard"
               multiline
@@ -632,7 +634,7 @@ export function TabResumen({
             >
               Propósito
             </Typography>
-            
+
             <TextField
               variant="standard"
               multiline
@@ -759,16 +761,20 @@ export function TabResumen({
 
       <Box
         sx={{
-          width: "65vw", display: "flex",
-          flexDirection: "column",
-        }}>
-        {/* mi box*/}
-        <Box sx={{
-          width: "100%",
-          height: "100%",
+          width: "65vw",
           display: "flex",
           flexDirection: "column",
-        }}>
+        }}
+      >
+        {/* mi box*/}
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <Box
             sx={{
               display: "flex",
@@ -779,7 +785,6 @@ export function TabResumen({
               // backgroundColor: ""
             }}
           >
-
             <Accordion
               sx={{
                 width: "100%",
@@ -789,16 +794,20 @@ export function TabResumen({
                 alignItems: "center",
                 flexDirection: "column",
                 //     backgroundColor:"pink"
-
-              }}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-              >
+              }}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>Componente {componenteSelect + 1}</Typography>
               </AccordionSummary>
 
-              <AccordionDetails >
-                <Box sx={{ display: "flex", justifyContent: "space-evenly", flexDirection: "column", }}>
+              <AccordionDetails>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    flexDirection: "column",
+                  }}
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -826,7 +835,6 @@ export function TabResumen({
                       sx={{ width: "30%" }}
                       label={"Resumen Narrativo"}
                       value={componenteValor[componenteSelect]?.resumen}
-
                     />
                     <TextField
                       multiline
@@ -845,7 +853,6 @@ export function TabResumen({
                       sx={{ width: "30%" }}
                       label={"Indicador"}
                       value={componenteValor[componenteSelect]?.indicador}
-
                     />
                     <TextField
                       variant="filled"
@@ -864,7 +871,6 @@ export function TabResumen({
                       sx={{ width: "30%" }}
                       label={"Fórmula"}
                       value={componenteValor[componenteSelect]?.formula}
-
                     />
                   </Box>
                   <Box
@@ -895,7 +901,6 @@ export function TabResumen({
                       sx={{ width: "30%" }}
                       label={"Frecuencia"}
                       value={componenteValor[componenteSelect]?.frecuencia}
-
                     />
                     <TextField
                       multiline
@@ -914,7 +919,6 @@ export function TabResumen({
                       sx={{ width: "30%" }}
                       label={"Medios de Verificación"}
                       value={componenteValor[componenteSelect]?.medios}
-
                     />
                     <TextField
                       variant="filled"
@@ -933,30 +937,30 @@ export function TabResumen({
                       sx={{ width: "30%" }}
                       label={"Supuestos"}
                       value={componenteValor[componenteSelect]?.supuestos}
-
                     />
                   </Box>
-
                 </Box>
-
               </AccordionDetails>
             </Accordion>
-
-
-
-
           </Box>
           {/* Actividades */}
-
 
           <Box>
             <Box>
               <ButtonGroup variant="text" aria-label="text button group">
-                {cValor[0]?.componentes[componenteSelect].actividades?.map((value, x) => {
-                  return (
-                    <Button onClick={() => { setActividadSelect(x) }}>Actividad No. {x + 1}</Button>
-                  )
-                })}
+                {cValor[0]?.componentes[componenteSelect].actividades?.map(
+                  (value, x) => {
+                    return (
+                      <Button
+                        onClick={() => {
+                          setActividadSelect(x);
+                        }}
+                      >
+                        Actividad No. {x + 1}
+                      </Button>
+                    );
+                  }
+                )}
               </ButtonGroup>
             </Box>
             {/* Textfield Actividades */}
@@ -970,10 +974,13 @@ export function TabResumen({
                 // backgroundColor: ""
               }}
             >
-
-
-
-              <Box sx={{ display: "flex", justifyContent: "space-evenly", flexDirection: "column", }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  flexDirection: "column",
+                }}
+              >
                 <Box
                   sx={{
                     width: "100%",
@@ -1000,8 +1007,11 @@ export function TabResumen({
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Resumen Narrativo"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.resumen}
-
+                    value={
+                      cValor[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.resumen
+                    }
                   />
                   <TextField
                     multiline
@@ -1019,8 +1029,11 @@ export function TabResumen({
                     }}
                     sx={{ width: "30%" }}
                     label={"Indicador"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.indicador}
-
+                    value={
+                      cValor[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.indicador
+                    }
                   />
                   <TextField
                     variant="filled"
@@ -1038,8 +1051,11 @@ export function TabResumen({
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Fórmula"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.formula}
-
+                    value={
+                      cValor[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.formula
+                    }
                   />
                 </Box>
                 <Box
@@ -1069,8 +1085,11 @@ export function TabResumen({
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Frecuencia"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.frecuencia}
-
+                    value={
+                      cValor[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.frecuencia
+                    }
                   />
                   <TextField
                     multiline
@@ -1088,8 +1107,11 @@ export function TabResumen({
                     rows={4}
                     sx={{ width: "30%" }}
                     label={"Medios de Verificación"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.medios}
-
+                    value={
+                      cValor[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.medios
+                    }
                   />
                   <TextField
                     variant="filled"
@@ -1107,24 +1129,18 @@ export function TabResumen({
                     }}
                     sx={{ width: "30%" }}
                     label={"Supuestos"}
-                    value={cValor[0]?.componentes[componenteSelect].actividades[actividadSelect]?.supuestos}
-
+                    value={
+                      cValor[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.supuestos
+                    }
                   />
                 </Box>
-
               </Box>
-
             </Box>
           </Box>
-
-
-
         </Box>
-
       </Box>
-
-
-
     </Box>
   );
 }

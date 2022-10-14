@@ -518,7 +518,8 @@ export function TabEncabezado({
       .then((response) => {
         // console.log(response.data);
         getIdInstitucion(response.data.encabezado[0].institucion);
-        getIdPrograma(response.data.encabezado[0].nombre_del_programa);
+        // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
+        setPrograma(response.data.encabezado[0].nombre_del_programa);
         getIdEje(response.data.encabezado[0].eje);
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
@@ -545,14 +546,21 @@ export function TabEncabezado({
         }]);
 
 
+        // console.log(response.data.propositos);
+        // console.log(response.data.propositos[0].resumen);
+        // console.log(response.data.propositos[0].indicador);
+        // console.log(response.data.propositos[0].formula);
+        // console.log(response.data.propositos[0].frecuencia);
+        // console.log(response.data.propositos[0].medios_verificacion);
+        // console.log(response.data.propositos[0].supuestos);
 
         setLoadProposito([{
-          resumen: response.data.proposito[0].resumen,
-          indicador: response.data.proposito[0].indicador,
-          formula: response.data.proposito[0].formula,
-          frecuencia: response.data.proposito[0].frecuencia,
-          medios: response.data.proposito[0].medios,
-          supuestos: response.data.proposito[0].supuestos,
+          resumen: response.data.propositos[0].resumen,
+          indicador: response.data.propositos[0].indicador,
+          formula: response.data.propositos[0].formula,
+          frecuencia: response.data.propositos[0].frecuencia,
+          medios: response.data.propositos[0].medios_verificacion,
+          supuestos: response.data.propositos[0].supuestos,
         }]);
       })
       .catch((error) => {

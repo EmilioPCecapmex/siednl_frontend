@@ -193,7 +193,7 @@ export default function FullModalMir() {
           }}
         >
           <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado} cargaFin={loadFin} cargaProposito={loadProposito}></TabEncabezado>
-          <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito}></TabFinProposito>
+          <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito} cargaFin={cargaFin} cargaProposito={cargaProposito}></TabFinProposito>
           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           <TabResumen2 show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen2>
            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
