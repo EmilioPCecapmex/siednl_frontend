@@ -504,6 +504,9 @@ export function TabEncabezado({
         getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
         getIdBeneficiario(response.data.encabezado[0].beneficiario);
 
+        console.log(response.data.map());
+        
+
         setLoadFin([
           {
             resumen: response.data.fin[0].resumen,

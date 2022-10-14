@@ -406,7 +406,6 @@ export function TabFinProposito({
                 onChange={(event, value) =>
                   setFin({ ...fin, frecuencia: value?.Frecuencia as string })
                 }
-                
                 // value={fin.frecuencia}
               />
 
