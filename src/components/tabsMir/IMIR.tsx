@@ -11,7 +11,7 @@ export interface IMIR {
 
       Proposito:IProposito;
 
-      Componentes:IComponente;
+      Componentes:Array<IComponente>;
 
       Actividades:ICValor;
 }

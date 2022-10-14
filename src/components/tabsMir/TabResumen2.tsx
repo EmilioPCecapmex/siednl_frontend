@@ -51,15 +51,44 @@ export function TabResumen2({
 
   const [MIR, setMIR] = useState<IMIR>();
 
-  const asignarMIR = (encabezadoM: Array<IEncabezado>, finM: Array<IFin>, propositoM: Array<IProposito>, componentesM: Array<IComponente>, actividadesM: Array<ICValor>) => {
+  let asignarMIR = (encabezadoM: Array<IEncabezado>, finM: Array<IFin>, propositoM: Array<IProposito>, componentesM: Array<IComponente>, actividadesM: Array<ICValor>) => {
     setMIR({
       Encabezado: encabezadoM[0],
       Fin: finM[0],
       Proposito: propositoM[0],
-      Componentes: componentesM[0],
+      Componentes: componentesM,
       Actividades: actividadesM[0]
     })
   }
+
+
+  const createMIR = () => {
+    console.log(MIR);
+    
+    axios
+      .post(
+        "http://localhost:8000/api/create-mir",
+        {
+          MIR: JSON.stringify(MIR),
+          Estado: "revision",
+          CreadoPor: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        console.log(r);
+        
+      })
+      .catch((err) =>
+        console.log(err)
+        
+      );
+  };
+
   useEffect(() => {
     //  console.log(encabezado[0].eje);
     asignarMIR(encabezado,
@@ -69,7 +98,11 @@ export function TabResumen2({
       cValor)
     console.log(MIR);
 
-  }, [encabezado]);
+  }, [encabezado,componenteValor]);
+
+
+
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -882,7 +915,7 @@ export function TabResumen2({
         <Button color="warning" variant="outlined">
           Borrador
         </Button>
-        <Button color="success" variant="outlined">
+        <Button color="success" variant="outlined" onClick={() => createMIR()}>
           Enviar
         </Button>
       </Box>
