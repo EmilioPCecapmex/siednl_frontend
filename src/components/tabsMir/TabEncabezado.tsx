@@ -7,6 +7,7 @@ import {
   Alert,
   Button,
   Autocomplete,
+  CircularProgress,
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -93,7 +94,7 @@ export function TabEncabezado({
     setDisabledEstrategias(true);
     setEstrategia("");
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion("");
+    setLineaDeAccion([]);
     getTematicas(Id);
     setDisabledTematicas(false);
   }
@@ -110,19 +111,17 @@ export function TabEncabezado({
     setObjetivo(Objetivo);
     setEstrategia("");
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion("");
+    setLineaDeAccion([]);
     getEstrategias(Id);
     setDisabledEstrategias(false);
   }
   function enCambioEstrategia(Id: string, Estrategia: string) {
     setEstrategia(Estrategia);
-    setLineaDeAccion("");
+    setLineaDeAccion([]);
     getLineasDeAccion(Id);
     setDisabledLineasDeAccion(false);
   }
-  function enCambioLineasDeAccion(Id: string, LDA: string) {
-    setLineaDeAccion(LDA);
-  }
+
   function enCambioBeneficiario(Id: string, Ben: string) {
     setBeneficiario(Ben);
   }
@@ -156,7 +155,7 @@ export function TabEncabezado({
   // const [lineaDeAccion, setLineaDeAccion] = useState([
   //   { IdLineasdeAccion: "", LineaDeAccion: "Selecciona" },
   // ]);
-  const [lineaDeAccion, setLineaDeAccion] = useState("Selecciona");
+  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>([]);
   const [beneficiario, setBeneficiario] = useState("Selecciona");
 
   //Catalogos
@@ -180,7 +179,7 @@ export function TabEncabezado({
     { IdEstrategia: "0", Estrategia: "" },
   ]);
   const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState([
-    { IdLineasdeAccion: "0", LineaDeAccion: "" },
+    { Id: "0", LineaDeAccion: "" },
   ]);
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
     { Id: "0", Beneficiario: "" },
@@ -337,6 +336,7 @@ export function TabEncabezado({
       })
       .then((r) => {
         setCatalogoLineasDeAccion(r.data.data);
+        
       })
       .catch((err) => {
         setDisabledLineasDeAccion(true);
@@ -451,7 +451,6 @@ export function TabEncabezado({
       .then((r) => {
         setEstrategia(r.data.data[0].Estrategia);
         getLineasDeAccion(r.data.data[0].Id);
-        setDisabledLineasDeAccion(false);
       });
   };
   const getIdLineaDeAccion = (Description: string) => {
@@ -466,10 +465,9 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        // console.log(r);
-        // console.log(Description);
+        setLineaDeAccion(r.data.data);
+        setDisabledLineasDeAccion(false);
 
-        setLineaDeAccion(r.data.data[0].LineaDeAccion);
       });
   };
   const getIdBeneficiario = (Description: string) => {
@@ -492,6 +490,7 @@ export function TabEncabezado({
   const submitForm = (event: any) => {
     setDisabledButton(true);
     event.preventDefault();
+    setLoadingFile(true)
 
     const dataArray = new FormData();
     dataArray.append("file", uploadFile);
@@ -511,12 +510,17 @@ export function TabEncabezado({
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
-        // console.log(response.data.encabezado[0].lineas_de_accion);
-        getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
+        // console.log(response.data.encabezado[0].estrategia);
+        // getLineasDeAccion(response.data.encabezado[0].estrategia)
+
+        setTimeout(() => {
+          getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
+          
+        setLoadingFile(false)
         getIdBeneficiario(response.data.encabezado[0].beneficiario);
 
-        console.log(response.data.map());
-        
+        }, 1000);
+
 
         setLoadFin([
           {
@@ -579,7 +583,7 @@ export function TabEncabezado({
         tematica: tematica,
         objetivo: objetivo,
         estrategia: estrategia,
-        lineasDeAccion: lineaDeAccion,
+        lineasDeAccion: lineaDeAccion[0]?.LineaDeAccion,
         beneficiario: beneficiario,
       },
     ]);
@@ -603,6 +607,8 @@ export function TabEncabezado({
     cargaFin(loadFin);
     cargaProposito(loadProposito);
   }, [loadFin, loadProposito]);
+
+  const [loadingFile, setLoadingFile ] = useState(false)
 
   return (
     <Box
@@ -731,6 +737,9 @@ export function TabEncabezado({
             Cargar
           </Button>
         )}
+        <Box sx={{position: "absolute"}} visibility={loadingFile ? "visible" : "hidden"}>
+        <CircularProgress />
+        </Box>
       </Box>
 
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
@@ -1045,16 +1054,19 @@ export function TabEncabezado({
         }}
       >
         <Autocomplete
-          // multiple
+          multiple
           disabled={disabledLineasDeAccion}
           size="small"
           limitTags={4}
+          value={lineaDeAccion}
           options={catalogoLineasDeAccion}
+          isOptionEqualToValue={(option, value) =>
+            value.Id === option.Id
+          }
           getOptionLabel={(option) => option.LineaDeAccion}
-          value={{ IdLineasdeAccion: catalogoLineasDeAccion[0].IdLineasdeAccion, LineaDeAccion: lineaDeAccion }}
           renderOption={(props, option) => {
             return (
-              <li {...props} key={option.IdLineasdeAccion}>
+              <li {...props} key={option.Id}>
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
@@ -1082,14 +1094,12 @@ export function TabEncabezado({
             />
           )}
           onChange={(event, value) =>
-            enCambioLineasDeAccion(
-              value?.IdLineasdeAccion as string,
-              (value?.LineaDeAccion as string) || ""
-            )
+          {  
+            setLineaDeAccion(value)
+        }
           }
-          isOptionEqualToValue={(option, value) =>
-            option.IdLineasdeAccion === value.IdLineasdeAccion
-          }
+
+
         />
       </FormControl>
 
@@ -1146,3 +1156,10 @@ export function TabEncabezado({
 }
 
 export default TabEncabezado;
+
+
+export interface ILineasDeAccion {
+  Id:            string;
+  LineaDeAccion: string;
+}
+
