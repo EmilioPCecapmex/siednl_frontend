@@ -465,13 +465,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-<<<<<<< HEAD
         setLineaDeAccion(r.data.data);
         setDisabledLineasDeAccion(false);
-=======
-        // console.log(r);
-        // console.log(Description);
->>>>>>> dev_angel
 
       });
   };
@@ -524,13 +519,8 @@ export function TabEncabezado({
         setLoadingFile(false)
         getIdBeneficiario(response.data.encabezado[0].beneficiario);
 
-<<<<<<< HEAD
         }, 1000);
 
-=======
-        console.log(response.data.map());
-        
->>>>>>> dev_angel
 
         setLoadFin([
           {
@@ -554,8 +544,6 @@ export function TabEncabezado({
           },
         ]);
 
-<<<<<<< HEAD
-=======
         setLoadProposito([
           {
             resumen: response.data.propositos[0].resumen,
@@ -571,7 +559,6 @@ export function TabEncabezado({
         
       
         
->>>>>>> dev_angel
       })
       .catch((error) => {
         setErrorMsg(error.response.data);
