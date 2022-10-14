@@ -110,7 +110,7 @@ export function TabFinProposito({
 
   const evalueTxtFrecuenciaProposito = () => {
     let txt = proposito.frecuencia.toLowerCase();
-      if(txt === "anual" || txt === "bienal"){
+      if(txt === "anual"){
         setErrorFrecuenciaProposito("")
       }else{
         setErrorFrecuenciaProposito("Frecuencia debe ser tipo Anual.")
@@ -384,52 +384,33 @@ export function TabFinProposito({
                 value={fin.formula}
               />
 
-              <Autocomplete
-                disablePortal
+<TextField
+                rows={4}
+                multiline
+                variant="filled"
                 sx={{ width: "90%", boxShadow: 4 }}
-                options={frecuencias}
-                renderOption={(props, option) => {
-                  if (
-                    option.Frecuencia === "Anual" ||
-                    option.Frecuencia === "Bienal"
-                  ) {
-                    return (
-                      <li {...props} key={option.Id}>
-                        <p
-                          style={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                        >
-                          {option.Frecuencia}
-                        </p>
-                      </li>
-                    );
-                  }
+                label={"Frecuencia"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                  },
                 }}
-                getOptionLabel={(option) => option.Frecuencia}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratSemiBold",
-                      },
-                    }}
-                    inputProps={{
-                      ...params.inputProps,
-                      style: { fontFamily: "MontserratRegular" },
-                    }}
-                    variant="filled"
-                    rows={3.6}
-                    multiline
-                    label="Frecuencias"
-                  />
-                )}
-                onChange={(event, value) =>
-                  setFin({ ...fin, frecuencia: value?.Frecuencia as string })
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  setFin({ ...fin, frecuencia: c.target.value });
+                }}
+                value={fin.frecuencia}
+                onBlur={() => evalueTxtFrecuenciaFin()}
+                error={errorFrecuenciaFin !== "" ? true : false}
+                helperText={
+                  errorFrecuenciaFin
+                    ? errorFrecuenciaFin
+                    : null
                 }
-                // value={fin.frecuencia}
               />
 
               <TextField
@@ -566,7 +547,8 @@ export function TabFinProposito({
                 }}
                 value={proposito.formula}
               />
-              <TextField
+           
+<TextField
                 rows={4}
                 multiline
                 variant="filled"
@@ -586,6 +568,13 @@ export function TabFinProposito({
                   setProposito({ ...proposito, frecuencia: c.target.value });
                 }}
                 value={proposito.frecuencia}
+                onBlur={() => evalueTxtFrecuenciaProposito()}
+                error={errorFrecuenciaProposito !== "" ? true : false}
+                helperText={
+                  errorFrecuenciaProposito
+                    ? errorFrecuenciaProposito
+                    : null
+                }
               />
               <TextField
                 rows={4}
