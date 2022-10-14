@@ -389,6 +389,7 @@ export function TabFinProposito({
         <IconButton
           onClick={() => {
             setShowProposito(!showProposito);
+            setErrorIndicador('');
             setShowFin(false);
           }}
         >
@@ -416,7 +417,7 @@ export function TabFinProposito({
             onChange={(c) => {
               setProposito({ ...proposito, resumen: c.target.value });
             }}
-            value={proposito.resumen + '( / )'}
+            value={proposito.resumen}
           />
 
           <TextField
@@ -471,7 +472,7 @@ export function TabFinProposito({
             onChange={(c) => {
               setProposito({ ...proposito, formula: c.target.value });
             }}
-            value={proposito.formula}
+            value={proposito.indicador.split(' ')[0] === 'Porcentaje' ?  `(${proposito.indicador.split(' ')[2]} / ${proposito.indicador.split(' ')[4]} )*100` : proposito.formula}
           />
 
           <TextField

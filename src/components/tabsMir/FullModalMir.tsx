@@ -68,6 +68,8 @@ export default function FullModalMir() {
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([])
   const [fin, setFin] = useState<Array<IFin>>([])
   const [proposito, setProposito] = useState<Array<IProposito>>([])
+  const [cargaFin, setCargaFin] = useState<Array<IFin>>([])
+  const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([])
 
   const resumenEncabezado = (arr:Array<IEncabezado>) => {
     setEncabezado(arr);
@@ -78,16 +80,24 @@ export default function FullModalMir() {
   const resumenProposito = (arr:Array<IProposito>) => {
     setProposito(arr);
   };
+  const loadFin = (arr:Array<IFin>) => {
+    setCargaFin(arr);
+  };
+  const loadProposito = (arr:Array<IProposito>) => {
+    setCargaProposito(arr);
+  };
 
   useEffect(()=>{
     // console.log(encabezado);
-    
+    // console.log(cargaFin);
+    // console.log(cargaProposito);
   },[encabezado])
 
   useEffect(() => {
-
-    console.log(cValor)
-  }, [cValor,componentes])
+    
+    
+    // console.log(cValor)
+  }, [cValor,componentes,fin])
   
   
 
@@ -182,7 +192,7 @@ export default function FullModalMir() {
             height: "77vh",
           }}
         >
-          <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado}></TabEncabezado>
+          <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado} cargaFin={loadFin} cargaProposito={loadProposito}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito}></TabFinProposito>
           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
           <TabResumen2 show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen2>

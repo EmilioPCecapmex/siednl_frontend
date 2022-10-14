@@ -7,10 +7,8 @@ import {
   Alert,
   Button,
   Autocomplete,
-  InputAdornment,
 } from "@mui/material";
 import axios from "axios";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import Swal from "sweetalert2";
 
 export interface IEncabezado {
@@ -28,9 +26,13 @@ export interface IEncabezado {
 export function TabEncabezado({
   show,
   resumenEncabezado,
+  cargaFin,
+  cargaProposito,
 }: {
   show: boolean;
   resumenEncabezado: Function;
+  cargaFin: Function;
+  cargaProposito: Function;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
@@ -49,6 +51,24 @@ export function TabEncabezado({
       beneficiario: "",
     },
   ]);
+
+  const [loadFin, setLoadFin] = useState([{
+    resumen: "",
+    indicador: "",
+    formula: "",
+    frecuencia: "",
+    medios: "",
+    supuestos: "",
+  }]);
+
+  const [loadProposito, setLoadProposito] = useState([{
+    resumen: "",
+    indicador: "",
+    formula: "",
+    frecuencia: "",
+    medios: "",
+    supuestos: "",
+  }]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -116,6 +136,7 @@ export function TabEncabezado({
   function enCambioBeneficiario(Id: string, Ben: string) {
     setBeneficiario(Ben);
   }
+
   function enCambioFile(event: any) {
     setUploadFile(event.target.files[0]);
     setNombreArchivo(event.target.value.split("\\")[2]);
@@ -498,13 +519,41 @@ export function TabEncabezado({
         // console.log(response.data);
         getIdInstitucion(response.data.encabezado[0].institucion);
         getIdPrograma(response.data.encabezado[0].nombre_del_programa);
-        // setPrograma(response.data.encabezado[0].nombre_del_programa);
         getIdEje(response.data.encabezado[0].eje);
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
         // getIdLineaDeAccion(response.data.encabezado[0].linea_de_accion);
         getIdBeneficiario(response.data.encabezado[0].beneficiario);
+
+        
+        // console.log(response.data.fin);
+        // console.log(response.data.fin[0].resumen);
+        // console.log(response.data.fin[0].indicador);
+        // console.log(response.data.fin[0].formula);
+        // console.log(response.data.fin[0].frecuencia);
+        // console.log(response.data.fin[0].medios);
+        // console.log(response.data.fin[0].supuestos);
+        
+        setLoadFin([{
+          resumen: response.data.fin[0].resumen,
+          indicador: response.data.fin[0].indicador,
+          formula: response.data.fin[0].formula,
+          frecuencia: response.data.fin[0].frecuencia,
+          medios: response.data.fin[0].medios,
+          supuestos: response.data.fin[0].supuestos,
+        }]);
+
+
+
+        setLoadProposito([{
+          resumen: response.data.proposito[0].resumen,
+          indicador: response.data.proposito[0].indicador,
+          formula: response.data.proposito[0].formula,
+          frecuencia: response.data.proposito[0].frecuencia,
+          medios: response.data.proposito[0].medios,
+          supuestos: response.data.proposito[0].supuestos,
+        }]);
       })
       .catch((error) => {
         setErrorMsg(error.response.data);
@@ -547,9 +596,13 @@ export function TabEncabezado({
 
   useEffect(() => {
     resumenEncabezado(encabezado);
-    // console.log(encabezado);
   }, [encabezado]);
-  
+
+  useEffect(() => {
+    cargaFin(loadFin);
+    cargaProposito(loadProposito);
+  }, [loadFin, loadProposito]);
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -601,10 +654,6 @@ export function TabEncabezado({
                 style: {
                   fontFamily: "MontserratSemiBold",
                   fontSize: ".8vw",
-                  color:
-                    anioFiscal === "" || anioFiscal === "Selecciona"
-                      ? "#f27474"
-                      : "",
                 },
               }}
               sx={{
@@ -1025,11 +1074,6 @@ export function TabEncabezado({
                 style: {
                   fontFamily: "MontserratSemiBold",
                   fontSize: ".8vw",
-                  color:
-                    lineaDeAccion[0].LineaDeAccion === "" ||
-                    lineaDeAccion[0].LineaDeAccion === "Selecciona"
-                      ? "#f27474"
-                      : "",
                 },
               }}
               sx={{
