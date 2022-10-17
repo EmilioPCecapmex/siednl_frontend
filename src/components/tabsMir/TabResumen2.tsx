@@ -63,7 +63,7 @@ export function TabResumen2({
 
 
   const createMIR = () => {
-    console.log(MIR);
+    //console.log(MIR);
     
     axios
       .post(
@@ -96,7 +96,7 @@ export function TabResumen2({
       proposito,
       componenteValor,
       cValor)
-    console.log(MIR);
+    //console.log(MIR);
 
   }, [encabezado,componenteValor]);
 

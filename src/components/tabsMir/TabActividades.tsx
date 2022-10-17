@@ -27,6 +27,7 @@ export const TabActividades = ({
   show,
   componentes,
   asignarCValor,
+  
 }: {
   show: boolean;
   componentes: number[];
