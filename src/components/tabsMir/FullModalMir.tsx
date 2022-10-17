@@ -10,6 +10,7 @@ import { IComponente } from "./IComponente";
 import {ICValor} from "./ICValor"
 import TabResumen from "./TabResumen";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import TabResumen2 from "./TabResumen2";
 export default function FullModalMir() {
   const [value, setValue] = React.useState(10);
 
@@ -185,7 +186,7 @@ export default function FullModalMir() {
           <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado} cargaFin={loadFin} cargaProposito={loadProposito}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito} cargaFin={cargaFin} cargaProposito={cargaProposito}></TabFinProposito>
           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} ></TabComponente>
-          <TabResumen show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen>
+          <TabResumen2 show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen2>
           <TabActividades show={value === 40 ? true : false} componentes={componentes} asignarCValor={asignarCValor}></TabActividades>
         </Box>
      

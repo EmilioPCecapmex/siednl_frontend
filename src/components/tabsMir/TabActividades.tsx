@@ -22,6 +22,7 @@ import Collapse from "@mui/material/Collapse";
 import ListItemText from "@mui/material/ListItemText";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 //funcion main
 export const TabActividades = ({
   show,
@@ -156,6 +157,68 @@ export const TabActividades = ({
     setOpen(index);
   };
 
+  // -----------------------------------------------------------------------------
+
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [prevTextFormula, setPrevTextFormula] = useState("");
+  const [tipoFormula, setTipoFormula] = useState("");
+  const [elementoFormula, setElementoFormula] = useState("");
+  const [errorIndicadorComponente, setErrorIndicadorComponente] = useState(-1)
+  const [errorIndicadorActividad, setErrorIndicadorActividad] = useState(-1)
+
+
+  const handleClickOpen = () => {
+      setPrevTextFormula(cValor[0].componentes[componenteSelect].actividades[actividadSelect].formula);
+      setOpenFormulaDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+
+  const changeFormula = (txt: string) => {
+    cValor[0].componentes[componenteSelect].actividades[actividadSelect].formula = txt;
+
+  };
+
+  const evalueTxtIndicador = () => {
+    const cIndicador = cValor[0].componentes[componenteSelect].actividades[actividadSelect].indicador?.toLowerCase();
+    if(cIndicador !== undefined){
+      if (cIndicador.includes("porcentaje")) {
+        setTipoFormula("Porcentaje");
+        setElementoFormula("C" + (componenteSelect + 1).toString() + "A" + (actividadSelect + 1).toString());
+        handleClickOpen()
+        setErrorIndicadorComponente(-1)
+        setErrorIndicadorActividad(-1)
+      } else if (cIndicador.includes("tasa")) {
+        setTipoFormula("Tasa");
+        setElementoFormula("C" + (componenteSelect + 1).toString() + "A" + (actividadSelect + 1).toString());
+        handleClickOpen()
+        setErrorIndicadorComponente(-1)
+        setErrorIndicadorActividad(-1)
+
+      } else if (cIndicador.includes("indice" || "índice")) {
+        setTipoFormula("Índice");
+        setElementoFormula("C" + (componenteSelect + 1).toString() + "A" + (actividadSelect + 1).toString());
+        handleClickOpen()
+        setErrorIndicadorComponente(-1)
+        setErrorIndicadorActividad(-1)
+
+      } else if (cIndicador.includes("promedio")) {
+        setTipoFormula("Promedio");
+        setElementoFormula("C" + (componenteSelect + 1).toString() + "A" + (actividadSelect + 1).toString());
+        handleClickOpen()
+        setErrorIndicadorComponente(-1)
+        setErrorIndicadorActividad(-1)
+
+      }else{
+        setErrorIndicadorComponente(componenteSelect)
+        setErrorIndicadorActividad(actividadSelect)
+
+      }
+    }
+  }
+
   //return main
   return (
     <Box
@@ -171,14 +234,28 @@ export const TabActividades = ({
         backgroundColor: "#fff",
       }}
     >
+        <FormulaDialog
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+      />
       <Box
         sx={{
           width: "100%",
           display: "flex",
+          height: '7vh',
+          alignItems: 'center',
           justifyContent: "flex-end",
         }}
       >
         {/* Botones Componentes */}
+        <Typography sx={{ mr: "1vw", fontFamily: 'MontserratSemiBold', fontSize: '1.5vw' }}>
+          Componente {componenteSelect + 1} - Actividad {actividadSelect + 1}
+
+        </Typography>
         <IconButton
           onClick={() => {
             agregarAFnc(componenteSelect);
@@ -187,7 +264,7 @@ export const TabActividades = ({
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-        <IconButton onClick={() => eliminarAFnc()}>
+        <IconButton onClick={() => eliminarAFnc()} sx={{ mr: "1vw" }}>
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
       </Box>
@@ -241,11 +318,12 @@ export const TabActividades = ({
                       item - 1
                     ] || [1, 2];
                     setComponenteActividad(xArray);
+
                     handleClickComponente(item);
                     setActividadSelect(0);
                   }}
                   sx={{
-                    height: "10vh",
+                    height: "7vh",
                     "&.Mui-selected ": {
                       backgroundColor: "#c4a57b",
                     },
@@ -266,6 +344,7 @@ export const TabActividades = ({
                       (value, x) => {
                         return (
                           <ListItemButton
+                          key={x}
                             selected={x == actividadSelect ? true : false}
                             onClick={() => {
                               setActividadSelect(x);
@@ -273,7 +352,7 @@ export const TabActividades = ({
                             sx={{
                               pl: 4,
                               "&.Mui-selected ": {
-                                backgroundColor: "#efd8b9",
+                                backgroundColor: "#FDE7CA",
                               },
                               "&.Mui-selected:hover": {
                                 backgroundColor: "#cbcbcb",
@@ -335,7 +414,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%" }}
+              sx={{ width: "30%" , boxShadow: 2}}
               label={"Resumen Narrativo"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
@@ -359,17 +438,25 @@ export const TabActividades = ({
                 },
               }}
               InputProps={{
+                
                 style: {
                   fontFamily: "MontserratRegular",
                 },
               }}
               rows={4}
-              sx={{ width: "30%" }}
+              sx={{ width: "30%" , boxShadow: 2}}
               label={"Indicador"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].indicador
+              }
+              onBlur={() => evalueTxtIndicador()}
+              error={errorIndicadorComponente === (componenteSelect) && errorIndicadorActividad === (actividadSelect)   ? true : false}
+              helperText={
+                errorIndicadorComponente === (componenteSelect) && errorIndicadorActividad === (actividadSelect)
+                  ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                  : null
               }
               onChange={(c) => {
                 let y = [...cValor];
@@ -388,18 +475,22 @@ export const TabActividades = ({
                 },
               }}
               InputProps={{
+                readOnly: true,
+
                 style: {
                   fontFamily: "MontserratRegular",
                 },
               }}
               rows={4}
-              sx={{ width: "30%" }}
+              sx={{ width: "30%" , boxShadow: 2}}
               label={"Fórmula"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].formula
               }
+              onClick={() => evalueTxtIndicador()}
+
               onChange={(c) => {
                 let y = [...cValor];
                 y[0].componentes[componenteSelect].actividades[
@@ -433,7 +524,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%" }}
+              sx={{ width: "30%" , boxShadow: 2}}
               label={"Frecuencia"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
@@ -462,7 +553,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%" }}
+              sx={{ width: "30%" , boxShadow: 2}}
               label={"Medios de Verificación"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
@@ -491,7 +582,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%" }}
+              sx={{ width: "30%" , boxShadow: 2}}
               label={"Supuestos"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[

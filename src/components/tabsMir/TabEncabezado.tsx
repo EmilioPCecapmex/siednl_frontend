@@ -48,15 +48,6 @@ export function TabEncabezado({
   const [loadComponentes, setLoadComponentes] = useState<Array<number>>([]);
   const [loadComponenteValor, setLoadComponenteValor] = useState<Array<IComponente>>([]);
 
-  // useEffect(() => {
-  //   loadComponenteValor.map(()=>{return();})
-  // }, [loadComponenteValor])
-  
-  
-
-  useEffect(() => {
-    console.log(loadComponenteValor)
-  }, [loadComponenteValor])
   
   
   const [loadActividades, setLoadActividades] = useState<Array<ICValor>>([]);
