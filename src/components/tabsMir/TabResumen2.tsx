@@ -71,15 +71,19 @@ export function TabResumen2({
   };
 
   const createMIR = (estado: string) => {
-    console.log(MIR);
 
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-mir",
+        "http://localhost:8000/api/create-mir",
         {
           MIR: JSON.stringify(MIR),
           Estado: estado,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          AnioFiscal: MIR?.Encabezado.ejercicioFiscal,
+          Institucion: MIR?.Encabezado.institucion,
+          Programa: MIR?.Encabezado.programa,
+          Eje: MIR?.Encabezado.eje,
+          Tematica: MIR?.Encabezado.tematica,
         },
         {
           headers: {
@@ -88,16 +92,13 @@ export function TabResumen2({
         }
       )
       .then((r) => {
-        console.log(r);
         Toast.fire({
           icon: "success",
           title: "MIR generada con éxito",
         });
 
-        console.log(r);
       })
       .catch((err) => {
-        // console.log(err.response.data.result.error)
         Toast.fire({
           icon: "error",
           title: err.response.data.result.error,
@@ -106,9 +107,7 @@ export function TabResumen2({
   };
 
   useEffect(() => {
-    //  console.log(encabezado[0].eje);
     asignarMIR(encabezado, fin, proposito, componenteValor, cValor);
-    console.log(MIR);
   }, [encabezado, componenteValor]);
 
   const Toast = Swal.mixin({

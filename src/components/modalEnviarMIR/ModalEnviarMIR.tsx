@@ -31,8 +31,6 @@ export default function ModalEnviarMIR({
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [usuarios, setUsuarios] = useState<Array<IUsuarios>>();
-  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState("");
-  const [correoSeleccionado, setCorreoSeleccionado] = useState("");
 
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
@@ -41,11 +39,16 @@ export default function ModalEnviarMIR({
   const createMIR = (estado: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-mir",
+        "http://localhost:8000/api/create-mir",
         {
-          MIR: JSON.stringify(MIR),
+          MIR: MIR,
           Estado: estado,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          AnioFiscal: JSON.parse(MIR)?.Encabezado.ejercicioFiscal,
+          Institucion: JSON.parse(MIR)?.Encabezado.institucion,
+          Programa: JSON.parse(MIR)?.Encabezado.programa,
+          Eje: JSON.parse(MIR)?.Encabezado.eje,
+          Tematica: JSON.parse(MIR)?.Encabezado.tematica,
         },
         {
           headers: {
@@ -55,15 +58,13 @@ export default function ModalEnviarMIR({
       )
       .then((r) => {
         console.log(r);
+        
         Toast.fire({
           icon: "success",
-          title: "MIR generada con éxito",
+          title: r.data.data.message,
         });
-
-        console.log(r);
       })
       .catch((err) => {
-        // console.log(err.response.data.result.error)
         Toast.fire({
           icon: "error",
           title: err.response.data.result.error,
@@ -163,7 +164,7 @@ export default function ModalEnviarMIR({
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        Seleccione usuario o correo electrónico a enviar
+        Confirmar Envío
       </DialogTitle>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -193,43 +194,7 @@ export default function ModalEnviarMIR({
             justifyContent: "space-evenly",
           }}
         >
-          <FormControl>
-            <InputLabel id="UsuarioLabel" sx={{ fontFamily: "MontserratBold" }}>
-              Usuario
-            </InputLabel>
-            <Select
-              labelId="UsuarioLabel"
-              error={errorForm.type === "user" ? errorForm.visible : false}
-              label="Usuario"
-              sx={{ width: "20vw" }}
-              onChange={(v) => setUsuarioSeleccionado(v.target.value as string)}
-              value={usuarioSeleccionado || ""}
-            >
-              <MenuItem value="00-00">
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                  Todos
-                </Typography>
-              </MenuItem>
-
-              {usuarios?.map((item) => {
-                return (
-                  <MenuItem key={item.Id} value={item.Id}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                      {item.Nombre +
-                        " " +
-                        item.ApellidoPaterno +
-                        " " +
-                        item.ApellidoMaterno}
-                      {" | " + item.NombreUsuario}
-                    </Typography>
-                  </MenuItem>
-                );
-              })}
-            </Select>
-            <FormHelperText sx={{ color: "#ff0000" }}>
-              {errorForm.type === "user" ? errorForm.text : null}
-            </FormHelperText>
-          </FormControl>
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión.</Typography>
         </Box>
 
         <Box
@@ -261,7 +226,7 @@ export default function ModalEnviarMIR({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
-              onClick={() => checkForm()}
+              onClick={() => {createMIR('En Revisión'); handleClose()}}
             >
               Confirmar
             </Button>

@@ -55,7 +55,6 @@ export function TabEncabezado({
   // }, [loadComponenteValor])
 
   useEffect(() => {
-    console.log(loadComponenteValor);
   }, [loadComponenteValor]);
 
   const [loadActividades, setLoadActividades] = useState<Array<ICValor>>([]);
@@ -501,7 +500,6 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
-        // console.log(response.data);
         getIdInstitucion(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);
@@ -509,7 +507,6 @@ export function TabEncabezado({
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
-        // console.log(response.data.encabezado[0].estrategia);
         // getLineasDeAccion(response.data.encabezado[0].estrategia)
 
         setTimeout(() => {

@@ -49,17 +49,10 @@ export function TabResumen({
 }) {
   const [tabSelect, setTabSelect] = useState(1);
 
-  //
-  //setComponentes(retornarComponentes());
-
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
   const [openComponentes, setOpenComponentes] = useState(false);
-
-  // useEffect(() => {
-  //   console.log(cValor)
-  // }, [cValor,componentes])
 
   useEffect(() => {
     if (show === true && componentes.length > cValor[0].componentes.length) {

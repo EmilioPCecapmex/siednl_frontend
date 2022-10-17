@@ -27,7 +27,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
@@ -52,43 +52,45 @@ export const MIR = () => {
   ]);
   const [institution, setInstitution] = useState("");
   const [programaPresupuestario, setProgramaPresupuestario] = useState("");
-  const [descripctionFiltered, setDescripctionFiltered] = useState("");
-
-  const dataFilter = (text: string) => {
-    setDescripctionFiltered(text);
-  };
-
-  const [dataDescripctionFiltered, setDataDescripctionFiltered] = useState([
+  const [descripctionFiltered, setDescripctionFiltered] = useState([
     {
-      Id: "",
-      Desc: "",
-      fnc: "",
-      Tabla: "",
-      selected: "",
+      ID: "",
+      MIR: "",
+      Estado: "",
     },
   ]);
+
+  // const dataFilter = (text: string) => {
+  //   setDescripctionFiltered(text);
+  // };
+
+  // const [dataDescripctionFiltered, setDataDescripctionFiltered] = useState([
+  //   {
+  //     ID: "",
+  //     MIR: "",
+  //     Estado: "",
+  //   },
+  // ]);
 
   const [datosTabla, setDatosTabla] = React.useState([
     {
-      Id: "",
-      Desc: "",
-      fnc: "",
-      Tabla: "",
-      selected: "",
+      ID: "",
+      MIR: "",
+      Estado: "",
     },
   ]);
 
-  const findText = () => {
-    if (descripctionFiltered !== "") {
-      setDataDescripctionFiltered(
-        dataDescripctionFiltered.filter((x) =>
-          x.Desc.toLowerCase().includes(descripctionFiltered)
-        )
-      );
-    } else {
-      setDataDescripctionFiltered(datosTabla);
-    }
-  };
+  // const findText = () => {
+  //   if (descripctionFiltered !== "") {
+  //     setDataDescripctionFiltered(
+  //       dataDescripctionFiltered.filter((x) =>
+  //         x.MIR[0]?.toLowerCase().includes(descripctionFiltered)
+  //       )
+  //     );
+  //   } else {
+  //     setDataDescripctionFiltered(datosTabla);
+  //   }
+  // };
 
   const getAniosFiscales = () => {
     axios
@@ -129,7 +131,21 @@ export const MIR = () => {
       });
   };
 
+  const getMIRs = () => {
+    axios
+      .get("http://localhost:8000/api/mir", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoMir(r.data.data);
+        console.log(r.data.data);
+      });
+  };
+
   useEffect(() => {
+    getMIRs();
     getAniosFiscales();
     getInstituciones();
     getProgramaPresupuestario();
@@ -143,6 +159,10 @@ export const MIR = () => {
     catalogoProgramasPresupuestarios,
     setCatalogoProgramasPresupuestarios,
   ] = useState([{ Id: "", NombrePrograma: "" }]);
+
+  const [catalogoMir, setCatalogoMir] = useState([
+    { Id: "", AnioFiscal:'',  Institucion: "", Programa: "", Eje: "", Tema: "", MIR: "", Estado: "" },
+  ]);
 
   const [openModalEditarUsuario, setOpenModalEditarUsuario] = useState(false);
 
@@ -214,7 +234,9 @@ export const MIR = () => {
                 size="small"
                 options={catalogoAniosFiscales}
                 getOptionLabel={(option) => option.AnioFiscal}
-                getOptionDisabled={(option) => option.Id === "0" ? true: false }
+                getOptionDisabled={(option) =>
+                  option.Id === "0" ? true : false
+                }
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.Id}>
@@ -236,9 +258,9 @@ export const MIR = () => {
                     placeholder="Ejercicio Fiscal"
                     InputLabelProps={{
                       style: {
-                        fontFamily: 'MontserratSemiBold',
-                        fontSize: '.7vw'
-                      }
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
                     }}
                   ></TextField>
                 )}
@@ -253,7 +275,9 @@ export const MIR = () => {
               <Autocomplete
                 disablePortal
                 size="small"
-                getOptionDisabled={(option) => option.Id === "0" ? true: false }
+                getOptionDisabled={(option) =>
+                  option.Id === "0" ? true : false
+                }
                 options={catalogoProgramasPresupuestarios}
                 getOptionLabel={(option) => option.NombrePrograma}
                 renderOption={(props, option) => {
@@ -277,9 +301,9 @@ export const MIR = () => {
                     placeholder="Nombre del Programa"
                     InputLabelProps={{
                       style: {
-                        fontFamily: 'MontserratSemiBold',
-                        fontSize: '.7vw'
-                      }
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
                     }}
                   ></TextField>
                 )}
@@ -317,11 +341,11 @@ export const MIR = () => {
                     placeholder="Institución"
                     InputLabelProps={{
                       style: {
-                        fontFamily: 'MontserratSemiBold',
-                        fontSize: '.7vw'
-                      }
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
                     }}
-                   
+                    //  onChange={(v)=>dataFilter(v.target.value)}
                   ></TextField>
                 )}
                 onChange={(event, value) =>
@@ -331,19 +355,19 @@ export const MIR = () => {
               />
             </Box>
 
-              <Button
-                sx={{
-                  backgroundColor: "#c2a37b",
-                  width: "10vw",
-                  height: "4vh",
-                  color: "black",
-                  fontFamily: "montserrat",
-                  fontSize: "0.6vw",
-                }}
-                onClick={() => handleClickOpen()}
-              >
-                Añadir registro
-              </Button>
+            <Button
+              sx={{
+                backgroundColor: "#c2a37b",
+                width: "10vw",
+                height: "4vh",
+                color: "black",
+                fontFamily: "montserrat",
+                fontSize: "0.6vw",
+              }}
+              onClick={() => handleClickOpen()}
+            >
+              Añadir registro
+            </Button>
           </Box>
 
           <Box
@@ -354,7 +378,7 @@ export const MIR = () => {
               borderRadius: 5,
               display: "flex",
               alignItems: "center",
-              flexDirection: 'column',
+              flexDirection: "column",
               boxShadow: 5,
             }}
           >
@@ -378,7 +402,7 @@ export const MIR = () => {
               <TableContainer sx={{ borderRadius: 5 }}>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow>
+                    <TableRow key={"a"}>
                       <TableCell sx={{ fontFamily: "MontserratBold" }}>
                         Institución
                       </TableCell>
@@ -419,80 +443,81 @@ export const MIR = () => {
                     {/* {descripctionFiltered
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => ( */}
-                    <TableRow>
-                      <TableCell>Institucion</TableCell>
-                      <TableCell>Programa</TableCell>
-                      <TableCell>Eje</TableCell>
-                      <TableCell>Tema</TableCell>
-                      <TableCell align="center">Estado</TableCell>
-                      {/* {row.Institucion} */}
+                    {catalogoMir.map((row, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{row.Institucion}</TableCell>
+                        <TableCell>{row.Programa}</TableCell>
+                        <TableCell>{row.Eje}</TableCell>
+                        <TableCell>{row.Tema}</TableCell>
+                        <TableCell align="center">{row.Estado}</TableCell>
 
-                      <TableCell align="center">
-                        <Tooltip title="Eliminar">
-                          <IconButton>
-                            <DeleteIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "red",
+                        <TableCell align="center">
+                          <Tooltip title="Eliminar">
+                            <IconButton>
+                              <DeleteIcon
+                                sx={[
+                                  {
+                                    "&:hover": {
+                                      color: "red",
+                                    },
                                   },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
+                                ]}
+                              />
+                            </IconButton>
+                          </Tooltip>
 
-                        <Tooltip title="Enviar">
-                          <IconButton>
-                            <SendIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "lightGreen",
+                          <Tooltip title="Enviar">
+                            <IconButton>
+                              <SendIcon
+                                sx={[
+                                  {
+                                    "&:hover": {
+                                      color: "lightGreen",
+                                    },
                                   },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
+                                ]}
+                              />
+                            </IconButton>
+                          </Tooltip>
 
-                        <Tooltip title="Descargar">
-                          <IconButton>
-                            <DownloadIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "orange",
+                          <Tooltip title="Descargar">
+                            <IconButton>
+                              <DownloadIcon
+                                sx={[
+                                  {
+                                    "&:hover": {
+                                      color: "orange",
+                                    },
                                   },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
+                                ]}
+                              />
+                            </IconButton>
+                          </Tooltip>
 
-                        <Tooltip title="Editar">
-                          <IconButton>
-                            <EditIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "blue",
+                          <Tooltip title="Editar">
+                            <IconButton>
+                              <EditIcon
+                                sx={[
+                                  {
+                                    "&:hover": {
+                                      color: "blue",
+                                    },
                                   },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
+                                ]}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+
                     {/* ))} */}
                   </TableBody>
                 </Table>
               </TableContainer>
-              
             </Box>
-            <Box sx={{width: '100%'}}>
-            <TablePagination
+            <Box sx={{ width: "100%" }}>
+              <TablePagination
                 rowsPerPageOptions={[renglonesPagina]}
                 component="div"
                 count={institution.length}
@@ -502,21 +527,19 @@ export const MIR = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </Box>
-            
           </Box>
-         
         </Box>
       ) : (
         <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          width: "85%",
-          height: "92%",
-          flexWrap: "wrap",
-        }}
-      >
-        <FullModalMir />
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            width: "85%",
+            height: "92%",
+            flexWrap: "wrap",
+          }}
+        >
+          <FullModalMir />
         </Box>
       )}
     </Box>
