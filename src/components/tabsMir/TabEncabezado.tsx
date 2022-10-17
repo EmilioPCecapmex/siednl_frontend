@@ -46,19 +46,18 @@ export function TabEncabezado({
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
   const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
   const [loadComponentes, setLoadComponentes] = useState<Array<number>>([]);
-  const [loadComponenteValor, setLoadComponenteValor] = useState<Array<IComponente>>([]);
+  const [loadComponenteValor, setLoadComponenteValor] = useState<
+    Array<IComponente>
+  >([]);
 
   // useEffect(() => {
   //   loadComponenteValor.map(()=>{return();})
   // }, [loadComponenteValor])
-  
-  
 
   useEffect(() => {
-    console.log(loadComponenteValor)
-  }, [loadComponenteValor])
-  
-  
+    console.log(loadComponenteValor);
+  }, [loadComponenteValor]);
+
   const [loadActividades, setLoadActividades] = useState<Array<ICValor>>([]);
 
   const Toast = Swal.mixin({
@@ -155,7 +154,9 @@ export function TabEncabezado({
   // const [lineaDeAccion, setLineaDeAccion] = useState([
   //   { IdLineasdeAccion: "", LineaDeAccion: "Selecciona" },
   // ]);
-  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>([]);
+  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
+    []
+  );
   const [beneficiario, setBeneficiario] = useState("Selecciona");
 
   //Catalogos
@@ -336,7 +337,6 @@ export function TabEncabezado({
       })
       .then((r) => {
         setCatalogoLineasDeAccion(r.data.data);
-        
       })
       .catch((err) => {
         setDisabledLineasDeAccion(true);
@@ -467,7 +467,6 @@ export function TabEncabezado({
       .then((r) => {
         setLineaDeAccion(r.data.data);
         setDisabledLineasDeAccion(false);
-
       });
   };
   const getIdBeneficiario = (Description: string) => {
@@ -490,7 +489,7 @@ export function TabEncabezado({
   const submitForm = (event: any) => {
     setDisabledButton(true);
     event.preventDefault();
-    setLoadingFile(true)
+    setLoadingFile(true);
 
     const dataArray = new FormData();
     dataArray.append("file", uploadFile);
@@ -515,12 +514,10 @@ export function TabEncabezado({
 
         setTimeout(() => {
           getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
-          
-        setLoadingFile(false)
-        getIdBeneficiario(response.data.encabezado[0].beneficiario);
 
+          setLoadingFile(false);
+          getIdBeneficiario(response.data.encabezado[0].beneficiario);
         }, 1000);
-
 
         setLoadFin([
           {
@@ -554,11 +551,8 @@ export function TabEncabezado({
             supuestos: response.data.propositos[0].supuestos,
           },
         ]);
-        
+
         setLoadComponenteValor(response.data.componentes);
-        
-      
-        
       })
       .catch((error) => {
         setErrorMsg(error.response.data);
@@ -608,7 +602,7 @@ export function TabEncabezado({
     cargaProposito(loadProposito);
   }, [loadFin, loadProposito]);
 
-  const [loadingFile, setLoadingFile ] = useState(false)
+  const [loadingFile, setLoadingFile] = useState(false);
 
   return (
     <Box
@@ -737,8 +731,11 @@ export function TabEncabezado({
             Cargar
           </Button>
         )}
-        <Box sx={{position: "absolute"}} visibility={loadingFile ? "visible" : "hidden"}>
-        <CircularProgress />
+        <Box
+          sx={{ position: "absolute" }}
+          visibility={loadingFile ? "visible" : "hidden"}
+        >
+          <CircularProgress />
         </Box>
       </Box>
 
@@ -1060,9 +1057,7 @@ export function TabEncabezado({
           limitTags={4}
           value={lineaDeAccion}
           options={catalogoLineasDeAccion}
-          isOptionEqualToValue={(option, value) =>
-            value.Id === option.Id
-          }
+          isOptionEqualToValue={(option, value) => value.Id === option.Id}
           getOptionLabel={(option) => option.LineaDeAccion}
           renderOption={(props, option) => {
             return (
@@ -1093,13 +1088,9 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) =>
-          {  
-            setLineaDeAccion(value)
-        }
-          }
-
-
+          onChange={(event, value) => {
+            setLineaDeAccion(value);
+          }}
         />
       </FormControl>
 
@@ -1157,9 +1148,7 @@ export function TabEncabezado({
 
 export default TabEncabezado;
 
-
 export interface ILineasDeAccion {
-  Id:            string;
+  Id: string;
   LineaDeAccion: string;
 }
-

@@ -26,6 +26,8 @@ import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
 import { IFin, IProposito } from "./TabFinProposito";
 import { IMIR } from "./IMIR";
+import Swal from "sweetalert2";
+import ModalEnviarMIR from "../modalEnviarMIR/ModalEnviarMIR";
 
 export function TabResumen2({
   show,
@@ -46,31 +48,37 @@ export function TabResumen2({
   cValor: Array<ICValor>;
   asignarCValor: Function;
 }) {
-
-
-
   const [MIR, setMIR] = useState<IMIR>();
+  const [openModalEnviar, setOpenModalEnviar] = useState(false);
+  const handleCloseEnviar = () => {
+    setOpenModalEnviar(false);
+  };
 
-  let asignarMIR = (encabezadoM: Array<IEncabezado>, finM: Array<IFin>, propositoM: Array<IProposito>, componentesM: Array<IComponente>, actividadesM: Array<ICValor>) => {
+  let asignarMIR = (
+    encabezadoM: Array<IEncabezado>,
+    finM: Array<IFin>,
+    propositoM: Array<IProposito>,
+    componentesM: Array<IComponente>,
+    actividadesM: Array<ICValor>
+  ) => {
     setMIR({
       Encabezado: encabezadoM[0],
       Fin: finM[0],
       Proposito: propositoM[0],
       Componentes: componentesM,
-      Actividades: actividadesM[0]
-    })
-  }
+      Actividades: actividadesM[0],
+    });
+  };
 
-
-  const createMIR = () => {
+  const createMIR = (estado: string) => {
     console.log(MIR);
-    
+
     axios
       .post(
-        "http://localhost:8000/api/create-mir",
+        "http://10.200.4.105:8000/api/create-mir",
         {
           MIR: JSON.stringify(MIR),
-          Estado: "revision",
+          Estado: estado,
           CreadoPor: localStorage.getItem("IdUsuario"),
         },
         {
@@ -81,27 +89,39 @@ export function TabResumen2({
       )
       .then((r) => {
         console.log(r);
-        
+        Toast.fire({
+          icon: "success",
+          title: "MIR generada con éxito",
+        });
+
+        console.log(r);
       })
-      .catch((err) =>
-        console.log(err)
-        
-      );
+      .catch((err) => {
+        // console.log(err.response.data.result.error)
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        });
+      });
   };
 
   useEffect(() => {
     //  console.log(encabezado[0].eje);
-    asignarMIR(encabezado,
-      fin,
-      proposito,
-      componenteValor,
-      cValor)
+    asignarMIR(encabezado, fin, proposito, componenteValor, cValor);
     console.log(MIR);
+  }, [encabezado, componenteValor]);
 
-  }, [encabezado,componenteValor]);
-
-
-
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   return (
     <Box
@@ -912,12 +932,26 @@ export function TabResumen2({
         <Button color="error" variant="outlined">
           Cancelar
         </Button>
-        <Button color="warning" variant="outlined">
+        <Button
+          color="warning"
+          variant="outlined"
+          onClick={() => createMIR("Borrador")}
+        >
           Borrador
         </Button>
-        <Button color="success" variant="outlined" onClick={() => createMIR()}>
+        <Button
+          color="success"
+          variant="outlined"
+          onClick={() => setOpenModalEnviar(true)}
+        >
           Enviar
         </Button>
+
+        <ModalEnviarMIR
+          open={openModalEnviar}
+          handleClose={handleCloseEnviar}
+          MIR={JSON.stringify(MIR)}
+        ></ModalEnviarMIR>
       </Box>
     </Box>
   );
