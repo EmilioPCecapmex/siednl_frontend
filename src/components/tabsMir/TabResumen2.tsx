@@ -928,7 +928,7 @@ export function TabResumen2({
         <Button
           color="warning"
           variant="outlined"
-          onClick={() => createMIR("Borrador")}
+          onClick={() => createMIR()}
         >
           Borrador
         </Button>
