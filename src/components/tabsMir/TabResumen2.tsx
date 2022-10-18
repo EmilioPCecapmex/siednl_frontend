@@ -56,6 +56,8 @@ export function TabResumen2({
 
   const createMIR = (estado: string) => {
 
+  const createMIR = () => {
+    
     axios
       .post(
         "http://localhost:8000/api/create-mir",
@@ -91,8 +93,16 @@ export function TabResumen2({
   };
 
   useEffect(() => {
-    asignarMIR(encabezado, fin, proposito, componenteValor, cValor);
-  }, [encabezado, componenteValor]);
+    //  console.log(encabezado[0].eje);
+    asignarMIR(encabezado,
+      fin,
+      proposito,
+      componenteValor,
+      cValor)
+
+  }, [encabezado,componenteValor]);
+
+
 
   const Toast = Swal.mixin({
     toast: true,

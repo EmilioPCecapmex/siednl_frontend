@@ -5,13 +5,12 @@ import {
   AccordionSummary,
   Box,
   IconButton,
-  ButtonGroup,
-  Button,
   Typography,
   TextField,
   Divider,
   List,
   ListItemButton,
+  Button,
 } from "@mui/material";
 import * as React from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -20,13 +19,12 @@ import Collapse from "@mui/material/Collapse";
 import StarBorder from "@mui/icons-material/StarBorder";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import { grid } from "@mui/system";
 import { IEncabezado } from "./TabEncabezado";
-import { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
+import { IFin, IProposito } from "./TabFinProposito";
 
 export function TabResumen({
   show,
@@ -55,45 +53,8 @@ export function TabResumen({
   const [openComponentes, setOpenComponentes] = useState(false);
 
   useEffect(() => {
-    if (show === true && componentes.length > cValor[0].componentes.length) {
-      let restantes = componentes.length - cValor[0].componentes.length;
-      let prevState = [...cValor];
-      for (let index = 1; index <= restantes; index++) {
-        prevState[0].componentes.push({
-          actividades: [
-            {
-              resumen: "",
-              indicador: "",
-              frecuencia: "",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-            {
-              resumen: "",
-              indicador: "",
-              frecuencia: "",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-          ],
-        });
-        asignarCValor(prevState);
-      }
-    } else if (
-      show === true &&
-      componentes.length < cValor[0].componentes.length
-    ) {
-      let prevState = [...cValor];
-      let restantes = cValor[0].componentes.length - componentes.length;
-      for (let index = 1; index <= restantes; index++) {
-        prevState[0].componentes.pop();
-        asignarCValor(prevState);
-      }
-      setComponenteSelect(0);
-    }
-  }, [show]);
+    //  console.log(encabezado[0].eje);
+  }, [encabezado]);
 
   return (
     <Box
@@ -102,10 +63,12 @@ export function TabResumen({
       sx={{
         display: "flex",
         width: "75vw",
-        height: "85vh",
+        height: "77vh",
         boxShadow: 10,
         borderRadius: 5,
-        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
         backgroundColor: "#fff",
       }}
     >
@@ -231,533 +194,201 @@ export function TabResumen({
 
       <Box
         sx={{
-          width: "65vw",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: "90%",
+          border: 0.1,
+          borderColor: "#909090",
+          height: "80%",
+          overflow: "auto",
+          borderRadius: 1,
+          "&::-webkit-scrollbar": {
+            width: ".3vw",
+            mt: 1,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(0,0,0,.5)",
+            outline: "1px solid slategrey",
+            borderRadius: 1,
+          },
         }}
       >
-        {tabSelect === 100 ? (
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateRows: "repeat(5, 1fr)",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              width: "60vw",
-              height: "60vh",
-            }}
-          >
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                  color:
-                    encabezado[0]?.ejercicioFiscal === "Selecciona"
-                      ? "red"
-                      : "rgba(0, 0, 0, 0.6)",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={1.5}
-              label={"Ejercicio Fiscal"}
-              value={
-                encabezado[0]?.ejercicioFiscal === "Selecciona"
-                  ? ""
-                  : encabezado[0]?.ejercicioFiscal
-              }
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                  color:
-                    encabezado[0]?.institucion === "Selecciona"
-                      ? "red"
-                      : "rgba(0, 0, 0, 0.6)",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={2}
-              value={
-                encabezado[0]?.institucion === "Selecciona"
-                  ? ""
-                  : encabezado[0]?.institucion
-              }
-              sx={{ width: "25vw" }}
-              label={"Institución"}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  color: "black",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-              value={
-                encabezado[0]?.programa === "Selecciona"
-                  ? ""
-                  : encabezado[0]?.programa
-              }
-              sx={{ width: "25vw" }}
-              label={"Programa"}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-              value={
-                encabezado[0]?.eje === "Selecciona" ? "" : encabezado[0]?.eje
-              }
-              sx={{ width: "25vw" }}
-              label={"Eje"}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-              value={
-                encabezado[0]?.tematica === "Selecciona"
-                  ? ""
-                  : encabezado[0]?.tematica
-              }
-              sx={{ width: "25vw" }}
-              label={"Temática"}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-              value={
-                encabezado[0]?.objetivo === "Selecciona"
-                  ? ""
-                  : encabezado[0]?.objetivo
-              }
-              sx={{ width: "25vw" }}
-              label={"Objetivo"}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-              value={
-                encabezado[0]?.estrategia === "Selecciona"
-                  ? ""
-                  : encabezado[0]?.estrategia
-              }
-              sx={{ width: "25vw" }}
-              label={"Estrategia"}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-              value={
-                encabezado[0]?.lineasDeAccion === "Selecciona"
-                  ? ""
-                  : encabezado[0]?.lineasDeAccion
-              }
-              sx={{ width: "25vw" }}
-              label={"Lineas de acción"}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-              value={
-                encabezado[0]?.beneficiario === "Selecciona"
-                  ? ""
-                  : encabezado[0]?.beneficiario
-              }
-              sx={{ width: "25vw" }}
-              label={"Beneficiario"}
-            />
-          </Box>
-        ) : null}
-        {tabSelect === 101 ? (
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateRows: "1fr 2fr 2fr 2fr",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              width: "60vw",
-              height: "60vh",
-            }}
-          >
-            <Typography
+        <Box sx={{ p: 5, display: "flex", flexDirection: "column" }}>
+          <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1 }}>
+            Datos Generales
+          </Typography>
+
+          <Box sx={{ display: "flex" }}>
+            <Box
               sx={{
-                gridColumn: "1/3",
-                fontFamily: "MontserratMedium",
-                fontSize: "1.5vw",
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
               }}
             >
-              Fin
-            </Typography>
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Resumen Narrativo"}
-              value={fin[0]?.resumen}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Indicador"}
-              value={fin[0]?.indicador}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Fórmula"}
-              value={fin[0]?.formula}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Frecuencia"}
-              value={fin[0]?.frecuencia}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Medios de verificación"}
-              value={fin[0]?.medios}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Supuestos"}
-              value={fin[0]?.supuestos}
-              sx={{ width: "25vw" }}
-            />
-          </Box>
-        ) : null}
-        {tabSelect === 102 ? (
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateRows: "1fr 2fr 2fr 2fr",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              width: "60vw",
-              height: "60vh",
-            }}
-          >
-            <Typography
+              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+                Ejercicio Fiscal:
+              </Typography>
+              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+                {encabezado[0]?.ejercicioFiscal === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.ejercicioFiscal}
+              </Typography>
+            </Box>
+
+            <Box
               sx={{
-                gridColumn: "1/3",
-                fontFamily: "MontserratMedium",
-                fontSize: "1.5vw",
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
               }}
             >
-              Propósito
-            </Typography>
-
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Resumen Narrativo"}
-              value={proposito[0]?.resumen}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Indicador"}
-              value={proposito[0]?.indicador}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Fórmula"}
-              value={proposito[0]?.formula}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Frecuencia"}
-              value={proposito[0]?.frecuencia}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Medios de verificación"}
-              value={proposito[0]?.medios}
-              sx={{ width: "25vw" }}
-            />
-            <TextField
-              variant="standard"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "0.8vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  marginTop: "2.4vh",
-                },
-              }}
-              rows={3}
-              label={"Supuestos"}
-              value={proposito[0]?.supuestos}
-              sx={{ width: "25vw" }}
-            />
+              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+                Institución:
+              </Typography>
+              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+                {encabezado[0]?.institucion === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.institucion}
+              </Typography>
+            </Box>
           </Box>
-        ) : null}
-      </Box>
+          <Box sx={{ display: "flex" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+            >
+              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+                Programa:
+              </Typography>
+              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+                {encabezado[0]?.programa === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.programa}
+              </Typography>
+            </Box>
 
-      <Box
-        sx={{
-          width: "65vw",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* mi box*/}
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+            >
+              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+                Eje:
+              </Typography>
+              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+                {encabezado[0]?.eje === "Selecciona" ? "" : encabezado[0]?.eje}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ display: "flex" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+            >
+              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+                Temática:
+              </Typography>
+              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+                {encabezado[0]?.tematica === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.tematica}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+            >
+              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+                Objetivo:
+              </Typography>
+              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+                {encabezado[0]?.objetivo === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.objetivo}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ display: "flex" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+            >
+              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+                Estrategia:
+              </Typography>
+              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+                {encabezado[0]?.estrategia === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.estrategia}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+            >
+              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+                Lineas de Acción:
+              </Typography>
+              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+                {encabezado[0]?.lineasDeAccion === "Selecciona"
+                  ? ""
+                  : encabezado[0]?.lineasDeAccion}
+              </Typography>
+            </Box>
+          </Box>
+
           <Box
             sx={{
               display: "flex",
@@ -922,7 +553,6 @@ export function TabResumen({
               </AccordionDetails>
             </Accordion>
           </Box>
-          {/* Actividades */}
 
           <Box>
             <Box>
@@ -968,154 +598,342 @@ export function TabResumen({
                     alignItems: "center",
                   }}
                 >
-                  <TextField
-                    variant="filled"
-                    multiline
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratMedium",
-                      },
-                    }}
-                    InputProps={{
-                      style: {
-                        fontFamily: "MontserratRegular",
-                      },
-                    }}
-                    rows={4}
-                    sx={{ width: "30%" }}
-                    label={"Resumen Narrativo"}
-                    value={
-                      cValor[0]?.componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.resumen
-                    }
-                  />
-                  <TextField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratMedium",
-                      },
-                    }}
-                    InputProps={{
-                      style: {
-                        fontFamily: "MontserratRegular",
-                      },
-                    }}
-                    sx={{ width: "30%" }}
-                    label={"Indicador"}
-                    value={
-                      cValor[0]?.componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.indicador
-                    }
-                  />
-                  <TextField
-                    variant="filled"
-                    multiline
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratMedium",
-                      },
-                    }}
-                    InputProps={{
-                      style: {
-                        fontFamily: "MontserratRegular",
-                      },
-                    }}
-                    rows={4}
-                    sx={{ width: "30%" }}
-                    label={"Fórmula"}
-                    value={
-                      cValor[0]?.componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.formula
-                    }
-                  />
+                  Componente {index}
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Resumen Narrativo:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].resumen}
+                  </Typography>
                 </Box>
                 <Box
                   sx={{
-                    width: "100%",
-                    height: "40%",
-
-                    justifyContent: "space-evenly",
                     display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
                     alignItems: "center",
                   }}
                 >
-                  <TextField
-                    multiline
-                    variant="filled"
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratMedium",
-                      },
-                    }}
-                    InputProps={{
-                      style: {
-                        fontFamily: "MontserratRegular",
-                      },
-                    }}
-                    rows={4}
-                    sx={{ width: "30%" }}
-                    label={"Frecuencia"}
-                    value={
-                      cValor[0]?.componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.frecuencia
-                    }
-                  />
-                  <TextField
-                    multiline
-                    variant="filled"
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratMedium",
-                      },
-                    }}
-                    InputProps={{
-                      style: {
-                        fontFamily: "MontserratRegular",
-                      },
-                    }}
-                    rows={4}
-                    sx={{ width: "30%" }}
-                    label={"Medios de Verificación"}
-                    value={
-                      cValor[0]?.componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.medios
-                    }
-                  />
-                  <TextField
-                    variant="filled"
-                    multiline
-                    rows={4}
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratMedium",
-                      },
-                    }}
-                    InputProps={{
-                      style: {
-                        fontFamily: "MontserratRegular",
-                      },
-                    }}
-                    sx={{ width: "30%" }}
-                    label={"Supuestos"}
-                    value={
-                      cValor[0]?.componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.supuestos
-                    }
-                  />
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Indicador:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].indicador}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Fórmula:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].formula}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Frecuencia:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].frecuencia}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Medios de Verificación:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].medios}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Supuestos:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1].supuestos}
+                  </Typography>
                 </Box>
               </Box>
-            </Box>
-          </Box>
+            );
+          })}
+
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            Actividades
+          </Typography>
+
+          {cValor[0]?.componentes.map((item, indexComponentes) => {
+            return item.actividades.map((value, indexActividades) => {
+              return (
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      borderBottom: 1,
+                      mt: 5,
+                      textAlign: "center",
+                    }}
+                  >
+                    Componente {indexComponentes + 1} - Actividad{" "}
+                    {indexActividades + 1}
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Resumen Narrativo:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].resumen
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Indicador:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].indicador
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Fórmula:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].formula
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Frecuencia:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].frecuencia
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Medios de Verificación:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].medios
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Supuestos:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].supuestos
+                      }
+                    </Typography>
+                  </Box>
+                </Box>
+              );
+            });
+          })}
         </Box>
+      </Box>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-evenly",
+          mt: 2,
+        }}
+      >
+        <Button color="error" variant="outlined">
+          Cancelar
+        </Button>
+        <Button color="warning" variant="outlined">
+          Borrador
+        </Button>
+        <Button color="success" variant="outlined">
+          Enviar
+        </Button>
       </Box>
     </Box>
   );

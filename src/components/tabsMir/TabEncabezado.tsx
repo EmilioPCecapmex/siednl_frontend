@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
+import { ICompActividad } from "./ICompActividad";
 
 export interface IEncabezado {
   ejercicioFiscal: string;
@@ -33,12 +34,22 @@ export function TabEncabezado({
   cargaFin,
   cargaProposito,
   MIR
+  asignarComponente,
+  asignarComponenteValor,
+   cValor,
+   compAct,
+   actividadesMir,
 }: {
   show: boolean;
   resumenEncabezado: Function;
   cargaFin: Function;
   cargaProposito: Function;
   MIR: string;
+  asignarComponente:Function;
+  asignarComponenteValor:Function;
+   cValor: Array<ICValor>;
+   compAct: Function;
+   actividadesMir: Function;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
@@ -47,13 +58,45 @@ export function TabEncabezado({
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
   const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
-  const [loadComponentes, setLoadComponentes] = useState<Array<number>>([]);
-  const [loadComponenteValor, setLoadComponenteValor] = useState<
-    Array<IComponente>
-  >([]);
 
-  const [loadActividades, setLoadActividades] = useState<Array<ICValor>>([]);
+  const [loadComponentes, setLoadComponentes] = useState<Array<number>>([1,2]);
+  const [loadComponenteValor, setLoadComponenteValor] = useState<Array<IComponente>>([]);
+  const [loadActividades, setLoadActividades] = useState([]);
+  const [compActividad, setCompActividad] = useState <Array<ICompActividad>>([]);
+  
+ 
 
+  //saca la cantidad de componentes
+  useEffect(() => {
+    loadComponenteValor.map((value,index)=>{
+      if(index>1 && index<6)
+      setLoadComponentes(loadComponentes=>[...loadComponentes,index+1])
+    })
+  }, [loadComponenteValor])
+  
+  //envio de valores a MIR
+  useEffect(() => {
+    asignarComponente(loadComponentes);
+    asignarComponenteValor(loadComponenteValor);
+    //console.log(loadComponenteValor);
+  }, [loadComponentes])
+
+  useEffect(() => {
+    // console.log(loadActividades);
+  
+    compActividad.map((item,index)=>{
+      let indexAct=0;
+      for(let i=0;i<item.actividades;i++)
+      {
+        //console.log(i);
+        
+        
+        indexAct++;
+      }
+      //  console.log(item.actividades);
+    }); 
+  }, [loadActividades])
+  
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -361,7 +404,7 @@ export function TabEncabezado({
       .then((r) => {
         setInstitution(r.data.data[0].NombreInstitucion);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   const getIdPrograma = (Description: string) => {
     axios
@@ -487,7 +530,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://10.200.4.105:7000/upload", dataArray, {
+      .post("http://10.200.4.202:7000/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -501,13 +544,17 @@ export function TabEncabezado({
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
         // getLineasDeAccion(response.data.encabezado[0].estrategia)
-
         setTimeout(() => {
           getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
 
-          setLoadingFile(false);
+          setLoadingFile(false)
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
-        }, 1000);
+
+
+        }, 1500);
+
+        compAct(response.data.componenteActividad)
+
 
         setLoadFin([
           {
@@ -543,6 +590,11 @@ export function TabEncabezado({
         ]);
 
         setLoadComponenteValor(response.data.componentes);
+        setCompActividad(response.data.componenteActividad);
+        setLoadActividades(response.data.actividades);
+        actividadesMir(response.data.actividades);
+        
+
       })
       .catch((error) => {
         setErrorMsg(error.response.data);
@@ -607,9 +659,11 @@ export function TabEncabezado({
     cargaProposito(loadProposito);
   }, [loadFin, loadProposito]);
 
-  const [loadingFile, setLoadingFile] = useState(false);
+  const [loadingFile, setLoadingFile] = useState(false)
 
   return (
+   
+      
     <Box
       visibility={show ? "visible" : "hidden"}
       position="absolute"
@@ -736,10 +790,7 @@ export function TabEncabezado({
             Cargar
           </Button>
         )}
-        <Box
-          sx={{ position: "absolute" }}
-          visibility={loadingFile ? "visible" : "hidden"}
-        >
+        <Box sx={{ position: "absolute" }} visibility={loadingFile ? "visible" : "hidden"}>
           <CircularProgress />
         </Box>
       </Box>
@@ -1094,8 +1145,11 @@ export function TabEncabezado({
             />
           )}
           onChange={(event, value) => {
-            setLineaDeAccion(value);
-          }}
+            setLineaDeAccion(value)
+          }
+          }
+
+
         />
       </FormControl>
 
@@ -1146,8 +1200,12 @@ export function TabEncabezado({
           }
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
+        
       </FormControl>
+ 
+      
     </Box>
+    
   );
 }
 
