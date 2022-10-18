@@ -13,31 +13,32 @@ import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 
-export const TabComponente = ({ show, asignarComponente, asignarComponenteValor }: { show: boolean, asignarComponente: Function, asignarComponenteValor:Function}) => {
+export const TabComponente = ({ show, asignarComponente, asignarComponenteValor ,componentesMir, componenteValorMir }: 
+  { show: boolean, asignarComponente: Function, asignarComponenteValor:Function,componentesMir: number[];componenteValorMir: Array<IComponente>;}) => {
   // business logic-------------------------------------------------------------------------------
-  const [componentes, setComponentes] = useState([1, 2]);
+ // const [componentesMir, asignarComponente] = useState([1, 2]);
 
-  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
-    componentes.map((x) => {
-      return {
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    })
-  );
+  // const [componenteValorMir, asignarComponenteValor] = useState<Array<IComponente>>(
+  //   componentesMir.map((x) => {
+  //     return {
+  //       resumen: "",
+  //       indicador: "",
+  //       frecuencia: "",
+  //       formula: "",
+  //       medios: "",
+  //       supuestos: "",
+  //     };
+  //   })
+  // );
 
   const agregarFnc = () => {
-    let v = componentes.length + 1;
+    let v = componentesMir.length + 1;
     if (v > 6) {
     } else {
-      setComponentes([...componentes, v]);
+      asignarComponente([...componentesMir, v]);
 
-      if (componenteValor.length < 6) {
-        let prevState = [...componenteValor]
+      if (componenteValorMir.length < 6) {
+        let prevState = [...componenteValorMir]
         prevState.push(
           {
             resumen: "",
@@ -48,20 +49,21 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
             supuestos: "",
           }
         )
-        setComponenteValor(prevState);
+        asignarComponenteValor(prevState);
       }
     }
-    asignarComponente(componentes);
+    
+    //asignarComponente(componentesMir);
   };
 
   const eliminarFnc = () => {
-    let v = componentes.length - 1;
+    let v = componentesMir.length - 1;
     if (v < 2) {
     } else {
-      setComponentes(componentes.splice(0, v));
-      let prevState = [...componenteValor];
+      asignarComponente(componentesMir.splice(0, v));
+      let prevState = [...componenteValorMir];
       prevState.pop()
-      setComponenteValor(prevState)
+      asignarComponenteValor(prevState)
       if (v < componentSelect) {
         setComponentSelect(v)
 
@@ -69,10 +71,10 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
     }
   };
 
-  useEffect(() => {
-    asignarComponente(componentes);
-    asignarComponenteValor(componenteValor);
-  }, [componentes,componenteValor])
+  // useEffect(() => {
+  //   //
+  //   asignarComponenteValor(componenteValorMir);
+  // }, [componentesMir,componenteValorMir])
 
 
   const [componentSelect, setComponentSelect] = useState(1);
@@ -202,7 +204,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
             },
           }}
         >
-          {componentes.map((item) => {
+          {componentesMir.map((item) => {
             return (
               <Box
                 key={item}
@@ -273,10 +275,10 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
               rows={4}
               sx={{ width: "30%" , boxShadow: 2}}
               label={"Resumen Narrativo"}
-              value={componenteValor[componentSelect - 1].resumen}
+              value={componenteValorMir[componentSelect - 1].resumen}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].resumen = c.target.value;
-                setComponenteValor([...componenteValor]);
+                componenteValorMir[componentSelect - 1].resumen = c.target.value;
+                asignarComponenteValor([...componenteValorMir]);
               }}
             />
             <TextField
@@ -304,8 +306,8 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
               value={componenteValor[componentSelect - 1].indicador}
               onBlur={() => evalueTxtIndicador()}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].indicador = c.target.value;
-                setComponenteValor([...componenteValor]);
+                componenteValorMir[componentSelect - 1].indicador = c.target.value;
+                asignarComponenteValor([...componenteValorMir]);
               }}
             />
             <TextField
@@ -328,8 +330,8 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
               value={componenteValor[componentSelect - 1].formula}
               onClick={() => evalueTxtIndicador()}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].formula = c.target.value;
-                setComponenteValor([...componenteValor]);
+                componenteValorMir[componentSelect - 1].formula = c.target.value;
+                asignarComponenteValor([...componenteValorMir]);
               }}
             />
           </Box>
@@ -359,11 +361,11 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
               rows={4}
               sx={{ width: "30%" , boxShadow: 2}}
               label={"Frecuencia"}
-              value={componenteValor[componentSelect - 1].frecuencia}
+              value={componenteValorMir[componentSelect - 1].frecuencia}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].frecuencia =
+                componenteValorMir[componentSelect - 1].frecuencia =
                   c.target.value;
-                setComponenteValor([...componenteValor]);
+                asignarComponenteValor([...componenteValorMir]);
               }}
             />
             <TextField
@@ -382,10 +384,10 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
               rows={4}
               sx={{ width: "30%" , boxShadow: 2}}
               label={"Medios de Verificación"}
-              value={componenteValor[componentSelect - 1].medios}
+              value={componenteValorMir[componentSelect - 1].medios}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].medios = c.target.value;
-                setComponenteValor([...componenteValor]);
+                componenteValorMir[componentSelect - 1].medios = c.target.value;
+                asignarComponenteValor([...componenteValorMir]);
               }}
             />
             <TextField
@@ -404,10 +406,10 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
               }}
               sx={{ width: "30%" , boxShadow: 2}}
               label={"Supuestos"}
-              value={componenteValor[componentSelect - 1].supuestos}
+              value={componenteValorMir[componentSelect - 1].supuestos}
               onChange={(c) => {
-                componenteValor[componentSelect - 1].supuestos = c.target.value;
-                setComponenteValor([...componenteValor]);
+                componenteValorMir[componentSelect - 1].supuestos = c.target.value;
+                asignarComponenteValor([...componenteValorMir]);
               }}
             />
           </Box>
