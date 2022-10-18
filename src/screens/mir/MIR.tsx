@@ -152,7 +152,6 @@ export const MIR = () => {
       .then((r) => {
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
-        // console.log(JSON.parse(r.data.data[0].MIR));
       });
   };
 

@@ -50,13 +50,6 @@ export function TabEncabezado({
     Array<IComponente>
   >([]);
 
-  // useEffect(() => {
-  //   loadComponenteValor.map(()=>{return();})
-  // }, [loadComponenteValor])
-
-  useEffect(() => {
-  }, [loadComponenteValor]);
-
   const [loadActividades, setLoadActividades] = useState<Array<ICValor>>([]);
 
   const Toast = Swal.mixin({
@@ -150,9 +143,7 @@ export function TabEncabezado({
   const [tematica, setTematica] = useState("Selecciona");
   const [objetivo, setObjetivo] = useState("Selecciona");
   const [estrategia, setEstrategia] = useState("Selecciona");
-  // const [lineaDeAccion, setLineaDeAccion] = useState([
-  //   { IdLineasdeAccion: "", LineaDeAccion: "Selecciona" },
-  // ]);
+
   const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
     []
   );
@@ -500,8 +491,6 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
-        console.log(response.data);
-        
         getIdInstitucion(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);

@@ -30,6 +30,19 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   useEffect(() => {
     let tableOption = configOptions.find((item) => item.Desc === defSelected);
     setTablaActual(tableOption?.Tabla as string);
+
+    configOptions.map((item) => {
+      if (item.Desc === selected) {
+        eval(item.fnc);
+      }
+    });
+
+    configOptions.map((item) => {
+      if (item.Desc === defaultSelection) {
+        eval(item.fnc);
+      }
+    });
+
   }, []);
 
   const configOptions = [
@@ -923,13 +936,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     findText();
   }, [descripctionFiltered]);
 
-  React.useEffect(() => {
-    configOptions.map((item) => {
-      if (item.Desc === selected) {
-        eval(item.fnc);
-      }
-    });
-  }, []);
+
 
   const [actualizacion, setActualizacion] = useState(0);
 
@@ -941,13 +948,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     });
   }, [actualizacion]);
 
-  useEffect(() => {
-    configOptions.map((item) => {
-      if (item.Desc === defaultSelection) {
-        eval(item.fnc);
-      }
-    });
-  }, []);
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);

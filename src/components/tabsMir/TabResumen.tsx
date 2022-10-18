@@ -119,16 +119,6 @@ export function TabResumen({
             flexDirection: "column",
             borderColor: "#BCBCBC",
             padding: "0",
-            // overflow:'hidden',
-            // overflowY:'scroll',
-            // "&::-webkit-scrollbar": {
-            //   width: ".3vw",
-            // },
-            // "&::-webkit-scrollbar-thumb": {
-            //   backgroundColor: "rgba(0,0,0,.5)",
-            //   outline: "1px solid slategrey",
-            //   borderRadius: 10,
-            // },
           }}
         >
           <ListItemButton
@@ -775,7 +765,6 @@ export function TabResumen({
               width: "100%",
               alignItems: "flex-start",
               justifyContent: "center",
-              // backgroundColor: ""
             }}
           >
             <Accordion
@@ -786,7 +775,6 @@ export function TabResumen({
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
-                //     backgroundColor:"pink"
               }}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -808,7 +796,6 @@ export function TabResumen({
                       justifyContent: "space-evenly",
                       display: "flex",
                       alignItems: "center",
-                      //   backgroundColor: "brown"
                     }}
                   >
                     <TextField
@@ -874,7 +861,6 @@ export function TabResumen({
                       justifyContent: "space-evenly",
                       display: "flex",
                       alignItems: "center",
-                      // backgroundColor: "pink"
                     }}
                   >
                     <TextField
@@ -964,7 +950,6 @@ export function TabResumen({
                 width: "100%",
                 alignItems: "flex-start",
                 justifyContent: "center",
-                // backgroundColor: ""
               }}
             >
               <Box
@@ -981,7 +966,6 @@ export function TabResumen({
                     justifyContent: "space-evenly",
                     display: "flex",
                     alignItems: "center",
-                    //   backgroundColor: "brown"
                   }}
                 >
                   <TextField
@@ -1059,7 +1043,6 @@ export function TabResumen({
                     justifyContent: "space-evenly",
                     display: "flex",
                     alignItems: "center",
-                    // backgroundColor: "pink"
                   }}
                 >
                   <TextField
