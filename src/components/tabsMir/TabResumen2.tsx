@@ -63,7 +63,6 @@ export function TabResumen2({
 
 
   const createMIR = () => {
-    //console.log(MIR);
     
     axios
       .post(
@@ -96,7 +95,6 @@ export function TabResumen2({
       proposito,
       componenteValor,
       cValor)
-    //console.log(MIR);
 
   }, [encabezado,componenteValor]);
 
@@ -571,7 +569,7 @@ export function TabResumen2({
 
           {componentes.map((index) => {
             return (
-              <Box>
+              <Box key={index}>
                 <Typography
                   sx={{
                     fontFamily: "MontserratMedium",
@@ -727,7 +725,7 @@ export function TabResumen2({
           {cValor[0]?.componentes.map((item, indexComponentes) => {
             return item.actividades.map((value, indexActividades) => {
               return (
-                <Box>
+                <Box key={indexActividades}>
                   <Typography
                     sx={{
                       fontFamily: "MontserratMedium",

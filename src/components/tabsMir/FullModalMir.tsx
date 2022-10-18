@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box } from "@mui/material";
+import { Box, Button, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
-import TabResumen2 from "./TabResumen2";
 import {ICValor} from "./ICValor"
 import { IActividades } from "./ICompActividad";
 
@@ -151,6 +150,7 @@ export default function FullModalMir() {
         }}
       >
         <Box>
+          
           <Tabs
             value={value}
             onChange={handleChange}
@@ -212,6 +212,7 @@ export default function FullModalMir() {
             />
           </Tabs>
         </Box>
+        
 
         <Box
           sx={{
@@ -225,7 +226,10 @@ export default function FullModalMir() {
            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} componentesMir={componentes} componenteValorMir={componenteValor}></TabComponente>
           <TabActividades show={value === 40 ? true : false} componentes={componentes} asignarCValor={asignarCValor}></TabActividades>
         </Box>
-      </Box>
+     
+              </Box>
+
+              
     </Box>
   );
 }

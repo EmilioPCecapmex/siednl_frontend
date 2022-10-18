@@ -178,14 +178,28 @@ export const TabActividades = ({
         backgroundColor: "#fff",
       }}
     >
+        <FormulaDialog
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+      />
       <Box
         sx={{
           width: "100%",
           display: "flex",
+          height: '7vh',
+          alignItems: 'center',
           justifyContent: "flex-end",
         }}
       >
         {/* Botones Componentes */}
+        <Typography sx={{ mr: "1vw", fontFamily: 'MontserratSemiBold', fontSize: '1.5vw' }}>
+          Componente {componenteSelect + 1} - Actividad {actividadSelect + 1}
+
+        </Typography>
         <IconButton
           onClick={() => {
             agregarAFnc(componenteSelect);
@@ -194,7 +208,7 @@ export const TabActividades = ({
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-        <IconButton onClick={() => eliminarAFnc()}>
+        <IconButton onClick={() => eliminarAFnc()} sx={{ mr: "1vw" }}>
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
       </Box>
@@ -248,8 +262,22 @@ export const TabActividades = ({
                       onClick={() => {
                         setComponenteSelect((item - 1));
 
-                        setActividades([1, 2]);
-                        let xArray = [...componenteActividad];
+                    handleClickComponente(item);
+                    setActividadSelect(0);
+                  }}
+                  sx={{
+                    height: "7vh",
+                    "&.Mui-selected ": {
+                      backgroundColor: "#c4a57b",
+                    },
+                    "&.Mui-selected:hover": {
+                      backgroundColor: "#cbcbcb",
+                    },
+                  }}
+                >
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    Componente {item}
+                  </Typography>
 
                         xArray[0]["componentes"][item] = xArray[0]["componentes"][
                           item - 1
@@ -335,30 +363,10 @@ export const TabActividades = ({
           }}
         >
           {/* Textfields box */}
-          <Box
-            sx={{
-              width: "95%",
-              height: "90%",
-              pb: 2,
-              pt: 2,
-              overflow: "auto",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgba(0,0,0,.5)",
-                outline: "1px solid slategrey",
-                borderRadius: 10,
-              },
-            }}
-          >
-            {/* Renderizado de Actividades */}
 
-            {/* <Box>
+          {/* Renderizado de Actividades */}
+
+          {/* <Box>
               <Typography>Actividad {actividadSelect + 1} - Componente {parseInt(componenteSelect) + 1}</Typography>
             </Box> */}
             <Box
