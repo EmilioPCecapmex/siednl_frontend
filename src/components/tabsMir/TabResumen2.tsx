@@ -55,8 +55,6 @@ export function TabResumen2({
   };
 
   const createMIR = (estado: string) => {
-
-  const createMIR = () => {
     
     axios
       .post(
@@ -928,7 +926,7 @@ export function TabResumen2({
         <Button
           color="warning"
           variant="outlined"
-          onClick={() => createMIR()}
+          onClick={() => createMIR('Borrador')}
         >
           Borrador
         </Button>

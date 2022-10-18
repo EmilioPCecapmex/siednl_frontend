@@ -33,7 +33,7 @@ export function TabEncabezado({
   resumenEncabezado,
   cargaFin,
   cargaProposito,
-  MIR
+  MIR,
   asignarComponente,
   asignarComponenteValor,
    cValor,

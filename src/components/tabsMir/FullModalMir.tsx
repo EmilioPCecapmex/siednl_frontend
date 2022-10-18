@@ -20,8 +20,8 @@ import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
 import { IActividades } from "./ICompActividad";
-import TabResumen2 from "./TabResumen2";
 import { ICValor } from "./ICValor";
+import { TabResumen2 } from "./TabResumen2";
 
 export default function FullModalMir({show, MIR }: {show: boolean; MIR: string }) {
   const [value, setValue] = React.useState(10);
