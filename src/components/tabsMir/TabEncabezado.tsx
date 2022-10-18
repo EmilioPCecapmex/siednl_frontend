@@ -500,6 +500,8 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
+        console.log(response.data);
+        
         getIdInstitucion(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);

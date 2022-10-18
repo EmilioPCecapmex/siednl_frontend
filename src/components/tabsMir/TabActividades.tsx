@@ -224,10 +224,10 @@ export const TabActividades = ({
             },
           }}
         >
-          {componentes.map((item) => {
+          {componentes.map((item, index) => {
             return (
               <Box
-                key={item}
+                key={index}
                 sx={{
                   
                   display: "flex",
@@ -288,6 +288,7 @@ export const TabActividades = ({
                             return (
 
                               <ListItemButton 
+                              key={x}
                               selected={x == actividadSelect ? true : false}
                               
                               onClick={()=>{
