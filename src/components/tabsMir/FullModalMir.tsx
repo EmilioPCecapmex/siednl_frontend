@@ -12,6 +12,10 @@ import {ICValor} from "./ICValor"
 import { IActividades } from "./ICompActividad";
 
 export default function FullModalMir() {
+
+  const [actividadesL, setActividadesL] = useState<Array<IActividadesLoad>>([])
+  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([])
+
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
@@ -219,13 +223,32 @@ export default function FullModalMir() {
             height: "77vh",
           }}
         >
-          <TabEncabezado show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado} cargaFin={loadFin} cargaProposito={loadProposito} asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} cValor={cValor}></TabEncabezado>
+          <TabEncabezado actComp={setCompAct} actividadesL={setActividadesL} show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado} cargaFin={loadFin} cargaProposito={loadProposito} asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} cValor={cValor}></TabEncabezado>
           <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito} cargaFin={cargaFin} cargaProposito={cargaProposito}></TabFinProposito>
           <TabResumen2 show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen2>
            <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} componentesMir={componentes} componenteValorMir={componenteValor}></TabComponente>
-          <TabActividades show={value === 40 ? true : false} componentes={componentes} asignarCValor={asignarCValor}></TabActividades>
+          <TabActividades actComp={compAct} actividadesL={actividadesL} show={value === 40 ? true : false} componentes={componentes} asignarCValor={asignarCValor}></TabActividades>
         </Box>
       </Box>
     </Box>
   );
 }
+
+
+
+export interface IActividadesLoad {
+  actividad:  string;
+  formula:    string;
+  frecuencia: string;
+  indicador:  string;
+  medios:     string;
+  resumen:    string;
+  supuestos:  string;
+}
+
+
+export interface IComponenteActividad {
+  actividades: number[];
+  componente:  string;
+}
+
