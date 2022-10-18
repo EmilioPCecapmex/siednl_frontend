@@ -35,9 +35,8 @@ export function TabEncabezado({
   cargaProposito,
   asignarComponente,
   asignarComponenteValor,
+
    cValor,
-   actividadesL,
-   actComp
 }: {
   show: boolean;
   resumenEncabezado: Function;
@@ -45,9 +44,7 @@ export function TabEncabezado({
   cargaProposito: Function;
   asignarComponente:Function;
   asignarComponenteValor:Function;
-  actividadesL: Function;
-  actComp: Function;
-
+ 
    cValor: Array<ICValor>;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
@@ -64,7 +61,6 @@ export function TabEncabezado({
   const [compActividad, setCompActividad] = useState <Array<ICompActividad>>([]);
   
  
-
 
   //saca la cantidad de componentes
   useEffect(() => {
@@ -88,15 +84,15 @@ export function TabEncabezado({
       let indexAct=0;
       for(let i=0;i<item.actividades;i++)
       {
-        // console.log(i);
+        //console.log(i);
+        
         
         indexAct++;
       }
-      // //  console.log(item.actividades);
-      //  console.log(indexAct);
-    });  
-    actividadesL(loadActividades)
-    actComp(compActividad)
+      //  console.log(item.actividades);
+       console.log(indexAct);
+    }); 
+    console.log(loadActividades);   
   }, [loadActividades])
   
 
@@ -539,7 +535,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://10.200.4.202:7000/upload", dataArray, {
+      .post("http://10.200.4.105:7000/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -597,7 +593,7 @@ export function TabEncabezado({
             supuestos: response.data.propositos[0].supuestos,
           },
         ]);
-        // console.log(response);
+        console.log(response);
         
         setLoadComponenteValor(response.data.componentes);
         setCompActividad(response.data.componenteActividad);
