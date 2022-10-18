@@ -35,8 +35,9 @@ export function TabEncabezado({
   cargaProposito,
   asignarComponente,
   asignarComponenteValor,
-
    cValor,
+   compAct,
+   actividadesMir,
 }: {
   show: boolean;
   resumenEncabezado: Function;
@@ -44,8 +45,9 @@ export function TabEncabezado({
   cargaProposito: Function;
   asignarComponente:Function;
   asignarComponenteValor:Function;
- 
    cValor: Array<ICValor>;
+   compAct: Function;
+   actividadesMir: Function;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
@@ -90,16 +92,9 @@ export function TabEncabezado({
         indexAct++;
       }
       //  console.log(item.actividades);
-       console.log(indexAct);
     }); 
-    console.log(loadActividades);   
   }, [loadActividades])
   
-
-
-
- 
-
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -535,7 +530,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://10.200.4.105:7000/upload", dataArray, {
+      .post("http://10.200.4.202:7000/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -551,14 +546,17 @@ export function TabEncabezado({
         getIdEstrategia(response.data.encabezado[0].estrategia);
         // console.log(response.data.encabezado[0].estrategia);
         // getLineasDeAccion(response.data.encabezado[0].estrategia)
-
         setTimeout(() => {
           getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
 
           setLoadingFile(false)
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
 
-        }, 1000);
+
+        }, 1500);
+
+        compAct(response.data.componenteActividad)
+
 
 
         setLoadFin([
@@ -593,11 +591,11 @@ export function TabEncabezado({
             supuestos: response.data.propositos[0].supuestos,
           },
         ]);
-        console.log(response);
         
         setLoadComponenteValor(response.data.componentes);
         setCompActividad(response.data.componenteActividad);
         setLoadActividades(response.data.actividades);
+        actividadesMir(response.data.actividades);
         
 
       })

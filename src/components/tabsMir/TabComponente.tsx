@@ -14,7 +14,7 @@ import { IComponente } from "./IComponente";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 
 export const TabComponente = ({ show, asignarComponente, asignarComponenteValor ,componentesMir, componenteValorMir }: 
-  { show: boolean, asignarComponente: Function, asignarComponenteValor:Function,componentesMir: number[];componenteValorMir: Array<IComponente>;}) => {
+  { show: boolean, asignarComponente: Function, asignarComponenteValor:Function,componentesMir: number[]; componenteValorMir: Array<IComponente>;}) => {
   // business logic-------------------------------------------------------------------------------
  // const [componentesMir, asignarComponente] = useState([1, 2]);
 
@@ -89,7 +89,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
   const [errorIndicador, setErrorIndicador] = useState(-1)
 
   const handleClickOpen = () => {
-      setPrevTextFormula(componenteValor[componentSelect - 1].formula);
+      setPrevTextFormula(componenteValorMir[componentSelect - 1].formula);
       setOpenFormulaDialog(true);
   };
 
@@ -98,12 +98,12 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
   };
 
   const changeFormula = (txt: string) => {
-    componenteValor[componentSelect - 1].formula = txt;
+    componenteValorMir[componentSelect - 1].formula = txt;
 
   };
 
   const evalueTxtIndicador = () => {
-    const cIndicador = componenteValor[componentSelect - 1].indicador?.toLowerCase();
+    const cIndicador = componenteValorMir[componentSelect - 1].indicador?.toLowerCase();
     if(cIndicador !== undefined){
       if (cIndicador.includes("porcentaje")) {
         setTipoFormula("Porcentaje");
@@ -303,7 +303,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
                 }
               sx={{ width: "30%" , boxShadow: 2}}
               label={"Indicador"}
-              value={componenteValor[componentSelect - 1].indicador}
+              value={componenteValorMir[componentSelect - 1].indicador}
               onBlur={() => evalueTxtIndicador()}
               onChange={(c) => {
                 componenteValorMir[componentSelect - 1].indicador = c.target.value;
@@ -327,7 +327,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
               rows={4}
               sx={{ width: "30%" , boxShadow: 2}}
               label={"Fórmula"}
-              value={componenteValor[componentSelect - 1].formula}
+              value={componenteValorMir[componentSelect - 1].formula}
               onClick={() => evalueTxtIndicador()}
               onChange={(c) => {
                 componenteValorMir[componentSelect - 1].formula = c.target.value;
