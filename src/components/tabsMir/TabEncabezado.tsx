@@ -32,11 +32,13 @@ export function TabEncabezado({
   resumenEncabezado,
   cargaFin,
   cargaProposito,
+  MIR
 }: {
   show: boolean;
   resumenEncabezado: Function;
   cargaFin: Function;
   cargaProposito: Function;
+  MIR: string;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
@@ -553,6 +555,21 @@ export function TabEncabezado({
     getInstituciones();
     getEjes();
     getBeneficiarios();
+    // console.log(MIR);
+    
+    // setEncabezado([
+    //   {
+    //     ejercicioFiscal: JSON.parse(MIR).encabezado.ejercicioFiscal,
+    //     institucion: institution,
+    //     programa: programa,
+    //     eje: eje,
+    //     tematica: tematica,
+    //     objetivo: objetivo,
+    //     estrategia: estrategia,
+    //     lineasDeAccion: lineaDeAccion[0]?.LineaDeAccion,
+    //     beneficiario: beneficiario,
+    //   },
+    // ]);
   }, []);
 
   useEffect(() => {

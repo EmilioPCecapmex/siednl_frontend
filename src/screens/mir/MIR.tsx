@@ -500,7 +500,9 @@ export const MIR = () => {
                               </Tooltip>
 
                               <Tooltip title="Editar">
-                                <IconButton>
+                                <IconButton onClick={() => {<FullModalMir show={true} MIR={JSON.parse(row.MIR).Encabezado.eje} />;
+                                }
+                                }>
                                   <EditIcon
                                     sx={[
                                       {
@@ -545,7 +547,7 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir />
+          <FullModalMir show={true} MIR={''} />
         </Box>
       )}
     </Box>
