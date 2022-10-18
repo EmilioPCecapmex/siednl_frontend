@@ -33,23 +33,23 @@ export function TabEncabezado({
   resumenEncabezado,
   cargaFin,
   cargaProposito,
-  MIR,
   asignarComponente,
   asignarComponenteValor,
    cValor,
    compAct,
    actividadesMir,
+   MIR
 }: {
   show: boolean;
   resumenEncabezado: Function;
   cargaFin: Function;
   cargaProposito: Function;
-  MIR: string;
   asignarComponente:Function;
   asignarComponenteValor:Function;
    cValor: Array<ICValor>;
    compAct: Function;
    actividadesMir: Function;
+   MIR: string;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
@@ -78,22 +78,15 @@ export function TabEncabezado({
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
-    //console.log(loadComponenteValor);
   }, [loadComponentes])
 
   useEffect(() => {
-    // console.log(loadActividades);
-  
     compActividad.map((item,index)=>{
       let indexAct=0;
       for(let i=0;i<item.actividades;i++)
       {
-        //console.log(i);
-        
-        
         indexAct++;
       }
-      //  console.log(item.actividades);
     }); 
   }, [loadActividades])
   
@@ -237,7 +230,7 @@ export function TabEncabezado({
       </Alert>
     );
   };
-  const [uploadFile, setUploadFile] = React.useState("");
+  const [uploadFile, setUploadFile] = React.useState(JSON.parse(MIR));
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
@@ -433,8 +426,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setEje(r.data.data[0].Eje);
-        getTematicas(r.data.data[0].Id);
+        setEje(r.data.data[0]?.Eje);
+        getTematicas(r.data.data[0]?.Id);
         setDisabledTematicas(false);
       });
   };
@@ -450,8 +443,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setTematica(r.data.data[0].Tematica);
-        getObjetivos(r.data.data[0].Id);
+        setTematica(r.data.data[0]?.Tematica);
+        getObjetivos(r.data.data[0]?.Id);
         setDisabledObjetivos(false);
       });
   };
@@ -467,8 +460,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setObjetivo(r.data.data[0].Objetivo);
-        getEstrategias(r.data.data[0].Id);
+        setObjetivo(r.data.data[0]?.Objetivo);
+        getEstrategias(r.data.data[0]?.Id);
         setDisabledEstrategias(false);
       });
   };
@@ -484,8 +477,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setEstrategia(r.data.data[0].Estrategia);
-        getLineasDeAccion(r.data.data[0].Id);
+        setEstrategia(r.data.data[0]?.Estrategia);
+        getLineasDeAccion(r.data.data[0]?.Id);
       });
   };
   const getIdLineaDeAccion = (Description: string) => {
@@ -608,20 +601,6 @@ export function TabEncabezado({
     getEjes();
     getBeneficiarios();
     // console.log(MIR);
-    
-    // setEncabezado([
-    //   {
-    //     ejercicioFiscal: JSON.parse(MIR).encabezado.ejercicioFiscal,
-    //     institucion: institution,
-    //     programa: programa,
-    //     eje: eje,
-    //     tematica: tematica,
-    //     objetivo: objetivo,
-    //     estrategia: estrategia,
-    //     lineasDeAccion: lineaDeAccion[0]?.LineaDeAccion,
-    //     beneficiario: beneficiario,
-    //   },
-    // ]);
   }, []);
 
   useEffect(() => {
@@ -649,6 +628,28 @@ export function TabEncabezado({
     lineaDeAccion,
     beneficiario,
   ]);
+
+  useEffect(() => {
+    resumenEncabezado(encabezado);
+  }, [encabezado]);
+
+  useEffect(() => {
+    console.log(JSON.parse(MIR));
+    
+    setEncabezado([
+      {
+        beneficiario: JSON.parse(MIR).Encabezado.beneficiario,
+        eje: JSON.parse(MIR).Encabezado.eje,
+        ejercicioFiscal: JSON.parse(MIR).Encabezado.ejercicioFiscal,
+        estrategia: JSON.parse(MIR).Encabezado.estrategia,
+        institucion: JSON.parse(MIR).Encabezado.institucion,
+        objetivo: JSON.parse(MIR).Encabezado.objetivo,
+        programa: JSON.parse(MIR).Encabezado.programa,
+        tematica: JSON.parse(MIR).Encabezado.tematica,
+        lineasDeAccion: '',
+      },
+    ]);
+  }, [MIR]);
 
   useEffect(() => {
     resumenEncabezado(encabezado);
@@ -687,7 +688,7 @@ export function TabEncabezado({
           size="small"
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
-          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal }}
+          value={{ Id: catalogoAniosFiscales[0]?.Id, AnioFiscal: anioFiscal }}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;
@@ -801,7 +802,7 @@ export function TabEncabezado({
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion}
           value={{
-            Id: catalogoInstituciones[0].Id,
+            Id: catalogoInstituciones[0]?.Id,
             NombreInstitucion: institution,
           }}
           size="small"
@@ -850,7 +851,7 @@ export function TabEncabezado({
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma}
-          value={{ Id: catalogoProgramas[0].Id, NombrePrograma: programa }}
+          value={{ Id: catalogoProgramas[0]?.Id, NombrePrograma: programa }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
@@ -896,7 +897,7 @@ export function TabEncabezado({
           size="small"
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje}
-          value={{ Id: catalogoEjes[0].Id, Eje: eje }}
+          value={{ Id: catalogoEjes[0]?.Id, Eje: eje }}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;
@@ -946,7 +947,7 @@ export function TabEncabezado({
           size="small"
           getOptionLabel={(option) => option.Tematica}
           value={{
-            IdTematica: catalogoTematicas[0].IdTematica,
+            IdTematica: catalogoTematicas[0]?.IdTematica,
             Tematica: tematica,
           }}
           getOptionDisabled={(option) => {
@@ -1002,7 +1003,7 @@ export function TabEncabezado({
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo}
           value={{
-            IdObjetivo: catalogoObjetivos[0].IdObjetivo,
+            IdObjetivo: catalogoObjetivos[0]?.IdObjetivo,
             Objetivo: objetivo,
           }}
           size="small"
@@ -1054,7 +1055,7 @@ export function TabEncabezado({
           size="small"
           getOptionLabel={(option) => option.Estrategia}
           value={{
-            IdEstrategia: catalogoEstrategias[0].IdEstrategia,
+            IdEstrategia: catalogoEstrategias[0]?.IdEstrategia,
             Estrategia: estrategia,
           }}
           renderOption={(props, option) => {
@@ -1160,7 +1161,7 @@ export function TabEncabezado({
           options={catalogoBeneficiarios}
           getOptionLabel={(option) => option.Beneficiario}
           value={{
-            Id: catalogoBeneficiarios[0].Id,
+            Id: catalogoBeneficiarios[0]?.Id,
             Beneficiario: beneficiario,
           }}
           renderOption={(props, option) => {

@@ -22,8 +22,9 @@ import { IComponente } from "./IComponente";
 import { IActividades } from "./ICompActividad";
 import { ICValor } from "./ICValor";
 import { TabResumen2 } from "./TabResumen2";
+import { IMIR } from "./IMIR";
 
-export default function FullModalMir({show, MIR }: {show: boolean; MIR: string }) {
+export default function FullModalMir({MIR }: { MIR: string }) {
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
@@ -100,13 +101,6 @@ export default function FullModalMir({show, MIR }: {show: boolean; MIR: string }
     setCValor(state);
   };
 
-  // const asignarCValorEncabezado = (state: Array<ICValor>, index:number, actividades: Array<IActividades>) => {
-  //   let v=cValor;
-  //   v[0].componentes[index]=actividades;
-  //   setCValor(v);
-
-  // };
-
   useEffect(() => {
     let array = componentes.map((x) => {
       return {
@@ -119,7 +113,7 @@ export default function FullModalMir({show, MIR }: {show: boolean; MIR: string }
       };
     });
     setComponenteValor(array);
-    console.log(MIR);
+    // console.log(MIR);
     
   }, []);
 
@@ -149,7 +143,6 @@ export default function FullModalMir({show, MIR }: {show: boolean; MIR: string }
   //----------------------------------------------------------------------------------------------
   return (
     <Box
-    visibility={show ? "visible" : "hidden"}
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
@@ -244,10 +237,10 @@ export default function FullModalMir({show, MIR }: {show: boolean; MIR: string }
             resumenEncabezado={resumenEncabezado}
             cargaFin={loadFin}
             cargaProposito={loadProposito}
-            MIR={MIR}
             asignarComponente={asignarComponente}
             asignarComponenteValor={asignarComponenteValor}
             cValor={cValor}
+            MIR={MIR}
           ></TabEncabezado>
           <TabFinProposito
             show={value === 20 ? true : false}

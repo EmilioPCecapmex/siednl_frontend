@@ -66,6 +66,18 @@ export const MIR = () => {
       Estado: "",
     },
   ]);
+  const [mirEdit, setMirEdit] = useState([
+    {
+      Id: "",
+      AnioFiscal: "",
+      Institucion: "",
+      Programa: "",
+      Eje: "",
+      Tematica: "",
+      MIR: "",
+      Estado: "",
+    },
+  ]);
 
   //
   const [mirsFiltered, setMirsFiltered] = useState([
@@ -85,7 +97,7 @@ export const MIR = () => {
 
   // Filtrado por caracter
   const findText = () => {
-    if (txtFiltered !== '') {
+    if (txtFiltered !== "") {
       setMirsFiltered(
         mirs.filter(
           (x) =>
@@ -144,7 +156,7 @@ export const MIR = () => {
 
   const getMIRs = () => {
     axios
-      .get("http://localhost:8000/api/mir", {
+      .get("http://10.200.4.105:8000/api/mir", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -258,7 +270,7 @@ export const MIR = () => {
                 )}
                 onChange={(event, value) => {
                   setAnioFiscal(value?.AnioFiscal as string);
-                  setTxtFiltered(value?.AnioFiscal as string || '');
+                  setTxtFiltered((value?.AnioFiscal as string) || "");
                 }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
@@ -301,9 +313,9 @@ export const MIR = () => {
                     }}
                   ></TextField>
                 )}
-                onChange={(event, value) =>{
+                onChange={(event, value) => {
                   setProgramaPresupuestario(value?.NombrePrograma as string);
-                  setTxtFiltered(value?.NombrePrograma as string || '');
+                  setTxtFiltered((value?.NombrePrograma as string) || "");
                 }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
@@ -314,17 +326,17 @@ export const MIR = () => {
                 disablePortal
                 size="small"
                 options={catalogoInstituciones}
-                getOptionLabel={(option) => option.NombreInstitucion}
+                getOptionLabel={(option) => option?.NombreInstitucion}
                 renderOption={(props, option) => {
                   return (
-                    <li {...props} key={option.Id}>
+                    <li {...props} key={option?.Id}>
                       <div
                         style={{
                           fontFamily: "MontserratRegular",
                           fontSize: ".8vw",
                         }}
                       >
-                        {option.NombreInstitucion}
+                        {option?.NombreInstitucion}
                       </div>
                     </li>
                   );
@@ -334,7 +346,7 @@ export const MIR = () => {
                     {...params}
                     label="Institución"
                     placeholder="Institución"
-                    onChange={(v) => setTxtFiltered(v.target.value)}
+                    onChange={(v) => setTxtFiltered(v?.target.value)}
                     InputLabelProps={{
                       style: {
                         fontFamily: "MontserratSemiBold",
@@ -343,11 +355,13 @@ export const MIR = () => {
                     }}
                   ></TextField>
                 )}
-                onChange={(event, value) =>{
+                onChange={(event, value) => {
                   setInstitution(value?.NombreInstitucion as string);
-                  setTxtFiltered(value?.NombreInstitucion as string || '');
+                  setTxtFiltered((value?.NombreInstitucion as string) || "");
                 }}
-                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+                isOptionEqualToValue={(option, value) =>
+                  option?.Id === value?.Id
+                }
               />
             </Box>
 
@@ -456,7 +470,11 @@ export const MIR = () => {
                           <TableCell align="center">
                             <Box sx={{ display: "flex" }}>
                               <Tooltip title="Eliminar">
-                                <IconButton>
+                                <IconButton
+                                  disabled={
+                                    row.Estado === "En Revisión" ? true : false
+                                  }
+                                >
                                   <DeleteIcon
                                     sx={[
                                       {
@@ -470,7 +488,11 @@ export const MIR = () => {
                               </Tooltip>
 
                               <Tooltip title="Enviar">
-                                <IconButton>
+                                <IconButton
+                                  disabled={
+                                    row.Estado === "En Revisión" ? true : false
+                                  }
+                                >
                                   <SendIcon
                                     sx={[
                                       {
@@ -500,9 +522,24 @@ export const MIR = () => {
                               </Tooltip>
 
                               <Tooltip title="Editar">
-                                <IconButton onClick={() => {<FullModalMir show={true} MIR={JSON.parse(row.MIR).Encabezado.eje} />;
-                                }
-                                }>
+                                <IconButton
+                                  disabled={
+                                    row.Estado === "En Revisión" ? true : false
+                                  }
+                                  onClick={() =>
+                                    {setMirEdit([{
+                                      Id: row.AnioFiscal,
+                                      AnioFiscal: row.AnioFiscal,
+                                      Institucion: row.Institucion,
+                                      Programa: row.Programa,
+                                      Eje: row.Eje,
+                                      Tematica: row.Tematica,
+                                      MIR: row.MIR,
+                                      Estado: row.Estado,
+                                    }]);
+                                    setShowResume(false)}
+                                  }
+                                >
                                   <EditIcon
                                     sx={[
                                       {
@@ -547,7 +584,7 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir show={true} MIR={''} />
+          <FullModalMir MIR={mirEdit[0].MIR} />
         </Box>
       )}
     </Box>
