@@ -380,12 +380,10 @@ export default function ModalVincularUsuario({
                   ml: "2vw",
                 }}
               >
-                <InputLabel id="demo-simple-select-label">
+                <InputLabel>
                   Institución
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
                   value={institution}
                   label="Institución"
                   onChange={(x) => setInstitution(x.target.value)}
@@ -418,12 +416,10 @@ export default function ModalVincularUsuario({
                   mr: "2vw",
                 }}
               >
-                <InputLabel id="demo-simple-select-label">
+                <InputLabel>
                   Tipo de Usuario
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
                   value={userType}
                   label="Tipo de Usuario"
                   onChange={(x) => setUserType(x.target.value)}

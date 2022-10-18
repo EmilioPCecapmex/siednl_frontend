@@ -1,33 +1,45 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
-import TabResumen2 from "./TabResumen2";
-import {ICValor} from "./ICValor"
 import { IActividades } from "./ICompActividad";
+import { ICValor } from "./ICValor";
+import { TabResumen2 } from "./TabResumen2";
 
-export default function FullModalMir() {
-
-  const [actividadesL, setActividadesL] = useState<Array<IActividadesLoad>>([])
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([])
-
+export default function FullModalMir({show, MIR }: {show: boolean; MIR: string }) {
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
 
+  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([])
+  const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>([])
+
+
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
 
-  const asignarComponente=( state:[])=>{
+  const asignarComponente = (state: []) => {
     setComponentes(state);
-  }
+  };
 
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
     componentes.map((x) => {
@@ -44,7 +56,6 @@ export default function FullModalMir() {
 
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
-
   };
 
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -75,18 +86,18 @@ export default function FullModalMir() {
     })
   );
 
-  const asignarActividadesM=(state: number[])=>{
+  const asignarActividadesM = (state: number[]) => {
     setActividades(state);
-  }
-  
-  const asignarComponenteActividadM=(state:{ componentes: number[][]; }[])=>{
-    setComponenteActividad(state);
-  }
+  };
 
+  const asignarComponenteActividadM = (
+    state: { componentes: number[][] }[]
+  ) => {
+    setComponenteActividad(state);
+  };
 
   const asignarCValor = (state: Array<ICValor>) => {
     setCValor(state);
-
   };
 
   // const asignarCValorEncabezado = (state: Array<ICValor>, index:number, actividades: Array<IActividades>) => {
@@ -108,34 +119,37 @@ export default function FullModalMir() {
       };
     });
     setComponenteValor(array);
+    console.log(MIR);
+    
   }, []);
 
-  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([])
-  const [fin, setFin] = useState<Array<IFin>>([])
-  const [proposito, setProposito] = useState<Array<IProposito>>([])
-  const [cargaFin, setCargaFin] = useState<Array<IFin>>([])
-  const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([])
+  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
+  const [fin, setFin] = useState<Array<IFin>>([]);
+  const [proposito, setProposito] = useState<Array<IProposito>>([]);
+  const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
+  const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([]);
 
-  const resumenEncabezado = (arr:Array<IEncabezado>) => {
+  const resumenEncabezado = (arr: Array<IEncabezado>) => {
     setEncabezado(arr);
   };
-  const resumenFin = (arr:Array<IFin>) => {
+  const resumenFin = (arr: Array<IFin>) => {
     setFin(arr);
   };
-  const resumenProposito = (arr:Array<IProposito>) => {
+  const resumenProposito = (arr: Array<IProposito>) => {
     setProposito(arr);
   };
-  const loadFin = (arr:Array<IFin>) => {
+  const loadFin = (arr: Array<IFin>) => {
     setCargaFin(arr);
   };
-  const loadProposito = (arr:Array<IProposito>) => {
+  const loadProposito = (arr: Array<IProposito>) => {
     setCargaProposito(arr);
   };
 
-  
+
   //----------------------------------------------------------------------------------------------
   return (
     <Box
+    visibility={show ? "visible" : "hidden"}
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
@@ -223,20 +237,61 @@ export default function FullModalMir() {
             height: "77vh",
           }}
         >
-          <TabEncabezado actComp={setCompAct} actividadesL={setActividadesL} show={value === 10 ? true : false} resumenEncabezado={resumenEncabezado} cargaFin={loadFin} cargaProposito={loadProposito} asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} cValor={cValor}></TabEncabezado>
-          <TabFinProposito show={value === 20 ? true : false} resumenFin={resumenFin} resumenProposito={resumenProposito} cargaFin={cargaFin} cargaProposito={cargaProposito}></TabFinProposito>
-          <TabResumen2 show={value === 50 ? true : false} componentes={componentes} componenteValor={componenteValor} cValor={cValor} asignarCValor={asignarCValor} encabezado={encabezado} fin={fin} proposito={proposito}></TabResumen2>
-           <TabComponente show={value === 30 ? true : false } asignarComponente={asignarComponente} asignarComponenteValor={asignarComponenteValor} componentesMir={componentes} componenteValorMir={componenteValor}></TabComponente>
-          <TabActividades actComp={compAct} actividadesL={actividadesL} show={value === 40 ? true : false} componentes={componentes} asignarCValor={asignarCValor}></TabActividades>
+          <TabEncabezado
+          actividadesMir={setActividadesMir}
+          compAct={setCompAct}
+            show={value === 10 ? true : false}
+            resumenEncabezado={resumenEncabezado}
+            cargaFin={loadFin}
+            cargaProposito={loadProposito}
+            MIR={MIR}
+            asignarComponente={asignarComponente}
+            asignarComponenteValor={asignarComponenteValor}
+            cValor={cValor}
+          ></TabEncabezado>
+          <TabFinProposito
+            show={value === 20 ? true : false}
+            resumenFin={resumenFin}
+            resumenProposito={resumenProposito}
+            cargaFin={cargaFin}
+            cargaProposito={cargaProposito}
+          ></TabFinProposito>
+          <TabResumen2
+            show={value === 50 ? true : false}
+            componentes={componentes}
+            componenteValor={componenteValor}
+            cValor={cValor}
+            asignarCValor={asignarCValor}
+            encabezado={encabezado}
+            fin={fin}
+            proposito={proposito}
+          ></TabResumen2>
+          <TabComponente
+            show={value === 30 ? true : false}
+            asignarComponente={asignarComponente}
+            asignarComponenteValor={asignarComponenteValor}
+            componentesMir={componentes}
+            componenteValorMir={componenteValor}
+          ></TabComponente>
+          <TabActividades
+          actividadesMir={actividadesMir}
+          compAct={compAct}
+            show={value === 40 ? true : false}
+            componentes={componentes}
+            asignarCValor={asignarCValor}
+          ></TabActividades>
         </Box>
       </Box>
     </Box>
   );
 }
 
+export interface IComponenteActividad {
+  actividades: number[];
+  componente:  string;
+}
 
-
-export interface IActividadesLoad {
+export interface IActividadesMir {
   actividad:  string;
   formula:    string;
   frecuencia: string;
@@ -244,11 +299,5 @@ export interface IActividadesLoad {
   medios:     string;
   resumen:    string;
   supuestos:  string;
-}
-
-
-export interface IComponenteActividad {
-  actividades: number[];
-  componente:  string;
 }
 

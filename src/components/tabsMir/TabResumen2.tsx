@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import {
-  
   Box,
- 
   Typography,
- 
   Button,
 } from "@mui/material";
-import * as React from "react";
-
 import axios from "axios";
-import { grid } from "@mui/system";
 import { IEncabezado } from "./TabEncabezado";
 import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
 import { IFin, IProposito } from "./TabFinProposito";
 import { IMIR } from "./IMIR";
+import Swal from "sweetalert2";
+import ModalEnviarMIR from "../modalEnviarMIR/ModalEnviarMIR";
 
 export function TabResumen2({
   show,
@@ -36,32 +32,42 @@ export function TabResumen2({
   cValor: Array<ICValor>;
   asignarCValor: Function;
 }) {
-
-
-
   const [MIR, setMIR] = useState<IMIR>();
+  const [openModalEnviar, setOpenModalEnviar] = useState(false);
+  const handleCloseEnviar = () => {
+    setOpenModalEnviar(false);
+  };
 
-  let asignarMIR = (encabezadoM: Array<IEncabezado>, finM: Array<IFin>, propositoM: Array<IProposito>, componentesM: Array<IComponente>, actividadesM: Array<ICValor>) => {
+  let asignarMIR = (
+    encabezadoM: Array<IEncabezado>,
+    finM: Array<IFin>,
+    propositoM: Array<IProposito>,
+    componentesM: Array<IComponente>,
+    actividadesM: Array<ICValor>
+  ) => {
     setMIR({
       Encabezado: encabezadoM[0],
       Fin: finM[0],
       Proposito: propositoM[0],
       Componentes: componentesM,
-      Actividades: actividadesM[0]
-    })
-  }
+      Actividades: actividadesM[0],
+    });
+  };
 
-
-  const createMIR = () => {
-    //console.log(MIR);
+  const createMIR = (estado: string) => {
     
     axios
       .post(
         "http://localhost:8000/api/create-mir",
         {
           MIR: JSON.stringify(MIR),
-          Estado: "revision",
+          Estado: estado,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          AnioFiscal: MIR?.Encabezado.ejercicioFiscal,
+          Institucion: MIR?.Encabezado.institucion,
+          Programa: MIR?.Encabezado.programa,
+          Eje: MIR?.Encabezado.eje,
+          Tematica: MIR?.Encabezado.tematica,
         },
         {
           headers: {
@@ -70,13 +76,18 @@ export function TabResumen2({
         }
       )
       .then((r) => {
-        console.log(r);
-        
+        Toast.fire({
+          icon: "success",
+          title: "MIR generada con éxito",
+        });
+
       })
-      .catch((err) =>
-        console.log(err)
-        
-      );
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        });
+      });
   };
 
   useEffect(() => {
@@ -86,12 +97,22 @@ export function TabResumen2({
       proposito,
       componenteValor,
       cValor)
-    //console.log(MIR);
 
   }, [encabezado,componenteValor]);
 
 
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   return (
     <Box
@@ -561,9 +582,7 @@ export function TabResumen2({
 
           {componentes.map((index) => {
             return (
-              <Box
-              key={index}>
-                
+              <Box key={index}>
                 <Typography
                   sx={{
                     fontFamily: "MontserratMedium",
@@ -721,8 +740,7 @@ export function TabResumen2({
             return item.actividades.map((value, indexActividades) => {
               i++;
               return (
-                <Box
-                key={i}>
+                <Box key={indexActividades}>
                   <Typography
                     sx={{
                       fontFamily: "MontserratMedium",
@@ -907,12 +925,26 @@ export function TabResumen2({
         <Button color="error" variant="outlined">
           Cancelar
         </Button>
-        <Button color="warning" variant="outlined">
+        <Button
+          color="warning"
+          variant="outlined"
+          onClick={() => createMIR('Borrador')}
+        >
           Borrador
         </Button>
-        <Button color="success" variant="outlined" onClick={() => createMIR()}>
+        <Button
+          color="success"
+          variant="outlined"
+          onClick={() => setOpenModalEnviar(true)}
+        >
           Enviar
         </Button>
+
+        <ModalEnviarMIR
+          open={openModalEnviar}
+          handleClose={handleCloseEnviar}
+          MIR={JSON.stringify(MIR)}
+        ></ModalEnviarMIR>
       </Box>
     </Box>
   );

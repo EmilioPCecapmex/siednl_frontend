@@ -33,22 +33,23 @@ export function TabEncabezado({
   resumenEncabezado,
   cargaFin,
   cargaProposito,
+  MIR,
   asignarComponente,
   asignarComponenteValor,
    cValor,
-   actividadesL,
-   actComp
+   compAct,
+   actividadesMir,
 }: {
   show: boolean;
   resumenEncabezado: Function;
   cargaFin: Function;
   cargaProposito: Function;
+  MIR: string;
   asignarComponente:Function;
   asignarComponenteValor:Function;
-  actividadesL: Function;
-  actComp: Function;
-
    cValor: Array<ICValor>;
+   compAct: Function;
+   actividadesMir: Function;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
@@ -64,7 +65,6 @@ export function TabEncabezado({
   const [compActividad, setCompActividad] = useState <Array<ICompActividad>>([]);
   
  
-
 
   //saca la cantidad de componentes
   useEffect(() => {
@@ -88,22 +88,15 @@ export function TabEncabezado({
       let indexAct=0;
       for(let i=0;i<item.actividades;i++)
       {
-        // console.log(i);
+        //console.log(i);
+        
         
         indexAct++;
       }
-      // //  console.log(item.actividades);
-      //  console.log(indexAct);
-    });  
-    actividadesL(loadActividades)
-    actComp(compActividad)
+      //  console.log(item.actividades);
+    }); 
   }, [loadActividades])
   
-
-
-
- 
-
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -195,10 +188,10 @@ export function TabEncabezado({
   const [tematica, setTematica] = useState("Selecciona");
   const [objetivo, setObjetivo] = useState("Selecciona");
   const [estrategia, setEstrategia] = useState("Selecciona");
-  // const [lineaDeAccion, setLineaDeAccion] = useState([
-  //   { IdLineasdeAccion: "", LineaDeAccion: "Selecciona" },
-  // ]);
-  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>([]);
+
+  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
+    []
+  );
   const [beneficiario, setBeneficiario] = useState("Selecciona");
 
   //Catalogos
@@ -379,7 +372,6 @@ export function TabEncabezado({
       })
       .then((r) => {
         setCatalogoLineasDeAccion(r.data.data);
-
       })
       .catch((err) => {
         setDisabledLineasDeAccion(true);
@@ -510,7 +502,6 @@ export function TabEncabezado({
       .then((r) => {
         setLineaDeAccion(r.data.data);
         setDisabledLineasDeAccion(false);
-
       });
   };
   const getIdBeneficiario = (Description: string) => {
@@ -533,7 +524,7 @@ export function TabEncabezado({
   const submitForm = (event: any) => {
     setDisabledButton(true);
     event.preventDefault();
-    setLoadingFile(true)
+    setLoadingFile(true);
 
     const dataArray = new FormData();
     dataArray.append("file", uploadFile);
@@ -545,7 +536,6 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
-        // console.log(response.data);
         getIdInstitucion(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);
@@ -553,16 +543,17 @@ export function TabEncabezado({
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
-        // console.log(response.data.encabezado[0].estrategia);
         // getLineasDeAccion(response.data.encabezado[0].estrategia)
-
         setTimeout(() => {
           getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
 
           setLoadingFile(false)
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
 
-        }, 1000);
+
+        }, 1500);
+
+        compAct(response.data.componenteActividad)
 
 
         setLoadFin([
@@ -597,11 +588,11 @@ export function TabEncabezado({
             supuestos: response.data.propositos[0].supuestos,
           },
         ]);
-        // console.log(response);
-        
+
         setLoadComponenteValor(response.data.componentes);
         setCompActividad(response.data.componenteActividad);
         setLoadActividades(response.data.actividades);
+        actividadesMir(response.data.actividades);
         
 
       })
@@ -616,6 +607,21 @@ export function TabEncabezado({
     getInstituciones();
     getEjes();
     getBeneficiarios();
+    // console.log(MIR);
+    
+    // setEncabezado([
+    //   {
+    //     ejercicioFiscal: JSON.parse(MIR).encabezado.ejercicioFiscal,
+    //     institucion: institution,
+    //     programa: programa,
+    //     eje: eje,
+    //     tematica: tematica,
+    //     objetivo: objetivo,
+    //     estrategia: estrategia,
+    //     lineasDeAccion: lineaDeAccion[0]?.LineaDeAccion,
+    //     beneficiario: beneficiario,
+    //   },
+    // ]);
   }, []);
 
   useEffect(() => {
@@ -656,6 +662,8 @@ export function TabEncabezado({
   const [loadingFile, setLoadingFile] = useState(false)
 
   return (
+   
+      
     <Box
       visibility={show ? "visible" : "hidden"}
       position="absolute"
@@ -1105,9 +1113,7 @@ export function TabEncabezado({
           limitTags={4}
           value={lineaDeAccion}
           options={catalogoLineasDeAccion}
-          isOptionEqualToValue={(option, value) =>
-            value.Id === option.Id
-          }
+          isOptionEqualToValue={(option, value) => value.Id === option.Id}
           getOptionLabel={(option) => option.LineaDeAccion}
           renderOption={(props, option) => {
             return (
@@ -1194,16 +1200,18 @@ export function TabEncabezado({
           }
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
+        
       </FormControl>
+ 
+      
     </Box>
+    
   );
 }
 
 export default TabEncabezado;
 
-
 export interface ILineasDeAccion {
   Id: string;
   LineaDeAccion: string;
 }
-
