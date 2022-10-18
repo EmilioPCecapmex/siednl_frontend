@@ -57,10 +57,6 @@ export function TabResumen({
 
   const [openComponentes, setOpenComponentes] = useState(false);
 
-  // useEffect(() => {
-  //   console.log(cValor)
-  // }, [cValor,componentes])
-
   useEffect(() => {
     if (show === true && componentes.length > cValor[0].componentes.length) {
       let restantes = componentes.length - cValor[0].componentes.length;

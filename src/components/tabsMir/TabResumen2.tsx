@@ -1,24 +1,14 @@
 import { useEffect, useState } from "react";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
+  
   Box,
-  IconButton,
+ 
   Typography,
-  TextField,
-  Divider,
-  List,
-  ListItemButton,
+ 
   Button,
 } from "@mui/material";
 import * as React from "react";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import StarBorder from "@mui/icons-material/StarBorder";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+
 import axios from "axios";
 import { grid } from "@mui/system";
 import { IEncabezado } from "./TabEncabezado";
@@ -571,7 +561,9 @@ export function TabResumen2({
 
           {componentes.map((index) => {
             return (
-              <Box>
+              <Box
+              key={index}>
+                
                 <Typography
                   sx={{
                     fontFamily: "MontserratMedium",
@@ -725,9 +717,12 @@ export function TabResumen2({
           </Typography>
 
           {cValor[0]?.componentes.map((item, indexComponentes) => {
+            let i=0;
             return item.actividades.map((value, indexActividades) => {
+              i++;
               return (
-                <Box>
+                <Box
+                key={i}>
                   <Typography
                     sx={{
                       fontFamily: "MontserratMedium",
