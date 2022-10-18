@@ -1,26 +1,10 @@
 import { useEffect, useState } from "react";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
-  IconButton,
   Typography,
-  TextField,
-  Divider,
-  List,
-  ListItemButton,
   Button,
 } from "@mui/material";
-import * as React from "react";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import StarBorder from "@mui/icons-material/StarBorder";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import axios from "axios";
-import { grid } from "@mui/system";
 import { IEncabezado } from "./TabEncabezado";
 import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";

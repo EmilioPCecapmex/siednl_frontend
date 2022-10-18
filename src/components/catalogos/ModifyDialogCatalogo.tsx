@@ -235,10 +235,8 @@ export const ModifyDialogCatalogos = ({
             />
 
 
-            <InputLabel id="demo-simple-select-label">Institución</InputLabel>
+            <InputLabel >Institución</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               sx={descripcion.length < 20 ? {width: '60%'} : {width: '80%'}}
               value={institution}
               label="Institución"

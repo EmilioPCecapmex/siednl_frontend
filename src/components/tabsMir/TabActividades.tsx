@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
-  Button,
-  ButtonGroup,
   IconButton,
   Typography,
   List,
@@ -358,9 +353,6 @@ export const TabActividades = ({
           >
             {/* Renderizado de Actividades */}
 
-            {/* <Box>
-              <Typography>Actividad {actividadSelect + 1} - Componente {parseInt(componenteSelect) + 1}</Typography>
-            </Box> */}
             <Box
                       sx={{
                         width: "100%",

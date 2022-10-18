@@ -364,10 +364,8 @@ export default function ModalCrearUsuario({
               ml: "2vw",
             }}
           >
-            <InputLabel id="demo-simple-select-label">Institución</InputLabel>
+            <InputLabel>Institución</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               value={institution}
               label="Institución"
               onChange={(x) => setInstitution(x.target.value)}
@@ -400,12 +398,10 @@ export default function ModalCrearUsuario({
               mr: "2vw",
             }}
           >
-            <InputLabel id="demo-simple-select-label">
+            <InputLabel>
               Tipo de Usuario
             </InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               value={userType}
               label="Tipo de Usuario"
               onChange={(x) => setUserType(x.target.value)}
