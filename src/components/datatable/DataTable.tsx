@@ -280,12 +280,7 @@ export const DataTable = ({
 
                   <TableCell sx={{ height: "auto" }}>
                     <Box display={"flex"}>
-
-                    <AppsDialog
-                        id={row.Id}
-                        actualizado={actualizaContador}
-                      />
-
+                      <AppsDialog id={row.Id} actualizado={actualizaContador} />
 
                       <DeleteDialog
                         deleteText="usuario"
@@ -293,21 +288,22 @@ export const DataTable = ({
                         actualizado={actualizaContador}
                       />
 
-<Tooltip title="Editar">
-
-                      <IconButton
-                        onClick={() => handleClickOpen(row.IdUsuarioTiCentral)}
-                      >
-                        <EditIcon
-                          sx={[
-                            {
-                              "&:hover": {
-                                color: "red",
+                      <Tooltip title="Editar">
+                        <IconButton
+                          onClick={() =>
+                            handleClickOpen(row.IdUsuarioTiCentral)
+                          }
+                        >
+                          <EditIcon
+                            sx={[
+                              {
+                                "&:hover": {
+                                  color: "red",
+                                },
                               },
-                            },
-                          ]}
-                        />
-                      </IconButton>
+                            ]}
+                          />
+                        </IconButton>
                       </Tooltip>
                     </Box>
                   </TableCell>
