@@ -160,7 +160,10 @@ useEffect(() => {
   };
 
   const agregarAFnc = (index: number) => {
-    if (actividades.length + 1 < 7) {
+    let act = cValor[0].componentes[componenteSelect].actividades;
+    let v = act.length;
+
+    if (v < 7) {
       let a = [...actividades];
       a.push(actividades.length + 1);
       setActividades(a);
