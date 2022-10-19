@@ -103,6 +103,13 @@ export default function FullModalMir({MIR }: { MIR: string }) {
     setCValor(state);
   };
 
+  // const asignarCValorEncabezado = (state: Array<ICValor>, index:number, actividades: Array<IActividades>) => {
+  //   let v=cValor;
+  //   v[0].componentes[index]=actividades;
+  //   setCValor(v);
+
+  // };
+
   useEffect(() => {
     let array = componentes.map((x) => {
       return {
@@ -115,7 +122,7 @@ export default function FullModalMir({MIR }: { MIR: string }) {
       };
     });
     setComponenteValor(array);
-    // console.log(MIR);
+    console.log(MIR);
     
   }, []);
 

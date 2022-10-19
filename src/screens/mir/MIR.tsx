@@ -43,7 +43,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
 
-  const renglonesPagina = 6;
+  const renglonesPagina = 4;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   // Realiza el cambio de pagina
@@ -172,7 +172,6 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
         },
       })
       .then((r) => {
-        
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -206,7 +205,6 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
-    
   };
 
   return (
@@ -476,10 +474,10 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
 
                   <TableBody>
                     {mirsFiltered
-                      // .slice(
-                      //   page * rowsPerPage,
-                      //   page * rowsPerPage + rowsPerPage
-                      // )
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
                       .map((row, index) => (
                         <TableRow key={index}>
                           <TableCell>{row.AnioFiscal}</TableCell>
@@ -490,53 +488,9 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                           <TableCell align="center">{row.Estado}</TableCell>
 
                           <TableCell align="center">
-                            <Box sx={{ display: "flex" }}>
-                              <Tooltip title="Eliminar">
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "En Revisión"
-                                        ? true
-                                        : false
-                                    }
-                                  >
-                                    <DeleteIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "red",
-                                          },
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
-                              <Tooltip title="Enviar">
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "En Revisión"
-                                        ? true
-                                        : false
-                                    }
-                                  >
-                                    <SendIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "lightGreen",
-                                          },
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-                            </Box>
-
-                            <Box sx={{ display: "flex" }}>
+                            <Box
+                              sx={{ display: "flex", justifyContent: "center" }}
+                            >
                               <Tooltip title="Descargar">
                                 <span>
                                   <IconButton>
@@ -552,7 +506,16 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
+                            </Box>
 
+                            <Box sx={{ display: "flex" }}>
+                              <DeleteDialogMIR
+                                disab={
+                                  row.Estado === "En Revisión" ? true : false
+                                }
+                                id={row.ID}
+                                actualizado={actualizaContador}
+                              />
                               <Tooltip title="Editar">
                                 <span>
                                   <IconButton

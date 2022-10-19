@@ -41,7 +41,6 @@ export const DeleteDialogMIR = ({
   };
 
   const deleteMIR = () => {
-    
     axios
       .delete("http://localhost:8000/api/delete-mir", {
         data: {
@@ -69,7 +68,7 @@ export const DeleteDialogMIR = ({
 
   return (
     <Box>
-      <IconButton onClick={handleClickOpen}>
+      <IconButton onClick={handleClickOpen} disabled={disab ? true : false}>
         <DeleteIcon
           sx={[
             {
