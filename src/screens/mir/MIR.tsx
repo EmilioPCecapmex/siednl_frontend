@@ -28,6 +28,7 @@ import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 
 export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
@@ -56,7 +57,7 @@ export const MIR = () => {
 
   const [mirs, setMirs] = useState([
     {
-      Id: "",
+      ID: "",
       AnioFiscal: "",
       Institucion: "",
       Programa: "",
@@ -68,7 +69,7 @@ export const MIR = () => {
   ]);
   const [mirEdit, setMirEdit] = useState([
     {
-      Id: "",
+      ID: "",
       AnioFiscal: "",
       Institucion: "",
       Programa: "",
@@ -82,7 +83,7 @@ export const MIR = () => {
   //
   const [mirsFiltered, setMirsFiltered] = useState([
     {
-      Id: "",
+      ID: "",
       AnioFiscal: "",
       Institucion: "",
       Programa: "",
@@ -162,6 +163,7 @@ export const MIR = () => {
         },
       })
       .then((r) => {
+        
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -185,6 +187,17 @@ export const MIR = () => {
 
   const handleClickOpen = () => {
     setShowResume(false);
+  };
+
+  const [actualizacion, setActualizacion] = useState(0);
+
+  useEffect(() => {
+    getMIRs();
+  }, [actualizacion]);
+
+  const actualizaContador = () => {
+    setActualizacion(actualizacion + 1);
+    
   };
 
   return (
@@ -469,23 +482,7 @@ export const MIR = () => {
 
                           <TableCell align="center">
                             <Box sx={{ display: "flex" }}>
-                              <Tooltip title="Eliminar">
-                                <IconButton
-                                  disabled={
-                                    row.Estado === "En Revisión" ? true : false
-                                  }
-                                >
-                                  <DeleteIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "red",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
+                              <DeleteDialogMIR disab={row.Estado === "En Revisión" ? true : false} id={row.ID} actualizado={actualizaContador}  />
 
                               <Tooltip title="Enviar">
                                 <IconButton
@@ -528,7 +525,7 @@ export const MIR = () => {
                                   }
                                   onClick={() =>
                                     {setMirEdit([{
-                                      Id: row.AnioFiscal,
+                                      ID: row.AnioFiscal,
                                       AnioFiscal: row.AnioFiscal,
                                       Institucion: row.Institucion,
                                       Programa: row.Programa,

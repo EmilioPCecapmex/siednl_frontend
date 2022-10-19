@@ -230,7 +230,7 @@ export function TabEncabezado({
       </Alert>
     );
   };
-  const [uploadFile, setUploadFile] = React.useState(JSON.parse(MIR));
+  const [uploadFile, setUploadFile] = React.useState('');
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
@@ -628,28 +628,6 @@ export function TabEncabezado({
     lineaDeAccion,
     beneficiario,
   ]);
-
-  useEffect(() => {
-    resumenEncabezado(encabezado);
-  }, [encabezado]);
-
-  useEffect(() => {
-    console.log(JSON.parse(MIR));
-    
-    setEncabezado([
-      {
-        beneficiario: JSON.parse(MIR).Encabezado.beneficiario,
-        eje: JSON.parse(MIR).Encabezado.eje,
-        ejercicioFiscal: JSON.parse(MIR).Encabezado.ejercicioFiscal,
-        estrategia: JSON.parse(MIR).Encabezado.estrategia,
-        institucion: JSON.parse(MIR).Encabezado.institucion,
-        objetivo: JSON.parse(MIR).Encabezado.objetivo,
-        programa: JSON.parse(MIR).Encabezado.programa,
-        tematica: JSON.parse(MIR).Encabezado.tematica,
-        lineasDeAccion: '',
-      },
-    ]);
-  }, [MIR]);
 
   useEffect(() => {
     resumenEncabezado(encabezado);
