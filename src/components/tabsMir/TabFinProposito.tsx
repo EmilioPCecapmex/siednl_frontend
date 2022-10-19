@@ -226,7 +226,7 @@ export function TabFinProposito({
     }, 1000);
    
 
-  }, [cargaFin, cargaProposito, show]);
+  }, [cargaFin, cargaProposito]);
 
   useEffect(() => {
     resumenFin(tabFin);
