@@ -19,16 +19,19 @@ import { TabComponente } from "./TabComponente";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
-import { ICValor } from "./ICValor";
 import { IActividades } from "./ICompActividad";
-import TabResumen2 from "./TabResumen2";
+import { ICValor } from "./ICValor";
+import { TabResumen2 } from "./TabResumen2";
+import { IMIR } from "./IMIR";
 
-export default function FullModalMir() {
+export default function FullModalMir({MIR }: { MIR: string }) {
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
+
+
 
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([])
   const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>([])
@@ -119,6 +122,7 @@ export default function FullModalMir() {
       };
     });
     setComponenteValor(array);
+    
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
@@ -142,6 +146,7 @@ export default function FullModalMir() {
   const loadProposito = (arr: Array<IProposito>) => {
     setCargaProposito(arr);
   };
+
 
   //----------------------------------------------------------------------------------------------
   return (
@@ -243,6 +248,7 @@ export default function FullModalMir() {
             asignarComponente={asignarComponente}
             asignarComponenteValor={asignarComponenteValor}
             cValor={cValor}
+            MIR={MIR}
           ></TabEncabezado>
           <TabFinProposito
             show={value === 20 ? true : false}
