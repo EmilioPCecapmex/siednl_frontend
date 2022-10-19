@@ -28,6 +28,7 @@ import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
@@ -65,7 +66,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
 
   const [mirs, setMirs] = useState([
     {
-      Id: "",
+      ID: "",
       AnioFiscal: "",
       Institucion: "",
       Programa: "",
@@ -77,7 +78,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
   ]);
   const [mirEdit, setMirEdit] = useState([
     {
-      Id: "",
+      ID: "",
       AnioFiscal: "",
       Institucion: "",
       Programa: "",
@@ -91,7 +92,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
   //
   const [mirsFiltered, setMirsFiltered] = useState([
     {
-      Id: "",
+      ID: "",
       AnioFiscal: "",
       Institucion: "",
       Programa: "",
@@ -171,6 +172,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
         },
       })
       .then((r) => {
+        
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -194,6 +196,17 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
 
   const handleClickOpen = () => {
     setShowResume(false);
+  };
+
+  const [actualizacion, setActualizacion] = useState(0);
+
+  useEffect(() => {
+    getMIRs();
+  }, [actualizacion]);
+
+  const actualizaContador = () => {
+    setActualizacion(actualizacion + 1);
+    
   };
 
   return (
@@ -551,7 +564,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                                     onClick={() => {
                                       setMirEdit([
                                         {
-                                          Id: row.AnioFiscal,
+                                          ID: row.ID,
                                           AnioFiscal: row.AnioFiscal,
                                           Institucion: row.Institucion,
                                           Programa: row.Programa,

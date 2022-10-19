@@ -298,7 +298,7 @@ export function TabEncabezado({
       </Alert>
     );
   };
-  const [uploadFile, setUploadFile] = React.useState("");
+  const [uploadFile, setUploadFile] = React.useState('');
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
