@@ -202,7 +202,7 @@ export function TabFinProposito({
         supuestos: proposito.supuestos,
       },
     ]);
-  }, [fin, proposito, show]);
+  }, [fin, proposito]);
 
   useEffect(() => {
     setFin({
@@ -213,14 +213,18 @@ export function TabFinProposito({
       medios: cargaFin[0]?.medios,
       supuestos: cargaFin[0]?.supuestos,
     });
-    setProposito({
-      resumen: cargaProposito[0]?.resumen,
-      indicador: cargaProposito[0]?.indicador,
-      formula: cargaProposito[0]?.formula,
-      frecuencia: cargaProposito[0]?.frecuencia,
-      medios_verificacion: cargaProposito[0]?.medios_verificacion,
-      supuestos: cargaProposito[0]?.supuestos,
-    });
+    
+    setTimeout(() => {
+      setProposito({
+        resumen: cargaProposito[0]?.resumen,
+        indicador: cargaProposito[0]?.indicador,
+        formula: cargaProposito[0]?.formula,
+        frecuencia: cargaProposito[0]?.frecuencia,
+        medios_verificacion: cargaProposito[0]?.medios_verificacion,
+        supuestos: cargaProposito[0]?.supuestos,
+      });
+    }, 1000);
+   
 
   }, [cargaFin, cargaProposito, show]);
 

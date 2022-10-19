@@ -11,3 +11,14 @@ export interface ICValor {
         }[];
     }[];
 }[]
+
+
+export interface IActividadesMir {
+    actividad:  string;
+    formula:    string;
+    frecuencia: string;
+    indicador:  string;
+    medios:     string;
+    resumen:    string;
+    supuestos:  string;
+}

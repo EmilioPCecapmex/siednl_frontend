@@ -7,7 +7,7 @@ import {
 import axios from "axios";
 import { IEncabezado } from "./TabEncabezado";
 import { IComponente } from "./IComponente";
-import { ICValor } from "./ICValor";
+import { IActividadesMir, ICValor } from "./ICValor";
 import { IFin, IProposito } from "./TabFinProposito";
 import { IMIR } from "./IMIR";
 import Swal from "sweetalert2";
@@ -44,14 +44,14 @@ export function TabResumen2({
     finM: Array<IFin>,
     propositoM: Array<IProposito>,
     componentesM: Array<IComponente>,
-    actividadesM: Array<ICValor>
+    actividadesM: Array<IActividadesMir>
   ) => {
     setMIR({
       encabezado: encabezadoM[0],
       fin: finM[0],
       proposito: propositoM[0],
       componentes: componentesM,
-      actividades: actividadesM[0],
+      actividades: actividadesM,
     });
   };
 
@@ -92,13 +92,22 @@ export function TabResumen2({
   };
 
   useEffect(() => {
+    let arr: any[] = []
+    cValor[0].componentes.map((a) => {
+      a.actividades.map(b => {
+        let act = b.resumen.substring(0,4);
+        Object.assign(b, {actividad: act})
+        arr.push(b)
+      } )
+})
+
     asignarMIR(encabezado,
       fin,
       proposito,
       componenteValor,
-      cValor)
+      arr)
 
-  }, [encabezado,componenteValor, proposito, fin, cValor]);
+  }, [encabezado, componenteValor, proposito, fin, cValor, show]);
 
 
 

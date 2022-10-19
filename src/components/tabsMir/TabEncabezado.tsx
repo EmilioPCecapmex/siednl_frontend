@@ -84,45 +84,35 @@ export function TabEncabezado({
         getIdBeneficiario(jsonMir.encabezado.beneficiario);
       }, 1500);
 
-      let act: number[] = []
-      let comp: string[] = []
+      let act: number[] = [];
+      let comp: string[] = [];
       // let ambos: [number[],string[]]=[[], []]
-      let ambos: any=[]
+      let ambos: any = [];
       let i = 1;
       let j = 1;
 
-      console.log(jsonMir.actividades)
+      jsonMir.componentes.map((x: any) => {
+        comp.push("C" + j);
+        jsonMir.actividades.map((a: any) => {
 
-      jsonMir.componentes.map((x: any) =>{
-
-        jsonMir.actividades.componentes.map((z: any) => {
-          comp.push("C"+j)
-
-          z.actividades.map((a: any) => {
-            act.push(i)
-            i++;
-          })
-          act = []
-
-        })
-        ambos.push({actividades: act, componente: "C"+j})
-        j++;
+          if(a.actividad === ("A" + i + "C" + j)){
+            act.push(i);
+          i++;
+          }
         
-       
-       });
-
-       console.log(ambos)
-
-      //  let cA = [{compActividad: ambos}]
-
-
-      //  console.log(cA[0].compActividad)
-      //  compAct(cA[0].compActividad)
+        });
+        ambos.push({ actividades: act, componente: "C" + j });
+        act = [];
+        i = 1;
+        j++;
+      });
 
 
-      // setLoadComponenteValor(response.data.componentes);
-      // setLoadActividades(response.data.actividades);
-      // actividadesMir(response.data.actividades);
+      compAct(ambos);
+      setCompActividad(ambos);
+      setLoadActividades(jsonMir.actividades);
+      actividadesMir(jsonMir.actividades);
+      setLoadComponenteValor(jsonMir.componentes)
     }
   }, [MIR]);
 
@@ -298,7 +288,7 @@ export function TabEncabezado({
       </Alert>
     );
   };
-  const [uploadFile, setUploadFile] = React.useState('');
+  const [uploadFile, setUploadFile] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
