@@ -34,7 +34,7 @@ export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
 
-  const renglonesPagina = 6;
+  const renglonesPagina = 4;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   // Realiza el cambio de pagina
@@ -163,7 +163,6 @@ export const MIR = () => {
         },
       })
       .then((r) => {
-        
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -197,7 +196,6 @@ export const MIR = () => {
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
-    
   };
 
   return (
@@ -467,10 +465,10 @@ export const MIR = () => {
 
                   <TableBody>
                     {mirsFiltered
-                      // .slice(
-                      //   page * rowsPerPage,
-                      //   page * rowsPerPage + rowsPerPage
-                      // )
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
                       .map((row, index) => (
                         <TableRow key={index}>
                           <TableCell>{row.AnioFiscal}</TableCell>
@@ -481,29 +479,9 @@ export const MIR = () => {
                           <TableCell align="center">{row.Estado}</TableCell>
 
                           <TableCell align="center">
-                            <Box sx={{ display: "flex" }}>
-                              <DeleteDialogMIR disab={row.Estado === "En Revisión" ? true : false} id={row.ID} actualizado={actualizaContador}  />
-
-                              <Tooltip title="Enviar">
-                                <IconButton
-                                  disabled={
-                                    row.Estado === "En Revisión" ? true : false
-                                  }
-                                >
-                                  <SendIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "lightGreen",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-                            </Box>
-
-                            <Box sx={{ display: "flex" }}>
+                            <Box
+                              sx={{ display: "flex", justifyContent: "center" }}
+                            >
                               <Tooltip title="Descargar">
                                 <IconButton>
                                   <DownloadIcon
@@ -517,25 +495,36 @@ export const MIR = () => {
                                   />
                                 </IconButton>
                               </Tooltip>
+                            </Box>
 
+                            <Box sx={{ display: "flex" }}>
+                              <DeleteDialogMIR
+                                disab={
+                                  row.Estado === "En Revisión" ? true : false
+                                }
+                                id={row.ID}
+                                actualizado={actualizaContador}
+                              />
                               <Tooltip title="Editar">
                                 <IconButton
                                   disabled={
                                     row.Estado === "En Revisión" ? true : false
                                   }
-                                  onClick={() =>
-                                    {setMirEdit([{
-                                      ID: row.AnioFiscal,
-                                      AnioFiscal: row.AnioFiscal,
-                                      Institucion: row.Institucion,
-                                      Programa: row.Programa,
-                                      Eje: row.Eje,
-                                      Tematica: row.Tematica,
-                                      MIR: row.MIR,
-                                      Estado: row.Estado,
-                                    }]);
-                                    setShowResume(false)}
-                                  }
+                                  onClick={() => {
+                                    setMirEdit([
+                                      {
+                                        ID: row.AnioFiscal,
+                                        AnioFiscal: row.AnioFiscal,
+                                        Institucion: row.Institucion,
+                                        Programa: row.Programa,
+                                        Eje: row.Eje,
+                                        Tematica: row.Tematica,
+                                        MIR: row.MIR,
+                                        Estado: row.Estado,
+                                      },
+                                    ]);
+                                    setShowResume(false);
+                                  }}
                                 >
                                   <EditIcon
                                     sx={[
