@@ -38,6 +38,7 @@ export function TabResumen2({
     setOpenModalEnviar(false);
   };
 
+
   let asignarMIR = (
     encabezadoM: Array<IEncabezado>,
     finM: Array<IFin>,
@@ -46,11 +47,11 @@ export function TabResumen2({
     actividadesM: Array<ICValor>
   ) => {
     setMIR({
-      Encabezado: encabezadoM[0],
-      Fin: finM[0],
-      Proposito: propositoM[0],
-      Componentes: componentesM,
-      Actividades: actividadesM[0],
+      encabezado: encabezadoM[0],
+      fin: finM[0],
+      proposito: propositoM[0],
+      componentes: componentesM,
+      actividades: actividadesM[0],
     });
   };
 
@@ -58,16 +59,16 @@ export function TabResumen2({
     
     axios
       .post(
-        "http://localhost:8000/api/create-mir",
+        "http://10.200.4.105:8000/api/create-mir",
         {
           MIR: JSON.stringify(MIR),
           Estado: estado,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          AnioFiscal: MIR?.Encabezado.ejercicioFiscal,
-          Institucion: MIR?.Encabezado.institucion,
-          Programa: MIR?.Encabezado.programa,
-          Eje: MIR?.Encabezado.eje,
-          Tematica: MIR?.Encabezado.tematica,
+          AnioFiscal: MIR?.encabezado.ejercicioFiscal,
+          Institucion: MIR?.encabezado.institucion,
+          Programa: MIR?.encabezado.nombre_del_programa,
+          Eje: MIR?.encabezado.eje,
+          Tematica: MIR?.encabezado.tema,
         },
         {
           headers: {
@@ -91,14 +92,13 @@ export function TabResumen2({
   };
 
   useEffect(() => {
-    //  console.log(encabezado[0].eje);
     asignarMIR(encabezado,
       fin,
       proposito,
       componenteValor,
       cValor)
 
-  }, [encabezado,componenteValor]);
+  }, [encabezado,componenteValor, proposito, fin, cValor]);
 
 
 
@@ -213,9 +213,9 @@ export function TabResumen2({
                 Programa:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {encabezado[0]?.programa === "Selecciona"
+                {encabezado[0]?.nombre_del_programa === "Selecciona"
                   ? ""
-                  : encabezado[0]?.programa}
+                  : encabezado[0]?.nombre_del_programa}
               </Typography>
             </Box>
 
@@ -255,9 +255,9 @@ export function TabResumen2({
                 Temática:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {encabezado[0]?.tematica === "Selecciona"
+                {encabezado[0]?.tema === "Selecciona"
                   ? ""
-                  : encabezado[0]?.tematica}
+                  : encabezado[0]?.tema}
               </Typography>
             </Box>
 
@@ -320,9 +320,9 @@ export function TabResumen2({
                 Lineas de Acción:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {encabezado[0]?.lineasDeAccion === "Selecciona"
+                {encabezado[0]?.lineas_de_accion === "Selecciona"
                   ? ""
-                  : encabezado[0]?.lineasDeAccion}
+                  : encabezado[0]?.lineas_de_accion}
               </Typography>
             </Box>
           </Box>
@@ -553,7 +553,7 @@ export function TabResumen2({
               Medios de Verificación:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {proposito[0]?.medios}
+              {proposito[0]?.medios_verificacion}
             </Typography>
           </Box>
           <Box

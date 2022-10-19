@@ -33,6 +33,7 @@ import LockResetIcon from "@mui/icons-material/LockReset";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
+import {  setResumeDefaultMIR } from "../../screens/mir/MIR";
 
 export const LateralMenu = ({
   selection,
@@ -350,7 +351,9 @@ export const LateralMenu = ({
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItemButton
-                onClick={() => navigate("../mir")}
+                onClick={() => {
+                  setResumeDefaultMIR()
+                  navigate("../mir")}}
                 sx={st.subMenuItemStyle}
               >
                 <Box sx={st.iconMenuList}>
