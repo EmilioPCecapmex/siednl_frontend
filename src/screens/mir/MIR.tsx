@@ -508,7 +508,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                               </Tooltip>
                             </Box>
 
-                            <Box sx={{ display: "flex" }}>
+                            <Box sx={{ display: "flex", justifyContent:'center' }}>
                               <DeleteDialogMIR
                                 disab={
                                   row.Estado === "En Revisión" ? true : false

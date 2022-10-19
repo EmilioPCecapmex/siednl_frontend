@@ -120,7 +120,7 @@ export const DeleteDialogMIR = ({
             </Typography>
           </Button>
 
-          <Button onClick={deleteMIR} color="error" autoFocus>
+          <Button onClick={()=>{deleteMIR(); handleClose()}} color="error" autoFocus>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
