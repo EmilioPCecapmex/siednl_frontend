@@ -170,6 +170,7 @@ export const Notification = () => {
 
   useEffect(() => {
     getUsuarios();
+    getNotifEnviadas();
   }, []);
 
   const [notif, setNotif] = useState<Array<INotificaciones>>([]);
@@ -209,9 +210,6 @@ export const Notification = () => {
       });
   };
 
-  useEffect(() => {
-    getNotifEnviadas();
-  }, []);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(7);

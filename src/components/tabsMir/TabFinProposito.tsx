@@ -49,7 +49,7 @@ export function TabFinProposito({
       indicador: "",
       formula: "",
       frecuencia: "",
-      medios: "",
+      medios_verificacion: "",
       supuestos: "",
     },
   ]);
@@ -68,7 +68,7 @@ export function TabFinProposito({
     indicador: "",
     formula: "",
     frecuencia: "",
-    medios: "",
+    medios_verificacion: "",
     supuestos: "",
   });
 
@@ -198,7 +198,7 @@ export function TabFinProposito({
         indicador: proposito.indicador,
         formula: proposito.formula,
         frecuencia: proposito.frecuencia,
-        medios: proposito.medios,
+        medios_verificacion: proposito.medios_verificacion,
         supuestos: proposito.supuestos,
       },
     ]);
@@ -218,10 +218,11 @@ export function TabFinProposito({
       indicador: cargaProposito[0]?.indicador,
       formula: cargaProposito[0]?.formula,
       frecuencia: cargaProposito[0]?.frecuencia,
-      medios: cargaProposito[0]?.medios,
+      medios_verificacion: cargaProposito[0]?.medios_verificacion,
       supuestos: cargaProposito[0]?.supuestos,
     });
-  }, [cargaFin, cargaProposito]);
+
+  }, [cargaFin, cargaProposito, show]);
 
   useEffect(() => {
     resumenFin(tabFin);
@@ -695,9 +696,9 @@ export function TabFinProposito({
                 }}
                 label={"Medios de Verificación"}
                 onChange={(c) => {
-                  setProposito({ ...proposito, medios: c.target.value });
+                  setProposito({ ...proposito, medios_verificacion: c.target.value });
                 }}
-                value={proposito.medios}
+                value={proposito.medios_verificacion}
               />
               <TextField
                 rows={4}
@@ -763,6 +764,6 @@ export interface IProposito {
   indicador: string;
   formula: string;
   frecuencia: string;
-  medios: string;
+  medios_verificacion: string;
   supuestos: string;
 }

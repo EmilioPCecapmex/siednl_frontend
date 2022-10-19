@@ -27,11 +27,22 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 
-export const MIR = () => {
+export let resumeDefaultMIR = true;
+export let setResumeDefaultMIR = () => {
+  resumeDefaultMIR = !resumeDefaultMIR;
+};
+
+export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
+  useEffect(() => {
+    setShowResume(true);
+  }, [resumeDefaultMIR]);
+
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
+
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
@@ -46,49 +57,73 @@ export const MIR = () => {
     setPage(0);
   };
 
-  const [anioFiscal, setAnioFiscal] = useState("");
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
     { Id: "", AnioFiscal: "" },
   ]);
+  const [anioFiscal, setAnioFiscal] = useState("");
   const [institution, setInstitution] = useState("");
   const [programaPresupuestario, setProgramaPresupuestario] = useState("");
-  const [descripctionFiltered, setDescripctionFiltered] = useState("");
 
-  const dataFilter = (text: string) => {
-    setDescripctionFiltered(text);
-  };
-
-  const [dataDescripctionFiltered, setDataDescripctionFiltered] = useState([
+  const [mirs, setMirs] = useState([
     {
-      Id: "",
-      Desc: "",
-      fnc: "",
-      Tabla: "",
-      selected: "",
+      ID: "",
+      AnioFiscal: "",
+      Institucion: "",
+      Programa: "",
+      Eje: "",
+      Tematica: "",
+      MIR: "",
+      Estado: "",
+    },
+  ]);
+  const [mirEdit, setMirEdit] = useState([
+    {
+      ID: "",
+      AnioFiscal: "",
+      Institucion: "",
+      Programa: "",
+      Eje: "",
+      Tematica: "",
+      MIR: "",
+      Estado: "",
     },
   ]);
 
-  const [datosTabla, setDatosTabla] = React.useState([
+  //
+  const [mirsFiltered, setMirsFiltered] = useState([
     {
-      Id: "",
-      Desc: "",
-      fnc: "",
-      Tabla: "",
-      selected: "",
+      ID: "",
+      AnioFiscal: "",
+      Institucion: "",
+      Programa: "",
+      Eje: "",
+      Tematica: "",
+      MIR: "",
+      Estado: "",
     },
   ]);
 
+  const [txtFiltered, setTxtFiltered] = useState("");
+
+  // Filtrado por caracter
   const findText = () => {
-    if (descripctionFiltered !== "") {
-      setDataDescripctionFiltered(
-        dataDescripctionFiltered.filter((x) =>
-          x.Desc.toLowerCase().includes(descripctionFiltered)
+    if (txtFiltered !== "") {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            x.AnioFiscal.includes(txtFiltered) ||
+            x.Institucion.toLowerCase().includes(txtFiltered.toLowerCase()) ||
+            x.Programa.toLowerCase().includes(txtFiltered.toLowerCase())
         )
       );
     } else {
-      setDataDescripctionFiltered(datosTabla);
+      setMirsFiltered(mirs);
     }
   };
+
+  useEffect(() => {
+    findText();
+  }, [txtFiltered]);
 
   const getAniosFiscales = () => {
     axios
@@ -129,7 +164,22 @@ export const MIR = () => {
       });
   };
 
+  const getMIRs = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/mir", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        
+        setMirs(r.data.data);
+        setMirsFiltered(r.data.data);
+      });
+  };
+
   useEffect(() => {
+    getMIRs();
     getAniosFiscales();
     getInstituciones();
     getProgramaPresupuestario();
@@ -144,24 +194,19 @@ export const MIR = () => {
     setCatalogoProgramasPresupuestarios,
   ] = useState([{ Id: "", NombrePrograma: "" }]);
 
-  const [openModalEditarUsuario, setOpenModalEditarUsuario] = useState(false);
-
-  const handleCloseModalEditarUsuario = () => {
-    setOpenModalEditarUsuario(false);
-  };
-  const [idUsuarioEditar, setIdUsuarioEditar] = useState("");
-
   const handleClickOpen = () => {
     setShowResume(false);
   };
 
   const [actualizacion, setActualizacion] = useState(0);
+
   useEffect(() => {
-    getInstituciones();
+    getMIRs();
   }, [actualizacion]);
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
+    
   };
 
   return (
@@ -214,7 +259,9 @@ export const MIR = () => {
                 size="small"
                 options={catalogoAniosFiscales}
                 getOptionLabel={(option) => option.AnioFiscal}
-                getOptionDisabled={(option) => option.Id === "0" ? true: false }
+                getOptionDisabled={(option) =>
+                  option.Id === "0" ? true : false
+                }
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.Id}>
@@ -234,17 +281,19 @@ export const MIR = () => {
                     {...params}
                     label="Ejercicio Fiscal"
                     placeholder="Ejercicio Fiscal"
+                    onChange={(v) => setTxtFiltered(v.target.value)}
                     InputLabelProps={{
                       style: {
-                        fontFamily: 'MontserratSemiBold',
-                        fontSize: '.7vw'
-                      }
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
                     }}
                   ></TextField>
                 )}
-                onChange={(event, value) =>
-                  setAnioFiscal(value?.AnioFiscal as string)
-                }
+                onChange={(event, value) => {
+                  setAnioFiscal(value?.AnioFiscal as string);
+                  setTxtFiltered((value?.AnioFiscal as string) || "");
+                }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </Box>
@@ -253,7 +302,9 @@ export const MIR = () => {
               <Autocomplete
                 disablePortal
                 size="small"
-                getOptionDisabled={(option) => option.Id === "0" ? true: false }
+                getOptionDisabled={(option) =>
+                  option.Id === "0" ? true : false
+                }
                 options={catalogoProgramasPresupuestarios}
                 getOptionLabel={(option) => option.NombrePrograma}
                 renderOption={(props, option) => {
@@ -275,17 +326,19 @@ export const MIR = () => {
                     {...params}
                     label="Nombre del Programa"
                     placeholder="Nombre del Programa"
+                    onChange={(v) => setTxtFiltered(v.target.value)}
                     InputLabelProps={{
                       style: {
-                        fontFamily: 'MontserratSemiBold',
-                        fontSize: '.7vw'
-                      }
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
                     }}
                   ></TextField>
                 )}
-                onChange={(event, value) =>
-                  setProgramaPresupuestario(value?.NombrePrograma as string)
-                }
+                onChange={(event, value) => {
+                  setProgramaPresupuestario(value?.NombrePrograma as string);
+                  setTxtFiltered((value?.NombrePrograma as string) || "");
+                }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </Box>
@@ -295,17 +348,17 @@ export const MIR = () => {
                 disablePortal
                 size="small"
                 options={catalogoInstituciones}
-                getOptionLabel={(option) => option.NombreInstitucion}
+                getOptionLabel={(option) => option?.NombreInstitucion}
                 renderOption={(props, option) => {
                   return (
-                    <li {...props} key={option.Id}>
+                    <li {...props} key={option?.Id}>
                       <div
                         style={{
                           fontFamily: "MontserratRegular",
                           fontSize: ".8vw",
                         }}
                       >
-                        {option.NombreInstitucion}
+                        {option?.NombreInstitucion}
                       </div>
                     </li>
                   );
@@ -315,35 +368,38 @@ export const MIR = () => {
                     {...params}
                     label="Institución"
                     placeholder="Institución"
+                    onChange={(v) => setTxtFiltered(v?.target.value)}
                     InputLabelProps={{
                       style: {
-                        fontFamily: 'MontserratSemiBold',
-                        fontSize: '.7vw'
-                      }
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
                     }}
-                   
                   ></TextField>
                 )}
-                onChange={(event, value) =>
-                  setInstitution(value?.NombreInstitucion as string)
+                onChange={(event, value) => {
+                  setInstitution(value?.NombreInstitucion as string);
+                  setTxtFiltered((value?.NombreInstitucion as string) || "");
+                }}
+                isOptionEqualToValue={(option, value) =>
+                  option?.Id === value?.Id
                 }
-                isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </Box>
 
-              <Button
-                sx={{
-                  backgroundColor: "#c2a37b",
-                  width: "10vw",
-                  height: "4vh",
-                  color: "black",
-                  fontFamily: "montserrat",
-                  fontSize: "0.6vw",
-                }}
-                onClick={() => handleClickOpen()}
-              >
-                Añadir registro
-              </Button>
+            <Button
+              sx={{
+                backgroundColor: "#c2a37b",
+                width: "10vw",
+                height: "4vh",
+                color: "black",
+                fontFamily: "montserrat",
+                fontSize: "0.6vw",
+              }}
+              onClick={() => handleClickOpen()}
+            >
+              Añadir registro
+            </Button>
           </Box>
 
           <Box
@@ -354,7 +410,7 @@ export const MIR = () => {
               borderRadius: 5,
               display: "flex",
               alignItems: "center",
-              flexDirection: 'column',
+              flexDirection: "column",
               boxShadow: 5,
             }}
           >
@@ -378,7 +434,10 @@ export const MIR = () => {
               <TableContainer sx={{ borderRadius: 5 }}>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow>
+                    <TableRow key={"a"}>
+                      <TableCell sx={{ fontFamily: "MontserratBold" }}>
+                        Ejercicio Fiscal
+                      </TableCell>
                       <TableCell sx={{ fontFamily: "MontserratBold" }}>
                         Institución
                       </TableCell>
@@ -416,107 +475,154 @@ export const MIR = () => {
                   </TableHead>
 
                   <TableBody>
-                    {/* {descripctionFiltered
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => ( */}
-                    <TableRow>
-                      <TableCell>Institucion</TableCell>
-                      <TableCell>Programa</TableCell>
-                      <TableCell>Eje</TableCell>
-                      <TableCell>Tema</TableCell>
-                      <TableCell align="center">Estado</TableCell>
-                      {/* {row.Institucion} */}
+                    {mirsFiltered
+                      // .slice(
+                      //   page * rowsPerPage,
+                      //   page * rowsPerPage + rowsPerPage
+                      // )
+                      .map((row, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{row.AnioFiscal}</TableCell>
+                          <TableCell>{row.Institucion}</TableCell>
+                          <TableCell>{row.Programa}</TableCell>
+                          <TableCell>{row.Eje}</TableCell>
+                          <TableCell>{row.Tematica}</TableCell>
+                          <TableCell align="center">{row.Estado}</TableCell>
 
-                      <TableCell align="center">
-                        <Tooltip title="Eliminar">
-                          <IconButton>
-                            <DeleteIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "red",
-                                  },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
+                          <TableCell align="center">
+                            <Box sx={{ display: "flex" }}>
+                              <Tooltip title="Eliminar">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "En Revisión"
+                                        ? true
+                                        : false
+                                    }
+                                  >
+                                    <DeleteIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "red",
+                                          },
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
 
-                        <Tooltip title="Enviar">
-                          <IconButton>
-                            <SendIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "lightGreen",
-                                  },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
+                              <Tooltip title="Enviar">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "En Revisión"
+                                        ? true
+                                        : false
+                                    }
+                                  >
+                                    <SendIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "lightGreen",
+                                          },
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                            </Box>
 
-                        <Tooltip title="Descargar">
-                          <IconButton>
-                            <DownloadIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "orange",
-                                  },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
+                            <Box sx={{ display: "flex" }}>
+                              <Tooltip title="Descargar">
+                                <span>
+                                  <IconButton>
+                                    <DownloadIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "orange",
+                                          },
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
 
-                        <Tooltip title="Editar">
-                          <IconButton>
-                            <EditIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "blue",
-                                  },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
+                              <Tooltip title="Editar">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "En Revisión"
+                                        ? true
+                                        : false
+                                    }
+                                    onClick={() => {
+                                      setMirEdit([
+                                        {
+                                          ID: row.ID,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Institucion: row.Institucion,
+                                          Programa: row.Programa,
+                                          Eje: row.Eje,
+                                          Tematica: row.Tematica,
+                                          MIR: row.MIR,
+                                          Estado: row.Estado,
+                                        },
+                                      ]);
+                                      setShowResume(false);
+                                    }}
+                                  >
+                                    <EditIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "blue",
+                                          },
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+
                     {/* ))} */}
                   </TableBody>
                 </Table>
               </TableContainer>
-              
             </Box>
-            <Box sx={{width: '100%'}}>
-            <TablePagination
+            <Box sx={{ width: "100%" }}>
+              <TablePagination
                 rowsPerPageOptions={[renglonesPagina]}
                 component="div"
-                count={institution.length}
+                count={mirs.length}
                 rowsPerPage={renglonesPagina}
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </Box>
-            
           </Box>
-         
         </Box>
       ) : (
         <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          width: "85%",
-          height: "92%",
-          flexWrap: "wrap",
-        }}
-      >
-        <FullModalMir />
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            width: "85%",
+            height: "92%",
+            flexWrap: "wrap",
+          }}
+        >
+          <FullModalMir MIR={mirEdit[0].MIR} />
         </Box>
       )}
     </Box>
