@@ -5,13 +5,13 @@ import { IFin, IProposito } from "./TabFinProposito";
 
 export interface IMIR {
 
-    Encabezado:IEncabezado;
+    encabezado:IEncabezado;
 
-      Fin:IFin;
+      fin:IFin;
 
-      Proposito:IProposito;
+      proposito:IProposito;
 
-      Componentes:Array<IComponente>;
+      componentes:Array<IComponente>;
 
-      Actividades:ICValor;
+      actividades:ICValor;
 }

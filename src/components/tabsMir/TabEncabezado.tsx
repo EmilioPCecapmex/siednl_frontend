@@ -19,12 +19,12 @@ import { ICompActividad } from "./ICompActividad";
 export interface IEncabezado {
   ejercicioFiscal: string;
   institucion: string;
-  programa: string;
+  nombre_del_programa: string;
   eje: string;
-  tematica: string;
+  tema: string;
   objetivo: string;
   estrategia: string;
-  lineasDeAccion: string;
+  lineas_de_accion: string;
   beneficiario: string;
 }
 
@@ -33,23 +33,23 @@ export function TabEncabezado({
   resumenEncabezado,
   cargaFin,
   cargaProposito,
+  MIR,
   asignarComponente,
   asignarComponenteValor,
-   cValor,
-   compAct,
-   actividadesMir,
-   MIR
+  cValor,
+  compAct,
+  actividadesMir,
 }: {
   show: boolean;
   resumenEncabezado: Function;
   cargaFin: Function;
   cargaProposito: Function;
-  asignarComponente:Function;
-  asignarComponenteValor:Function;
-   cValor: Array<ICValor>;
-   compAct: Function;
-   actividadesMir: Function;
-   MIR: string;
+  MIR: string;
+  asignarComponente: Function;
+  asignarComponenteValor: Function;
+  cValor: Array<ICValor>;
+  compAct: Function;
+  actividadesMir: Function;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
@@ -59,37 +59,105 @@ export function TabEncabezado({
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
   const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
 
-  const [loadComponentes, setLoadComponentes] = useState<Array<number>>([1,2]);
-  const [loadComponenteValor, setLoadComponenteValor] = useState<Array<IComponente>>([]);
+  const [loadComponentes, setLoadComponentes] = useState<Array<number>>([1, 2]);
+  const [loadComponenteValor, setLoadComponenteValor] = useState<
+    Array<IComponente>
+  >([]);
   const [loadActividades, setLoadActividades] = useState([]);
-  const [compActividad, setCompActividad] = useState <Array<ICompActividad>>([]);
-  
- 
+  const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
+
+  useEffect(() => {
+    if (MIR !== "") {
+      let jsonMir = JSON.parse(MIR);
+      setLoadFin([jsonMir.fin]);
+      setLoadProposito([jsonMir.proposito]);
+      setPrograma(jsonMir.encabezado.nombre_del_programa);
+      setLoadComponenteValor(jsonMir.componentes);
+      getIdInstitucion(jsonMir.encabezado.institucion);
+      getIdEje(jsonMir.encabezado.eje);
+      getIdTematica(jsonMir.encabezado.tema);
+      getIdObjetivo(jsonMir.encabezado.objetivo);
+      getIdEstrategia(jsonMir.encabezado.estrategia);
+      setTimeout(() => {
+        getIdLineaDeAccion(jsonMir.encabezado.lineas_de_accion);
+        setLoadingFile(false);
+        getIdBeneficiario(jsonMir.encabezado.beneficiario);
+      }, 1500);
+
+      let act: number[] = []
+      let comp: string[] = []
+      // let ambos: [number[],string[]]=[[], []]
+      let ambos: any=[]
+      let i = 1;
+      let j = 1;
+
+      console.log(jsonMir.actividades)
+
+      jsonMir.componentes.map((x: any) =>{
+
+        jsonMir.actividades.componentes.map((z: any) => {
+          comp.push("C"+j)
+
+          z.actividades.map((a: any) => {
+            act.push(i)
+            i++;
+          })
+          act = []
+
+        })
+        ambos.push({actividades: act, componente: "C"+j})
+        j++;
+        
+       
+       });
+
+       console.log(ambos)
+
+      //  let cA = [{compActividad: ambos}]
+
+
+      //  console.log(cA[0].compActividad)
+      //  compAct(cA[0].compActividad)
+
+
+      // setLoadComponenteValor(response.data.componentes);
+      // setLoadActividades(response.data.actividades);
+      // actividadesMir(response.data.actividades);
+    }
+  }, [MIR]);
 
   //saca la cantidad de componentes
   useEffect(() => {
-    loadComponenteValor.map((value,index)=>{
-      if(index>1 && index<6)
-      setLoadComponentes(loadComponentes=>[...loadComponentes,index+1])
-    })
-  }, [loadComponenteValor])
-  
+    loadComponenteValor.map((value, index) => {
+      if (index > 1 && index < 6)
+        setLoadComponentes((loadComponentes) => [
+          ...loadComponentes,
+          index + 1,
+        ]);
+    });
+  }, [loadComponenteValor]);
+
   //envio de valores a MIR
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
-  }, [loadComponentes])
+    //console.log(loadComponenteValor);
+  }, [loadComponentes]);
 
   useEffect(() => {
-    compActividad.map((item,index)=>{
-      let indexAct=0;
-      for(let i=0;i<item.actividades;i++)
-      {
+    // console.log(loadActividades);
+
+    compActividad.map((item, index) => {
+      let indexAct = 0;
+      for (let i = 0; i < item.actividades; i++) {
+        //console.log(i);
+
         indexAct++;
       }
-    }); 
-  }, [loadActividades])
-  
+      //  console.log(item.actividades);
+    });
+  }, [loadActividades]);
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -397,7 +465,7 @@ export function TabEncabezado({
       .then((r) => {
         setInstitution(r.data.data[0].NombreInstitucion);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
   const getIdPrograma = (Description: string) => {
     axios
@@ -426,8 +494,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setEje(r.data.data[0]?.Eje);
-        getTematicas(r.data.data[0]?.Id);
+        setEje(r.data.data[0].Eje);
+        getTematicas(r.data.data[0].Id);
         setDisabledTematicas(false);
       });
   };
@@ -443,8 +511,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setTematica(r.data.data[0]?.Tematica);
-        getObjetivos(r.data.data[0]?.Id);
+        setTematica(r.data.data[0].Tematica);
+        getObjetivos(r.data.data[0].Id);
         setDisabledObjetivos(false);
       });
   };
@@ -460,8 +528,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setObjetivo(r.data.data[0]?.Objetivo);
-        getEstrategias(r.data.data[0]?.Id);
+        setObjetivo(r.data.data[0].Objetivo);
+        getEstrategias(r.data.data[0].Id);
         setDisabledEstrategias(false);
       });
   };
@@ -477,8 +545,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setEstrategia(r.data.data[0]?.Estrategia);
-        getLineasDeAccion(r.data.data[0]?.Id);
+        setEstrategia(r.data.data[0].Estrategia);
+        getLineasDeAccion(r.data.data[0].Id);
       });
   };
   const getIdLineaDeAccion = (Description: string) => {
@@ -523,7 +591,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://10.200.4.202:7000/upload", dataArray, {
+      .post("http://10.200.4.105:7000/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -540,14 +608,11 @@ export function TabEncabezado({
         setTimeout(() => {
           getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
 
-          setLoadingFile(false)
+          setLoadingFile(false);
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
-
-
         }, 1500);
 
-        compAct(response.data.componenteActividad)
-
+        compAct(response.data.componenteActividad);
 
         setLoadFin([
           {
@@ -566,18 +631,8 @@ export function TabEncabezado({
             indicador: response.data.propositos[0].indicador,
             formula: response.data.propositos[0].formula,
             frecuencia: response.data.propositos[0].frecuencia,
-            medios: response.data.propositos[0].medios_verificacion,
-            supuestos: response.data.propositos[0].supuestos,
-          },
-        ]);
-
-        setLoadProposito([
-          {
-            resumen: response.data.propositos[0].resumen,
-            indicador: response.data.propositos[0].indicador,
-            formula: response.data.propositos[0].formula,
-            frecuencia: response.data.propositos[0].frecuencia,
-            medios: response.data.propositos[0].medios_verificacion,
+            medios_verificacion:
+              response.data.propositos[0].medios_verificacion,
             supuestos: response.data.propositos[0].supuestos,
           },
         ]);
@@ -586,8 +641,6 @@ export function TabEncabezado({
         setCompActividad(response.data.componenteActividad);
         setLoadActividades(response.data.actividades);
         actividadesMir(response.data.actividades);
-        
-
       })
       .catch((error) => {
         setErrorMsg(error.response.data);
@@ -601,6 +654,20 @@ export function TabEncabezado({
     getEjes();
     getBeneficiarios();
     // console.log(MIR);
+
+    // setEncabezado([
+    //   {
+    //     ejercicioFiscal: JSON.parse(MIR).encabezado.ejercicioFiscal,
+    //     institucion: institution,
+    //     programa: programa,
+    //     eje: eje,
+    //     tematica: tematica,
+    //     objetivo: objetivo,
+    //     estrategia: estrategia,
+    //     lineasDeAccion: lineaDeAccion[0]?.LineaDeAccion,
+    //     beneficiario: beneficiario,
+    //   },
+    // ]);
   }, []);
 
   useEffect(() => {
@@ -608,12 +675,12 @@ export function TabEncabezado({
       {
         ejercicioFiscal: anioFiscal,
         institucion: institution,
-        programa: programa,
+        nombre_del_programa: programa,
         eje: eje,
-        tematica: tematica,
+        tema: tematica,
         objetivo: objetivo,
         estrategia: estrategia,
-        lineasDeAccion: lineaDeAccion[0]?.LineaDeAccion,
+        lineas_de_accion: lineaDeAccion[0]?.LineaDeAccion,
         beneficiario: beneficiario,
       },
     ]);
@@ -638,11 +705,9 @@ export function TabEncabezado({
     cargaProposito(loadProposito);
   }, [loadFin, loadProposito]);
 
-  const [loadingFile, setLoadingFile] = useState(false)
+  const [loadingFile, setLoadingFile] = useState(false);
 
   return (
-   
-      
     <Box
       visibility={show ? "visible" : "hidden"}
       position="absolute"
@@ -666,7 +731,7 @@ export function TabEncabezado({
           size="small"
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
-          value={{ Id: catalogoAniosFiscales[0]?.Id, AnioFiscal: anioFiscal }}
+          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal }}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;
@@ -769,7 +834,10 @@ export function TabEncabezado({
             Cargar
           </Button>
         )}
-        <Box sx={{ position: "absolute" }} visibility={loadingFile ? "visible" : "hidden"}>
+        <Box
+          sx={{ position: "absolute" }}
+          visibility={loadingFile ? "visible" : "hidden"}
+        >
           <CircularProgress />
         </Box>
       </Box>
@@ -780,7 +848,7 @@ export function TabEncabezado({
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion}
           value={{
-            Id: catalogoInstituciones[0]?.Id,
+            Id: catalogoInstituciones[0].Id,
             NombreInstitucion: institution,
           }}
           size="small"
@@ -829,7 +897,7 @@ export function TabEncabezado({
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma}
-          value={{ Id: catalogoProgramas[0]?.Id, NombrePrograma: programa }}
+          value={{ Id: catalogoProgramas[0].Id, NombrePrograma: programa }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
@@ -875,7 +943,7 @@ export function TabEncabezado({
           size="small"
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje}
-          value={{ Id: catalogoEjes[0]?.Id, Eje: eje }}
+          value={{ Id: catalogoEjes[0].Id, Eje: eje }}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;
@@ -925,7 +993,7 @@ export function TabEncabezado({
           size="small"
           getOptionLabel={(option) => option.Tematica}
           value={{
-            IdTematica: catalogoTematicas[0]?.IdTematica,
+            IdTematica: catalogoTematicas[0].IdTematica,
             Tematica: tematica,
           }}
           getOptionDisabled={(option) => {
@@ -981,7 +1049,7 @@ export function TabEncabezado({
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo}
           value={{
-            IdObjetivo: catalogoObjetivos[0]?.IdObjetivo,
+            IdObjetivo: catalogoObjetivos[0].IdObjetivo,
             Objetivo: objetivo,
           }}
           size="small"
@@ -1033,7 +1101,7 @@ export function TabEncabezado({
           size="small"
           getOptionLabel={(option) => option.Estrategia}
           value={{
-            IdEstrategia: catalogoEstrategias[0]?.IdEstrategia,
+            IdEstrategia: catalogoEstrategias[0].IdEstrategia,
             Estrategia: estrategia,
           }}
           renderOption={(props, option) => {
@@ -1124,11 +1192,8 @@ export function TabEncabezado({
             />
           )}
           onChange={(event, value) => {
-            setLineaDeAccion(value)
-          }
-          }
-
-
+            setLineaDeAccion(value);
+          }}
         />
       </FormControl>
 
@@ -1139,7 +1204,7 @@ export function TabEncabezado({
           options={catalogoBeneficiarios}
           getOptionLabel={(option) => option.Beneficiario}
           value={{
-            Id: catalogoBeneficiarios[0]?.Id,
+            Id: catalogoBeneficiarios[0].Id,
             Beneficiario: beneficiario,
           }}
           renderOption={(props, option) => {
@@ -1179,12 +1244,8 @@ export function TabEncabezado({
           }
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
-        
       </FormControl>
- 
-      
     </Box>
-    
   );
 }
 

@@ -30,7 +30,16 @@ import FullModalMir from "../../components/tabsMir/FullModalMir";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 
-export const MIR = () => {
+export let resumeDefaultMIR = true;
+export let setResumeDefaultMIR = () => {
+  resumeDefaultMIR = !resumeDefaultMIR;
+};
+
+export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
+  useEffect(() => {
+    setShowResume(true);
+  }, [resumeDefaultMIR]);
+
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
 
@@ -483,17 +492,19 @@ export const MIR = () => {
                               sx={{ display: "flex", justifyContent: "center" }}
                             >
                               <Tooltip title="Descargar">
-                                <IconButton>
-                                  <DownloadIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "orange",
+                                <span>
+                                  <IconButton>
+                                    <DownloadIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "orange",
+                                          },
                                         },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
                               </Tooltip>
                             </Box>
 
@@ -506,36 +517,40 @@ export const MIR = () => {
                                 actualizado={actualizaContador}
                               />
                               <Tooltip title="Editar">
-                                <IconButton
-                                  disabled={
-                                    row.Estado === "En Revisión" ? true : false
-                                  }
-                                  onClick={() => {
-                                    setMirEdit([
-                                      {
-                                        ID: row.AnioFiscal,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
-                                        Programa: row.Programa,
-                                        Eje: row.Eje,
-                                        Tematica: row.Tematica,
-                                        MIR: row.MIR,
-                                        Estado: row.Estado,
-                                      },
-                                    ]);
-                                    setShowResume(false);
-                                  }}
-                                >
-                                  <EditIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "blue",
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "En Revisión"
+                                        ? true
+                                        : false
+                                    }
+                                    onClick={() => {
+                                      setMirEdit([
+                                        {
+                                          ID: row.ID,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Institucion: row.Institucion,
+                                          Programa: row.Programa,
+                                          Eje: row.Eje,
+                                          Tematica: row.Tematica,
+                                          MIR: row.MIR,
+                                          Estado: row.Estado,
                                         },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
+                                      ]);
+                                      setShowResume(false);
+                                    }}
+                                  >
+                                    <EditIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "blue",
+                                          },
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
                               </Tooltip>
                             </Box>
                           </TableCell>

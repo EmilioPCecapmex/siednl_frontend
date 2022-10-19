@@ -31,6 +31,8 @@ export default function FullModalMir({MIR }: { MIR: string }) {
     setValue(newValue);
   };
 
+
+
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([])
   const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>([])
 
