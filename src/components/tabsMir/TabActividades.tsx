@@ -50,6 +50,7 @@ export const TabActividades = ({
         prevState[0].componentes.push({
           actividades: [
             {
+              actividad: "" ,
               resumen: "",
               indicador: "",
               frecuencia: "",
@@ -58,6 +59,7 @@ export const TabActividades = ({
               supuestos: "",
             },
             {
+              actividad: "" ,
               resumen: "",
               indicador: "",
               frecuencia: "",
@@ -86,10 +88,12 @@ export const TabActividades = ({
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
       return {
-        componentes: item.componentes.map((x) => {
+        componentes: item.componentes.map((x, index) => {
+
           return {
-            actividades: x.map((c) => {
+            actividades: x.map((c, index2) => {
               return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1) ,
                 resumen: "",
                 indicador: "",
                 formula: "",
@@ -110,6 +114,7 @@ export const TabActividades = ({
 
   
 useEffect(() => {
+
   if(compAct.length > 0){
     loadActividadesMir()
   }
@@ -118,10 +123,11 @@ useEffect(() => {
   const loadActividadesMir = () => {
     let y = componenteActividad.map((item) => {
       return {
-        componentes: compAct.map((x) => {
+        componentes: compAct.map((x, index) => {
           return {
-            actividades: x.actividades.map((c) => {
+            actividades: x.actividades.map((c, index2) => {
               return {
+                actividad: "" ,
                 resumen: "",
                 indicador: "",
                 formula: "",
@@ -135,9 +141,14 @@ useEffect(() => {
       };
     });
 
-    actividadesMir.map((x) => {
+
+    actividadesMir.map((x, index) => {
         let act = x.actividad.split("A")[1].split("C")[0];
         let comp = x.actividad.split("C")[1].substring(0, 1);
+
+
+      y[0].componentes[parseInt(comp) - 1].actividades[parseInt(act) - 1].actividad = x.actividad;
+
        y[0].componentes[parseInt(comp) - 1].actividades[parseInt(act) - 1].resumen = x?.resumen;
         y[0].componentes[parseInt(comp) - 1].actividades[
           parseInt(act) - 1
@@ -176,6 +187,7 @@ useEffect(() => {
       if (cValor[0].componentes[index].actividades.length < 6) {
         let prevState = [...cValor];
         prevState[0].componentes[index].actividades.push({
+          actividad: "A" + (cValor[0].componentes[index].actividades.length + 1) + "C" + (index + 1) ,
           resumen: "",
           indicador: "",
           frecuencia: "",

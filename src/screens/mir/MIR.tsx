@@ -27,7 +27,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 
 export let resumeDefaultMIR = true;
@@ -35,13 +34,21 @@ export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
 
-export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
+export const MIR = () => {
+  
   useEffect(() => {
     setShowResume(true);
   }, [resumeDefaultMIR]);
 
+
+  const returnMain = () => {
+    setShowResume(true)
+  }
+
+
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
+
 
   const renglonesPagina = 4;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
@@ -585,7 +592,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir MIR={mirEdit[0].MIR} />
+          <FullModalMir MIR={mirEdit[0].MIR} showResume={returnMain} />
         </Box>
       )}
     </Box>

@@ -1,41 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
-import { IActividades } from "./ICompActividad";
 import { ICValor } from "./ICValor";
 import { TabResumen2 } from "./TabResumen2";
-import { IMIR } from "./IMIR";
 
-export default function FullModalMir({MIR }: { MIR: string }) {
+export default function FullModalMir({ MIR, showResume }: { MIR: string, showResume: Function }) {
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
 
-
-
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([])
-  const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>([])
-
+  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
+  const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>(
+    []
+  );
 
   // business logic-------------------------------------------------------------------------------
   const [componentes, setComponentes] = React.useState([1, 2]);
@@ -71,10 +56,11 @@ export default function FullModalMir({MIR }: { MIR: string }) {
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
       return {
-        componentes: item.componentes.map((x) => {
+        componentes: item.componentes.map((x, index) => {
           return {
-            actividades: x.map((c) => {
+            actividades: x.map((c, index2) => {
               return {
+                actividad: "",
                 resumen: "",
                 indicador: "",
                 formula: "",
@@ -122,7 +108,6 @@ export default function FullModalMir({MIR }: { MIR: string }) {
       };
     });
     setComponenteValor(array);
-    
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
@@ -146,7 +131,6 @@ export default function FullModalMir({MIR }: { MIR: string }) {
   const loadProposito = (arr: Array<IProposito>) => {
     setCargaProposito(arr);
   };
-
 
   //----------------------------------------------------------------------------------------------
   return (
@@ -239,8 +223,8 @@ export default function FullModalMir({MIR }: { MIR: string }) {
           }}
         >
           <TabEncabezado
-          actividadesMir={setActividadesMir}
-          compAct={setCompAct}
+            actividadesMir={setActividadesMir}
+            compAct={setCompAct}
             show={value === 10 ? true : false}
             resumenEncabezado={resumenEncabezado}
             cargaFin={loadFin}
@@ -258,11 +242,11 @@ export default function FullModalMir({MIR }: { MIR: string }) {
             cargaProposito={cargaProposito}
           ></TabFinProposito>
           <TabResumen2
+          showResume={showResume}
             show={value === 50 ? true : false}
             componentes={componentes}
             componenteValor={componenteValor}
             cValor={cValor}
-            asignarCValor={asignarCValor}
             encabezado={encabezado}
             fin={fin}
             proposito={proposito}
@@ -275,8 +259,8 @@ export default function FullModalMir({MIR }: { MIR: string }) {
             componenteValorMir={componenteValor}
           ></TabComponente>
           <TabActividades
-          actividadesMir={actividadesMir}
-          compAct={compAct}
+            actividadesMir={actividadesMir}
+            compAct={compAct}
             show={value === 40 ? true : false}
             componentes={componentes}
             asignarCValor={asignarCValor}
@@ -289,16 +273,15 @@ export default function FullModalMir({MIR }: { MIR: string }) {
 
 export interface IComponenteActividad {
   actividades: number[];
-  componente:  string;
+  componente: string;
 }
 
 export interface IActividadesMir {
-  actividad:  string;
-  formula:    string;
+  actividad: string;
+  formula: string;
   frecuencia: string;
-  indicador:  string;
-  medios:     string;
-  resumen:    string;
-  supuestos:  string;
+  indicador: string;
+  medios: string;
+  resumen: string;
+  supuestos: string;
 }
-

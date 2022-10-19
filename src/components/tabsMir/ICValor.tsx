@@ -2,6 +2,7 @@ export interface ICValor {
     [x: string]: any;
     componentes: {
         actividades: {
+            actividad: string;
             resumen: string;
             indicador: string;
             formula: string;

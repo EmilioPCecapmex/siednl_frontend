@@ -120,24 +120,30 @@ export const FormulaDialog = ({
             label="Descripción A"
             multiline
             rows={4}
+            sx={{width: '45%'}}
             value={descA}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
+                fontSize: '.8vw'
               },
             }}
             onChange={(c) => setDescA(c.target.value)}
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+                fontSize: '.8vw'
               },
             }}
           />
           <TextField
             label="Descripción B"
+            sx={{width: '45%'}}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
+                fontSize: '.8vw'
+
               },
             }}
             multiline
@@ -147,6 +153,8 @@ export const FormulaDialog = ({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
+                fontSize: '.8vw'
+
               },
             }}
           />{" "}
