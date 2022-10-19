@@ -1,5 +1,5 @@
 import { IComponente } from "./IComponente";
-import { ICValor } from "./ICValor";
+import { IActividadesMir, ICValor } from "./ICValor";
 import { IEncabezado } from "./TabEncabezado";
 import { IFin, IProposito } from "./TabFinProposito";
 
@@ -13,5 +13,5 @@ export interface IMIR {
 
       componentes:Array<IComponente>;
 
-      actividades:ICValor;
+      actividades:Array<IActividadesMir>;
 }

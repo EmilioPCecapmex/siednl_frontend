@@ -122,7 +122,6 @@ export default function FullModalMir({MIR }: { MIR: string }) {
       };
     });
     setComponenteValor(array);
-    console.log(MIR);
     
   }, []);
 
