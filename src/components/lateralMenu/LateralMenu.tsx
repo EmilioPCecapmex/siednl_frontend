@@ -386,7 +386,7 @@ export const LateralMenu = ({
               </ListItemButton>
             </List>
           </Collapse>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate("../Institutionalactivities")}>
             <Box sx={st.iconMenuList}>
               <LocationCityOutlinedIcon />
             </Box>
