@@ -15,9 +15,11 @@ import {
   Typography,
 } from "@mui/material";
 import { tab } from "@testing-library/user-event/dist/tab";
-import Tab1 from "./Tab1";
+
 import TabAccion1 from "./TabAccion1";
 import TabAccion2 from "./TabAccion2";
+import TabIdentificacion from "./TabIdentificacion";
+import TabAvanceFisico from "./TabAvanceFisico";
 
 
 export default function TabsActividadesInstitucionales({show,}: {show: boolean;}) {
@@ -61,7 +63,7 @@ export default function TabsActividadesInstitucionales({show,}: {show: boolean;}
             }}
           >
             <Tab
-              label="Tab1"
+              label="Identificacion"
               value={10}
               sx={{
                 borderRight: "5px solid #b3afaf",
@@ -91,7 +93,7 @@ export default function TabsActividadesInstitucionales({show,}: {show: boolean;}
               }}
             />
             <Tab
-              label="Tab 4"
+              label="Avance fisico finaciero"
               value={40}
               sx={{
                 borderRight: "5px solid #b3afaf",
@@ -119,15 +121,18 @@ export default function TabsActividadesInstitucionales({show,}: {show: boolean;}
           }}
         >
           {/* tabs */}
-          <Tab1
+          <TabIdentificacion
             show={value === 10 ? true : false}
-          ></Tab1>
+          ></TabIdentificacion>
           <TabAccion1
             show={value === 20 ? true : false}
           ></TabAccion1>
           <TabAccion2
             show={value === 30 ? true : false}
           ></TabAccion2>
+          <TabAvanceFisico
+            show={value === 40 || value==50 ? true : false}
+          ></TabAvanceFisico>
         </Box>
       </Box>
     </Box>

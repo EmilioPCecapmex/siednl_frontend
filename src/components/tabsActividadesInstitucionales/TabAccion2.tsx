@@ -313,9 +313,8 @@ export function TabAccion2({
 export default TabAccion2;
 
 const top100Films = () => [
-    { label: 'La religión pura y sin mancha delante de Dios nuestro Padre es esta: atender a los huérfanos y a las viudas en sus aflicciones, y conservarse limpio de la corrupción del mundo.', year: 1994 },
-    { label: 'Que el favor del Señor nuestro Dios esté sobre nosotros.Confirma en nosotros la obra de nuestras manos; sí, confirma la obra de nuestras manos.', year: 1972 },
-    { label: 'Por eso Dios lo exaltó hasta lo sumo y le otorgó el nombre que está sobre todo nombre, para que ante el nombre de Jesús se doble toda rodilla en el cielo y en la tierra y debajo de la tierra.', year: 1974 },
-    { label: 'Háganlo todo sin quejas ni contiendas, para que sean intachables y puros, hijos de Dios sin culpa en medio de una generación torcida y depravada. En ella ustedes brillan como estrellas en el firmamento, manteniendo en alto la palabra de vida.', year: 2008 },];
-
+    { label: 'CONTRIBUIR A INCREMENTAR LA TASA BRUTA DE COBERTURA EN EDUCACIÓN MEDIA SUPERIOR MEDIANTE LOS SERVICIOS QUE BRINDAN LAS INSTITUCIONES DE BACHILLERATO EN EL ESTADO'},
+    { label: 'LOS ALUMNOS ASISTEN Y DAN CONTINUIDAD A SUS ESTUDIOS EN EL COLEGIO; LOS PADRES DE FAMILIA O TUTORES PERMITEN QUE SUS HIJOS RECIBAN APOYO INTEGRAL POR PARTE DEL COLEGIO'},
+    { label: 'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS' },
+    { label: 'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS Y LOS PROVEEDORES ENTREGAN LAS MATERIAS PRIMAS EN LAS FECHAS PROGRAMADAS Y EN LAS FORMAS INDICADAS'},];
 const periodo = [2021, 2022, 2023, 2024, 2025, 2026, 2027,];

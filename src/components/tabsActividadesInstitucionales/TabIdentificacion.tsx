@@ -10,11 +10,11 @@ import {
   ListItemButton,
 } from "@mui/material";
 import { IIdentificacionActInst } from "./IIdentificacionActInst";
-import { IAlineacionPlaneacion } from "./IIdentificacionActInst copy";
-import { getValue } from "@testing-library/user-event/dist/utils";
+import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
+import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
 
 
-export function Tab1({
+export function TabIdentificacion({
   show,
 
 }: {
@@ -45,6 +45,16 @@ export function Tab1({
       objetivoProgramaSectorial: "",
     }
   );
+
+  const [objetivosActividadInstitucional, setobjetivosActividadInstitucional] = useState<IObjetivosActividadInstitucional>(
+    {
+
+      objetivoGeneral: "",
+      objetivoEspecifico1: "",
+      objetivoEspecifico2: ""
+    }
+  );
+
 
   return (
 
@@ -222,7 +232,7 @@ export function Tab1({
               <Box sx={{ backgroundColor: "", height: "35%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
                 <TextField
                   multiline
-                  rows={6}
+                  rows={1}
                   variant="filled"
                   sx={{ width: "17%", boxShadow: 2 }}
                   label={"Tema PED"}
@@ -235,7 +245,7 @@ export function Tab1({
                 />
                 <TextField
                   multiline
-                  rows={6}
+                  rows={1}
                   variant="filled"
                   sx={{ width: "17%", boxShadow: 2 }}
                   label={"Objetivo PED"}
@@ -248,7 +258,7 @@ export function Tab1({
                 />
                 <TextField
                   multiline
-                  rows={6}
+                  rows={1}
                   variant="filled"
                   sx={{ width: "17%", boxShadow: 2 }}
                   label={"CONAC"}
@@ -261,7 +271,7 @@ export function Tab1({
                 />
                 <TextField
                   multiline
-                  rows={6}
+                  rows={1}
                   variant="filled"
                   sx={{ width: "17%", boxShadow: 2 }}
                   label={"Tipo Beneficiario"}
@@ -274,7 +284,7 @@ export function Tab1({
                 />
                 <TextField
                   multiline
-                  rows={6}
+                  rows={1}
                   variant="filled"
                   sx={{ width: "17%", boxShadow: 2 }}
                   label={"Programa"}
@@ -305,13 +315,13 @@ export function Tab1({
                   disablePortal
                   size="small"
                   options={top100Films()}
-                  getOptionLabel={(option)=>option}
+                  getOptionLabel={(option) => option}
                   value={alineacionPlaneacion.temaPED}
-                  onChange={(event,value) => {
-                    setAlineacionPlaneacion({ ... alineacionPlaneacion, temaPED:(value as string)});
+                  onChange={(event, value) => {
+                    setAlineacionPlaneacion({ ...alineacionPlaneacion, temaPED: (value as string) });
                   }}
                   sx={{ width: "30%" }}
-                  renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="TEMA PED 2022-2027:"  />}
+                  renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="TEMA PED 2022-2027:" />}
                 />
 
 
@@ -319,10 +329,10 @@ export function Tab1({
                   disablePortal
                   size="small"
                   options={top100Films()}
-                  getOptionLabel={(option)=>option}
+                  getOptionLabel={(option) => option}
                   value={alineacionPlaneacion.objetivoPED}
-                  onChange={(event,value) => {
-                    setAlineacionPlaneacion({ ... alineacionPlaneacion, objetivoPED:(value as string)});
+                  onChange={(event, value) => {
+                    setAlineacionPlaneacion({ ...alineacionPlaneacion, objetivoPED: (value as string) });
                   }}
                   sx={{ width: "30%" }}
                   renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="OBJETIVO PED 2022-2027:" />}
@@ -334,10 +344,10 @@ export function Tab1({
                   disablePortal
                   size="small"
                   options={top100Films()}
-                  getOptionLabel={(option)=>option}
+                  getOptionLabel={(option) => option}
                   value={alineacionPlaneacion.estrategiaPED}
-                  onChange={(event,value) => {
-                    setAlineacionPlaneacion({ ... alineacionPlaneacion, estrategiaPED:(value as string)});
+                  onChange={(event, value) => {
+                    setAlineacionPlaneacion({ ...alineacionPlaneacion, estrategiaPED: (value as string) });
                   }}
                   sx={{ width: "30%" }}
                   renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="ESTRATEGIA PED 2022-2027:" />}
@@ -355,7 +365,7 @@ export function Tab1({
                   label={"PROGRAMA SECTORIAL:"}
                   value={alineacionPlaneacion.programaSectorial}
                   onChange={(c) => {
-                    setAlineacionPlaneacion({ ... alineacionPlaneacion, programaSectorial: c.target.value});
+                    setAlineacionPlaneacion({ ...alineacionPlaneacion, programaSectorial: c.target.value });
                   }}
                 />
                 <TextField
@@ -366,7 +376,7 @@ export function Tab1({
                   label={"OBJETIVO PROGRAMA SECTORIAL:"}
                   value={alineacionPlaneacion.objetivoProgramaSectorial}
                   onChange={(c) => {
-                    setAlineacionPlaneacion({ ... alineacionPlaneacion, objetivoProgramaSectorial:c.target.value});
+                    setAlineacionPlaneacion({ ...alineacionPlaneacion, objetivoProgramaSectorial: c.target.value });
                   }}
                 />
               </Box>
@@ -386,6 +396,10 @@ export function Tab1({
                   variant="filled"
                   sx={{ width: "80%", boxShadow: 2 }}
                   label={"OBJETIVO GENERAL"}
+                  value={objetivosActividadInstitucional.objetivoGeneral}
+                  onChange={(c) => {
+                    setobjetivosActividadInstitucional({ ...objetivosActividadInstitucional, objetivoGeneral:c.target.value });
+                  }}
                 />
 
               </Box>
@@ -396,12 +410,21 @@ export function Tab1({
                   variant="filled"
                   sx={{ width: "40%", boxShadow: 2 }}
                   label={"OBJETIVOS ESPECÍFICOS 1"}
+                  value={objetivosActividadInstitucional.objetivoEspecifico1}
+                  onChange={(c) => {
+                    setobjetivosActividadInstitucional({ ...objetivosActividadInstitucional, objetivoEspecifico1:c.target.value });
+                  }}
                 />
 
                 <Autocomplete
                   disablePortal
                   size="small"
                   options={top100Films()}
+                  getOptionLabel={(option) => option}
+                  value={objetivosActividadInstitucional.objetivoEspecifico2}
+                  onChange={(event, value) => {
+                    setobjetivosActividadInstitucional({ ...objetivosActividadInstitucional, objetivoEspecifico2: (value as string) });
+                  }}
                   sx={{ width: "40%" }}
                   renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="OBJETIVOS ESPECÍFICOS 2" />}
                 />
@@ -422,10 +445,10 @@ export function Tab1({
   );
 }
 
-export default Tab1;
+export default TabIdentificacion;
 
 const top100Films = () => [
-  'La religión pura y sin mancha delante de Dios nuestro Padre es esta: atender a los huérfanos y a las viudas en sus aflicciones, y conservarse limpio de la corrupción del mundo.',
-  'Que el favor del Señor nuestro Dios esté sobre nosotros.Confirma en nosotros la obra de nuestras manos; sí, confirma la obra de nuestras manos.',
-  'Por eso Dios lo exaltó hasta lo sumo y le otorgó el nombre que está sobre todo nombre, para que ante el nombre de Jesús se doble toda rodilla en el cielo y en la tierra y debajo de la tierra.',
-  'Háganlo todo sin quejas ni contiendas, para que sean intachables y puros, hijos de Dios sin culpa en medio de una generación torcida y depravada. En ella ustedes brillan como estrellas en el firmamento, manteniendo en alto la palabra de vida.'];
+  'LOS ALUMNOS ASISTEN Y DAN CONTINUIDAD A SUS ESTUDIOS EN EL COLEGIO; LOS PADRES DE FAMILIA O TUTORES PERMITEN QUE SUS HIJOS RECIBAN APOYO INTEGRAL POR PARTE DEL COLEGIO',
+  'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS' ,
+  'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS Y LOS PROVEEDORES ENTREGAN LAS MATERIAS PRIMAS EN LAS FECHAS PROGRAMADAS Y EN LAS FORMAS INDICADAS',
+  'CONTRIBUIR A INCREMENTAR LA TASA BRUTA DE COBERTURA EN EDUCACIÓN MEDIA SUPERIOR MEDIANTE LOS SERVICIOS QUE BRINDAN LAS INSTITUCIONES DE BACHILLERATO EN EL ESTADO'];

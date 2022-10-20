@@ -65,7 +65,7 @@ export const ActividadesInstitucionales = () => {
               size="small"
               options={top100Films()}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Movie" />}
+              renderInput={(params) => <TextField {...params} label="Buscar" />}
             />
           </Box>
           <Box sx={{ width: "20vw", height: "5vh" }}>
@@ -74,7 +74,7 @@ export const ActividadesInstitucionales = () => {
               size="small"
               options={top100Films()}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Movie" />}
+              renderInput={(params) => <TextField {...params} label="Buscar" />}
             />
           </Box>
           <Box sx={{ width: "20vw", height: "5vh" }}>
@@ -83,7 +83,7 @@ export const ActividadesInstitucionales = () => {
               size="small"
               options={top100Films()}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Movie" />}
+              renderInput={(params) => <TextField {...params} label="Buscar" />}
             />
           </Box>
           <Button
@@ -271,7 +271,7 @@ export const ActividadesInstitucionales = () => {
 
 
 const top100Films = () => [
-  { label: 'The Shawshank Redemption', year: 1994 },
-  { label: 'The Godfather', year: 1972 },
-  { label: 'The Godfather: Part II', year: 1974 },
-  { label: 'The Dark Knight', year: 2008 },];
+  { label: 'CONTRIBUIR A INCREMENTAR LA TASA BRUTA DE COBERTURA EN EDUCACIÓN MEDIA SUPERIOR MEDIANTE LOS SERVICIOS QUE BRINDAN LAS INSTITUCIONES DE BACHILLERATO EN EL ESTADO'},
+  { label: 'LOS ALUMNOS ASISTEN Y DAN CONTINUIDAD A SUS ESTUDIOS EN EL COLEGIO; LOS PADRES DE FAMILIA O TUTORES PERMITEN QUE SUS HIJOS RECIBAN APOYO INTEGRAL POR PARTE DEL COLEGIO'},
+  { label: 'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS' },
+  { label: 'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS Y LOS PROVEEDORES ENTREGAN LAS MATERIAS PRIMAS EN LAS FECHAS PROGRAMADAS Y EN LAS FORMAS INDICADAS'},];
