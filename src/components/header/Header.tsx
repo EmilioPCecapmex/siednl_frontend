@@ -36,17 +36,6 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
     }
   };
 
-  const [openNotifPanel, setOpenNotifPanel] = useState(false);
-
-  const handleOpenNotifPanel = () => {
-    setOpenNotifPanel(true);
-  };
-
-  const handleCloseNotifPanel = () => {
-    setOpenNotifPanel(false);
-  };
-
-
   return (
     <Box
       sx={{

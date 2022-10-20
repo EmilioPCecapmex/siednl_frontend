@@ -75,6 +75,8 @@ export const DeleteDialogMIR = ({
               "&:hover": {
                 color: "red",
               },
+              width: '1.2vw',
+              height: '1.2vw'
             },
           ]}
         />
@@ -125,7 +127,7 @@ export const DeleteDialogMIR = ({
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
               De Acuerdo
-            </Typography>{" "}
+            </Typography>
           </Button>
         </DialogActions>
       </Dialog>

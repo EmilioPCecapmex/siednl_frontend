@@ -21,7 +21,7 @@ export function TabResumen2({
   componentes,
   componenteValor,
   cValor,
-  asignarCValor,
+  showResume
 }: {
   show: boolean;
   encabezado: Array<IEncabezado>;
@@ -30,7 +30,7 @@ export function TabResumen2({
   componentes: number[];
   componenteValor: Array<IComponente>;
   cValor: Array<ICValor>;
-  asignarCValor: Function;
+  showResume: Function;
 }) {
   const [MIR, setMIR] = useState<IMIR>();
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
@@ -55,8 +55,39 @@ export function TabResumen2({
     });
   };
 
+  const checkMir = (v: string) => {
+    if(MIR?.encabezado.ejercicioFiscal === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona año fiscal.",
+      });
+    }else if(MIR?.encabezado.institucion === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona institución.",
+      });
+    }else if(MIR?.encabezado.nombre_del_programa === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona programa.",
+      });
+    }else if(MIR?.encabezado.eje === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona eje.",
+      });
+    }else if(MIR?.encabezado.tema === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona temática.",
+      });
+    }else{
+      createMIR(v)
+    }
+
+  }
+
   const createMIR = (estado: string) => {
-    
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
@@ -82,12 +113,19 @@ export function TabResumen2({
           title: "MIR generada con éxito",
         });
 
+        showResume();
+
+
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        console.log(err)
+        if(err.response.status === 409){
+          Toast.fire({
+            icon: "error",
+            title: err.response.data.result.error,
+          });
+        }
+        
       });
   };
 
@@ -95,8 +133,7 @@ export function TabResumen2({
     let arr: any[] = []
     cValor[0].componentes.map((a) => {
       a.actividades.map(b => {
-        let act = b.resumen.substring(0,4);
-        Object.assign(b, {actividad: act})
+        Object.assign(b)
         arr.push(b)
       } )
 })
@@ -621,7 +658,7 @@ export function TabResumen2({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1].resumen}
+                    {componenteValor[index - 1]?.resumen}
                   </Typography>
                 </Box>
                 <Box
@@ -643,7 +680,7 @@ export function TabResumen2({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1].indicador}
+                    {componenteValor[index - 1]?.indicador}
                   </Typography>
                 </Box>
                 <Box
@@ -665,7 +702,7 @@ export function TabResumen2({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1].formula}
+                    {componenteValor[index - 1]?.formula}
                   </Typography>
                 </Box>
                 <Box
@@ -687,7 +724,7 @@ export function TabResumen2({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1].frecuencia}
+                    {componenteValor[index - 1]?.frecuencia}
                   </Typography>
                 </Box>
                 <Box
@@ -709,7 +746,7 @@ export function TabResumen2({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1].medios}
+                    {componenteValor[index - 1]?.medios}
                   </Typography>
                 </Box>
                 <Box
@@ -731,7 +768,7 @@ export function TabResumen2({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1].supuestos}
+                    {componenteValor[index - 1]?.supuestos}
                   </Typography>
                 </Box>
               </Box>
@@ -931,13 +968,13 @@ export function TabResumen2({
           mt: 2,
         }}
       >
-        <Button color="error" variant="outlined">
+        <Button color="error" variant="outlined" onClick={() => showResume()}>
           Cancelar
         </Button>
         <Button
           color="warning"
           variant="outlined"
-          onClick={() => createMIR('Borrador')}
+          onClick={() => checkMir('Borrador')}
         >
           Borrador
         </Button>

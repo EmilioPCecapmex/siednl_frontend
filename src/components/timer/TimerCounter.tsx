@@ -15,12 +15,16 @@ export const TimerCounter = () => {
     if (rest >= 0 || Number.isNaN(rest)) {
       setActualDate(new Date());
         setRest(session.getTime() - actualDate.getTime());
-      if(Math.floor(rest/60/1000) <= 2 && rest !== 0 && messageSend) {
-        setMessageSend(false)
-        alertaSession()
-      }
     }
   }, 1000);
+
+
+  useEffect(() => {
+    if(Math.floor(rest/60/1000) <= 2 && rest !== 0 && messageSend) {
+      setMessageSend(false)
+      alertaSession()
+    }
+  },[Math.floor(rest/60/1000) < 2])
 
 
 

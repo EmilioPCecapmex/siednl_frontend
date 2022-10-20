@@ -44,11 +44,11 @@ export default function ModalEnviarMIR({
           MIR: MIR,
           Estado: estado,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          AnioFiscal: JSON.parse(MIR)?.Encabezado.ejercicioFiscal,
-          Institucion: JSON.parse(MIR)?.Encabezado.institucion,
-          Programa: JSON.parse(MIR)?.Encabezado.programa,
-          Eje: JSON.parse(MIR)?.Encabezado.eje,
-          Tematica: JSON.parse(MIR)?.Encabezado.tematica,
+          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
+          Institucion: JSON.parse(MIR)?.encabezado.institucion,
+          Programa: JSON.parse(MIR)?.encabezado.programa,
+          Eje: JSON.parse(MIR)?.encabezado.eje,
+          Tematica: JSON.parse(MIR)?.encabezado.tematica,
         },
         {
           headers: {

@@ -23,22 +23,28 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
+import MessageIcon from "@mui/icons-material/Message";
+import { height } from "@mui/system";
+import moment from "moment";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
 
-export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
+export const MIR = () => {
   useEffect(() => {
     setShowResume(true);
+    getMIRs();
   }, [resumeDefaultMIR]);
+
+  const returnMain = () => {
+    setShowResume(true);
+    getMIRs();
+  };
 
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
@@ -74,6 +80,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
       Tematica: "",
       MIR: "",
       Estado: "",
+      FechaCreacion: "",
     },
   ]);
   const [mirEdit, setMirEdit] = useState([
@@ -86,6 +93,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
       Tematica: "",
       MIR: "",
       Estado: "",
+      FechaCreacion: "",
     },
   ]);
 
@@ -100,6 +108,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
       Tematica: "",
       MIR: "",
       Estado: "",
+      FechaCreacion: "",
     },
   ]);
 
@@ -300,9 +309,6 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
               <Autocomplete
                 disablePortal
                 size="small"
-                getOptionDisabled={(option) =>
-                  option.Id === "0" ? true : false
-                }
                 options={catalogoProgramasPresupuestarios}
                 getOptionLabel={(option) => option.NombrePrograma}
                 renderOption={(props, option) => {
@@ -433,27 +439,33 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
                     <TableRow key={"a"}>
-                      <TableCell sx={{ fontFamily: "MontserratBold" }}>
+                      <TableCell
+                        sx={{ fontFamily: "MontserratBold" }}
+                        align="center"
+                      >
                         Ejercicio Fiscal
                       </TableCell>
-                      <TableCell sx={{ fontFamily: "MontserratBold" }}>
+                      <TableCell
+                        sx={{ fontFamily: "MontserratBold" }}
+                        align="center"
+                      >
                         Institución
                       </TableCell>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
-                        align="left"
+                        align="center"
                       >
                         Nombre del Programa
                       </TableCell>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
-                        align="left"
+                        align="center"
                       >
                         Eje
                       </TableCell>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
-                        align="left"
+                        align="center"
                       >
                         Tema
                       </TableCell>
@@ -462,6 +474,12 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                         align="center"
                       >
                         Estado
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontFamily: "MontserratBold" }}
+                        align="center"
+                      >
+                        Fecha Creación
                       </TableCell>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
@@ -480,13 +498,69 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                       )
                       .map((row, index) => (
                         <TableRow key={index}>
-                          <TableCell>{row.AnioFiscal}</TableCell>
-                          <TableCell>{row.Institucion}</TableCell>
-                          <TableCell>{row.Programa}</TableCell>
-                          <TableCell>{row.Eje}</TableCell>
-                          <TableCell>{row.Tematica}</TableCell>
-                          <TableCell align="center">{row.Estado}</TableCell>
-
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.AnioFiscal}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.Institucion}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.Programa}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.Eje}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.Tematica}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.Estado}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {moment(row.FechaCreacion, moment.ISO_8601).format("DD/MM/YYYY HH:mm:SS").toString()}
+                          </TableCell>
                           <TableCell align="center">
                             <Box
                               sx={{ display: "flex", justifyContent: "center" }}
@@ -500,6 +574,26 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                                           "&:hover": {
                                             color: "orange",
                                           },
+                                          width: '1.2vw',
+                                          height: '1.2vw'
+
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                              <Tooltip title="Comentarios">
+                                <span>
+                                  <IconButton>
+                                    <MessageIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "indigo",
+                                          },
+                                          width: '1.2vw',
+                                          height: '1.2vw'
                                         },
                                       ]}
                                     />
@@ -508,7 +602,9 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                               </Tooltip>
                             </Box>
 
-                            <Box sx={{ display: "flex", justifyContent:'center' }}>
+                            <Box
+                              sx={{ display: "flex", justifyContent: "center" }}
+                            >
                               <DeleteDialogMIR
                                 disab={
                                   row.Estado === "En Revisión" ? true : false
@@ -535,6 +631,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                                           Tematica: row.Tematica,
                                           MIR: row.MIR,
                                           Estado: row.Estado,
+                                          FechaCreacion: "",
                                         },
                                       ]);
                                       setShowResume(false);
@@ -546,6 +643,8 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
                                           "&:hover": {
                                             color: "blue",
                                           },
+                                          width: '1.2vw',
+                                          height: '1.2vw'
                                         },
                                       ]}
                                     />
@@ -585,7 +684,7 @@ export const MIR = ({ setDefaultPage }: { setDefaultPage?: boolean }) => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir MIR={mirEdit[0].MIR} />
+          <FullModalMir MIR={mirEdit[0].MIR} showResume={returnMain} />
         </Box>
       )}
     </Box>

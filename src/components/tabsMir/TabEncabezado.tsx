@@ -68,6 +68,7 @@ export function TabEncabezado({
 
   useEffect(() => {
     if (MIR !== "") {
+
       let jsonMir = JSON.parse(MIR);
       setLoadFin([jsonMir.fin]);
       setLoadProposito([jsonMir.proposito]);
@@ -95,7 +96,7 @@ export function TabEncabezado({
         comp.push("C" + j);
         jsonMir.actividades.map((a: any) => {
 
-          if(a.actividad === ("A" + i + "C" + j)){
+          if(a.actividad.substring(0,4) === ("A" + i + "C" + j)){
             act.push(i);
           i++;
           }
@@ -133,20 +134,6 @@ export function TabEncabezado({
     asignarComponenteValor(loadComponenteValor);
     //console.log(loadComponenteValor);
   }, [loadComponentes]);
-
-  useEffect(() => {
-    // console.log(loadActividades);
-
-    compActividad.map((item, index) => {
-      let indexAct = 0;
-      for (let i = 0; i < item.actividades; i++) {
-        //console.log(i);
-
-        indexAct++;
-      }
-      //  console.log(item.actividades);
-    });
-  }, [loadActividades]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -233,17 +220,17 @@ export function TabEncabezado({
 
   //Values
   const [anioFiscal, setAnioFiscal] = useState("2022");
-  const [institution, setInstitution] = useState("Selecciona");
-  const [programa, setPrograma] = useState("Selecciona");
-  const [eje, setEje] = useState("Selecciona");
-  const [tematica, setTematica] = useState("Selecciona");
-  const [objetivo, setObjetivo] = useState("Selecciona");
-  const [estrategia, setEstrategia] = useState("Selecciona");
+  const [institution, setInstitution] = useState("");
+  const [programa, setPrograma] = useState("");
+  const [eje, setEje] = useState("");
+  const [tematica, setTematica] = useState("");
+  const [objetivo, setObjetivo] = useState("");
+  const [estrategia, setEstrategia] = useState("");
 
   const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
     []
   );
-  const [beneficiario, setBeneficiario] = useState("Selecciona");
+  const [beneficiario, setBeneficiario] = useState("");
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
