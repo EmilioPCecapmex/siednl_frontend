@@ -1,320 +1,560 @@
 import { useState } from "react";
 import {
-    TextField,
-    Box,
-    Typography,
-    Autocomplete,
-    List,
-    Divider,
-    ListItemButton,
+  TextField,
+  Box,
+  Typography,
+  List,
+  Divider,
+  ListItemButton,
+  Autocomplete,
+  FormControl,
 } from "@mui/material";
+import { IAccion1 } from "./IAccion1";
 
-export function TabAccion2({
-    show,
+export function TabAccion2({ show }: { show: boolean }) {
+  const [componentSelect, setComponentSelect] = useState(1);
+  const [accion1, setAccion1] = useState<IAccion1>();
+  return (
+    <Box
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
+      sx={{
+        width: "75vw",
+        height: "77vh",
+        justifyContent: "center",
+        alignItems: "center",
+        justifyItems: "center",
+        backgroundColor: "#fff",
+        boxShadow: 20,
+        borderRadius: 5,
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+        }}
+      >
+        <List
+          sx={{
+            width: "15vw",
+            height: "100%",
+            borderRight: "solid",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            borderColor: "#BCBCBC",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            },
+          }}
+        >
+          <Box
+            sx={{
+              height: "15vh",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Divider />
 
-}: {
-    show: boolean;
-}) {
+            <ListItemButton
+              selected={componentSelect === 1 ? true : false}
+              onClick={() => setComponentSelect(1)}
+              sx={{
+                "&.Mui-selected ": {
+                  backgroundColor: "#c4a57b",
+                },
+                "&.Mui-selected:hover": {
+                  backgroundColor: "#cbcbcb",
+                },
+              }}
+            >
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                Acción 2
+              </Typography>
+            </ListItemButton>
+            <Divider />
 
-    const [componentSelect, setComponentSelect] = useState(1);
+            <ListItemButton
+              selected={componentSelect === 2 ? true : false}
+              onClick={() => setComponentSelect(2)}
+              sx={{
+                "&.Mui-selected ": {
+                  backgroundColor: "#c4a57b",
+                },
+                "&.Mui-selected:hover": {
+                  backgroundColor: "#cbcbcb",
+                },
+              }}
+            >
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Datos del Indicador
+              </Typography>
+            </ListItemButton>
+            <Divider />
 
-    return (
-
+            <Divider />
+          </Box>
+        </List>
 
         <Box
-            visibility={show ? "visible" : "hidden"}
-            position="absolute"
-            sx={{
-                width: "75vw",
-                height: "77vh",
-                justifyContent: "center",
-                alignItems: "center",
-                justifyItems: "center",
-                backgroundColor: "#fff",
-                boxShadow: 20,
-                borderRadius: 5,
-            }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "90%",
+            height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-
-            <Box
+          {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
+          {componentSelect === 1 ? (
+              <Box
                 sx={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "column",
                 }}
-            >
-                <List
-                    sx={{
-                        width: "12vw",
-                        height: "100%",
-                        borderRight: "solid",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        borderColor: "#BCBCBC",
-                        "&::-webkit-scrollbar": {
-                            width: ".3vw",
-                        },
-                        "&::-webkit-scrollbar-thumb": {
-                            backgroundColor: "rgba(0,0,0,.5)",
-                            outline: "1px solid slategrey",
-                            borderRadius: 10,
-                        },
-                    }}
-                >
-
-                    <Box
-
-                        sx={{
-                            height: "15vh",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <Divider />
-
-                        <ListItemButton
-                            selected={componentSelect === 1 ? true : false}
-                            onClick={() => setComponentSelect(1)}
-                            sx={{
-                                "&.Mui-selected ": {
-                                    backgroundColor: "#c4a57b",
-                                },
-                                "&.Mui-selected:hover": {
-                                    backgroundColor: "#cbcbcb",
-                                },
-                            }}
-                        >
-                            <Typography sx={{ fontFamily: "MontserratMedium" }}>ACCIÓN 2</Typography>
-                        </ListItemButton>
-                        <Divider />
-
-                        <ListItemButton
-                            selected={componentSelect === 2 ? true : false}
-
-                            onClick={() => setComponentSelect(2)}
-                            sx={{
-                                "&.Mui-selected ": {
-                                    backgroundColor: "#c4a57b",
-                                },
-                                "&.Mui-selected:hover": {
-                                    backgroundColor: "#cbcbcb",
-                                },
-                            }}
-                        >
-                            <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                                DATOS DEL INDICADOR
-                            </Typography>
-                        </ListItemButton>
-                        <Divider />
-
-
-                        <Divider />
-                    </Box>
-
-                </List>
-
+              >
                 <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        width: "90%",
-                        height: "100%",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
+                  sx={{
+                    width: "90%",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                  }}
                 >
-
-                    {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
-                    {componentSelect === 1 ? <Box sx={{ width: "100%", height: "100%", backgroundColor: "", }}>
-
-
-                        <Box sx={{ height: "100%" }}>
-                            <Box sx={{ backgroundColor: "", height: "15%", display: "flex", justifyContent: "center", alignItems: "center", }}> <Typography>IDENTIFICACIÓN DE LA ACTIVIDAD INSTITUCIONAL</Typography></Box>
-                            <Box sx={{ backgroundColor: "", height: "40%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-                                <Autocomplete
-                                    disablePortal
-                                    size="small"
-                                    options={top100Films()}
-                                    sx={{ width: "40%" }}
-                                    renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="DESCRIPCIÓN" />}
-                                />
-                                <Autocomplete
-                                    disablePortal
-                                    size="small"
-                                    options={top100Films()}
-                                    sx={{ width: "40%" }}
-                                    renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="NOMBRE DEL INDICADOR" />}
-                                />
-
-
-                            </Box>
-
-                            <Box sx={{ backgroundColor: "", height: "35%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <TextField
-                                    multiline
-                                    rows={4}
-                                    variant="filled"
-                                    sx={{ width: "14%", boxShadow: 2 }}
-                                    label={` LINEA BASE ${periodo[0]} `}
-                                />
-
-
-
-                                {periodo.map((x, y) => {
-                                    if (y >= 1)
-                                        return (<TextField
-                                            key={x}
-                                            multiline
-                                            rows={4}
-                                            variant="filled"
-                                            sx={{ width: "14%", boxShadow: 2 ,}}
-                                            label={y === 6 ? `META SEXENAL ${periodo[y]} ` : `META:${periodo[y]} `}
-                                        />
-                                        );
-                                })}
-
-
-                            </Box>
-
-                        </Box>
-
-                    </Box> : null}
-
-                    {/* ---------------------------------------------------------------------------------------------------------------------------- */}
-
-                    {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
-                    {componentSelect === 2 ?
-                        <Box sx={{ width: "100%", height: "100%", }}>
-
-                            <Box sx={{ height: "15%", display: "flex", justifyContent: "center", alignItems: "center" }}><Typography>DATOS DEL INDICADOR</Typography></Box>
-                            <Box sx={{ height: "25%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-
-                                <Autocomplete
-                                    disablePortal
-                                    size="small"
-                                    options={top100Films()}
-                                    sx={{ width: "95%" }}
-                                    renderInput={(params) => <TextField {...params} multiline rows={4.7} sx={{ width: "100%", boxShadow: 2 }} label="FÓRMULA DE CÁLCULO:" />}
-                                />
-
-
-
-                            </Box>
-                            <Box sx={{ height: "12%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-
-
-                                <TextField
-                                    multiline
-                                    rows={2}
-                                    variant="filled"
-                                    sx={{ width: "19%", boxShadow: 2 }}
-                                    label={"UNIDAD DE MEDIDA"}
-                                />
-                                <TextField
-                                    multiline
-                                    rows={2}
-                                    variant="filled"
-                                    sx={{ width: "19%", boxShadow: 2 }}
-                                    label={"TIPO DE FÓRMULA"}
-                                />
-                                <TextField
-                                    multiline
-                                    rows={2}
-                                    variant="filled"
-                                    sx={{ width: "19%", boxShadow: 2 }}
-                                    label={"TIPO DE INDICADOR"}
-                                />
-                                <TextField
-                                    multiline
-                                    rows={2}
-                                    variant="filled"
-                                    sx={{ width: "19%", boxShadow: 2 }}
-                                    label={"DIMENSIÓN DEL INDICADOR"}
-                                />
-                                <TextField
-                                    multiline
-                                    rows={2}
-                                    variant="filled"
-                                    sx={{ width: "19%", boxShadow: 2 }}
-                                    label={"SENTIDO DEL INDICADOR"}
-                                />
-                            </Box>
-                            <Box sx={{ height: "48%", width: "100%", display: "flex", justifyContent: "space-around", alignItems: "baseline", flexDirection: "column" }}>
-
-                                <Box sx={{ height: "24%", display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "100%" }}>
-
-                                    <Autocomplete
-                                        disablePortal
-                                        size="small"
-                                        options={top100Films()}
-                                        sx={{ width: "40%" }}
-                                        renderInput={(params) => <TextField {...params} multiline rows={4.7} sx={{ width: "100%", boxShadow: 2 }} label="NUMERADOR" />}
-                                    />
-
-                                    <TextField
-                                        multiline
-                                        rows={4}
-                                        variant="filled"
-                                        sx={{ width: "19%", boxShadow: 2 }}
-                                        label={"UNIDAD DE MEDIDA"}
-                                    /><TextField
-                                        multiline
-                                        rows={4}
-                                        variant="filled"
-                                        sx={{ width: "29%", boxShadow: 2 }}
-                                        label={"MEDIO DE VERIFICACIÓN / FUENTE DE INFORMACIÓN"}
-                                    />
-                                </Box>
-                                <Box sx={{ height: "24%", display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "100%" }}>
-
-                                    <Autocomplete
-                                        disablePortal
-                                        size="small"
-                                        options={top100Films()}
-                                        sx={{ width: "40%" }}
-                                        renderInput={(params) => <TextField {...params} multiline rows={4.7} sx={{ width: "100%", boxShadow: 2 }} label="DENOMINADOR" />}
-                                    />
-                                    <TextField
-                                        multiline
-                                        rows={4}
-                                        variant="filled"
-                                        sx={{ width: "19%", boxShadow: 2 }}
-                                        label={"UNIDAD DE MEDIDA"}
-                                    /><TextField
-                                        multiline
-                                        rows={4}
-                                        variant="filled"
-                                        sx={{ width: "29%", boxShadow: 2 }}
-                                        label={"MEDIO DE VERIFICACIÓN / FUENTE DE INFORMACIÓN"}
-                                    />
-                                </Box>
-
-                            </Box>
-                        </Box> : null}
-
-
-                    {/* ---------------------------------------------------------------------------------------------------------------------------- */}
-
-
+                  <Typography
+                    sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                  >
+                    Acción 2
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    height: "45%",
+                    width: "90%",
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <TextField
+                    multiline
+                    rows={6}
+                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    variant="filled"
+                    sx={{ width: "45%", boxShadow: 2 }}
+                    label={"Descripción"}
+                    
+                  />
+                  <TextField
+                    multiline
+                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    rows={6}
+                    variant="filled"
+                    sx={{ width: "45%", boxShadow: 2 }}
+                    label={"Nombre del Indicador"}
+                  />
                 </Box>
 
+                <Box
+                  sx={{
+                    height: "45%",
+                    width: "90%",
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr 1fr",
+                    alignItems: "center",
+                  }}
+                >
 
+                  {periodo.map((x, y) => {
+                    return (
+                      <TextField
+                        key={y}
+                        multiline
+                        rows={1}
+                        InputLabelProps={{style: {fontFamily: 'MontserratSemiBold', fontSize: '.7vw'}}}
+                        InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                        variant="standard"
+                        sx={{ width: "80%", gridColumn: y === 6 ? 2 : 0 }}
+                        label={
+                          y === 0
+                            ? `Linea Base ${periodo[y]} `
+                            : y === 6
+                            ? `Meta Sexenal ${periodo[y]} `
+                            : ` Meta ${periodo[y]} `
+                        }
+                      />
+                    );
+                  })}
+                </Box>
+              </Box>
+          ) : null}
+
+          {/* ---------------------------------------------------------------------------------------------------------------------------- */}
+
+          {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
+          {componentSelect === 2 ? (
+             <Box
+             sx={{
+               width: "100%",
+               height: "100%",
+               display: "flex",
+               alignItems: "center",
+               justifyContent: "center",
+               flexDirection: "column",
+             }}
+           >
+             <Box
+               sx={{
+                 width: "90%",
+                 display: "flex",
+                 justifyContent: "flex-end",
+                 alignItems: "center",
+               }}
+             >
+               <Typography
+                 sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+               >
+              Acción 2 - Datos del Indicador
+               </Typography>
+             </Box>
+             <Box
+               sx={{
+                 height: "20%",
+                 width: "90%",
+                 display: "flex",
+                 justifyContent: "space-evenly",
+                 alignItems: "center",
+               }}
+             >
+                <TextField
+                  multiline
+                  rows={3}
+                  variant="filled"
+                  InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  sx={{ width: "40%", boxShadow: 2 }}
+                  label={"Fórmula de Cálculo"}
+                />
+              </Box>
+              <Box
+                sx={{
+                  height: "25%",
+                  width: '95%',
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+               <FormControl sx={{ gridRow: "1", width: "18%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Unidad de Medida"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+                <FormControl sx={{ gridRow: "1", width: "18%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Tipo de Fórmula"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+                <FormControl sx={{ gridRow: "1", width: "18%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Tipo de Indicador"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+                <FormControl sx={{ gridRow: "1", width: "20%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Dimensión del Indicador"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+                <FormControl sx={{ gridRow: "1", width: "18%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Sentido del Indicador"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+              </Box>
+              <Box
+                sx={{
+                  height: "45%",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-around",
+                  alignItems: "baseline",
+                  flexDirection: "column",
+                }}
+              >
+                <Box
+                  sx={{
+                    height: "24%",
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <TextField
+                    multiline
+                    rows={4}
+                    variant="filled"
+                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    sx={{ width: "35%", boxShadow: 2 }}
+                    label={"Numerador"}
+                  />
+                  <TextField
+                    multiline
+                    rows={4}
+                    variant="filled"
+                    sx={{ width: "20%", boxShadow: 2 }}
+                    label={"Unidad de Medida"}
+                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  />
+                  <TextField
+                    multiline
+                    rows={4}
+                    variant="filled"
+                    sx={{ width: "35%", boxShadow: 2 }}
+                    label={"Medio de Verificación / Fuente de Información"}
+                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    height: "24%",
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <TextField
+                    multiline
+                    rows={4}
+                    variant="filled"
+                    sx={{ width: "35%", boxShadow: 2 }}
+                    label={"Denominador"}
+                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  />
+                  <TextField
+                    multiline
+                    rows={4}
+                    variant="filled"
+                    sx={{ width: "20%", boxShadow: 2 }}
+                    label={"Unidad de Medida"}
+                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  />
+                  <TextField
+                    multiline
+                    rows={4}
+                    variant="filled"
+                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
+                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    sx={{ width: "35%", boxShadow: 2 }}
+                    label={"Medio de Verificación / Fuente de Información"}
+                  />
+                </Box>
+              </Box>
             </Box>
+          ) : null}
 
-
-
+          {/* ---------------------------------------------------------------------------------------------------------------------------- */}
         </Box>
-
-    );
+      </Box>
+    </Box>
+  );
 }
 
 export default TabAccion2;
 
 const top100Films = () => [
-    { label: 'CONTRIBUIR A INCREMENTAR LA TASA BRUTA DE COBERTURA EN EDUCACIÓN MEDIA SUPERIOR MEDIANTE LOS SERVICIOS QUE BRINDAN LAS INSTITUCIONES DE BACHILLERATO EN EL ESTADO'},
-    { label: 'LOS ALUMNOS ASISTEN Y DAN CONTINUIDAD A SUS ESTUDIOS EN EL COLEGIO; LOS PADRES DE FAMILIA O TUTORES PERMITEN QUE SUS HIJOS RECIBAN APOYO INTEGRAL POR PARTE DEL COLEGIO'},
-    { label: 'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS' },
-    { label: 'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS Y LOS PROVEEDORES ENTREGAN LAS MATERIAS PRIMAS EN LAS FECHAS PROGRAMADAS Y EN LAS FORMAS INDICADAS'},];
-const periodo = [2021, 2022, 2023, 2024, 2025, 2026, 2027,];
+    "Lorem ipsum dolor",
+    "Sit amet consectetur",
+    "Itaque facere ut voluptatum",
+    "Ullam voluptatem accusantium",
+  ];
+  
+
+const periodo = [2021, 2022, 2023, 2024, 2025, 2026, 2027];

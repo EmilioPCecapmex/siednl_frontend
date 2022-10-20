@@ -1,20 +1,48 @@
-import { Autocomplete, Box, Button, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip } from "@mui/material";
+import React, { useEffect, useState } from "react";
+
+import {
+  Autocomplete,
+  Box,
+  Button,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import SendIcon from '@mui/icons-material/Send';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DownloadIcon from '@mui/icons-material/Download';
-import EditIcon from '@mui/icons-material/Edit';
-import { useState } from "react";
-import { TabActividades } from "../../components/tabsMir/TabActividades";
+import SendIcon from "@mui/icons-material/Send";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DownloadIcon from "@mui/icons-material/Download";
+import EditIcon from "@mui/icons-material/Edit";
 import TabsActividadesInstitucionales from "../../components/tabsActividadesInstitucionales/TabsActividadesInstitucionales";
 
+export let resumeDefaultAI = true;
+export let setResumeDefaultAI = () => {
+  resumeDefaultAI = !resumeDefaultAI;
+};
+
 export const ActividadesInstitucionales = () => {
-  const [showActInstitucionales, setShowActInstitucionales] = useState(true);
+
+  const [showResume, setShowResume] = useState(true);
+
+  const returnMain = () => {
+    setShowResume(true);
+  };
+
+  useEffect(() => {
+    setShowResume(true);
+  }, [resumeDefaultAI]);
 
   const handleClickOpenTabsActInst = () => {
-    setShowActInstitucionales(false);
+    setShowResume(false);
   };
+
   return (
     <Box
       sx={{
@@ -34,59 +62,134 @@ export const ActividadesInstitucionales = () => {
           name3: "",
         }}
       />
-{showActInstitucionales ? (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          width: "85%",
-          height: "92%",
-          mt: "8vh",
-          flexWrap: "wrap",
-        }}
-      >
+      {showResume ? (
         <Box
           sx={{
-            mt: "3vh",
-            width: "60%",
-            height: "15vh",
-            backgroundColor: "#fff",
-            borderRadius: 5,
-            display: "grid",
-            boxShadow: 5,
-            gridTemplateColumns: "1fr 1fr",
-            alignItems: "center",
-            justifyItems: "center",
+            display: "flex",
+            justifyContent: "center",
+            width: "85%",
+            height: "92%",
+            mt: "8vh",
+            flexWrap: "wrap",
           }}
         >
-          <Box sx={{ width: "20vw", height: "5vh" }}>
-            <Autocomplete
-              disablePortal
-              size="small"
-              options={top100Films()}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Buscar" />}
-            />
-          </Box>
-          <Box sx={{ width: "20vw", height: "5vh" }}>
-            <Autocomplete
-              disablePortal
-              size="small"
-              options={top100Films()}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Buscar" />}
-            />
-          </Box>
-          <Box sx={{ width: "20vw", height: "5vh" }}>
-            <Autocomplete
-              disablePortal
-              size="small"
-              options={top100Films()}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Buscar" />}
-            />
-          </Box>
-          <Button
+          <Box
+            sx={{
+              mt: "3vh",
+              width: "60%",
+              height: "15vh",
+              backgroundColor: "#fff",
+              borderRadius: 5,
+              display: "grid",
+              boxShadow: 5,
+              gridTemplateColumns: "1fr 1fr",
+              alignItems: "center",
+              justifyItems: "center",
+            }}
+          >
+            <Box sx={{ width: "20vw", height: "5vh" }}>
+              <Autocomplete
+                disablePortal
+                size="small"
+                options={top100Films()}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={Math.random()}>
+                      <div
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".8vw",
+                        }}
+                      >
+                        {option.label}
+                      </div>
+                    </li>
+                  );
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Ejercicio Fiscal"
+                    placeholder="Ejercicio Fiscal"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
+                    }}
+                  />
+                )}
+              />
+            </Box>
+            <Box sx={{ width: "20vw", height: "5vh" }}>
+              <Autocomplete
+                disablePortal
+                size="small"
+                options={top100Films()}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={Math.random()}>
+                      <div
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".8vw",
+                        }}
+                      >
+                        {option.label}
+                      </div>
+                    </li>
+                  );
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Nombre del Programa"
+                    placeholder="Nombre del Programa"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
+                    }}
+                  />
+                )}
+              />
+            </Box>
+            <Box sx={{ width: "20vw", height: "5vh" }}>
+              <Autocomplete
+                disablePortal
+                size="small"
+                options={top100Films()}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={Math.random()}>
+                      <div
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".8vw",
+                        }}
+                      >
+                        {option.label}
+                      </div>
+                    </li>
+                  );
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Instituciones"
+                    placeholder="Instituciones"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: ".7vw",
+                      },
+                    }}
+                  />
+                )}
+              />
+            </Box>
+            <Button
               sx={{
                 backgroundColor: "#c2a37b",
                 width: "10vw",
@@ -95,12 +198,14 @@ export const ActividadesInstitucionales = () => {
                 fontFamily: "montserrat",
                 fontSize: "0.6vw",
               }}
-              onClick={() => {handleClickOpenTabsActInst()}}
+              onClick={() => {
+                handleClickOpenTabsActInst();
+              }}
             >
               Añadir registro
             </Button>
-        </Box>
-        <Box
+          </Box>
+          <Box
             sx={{
               width: "80%",
               height: "65vh",
@@ -132,28 +237,34 @@ export const ActividadesInstitucionales = () => {
               <TableContainer sx={{ borderRadius: 5 }}>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow key={"a"}>
-                      <TableCell sx={{ fontFamily: "MontserratBold" }}>
+                    <TableRow>
+                      <TableCell
+                        sx={{ fontFamily: "MontserratBold" }}
+                        align="center"
+                      >
                         Ejercicio Fiscal
                       </TableCell>
-                      <TableCell sx={{ fontFamily: "MontserratBold" }}>
+                      <TableCell
+                        sx={{ fontFamily: "MontserratBold" }}
+                        align="center"
+                      >
                         Institución
                       </TableCell>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
-                        align="left"
+                        align="center"
                       >
                         Nombre del Programa
                       </TableCell>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
-                        align="left"
+                        align="center"
                       >
                         Eje
                       </TableCell>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
-                        align="left"
+                        align="center"
                       >
                         Tema
                       </TableCell>
@@ -167,91 +278,152 @@ export const ActividadesInstitucionales = () => {
                         sx={{ fontFamily: "MontserratBold" }}
                         align="center"
                       >
+                        Fecha Creación
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontFamily: "MontserratBold" }}
+                        align="center"
+                      >
                         Opciones
                       </TableCell>
                     </TableRow>
                   </TableHead>
 
                   <TableBody>
-                    
-                        <TableRow >
-                          <TableCell>{"AnioFiscal"}</TableCell>
-                          <TableCell>{"Institucion"}</TableCell>
-                          <TableCell>{"Programa"}</TableCell>
-                          <TableCell>{"Eje"}</TableCell>
-                          <TableCell>{"Tematica"}</TableCell>
-                          <TableCell align="center">{"Estado"}</TableCell>
+                    <TableRow>
+                      <TableCell
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
+                        }}
+                        align="center"
+                      >
+                        {"AnioFiscal"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
+                        }}
+                        align="center"
+                      >
+                        {"Institucion"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
+                        }}
+                        align="center"
+                      >
+                        {"Programa"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
+                        }}
+                        align="center"
+                      >
+                        {"Eje"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
+                        }}
+                        align="center"
+                      >
+                        {"Tematica"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
+                        }}
+                        align="center"
+                      >
+                        {"20/10/2022"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
+                        }}
+                        align="center"
+                      >
+                        {"Estado"}
+                      </TableCell>
 
-                          <TableCell align="center">
-                            <Box sx={{ display: "flex" }}>
-                              <Tooltip title="Eliminar">
-                                <IconButton>
-                                  <DeleteIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "red",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
+                      <TableCell align="center">
+                        <Box sx={{ display: "flex" }}>
+                          <Tooltip title="Eliminar">
+                            <IconButton>
+                              <DeleteIcon
+                                sx={[
+                                  {
+                                    "&:hover": {
+                                      color: "red",
+                                    },
+                                  },
+                                ]}
+                              />
+                            </IconButton>
+                          </Tooltip>
 
-                              <Tooltip title="Enviar">
-                                <IconButton>
-                                  <SendIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "lightGreen",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-                            </Box>
+                          <Tooltip title="Enviar">
+                            <IconButton>
+                              <SendIcon
+                                sx={[
+                                  {
+                                    "&:hover": {
+                                      color: "lightGreen",
+                                    },
+                                  },
+                                ]}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        </Box>
 
-                            <Box sx={{ display: "flex" }}>
-                              <Tooltip title="Descargar">
-                                <IconButton>
-                                  <DownloadIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "orange",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
+                        <Box sx={{ display: "flex" }}>
+                          <Tooltip title="Descargar">
+                            <IconButton>
+                              <DownloadIcon
+                                sx={[
+                                  {
+                                    "&:hover": {
+                                      color: "orange",
+                                    },
+                                  },
+                                ]}
+                              />
+                            </IconButton>
+                          </Tooltip>
 
-                              <Tooltip title="Editar">
-                                <IconButton>
-                                  <EditIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "blue",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-                            </Box>
-                          </TableCell>
-                        </TableRow>
+                          <Tooltip title="Editar">
+                            <IconButton>
+                              <EditIcon
+                                sx={[
+                                  {
+                                    "&:hover": {
+                                      color: "blue",
+                                    },
+                                  },
+                                ]}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
                     {/* ))} */}
                   </TableBody>
                 </Table>
               </TableContainer>
             </Box>
-
           </Box>
-      </Box>
+        </Box>
       ) : (
         <Box
           sx={{
@@ -262,16 +434,28 @@ export const ActividadesInstitucionales = () => {
             flexWrap: "wrap",
           }}
         >
-          <TabsActividadesInstitucionales show={true} />
+          <TabsActividadesInstitucionales returnMain={returnMain} />
         </Box>
       )}
     </Box>
   );
 };
 
-
 const top100Films = () => [
-  { label: 'CONTRIBUIR A INCREMENTAR LA TASA BRUTA DE COBERTURA EN EDUCACIÓN MEDIA SUPERIOR MEDIANTE LOS SERVICIOS QUE BRINDAN LAS INSTITUCIONES DE BACHILLERATO EN EL ESTADO'},
-  { label: 'LOS ALUMNOS ASISTEN Y DAN CONTINUIDAD A SUS ESTUDIOS EN EL COLEGIO; LOS PADRES DE FAMILIA O TUTORES PERMITEN QUE SUS HIJOS RECIBAN APOYO INTEGRAL POR PARTE DEL COLEGIO'},
-  { label: 'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS' },
-  { label: 'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS Y LOS PROVEEDORES ENTREGAN LAS MATERIAS PRIMAS EN LAS FECHAS PROGRAMADAS Y EN LAS FORMAS INDICADAS'},];
+  {
+    label:
+      "CONTRIBUIR A INCREMENTAR LA TASA BRUTA DE COBERTURA EN EDUCACIÓN MEDIA SUPERIOR MEDIANTE LOS SERVICIOS QUE BRINDAN LAS INSTITUCIONES DE BACHILLERATO EN EL ESTADO",
+  },
+  {
+    label:
+      "LOS ALUMNOS ASISTEN Y DAN CONTINUIDAD A SUS ESTUDIOS EN EL COLEGIO; LOS PADRES DE FAMILIA O TUTORES PERMITEN QUE SUS HIJOS RECIBAN APOYO INTEGRAL POR PARTE DEL COLEGIO",
+  },
+  {
+    label:
+      "LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS",
+  },
+  {
+    label:
+      "LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS Y LOS PROVEEDORES ENTREGAN LAS MATERIAS PRIMAS EN LAS FECHAS PROGRAMADAS Y EN LAS FORMAS INDICADAS",
+  },
+];

@@ -3,26 +3,17 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import {
   Box,
-  Button,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Typography,
 } from "@mui/material";
 import { tab } from "@testing-library/user-event/dist/tab";
 
 import TabAccion1 from "./TabAccion1";
 import TabAccion2 from "./TabAccion2";
 import TabIdentificacion from "./TabIdentificacion";
-import TabAvanceFisico from "./TabAvanceFisico";
+import TabAvanceFisico, { TabResumen } from "./TabResumen";
+import TabAvance from "./TabAvance";
 
 
-export default function TabsActividadesInstitucionales({show,}: {show: boolean;}) {
+export default function TabsActividadesInstitucionales({ returnMain}: { returnMain: Function}) {
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
@@ -32,7 +23,6 @@ export default function TabsActividadesInstitucionales({show,}: {show: boolean;}
   //----------------------------------------------------------------------------------------------
   return (
     <Box
-    visibility={show ? "visible" : "hidden"}
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
@@ -130,9 +120,13 @@ export default function TabsActividadesInstitucionales({show,}: {show: boolean;}
           <TabAccion2
             show={value === 30 ? true : false}
           ></TabAccion2>
-          <TabAvanceFisico
-            show={value === 40 || value==50 ? true : false}
-          ></TabAvanceFisico>
+          <TabAvance
+            show={value === 40 ? true : false}
+          ></TabAvance>
+          <TabResumen
+            show={value==50 ? true : false}
+            showResume={returnMain}
+          ></TabResumen>
         </Box>
       </Box>
     </Box>

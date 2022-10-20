@@ -295,7 +295,7 @@ export const MIR = () => {
                         fontSize: ".7vw",
                       },
                     }}
-                  ></TextField>
+                  />
                 )}
                 onChange={(event, value) => {
                   setAnioFiscal(value?.AnioFiscal as string);
@@ -438,7 +438,7 @@ export const MIR = () => {
               <TableContainer sx={{ borderRadius: 5 }}>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow key={"a"}>
+                    <TableRow >
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
                         align="center"

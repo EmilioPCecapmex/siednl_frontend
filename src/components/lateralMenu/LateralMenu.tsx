@@ -34,6 +34,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
 import {  setResumeDefaultMIR } from "../../screens/mir/MIR";
+import { setResumeDefaultAI } from "../../screens/actividadesInstitucionales/ActividadesInstitucionales";
 
 export const LateralMenu = ({
   selection,
@@ -389,7 +390,9 @@ export const LateralMenu = ({
               </ListItemButton>
             </List>
           </Collapse>
-          <ListItemButton onClick={() => navigate("../Institutionalactivities")}>
+          <ListItemButton onClick={() => {
+                              setResumeDefaultAI()
+            navigate("../Institutionalactivities")}}>
             <Box sx={st.iconMenuList}>
               <LocationCityOutlinedIcon />
             </Box>

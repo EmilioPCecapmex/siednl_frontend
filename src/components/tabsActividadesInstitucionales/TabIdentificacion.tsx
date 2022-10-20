@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   TextField,
   Box,
@@ -6,25 +6,41 @@ import {
   Autocomplete,
   CircularProgress,
   List,
+  FormControl,
   Divider,
   ListItemButton,
 } from "@mui/material";
 import { IIdentificacionActInst } from "./IIdentificacionActInst";
 import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
 import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
+import axios from "axios";
 
-
-export function TabIdentificacion({
-  show,
-
-}: {
-  show: boolean;
-}) {
-
+export function TabIdentificacion({ show }: { show: boolean }) {
   const [componentSelect, setComponentSelect] = useState(1);
 
-  const [identificacionActInst, setidentificacionActInst] = useState<IIdentificacionActInst>(
-    {
+  //catalogos
+
+  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
+    { Id: "0", AnioFiscal: "" },
+  ]);
+
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState([
+    { Id: "0", NombreInstitucion: "" },
+  ]);
+
+  function enCambioAnio(Id: string, Anio: string) {
+    setAnioFiscal(Anio);
+  }
+
+  function enCambioInstitucion(Id: string, Inst: string) {
+    setInstitution(Inst);
+  }
+
+  const [anioFiscal, setAnioFiscal] = useState("2022");
+  const [institution, setInstitution] = useState("");
+
+  const [identificacionActInst, setidentificacionActInst] =
+    useState<IIdentificacionActInst>({
       nombreActividadInstitucional: "",
       clasificacionProgramatica: "",
       institucion: "",
@@ -33,32 +49,61 @@ export function TabIdentificacion({
       conac: "",
       tipoBenefeciario: "",
       programa: "",
-    }
-  );
+    });
 
-  const [alineacionPlaneacion, setAlineacionPlaneacion] = useState<IAlineacionPlaneacion>(
-    {
+  const [alineacionPlaneacion, setAlineacionPlaneacion] =
+    useState<IAlineacionPlaneacion>({
       temaPED: "",
       objetivoPED: "",
       estrategiaPED: "",
       programaSectorial: "",
       objetivoProgramaSectorial: "",
-    }
-  );
+    });
 
-  const [objetivosActividadInstitucional, setobjetivosActividadInstitucional] = useState<IObjetivosActividadInstitucional>(
-    {
-
+  const [objetivosActividadInstitucional, setobjetivosActividadInstitucional] =
+    useState<IObjetivosActividadInstitucional>({
       objetivoGeneral: "",
       objetivoEspecifico1: "",
-      objetivoEspecifico2: ""
-    }
-  );
+      objetivoEspecifico2: "",
+    });
 
+  ///////////////// axios
+
+  const getAniosFiscales = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/aniosFiscales", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoAniosFiscales(r.data.data);
+      });
+  };
+
+  const getInstituciones = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+      });
+  };
+
+  ////////////// Use Effects
+
+  useEffect(() => {
+    getAniosFiscales();
+    getInstituciones();
+  }, []);
 
   return (
-
-
     <Box
       visibility={show ? "visible" : "hidden"}
       position="absolute"
@@ -73,7 +118,6 @@ export function TabIdentificacion({
         borderRadius: 5,
       }}
     >
-
       <Box
         sx={{
           width: "100%",
@@ -100,9 +144,7 @@ export function TabIdentificacion({
             },
           }}
         >
-
           <Box
-
             sx={{
               height: "15vh",
               display: "flex",
@@ -124,13 +166,14 @@ export function TabIdentificacion({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>IDENTIFICACIÓN DE LA ACTIVIDAD INSTITUCIONAL</Typography>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                Identificación
+              </Typography>
             </ListItemButton>
             <Divider />
 
             <ListItemButton
               selected={componentSelect === 2 ? true : false}
-
               onClick={() => setComponentSelect(2)}
               sx={{
                 "&.Mui-selected ": {
@@ -142,14 +185,13 @@ export function TabIdentificacion({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO
+                Alineación
               </Typography>
             </ListItemButton>
             <Divider />
 
             <ListItemButton
               selected={componentSelect === 3 ? true : false}
-
               onClick={() => setComponentSelect(3)}
               sx={{
                 "&.Mui-selected ": {
@@ -161,13 +203,12 @@ export function TabIdentificacion({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                OBJETIVOS DE LA ACTIVIDAD INSTITUCIONAL
+                Objetivos
               </Typography>
             </ListItemButton>
 
             <Divider />
           </Box>
-
         </List>
 
         <Box
@@ -180,275 +221,773 @@ export function TabIdentificacion({
             justifyContent: "center",
           }}
         >
-
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
-          {componentSelect === 1 ? <Box sx={{ width: "100%", height: "100%", backgroundColor: "", }}>
+          {componentSelect === 1 ? (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                >
+                  Identificación
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  height: "30%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormControl sx={{ gridRow: "1", width: "20%" }}>
+                  <Autocomplete
+                    disablePortal
+                    size="small"
+                    options={catalogoAniosFiscales}
+                    getOptionLabel={(option) => option.AnioFiscal}
+                    value={{
+                      Id: catalogoAniosFiscales[0].Id,
+                      AnioFiscal: anioFiscal,
+                    }}
+                    getOptionDisabled={(option) => {
+                      if (option.Id === "0") {
+                        return true;
+                      }
+                      return false;
+                    }}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.Id}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option.AnioFiscal}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Ejercicio Fiscal"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                    onChange={(event, value) =>
+                      enCambioAnio(
+                        value?.Id as string,
+                        (value?.AnioFiscal as string) || ""
+                      )
+                    }
+                    isOptionEqualToValue={(option, value) =>
+                      option.Id === value.Id
+                    }
+                  />
+                </FormControl>
 
-
-            <Box sx={{ height: "100%" }}>
-              <Box sx={{ backgroundColor: "", height: "15%", display: "flex", justifyContent: "center", alignItems: "center", }}> <Typography>IDENTIFICACIÓN DE LA ACTIVIDAD INSTITUCIONAL</Typography></Box>
-              <Box sx={{ backgroundColor: "", height: "40%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-                <TextField
-                  multiline
-                  rows={6}
-                  variant="filled"
-                  sx={{ width: "30%", boxShadow: 2 }}
-                  label={"NOMBRE DE LA ACTIVIDAD INSTITUCIONAL:"}
-                  value={identificacionActInst.nombreActividadInstitucional}
-                  onChange={(c) => {
-                    identificacionActInst.nombreActividadInstitucional = c.target.value;
-
-                    setidentificacionActInst({ ...identificacionActInst, });
-                  }}
-                />
-                <TextField
-                  multiline
-                  rows={6}
-                  variant="filled"
-                  sx={{ width: "30%", boxShadow: 2 }}
-                  label={"CLASIFICACIÓN PROGRAMÁTICA:"}
-                  value={identificacionActInst.clasificacionProgramatica}
-                  onChange={(c) => {
-                    identificacionActInst.clasificacionProgramatica = c.target.value;
-
-                    setidentificacionActInst({ ...identificacionActInst });
-                  }}
-                />
-                <TextField
-                  multiline
-                  rows={6}
-                  variant="filled"
-                  sx={{ width: "30%", boxShadow: 2 }}
-                  label={"INSTITUCIÓN:"}
-                  value={identificacionActInst.institucion}
-                  onChange={(c) => {
-                    identificacionActInst.institucion = c.target.value;
-
-                    setidentificacionActInst({ ...identificacionActInst });
-                  }}
-                />
+                <FormControl sx={{ gridRow: "1", width: "35%" }}>
+                  <Autocomplete
+                    disablePortal
+                    size="small"
+                    options={top100Films()}
+                    getOptionLabel={(option) => option}
+                    value={alineacionPlaneacion.temaPED}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    onChange={(event, value) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        temaPED: value as string,
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="standard"
+                        {...params}
+                        label="Clasificación Programatica"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      />
+                    )}
+                  />
+                </FormControl>
+                <FormControl sx={{ gridRow: "1", width: "35%" }}>
+                  <Autocomplete
+                    disablePortal
+                    options={catalogoInstituciones}
+                    getOptionLabel={(option) => option.NombreInstitucion}
+                    value={{
+                      Id: catalogoInstituciones[0].Id,
+                      NombreInstitucion: institution,
+                    }}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.Id}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option.NombreInstitucion}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Institución"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                    onChange={(event, value) =>
+                      enCambioInstitucion(
+                        value?.Id as string,
+                        (value?.NombreInstitucion as string) || ""
+                      )
+                    }
+                    isOptionEqualToValue={(option, value) =>
+                      option.Id === value.Id
+                    }
+                  />
+                </FormControl>
               </Box>
 
-              <Box sx={{ backgroundColor: "", height: "35%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-                <TextField
-                  multiline
-                  rows={1}
-                  variant="filled"
-                  sx={{ width: "17%", boxShadow: 2 }}
-                  label={"Tema PED"}
-                  value={identificacionActInst.temaPED}
-                  onChange={(c) => {
-                    identificacionActInst.temaPED = c.target.value;
+              <Box
+                sx={{
+                  height: "30%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormControl sx={{ gridRow: "1", width: "35%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Temática"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
 
-                    setidentificacionActInst({ ...identificacionActInst });
-                  }}
-                />
-                <TextField
-                  multiline
-                  rows={1}
-                  variant="filled"
-                  sx={{ width: "17%", boxShadow: 2 }}
-                  label={"Objetivo PED"}
-                  value={identificacionActInst.objetivoPED}
-                  onChange={(c) => {
-                    identificacionActInst.objetivoPED = c.target.value;
-
-                    setidentificacionActInst({ ...identificacionActInst });
-                  }}
-                />
-                <TextField
-                  multiline
-                  rows={1}
-                  variant="filled"
-                  sx={{ width: "17%", boxShadow: 2 }}
-                  label={"CONAC"}
-                  value={identificacionActInst.conac}
-                  onChange={(c) => {
-                    identificacionActInst.conac = c.target.value;
-
-                    setidentificacionActInst({ ...identificacionActInst });
-                  }}
-                />
-                <TextField
-                  multiline
-                  rows={1}
-                  variant="filled"
-                  sx={{ width: "17%", boxShadow: 2 }}
-                  label={"Tipo Beneficiario"}
-                  value={identificacionActInst.tipoBenefeciario}
-                  onChange={(c) => {
-                    identificacionActInst.tipoBenefeciario = c.target.value;
-
-                    setidentificacionActInst({ ...identificacionActInst });
-                  }}
-                />
-                <TextField
-                  multiline
-                  rows={1}
-                  variant="filled"
-                  sx={{ width: "17%", boxShadow: 2 }}
-                  label={"Programa"}
-                  value={identificacionActInst.programa}
-                  onChange={(c) => {
-                    identificacionActInst.programa = c.target.value;
-
-                    setidentificacionActInst({ ...identificacionActInst });
-                  }}
-                />
+                <FormControl sx={{ gridRow: "1", width: "35%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Objetivo"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+                <FormControl sx={{ gridRow: "1", width: "20%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"CONAC"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
               </Box>
-
+              <Box
+                sx={{
+                  height: "30%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormControl sx={{ gridRow: "1", width: "40%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Tipo Beneficiario"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+                <FormControl sx={{ gridRow: "1", width: "40%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Programa"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+              </Box>
             </Box>
-
-          </Box> : null}
+          ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
-          {componentSelect === 2 ?
-            <Box sx={{ width: "100%", height: "100%", }}>
+          {componentSelect === 2 ? (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                >
+                  Alineación
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+               <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Tema PED"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
 
-              <Box sx={{ height: "15%", display: "flex", justifyContent: "center", alignItems: "center" }}><Typography>ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO</Typography></Box>
-              <Box sx={{ height: "40%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Objetivo"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
 
+                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Estrategia"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+              </Box>
+              <Box
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+               <FormControl sx={{ gridRow: "1", width: "40%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Programa Sectorial"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
 
-                <Autocomplete
-                  disablePortal
-                  size="small"
-                  options={top100Films()}
-                  getOptionLabel={(option) => option}
-                  value={alineacionPlaneacion.temaPED}
-                  onChange={(event, value) => {
-                    setAlineacionPlaneacion({ ...alineacionPlaneacion, temaPED: (value as string) });
-                  }}
-                  sx={{ width: "30%" }}
-                  renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="TEMA PED 2022-2027:" />}
-                />
-
-
-                <Autocomplete
-                  disablePortal
-                  size="small"
-                  options={top100Films()}
-                  getOptionLabel={(option) => option}
-                  value={alineacionPlaneacion.objetivoPED}
-                  onChange={(event, value) => {
-                    setAlineacionPlaneacion({ ...alineacionPlaneacion, objetivoPED: (value as string) });
-                  }}
-                  sx={{ width: "30%" }}
-                  renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="OBJETIVO PED 2022-2027:" />}
-                />
-
-
-
-                <Autocomplete
-                  disablePortal
-                  size="small"
-                  options={top100Films()}
-                  getOptionLabel={(option) => option}
-                  value={alineacionPlaneacion.estrategiaPED}
-                  onChange={(event, value) => {
-                    setAlineacionPlaneacion({ ...alineacionPlaneacion, estrategiaPED: (value as string) });
-                  }}
-                  sx={{ width: "30%" }}
-                  renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="ESTRATEGIA PED 2022-2027:" />}
-                />
+                <FormControl sx={{ gridRow: "1", width: "40%" }}>
+                  <Autocomplete
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Objetivo Programa Sectorial"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".8vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
 
               </Box>
-              <Box sx={{ height: "40%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-
-
-                <TextField
-                  multiline
-                  rows={6}
-                  variant="filled"
-                  sx={{ width: "35%", boxShadow: 2 }}
-                  label={"PROGRAMA SECTORIAL:"}
-                  value={alineacionPlaneacion.programaSectorial}
-                  onChange={(c) => {
-                    setAlineacionPlaneacion({ ...alineacionPlaneacion, programaSectorial: c.target.value });
-                  }}
-                />
-                <TextField
-                  multiline
-                  rows={6}
-                  variant="filled"
-                  sx={{ width: "35%", boxShadow: 2 }}
-                  label={"OBJETIVO PROGRAMA SECTORIAL:"}
-                  value={alineacionPlaneacion.objetivoProgramaSectorial}
-                  onChange={(c) => {
-                    setAlineacionPlaneacion({ ...alineacionPlaneacion, objetivoProgramaSectorial: c.target.value });
-                  }}
-                />
-              </Box>
-            </Box> : null}
-
+            </Box>
+          ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
-          {componentSelect === 3 ?
-            <Box sx={{ width: "100%", height: "100%", }}>
-              <Box sx={{ height: "15%", display: "flex", justifyContent: "center", alignItems: "center" }}><Typography>OBJETIVOS DE LA ACTIVIDAD INSTITUCIONAL</Typography></Box>
-              <Box sx={{ height: "40%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+          {componentSelect === 3 ? (
+           <Box
+           sx={{
+             width: "100%",
+             height: "100%",
+             display: "flex",
+             alignItems: "center",
+             justifyContent: "center",
+             flexDirection: "column",
+           }}
+         >
+           <Box
+             sx={{
+               width: "90%",
+               display: "flex",
+               justifyContent: "flex-end",
+               alignItems: "center",
+             }}
+           >
+             <Typography
+               sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+             >
+               Objetivos
+             </Typography>
+           </Box>
+              <Box
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
                 <TextField
                   multiline
                   rows={6}
                   variant="filled"
                   sx={{ width: "80%", boxShadow: 2 }}
-                  label={"OBJETIVO GENERAL"}
+                  InputLabelProps={{style: {fontFamily: 'MontserratBold'}}}
+                  InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  label={"Objetivo General"}
                   value={objetivosActividadInstitucional.objetivoGeneral}
                   onChange={(c) => {
-                    setobjetivosActividadInstitucional({ ...objetivosActividadInstitucional, objetivoGeneral:c.target.value });
+                    setobjetivosActividadInstitucional({
+                      ...objetivosActividadInstitucional,
+                      objetivoGeneral: c.target.value,
+                    });
                   }}
                 />
-
               </Box>
-              <Box sx={{ height: "40%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+              <Box
+                sx={{
+                  height: "45%",
+                  width: '90%',
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
                 <TextField
                   multiline
                   rows={6}
                   variant="filled"
                   sx={{ width: "40%", boxShadow: 2 }}
-                  label={"OBJETIVOS ESPECÍFICOS 1"}
+                  label={"Objetivo Especifico 1"}
+                  InputLabelProps={{style: {fontFamily: 'MontserratBold'}}}
+                  InputProps={{style: {fontFamily: 'MontserratRegular'}}}
                   value={objetivosActividadInstitucional.objetivoEspecifico1}
                   onChange={(c) => {
-                    setobjetivosActividadInstitucional({ ...objetivosActividadInstitucional, objetivoEspecifico1:c.target.value });
+                    setobjetivosActividadInstitucional({
+                      ...objetivosActividadInstitucional,
+                      objetivoEspecifico1: c.target.value,
+                    });
                   }}
                 />
 
-                <Autocomplete
-                  disablePortal
-                  size="small"
-                  options={top100Films()}
-                  getOptionLabel={(option) => option}
+<TextField
+                  multiline
+                  rows={6}
+                  variant="filled"
+                  sx={{ width: "40%", boxShadow: 2 }}
+                  label={"Objetivo Especifico 2"}
                   value={objetivosActividadInstitucional.objetivoEspecifico2}
-                  onChange={(event, value) => {
-                    setobjetivosActividadInstitucional({ ...objetivosActividadInstitucional, objetivoEspecifico2: (value as string) });
+                  InputLabelProps={{style: {fontFamily: 'MontserratBold'}}}
+                  InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  onChange={(c) => {
+                    setobjetivosActividadInstitucional({
+                      ...objetivosActividadInstitucional,
+                      objetivoEspecifico2: c.target.value,
+                    });
                   }}
-                  sx={{ width: "40%" }}
-                  renderInput={(params) => <TextField {...params} multiline rows={6.7} sx={{ width: "100%", boxShadow: 2 }} label="OBJETIVOS ESPECÍFICOS 2" />}
                 />
-
               </Box>
             </Box>
-            : null}
+          ) : null}
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
         </Box>
-
-
       </Box>
-
-
-
     </Box>
-
   );
 }
 
 export default TabIdentificacion;
 
 const top100Films = () => [
-  'LOS ALUMNOS ASISTEN Y DAN CONTINUIDAD A SUS ESTUDIOS EN EL COLEGIO; LOS PADRES DE FAMILIA O TUTORES PERMITEN QUE SUS HIJOS RECIBAN APOYO INTEGRAL POR PARTE DEL COLEGIO',
-  'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS' ,
-  'LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS Y LOS PROVEEDORES ENTREGAN LAS MATERIAS PRIMAS EN LAS FECHAS PROGRAMADAS Y EN LAS FORMAS INDICADAS',
-  'CONTRIBUIR A INCREMENTAR LA TASA BRUTA DE COBERTURA EN EDUCACIÓN MEDIA SUPERIOR MEDIANTE LOS SERVICIOS QUE BRINDAN LAS INSTITUCIONES DE BACHILLERATO EN EL ESTADO'];
+  "Lorem ipsum dolor",
+  "Sit amet consectetur",
+  "Itaque facere ut voluptatum",
+  "Ullam voluptatem accusantium",
+];
