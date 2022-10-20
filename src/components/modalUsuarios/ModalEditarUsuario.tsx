@@ -157,7 +157,7 @@ export default function ModalEditarUsuario({
       })
       .catch((err) =>
         Toast.fire({
-          icon: "success",
+          icon: "error",
           title: "Permisos denegados",
         })
       );

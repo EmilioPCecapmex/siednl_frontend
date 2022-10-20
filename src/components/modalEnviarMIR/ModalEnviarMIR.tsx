@@ -23,10 +23,12 @@ export default function ModalEnviarMIR({
   open,
   handleClose,
   MIR,
+  IdMir
 }: {
   open: boolean;
   handleClose: Function;
   MIR: string;
+  IdMir: string;
 }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +41,7 @@ export default function ModalEnviarMIR({
   const createMIR = (estado: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-mir",
+        "http://localhost:8000/api/create-mir2",
         {
           MIR: MIR,
           Estado: estado,
@@ -49,6 +51,7 @@ export default function ModalEnviarMIR({
           Programa: JSON.parse(MIR)?.encabezado.programa,
           Eje: JSON.parse(MIR)?.encabezado.eje,
           Tematica: JSON.parse(MIR)?.encabezado.tematica,
+          IdMir: IdMir,
         },
         {
           headers: {
@@ -96,69 +99,6 @@ export default function ModalEnviarMIR({
       </Box>
     );
   };
-
-  const cleanForm = () => {
-    setUsername("");
-    setEmail("");
-  };
-
-  const getUserType = () => {
-    axios
-      .get("http://10.200.4.105:8000/api/roles", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setUserTypeCatalogue(r.data.data);
-      });
-  };
-
-  const getUsuarios = () => {
-    axios
-      .get("http://10.200.4.105:8000/api/usuarios", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setUsuarios(response.data.data);
-      });
-  };
-
-  const checkForm = () => {
-    setErrorsForm({
-      visible: false,
-      text: "",
-      type: "",
-    });
-
-    if (username === "") {
-      setErrorsForm({
-        visible: true,
-        text: "Ingresa un nombre de usuario.",
-        type: "error",
-      });
-    } else if (email === "") {
-      setErrorsForm({
-        visible: true,
-        text: "Ingresa un correo electrónico.",
-        type: "error",
-      });
-    } else {
-      setErrorsForm({
-        visible: true,
-        text: "Selecciona",
-        type: "error",
-      });
-    }
-  };
-
-  useEffect(() => {
-    getUsuarios();
-    getUserType();
-  }, []);
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>

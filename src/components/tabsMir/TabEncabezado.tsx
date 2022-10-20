@@ -219,7 +219,7 @@ export function TabEncabezado({
   const [disabledButton, setDisabledButton] = useState(true);
 
   //Values
-  const [anioFiscal, setAnioFiscal] = useState("2022");
+  const [anioFiscal, setAnioFiscal] = useState("");
   const [institution, setInstitution] = useState("");
   const [programa, setPrograma] = useState("");
   const [eje, setEje] = useState("");

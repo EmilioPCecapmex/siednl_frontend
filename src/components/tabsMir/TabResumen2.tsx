@@ -21,7 +21,8 @@ export function TabResumen2({
   componentes,
   componenteValor,
   cValor,
-  showResume
+  showResume,
+  IdMir
 }: {
   show: boolean;
   encabezado: Array<IEncabezado>;
@@ -31,6 +32,7 @@ export function TabResumen2({
   componenteValor: Array<IComponente>;
   cValor: Array<ICValor>;
   showResume: Function;
+  IdMir: string;
 }) {
   const [MIR, setMIR] = useState<IMIR>();
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
@@ -88,9 +90,12 @@ export function TabResumen2({
   }
 
   const createMIR = (estado: string) => {
+    console.log(MIR);
+    
+    
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-mir",
+        "http://localhost:8000/api/create-mir2",
         {
           MIR: JSON.stringify(MIR),
           Estado: estado,
@@ -100,6 +105,7 @@ export function TabResumen2({
           Programa: MIR?.encabezado.nombre_del_programa,
           Eje: MIR?.encabezado.eje,
           Tematica: MIR?.encabezado.tema,
+          IdMir: IdMir
         },
         {
           headers: {
@@ -108,6 +114,8 @@ export function TabResumen2({
         }
       )
       .then((r) => {
+        console.log(r);
+        
         Toast.fire({
           icon: "success",
           title: "MIR generada con éxito",
@@ -974,9 +982,9 @@ export function TabResumen2({
         <Button
           color="warning"
           variant="outlined"
-          onClick={() => checkMir('Borrador')}
+          onClick={() => checkMir('En Captura')}
         >
-          Borrador
+          Guardar borrador
         </Button>
         <Button
           color="success"
@@ -990,6 +998,7 @@ export function TabResumen2({
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           MIR={JSON.stringify(MIR)}
+          IdMir={IdMir}
         ></ModalEnviarMIR>
       </Box>
     </Box>

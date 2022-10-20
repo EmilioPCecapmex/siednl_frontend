@@ -181,6 +181,8 @@ export const MIR = () => {
         },
       })
       .then((r) => {
+        console.log(r.data.data);
+        
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -684,7 +686,7 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir MIR={mirEdit[0].MIR} showResume={returnMain} />
+          <FullModalMir MIR={mirEdit[0].MIR} showResume={returnMain} IdMir={mirEdit[0].ID} />
         </Box>
       )}
     </Box>
