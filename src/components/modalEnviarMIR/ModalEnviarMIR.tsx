@@ -41,7 +41,7 @@ export default function ModalEnviarMIR({
   const createMIR = (estado: string) => {
     axios
       .post(
-        "http://localhost:8000/api/create-mir2",
+        "http://10.200.4.105:8000/api/create-mir",
         {
           MIR: MIR,
           Estado: estado,
