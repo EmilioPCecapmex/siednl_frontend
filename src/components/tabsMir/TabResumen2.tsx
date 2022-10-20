@@ -745,7 +745,9 @@ export function TabResumen2({
           </Typography>
 
           {cValor[0]?.componentes.map((item, indexComponentes) => {
+            let i=0;
             return item.actividades.map((value, indexActividades) => {
+              i++;
               return (
                 <Box key={indexActividades}>
                   <Typography

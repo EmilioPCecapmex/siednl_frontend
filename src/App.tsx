@@ -14,6 +14,7 @@ import { LateralMenu } from "./components/lateralMenu/LateralMenu";
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
 import { TabComponente } from "./components/tabsMir/TabComponente";
+import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 
 function App() {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ function App() {
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
 
+          <Route path="Institutionalactivities" element={<ActividadesInstitucionales />} />
           <Route path="mir" element={<MIR/>}/>
           <Route path="notifications" element={<Notification/>}/>
 
