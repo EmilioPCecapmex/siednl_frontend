@@ -38,8 +38,6 @@ export const getUserDetails = (idCentral: string) => {
 export const sessionValid = () => {
   const jt = params.get("jwt") || "";
   const rft = params.get("rf") || "";
-
-
     return axios
       .post(
         "http://10.200.4.105:5000/api/verify",

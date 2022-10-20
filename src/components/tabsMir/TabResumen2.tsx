@@ -55,9 +55,39 @@ export function TabResumen2({
     });
   };
 
-  const createMIR = (estado: string) => {
+  const checkMir = (v: string) => {
+    if(MIR?.encabezado.ejercicioFiscal === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona año fiscal.",
+      });
+    }else if(MIR?.encabezado.institucion === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona institución.",
+      });
+    }else if(MIR?.encabezado.nombre_del_programa === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona programa.",
+      });
+    }else if(MIR?.encabezado.eje === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona eje.",
+      });
+    }else if(MIR?.encabezado.tema === ""){
+      return Toast.fire({
+        icon: "error",
+        title: "Selecciona temática.",
+      });
+    }else{
+      createMIR(v)
+    }
 
-    
+  }
+
+  const createMIR = (estado: string) => {
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
@@ -82,6 +112,9 @@ export function TabResumen2({
           icon: "success",
           title: "MIR generada con éxito",
         });
+
+        showResume();
+
 
       })
       .catch((err) => {
@@ -939,7 +972,7 @@ export function TabResumen2({
         <Button
           color="warning"
           variant="outlined"
-          onClick={() => createMIR('Borrador')}
+          onClick={() => checkMir('Borrador')}
         >
           Borrador
         </Button>
