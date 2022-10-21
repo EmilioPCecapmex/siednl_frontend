@@ -73,8 +73,6 @@ export const ComentDialogMir = ({
 
 
   const getComents = () => {
-    console.log(id);
-
     axios
       .get("http://10.200.4.199:8000/api/coment-mir", {
         params: {
@@ -85,7 +83,6 @@ export const ComentDialogMir = ({
         },
       })
       .then((r) => {
-        console.log(r);
 
         setComents(r.data.data);
       });
@@ -109,7 +106,6 @@ export const ComentDialogMir = ({
         }
       )
       .then((r) => {
-        // console.log(r);
         setNewComent(false);
         setComent('');
         handleClose();
@@ -120,7 +116,6 @@ export const ComentDialogMir = ({
         });
       })
       .catch((err) => {
-        // console.log(err)
       });
   };
 

@@ -70,7 +70,6 @@ export function TabEncabezado({
 
   useEffect(() => {
     if (MIR !== "") {
-console.log(anioFiscalEdit);
 
       let jsonMir = JSON.parse(MIR);
       setAnioFiscal(anioFiscalEdit)
@@ -136,7 +135,6 @@ console.log(anioFiscalEdit);
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
-    //console.log(loadComponenteValor);
   }, [loadComponentes]);
 
   const Toast = Swal.mixin({
@@ -634,21 +632,6 @@ console.log(anioFiscalEdit);
     getInstituciones();
     getEjes();
     getBeneficiarios();
-    // console.log(MIR);
-
-    // setEncabezado([
-    //   {
-    //     ejercicioFiscal: JSON.parse(MIR).encabezado.ejercicioFiscal,
-    //     institucion: institution,
-    //     programa: programa,
-    //     eje: eje,
-    //     tematica: tematica,
-    //     objetivo: objetivo,
-    //     estrategia: estrategia,
-    //     lineasDeAccion: lineaDeAccion[0]?.LineaDeAccion,
-    //     beneficiario: beneficiario,
-    //   },
-    // ]);
   }, []);
 
   useEffect(() => {

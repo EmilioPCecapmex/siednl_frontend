@@ -85,7 +85,6 @@ export function TabResumen2({
   };
 
   const createMIR = (estado: string) => {
-    console.log(MIR);
     
     axios
       .post(
@@ -108,7 +107,6 @@ export function TabResumen2({
         }
       )
       .then((r) => {
-        // console.log(r);
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
@@ -116,7 +114,6 @@ export function TabResumen2({
         showResume();
       })
       .catch((err) => {
-        // console.log(err);
         if (err.response.status === 409) {
           Toast.fire({
             icon: "error",

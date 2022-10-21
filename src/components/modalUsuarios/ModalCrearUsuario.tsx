@@ -257,7 +257,6 @@ export default function ModalCrearUsuario({
   const [isAdmin, setIsAdmin] = useState(true);
 
   const handleIsAdmin = (v: string) => {
-console.log(v)
   }
   
 

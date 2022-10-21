@@ -102,7 +102,6 @@ export const AppsDialog = ({
       })
       .then((r) => {
         if (r.status === 200) {
-          console.log(r.data)
           setInstSel(r.data.data);
         }
       });

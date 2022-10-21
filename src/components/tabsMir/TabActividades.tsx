@@ -289,34 +289,9 @@ useEffect(() => {
   useEffect(() => {
     let act: number[] = []
     let comp: string[] = []
-    // let ambos: [number[],string[]]=[[], []]
     let ambos: any=[]
     let i = 1;
     let j = 1;
-
-    
-
-  // cValor.map((x) => {
-  //    x.componentes.map((y) =>{
-
-  //     comp.push("C"+j)
-  //     y.actividades.map((z) => {
-  //       act.push(i)
-  //       i++;
-  //     })
-  //     ambos.push([{actividades: act}, {componente: "C"+j}])
-  //     act = []
-  //     i = 1;
-  //     j++;
-  //    });
-     
-  //   })
-
-  //   // pasar variable a editar mir
-
-  //   let compAct = {componenteActividad: ambos}
-
-  //   console.log(compAct)
 
 
   },[actividades])
