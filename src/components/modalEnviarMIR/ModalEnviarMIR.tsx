@@ -82,7 +82,7 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        // console.log(r.data.data);
+        console.log(r);
         
         Toast.fire({
           icon: "success",

@@ -67,7 +67,7 @@ export const MIR = () => {
     { Id: "", AnioFiscal: "" },
   ]);
   const [anioFiscal, setAnioFiscal] = useState("");
-  const [institution, setInstitution] = useState("");
+  const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
   const [programaPresupuestario, setProgramaPresupuestario] = useState("");
 
   const [mirs, setMirs] = useState([
@@ -186,6 +186,7 @@ export const MIR = () => {
         },
       })
       .then((r) => {
+        setAnioFiscalEdit(r.data.data[0]?.AnioFiscal)
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -387,7 +388,6 @@ export const MIR = () => {
                   ></TextField>
                 )}
                 onChange={(event, value) => {
-                  setInstitution(value?.NombreInstitucion as string);
                   setTxtFiltered((value?.NombreInstitucion as string) || "");
                 }}
                 isOptionEqualToValue={(option, value) =>
@@ -560,10 +560,10 @@ export const MIR = () => {
                               ? "Borrador"
                               : row.Estado == "En Revisión" &&
                                 localStorage.getItem("Rol") == "Verificador"
-                              ? "Borrador"
+                              ? "Esperando revisión"
                               : row.Estado == "En Autorización" &&
                                 localStorage.getItem("Rol") == "Administrador"
-                              ? "Borrador"
+                              ? "Esperando autorización"
                               : row.Estado}
                           </TableCell>
                           <TableCell
@@ -721,7 +721,7 @@ export const MIR = () => {
           }}
         >
           <FullModalMir
-          anioFiscalEdit={anioFiscal}
+          anioFiscalEdit={anioFiscalEdit}
             MIR={mirEdit[0].MIR}
             showResume={returnMain}
             IdMir={mirEdit[0].ID}
