@@ -2,11 +2,6 @@ import React, { useEffect, useState } from "react";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
 import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Input,
   TextField,
   Box,
   TableContainer,
@@ -20,6 +15,11 @@ import {
   IconButton,
   Button,
   TablePagination,
+  Input,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
 } from "@mui/material";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -27,7 +27,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
 import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 import MessageIcon from "@mui/icons-material/Message";
-import { height } from "@mui/system";
+import SearchIcon from '@mui/icons-material/Search';
 import moment from "moment";
 import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
 
@@ -37,6 +37,8 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
+
+
   useEffect(() => {
     setShowResume(true);
     getMIRs();
@@ -50,7 +52,7 @@ export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
 
-  const renglonesPagina = 4;
+  const renglonesPagina = 7;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   // Realiza el cambio de pagina
@@ -64,114 +66,46 @@ export const MIR = () => {
     setPage(0);
   };
 
-  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
-    { Id: "", AnioFiscal: "" },
-  ]);
-  const [anioFiscal, setAnioFiscal] = useState("");
-  const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
-  const [programaPresupuestario, setProgramaPresupuestario] = useState("");
 
-  const [mirs, setMirs] = useState([
-    {
-      ID: "",
-      AnioFiscal: "",
-      Institucion: "",
-      Programa: "",
-      Eje: "",
-      Tematica: "",
-      MIR: "",
-      Estado: "",
-      FechaCreacion: "",
-    },
-  ]);
-  const [mirEdit, setMirEdit] = useState([
-    {
-      ID: "",
-      AnioFiscal: "",
-      Institucion: "",
-      Programa: "",
-      Eje: "",
-      Tematica: "",
-      MIR: "",
-      Estado: "",
-      FechaCreacion: "",
-    },
-  ]);
+  const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
+  const [findTextStr, setFindTextStr] = useState("")
+  const [findSelectStr, setFindSelectStr] = useState("0")
+
+
+
+  const [mirs, setMirs] = useState<Array<IIMir>>([]);
+  const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
   //
-  const [mirsFiltered, setMirsFiltered] = useState([
-    {
-      ID: "",
-      AnioFiscal: "",
-      Institucion: "",
-      Programa: "",
-      Eje: "",
-      Tematica: "",
-      MIR: "",
-      Estado: "",
-      FechaCreacion: "",
-    },
-  ]);
-
-  const [txtFiltered, setTxtFiltered] = useState("");
-
+  const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
-  const findText = () => {
-    if (txtFiltered !== "") {
+  const findText = (v: string, select: string) => {
+
+    if (v !== "" || select !== "0") {
+      
       setMirsFiltered(
         mirs.filter(
           (x) =>
-            x.AnioFiscal.includes(txtFiltered) ||
-            x.Institucion.toLowerCase().includes(txtFiltered.toLowerCase()) ||
-            x.Programa.toLowerCase().includes(txtFiltered.toLowerCase())
+            x.AnioFiscal.includes(findTextStr) ||
+            x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
+            x.Programa.toLowerCase().includes(findTextStr.toLowerCase()) ||
+            x.FechaCreacion.toLowerCase().includes(findTextStr.toLowerCase())
         )
-      );
-    } else {
+      )
+
+      if(select !== "0"){
+        setMirsFiltered(
+          mirs.filter(
+            (x) =>
+              x.Estado.toLowerCase().includes(select.toLowerCase())
+          )
+        )
+      }
+   
+   
+    }else {
       setMirsFiltered(mirs);
     }
-  };
-
-  useEffect(() => {
-    findText();
-  }, [txtFiltered]);
-
-  const getAniosFiscales = () => {
-    axios
-      .get("http://10.200.4.105:8000/api/aniosFiscales", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoAniosFiscales(r.data.data);
-      });
-  };
-
-  const getInstituciones = () => {
-    axios
-      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoInstituciones(r.data.data);
-      });
-  };
-
-  const getProgramaPresupuestario = () => {
-    axios
-      .get("http://10.200.4.105:8000/api/programaPresupuestario", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoProgramasPresupuestarios(r.data.data);
-      });
   };
 
   const getMIRs = () => {
@@ -194,19 +128,7 @@ export const MIR = () => {
 
   useEffect(() => {
     getMIRs();
-    getAniosFiscales();
-    getInstituciones();
-    getProgramaPresupuestario();
   }, []);
-
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState([
-    { Id: "", NombreInstitucion: "" },
-  ]);
-
-  const [
-    catalogoProgramasPresupuestarios,
-    setCatalogoProgramasPresupuestarios,
-  ] = useState([{ Id: "", NombrePrograma: "" }]);
 
   const handleClickOpen = () => {
     setShowResume(false);
@@ -265,142 +187,40 @@ export const MIR = () => {
               height: "15vh",
               backgroundColor: "#fff",
               borderRadius: 5,
-              display: "grid",
+              display: "flex",
               boxShadow: 5,
-              gridTemplateColumns: "1fr 1fr",
               alignItems: "center",
-              justifyItems: "center",
+              justifyContent: "space-evenly",
             }}
           >
-            <Box sx={{ width: "20vw", height: "5vh" }}>
-              <Autocomplete
-                disablePortal
-                size="small"
-                options={catalogoAniosFiscales}
-                getOptionLabel={(option) => option.AnioFiscal}
-                getOptionDisabled={(option) =>
-                  option.Id === "0" ? true : false
-                }
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option.Id}>
-                      <div
-                        style={{
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".8vw",
-                        }}
-                      >
-                        {option.AnioFiscal}
-                      </div>
-                    </li>
-                  );
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Ejercicio Fiscal"
-                    placeholder="Ejercicio Fiscal"
-                    onChange={(v) => setTxtFiltered(v.target.value)}
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratSemiBold",
-                        fontSize: ".7vw",
-                      },
-                    }}
-                  />
-                )}
-                onChange={(event, value) => {
-                  setAnioFiscal(value?.AnioFiscal as string);
-                  setTxtFiltered((value?.AnioFiscal as string) || "");
-                }}
-                isOptionEqualToValue={(option, value) => option.Id === value.Id}
-              />
+            <Box sx={{display: 'flex', width: '30%', alignItems: 'center', justifyContent: 'center', border: 1, borderRadius: 2, borderColor: '#616161'}}>
+            <Input size="small" value={findTextStr}
+            placeholder="Busqueda"
+            sx={{width: '90%', fontFamily: 'MontserratRegular'}}
+            disableUnderline onChange={(v) => {
+              setFindTextStr(v.target.value)
+              findText(v.target.value, findSelectStr)}} />
+            <SearchIcon/>
             </Box>
 
-            <Box sx={{ width: "20vw", height: "5vh" }}>
-              <Autocomplete
-                disablePortal
-                size="small"
-                options={catalogoProgramasPresupuestarios}
-                getOptionLabel={(option) => option.NombrePrograma}
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option.Id}>
-                      <div
-                        style={{
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".8vw",
-                        }}
-                      >
-                        {option.NombrePrograma}
-                      </div>
-                    </li>
-                  );
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Nombre del Programa"
-                    placeholder="Nombre del Programa"
-                    onChange={(v) => setTxtFiltered(v.target.value)}
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratSemiBold",
-                        fontSize: ".7vw",
-                      },
-                    }}
-                  ></TextField>
-                )}
-                onChange={(event, value) => {
-                  setProgramaPresupuestario(value?.NombrePrograma as string);
-                  setTxtFiltered((value?.NombrePrograma as string) || "");
-                }}
-                isOptionEqualToValue={(option, value) => option.Id === value.Id}
-              />
-            </Box>
+            <FormControl sx={{display: 'flex', width: '30%', alignItems: 'center', justifyContent: 'center', border: 1, borderRadius: 2, borderColor: '#616161'}}>
+  <Select size="small" variant="standard" value={findSelectStr}
+  sx={{fontFamily: 'MontserratRegular'}}
+  fullWidth
+  disableUnderline
+  onChange={(v) => {
+    findText(findTextStr,v.target.value)
+    setFindSelectStr(v.target.value)}}>
+  <MenuItem value={"0"} sx={{fontFamily: 'MontserratRegular'}} disabled selected>Estado MIR</MenuItem>
+  <MenuItem value={"Todos"} sx={{fontFamily: 'MontserratRegular'}}>Todos</MenuItem>
 
-            <Box sx={{ width: "20vw", height: "5vh" }}>
-              <Autocomplete
-                disablePortal
-                size="small"
-                options={catalogoInstituciones}
-                getOptionLabel={(option) => option?.NombreInstitucion}
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option?.Id}>
-                      <div
-                        style={{
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".8vw",
-                        }}
-                      >
-                        {option?.NombreInstitucion}
-                      </div>
-                    </li>
-                  );
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Institución"
-                    placeholder="Institución"
-                    onChange={(v) => setTxtFiltered(v?.target.value)}
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratSemiBold",
-                        fontSize: ".7vw",
-                      },
-                    }}
-                  ></TextField>
-                )}
-                onChange={(event, value) => {
-                  setTxtFiltered((value?.NombreInstitucion as string) || "");
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  option?.Id === value?.Id
-                }
-              />
-            </Box>
+    <MenuItem value={"En Captura"} sx={{fontFamily: 'MontserratRegular'}}>En Captura</MenuItem>
+    <MenuItem value={"En Revisión"} sx={{fontFamily: 'MontserratRegular'}}>Esperando Revisión</MenuItem>
+    <MenuItem value={"En Autorización"} sx={{fontFamily: 'MontserratRegular'}}>Esperando autorización</MenuItem>
+    <MenuItem value={"Autorizada"} sx={{fontFamily: 'MontserratRegular'}}>Autorizada</MenuItem>
+  </Select>
+</FormControl>
+          
 
             <Button
               sx={{
@@ -446,7 +266,7 @@ export const MIR = () => {
                 },
               }}
             >
-              <TableContainer sx={{ borderRadius: 5 }}>
+              <TableContainer>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
                     <TableRow>
@@ -468,18 +288,18 @@ export const MIR = () => {
                       >
                         Nombre del Programa
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
                         align="center"
                       >
                         Eje
-                      </TableCell>
-                      <TableCell
+                      </TableCell> */}
+                      {/* <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
                         align="center"
                       >
                         Tema
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
                         align="center"
@@ -512,7 +332,7 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: ".7vw",width: '15%',
                             }}
                             align="center"
                           >
@@ -521,7 +341,7 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: ".7vw",width: '20%',
                             }}
                             align="center"
                           >
@@ -530,52 +350,52 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: ".7vw",width: '20%',
                             }}
                             align="center"
                           >
                             {row.Programa}
                           </TableCell>
-                          <TableCell
+                          {/* <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                          >
-                            {row.Eje}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: ".7vw",width: '15%',
                             }}
                             align="center"
                           >
                             {row.Tematica}
-                          </TableCell>
-                          <TableCell
+                          </TableCell> */}
+                          {/* <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: ".7vw",width: '15%',
                             }}
                             align="center"
                           >
-                            {row.Estado == "En Captura" &&
-                            localStorage.getItem("Rol") == "Capturador"
+                            {row.Eje}
+                          </TableCell> */}
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",width: '20%',
+                            }}
+                            align="center"
+                          >
+                            {row.Estado === "En Captura" &&
+                            localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador"
-                              : row.Estado == "En Revisión" &&
-                                localStorage.getItem("Rol") == "Verificador"
+                              : row.Estado === "En Revisión" &&
+                                localStorage.getItem("Rol") === "Verificador"
                               ? "Esperando revisión"
-                              : row.Estado == "En Autorización" &&
-                                localStorage.getItem("Rol") == "Administrador"
+                              : row.Estado === "En Autorización" &&
+                                localStorage.getItem("Rol") === "Administrador"
                               ? "Esperando autorización"
                               : row.Estado}
                           </TableCell>
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: ".7vw",width: '15%',
                             }}
                             align="center"
                           >
@@ -583,9 +403,9 @@ export const MIR = () => {
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
                           </TableCell>
-                          <TableCell align="center">
+                          <TableCell align="center" sx={{width: '10%'}}>
                             <Box
-                              sx={{ display: "flex", justifyContent: "center" }}
+                              sx={{ display: "flex", justifyContent: "center", alignItems: 'center', flexDirection: 'row' }}
                             >
                               <Tooltip title="Descargar">
                                 <span>
@@ -615,15 +435,15 @@ export const MIR = () => {
                             >
                               <DeleteDialogMIR
                                 disab={
-                                  row.Estado == "En Captura" &&
-                                  localStorage.getItem("Rol") == "Capturador"
+                                  row.Estado === "En Captura" &&
+                                  localStorage.getItem("Rol") === "Capturador"
                                     ? false
-                                    : row.Estado == "En Revisión" &&
-                                      localStorage.getItem("Rol") ==
+                                    : row.Estado === "En Revisión" &&
+                                      localStorage.getItem("Rol") ===
                                         "Verificador"
                                     ? false
-                                    : row.Estado == "En Autorización" &&
-                                      localStorage.getItem("Rol") ==
+                                    : row.Estado === "En Autorización" &&
+                                      localStorage.getItem("Rol") ===
                                         "Administrador"
                                     ? false
                                     : true
@@ -635,16 +455,16 @@ export const MIR = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado == "En Captura" &&
-                                      localStorage.getItem("Rol") ==
+                                      row.Estado === "En Captura" &&
+                                      localStorage.getItem("Rol") ===
                                         "Capturador"
                                         ? false
-                                        : row.Estado == "En Revisión" &&
-                                          localStorage.getItem("Rol") ==
+                                        : row.Estado === "En Revisión" &&
+                                          localStorage.getItem("Rol") ===
                                             "Verificador"
                                         ? false
-                                        : row.Estado == "En Autorización" &&
-                                          localStorage.getItem("Rol") ==
+                                        : row.Estado === "En Autorización" &&
+                                          localStorage.getItem("Rol") ===
                                             "Administrador"
                                         ? false
                                         : true
@@ -714,13 +534,26 @@ export const MIR = () => {
           }}
         >
           <FullModalMir
-            anioFiscalEdit={anioFiscalEdit}
-            MIR={mirEdit[0].MIR}
+          anioFiscalEdit={anioFiscalEdit}
+            MIR={mirEdit[0]?.MIR || ""}
             showResume={returnMain}
-            IdMir={mirEdit[0].ID}
+            IdMir={mirEdit[0]?.ID || ""}
           />
         </Box>
       )}
     </Box>
   );
 };
+
+
+export interface IIMir {
+  ID: string;
+  AnioFiscal: string;
+  Institucion: string;
+  Programa: string;
+  Eje: string;
+  Tematica: string;
+  MIR: string;
+  Estado: string;
+  FechaCreacion: string;
+}

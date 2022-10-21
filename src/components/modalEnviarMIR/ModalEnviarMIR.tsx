@@ -32,8 +32,10 @@ export default function ModalEnviarMIR({
 }) {
 
   const [comment, setComment] = useState('');
-  // console.log(IdMir);
-  
+
+  const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([])
+  const [userSelected, setUserSelected] = useState("0")
+  const [instSelected, setInstSelected] = useState("")
 
   const comentMir = (id:string) => {
     axios
@@ -60,13 +62,23 @@ export default function ModalEnviarMIR({
 
   const createMIR = (estado: string) => {
     
+    if(estado === "Autorizada" && userSelected !== "0"){
+      estado = "En Revisión"
+
+    }else if(estado === "En Autorización" && userSelected !== "0"){
+      estado = "En Captura"
+    }
+
+    console.log(estado)
+
+
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-mir",
+        "http://10.200.4.202:8000/api/create-mir",
         {
           MIR: MIR,
           Estado: estado,
-          CreadoPor: localStorage.getItem("IdUsuario"),
+          CreadoPor: userSelected !== "0"  ?  userSelected : localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
           Institucion: JSON.parse(MIR)?.encabezado.institucion,
           Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
@@ -96,6 +108,32 @@ export default function ModalEnviarMIR({
       });
   };
 
+  const getUsuariosXInstitucion = () => {
+
+    axios
+      .get("http://10.200.4.202:8000/api/usuarioXInstitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          Institucion: JSON.parse(MIR)?.encabezado.institucion,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setUserXInst(r.data.data)
+        }
+      });
+  };
+
+  useEffect(() => {
+    if(open){
+      getUsuariosXInstitucion()
+      setInstSelected(JSON.parse(MIR)?.encabezado.institucion)
+    }
+  },[open])
+
 
   const Toast = Swal.mixin({
     toast: true,
@@ -124,7 +162,7 @@ export default function ModalEnviarMIR({
   };
 
   return (
-    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
+    <Dialog fullWidth maxWidth="sm" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
         Confirmar Envío
       </DialogTitle>
@@ -159,7 +197,28 @@ export default function ModalEnviarMIR({
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión.</Typography>
           <TextField placeholder="Agregar comentario" onChange={(v)=>setComment(v.target.value)}></TextField>
-        </Box>
+          <Typography>Delegar MIR a usuario verificador de: {instSelected}</Typography>
+          <FormControl sx={{display: 'flex', width: '70%', alignItems: 'center', justifyContent: 'center', border: 1, borderRadius: 1, borderColor: '#616161'}}>
+  <Select size="small" variant="standard"
+  sx={{fontFamily: 'MontserratRegular'}}
+  fullWidth
+  value={userSelected}
+  onChange={(v) => setUserSelected(v.target.value)}
+  disableUnderline>
+    <MenuItem value={"0"} disabled>
+    Selecciona
+    </MenuItem>
+ 
+    {userXInst.map((item) => {
+      return (
+        <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
+        {item.Nombre}
+        </MenuItem>
+      )
+    })}
+
+  </Select>
+</FormControl>        </Box>
 
         <Box
           sx={{
@@ -203,4 +262,14 @@ export default function ModalEnviarMIR({
       </DialogContent>
     </Dialog>
   );
+}
+
+
+export interface IIUserXInst {
+  IdUsuario:          string;
+  IdUsuarioTiCentral: string;
+  Rol:                string;
+  NombreInstitucion:  string;
+  Nombre:             string;
+  ApellidoPaterno:    string;
 }
