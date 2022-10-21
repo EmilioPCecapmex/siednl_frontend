@@ -29,6 +29,7 @@ import {
 
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
+import { IIUserXInst } from "./ModalEnviarMIR";
 
 export const ComentDialogMir = ({
   id,
@@ -72,9 +73,35 @@ export const ComentDialogMir = ({
   };
 
 
-  const getComents = () => {
-    console.log(id);
+  const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([])
 
+
+  const getUsuariosXInstitucion = () => {
+    axios
+      .get("http://10.200.4.202:8000/api/usuarioXInstitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          Institucion: localStorage.getItem("IdInstitucion"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setUserXInst(r.data.data)
+        }
+      });
+  };
+
+  React.useEffect(() => {
+    if(open){
+
+      getUsuariosXInstitucion()
+    }
+  }, [open])
+  
+  const getComents = () => {
     axios
       .get("http://10.200.4.199:8000/api/coment-mir", {
         params: {
@@ -85,13 +112,30 @@ export const ComentDialogMir = ({
         },
       })
       .then((r) => {
-        console.log(r);
-
         setComents(r.data.data);
+      
       });
   };
 
   const [coment, setComent] = React.useState("");
+
+  const enviarNotificacion = (v: string) => {
+    axios
+      .post(
+        "http://10.200.4.202:8000/api/create-notif",
+        {
+          IdUsuarioDestino: v,
+          Titulo: 'Nuevo comentario MIR',
+          Mensaje: coment,
+          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+  };
 
   const comentMir = () => {
     axios
@@ -110,6 +154,9 @@ export const ComentDialogMir = ({
       )
       .then((r) => {
         // console.log(r);
+        userXInst.map((user) => {
+          enviarNotificacion(user.IdUsuario)
+        })
         setNewComent(false);
         setComent('');
         handleClose();

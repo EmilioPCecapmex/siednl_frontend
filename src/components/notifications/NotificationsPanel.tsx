@@ -39,11 +39,11 @@ export default function NotificationsPanel() {
       )
       .then((r) => {
         if (r.status === 200) {
-          if(r.data.error){
-            setSinNotificaciones(true)
-          }else{
+          if(r.data.data.length >= 1){
             setNotificaciones(r.data.data);
-            setSinNotificaciones(false);
+          }else{
+            setSinNotificaciones(true);
+
           }
         }
       });
@@ -143,7 +143,17 @@ export default function NotificationsPanel() {
           color: "#af8c55",
         }}
       >
-        {index.Titulo}
+        {index.Titulo} 
+        
+        <Typography
+        sx={{
+          fontFamily: "MontserratSemiBold",
+          fontSize: ".4vw",
+          color: "#000",
+        }}
+      >        {index.Titulo === "Nuevo comentario MIR" ? "Ir" : ""}
+
+        </Typography>
       </Typography>
       <Typography
         sx={{

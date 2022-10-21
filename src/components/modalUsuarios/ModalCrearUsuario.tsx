@@ -254,12 +254,7 @@ export default function ModalCrearUsuario({
  getUserType();
   }, [])
 
-  const [isAdmin, setIsAdmin] = useState(true);
 
-  const handleIsAdmin = (v: string) => {
-console.log(v)
-  }
-  
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>

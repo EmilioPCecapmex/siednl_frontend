@@ -85,7 +85,6 @@ export function TabResumen2({
   };
 
   const createMIR = (estado: string) => {
-    console.log(MIR);
     
     axios
       .post(
