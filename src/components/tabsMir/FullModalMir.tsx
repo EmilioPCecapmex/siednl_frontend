@@ -10,7 +10,7 @@ import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
 import { TabResumen2 } from "./TabResumen2";
 
-export default function FullModalMir({ MIR, showResume, IdMir }: { MIR: string, showResume: Function, IdMir: string }) {
+export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }: { MIR: string, showResume: Function, IdMir: string, anioFiscalEdit: string; }) {
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
@@ -223,6 +223,7 @@ export default function FullModalMir({ MIR, showResume, IdMir }: { MIR: string, 
           }}
         >
           <TabEncabezado
+          anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
             show={value === 10 ? true : false}

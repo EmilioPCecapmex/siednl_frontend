@@ -39,6 +39,7 @@ export function TabEncabezado({
   cValor,
   compAct,
   actividadesMir,
+  anioFiscalEdit
 }: {
   show: boolean;
   resumenEncabezado: Function;
@@ -50,6 +51,7 @@ export function TabEncabezado({
   cValor: Array<ICValor>;
   compAct: Function;
   actividadesMir: Function;
+  anioFiscalEdit: string;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "Arrastre o de click aquí para seleccionar archivo"
@@ -70,6 +72,7 @@ export function TabEncabezado({
     if (MIR !== "") {
 
       let jsonMir = JSON.parse(MIR);
+      setAnioFiscal(anioFiscalEdit)
       setLoadFin([jsonMir.fin]);
       setLoadProposito([jsonMir.proposito]);
       setPrograma(jsonMir.encabezado.nombre_del_programa);

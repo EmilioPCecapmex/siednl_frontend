@@ -164,6 +164,7 @@ export const MIR = () => {
   const getProgramaPresupuestario = () => {
     axios
       .get("http://10.200.4.105:8000/api/programaPresupuestario", {
+        
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -176,13 +177,15 @@ export const MIR = () => {
   const getMIRs = () => {
     axios
       .get("http://10.200.4.105:8000/api/mir", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
-        console.log(r.data.data);
-        
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -609,7 +612,7 @@ export const MIR = () => {
                             >
                               <DeleteDialogMIR
                                 disab={
-                                  row.Estado === "En Revisión" ? true : false
+                                  row.Estado === "En Revisión" && localStorage.getItem("Rol") === "Capturador"
                                 }
                                 id={row.ID}
                                 actualizado={actualizaContador}
@@ -618,7 +621,8 @@ export const MIR = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "En Revisión"
+
+                                      row.Estado === "En Revisión" && localStorage.getItem("Rol") === "Capturador"
                                         ? true
                                         : false
                                     }
@@ -633,7 +637,7 @@ export const MIR = () => {
                                           Tematica: row.Tematica,
                                           MIR: row.MIR,
                                           Estado: row.Estado,
-                                          FechaCreacion: "",
+                                          FechaCreacion: row.FechaCreacion,
                                         },
                                       ]);
                                       setShowResume(false);
@@ -686,7 +690,7 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir MIR={mirEdit[0].MIR} showResume={returnMain} IdMir={mirEdit[0].ID} />
+          <FullModalMir MIR={mirEdit[0].MIR} showResume={returnMain} IdMir={mirEdit[0].ID} anioFiscalEdit={mirEdit[0].AnioFiscal} />
         </Box>
       )}
     </Box>

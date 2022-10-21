@@ -253,6 +253,12 @@ export default function ModalCrearUsuario({
  getInstituciones();
  getUserType();
   }, [])
+
+  const [isAdmin, setIsAdmin] = useState(true);
+
+  const handleIsAdmin = (v: string) => {
+console.log(v)
+  }
   
 
   return (
@@ -358,14 +364,54 @@ export default function ModalCrearUsuario({
             mt: "3vh",
           }}
         >
-          <FormControl
+             <FormControl
             sx={{
               width: "30%",
               ml: "2vw",
             }}
           >
+            <InputLabel>
+              Tipo de Usuario
+            </InputLabel>
+            <Select
+              value={userType}
+              label="Tipo de Usuario"
+              onChange={(x) => {
+                setUserType(x.target.value)}}
+            >
+              <MenuItem value={"0"} key={0} disabled>
+                Selecciona
+              </MenuItem>
+
+              {userTypeCatalogue.map((item) => {
+                return (
+                  <MenuItem value={item.Id} key={item.Id} >
+                    {item.Rol}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        
+          <TextField
+            label="Cargo"
+            variant="outlined"
+            value={rol}
+            onChange={(x) => setRol(x.target.value)}
+            sx={{
+              width: "30%",
+            }}
+          />
+
+<FormControl
+            sx={{
+              width: "30%",
+              mr: "2vw",
+            }}
+          >
             <InputLabel>Institución</InputLabel>
             <Select
+            disabled={userType === 'Administrador' ? true : false}
               value={institution}
               label="Institución"
               onChange={(x) => setInstitution(x.target.value)}
@@ -382,43 +428,7 @@ export default function ModalCrearUsuario({
               })}
             </Select>
           </FormControl>
-
-          <TextField
-            label="Cargo"
-            variant="outlined"
-            value={rol}
-            onChange={(x) => setRol(x.target.value)}
-            sx={{
-              width: "30%",
-            }}
-          />
-          <FormControl
-            sx={{
-              width: "30%",
-              mr: "2vw",
-            }}
-          >
-            <InputLabel>
-              Tipo de Usuario
-            </InputLabel>
-            <Select
-              value={userType}
-              label="Tipo de Usuario"
-              onChange={(x) => setUserType(x.target.value)}
-            >
-              <MenuItem value={"0"} key={0} disabled>
-                Selecciona
-              </MenuItem>
-
-              {userTypeCatalogue.map((item) => {
-                return (
-                  <MenuItem value={item.Id} key={item.Id}>
-                    {item.Rol}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
+       
         </Box>
 
         <Box

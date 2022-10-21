@@ -90,6 +90,7 @@ export const LateralMenu = ({
 
   const handleChange = (event: SelectChangeEvent) => {
     setInstitucionSeleccionada(event.target.value as string);
+    localStorage.setItem("IdInstitucion", event.target.value as string)
   };
 
   const goSettings = () => {

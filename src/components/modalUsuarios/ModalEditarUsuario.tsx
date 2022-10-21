@@ -385,10 +385,70 @@ export default function ModalEditarUsuario({
             mt: "3vh",
           }}
         >
-          <FormControl
+           <FormControl
             sx={{
               width: "30%",
               ml: "2vw",
+            }}
+          >
+            <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+              Tipo de Usuario
+            </InputLabel>
+            <Select
+              value={userType}
+              label="Tipo de Usuario"
+              onChange={(x) => setUserType(x.target.value)}
+              sx={{
+                fontFamily: "MontserratRegular",
+              }}
+            >
+              <MenuItem
+                value={"0"}
+                key={0}
+                disabled
+                sx={{ fontFamily: "MontserratRegular" }}
+              >
+                Selecciona
+              </MenuItem>
+
+              {userTypeCatalogue.map((item) => {
+                return (
+                  <MenuItem
+                    value={item.Id}
+                    key={item.Id}
+                    sx={{ fontFamily: "MontserratRegular" }}
+                  >
+                    {item.Rol}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+         
+
+          <TextField
+            label="Cargo"
+            variant="outlined"
+            value={rol}
+            onChange={(x) => setRol(x.target.value)}
+            sx={{
+              width: "30%",
+            }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+          />
+           <FormControl
+            sx={{
+              width: "30%",
+              mr: "2vw",
             }}
           >
             <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
@@ -425,65 +485,7 @@ export default function ModalEditarUsuario({
               })}
             </Select>
           </FormControl>
-
-          <TextField
-            label="Cargo"
-            variant="outlined"
-            value={rol}
-            onChange={(x) => setRol(x.target.value)}
-            sx={{
-              width: "30%",
-            }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-          />
-          <FormControl
-            sx={{
-              width: "30%",
-              mr: "2vw",
-            }}
-          >
-            <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-              Tipo de Usuario
-            </InputLabel>
-            <Select
-              value={userType}
-              label="Tipo de Usuario"
-              onChange={(x) => setUserType(x.target.value)}
-              sx={{
-                fontFamily: "MontserratRegular",
-              }}
-            >
-              <MenuItem
-                value={"0"}
-                key={0}
-                disabled
-                sx={{ fontFamily: "MontserratRegular" }}
-              >
-                Selecciona
-              </MenuItem>
-
-              {userTypeCatalogue.map((item) => {
-                return (
-                  <MenuItem
-                    value={item.Id}
-                    key={item.Id}
-                    sx={{ fontFamily: "MontserratRegular" }}
-                  >
-                    {item.Rol}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
+         
         </Box>
 
         <Box

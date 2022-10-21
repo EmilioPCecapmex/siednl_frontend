@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -21,13 +21,7 @@ export const AppsDialog = ({
 
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>([]);
 
-  const [instSel, setInstSel] = useState([
-    {
-      Id: "",
-      NombreInstitucion: "",
-      Secretaria: "",
-    },
-  ]);
+  const [instSel, setInstSel] = useState<Array<IInstituciones>>([]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -100,7 +94,7 @@ export const AppsDialog = ({
     axios
       .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
         params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdUsuario: id,
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -108,10 +102,12 @@ export const AppsDialog = ({
       })
       .then((r) => {
         if (r.status === 200) {
+          console.log(r.data)
           setInstSel(r.data.data);
         }
       });
   };
+
   const getInstituciones = () => {
     axios
       .get("http://10.200.4.105:8000/api/instituciones", {
@@ -126,9 +122,12 @@ export const AppsDialog = ({
       });
   };
 
-  useEffect(() => {
-    getInstituciones();
-    getInstitucionesX();
+  useLayoutEffect(() => {
+    if(open){
+      getInstitucionesX();
+      getInstituciones();
+
+    }
   }, [open]);
 
   return (
@@ -205,7 +204,13 @@ export const AppsDialog = ({
               <TextField {...params} label="Institucion" />
             )}
             onChange={(event, value) => setInstSel(value)}
-            isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            isOptionEqualToValue={(option, value) => {
+              if (value.Id === "" || value.Id === option.Id){
+                return true
+              }else{
+                return false
+              }
+            }}
           />
         </DialogContent>
 

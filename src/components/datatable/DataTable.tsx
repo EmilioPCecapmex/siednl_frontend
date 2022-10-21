@@ -193,7 +193,7 @@ export const DataTable = ({
                 Institución
               </TableCell>
               <TableCell sx={{ fontFamily: "MontserratBold" }} align="left">
-                Rol
+                Tipo de Usuario
               </TableCell>
               <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
                 Acción
