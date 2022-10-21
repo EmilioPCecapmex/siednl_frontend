@@ -721,6 +721,7 @@ export const MIR = () => {
           }}
         >
           <FullModalMir
+          anioFiscalEdit={anioFiscal}
             MIR={mirEdit[0].MIR}
             showResume={returnMain}
             IdMir={mirEdit[0].ID}
