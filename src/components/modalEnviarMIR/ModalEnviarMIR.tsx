@@ -32,15 +32,15 @@ export default function ModalEnviarMIR({
 }) {
 
   const [comment, setComment] = useState('');
-  console.log(IdMir);
+  // console.log(IdMir);
   
 
-  const comentMir = () => {
+  const comentMir = (id:string) => {
     axios
       .post(
         "http://localhost:8000/api/coment-mir",
         {
-          IdMir: IdMir,
+          IdMir: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario")
         },
@@ -59,7 +59,6 @@ export default function ModalEnviarMIR({
   };
 
   const createMIR = (estado: string) => {
-    console.log(JSON.parse(MIR));
     
     axios
       .post(
@@ -82,13 +81,12 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        console.log(r);
         
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
-        if(comment!=="") comentMir();
+        if(comment!=="") comentMir(r.data.data.ID);
       })
       .catch((err) => {
         Toast.fire({

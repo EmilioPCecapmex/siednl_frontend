@@ -29,6 +29,7 @@ import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 import MessageIcon from "@mui/icons-material/Message";
 import { height } from "@mui/system";
 import moment from "moment";
+import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
@@ -164,7 +165,6 @@ export const MIR = () => {
   const getProgramaPresupuestario = () => {
     axios
       .get("http://10.200.4.105:8000/api/programaPresupuestario", {
-        
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -186,7 +186,7 @@ export const MIR = () => {
         },
       })
       .then((r) => {
-        setAnioFiscalEdit(r.data.data[0]?.AnioFiscal)
+        setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -220,6 +220,12 @@ export const MIR = () => {
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
+  };
+
+  const [openModalComents, setOpenModalComents] = useState(false);
+
+  const handleCloseComents = () => {
+    setOpenModalComents(false);
   };
 
   return (
@@ -598,23 +604,10 @@ export const MIR = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                              <Tooltip title="Comentarios">
-                                <span>
-                                  <IconButton>
-                                    <MessageIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "indigo",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
+                              <ComentDialogMir
+                                id={row.ID}
+                                actualizado={actualizaContador}
+                              />
                             </Box>
 
                             <Box
@@ -721,7 +714,7 @@ export const MIR = () => {
           }}
         >
           <FullModalMir
-          anioFiscalEdit={anioFiscalEdit}
+            anioFiscalEdit={anioFiscalEdit}
             MIR={mirEdit[0].MIR}
             showResume={returnMain}
             IdMir={mirEdit[0].ID}
