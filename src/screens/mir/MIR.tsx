@@ -181,8 +181,7 @@ export const MIR = () => {
         },
       })
       .then((r) => {
-        console.log(r.data.data);
-        
+        console.log(JSON.parse(r.data.data[0].MIR));
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -440,7 +439,7 @@ export const MIR = () => {
               <TableContainer sx={{ borderRadius: 5 }}>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow >
+                    <TableRow>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
                         align="center"
@@ -552,7 +551,16 @@ export const MIR = () => {
                             }}
                             align="center"
                           >
-                            {row.Estado}
+                            {row.Estado == "En Captura" &&
+                            localStorage.getItem("Rol") == "Capturador"
+                              ? "Borrador"
+                              : row.Estado == "En Revisión" &&
+                                localStorage.getItem("Rol") == "Verificador"
+                              ? "Borrador"
+                              : row.Estado == "En Autorización" &&
+                                localStorage.getItem("Rol") == "Administrador"
+                              ? "Borrador"
+                              : row.Estado}
                           </TableCell>
                           <TableCell
                             sx={{
@@ -561,7 +569,9 @@ export const MIR = () => {
                             }}
                             align="center"
                           >
-                            {moment(row.FechaCreacion, moment.ISO_8601).format("DD/MM/YYYY HH:mm:SS").toString()}
+                            {moment(row.FechaCreacion, moment.ISO_8601)
+                              .format("DD/MM/YYYY HH:mm:SS")
+                              .toString()}
                           </TableCell>
                           <TableCell align="center">
                             <Box
@@ -576,9 +586,8 @@ export const MIR = () => {
                                           "&:hover": {
                                             color: "orange",
                                           },
-                                          width: '1.2vw',
-                                          height: '1.2vw'
-
+                                          width: "1.2vw",
+                                          height: "1.2vw",
                                         },
                                       ]}
                                     />
@@ -594,8 +603,8 @@ export const MIR = () => {
                                           "&:hover": {
                                             color: "indigo",
                                           },
-                                          width: '1.2vw',
-                                          height: '1.2vw'
+                                          width: "1.2vw",
+                                          height: "1.2vw",
                                         },
                                       ]}
                                     />
@@ -609,7 +618,18 @@ export const MIR = () => {
                             >
                               <DeleteDialogMIR
                                 disab={
-                                  row.Estado === "En Revisión" ? true : false
+                                  row.Estado == "En Captura" &&
+                                  localStorage.getItem("Rol") == "Capturador"
+                                    ? false
+                                    : row.Estado == "En Revisión" &&
+                                      localStorage.getItem("Rol") ==
+                                        "Verificador"
+                                    ? false
+                                    : row.Estado == "En Autorización" &&
+                                      localStorage.getItem("Rol") ==
+                                        "Administrador"
+                                    ? false
+                                    : true
                                 }
                                 id={row.ID}
                                 actualizado={actualizaContador}
@@ -618,9 +638,19 @@ export const MIR = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "En Revisión"
-                                        ? true
-                                        : false
+                                      row.Estado == "En Captura" &&
+                                      localStorage.getItem("Rol") ==
+                                        "Capturador"
+                                        ? false
+                                        : row.Estado == "En Revisión" &&
+                                          localStorage.getItem("Rol") ==
+                                            "Verificador"
+                                        ? false
+                                        : row.Estado == "En Autorización" &&
+                                          localStorage.getItem("Rol") ==
+                                            "Administrador"
+                                        ? false
+                                        : true
                                     }
                                     onClick={() => {
                                       setMirEdit([
@@ -645,8 +675,8 @@ export const MIR = () => {
                                           "&:hover": {
                                             color: "blue",
                                           },
-                                          width: '1.2vw',
-                                          height: '1.2vw'
+                                          width: "1.2vw",
+                                          height: "1.2vw",
                                         },
                                       ]}
                                     />
@@ -686,7 +716,11 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir MIR={mirEdit[0].MIR} showResume={returnMain} IdMir={mirEdit[0].ID} />
+          <FullModalMir
+            MIR={mirEdit[0].MIR}
+            showResume={returnMain}
+            IdMir={mirEdit[0].ID}
+          />
         </Box>
       )}
     </Box>

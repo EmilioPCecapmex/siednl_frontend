@@ -30,15 +30,37 @@ export default function ModalEnviarMIR({
   MIR: string;
   IdMir: string;
 }) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [usuarios, setUsuarios] = useState<Array<IUsuarios>>();
 
-  const [userTypeCatalogue, setUserTypeCatalogue] = useState([
-    { Id: "", Rol: "" },
-  ]);
+  const [comment, setComment] = useState('');
+  console.log(IdMir);
+  
+
+  const comentMir = () => {
+    axios
+      .post(
+        "http://localhost:8000/api/coment-mir",
+        {
+          IdMir: IdMir,
+          Coment: comment,
+          CreadoPor: localStorage.getItem("IdUsuario")
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        // console.log(r);
+      })
+      .catch((err) => {
+        // console.log(err)
+      });
+  };
 
   const createMIR = (estado: string) => {
+    console.log(JSON.parse(MIR));
+    
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
@@ -48,9 +70,9 @@ export default function ModalEnviarMIR({
           CreadoPor: localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
           Institucion: JSON.parse(MIR)?.encabezado.institucion,
-          Programa: JSON.parse(MIR)?.encabezado.programa,
+          Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
           Eje: JSON.parse(MIR)?.encabezado.eje,
-          Tematica: JSON.parse(MIR)?.encabezado.tematica,
+          Tematica: JSON.parse(MIR)?.encabezado.tema,
           IdMir: IdMir,
         },
         {
@@ -60,11 +82,13 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
+        // console.log(r.data.data);
         
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
+        if(comment!=="") comentMir();
       })
       .catch((err) => {
         Toast.fire({
@@ -73,6 +97,7 @@ export default function ModalEnviarMIR({
         });
       });
   };
+
 
   const Toast = Swal.mixin({
     toast: true,
@@ -130,10 +155,12 @@ export default function ModalEnviarMIR({
           sx={{
             width: "100%",
             display: "flex",
+            flexDirection:'column',
             justifyContent: "space-evenly",
           }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión.</Typography>
+          <TextField placeholder="Agregar comentario" onChange={(v)=>setComment(v.target.value)}></TextField>
         </Box>
 
         <Box
@@ -165,7 +192,11 @@ export default function ModalEnviarMIR({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
-              onClick={() => {createMIR('En Revisión'); handleClose()}}
+              onClick={() => {createMIR(localStorage.getItem("Rol") == "Capturador"
+              ? "En Revisión"
+              : localStorage.getItem("Rol") == "Verificador"
+              ? "En Autorización"
+              : "Autorizada"); handleClose()}}
             >
               Confirmar
             </Button>
