@@ -36,11 +36,13 @@ export default function ModalEnviarMIR({
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([])
   const [userSelected, setUserSelected] = useState("0")
   const [instSelected, setInstSelected] = useState("")
+  // console.log(IdMir);
+  
 
   const comentMir = (id:string) => {
     axios
       .post(
-        "http://localhost:8000/api/coment-mir",
+        "http://10.200.4.199:8000/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -59,6 +61,41 @@ export default function ModalEnviarMIR({
         // console.log(err)
       });
   };
+
+  // const enviarNotificacion = () => {
+  //   axios
+  //     .post(
+  //       "http://10.200.4.202:8000/api/create-notif-inst",
+  //       {
+  //         Titulo: titulo,
+  //         Mensaje: mensaje,
+  //         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+
+  //         if(checkedEmail) {
+  //           enviarNotificacionMail();
+  //         }else{
+  //           limpiaForm();
+  //           getNotifEnviadas();
+  //           Toast.fire({
+  //             icon: "success",
+  //             title: "Notificación enviada",
+  //           });
+  //         }
+  //         }
+
+
+     
+  //     });
+  // };
 
   const createMIR = (estado: string) => {
     

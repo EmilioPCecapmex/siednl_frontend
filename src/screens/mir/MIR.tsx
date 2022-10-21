@@ -428,11 +428,7 @@ export const MIR = () => {
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />
-                            </Box>
-
-                            <Box
-                              sx={{ display: "flex", justifyContent: "center" }}
-                            >
+                         
                               <DeleteDialogMIR
                                 disab={
                                   row.Estado === "En Captura" &&
