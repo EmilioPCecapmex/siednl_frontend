@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import axios from "axios";
 import { IEncabezado } from "./TabEncabezado";
 import { IComponente } from "./IComponente";
@@ -22,7 +18,7 @@ export function TabResumen2({
   componenteValor,
   cValor,
   showResume,
-  IdMir
+  IdMir,
 }: {
   show: boolean;
   encabezado: Array<IEncabezado>;
@@ -35,11 +31,11 @@ export function TabResumen2({
   IdMir: string;
 }) {
   const [MIR, setMIR] = useState<IMIR>();
+
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
   };
-
 
   let asignarMIR = (
     encabezadoM: Array<IEncabezado>,
@@ -58,40 +54,38 @@ export function TabResumen2({
   };
 
   const checkMir = (v: string) => {
-    if(MIR?.encabezado.ejercicioFiscal === ""){
+    if (MIR?.encabezado.ejercicioFiscal === "") {
       return Toast.fire({
         icon: "error",
         title: "Selecciona año fiscal.",
       });
-    }else if(MIR?.encabezado.institucion === ""){
+    } else if (MIR?.encabezado.institucion === "") {
       return Toast.fire({
         icon: "error",
         title: "Selecciona institución.",
       });
-    }else if(MIR?.encabezado.nombre_del_programa === ""){
+    } else if (MIR?.encabezado.nombre_del_programa === "") {
       return Toast.fire({
         icon: "error",
         title: "Selecciona programa.",
       });
-    }else if(MIR?.encabezado.eje === ""){
+    } else if (MIR?.encabezado.eje === "") {
       return Toast.fire({
         icon: "error",
         title: "Selecciona eje.",
       });
-    }else if(MIR?.encabezado.tema === ""){
+    } else if (MIR?.encabezado.tema === "") {
       return Toast.fire({
         icon: "error",
         title: "Selecciona temática.",
       });
-    }else{
-      createMIR(v)
+    } else {
+      createMIR(v);
     }
-
-  }
+  };
 
   const createMIR = (estado: string) => {
     console.log(MIR);
-    
     
     axios
       .post(
@@ -105,7 +99,7 @@ export function TabResumen2({
           Programa: MIR?.encabezado.nombre_del_programa,
           Eje: MIR?.encabezado.eje,
           Tematica: MIR?.encabezado.tema,
-          IdMir: IdMir
+          IdMir: IdMir,
         },
         {
           headers: {
@@ -114,47 +108,35 @@ export function TabResumen2({
         }
       )
       .then((r) => {
-        console.log(r);
-        
+        // console.log(r);
         Toast.fire({
           icon: "success",
-          title: "MIR generada con éxito",
+          title: r.data.data.message,
         });
-
         showResume();
-
-
       })
       .catch((err) => {
-        console.log(err)
-        if(err.response.status === 409){
+        // console.log(err);
+        if (err.response.status === 409) {
           Toast.fire({
             icon: "error",
             title: err.response.data.result.error,
           });
         }
-        
       });
   };
 
   useEffect(() => {
-    let arr: any[] = []
+    let arr: any[] = [];
     cValor[0].componentes.map((a) => {
-      a.actividades.map(b => {
-        Object.assign(b)
-        arr.push(b)
-      } )
-})
+      a.actividades.map((b) => {
+        Object.assign(b);
+        arr.push(b);
+      });
+    });
 
-    asignarMIR(encabezado,
-      fin,
-      proposito,
-      componenteValor,
-      arr)
-
+    asignarMIR(encabezado, fin, proposito, componenteValor, arr);
   }, [encabezado, componenteValor, proposito, fin, cValor, show]);
-
-
 
   const Toast = Swal.mixin({
     toast: true,
@@ -790,7 +772,7 @@ export function TabResumen2({
           </Typography>
 
           {cValor[0]?.componentes.map((item, indexComponentes) => {
-            let i=0;
+            let i = 0;
             return item.actividades.map((value, indexActividades) => {
               i++;
               return (
@@ -982,7 +964,15 @@ export function TabResumen2({
         <Button
           color="warning"
           variant="outlined"
-          onClick={() => checkMir('En Captura')}
+          onClick={() =>
+            checkMir(
+              localStorage.getItem("Rol") == "Capturador"
+                ? "En Captura"
+                : localStorage.getItem("Rol") == "Verificador"
+                ? "En Revisión"
+                : "En Autorización"
+            )
+          }
         >
           Guardar borrador
         </Button>
