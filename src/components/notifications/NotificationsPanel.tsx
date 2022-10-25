@@ -19,8 +19,12 @@ import {
 import Box from "@mui/material/Box";
 import axios from "axios";
 import { INotificacion } from "./NotificacionesInterfaz";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function NotificationsPanel() {
+  const navigate = useNavigate();
+
   const [notificaciones, setNotificaciones] = useState<Array<INotificacion>>();
   const [sinNotificaciones, setSinNotificaciones] = useState(true)
 
@@ -39,14 +43,13 @@ export default function NotificationsPanel() {
       )
       .then((r) => {
         if (r.status === 200) {
-          if(r.data.error){
-            setSinNotificaciones(true)
-          }else{
+          if(r.data.data.length >= 1){
             setNotificaciones(r.data.data);
-            setSinNotificaciones(false);
+          }else{
+            setSinNotificaciones(true);
           }
         }
-      });
+      })
   };
 
   const eliminaNotificacion = (v: string) => {
@@ -64,9 +67,12 @@ export default function NotificationsPanel() {
       )
       .then((r) => {
         if (r.status === 200) {
-         obtenerNotificaciones()
+         obtenerNotificaciones();
         }
-      });
+      }).catch((err) => {if(err.response.status === 409){
+        setSinNotificaciones(true)
+        setNotificaciones([])
+      }})
   };
 
   const [openNotifPanel, setOpenNotifPanel] = useState(false);
@@ -125,7 +131,7 @@ export default function NotificationsPanel() {
      {sinNotificaciones ? ( <List sx={{ width: "15vw", height: "auto",  }}>
 
 {notificaciones?.map((index) => (
-  <ListItem key={index.Id} disablePadding>
+  <ListItem key={index.Id || Math.random()} disablePadding>
     <Box
       sx={{
         display: "flex",
@@ -139,20 +145,38 @@ export default function NotificationsPanel() {
       <Typography
         sx={{
           fontFamily: "MontserratSemiBold",
-          fontSize: ".5vw",
+          fontSize: ".7vw",
           color: "#af8c55",
         }}
       >
-        {index.Titulo}
+        {index.Titulo} 
+        
+      
       </Typography>
+      <Button variant="text" onClick={() =>{ 
+        eliminaNotificacion(index.Id)
+        navigate("../MIR")}}>
       <Typography
         sx={{
           fontFamily: "MontserratSemiBold",
-          fontSize: ".4vw",
+          fontSize: ".5vw",
+          color: "blue",
+        }}
+      >        {index.Titulo.includes("MIR") ? "Ver" : ""}
+
+        </Typography>
+      </Button>
+    
+      <Typography
+        sx={{
+          fontFamily: "MontserratSemiBold",
+          fontSize: ".5vw",
           color: "#909090",
         }}
       >
-        {index.FechaCreacion?.toString().replace('T',' ').replace('.000Z','')}
+        {moment(index?.FechaCreacion, moment.ISO_8601)
+                            .format("DD/MM/YYYY HH:mm:SS")
+                            .toString()}
       </Typography>
       </Box>
       

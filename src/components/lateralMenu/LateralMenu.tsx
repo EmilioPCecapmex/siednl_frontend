@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import CampaignIcon from "@mui/icons-material/Campaign";
+import GroupIcon from '@mui/icons-material/Group';
 import {
   Dialog,
   TextField,
@@ -405,6 +406,8 @@ export const LateralMenu = ({
               sx={st.selectedBox}
             />
           </ListItemButton>
+
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
           <ListItemButton onClick={() => navigate("../notifications")}>
             <Box sx={st.iconMenuList}>
               <CampaignIcon />
@@ -414,14 +417,14 @@ export const LateralMenu = ({
               visibility={selection === 7 ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
-          </ListItemButton>
+          </ListItemButton> )}
         </List>
       </Box>
 
       <Box sx={st.dividerBox} />
       <Box sx={st.bottomMenuBox}>
         <List>
-          <ListItemButton onClick={() => goSettings()}>
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (<ListItemButton onClick={() => goSettings()}>
             <Box sx={st.iconMenuList}>
               <SettingsOutlinedIcon />
             </Box>
@@ -431,7 +434,20 @@ export const LateralMenu = ({
               visibility={selection === 6 ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
-          </ListItemButton>
+          </ListItemButton>)}
+
+          {localStorage.getItem("Rol") !== "Verificador" ? null : (<ListItemButton onClick={() => navigate('../users')}>
+            <Box sx={st.iconMenuList}>
+              <GroupIcon />
+            </Box>
+            <Typography sx={st.bottomItemsStyle}>Usuarios</Typography>
+
+            <Box
+              visibility={selection === 6 ? "visible" : "hidden"}
+              sx={st.selectedBox}
+            />
+          </ListItemButton>)}
+          
           <ListItemButton onClick={() => setOpenPasswordChange(true)}>
             <Box sx={st.iconMenuList}>
               <LockResetIcon />

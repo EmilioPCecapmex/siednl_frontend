@@ -121,6 +121,7 @@ export const DeleteDialogMIR = ({
               Cancelar
             </Typography>
           </Button>
+          
 
           <Button onClick={()=>{deleteMIR(); handleClose()}} color="error" autoFocus>
             <Typography

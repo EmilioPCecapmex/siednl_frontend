@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
 import { SettingsCard } from "../../components/settings/SettingsCard";
 import {Catalogos} from "../../components/catalogos/Catalogos";
+import { useNavigate } from "react-router-dom";
 
 
 export const Settings = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+ if(localStorage.getItem("Rol") !== "Administrador"){
+  navigate("../home")
+ }
+  }, [])
 
 
   const [showCards, setShowCards] = useState(true);

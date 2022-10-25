@@ -24,12 +24,13 @@ export default function ModalEnviarMIR({
   handleClose,
   MIR,
   IdMir,
-  
+  showResume
 }: {
   open: boolean;
   handleClose: Function;
   MIR: string;
   IdMir: string;
+  showResume: Function;
 }) {
   const [comment, setComment] = useState("");
 
@@ -391,7 +392,7 @@ export default function ModalEnviarMIR({
 
     axios
       .post(
-        "http://10.200.4.202:8000/api/create-mir",
+        "http://10.200.4.105:8000/api/create-mir",
         {
           MIR: MIR,
           Estado: estado,
@@ -413,11 +414,18 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
+
+        userXInst.map((user) => {
+          enviarNotificacion(user.IdUsuario)
+        })
+
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
-        if (comment !== "") comentMir(r.data.data.ID);
+
+        showResume()
+
       })
       .catch((err) => {
         Toast.fire({
@@ -428,11 +436,17 @@ export default function ModalEnviarMIR({
   };
 
   const getUsuariosXInstitucion = () => {
+    let inst = JSON.parse(MIR)?.encabezado.institucion;
+
+    if(localStorage.getItem("Rol") === "Verificador"){
+      inst = 'admin';
+    }
+
     axios
-      .get("http://10.200.4.202:8000/api/usuarioXInstitucion", {
+      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: JSON.parse(MIR)?.encabezado.institucion,
+          Institucion: inst,
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -440,6 +454,7 @@ export default function ModalEnviarMIR({
       })
       .then((r) => {
         if (r.status === 200) {
+          console.log(r.data.data)
           setUserXInst(r.data.data);
         }
       });
@@ -452,11 +467,29 @@ export default function ModalEnviarMIR({
     }
   }, [open]);
 
+  const enviarNotificacion = (v: string) => {
+    axios
+      .post(
+        "http://10.200.4.105:8000/api/create-notif",
+        {
+          IdUsuarioDestino: v,
+          Titulo: 'MIR',
+          Mensaje: 'Se ha creado una nueva MIR',
+          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+  };
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 5000,
+    timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -563,6 +596,10 @@ export default function ModalEnviarMIR({
               })}
             </Select>
           </FormControl>{" "}
+          <Typography sx={{ fontFamily: "MontserratMedium", textAlign: 'center' }}>
+            Al confirmar, la MIR se enviará a los usuarios correspondientes para
+            revisión.
+          </Typography>
         </Box>
 
         <Box
@@ -588,7 +625,7 @@ export default function ModalEnviarMIR({
               color="error"
               onClick={() => handleClose()}
             >
-              Cancelar
+              <Typography sx={{fontFamily: 'MontserratRegular'}}>Cancelar</Typography>
             </Button>
 
             <Button
@@ -618,7 +655,7 @@ export default function ModalEnviarMIR({
                 handleClose();
               }}
             >
-              Confirmar
+              <Typography sx={{fontFamily: 'MontserratRegular'}}>Confirmar</Typography>
             </Button>
           </Box>
         </Box>
