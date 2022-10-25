@@ -27,7 +27,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
 import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 import MessageIcon from "@mui/icons-material/Message";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
 
@@ -37,8 +37,6 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
-
-
   useEffect(() => {
     setShowResume(true);
     getMIRs();
@@ -66,12 +64,9 @@ export const MIR = () => {
     setPage(0);
   };
 
-
   const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
-  const [findTextStr, setFindTextStr] = useState("")
-  const [findSelectStr, setFindSelectStr] = useState("0")
-
-
+  const [findTextStr, setFindTextStr] = useState("");
+  const [findSelectStr, setFindSelectStr] = useState("0");
 
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
@@ -80,9 +75,7 @@ export const MIR = () => {
   const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
   const findText = (v: string, select: string) => {
-
     if (v !== "" || select !== "0") {
-      
       setMirsFiltered(
         mirs.filter(
           (x) =>
@@ -91,19 +84,16 @@ export const MIR = () => {
             x.Programa.toLowerCase().includes(findTextStr.toLowerCase()) ||
             x.FechaCreacion.toLowerCase().includes(findTextStr.toLowerCase())
         )
-      )
+      );
 
-      if(select !== "0"){
+      if (select !== "0") {
         setMirsFiltered(
-          mirs.filter(
-            (x) =>
-              x.Estado.toLowerCase().includes(select.toLowerCase())
+          mirs.filter((x) =>
+            x.Estado.toLowerCase().includes(select.toLowerCase())
           )
-        )
+        );
       }
-   
-   
-    }else {
+    } else {
       setMirsFiltered(mirs);
     }
   };
@@ -193,34 +183,95 @@ export const MIR = () => {
               justifyContent: "space-evenly",
             }}
           >
-            <Box sx={{display: 'flex', width: '30%', alignItems: 'center', justifyContent: 'center', border: 1, borderRadius: 2, borderColor: '#616161'}}>
-            <Input size="small" value={findTextStr}
-            placeholder="Busqueda"
-            sx={{width: '90%', fontFamily: 'MontserratRegular'}}
-            disableUnderline onChange={(v) => {
-              setFindTextStr(v.target.value)
-              findText(v.target.value, findSelectStr)}} />
-            <SearchIcon/>
+            <Box
+              sx={{
+                display: "flex",
+                width: "30%",
+                alignItems: "center",
+                justifyContent: "center",
+                border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
+              }}
+            >
+              <Input
+                size="small"
+                value={findTextStr}
+                placeholder="Busqueda"
+                sx={{ width: "90%", fontFamily: "MontserratRegular" }}
+                disableUnderline
+                onChange={(v) => {
+                  setFindTextStr(v.target.value);
+                  findText(v.target.value, findSelectStr);
+                }}
+              />
+              <SearchIcon />
             </Box>
 
-            <FormControl sx={{display: 'flex', width: '30%', alignItems: 'center', justifyContent: 'center', border: 1, borderRadius: 2, borderColor: '#616161'}}>
-  <Select size="small" variant="standard" value={findSelectStr}
-  sx={{fontFamily: 'MontserratRegular'}}
-  fullWidth
-  disableUnderline
-  onChange={(v) => {
-    findText(findTextStr,v.target.value)
-    setFindSelectStr(v.target.value)}}>
-  <MenuItem value={"0"} sx={{fontFamily: 'MontserratRegular'}} disabled selected>Estado MIR</MenuItem>
-  <MenuItem value={"Todos"} sx={{fontFamily: 'MontserratRegular'}}>Todos</MenuItem>
+            <FormControl
+              sx={{
+                display: "flex",
+                width: "30%",
+                alignItems: "center",
+                justifyContent: "center",
+                border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
+              }}
+            >
+              <Select
+                size="small"
+                variant="standard"
+                value={findSelectStr}
+                sx={{ fontFamily: "MontserratRegular" }}
+                fullWidth
+                disableUnderline
+                onChange={(v) => {
+                  v.target.value == 'Todos' ? findText(findTextStr, '') : findText(findTextStr, v.target.value);
+                  setFindSelectStr(v.target.value);
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  disabled
+                  selected
+                >
+                  Estado MIR
+                </MenuItem>
+                <MenuItem
+                  value={"Todos"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Todos
+                </MenuItem>
 
-    <MenuItem value={"En Captura"} sx={{fontFamily: 'MontserratRegular'}}>En Captura</MenuItem>
-    <MenuItem value={"En Revisión"} sx={{fontFamily: 'MontserratRegular'}}>Esperando Revisión</MenuItem>
-    <MenuItem value={"En Autorización"} sx={{fontFamily: 'MontserratRegular'}}>Esperando autorización</MenuItem>
-    <MenuItem value={"Autorizada"} sx={{fontFamily: 'MontserratRegular'}}>Autorizada</MenuItem>
-  </Select>
-</FormControl>
-          
+                <MenuItem
+                  value={"En Captura"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  En Captura
+                </MenuItem>
+                <MenuItem
+                  value={"En Revisión"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Esperando Revisión
+                </MenuItem>
+                <MenuItem
+                  value={"En Autorización"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Esperando autorización
+                </MenuItem>
+                <MenuItem
+                  value={"Autorizada"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Autorizada
+                </MenuItem>
+              </Select>
+            </FormControl>
 
             <Button
               sx={{
@@ -332,7 +383,8 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '15%',
+                              fontSize: ".7vw",
+                              width: "15%",
                             }}
                             align="center"
                           >
@@ -341,7 +393,8 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '20%',
+                              fontSize: ".7vw",
+                              width: "20%",
                             }}
                             align="center"
                           >
@@ -350,7 +403,8 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '20%',
+                              fontSize: ".7vw",
+                              width: "20%",
                             }}
                             align="center"
                           >
@@ -377,7 +431,8 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '20%',
+                              fontSize: ".7vw",
+                              width: "20%",
                             }}
                             align="center"
                           >
@@ -395,7 +450,8 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '15%',
+                              fontSize: ".7vw",
+                              width: "15%",
                             }}
                             align="center"
                           >
@@ -403,9 +459,14 @@ export const MIR = () => {
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
                           </TableCell>
-                          <TableCell align="center" sx={{width: '10%'}}>
+                          <TableCell align="center" sx={{ width: "10%" }}>
                             <Box
-                              sx={{ display: "flex", justifyContent: "center", alignItems: 'center', flexDirection: 'row' }}
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                              }}
                             >
                               <Tooltip title="Descargar">
                                 <span>
@@ -428,7 +489,7 @@ export const MIR = () => {
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />
-                         
+
                               <DeleteDialogMIR
                                 disab={
                                   row.Estado === "En Captura" &&
@@ -530,7 +591,7 @@ export const MIR = () => {
           }}
         >
           <FullModalMir
-          anioFiscalEdit={anioFiscalEdit}
+            anioFiscalEdit={anioFiscalEdit}
             MIR={mirEdit[0]?.MIR || ""}
             showResume={returnMain}
             IdMir={mirEdit[0]?.ID || ""}
@@ -540,7 +601,6 @@ export const MIR = () => {
     </Box>
   );
 };
-
 
 export interface IIMir {
   ID: string;

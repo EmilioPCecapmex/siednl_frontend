@@ -39,7 +39,7 @@ export function TabEncabezado({
   cValor,
   compAct,
   actividadesMir,
-  anioFiscalEdit
+  anioFiscalEdit,
 }: {
   show: boolean;
   resumenEncabezado: Function;
@@ -70,9 +70,8 @@ export function TabEncabezado({
 
   useEffect(() => {
     if (MIR !== "") {
-
       let jsonMir = JSON.parse(MIR);
-      setAnioFiscal(anioFiscalEdit)
+      setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
       setLoadProposito([jsonMir.proposito]);
       setPrograma(jsonMir.encabezado.nombre_del_programa);
@@ -98,12 +97,10 @@ export function TabEncabezado({
       jsonMir.componentes.map((x: any) => {
         comp.push("C" + j);
         jsonMir.actividades.map((a: any) => {
-
-          if(a.actividad.substring(0,4) === ("A" + i + "C" + j)){
+          if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
             act.push(i);
-          i++;
+            i++;
           }
-        
         });
         ambos.push({ actividades: act, componente: "C" + j });
         act = [];
@@ -111,12 +108,11 @@ export function TabEncabezado({
         j++;
       });
 
-
       compAct(ambos);
       setCompActividad(ambos);
       setLoadActividades(jsonMir.actividades);
       actividadesMir(jsonMir.actividades);
-      setLoadComponenteValor(jsonMir.componentes)
+      setLoadComponenteValor(jsonMir.componentes);
     }
   }, [MIR]);
 
