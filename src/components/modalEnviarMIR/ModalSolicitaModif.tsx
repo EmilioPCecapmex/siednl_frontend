@@ -18,8 +18,9 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { IUsuarios } from "../../screens/notification/interfaces";
+import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 
-export default function ModalEnviarMIR({
+export default function ModalSolicitaModif({
   open,
   handleClose,
   MIR,
@@ -31,19 +32,27 @@ export default function ModalEnviarMIR({
   MIR: string;
   IdMir: string;
   showResume: Function;
+
 }) {
 
-  const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
-  const [userSelected, setUserSelected] = useState("0");
-  const [instSelected, setInstSelected] = useState("");
+
+  const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([])
+  const [userSelected, setUserSelected] = useState("0")
+  const [instSelected, setInstSelected] = useState("")
   // console.log(IdMir);
+  
+
+
 
   const createMIR = (estado: string) => {
-    if (estado === "Autorizada" && userSelected !== "0") {
-      estado = "En Revisión";
-    } else if (estado === "En Autorización" && userSelected !== "0") {
-      estado = "En Captura";
+    
+    if(estado === "Autorizada" && userSelected !== "0"){
+      estado = "En Revisión"
+
+    }else if(estado === "En Autorización" && userSelected !== "0"){
+      estado = "En Captura"
     }
+
 
     axios
       .post(
@@ -51,10 +60,7 @@ export default function ModalEnviarMIR({
         {
           MIR: MIR,
           Estado: estado,
-          CreadoPor:
-            userSelected !== "0"
-              ? userSelected
-              : localStorage.getItem("IdUsuario"),
+          CreadoPor: userSelected !== "0"  ?  userSelected : localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
           Institucion: JSON.parse(MIR)?.encabezado.institucion,
           Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
@@ -69,16 +75,13 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-
-        userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario)
-        })
-
+        
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
-
+        enviarNotificacion()
+        handleClose();
         showResume()
 
       })
@@ -91,17 +94,12 @@ export default function ModalEnviarMIR({
   };
 
   const getUsuariosXInstitucion = () => {
-    let inst = JSON.parse(MIR)?.encabezado.institucion;
-
-    if(localStorage.getItem("Rol") === "Verificador"){
-      inst = 'admin';
-    }
 
     axios
       .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: inst,
+          Institucion: JSON.parse(MIR)?.encabezado.institucion,
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -109,36 +107,18 @@ export default function ModalEnviarMIR({
       })
       .then((r) => {
         if (r.status === 200) {
-          console.log(r.data.data)
-          setUserXInst(r.data.data);
+          setUserXInst(r.data.data)
         }
       });
   };
 
   useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
+    if(open){
+      getUsuariosXInstitucion()
+      setInstSelected(JSON.parse(MIR)?.encabezado.institucion)
     }
-  }, [open]);
+  },[open])
 
-  const enviarNotificacion = (v: string) => {
-    axios
-      .post(
-        "http://10.200.4.105:8000/api/create-notif",
-        {
-          IdUsuarioDestino: v,
-          Titulo: 'MIR',
-          Mensaje: 'Se ha creado una nueva MIR',
-          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-  };
 
   const Toast = Swal.mixin({
     toast: true,
@@ -152,24 +132,30 @@ export default function ModalEnviarMIR({
     },
   });
 
-  const [errorForm, setErrorsForm] = useState({
-    visible: false,
-    text: "",
-    type: "",
-  });
 
-  const AlertForm = () => {
-    return (
-      <Box sx={{ mt: "1vh", mb: "2vh" }}>
-        <Alert severity={errorForm.type as AlertColor}>{errorForm.text}</Alert>
-      </Box>
-    );
+  
+  const enviarNotificacion = () => {
+    axios
+      .post(
+        "http://10.200.4.105:8000/api/create-notif",
+        {
+          IdUsuarioDestino: userSelected,
+          Titulo: 'MIR',
+          Mensaje: 'Se le ha solicitado una modificación.',
+          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
   };
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        Confirmar Envío
+        Solicitud de modificación
       </DialogTitle>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -190,21 +176,38 @@ export default function ModalEnviarMIR({
           flexDirection: "column",
         }}
       >
-        {errorForm.visible ? <AlertForm /> : null}
-
         <Box
           sx={{
             width: "100%",
             display: "flex",
-            flexDirection: "column",
+            flexDirection:'column',
+            alignItems: 'center',
             justifyContent: "space-evenly",
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium", textAlign: 'center' }}>
-            Al confirmar, la MIR se enviará a los usuarios correspondientes para
-            revisión.
-          </Typography>
-        </Box>
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>Selecciona usuario para solicitar modificación</Typography>
+
+          <FormControl sx={{display: 'flex', width: '70%', alignItems: 'center', justifyContent: 'center', border: 1, borderRadius: 1, borderColor: '#616161'}}>
+  <Select size="small" variant="standard"
+  sx={{fontFamily: 'MontserratRegular'}}
+  fullWidth
+  value={userSelected}
+  onChange={(v) => setUserSelected(v.target.value)}
+  disableUnderline>
+    <MenuItem value={"0"} disabled>
+    Selecciona
+    </MenuItem>
+ 
+    {userXInst.map((item) => {
+      return (
+        <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
+        {item.Nombre}
+        </MenuItem>
+      )
+    })}
+
+  </Select>
+</FormControl>        </Box>
 
         <Box
           sx={{
@@ -229,24 +232,19 @@ export default function ModalEnviarMIR({
               color="error"
               onClick={() => handleClose()}
             >
-              <Typography sx={{fontFamily: 'MontserratRegular'}}>Cancelar</Typography>
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>Cancelar</Typography>
             </Button>
             <Button
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
-              onClick={() => {
-                createMIR(
-                  localStorage.getItem("Rol") == "Capturador"
-                    ? "En Revisión"
-                    : localStorage.getItem("Rol") == "Verificador"
-                    ? "En Autorización"
-                    : "Autorizada"
-                );
-                handleClose();
-              }}
+              onClick={() => {createMIR(localStorage.getItem("Rol") == "Capturador"
+              ? "En Revisión"
+              : localStorage.getItem("Rol") == "Verificador"
+              ? "En Autorización"
+              : "Autorizada"); handleClose()}}
             >
-              <Typography sx={{fontFamily: 'MontserratRegular'}}>Confirmar</Typography>
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>Confirmar</Typography>
             </Button>
           </Box>
         </Box>
@@ -255,11 +253,13 @@ export default function ModalEnviarMIR({
   );
 }
 
+
 export interface IIUserXInst {
-  IdUsuario: string;
+  IdUsuario:          string;
   IdUsuarioTiCentral: string;
-  Rol: string;
-  NombreInstitucion: string;
-  Nombre: string;
-  ApellidoPaterno: string;
+  Rol:                string;
+  NombreInstitucion:  string;
+  Nombre:             string;
+  ApellidoPaterno:    string;
 }
+

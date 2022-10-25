@@ -30,8 +30,18 @@ import Swal from "sweetalert2";
 import SearchIcon from "@mui/icons-material/Search";
 
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+import { useNavigate } from "react-router-dom";
 
 export const Notification = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if(localStorage.getItem("Rol") !== "Administrador"){
+     navigate("../home")
+    }
+     }, [])
+
+     
   const [usuarios, setUsuarios] = useState<Array<IUsuarios>>();
   const [titulo, setTitulo] = useState("");
   const [mensaje, setMensaje] = useState("");

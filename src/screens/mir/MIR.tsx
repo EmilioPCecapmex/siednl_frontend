@@ -409,7 +409,7 @@ export const MIR = () => {
                             >
                               <Tooltip title="Descargar">
                                 <span>
-                                  <IconButton>
+                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true}>
                                     <DownloadIcon
                                       sx={[
                                         {
@@ -425,6 +425,7 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                               <ComentDialogMir
+                              estado={row.Estado}
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />

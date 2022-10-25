@@ -8,6 +8,7 @@ import { IFin, IProposito } from "./TabFinProposito";
 import { IMIR } from "./IMIR";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalEnviarMIR/ModalEnviarMIR";
+import ModalSolicitaModif from "../modalEnviarMIR/ModalSolicitaModif";
 
 export function TabResumen2({
   show,
@@ -35,6 +36,12 @@ export function TabResumen2({
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
+  };
+
+  const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
+
+  const handleCloseModif = () => {
+    setOpenModalSolicitarModif(false);
   };
 
   let asignarMIR = (
@@ -958,37 +965,67 @@ export function TabResumen2({
         }}
       >
         <Button color="error" variant="outlined" onClick={() => showResume()}>
+        <Typography sx={{fontFamily: 'MontserratMedium'}}>
           Cancelar
+          </Typography>
         </Button>
         <Button
+        disabled={localStorage.getItem("Rol") === "Capturador"? true: false}
           color="warning"
+          variant="outlined"
+          onClick={() => setOpenModalSolicitarModif(true)}
+        >
+          <Typography sx={{fontFamily: 'MontserratMedium'}}>
+          Solicitar Modificación
+          </Typography>
+        </Button>
+
+        <Button
+          color="success"
           variant="outlined"
           onClick={() =>
             checkMir(
-              localStorage.getItem("Rol") == "Capturador"
+              localStorage.getItem("Rol") === "Capturador"
                 ? "En Captura"
-                : localStorage.getItem("Rol") == "Verificador"
+                : localStorage.getItem("Rol") === "Verificador"
                 ? "En Revisión"
                 : "En Autorización"
             )
           }
         >
-          Guardar borrador
+          <Typography sx={{fontFamily: 'MontserratMedium'}}>
+          Borrador
+          </Typography>
         </Button>
         <Button
-          color="success"
+          color="primary"
           variant="outlined"
           onClick={() => setOpenModalEnviar(true)}
         >
+             <Typography sx={{fontFamily: 'MontserratMedium'}}>
           Enviar
+          </Typography>
         </Button>
 
+        <ModalSolicitaModif
+          open={openModalSolicitarModif}
+          showResume={showResume}
+          handleClose={handleCloseModif}
+          MIR={JSON.stringify(MIR)}
+          IdMir={IdMir}
+        ></ModalSolicitaModif>
+
+
         <ModalEnviarMIR
+                  showResume={showResume}
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           MIR={JSON.stringify(MIR)}
           IdMir={IdMir}
         ></ModalEnviarMIR>
+
+
+
       </Box>
     </Box>
   );

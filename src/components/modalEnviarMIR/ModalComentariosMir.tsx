@@ -32,17 +32,20 @@ import moment from "moment";
 import { IIUserXInst } from "./ModalEnviarMIR";
 
 export const ComentDialogMir = ({
+  estado,
   id,
   actualizado,
 }: {
+  estado: string;
   id: string;
   actualizado: Function;
+
 }) => {
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 5000,
+    timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -78,7 +81,7 @@ export const ComentDialogMir = ({
 
   const getUsuariosXInstitucion = () => {
     axios
-      .get("http://10.200.4.202:8000/api/usuarioXInstitucion", {
+      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Institucion: localStorage.getItem("IdInstitucion"),
@@ -91,7 +94,7 @@ export const ComentDialogMir = ({
         if (r.status === 200) {
           setUserXInst(r.data.data)
         }
-      });
+      })
   };
 
   React.useEffect(() => {
@@ -122,7 +125,7 @@ export const ComentDialogMir = ({
   const enviarNotificacion = (v: string) => {
     axios
       .post(
-        "http://10.200.4.202:8000/api/create-notif",
+        "http://10.200.4.105:8000/api/create-notif",
         {
           IdUsuarioDestino: v,
           Titulo: 'Nuevo comentario MIR',
@@ -153,10 +156,13 @@ export const ComentDialogMir = ({
         }
       )
       .then((r) => {
-        // console.log(r);
-        userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario)
-        })
+        console.log(estado)
+        if(estado !== "En Captura"){
+          userXInst.map((user) => {
+            enviarNotificacion(user.IdUsuario)
+          })
+        }
+       
         setNewComent(false);
         setComent('');
         handleClose();
@@ -167,8 +173,10 @@ export const ComentDialogMir = ({
         });
       })
       .catch((err) => {
-        // console.log(err)
-      });
+        Toast.fire({
+          icon: "error",
+          title: "Debes agregar un comentario",
+        });      });
   };
 
   
@@ -193,19 +201,18 @@ export const ComentDialogMir = ({
         />
       </IconButton>
 
-      <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
+      <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
         <DialogContent
           sx={{
             display: "flex",
             flexDirection: "column",
           }}
         >
-          {coments == null || coments[0].Comentario == null ? (
+          {coments === null || coments[0].Comentario === null ? (
             <Typography
               sx={{ textAlign: "center", fontFamily: "MontserratBold" }}
             >
-              {" "}
-              Sin Comentarios{" "}
+              Sin Comentarios
             </Typography>
           ) : (
             <Box
@@ -216,9 +223,16 @@ export const ComentDialogMir = ({
                 justifyContent: "space-evenly",
               }}
             >
-              <TableContainer sx={{ borderRadius: 5 }}>
-                <Table>
-                  <TableHead sx={{ backgroundColor: "#edeaea" }}>
+              <TableContainer sx={{ borderRadius: 1, height: '40vh', "&::-webkit-scrollbar": {
+                  width: ".1vw",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "rgba(0,0,0,.5)",
+                  outline: "1px solid slategrey",
+                  borderRadius: 10,
+                }, }}>
+                <Table> 
+                  <TableHead sx={{ backgroundColor: "#edeaea"}}>
                     <TableRow>
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
@@ -241,8 +255,9 @@ export const ComentDialogMir = ({
                     </TableRow>
                   </TableHead>
 
-                  <TableBody>
-                    {coments.map((row, index) => (
+                  <TableBody >
+                    {coments.length > 1 ? (
+                    coments.map((row, index) => (
                       <TableRow key={index}>
                         <TableCell
                           sx={{
@@ -274,7 +289,27 @@ export const ComentDialogMir = ({
                             .toString()}
                         </TableCell>
                       </TableRow>
-                    ))}
+                    ))) : (
+                      <TableRow>
+ <TableCell>
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontFamily: "MontserratRegular",
+                            fontSize: ".7vw",
+                          }}
+                          align="center"
+                        >
+                          Sin Comentarios
+                        </TableCell>
+                        <TableCell
+                        >
+                        </TableCell>
+                      </TableRow>
+                     
+                    )
+                  
+                  }
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -285,6 +320,12 @@ export const ComentDialogMir = ({
             <TextField
               multiline
               rows={3}
+             
+              InputProps={{ style: {
+                fontFamily: 'MontserratRegular'
+
+              }
+              }}
               sx={{ width: "30vw", mt:2 }}
               placeholder="Agregar comentario"
               onChange={(v) => setComent(v.target.value)}
@@ -315,15 +356,19 @@ export const ComentDialogMir = ({
                 color="error"
                 onClick={handleClose}
               >
-                Cerrar ventana
-              </Button>
+  <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.8vw'}}>
+                Cancelar
+                </Typography>              </Button>
               <Button
                 sx={{ display: "flex", width: "10vw" }}
                 variant="contained"
+                disabled={estado === "Autorizada" ? true : false}
                 color="info"
                 onClick={() => {newComent ? comentMir() : setNewComent(true); }}
               >
-                {newComent ? 'Añadir comentario' : 'Nuevo comentario' }
+                <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.8vw'}}>
+                {newComent ? 'Agregar': 'Añadir' }
+                </Typography>
               </Button>
             </Box>
           </Box>

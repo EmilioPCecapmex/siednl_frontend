@@ -70,8 +70,6 @@ export function TabEncabezado({
 
   useEffect(() => {
     if (MIR !== "") {
-console.log(anioFiscalEdit);
-
       let jsonMir = JSON.parse(MIR);
       setAnioFiscal(anioFiscalEdit)
       setLoadFin([jsonMir.fin]);
