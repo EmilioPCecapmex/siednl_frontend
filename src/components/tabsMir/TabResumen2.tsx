@@ -76,16 +76,6 @@ export function TabResumen2({
         icon: "error",
         title: "Selecciona programa.",
       });
-    } else if (MIR?.encabezado.eje === "") {
-      return Toast.fire({
-        icon: "error",
-        title: "Selecciona eje.",
-      });
-    } else if (MIR?.encabezado.tema === "") {
-      return Toast.fire({
-        icon: "error",
-        title: "Selecciona temática.",
-      });
     } else {
       createMIR(v);
     }
@@ -93,6 +83,7 @@ export function TabResumen2({
 
   const createMIR = (estado: string) => {
     
+    console.log(MIR);
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
@@ -114,7 +105,6 @@ export function TabResumen2({
         }
       )
       .then((r) => {
-        // console.log(r);
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
@@ -122,7 +112,6 @@ export function TabResumen2({
         showResume();
       })
       .catch((err) => {
-        // console.log(err);
         if (err.response.status === 409) {
           Toast.fire({
             icon: "error",

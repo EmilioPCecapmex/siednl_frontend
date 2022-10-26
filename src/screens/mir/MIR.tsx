@@ -227,7 +227,9 @@ export const MIR = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value == 'Todos' ? findText(findTextStr, '') : findText(findTextStr, v.target.value);
+                  v.target.value == "Todos"
+                    ? findText(findTextStr, "")
+                    : findText(findTextStr, v.target.value);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -410,24 +412,6 @@ export const MIR = () => {
                           >
                             {row.Programa}
                           </TableCell>
-                          {/* <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '15%',
-                            }}
-                            align="center"
-                          >
-                            {row.Tematica}
-                          </TableCell> */}
-                          {/* <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '15%',
-                            }}
-                            align="center"
-                          >
-                            {row.Eje}
-                          </TableCell> */}
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
@@ -470,7 +454,11 @@ export const MIR = () => {
                             >
                               <Tooltip title="Descargar">
                                 <span>
-                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true}>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                  >
                                     <DownloadIcon
                                       sx={[
                                         {
@@ -486,7 +474,7 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                               <ComentDialogMir
-                              estado={row.Estado}
+                                estado={row.Estado}
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />

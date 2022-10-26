@@ -58,180 +58,11 @@ export default function ModalEnviarMIR({
       .then((r) => {
         setNewComent(false);
         setComment("");
-        Toast.fire({
-          icon: "success",
-          title: "Comentario añadido",
-        });
       })
       .catch((err) => {});
   };
 
-  const checkComponentes = (v: string) => {
-    console.log(JSON.parse(MIR));
-    
-    let err = 0;
-    JSON.parse(MIR)?.componentes.every((componente: any, index: number) => {
-      console.log(componente);
-      if (
-        componente.resumen === undefined ||
-        componente.resumen === "" ||
-        componente.resumen === null
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Resumen narrativo del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
-        );
-      } else if (
-        componente.indicador === undefined ||
-        componente.indicador === ""
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Indicador del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
-        );
-      } else if (
-        componente.formula === undefined ||
-        componente.formula === ""
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Formula del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
-        );
-      } else if (
-        componente.frecuencia === undefined ||
-        componente.frecuencia === ""
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Frecuencia del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
-        );
-      } else if (componente.medios === undefined || componente.medios === "") {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Medios de Verificación del componente ${
-              index + 1
-            } aún faltante`,
-          }),
-          (err = 1),
-          false
-        );
-      } else if (
-        componente.supuestos === undefined ||
-        componente.supuestos === ""
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Supuestos del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
-        );
-      } else {
-        return console.log('Componentes'), true;
-      }
-    });
-    if (err !== 1) {
-      checkActividades(v);
-    }
-  };
-
-  const checkActividades = (v: string) => {
-
-    JSON.parse(MIR)?.actividades.every(
-      (actividad: any, index: number) => {
-        console.log(actividad);
-        
-        if (
-          actividad.resumen === undefined ||
-          actividad.resumen === "" ||
-          actividad.resumen === null
-        ) {
-          return (
-            Toast.fire({
-              icon: "error",
-              title: `Resumen narrativo de la ${actividad.actividad} aún faltante`,
-            }),
-            false
-          );
-        } else if (
-          actividad.indicador === undefined ||
-          actividad.indicador === ""
-        ) {
-          return (
-            Toast.fire({
-              icon: "error",
-              title: `Indicador de la ${actividad.actividad} aún faltante`,
-            }),
-            false
-          );
-        } else if (
-          actividad.formula === undefined ||
-          actividad.formula === ""
-        ) {
-          return (
-            Toast.fire({
-              icon: "error",
-              title: `Formula de la ${actividad.actividad} aún faltante`,
-            }),
-            false
-          );
-        } else if (
-          actividad.frecuencia === undefined ||
-          actividad.frecuencia === ""
-        ) {
-          return (
-            Toast.fire({
-              icon: "error",
-              title: `Frecuencia de la ${actividad.actividad} aún faltante`,
-            }),
-            false
-          );
-        } else if (actividad.medios === undefined || actividad.medios === "") {
-          return (
-            Toast.fire({
-              icon: "error",
-              title: `Medios de Verificación de la ${actividad.actividad} aún faltante`,
-            }),
-            false
-          );
-        } else if (
-          actividad.supuestos === undefined ||
-          actividad.supuestos === ""
-        ) {
-          return (
-            Toast.fire({
-              icon: "error",
-              title: `Supuestos de la ${actividad.actividad} aún faltante`,
-            }),
-            false
-          );
-        } else {
-          return console.log('Actividades'), true;
-        }
-      }
-    );
-  };
-
   const checkMir = (v: string) => {
-    console.log(JSON.parse(MIR));
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       return Toast.fire({
         icon: "error",
@@ -386,6 +217,169 @@ export default function ModalEnviarMIR({
     }
   };
 
+  const checkComponentes = (v: string) => {
+    let err = 0;
+    JSON.parse(MIR)?.componentes.every((componente: any, index: number) => {
+      if (
+        componente.resumen === undefined ||
+        componente.resumen === "" ||
+        componente.resumen === null
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Resumen narrativo del componente ${index + 1} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        componente.indicador === undefined ||
+        componente.indicador === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Indicador del componente ${index + 1} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        componente.formula === undefined ||
+        componente.formula === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Formula del componente ${index + 1} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        componente.frecuencia === undefined ||
+        componente.frecuencia === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Frecuencia del componente ${index + 1} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (componente.medios === undefined || componente.medios === "") {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Medios de Verificación del componente ${
+              index + 1
+            } aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        componente.supuestos === undefined ||
+        componente.supuestos === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Supuestos del componente ${index + 1} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else {
+        return true;
+      }
+    });
+    if (err !== 1) {
+      checkActividades(v);
+    }
+  };
+
+  const checkActividades = (v: string) => {
+    let err = 0;
+    JSON.parse(MIR)?.actividades.every((actividad: any, index: number) => {
+      if (
+        actividad.resumen === undefined ||
+        actividad.resumen === "" ||
+        actividad.resumen === null
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Resumen narrativo de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        actividad.indicador === undefined ||
+        actividad.indicador === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Indicador de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (actividad.formula === undefined || actividad.formula === "") {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Formula de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        actividad.frecuencia === undefined ||
+        actividad.frecuencia === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Frecuencia de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (actividad.medios === undefined || actividad.medios === "") {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Medios de Verificación de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        actividad.supuestos === undefined ||
+        actividad.supuestos === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Supuestos de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else {
+        return true;
+      }
+    });
+    if (err !== 1) {
+      createMIR(v);
+    }
+  };
+
   const createMIR = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
@@ -393,6 +387,7 @@ export default function ModalEnviarMIR({
       estado = "En Captura";
     }
 
+    
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
@@ -425,7 +420,9 @@ export default function ModalEnviarMIR({
           icon: "success",
           title: r.data.data.message,
         });
-
+        if (comment != "") {
+          comentMir(r.data.data.ID);
+        }
         showResume();
       })
       .catch((err) => {
@@ -511,37 +508,34 @@ export default function ModalEnviarMIR({
   };
 
   return (
-    <Dialog fullWidth maxWidth="sm" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
+      <DialogTitle
+        sx={{
+          fontFamily: "MontserratBold",
+          borderBottom: 1,
+          height: "2vh",
+          mb: 2,
+        }}
+      >
         Confirmar Envío
       </DialogTitle>
-
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Box
-          sx={{
-            backgroundColor: "#BBBABA",
-            width: "60vw",
-            height: "0.1vh",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        />
-      </Box>
 
       <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
         }}
       >
         {errorForm.visible ? <AlertForm /> : null}
 
         <Box
           sx={{
-            width: "100%",
+            width: "40vw",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
+            mb: 2,
           }}
         >
           <Typography
@@ -551,6 +545,18 @@ export default function ModalEnviarMIR({
             revisión.
           </Typography>
         </Box>
+
+        {newComent ? (
+          <Box sx={{ width: "30vw" }}>
+            <TextField
+              multiline
+              rows={3}
+              label={"Agregar Comentario"}
+              sx={{ width: "30vw" }}
+              onChange={(v) => setComment(v.target.value)}
+            ></TextField>
+          </Box>
+        ) : null}
 
         <Box
           sx={{
@@ -564,13 +570,13 @@ export default function ModalEnviarMIR({
             sx={{
               display: "flex",
               alignItems: "flex-end",
-              justifyContent: "space-evenly",
-              width: "100vw",
+              justifyContent: "space-between",
+              width: "30vw",
               mt: "4vh",
             }}
           >
             <Button
-              sx={{ display: "flex", width: "10vw" }}
+              sx={{ display: "flex", width: "9vw" }}
               variant="contained"
               color="error"
               onClick={() => handleClose()}
@@ -581,7 +587,7 @@ export default function ModalEnviarMIR({
             </Button>
 
             <Button
-              sx={{ display: "flex", width: "5vw" }}
+              sx={{ display: "flex", width: "11vw" }}
               variant="contained"
               color="info"
               onClick={() => {
@@ -593,7 +599,7 @@ export default function ModalEnviarMIR({
             </Button>
 
             <Button
-              sx={{ display: "flex", width: "10vw" }}
+              sx={{ display: "flex", width: "9vw" }}
               variant="contained"
               color="primary"
               onClick={() => {
@@ -605,6 +611,7 @@ export default function ModalEnviarMIR({
                     : "Autorizada"
                 );
                 handleClose();
+                setNewComent(false);
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
