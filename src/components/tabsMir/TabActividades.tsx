@@ -143,8 +143,8 @@ useEffect(() => {
 
 
     actividadesMir.map((x, index) => {
-        let act = x.actividad.split("A")[1].split("C")[0];
-        let comp = x.actividad.split("C")[1].substring(0, 1);
+        let act = x.actividad?.split("A")[1]?.split("C")[0];
+        let comp = x.actividad?.split("C")[1].substring(0, 1);
 
 
       y[0].componentes[parseInt(comp) - 1].actividades[parseInt(act) - 1].actividad = x.actividad;

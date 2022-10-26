@@ -24,7 +24,7 @@ export default function ModalEnviarMIR({
   handleClose,
   MIR,
   IdMir,
-  showResume
+  showResume,
 }: {
   open: boolean;
   handleClose: Function;
@@ -67,7 +67,11 @@ export default function ModalEnviarMIR({
   };
 
   const checkComponentes = (v: string) => {
-    JSON.parse(MIR)?.componentes.every((componente: any, index: number, array:number) => {
+    console.log(JSON.parse(MIR));
+    
+    let err = 0;
+    JSON.parse(MIR)?.componentes.every((componente: any, index: number) => {
+      console.log(componente);
       if (
         componente.resumen === undefined ||
         componente.resumen === "" ||
@@ -78,6 +82,7 @@ export default function ModalEnviarMIR({
             icon: "error",
             title: `Resumen narrativo del componente ${index + 1} aún faltante`,
           }),
+          (err = 1),
           false
         );
       } else if (
@@ -89,6 +94,7 @@ export default function ModalEnviarMIR({
             icon: "error",
             title: `Indicador del componente ${index + 1} aún faltante`,
           }),
+          (err = 1),
           false
         );
       } else if (
@@ -100,6 +106,7 @@ export default function ModalEnviarMIR({
             icon: "error",
             title: `Formula del componente ${index + 1} aún faltante`,
           }),
+          (err = 1),
           false
         );
       } else if (
@@ -111,6 +118,7 @@ export default function ModalEnviarMIR({
             icon: "error",
             title: `Frecuencia del componente ${index + 1} aún faltante`,
           }),
+          (err = 1),
           false
         );
       } else if (componente.medios === undefined || componente.medios === "") {
@@ -121,6 +129,7 @@ export default function ModalEnviarMIR({
               index + 1
             } aún faltante`,
           }),
+          (err = 1),
           false
         );
       } else if (
@@ -132,98 +141,97 @@ export default function ModalEnviarMIR({
             icon: "error",
             title: `Supuestos del componente ${index + 1} aún faltante`,
           }),
+          (err = 1),
           false
         );
       } else {
-          return console.log(index), true;
+        return console.log('Componentes'), true;
       }
     });
-    return (
-      checkActividades(v),
-      console.log('componentes check')
-    )
+    if (err !== 1) {
+      checkActividades(v);
+    }
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MIR)?.actividades.every((actividad: any, index: number, array:number) => {
-      console.log(JSON.parse(MIR));
-      console.log(actividad);
-      console.log(array);
-      if (
-        actividad.resumen === undefined ||
-        actividad.resumen === "" ||
-        actividad.resumen === null
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Resumen narrativo de la ${actividad.actividad} aún faltante`,
-          }),
-          false
-        );
-      } else if (
-        actividad.indicador === undefined ||
-        actividad.indicador === ""
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Indicador de la ${actividad.actividad} aún faltante`,
-          }),
-          false
-        );
-      } else if (
-        actividad.formula === undefined ||
-        actividad.formula === ""
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Formula de la ${actividad.actividad} aún faltante`,
-          }),
-          false
-        );
-      } else if (
-        actividad.frecuencia === undefined ||
-        actividad.frecuencia === ""
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Frecuencia de la ${actividad.actividad} aún faltante`,
-          }),
-          false
-        );
-      } else if (actividad.medios === undefined || actividad.medios === "") {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Medios de Verificación de la ${actividad.actividad} aún faltante`,
-          }),
-          false
-        );
-      } else if (
-        actividad.supuestos === undefined ||
-        actividad.supuestos === ""
-      ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Supuestos de la ${actividad.actividad} aún faltante`,
-          }),
-          false
-        );
-      } else {
-          return console.log(index), true;
+
+    JSON.parse(MIR)?.actividades.every(
+      (actividad: any, index: number) => {
+        console.log(actividad);
+        
+        if (
+          actividad.resumen === undefined ||
+          actividad.resumen === "" ||
+          actividad.resumen === null
+        ) {
+          return (
+            Toast.fire({
+              icon: "error",
+              title: `Resumen narrativo de la ${actividad.actividad} aún faltante`,
+            }),
+            false
+          );
+        } else if (
+          actividad.indicador === undefined ||
+          actividad.indicador === ""
+        ) {
+          return (
+            Toast.fire({
+              icon: "error",
+              title: `Indicador de la ${actividad.actividad} aún faltante`,
+            }),
+            false
+          );
+        } else if (
+          actividad.formula === undefined ||
+          actividad.formula === ""
+        ) {
+          return (
+            Toast.fire({
+              icon: "error",
+              title: `Formula de la ${actividad.actividad} aún faltante`,
+            }),
+            false
+          );
+        } else if (
+          actividad.frecuencia === undefined ||
+          actividad.frecuencia === ""
+        ) {
+          return (
+            Toast.fire({
+              icon: "error",
+              title: `Frecuencia de la ${actividad.actividad} aún faltante`,
+            }),
+            false
+          );
+        } else if (actividad.medios === undefined || actividad.medios === "") {
+          return (
+            Toast.fire({
+              icon: "error",
+              title: `Medios de Verificación de la ${actividad.actividad} aún faltante`,
+            }),
+            false
+          );
+        } else if (
+          actividad.supuestos === undefined ||
+          actividad.supuestos === ""
+        ) {
+          return (
+            Toast.fire({
+              icon: "error",
+              title: `Supuestos de la ${actividad.actividad} aún faltante`,
+            }),
+            false
+          );
+        } else {
+          return console.log('Actividades'), true;
+        }
       }
-    });
-    return (
-      console.log('actividades check'),
-      createMIR(v)
-    )
+    );
   };
 
   const checkMir = (v: string) => {
+    console.log(JSON.parse(MIR));
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       return Toast.fire({
         icon: "error",
@@ -361,7 +369,6 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.proposito.medios_verificacion === undefined ||
       JSON.parse(MIR)?.proposito.medios_verificacion === ""
     ) {
-      console.log(JSON.parse(MIR));
       return Toast.fire({
         icon: "error",
         title: "Medios de verificación del apartado 'Propósito' aún faltante",
@@ -375,15 +382,11 @@ export default function ModalEnviarMIR({
         title: "Supuestos del apartado 'Propósito' aún faltante",
       });
     } else {
-      console.log(JSON.parse(MIR));
-
       checkComponentes(v);
     }
   };
 
   const createMIR = (estado: string) => {
-    console.log(JSON.parse(MIR));
-
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
     } else if (estado === "En Autorización" && userSelected !== "0") {
@@ -414,18 +417,16 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario)
-        })
+          enviarNotificacion(user.IdUsuario);
+        });
 
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
 
-        showResume()
-
+        showResume();
       })
       .catch((err) => {
         Toast.fire({
@@ -438,8 +439,8 @@ export default function ModalEnviarMIR({
   const getUsuariosXInstitucion = () => {
     let inst = JSON.parse(MIR)?.encabezado.institucion;
 
-    if(localStorage.getItem("Rol") === "Verificador"){
-      inst = 'admin';
+    if (localStorage.getItem("Rol") === "Verificador") {
+      inst = "admin";
     }
 
     axios
@@ -454,7 +455,6 @@ export default function ModalEnviarMIR({
       })
       .then((r) => {
         if (r.status === 200) {
-          console.log(r.data.data)
           setUserXInst(r.data.data);
         }
       });
@@ -468,21 +468,20 @@ export default function ModalEnviarMIR({
   }, [open]);
 
   const enviarNotificacion = (v: string) => {
-    axios
-      .post(
-        "http://10.200.4.105:8000/api/create-notif",
-        {
-          IdUsuarioDestino: v,
-          Titulo: 'MIR',
-          Mensaje: 'Se ha creado una nueva MIR',
-          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+    axios.post(
+      "http://10.200.4.105:8000/api/create-notif",
+      {
+        IdUsuarioDestino: v,
+        Titulo: "MIR",
+        Mensaje: "Se ha creado una nueva MIR",
+        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
         },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+      }
+    );
   };
 
   const Toast = Swal.mixin({
@@ -545,58 +544,9 @@ export default function ModalEnviarMIR({
             justifyContent: "space-evenly",
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Al confirmar, la MIR se enviará a los usuarios correspondientes para
-            revisión.
-          </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {newComent ? (
-              <TextField
-                multiline
-                rows={2}
-                sx={{ width: "30vw", mt: 2 }}
-                placeholder="Agregar Comentario"
-                onChange={(v) => setComment(v.target.value)}
-              ></TextField>
-            ) : null}
-          </Box>
-          <Typography>
-            Delegar MIR a usuario verificador de: {instSelected}
-          </Typography>
-          <FormControl
-            sx={{
-              display: "flex",
-              width: "70%",
-              alignItems: "center",
-              justifyContent: "center",
-              border: 1,
-              borderRadius: 1,
-              borderColor: "#616161",
-            }}
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
-            <Select
-              size="small"
-              variant="standard"
-              sx={{ fontFamily: "MontserratRegular" }}
-              fullWidth
-              value={userSelected}
-              onChange={(v) => setUserSelected(v.target.value)}
-              disableUnderline
-            >
-              <MenuItem value={"0"} disabled>
-                Selecciona
-              </MenuItem>
-
-              {userXInst.map((item) => {
-                return (
-                  <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Nombre}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>{" "}
-          <Typography sx={{ fontFamily: "MontserratMedium", textAlign: 'center' }}>
             Al confirmar, la MIR se enviará a los usuarios correspondientes para
             revisión.
           </Typography>
@@ -625,7 +575,9 @@ export default function ModalEnviarMIR({
               color="error"
               onClick={() => handleClose()}
             >
-              <Typography sx={{fontFamily: 'MontserratRegular'}}>Cancelar</Typography>
+              <Typography sx={{ fontFamily: "MontserratRegular" }}>
+                Cancelar
+              </Typography>
             </Button>
 
             <Button
@@ -655,7 +607,9 @@ export default function ModalEnviarMIR({
                 handleClose();
               }}
             >
-              <Typography sx={{fontFamily: 'MontserratRegular'}}>Confirmar</Typography>
+              <Typography sx={{ fontFamily: "MontserratRegular" }}>
+                Confirmar
+              </Typography>
             </Button>
           </Box>
         </Box>
