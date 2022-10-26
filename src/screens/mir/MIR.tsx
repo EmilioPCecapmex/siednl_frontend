@@ -284,7 +284,22 @@ export const MIR = () => {
                 fontFamily: "montserrat",
                 fontSize: "0.6vw",
               }}
-              onClick={() => handleClickOpen()}
+              onClick={() => {
+                setMirEdit([
+                  {
+                    ID: "",
+                    AnioFiscal: "",
+                    Institucion: "",
+                    Programa: "",
+                    Eje: "",
+                    Tematica: "",
+                    MIR: "",
+                    Estado: "",
+                    FechaCreacion: "",
+                  },
+                ]);
+                handleClickOpen();
+              }}
             >
               Añadir registro
             </Button>
@@ -341,18 +356,6 @@ export const MIR = () => {
                       >
                         Nombre del Programa
                       </TableCell>
-                      {/* <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Eje
-                      </TableCell> */}
-                      {/* <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Tema
-                      </TableCell> */}
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
                         align="center"

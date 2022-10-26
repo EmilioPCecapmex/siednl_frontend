@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import axios from "axios";
-import { IEncabezado } from "./TabEncabezado";
+import { IEncabezado, ILineasDeAccion } from "./TabEncabezado";
 import { IComponente } from "./IComponente";
 import { IActividadesMir, ICValor } from "./ICValor";
 import { IFin, IProposito } from "./TabFinProposito";
@@ -82,8 +82,6 @@ export function TabResumen2({
   };
 
   const createMIR = (estado: string) => {
-    
-    console.log(MIR);
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
@@ -348,12 +346,12 @@ export function TabResumen2({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Lineas de Acción:
+                Beneficiario:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {encabezado[0]?.lineas_de_accion === "Selecciona"
+                {encabezado[0]?.beneficiario === "Selecciona"
                   ? ""
-                  : encabezado[0]?.lineas_de_accion}
+                  : encabezado[0]?.beneficiario}
               </Typography>
             </Box>
           </Box>
@@ -370,13 +368,29 @@ export function TabResumen2({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Beneficiario:
+              Lineas de Acción:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.beneficiario === "Selecciona"
-                ? ""
-                : encabezado[0]?.beneficiario}
-            </Typography>
+            <Box>
+              {encabezado[0]?.lineas_de_accion.map(
+                (value: ILineasDeAccion, x: any) => {
+                  return (
+                    <Typography
+                      key={x}
+                      sx={{
+                        fontFamily: "MontserratLight",
+                        width: "100%",
+                        borderBottom: "1px solid lightGrey",
+                        "&:last-Child": { borderBottom: 0},
+                      }}
+                    >
+                      {value.LineaDeAccion === "Selecciona"
+                        ? ""
+                        : value.LineaDeAccion}
+                    </Typography>
+                  );
+                }
+              )}
+            </Box>
           </Box>
 
           <Typography
@@ -954,18 +968,18 @@ export function TabResumen2({
         }}
       >
         <Button color="error" variant="outlined" onClick={() => showResume()}>
-        <Typography sx={{fontFamily: 'MontserratMedium'}}>
-          Cancelar
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Cancelar
           </Typography>
         </Button>
         <Button
-        disabled={localStorage.getItem("Rol") === "Capturador"? true: false}
+          disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
           color="warning"
           variant="outlined"
           onClick={() => setOpenModalSolicitarModif(true)}
         >
-          <Typography sx={{fontFamily: 'MontserratMedium'}}>
-          Solicitar Modificación
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Solicitar Modificación
           </Typography>
         </Button>
 
@@ -982,8 +996,8 @@ export function TabResumen2({
             )
           }
         >
-          <Typography sx={{fontFamily: 'MontserratMedium'}}>
-          Borrador
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Borrador
           </Typography>
         </Button>
         <Button
@@ -991,8 +1005,8 @@ export function TabResumen2({
           variant="outlined"
           onClick={() => setOpenModalEnviar(true)}
         >
-             <Typography sx={{fontFamily: 'MontserratMedium'}}>
-          Enviar
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Enviar
           </Typography>
         </Button>
 
@@ -1004,17 +1018,13 @@ export function TabResumen2({
           IdMir={IdMir}
         ></ModalSolicitaModif>
 
-
         <ModalEnviarMIR
-                  showResume={showResume}
+          showResume={showResume}
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           MIR={JSON.stringify(MIR)}
           IdMir={IdMir}
         ></ModalEnviarMIR>
-
-
-
       </Box>
     </Box>
   );

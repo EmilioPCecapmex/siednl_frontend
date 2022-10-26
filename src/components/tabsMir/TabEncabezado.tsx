@@ -24,7 +24,7 @@ export interface IEncabezado {
   tema: string;
   objetivo: string;
   estrategia: string;
-  lineas_de_accion: string;
+  lineas_de_accion: Array<ILineasDeAccion>;
   beneficiario: string;
 }
 
@@ -70,9 +70,12 @@ export function TabEncabezado({
 
 
   useEffect(() => {
-    const jsonMir = JSON.parse(MIR);
 
     if (MIR !== "") {
+      
+    const jsonMir = JSON.parse(MIR);
+
+    
 
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
@@ -85,7 +88,9 @@ export function TabEncabezado({
       getIdEstrategia(jsonMir.encabezado.estrategia);
       
       setTimeout(() => {
-        getIdLineaDeAccion(jsonMir.encabezado.lineas_de_accion);
+        jsonMir.encabezado.lineas_de_accion.map((value: ILineasDeAccion)=>{
+          getIdLineaDeAccion(value.LineaDeAccion);
+        })
         setLoadingFile(false);
         getIdBeneficiario(jsonMir.encabezado.beneficiario);
       }, 1500);
@@ -131,18 +136,6 @@ export function TabEncabezado({
       
     }
   }, [MIR]);
-
-  // //saca la cantidad de componentes
-  // useEffect(() => {
-  //   console.log(loadComponenteValor)
-  //   loadComponenteValor.map((value, index) => {
-  //     if (index > 1 && index < 6)
-  //       setLoadComponentes((loadComponentes) => [
-  //         ...loadComponentes,
-  //         index + 1,
-  //       ]);
-  //   });
-  // }, [loadComponenteValor]);
 
   //envio de valores a MIR
   useEffect(() => {
@@ -555,7 +548,7 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setLineaDeAccion(r.data.data);
+        lineaDeAccion.push(r.data.data[0])
         setDisabledLineasDeAccion(false);
       });
   };
@@ -591,6 +584,7 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
+        
         getIdInstitucion(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);
@@ -598,7 +592,6 @@ export function TabEncabezado({
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
-        // getLineasDeAccion(response.data.encabezado[0].estrategia)
         setTimeout(() => {
           getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
           setLoadingFile(false);
@@ -658,7 +651,7 @@ export function TabEncabezado({
         tema: tematica,
         objetivo: objetivo,
         estrategia: estrategia,
-        lineas_de_accion: lineaDeAccion[0]?.LineaDeAccion,
+        lineas_de_accion: lineaDeAccion,
         beneficiario: beneficiario,
       },
     ]);
