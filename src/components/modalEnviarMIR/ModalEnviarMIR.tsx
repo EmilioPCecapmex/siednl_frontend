@@ -67,11 +67,9 @@ export default function ModalEnviarMIR({
   };
 
   const checkComponentes = (v: string) => {
-    console.log(JSON.parse(MIR));
     
     let err = 0;
     JSON.parse(MIR)?.componentes.every((componente: any, index: number) => {
-      console.log(componente);
       if (
         componente.resumen === undefined ||
         componente.resumen === "" ||
@@ -145,7 +143,7 @@ export default function ModalEnviarMIR({
           false
         );
       } else {
-        return console.log('Componentes'), true;
+        return  true;
       }
     });
     if (err !== 1) {
@@ -157,7 +155,6 @@ export default function ModalEnviarMIR({
 
     JSON.parse(MIR)?.actividades.every(
       (actividad: any, index: number) => {
-        console.log(actividad);
         
         if (
           actividad.resumen === undefined ||
@@ -224,14 +221,13 @@ export default function ModalEnviarMIR({
             false
           );
         } else {
-          return console.log('Actividades'), true;
+          return  true;
         }
       }
     );
   };
 
   const checkMir = (v: string) => {
-    console.log(JSON.parse(MIR));
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       return Toast.fire({
         icon: "error",

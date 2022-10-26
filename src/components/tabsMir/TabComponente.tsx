@@ -28,7 +28,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
   //       medios: "",
   //       supuestos: "",
   //     };
-  //   })
+    //   })
   // );
 
   const agregarFnc = () => {
@@ -41,6 +41,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
         let prevState = [...componenteValorMir]
         prevState.push(
           {
+            componentes:"C" + (componentesMir.length + 1),
             resumen: "",
             indicador: "",
             frecuencia: "",

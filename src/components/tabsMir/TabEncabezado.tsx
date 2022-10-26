@@ -68,19 +68,22 @@ export function TabEncabezado({
   const [loadActividades, setLoadActividades] = useState([]);
   const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
 
+
   useEffect(() => {
+    const jsonMir = JSON.parse(MIR);
+
     if (MIR !== "") {
-      let jsonMir = JSON.parse(MIR);
+
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
       setLoadProposito([jsonMir.proposito]);
       setPrograma(jsonMir.encabezado.nombre_del_programa);
-      setLoadComponenteValor(jsonMir.componentes);
       getIdInstitucion(jsonMir.encabezado.institucion);
       getIdEje(jsonMir.encabezado.eje);
       getIdTematica(jsonMir.encabezado.tema);
       getIdObjetivo(jsonMir.encabezado.objetivo);
       getIdEstrategia(jsonMir.encabezado.estrategia);
+      
       setTimeout(() => {
         getIdLineaDeAccion(jsonMir.encabezado.lineas_de_accion);
         setLoadingFile(false);
@@ -93,6 +96,8 @@ export function TabEncabezado({
       let ambos: any = [];
       let i = 1;
       let j = 1;
+
+      
 
       jsonMir.componentes.map((x: any) => {
         comp.push("C" + j);
@@ -109,29 +114,43 @@ export function TabEncabezado({
       });
 
       compAct(ambos);
+      setLoadComponenteValor(jsonMir.componentes);
       setCompActividad(ambos);
       setLoadActividades(jsonMir.actividades);
       actividadesMir(jsonMir.actividades);
-      setLoadComponenteValor(jsonMir.componentes);
+      setLoadingFile(false)
+        
+        jsonMir.componentes?.map((value: any, index: number) => {
+        if (index > 1 && index < 6)
+          setLoadComponentes((loadComponentes) => [
+            ...loadComponentes,
+            index + 1,
+          ]);
+      });
+      
+      
     }
   }, [MIR]);
 
-  //saca la cantidad de componentes
-  useEffect(() => {
-    loadComponenteValor.map((value, index) => {
-      if (index > 1 && index < 6)
-        setLoadComponentes((loadComponentes) => [
-          ...loadComponentes,
-          index + 1,
-        ]);
-    });
-  }, [loadComponenteValor]);
+  // //saca la cantidad de componentes
+  // useEffect(() => {
+  //   console.log(loadComponenteValor)
+  //   loadComponenteValor.map((value, index) => {
+  //     if (index > 1 && index < 6)
+  //       setLoadComponentes((loadComponentes) => [
+  //         ...loadComponentes,
+  //         index + 1,
+  //       ]);
+  //   });
+  // }, [loadComponenteValor]);
 
   //envio de valores a MIR
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
   }, [loadComponentes]);
+
+
 
   const Toast = Swal.mixin({
     toast: true,
@@ -582,7 +601,6 @@ export function TabEncabezado({
         // getLineasDeAccion(response.data.encabezado[0].estrategia)
         setTimeout(() => {
           getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
-
           setLoadingFile(false);
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
         }, 1500);

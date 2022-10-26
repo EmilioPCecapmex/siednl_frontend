@@ -39,8 +39,7 @@ export default function ModalSolicitaModif({
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([])
   const [userSelected, setUserSelected] = useState("0")
   const [instSelected, setInstSelected] = useState("")
-  // console.log(IdMir);
-  
+
 
 
 

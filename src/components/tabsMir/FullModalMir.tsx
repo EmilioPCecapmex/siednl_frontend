@@ -11,6 +11,8 @@ import { ICValor } from "./ICValor";
 import { TabResumen2 } from "./TabResumen2";
 
 export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }: { MIR: string, showResume: Function, IdMir: string, anioFiscalEdit: string; }) {
+
+
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
@@ -30,8 +32,9 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
   };
 
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
-    componentes.map((x) => {
+    componentes.map((x, index) => {
       return {
+        componentes: "C" + (index + 1),
         resumen: "",
         indicador: "",
         frecuencia: "",
@@ -97,8 +100,9 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
   // };
 
   useEffect(() => {
-    let array = componentes.map((x) => {
+    let array = componentes.map((x, index) => {
       return {
+        componentes: "C" + (index + 1),
         resumen: "",
         indicador: "",
         frecuencia: "",
