@@ -44,13 +44,14 @@ export const TabActividades = ({
 
   useEffect(() => {
     if (show === true && componentes.length > cValor[0].componentes.length) {
+      
       let restantes = componentes.length - cValor[0].componentes.length;
       let prevState = [...cValor];
       for (let index = 1; index <= restantes; index++) {
         prevState[0].componentes.push({
           actividades: [
             {
-              actividad: "" ,
+              actividad: "A1" + "C" + (prevState[0].componentes.length + 1) ,
               resumen: "",
               indicador: "",
               frecuencia: "",
@@ -59,7 +60,7 @@ export const TabActividades = ({
               supuestos: "",
             },
             {
-              actividad: "" ,
+              actividad: "A2" + "C" + (prevState[0].componentes.length + 1) ,
               resumen: "",
               indicador: "",
               frecuencia: "",
