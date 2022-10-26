@@ -13,19 +13,24 @@ import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 
-export const TabComponente = ({
-  show,
-  asignarComponente,
-  asignarComponenteValor,
-  componentesMir,
-  componenteValorMir,
-}: {
-  show: boolean;
-  asignarComponente: Function;
-  asignarComponenteValor: Function;
-  componentesMir: number[];
-  componenteValorMir: Array<IComponente>;
-}) => {
+export const TabComponente = ({ show, asignarComponente, asignarComponenteValor ,componentesMir, componenteValorMir }: 
+  { show: boolean, asignarComponente: Function, asignarComponenteValor:Function,componentesMir: number[]; componenteValorMir: Array<IComponente>;}) => {
+  // business logic-------------------------------------------------------------------------------
+ // const [componentesMir, asignarComponente] = useState([1, 2]);
+
+  // const [componenteValorMir, asignarComponenteValor] = useState<Array<IComponente>>(
+  //   componentesMir.map((x) => {
+  //     return {
+  //       resumen: "",
+  //       indicador: "",
+  //       frecuencia: "",
+  //       formula: "",
+  //       medios: "",
+  //       supuestos: "",
+  //     };
+    //   })
+  // );
+
   const agregarFnc = () => {
     let v = componentesMir.length + 1;
     if (v > 6) {
@@ -33,15 +38,18 @@ export const TabComponente = ({
       asignarComponente([...componentesMir, v]);
 
       if (componenteValorMir.length < 6) {
-        let prevState = [...componenteValorMir];
-        prevState.push({
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        });
+        let prevState = [...componenteValorMir]
+        prevState.push(
+          {
+            componentes:"C" + (componentesMir.length + 1),
+            resumen: "",
+            indicador: "",
+            frecuencia: "",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          }
+        )
         asignarComponenteValor(prevState);
       }
     }

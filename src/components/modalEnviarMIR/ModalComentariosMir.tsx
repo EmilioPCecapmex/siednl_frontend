@@ -153,7 +153,7 @@ export const ComentDialogMir = ({
         }
       )
       .then((r) => {
-        if (estado !== "En Captura") {
+        if(estado !== "En Captura"){
           userXInst.map((user) => {
             enviarNotificacion(user.IdUsuario);
           });
