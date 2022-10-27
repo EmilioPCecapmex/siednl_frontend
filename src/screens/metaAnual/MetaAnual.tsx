@@ -26,13 +26,14 @@ import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
+import FullModalMetaAnual from "../../components/tabsMetaAnual/FullModalMetaAnual";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
 
-export const MIR = () => {
+export const MetaAnual = () => {
   useEffect(() => {
     setShowResume(true);
     getMIRs();
@@ -145,7 +146,7 @@ export const MIR = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={2} />
+      <LateralMenu selection={3} />
       <Header
         details={{
           name1: "Inicio",
@@ -270,35 +271,6 @@ export const MIR = () => {
                 </MenuItem>
               </Select>
             </FormControl>
-
-            <Button
-              sx={{
-                backgroundColor: "#c2a37b",
-                width: "10vw",
-                height: "4vh",
-                color: "black",
-                fontFamily: "montserrat",
-                fontSize: "0.6vw",
-              }}
-              onClick={() => {
-                setMirEdit([
-                  {
-                    ID: "",
-                    AnioFiscal: "",
-                    Institucion: "",
-                    Programa: "",
-                    Eje: "",
-                    Tematica: "",
-                    MIR: "",
-                    Estado: "",
-                    FechaCreacion: "",
-                  },
-                ]);
-                handleClickOpen();
-              }}
-            >
-              Añadir registro
-            </Button>
           </Box>
 
           <Box
@@ -578,7 +550,7 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir
+          <FullModalMetaAnual
             anioFiscalEdit={anioFiscalEdit}
             MIR={mirEdit[0]?.MIR || ""}
             showResume={returnMain}

@@ -12,9 +12,9 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 import { IFin, IProposito } from "./TabFinProposito";
-import { IComponente } from "./IComponente";
-import { ICValor } from "./ICValor";
-import { ICompActividad } from "./ICompActividad";
+import { IComponente } from "../tabsMir/IComponente";
+import { ICompActividad } from "../tabsMir/ICompActividad";
+import { ICValor } from "../tabsMir/ICValor";
 
 export interface IEncabezado {
   ejercicioFiscal: string;
