@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { IFin, IProposito } from "./TabFinProposito";
+import { IFin, IProposito } from "./TabFinPropositoMA";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICompActividad } from "../tabsMir/ICompActividad";
 import { ICValor } from "../tabsMir/ICValor";

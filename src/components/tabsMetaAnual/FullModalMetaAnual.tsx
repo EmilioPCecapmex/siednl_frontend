@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";
-import TabEncabezado, { IEncabezado } from "./TabEncabezado";
-import { TabComponente } from "./TabComponente";
-import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
-import { TabActividades } from "./TabActividades";
-import { TabResumen } from "./TabResumen";
+import TabEncabezado, { IEncabezado } from "./TabEncabezadoMA";
+import { TabComponente } from "./TabComponenteMA";
+import TabFinProposito, { IFin, IProposito } from "./TabFinPropositoMA";
+import { TabActividades } from "./TabActividadesMA";
+import { TabResumen } from "./TabResumenMA";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 
@@ -91,13 +91,6 @@ export default function FullModalMetaAnual({ MIR, showResume, IdMir, anioFiscalE
   const asignarCValor = (state: Array<ICValor>) => {
     setCValor(state);
   };
-
-  // const asignarCValorEncabezado = (state: Array<ICValor>, index:number, actividades: Array<IActividades>) => {
-  //   let v=cValor;
-  //   v[0].componentes[index]=actividades;
-  //   setCValor(v);
-
-  // };
 
   useEffect(() => {
     let array = componentes.map((x, index) => {

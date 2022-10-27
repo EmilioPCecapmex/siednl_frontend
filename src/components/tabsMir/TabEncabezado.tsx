@@ -527,14 +527,12 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        console.log(Description.toLowerCase());
-        console.log(r);
         setEstrategia(r.data.data[0].Estrategia);
         getLineasDeAccion(r.data.data[0].Id);
       });
   };
   const getIdLineaDeAccion = (Description: string) => {
-    axios
+      axios
       .get("http://10.200.4.105:8000/api/mir-id", {
         params: {
           Col: "Lineas de Acción",
@@ -545,13 +543,16 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        lineaDeAccion.push(r.data.data[0]);
+        if (r.data.data.length !== 0) {
+          lineaDeAccion.push(r.data.data[0]);
         setDisabledLineasDeAccion(false);
-      })
-      .catch((err)=>{
-        console.log(err);
+        }
         
       })
+      .catch((err)=>{
+        
+      })
+    
   };
   const getIdBeneficiario = (Description: string) => {
     axios

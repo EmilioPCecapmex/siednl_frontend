@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import axios from "axios";
-import { IEncabezado, ILineasDeAccion } from "./TabEncabezado";
-import { IFin, IProposito } from "./TabFinProposito";
+import { IEncabezado, ILineasDeAccion } from "./TabEncabezadoMA";
+import { IFin, IProposito } from "./TabFinPropositoMA";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalEnviarMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalEnviarMIR/ModalSolicitaModif";

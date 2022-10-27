@@ -415,6 +415,11 @@ export const MetaAnual = () => {
                               .toString()}
                           </TableCell>
                           <TableCell align="center" sx={{ width: "10%" }}>
+                            <Box>
+                              <Button sx={{backgroundColor:'#afafaf', color:'white'}}>
+                                Agregar Meta Anual
+                              </Button>
+                            </Box>
                             <Box
                               sx={{
                                 display: "flex",
@@ -446,25 +451,6 @@ export const MetaAnual = () => {
                               </Tooltip>
                               <ComentDialogMir
                                 estado={row.Estado}
-                                id={row.ID}
-                                actualizado={actualizaContador}
-                              />
-
-                              <DeleteDialogMIR
-                                disab={
-                                  row.Estado === "En Captura" &&
-                                  localStorage.getItem("Rol") === "Capturador"
-                                    ? false
-                                    : row.Estado === "En Revisión" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador"
-                                    ? false
-                                    : row.Estado === "En Autorización" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador"
-                                    ? false
-                                    : true
-                                }
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />
