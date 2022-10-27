@@ -40,9 +40,6 @@ export default function ModalSolicitaModif({
   const [userSelected, setUserSelected] = useState("0")
   const [instSelected, setInstSelected] = useState("")
 
-
-
-
   const createMIR = (estado: string) => {
     
     if(estado === "Autorizada" && userSelected !== "0"){

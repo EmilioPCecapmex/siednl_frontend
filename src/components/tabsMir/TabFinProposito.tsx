@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  FormControl,
   TextField,
   Box,
   Typography,
-  IconButton,
-  Autocomplete,
   List,
   ListItemButton,
   Divider,
 } from "@mui/material";
 import axios from "axios";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { fontFamily } from "@mui/system";
-
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 
 export function TabFinProposito({
@@ -182,6 +173,7 @@ export function TabFinProposito({
   };
 
   useEffect(() => {
+    
     setTabFin([
       {
         resumen: fin.resumen,
@@ -246,10 +238,6 @@ export function TabFinProposito({
         }
       });
   };
-
-  useEffect(() => {
-    setProposito({...proposito, formula: ""})
-  },[proposito.indicador])
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [prevTextFormula, setPrevTextFormula] = useState("");
@@ -326,7 +314,7 @@ export function TabFinProposito({
           }}
         >
           {showFin ? "Fin" : null}
-          {showProposito ? "Proposito" : null}
+          {showProposito ? "Propósito" : null}
         </Typography>
       </Box>
       <Box
@@ -410,7 +398,7 @@ export function TabFinProposito({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Proposito
+                Propósito
               </Typography>
             </ListItemButton>
             <Divider />

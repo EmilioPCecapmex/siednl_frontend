@@ -30,13 +30,28 @@ import MessageIcon from "@mui/icons-material/Message";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
+import Swal from "sweetalert2";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
+
   resumeDefaultMIR = !resumeDefaultMIR;
 };
 
 export const MIR = () => {
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   useEffect(() => {
     setShowResume(true);
     getMIRs();
@@ -140,6 +155,44 @@ export const MIR = () => {
     setOpenModalComents(false);
   };
 
+  const downloadMIR = (anio: string,inst: string,prog: string,mir: string) => {
+    axios
+      .post("http://10.200.4.105:7001/fill_mir", JSON.parse(mir),
+       { 
+        responseType: 'blob',
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        }
+      }
+      )
+      .then((r) => {
+        Toast.fire({
+          icon: "success",
+          title: "La descarga comenzara en un momento.",
+        });
+   const href = URL.createObjectURL(r.data);
+
+    // create "a" HTML element with href to file & click
+    const link = document.createElement('a');
+    link.href = href;
+    link.setAttribute('download', 'MIR_'+ anio +'_'+inst +'_'+prog +'.xlsx'); //or any other extension
+    document.body.appendChild(link);
+    link.click();
+
+    // clean up "a" element & remove ObjectURL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+       
+      })
+      .catch((err) =>
+{
+  Toast.fire({
+    icon: "error",
+    title: "Error al intentar descargar el documento.",
+  });
+}      );
+  };
+
   return (
     <Box
       sx={{
@@ -227,7 +280,9 @@ export const MIR = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value == 'Todos' ? findText(findTextStr, '') : findText(findTextStr, v.target.value);
+                  v.target.value == "Todos"
+                    ? findText(findTextStr, "")
+                    : findText(findTextStr, v.target.value);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -282,7 +337,22 @@ export const MIR = () => {
                 fontFamily: "montserrat",
                 fontSize: "0.6vw",
               }}
-              onClick={() => handleClickOpen()}
+              onClick={() => {
+                setMirEdit([
+                  {
+                    ID: "",
+                    AnioFiscal: "",
+                    Institucion: "",
+                    Programa: "",
+                    Eje: "",
+                    Tematica: "",
+                    MIR: "",
+                    Estado: "",
+                    FechaCreacion: "",
+                  },
+                ]);
+                handleClickOpen();
+              }}
             >
               Añadir registro
             </Button>
@@ -339,18 +409,6 @@ export const MIR = () => {
                       >
                         Nombre del Programa
                       </TableCell>
-                      {/* <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Eje
-                      </TableCell> */}
-                      {/* <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Tema
-                      </TableCell> */}
                       <TableCell
                         sx={{ fontFamily: "MontserratBold" }}
                         align="center"
@@ -410,24 +468,6 @@ export const MIR = () => {
                           >
                             {row.Programa}
                           </TableCell>
-                          {/* <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '15%',
-                            }}
-                            align="center"
-                          >
-                            {row.Tematica}
-                          </TableCell> */}
-                          {/* <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",width: '15%',
-                            }}
-                            align="center"
-                          >
-                            {row.Eje}
-                          </TableCell> */}
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
@@ -470,10 +510,10 @@ export const MIR = () => {
                             >
                               <Tooltip title="Descargar">
                                 <span>
-                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true} onClick={() => console.log(
+                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true} onClick={() => 
                                         
-                                         JSON.parse(row.MIR)
-                                      )}>
+                                         downloadMIR(row.AnioFiscal, row.Institucion, row.Programa,row.MIR)
+                                      }>
                                     <DownloadIcon
                                       sx={[
                                         {
@@ -489,7 +529,7 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                               <ComentDialogMir
-                              estado={row.Estado}
+                                estado={row.Estado}
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />

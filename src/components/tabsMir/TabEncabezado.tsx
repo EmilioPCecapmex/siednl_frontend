@@ -24,7 +24,7 @@ export interface IEncabezado {
   tema: string;
   objetivo: string;
   estrategia: string;
-  lineas_de_accion: string;
+  lineas_de_accion: Array<ILineasDeAccion>;
   beneficiario: string;
 }
 
@@ -68,11 +68,10 @@ export function TabEncabezado({
   const [loadActividades, setLoadActividades] = useState([]);
   const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
 
-
   useEffect(() => {
     if (MIR !== "") {
+       console.log(JSON.parse(MIR));
       const jsonMir = JSON.parse(MIR);
-      
 
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
@@ -83,9 +82,13 @@ export function TabEncabezado({
       getIdTematica(jsonMir.encabezado.tema);
       getIdObjetivo(jsonMir.encabezado.objetivo);
       getIdEstrategia(jsonMir.encabezado.estrategia);
-      
+
       setTimeout(() => {
-        getIdLineaDeAccion(jsonMir.encabezado.lineas_de_accion);
+        jsonMir.encabezado.lineas_de_accion.map(
+          (value: { Id: string; LineaDeAccion: string }) => {
+            getIdLineaDeAccion(value.LineaDeAccion);
+          }
+        );
         setLoadingFile(false);
         getIdBeneficiario(jsonMir.encabezado.beneficiario);
       }, 1500);
@@ -96,8 +99,6 @@ export function TabEncabezado({
       let ambos: any = [];
       let i = 1;
       let j = 1;
-
-      
 
       jsonMir.componentes.map((x: any) => {
         comp.push("C" + j);
@@ -118,39 +119,23 @@ export function TabEncabezado({
       setCompActividad(ambos);
       setLoadActividades(jsonMir.actividades);
       actividadesMir(jsonMir.actividades);
-      setLoadingFile(false)
-        
-        jsonMir.componentes?.map((value: any, index: number) => {
+      setLoadingFile(false);
+
+      jsonMir.componentes?.map((value: any, index: number) => {
         if (index > 1 && index < 6)
           setLoadComponentes((loadComponentes) => [
             ...loadComponentes,
             index + 1,
           ]);
       });
-      
-      
     }
   }, [MIR]);
-
-  // //saca la cantidad de componentes
-  // useEffect(() => {
-  //   console.log(loadComponenteValor)
-  //   loadComponenteValor.map((value, index) => {
-  //     if (index > 1 && index < 6)
-  //       setLoadComponentes((loadComponentes) => [
-  //         ...loadComponentes,
-  //         index + 1,
-  //       ]);
-  //   });
-  // }, [loadComponenteValor]);
 
   //envio de valores a MIR
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
   }, [loadComponentes]);
-
-
 
   const Toast = Swal.mixin({
     toast: true,
@@ -163,6 +148,14 @@ export function TabEncabezado({
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
+
+    //saca la cantidad de componentes
+    useEffect(() => {
+      loadComponenteValor.map((value,index)=>{
+        if(index>1 && index<6)
+        setLoadComponentes(loadComponentes=>[...loadComponentes,index+1])
+      })
+    }, [loadComponenteValor])
 
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
   function enCambioAnio(Id: string, Anio: string) {
@@ -244,9 +237,9 @@ export function TabEncabezado({
   const [objetivo, setObjetivo] = useState("");
   const [estrategia, setEstrategia] = useState("");
 
-  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
-    []
-  );
+  const [lineaDeAccion, setLineaDeAccion] = useState([
+    { Id: "", LineaDeAccion: "" },
+  ]);
   const [beneficiario, setBeneficiario] = useState("");
 
   //Catalogos
@@ -555,7 +548,10 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setLineaDeAccion(r.data.data);
+        console.log(Description);
+        console.log(r.data.data[0]);
+
+        lineaDeAccion.push(r.data.data[0]);
         setDisabledLineasDeAccion(false);
       });
   };
@@ -598,9 +594,13 @@ export function TabEncabezado({
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
-        // getLineasDeAccion(response.data.encabezado[0].estrategia)
         setTimeout(() => {
-          getIdLineaDeAccion(response.data.encabezado[0].lineas_de_accion);
+          // response.data.encabezado[0]?.lineas_de_accion.split('\n').map((value: string) => {
+          //   if (value !== '') {
+          //     // console.log(value);
+          //      getIdLineaDeAccion(value);
+          //   }
+          // });
           setLoadingFile(false);
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
         }, 1500);
@@ -658,7 +658,7 @@ export function TabEncabezado({
         tema: tematica,
         objetivo: objetivo,
         estrategia: estrategia,
-        lineas_de_accion: lineaDeAccion[0]?.LineaDeAccion,
+        lineas_de_accion: lineaDeAccion,
         beneficiario: beneficiario,
       },
     ]);
@@ -1133,13 +1133,17 @@ export function TabEncabezado({
       >
         <Autocomplete
           multiple
-          disabled={disabledLineasDeAccion}
-          size="small"
           limitTags={4}
-          value={lineaDeAccion}
+          disabled={disabledLineasDeAccion}
           options={catalogoLineasDeAccion}
-          isOptionEqualToValue={(option, value) => value.Id === option.Id}
+          size="small"
           getOptionLabel={(option) => option.LineaDeAccion}
+          value={[
+            {
+              Id: catalogoLineasDeAccion[0].Id,
+              LineaDeAccion: lineaDeAccion[0]?.LineaDeAccion,
+            },
+          ]}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
@@ -1170,8 +1174,21 @@ export function TabEncabezado({
             />
           )}
           onChange={(event, value) => {
-            setLineaDeAccion(value);
+            value.map((value2)=>{
+              lineaDeAccion.push(value2);
+            })
+            
           }}
+          isOptionEqualToValue={(
+            option: {
+              Id: string;
+              LineaDeAccion: string;
+            },
+            value: {
+              Id: string;
+              LineaDeAccion: string;
+            }
+          ) => value.Id === option.Id}
         />
       </FormControl>
 
