@@ -120,6 +120,8 @@ export function TabResumen2({
   };
 
   useEffect(() => {
+    // console.log(encabezado[0]?.lineas_de_accion);
+    
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
       a.actividades.map((b) => {
@@ -372,7 +374,7 @@ export function TabResumen2({
             </Typography>
             <Box>
               {encabezado[0]?.lineas_de_accion.map(
-                (value: ILineasDeAccion, x: any) => {
+                (value: {Id: string, LineaDeAccion: string}, x: any) => {
                   return (
                     <Typography
                       key={x}
@@ -383,9 +385,9 @@ export function TabResumen2({
                         "&:last-Child": { borderBottom: 0},
                       }}
                     >
-                      {value.LineaDeAccion === "Selecciona"
+                      {value?.LineaDeAccion === "Selecciona"
                         ? ""
-                        : value.LineaDeAccion}
+                        : value?.LineaDeAccion}
                     </Typography>
                   );
                 }

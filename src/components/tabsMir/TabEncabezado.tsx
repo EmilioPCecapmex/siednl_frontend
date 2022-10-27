@@ -24,7 +24,7 @@ export interface IEncabezado {
   tema: string;
   objetivo: string;
   estrategia: string;
-  lineas_de_accion: Array<ILineasDeAccion>;
+  lineas_de_accion: Array<{Id:string, LineaDeAccion: string}>;
   beneficiario: string;
 }
 
@@ -70,7 +70,6 @@ export function TabEncabezado({
 
   useEffect(() => {
     if (MIR !== "") {
-      // console.log(JSON.parse(MIR));
       const jsonMir = JSON.parse(MIR);
 
       setAnioFiscal(anioFiscalEdit);
@@ -229,8 +228,7 @@ export function TabEncabezado({
   const [objetivo, setObjetivo] = useState("");
   const [estrategia, setEstrategia] = useState("");
 
-  const [lineaDeAccion, setLineaDeAccion] = useState([
-    { Id: "", LineaDeAccion: "" },
+  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>([
   ]);
   const [beneficiario, setBeneficiario] = useState("");
 
@@ -540,9 +538,6 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        console.log(Description);
-        console.log(r.data.data[0]);
-
         lineaDeAccion.push(r.data.data[0]);
         setDisabledLineasDeAccion(false);
       });
@@ -587,12 +582,11 @@ export function TabEncabezado({
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
         setTimeout(() => {
-          // response.data.encabezado[0]?.lineas_de_accion.split('\n').map((value: string) => {
-          //   if (value !== '') {
-          //     // console.log(value);
-          //      getIdLineaDeAccion(value);
-          //   }
-          // });
+          response.data.encabezado[0]?.lineas_de_accion?.split('.\n').map((value: string) => {
+            if (value !== '') {
+                getIdLineaDeAccion(value);
+            }
+          });
           setLoadingFile(false);
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
         }, 1500);
@@ -1130,12 +1124,7 @@ export function TabEncabezado({
           options={catalogoLineasDeAccion}
           size="small"
           getOptionLabel={(option) => option.LineaDeAccion}
-          value={[
-            {
-              Id: catalogoLineasDeAccion[0].Id,
-              LineaDeAccion: lineaDeAccion[0]?.LineaDeAccion,
-            },
-          ]}
+          value={lineaDeAccion}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
@@ -1166,10 +1155,12 @@ export function TabEncabezado({
             />
           )}
           onChange={(event, value) => {
-            value.map((value2)=>{
-              lineaDeAccion.push(value2);
-            })
             
+            value.map((value2, index)=>{
+              if (value2.Id !== '' && value2.LineaDeAccion !== '') {
+                setLineaDeAccion(value);
+              }
+            })
           }}
           isOptionEqualToValue={(
             option: {
