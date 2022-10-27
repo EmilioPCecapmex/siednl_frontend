@@ -67,7 +67,7 @@ export default function ModalEnviarMIR({
   };
 
   const checkComponentes = (v: string) => {
-    
+
     let err = 0;
     JSON.parse(MIR)?.componentes.every((componente: any, index: number) => {
       if (
@@ -228,6 +228,8 @@ export default function ModalEnviarMIR({
   };
 
   const checkMir = (v: string) => {
+    
+    console.log(JSON.parse(MIR))
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       return Toast.fire({
         icon: "error",

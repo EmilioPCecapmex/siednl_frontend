@@ -470,7 +470,10 @@ export const MIR = () => {
                             >
                               <Tooltip title="Descargar">
                                 <span>
-                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true}>
+                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true} onClick={() => console.log(
+                                        
+                                         JSON.parse(row.MIR)
+                                      )}>
                                     <DownloadIcon
                                       sx={[
                                         {
