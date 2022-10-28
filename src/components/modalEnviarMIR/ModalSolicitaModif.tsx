@@ -48,8 +48,6 @@ export default function ModalSolicitaModif({
       estado = "En Captura";
     }
 
-    console.log(JSON.parse(MIREdit))
-
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",

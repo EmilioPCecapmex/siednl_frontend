@@ -2,27 +2,34 @@ import { IComponente } from "./IComponente";
 import { IActividadesMir, ICValor } from "./ICValor";
 import { IEncabezado } from "./TabEncabezado";
 import { IFin, IProposito } from "./TabFinProposito";
-import { IEncabezadoEdit, IFinEdit, IPropositoEdit } from "./TabResumen2";
+import {
+  IActividadesMirEdit,
+  IComponenteMirEdit,
+  IEncabezadoEdit,
+  IFinEdit,
+  IPropositoEdit,
+} from "./TabResumen2";
 
 export interface IMIR {
+  encabezado: IEncabezado;
 
-    encabezado:IEncabezado;
+  fin: IFin;
 
-      fin:IFin;
+  proposito: IProposito;
 
-      proposito:IProposito;
+  componentes: Array<IComponente>;
 
-      componentes:Array<IComponente>;
-
-      actividades:Array<IActividadesMir>;
+  actividades: Array<IActividadesMir>;
 }
 
-
 export interface IMIREdit {
+  encabezado: IEncabezadoEdit;
 
-  encabezado:IEncabezadoEdit;
+  fin: IFinEdit;
 
-    fin:IFinEdit;
+  proposito: IPropositoEdit;
 
-    proposito:IPropositoEdit;
+  componentes: Array<IComponenteMirEdit>;
+
+  actividades: Array<IActividadesMirEdit>;
 }

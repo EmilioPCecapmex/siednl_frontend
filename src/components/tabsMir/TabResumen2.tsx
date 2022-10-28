@@ -20,7 +20,7 @@ export function TabResumen2({
   cValor,
   showResume,
   IdMir,
-  mirEdit
+  mirEdit,
 }: {
   show: boolean;
   encabezado: Array<IEncabezado>;
@@ -51,7 +51,7 @@ export function TabResumen2({
     finM: Array<IFin>,
     propositoM: Array<IProposito>,
     componentesM: Array<IComponente>,
-    actividadesM: Array<IActividadesMir>,
+    actividadesM: Array<IActividadesMir>
   ) => {
     setMIR({
       encabezado: encabezadoM[0],
@@ -123,7 +123,7 @@ export function TabResumen2({
 
   useEffect(() => {
     // console.log(encabezado[0]?.lineas_de_accion);
-    
+
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
       a.actividades.map((b) => {
@@ -133,17 +133,31 @@ export function TabResumen2({
     });
 
     let cEdit = componenteValor.map((item) => {
-     return {
-      componentes: item.componentes,
-      formula: true,
-      frecuencia: true,
-      indicador: true,
-      medios: true,
-      resumen: true,
-      supuestos: true
-     }
-    })
-    setEditComponentes(cEdit)
+      return {
+        componentes: item.componentes,
+        formula: true,
+        frecuencia: true,
+        indicador: true,
+        medios: true,
+        resumen: true,
+        supuestos: true,
+      };
+    });
+    setEditComponentes(cEdit);
+
+    let aEdit = arr.map((item) => {
+      return {
+        actividad: item.actividad,
+        formula: true,
+        frecuencia: true,
+        indicador: true,
+        medios: true,
+        resumen: true,
+        supuestos: true,
+      };
+    });
+
+    setEditActividades(aEdit);
 
     asignarMIR(encabezado, fin, proposito, componenteValor, arr);
   }, [encabezado, componenteValor, proposito, fin, cValor, show]);
@@ -160,8 +174,6 @@ export function TabResumen2({
     },
   });
 
-
-
   const [editEncabezado, setEditEncabezado] = useState<IEncabezadoEdit>({
     ejercicioFiscal: true,
     institucion: true,
@@ -172,9 +184,7 @@ export function TabResumen2({
     estrategia: true,
     lineas_de_accion: true,
     beneficiario: true,
-  })  
-  
-
+  });
 
   const [editFin, setEditFin] = useState<IFinEdit>({
     resumen: true,
@@ -183,7 +193,7 @@ export function TabResumen2({
     frecuencia: true,
     medios: true,
     supuestos: true,
-  })
+  });
 
   const [editProposito, setEditProposito] = useState<IPropositoEdit>({
     resumen: true,
@@ -192,18 +202,20 @@ export function TabResumen2({
     frecuencia: true,
     medios_verificacion: true,
     supuestos: true,
-  })
+  });
 
-  const [editComponentes, setEditComponentes] = useState<Array<IComponenteMirEdit>>([])
-  
+  const [editComponentes, setEditComponentes] = useState<
+    Array<IComponenteMirEdit>
+  >([]);
+
+  const [editActividades, setEditActividades] = useState<
+    Array<IActividadesMirEdit>
+  >([]);
 
   // finM: Array<IFin>,
   //   propositoM: Array<IProposito>,
   //   componentesM: Array<IComponente>,
   //   actividadesM: Array<IActividadesMir>,
-
-
-
 
   return (
     <Box
@@ -257,9 +269,18 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-              <Checkbox value={!editEncabezado.ejercicioFiscal} onChange={(v) => {
-                setEditEncabezado({...editEncabezado, ejercicioFiscal: !v.target.checked})
-               }}/>
+              {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                <Checkbox
+                  value={!editEncabezado.ejercicioFiscal}
+                  onChange={(v) => {
+                    setEditEncabezado({
+                      ...editEncabezado,
+                      ejercicioFiscal: !v.target.checked,
+                    });
+                  }}
+                />
+              )}
+
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Ejercicio Fiscal:
               </Typography>
@@ -281,9 +302,18 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-               <Checkbox value={!editEncabezado.institucion} onChange={(v) => {
-                setEditEncabezado({...editEncabezado, institucion: !v.target.checked})
-               }}/>
+              {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                <Checkbox
+                  value={!editEncabezado.institucion}
+                  onChange={(v) => {
+                    setEditEncabezado({
+                      ...editEncabezado,
+                      institucion: !v.target.checked,
+                    });
+                  }}
+                />
+              )}
+
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Institución:
               </Typography>
@@ -306,9 +336,18 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-               <Checkbox value={!editEncabezado.nombre_del_programa} onChange={(v) => {
-                setEditEncabezado({...editEncabezado, nombre_del_programa: !v.target.checked})
-               }}/>
+              {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                <Checkbox
+                  value={!editEncabezado.nombre_del_programa}
+                  onChange={(v) => {
+                    setEditEncabezado({
+                      ...editEncabezado,
+                      nombre_del_programa: !v.target.checked,
+                    });
+                  }}
+                />
+              )}
+
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Programa:
               </Typography>
@@ -330,9 +369,18 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-               <Checkbox value={!editEncabezado.eje} onChange={(v) => {
-                setEditEncabezado({...editEncabezado, eje: !v.target.checked})
-               }}/>
+              {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                <Checkbox
+                  value={!editEncabezado.eje}
+                  onChange={(v) => {
+                    setEditEncabezado({
+                      ...editEncabezado,
+                      eje: !v.target.checked,
+                    });
+                  }}
+                />
+              )}
+
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Eje:
               </Typography>
@@ -354,9 +402,18 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-               <Checkbox value={!editEncabezado.tema} onChange={(v) => {
-                setEditEncabezado({...editEncabezado, tema: !v.target.checked})
-               }}/>
+              {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                <Checkbox
+                  value={!editEncabezado.tema}
+                  onChange={(v) => {
+                    setEditEncabezado({
+                      ...editEncabezado,
+                      tema: !v.target.checked,
+                    });
+                  }}
+                />
+              )}
+
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Temática:
               </Typography>
@@ -378,9 +435,18 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-               <Checkbox value={!editEncabezado.objetivo} onChange={(v) => {
-                setEditEncabezado({...editEncabezado, objetivo: !v.target.checked})
-               }}/>
+              {" "}
+              {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                <Checkbox
+                  value={!editEncabezado.objetivo}
+                  onChange={(v) => {
+                    setEditEncabezado({
+                      ...editEncabezado,
+                      objetivo: !v.target.checked,
+                    });
+                  }}
+                />
+              )}
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Objetivo:
               </Typography>
@@ -404,9 +470,18 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-               <Checkbox value={!editEncabezado.estrategia} onChange={(v) => {
-                setEditEncabezado({...editEncabezado, estrategia: !v.target.checked})
-               }}/>
+              {" "}
+              {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                <Checkbox
+                  value={!editEncabezado.estrategia}
+                  onChange={(v) => {
+                    setEditEncabezado({
+                      ...editEncabezado,
+                      estrategia: !v.target.checked,
+                    });
+                  }}
+                />
+              )}
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Estrategia:
               </Typography>
@@ -427,9 +502,19 @@ export function TabResumen2({
                 borderBottom: 1,
                 borderColor: "#cfcfcf",
               }}
-            > <Checkbox value={!editEncabezado.beneficiario} onChange={(v) => {
-              setEditEncabezado({...editEncabezado, beneficiario: !v.target.checked})
-             }}/>
+            >
+              {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                <Checkbox
+                  value={!editEncabezado.beneficiario}
+                  onChange={(v) => {
+                    setEditEncabezado({
+                      ...editEncabezado,
+                      beneficiario: !v.target.checked,
+                    });
+                  }}
+                />
+              )}
+
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Beneficiario:
               </Typography>
@@ -451,16 +536,24 @@ export function TabResumen2({
               borderBottom: 1,
               borderColor: "#cfcfcf",
             }}
-          > 
-          <Checkbox value={!editEncabezado.lineas_de_accion} onChange={(v) => {
-            setEditEncabezado({...editEncabezado, lineas_de_accion: !v.target.checked})
-           }}/>
+          >
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editEncabezado.lineas_de_accion}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    lineas_de_accion: !v.target.checked,
+                  });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Lineas de Acción:
             </Typography>
             <Box>
               {encabezado[0]?.lineas_de_accion.map(
-                (value: {Id: string, LineaDeAccion: string}, x: any) => {
+                (value: { Id: string; LineaDeAccion: string }, x: any) => {
                   return (
                     <Typography
                       key={x}
@@ -468,7 +561,7 @@ export function TabResumen2({
                         fontFamily: "MontserratLight",
                         width: "100%",
                         borderBottom: "1px solid lightGrey",
-                        "&:last-Child": { borderBottom: 0},
+                        "&:last-Child": { borderBottom: 0 },
                       }}
                     >
                       {value?.LineaDeAccion === "Selecciona"
@@ -497,9 +590,15 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-             <Checkbox value={!editFin.resumen} onChange={(v) => {
-                setEditFin({...editFin, resumen: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.resumen}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, resumen: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Resumen Narrativo:
             </Typography>
@@ -518,9 +617,15 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-             <Checkbox value={!editFin.indicador} onChange={(v) => {
-                setEditFin({...editFin, indicador: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.indicador}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, indicador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Indicador:
             </Typography>
@@ -539,9 +644,15 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-                <Checkbox value={!editFin.formula} onChange={(v) => {
-                setEditFin({...editFin, formula: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.formula}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, formula: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Fórmula:
             </Typography>
@@ -560,9 +671,15 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-              <Checkbox value={!editFin.frecuencia} onChange={(v) => {
-                setEditFin({...editFin, frecuencia: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.frecuencia}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, frecuencia: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Frecuencia:
             </Typography>
@@ -581,9 +698,15 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-              <Checkbox value={!editFin.medios} onChange={(v) => {
-                setEditFin({...editFin, medios: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.medios}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, medios: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Medios de Verificación:
             </Typography>
@@ -602,9 +725,15 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-              <Checkbox value={!editFin.supuestos} onChange={(v) => {
-                setEditFin({...editFin, supuestos: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.supuestos}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, supuestos: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Supuestos:
             </Typography>
@@ -628,9 +757,18 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-             <Checkbox value={!editProposito.resumen} onChange={(v) => {
-                setEditProposito({...editProposito, resumen: !v.target.checked})
-               }}/>
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.resumen}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    resumen: !v.target.checked,
+                  });
+                }}
+              />
+            )}
+
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Resumen Narrativo:
             </Typography>
@@ -649,9 +787,18 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-              <Checkbox value={!editProposito.indicador} onChange={(v) => {
-                setEditProposito({...editProposito, indicador: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.indicador}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    indicador: !v.target.checked,
+                  });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Indicador:
             </Typography>
@@ -670,9 +817,18 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-              <Checkbox value={!editProposito.formula} onChange={(v) => {
-                setEditProposito({...editProposito, formula: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.formula}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    formula: !v.target.checked,
+                  });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Fórmula:
             </Typography>
@@ -691,9 +847,18 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-              <Checkbox value={!editProposito.frecuencia} onChange={(v) => {
-                setEditProposito({...editProposito, frecuencia: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.frecuencia}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    frecuencia: !v.target.checked,
+                  });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Frecuencia:
             </Typography>
@@ -712,9 +877,18 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-              <Checkbox value={!editProposito.medios_verificacion} onChange={(v) => {
-                setEditProposito({...editProposito, medios_verificacion: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.medios_verificacion}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    medios_verificacion: !v.target.checked,
+                  });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Medios de Verificación:
             </Typography>
@@ -733,9 +907,18 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-              <Checkbox value={!editProposito.supuestos} onChange={(v) => {
-                setEditProposito({...editProposito, supuestos: !v.target.checked})
-               }}/>
+            {" "}
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.supuestos}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    supuestos: !v.target.checked,
+                  });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Supuestos:
             </Typography>
@@ -773,11 +956,16 @@ export function TabResumen2({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  <Checkbox value={!editComponentes[index - 1]?.resumen} onChange={(v) => {
-                    let past = editComponentes;
-                    past[index - 1].resumen = !v.target.checked
-                setEditComponentes(past)
-               }}/>
+                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.resumen}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].resumen = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -800,11 +988,17 @@ export function TabResumen2({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  <Checkbox value={!editComponentes[index - 1]?.indicador} onChange={(v) => {
-                    let past = editComponentes;
-                    past[index - 1].indicador = !v.target.checked
-                setEditComponentes(past)
-               }}/>
+                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.indicador}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].indicador = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
+
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -827,11 +1021,17 @@ export function TabResumen2({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                     <Checkbox value={!editComponentes[index - 1]?.formula} onChange={(v) => {
-                    let past = editComponentes;
-                    past[index - 1].formula = !v.target.checked
-                setEditComponentes(past)
-               }}/>
+                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.formula}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].formula = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
+
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -854,11 +1054,17 @@ export function TabResumen2({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                     <Checkbox value={!editComponentes[index - 1]?.frecuencia} onChange={(v) => {
-                    let past = editComponentes;
-                    past[index - 1].frecuencia = !v.target.checked
-                setEditComponentes(past)
-               }}/>
+                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.frecuencia}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].frecuencia = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
+
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -881,11 +1087,17 @@ export function TabResumen2({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                     <Checkbox value={!editComponentes[index - 1]?.medios} onChange={(v) => {
-                    let past = editComponentes;
-                    past[index - 1].medios = !v.target.checked
-                setEditComponentes(past)
-               }}/>
+                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.medios}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].medios = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
+
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -907,11 +1119,18 @@ export function TabResumen2({
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
                   }}
-                >   <Checkbox value={!editComponentes[index - 1]?.supuestos} onChange={(v) => {
-                  let past = editComponentes;
-                  past[index - 1].supuestos = !v.target.checked
-              setEditComponentes(past)
-             }}/>
+                >
+                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.supuestos}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].supuestos = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
+
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -961,6 +1180,17 @@ export function TabResumen2({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.resumen}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].resumen = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
+
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -987,6 +1217,17 @@ export function TabResumen2({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.indicador}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].indicador = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
+
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1013,6 +1254,17 @@ export function TabResumen2({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.formula}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].formula = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
+
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1039,6 +1291,17 @@ export function TabResumen2({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.frecuencia}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].frecuencia = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
+
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1065,6 +1328,17 @@ export function TabResumen2({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.medios}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].medios = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
+
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1091,6 +1365,17 @@ export function TabResumen2({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.supuestos}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].supuestos = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
+
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1169,7 +1454,13 @@ export function TabResumen2({
           showResume={showResume}
           handleClose={handleCloseModif}
           MIR={JSON.stringify(MIR)}
-          MIREdit={JSON.stringify({encabezado: editEncabezado, fin: editFin, proposito: editProposito})}
+          MIREdit={JSON.stringify({
+            encabezado: editEncabezado,
+            fin: editFin,
+            proposito: editProposito,
+            componentes: editComponentes,
+            actividades: editActividades,
+          })}
         ></ModalSolicitaModif>
 
         <ModalEnviarMIR
@@ -1217,20 +1508,20 @@ export interface IPropositoEdit {
 
 export interface IComponenteMirEdit {
   componentes: string;
-    resumen: boolean;
-    indicador: boolean;
-    formula: boolean;
-    frecuencia: boolean;
-    medios: boolean;
-    supuestos: boolean;
-  }
+  resumen: boolean;
+  indicador: boolean;
+  formula: boolean;
+  frecuencia: boolean;
+  medios: boolean;
+  supuestos: boolean;
+}
 
-  export interface IActividadesMirEdit {
-    actividad:  string;
-    formula:    boolean;
-    frecuencia: boolean;
-    indicador:  boolean;
-    medios:     boolean;
-    resumen:    boolean;
-    supuestos:  boolean;
+export interface IActividadesMirEdit {
+  actividad: string;
+  formula: boolean;
+  frecuencia: boolean;
+  indicador: boolean;
+  medios: boolean;
+  resumen: boolean;
+  supuestos: boolean;
 }

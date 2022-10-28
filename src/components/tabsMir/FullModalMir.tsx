@@ -268,6 +268,8 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
             asignarComponenteValor={asignarComponenteValor}
             componentesMir={componentes}
             componenteValorMir={componenteValor}
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null }
+
           ></TabComponente>
           <TabActividades
             actividadesMir={actividadesMir}
@@ -275,6 +277,8 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
             show={value === 40 ? true : false}
             componentes={componentes}
             asignarCValor={asignarCValor}
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null }
+
           ></TabActividades>
         </Box>
       </Box>

@@ -549,7 +549,6 @@ export function TabEncabezado({
         setDisabledLineasDeAccion(false);
       })
       .catch((err)=>{
-        console.log(err);
         
       })
   };
