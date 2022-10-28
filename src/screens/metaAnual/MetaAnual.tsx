@@ -26,28 +26,14 @@ import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
-import Swal from "sweetalert2";
+import FullModalMetaAnual from "../../components/tabsMetaAnual/FullModalMetaAnual";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
-
   resumeDefaultMIR = !resumeDefaultMIR;
 };
 
-export const MIR = () => {
-
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-
+export const MetaAnual = () => {
   useEffect(() => {
     setShowResume(true);
     getMIRs();
@@ -151,44 +137,6 @@ export const MIR = () => {
     setOpenModalComents(false);
   };
 
-  const downloadMIR = (anio: string,inst: string,prog: string,mir: string) => {
-    axios
-      .post("http://10.200.4.105:7001/fill_mir", JSON.parse(mir),
-       { 
-        responseType: 'blob',
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        }
-      }
-      )
-      .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: "La descarga comenzara en un momento.",
-        });
-   const href = URL.createObjectURL(r.data);
-
-    // create "a" HTML element with href to file & click
-    const link = document.createElement('a');
-    link.href = href;
-    link.setAttribute('download', 'MIR_'+ anio +'_'+inst +'_'+prog +'.xlsx'); //or any other extension
-    document.body.appendChild(link);
-    link.click();
-
-    // clean up "a" element & remove ObjectURL
-    document.body.removeChild(link);
-    URL.revokeObjectURL(href);
-       
-      })
-      .catch((err) =>
-{
-  Toast.fire({
-    icon: "error",
-    title: "Error al intentar descargar el documento.",
-  });
-}      );
-  };
-
   return (
     <Box
       sx={{
@@ -198,7 +146,7 @@ export const MIR = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={2} />
+      <LateralMenu selection={3} />
       <Header
         details={{
           name1: "Inicio",
@@ -323,35 +271,6 @@ export const MIR = () => {
                 </MenuItem>
               </Select>
             </FormControl>
-
-            <Button
-              sx={{
-                backgroundColor: "#c2a37b",
-                width: "10vw",
-                height: "4vh",
-                color: "black",
-                fontFamily: "montserrat",
-                fontSize: "0.6vw",
-              }}
-              onClick={() => {
-                setMirEdit([
-                  {
-                    ID: "",
-                    AnioFiscal: "",
-                    Institucion: "",
-                    Programa: "",
-                    Eje: "",
-                    Tematica: "",
-                    MIR: "",
-                    Estado: "",
-                    FechaCreacion: "",
-                  },
-                ]);
-                handleClickOpen();
-              }}
-            >
-              Añadir registro
-            </Button>
           </Box>
 
           <Box
@@ -496,6 +415,11 @@ export const MIR = () => {
                               .toString()}
                           </TableCell>
                           <TableCell align="center" sx={{ width: "10%" }}>
+                            <Box>
+                              <Button sx={{backgroundColor:'#afafaf', color:'white'}}>
+                                Agregar Meta Anual
+                              </Button>
+                            </Box>
                             <Box
                               sx={{
                                 display: "flex",
@@ -506,10 +430,11 @@ export const MIR = () => {
                             >
                               <Tooltip title="Descargar">
                                 <span>
-                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true} onClick={() => 
-                                        
-                                         downloadMIR(row.AnioFiscal, row.Institucion, row.Programa,row.MIR)
-                                      }>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                  >
                                     <DownloadIcon
                                       sx={[
                                         {
@@ -526,25 +451,6 @@ export const MIR = () => {
                               </Tooltip>
                               <ComentDialogMir
                                 estado={row.Estado}
-                                id={row.ID}
-                                actualizado={actualizaContador}
-                              />
-
-                              <DeleteDialogMIR
-                                disab={
-                                  row.Estado === "En Captura" &&
-                                  localStorage.getItem("Rol") === "Capturador"
-                                    ? false
-                                    : row.Estado === "En Revisión" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador"
-                                    ? false
-                                    : row.Estado === "En Autorización" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador"
-                                    ? false
-                                    : true
-                                }
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />
@@ -630,7 +536,7 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMir
+          <FullModalMetaAnual
             anioFiscalEdit={anioFiscalEdit}
             MIR={mirEdit[0]?.MIR || ""}
             showResume={returnMain}

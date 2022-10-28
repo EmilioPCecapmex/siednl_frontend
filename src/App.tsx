@@ -15,6 +15,7 @@ import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
 import { TabComponente } from "./components/tabsMir/TabComponente";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
+import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 
 function App() {
   const navigate = useNavigate();
@@ -49,9 +50,9 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="users" element={<Usuarios />} />
           <Route path="*" element={<E404 />} />
-
           <Route path="Institutionalactivities" element={<ActividadesInstitucionales />} />
           <Route path="mir" element={<MIR/>}/>
+          <Route path="metaAnual" element={<MetaAnual/>}/>
           <Route path="notifications" element={<Notification/>}/>
 
         </Routes>

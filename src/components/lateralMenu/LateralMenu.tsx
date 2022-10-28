@@ -368,8 +368,12 @@ export const LateralMenu = ({
                   sx={st.selectedBox}
                 />
               </ListItemButton>
-
-              <ListItemButton sx={st.subMenuItemStyle}>
+              
+              <ListItemButton
+                onClick={() => {
+                  navigate("../metaAnual")}}
+                sx={st.subMenuItemStyle}
+              >
                 <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
                 </Box>
