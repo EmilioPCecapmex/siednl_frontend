@@ -26,13 +26,28 @@ import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
+import Swal from "sweetalert2";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
+
   resumeDefaultMIR = !resumeDefaultMIR;
 };
 
 export const MIR = () => {
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   useEffect(() => {
     setShowResume(true);
     getMIRs();
@@ -134,6 +149,44 @@ export const MIR = () => {
 
   const handleCloseComents = () => {
     setOpenModalComents(false);
+  };
+
+  const downloadMIR = (anio: string,inst: string,prog: string,mir: string) => {
+    axios
+      .post("http://10.200.4.105:7001/fill_mir", JSON.parse(mir),
+       { 
+        responseType: 'blob',
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        }
+      }
+      )
+      .then((r) => {
+        Toast.fire({
+          icon: "success",
+          title: "La descarga comenzara en un momento.",
+        });
+   const href = URL.createObjectURL(r.data);
+
+    // create "a" HTML element with href to file & click
+    const link = document.createElement('a');
+    link.href = href;
+    link.setAttribute('download', 'MIR_'+ anio +'_'+inst +'_'+prog +'.xlsx'); //or any other extension
+    document.body.appendChild(link);
+    link.click();
+
+    // clean up "a" element & remove ObjectURL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+       
+      })
+      .catch((err) =>
+{
+  Toast.fire({
+    icon: "error",
+    title: "Error al intentar descargar el documento.",
+  });
+}      );
   };
 
   return (
@@ -453,11 +506,10 @@ export const MIR = () => {
                             >
                               <Tooltip title="Descargar">
                                 <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "Autorizada" ? false : true
-                                    }
-                                  >
+                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true} onClick={() => 
+                                        
+                                         downloadMIR(row.AnioFiscal, row.Institucion, row.Programa,row.MIR)
+                                      }>
                                     <DownloadIcon
                                       sx={[
                                         {
