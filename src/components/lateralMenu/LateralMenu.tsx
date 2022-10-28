@@ -68,7 +68,7 @@ export const LateralMenu = ({
   function stringToColor(string: string) {
     let hash = 0;
     let i;
-    for (i = 0; i < string.length; i += 1) {
+    for (i = 0; i < string?.length; i += 1) {
       hash = string.charCodeAt(i) + ((hash << 11) - hash);
     }
 
@@ -82,7 +82,7 @@ export const LateralMenu = ({
   }
 
   function stringAvatar(name: string) {
-    return `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`;
+    return `${name?.split(" ")[0][0]}${name?.split(" ")[1][0]}`;
   }
 
   const [institucionSeleccionada, setInstitucionSeleccionada] = useState(
