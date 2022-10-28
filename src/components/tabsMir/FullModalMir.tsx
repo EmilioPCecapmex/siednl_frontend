@@ -228,6 +228,8 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
         >
           <TabEncabezado
           anioFiscalEdit={anioFiscalEdit}
+          mirEdit={MIR ? JSON.parse(MIR)[1] : null }
+
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
             show={value === 10 ? true : false}
@@ -245,9 +247,12 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null }
+
           ></TabFinProposito>
           <TabResumen2
           showResume={showResume}
+          mirEdit={MIR ? JSON.parse(MIR)[1] : null }
             show={value === 50 ? true : false}
             componentes={componentes}
             componenteValor={componenteValor}
