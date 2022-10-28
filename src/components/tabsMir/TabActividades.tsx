@@ -231,6 +231,26 @@ useEffect(() => {
   const [errorIndicadorComponente, setErrorIndicadorComponente] = useState(-1);
   const [errorIndicadorActividad, setErrorIndicadorActividad] = useState(-1);
 
+
+  const [errorFrecuenciaComponente, setErrorFrecuenciaComponente] = useState(-1);
+  const [errorFrecuenciaActividad, setErrorFrecuenciaActividad] = useState(-1);
+
+  const evalueTxtFrecuencia = () => {
+    const cIndicador = cValor[0].componentes[componenteSelect].actividades[actividadSelect].frecuencia?.toLowerCase();
+    if(cIndicador !== undefined){
+      if (cIndicador===("trimestral")) {
+        
+        setErrorFrecuenciaComponente(-1)
+        setErrorFrecuenciaActividad(-1)
+      }else{
+        setErrorFrecuenciaComponente(componenteSelect)
+        setErrorFrecuenciaActividad(actividadSelect)
+
+      }
+    }
+  }
+
+
   const handleClickOpen = () => {
     setPrevTextFormula(
       cValor[0].componentes[componenteSelect].actividades[actividadSelect]
@@ -286,6 +306,9 @@ useEffect(() => {
       }
     }
   }
+
+  
+  
 
   useEffect(() => {
     let act: number[] = []
@@ -611,6 +634,14 @@ useEffect(() => {
                 ].frecuencia = c.target.value;
                 setCValor(y);
               }}
+
+              onBlur={() => evalueTxtFrecuencia()}
+              error={errorFrecuenciaComponente === (componenteSelect) && errorFrecuenciaActividad === (actividadSelect)   ? true : false}
+              helperText={
+                errorFrecuenciaComponente === (componenteSelect) && errorFrecuenciaActividad === (actividadSelect)
+                  ? "Frecuencia de una activad solo puede ser Trimestral"
+                  : null
+              }
             />
             <TextField
               variant="filled"

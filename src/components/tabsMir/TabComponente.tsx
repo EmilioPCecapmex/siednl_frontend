@@ -78,6 +78,21 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
   const [errorIndicador, setErrorIndicador] = useState(-1);
+  const [errorFrecuencia, setErrorFrecuencia] = useState(-2);
+
+  const evalueTxtFrecuencia = () => {
+    const cFrecuencia =
+      componenteValorMir[componentSelect - 1].frecuencia?.toLowerCase();
+    if (cFrecuencia !== undefined) {
+      if (cFrecuencia===("semestral")) {
+        setErrorFrecuencia(-1);
+      } else if (cFrecuencia===("trimestral")) {
+        setErrorFrecuencia(-1);
+      } else {
+        setErrorFrecuencia(componentSelect - 1);
+      }
+    }
+  };
 
   const handleClickOpen = () => {
     setPrevTextFormula(componenteValorMir[componentSelect - 1].formula);
@@ -290,6 +305,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
                   fontFamily: "MontserratRegular",
                 },
               }}
+              onBlur={() => evalueTxtIndicador()}
               error={errorIndicador === componentSelect - 1 ? true : false}
               helperText={
                 errorIndicador === componentSelect - 1
@@ -299,7 +315,7 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Indicador"}
               value={componenteValorMir[componentSelect - 1].indicador}
-              onBlur={() => evalueTxtIndicador()}
+              
               onChange={(c) => {
                 componenteValorMir[componentSelect - 1].indicador =
                   c.target.value;
@@ -364,6 +380,16 @@ export const TabComponente = ({ show, asignarComponente, asignarComponenteValor 
                   c.target.value;
                 asignarComponenteValor([...componenteValorMir]);
               }}
+
+              onBlur={() => evalueTxtFrecuencia()}
+              error={errorFrecuencia === componentSelect - 1 ? true : false}
+              helperText={
+                errorFrecuencia === componentSelect - 1
+                  ? "Incluir tipo de frecuencia: Semestral o Trimestral "
+                  : null
+              }
+
+               
             />
             <TextField
               multiline
