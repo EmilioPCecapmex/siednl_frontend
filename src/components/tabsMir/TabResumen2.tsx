@@ -1454,7 +1454,9 @@ export function TabResumen2({
           showResume={showResume}
           handleClose={handleCloseModif}
           MIR={JSON.stringify(MIR)}
-          MIREdit={JSON.stringify({
+          MIREdit={
+            localStorage.getItem("Rol") !== "Administrador" ? JSON.stringify(mirEdit) :
+            JSON.stringify({
             encabezado: editEncabezado,
             fin: editFin,
             proposito: editProposito,

@@ -48,6 +48,7 @@ export default function ModalSolicitaModif({
       estado = "En Captura";
     }
 
+
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
