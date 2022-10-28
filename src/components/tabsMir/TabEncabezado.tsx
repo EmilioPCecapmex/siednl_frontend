@@ -76,8 +76,14 @@ export function TabEncabezado({
   const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
 
   useEffect(() => {
-    if (MIR !== "") {
-      const jsonMir = JSON.parse(MIR)[0];
+    if (MIR !== "" ) {
+
+      const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR)
+
+      // console.log(jsonMir);
+      // console.log(MIR);
+      // console.log(JSON.parse(MIR));
+      
 
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);

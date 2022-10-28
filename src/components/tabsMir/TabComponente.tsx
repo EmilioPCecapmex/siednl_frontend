@@ -329,7 +329,6 @@ export const TabComponente = ({
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Indicador"}
               value={componenteValorMir[componentSelect - 1]?.indicador}
-              onBlur={() => evalueTxtIndicador()}
               onChange={(c) => {
                 componenteValorMir[componentSelect - 1].indicador =
                   c.target.value;
