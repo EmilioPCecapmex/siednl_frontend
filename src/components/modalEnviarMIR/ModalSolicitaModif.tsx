@@ -39,6 +39,50 @@ export default function ModalSolicitaModif({
   const [userSelected, setUserSelected] = useState("0");
   const [instSelected, setInstSelected] = useState("");
 
+  const [comment, setComment] = useState("");
+
+
+  const comentMir = (id: string) => {
+    axios
+      .post(
+        "http://10.200.4.105:8000/api/coment-mir",
+        {
+          IdMir: id,
+          Coment: comment,
+          CreadoPor: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        setComment("");
+      })
+      .catch((err) => {});
+  };
+
+  const checkUsuario = (estado: string) => {
+    if (userSelected === "0" || userSelected === ""){
+      return(
+        Toast.fire({
+        icon: "error",
+        title: 'Introduce usuario al que se le solicita modificación',
+      })
+      );
+    } else if (comment === ''){
+      return(
+        Toast.fire({
+        icon: "error",
+        title: 'Introduce un comentario',
+      })
+      );
+    } else {
+      createMIR(estado);
+    }
+  }
+
 
 
   const createMIR = (estado: string) => {
@@ -47,8 +91,6 @@ export default function ModalSolicitaModif({
     } else if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
     }
-
-
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
@@ -73,10 +115,16 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
+        console.log(r.data.data);
+        if (comment != "") {
+          comentMir(r.data.data.ID);
+        }
+
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
+        
         enviarNotificacion();
         handleClose();
         showResume();
@@ -144,7 +192,7 @@ export default function ModalSolicitaModif({
   };
 
   return (
-    <Dialog fullWidth maxWidth="sm" open={open} onClose={() => handleClose()}>
+    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
         Solicitud de modificación
       </DialogTitle>
@@ -188,11 +236,12 @@ export default function ModalSolicitaModif({
               border: 1,
               borderRadius: 1,
               borderColor: "#616161",
+              mb:2
             }}
+            variant="standard"
           >
             <Select
               size="small"
-              variant="standard"
               sx={{ fontFamily: "MontserratRegular" }}
               fullWidth
               value={userSelected}
@@ -214,6 +263,16 @@ export default function ModalSolicitaModif({
           </FormControl>{" "}
         </Box>
 
+          <Box sx={{ width: "100%", mb:2 }}>
+            <TextField
+              multiline
+              rows={2}
+              label={"Agregar Comentario"}
+              sx={{ width: "100%" }}
+              onChange={(v) => setComment(v.target.value)}
+            ></TextField>
+          </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -228,7 +287,6 @@ export default function ModalSolicitaModif({
               alignItems: "flex-end",
               justifyContent: "space-evenly",
               width: "100vw",
-              mt: "4vh",
             }}
           >
             <Button
@@ -241,12 +299,13 @@ export default function ModalSolicitaModif({
                 Cancelar
               </Typography>
             </Button>
+
             <Button
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
               onClick={() => {
-                createMIR(
+                checkUsuario(
                   localStorage.getItem("Rol") == "Capturador"
                     ? "En Revisión"
                     : localStorage.getItem("Rol") == "Verificador"
@@ -257,7 +316,7 @@ export default function ModalSolicitaModif({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Confirmar
+                {comment === '' ? 'Enviar sin comentarios' : 'Confirmar'}
               </Typography>
             </Button>
           </Box>

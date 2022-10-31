@@ -388,8 +388,6 @@ export default function ModalEnviarMIR({
     } else if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
     }
-
-    
     axios
       .post(
         "http://10.200.4.105:8000/api/create-mir",
