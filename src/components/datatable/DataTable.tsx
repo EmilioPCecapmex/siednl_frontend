@@ -40,59 +40,29 @@ export const DataTable = ({
   //# Renglones por pag
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
-  const [usuarios, setUsuarios] = useState<Array<DataUsuariosTiCentral>>([
-    {
-      Id: "",
-      IdUsuarioTiCentral: "",
-      Nombre: "",
-      ApellidoPaterno: "",
-      ApellidoMaterno: "",
-      CorreoElectronico: "",
-      NombreUsuario: "",
-      Cargo: "",
-      Telefono: "",
-      Celular: "",
-      IdRol: "",
-      Rol: "",
-      IdInstitucion: "",
-      NombreInstitucion: "",
-      CreadoPor: "",
-      ModificadoPor: "",
-    },
-  ]);
+  const [usuarios, setUsuarios] = useState<Array<DataUsuariosTiCentral>>([ ]);
 
   //
   const [usersFiltered, setUsersFiltered] = useState<
     Array<DataUsuariosTiCentral>
-  >([
-    {
-      Id: "",
-      IdUsuarioTiCentral: "",
-      Nombre: "",
-      ApellidoPaterno: "",
-      ApellidoMaterno: "",
-      CorreoElectronico: "",
-      NombreUsuario: "",
-      Cargo: "",
-      Telefono: "",
-      Celular: "",
-      IdRol: "",
-      Rol: "",
-      IdInstitucion: "",
-      NombreInstitucion: "",
-      CreadoPor: "",
-      ModificadoPor: "",
-    },
-  ]);
+  >([]);
+
+
+  
+
 
   // Consumo de API
-  const getUsuarios = () => {
+ const getUsuarios = () => {
     axios
       .get("http://10.200.4.105:8000/api/usuarios", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
           "Content-Type": "application/json",
         },
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion")
+        }
       })
       .then((response) => {
         setUsuarios(response.data.data);
@@ -118,7 +88,8 @@ export const DataTable = ({
   const [actualizacion, setActualizacion] = useState(0);
   useEffect(() => {
     getUsuarios();
-  }, [actualizacion]);
+  }, [actualizacion ]);
+
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -289,7 +260,10 @@ export const DataTable = ({
                       />
 
                       <Tooltip title="Editar">
+                        <span>
+
                         <IconButton
+                                    disabled={localStorage.getItem("Rol") === "Capturador" ? true: false}
                           onClick={() =>
                             handleClickOpen(row.IdUsuarioTiCentral)
                           }
@@ -304,6 +278,8 @@ export const DataTable = ({
                             ]}
                           />
                         </IconButton>
+                        </span>
+
                       </Tooltip>
                     </Box>
                   </TableCell>

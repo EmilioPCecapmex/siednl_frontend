@@ -63,9 +63,7 @@ export default function ModalEnviarMIR({
   };
 
   const checkMir = (v: string) => {
-    
-    console.log(JSON.parse(MIR))
-    if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
+        if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       return Toast.fire({
         icon: "error",
         title: "Selecciona año fiscal.",

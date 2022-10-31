@@ -88,6 +88,10 @@ export default function ModalCrearUsuario({
     axios.get("http://10.200.4.105:8000/api/instituciones", {
       headers: {
         Authorization: localStorage.getItem("jwtToken") || "",
+      },
+      params: {
+        IdUsuario: localStorage.getItem("IdUsuario"),
+        IdInstitucion: localStorage.getItem("IdInstitucion")
       }
     }).then(
       (r) => {

@@ -37,6 +37,7 @@ import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
 import {  setResumeDefaultMIR } from "../../screens/mir/MIR";
 import { setResumeDefaultAI } from "../../screens/actividadesInstitucionales/ActividadesInstitucionales";
 
+
 export const LateralMenu = ({
   selection,
   settingsCard,
@@ -89,9 +90,12 @@ export const LateralMenu = ({
     localStorage.getItem("IdInstitucion") as string
   );
 
+
+
   const handleChange = (event: SelectChangeEvent) => {
     setInstitucionSeleccionada(event.target.value as string);
     localStorage.setItem("IdInstitucion", event.target.value as string)
+    window.location.reload()
   };
 
   const goSettings = () => {
@@ -440,7 +444,7 @@ export const LateralMenu = ({
             />
           </ListItemButton>)}
 
-          {localStorage.getItem("Rol") !== "Verificador" ? null : (<ListItemButton onClick={() => navigate('../users')}>
+          {localStorage.getItem("Rol") !== "Verificador" ?   null : (<ListItemButton onClick={() => navigate('../users')}>
             <Box sx={st.iconMenuList}>
               <GroupIcon />
             </Box>

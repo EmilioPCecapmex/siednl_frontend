@@ -80,6 +80,10 @@ export default function ModalEditarUsuario({
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion")
+        }
       })
       .then((r) => {
         setCatalogoInstituciones(r.data.data);

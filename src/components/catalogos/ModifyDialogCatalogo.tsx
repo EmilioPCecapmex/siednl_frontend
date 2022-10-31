@@ -184,6 +184,10 @@ export const ModifyDialogCatalogos = ({
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion")
+        }
       })
       .then((r) => {
         setCatalogoInstituciones(r.data.data);

@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 export const DeleteDialog = ({
   deleteText,
   id,
-  actualizado
+  actualizado,
 }: {
   deleteText: string;
   id: string;
@@ -27,7 +27,7 @@ export const DeleteDialog = ({
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 5000,
+    timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -60,20 +60,24 @@ export const DeleteDialog = ({
           icon: "success",
           title: "Usuario eliminado con éxito.",
         });
-        
       })
-      .catch((err) => 
-      Toast.fire({
-        icon: "error",
-        title: "Permisos denegados.",
-      })
-      )
+      .catch((err) =>
+        Toast.fire({
+          icon: "error",
+          title: "Permisos denegados.",
+        })
+      );
   };
 
   return (
     <Box>
       <Tooltip title="Eliminar">
-        <IconButton onClick={handleClickOpen}>
+        <span>
+
+        <IconButton
+          onClick={handleClickOpen}
+          disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+        >
           <DeleteIcon
             sx={[
               {
@@ -83,7 +87,10 @@ export const DeleteDialog = ({
               },
             ]}
           />
+
         </IconButton>
+        </span>
+
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{`¿Desea eliminar este ${deleteText}?`}</DialogTitle>

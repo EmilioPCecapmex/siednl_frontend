@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import {
@@ -13,8 +13,19 @@ import DataTable from "../../components/datatable/DataTable";
 import ModalCrearUsuario from "../../components/modalUsuarios/ModalCrearUsuario";
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import ModalVincularUsuario from "../../components/modalUsuarios/ModalVincularUsuario";
+import { useNavigate } from "react-router-dom";
 
 export const Usuarios = () => {
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if(localStorage.getItem("Rol") === "Capturador"){
+     navigate("../home")
+    }
+     }, [])
+
+     
   const [openModalUsuarios, setOpenModalUsuarios] = useState(false);
   const [openModalVincularUsuario, setOpenModalVincularUsuario] = useState(false);
 
@@ -112,6 +123,7 @@ export const Usuarios = () => {
           <Box>
           <Button
             variant="contained"
+            disabled={localStorage.getItem("Rol") !== "Administrador" ? true: false}
             sx={{
               mr: 3,
               backgroundColor: "#15212F",
@@ -129,6 +141,7 @@ export const Usuarios = () => {
             </Typography>
           </Button>  <Button
             variant="contained"
+            disabled={localStorage.getItem("Rol") === "Capturador" ? true: false}
             sx={{
               mr: 3,
               backgroundColor: "#c4a55a",
