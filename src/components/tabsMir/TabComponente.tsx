@@ -400,7 +400,7 @@ export const TabComponente = ({
               error={errorFrecuencia === componentSelect - 1 ? true : false}
               helperText={
                 errorFrecuencia === componentSelect - 1
-                  ? "Incluir tipo de frecuencia: Semestral o Trimestral "
+                  ? "Frecuencia debe ser Semestral ó Trimestral "
                   : null
               }
 

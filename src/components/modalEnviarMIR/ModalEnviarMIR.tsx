@@ -533,7 +533,7 @@ export default function ModalEnviarMIR({
 
         <Box
           sx={{
-            width: "40vw",
+            width: "30vw",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",

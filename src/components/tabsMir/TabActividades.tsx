@@ -669,7 +669,7 @@ export const TabActividades = ({
               error={errorFrecuenciaComponente === (componenteSelect) && errorFrecuenciaActividad === (actividadSelect)   ? true : false}
               helperText={
                 errorFrecuenciaComponente === (componenteSelect) && errorFrecuenciaActividad === (actividadSelect)
-                  ? "Frecuencia de una activad solo puede ser Trimestral"
+                  ? "Frecuencia debe ser Trimestral"
                   : null
               }
             />
