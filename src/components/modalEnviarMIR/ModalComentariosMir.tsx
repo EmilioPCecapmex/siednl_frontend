@@ -102,7 +102,6 @@ export const ComentDialogMir = ({
   }, [open]);
 
   const getComents = () => {
-
     axios
       .get("http://10.200.4.105:8000/api/coment-mir", {
         params: {
@@ -113,7 +112,6 @@ export const ComentDialogMir = ({
         },
       })
       .then((r) => {
-
         setComents(r.data.data);
       });
   };
@@ -153,7 +151,7 @@ export const ComentDialogMir = ({
         }
       )
       .then((r) => {
-        if(estado !== "En Captura"){
+        if (estado !== "En Captura") {
           userXInst.map((user) => {
             enviarNotificacion(user.IdUsuario);
           });
@@ -182,22 +180,23 @@ export const ComentDialogMir = ({
 
   return (
     <Box>
-      <Tooltip title='Comentarios'>
-        <IconButton onClick={handleClickOpen}>
-        <MessageIcon
-          sx={[
-            {
-              "&:hover": {
-                color: "indigo",
-              },
-              width: "1.2vw",
-              height: "1.2vw",
-            },
-          ]}
-        />
-      </IconButton>
+      <Tooltip title="Comentarios">
+        <span>
+          <IconButton onClick={handleClickOpen}>
+            <MessageIcon
+              sx={[
+                {
+                  "&:hover": {
+                    color: "indigo",
+                  },
+                  width: "1.2vw",
+                  height: "1.2vw",
+                },
+              ]}
+            />
+          </IconButton>
+        </span>
       </Tooltip>
-      
 
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
         <DialogContent
@@ -306,7 +305,7 @@ export const ComentDialogMir = ({
             </TableContainer>
           </Box>
           {newComent ? (
-            <Box sx={{ display: "flex", justifyContent: "center", mt:4 }}>
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
               <TextField
                 multiline
                 rows={3}

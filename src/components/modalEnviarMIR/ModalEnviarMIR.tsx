@@ -63,8 +63,6 @@ export default function ModalEnviarMIR({
   };
 
   const checkMir = (v: string) => {
-    
-    console.log(JSON.parse(MIR))
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       return Toast.fire({
         icon: "error",
@@ -261,7 +259,9 @@ export default function ModalEnviarMIR({
         );
       } else if (
         componente.frecuencia === undefined ||
-        componente.frecuencia === ""
+        componente.frecuencia === "" ||
+        (componente.frecuencia.toLowerCase() !== "semestral" &&
+          componente.frecuencia.toLowerCase() !== "trimestral")
       ) {
         return (
           Toast.fire({
@@ -342,7 +342,8 @@ export default function ModalEnviarMIR({
         );
       } else if (
         actividad.frecuencia === undefined ||
-        actividad.frecuencia === ""
+        actividad.frecuencia === "" ||
+        actividad.frecuencia.toLowerCase() !== "trimestral"
       ) {
         return (
           Toast.fire({

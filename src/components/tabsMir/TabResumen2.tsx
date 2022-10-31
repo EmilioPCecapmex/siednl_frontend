@@ -122,8 +122,6 @@ export function TabResumen2({
   };
 
   useEffect(() => {
-    // console.log(encabezado[0]?.lineas_de_accion);
-
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
       a.actividades.map((b) => {

@@ -68,21 +68,24 @@ export const DeleteDialogMIR = ({
 
   return (
     <Box>
-      <Tooltip title={'Eliminar'}>
-        <IconButton onClick={handleClickOpen} disabled={disab ? true : false}>
-        <DeleteIcon
-          sx={[
-            {
-              "&:hover": {
-                color: "red",
-              },
-              width: '1.2vw',
-              height: '1.2vw'
-            },
-          ]}
-        />
-      </IconButton>
+      <Tooltip title={"Eliminar"}>
+        <span>
+          <IconButton onClick={handleClickOpen} disabled={disab ? true : false}>
+            <DeleteIcon
+              sx={[
+                {
+                  "&:hover": {
+                    color: "red",
+                  },
+                  width: "1.2vw",
+                  height: "1.2vw",
+                },
+              ]}
+            />
+          </IconButton>
+        </span>
       </Tooltip>
+
       <Dialog fullWidth open={open} onClose={handleClose}>
         <Box
           sx={{
@@ -123,9 +126,15 @@ export const DeleteDialogMIR = ({
               Cancelar
             </Typography>
           </Button>
-          
 
-          <Button onClick={()=>{deleteMIR(); handleClose()}} color="error" autoFocus>
+          <Button
+            onClick={() => {
+              deleteMIR();
+              handleClose();
+            }}
+            color="error"
+            autoFocus
+          >
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
@@ -134,8 +143,6 @@ export const DeleteDialogMIR = ({
           </Button>
         </DialogActions>
       </Dialog>
-      
-      
     </Box>
   );
 };

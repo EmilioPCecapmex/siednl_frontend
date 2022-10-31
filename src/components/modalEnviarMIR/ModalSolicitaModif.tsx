@@ -26,7 +26,7 @@ export default function ModalSolicitaModif({
   MIR,
   MIREdit,
   showResume,
-  IdMir
+  IdMir,
 }: {
   open: boolean;
   handleClose: Function;
@@ -40,7 +40,6 @@ export default function ModalSolicitaModif({
   const [instSelected, setInstSelected] = useState("");
 
   const [comment, setComment] = useState("");
-
 
   const comentMir = (id: string) => {
     axios
@@ -64,26 +63,15 @@ export default function ModalSolicitaModif({
   };
 
   const checkUsuario = (estado: string) => {
-    if (userSelected === "0" || userSelected === ""){
-      return(
-        Toast.fire({
+    if (userSelected === "0" || userSelected === "") {
+      return Toast.fire({
         icon: "error",
-        title: 'Introduce usuario al que se le solicita modificación',
-      })
-      );
-    } else if (comment === ''){
-      return(
-        Toast.fire({
-        icon: "error",
-        title: 'Introduce un comentario',
-      })
-      );
+        title: "Introduce usuario al que se le solicita modificación",
+      });
     } else {
       createMIR(estado);
     }
-  }
-
-
+  };
 
   const createMIR = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
@@ -95,7 +83,8 @@ export default function ModalSolicitaModif({
       .post(
         "http://10.200.4.105:8000/api/create-mir",
         {
-          MIR:'['+ MIR + ',' + MIREdit +']',
+          
+          MIR: MIREdit == undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
           Estado: estado,
           CreadoPor:
             userSelected !== "0"
@@ -115,16 +104,14 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
-        console.log(r.data.data);
         if (comment != "") {
           comentMir(r.data.data.ID);
         }
-
         Toast.fire({
           icon: "success",
-          title: r.data.data.message,
+          title: localStorage.getItem("Rol") === 'Verificador' ? 'MIR enviada a capturador': 'MIR enviada a revisión',
         });
-        
+
         enviarNotificacion();
         handleClose();
         showResume();
@@ -236,7 +223,7 @@ export default function ModalSolicitaModif({
               border: 1,
               borderRadius: 1,
               borderColor: "#616161",
-              mb:2
+              mb: 2,
             }}
             variant="standard"
           >
@@ -263,15 +250,15 @@ export default function ModalSolicitaModif({
           </FormControl>{" "}
         </Box>
 
-          <Box sx={{ width: "100%", mb:2 }}>
-            <TextField
-              multiline
-              rows={2}
-              label={"Agregar Comentario"}
-              sx={{ width: "100%" }}
-              onChange={(v) => setComment(v.target.value)}
-            ></TextField>
-          </Box>
+        <Box sx={{ width: "100%", mb: 2 }}>
+          <TextField
+            multiline
+            rows={2}
+            label={"Agregar Comentario"}
+            sx={{ width: "100%" }}
+            onChange={(v) => setComment(v.target.value)}
+          ></TextField>
+        </Box>
 
         <Box
           sx={{
@@ -316,7 +303,7 @@ export default function ModalSolicitaModif({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                {comment === '' ? 'Enviar sin comentarios' : 'Confirmar'}
+                {comment === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>
           </Box>

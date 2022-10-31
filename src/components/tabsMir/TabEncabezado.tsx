@@ -79,11 +79,6 @@ export function TabEncabezado({
     if (MIR !== "" ) {
       const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR)
 
-      // console.log(jsonMir);
-      // console.log(MIR);
-      // console.log(JSON.parse(MIR));
-      
-
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
       setLoadProposito([jsonMir.proposito]);
@@ -608,8 +603,6 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
-        console.log(response);
-        
         getIdInstitucion(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);
@@ -663,8 +656,6 @@ export function TabEncabezado({
         }, 2000);
       })
       .catch((error) => {
-        console.log(error);
-        
         setErrorMsg(error.response.data || 'Formato de archivo incorrecto');
         setShowAlert(true);
       });
