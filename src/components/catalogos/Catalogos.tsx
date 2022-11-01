@@ -211,8 +211,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     {
       id: 25,
       Desc: "Instituciones - Unidades",
-      fnc: "getProgramasInstituciones()",
-      Tabla: "UnidadesDeMedida",
+      fnc: "getInstitucionesUnidades()",
+      Tabla: "InstitucionUnidad",
       selected: false,
     },
     {
@@ -223,6 +223,40 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
     },
   ];
+
+
+  const getInstitucionesUnidades= () => {
+    setSelected("Instituciones - Unidades");
+    setCatalogoActual("Instituciones - Unidades");
+    axios
+      .get("http://localhost:8000/api/institucionesUnidad", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          console.log(r.data.data);
+          let update = r.data.data;
+          update = update.map(
+            (item: {
+              Id: string;
+              NombreInstitucion: string;
+              Unidad: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.NombreInstitucion + " / " + item.Unidad,
+                Tabla: "InstitucionUnidad",
+              };
+            }
+          );
+          setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+        }
+      });
+  };
 
   const getProgramasInstituciones= () => {
     setSelected("Programas - Instituciones");
@@ -1281,7 +1315,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               }}
                             >
                               <Box sx={{ display: "flex" }}>
-                                 {selected==="Programas - Instituciones"?null:<ModifyDialogCatalogos
+                                 {selected==="Programas - Instituciones" || selected==="Instituciones - Unidades"?null:<ModifyDialogCatalogos
                                   descripcion={row.Desc}
                                   id={row.Id}
                                   tabla={row.Tabla}
