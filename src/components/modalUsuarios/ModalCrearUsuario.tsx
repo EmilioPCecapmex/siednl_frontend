@@ -16,6 +16,11 @@ import {
   AlertColor,
 } from "@mui/material";
 
+export interface IInstituciones {
+  Id: string;
+  NombreInstitucion: string;
+}
+
 export default function ModalCrearUsuario({
   title,
   open,
@@ -37,13 +42,12 @@ export default function ModalCrearUsuario({
   const [cellphone, setCellphone] = useState("");
   const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState([{Id: "",
-  NombreInstitucion: ""
-  },]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
+  ]);
 
-  const [userTypeCatalogue, setUserTypeCatalogue] = useState([{Id: "",
-  Rol: ""
-  },]);
+  const [userTypeCatalogue, setUserTypeCatalogue] = useState([
+    { Id: "", Rol: "" },
+  ]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -85,31 +89,32 @@ export default function ModalCrearUsuario({
   };
 
   const getInstituciones = () => {
-    axios.get("http://10.200.4.105:8000/api/instituciones", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      }
-    }).then(
-      (r) => {
-        setCatalogoInstituciones(r.data.data)
-      }
-
-    )
-  }
+    axios
+      .get("http://10.200.4.105:8000/api/instituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+      });
+  };
 
   const getUserType = () => {
-    axios.get("http://10.200.4.105:8000/api/roles", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      }
-    }).then(
-      (r) => {
-        setUserTypeCatalogue(r.data.data)
-      }
-
-    )
-  }
-
+    axios
+      .get("http://10.200.4.105:8000/api/roles", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setUserTypeCatalogue(r.data.data);
+      });
+  };
 
   const signUp = () => {
     axios
@@ -133,7 +138,7 @@ export default function ModalCrearUsuario({
         if (r.status === 201) {
           cleanForm();
           handleClose();
-          setIdUsuarioCentral(r.data.IdUsuario)         
+          setIdUsuarioCentral(r.data.IdUsuario);
           siednlSignUp(r.data.IdUsuario);
         }
       })
@@ -150,32 +155,32 @@ export default function ModalCrearUsuario({
 
   const siednlSignUp = (idUsrCentral: string) => {
     axios
-    .post(
-      "http://10.200.4.105:8000/api/user-add",
-      {
-        IdUsuarioCentral: idUsrCentral,
-        IdInstitucion: institution,
-        Cargo: rol,
-        Telefono: telephone,
-        Celular: cellphone,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-        IdRol: userType
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
+      .post(
+        "http://10.200.4.105:8000/api/user-add",
+        {
+          IdUsuarioCentral: idUsrCentral,
+          IdInstitucion: institution,
+          Cargo: rol,
+          Telefono: telephone,
+          Celular: cellphone,
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdRol: userType,
         },
-      }
-    )
-    .then((r) => {
-      if(r.status === 200){
-        Toast.fire({
-          icon: "success",
-          title: "¡Registro exitoso!",
-        });
-      }
-    })
-  }
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          Toast.fire({
+            icon: "success",
+            title: "¡Registro exitoso!",
+          });
+        }
+      });
+  };
 
   const checkForm = () => {
     setErrorsForm({
@@ -250,15 +255,15 @@ export default function ModalCrearUsuario({
   };
 
   useEffect(() => {
- getInstituciones();
- getUserType();
-  }, [])
-
-
+    getInstituciones();
+    getUserType();
+  }, []);
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{fontFamily: 'MontserratBold'}}>{title.toUpperCase()}</DialogTitle>
+      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+        {title.toUpperCase()}
+      </DialogTitle>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Box
@@ -359,35 +364,45 @@ export default function ModalCrearUsuario({
             mt: "3vh",
           }}
         >
-             <FormControl
+          <FormControl
             sx={{
               width: "30%",
               ml: "2vw",
             }}
           >
-            <InputLabel>
-              Tipo de Usuario
-            </InputLabel>
+            <InputLabel>Tipo de Usuario</InputLabel>
             <Select
               value={userType}
               label="Tipo de Usuario"
               onChange={(x) => {
-                setUserType(x.target.value)}}
+                setUserType(x.target.value);
+              }}
             >
               <MenuItem value={"0"} key={0} disabled>
                 Selecciona
               </MenuItem>
 
               {userTypeCatalogue.map((item) => {
-                return (
-                  <MenuItem value={item.Id} key={item.Id} >
-                    {item.Rol}
-                  </MenuItem>
-                );
+                if (
+                  localStorage.getItem("Rol") !== "Administrador" &&
+                  item.Rol === "Administrador"
+                ) {
+                  return null;
+                } else {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratRegular" }}
+                    >
+                      {item.Rol}
+                    </MenuItem>
+                  );
+                }
               })}
             </Select>
           </FormControl>
-        
+
           <TextField
             label="Cargo"
             variant="outlined"
@@ -398,7 +413,7 @@ export default function ModalCrearUsuario({
             }}
           />
 
-<FormControl
+          <FormControl
             sx={{
               width: "30%",
               mr: "2vw",
@@ -406,7 +421,7 @@ export default function ModalCrearUsuario({
           >
             <InputLabel>Institución</InputLabel>
             <Select
-            disabled={userType === 'Administrador' ? true : false}
+              disabled={userType === "Administrador" ? true : false}
               value={institution}
               label="Institución"
               onChange={(x) => setInstitution(x.target.value)}
@@ -423,7 +438,6 @@ export default function ModalCrearUsuario({
               })}
             </Select>
           </FormControl>
-       
         </Box>
 
         <Box

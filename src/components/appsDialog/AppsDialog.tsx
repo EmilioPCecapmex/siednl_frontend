@@ -113,6 +113,10 @@ export const AppsDialog = ({
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion")
+        }
       })
       .then((r) => {
         if (r.status === 200) {
@@ -132,7 +136,10 @@ export const AppsDialog = ({
   return (
     <Box>
       <Tooltip title="Instituciones">
-        <IconButton onClick={handleClickOpen}>
+        <span>
+
+        <IconButton onClick={handleClickOpen}             disabled={localStorage.getItem("Rol") === "Capturador" ? true: false}
+>
           <AppRegistrationIcon
             sx={[
               {
@@ -143,6 +150,8 @@ export const AppsDialog = ({
             ]}
           />
         </IconButton>
+        </span>
+
       </Tooltip>
       <Dialog open={open} onClose={handleClose} fullWidth>
         <Box
@@ -200,7 +209,7 @@ export const AppsDialog = ({
               );
             }}
             renderInput={(params) => (
-              <TextField {...params} label="Institucion" />
+              <TextField {...params} label="Institución" />
             )}
             onChange={(event, value) => setInstSel(value)}
             isOptionEqualToValue={(option, value) => {

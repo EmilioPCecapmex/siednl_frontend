@@ -24,29 +24,28 @@ export default function ModalSolicitaModif({
   open,
   handleClose,
   MIR,
-  IdMir,
-  showResume
+  MIREdit,
+  showResume,
+  IdMir
 }: {
   open: boolean;
   handleClose: Function;
   MIR: string;
-  IdMir: string;
+  MIREdit: string;
   showResume: Function;
-
+  IdMir: string;
 }) {
+  const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
+  const [userSelected, setUserSelected] = useState("0");
+  const [instSelected, setInstSelected] = useState("");
 
 
-  const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([])
-  const [userSelected, setUserSelected] = useState("0")
-  const [instSelected, setInstSelected] = useState("")
 
   const createMIR = (estado: string) => {
-    
-    if(estado === "Autorizada" && userSelected !== "0"){
-      estado = "En Revisión"
-
-    }else if(estado === "En Autorización" && userSelected !== "0"){
-      estado = "En Captura"
+    if (estado === "Autorizada" && userSelected !== "0") {
+      estado = "En Revisión";
+    } else if (estado === "En Autorización" && userSelected !== "0") {
+      estado = "En Captura";
     }
 
 
@@ -54,9 +53,12 @@ export default function ModalSolicitaModif({
       .post(
         "http://10.200.4.105:8000/api/create-mir",
         {
-          MIR: MIR,
+          MIR:'['+ MIR + ',' + MIREdit +']',
           Estado: estado,
-          CreadoPor: userSelected !== "0"  ?  userSelected : localStorage.getItem("IdUsuario"),
+          CreadoPor:
+            userSelected !== "0"
+              ? userSelected
+              : localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
           Institucion: JSON.parse(MIR)?.encabezado.institucion,
           Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
@@ -71,15 +73,13 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
-        
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
-        enviarNotificacion()
+        enviarNotificacion();
         handleClose();
-        showResume()
-
+        showResume();
       })
       .catch((err) => {
         Toast.fire({
@@ -90,7 +90,6 @@ export default function ModalSolicitaModif({
   };
 
   const getUsuariosXInstitucion = () => {
-
     axios
       .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
         params: {
@@ -103,18 +102,17 @@ export default function ModalSolicitaModif({
       })
       .then((r) => {
         if (r.status === 200) {
-          setUserXInst(r.data.data)
+          setUserXInst(r.data.data);
         }
       });
   };
 
   useEffect(() => {
-    if(open){
-      getUsuariosXInstitucion()
-      setInstSelected(JSON.parse(MIR)?.encabezado.institucion)
+    if (open) {
+      getUsuariosXInstitucion();
+      setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
     }
-  },[open])
-
+  }, [open]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -128,24 +126,21 @@ export default function ModalSolicitaModif({
     },
   });
 
-
-  
   const enviarNotificacion = () => {
-    axios
-      .post(
-        "http://10.200.4.105:8000/api/create-notif",
-        {
-          IdUsuarioDestino: userSelected,
-          Titulo: 'MIR',
-          Mensaje: 'Se le ha solicitado una modificación.',
-          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+    axios.post(
+      "http://10.200.4.105:8000/api/create-notif",
+      {
+        IdUsuarioDestino: userSelected,
+        Titulo: "MIR",
+        Mensaje: "Se le ha solicitado una modificación.",
+        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
         },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+      }
+    );
   };
 
   return (
@@ -176,34 +171,48 @@ export default function ModalSolicitaModif({
           sx={{
             width: "100%",
             display: "flex",
-            flexDirection:'column',
-            alignItems: 'center',
+            flexDirection: "column",
+            alignItems: "center",
             justifyContent: "space-evenly",
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>Selecciona usuario para solicitar modificación</Typography>
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Selecciona usuario para solicitar modificación
+          </Typography>
+          <FormControl
+            sx={{
+              display: "flex",
+              width: "70%",
+              alignItems: "center",
+              justifyContent: "center",
+              border: 1,
+              borderRadius: 1,
+              borderColor: "#616161",
+            }}
+          >
+            <Select
+              size="small"
+              variant="standard"
+              sx={{ fontFamily: "MontserratRegular" }}
+              fullWidth
+              value={userSelected}
+              onChange={(v) => setUserSelected(v.target.value)}
+              disableUnderline
+            >
+              <MenuItem value={"0"} disabled>
+                Selecciona
+              </MenuItem>
 
-          <FormControl sx={{display: 'flex', width: '70%', alignItems: 'center', justifyContent: 'center', border: 1, borderRadius: 1, borderColor: '#616161'}}>
-  <Select size="small" variant="standard"
-  sx={{fontFamily: 'MontserratRegular'}}
-  fullWidth
-  value={userSelected}
-  onChange={(v) => setUserSelected(v.target.value)}
-  disableUnderline>
-    <MenuItem value={"0"} disabled>
-    Selecciona
-    </MenuItem>
- 
-    {userXInst.map((item) => {
-      return (
-        <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-        {item.Nombre}
-        </MenuItem>
-      )
-    })}
-
-  </Select>
-</FormControl>        </Box>
+              {userXInst.map((item) => {
+                return (
+                  <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
+                    {item.Nombre}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>{" "}
+        </Box>
 
         <Box
           sx={{
@@ -228,19 +237,28 @@ export default function ModalSolicitaModif({
               color="error"
               onClick={() => handleClose()}
             >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>Cancelar</Typography>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                Cancelar
+              </Typography>
             </Button>
             <Button
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
-              onClick={() => {createMIR(localStorage.getItem("Rol") == "Capturador"
-              ? "En Revisión"
-              : localStorage.getItem("Rol") == "Verificador"
-              ? "En Autorización"
-              : "Autorizada"); handleClose()}}
+              onClick={() => {
+                createMIR(
+                  localStorage.getItem("Rol") == "Capturador"
+                    ? "En Revisión"
+                    : localStorage.getItem("Rol") == "Verificador"
+                    ? "En Autorización"
+                    : "Autorizada"
+                );
+                handleClose();
+              }}
             >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>Confirmar</Typography>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                Confirmar
+              </Typography>
             </Button>
           </Box>
         </Box>
@@ -249,13 +267,11 @@ export default function ModalSolicitaModif({
   );
 }
 
-
 export interface IIUserXInst {
-  IdUsuario:          string;
+  IdUsuario: string;
   IdUsuarioTiCentral: string;
-  Rol:                string;
-  NombreInstitucion:  string;
-  Nombre:             string;
-  ApellidoPaterno:    string;
+  Rol: string;
+  NombreInstitucion: string;
+  Nombre: string;
+  ApellidoPaterno: string;
 }
-

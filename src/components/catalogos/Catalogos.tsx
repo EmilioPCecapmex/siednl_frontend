@@ -546,8 +546,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .get("http://10.200.4.105:8000/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+        }, params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion")
+        }      })
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;

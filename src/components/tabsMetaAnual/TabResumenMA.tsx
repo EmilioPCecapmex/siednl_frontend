@@ -1013,13 +1013,13 @@ export function TabResumen({
           </Typography>
         </Button>
 
-        <ModalSolicitaModif
+        {/* <ModalSolicitaModif
           open={openModalSolicitarModif}
           showResume={showResume}
           handleClose={handleCloseModif}
           MIR={JSON.stringify(MIR)}
           IdMir={IdMir}
-        ></ModalSolicitaModif>
+        ></ModalSolicitaModif> */}
 
         <ModalEnviarMIR
           showResume={showResume}

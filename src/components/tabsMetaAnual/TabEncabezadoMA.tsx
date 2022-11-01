@@ -527,8 +527,6 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        console.log(Description.toLowerCase());
-        console.log(r);
         setEstrategia(r.data.data[0].Estrategia);
         getLineasDeAccion(r.data.data[0].Id);
       });
@@ -549,7 +547,6 @@ export function TabEncabezado({
         setDisabledLineasDeAccion(false);
       })
       .catch((err)=>{
-        console.log(err);
         
       })
   };
