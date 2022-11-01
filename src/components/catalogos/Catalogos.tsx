@@ -208,7 +208,55 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "UnidadesDeMedida",
       selected: false,
     },
+    {
+      id: 25,
+      Desc: "Instituciones - Unidades",
+      fnc: "getProgramasInstituciones()",
+      Tabla: "UnidadesDeMedida",
+      selected: false,
+    },
+    {
+      id: 26,
+      Desc: "Programas - Instituciones",
+      fnc: "getProgramasInstituciones()",
+      Tabla: "ProgramasInstituciones",
+      selected: false,
+    },
   ];
+
+  const getProgramasInstituciones= () => {
+    setSelected("Programas - Instituciones");
+    setCatalogoActual("Programas - Instituciones");
+    axios
+      .get("http://localhost:8000/api/programasInstituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          console.log(r.data.data);
+          let update = r.data.data;
+          update = update.map(
+            (item: {
+              Id: string;
+              NombreInstitucion: string;
+              NombrePrograma: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.NombreInstitucion + " / " + item.NombrePrograma,
+                Tabla: "ProgramasInstituciones",
+              };
+            }
+          );
+          setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+        }
+      });
+  };
+
 
   const getAniosFiscales = () => {
     setSelected("Años Fiscales");
@@ -1231,12 +1279,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               }}
                             >
                               <Box sx={{ display: "flex" }}>
-                                <ModifyDialogCatalogos
+                                 {selected==="Programas - Instituciones"?null:<ModifyDialogCatalogos
                                   descripcion={row.Desc}
                                   id={row.Id}
                                   tabla={row.Tabla}
                                   actualizado={actualizaContador}
-                                />
+                                />} 
 
                                 <DeleteDialogCatalogos
                                   deleteText={row.Desc}
