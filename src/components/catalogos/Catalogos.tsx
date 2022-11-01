@@ -210,20 +210,57 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     },
     {
       id: 25,
+      Desc: "Unidades Administrativas",
+      fnc: "getUnidadesAdministrativas()",
+      Tabla: "UnidadesAdministrativas",
+      selected: false,
+    },
+    {
+      id: 26,
       Desc: "Instituciones - Unidades",
       fnc: "getInstitucionesUnidades()",
       Tabla: "InstitucionUnidad",
       selected: false,
     },
     {
-      id: 26,
+      id: 27,
       Desc: "Programas - Instituciones",
       fnc: "getProgramasInstituciones()",
       Tabla: "ProgramasInstituciones",
       selected: false,
     },
   ];
-
+  const getUnidadesAdministrativas= () => {
+    setSelected("Unidades Administrativas");
+    setCatalogoActual("Unidades Administrativas");
+    axios
+      .get("http://localhost:8000/api/unidadesAdministrativas", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          console.log(r.data.data);
+          let update = r.data.data;
+          update = update.map(
+            (item: {
+              Id: string;
+              Unidad: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.Unidad,
+                Tabla: "UnidadesAdministrativas",
+              };
+            }
+          );
+          setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+        }
+      });
+  };
 
   const getInstitucionesUnidades= () => {
     setSelected("Instituciones - Unidades");
