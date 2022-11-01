@@ -52,6 +52,18 @@ export function TabFinPropositoMA({
     supuestos: "",
   });
 
+  const [finMA, setFinMA] = useState({
+    metaAnual: '',
+    lineaBase: '',
+    valorNumerador: "",
+    valorDenominador: "",
+    orden: "",
+    unidadResponsable: "",
+    descIndicador: "",
+    descNumerador: "",
+    descDenominador: "",
+  });
+
   const [proposito, setProposito] = useState({
     resumen: "",
     indicador: "",
@@ -325,8 +337,13 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onChange={(v)=> setFin({...fin, frecuencia: v.target.value})}
-                value={fin.frecuencia}
+                error={parseInt(finMA.metaAnual)  < 0 || parseInt(finMA.metaAnual) > 100 || isNaN(parseInt(finMA.metaAnual)) ? true : false}
+                helperText={
+                  parseInt(finMA.metaAnual)  < 0 || parseInt(finMA.metaAnual)  > 100  || isNaN(parseInt(finMA.metaAnual))  ? "Valor debe ser entre 0 y 100 "
+                    : null
+                }
+                onChange={(v)=> setFinMA({...finMA, metaAnual: v.target.value})}
+                value={finMA.metaAnual}
               />
               <TextField
                 rows={4}
@@ -344,14 +361,21 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={fin.frecuencia}
+
+                error={parseInt(finMA.lineaBase)  < 0 || parseInt(finMA.lineaBase) > 100 || isNaN(parseInt(finMA.lineaBase)) ? true : false}
+                helperText={
+                  parseInt(finMA.lineaBase)  < 0 || parseInt(finMA.lineaBase)  > 100  || isNaN(parseInt(finMA.lineaBase))  ? "Valor debe ser entre 0 y 100 "
+                    : null
+                }
+                onChange={(v)=> setFinMA({...finMA, lineaBase: v.target.value})}
+                value={finMA.lineaBase }
               />
               <TextField
                 rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
+                label={"Orden"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -362,7 +386,13 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={fin.frecuencia}
+                error={finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? true : false}
+                helperText={
+                  finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? "Incluir tipo de orden: Ascendente, Descendente ó Normal. "
+                    : null
+                }
+                onChange={(v)=> setFinMA({...finMA, orden: v.target.value})}
+                value={finMA.orden}
               />
              
             </Box>
