@@ -22,12 +22,14 @@ export const getUserDetails = (idCentral: string) => {
           "NombreUsuario",
           r.data.data.Nombre.split(" ")[0] + " " + r.data.data.ApellidoPaterno
         );
-        localStorage.getItem("IdInstitucion") === ""
-          ? localStorage.setItem("IdInstitucion", r.data.data.IdInstitucion)
-          : localStorage.setItem(
-              "IdInstitucion",
-              localStorage.getItem("IdInstitucion") as string
-            );
+        if(localStorage.getItem("IdInstitucion") === null  || localStorage.getItem("IdInstitucion") === null ){
+          localStorage.setItem("IdInstitucion", r.data.data.IdInstitucion)
+        }else{
+          localStorage.setItem(
+            "IdInstitucion",
+            localStorage.getItem("IdInstitucion") as string
+          );
+        }
         localStorage.setItem("Rol", r.data.data.Rol);
       }
     })
