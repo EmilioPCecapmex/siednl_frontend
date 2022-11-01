@@ -2,18 +2,28 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";
-import TabEncabezado, { IEncabezado } from "./TabEncabezadoMA";
-import { TabComponente } from "./TabComponenteMA";
-import TabFinProposito, { IFin, IProposito } from "./TabFinPropositoMA";
-import { TabActividades } from "./TabActividadesMA";
+import { TabComponente } from "./TabComponenteMR";
+import TabFinProposito, { IFin, IProposito } from "./TabFinPropositoMR";
+import { TabActividades } from "./TabActividadesMR";
 import { TabResumen } from "./TabResumenMA";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
+import TabEncabezadoMA, { IEncabezado } from "./TabEncabezadoMR";
+import TabFinPropositoMA from "./TabFinPropositoMA";
 
-export default function FullModalMetaAnual({ MIR, showResume, IdMir, anioFiscalEdit }: { MIR: string, showResume: Function, IdMir: string, anioFiscalEdit: string; }) {
-
-
-  const [value, setValue] = React.useState(10);
+export default function FullModalMetaAnual({
+  MIR,
+  showResume,
+  IdMir,
+  anioFiscalEdit,
+}: {
+  MIR: string;
+  showResume: Function;
+  IdMir: string;
+  anioFiscalEdit: string;
+}) {
+  const [value, setValue] = React.useState(20);
+  const [expandMir, setExpandMir] = React.useState(false);
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
@@ -78,16 +88,6 @@ export default function FullModalMetaAnual({ MIR, showResume, IdMir, anioFiscalE
     })
   );
 
-  const asignarActividadesM = (state: number[]) => {
-    setActividades(state);
-  };
-
-  const asignarComponenteActividadM = (
-    state: { componentes: number[][] }[]
-  ) => {
-    setComponenteActividad(state);
-  };
-
   const asignarCValor = (state: Array<ICValor>) => {
     setCValor(state);
   };
@@ -112,7 +112,10 @@ export default function FullModalMetaAnual({ MIR, showResume, IdMir, anioFiscalE
   const [proposito, setProposito] = useState<Array<IProposito>>([]);
   const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
   const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([]);
-  
+
+  const resumenEncabezado = (arr: Array<IEncabezado>) => {
+    setEncabezado(arr);
+  };
   const resumenFin = (arr: Array<IFin>) => {
     setFin(arr);
   };
@@ -147,20 +150,23 @@ export default function FullModalMetaAnual({ MIR, showResume, IdMir, anioFiscalE
           alignItems: "center",
         }}
       >
-        <Box>
+        <Box sx={{ display: "flex" }}>
           <Tabs
             value={value}
             onChange={handleChange}
             textColor="inherit"
             sx={{
-              backgroundColor: "#fff",
+              backgroundColor: "lightBlue",
               borderRadius: "10px 10px 0 0",
               boxShadow: 20,
             }}
           >
             <Tab
-              label="Fin / Propósito"
-              value={10}
+              label="MIR"
+              onClick={() => {
+                setExpandMir(!expandMir);
+                setValue(20);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -168,30 +174,84 @@ export default function FullModalMetaAnual({ MIR, showResume, IdMir, anioFiscalE
                 backgroundColor: "#ccc",
               }}
             />
+          </Tabs>
+          {expandMir ? (
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              textColor="inherit"
+              sx={{
+                backgroundColor: "#fff",
+                borderRadius: "0 10px 0 0",
+                boxShadow: 20,
+              }}
+            >
+              <Tab
+                label="Encabezado"
+                value={20}
+                sx={{
+                  borderRight: "5px solid #b3afaf",
+                  color: "black",
+                  fontFamily: "MontserratBold",
+                  backgroundColor: "#ccc",
+                }}
+              />
+              <Tab
+                label="Fin / Propósito"
+                value={30}
+                sx={{
+                  borderRight: "5px solid #b3afaf",
+                  color: "black",
+                  fontFamily: "MontserratBold",
+                  backgroundColor: "#ccc",
+                }}
+              />
+              <Tab
+                label="Componentes"
+                value={40}
+                sx={{
+                  borderRight: "5px solid #b3afaf",
+                  color: "black",
+                  fontFamily: "MontserratBold",
+                  backgroundColor: "#ccc",
+                }}
+              />
+              <Tab
+                label="Actividades"
+                value={50}
+                sx={{
+                  borderRight: "5px solid #b3afaf",
+                  color: "black",
+                  fontFamily: "MontserratBold",
+                  backgroundColor: "#ccc",
+                }}
+              />
+              {/* <Tab
+                label="Resumen"
+                value={60}
+                sx={{
+                  color: "black",
+                  fontFamily: "MontserratBold",
+                  backgroundColor: "#ccc",
+                }}
+              /> */}
+            </Tabs>
+          ) : null}
+
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            textColor="inherit"
+            sx={{
+              borderRadius: "10px 10px 0 0",
+              boxShadow: 20,
+            }}
+          >
             <Tab
-              label="Componentes"
-              value={20}
+              label="Meta Anual Fin / Propósito"
+              value={70}
               sx={{
                 borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Actividades"
-              value={30}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Resumen"
-              value={40}
-              sx={{
                 color: "black",
                 fontFamily: "MontserratBold",
                 backgroundColor: "#ccc",
@@ -206,16 +266,28 @@ export default function FullModalMetaAnual({ MIR, showResume, IdMir, anioFiscalE
             height: "77vh",
           }}
         >
+          <TabEncabezadoMA
+            anioFiscalEdit={anioFiscalEdit}
+            actividadesMir={setActividadesMir}
+            compAct={setCompAct}
+            show={value === 20 ? true : false}
+            resumenEncabezado={resumenEncabezado}
+            cargaFin={loadFin}
+            cargaProposito={loadProposito}
+            asignarComponente={asignarComponente}
+            asignarComponenteValor={asignarComponenteValor}
+            MIR={MIR}
+          ></TabEncabezadoMA>
           <TabFinProposito
-            show={value === 10 ? true : false}
+            show={value === 30 ? true : false}
             resumenFin={resumenFin}
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
           ></TabFinProposito>
-          <TabResumen
-          showResume={showResume}
-            show={value === 40 ? true : false}
+          {/* <TabResumen
+            showResume={showResume}
+            show={value === 60 ? true : false}
             componentes={componentes}
             componenteValor={componenteValor}
             cValor={cValor}
@@ -223,21 +295,26 @@ export default function FullModalMetaAnual({ MIR, showResume, IdMir, anioFiscalE
             fin={fin}
             proposito={proposito}
             IdMir={IdMir}
-          ></TabResumen>
+          ></TabResumen> */}
           <TabComponente
-            show={value === 20 ? true : false}
-            asignarComponente={asignarComponente}
-            asignarComponenteValor={asignarComponenteValor}
+            show={value === 40 ? true : false}
             componentesMir={componentes}
             componenteValorMir={componenteValor}
           ></TabComponente>
           <TabActividades
             actividadesMir={actividadesMir}
             compAct={compAct}
-            show={value === 30 ? true : false}
+            show={value === 50 ? true : false}
             componentes={componentes}
             asignarCValor={asignarCValor}
           ></TabActividades>
+          <TabFinPropositoMA
+            show={value === 70 ? true : false}
+            resumenFin={resumenFin}
+            resumenProposito={resumenProposito}
+            cargaFin={cargaFin}
+            cargaProposito={cargaProposito}
+          ></TabFinPropositoMA>
         </Box>
       </Box>
     </Box>

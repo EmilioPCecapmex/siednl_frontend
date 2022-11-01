@@ -8,7 +8,7 @@ import {
   Divider,
 } from "@mui/material";
 
-export function TabFinPropositoMA({
+export function TabFinProposito({
   show,
   resumenFin,
   resumenProposito,
@@ -246,10 +246,27 @@ export function TabFinPropositoMA({
                 width: "90%",
                 alignItems: "center",
                 justifyItems: "center",
-  
               }}
             >
-              
+              <TextField
+                rows={4}
+                disabled
+                multiline
+                sx={{ width: "90%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Resumen Narrativo"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={fin.resumen}
+              />
               <TextField
                 rows={4}
                 disabled
@@ -311,10 +328,11 @@ export function TabFinPropositoMA({
               />
               <TextField
                 rows={4}
+                disabled
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Meta Anual 2023"}
+                label={"Medios de Verificación"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -325,15 +343,15 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onChange={(v)=> setFin({...fin, frecuencia: v.target.value})}
-                value={fin.frecuencia}
+                value={fin.medios}
               />
               <TextField
                 rows={4}
+                disabled
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Línea Base 2021"}
+                label={"Supuestos"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -344,27 +362,8 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={fin.frecuencia}
+                value={fin.supuestos}
               />
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={fin.frecuencia}
-              />
-             
             </Box>
           </>
         ) : null}
@@ -505,7 +504,7 @@ export function TabFinPropositoMA({
   );
 }
 
-export default TabFinPropositoMA;
+export default TabFinProposito;
 
 export interface IIndicadores {
   Id: string;

@@ -22,10 +22,10 @@ import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
-import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
+import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
+import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import Swal from "sweetalert2";
 
 export let resumeDefaultMIR = true;

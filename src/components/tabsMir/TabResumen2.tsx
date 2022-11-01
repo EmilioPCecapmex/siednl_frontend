@@ -7,8 +7,8 @@ import { IActividadesMir, ICValor } from "./ICValor";
 import { IFin, IProposito } from "./TabFinProposito";
 import { IMIR } from "./IMIR";
 import Swal from "sweetalert2";
-import ModalEnviarMIR from "../modalEnviarMIR/ModalEnviarMIR";
-import ModalSolicitaModif from "../modalEnviarMIR/ModalSolicitaModif";
+import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
+import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
 
 export function TabResumen2({
   show,
@@ -209,11 +209,6 @@ export function TabResumen2({
   const [editActividades, setEditActividades] = useState<
     Array<IActividadesMirEdit>
   >([]);
-
-  // finM: Array<IFin>,
-  //   propositoM: Array<IProposito>,
-  //   componentesM: Array<IComponente>,
-  //   actividadesM: Array<IActividadesMir>,
 
   return (
     <Box
@@ -1453,14 +1448,16 @@ export function TabResumen2({
           handleClose={handleCloseModif}
           MIR={JSON.stringify(MIR)}
           MIREdit={
-            localStorage.getItem("Rol") !== "Administrador" ? JSON.stringify(mirEdit) :
-            JSON.stringify({
-            encabezado: editEncabezado,
-            fin: editFin,
-            proposito: editProposito,
-            componentes: editComponentes,
-            actividades: editActividades,
-          })}
+            localStorage.getItem("Rol") !== "Administrador"
+              ? JSON.stringify(mirEdit)
+              : JSON.stringify({
+                  encabezado: editEncabezado,
+                  fin: editFin,
+                  proposito: editProposito,
+                  componentes: editComponentes,
+                  actividades: editActividades,
+                })
+          }
         ></ModalSolicitaModif>
 
         <ModalEnviarMIR

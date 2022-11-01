@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import axios from "axios";
-import { IEncabezado, ILineasDeAccion } from "./TabEncabezadoMA";
-import { IFin, IProposito } from "./TabFinPropositoMA";
+import { IFin, IProposito } from "./TabFinPropositoMR";
 import Swal from "sweetalert2";
-import ModalEnviarMIR from "../modalEnviarMIR/ModalEnviarMIR";
-import ModalSolicitaModif from "../modalEnviarMIR/ModalSolicitaModif";
+import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
+import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IMIR } from "../tabsMir/IMIR";
 import { IActividadesMir } from "./FullModalMetaAnual";
+import { IEncabezado } from "./TabEncabezadoMR";
 
 export function TabResumen({
   show,

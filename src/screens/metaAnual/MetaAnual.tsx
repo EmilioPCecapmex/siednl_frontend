@@ -22,10 +22,10 @@ import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import FullModalMir from "../../components/tabsMir/FullModalMir";
-import DeleteDialogMIR from "../../components/modalEnviarMIR/ModalEliminarMIR";
+import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
+import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import FullModalMetaAnual from "../../components/tabsMetaAnual/FullModalMetaAnual";
 
 export let resumeDefaultMIR = true;
@@ -107,7 +107,7 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
-        setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
+        // setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
       });
@@ -151,8 +151,8 @@ export const MetaAnual = () => {
         details={{
           name1: "Inicio",
           path1: "../home",
-          name2: "MIR",
-          path2: "../mir",
+          name2: "Meta Anual",
+          path2: "../metaAnual",
           name3: "",
         }}
       />
@@ -351,162 +351,133 @@ export const MetaAnual = () => {
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .map((row, index) => (
-                        <TableRow key={index}>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                              width: "15%",
-                            }}
-                            align="center"
-                          >
-                            {row.AnioFiscal}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                              width: "20%",
-                            }}
-                            align="center"
-                          >
-                            {row.Institucion}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                              width: "20%",
-                            }}
-                            align="center"
-                          >
-                            {row.Programa}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                              width: "20%",
-                            }}
-                            align="center"
-                          >
-                            {row.Estado === "En Captura" &&
-                            localStorage.getItem("Rol") === "Capturador"
-                              ? "Borrador"
-                              : row.Estado === "En Revisión" &&
-                                localStorage.getItem("Rol") === "Verificador"
-                              ? "Esperando revisión"
-                              : row.Estado === "En Autorización" &&
-                                localStorage.getItem("Rol") === "Administrador"
-                              ? "Esperando autorización"
-                              : row.Estado}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                              width: "15%",
-                            }}
-                            align="center"
-                          >
-                            {moment(row.FechaCreacion, moment.ISO_8601)
-                              .format("DD/MM/YYYY HH:mm:SS")
-                              .toString()}
-                          </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
-                            <Box>
-                              <Button sx={{backgroundColor:'#afafaf', color:'white'}}>
-                                Agregar Meta Anual
-                              </Button>
-                            </Box>
-                            <Box
+                      .map((row, index) =>
+                        row.Estado !== "Autorizada" ? null : (
+                          <TableRow key={index}>
+                            <TableCell
                               sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "row",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                width: "15%",
                               }}
+                              align="center"
                             >
-                              <Tooltip title="Descargar">
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "Autorizada" ? false : true
-                                    }
-                                  >
-                                    <DownloadIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "orange",
+                              {row.AnioFiscal}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                width: "20%",
+                              }}
+                              align="center"
+                            >
+                              {row.Institucion}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                width: "20%",
+                              }}
+                              align="center"
+                            >
+                              {row.Programa}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                width: "20%",
+                              }}
+                              align="center"
+                            >
+                              {row.Estado}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                width: "15%",
+                              }}
+                              align="center"
+                            >
+                              {moment(row.FechaCreacion, moment.ISO_8601)
+                                .format("DD/MM/YYYY HH:mm:SS")
+                                .toString()}
+                            </TableCell>
+                            <TableCell align="center" sx={{ width: "10%" }}>
+                              <Box>
+                                <Button
+                                  sx={{
+                                    backgroundColor: "#afafaf",
+                                    color: "white",
+                                    "&:hover": {
+                                      backgroundColor: "lightBlue",
+                                    },
+                                  }}
+                                  onClick={() => {
+                                    setAnioFiscalEdit(row.AnioFiscal);
+                                    setMirEdit([
+                                      {
+                                        ID: row.ID,
+                                        AnioFiscal: row.AnioFiscal,
+                                        Institucion: row.Institucion,
+                                        Programa: row.Programa,
+                                        Eje: row.Eje,
+                                        Tematica: row.Tematica,
+                                        MIR: row.MIR,
+                                        Estado: row.Estado,
+                                        FechaCreacion: row.FechaCreacion,
+                                      },
+                                    ]);
+                                    setShowResume(false);
+                                  }}
+                                >
+                                  Meta Anual
+                                </Button>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                }}
+                              >
+                                <Tooltip title="Descargar">
+                                  <span>
+                                    <IconButton
+                                      disabled={
+                                        row.Estado === "Autorizada"
+                                          ? false
+                                          : true
+                                      }
+                                    >
+                                      <DownloadIcon
+                                        sx={[
+                                          {
+                                            "&:hover": {
+                                              color: "orange",
+                                            },
+                                            width: "1.2vw",
+                                            height: "1.2vw",
                                           },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-                              <ComentDialogMir
-                                estado={row.Estado}
-                                id={row.ID}
-                                actualizado={actualizaContador}
-                              />
-                              <Tooltip title="Editar">
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "En Captura" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Capturador"
-                                        ? false
-                                        : row.Estado === "En Revisión" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Verificador"
-                                        ? false
-                                        : row.Estado === "En Autorización" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Administrador"
-                                        ? false
-                                        : true
-                                    }
-                                    onClick={() => {
-                                      setMirEdit([
-                                        {
-                                          ID: row.ID,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Institucion: row.Institucion,
-                                          Programa: row.Programa,
-                                          Eje: row.Eje,
-                                          Tematica: row.Tematica,
-                                          MIR: row.MIR,
-                                          Estado: row.Estado,
-                                          FechaCreacion: row.FechaCreacion,
-                                        },
-                                      ]);
-                                      setShowResume(false);
-                                    }}
-                                  >
-                                    <EditIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "blue",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                                        ]}
+                                      />
+                                    </IconButton>
+                                  </span>
+                                </Tooltip>
+                                <ComentDialogMir
+                                  estado={row.Estado}
+                                  id={row.ID}
+                                  actualizado={actualizaContador}
+                                />
+                              </Box>
+                            </TableCell>
+                          </TableRow>
+                        )
+                      )}
 
                     {/* ))} */}
                   </TableBody>

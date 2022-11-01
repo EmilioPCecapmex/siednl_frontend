@@ -1,119 +1,24 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
-  IconButton,
   Typography,
   TextField,
   Divider,
   List,
   ListItemButton,
 } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
-import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IComponente } from "../tabsMir/IComponente";
 
 export const TabComponente = ({
   show,
-  asignarComponente,
-  asignarComponenteValor,
   componentesMir,
   componenteValorMir,
 }: {
   show: boolean;
-  asignarComponente: Function;
-  asignarComponenteValor: Function;
   componentesMir: number[];
   componenteValorMir: Array<IComponente>;
 }) => {
-  const agregarFnc = () => {
-    let v = componentesMir.length + 1;
-    if (v > 6) {
-    } else {
-      asignarComponente([...componentesMir, v]);
-
-      if (componenteValorMir.length < 6) {
-        let prevState = [...componenteValorMir];
-        prevState.push({
-          componentes: "C" + (componentesMir.length + 1),
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        });
-        asignarComponenteValor(prevState);
-      }
-    }
-  };
-
-  const eliminarFnc = () => {
-    let v = componentesMir.length - 1;
-    if (v < 2) {
-    } else {
-      asignarComponente(componentesMir.splice(0, v));
-      let prevState = [...componenteValorMir];
-      prevState.pop();
-      asignarComponenteValor(prevState);
-      if (v < componentSelect) {
-        setComponentSelect(v);
-      }
-    }
-  };
-
   const [componentSelect, setComponentSelect] = useState(1);
-
-  //----------------------------------------------------------------------------------------------
-
-  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  const [prevTextFormula, setPrevTextFormula] = useState("");
-  const [tipoFormula, setTipoFormula] = useState("");
-  const [elementoFormula, setElementoFormula] = useState("");
-  const [errorIndicador, setErrorIndicador] = useState(-1);
-
-  const handleClickOpen = () => {
-    setPrevTextFormula(componenteValorMir[componentSelect - 1].formula);
-    setOpenFormulaDialog(true);
-  };
-
-  const handleClose = () => {
-    setOpenFormulaDialog(false);
-  };
-
-  const changeFormula = (txt: string) => {
-    componenteValorMir[componentSelect - 1].formula = txt;
-  };
-
-  const evalueTxtIndicador = () => {
-    const cIndicador =
-      componenteValorMir[componentSelect - 1].indicador?.toLowerCase();
-    if (cIndicador !== undefined) {
-      if (cIndicador.includes("porcentaje")) {
-        setTipoFormula("Porcentaje");
-        setElementoFormula("Componente " + componentSelect.toString());
-        handleClickOpen();
-        setErrorIndicador(-1);
-      } else if (cIndicador.includes("tasa")) {
-        setTipoFormula("Tasa");
-        setElementoFormula("Componente " + componentSelect.toString());
-        handleClickOpen();
-        setErrorIndicador(-1);
-      } else if (cIndicador.includes("indice" || "índice")) {
-        setTipoFormula("Índice");
-        setElementoFormula("Componente " + componentSelect.toString());
-        handleClickOpen();
-        setErrorIndicador(-1);
-      } else if (cIndicador.includes("promedio")) {
-        setTipoFormula("Promedio");
-        setElementoFormula("Componente " + componentSelect.toString());
-        handleClickOpen();
-        setErrorIndicador(-1);
-      } else {
-        setErrorIndicador(componentSelect - 1);
-      }
-    }
-  };
 
   return (
     <Box
@@ -129,15 +34,6 @@ export const TabComponente = ({
         backgroundColor: "#fff",
       }}
     >
-      <FormulaDialog
-        open={openFormulaDialog}
-        close={handleClose}
-        textoSet={changeFormula}
-        prevText={prevTextFormula}
-        tipo={tipoFormula}
-        elemento={elementoFormula}
-      />
-
       <Box
         sx={{
           width: "100%",
@@ -157,12 +53,6 @@ export const TabComponente = ({
         >
           Componente {componentSelect}
         </Typography>
-        <IconButton onClick={() => agregarFnc()}>
-          <AddCircleIcon fontSize="large" />
-        </IconButton>
-        <IconButton onClick={() => eliminarFnc()} sx={{ mr: "1vw" }}>
-          <DoDisturbOnIcon fontSize="large" />
-        </IconButton>
       </Box>
 
       <Box
@@ -247,6 +137,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
+              disabled
               variant="filled"
               multiline
               InputLabelProps={{
@@ -263,13 +154,9 @@ export const TabComponente = ({
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Resumen Narrativo"}
               value={componenteValorMir[componentSelect - 1].resumen}
-              onChange={(c) => {
-                componenteValorMir[componentSelect - 1].resumen =
-                  c.target.value;
-                asignarComponenteValor([...componenteValorMir]);
-              }}
             />
             <TextField
+              disabled
               multiline
               rows={4}
               variant="filled"
@@ -283,23 +170,12 @@ export const TabComponente = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              error={errorIndicador === componentSelect - 1 ? true : false}
-              helperText={
-                errorIndicador === componentSelect - 1
-                  ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
-                  : null
-              }
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Indicador"}
               value={componenteValorMir[componentSelect - 1].indicador}
-              onBlur={() => evalueTxtIndicador()}
-              onChange={(c) => {
-                componenteValorMir[componentSelect - 1].indicador =
-                  c.target.value;
-                asignarComponenteValor([...componenteValorMir]);
-              }}
             />
             <TextField
+              disabled
               variant="filled"
               multiline
               InputLabelProps={{
@@ -317,25 +193,20 @@ export const TabComponente = ({
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Fórmula"}
               value={componenteValorMir[componentSelect - 1].formula}
-              onClick={() => evalueTxtIndicador()}
-              onChange={(c) => {
-                componenteValorMir[componentSelect - 1].formula =
-                  c.target.value;
-                asignarComponenteValor([...componenteValorMir]);
-              }}
             />
           </Box>
+
           <Box
             sx={{
               width: "100%",
               height: "40%",
-
               justifyContent: "space-evenly",
               display: "flex",
               alignItems: "center",
             }}
           >
             <TextField
+              disabled
               multiline
               variant="filled"
               InputLabelProps={{
@@ -352,13 +223,9 @@ export const TabComponente = ({
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Frecuencia"}
               value={componenteValorMir[componentSelect - 1].frecuencia}
-              onChange={(c) => {
-                componenteValorMir[componentSelect - 1].frecuencia =
-                  c.target.value;
-                asignarComponenteValor([...componenteValorMir]);
-              }}
             />
             <TextField
+              disabled
               multiline
               variant="filled"
               InputLabelProps={{
@@ -375,12 +242,9 @@ export const TabComponente = ({
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Medios de Verificación"}
               value={componenteValorMir[componentSelect - 1].medios}
-              onChange={(c) => {
-                componenteValorMir[componentSelect - 1].medios = c.target.value;
-                asignarComponenteValor([...componenteValorMir]);
-              }}
             />
             <TextField
+              disabled
               variant="filled"
               multiline
               rows={4}
@@ -397,11 +261,6 @@ export const TabComponente = ({
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Supuestos"}
               value={componenteValorMir[componentSelect - 1].supuestos}
-              onChange={(c) => {
-                componenteValorMir[componentSelect - 1].supuestos =
-                  c.target.value;
-                asignarComponenteValor([...componenteValorMir]);
-              }}
             />
           </Box>
         </Box>
