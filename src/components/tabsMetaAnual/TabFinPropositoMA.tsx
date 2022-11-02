@@ -157,8 +157,7 @@ export function TabFinPropositoMA({
             fontSize: "1.5vw",
           }}
         >
-          {showFin ? "Fin" : null}
-          {showProposito ? "Propósito" : null}
+          {showFin ? "Fin" :  "Propósito" }
         </Typography>
       </Box>
       <Box
@@ -321,11 +320,12 @@ export function TabFinPropositoMA({
                 }}
                 value={fin.frecuencia}
               />
-              <TextField
-                rows={4}
+              <Box>
+                <TextField
+                rows={2}
                 multiline
                 variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
+                sx={{ width: "30%", boxShadow: 2 }}
                 label={"Meta Anual 2023"}
                 InputLabelProps={{
                   style: {
@@ -346,10 +346,10 @@ export function TabFinPropositoMA({
                 value={finMA.metaAnual}
               />
               <TextField
-                rows={4}
+                rows={2}
                 multiline
                 variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
+                sx={{ width: "30%", boxShadow: 2, ml:2 }}
                 label={"Línea Base 2021"}
                 InputLabelProps={{
                   style: {
@@ -369,6 +369,32 @@ export function TabFinPropositoMA({
                 }
                 onChange={(v)=> setFinMA({...finMA, lineaBase: v.target.value})}
                 value={finMA.lineaBase }
+              />
+              </Box>
+              
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Orden"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                error={finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? true : false}
+                helperText={
+                  finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? "Incluir tipo de orden: Ascendente, Descendente ó Normal. "
+                    : null
+                }
+                onChange={(v)=> setFinMA({...finMA, orden: v.target.value})}
+                value={finMA.orden}
               />
               <TextField
                 rows={4}
@@ -394,12 +420,33 @@ export function TabFinPropositoMA({
                 onChange={(v)=> setFinMA({...finMA, orden: v.target.value})}
                 value={finMA.orden}
               />
-             
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Orden"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                error={finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? true : false}
+                helperText={
+                  finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? "Incluir tipo de orden: Ascendente, Descendente ó Normal. "
+                    : null
+                }
+                onChange={(v)=> setFinMA({...finMA, orden: v.target.value})}
+                value={finMA.orden}
+              />
             </Box>
           </>
-        ) : null}
-
-        {showProposito ? (
+        ) : 
           <>
             <Box
               sx={{
@@ -528,8 +575,7 @@ export function TabFinPropositoMA({
                 value={proposito.supuestos}
               />
             </Box>
-          </>
-        ) : null}
+          </>}
       </Box>
     </Box>
   );

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import { TabComponente } from "./TabComponenteMR";
 import TabFinProposito, { IFin, IProposito } from "./TabFinPropositoMR";
 import { TabActividades } from "./TabActividadesMR";
 import { TabResumen } from "./TabResumenMA";
-import { IComponente } from "../tabsMir/IComponente";
+import { IComponente, IComponenteMA } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import TabEncabezadoMA, { IEncabezado } from "./TabEncabezadoMR";
 import TabFinPropositoMA from "./TabFinPropositoMA";
+import ViewColumnIcon from "@mui/icons-material/ViewColumn";
+import { TabComponentesMA } from "./TabComponentesMA";
+import { TabActividadesMA } from "./TabActividadesMA";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -22,7 +25,7 @@ export default function FullModalMetaAnual({
   IdMir: string;
   anioFiscalEdit: string;
 }) {
-  const [value, setValue] = React.useState(20);
+  const [value, setValue] = React.useState(70);
   const [expandMir, setExpandMir] = React.useState(false);
 
   const handleChange = (event: any, newValue: number) => {
@@ -55,8 +58,31 @@ export default function FullModalMetaAnual({
     })
   );
 
+  const [componenteValorMA, setComponenteValorMA] = useState<
+    Array<IComponenteMA>
+  >(
+    componentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        metaAnual: "",
+        lineaBase: "",
+        valorNumerador: "",
+        valorDenominador: "",
+        orden: "",
+        unidadResponsable: "",
+        descIndicador: "",
+        descNumerador: "",
+        descDenominador: "",
+      };
+    })
+  );
+
   const asignarComponenteValor = (state: Array<IComponente>) => {
     setComponenteValor(state);
+  };
+
+  const asignarComponenteValorMA = (state: Array<IComponenteMA>) => {
+    setComponenteValorMA(state);
   };
 
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -156,7 +182,6 @@ export default function FullModalMetaAnual({
             onChange={handleChange}
             textColor="inherit"
             sx={{
-              backgroundColor: "lightBlue",
               borderRadius: "10px 10px 0 0",
               boxShadow: 20,
             }}
@@ -165,13 +190,13 @@ export default function FullModalMetaAnual({
               label="MIR"
               onClick={() => {
                 setExpandMir(!expandMir);
-                setValue(20);
+                setValue(expandMir ? 70 : 20);
               }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
                 fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
+                backgroundColor: "lightBlue",
               }}
             />
           </Tabs>
@@ -248,8 +273,50 @@ export default function FullModalMetaAnual({
             }}
           >
             <Tab
-              label="Meta Anual Fin / Propósito"
+              label="Meta Anual"
+              onClick={() => {
+                setValue(70);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "lightBlue",
+              }}
+            />
+            <Tab
+              label="Fin / Propósito"
               value={70}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
+            <Tab
+              label="Componentes"
+              value={80}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
+            <Tab
+              label="Actividades"
+              value={90}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
+            <Tab
+              label="Resumen"
+              value={100}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -285,17 +352,6 @@ export default function FullModalMetaAnual({
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
           ></TabFinProposito>
-          {/* <TabResumen
-            showResume={showResume}
-            show={value === 60 ? true : false}
-            componentes={componentes}
-            componenteValor={componenteValor}
-            cValor={cValor}
-            encabezado={encabezado}
-            fin={fin}
-            proposito={proposito}
-            IdMir={IdMir}
-          ></TabResumen> */}
           <TabComponente
             show={value === 40 ? true : false}
             componentesMir={componentes}
@@ -315,6 +371,20 @@ export default function FullModalMetaAnual({
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
           ></TabFinPropositoMA>
+          <TabComponentesMA
+            show={value === 80 ? true : false}
+            componentesMir={componentes}
+            componenteValorMir={componenteValor}
+            componentesMA={componentes}
+            componenteValorMA={componenteValorMA}
+          ></TabComponentesMA>
+          <TabActividadesMA
+            actividadesMir={actividadesMir}
+            compAct={compAct}
+            show={value === 90 ? true : false}
+            componentes={componentes}
+            asignarCValor={asignarCValor}
+          ></TabActividadesMA>
         </Box>
       </Box>
     </Box>
