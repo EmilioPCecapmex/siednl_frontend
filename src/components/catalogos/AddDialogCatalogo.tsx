@@ -124,7 +124,7 @@ export const AddDialogCatalogo = ({
 
   const getUnidadesAdministrativas = () => {
     axios
-      .get("http://localhost:8000/api/unidadesAdministrativas", {
+      .get("http://10.200.4.105:8000/api/unidadesAdministrativas", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -216,7 +216,7 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoInstitucionUnidadAdmin = () => {
     axios
       .post(
-        "http://localhost:8000/api/create-institucionUnidad",
+        "http://10.200.4.105:8000/api/create-institucionUnidad",
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdInstitucion: institution,
@@ -249,7 +249,7 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
       .post(
-        "http://localhost:8000/api/create-programaInstitucion",
+        "http://10.200.4.105:8000/api/create-programaInstitucion",
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdPrograma: programa,
