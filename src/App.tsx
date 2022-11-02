@@ -45,6 +45,7 @@ function App() {
   return (
     <>
         <Routes>
+  
           <Route index element={<Init />} />
           <Route path="home" element={<Home  />} />
           <Route path="settings" element={<Settings />} />
