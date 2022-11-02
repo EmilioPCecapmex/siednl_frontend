@@ -13,7 +13,7 @@ import {
   ToggleButton,
 } from "@mui/material";
 
-export const TutorialBox = () => {
+export const TutorialBox = ({ initialState, endState }: { initialState?: number, endState: number }) => {
   const [tutorialPosition, setTutorialPosition] = useState(0);
 
   const [top, setTop] = useState("");
@@ -27,12 +27,9 @@ export const TutorialBox = () => {
   const [leftArrow, setLeftArrow] = useState(false);
   const [bottomArrow, setBottomArrow] = useState(false);
 
-
   useEffect(() => {
-if(tutorialPosition === 8){
-    setShow(false)
-}
-  },[tutorialPosition])
+    setTutorialPosition(initialState || 0);
+  }, [initialState]);
 
   useEffect(() => {
     switch (tutorialPosition) {
@@ -42,7 +39,7 @@ if(tutorialPosition === 8){
         setLeft("");
         setTopArrow(true);
         setLeftArrow(false);
-        setBottomArrow(false)
+        setBottomArrow(false);
         setMessage(
           "Dentro de este apartado podrás consultar las notificaciones pendientes del sistema."
         );
@@ -53,7 +50,7 @@ if(tutorialPosition === 8){
         setLeft("");
         setTopArrow(true);
         setLeftArrow(false);
-        setBottomArrow(false)
+        setBottomArrow(false);
 
         setMessage(
           "Al iniciar sesión, contaras con 45 minutos para realizar tus tareas. Una vez concluido este tiempo puedes renovar tu sesión."
@@ -65,7 +62,7 @@ if(tutorialPosition === 8){
         setLeft("");
         setTopArrow(true);
         setLeftArrow(false);
-        setBottomArrow(false)
+        setBottomArrow(false);
 
         setMessage(
           "Tambien podras ocupar el 100% de tu pantalla para navegar por el sistema."
@@ -77,68 +74,258 @@ if(tutorialPosition === 8){
         setLeft("15vw");
         setTopArrow(false);
         setLeftArrow(true);
-        setBottomArrow(false)
+        setBottomArrow(false);
 
         setMessage(
           "Si tu usuario cuenta con acceso a mas de una institución, en esta sección podras navegar entre ellas."
         );
         break;
 
-        case 4:
-            setTop("40vh");
-            setRight("");
-            setLeft("15vw");
-            setTopArrow(false);
-            setLeftArrow(true);
-            setBottomArrow(false)
+      case 4:
+        setTop("40vh");
+        setRight("");
+        setLeft("15vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(false);
 
+        setMessage(
+          "Accede a las diferentes opciones de los programas presupuestarios."
+        );
+        break;
+      case 5:
+        setTop("65vh");
+        setRight("");
+        setLeft("15vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(false);
+
+        setMessage(
+          "Como usuario administrador, podras enviar notificaciones a diferentes usuarios."
+        );
+        break;
+      case 6:
+        setTop("74vh");
+        setRight("");
+        setLeft("15vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+
+        setMessage(
+          "El usuario administrador puede acceder a información de los catálogos con opcion de añadir o modificar registros."
+        );
+        break;
+
+      case 7:
+        setTop("78vh");
+        setRight("");
+        setLeft("15vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+
+        setMessage(
+          "¿Quieres cambiar tu contraseña? puedes hacerlo con esta opción."
+        );
+        break;
+
+      case 8:
+        setTop("6vh");
+        setRight("");
+        setLeft("14vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "En la sección de MIR (Matriz Indicadora de Resultados) podras crear nuevas solicitudes y verificar el estado de MIRs anteriores."
+        );
+        break;
+
+      case 9:
+        setTop("25vh");
+        setRight("");
+        setLeft("37vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Filtra los registros ligados a tu usuario y/o institución."
+        );
+        break;
+
+        case 10:
+          setTop("34vh");
+          setRight("33vw");
+          setLeft("");
+          setTopArrow(true);
+          setLeftArrow(false);
+          setBottomArrow(false);
+  
+          setMessage(
+            "Existen 3 estados base de la MIR. En Captura, En Revisión y Autorizada."
+          );
+          break;
+
+          case 11:
+          setTop("21vh");
+          setRight("23vw");
+          setLeft("");
+          setTopArrow(true);
+          setLeftArrow(false);
+          setBottomArrow(false);
+  
+          setMessage(
+            "Tu usuario cuenta con la función de crear nuevas MIR."
+          );
+          break;
+
+          case 12:
+          setTop("36vh");
+          setRight("12vw");
+          setLeft("");
+          setTopArrow(true);
+          setLeftArrow(false);
+          setBottomArrow(false);
+  
+          setMessage(
+            "Ademas, tendras posibilidad de modificar tus registros, eliminarlos y añadir comentarios."
+          );
+          break;
+
+          case 13:
+            setTop("7vh");
+            setRight("");
+            setLeft("12vw");
+            setTopArrow(true);
+            setLeftArrow(false);
+            setBottomArrow(false);
+    
             setMessage(
-              "Accede a las diferentes opciones de los programas presupuestarios."
+              "Envia notificaciones a los usuarios, dentro de la plataforma y a travez de correo electronico."
             );
             break;
-            case 5:
-                setTop("65vh");
-                setRight("");
-                setLeft("15vw");
-                setTopArrow(false);
-                setLeftArrow(true);
-                setBottomArrow(false)
+            case 14:
+              setTop("23vh");
+              setRight("");
+              setLeft("20vw");
+              setTopArrow(true);
+              setLeftArrow(false);
+              setBottomArrow(false);
+      
+              setMessage(
+                "Tienes la posibilidad de enviar notificaciones a usuarios especificos o de forma global."
+              );
+              break;
 
+              case 15:
+                setTop("50vh");
+                setRight("");
+                setLeft("20vw");
+                setTopArrow(true);
+                setLeftArrow(false);
+                setBottomArrow(false);
+        
                 setMessage(
-                  "Como usuario administrador, podras enviar notificaciones a diferentes usuarios."
+                  "Solo agrega un titulo y cuerpo del mensaje. Marca la casilla inferior para enviar la notificacion por correo electronico."
                 );
                 break;
-                case 6:
-                    setTop("74vh");
+                case 16:
+                  setTop("36vh");
+                  setRight("");
+                  setLeft("50vw");
+                  setTopArrow(true);
+                  setLeftArrow(false);
+                  setBottomArrow(false);
+          
+                  setMessage(
+                    "Revisa el historico de notificaciones enviadas y valida su estatus."
+                  );
+                  break;
+                  case 17:
+                    setTop("6vh");
                     setRight("");
-                    setLeft("15vw");
-                    setTopArrow(false);
-                    setLeftArrow(true);
-                    setBottomArrow(true)
-
+                    setLeft("18vw");
+                    setTopArrow(true);
+                    setLeftArrow(false);
+                    setBottomArrow(false);
+            
                     setMessage(
-                      "El usuario administrador puede acceder a información de los catálogos con opcion de añadir o modificar registros."
+                      "Revisa, modifica, elimina y agrega registros a los diferentes catálogos usados en la plataforma."
                     );
                     break;
-
-                    case 7:
-                        setTop("78vh");
+                    case 18:
+                    setTop("82vh");
+                    setRight("");
+                    setLeft("43vw");
+                    setTopArrow(true);
+                    setLeftArrow(false);
+                    setBottomArrow(false);
+            
+                    setMessage(
+                      "Accede directamente a los cátalogos mas relevantes. Podras encontrar mas opciones al seleccionar alguno de ellos."
+                    );
+                    break;
+                    case 19:
+                      setTop("50vh");
+                      setRight("");
+                      setLeft("41vw");
+                      setTopArrow(false);
+                      setLeftArrow(true);
+                      setBottomArrow(false);
+              
+                      setMessage(
+                        "Dentro de esta lista puedes encontrar todos los catálogos disponibles."
+                      );
+                      break;
+                      case 20:
+                        setTop("38vh");
                         setRight("");
-                        setLeft("15vw");
-                        setTopArrow(false);
-                        setLeftArrow(true);
-                        setBottomArrow(true)
-    
+                        setLeft("50vw");
+                        setTopArrow(true);
+                        setLeftArrow(false);
+                        setBottomArrow(false);
+                
                         setMessage(
-                          "¿Quieres cambiar tu contraseña? puedes hacerlo con esta opción."
+                          "Filtra los resultados desplegados para cada uno de los catalogos"
                         );
                         break;
-
+                        case 21:
+                          setTop("38vh");
+                          setRight("21vw");
+                          setLeft("");
+                          setTopArrow(true);
+                          setLeftArrow(false);
+                          setBottomArrow(false);
+                  
+                          setMessage(
+                            "Modifica y/o elimina registros del catálogo seleccionado."
+                          );
+                          break;
+                          case 22:
+                            setTop("74vh");
+                            setRight("0vw");
+                            setLeft("");
+                            setTopArrow(false);
+                            setLeftArrow(true);
+                            setBottomArrow(true);
+                    
+                            setMessage(
+                              "Agrega un nuevo registro para el catálogo seleccionado."
+                            );
+                            break;
       default:
         break;
     }
+  }, [tutorialPosition]);
 
-    console.log(tutorialPosition);
+  useEffect(() => {
+    if (tutorialPosition === endState) {
+      setShow(false);
+    }
   }, [tutorialPosition]);
 
   return (
@@ -156,8 +343,7 @@ if(tutorialPosition === 8){
       }}
     >
       <Box
-              flexDirection={topArrow ? "column" : "row"}
-
+        flexDirection={topArrow ? "column" : "row"}
         sx={{
           position: "absolute",
           top: top,
@@ -171,10 +357,10 @@ if(tutorialPosition === 8){
         }}
       >
         <Box
-        justifyContent={topArrow ? "flex-end" : "flex-start"}
-        width={topArrow ? "100%" : "6%"}
-        alignItems={bottomArrow ? 'flex-end' : "flex-start"}
-          sx={{ display: "flex"}}
+          justifyContent={topArrow ? "flex-end" : "flex-start"}
+          width={topArrow ? "100%" : "6%"}
+          alignItems={bottomArrow ? "flex-end" : "flex-start"}
+          sx={{ display: "flex" }}
         >
           {leftArrow ? (
             <Box
@@ -260,7 +446,7 @@ if(tutorialPosition === 8){
               <Typography
                 sx={{ fontFamily: "MontserratSemiBold", fontSize: ".6vw" }}
               >
-                {tutorialPosition === 7 ? "Finalizar" : "Siguiente"}
+                {(tutorialPosition + 1) === endState? "Finalizar" : "Siguiente"}
               </Typography>
             </Button>
           </Box>

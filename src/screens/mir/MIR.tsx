@@ -27,6 +27,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import ComentDialogMir from "../../components/modalEnviarMIR/ModalComentariosMir";
 import Swal from "sweetalert2";
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
@@ -198,6 +199,8 @@ export const MIR = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
+                    <TutorialBox initialState={8} endState={13} />
+
       <LateralMenu selection={2} />
       <Header
         details={{

@@ -31,6 +31,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { useNavigate } from "react-router-dom";
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export const Notification = () => {
   const navigate = useNavigate();
@@ -254,6 +255,8 @@ export const Notification = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
+      <TutorialBox initialState={13} endState={17} />
+
       <LateralMenu selection={7} />
       <Header
         details={{

@@ -18,7 +18,7 @@ export const Home = () => {
 
       }}
     >
-              {/* <TutorialBox /> */}
+              <TutorialBox initialState={0} endState={8} />
 
       <LateralMenu selection={0} />
       <Header
