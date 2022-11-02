@@ -42,7 +42,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         eval(item.fnc);
       }
     });
-
   }, []);
 
   const configOptions = [
@@ -208,7 +207,119 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "UnidadesDeMedida",
       selected: false,
     },
+    {
+      id: 25,
+      Desc: "Unidades Administrativas",
+      fnc: "getUnidadesAdministrativas()",
+      Tabla: "UnidadesAdministrativas",
+      selected: false,
+    },
+    {
+      id: 26,
+      Desc: "Instituciones - Unidades",
+      fnc: "getInstitucionesUnidades()",
+      Tabla: "InstitucionUnidad",
+      selected: false,
+    },
+    {
+      id: 27,
+      Desc: "Programas - Instituciones",
+      fnc: "getProgramasInstituciones()",
+      Tabla: "ProgramasInstituciones",
+      selected: false,
+    },
   ];
+  const getUnidadesAdministrativas = () => {
+    setSelected("Unidades Administrativas");
+    setCatalogoActual("Unidades Administrativas");
+    axios
+      .get("http://10.200.4.105:8000/api/unidadesAdministrativas", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          let update = r.data.data;
+          update = update.map(
+            (item: { Id: string; Unidad: string; Tabla: string }) => {
+              return {
+                Id: item.Id,
+                Desc: item.Unidad,
+                Tabla: "UnidadesAdministrativas",
+              };
+            }
+          );
+          setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+        }
+      });
+  };
+
+  const getInstitucionesUnidades = () => {
+    setSelected("Instituciones - Unidades");
+    setCatalogoActual("Instituciones - Unidades");
+    axios
+      .get("http://10.200.4.105:8000/api/institucionesUnidad", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          let update = r.data.data;
+       
+          update = update.map(
+            (item: {
+              Id: string;
+              NombreInstitucion: string;
+              Unidad: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.NombreInstitucion + " / " + item.Unidad,
+                Tabla: "InstitucionUnidad",
+              };
+            }
+          );
+          setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+        }
+      });
+  };
+
+  const getProgramasInstituciones = () => {
+    setSelected("Programas - Instituciones");
+    setCatalogoActual("Programas - Instituciones");
+    axios
+      .get("http://10.200.4.105:8000/api/programasInstituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          let update = r.data.data;
+          update = update.map(
+            (item: {
+              Id: string;
+              NombreInstitucion: string;
+              NombrePrograma: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc: item.NombreInstitucion + " / " + item.NombrePrograma,
+                Tabla: "ProgramasInstituciones",
+              };
+            }
+          );
+          setDatosTabla(update);
+          setDataDescripctionFiltered(update);
+        }
+      });
+  };
 
   const getAniosFiscales = () => {
     setSelected("Años Fiscales");
@@ -498,10 +609,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .get("http://10.200.4.105:8000/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
-        }, params: {
+        },
+        params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-        }      })
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
+      })
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -938,8 +1051,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     findText();
   }, [descripctionFiltered]);
 
-
-
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
@@ -949,7 +1060,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       }
     });
   }, [actualizacion]);
-
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -1190,10 +1300,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                           page * rowsPerPage + rowsPerPage
                         )
                       : DataDescripctionFiltered
-                    ).map((row) => (
-                      <>
-                        {row.Desc == "Selecciona" ? null : (
-                          <TableRow key={row.Id}>
+                    ).map((row) => {
+                      if (row.Desc === "Selecciona") {
+                        return null;
+                      } else {
+                        return (
+                          <TableRow key={row.Id || Math.random()}>
                             <TableCell
                               component="th"
                               sx={
@@ -1214,7 +1326,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                   fontSize: ".7vw",
                                 }}
                               >
-                                {row.Desc}
+                                {row?.Desc}
                               </Typography>
                             </TableCell>
 
@@ -1233,12 +1345,16 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               }}
                             >
                               <Box sx={{ display: "flex" }}>
-                                <ModifyDialogCatalogos
-                                  descripcion={row.Desc}
-                                  id={row.Id}
-                                  tabla={row.Tabla}
-                                  actualizado={actualizaContador}
-                                />
+                                {selected === "Programas - Instituciones" ||
+                                selected ===
+                                  "Instituciones - Unidades" ? null : (
+                                  <ModifyDialogCatalogos
+                                    descripcion={row.Desc}
+                                    id={row.Id}
+                                    tabla={row.Tabla}
+                                    actualizado={actualizaContador}
+                                  />
+                                )}
 
                                 <DeleteDialogCatalogos
                                   deleteText={row.Desc}
@@ -1249,9 +1365,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               </Box>
                             </TableCell>
                           </TableRow>
-                        )}
-                      </>
-                    ))}
+                        );
+                      }
+                    })}
                     {emptyRows > 0 && (
                       <TableRow style={{ height: 53 * emptyRows }}>
                         <TableCell colSpan={6} />

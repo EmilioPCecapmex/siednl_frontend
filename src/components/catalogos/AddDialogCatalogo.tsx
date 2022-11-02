@@ -49,6 +49,8 @@ export const AddDialogCatalogo = ({
   };
 
   const [descripcion, setDescripcion] = React.useState("");
+  const [programa, setPrograma] = React.useState("");
+  const [institucion, setInstitucion] = React.useState("");
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth();
@@ -80,12 +82,25 @@ export const AddDialogCatalogo = ({
     year + "-" + monthS + "-" + dateS
   );
   const [institution, setInstitution] = React.useState("0");
+  const [unidad, setUnidad] = React.useState("0");
+ 
   const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([
     { Id: "", NombreInstitucion: "" },
   ]);
 
+  const [catalogoProgramas, setCatalogoProgramas] = React.useState([
+    { Id: "", NombrePrograma: "" },
+  ]);
+
+  const [catalogoUnidades, setCatalogoUnidades] = React.useState([
+    { Id: "", Unidad: "" },
+  ]);
+
   React.useEffect(() => {
     getInstituciones();
+    getProgramas();
+    getUnidadesAdministrativas();
+
   }, []);
 
   const getInstituciones = () => {
@@ -94,11 +109,44 @@ export const AddDialogCatalogo = ({
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
+        params: {
+
+          IdUsuario: localStorage.getItem("IdUsuario"),
+
+          IdInstitucion: localStorage.getItem("IdInstitucion")
+
+        },
       })
       .then((r) => {
         setCatalogoInstituciones(r.data.data);
       });
   };
+
+  const getUnidadesAdministrativas = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/unidadesAdministrativas", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoUnidades(r.data.data);
+      });
+  };
+
+  const getProgramas = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/programaPresupuestario", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoProgramas(r.data.data);
+      });
+  };
+
+
 
   const CreatePorCatalogo = () => {
     axios
@@ -141,6 +189,72 @@ export const AddDialogCatalogo = ({
           Descripcion: descripcion,
           FechaDeCaptura: fechaCaptura,
           CreadoPor: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        handleClose();
+        Toast.fire({
+          icon: "success",
+          title: "Elemento registrado con éxito.",
+        });
+
+        actualizado();
+      })
+      .catch((err) =>
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        })
+      );
+  };
+
+  const CreatePorCatalogoInstitucionUnidadAdmin = () => {
+    axios
+      .post(
+        "http://10.200.4.105:8000/api/create-institucionUnidad",
+        {
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdInstitucion: institution,
+          IdUnidad: unidad,
+          
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        handleClose();
+        Toast.fire({
+          icon: "success",
+          title: "Elemento registrado con éxito.",
+        });
+
+        actualizado();
+      })
+      .catch((err) =>
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        })
+      );
+  };
+
+  const CreatePorCatalogoProgramaInstitucion = () => {
+    axios
+      .post(
+        "http://10.200.4.105:8000/api/create-programaInstitucion",
+        {
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdPrograma: programa,
+          IdInstitucion: institution,
+          
         },
         {
           headers: {
@@ -301,6 +415,312 @@ export const AddDialogCatalogo = ({
         </Dialog>
       </Box>
     );
+  } else if (tabla === "ProgramasInstituciones") {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <IconButton onClick={handleClickOpen}>
+          <AddIcon />
+        </IconButton>
+        <Dialog fullWidth open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Vincular Programa - Institucion
+            </Typography>
+          </Box>
+          <DialogContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FormControl
+              sx={{
+                width: "60%",
+                mt: "2vh",
+              }}
+            >
+              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                Programas institucionales
+              </InputLabel>
+              <Select
+                value={programa}
+                label="Institución institucionales"
+                onChange={(x) => {setPrograma(x.target.value);}}
+                sx={{
+                  fontFamily: "MontserratRegular",
+
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  key={0}
+                  disabled
+                  sx={{
+                    fontFamily: "MontserratRegular",
+                  }}
+                >
+                  Selecciona
+                </MenuItem>
+                {catalogoProgramas.map((item) => {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratRegular", }}
+                    >
+                      {item.NombrePrograma}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
+
+            <FormControl
+              sx={{
+                width: "60%",
+                mt: "2vh",
+              }}
+            >
+              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                Institución
+              </InputLabel>
+              <Select
+                value={institution}
+                label="Institución"
+                onChange={(x) => setInstitution(x.target.value)}
+                sx={{
+                  fontFamily: "MontserratRegular",
+
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  key={0}
+                  disabled
+                  sx={{
+                    fontFamily: "MontserratRegular",
+                  }}
+                >
+                  Selecciona
+                </MenuItem>
+                {catalogoInstituciones.map((item) => {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratRegular", }}
+                    >
+                      {item.NombreInstitucion}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
+
+          </DialogContent>
+
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="error" onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
+
+            <Button onClick={CreatePorCatalogoProgramaInstitucion} autoFocus>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
+              </Typography>
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    );
+  } else if (tabla === "InstitucionUnidad") {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <IconButton onClick={handleClickOpen}>
+          <AddIcon />
+        </IconButton>
+        <Dialog fullWidth open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Vincular Institucion - Unidad Administrativa
+            </Typography>
+          </Box>
+          <DialogContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FormControl
+              sx={{
+                width: "60%",
+                mt: "2vh",
+              }}
+            >
+              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                Unidades Administrativas
+              </InputLabel>
+              <Select
+                value={unidad}
+                label="Unidades Administrativas"
+                onChange={(x) => {setUnidad(x.target.value);}}
+                sx={{
+                  fontFamily: "MontserratRegular",
+
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  key={0}
+                  disabled
+                  sx={{
+                    fontFamily: "MontserratRegular",
+                  }}
+                >
+                  Selecciona
+                </MenuItem>
+                {catalogoUnidades.map((item) => {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratRegular", }}
+                    >
+                      {item.Unidad}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
+
+            <FormControl
+              sx={{
+                width: "60%",
+                mt: "2vh",
+              }}
+            >
+              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                Institución
+              </InputLabel>
+              <Select
+                value={institution}
+                label="Institución"
+                onChange={(x) => setInstitution(x.target.value)}
+                sx={{
+                  fontFamily: "MontserratRegular",
+
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  key={0}
+                  disabled
+                  sx={{
+                    fontFamily: "MontserratRegular",
+                  }}
+                >
+                  Selecciona
+                </MenuItem>
+                {catalogoInstituciones.map((item) => {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratRegular", }}
+                    >
+                      {item.NombreInstitucion}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
+
+          </DialogContent>
+
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="error" onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
+
+            <Button onClick={CreatePorCatalogoInstitucionUnidadAdmin} autoFocus>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
+              </Typography>
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    );
   } else if (tabla === "PEDs") {
     return (
       <Box>
@@ -405,8 +825,9 @@ export const AddDialogCatalogo = ({
                 value={institution}
                 label="Institución"
                 onChange={(x) => setInstitution(x.target.value)}
-                style={{ marginTop: 1,                     fontFamily: "MontserratLight",
-              }}
+                style={{
+                  marginTop: 1, fontFamily: "MontserratLight",
+                }}
                 rows={3}
                 multiline={descripcion.length < 20 ? false : true}
               >
@@ -450,7 +871,7 @@ export const AddDialogCatalogo = ({
 
 
             <Button onClick={CreatePorCatalogoProgramap} autoFocus>
-            <Typography
+              <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
                 De Acuerdo
