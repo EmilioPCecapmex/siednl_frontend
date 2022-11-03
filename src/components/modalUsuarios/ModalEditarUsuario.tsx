@@ -15,6 +15,7 @@ import {
   Button,
   AlertColor,
 } from "@mui/material";
+import { IInstituciones } from "./ModalCrearUsuario";
 
 export default function ModalEditarUsuario({
   title,
@@ -40,8 +41,7 @@ export default function ModalEditarUsuario({
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState([
-    { Id: "", NombreInstitucion: "" },
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
   ]);
 
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
@@ -80,6 +80,10 @@ export default function ModalEditarUsuario({
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion")
+        }
       })
       .then((r) => {
         setCatalogoInstituciones(r.data.data);
@@ -412,15 +416,22 @@ export default function ModalEditarUsuario({
               </MenuItem>
 
               {userTypeCatalogue.map((item) => {
-                return (
-                  <MenuItem
-                    value={item.Id}
-                    key={item.Id}
-                    sx={{ fontFamily: "MontserratRegular" }}
-                  >
-                    {item.Rol}
-                  </MenuItem>
-                );
+                if (
+                  localStorage.getItem("Rol") !== "Administrador" &&
+                  item.Rol === "Administrador"
+                ) {
+                  return null;
+                } else {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratRegular" }}
+                    >
+                      {item.Rol}
+                    </MenuItem>
+                  );
+                }
               })}
             </Select>
           </FormControl>
