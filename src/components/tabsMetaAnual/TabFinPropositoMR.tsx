@@ -8,7 +8,6 @@ import {
   Button,
   Divider,
 } from "@mui/material";
-import TabResumenMA from "./TabResumenMA";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -270,186 +269,223 @@ export function TabFinProposito({
         </List>
 
         {showFin ? (
-          <>
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                width: "90%",
-                alignItems: "center",
-                justifyItems: "center",
-              }}
-            >
-              <Dialog open={openFin} fullWidth={true} maxWidth={"xl"}>
-                <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratBold",
-                      borderBottom: 1,
-                      fontSize: 30,
-                    }}
-                  >
-                    Fin
-                  </Typography>
-                </DialogTitle>
-                <DialogContent>
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        mt: 1,
-                        alignItems: "center",
-                        borderBottom: 1,
-                        borderColor: "#cfcfcf",
-                      }}
-                    >
-                      <Typography
-                        sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                      >
-                        Resumen Narrativo:
-                      </Typography>
-                      <Typography
-                        sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                      >
-                        {fin.resumen}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        mt: 1,
-                        alignItems: "center",
-                        borderBottom: 1,
-                        borderColor: "#cfcfcf",
-                      }}
-                    >
-                      <Typography
-                        sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                      >
-                        Indicador:
-                      </Typography>
-                      <Typography
-                        sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                      >
-                        {fin.indicador}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        mt: 1,
-                        alignItems: "center",
-                        borderBottom: 1,
-                        borderColor: "#cfcfcf",
-                      }}
-                    >
-                      <Typography
-                        sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                      >
-                        Fórmula:
-                      </Typography>
-                      <Typography
-                        sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                      >
-                        {fin.formula}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        mt: 1,
-                        alignItems: "center",
-                        borderBottom: 1,
-                        borderColor: "#cfcfcf",
-                      }}
-                    >
-                      <Typography
-                        sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                      >
-                        Frecuencia:
-                      </Typography>
-                      <Typography
-                        sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                      >
-                        {fin.frecuencia}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        mt: 1,
-                        alignItems: "center",
-                        borderBottom: 1,
-                        borderColor: "#cfcfcf",
-                      }}
-                    >
-                      <Typography
-                        sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                      >
-                        Medios de Verificación:
-                      </Typography>
-                      <Typography
-                        sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                      >
-                        {fin.medios}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        mt: 1,
-                        alignItems: "center",
-                        borderBottom: 1,
-                        borderColor: "#cfcfcf",
-                      }}
-                    >
-                      <Typography
-                        sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                      >
-                        Supuestos:
-                      </Typography>
-                      <Typography
-                        sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                      >
-                        {fin.supuestos}
-                      </Typography>
-                    </Box>
-                  </Box>
-                </DialogContent>
-                <Button onClick={handleClickOpen}>Cerrar</Button>
-              </Dialog>
-            </Box>
-          </>
-        ) : showProposito ? null : (
+
           <Box
             sx={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              width: "90%",
+              display: "flex",
+              flexDirection: "column",
+              width: "95%",
+              height: "100%",
               alignItems: "center",
               justifyItems: "center",
             }}
-          ></Box>
-        ) }
+          >
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "30%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Meta anual 2023"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Linea Base 2021"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor númerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Sentido del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+
+
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Unidad responsable de reportar el indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del numerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripcion del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+            </Box>
+          </Box>
+
+        ) : null}
 
         {showProposito ? (
           <>
@@ -463,7 +499,7 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
@@ -483,7 +519,7 @@ export function TabFinProposito({
               />
 
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -502,7 +538,7 @@ export function TabFinProposito({
                 value={proposito.indicador}
               />
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
@@ -523,7 +559,7 @@ export function TabFinProposito({
               />
 
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
@@ -542,7 +578,7 @@ export function TabFinProposito({
                 value={proposito.frecuencia}
               />
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
@@ -561,7 +597,7 @@ export function TabFinProposito({
                 value={proposito.medios_verificacion}
               />
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
