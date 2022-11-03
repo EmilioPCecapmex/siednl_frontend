@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FormControl, TextField, Box, Autocomplete } from "@mui/material";
 import axios from "axios";
-import { IFin, IProposito } from "./TabFinPropositoMR";
+import { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "../tabsMir/IComponente";
 
 export interface IEncabezado {
@@ -16,7 +16,7 @@ export interface IEncabezado {
   beneficiario: string;
 }
 
-export function TabEncabezadoMA({
+export function TabEncabezadoMR({
   show,
   resumenEncabezado,
   cargaFin,
@@ -430,7 +430,7 @@ export function TabEncabezadoMA({
   );
 }
 
-export default TabEncabezadoMA;
+export default TabEncabezadoMR;
 
 export interface ILineasDeAccion {
   Id: string;

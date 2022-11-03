@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box, Tooltip } from "@mui/material";
-import { IFin, IProposito } from "./TabFinPropositoMR";
-import TabResumenMA from "./TabResumenMA";
+import TabFinPropositoMR, { IFin, IProposito } from "./TabFinProposito";
+import TabResumenMA from "./TabResumen";
 import { IComponente, IComponenteMA } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
-import TabEncabezadoMA, { IEncabezado } from "./TabEncabezadoMR";
-import TabFinPropositoMA from "./TabFinPropositoMA";
-import { TabComponenteMR } from "./TabComponenteMR";
-import { TabActividadesMR } from "./TabActividadesMR";
+import TabEncabezadoMA, { IEncabezado } from "./TabEncabezado";
+import { TabComponenteMA } from "./TabComponente";
+import { TabActividadesMA } from "./TabActividades";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -265,25 +264,25 @@ export default function FullModalMetaAnual({
             asignarComponenteValor={asignarComponenteValor}
             MIR={MIR}
           ></TabEncabezadoMA>
-          <TabFinPropositoMA
+          <TabFinPropositoMR
             show={value === 20 ? true : false}
             resumenFin={resumenFin}
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
-          ></TabFinPropositoMA>
-          <TabComponenteMR
+          ></TabFinPropositoMR>
+          <TabComponenteMA
             show={value === 30 ? true : false}
             componentesMir={componentes}
             componenteValorMir={componenteValor}
-          ></TabComponenteMR>
-          <TabActividadesMR
+          ></TabComponenteMA>
+          <TabActividadesMA
             actividadesMir={actividadesMir}
             compAct={compAct}
             show={value === 40 ? true : false}
             componentes={componentes}
             asignarCValor={asignarCValor}
-          ></TabActividadesMR>
+          ></TabActividadesMA>
           <TabResumenMA
             showResume={showResume}
             show={value === 50 ? true : false}

@@ -1,7 +1,7 @@
 
 import { Box, Typography, Button, Checkbox } from "@mui/material";
 import { IEncabezado } from "../tabsMir/TabEncabezado";
-import { IFin, IProposito } from "./TabFinPropositoMR";
+import { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 

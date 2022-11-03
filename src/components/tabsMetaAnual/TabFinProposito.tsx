@@ -15,7 +15,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-export function TabFinProposito({
+export function TabFinPropositoMR({
   show,
   resumenFin,
   resumenProposito,
@@ -623,7 +623,7 @@ export function TabFinProposito({
   );
 }
 
-export default TabFinProposito;
+export default TabFinPropositoMR;
 
 export interface IIndicadores {
   Id: string;

@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import axios from "axios";
-import { IFin, IProposito } from "./TabFinPropositoMR";
+import { IFin, IProposito } from "./TabFinProposito";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IMIR } from "../tabsMir/IMIR";
 import { IActividadesMir } from "./AddMetaAnual";
-import { IEncabezado } from "./TabEncabezadoMR";
+import { IEncabezado } from "./TabEncabezado";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
 
-export function TabResumenMA({
+export function TabResumenMR({
   show,
   encabezado,
   fin,
@@ -745,4 +745,4 @@ export function TabResumenMA({
   );
 }
 
-export default TabResumenMA;
+export default TabResumenMR;

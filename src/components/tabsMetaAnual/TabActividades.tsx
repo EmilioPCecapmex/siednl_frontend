@@ -13,7 +13,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { IActividadesMir, IComponenteActividad } from "./AddMetaAnual";
 
 //funcion main
-export const TabActividadesMR = ({
+export const TabActividadesMA = ({
   show,
   componentes,
   asignarCValor,
