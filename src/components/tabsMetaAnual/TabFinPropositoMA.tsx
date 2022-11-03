@@ -6,7 +6,12 @@ import {
   List,
   ListItemButton,
   Divider,
+  Pagination,
+  Stack,
+  IconButton,
 } from "@mui/material";
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 export function TabFinPropositoMA({
   show,
@@ -51,13 +56,16 @@ export function TabFinPropositoMA({
     medios: "",
     supuestos: "",
   });
-
+  //Apartado que me interesa usar
   const [finMA, setFinMA] = useState({
     metaAnual: '',
     lineaBase: '',
+
     valorNumerador: "",
     valorDenominador: "",
+
     orden: "",
+
     unidadResponsable: "",
     descIndicador: "",
     descNumerador: "",
@@ -75,6 +83,10 @@ export function TabFinPropositoMA({
 
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
+
+  const [showPagina1, setShowPagina1] = useState(true);
+  const [showPagina2, setShowPagina2] = useState(false);
+  const [showPagina3, setShowPagina3] = useState(false);
 
   useEffect(() => {
     setTabFin([
@@ -140,6 +152,7 @@ export function TabFinPropositoMA({
         backgroundColor: "#fff",
       }}
     >
+      {/*Este me sirve para mis botones de pagina 1 y 2*/}
       <Box
         sx={{
           width: "100%",
@@ -159,16 +172,22 @@ export function TabFinPropositoMA({
         >
           {showFin ? "Fin" : null}
           {showProposito ? "Propósito" : null}
+
         </Typography>
+
       </Box>
+
+      {/*box 2*/}
       <Box
         sx={{
           width: "100%",
           height: "100%",
           display: "flex",
+
         }}
       >
         <List
+          //esto no me sirve para mis botones
           sx={{
             width: "10vw",
             height: "65vh",
@@ -187,12 +206,15 @@ export function TabFinPropositoMA({
             },
           }}
         >
+          {/* esto tampoco me sirve para mis botones*/}
           <Box
             sx={{
               height: "10vh",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+
+
             }}
           >
             <Divider />
@@ -204,10 +226,12 @@ export function TabFinPropositoMA({
               }}
               sx={{
                 "&.Mui-selected ": {
+                  //esto cambia el color de los botones de fin y el de despues el de proposito entonces puede servirme
                   backgroundColor: "#c4a57b",
                 },
                 "&.Mui-selected:hover": {
                   backgroundColor: "#cbcbcb",
+
                 },
               }}
             >
@@ -218,12 +242,17 @@ export function TabFinPropositoMA({
 
             <Divider />
           </Box>
+
+          {/* esto tampoco me sirve para mis botones lo mismo de arriba como tal no me sirve pero podria usarlo para pintar mis botones*/}
           <Box
             sx={{
               height: "10vh",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+
+
+
             }}
           >
             <ListItemButton
@@ -247,10 +276,14 @@ export function TabFinPropositoMA({
             </ListItemButton>
             <Divider />
           </Box>
+
         </List>
 
         {showFin ? (
           <>
+            {/*Aqui comienza el pedo*/}
+
+            {/*Aqui esta lo que muestra el boton 1*/}
             <Box
               sx={{
                 display: "grid",
@@ -258,69 +291,12 @@ export function TabFinPropositoMA({
                 width: "90%",
                 alignItems: "center",
                 justifyItems: "center",
-  
+                //backgroundColor: "red"
+
+
               }}
             >
-              
-              <TextField
-                rows={4}
-                disabled
-                multiline
-                sx={{ width: "90%", boxShadow: 2 }}
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                label={"Indicador"}
-                value={fin.indicador}
-              />
-              <TextField
-                rows={4}
-                disabled
-                multiline
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula"}
-                value={fin.formula}
-              />
 
-              <TextField
-                rows={4}
-                disabled
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={fin.frecuencia}
-              />
               <TextField
                 rows={4}
                 multiline
@@ -330,6 +306,7 @@ export function TabFinPropositoMA({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
+
                   },
                 }}
                 InputProps={{
@@ -337,12 +314,12 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                error={parseInt(finMA.metaAnual)  < 0 || parseInt(finMA.metaAnual) > 100 || isNaN(parseInt(finMA.metaAnual)) ? true : false}
+                error={parseInt(finMA.metaAnual) < 0 || parseInt(finMA.metaAnual) > 100 || isNaN(parseInt(finMA.metaAnual)) ? true : false}
                 helperText={
-                  parseInt(finMA.metaAnual)  < 0 || parseInt(finMA.metaAnual)  > 100  || isNaN(parseInt(finMA.metaAnual))  ? "Valor debe ser entre 0 y 100 "
+                  parseInt(finMA.metaAnual) < 0 || parseInt(finMA.metaAnual) > 100 || isNaN(parseInt(finMA.metaAnual)) ? "Valor debe ser entre 0 y 100 "
                     : null
                 }
-                onChange={(v)=> setFinMA({...finMA, metaAnual: v.target.value})}
+                onChange={(v) => setFinMA({ ...finMA, metaAnual: v.target.value })}
                 value={finMA.metaAnual}
               />
               <TextField
@@ -362,13 +339,13 @@ export function TabFinPropositoMA({
                   },
                 }}
 
-                error={parseInt(finMA.lineaBase)  < 0 || parseInt(finMA.lineaBase) > 100 || isNaN(parseInt(finMA.lineaBase)) ? true : false}
+                error={parseInt(finMA.lineaBase) < 0 || parseInt(finMA.lineaBase) > 100 || isNaN(parseInt(finMA.lineaBase)) ? true : false}
                 helperText={
-                  parseInt(finMA.lineaBase)  < 0 || parseInt(finMA.lineaBase)  > 100  || isNaN(parseInt(finMA.lineaBase))  ? "Valor debe ser entre 0 y 100 "
+                  parseInt(finMA.lineaBase) < 0 || parseInt(finMA.lineaBase) > 100 || isNaN(parseInt(finMA.lineaBase)) ? "Valor debe ser entre 0 y 100 "
                     : null
                 }
-                onChange={(v)=> setFinMA({...finMA, lineaBase: v.target.value})}
-                value={finMA.lineaBase }
+                onChange={(v) => setFinMA({ ...finMA, lineaBase: v.target.value })}
+                value={finMA.lineaBase}
               />
               <TextField
                 rows={4}
@@ -391,16 +368,163 @@ export function TabFinPropositoMA({
                   finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? "Incluir tipo de orden: Ascendente, Descendente ó Normal. "
                     : null
                 }
-                onChange={(v)=> setFinMA({...finMA, orden: v.target.value})}
+                onChange={(v) => setFinMA({ ...finMA, orden: v.target.value })}
                 value={finMA.orden}
               />
-             
-            </Box>
+              {/* Aquu comienza la pagina 2*/}
+
+              {/*-----------------------Valor numerador falta logica para calculos----------------------------------*/}
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Valor Numerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+
+                onChange={(v) => setFinMA({ ...finMA, valorDenominador: v.target.value })}
+                value={finMA.valorDenominador}
+              />
+
+              {/*---------------------------------------------------------*/}
+
+
+              {/*-----------------------VALOR DENOMINADOR falta logica para calculos----------------------------------*/}
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Valor Denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+
+                onChange={(v) => setFinMA({ ...finMA, valorNumerador: v.target.value })}
+                value={finMA.valorNumerador}
+              />
+
+              {/*---------------------------------------------------------*/}
+
+
+
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Unidad Responsable"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(v) => setFinMA({ ...finMA, unidadResponsable: v.target.value })}
+                value={finMA.unidadResponsable}
+              />
+
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Descripción del Indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(v) => setFinMA({ ...finMA, descIndicador: v.target.value })}
+                value={finMA.descIndicador}
+              />
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Descripción del Numerador "}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(v) => setFinMA({ ...finMA, descNumerador: v.target.value })}
+                value={finMA.descNumerador}
+              />
+
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Descripción del Denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+                onChange={(v) => setFinMA({ ...finMA, descDenominador: v.target.value })}
+                value={finMA.descDenominador}
+              />
+              {/* Aquu comienza la pagina 2*/}
+            </Box >
+
+            {/*Aqui esta el box de los primeros textos de Fin acontinuacion pondre los de la pagina 2*/}
+            {/*Cambio el diseño ya no habra 2 paginas */}
+
+
+
           </>
         ) : null}
 
+
+
+
         {showProposito ? (
           <>
+
+
+
             <Box
               sx={{
                 display: "grid",
@@ -408,15 +532,41 @@ export function TabFinPropositoMA({
                 width: "90%",
                 alignItems: "center",
                 justifyItems: "center",
+
               }}
             >
+
               <TextField
                 rows={4}
-                disabled
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Resumen Narrativo"}
+                label={"Meta Anual 2023"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                error={parseInt(finMA.metaAnual) < 0 || parseInt(finMA.metaAnual) > 100 || isNaN(parseInt(finMA.metaAnual)) ? true : false}
+                helperText={
+                  parseInt(finMA.metaAnual) < 0 || parseInt(finMA.metaAnual) > 100 || isNaN(parseInt(finMA.metaAnual)) ? "Valor debe ser entre 0 y 100 "
+                    : null
+                }
+                onChange={(v) => setFinMA({ ...finMA, metaAnual: v.target.value })}
+                value={finMA.metaAnual}
+              />
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Línea Base 2021"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -427,56 +577,159 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={proposito.resumen}
+
+                error={parseInt(finMA.lineaBase) < 0 || parseInt(finMA.lineaBase) > 100 || isNaN(parseInt(finMA.lineaBase)) ? true : false}
+                helperText={
+                  parseInt(finMA.lineaBase) < 0 || parseInt(finMA.lineaBase) > 100 || isNaN(parseInt(finMA.lineaBase)) ? "Valor debe ser entre 0 y 100 "
+                    : null
+                }
+                onChange={(v) => setFinMA({ ...finMA, lineaBase: v.target.value })}
+                value={finMA.lineaBase}
+              />
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Orden"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                error={finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? true : false}
+                helperText={
+                  finMA.orden.toLowerCase() !== "ascendente" && finMA.orden !== "normal" && finMA.orden !== "descendente" ? "Incluir tipo de orden: Ascendente, Descendente ó Normal. "
+                    : null
+                }
+                onChange={(v) => setFinMA({ ...finMA, orden: v.target.value })}
+                value={finMA.orden}
+              />
+
+              {/*-----------------------Valor numerador falta logica para calculos----------------------------------*/}
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Valor Numerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+
+                onChange={(v) => setFinMA({ ...finMA, valorDenominador: v.target.value })}
+                value={finMA.valorDenominador}
+              />
+
+              {/*---------------------------------------------------------*/}
+
+
+              {/*-----------------------VALOR DENOMINADOR falta logica para calculos----------------------------------*/}
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Valor Denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+
+                onChange={(v) => setFinMA({ ...finMA, valorNumerador: v.target.value })}
+                value={finMA.valorNumerador}
+              />
+
+              {/*---------------------------------------------------------*/}
+
+
+
+              <TextField
+                rows={4}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Unidad Responsable"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(v) => setFinMA({ ...finMA, unidadResponsable: v.target.value })}
+                value={finMA.unidadResponsable}
               />
 
               <TextField
                 rows={4}
-                disabled
                 multiline
-                sx={{ width: "90%", boxShadow: 2 }}
                 variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Descripción del Indicador"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
                   },
+
                 }}
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                label={"Indicador"}
-                value={proposito.indicador}
+                onChange={(v) => setFinMA({ ...finMA, descIndicador: v.target.value })}
+                value={finMA.descIndicador}
               />
               <TextField
                 rows={4}
-                disabled
                 multiline
                 variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"Descripción del Numerador "}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
                   style: {
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula"}
-                value={proposito.formula}
+                onChange={(v) => setFinMA({ ...finMA, descNumerador: v.target.value })}
+                value={finMA.descNumerador}
               />
 
               <TextField
                 rows={4}
-                disabled
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
+                label={"Descripción del Denominador"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -487,50 +740,43 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={proposito.frecuencia}
-              />
-              <TextField
-                rows={4}
-                disabled
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                label={"Medios de Verificación"}
-                value={proposito.medios_verificacion}
-              />
-              <TextField
-                rows={4}
-                disabled
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={proposito.supuestos}
+
+                onChange={(v) => setFinMA({ ...finMA, descDenominador: v.target.value })}
+                value={finMA.descDenominador}
               />
             </Box>
           </>
         ) : null}
+
       </Box>
+
+      {/*box 3*/}
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          height: "7vh",
+          justifyContent: "flex-end",
+          alignItems: "center",
+        }}
+      >
+        <IconButton aria-label="arrowcircleright" onClick={() => {
+          setShowPagina1(true);
+          setShowPagina2(false);
+        }}>
+
+          <ArrowCircleLeftIcon />
+        </IconButton>
+
+        <IconButton aria-label="arrowcircleright" onClick={() => {
+          setShowPagina1(false);
+          setShowPagina2(true);
+        }}>
+          <ArrowCircleRightIcon />
+        </IconButton>
+
+      </Box>
+
     </Box>
   );
 }
