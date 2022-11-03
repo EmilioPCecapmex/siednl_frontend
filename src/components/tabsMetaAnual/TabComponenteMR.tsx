@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
 
-export const TabComponente = ({
+export const TabComponenteMR = ({
   show,
   componentesMir,
   componenteValorMir,

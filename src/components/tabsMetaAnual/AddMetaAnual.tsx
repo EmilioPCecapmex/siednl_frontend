@@ -2,19 +2,14 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box, Tooltip } from "@mui/material";
-import { TabComponente } from "./TabComponenteMR";
-import TabFinProposito, { IFin, IProposito } from "./TabFinPropositoMR";
-import { TabActividades } from "./TabActividadesMR";
+import { IFin, IProposito } from "./TabFinPropositoMR";
 import TabResumenMA from "./TabResumenMA";
 import { IComponente, IComponenteMA } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import TabEncabezadoMA, { IEncabezado } from "./TabEncabezadoMR";
 import TabFinPropositoMA from "./TabFinPropositoMA";
-import ViewColumnIcon from "@mui/icons-material/ViewColumn";
-import { TabComponentesMA } from "./TabComponentesMA";
-import { TabActividadesMA } from "./TabActividadesMA";
-import TabResumen2 from "../tabsMir/TabResumen2";
-import TabResumenMir from "./TabResumenMir";
+import { TabComponenteMR } from "./TabComponenteMR";
+import { TabActividadesMR } from "./TabActividadesMR";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -189,22 +184,9 @@ export default function FullModalMetaAnual({
               boxShadow: 20,
             }}
           >
-            <Tab
-              label="MIR"
-              onClick={() => {
-                setExpandMir(!expandMir);
-              }}
-              value={10}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "lightBlue",
-              }}
-            />
               <Tab
                 label="Encabezado"
-                value={20}
+                value={10}
                 sx={{
                   borderRight: "5px solid #b3afaf",
                   color: "black",
@@ -212,58 +194,9 @@ export default function FullModalMetaAnual({
                   backgroundColor: "#ccc",
                 }}
               />
-              <Tab
-                label="Fin / Propósito"
-                value={30}
-                sx={{
-                  borderRight: "5px solid #b3afaf",
-                  color: "black",
-                  fontFamily: "MontserratBold",
-                  backgroundColor: "#ccc",
-                }}
-              />
-              <Tab
-                label="Componentes"
-                value={40}
-                sx={{
-                  borderRight: "5px solid #b3afaf",
-                  color: "black",
-                  fontFamily: "MontserratBold",
-                  backgroundColor: "#ccc",
-                }}
-              />
-              <Tab
-                label="Actividades"
-                value={50}
-                sx={{
-                  borderRight: "5px solid #b3afaf",
-                  color: "black",
-                  fontFamily: "MontserratBold",
-                  backgroundColor: "#ccc",
-                }}
-              />
-              {/* <Tab
-                label="Resumen"
-                value={60}
-                sx={{
-                  color: "black",
-                  fontFamily: "MontserratBold",
-                  backgroundColor: "#ccc",
-                }}
-              /> */}
-            <Tab
-              label="Meta Anual"
-              value={100}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "lightBlue",
-              }}
-            />
             <Tab
               label="Fin / Propósito"
-              value={70}
+              value={20}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -273,7 +206,7 @@ export default function FullModalMetaAnual({
             />
             <Tab
               label="Componentes"
-              value={80}
+              value={30}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -283,7 +216,7 @@ export default function FullModalMetaAnual({
             />
             <Tab
               label="Actividades"
-              value={90}
+              value={40}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -293,7 +226,7 @@ export default function FullModalMetaAnual({
             />
             <Tab
               label="Resumen"
-              value={100}
+              value={50}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -324,7 +257,7 @@ export default function FullModalMetaAnual({
             anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
-            show={value === 20 ? true : false}
+            show={value === 10 ? true : false}
             resumenEncabezado={resumenEncabezado}
             cargaFin={loadFin}
             cargaProposito={loadProposito}
@@ -332,55 +265,28 @@ export default function FullModalMetaAnual({
             asignarComponenteValor={asignarComponenteValor}
             MIR={MIR}
           ></TabEncabezadoMA>
-          <TabFinProposito
-            show={value === 30 ? true : false}
-            resumenFin={resumenFin}
-            resumenProposito={resumenProposito}
-            cargaFin={cargaFin}
-            cargaProposito={cargaProposito}
-          ></TabFinProposito>
-          <TabComponente
-            show={value === 40 ? true : false}
-            componentesMir={componentes}
-            componenteValorMir={componenteValor}
-          ></TabComponente>
-          <TabActividades
-            actividadesMir={actividadesMir}
-            compAct={compAct}
-            show={value === 50 ? true : false}
-            componentes={componentes}
-            asignarCValor={asignarCValor}
-          ></TabActividades>
-
-          
-
-
           <TabFinPropositoMA
-            show={value === 70 ? true : false}
+            show={value === 20 ? true : false}
             resumenFin={resumenFin}
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
           ></TabFinPropositoMA>
-          <TabComponentesMA
-            show={value === 80 ? true : false}
-            asignarComponenteMA={asignarComponente}
-            asignarComponenteValorMA={asignarComponenteValorMA}
+          <TabComponenteMR
+            show={value === 30 ? true : false}
             componentesMir={componentes}
             componenteValorMir={componenteValor}
-            componentesMA={componentes}
-            componenteValorMA={componenteValorMA}
-          ></TabComponentesMA>
-          <TabActividadesMA
+          ></TabComponenteMR>
+          <TabActividadesMR
             actividadesMir={actividadesMir}
             compAct={compAct}
-            show={value === 90 ? true : false}
+            show={value === 40 ? true : false}
             componentes={componentes}
             asignarCValor={asignarCValor}
-          ></TabActividadesMA>
+          ></TabActividadesMR>
           <TabResumenMA
             showResume={showResume}
-            show={value === 100 ? true : false}
+            show={value === 50 ? true : false}
             componentes={componentes}
             componenteValor={componenteValor}
             cValor={cValor}
