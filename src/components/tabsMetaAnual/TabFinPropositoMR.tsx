@@ -239,23 +239,34 @@ export function TabFinProposito({
         </List>
 
         {showFin ? (
-          <>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "95%",
+              height: "100%",
+              alignItems: "center",
+              justifyItems: "center",
+            }}
+          >
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                width: "90%",
+                display: "flex",
+
+                width: "100%",
+                height: "30%",
                 alignItems: "center",
-                justifyItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
               <TextField
-                disabled
-                rows={4}
+
+                rows={3}
                 multiline
-                sx={{ width: "90%", boxShadow: 2 }}
+                sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Resumen Narrativo"}
+                label={"Meta anual 2023"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -266,14 +277,14 @@ export function TabFinProposito({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={fin.resumen}
-              />
-              <TextField
-                disabled
-                rows={4}
+
+              /><TextField
+
+                rows={3}
                 multiline
-                sx={{ width: "90%", boxShadow: 2 }}
-                variant="filled"
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Linea Base 2021"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -284,57 +295,82 @@ export function TabFinProposito({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                label={"Indicador"}
-                value={fin.indicador}
-              />
-              <TextField
-                disabled
-                rows={4}
+
+              /><TextField
+
+                rows={3}
                 multiline
-                variant="filled"
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor númerador"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
                   style: {
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula"}
-                value={fin.formula}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Sentido del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
               />
 
-              <TextField
-                disabled
-                rows={4}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={fin.frecuencia}
-              />
 
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
               <TextField
-                disabled
-                rows={4}
+
+                rows={5}
                 multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Medios de Verificación"}
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Unidad responsable de reportar el indicador"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -345,15 +381,15 @@ export function TabFinProposito({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={fin.medios}
+
               />
               <TextField
-                disabled
-                rows={4}
+
+                rows={5}
                 multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos"}
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del indicador"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -364,10 +400,61 @@ export function TabFinProposito({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={fin.supuestos}
+
               />
             </Box>
-          </>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del numerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripcion del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+            </Box>
+          </Box>
+
         ) : null}
 
         {showProposito ? (
@@ -382,7 +469,7 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
@@ -402,7 +489,7 @@ export function TabFinProposito({
               />
 
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -421,7 +508,7 @@ export function TabFinProposito({
                 value={proposito.indicador}
               />
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
@@ -442,7 +529,7 @@ export function TabFinProposito({
               />
 
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
@@ -461,7 +548,7 @@ export function TabFinProposito({
                 value={proposito.frecuencia}
               />
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
@@ -480,7 +567,7 @@ export function TabFinProposito({
                 value={proposito.medios_verificacion}
               />
               <TextField
-                disabled
+
                 rows={4}
                 multiline
                 variant="filled"
