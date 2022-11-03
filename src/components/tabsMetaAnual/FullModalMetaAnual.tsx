@@ -5,7 +5,7 @@ import { Box, Tooltip } from "@mui/material";
 import { TabComponente } from "./TabComponenteMR";
 import TabFinProposito, { IFin, IProposito } from "./TabFinPropositoMR";
 import { TabActividades } from "./TabActividadesMR";
-import { TabResumen } from "./TabResumenMA";
+import TabResumenMA from "./TabResumenMA";
 import { IComponente, IComponenteMA } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import TabEncabezadoMA, { IEncabezado } from "./TabEncabezadoMR";
@@ -13,6 +13,8 @@ import TabFinPropositoMA from "./TabFinPropositoMA";
 import ViewColumnIcon from "@mui/icons-material/ViewColumn";
 import { TabComponentesMA } from "./TabComponentesMA";
 import { TabActividadesMA } from "./TabActividadesMA";
+import TabResumen2 from "../tabsMir/TabResumen2";
+import TabResumenMir from "./TabResumenMir";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -25,7 +27,7 @@ export default function FullModalMetaAnual({
   IdMir: string;
   anioFiscalEdit: string;
 }) {
-  const [value, setValue] = React.useState(70);
+  const [value, setValue] = React.useState(10);
   const [expandMir, setExpandMir] = React.useState(false);
 
   const handleChange = (event: any, newValue: number) => {
@@ -66,6 +68,7 @@ export default function FullModalMetaAnual({
         componentes: "C" + (index + 1),
         metaAnual: "",
         lineaBase: "",
+        metasPorFrecuencia:[],
         valorNumerador: "",
         valorDenominador: "",
         orden: "",
@@ -176,7 +179,7 @@ export default function FullModalMetaAnual({
           alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex"}}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -190,8 +193,8 @@ export default function FullModalMetaAnual({
               label="MIR"
               onClick={() => {
                 setExpandMir(!expandMir);
-                setValue(expandMir ? 70 : 20);
               }}
+              value={10}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -199,18 +202,6 @@ export default function FullModalMetaAnual({
                 backgroundColor: "lightBlue",
               }}
             />
-          </Tabs>
-          {expandMir ? (
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              textColor="inherit"
-              sx={{
-                backgroundColor: "#fff",
-                borderRadius: "0 10px 0 0",
-                boxShadow: 20,
-              }}
-            >
               <Tab
                 label="Encabezado"
                 value={20}
@@ -260,23 +251,9 @@ export default function FullModalMetaAnual({
                   backgroundColor: "#ccc",
                 }}
               /> */}
-            </Tabs>
-          ) : null}
-
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="inherit"
-            sx={{
-              borderRadius: "10px 10px 0 0",
-              boxShadow: 20,
-            }}
-          >
             <Tab
               label="Meta Anual"
-              onClick={() => {
-                setValue(70);
-              }}
+              value={100}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -333,6 +310,16 @@ export default function FullModalMetaAnual({
             height: "77vh",
           }}
         >
+          <TabResumenMir
+            showResume="Fin"
+            show={value === 10 ? true : false}
+            componentes={componentes}
+            componenteValor={componenteValor}
+            cValor={cValor}
+            encabezado={encabezado}
+            fin={fin}
+            proposito={proposito}
+          ></TabResumenMir>
           <TabEncabezadoMA
             anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
@@ -364,6 +351,10 @@ export default function FullModalMetaAnual({
             componentes={componentes}
             asignarCValor={asignarCValor}
           ></TabActividades>
+
+          
+
+
           <TabFinPropositoMA
             show={value === 70 ? true : false}
             resumenFin={resumenFin}
@@ -373,6 +364,8 @@ export default function FullModalMetaAnual({
           ></TabFinPropositoMA>
           <TabComponentesMA
             show={value === 80 ? true : false}
+            asignarComponenteMA={asignarComponente}
+            asignarComponenteValorMA={asignarComponenteValorMA}
             componentesMir={componentes}
             componenteValorMir={componenteValor}
             componentesMA={componentes}
@@ -385,6 +378,17 @@ export default function FullModalMetaAnual({
             componentes={componentes}
             asignarCValor={asignarCValor}
           ></TabActividadesMA>
+          <TabResumenMA
+            showResume={showResume}
+            show={value === 100 ? true : false}
+            componentes={componentes}
+            componenteValor={componenteValor}
+            cValor={cValor}
+            encabezado={encabezado}
+            fin={fin}
+            proposito={proposito}
+            IdMir={IdMir}
+          ></TabResumenMA>
         </Box>
       </Box>
     </Box>

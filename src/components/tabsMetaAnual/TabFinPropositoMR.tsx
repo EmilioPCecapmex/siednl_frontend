@@ -7,6 +7,7 @@ import {
   ListItemButton,
   Divider,
 } from "@mui/material";
+import TabResumenMA from "./TabResumenMA";
 
 export function TabFinProposito({
   show,
@@ -249,8 +250,8 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant={"filled"}
@@ -268,8 +269,8 @@ export function TabFinProposito({
                 value={fin.resumen}
               />
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant="filled"
@@ -287,8 +288,8 @@ export function TabFinProposito({
                 value={fin.indicador}
               />
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 InputLabelProps={{
@@ -308,8 +309,8 @@ export function TabFinProposito({
               />
 
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -326,9 +327,10 @@ export function TabFinProposito({
                 }}
                 value={fin.frecuencia}
               />
+
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -346,8 +348,8 @@ export function TabFinProposito({
                 value={fin.medios}
               />
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -380,8 +382,8 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -400,8 +402,8 @@ export function TabFinProposito({
               />
 
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant="filled"
@@ -419,8 +421,8 @@ export function TabFinProposito({
                 value={proposito.indicador}
               />
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 InputLabelProps={{
@@ -440,8 +442,8 @@ export function TabFinProposito({
               />
 
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -459,8 +461,8 @@ export function TabFinProposito({
                 value={proposito.frecuencia}
               />
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -478,8 +480,8 @@ export function TabFinProposito({
                 value={proposito.medios_verificacion}
               />
               <TextField
-                rows={4}
                 disabled
+                rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
