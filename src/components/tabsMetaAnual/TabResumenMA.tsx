@@ -177,758 +177,575 @@ export function TabResumenMA({
   });
 
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
-      sx={{
-        display: "flex",
-        width: "75vw",
-        height: "85vh",
-        boxShadow: 10,
-        borderRadius: 5,
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        backgroundColor: "#fff",
-      }}
-    >
-      <Box
-        sx={{
-          width: "90%",
-          border: 0.1,
-          borderColor: "#909090",
-          height: "80%",
-          overflow: "auto",
-          borderRadius: 1,
-          "&::-webkit-scrollbar": {
-            width: ".3vw",
+    <Box>
+
+      <Dialog open={openFin} fullWidth={true}
+        maxWidth={'xl'}>
+        {/* aqui, termina la apertura del dialog*/}
+        <Typography
+          sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+        >
+          Fin
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
             mt: 1,
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "rgba(0,0,0,.5)",
-            outline: "1px solid slategrey",
-            borderRadius: 1,
-          },
-        }}
-      >
-
-        <Box sx={{ p: 5, display: "flex", flexDirection: "column" }}>
-
-          {/* desde aqui, dialog de fin principio*/}
-          <Button onClick={() => setOpenFin(true)}>
-            Fin
-          </Button>
-          <Dialog open={openFin} fullWidth={true}
-            maxWidth={'xl'}>
-            {/* aqui, termina la apertura del dialog*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Fin
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Resumen Narrativo:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {fin[0]?.resumen}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Indicador:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {fin[0]?.indicador}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Fórmula:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {fin[0]?.formula}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Frecuencia:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {fin[0]?.frecuencia}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Medios de Verificación:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {fin[0]?.medios}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Supuestos:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {fin[0]?.supuestos}
-              </Typography>
-
-            </Box>
-            {/* aqui,el cierre del dialog*/}
-            <Button onClick={handleClickOpen}>salir</Button>
-
-          </Dialog>
-          {/* ----------------------------------hasta  aqui--------------------------------------------------*/}
-          {/* desde aqui, dialog de proposito*/}
-
-          <Button onClick={() => setOpenProposito(true)}>
-            Propósito
-          </Button>
-          <Dialog open={openProposito} fullWidth={true}
-            maxWidth={'xl'}>
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Propósito
-            </Typography>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Resumen Narrativo:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {proposito[0]?.resumen}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Indicador:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {proposito[0]?.indicador}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Fórmula:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {proposito[0]?.formula}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Frecuencia:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {proposito[0]?.frecuencia}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Medios de Verificación:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {proposito[0]?.medios_verificacion}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Supuestos:
-              </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {proposito[0]?.supuestos}
-              </Typography>
-            </Box>
-            <Button onClick={handleClickOpenP}>salir</Button>
-          </Dialog>
-          {/* ----------------------------------hasta  aqui--------------------------------------------------*/}
-
-
-          <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-          >
-            Componentes
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Resumen Narrativo:
           </Typography>
-
-
-          {componentes.map((index) => {
-            return (
-              /*---------- desde aqui, dialog de componentes--------------------*/
-              <Box key={index}>
-
-                <Button onClick={() => 
-                {setOpenComponentes(true); 
-                  setNumComponente(index);}} 
-
-
-                  key={index}>
-                  Componentes {index}
-                </Button>
-              </Box>
-
-
-              /* ----------------------------------hasta a aqui--------------------------------------------------*/
-            );
-          })}
-
-          <Dialog open={openComponentes} fullWidth={true}maxWidth={'xl'}>
-            <Typography
-              sx={{
-                fontFamily: "MontserratMedium",
-                borderBottom: 1,
-                mt: 5,
-                textAlign: "center",
-              }}
-            >
-              Componente {numComponente}
-            </Typography>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-              >
-                Resumen Narrativo:
-              </Typography>
-              <Typography
-                sx={{ fontFamily: "MontserratLight", width: "80%" }}
-              >
-                {componenteValor[numComponente -1]?.resumen}
-              </Typography>
-            </Box>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-              >
-                Indicador:
-              </Typography>
-              <Typography
-                sx={{ fontFamily: "MontserratLight", width: "80%" }}
-              >
-                {componenteValor[numComponente -1]?.indicador}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-              >
-                Fórmula:
-              </Typography>
-              <Typography
-                sx={{ fontFamily: "MontserratLight", width: "80%" }}
-              >
-                {componenteValor[numComponente -1]?.formula}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-              >
-                Frecuencia:
-              </Typography>
-              <Typography
-                sx={{ fontFamily: "MontserratLight", width: "80%" }}
-              >
-                {componenteValor[numComponente -1]?.frecuencia}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-              >
-                Medios de Verificación:
-              </Typography>
-              <Typography
-                sx={{ fontFamily: "MontserratLight", width: "80%" }}
-              >
-                {componenteValor[numComponente -1]?.medios}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-              >
-                Supuestos:
-              </Typography>
-              <Typography
-                sx={{ fontFamily: "MontserratLight", width: "80%" }}
-              >
-                {componenteValor[numComponente -1]?.supuestos}
-              </Typography>
-            </Box>
-
-
-            <Button onClick={handleClickOpenC}>salir</Button>
-          </Dialog>
-
-          <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-          >
-            Actividades
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {fin[0]?.resumen}
           </Typography>
-
-          {/*---------------Aqui empieza el sufrimiento-------------*/}
-          {cValor[0]?.componentes.map((item, indexComponentes) => {
-            let i = 0;
-
-            return item.actividades.map((value, indexActividades) => {
-
-              i++;
-              return (
-
-
-                
-
-                <Box key={indexActividades}>
-                  
-                  <Button onClick={() => 
-                {setOpenComponentesActividades(true); 
-                  setNumComponente(indexComponentes);
-                  setNumComponenteActividades(indexActividades);
-                }} 
-
-
-                  key={indexActividades+1}>
-                  Actividad {indexActividades+1} Componentes {indexComponentes+1}
-                </Button>
-
-                </Box>
-
-              );
-            });
-          })}
-
-{/* ----------------------------------Aqui va el dialog --------------------------------------------------*/}
-<Dialog open={openComponentesActividades} fullWidth={true}maxWidth={'xl'}>
-
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                      borderBottom: 1,
-                      mt: 5,
-                      textAlign: "center",
-                    }}
-                  >
-                    Componente {numComponente + 1} - Actividad{" "}
-                    {numComponenteActividades + 1}
-                  </Typography>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
-                      Resumen Narrativo:
-                    </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
-                      {
-                        cValor[0].componentes[numComponente].actividades[numComponenteActividades
-                        ].resumen
-                      }
-                    </Typography>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
-                      Indicador:
-                    </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
-                      {
-                        cValor[0].componentes[numComponente].actividades[
-                          numComponenteActividades
-                        ].indicador
-                      }
-                    </Typography>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
-                      Fórmula:
-                    </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
-                      {
-                        cValor[0].componentes[numComponente].actividades[
-                          numComponenteActividades
-                        ].formula
-                      }
-                    </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
-                      Frecuencia:
-                    </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
-                      {
-                        cValor[0].componentes[numComponente].actividades[
-                          numComponenteActividades
-                        ].frecuencia
-                      }
-                    </Typography>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
-                      Medios de Verificación:
-                    </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
-                      {
-                        cValor[0].componentes[numComponente].actividades[
-                          numComponenteActividades
-                        ].medios
-                      }
-                    </Typography>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
-                      Supuestos:
-                    </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
-                      {
-                        cValor[0].componentes[numComponente].actividades[
-                          numComponenteActividades
-                        ].supuestos
-                      }
-                    </Typography>
-                  </Box>
-                  <Button onClick={handleClickOpenCA}>salir</Button>
-                  </Dialog>
-                  
-{/* ----------------------------------Aqui va el dialog --------------------------------------------------*/}
         </Box>
-      </Box>
-
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-evenly",
-          mt: 2,
-        }}
-      >
-        <Button color="error" variant="outlined" onClick={() => showResume()}>
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Cancelar
-          </Typography>
-        </Button>
-        <Button
-          disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
-          color="warning"
-          variant="outlined"
-          onClick={() => setOpenModalSolicitarModif(true)}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Solicitar Modificación
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Indicador:
           </Typography>
-        </Button>
-
-        <Button
-          color="success"
-          variant="outlined"
-          onClick={() =>
-            checkMir(
-              localStorage.getItem("Rol") === "Capturador"
-                ? "En Captura"
-                : localStorage.getItem("Rol") === "Verificador"
-                  ? "En Revisión"
-                  : "En Autorización"
-            )
-          }
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {fin[0]?.indicador}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Borrador
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Fórmula:
           </Typography>
-        </Button>
-        <Button
-          color="primary"
-          variant="outlined"
-          onClick={() => setOpenModalEnviar(true)}
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {fin[0]?.formula}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Enviar
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Frecuencia:
           </Typography>
-        </Button>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {fin[0]?.frecuencia}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Medios de Verificación:
+          </Typography>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {fin[0]?.medios}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Supuestos:
+          </Typography>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {fin[0]?.supuestos}
+          </Typography>
 
-        {/* <ModalSolicitaModif
-          open={openModalSolicitarModif}
-          showResume={showResume}
-          handleClose={handleCloseModif}
-          MIR={JSON.stringify(MIR)}
-          IdMir={IdMir}
-        ></ModalSolicitaModif> */}
+        </Box>
+        {/* aqui,el cierre del dialog*/}
+        <Button onClick={handleClickOpen}>salir</Button>
 
-        <ModalEnviarMIR
-          showResume={showResume}
-          open={openModalEnviar}
-          handleClose={handleCloseEnviar}
-          MIR={JSON.stringify(MIR)}
-          IdMir={IdMir}
-        ></ModalEnviarMIR>
-      </Box>
-    </Box>
+      </Dialog>
+
+      <Dialog open={openProposito} fullWidth={true}
+        maxWidth={'xl'}>
+        <Typography
+          sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+        >
+          Propósito
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Resumen Narrativo:
+          </Typography>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {proposito[0]?.resumen}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Indicador:
+          </Typography>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {proposito[0]?.indicador}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Fórmula:
+          </Typography>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {proposito[0]?.formula}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Frecuencia:
+          </Typography>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {proposito[0]?.frecuencia}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Medios de Verificación:
+          </Typography>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {proposito[0]?.medios_verificacion}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            Supuestos:
+          </Typography>
+          <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            {proposito[0]?.supuestos}
+          </Typography>
+        </Box>
+        <Button onClick={handleClickOpenP}>salir</Button>
+      </Dialog>
+
+      <Dialog open={openComponentes} fullWidth={true} maxWidth={'xl'}>
+        <Typography
+          sx={{
+            fontFamily: "MontserratMedium",
+            borderBottom: 1,
+            mt: 5,
+            textAlign: "center",
+          }}
+        >
+          Componente {numComponente}
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Resumen Narrativo:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {componenteValor[numComponente - 1]?.resumen}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Indicador:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {componenteValor[numComponente - 1]?.indicador}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Fórmula:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {componenteValor[numComponente - 1]?.formula}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Frecuencia:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {componenteValor[numComponente - 1]?.frecuencia}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Medios de Verificación:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {componenteValor[numComponente - 1]?.medios}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Supuestos:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {componenteValor[numComponente - 1]?.supuestos}
+          </Typography>
+        </Box>
+
+
+        <Button onClick={handleClickOpenC}>salir</Button>
+      </Dialog>
+
+      <Dialog open={openComponentesActividades} fullWidth={true} maxWidth={'xl'}>
+
+        <Typography
+          sx={{
+            fontFamily: "MontserratMedium",
+            borderBottom: 1,
+            mt: 5,
+            textAlign: "center",
+          }}
+        >
+          Componente {numComponente + 1} - Actividad{" "}
+          {numComponenteActividades + 1}
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Resumen Narrativo:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {
+              cValor[0].componentes[numComponente].actividades[numComponenteActividades
+              ].resumen
+            }
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Indicador:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {
+              cValor[0].componentes[numComponente].actividades[
+                numComponenteActividades
+              ].indicador
+            }
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Fórmula:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {
+              cValor[0].componentes[numComponente].actividades[
+                numComponenteActividades
+              ].formula
+            }
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Frecuencia:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {
+              cValor[0].componentes[numComponente].actividades[
+                numComponenteActividades
+              ].frecuencia
+            }
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Medios de Verificación:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {
+              cValor[0].componentes[numComponente].actividades[
+                numComponenteActividades
+              ].medios
+            }
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+          >
+            Supuestos:
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+          >
+            {
+              cValor[0].componentes[numComponente].actividades[
+                numComponenteActividades
+              ].supuestos
+            }
+          </Typography>
+        </Box>
+        <Button onClick={handleClickOpenCA}>salir</Button>
+      </Dialog>
+    </Box >
   );
 }
 
