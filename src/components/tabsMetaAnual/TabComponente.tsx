@@ -34,6 +34,7 @@ export const TabComponenteMA = ({
         backgroundColor: "#fff",
       }}
     >
+
       <Box
         sx={{
           width: "100%",
@@ -129,71 +130,217 @@ export const TabComponenteMA = ({
         >
           <Box
             sx={{
-              width: "100%",
-              height: "40%",
-              justifyContent: "space-evenly",
               display: "flex",
+              flexDirection: "column",
+              width: "95%",
+              height: "100%",
               alignItems: "center",
+              justifyItems: "center",
             }}
           >
-            <TextField
-              disabled
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "30%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
+            >
+              <TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Meta anual 2023"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Linea Base 2021"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor númerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Sentido del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+
+
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Resumen Narrativo"}
-              value={componenteValorMir[componentSelect - 1].resumen}
-            />
-            <TextField
-              disabled
-              multiline
-              rows={4}
-              variant="filled"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
+            >
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Unidad responsable de reportar el indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Indicador"}
-              value={componenteValorMir[componentSelect - 1].indicador}
-            />
-            <TextField
-              disabled
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                readOnly: true,
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Fórmula"}
-              value={componenteValorMir[componentSelect - 1].formula}
-            />
+            >
+
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del numerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripcion del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+
+              />
+            </Box>
           </Box>
 
           <Box
@@ -265,6 +412,7 @@ export const TabComponenteMA = ({
           </Box>
         </Box>
       </Box>
+      
     </Box>
   );
 };

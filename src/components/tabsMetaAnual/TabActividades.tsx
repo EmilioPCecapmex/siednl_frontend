@@ -322,6 +322,7 @@ export const TabActividadesMA = ({
                     {cValor[0].componentes[componenteSelect].actividades.map(
                       (value, x) => {
                         return (
+
                           <ListItemButton
                             selected={x == actividadSelect ? true : false}
                             key={x}
@@ -376,7 +377,7 @@ export const TabActividadesMA = ({
               display: "flex",
               alignItems: "center",
             }}
-          >
+           >
             <TextField disabled
               variant="filled"
               multiline
@@ -452,6 +453,7 @@ export const TabActividadesMA = ({
               }
             />
           </Box>
+
           <Box
             sx={{
               width: "100%",
@@ -506,6 +508,7 @@ export const TabActividadesMA = ({
                 ].medios
               }
             />
+
             <TextField disabled
               variant="filled"
               multiline
@@ -522,15 +525,18 @@ export const TabActividadesMA = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Supuestos"}
+
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].supuestos
               }
+
             />
           </Box>
         </Box>
       </Box>
+
     </Box>
   );
 };
