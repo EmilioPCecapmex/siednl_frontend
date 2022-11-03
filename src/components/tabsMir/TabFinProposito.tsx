@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IMIREdit } from "./IMIR";
+import { TutorialBox } from "../tutorialBox/tutorialBox";
 
 export function TabFinProposito({
   show,
@@ -281,6 +282,7 @@ export function TabFinProposito({
         backgroundColor: "#fff",
       }}
     >
+
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}

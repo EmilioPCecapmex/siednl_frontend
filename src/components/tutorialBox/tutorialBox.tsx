@@ -13,7 +13,13 @@ import {
   ToggleButton,
 } from "@mui/material";
 
-export const TutorialBox = ({ initialState, endState }: { initialState?: number, endState: number }) => {
+export const TutorialBox = ({
+  initialState,
+  endState,
+}: {
+  initialState?: number;
+  endState: number;
+}) => {
   const [tutorialPosition, setTutorialPosition] = useState(0);
 
   const [top, setTop] = useState("");
@@ -157,167 +163,241 @@ export const TutorialBox = ({ initialState, endState }: { initialState?: number,
         );
         break;
 
-        case 10:
-          setTop("34vh");
-          setRight("33vw");
+      case 10:
+        setTop("34vh");
+        setRight("33vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Existen 3 estados base de la MIR. En Captura, En Revisión y Autorizada."
+        );
+        break;
+
+      case 11:
+        setTop("21vh");
+        setRight("23vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage("Tu usuario cuenta con la función de crear nuevas MIR.");
+        break;
+
+      case 12:
+        setTop("36vh");
+        setRight("12vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Ademas, tendras posibilidad de modificar tus registros, eliminarlos y añadir comentarios."
+        );
+        break;
+
+      case 13:
+        setTop("7vh");
+        setRight("");
+        setLeft("12vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Envia notificaciones a los usuarios, dentro de la plataforma y a travez de correo electronico."
+        );
+        break;
+      case 14:
+        setTop("23vh");
+        setRight("");
+        setLeft("20vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Tienes la posibilidad de enviar notificaciones a usuarios especificos o de forma global."
+        );
+        break;
+
+      case 15:
+        setTop("50vh");
+        setRight("");
+        setLeft("20vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Solo agrega un titulo y cuerpo del mensaje. Marca la casilla inferior para enviar la notificacion por correo electronico."
+        );
+        break;
+      case 16:
+        setTop("36vh");
+        setRight("");
+        setLeft("50vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Revisa el historico de notificaciones enviadas y valida su estatus."
+        );
+        break;
+      case 17:
+        setTop("6vh");
+        setRight("");
+        setLeft("18vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Revisa, modifica, elimina y agrega registros a los diferentes catálogos usados en la plataforma."
+        );
+        break;
+      case 18:
+        setTop("82vh");
+        setRight("");
+        setLeft("43vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Accede directamente a los cátalogos mas relevantes. Podras encontrar mas opciones al seleccionar alguno de ellos."
+        );
+        break;
+      case 19:
+        setTop("50vh");
+        setRight("");
+        setLeft("41vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(false);
+
+        setMessage(
+          "Dentro de esta lista puedes encontrar todos los catálogos disponibles."
+        );
+        break;
+      case 20:
+        setTop("38vh");
+        setRight("");
+        setLeft("50vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Filtra los resultados desplegados para cada uno de los catalogos"
+        );
+        break;
+      case 21:
+        setTop("38vh");
+        setRight("21vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage("Modifica y/o elimina registros del catálogo seleccionado.");
+        break;
+      case 22:
+        setTop("13vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage("La MIR esta dividida en 4 pestañas. Encabezado, Fin / Proposito, Componentes y Actividades.");
+        break;
+        case 23:
+          setTop("26vh");
+          setRight("");
+          setLeft("20vw");
+          setTopArrow(true);
+          setLeftArrow(false);
+          setBottomArrow(false);
+          setMessage("Encontraras diferentes apartados de selección o escritura libre.");
+          break;
+          case 24:
+          setTop("17vh");
+          setRight("7vw");
           setLeft("");
           setTopArrow(true);
           setLeftArrow(false);
           setBottomArrow(false);
-  
-          setMessage(
-            "Existen 3 estados base de la MIR. En Captura, En Revisión y Autorizada."
-          );
+          setMessage("Para el caso exclusivo de la MIR puedes descargar la plantilla de Excel y llenarla en tu PC.");
           break;
-
-          case 11:
-          setTop("21vh");
-          setRight("23vw");
+          case 25:
+          setTop("29vh");
+          setRight("27vw");
           setLeft("");
           setTopArrow(true);
           setLeftArrow(false);
           setBottomArrow(false);
-  
-          setMessage(
-            "Tu usuario cuenta con la función de crear nuevas MIR."
-          );
+          setMessage("Una vez completa la plantilla de MIR puedes cargarla en el sistema y tener una prevalidación de la información.");
           break;
-
-          case 12:
-          setTop("36vh");
-          setRight("12vw");
-          setLeft("");
+          case 26:
+          setTop("42vh");
+          setRight("");
+          setLeft("18vw");
           setTopArrow(true);
           setLeftArrow(false);
           setBottomArrow(false);
-  
-          setMessage(
-            "Ademas, tendras posibilidad de modificar tus registros, eliminarlos y añadir comentarios."
-          );
+          setMessage("O si prefieres, puedes llenar la solicitud desde el sistema.");
           break;
-
-          case 13:
-            setTop("7vh");
+          case 27:
+            setTop("40vh");
             setRight("");
-            setLeft("12vw");
+            setLeft("30vw");
+            setTopArrow(false);
+            setLeftArrow(true);
+            setBottomArrow(true);
+            setMessage("Navega entre las diferentes opciones del menu de opciones de la MIR.");
+            break;
+            case 28:
+            setTop("17vh");
+            setRight("7.3vw");
+            setLeft("");
             setTopArrow(true);
             setLeftArrow(false);
             setBottomArrow(false);
-    
-            setMessage(
-              "Envia notificaciones a los usuarios, dentro de la plataforma y a travez de correo electronico."
-            );
+            setMessage("Agrega y/o elimina componentes y actividades para tu MIR.");
             break;
-            case 14:
-              setTop("23vh");
-              setRight("");
-              setLeft("20vw");
+            case 29:
+              setTop("13vh");
+              setRight("27vw");
+              setLeft("");
               setTopArrow(true);
               setLeftArrow(false);
               setBottomArrow(false);
-      
-              setMessage(
-                "Tienes la posibilidad de enviar notificaciones a usuarios especificos o de forma global."
-              );
+              setMessage("En esta pestaña encontraras el desglose de la información que se ha capturado para la MIR en curso.");
               break;
-
-              case 15:
-                setTop("50vh");
+              case 30:
+                setTop("28.3vh");
                 setRight("");
-                setLeft("20vw");
+                setLeft("12.5vw");
                 setTopArrow(true);
                 setLeftArrow(false);
                 setBottomArrow(false);
-        
-                setMessage(
-                  "Solo agrega un titulo y cuerpo del mensaje. Marca la casilla inferior para enviar la notificacion por correo electronico."
-                );
+                setMessage("Como usuario Administrador puedes solicitar una modificación a la información de la MIR. Al seleccionar un campo este se habilitara para edición al usuario seleccionado.");
                 break;
-                case 16:
-                  setTop("36vh");
-                  setRight("");
-                  setLeft("50vw");
-                  setTopArrow(true);
-                  setLeftArrow(false);
-                  setBottomArrow(false);
-          
-                  setMessage(
-                    "Revisa el historico de notificaciones enviadas y valida su estatus."
-                  );
+                case 31:
+                  setTop("77vh");
+                  setRight("0vw");
+                  setLeft("");
+                  setTopArrow(false);
+                  setLeftArrow(true);
+                  setBottomArrow(true);
+                  setMessage("Cuentas con diversas opciones para almacenar la MIR como borrador, solicitar modificaciones o enviar para autorización.");
                   break;
-                  case 17:
-                    setTop("6vh");
-                    setRight("");
-                    setLeft("18vw");
-                    setTopArrow(true);
-                    setLeftArrow(false);
-                    setBottomArrow(false);
-            
-                    setMessage(
-                      "Revisa, modifica, elimina y agrega registros a los diferentes catálogos usados en la plataforma."
-                    );
-                    break;
-                    case 18:
-                    setTop("82vh");
-                    setRight("");
-                    setLeft("43vw");
-                    setTopArrow(true);
-                    setLeftArrow(false);
-                    setBottomArrow(false);
-            
-                    setMessage(
-                      "Accede directamente a los cátalogos mas relevantes. Podras encontrar mas opciones al seleccionar alguno de ellos."
-                    );
-                    break;
-                    case 19:
-                      setTop("50vh");
-                      setRight("");
-                      setLeft("41vw");
-                      setTopArrow(false);
-                      setLeftArrow(true);
-                      setBottomArrow(false);
-              
-                      setMessage(
-                        "Dentro de esta lista puedes encontrar todos los catálogos disponibles."
-                      );
-                      break;
-                      case 20:
-                        setTop("38vh");
-                        setRight("");
-                        setLeft("50vw");
-                        setTopArrow(true);
-                        setLeftArrow(false);
-                        setBottomArrow(false);
-                
-                        setMessage(
-                          "Filtra los resultados desplegados para cada uno de los catalogos"
-                        );
-                        break;
-                        case 21:
-                          setTop("38vh");
-                          setRight("21vw");
-                          setLeft("");
-                          setTopArrow(true);
-                          setLeftArrow(false);
-                          setBottomArrow(false);
-                  
-                          setMessage(
-                            "Modifica y/o elimina registros del catálogo seleccionado."
-                          );
-                          break;
-                          case 22:
-                            setTop("74vh");
-                            setRight("0vw");
-                            setLeft("");
-                            setTopArrow(false);
-                            setLeftArrow(true);
-                            setBottomArrow(true);
-                    
-                            setMessage(
-                              "Agrega un nuevo registro para el catálogo seleccionado."
-                            );
-                            break;
-      default:
+                default:
         break;
     }
   }, [tutorialPosition]);
@@ -325,6 +405,8 @@ export const TutorialBox = ({ initialState, endState }: { initialState?: number,
   useEffect(() => {
     if (tutorialPosition === endState) {
       setShow(false);
+    }else{
+      setShow(true)
     }
   }, [tutorialPosition]);
 
@@ -446,7 +528,7 @@ export const TutorialBox = ({ initialState, endState }: { initialState?: number,
               <Typography
                 sx={{ fontFamily: "MontserratSemiBold", fontSize: ".6vw" }}
               >
-                {(tutorialPosition + 1) === endState? "Finalizar" : "Siguiente"}
+                {tutorialPosition + 1 === endState ? "Finalizar" : "Siguiente"}
               </Typography>
             </Button>
           </Box>

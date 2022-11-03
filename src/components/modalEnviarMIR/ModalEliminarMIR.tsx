@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Tooltip } from "@mui/material";
 import Swal from "sweetalert2";
 
 export const DeleteDialogMIR = ({
@@ -68,6 +68,8 @@ export const DeleteDialogMIR = ({
 
   return (
     <Box>
+       <Tooltip title="Eliminar">
+                                <span>
       <IconButton onClick={handleClickOpen} disabled={disab ? true : false}>
         <DeleteIcon
           sx={[
@@ -81,6 +83,8 @@ export const DeleteDialogMIR = ({
           ]}
         />
       </IconButton>
+      </span>
+      </Tooltip>
       <Dialog fullWidth open={open} onClose={handleClose}>
         <Box
           sx={{

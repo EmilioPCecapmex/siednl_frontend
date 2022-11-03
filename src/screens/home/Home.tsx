@@ -6,19 +6,19 @@ import escudo from "../../assets/logos/escudo.png";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export const Home = () => {
-
   return (
     <Box
       sx={{
         width: "100vw",
         height: "100vh",
         display: "grid",
-        gridTemplateColumns: '1fr 10fr',
+        gridTemplateColumns: "1fr 10fr",
         backgroundColor: "#F2F2F2",
-
       }}
     >
-              <TutorialBox initialState={0} endState={8} />
+
+      {localStorage.getItem("Tutorial")}
+      <TutorialBox initialState={0} endState={8} />
 
       <LateralMenu selection={0} />
       <Header
@@ -30,7 +30,7 @@ export const Home = () => {
           name3: "",
         }}
       />
-    
+
       <Box
         sx={{
           display: "flex",
@@ -40,13 +40,9 @@ export const Home = () => {
           height: "100%",
         }}
       >
-
-
-         <Box>
-        <img src={escudo} alt="Escudo" style={{ width: "20vw",  }} />
-
+        <Box>
+          <img src={escudo} alt="Escudo" style={{ width: "20vw" }} />
         </Box>
-   
       </Box>
     </Box>
   );

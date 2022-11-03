@@ -182,6 +182,8 @@ export const ComentDialogMir = ({
 
   return (
     <Box>
+         <Tooltip title="Comentarios">
+                                <span>
       <IconButton onClick={handleClickOpen}>
         <MessageIcon
           sx={[
@@ -195,6 +197,8 @@ export const ComentDialogMir = ({
           ]}
         />
       </IconButton>
+      </span>
+      </Tooltip>
 
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
         <DialogContent

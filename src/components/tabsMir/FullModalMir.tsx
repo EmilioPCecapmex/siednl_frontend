@@ -9,10 +9,19 @@ import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
 import { TabResumen2 } from "./TabResumen2";
+import { TutorialBox } from "../tutorialBox/tutorialBox";
 
-export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }: { MIR: string, showResume: Function, IdMir: string, anioFiscalEdit: string; }) {
-
-
+export default function FullModalMir({
+  MIR,
+  showResume,
+  IdMir,
+  anioFiscalEdit,
+}: {
+  MIR: string;
+  showResume: Function;
+  IdMir: string;
+  anioFiscalEdit: string;
+}) {
   const [value, setValue] = React.useState(10);
 
   const handleChange = (event: any, newValue: number) => {
@@ -147,6 +156,11 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
         mt: "8vh",
       }}
     >
+      {value === 10 ? <TutorialBox initialState={22} endState={27} /> : null}
+      {value === 20 ? <TutorialBox initialState={27} endState={28} /> : null}
+      {value === 30 ? <TutorialBox initialState={28} endState={29} /> : null}
+      {value === 50 ? <TutorialBox initialState={29} endState={32} /> : null}
+
       <Box
         sx={{
           width: "80vw",
@@ -227,9 +241,8 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
           }}
         >
           <TabEncabezado
-          anioFiscalEdit={anioFiscalEdit}
-          mirEdit={MIR ? JSON.parse(MIR)[1] : null }
-
+            anioFiscalEdit={anioFiscalEdit}
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
             show={value === 10 ? true : false}
@@ -247,12 +260,11 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null }
-
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabFinProposito>
           <TabResumen2
-          showResume={showResume}
-          mirEdit={MIR ? JSON.parse(MIR)[1] : null }
+            showResume={showResume}
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
             show={value === 50 ? true : false}
             componentes={componentes}
             componenteValor={componenteValor}
@@ -268,8 +280,7 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
             asignarComponenteValor={asignarComponenteValor}
             componentesMir={componentes}
             componenteValorMir={componenteValor}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null }
-
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabComponente>
           <TabActividades
             actividadesMir={actividadesMir}
@@ -277,8 +288,7 @@ export default function FullModalMir({ MIR, showResume, IdMir, anioFiscalEdit }:
             show={value === 40 ? true : false}
             componentes={componentes}
             asignarCValor={asignarCValor}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null }
-
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabActividades>
         </Box>
       </Box>

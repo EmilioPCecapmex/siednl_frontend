@@ -17,6 +17,10 @@ import { ICValor } from "./ICValor";
 import { ICompActividad } from "./ICompActividad";
 import { IEncabezadoEdit } from "./TabResumen2";
 import { IMIR, IMIREdit } from "./IMIR";
+import { Link } from "react-router-dom";
+
+
+
 
 export interface IEncabezado {
   ejercicioFiscal: string;
@@ -729,6 +733,13 @@ export function TabEncabezado({
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
     >
+
+     
+      <Box sx={{width: '5vw', height: '3vh', position: 'absolute', top: '1vh', right: '1vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <Button href="/files/MIR_2023.xlsx" target="_blank" download >
+        <Typography sx={{fontFamily: 'MontserratMedium', color: '#616161'}}>Plantilla</Typography>
+        </Button>
+      </Box>
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <Autocomplete
                   disabled={mirEdit?.encabezado.ejercicioFiscal}

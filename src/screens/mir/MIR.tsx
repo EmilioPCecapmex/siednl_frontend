@@ -199,7 +199,6 @@ export const MIR = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-                    <TutorialBox initialState={8} endState={13} />
 
       <LateralMenu selection={2} />
       <Header
@@ -222,6 +221,8 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
+          <TutorialBox initialState={8} endState={13} />
+
           <Box
             sx={{
               mt: "3vh",
@@ -507,7 +508,7 @@ export const MIR = () => {
                                 flexDirection: "row",
                               }}
                             >
-                              <Tooltip title="Descargar">
+                              <Tooltip title="Descargar MIR">
                                 <span>
                                   <IconButton disabled={row.Estado === "Autorizada" ? false : true} onClick={() => 
                                         
