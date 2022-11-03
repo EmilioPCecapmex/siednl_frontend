@@ -17,12 +17,14 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 export function TabFinPropositoMR({
   show,
+  setOpenOptionDialog,
   resumenFin,
   resumenProposito,
   cargaFin,
   cargaProposito,
 }: {
-  show: boolean;
+  show: boolean
+  setOpenOptionDialog:Function;
   resumenFin: Function;
   resumenProposito: Function;
   cargaFin: Array<IFin>;
@@ -123,7 +125,7 @@ export function TabFinPropositoMR({
 
   const [openFin, setOpenFin] = useState(false);
   const handleClickOpen = () => {
-    setOpenFin(false);
+    setOpenOptionDialog("Fin");
   };
 
   return (
@@ -151,7 +153,8 @@ export function TabFinPropositoMR({
           }}
         >
           <InfoOutlinedIcon
-            onClick={() => (showFin ? setOpenFin(true) : null)}
+            onClick={() => {handleClickOpen();console.log("open");
+            }}
             fontSize="large"
             sx={{ cursor: "pointer" }}
           ></InfoOutlinedIcon>

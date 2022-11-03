@@ -115,6 +115,8 @@ export default function FullModalMetaAnual({
     setCValor(state);
   };
 
+  const [openOptionDialog,setOpenOptionDialog]=useState("");
+
   useEffect(() => {
     let array = componentes.map((x, index) => {
       return {
@@ -151,6 +153,10 @@ export default function FullModalMetaAnual({
   const loadProposito = (arr: Array<IProposito>) => {
     setCargaProposito(arr);
   };
+
+  const optionDialog=(dato:string)=>{
+    setOpenOptionDialog(dato);
+  }
 
   //----------------------------------------------------------------------------------------------
   return (
@@ -253,6 +259,7 @@ export default function FullModalMetaAnual({
             proposito={proposito}
           ></TabResumenMir> */}
           <TabEncabezadoMA
+          
             anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
@@ -270,30 +277,33 @@ export default function FullModalMetaAnual({
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
+            setOpenOptionDialog={optionDialog}
           ></TabFinPropositoMR>
           <TabComponenteMA
             show={value === 30 ? true : false}
             componentesMir={componentes}
             componenteValorMir={componenteValor}
           ></TabComponenteMA>
-          <TabActividadesMA
+
+          {/* <TabActividadesMA
             actividadesMir={actividadesMir}
             compAct={compAct}
             show={value === 40 ? true : false}
             componentes={componentes}
             asignarCValor={asignarCValor}
-          ></TabActividadesMA>
+          ></TabActividadesMA> */}
           <TabResumenMA
-            showResume={showResume}
-            show={value === 50 ? true : false}
             componentes={componentes}
+            show={value === 40 ? true : false}
             componenteValor={componenteValor}
             cValor={cValor}
             encabezado={encabezado}
             fin={fin}
             proposito={proposito}
             IdMir={IdMir}
+            openOptionDialog={openOptionDialog}
           ></TabResumenMA>
+          
         </Box>
       </Box>
     </Box>
