@@ -21,7 +21,7 @@ import {
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
-import FullModalMir from "../../components/tabsMir/FullModalMir";
+import FullModalMir from "../../components/tabsMir/AddMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";

@@ -15,7 +15,7 @@ import {
   Button,
   AlertColor,
 } from "@mui/material";
-import { IInstituciones } from "./ModalCrearUsuario";
+import { IInstituciones } from "../lateralMenu/LateralMenu";
 
 export default function ModalEditarUsuario({
   title,

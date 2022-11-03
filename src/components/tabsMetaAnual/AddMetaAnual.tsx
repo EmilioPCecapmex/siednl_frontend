@@ -310,16 +310,16 @@ export default function FullModalMetaAnual({
             height: "77vh",
           }}
         >
-          <TabResumenMir
+          {/* <TabResumenMir
             showResume="Fin"
             show={value === 10 ? true : false}
             componentes={componentes}
             componenteValor={componenteValor}
             cValor={cValor}
-            encabezado={encabezado}
+            openFin={false}
             fin={fin}
             proposito={proposito}
-          ></TabResumenMir>
+          ></TabResumenMir> */}
           <TabEncabezadoMA
             anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}

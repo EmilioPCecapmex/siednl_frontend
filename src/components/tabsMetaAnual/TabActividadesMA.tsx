@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { IActividadesMir, IComponenteActividad } from "./FullModalMetaAnual";
+import { IActividadesMir, IComponenteActividad } from "./AddMetaAnual";
 
 //funcion main
 export const TabActividadesMA = ({
