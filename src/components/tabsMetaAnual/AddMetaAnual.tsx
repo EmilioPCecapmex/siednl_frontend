@@ -9,6 +9,7 @@ import { ICValor } from "../tabsMir/ICValor";
 import TabEncabezadoMA, { IEncabezado } from "./TabEncabezado";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
+import { IFinMA, IPropositoMA } from "./IFin";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -133,8 +134,14 @@ export default function FullModalMetaAnual({
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [fin, setFin] = useState<Array<IFin>>([]);
   const [proposito, setProposito] = useState<Array<IProposito>>([]);
+
   const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
   const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([]);
+
+  const [ValueFin, setValueFin] = useState <Array<IFinMA>>([]);
+  const [ValueProposito, setValueProposito] = useState <Array<IPropositoMA>>([]);
+  
+  
 
   const resumenEncabezado = (arr: Array<IEncabezado>) => {
     setEncabezado(arr);
@@ -151,6 +158,16 @@ export default function FullModalMetaAnual({
   const loadProposito = (arr: Array<IProposito>) => {
     setCargaProposito(arr);
   };
+
+  const resumenFinMa = (arr: Array<IFinMA>) => {
+    setValueFin(arr);
+  };
+  const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
+    setValueProposito(arr);
+  };
+
+  // ----------------------------------------------------Fin/Proposito-------------------------------------------------------------------------------
+
 
   //----------------------------------------------------------------------------------------------
   return (
@@ -270,6 +287,8 @@ export default function FullModalMetaAnual({
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
+            resumenFinMa={resumenFinMa}
+            resumenPropositoMa={resumenPropositoMa}
           ></TabFinPropositoMR>
           <TabComponenteMA
             show={value === 30 ? true : false}

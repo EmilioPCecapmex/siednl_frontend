@@ -34,7 +34,6 @@ export const TabComponenteMA = ({
         backgroundColor: "#fff",
       }}
     >
-
       <Box
         sx={{
           width: "100%",
@@ -412,7 +411,6 @@ export const TabComponenteMA = ({
           </Box>
         </Box>
       </Box>
-      
     </Box>
   );
 };
