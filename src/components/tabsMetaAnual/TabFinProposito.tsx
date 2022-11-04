@@ -14,6 +14,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import  {IFinMA}  from "./IFin";
+import  {IPropositoMA}  from "./IFin";
 
 export function TabFinPropositoMR({
   show,
@@ -21,12 +23,16 @@ export function TabFinPropositoMR({
   resumenProposito,
   cargaFin,
   cargaProposito,
+  resumenFinMa,
+  resumenPropositoMa
 }: {
   show: boolean;
   resumenFin: Function;
   resumenProposito: Function;
   cargaFin: Array<IFin>;
   cargaProposito: Array<IProposito>;
+  resumenFinMa: Function;
+  resumenPropositoMa: Function;
 }) {
   const [tabFin, setTabFin] = useState([
     {
@@ -67,6 +73,10 @@ export function TabFinPropositoMR({
     medios_verificacion: "",
     supuestos: "",
   });
+
+  const [ValueFin, setValueFin] = useState <Array<IFinMA>>([]);
+  const [ValueProposito, setValueProposito] = useState <Array<IPropositoMA>>([]);
+
 
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
@@ -121,10 +131,17 @@ export function TabFinPropositoMR({
     resumenProposito(tabProposito);
   }, [tabFin, tabProposito]);
 
+  useEffect(() => {
+    resumenFinMa(ValueFin);
+    resumenPropositoMa(ValueProposito);
+  }, [tabFin, tabProposito]);
+
   const [openFin, setOpenFin] = useState(false);
   const handleClickOpen = () => {
     setOpenFin(false);
   };
+
+
 
   return (
     <Box
@@ -179,6 +196,7 @@ export function TabFinPropositoMR({
           {" "}
         </Box>
       )}
+
 
       <Box
         sx={{
@@ -266,6 +284,7 @@ export function TabFinPropositoMR({
             </ListItemButton>
             <Divider />
           </Box>
+
         </List>
 
         {showFin ? (
@@ -305,8 +324,15 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-              />
-              <TextField
+                onChange={(c) => {
+                  ValueFin[0].metaAnual= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.metaAnual}
+
+              /><TextField
+
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -322,8 +348,15 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-              />
-              <TextField
+                onChange={(c) => {
+                  ValueFin[0].lineaBase= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.lineaBase}
+
+              /><TextField
+
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -339,8 +372,15 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-              />
-              <TextField
+                onChange={(c) => {
+                  ValueFin[0].valorNumerador= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.valorNumerador}
+
+              /><TextField
+
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -356,8 +396,15 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-              />
-              <TextField
+                onChange={(c) => {
+                  ValueFin[0].valorDenominador= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.valorDenominador}
+
+              /><TextField
+
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -373,6 +420,13 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
+                onChange={(c) => {
+                  ValueFin[0].orden= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.orden}
+
               />
             </Box>
             <Box
@@ -401,6 +455,12 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
+                onChange={(c) => {
+                  ValueFin[0].unidadResponsable= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.unidadResponsable}
               />
               <TextField
                 rows={5}
@@ -418,6 +478,14 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
+                onChange={(c) => {
+                  ValueFin[0].descIndicador= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.descIndicador}
+                
+
               />
             </Box>
             <Box
@@ -446,6 +514,13 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
+                onChange={(c) => {
+                  ValueFin[0].descNumerador= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.descNumerador}
+
               />
               <TextField
                 rows={5}
@@ -463,28 +538,49 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
+                onChange={(c) => {
+                  ValueFin[0].descDenominador= c.target.value ;
+                  setValueFin([...ValueFin]);
+                }}
+
+                value={ValueFin[0]?.descDenominador}
+
+
               />
             </Box>
           </Box>
         ) : null}
 
         {showProposito ? (
-          <>
+          
+          
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "95%",
+              height: "100%",
+              alignItems: "center",
+              justifyItems: "center",
+            }}
+          >
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                width: "90%",
+                display: "flex",
+
+                width: "100%",
+                height: "30%",
                 alignItems: "center",
-                justifyItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
               <TextField
-                rows={4}
+
+                rows={3}
                 multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Resumen Narrativo"}
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Meta anual 2023"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -495,53 +591,130 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={proposito.resumen}
+                onChange={(c) => {
+                  ValueProposito[0].metaAnual= c.target.value ;
+                  setValueProposito([...ValueProposito]);
+                }}
+
+                value={ValueProposito[0]?.metaAnual}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Linea Base 2021"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  ValueProposito[0].lineaBase= c.target.value ;
+                  setValueProposito([...ValueProposito]);
+                }}
+
+                value={ValueProposito[0]?.lineaBase}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor númerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  ValueProposito[0].valorNumerador= c.target.value ;
+                  setValueProposito([...ValueProposito]);
+                }}
+
+                value={ValueProposito[0]?.valorNumerador}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  ValueProposito[0].valorDenominador= c.target.value ;
+                  setValueProposito([...ValueProposito]);
+                }}
+
+                value={ValueProposito[0]?.valorDenominador}
+
+              /><TextField
+
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Sentido del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  ValueProposito[0].orden= c.target.value ;
+                  setValueProposito([...ValueProposito]);
+                }}
+
+                value={ValueProposito[0]?.orden}
+
               />
 
-              <TextField
-                rows={4}
-                multiline
-                sx={{ width: "90%", boxShadow: 2 }}
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                label={"Indicador"}
-                value={proposito.indicador}
-              />
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula"}
-                value={proposito.formula}
-              />
 
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
               <TextField
-                rows={4}
+
+                rows={5}
                 multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Unidad responsable de reportar el indicador"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -552,13 +725,20 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={proposito.frecuencia}
+                onChange={(c) => {
+                  ValueProposito[0].unidadResponsable= c.target.value ;
+                  setValueProposito([...ValueProposito]);
+                }}
+
+                value={ValueProposito[0]?.unidadResponsable}
               />
               <TextField
-                rows={4}
+
+                rows={5}
                 multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del indicador"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -569,29 +749,84 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                label={"Medios de Verificación"}
-                value={proposito.medios_verificacion}
-              />
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
+                onChange={(c) => {
+                  ValueProposito[0].descIndicador= c.target.value ;
+                  setValueProposito([...ValueProposito]);
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={proposito.supuestos}
+
+                value={ValueProposito[0]?.descIndicador}
+                
+
               />
             </Box>
-          </>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del numerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  ValueProposito[0].descNumerador= c.target.value ;
+                  setValueProposito([...ValueProposito]);
+                }}
+
+                value={ValueProposito[0]?.descNumerador}
+
+              />
+              <TextField
+
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripcion del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  ValueProposito[0].descDenominador= c.target.value ;
+                  setValueProposito([...ValueProposito]);
+                }}
+
+                value={ValueProposito[0]?.descDenominador}
+
+
+              />
+            </Box>
+          </Box>
+
+
+
+        
         ) : null}
       </Box>
     </Box>
