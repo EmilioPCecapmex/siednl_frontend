@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
@@ -6,6 +6,8 @@ import escudo from "../../assets/logos/escudo.png";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export const Home = () => {
+
+  
   return (
     <Box
       sx={{
@@ -17,7 +19,6 @@ export const Home = () => {
       }}
     >
 
-      {localStorage.getItem("Tutorial")}
       <TutorialBox initialState={0} endState={8} />
 
       <LateralMenu selection={0} />

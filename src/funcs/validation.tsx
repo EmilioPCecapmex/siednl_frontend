@@ -22,9 +22,12 @@ export const getUserDetails = (idCentral: string) => {
           "NombreUsuario",
           r.data.data.Nombre.split(" ")[0] + " " + r.data.data.ApellidoPaterno
         );
-        if(localStorage.getItem("IdInstitucion") === null  || localStorage.getItem("IdInstitucion") === null ){
-          localStorage.setItem("IdInstitucion", r.data.data.IdInstitucion)
-        }else{
+        if (
+          localStorage.getItem("IdInstitucion") === null ||
+          localStorage.getItem("IdInstitucion") === null
+        ) {
+          localStorage.setItem("IdInstitucion", r.data.data.IdInstitucion);
+        } else {
           localStorage.setItem(
             "IdInstitucion",
             localStorage.getItem("IdInstitucion") as string
@@ -110,3 +113,6 @@ export const logout = () => {
   localStorage.clear();
   window.location.assign("http://login.com");
 };
+
+
+

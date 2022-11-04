@@ -1,33 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   Button,
-  Drawer,
-  List,
-  Divider,
-  ListItem,
-  Badge,
-  ListItemIcon,
-  ListItemText,
   Typography,
   Box,
   ToggleButton,
 } from "@mui/material";
+import axios from "axios";
 
 export const TutorialBox = ({
   initialState,
   endState,
 }: {
-  initialState?: number;
+  initialState: number;
   endState: number;
 }) => {
-  const [tutorialPosition, setTutorialPosition] = useState(0);
+  const [tutorialPosition, setTutorialPosition] = useState(initialState);
 
   const [top, setTop] = useState("");
   const [right, setRight] = useState("");
   const [left, setLeft] = useState("");
 
   const [message, setMessage] = useState("");
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const [topArrow, setTopArrow] = useState(true);
   const [leftArrow, setLeftArrow] = useState(false);
@@ -36,6 +30,7 @@ export const TutorialBox = ({
   useEffect(() => {
     setTutorialPosition(initialState || 0);
   }, [initialState]);
+
 
   useEffect(() => {
     switch (tutorialPosition) {
@@ -314,101 +309,118 @@ export const TutorialBox = ({
         setTopArrow(true);
         setLeftArrow(false);
         setBottomArrow(false);
-        setMessage("La MIR esta dividida en 4 pestañas. Encabezado, Fin / Proposito, Componentes y Actividades.");
+        setMessage(
+          "La MIR esta dividida en 4 pestañas. Encabezado, Fin / Proposito, Componentes y Actividades."
+        );
         break;
-        case 23:
-          setTop("26vh");
-          setRight("");
-          setLeft("20vw");
-          setTopArrow(true);
-          setLeftArrow(false);
-          setBottomArrow(false);
-          setMessage("Encontraras diferentes apartados de selección o escritura libre.");
-          break;
-          case 24:
-          setTop("17vh");
-          setRight("7vw");
-          setLeft("");
-          setTopArrow(true);
-          setLeftArrow(false);
-          setBottomArrow(false);
-          setMessage("Para el caso exclusivo de la MIR puedes descargar la plantilla de Excel y llenarla en tu PC.");
-          break;
-          case 25:
-          setTop("29vh");
-          setRight("27vw");
-          setLeft("");
-          setTopArrow(true);
-          setLeftArrow(false);
-          setBottomArrow(false);
-          setMessage("Una vez completa la plantilla de MIR puedes cargarla en el sistema y tener una prevalidación de la información.");
-          break;
-          case 26:
-          setTop("42vh");
-          setRight("");
-          setLeft("18vw");
-          setTopArrow(true);
-          setLeftArrow(false);
-          setBottomArrow(false);
-          setMessage("O si prefieres, puedes llenar la solicitud desde el sistema.");
-          break;
-          case 27:
-            setTop("40vh");
-            setRight("");
-            setLeft("30vw");
-            setTopArrow(false);
-            setLeftArrow(true);
-            setBottomArrow(true);
-            setMessage("Navega entre las diferentes opciones del menu de opciones de la MIR.");
-            break;
-            case 28:
-            setTop("17vh");
-            setRight("7.3vw");
-            setLeft("");
-            setTopArrow(true);
-            setLeftArrow(false);
-            setBottomArrow(false);
-            setMessage("Agrega y/o elimina componentes y actividades para tu MIR.");
-            break;
-            case 29:
-              setTop("13vh");
-              setRight("27vw");
-              setLeft("");
-              setTopArrow(true);
-              setLeftArrow(false);
-              setBottomArrow(false);
-              setMessage("En esta pestaña encontraras el desglose de la información que se ha capturado para la MIR en curso.");
-              break;
-              case 30:
-                setTop("28.3vh");
-                setRight("");
-                setLeft("12.5vw");
-                setTopArrow(true);
-                setLeftArrow(false);
-                setBottomArrow(false);
-                setMessage("Como usuario Administrador puedes solicitar una modificación a la información de la MIR. Al seleccionar un campo este se habilitara para edición al usuario seleccionado.");
-                break;
-                case 31:
-                  setTop("77vh");
-                  setRight("0vw");
-                  setLeft("");
-                  setTopArrow(false);
-                  setLeftArrow(true);
-                  setBottomArrow(true);
-                  setMessage("Cuentas con diversas opciones para almacenar la MIR como borrador, solicitar modificaciones o enviar para autorización.");
-                  break;
-                default:
+      case 23:
+        setTop("26vh");
+        setRight("");
+        setLeft("20vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage(
+          "Encontraras diferentes apartados de selección o escritura libre."
+        );
+        break;
+      case 24:
+        setTop("17vh");
+        setRight("7vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage(
+          "Para el caso exclusivo de la MIR puedes descargar la plantilla de Excel y llenarla en tu PC."
+        );
+        break;
+      case 25:
+        setTop("29vh");
+        setRight("27vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage(
+          "Una vez completa la plantilla de MIR puedes cargarla en el sistema y tener una prevalidación de la información."
+        );
+        break;
+      case 26:
+        setTop("42vh");
+        setRight("");
+        setLeft("18vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage(
+          "O si prefieres, puedes llenar la solicitud desde el sistema."
+        );
+        break;
+      case 27:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menu de opciones de la MIR."
+        );
+        break;
+      case 28:
+        setTop("17vh");
+        setRight("7.3vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage("Agrega y/o elimina componentes y actividades para tu MIR.");
+        break;
+      case 29:
+        setTop("13vh");
+        setRight("27vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage(
+          "En esta pestaña encontraras el desglose de la información que se ha capturado para la MIR en curso."
+        );
+        break;
+      case 30:
+        setTop("28.3vh");
+        setRight("");
+        setLeft("12.5vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage(
+          "Como usuario Administrador puedes solicitar una modificación a la información de la MIR. Al seleccionar un campo este se habilitara para edición al usuario seleccionado."
+        );
+        break;
+      case 31:
+        setTop("77vh");
+        setRight("0vw");
+        setLeft("");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Cuentas con diversas opciones para almacenar la MIR como borrador, solicitar modificaciones o enviar para autorización."
+        );
+        break;
+      default:
         break;
     }
   }, [tutorialPosition]);
 
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (tutorialPosition === endState) {
       setShow(false);
-    }else{
-      setShow(true)
     }
-  }, [tutorialPosition]);
+  }, [tutorialPosition])
 
   return (
     <Box
@@ -537,3 +549,17 @@ export const TutorialBox = ({
     </Box>
   );
 };
+
+
+export interface ITutorial {
+  Inicio: number;
+  MIR: number;
+  MIRTabs: number;
+  MetaAnual: number;
+  MetaAnualTabs: number;
+  FichaTecnica: number;
+  ActividadesInst: number;
+  Notificaciones: number;
+  Configuracion: number;
+  Usuarios: number;
+} 
