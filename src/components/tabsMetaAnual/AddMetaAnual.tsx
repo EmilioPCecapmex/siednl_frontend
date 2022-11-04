@@ -10,6 +10,7 @@ import TabEncabezadoMA, { IEncabezado } from "./TabEncabezado";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
+import TabResumenMir from "./TabResumenMir";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -23,26 +24,19 @@ export default function FullModalMetaAnual({
   anioFiscalEdit: string;
 }) {
   const [value, setValue] = React.useState(10);
-  const [expandMir, setExpandMir] = React.useState(false);
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
 
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>(
-    []
-  );
-
-  // business logic-------------------------------------------------------------------------------
-  const [componentes, setComponentes] = React.useState([1, 2]);
-
-  const asignarComponente = (state: []) => {
-    setComponentes(state);
+  // COMPONENTES
+  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+  const noComponenteFnc = (state: []) => {
+    setNoComponentes(state);
   };
 
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
-    componentes.map((x, index) => {
+    noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
         resumen: "",
@@ -55,10 +49,10 @@ export default function FullModalMetaAnual({
     })
   );
 
-  const [componenteValorMA, setComponenteValorMA] = useState<
+  const [valoresComponenteMA, setValoresComponenteMA] = useState<
     Array<IComponenteMA>
   >(
-    componentes.map((x, index) => {
+    noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
         metaAnual: "",
@@ -74,19 +68,20 @@ export default function FullModalMetaAnual({
       };
     })
   );
-
-  const asignarComponenteValor = (state: Array<IComponente>) => {
+ const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
+    setValoresComponenteMA(state);
+  };
+  const valoresComponenteFnc = (state: Array<IComponente>) => {
     setComponenteValor(state);
   };
 
-  const asignarComponenteValorMA = (state: Array<IComponenteMA>) => {
-    setComponenteValorMA(state);
-  };
-
+  // ACTIVIDADES
+  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
+  const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>([]);
   const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
     {
-      componentes: componentes.map((x) => actividades),
+      componentes: noComponentes.map((x) => actividades),
     },
   ]);
 
@@ -117,7 +112,7 @@ export default function FullModalMetaAnual({
   };
 
   useEffect(() => {
-    let array = componentes.map((x, index) => {
+    let array = noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
         resumen: "",
@@ -129,6 +124,23 @@ export default function FullModalMetaAnual({
       };
     });
     setComponenteValor(array);
+
+    let arrayMA = noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        metaAnual: "",
+        lineaBase: "",
+        metasPorFrecuencia: [],
+        valorNumerador: "",
+        valorDenominador: "",
+        orden: "",
+        unidadResponsable: "",
+        descIndicador: "",
+        descNumerador: "",
+        descDenominador: "",
+      };
+    });
+    setValoresComponenteMA(arrayMA);
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
@@ -138,10 +150,8 @@ export default function FullModalMetaAnual({
   const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
   const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([]);
 
-  const [ValueFin, setValueFin] = useState <Array<IFinMA>>([]);
-  const [ValueProposito, setValueProposito] = useState <Array<IPropositoMA>>([]);
-  
-  
+  const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
+  const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
 
   const resumenEncabezado = (arr: Array<IEncabezado>) => {
     setEncabezado(arr);
@@ -166,10 +176,6 @@ export default function FullModalMetaAnual({
     setValueProposito(arr);
   };
 
-  // ----------------------------------------------------Fin/Proposito-------------------------------------------------------------------------------
-
-
-  //----------------------------------------------------------------------------------------------
   return (
     <Box
       sx={{
@@ -259,16 +265,6 @@ export default function FullModalMetaAnual({
             height: "77vh",
           }}
         >
-          {/* <TabResumenMir
-            showResume="Fin"
-            show={value === 10 ? true : false}
-            componentes={componentes}
-            componenteValor={componenteValor}
-            cValor={cValor}
-            openFin={false}
-            fin={fin}
-            proposito={proposito}
-          ></TabResumenMir> */}
           <TabEncabezadoMA
             anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
@@ -277,10 +273,11 @@ export default function FullModalMetaAnual({
             resumenEncabezado={resumenEncabezado}
             cargaFin={loadFin}
             cargaProposito={loadProposito}
-            asignarComponente={asignarComponente}
-            asignarComponenteValor={asignarComponenteValor}
+            asignarComponente={noComponenteFnc}
+            asignarComponenteValor={valoresComponenteFnc}
             MIR={MIR}
           ></TabEncabezadoMA>
+
           <TabFinPropositoMR
             show={value === 20 ? true : false}
             resumenFin={resumenFin}
@@ -290,22 +287,26 @@ export default function FullModalMetaAnual({
             resumenFinMa={resumenFinMa}
             resumenPropositoMa={resumenPropositoMa}
           ></TabFinPropositoMR>
+
           <TabComponenteMA
             show={value === 30 ? true : false}
-            componentesMir={componentes}
-            componenteValorMir={componenteValor}
+            valoresComponenteMAFnc={valoresComponenteMAFnc}
+            noComponentes={noComponentes}
+            valoresComponente={valoresComponenteMA}
           ></TabComponenteMA>
+
           <TabActividadesMA
             actividadesMir={actividadesMir}
             compAct={compAct}
             show={value === 40 ? true : false}
-            componentes={componentes}
+            componentes={noComponentes}
             asignarCValor={asignarCValor}
           ></TabActividadesMA>
+
           <TabResumenMA
             showResume={showResume}
             show={value === 50 ? true : false}
-            componentes={componentes}
+            componentes={noComponentes}
             componenteValor={componenteValor}
             cValor={cValor}
             encabezado={encabezado}

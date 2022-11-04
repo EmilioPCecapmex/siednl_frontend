@@ -7,18 +7,23 @@ import {
   List,
   ListItemButton,
 } from "@mui/material";
-import { IComponente } from "../tabsMir/IComponente";
+import { IComponente, IComponenteMA } from "../tabsMir/IComponente";
 
 export const TabComponenteMA = ({
   show,
-  componentesMir,
-  componenteValorMir,
+  valoresComponenteMAFnc,
+  noComponentes,
+  valoresComponente,
 }: {
   show: boolean;
-  componentesMir: number[];
-  componenteValorMir: Array<IComponente>;
+  valoresComponenteMAFnc: Function;
+  noComponentes: number[];
+  valoresComponente: Array<IComponenteMA>;
 }) => {
+
   const [componentSelect, setComponentSelect] = useState(1);
+
+ 
 
   return (
     <Box
@@ -43,7 +48,6 @@ export const TabComponenteMA = ({
           justifyContent: "flex-end",
         }}
       >
-        {/* Botones Componentes */}
         <Typography
           sx={{
             mr: "1vw",
@@ -81,7 +85,7 @@ export const TabComponenteMA = ({
             },
           }}
         >
-          {componentesMir.map((item) => {
+          {noComponentes.map((item) => {
             return (
               <Box
                 key={item}
@@ -97,7 +101,8 @@ export const TabComponenteMA = ({
                 <ListItemButton
                   selected={item === componentSelect ? true : false}
                   key={item}
-                  onClick={() => setComponentSelect(item)}
+                  onClick={() => {setComponentSelect(item); console.log(item);
+                  }}
                   sx={{
                     "&.Mui-selected ": {
                       backgroundColor: "#c4a57b",
@@ -110,6 +115,7 @@ export const TabComponenteMA = ({
                   <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Componente {item}
                   </Typography>
+
                 </ListItemButton>
 
                 <Divider />
@@ -162,11 +168,12 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={componenteValorMir[componentSelect - 1]?.indicador}
-                onChange={(c) => {
-                  componenteValorMir[componentSelect - 1].indicador =
-                    c.target.value;
-                }}
+                value={valoresComponente[componentSelect - 1]?.metaAnual}
+              onChange={(c) => {
+                valoresComponente[componentSelect - 1].metaAnual =
+                  c.target.value;
+                  valoresComponenteMAFnc([...valoresComponente]);
+              }}
               />
               <TextField
                 rows={3}
@@ -237,6 +244,7 @@ export const TabComponenteMA = ({
                 }}
               />
             </Box>
+            
             <Box
               sx={{
                 display: "flex",
@@ -325,30 +333,11 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                value={componenteValorMir[componentSelect - 1].supuestos}
+                value={valoresComponente[componentSelect - 1]?.lineaBase}
               />
             </Box>
           </Box>
 
-          <TextField
-            disabled
-            variant="filled"
-            multiline
-            rows={4}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-            sx={{ width: "30%", boxShadow: 2 }}
-            label={"Supuestos"}
-            value={componenteValorMir[componentSelect - 1].supuestos}
-          />
         </Box>
       </Box>
     </Box>

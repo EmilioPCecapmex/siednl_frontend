@@ -33,14 +33,14 @@ export default function FullModalMir({
   );
 
   // business logic-------------------------------------------------------------------------------
-  const [componentes, setComponentes] = React.useState([1, 2]);
+  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  const asignarComponente = (state: []) => {
-    setComponentes(state);
+  const noComponentesFnc = (state: []) => {
+    setNoComponentes(state);
   };
 
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
-    componentes.map((x, index) => {
+    noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
         resumen: "",
@@ -53,14 +53,14 @@ export default function FullModalMir({
     })
   );
 
-  const asignarComponenteValor = (state: Array<IComponente>) => {
+  const valoresComponenteFnc = (state: Array<IComponente>) => {
     setComponenteValor(state);
   };
 
   const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
     {
-      componentes: componentes.map((x) => actividades),
+      componentes: noComponentes.map((x) => actividades),
     },
   ]);
 
@@ -108,7 +108,7 @@ export default function FullModalMir({
   // };
 
   useEffect(() => {
-    let array = componentes.map((x, index) => {
+    let array = noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
         resumen: "",
@@ -243,8 +243,8 @@ export default function FullModalMir({
             resumenEncabezado={resumenEncabezado}
             cargaFin={loadFin}
             cargaProposito={loadProposito}
-            asignarComponente={asignarComponente}
-            asignarComponenteValor={asignarComponenteValor}
+            asignarComponente={noComponentesFnc}
+            asignarComponenteValor={valoresComponenteFnc}
             cValor={cValor}
             MIR={MIR}
           ></TabEncabezado>
@@ -260,7 +260,7 @@ export default function FullModalMir({
             showResume={showResume}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
             show={value === 50 ? true : false}
-            componentes={componentes}
+            componentes={noComponentes}
             componenteValor={componenteValor}
             cValor={cValor}
             encabezado={encabezado}
@@ -270,17 +270,17 @@ export default function FullModalMir({
           ></TabResumen2>
           <TabComponente
             show={value === 30 ? true : false}
-            asignarComponente={asignarComponente}
-            asignarComponenteValor={asignarComponenteValor}
-            componentesMir={componentes}
-            componenteValorMir={componenteValor}
+            noComponentesFnc={noComponentesFnc}
+            valoresComponenteFnc={valoresComponenteFnc}
+            noComponentes={noComponentes}
+            valoresComponente={componenteValor}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabComponente>
           <TabActividades
             actividadesMir={actividadesMir}
             compAct={compAct}
             show={value === 40 ? true : false}
-            componentes={componentes}
+            componentes={noComponentes}
             asignarCValor={asignarCValor}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabActividades>

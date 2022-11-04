@@ -523,11 +523,6 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].supuestos
-              }
             />
           </Box>
         </Box>

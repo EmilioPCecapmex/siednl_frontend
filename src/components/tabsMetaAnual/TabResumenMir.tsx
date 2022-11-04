@@ -288,6 +288,8 @@ export function TabResumenMir({
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {proposito[0]?.supuestos}
             </Typography>
+
+            
           </Box>
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
