@@ -100,6 +100,33 @@ export const TabActividadesMA = ({
     })
   );
 
+  const [aValorMA, setAValorMA] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                componentes: '',
+                metaAnual: '',
+                lineaBase: '',
+                metasPorFrecuencia: [],
+                valorNumerador: '',
+                valorDenominador: '',
+                orden: '',
+                unidadResponsable: '',
+                descIndicador: '',
+                descNumerador: '',
+                descDenominador: '',
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
   useEffect(() => {
     asignarCValor(cValor);
   }, [cValor, componentes]);
@@ -161,53 +188,6 @@ export const TabActividadesMA = ({
     setCValor(y);
   };
 
-  const agregarAFnc = (index: number) => {
-    let act = cValor[0].componentes[componenteSelect].actividades;
-    let v = act.length;
-
-    if (v < 7) {
-      let a = [...actividades];
-      a.push(actividades.length + 1);
-      setActividades(a);
-      let xArray = [...componenteActividad];
-      xArray[0]["componentes"][index] = [
-        ...actividades,
-        actividades.length + 1,
-      ];
-      setComponenteActividad(xArray);
-      if (cValor[0].componentes[index].actividades.length < 6) {
-        let prevState = [...cValor];
-        prevState[0].componentes[index].actividades.push({
-          actividad:
-            "A" +
-            (cValor[0].componentes[index].actividades.length + 1) +
-            "C" +
-            (index + 1),
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        });
-        setCValor(prevState);
-      }
-    }
-  };
-
-  const eliminarAFnc = () => {
-    let act = cValor[0].componentes[componenteSelect].actividades;
-    let v = act.length;
-
-    if (v > 2) {
-      let a = actividades;
-      a.pop();
-      setActividades(a);
-      let prevState = [...cValor];
-      prevState[0].componentes[componenteSelect].actividades.pop();
-      setCValor(prevState);
-    }
-  };
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
@@ -217,7 +197,6 @@ export const TabActividadesMA = ({
   const handleClickComponente = (index: number) => {
     setOpen(index);
   };
-
 
   //return main
   return (
@@ -322,7 +301,6 @@ export const TabActividadesMA = ({
                     {cValor[0].componentes[componenteSelect].actividades.map(
                       (value, x) => {
                         return (
-
                           <ListItemButton
                             selected={x == actividadSelect ? true : false}
                             key={x}
@@ -362,111 +340,21 @@ export const TabActividadesMA = ({
             justifyContent: "center",
           }}
         >
-          {/* TextField disableds box */}
-
-          {/* Renderizado de Actividades */}
-
-          {/* <Box>
-              <Typography>Actividad {actividadSelect + 1} - Componente {parseInt(componenteSelect) + 1}</Typography>
-            </Box> */}
           <Box
             sx={{
-              width: "100%",
-              height: "40%",
-              justifyContent: "space-evenly",
               display: "flex",
-              alignItems: "center",
-            }}
-           >
-            <TextField disabled
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Resumen Narrativo"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].resumen
-              }
-              onChange={(c) => {
-                let y = [...cValor];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].resumen = c.target.value;
-                setCValor(y);
-              }}
-            />
-            <TextField disabled
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Indicador"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].indicador
-              }
-            />
-            <TextField disabled
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                readOnly: true,
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Fórmula"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].formula
-              }
-            />
-          </Box>
-
-          <Box
-            sx={{
               width: "100%",
-              height: "40%",
-
-              justifyContent: "space-evenly",
-              display: "flex",
+              height: "30%",
               alignItems: "center",
+              justifyContent: "space-evenly",
             }}
           >
-            <TextField disabled
-              variant="filled"
+            <TextField
+              rows={3}
               multiline
+              sx={{ width: "15%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Meta anual 2023"}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -477,18 +365,13 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Frecuencia"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].frecuencia
-              }
             />
-            <TextField disabled
-              variant="filled"
+            <TextField
+              rows={3}
               multiline
+              sx={{ width: "15%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Linea Base 2021"}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -499,19 +382,13 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Medios de Verificación"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].medios
-              }
             />
-
-            <TextField disabled
-              variant="filled"
+            <TextField
+              rows={3}
               multiline
+              sx={{ width: "15%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Valor númerador"}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -522,21 +399,139 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Supuestos"}
+            />
+            <TextField
+              rows={3}
+              multiline
+              sx={{ width: "15%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Valor del denominador"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+            <TextField
+              rows={3}
+              multiline
+              sx={{ width: "15%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Sentido del indicador"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
 
+              width: "100%",
+              height: "33%",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <TextField
+              rows={5}
+              multiline
+              sx={{ width: "40%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Unidad responsable de reportar el indicador"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+            <TextField
+              rows={5}
+              multiline
+              sx={{ width: "40%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Descripción del indicador"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+
+              width: "100%",
+              height: "33%",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <TextField
+              rows={5}
+              multiline
+              sx={{ width: "40%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Descripción del numerador"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+            <TextField
+              rows={5}
+              multiline
+              sx={{ width: "40%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Descripcion del denominador"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].supuestos
               }
-
             />
           </Box>
         </Box>
       </Box>
-
     </Box>
   );
 };

@@ -29,22 +29,6 @@ export const TabComponente = ({
   componenteValorMir: Array<IComponente>;
   mirEdit?: IMIREdit;
 }) => {
-  // business logic-------------------------------------------------------------------------------
-  // const [componentesMir, asignarComponente] = useState([1, 2]);
-
-  // const [componenteValorMir, asignarComponenteValor] = useState<Array<IComponente>>(
-  //   componentesMir.map((x) => {
-  //     return {
-  //       resumen: "",
-  //       indicador: "",
-  //       frecuencia: "",
-  //       formula: "",
-  //       medios: "",
-  //       supuestos: "",
-  //     };
-  //   })
-  // );
-
   const agregarFnc = () => {
     let v = componentesMir.length + 1;
     if (v > 6) {
@@ -96,9 +80,9 @@ export const TabComponente = ({
     const cFrecuencia =
       componenteValorMir[componentSelect - 1].frecuencia?.toLowerCase();
     if (cFrecuencia !== undefined) {
-      if (cFrecuencia===("semestral")) {
+      if (cFrecuencia === "semestral") {
         setErrorFrecuencia(-1);
-      } else if (cFrecuencia===("trimestral")) {
+      } else if (cFrecuencia === "trimestral") {
         setErrorFrecuencia(-1);
       } else {
         setErrorFrecuencia(componentSelect - 1);
@@ -395,7 +379,6 @@ export const TabComponente = ({
                   c.target.value;
                 asignarComponenteValor([...componenteValorMir]);
               }}
-
               onBlur={() => evalueTxtFrecuencia()}
               error={errorFrecuencia === componentSelect - 1 ? true : false}
               helperText={
@@ -403,8 +386,6 @@ export const TabComponente = ({
                   ? "Frecuencia debe ser Semestral ó Trimestral "
                   : null
               }
-
-               
             />
             <TextField
               disabled={mirEdit?.componentes[componentSelect - 1].medios}

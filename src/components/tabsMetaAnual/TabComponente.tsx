@@ -34,7 +34,6 @@ export const TabComponenteMA = ({
         backgroundColor: "#fff",
       }}
     >
-
       <Box
         sx={{
           width: "100%",
@@ -141,7 +140,6 @@ export const TabComponenteMA = ({
             <Box
               sx={{
                 display: "flex",
-
                 width: "100%",
                 height: "30%",
                 alignItems: "center",
@@ -149,7 +147,6 @@ export const TabComponenteMA = ({
               }}
             >
               <TextField
-
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -165,9 +162,13 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
-              /><TextField
-
+                value={componenteValorMir[componentSelect - 1]?.indicador}
+                onChange={(c) => {
+                  componenteValorMir[componentSelect - 1].indicador =
+                    c.target.value;
+                }}
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -183,9 +184,8 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -201,9 +201,8 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -219,9 +218,8 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -237,10 +235,7 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
-
-
             </Box>
             <Box
               sx={{
@@ -253,7 +248,6 @@ export const TabComponenteMA = ({
               }}
             >
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -269,10 +263,8 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -288,7 +280,6 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
             </Box>
             <Box
@@ -301,9 +292,7 @@ export const TabComponenteMA = ({
                 justifyContent: "space-evenly",
               }}
             >
-
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -319,10 +308,8 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -338,81 +325,32 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
+                value={componenteValorMir[componentSelect - 1].supuestos}
               />
             </Box>
           </Box>
 
-          <Box
-            sx={{
-              width: "100%",
-              height: "40%",
-              justifyContent: "space-evenly",
-              display: "flex",
-              alignItems: "center",
+          <TextField
+            disabled
+            variant="filled"
+            multiline
+            rows={4}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
             }}
-          >
-            <TextField
-              disabled
-              multiline
-              variant="filled"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Frecuencia"}
-              value={componenteValorMir[componentSelect - 1].frecuencia}
-            />
-            <TextField
-              disabled
-              multiline
-              variant="filled"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Medios de Verificación"}
-              value={componenteValorMir[componentSelect - 1].medios}
-            />
-            <TextField
-              disabled
-              variant="filled"
-              multiline
-              rows={4}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Supuestos"}
-              value={componenteValorMir[componentSelect - 1].supuestos}
-            />
-          </Box>
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            sx={{ width: "30%", boxShadow: 2 }}
+            label={"Supuestos"}
+            value={componenteValorMir[componentSelect - 1].supuestos}
+          />
         </Box>
       </Box>
-      
     </Box>
   );
 };

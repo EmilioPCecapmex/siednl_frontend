@@ -100,7 +100,7 @@ export function TabFinProposito({
 
   const evalueTxtFrecuenciaFin = () => {
     let txt = fin.frecuencia?.toLowerCase();
-    if (txt === 'anual' || txt === "bienal") {
+    if (txt === "anual" || txt === "bienal") {
       setErrorFrecuenciaFin("");
     } else {
       setErrorFrecuenciaFin("Frecuencia debe ser tipo Anual ó Bienal.");

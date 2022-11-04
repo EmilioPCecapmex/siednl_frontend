@@ -62,7 +62,7 @@ export default function FullModalMetaAnual({
         componentes: "C" + (index + 1),
         metaAnual: "",
         lineaBase: "",
-        metasPorFrecuencia:[],
+        metasPorFrecuencia: [],
         valorNumerador: "",
         valorDenominador: "",
         orden: "",
@@ -173,7 +173,7 @@ export default function FullModalMetaAnual({
           alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex"}}>
+        <Box sx={{ display: "flex" }}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -183,16 +183,16 @@ export default function FullModalMetaAnual({
               boxShadow: 20,
             }}
           >
-              <Tab
-                label="Encabezado"
-                value={10}
-                sx={{
-                  borderRight: "5px solid #b3afaf",
-                  color: "black",
-                  fontFamily: "MontserratBold",
-                  backgroundColor: "#ccc",
-                }}
-              />
+            <Tab
+              label="Encabezado"
+              value={10}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
             <Tab
               label="Fin / Propósito"
               value={20}

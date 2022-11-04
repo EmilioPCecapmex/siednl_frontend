@@ -269,7 +269,6 @@ export function TabFinPropositoMR({
         </List>
 
         {showFin ? (
-
           <Box
             sx={{
               display: "flex",
@@ -291,7 +290,6 @@ export function TabFinPropositoMR({
               }}
             >
               <TextField
-
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -307,9 +305,8 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -325,9 +322,8 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -343,9 +339,8 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -361,9 +356,8 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -379,10 +373,7 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
-
-
             </Box>
             <Box
               sx={{
@@ -395,7 +386,6 @@ export function TabFinPropositoMR({
               }}
             >
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -411,10 +401,8 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -430,7 +418,6 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
             </Box>
             <Box
@@ -443,9 +430,7 @@ export function TabFinPropositoMR({
                 justifyContent: "space-evenly",
               }}
             >
-
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -461,10 +446,8 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -480,11 +463,9 @@ export function TabFinPropositoMR({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-
               />
             </Box>
           </Box>
-
         ) : null}
 
         {showProposito ? (
@@ -499,7 +480,6 @@ export function TabFinPropositoMR({
               }}
             >
               <TextField
-
                 rows={4}
                 multiline
                 variant="filled"
@@ -519,7 +499,6 @@ export function TabFinPropositoMR({
               />
 
               <TextField
-
                 rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -538,7 +517,6 @@ export function TabFinPropositoMR({
                 value={proposito.indicador}
               />
               <TextField
-
                 rows={4}
                 multiline
                 variant="filled"
@@ -559,7 +537,6 @@ export function TabFinPropositoMR({
               />
 
               <TextField
-
                 rows={4}
                 multiline
                 variant="filled"
@@ -578,7 +555,6 @@ export function TabFinPropositoMR({
                 value={proposito.frecuencia}
               />
               <TextField
-
                 rows={4}
                 multiline
                 variant="filled"
@@ -597,7 +573,6 @@ export function TabFinPropositoMR({
                 value={proposito.medios_verificacion}
               />
               <TextField
-
                 rows={4}
                 multiline
                 variant="filled"
