@@ -177,9 +177,13 @@ export default function FullModalMetaAnual({
 
   const resumenFinMa = (arr: Array<IFinMA>) => {
     setValueFin(arr);
+    console.log(arr);
+    
   };
   const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
     setValueProposito(arr);
+    console.log(arr);
+    
   };
 
   return (
@@ -271,6 +275,16 @@ export default function FullModalMetaAnual({
             height: "77vh",
           }}
         >
+           <TabResumenMir
+            showResume="Fin"
+            show={value === 50 ? true : false}
+            componentes={noComponentes}
+            componenteValor={componenteValor}
+            cValor={cValor}
+            fin={ValueFin}
+            proposito={ValueProposito}
+          ></TabResumenMir> 
+
           <TabEncabezadoMA
           
             anioFiscalEdit={anioFiscalEdit}
@@ -284,7 +298,7 @@ export default function FullModalMetaAnual({
             asignarComponenteValor={valoresComponenteFnc}
             MIR={MIR}
           ></TabEncabezadoMA>
-
+          
           <TabFinPropositoMR
             show={value === 20 ? true : false}
             resumenFin={resumenFin}
@@ -310,19 +324,17 @@ export default function FullModalMetaAnual({
             componentes={noComponentes}
             asignarCValor={asignarCValor}
           ></TabActividadesMA>
-
-          <TabResumenMA
-            componentes={noComponentes}
-            show={value === 40 ? true : false}
+          {/* <TabResumenMA
+            showResume={showResume}
+            show={value === 50 ? true : false}
+            componentes={componentes}
             componenteValor={componenteValor}
             cValor={cValor}
             encabezado={encabezado}
             fin={fin}
             proposito={proposito}
             IdMir={IdMir}
-            openOptionDialog={openOptionDialog}
-          ></TabResumenMA>
-          
+          ></TabResumenMA> */}
         </Box>
       </Box>
     </Box>
