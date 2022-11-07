@@ -114,7 +114,7 @@ export const TabActividadesMA = ({
                 metasPorFrecuencia: [],
                 valorNumerador: "",
                 valorDenominador: "",
-                orden: "",
+                sentidoDelIndicador: "",
                 unidadResponsable: "",
                 descIndicador: "",
                 descNumerador: "",

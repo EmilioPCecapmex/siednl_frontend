@@ -19,7 +19,6 @@ import  {IPropositoMA}  from "./IFin";
 
 export function TabFinPropositoMR({
   show,
-  setOpenOptionDialog,
   resumenFin,
   resumenProposito,
   cargaFin,
@@ -28,7 +27,6 @@ export function TabFinPropositoMR({
   resumenPropositoMa
 }: {
   show: boolean
-  setOpenOptionDialog:Function;
   resumenFin: Function;
   resumenProposito: Function;
   cargaFin: Array<IFin>;
@@ -140,7 +138,6 @@ export function TabFinPropositoMR({
 
   const [openFin, setOpenFin] = useState(false);
   const handleClickOpen = () => {
-    setOpenOptionDialog("Fin");
   };
 
 
@@ -424,11 +421,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].orden= c.target.value ;
+                  ValueFin[0].sentidoDelIndicador= c.target.value ;
                   setValueFin([...ValueFin]);
                 }}
 
-                value={ValueFin[0]?.orden}
+                value={ValueFin[0]?.sentidoDelIndicador}
 
               />
             </Box>
@@ -691,11 +688,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].orden= c.target.value ;
+                  ValueProposito[0].sentidoDelIndicador= c.target.value ;
                   setValueProposito([...ValueProposito]);
                 }}
 
-                value={ValueProposito[0]?.orden}
+                value={ValueProposito[0]?.sentidoDelIndicador}
 
               />
 

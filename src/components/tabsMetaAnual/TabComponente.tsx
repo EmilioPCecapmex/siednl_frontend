@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -7,7 +7,8 @@ import {
   List,
   ListItemButton,
 } from "@mui/material";
-import { IComponente, IComponenteMA } from "../tabsMir/IComponente";
+import { IComponente } from "../tabsMir/IComponente";
+import { IComponenteMA } from "./Interfaces";
 
 export const TabComponenteMA = ({
   show,
@@ -23,6 +24,43 @@ export const TabComponenteMA = ({
   valoresComponenteMir: Array<IComponente>;
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
+
+  const [componentesValues, setComponentesValues] = useState<
+    Array<IComponenteMA>
+  >([]);
+
+  useEffect(() => {
+    if (show === true) {
+      let comp: IComponenteMA[] = [];
+
+      noComponentes.map((x, index) => {
+        return comp.push({
+          componentes: valoresComponenteMir[index].componentes,
+          metaAnual: "",
+          lineaBase: "",
+          metasPorFrecuencia: [
+            {
+              semestre1: "",
+              semestre2: "",
+              trimestre1: "",
+              trimestre2: "",
+              trimestre3: "",
+              trimestre4: "",
+            },
+          ],
+          valorNumerador: "",
+          valorDenominador: "",
+          sentidoDelIndicador: "",
+          unidadResponsable: "",
+          descIndicador: "",
+          descNumerador: "",
+          descDenominador: "",
+        });
+      });
+
+      setComponentesValues(comp);
+    }
+  }, [show]);
 
   return (
     <Box
@@ -150,6 +188,13 @@ export const TabComponenteMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Meta anual 2023"}
+              value={componentesValues[componentSelect - 1]?.metaAnual}
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].metaAnual =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -167,6 +212,13 @@ export const TabComponenteMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Linea Base 2021"}
+              value={componentesValues[componentSelect - 1]?.lineaBase}
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].lineaBase =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -183,7 +235,14 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Valor númerador"}
+              label={"Valor del númerador"}
+              value={componentesValues[componentSelect - 1]?.valorNumerador}
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].valorNumerador =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -201,6 +260,13 @@ export const TabComponenteMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del denominador"}
+              value={componentesValues[componentSelect - 1]?.valorDenominador}
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].valorDenominador =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -218,6 +284,15 @@ export const TabComponenteMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Sentido del indicador"}
+              value={
+                componentesValues[componentSelect - 1]?.sentidoDelIndicador
+              }
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].sentidoDelIndicador =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -251,6 +326,17 @@ export const TabComponenteMA = ({
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Trimestre 1"}
+                value={
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                    ?.trimestre1
+                }
+                onChange={(c) => {
+                  componentesValues[
+                    componentSelect - 1
+                  ].metasPorFrecuencia[0].trimestre1 = c.target.value;
+                  setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -268,6 +354,17 @@ export const TabComponenteMA = ({
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Trimestre 2"}
+                value={
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                    ?.trimestre2
+                }
+                onChange={(c) => {
+                  componentesValues[
+                    componentSelect - 1
+                  ].metasPorFrecuencia[0].trimestre2 = c.target.value;
+                  setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -285,6 +382,17 @@ export const TabComponenteMA = ({
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Trimestre 3"}
+                value={
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                    ?.trimestre3
+                }
+                onChange={(c) => {
+                  componentesValues[
+                    componentSelect - 1
+                  ].metasPorFrecuencia[0].trimestre3 = c.target.value;
+                  setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -302,6 +410,17 @@ export const TabComponenteMA = ({
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Trimestre 4"}
+                value={
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                    ?.trimestre4
+                }
+                onChange={(c) => {
+                  componentesValues[
+                    componentSelect - 1
+                  ].metasPorFrecuencia[0].trimestre4 = c.target.value;
+                  setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -332,6 +451,17 @@ export const TabComponenteMA = ({
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Semestre 1"}
+                value={
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                    ?.semestre1
+                }
+                onChange={(c) => {
+                  componentesValues[
+                    componentSelect - 1
+                  ].metasPorFrecuencia[0].semestre1 = c.target.value;
+                  setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -349,6 +479,17 @@ export const TabComponenteMA = ({
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Semestre 2"}
+                value={
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                    ?.semestre2
+                }
+                onChange={(c) => {
+                  componentesValues[
+                    componentSelect - 1
+                  ].metasPorFrecuencia[0].semestre2 = c.target.value;
+                  setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -379,6 +520,13 @@ export const TabComponenteMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Unidad responsable de reportar el indicador"}
+              value={componentesValues[componentSelect - 1]?.unidadResponsable}
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].unidadResponsable =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -396,6 +544,13 @@ export const TabComponenteMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripción del indicador"}
+              value={componentesValues[componentSelect - 1]?.descIndicador}
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].descIndicador =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -424,6 +579,13 @@ export const TabComponenteMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripción del numerador"}
+              value={componentesValues[componentSelect - 1]?.descNumerador}
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].descNumerador =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -441,6 +603,15 @@ export const TabComponenteMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripcion del denominador"}
+              value={componentesValues[componentSelect - 1]?.descDenominador}
+              onChange={(c) => {
+                componentesValues[componentSelect - 1].descDenominador =
+                  c.target.value;
+                setComponentesValues([...componentesValues]);
+                valoresComponenteMAFnc([...componentesValues]);
+                console.log(componentesValues);
+                
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",

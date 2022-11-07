@@ -5,7 +5,7 @@ export interface IFinMA {
     metasPorFrecuencia: string;
     valorNumerador: string;
     valorDenominador: string;
-    orden: string;
+    sentidoDelIndicador: string;
     unidadResponsable: string;
     descIndicador: string;
     descNumerador: string;
@@ -19,7 +19,7 @@ export interface IPropositoMA {
     metasPorFrecuencia: string;
     valorNumerador: string;
     valorDenominador: string;
-    orden: string;
+    sentidoDelIndicador: string;
     unidadResponsable: string;
     descIndicador: string;
     descNumerador: string;

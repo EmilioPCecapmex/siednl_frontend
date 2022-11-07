@@ -4,13 +4,14 @@ import Tab from "@mui/material/Tab";
 import { Box, Tooltip } from "@mui/material";
 import TabFinPropositoMR, { IFin, IProposito } from "./TabFinProposito";
 import TabResumenMA from "./TabResumen";
-import { IComponente, IComponenteMA } from "../tabsMir/IComponente";
+import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import TabEncabezadoMA, { IEncabezado } from "./TabEncabezado";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import TabResumenMir from "./TabResumenMir";
+import { IComponenteMA } from "./Interfaces";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -31,6 +32,7 @@ export default function FullModalMetaAnual({
 
   // COMPONENTES
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+
   const noComponenteFnc = (state: []) => {
     setNoComponentes(state);
   };
@@ -60,7 +62,7 @@ export default function FullModalMetaAnual({
         metasPorFrecuencia: [],
         valorNumerador: "",
         valorDenominador: "",
-        orden: "",
+        sentidoDelIndicador: "",
         unidadResponsable: "",
         descIndicador: "",
         descNumerador: "",
@@ -111,7 +113,7 @@ export default function FullModalMetaAnual({
     setCValor(state);
   };
 
-  const [openOptionDialog,setOpenOptionDialog]=useState("");
+  const [openOptionDialog, setOpenOptionDialog]=useState("");
 
   useEffect(() => {
     let array = noComponentes.map((x, index) => {
@@ -135,7 +137,7 @@ export default function FullModalMetaAnual({
         metasPorFrecuencia: [],
         valorNumerador: "",
         valorDenominador: "",
-        orden: "",
+        sentidoDelIndicador: "",
         unidadResponsable: "",
         descIndicador: "",
         descNumerador: "",
@@ -143,6 +145,8 @@ export default function FullModalMetaAnual({
       };
     });
     setValoresComponenteMA(arrayMA);
+    console.log(valoresComponenteMA);
+    
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
@@ -283,7 +287,6 @@ export default function FullModalMetaAnual({
 
           <TabFinPropositoMR
             show={value === 20 ? true : false}
-            setOpenOptionDialog={()=>''}
             resumenFin={resumenFin}
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
