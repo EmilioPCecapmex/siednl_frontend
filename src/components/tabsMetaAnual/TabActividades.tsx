@@ -108,17 +108,17 @@ export const TabActividadesMA = ({
             actividades: x.map((c, index2) => {
               return {
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                componentes: '',
-                metaAnual: '',
-                lineaBase: '',
+                componentes: "",
+                metaAnual: "",
+                lineaBase: "",
                 metasPorFrecuencia: [],
-                valorNumerador: '',
-                valorDenominador: '',
-                orden: '',
-                unidadResponsable: '',
-                descIndicador: '',
-                descNumerador: '',
-                descDenominador: '',
+                valorNumerador: "",
+                valorDenominador: "",
+                orden: "",
+                unidadResponsable: "",
+                descIndicador: "",
+                descNumerador: "",
+                descDenominador: "",
               };
             }),
           };
@@ -187,7 +187,6 @@ export const TabActividadesMA = ({
     });
     setCValor(y);
   };
-
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
@@ -423,6 +422,86 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Sentido del indicador"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+
+              width: "100%",
+              height: "20%",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+              flexWrap: "wrap",
+            }}
+          >
+            <TextField
+              rows={3}
+              multiline
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Trimestre 1"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+            <TextField
+              rows={3}
+              multiline
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Trimestre 2"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+            <TextField
+              rows={3}
+              multiline
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Trimestre 3"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            />
+            <TextField
+              rows={3}
+              multiline
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={"Trimestre 4"}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
