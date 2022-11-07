@@ -3,6 +3,7 @@ import { Box, Tab, Tabs } from "@mui/material";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import escudo from "../../assets/logos/escudo.png";
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export const Home = () => {
 
@@ -17,6 +18,8 @@ export const Home = () => {
 
       }}
     >
+              {/* <TutorialBox /> */}
+
       <LateralMenu selection={0} />
       <Header
         details={{
