@@ -1,8 +1,7 @@
 export interface IFinMA {
-    componentes: string;
+    
     metaAnual: string;
     lineaBase: string;
-    metasPorFrecuencia: string;
     valorNumerador: string;
     valorDenominador: string;
     orden: string;
@@ -13,10 +12,9 @@ export interface IFinMA {
 }
 
 export interface IPropositoMA {
-    componentes: string;
+    
     metaAnual: string;
     lineaBase: string;
-    metasPorFrecuencia: string;
     valorNumerador: string;
     valorDenominador: string;
     orden: string;

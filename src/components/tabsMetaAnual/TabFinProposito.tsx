@@ -74,8 +74,31 @@ export function TabFinPropositoMR({
     supuestos: "",
   });
 
-  const [ValueFin, setValueFin] = useState <Array<IFinMA>>([]);
-  const [ValueProposito, setValueProposito] = useState <Array<IPropositoMA>>([]);
+  const [valueFin, setValueFin] = useState <Array<IFinMA>>([{
+    metaAnual: "",
+    lineaBase: "",
+    valorNumerador: "",
+    valorDenominador: "",
+    orden: "",
+    unidadResponsable: "",
+    descIndicador: "",
+    descNumerador: "",
+    descDenominador: "",
+
+  }])
+  //Si se usa la interfaz pero no entiendo como por ahora 
+
+  const [valueProposito, setValueProposito] = useState <Array<IPropositoMA>>([{
+    metaAnual: "",
+    lineaBase: "",
+    valorNumerador: "",
+    valorDenominador: "",
+    orden: "",
+    unidadResponsable: "",
+    descIndicador: "",
+    descNumerador: "",
+    descDenominador: "",
+  }]);
 
 
   const [showFin, setShowFin] = useState(true);
@@ -132,9 +155,9 @@ export function TabFinPropositoMR({
   }, [tabFin, tabProposito]);
 
   useEffect(() => {
-    resumenFinMa(ValueFin);
-    resumenPropositoMa(ValueProposito);
-  }, [tabFin, tabProposito]);
+    resumenFinMa(valueFin);
+    resumenPropositoMa(valueProposito);
+  }, [valueFin, valueProposito]);
 
   const [openFin, setOpenFin] = useState(false);
   const handleClickOpen = () => {
@@ -327,11 +350,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].metaAnual= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].metaAnual= c.target.value ;
+                  setValueFin([...valueFin]);
                 }}
 
-                value={ValueFin[0]?.metaAnual}
+                value={valueFin[0]?.metaAnual}
 
               /><TextField
 
@@ -351,11 +374,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].lineaBase= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].lineaBase= c.target.value ;
+                  setValueFin([...valueFin]);
                 }}
 
-                value={ValueFin[0]?.lineaBase}
+                value={valueFin[0]?.lineaBase}
 
               /><TextField
 
@@ -375,11 +398,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].valorNumerador= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].valorNumerador= c.target.value ;
+                  setValueFin([...valueFin]);
                 }}
 
-                value={ValueFin[0]?.valorNumerador}
+                value={valueFin[0]?.valorNumerador}
 
               /><TextField
 
@@ -399,11 +422,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].valorDenominador= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].valorDenominador= c.target.value ;
+                  setValueFin([...valueFin]);
                 }}
 
-                value={ValueFin[0]?.valorDenominador}
+                value={valueFin[0]?.valorDenominador}
 
               /><TextField
 
@@ -423,11 +446,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].orden= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].orden= c.target.value ;
+                  setValueFin([...valueFin]);
                 }}
 
-                value={ValueFin[0]?.orden}
+                value={valueFin[0]?.orden}
 
               />
 
@@ -461,11 +484,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].unidadResponsable= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].unidadResponsable= c.target.value ;
+                  setValueFin([...valueFin]);
                 }}
 
-                value={ValueFin[0]?.unidadResponsable}
+                value={valueFin[0]?.unidadResponsable}
               />
               <TextField
 
@@ -485,11 +508,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].descIndicador= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].descIndicador= c.target.value ;
+                  setValueFin([...valueFin]);
                 }}
 
-                value={ValueFin[0]?.descIndicador}
+                value={valueFin[0]?.descIndicador}
                 
 
               />
@@ -523,11 +546,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].descNumerador= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].descNumerador= c.target.value ;
+                  setValueFin([...valueFin]);
                 }}
 
-                value={ValueFin[0]?.descNumerador}
+                value={valueFin[0]?.descNumerador}
 
               />
               <TextField
@@ -548,11 +571,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueFin[0].descDenominador= c.target.value ;
-                  setValueFin([...ValueFin]);
+                  valueFin[0].descDenominador= c.target.value ;
+                  setValueFin({...valueFin});
                 }}
 
-                value={ValueFin[0]?.descDenominador}
+                value={valueFin[0]?.descDenominador}
 
 
               />
@@ -602,11 +625,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].metaAnual= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].metaAnual= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.metaAnual}
+                value={valueProposito[0]?.metaAnual}
 
               /><TextField
 
@@ -626,11 +649,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].lineaBase= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].lineaBase= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.lineaBase}
+                value={valueProposito[0]?.lineaBase}
 
               /><TextField
 
@@ -650,11 +673,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].valorNumerador= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].valorNumerador= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.valorNumerador}
+                value={valueProposito[0]?.valorNumerador}
 
               /><TextField
 
@@ -674,11 +697,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].valorDenominador= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].valorDenominador= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.valorDenominador}
+                value={valueProposito[0]?.valorDenominador}
 
               /><TextField
 
@@ -698,11 +721,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].orden= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].orden= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.orden}
+                value={valueProposito[0]?.orden}
 
               />
 
@@ -736,11 +759,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].unidadResponsable= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].unidadResponsable= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.unidadResponsable}
+                value={valueProposito[0]?.unidadResponsable}
               />
               <TextField
 
@@ -760,11 +783,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].descIndicador= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].descIndicador= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.descIndicador}
+                value={valueProposito[0]?.descIndicador}
                 
 
               />
@@ -798,11 +821,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].descNumerador= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].descNumerador= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.descNumerador}
+                value={valueProposito[0]?.descNumerador}
 
               />
               <TextField
@@ -823,11 +846,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  ValueProposito[0].descDenominador= c.target.value ;
-                  setValueProposito([...ValueProposito]);
+                  valueProposito[0].descDenominador= c.target.value ;
+                  setValueProposito([...valueProposito]);
                 }}
 
-                value={ValueProposito[0]?.descDenominador}
+                value={valueProposito[0]?.descDenominador}
 
 
               />
