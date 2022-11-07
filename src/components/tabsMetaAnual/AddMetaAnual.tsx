@@ -111,6 +111,8 @@ export default function FullModalMetaAnual({
     setCValor(state);
   };
 
+  const [openOptionDialog,setOpenOptionDialog]=useState("");
+
   useEffect(() => {
     let array = noComponentes.map((x, index) => {
       return {
@@ -266,6 +268,7 @@ export default function FullModalMetaAnual({
           }}
         >
           <TabEncabezadoMA
+          
             anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
@@ -280,6 +283,7 @@ export default function FullModalMetaAnual({
 
           <TabFinPropositoMR
             show={value === 20 ? true : false}
+            setOpenOptionDialog={()=>''}
             resumenFin={resumenFin}
             resumenProposito={resumenProposito}
             cargaFin={cargaFin}
@@ -293,6 +297,7 @@ export default function FullModalMetaAnual({
             valoresComponenteMAFnc={valoresComponenteMAFnc}
             noComponentes={noComponentes}
             valoresComponente={valoresComponenteMA}
+            valoresComponenteMir={componenteValor}
           ></TabComponenteMA>
 
           <TabActividadesMA
@@ -304,16 +309,17 @@ export default function FullModalMetaAnual({
           ></TabActividadesMA>
 
           <TabResumenMA
-            showResume={showResume}
-            show={value === 50 ? true : false}
             componentes={noComponentes}
+            show={value === 40 ? true : false}
             componenteValor={componenteValor}
             cValor={cValor}
             encabezado={encabezado}
             fin={fin}
             proposito={proposito}
             IdMir={IdMir}
+            openOptionDialog={openOptionDialog}
           ></TabResumenMA>
+          
         </Box>
       </Box>
     </Box>

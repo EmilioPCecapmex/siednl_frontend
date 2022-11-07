@@ -19,6 +19,7 @@ import  {IPropositoMA}  from "./IFin";
 
 export function TabFinPropositoMR({
   show,
+  setOpenOptionDialog,
   resumenFin,
   resumenProposito,
   cargaFin,
@@ -26,7 +27,8 @@ export function TabFinPropositoMR({
   resumenFinMa,
   resumenPropositoMa
 }: {
-  show: boolean;
+  show: boolean
+  setOpenOptionDialog:Function;
   resumenFin: Function;
   resumenProposito: Function;
   cargaFin: Array<IFin>;
@@ -138,7 +140,7 @@ export function TabFinPropositoMR({
 
   const [openFin, setOpenFin] = useState(false);
   const handleClickOpen = () => {
-    setOpenFin(false);
+    setOpenOptionDialog("Fin");
   };
 
 
@@ -168,7 +170,8 @@ export function TabFinPropositoMR({
           }}
         >
           <InfoOutlinedIcon
-            onClick={() => (showFin ? setOpenFin(true) : null)}
+            onClick={() => {handleClickOpen();console.log("open");
+            }}
             fontSize="large"
             sx={{ cursor: "pointer" }}
           ></InfoOutlinedIcon>
