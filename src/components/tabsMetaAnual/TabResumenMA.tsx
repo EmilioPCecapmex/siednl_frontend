@@ -1,10 +1,14 @@
 import { Box, Typography, Button, Checkbox } from "@mui/material";
 import { IEncabezado } from "../tabsMir/TabEncabezado";
+import { useEffect, useState } from "react";
 import { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
+import { IMIR } from "./IMIR-Prueba-momentanea";
+import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
+import ModalSolicitaModifMA from "../modalsMA/ModalSolicitaModifMA";
 
 export function TabResumenMA({
   show,
@@ -21,6 +25,21 @@ export function TabResumenMA({
   componenteValor: Array<IComponenteMA>;
   cValor: Array<ICValorMA>;
 }) {
+
+  
+  const [MIR, setMIR] = useState<IMIR>();
+
+  const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
+
+  const handleCloseModif = () => {
+    setOpenModalSolicitarModif(false);
+  };
+
+  const [openModalEnviar, setOpenModalEnviar] = useState(false);
+  const handleCloseEnviar = () => {
+    setOpenModalEnviar(false);
+  }
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -1115,58 +1134,60 @@ export function TabResumenMA({
             });
           })}
         </Box>
+        
       </Box>
+      
+      <Box sx={{display:'flex'}}>
+        <Button color="error" variant="outlined" onClick={() => ''}>
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Cancelar
+          </Typography>
+        </Button>
+        <Button
+          disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+          color="warning"
+          variant="outlined"
+          onClick={() => setOpenModalSolicitarModif(true)}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Solicitar Modificación
+          </Typography>
+        </Button>
+
+        <Button
+          color="success"
+          variant="outlined"
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Borrador
+          </Typography>
+        </Button>
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={() => setOpenModalEnviar(true)}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Enviar
+          </Typography>
+        </Button>
+
+        <ModalSolicitaModifMA
+          open={openModalSolicitarModif}
+          //IdMir={IdMir}
+          handleClose={handleCloseModif}
+          MIR={JSON.stringify(MIR)}
+      
+        ></ModalSolicitaModifMA>
+
+        <ModalEnviarMA
+          open={openModalEnviar}
+          handleClose={handleCloseEnviar}
+          MIR={JSON.stringify(MIR)}
+        ></ModalEnviarMA>
+        </Box>
     </Box>
   );
 }
 
 export default TabResumenMA;
-
-export interface IEncabezadoEdit {
-  ejercicioFiscal: boolean;
-  institucion: boolean;
-  nombre_del_programa: boolean;
-  eje: boolean;
-  tema: boolean;
-  objetivo: boolean;
-  estrategia: boolean;
-  lineas_de_accion: boolean;
-  beneficiario: boolean;
-}
-
-export interface IFinEdit {
-  resumen: boolean;
-  indicador: boolean;
-  formula: boolean;
-  frecuencia: boolean;
-  medios: boolean;
-  supuestos: boolean;
-}
-export interface IPropositoEdit {
-  resumen: boolean;
-  indicador: boolean;
-  formula: boolean;
-  frecuencia: boolean;
-  medios_verificacion: boolean;
-  supuestos: boolean;
-}
-
-export interface IComponenteMirEdit {
-  componentes: string;
-  resumen: boolean;
-  indicador: boolean;
-  formula: boolean;
-  frecuencia: boolean;
-  medios: boolean;
-  supuestos: boolean;
-}
-
-export interface IActividadesMirEdit {
-  actividad: string;
-  formula: boolean;
-  frecuencia: boolean;
-  indicador: boolean;
-  medios: boolean;
-  resumen: boolean;
-  supuestos: boolean;
-}

@@ -23,14 +23,10 @@ export default function ModalEnviarMIR({
   open,
   handleClose,
   MIR,
-  IdMir,
-  showResume,
 }: {
   open: boolean;
   handleClose: Function;
   MIR: string;
-  IdMir: string;
-  showResume: Function;
 }) {
   const [comment, setComment] = useState("");
 
@@ -379,60 +375,60 @@ export default function ModalEnviarMIR({
       }
     });
     if (err !== 1) {
-      createMIR(v);
+      // createMIR(v);
     }
   };
 
-  const createMIR = (estado: string) => {
-    if (estado === "Autorizada" && userSelected !== "0") {
-      estado = "En Revisión";
-    } else if (estado === "En Autorización" && userSelected !== "0") {
-      estado = "En Captura";
-    }
-    axios
-      .post(
-        "http://10.200.4.105:8000/api/create-mir",
-        {
-          MIR: MIR,
-          Estado: estado,
-          CreadoPor:
-            userSelected !== "0"
-              ? userSelected
-              : localStorage.getItem("IdUsuario"),
-          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
-          Institucion: JSON.parse(MIR)?.encabezado.institucion,
-          Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
-          Eje: JSON.parse(MIR)?.encabezado.eje,
-          Tematica: JSON.parse(MIR)?.encabezado.tema,
-          IdMir: IdMir,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario);
-        });
+  // const createMIR = (estado: string) => {
+  //   if (estado === "Autorizada" && userSelected !== "0") {
+  //     estado = "En Revisión";
+  //   } else if (estado === "En Autorización" && userSelected !== "0") {
+  //     estado = "En Captura";
+  //   }
+  //   axios
+  //     .post(
+  //       "http://10.200.4.105:8000/api/create-mir",
+  //       {
+  //         MIR: MIR,
+  //         Estado: estado,
+  //         CreadoPor:
+  //           userSelected !== "0"
+  //             ? userSelected
+  //             : localStorage.getItem("IdUsuario"),
+  //         AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
+  //         Institucion: JSON.parse(MIR)?.encabezado.institucion,
+  //         Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
+  //         Eje: JSON.parse(MIR)?.encabezado.eje,
+  //         Tematica: JSON.parse(MIR)?.encabezado.tema,
+  //         IdMir: IdMir,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       userXInst.map((user) => {
+  //         enviarNotificacion(user.IdUsuario);
+  //       });
 
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
-        if (comment != "") {
-          comentMir(r.data.data.ID);
-        }
-        showResume();
-      })
-      .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
-      });
-  };
+  //       Toast.fire({
+  //         icon: "success",
+  //         title: r.data.data.message,
+  //       });
+  //       if (comment != "") {
+  //         comentMir(r.data.data.ID);
+  //       }
+  //       // showResume();
+  //     })
+  //     .catch((err) => {
+  //       Toast.fire({
+  //         icon: "error",
+  //         title: err.response.data.result.error,
+  //       });
+  //     });
+  // };
 
   const getUsuariosXInstitucion = () => {
     let inst = JSON.parse(MIR)?.encabezado.institucion;

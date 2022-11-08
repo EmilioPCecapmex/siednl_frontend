@@ -77,7 +77,7 @@ export function TabResumenMIR({
   }, [encabezado, componenteValor, proposito, fin, cValor, show]);
 
   return (
-    <Dialog fullWidth maxWidth="xl" open={open} sx={{height:'100%'}} onClose={handleClose}>
+    <Dialog fullWidth maxWidth="xl" open={show} sx={{height:'100%'}} onClose={handleClose}>
       <DialogTitle
         sx={{
           fontFamily: "MontserratBold",

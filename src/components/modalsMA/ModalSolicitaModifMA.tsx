@@ -24,16 +24,10 @@ export default function ModalSolicitaModif({
   open,
   handleClose,
   MIR,
-  MIREdit,
-  showResume,
-  IdMir,
 }: {
   open: boolean;
   handleClose: Function;
   MIR: string;
-  MIREdit: string;
-  showResume: Function;
-  IdMir: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -69,60 +63,60 @@ export default function ModalSolicitaModif({
         title: "Introduce usuario al que se le solicita modificación",
       });
     } else {
-      createMIR(estado);
+      // createMIR(estado);
     }
   };
 
-  const createMIR = (estado: string) => {
-    if (estado === "Autorizada" && userSelected !== "0") {
-      estado = "En Revisión";
-    } else if (estado === "En Autorización" && userSelected !== "0") {
-      estado = "En Captura";
-    }
-    axios
-      .post(
-        "http://10.200.4.105:8000/api/create-mir",
-        {
+  // const createMIR = (estado: string) => {
+  //   if (estado === "Autorizada" && userSelected !== "0") {
+  //     estado = "En Revisión";
+  //   } else if (estado === "En Autorización" && userSelected !== "0") {
+  //     estado = "En Captura";
+  //   }
+  //   axios
+  //     .post(
+  //       "http://10.200.4.105:8000/api/create-mir",
+  //       {
           
-          MIR: MIREdit == undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
-          Estado: estado,
-          CreadoPor:
-            userSelected !== "0"
-              ? userSelected
-              : localStorage.getItem("IdUsuario"),
-          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
-          Institucion: JSON.parse(MIR)?.encabezado.institucion,
-          Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
-          Eje: JSON.parse(MIR)?.encabezado.eje,
-          Tematica: JSON.parse(MIR)?.encabezado.tema,
-          IdMir: IdMir,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (comment != "") {
-          comentMir(r.data.data.ID);
-        }
-        Toast.fire({
-          icon: "success",
-          title: localStorage.getItem("Rol") === 'Verificador' ? 'MIR enviada a capturador': 'MIR enviada a revisión',
-        });
+  //         MIR: MIREdit == undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
+  //         Estado: estado,
+  //         CreadoPor:
+  //           userSelected !== "0"
+  //             ? userSelected
+  //             : localStorage.getItem("IdUsuario"),
+  //         AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
+  //         Institucion: JSON.parse(MIR)?.encabezado.institucion,
+  //         Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
+  //         Eje: JSON.parse(MIR)?.encabezado.eje,
+  //         Tematica: JSON.parse(MIR)?.encabezado.tema,
+  //         IdMir: IdMir,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (comment != "") {
+  //         comentMir(r.data.data.ID);
+  //       }
+  //       Toast.fire({
+  //         icon: "success",
+  //         title: localStorage.getItem("Rol") === 'Verificador' ? 'MIR enviada a capturador': 'MIR enviada a revisión',
+  //       });
 
-        enviarNotificacion();
-        handleClose();
-        showResume();
-      })
-      .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
-      });
-  };
+  //       enviarNotificacion();
+  //       handleClose();
+  //       showResume();
+  //     })
+  //     .catch((err) => {
+  //       Toast.fire({
+  //         icon: "error",
+  //         title: err.response.data.result.error,
+  //       });
+  //     });
+  // };
 
   const getUsuariosXInstitucion = () => {
     axios
