@@ -54,7 +54,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
 
   const getEje = () => {
     axios
-      .get("http://10.200.4.105:8000/api/ejes", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejes", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -65,7 +65,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   };
   const getTematica = () => {
     axios
-      .get("http://10.200.4.105:8000/api/tematica", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tematica", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -76,7 +76,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   };
   const getObjetivo = () => {
     axios
-      .get("http://10.200.4.105:8000/api/objetivos", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivos", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -87,7 +87,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   };
   const getEstrategia = () => {
     axios
-      .get("http://10.200.4.105:8000/api/estrategias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/estrategias", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -98,7 +98,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   };
   const getLineaDeAccion = () => {
     axios
-      .get("http://10.200.4.105:8000/api/lineasDeAccion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/lineasDeAccion", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -109,7 +109,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   };
   const getObjetivoDS = () => {
     axios
-      .get("http://10.200.4.105:8000/api/objetivosDS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosDS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -120,7 +120,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   };
   const getMetaODS = () => {
     axios
-      .get("http://10.200.4.105:8000/api/metasODS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/metasODS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -131,7 +131,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   };
   const getEjePND = () => {
     axios
-      .get("http://10.200.4.105:8000/api/ejesPND", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejesPND", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -142,7 +142,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   };
   const getObjetivoPEENL = () => {
     axios
-      .get("http://10.200.4.105:8000/api/objetivosPEENL", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosPEENL", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -155,7 +155,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
   const postPED = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/ped-add",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/ped-add",
         {
           IdEje: eje,
           IdTematicas: tematica,

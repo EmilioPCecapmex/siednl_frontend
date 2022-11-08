@@ -9,9 +9,11 @@ import {
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/NotificationsNone";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate } from "react-router-dom";
 import { TimerCounter } from "../timer/TimerCounter";
 import NotificationsPanel from "../notifications/NotificationsPanel";
+import { TutorialBox } from "../tutorialBox/tutorialBox";
 
 interface BreadcrumbsDetails {
   name1: string;
@@ -24,16 +26,10 @@ interface BreadcrumbsDetails {
 export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
   const navigate = useNavigate();
 
-  const [fullScreen, setFullScreen] = useState(true);
+  const [helpBoxes, setHelpBoxes] = useState(false);
 
-  const changeFullScreen = () => {
-    if (fullScreen) {
-      document.documentElement.requestFullscreen();
-      setFullScreen(false);
-    } else {
-      document.exitFullscreen();
-      setFullScreen(true);
-    }
+  const onClickHelp = () => {
+    setHelpBoxes(!helpBoxes);
   };
 
   return (
@@ -106,20 +102,22 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           borderRadius: 10,
         }}
       >
-        <Box sx={{ ml: ".5vw" }}>
-          <NotificationsPanel/>
-
-
+        <Box sx={{ ml: ".5vw", width: "2vw" }}>
+          <NotificationsPanel />
         </Box>
         <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
-        <Box>
+        <Box
+          sx={{
+            width: "2vw",
+          }}
+        >
           <TimerCounter />
         </Box>
         <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
-        <Box sx={{ mr: ".5vw" }}>
-          <IconButton onClick={() => changeFullScreen()}>
-            <FullscreenIcon />
-          </IconButton>
+        <Box sx={{ mr: ".5vw", width: "2vw" }}>
+          {/* <IconButton onClick={() => onClickHelp()}>
+            <InfoIcon fontSize="medium"/>
+          </IconButton> */}
         </Box>
       </Box>
     </Box>

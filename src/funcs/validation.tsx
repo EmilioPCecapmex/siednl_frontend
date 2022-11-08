@@ -6,7 +6,7 @@ const params = new URLSearchParams(window.location.search);
 
 export const getUserDetails = (idCentral: string) => {
   return axios
-    .get("http://10.200.4.105:8000/api/usuario", {
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuario", {
       params: {
         IdUsuario: idCentral,
       },
@@ -22,6 +22,7 @@ export const getUserDetails = (idCentral: string) => {
           "NombreUsuario",
           r.data.data.Nombre.split(" ")[0] + " " + r.data.data.ApellidoPaterno
         );
+        localStorage.setItem("FirstSignIn", r.data.data.PrimerInicioDeSesion);
         if (
           localStorage.getItem("IdInstitucion") === null ||
           localStorage.getItem("IdInstitucion") === null
@@ -48,7 +49,7 @@ export const sessionValid = () => {
   const rft = params.get("rf") || "";
   return axios
     .post(
-      "http://10.200.4.105:5000/api/verify",
+      process.env.REACT_APP_APPLICATION_LOGIN+ "/api/verify",
       {},
       {
         headers: {
@@ -79,7 +80,7 @@ export const sessionValid = () => {
 export const continueSession = () => {
   return axios
     .post(
-      "http://10.200.4.105:5000/api/verify",
+      process.env.REACT_APP_APPLICATION_LOGIN+ "/api/verify",
       {},
       {
         headers: {

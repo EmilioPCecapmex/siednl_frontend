@@ -287,7 +287,7 @@ export function TabEncabezado({
   //Obtener catálogos por id dependiendo de la seleccion anterior
   const getAniosFiscales = () => {
     axios
-      .get("http://10.200.4.105:8000/api/aniosFiscales", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/aniosFiscales", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -298,7 +298,7 @@ export function TabEncabezado({
   };
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
         },
@@ -313,7 +313,7 @@ export function TabEncabezado({
   const getProgramas = (id: string) => {
     if (id !== undefined) {
       axios
-        .get("http://10.200.4.105:8000/api/programaInstitucion", {
+        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programaInstitucion", {
           params: {
             IdInstitucion: id,
           },
@@ -335,7 +335,7 @@ export function TabEncabezado({
   };
   const getEjes = () => {
     axios
-      .get("http://10.200.4.105:8000/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
         params: {
           Col: "Ejes",
           Id: " ",
@@ -350,7 +350,7 @@ export function TabEncabezado({
   };
   const getTematicas = (id: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
         params: {
           Col: "Temáticas",
           Id: id,
@@ -368,7 +368,7 @@ export function TabEncabezado({
   };
   const getObjetivos = (id: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
         params: {
           Col: "Objetivos",
           Id: id,
@@ -386,7 +386,7 @@ export function TabEncabezado({
   };
   const getEstrategias = (id: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
         params: {
           Col: "Estrategias",
           Id: id,
@@ -404,7 +404,7 @@ export function TabEncabezado({
   };
   const getLineasDeAccion = (id: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
         params: {
           Col: "Lineas de Acción",
           Id: id,
@@ -422,7 +422,7 @@ export function TabEncabezado({
   };
   const getBeneficiarios = () => {
     axios
-      .get("http://10.200.4.105:8000/api/beneficiarios", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/beneficiarios", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -435,7 +435,7 @@ export function TabEncabezado({
   //Obtener Id de la descripción extraida de la MIR
   const getIdInstitucion = (Description: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Instituciones",
           Descripcion: Description,
@@ -451,7 +451,7 @@ export function TabEncabezado({
   };
   const getIdPrograma = (Description: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Programas",
           Descripcion: Description,
@@ -466,7 +466,7 @@ export function TabEncabezado({
   };
   const getIdEje = (Description: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Ejes",
           Descripcion: Description,
@@ -483,7 +483,7 @@ export function TabEncabezado({
   };
   const getIdTematica = (Description: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Temáticas",
           Descripcion: Description,
@@ -500,7 +500,7 @@ export function TabEncabezado({
   };
   const getIdObjetivo = (Description: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Objetivos",
           Descripcion: Description,
@@ -517,7 +517,7 @@ export function TabEncabezado({
   };
   const getIdEstrategia = (Description: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Estrategias",
           Descripcion: Description,
@@ -533,7 +533,7 @@ export function TabEncabezado({
   };
   const getIdLineaDeAccion = (Description: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Lineas de Acción",
           Descripcion: Description,
@@ -552,7 +552,7 @@ export function TabEncabezado({
   };
   const getIdBeneficiario = (Description: string) => {
     axios
-      .get("http://10.200.4.105:8000/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Beneficiarios",
           Descripcion: Description,
@@ -577,7 +577,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://10.200.4.105:7000/upload", dataArray, {
+      .post(process.env.REACT_APP_APPLICATION_MID+ "/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },

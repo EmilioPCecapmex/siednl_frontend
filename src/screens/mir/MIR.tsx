@@ -112,7 +112,7 @@ export const MIR = () => {
 
   const getMIRs = () => {
     axios
-      .get("http://10.200.4.105:8000/api/mir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
@@ -154,7 +154,7 @@ export const MIR = () => {
 
   const downloadMIR = (anio: string,inst: string,prog: string,mir: string) => {
     axios
-      .post("http://10.200.4.105:7001/fill_mir", JSON.parse(mir),
+      .post(process.env.REACT_APP_APPLICATION_FILL+ "/fill_mir", JSON.parse(mir),
        { 
         responseType: 'blob',
         headers: {
@@ -250,7 +250,7 @@ export const MIR = () => {
               <Input
                 size="small"
                 value={findTextStr}
-                placeholder="Busqueda"
+                placeholder="Búsqueda"
                 sx={{ width: "90%", fontFamily: "MontserratRegular" }}
                 disableUnderline
                 onChange={(v) => {
@@ -302,16 +302,16 @@ export const MIR = () => {
                 </MenuItem>
 
                 <MenuItem
-                  value={"En Captura"}
+                  value={"En captura"}
                   sx={{ fontFamily: "MontserratRegular" }}
                 >
-                  En Captura
+                  En captura
                 </MenuItem>
                 <MenuItem
                   value={"En Revisión"}
                   sx={{ fontFamily: "MontserratRegular" }}
                 >
-                  Esperando Revisión
+                  Esperando revisión
                 </MenuItem>
                 <MenuItem
                   value={"En Autorización"}

@@ -42,7 +42,7 @@ export const DeleteDialogMIR = ({
 
   const deleteMIR = () => {
     axios
-      .delete("http://10.200.4.105:8000/api/delete-mir", {
+      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-mir", {
         data: {
           Id: id,
           ModificadoPor: localStorage.getItem("IdUsuario"),

@@ -76,7 +76,7 @@ export default function ModalEditarUsuario({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -92,7 +92,7 @@ export default function ModalEditarUsuario({
 
   const getUsuario = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuario", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuario", {
         params: {
           IdUsuario: IdUsuario,
         },
@@ -117,7 +117,7 @@ export default function ModalEditarUsuario({
 
   const getUserType = () => {
     axios
-      .get("http://10.200.4.105:8000/api/roles", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -130,7 +130,7 @@ export default function ModalEditarUsuario({
   const userModify = (idUsrCentral: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/user-modify",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/user-modify",
         {
           IdUsuarioTiCentral: idUsrCentral,
           Nombre: names,

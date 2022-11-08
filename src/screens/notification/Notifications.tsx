@@ -105,7 +105,7 @@ export const Notification = () => {
   const enviarNotificacion = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-notif",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
         {
           IdUsuarioDestino: usuarioSeleccionado,
           Titulo: titulo,
@@ -141,7 +141,7 @@ export const Notification = () => {
   const enviarNotificacionMail = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/send-email",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/send-email",
         {
           IdDestinatario: usuarioSeleccionado,
           IdRemitente: localStorage.getItem("IdUsuario"),
@@ -168,7 +168,7 @@ export const Notification = () => {
 
   const getUsuarios = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuarios", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
           "Content-Type": "application/json",
@@ -203,7 +203,7 @@ export const Notification = () => {
   const getNotifEnviadas = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/notif-enviadas",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/notif-enviadas",
         {
           IdUsuario: localStorage.getItem("IdUsuario"),
         },

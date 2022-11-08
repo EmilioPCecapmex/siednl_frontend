@@ -72,7 +72,7 @@ export function TabFinProposito({
 
   const getIndicadores = () => {
     axios
-      .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -227,7 +227,7 @@ export function TabFinProposito({
 
   const getFrecuencias = () => {
     axios
-      .get("http://10.200.4.105:8000/api/frecuencias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/frecuencias", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -421,7 +421,7 @@ export function TabFinProposito({
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Resumen Narrativo"}
+                label={"ResumenNarrativo"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -502,6 +502,7 @@ export function TabFinProposito({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
+                    
                   },
                 }}
                 onChange={(c) => {
@@ -649,11 +650,14 @@ export function TabFinProposito({
                 rows={4}
                 multiline
                 variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
+                sx={{ width: "90%", boxShadow: 2,
+                
+              }}
                 label={"Frecuencia"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
+                    
                   },
                 }}
                 InputProps={{

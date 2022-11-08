@@ -91,7 +91,7 @@ export default function ModalVincularUsuario({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -107,7 +107,7 @@ export default function ModalVincularUsuario({
 
   const getUserType = () => {
     axios
-      .get("http://10.200.4.105:8000/api/roles", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -120,7 +120,7 @@ export default function ModalVincularUsuario({
   const verifyUser = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/user-exist",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/user-exist",
         {
           NombreUsuario: username,
           CorreoElectronico: email.toLowerCase(),
@@ -170,7 +170,7 @@ export default function ModalVincularUsuario({
   const siednlSignUp = (idUsrCentral: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/user-add",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
         {
           IdUsuarioCentral: idUsrCentral,
           IdInstitucion: institution,

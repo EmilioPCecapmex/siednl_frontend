@@ -71,7 +71,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
   const getAniosFiscales = () => {
     axios
-      .get("http://10.200.4.105:8000/api/aniosFiscales", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/aniosFiscales", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -83,7 +83,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
         },

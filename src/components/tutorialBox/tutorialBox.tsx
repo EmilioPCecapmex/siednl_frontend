@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import {
-  Button,
-  Typography,
-  Box,
-  ToggleButton,
-} from "@mui/material";
-import axios from "axios";
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  createContext,
+} from "react";
+import { Button, Typography, Box, IconButton } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 
 export const TutorialBox = ({
   initialState,
@@ -14,7 +14,7 @@ export const TutorialBox = ({
   initialState: number;
   endState: number;
 }) => {
-  const [tutorialPosition, setTutorialPosition] = useState(initialState);
+  const [tutorialPosition, setTutorialPosition] = useState(initialState || 0);
 
   const [top, setTop] = useState("");
   const [right, setRight] = useState("");
@@ -27,10 +27,17 @@ export const TutorialBox = ({
   const [leftArrow, setLeftArrow] = useState(false);
   const [bottomArrow, setBottomArrow] = useState(false);
 
+  const backButton = () => {
+    if (tutorialPosition > initialState) {
+      setTutorialPosition(tutorialPosition - 1);
+    } else {
+      setTutorialPosition(initialState);
+    }
+  };
+
   useEffect(() => {
     setTutorialPosition(initialState || 0);
   }, [initialState]);
-
 
   useEffect(() => {
     switch (tutorialPosition) {
@@ -130,8 +137,9 @@ export const TutorialBox = ({
         setMessage(
           "¿Quieres cambiar tu contraseña? puedes hacerlo con esta opción."
         );
-        break;
 
+        break;
+      //FINALIZA SECCIÓN 1
       case 8:
         setTop("6vh");
         setRight("");
@@ -143,6 +151,7 @@ export const TutorialBox = ({
         setMessage(
           "En la sección de MIR (Matriz Indicadora de Resultados) podras crear nuevas solicitudes y verificar el estado de MIRs anteriores."
         );
+
         break;
 
       case 9:
@@ -410,146 +419,165 @@ export const TutorialBox = ({
           "Cuentas con diversas opciones para almacenar la MIR como borrador, solicitar modificaciones o enviar para autorización."
         );
         break;
+      //SECCIÓN FINAL
       default:
         break;
     }
   }, [tutorialPosition]);
 
-
   useLayoutEffect(() => {
     if (tutorialPosition === endState) {
       setShow(false);
+      setTutorialPosition(initialState || 0);
     }
-  }, [tutorialPosition])
+  }, [tutorialPosition]);
 
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      sx={{
-        backgroundColor: "#61616199",
-        opacity: 10,
-        width: "100vw",
-        height: "100vh",
-        position: "absolute",
-        zIndex: 10,
-        top: 0,
-        left: 0,
-      }}
-    >
+    <>
       <Box
-        flexDirection={topArrow ? "column" : "row"}
         sx={{
           position: "absolute",
-          top: top,
-          bottom: null,
-          right: right,
-          left: left,
-          zIndex: 1,
-          width: "15vw",
-          height: "15vh",
-          display: "flex",
+          right: "3.7vw",
+          top: "2.1vh",
+          zIndex: 2,
+        }}
+      >
+        <IconButton onClick={() => setShow(!show)}>
+          <InfoIcon fontSize="medium" />
+        </IconButton>
+      </Box>
+      <Box
+        visibility={show ? "visible" : "hidden"}
+        sx={{
+          backgroundColor: "#61616199",
+          opacity: 10,
+          width: "100vw",
+          height: "100vh",
+          position: "absolute",
+          zIndex: 10,
+          top: 0,
+          left: 0,
         }}
       >
         <Box
-          justifyContent={topArrow ? "flex-end" : "flex-start"}
-          width={topArrow ? "100%" : "6%"}
-          alignItems={bottomArrow ? "flex-end" : "flex-start"}
-          sx={{ display: "flex" }}
-        >
-          {leftArrow ? (
-            <Box
-              sx={{
-                width: 0,
-                height: 0,
-                backgroundColor: "transparent",
-                borderStyle: "solid",
-                borderTopWidth: 20,
-                borderRightWidth: 20,
-                borderBottomWidth: 20,
-                borderLeftWidth: 0,
-                borderTopColor: "transparent",
-                borderRightColor: "#E1B264",
-                borderBottomColor: "transparent",
-                borderLeftColor: "transparent",
-              }}
-            />
-          ) : null}
-
-          {topArrow ? (
-            <Box
-              sx={{
-                width: 0,
-                height: 0,
-                backgroundColor: "transparent",
-                borderStyle: "solid",
-                borderTopWidth: 0,
-                borderRightWidth: 20,
-                borderBottomWidth: 20,
-                borderLeftWidth: 20,
-                borderTopColor: "transparent",
-                borderRightColor: "transparent",
-                borderBottomColor: "#E1B264",
-                borderLeftColor: "transparent",
-              }}
-            />
-          ) : null}
-        </Box>
-
-        <Box
+          flexDirection={topArrow ? "column" : "row"}
           sx={{
-            width: "99%",
+            position: "absolute",
+            top: top,
+            bottom: null,
+            right: right,
+            left: left,
+            zIndex: 1,
+            width: "15vw",
             height: "15vh",
-            border: 1,
-            borderColor: "#E1B264",
-            borderStyle: "dashed",
-            backgroundColor: "#fff",
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            flexDirection: "column",
           }}
         >
-          <Typography
+          <Box
+            justifyContent={topArrow ? "flex-end" : "flex-start"}
+            width={topArrow ? "100%" : "6%"}
+            alignItems={bottomArrow ? "flex-end" : "flex-start"}
+            sx={{ display: "flex" }}
+          >
+            {leftArrow ? (
+              <Box
+                sx={{
+                  width: 0,
+                  height: 0,
+                  backgroundColor: "transparent",
+                  borderStyle: "solid",
+                  borderTopWidth: 20,
+                  borderRightWidth: 20,
+                  borderBottomWidth: 20,
+                  borderLeftWidth: 0,
+                  borderTopColor: "transparent",
+                  borderRightColor: "#E1B264",
+                  borderBottomColor: "transparent",
+                  borderLeftColor: "transparent",
+                }}
+              />
+            ) : null}
+
+            {topArrow ? (
+              <Box
+                sx={{
+                  width: 0,
+                  height: 0,
+                  backgroundColor: "transparent",
+                  borderStyle: "solid",
+                  borderTopWidth: 0,
+                  borderRightWidth: 20,
+                  borderBottomWidth: 20,
+                  borderLeftWidth: 20,
+                  borderTopColor: "transparent",
+                  borderRightColor: "transparent",
+                  borderBottomColor: "#E1B264",
+                  borderLeftColor: "transparent",
+                }}
+              />
+            ) : null}
+          </Box>
+
+          <Box
             sx={{
-              fontFamily: "MontserratRegular",
-              width: "90%",
-              textAlign: "center",
-              mt: "1vh",
-              color: "#00004d",
-              fontSize: ".7vw",
+              width: "99%",
+              height: "15vh",
+              border: 1,
+              borderColor: "#E1B264",
+              borderStyle: "dashed",
+              backgroundColor: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+              flexDirection: "column",
             }}
           >
-            {message}
-          </Typography>
-
-          <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
-            <Button
-              color="error"
-              onClick={() => setTutorialPosition(tutorialPosition - 1)}
+            <Typography
+              sx={{
+                fontFamily: "MontserratRegular",
+                width: "90%",
+                textAlign: "center",
+                mt: "1vh",
+                color: "#00004d",
+                fontSize: ".7vw",
+              }}
             >
+              {message}
+            </Typography>
+
+            <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
+             {tutorialPosition === initialState?
+             null:
+             (
+              <Button color="error" onClick={() => backButton()}>
               <Typography
                 sx={{ fontFamily: "MontserratSemiBold", fontSize: ".6vw" }}
               >
                 Anterior
               </Typography>
             </Button>
-            <Button
-              color="primary"
-              onClick={() => setTutorialPosition(tutorialPosition + 1)}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratSemiBold", fontSize: ".6vw" }}
+             )
+             } 
+            
+              <Button
+                color="primary"
+                onClick={() => setTutorialPosition(tutorialPosition + 1)}
               >
-                {tutorialPosition + 1 === endState ? "Finalizar" : "Siguiente"}
-              </Typography>
-            </Button>
+                <Typography
+                  sx={{ fontFamily: "MontserratSemiBold", fontSize: ".6vw" }}
+                >
+                  {tutorialPosition + 1 === endState
+                    ? "Finalizar"
+                    : "Siguiente"}
+                </Typography>
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
-
 
 export interface ITutorial {
   Inicio: number;
@@ -562,4 +590,4 @@ export interface ITutorial {
   Notificaciones: number;
   Configuracion: number;
   Usuarios: number;
-} 
+}

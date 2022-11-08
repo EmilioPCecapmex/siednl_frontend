@@ -48,7 +48,7 @@ export const DeleteDialogCatalogos = ({
   const deletePorCatalogo = () => {
     if( tabla === 'PEDs'){
       axios
-      .delete("http://10.200.4.105:8000/api/deletePED", {
+      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/deletePED", {
         data: {
             Id:id,
             ModificadoPor: localStorage.getItem("IdUsuario"),
@@ -74,7 +74,7 @@ export const DeleteDialogCatalogos = ({
       )
     } else if (tabla === 'ProgramasPresupuestarios'){
       axios
-      .delete("http://10.200.4.105:8000/api/programaPresupuestario", {
+      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario", {
         data: {
           IdProgramaPresupuestario:id,
           IdUser: localStorage.getItem("IdUsuario"),
@@ -98,7 +98,7 @@ export const DeleteDialogCatalogos = ({
       )
     } else {
       axios
-      .delete("http://10.200.4.105:8000/api/catalogos", {
+      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/catalogos", {
         data: {
 
             Id:id,

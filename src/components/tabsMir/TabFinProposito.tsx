@@ -76,7 +76,7 @@ export function TabFinProposito({
 
   const getIndicadores = () => {
     axios
-      .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -223,7 +223,7 @@ export function TabFinProposito({
 
   const getFrecuencias = () => {
     axios
-      .get("http://10.200.4.105:8000/api/frecuencias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/frecuencias", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -669,7 +669,7 @@ export function TabFinProposito({
                 onChange={(c) => {
                   setProposito({ ...proposito, frecuencia: c.target.value });
                 }}
-                value={proposito.frecuencia}
+                value={proposito.frecuencia.toUpperCase()}
                 onBlur={() => evalueTxtFrecuenciaProposito()}
                 error={errorFrecuenciaProposito !== "" ? true : false}
                 helperText={

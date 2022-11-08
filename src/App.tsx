@@ -27,7 +27,12 @@ function App() {
   const jt = params.get("jwt") || null;
 
 
+
+
+
+
   useLayoutEffect(() => {
+
     if (jt !== null) {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
