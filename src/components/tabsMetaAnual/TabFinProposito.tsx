@@ -225,6 +225,22 @@ export function TabFinPropositoMR({
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Meta anual 2023"}
+                error={
+                  parseFloat(valueFin[0].metaAnual) < 0 ||
+                  parseFloat(valueFin[0].metaAnual) > 100 ||
+                  (isNaN(parseFloat(valueFin[0].metaAnual)) &&
+                    valueFin[0].metaAnual != "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(valueFin[0].metaAnual) < 0 ||
+                  parseFloat(valueFin[0].metaAnual) > 100 ||
+                  (isNaN(parseFloat(valueFin[0].metaAnual)) &&
+                    valueFin[0].metaAnual != "")
+                    ? "Introducir valor entre 0 y 100. "
+                    : null
+                }
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -247,6 +263,22 @@ export function TabFinPropositoMR({
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Linea Base 2021"}
+                error={
+                  parseFloat(valueFin[0].lineaBase) < 0 ||
+                  parseFloat(valueFin[0].lineaBase) > 100 ||
+                  (isNaN(parseFloat(valueFin[0].lineaBase)) &&
+                    valueFin[0].lineaBase != "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(valueFin[0].lineaBase) < 0 ||
+                  parseFloat(valueFin[0].lineaBase) > 100 ||
+                  (isNaN(parseFloat(valueFin[0].lineaBase)) &&
+                    valueFin[0].lineaBase != "")
+                    ? "Introducir valor entre 0 y 100. "
+                    : null
+                }
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",

@@ -127,8 +127,6 @@ export const TabActividadesMA = ({
     setAValorMA(y);
   };
 
-
-
   const [cValorMIR, setCValorMIR] = useState(
     componenteActividad.map((item) => {
       return {
@@ -374,6 +372,54 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Meta Anual 2023"}
+              error={
+                (parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].metaAnual
+                ) < 0 ||
+                  parseFloat(
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ].metaAnual
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      aValorMA[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].metaAnual
+                    )
+                  )) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metaAnual != ""
+                  ? true
+                  : false
+              }
+              helperText={
+                (parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].metaAnual
+                ) < 0 ||
+                  parseFloat(
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ].metaAnual
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      aValorMA[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].metaAnual
+                    )
+                  )) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metaAnual != ""
+                  ? "Introducir valor entre 0 y 100. "
+                  : null
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -404,6 +450,54 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Linea Base 2021"}
+              error={
+                (parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].lineaBase
+                ) < 0 ||
+                  parseFloat(
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ].lineaBase
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      aValorMA[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].lineaBase
+                    )
+                  )) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].lineaBase != ""
+                  ? true
+                  : false
+              }
+              helperText={
+                (parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].lineaBase
+                ) < 0 ||
+                  parseFloat(
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ].lineaBase
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      aValorMA[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].lineaBase
+                    )
+                  )) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].lineaBase != ""
+                  ? "Introducir valor entre 0 y 100. "
+                  : null
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect

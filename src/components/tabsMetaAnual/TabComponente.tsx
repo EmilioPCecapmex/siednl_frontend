@@ -40,12 +40,18 @@ export const TabComponenteMA = ({
           lineaBase: valoresComponente[index]?.lineaBase,
           metasPorFrecuencia: [
             {
-              semestre1: valoresComponente[index]?.metasPorFrecuencia[0]?.semestre1,
-              semestre2: valoresComponente[index]?.metasPorFrecuencia[0]?.semestre2,
-              trimestre1: valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre1,
-              trimestre2: valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre2,
-              trimestre3: valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre3,
-              trimestre4: valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre4,
+              semestre1:
+                valoresComponente[index]?.metasPorFrecuencia[0]?.semestre1,
+              semestre2:
+                valoresComponente[index]?.metasPorFrecuencia[0]?.semestre2,
+              trimestre1:
+                valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre1,
+              trimestre2:
+                valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre2,
+              trimestre3:
+                valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre3,
+              trimestre4:
+                valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre4,
             },
           ],
           valorNumerador: valoresComponente[index]?.valorNumerador,
@@ -196,24 +202,32 @@ export const TabComponenteMA = ({
                 valoresComponenteMAFnc([...componentesValues]);
               }}
               error={
-                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
+                (parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
                   0 ||
-                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) >
-                  100 ||
-                isNaN(
-                  parseFloat(componentesValues[componentSelect - 1]?.metaAnual)
-                )
+                  parseFloat(
+                    componentesValues[componentSelect - 1]?.metaAnual
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      componentesValues[componentSelect - 1]?.metaAnual
+                    )
+                  )) &&
+                componentesValues[componentSelect - 1]?.metaAnual != ""
                   ? true
                   : false
               }
               helperText={
-                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
+                (parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
                   0 ||
-                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) >
-                  100 ||
-                isNaN(
-                  parseFloat(componentesValues[componentSelect - 1]?.metaAnual)
-                )
+                  parseFloat(
+                    componentesValues[componentSelect - 1]?.metaAnual
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      componentesValues[componentSelect - 1]?.metaAnual
+                    )
+                  )) &&
+                componentesValues[componentSelect - 1]?.metaAnual != ""
                   ? "Introducir valor entre 0 y 100. "
                   : null
               }
@@ -242,24 +256,32 @@ export const TabComponenteMA = ({
                 valoresComponenteMAFnc([...componentesValues]);
               }}
               error={
-                parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
+                (parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
                   0 ||
-                parseFloat(componentesValues[componentSelect - 1]?.lineaBase) >
-                  100 ||
-                isNaN(
-                  parseFloat(componentesValues[componentSelect - 1]?.lineaBase)
-                )
+                  parseFloat(
+                    componentesValues[componentSelect - 1]?.lineaBase
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      componentesValues[componentSelect - 1]?.lineaBase
+                    )
+                  )) &&
+                componentesValues[componentSelect - 1]?.lineaBase != ""
                   ? true
                   : false
               }
               helperText={
-                parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
+                (parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
                   0 ||
-                parseFloat(componentesValues[componentSelect - 1]?.lineaBase) >
-                  100 ||
-                isNaN(
-                  parseFloat(componentesValues[componentSelect - 1]?.lineaBase)
-                )
+                  parseFloat(
+                    componentesValues[componentSelect - 1]?.lineaBase
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      componentesValues[componentSelect - 1]?.lineaBase
+                    )
+                  )) &&
+                componentesValues[componentSelect - 1]?.lineaBase != ""
                   ? "Introducir valor entre 0 y 100. "
                   : null
               }
