@@ -270,7 +270,7 @@ export default function FullModalMir({
           <TabComponente
             show={value === 30 ? true : false}
             noComponentesFnc={noComponentesFnc}
-            valoresComponenteFnc={valoresComponenteFnc}
+            // valoresComponenteFnc={valoresComponenteFnc}
             noComponentes={noComponentes}
             valoresComponente={componenteValor}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
