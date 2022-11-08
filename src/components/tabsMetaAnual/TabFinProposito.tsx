@@ -5,165 +5,57 @@ import {
   Typography,
   List,
   ListItemButton,
-  Button,
   Divider,
 } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import  {IFinMA}  from "./IFin";
-import  {IPropositoMA}  from "./IFin";
+import { IFinMA } from "./IFin";
+import { IPropositoMA } from "./IFin";
 
 export function TabFinPropositoMR({
   show,
-  resumenFin,
-  resumenProposito,
-  cargaFin,
-  cargaProposito,
   resumenFinMa,
-  resumenPropositoMa
+  resumenPropositoMa,
 }: {
-  show: boolean
-  resumenFin: Function;
-  resumenProposito: Function;
-  cargaFin: Array<IFin>;
-  cargaProposito: Array<IProposito>;
+  show: boolean;
   resumenFinMa: Function;
   resumenPropositoMa: Function;
 }) {
-  const [tabFin, setTabFin] = useState([
+  const [valueFin, setValueFin] = useState<Array<IFinMA>>([
     {
-      resumen: "",
-      indicador: "",
-      formula: "",
-      frecuencia: "",
-      medios: "",
-      supuestos: "",
+      metaAnual: "",
+      lineaBase: "",
+      valorNumerador: "",
+      valorDenominador: "",
+      sentidoDelIndicador: "",
+      unidadResponsable: "",
+      descIndicador: "",
+      descNumerador: "",
+      descDenominador: "",
     },
   ]);
+  //Si se usa la interfaz pero no entiendo como por ahora
 
-  const [tabProposito, setTabProposito] = useState([
+  const [valueProposito, setValueProposito] = useState<Array<IPropositoMA>>([
     {
-      resumen: "",
-      indicador: "",
-      formula: "",
-      frecuencia: "",
-      medios_verificacion: "",
-      supuestos: "",
+      metaAnual: "",
+      lineaBase: "",
+      valorNumerador: "",
+      valorDenominador: "",
+      sentidoDelIndicador: "",
+      unidadResponsable: "",
+      descIndicador: "",
+      descNumerador: "",
+      descDenominador: "",
     },
   ]);
-
-  const [fin, setFin] = useState({
-    resumen: "",
-    indicador: "",
-    formula: "",
-    frecuencia: "",
-    medios: "",
-    supuestos: "",
-  });
-
-  const [proposito, setProposito] = useState({
-    resumen: "",
-    indicador: "",
-    formula: "",
-    frecuencia: "",
-    medios_verificacion: "",
-    supuestos: "",
-  });
-
-  const [valueFin, setValueFin] = useState <Array<IFinMA>>([{
-    metaAnual: "",
-    lineaBase: "",
-    valorNumerador: "",
-    valorDenominador: "",
-    sentidoDelIndicador: "",
-    unidadResponsable: "",
-    descIndicador: "",
-    descNumerador: "",
-    descDenominador: "",
-
-  }])
-  //Si se usa la interfaz pero no entiendo como por ahora 
-
-  const [valueProposito, setValueProposito] = useState <Array<IPropositoMA>>([{
-    metaAnual: "",
-    lineaBase: "",
-    valorNumerador: "",
-    valorDenominador: "",
-    sentidoDelIndicador: "",
-    unidadResponsable: "",
-    descIndicador: "",
-    descNumerador: "",
-    descDenominador: "",
-  }]);
-
 
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
 
   useEffect(() => {
-    setTabFin([
-      {
-        resumen: fin.resumen,
-        indicador: fin.indicador,
-        formula: fin.formula,
-        frecuencia: fin.frecuencia,
-        medios: fin.medios,
-        supuestos: fin.supuestos,
-      },
-    ]);
-    setTabProposito([
-      {
-        resumen: proposito.resumen,
-        indicador: proposito.indicador,
-        formula: proposito.formula,
-        frecuencia: proposito.frecuencia,
-        medios_verificacion: proposito.medios_verificacion,
-        supuestos: proposito.supuestos,
-      },
-    ]);
-  }, [fin, proposito]);
-
-  useEffect(() => {
-    setFin({
-      resumen: cargaFin[0]?.resumen,
-      indicador: cargaFin[0]?.indicador,
-      formula: cargaFin[0]?.formula,
-      frecuencia: cargaFin[0]?.frecuencia,
-      medios: cargaFin[0]?.medios,
-      supuestos: cargaFin[0]?.supuestos,
-    });
-
-    setTimeout(() => {
-      setProposito({
-        resumen: cargaProposito[0]?.resumen,
-        indicador: cargaProposito[0]?.indicador,
-        formula: cargaProposito[0]?.formula,
-        frecuencia: cargaProposito[0]?.frecuencia,
-        medios_verificacion: cargaProposito[0]?.medios_verificacion,
-        supuestos: cargaProposito[0]?.supuestos,
-      });
-    }, 1000);
-  }, [cargaFin, cargaProposito]);
-
-  useEffect(() => {
-    resumenFin(tabFin);
-    resumenProposito(tabProposito);
-  }, [tabFin, tabProposito]);
-
-  useEffect(() => {
     resumenFinMa(valueFin);
     resumenPropositoMa(valueProposito);
   }, [valueFin, valueProposito]);
-
-  const [openFin, setOpenFin] = useState(false);
-  const handleClickOpen = () => {
-  };
-
-
 
   return (
     <Box
@@ -190,8 +82,6 @@ export function TabFinPropositoMR({
           }}
         >
           <InfoOutlinedIcon
-            onClick={() => {handleClickOpen();console.log("open");
-            }}
             fontSize="large"
             sx={{ cursor: "pointer" }}
           ></InfoOutlinedIcon>
@@ -219,7 +109,6 @@ export function TabFinPropositoMR({
           {" "}
         </Box>
       )}
-
 
       <Box
         sx={{
@@ -307,7 +196,6 @@ export function TabFinPropositoMR({
             </ListItemButton>
             <Divider />
           </Box>
-
         </List>
 
         {showFin ? (
@@ -348,14 +236,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].metaAnual= c.target.value ;
+                  valueFin[0].metaAnual = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-
                 value={valueFin[0]?.metaAnual}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -372,14 +258,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].lineaBase= c.target.value ;
+                  valueFin[0].lineaBase = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-
                 value={valueFin[0]?.lineaBase}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -396,14 +280,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].valorNumerador= c.target.value ;
+                  valueFin[0].valorNumerador = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-
                 value={valueFin[0]?.valorNumerador}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -420,14 +302,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].valorDenominador= c.target.value ;
+                  valueFin[0].valorDenominador = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-
                 value={valueFin[0]?.valorDenominador}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -444,12 +324,10 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].sentidoDelIndicador= c.target.value ;
+                  valueFin[0].sentidoDelIndicador = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-
                 value={valueFin[0]?.sentidoDelIndicador}
-
               />
             </Box>
             <Box
@@ -479,10 +357,9 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].unidadResponsable= c.target.value ;
+                  valueFin[0].unidadResponsable = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-
                 value={valueFin[0]?.unidadResponsable}
               />
               <TextField
@@ -502,13 +379,10 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].descIndicador= c.target.value ;
+                  valueFin[0].descIndicador = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-
                 value={valueFin[0]?.descIndicador}
-                
-
               />
             </Box>
             <Box
@@ -538,12 +412,10 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].descNumerador= c.target.value ;
+                  valueFin[0].descNumerador = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-
                 value={valueFin[0]?.descNumerador}
-
               />
               <TextField
                 rows={5}
@@ -562,21 +434,16 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].descDenominador= c.target.value ;
-                  setValueFin({...valueFin});
+                  valueFin[0].descDenominador = c.target.value;
+                  setValueFin({ ...valueFin });
                 }}
-
                 value={valueFin[0]?.descDenominador}
-
-
               />
             </Box>
           </Box>
         ) : null}
 
         {showProposito ? (
-          
-          
           <Box
             sx={{
               display: "flex",
@@ -598,7 +465,6 @@ export function TabFinPropositoMR({
               }}
             >
               <TextField
-
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -615,14 +481,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].metaAnual= c.target.value ;
+                  valueProposito[0].metaAnual = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.metaAnual}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -639,14 +503,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].lineaBase= c.target.value ;
+                  valueProposito[0].lineaBase = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.lineaBase}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -663,14 +525,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].valorNumerador= c.target.value ;
+                  valueProposito[0].valorNumerador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.valorNumerador}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -687,14 +547,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].valorDenominador= c.target.value ;
+                  valueProposito[0].valorDenominador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.valorDenominador}
-
-              /><TextField
-
+              />
+              <TextField
                 rows={3}
                 multiline
                 sx={{ width: "15%", boxShadow: 2 }}
@@ -711,15 +569,11 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].sentidoDelIndicador= c.target.value ;
+                  valueProposito[0].sentidoDelIndicador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.sentidoDelIndicador}
-
               />
-
-
             </Box>
             <Box
               sx={{
@@ -732,7 +586,6 @@ export function TabFinPropositoMR({
               }}
             >
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -749,14 +602,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].unidadResponsable= c.target.value ;
+                  valueProposito[0].unidadResponsable = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.unidadResponsable}
               />
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -773,13 +624,10 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].descIndicador= c.target.value ;
+                  valueProposito[0].descIndicador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.descIndicador}
-                
-
               />
             </Box>
             <Box
@@ -792,9 +640,7 @@ export function TabFinPropositoMR({
                 justifyContent: "space-evenly",
               }}
             >
-
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -811,15 +657,12 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].descNumerador= c.target.value ;
+                  valueProposito[0].descNumerador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.descNumerador}
-
               />
               <TextField
-
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -836,20 +679,13 @@ export function TabFinPropositoMR({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].descDenominador= c.target.value ;
+                  valueProposito[0].descDenominador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-
                 value={valueProposito[0]?.descDenominador}
-
-
               />
             </Box>
           </Box>
-
-
-
-        
         ) : null}
       </Box>
     </Box>

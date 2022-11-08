@@ -508,7 +508,7 @@ export default function ModalEnviarMIR({
   };
 
   return (
-    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
+    <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
       <DialogTitle
         sx={{
           fontFamily: "MontserratBold",

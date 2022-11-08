@@ -3,15 +3,19 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box, Tooltip } from "@mui/material";
 import TabFinPropositoMR, { IFin, IProposito } from "./TabFinProposito";
-import TabResumenMA from "./TabResumen";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
-import TabEncabezadoMA, { IEncabezado } from "./TabEncabezado";
+import TabEncabezadoMA, {
+  IEncabezado,
+  TabEncabezadoMIR,
+} from "./TabEncabezadoMIR";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
-import TabResumenMir from "./TabResumenMir";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
+import TabResumenMA from "./TabResumenMA";
+import TabResumen2 from "../tabsMir/TabResumen2";
+import TabResumenMIR from "./TabResumenMIR";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -79,7 +83,8 @@ export default function FullModalMetaAnual({
 
   // ACTIVIDADES
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>(
+
+  const [actividadesMir, setActividadesMir] = useState<Array<ICValor>>(
     []
   );
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -146,15 +151,13 @@ export default function FullModalMetaAnual({
     })
   );
 
-  const asignarCValor = (state: Array<ICValor>) => {
-    setCValor(state);
-  };
-
   const asignarCValorMA = (state: Array<ICValorMA>) => {
     setCValorMA(state);
   };
 
-  const [openOptionDialog, setOpenOptionDialog] = useState("");
+  const asignarCValor = (state: Array<ICValor>) => {
+    setCValor(state);
+  };
 
   useEffect(() => {
     let array = noComponentes.map((x, index) => {
@@ -210,12 +213,6 @@ export default function FullModalMetaAnual({
 
   const resumenEncabezado = (arr: Array<IEncabezado>) => {
     setEncabezado(arr);
-  };
-  const resumenFin = (arr: Array<IFin>) => {
-    setFin(arr);
-  };
-  const resumenProposito = (arr: Array<IProposito>) => {
-    setProposito(arr);
   };
   const loadFin = (arr: Array<IFin>) => {
     setCargaFin(arr);
@@ -313,6 +310,16 @@ export default function FullModalMetaAnual({
                 backgroundColor: "#ccc",
               }}
             />
+            <Tab
+              label="Resumen MIR"
+              value={60}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
           </Tabs>
         </Box>
 
@@ -322,35 +329,30 @@ export default function FullModalMetaAnual({
             height: "77vh",
           }}
         >
-          <TabResumenMir
-            showResume="Fin"
+          <TabResumenMA
             show={value === 50 ? true : false}
             componentes={noComponentes}
             componenteValor={valoresComponenteMA}
             cValor={cValorMA}
             fin={ValueFin}
             proposito={ValueProposito}
-          ></TabResumenMir>
+          ></TabResumenMA>
 
-          <TabEncabezadoMA
+          <TabEncabezadoMIR
+            resumenEncabezado={resumenEncabezado}
             anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
             show={value === 10 ? true : false}
-            resumenEncabezado={resumenEncabezado}
             cargaFin={loadFin}
             cargaProposito={loadProposito}
             asignarComponente={noComponenteFnc}
             asignarComponenteValor={valoresComponenteFnc}
             MIR={MIR}
-          ></TabEncabezadoMA>
+          ></TabEncabezadoMIR>
 
           <TabFinPropositoMR
             show={value === 20 ? true : false}
-            resumenFin={resumenFin}
-            resumenProposito={resumenProposito}
-            cargaFin={cargaFin}
-            cargaProposito={cargaProposito}
             resumenFinMa={resumenFinMa}
             resumenPropositoMa={resumenPropositoMa}
           ></TabFinPropositoMR>
@@ -369,18 +371,18 @@ export default function FullModalMetaAnual({
             show={value === 40 ? true : false}
             componentes={noComponentes}
             asignarCValor={asignarCValorMA}
+            asignarCValorMIR={asignarCValor}
           ></TabActividadesMA>
-          {/* <TabResumenMA
-            showResume={showResume}
-            show={value === 50 ? true : false}
-            componentes={componentes}
+
+          <TabResumenMIR
+            show={value === 60 ? true : false}
+            componentes={noComponentes}
             componenteValor={componenteValor}
             cValor={cValor}
             encabezado={encabezado}
-            fin={fin}
-            proposito={proposito}
-            IdMir={IdMir}
-          ></TabResumenMA> */}
+            fin={cargaFin}
+            proposito={cargaProposito}
+          ></TabResumenMIR>
         </Box>
       </Box>
     </Box>

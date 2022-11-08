@@ -36,25 +36,25 @@ export const TabComponenteMA = ({
       noComponentes.map((x, index) => {
         return comp.push({
           componentes: valoresComponenteMir[index].componentes,
-          metaAnual: "",
-          lineaBase: "",
+          metaAnual: valoresComponente[index]?.metaAnual,
+          lineaBase: valoresComponente[index]?.lineaBase,
           metasPorFrecuencia: [
             {
-              semestre1: "",
-              semestre2: "",
-              trimestre1: "",
-              trimestre2: "",
-              trimestre3: "",
-              trimestre4: "",
+              semestre1: valoresComponente[index]?.metasPorFrecuencia[0]?.semestre1,
+              semestre2: valoresComponente[index]?.metasPorFrecuencia[0]?.semestre2,
+              trimestre1: valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre1,
+              trimestre2: valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre2,
+              trimestre3: valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre3,
+              trimestre4: valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre4,
             },
           ],
-          valorNumerador: "",
-          valorDenominador: "",
-          sentidoDelIndicador: "",
-          unidadResponsable: "",
-          descIndicador: "",
-          descNumerador: "",
-          descDenominador: "",
+          valorNumerador: valoresComponente[index]?.valorNumerador,
+          valorDenominador: valoresComponente[index]?.valorDenominador,
+          sentidoDelIndicador: valoresComponente[index]?.sentidoDelIndicador,
+          unidadResponsable: valoresComponente[index]?.unidadResponsable,
+          descIndicador: valoresComponente[index]?.descIndicador,
+          descNumerador: valoresComponente[index]?.descNumerador,
+          descDenominador: valoresComponente[index]?.descDenominador,
         });
       });
 

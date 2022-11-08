@@ -100,13 +100,6 @@ export default function FullModalMir({
     setCValor(state);
   };
 
-  // const asignarCValorEncabezado = (state: Array<ICValor>, index:number, actividades: Array<IActividades>) => {
-  //   let v=cValor;
-  //   v[0].componentes[index]=actividades;
-  //   setCValor(v);
-
-  // };
-
   useEffect(() => {
     let array = noComponentes.map((x, index) => {
       return {
@@ -245,9 +238,9 @@ export default function FullModalMir({
             cargaProposito={loadProposito}
             asignarComponente={noComponentesFnc}
             asignarComponenteValor={valoresComponenteFnc}
-            cValor={cValor}
             MIR={MIR}
           ></TabEncabezado>
+
           <TabFinProposito
             show={value === 20 ? true : false}
             resumenFin={resumenFin}

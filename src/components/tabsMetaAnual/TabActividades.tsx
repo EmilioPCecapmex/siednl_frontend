@@ -11,21 +11,23 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { IActividadesMir, IComponenteActividad } from "./AddMetaAnual";
-import { IActividadesMA } from "./Interfaces";
+import { ICValor } from "../tabsMir/ICValor";
 
 //funcion main
 export const TabActividadesMA = ({
   show,
   componentes,
   asignarCValor,
+  asignarCValorMIR,
   compAct,
   actividadesMir,
 }: {
   show: boolean;
   componentes: number[];
   asignarCValor: Function;
+  asignarCValorMIR: Function;
   compAct: Array<IComponenteActividad>;
-  actividadesMir: Array<IActividadesMir>;
+  actividadesMir: Array<ICValor>;
 }) => {
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -36,11 +38,8 @@ export const TabActividadesMA = ({
     },
   ]);
 
-  const [actividadesMA, setActividadesMA] = useState<Array<IActividadesMA>>([])
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
-
-
 
   const [aValorMA, setAValorMA] = useState(
     componenteActividad.map((item) => {
@@ -52,14 +51,16 @@ export const TabActividadesMA = ({
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
                 metaAnual: "",
                 lineaBase: "",
-                metasPorFrecuencia: [{
-                  semestre1: "",
-                  semestre2: "",
-                  trimestre1: "",
-                  trimestre2: "",
-                  trimestre3: "",
-                  trimestre4: "",
-                },],
+                metasPorFrecuencia: [
+                  {
+                    semestre1: "",
+                    semestre2: "",
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
                 valorNumerador: "",
                 valorDenominador: "",
                 sentidoDelIndicador: "",
@@ -91,14 +92,16 @@ export const TabActividadesMA = ({
                 actividad: "",
                 metaAnual: "",
                 lineaBase: "",
-                metasPorFrecuencia: [{
-                  semestre1: "",
-                  semestre2: "",
-                  trimestre1: "",
-                  trimestre2: "",
-                  trimestre3: "",
-                  trimestre4: "",
-                },],
+                metasPorFrecuencia: [
+                  {
+                    semestre1: "",
+                    semestre2: "",
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
                 valorNumerador: "",
                 valorDenominador: "",
                 sentidoDelIndicador: "",
@@ -120,14 +123,93 @@ export const TabActividadesMA = ({
       y[0].componentes[parseInt(comp) - 1].actividades[
         parseInt(act) - 1
       ].actividad = x.actividad;
-
     });
     setAValorMA(y);
   };
 
 
 
+  const [cValorMIR, setCValorMIR] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                resumen: "",
+                indicador: "",
+                formula: "",
+                frecuencia: "",
+                medios: "",
+                supuestos: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
 
+  useEffect(() => {
+    if (compAct.length > 0) {
+      loadActividadesMir();
+    }
+  }, [compAct]);
+
+  const loadActividadesMir = () => {
+    let y = componenteActividad.map((item) => {
+      return {
+        componentes: compAct.map((x, index) => {
+          return {
+            actividades: x.actividades.map((c, index2) => {
+              return {
+                actividad: "",
+                resumen: "",
+                indicador: "",
+                formula: "",
+                frecuencia: "",
+                medios: "",
+                supuestos: "",
+              };
+            }),
+          };
+        }),
+      };
+    });
+
+    actividadesMir.map((x, index) => {
+      let act = x.actividad?.split("A")[1]?.split("C")[0];
+      let comp = x.actividad?.split("C")[1].substring(0, 1);
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].actividad = x.actividad;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].resumen = x?.resumen;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].indicador = x?.indicador;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].formula = x?.formula;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].frecuencia = x?.frecuencia;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].medios = x?.medios;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].supuestos = x?.supuestos;
+    });
+    setCValorMIR(y);
+  };
+
+  useEffect(() => {
+    asignarCValorMIR(cValorMIR);
+  }, [cValorMIR, componentes]);
 
   const [open, setOpen] = useState(0);
 
@@ -292,7 +374,11 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Meta Anual 2023"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metaAnual}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metaAnual
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -318,7 +404,11 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Linea Base 2021"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].lineaBase}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].lineaBase
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -344,7 +434,11 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor númerador"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].valorNumerador}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].valorNumerador
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -370,7 +464,11 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del denominador"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].valorDenominador}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].valorDenominador
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -396,7 +494,11 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Sentido del indicador"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].sentidoDelIndicador}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].sentidoDelIndicador
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -434,7 +536,11 @@ export const TabActividadesMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 1"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metasPorFrecuencia[0].trimestre1
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -443,7 +549,6 @@ export const TabActividadesMA = ({
                 setAValorMA(y);
                 asignarCValor(y);
                 console.log(aValorMA);
-                
               }}
               InputLabelProps={{
                 style: {
@@ -462,7 +567,11 @@ export const TabActividadesMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 2"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metasPorFrecuencia[0].trimestre2
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -471,7 +580,6 @@ export const TabActividadesMA = ({
                 setAValorMA(y);
                 asignarCValor(y);
                 console.log(aValorMA);
-                
               }}
               InputLabelProps={{
                 style: {
@@ -490,7 +598,11 @@ export const TabActividadesMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 3"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metasPorFrecuencia[0].trimestre3
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -499,7 +611,6 @@ export const TabActividadesMA = ({
                 setAValorMA(y);
                 asignarCValor(y);
                 console.log(aValorMA);
-                
               }}
               InputLabelProps={{
                 style: {
@@ -518,7 +629,11 @@ export const TabActividadesMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 4"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metasPorFrecuencia[0].trimestre4
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -527,7 +642,6 @@ export const TabActividadesMA = ({
                 setAValorMA(y);
                 asignarCValor(y);
                 console.log(aValorMA);
-                
               }}
               InputLabelProps={{
                 style: {
@@ -557,7 +671,11 @@ export const TabActividadesMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Unidad responsable de reportar el indicador"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].unidadResponsable}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].unidadResponsable
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -583,7 +701,11 @@ export const TabActividadesMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripción del indicador"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].descIndicador}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].descIndicador
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -620,7 +742,11 @@ export const TabActividadesMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripción del numerador"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].descNumerador}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].descNumerador
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -646,7 +772,11 @@ export const TabActividadesMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripcion del denominador"}
-              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].descDenominador}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].descDenominador
+              }
               onChange={(c) => {
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
@@ -655,7 +785,6 @@ export const TabActividadesMA = ({
                 setAValorMA(y);
                 asignarCValor(y);
                 console.log(aValorMA);
-                
               }}
               InputLabelProps={{
                 style: {

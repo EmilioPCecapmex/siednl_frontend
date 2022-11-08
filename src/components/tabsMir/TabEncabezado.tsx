@@ -13,10 +13,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "./IComponente";
-import { ICValor } from "./ICValor";
 import { ICompActividad } from "./ICompActividad";
-import { IEncabezadoEdit } from "./TabResumen2";
-import { IMIR, IMIREdit } from "./IMIR";
+import { IMIREdit } from "./IMIR";
 
 export interface IEncabezado {
   ejercicioFiscal: string;
@@ -38,7 +36,6 @@ export function TabEncabezado({
   MIR,
   asignarComponente,
   asignarComponenteValor,
-  cValor,
   compAct,
   actividadesMir,
   anioFiscalEdit,
@@ -51,7 +48,6 @@ export function TabEncabezado({
   MIR: string;
   asignarComponente: Function;
   asignarComponenteValor: Function;
-  cValor: Array<ICValor>;
   compAct: Function;
   actividadesMir: Function;
   anioFiscalEdit: string;

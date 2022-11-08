@@ -16,22 +16,22 @@ export interface IEncabezado {
   beneficiario: string;
 }
 
-export function TabEncabezadoMR({
+export function TabEncabezadoMIR({
   show,
-  resumenEncabezado,
   cargaFin,
   cargaProposito,
   MIR,
   asignarComponente,
   asignarComponenteValor,
+  resumenEncabezado,
   compAct,
   actividadesMir,
   anioFiscalEdit,
 }: {
   show: boolean;
-  resumenEncabezado: Function;
   cargaFin: Function;
   cargaProposito: Function;
+  resumenEncabezado: Function;
   MIR: string;
   asignarComponente: Function;
   asignarComponenteValor: Function;
@@ -108,6 +108,8 @@ export function TabEncabezadoMR({
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
+    cargaFin(loadFin);
+    cargaProposito(loadProposito);
   }, [loadComponentesFinish]);
 
   //saca la cantidad de componentes
@@ -187,11 +189,6 @@ export function TabEncabezadoMR({
   useEffect(() => {
     resumenEncabezado(encabezado);
   }, [encabezado]);
-
-  useEffect(() => {
-    cargaFin(loadFin);
-    cargaProposito(loadProposito);
-  }, [loadFin, loadProposito]);
 
   return (
     <Box
@@ -430,7 +427,7 @@ export function TabEncabezadoMR({
   );
 }
 
-export default TabEncabezadoMR;
+export default TabEncabezadoMIR;
 
 export interface ILineasDeAccion {
   Id: string;
