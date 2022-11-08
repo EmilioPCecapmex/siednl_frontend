@@ -1,14 +1,10 @@
-import { Box, Typography, Button, Checkbox } from "@mui/material";
-import { IEncabezado } from "../tabsMir/TabEncabezado";
+import { Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { IFin, IProposito } from "./TabFinProposito";
-import { IComponente } from "../tabsMir/IComponente";
-import { ICValor } from "../tabsMir/ICValor";
 import { IFinMA, IPropositoMA } from "./IFin";
-import { IComponenteMA, ICValorMA } from "./Interfaces";
-import { IMIR } from "./IMIR-Prueba-momentanea";
+import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
 import ModalSolicitaModifMA from "../modalsMA/ModalSolicitaModifMA";
+import { IMA } from "./IMA";
 
 export function TabResumenMA({
   show,
@@ -17,6 +13,8 @@ export function TabResumenMA({
   componentes,
   componenteValor,
   cValor,
+  IdMir,
+  IdMA,
 }: {
   show: boolean;
   fin: Array<IFinMA>;
@@ -24,10 +22,38 @@ export function TabResumenMA({
   componentes: number[];
   componenteValor: Array<IComponenteMA>;
   cValor: Array<ICValorMA>;
+  IdMir:string;
+  IdMA:string;
 }) {
 
   
-  const [MIR, setMIR] = useState<IMIR>();
+  const [MA, setMA] = useState<IMA>();
+
+  let asignarMA = (
+    finM: Array<IFinMA>,
+    propositoM: Array<IPropositoMA>,
+    componentesM: Array<IComponenteMA>,
+    actividadesM: Array<IActividadesMA>
+  ) => {
+    setMA({
+      fin: finM[0],
+      proposito: propositoM[0],
+      componentes: componentesM,
+      actividades: actividadesM,
+    });
+  };
+
+  useEffect(() => {
+    let arr: any[] = [];
+    cValor[0].componentes.map((a) => {
+      a.actividades.map((b) => {
+        Object.assign(b);
+        arr.push(b);
+      });
+    });
+
+    asignarMA(fin, proposito, componenteValor, arr);
+  }, [componenteValor, proposito, fin, cValor, show]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -203,7 +229,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Descrioción del indicador:
+              Descripción del indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.descIndicador}
@@ -222,7 +248,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Descrioción del numerador:
+              Descripción del numerador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.descNumerador}
@@ -241,7 +267,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Descrioción del denominador:
+              Descripción del denominador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.descDenominador}
@@ -1137,7 +1163,7 @@ export function TabResumenMA({
         
       </Box>
       
-      <Box sx={{display:'flex', justifyContent:'space-evenly', width:'100%'}}>
+      <Box sx={{display:'flex', justifyContent:'space-evenly', width:'100%', mt:2}}>
         <Button color="error" variant="outlined" onClick={() => ''}>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
@@ -1174,16 +1200,17 @@ export function TabResumenMA({
 
         <ModalSolicitaModifMA
           open={openModalSolicitarModif}
-          //IdMir={IdMir}
           handleClose={handleCloseModif}
-          MIR={JSON.stringify(MIR)}
+          MA={JSON.stringify(MA)}
       
         ></ModalSolicitaModifMA>
 
         <ModalEnviarMA
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
-          MIR={JSON.stringify(MIR)}
+          MA={JSON.stringify(MA)}
+          IdMA={''}
+          IdMIR={IdMir}
         ></ModalEnviarMA>
         </Box>
     </Box>

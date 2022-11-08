@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
 import { IComponenteMA } from "./Interfaces";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 export const TabComponenteMA = ({
   show,
@@ -16,12 +17,16 @@ export const TabComponenteMA = ({
   noComponentes,
   valoresComponente,
   valoresComponenteMir,
+  showMirFnc,
+  showFnc,
 }: {
   show: boolean;
   valoresComponenteMAFnc: Function;
   noComponentes: number[];
   valoresComponente: Array<IComponenteMA>;
   valoresComponenteMir: Array<IComponente>;
+  showMirFnc: Function;
+  showFnc: Function;
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
@@ -35,9 +40,9 @@ export const TabComponenteMA = ({
 
       noComponentes.map((x, index) => {
         return comp.push({
-          componentes: valoresComponenteMir[index].componentes,
-          metaAnual: valoresComponente[index]?.metaAnual,
-          lineaBase: valoresComponente[index]?.lineaBase,
+          componentes: '',
+          metaAnual: '',
+          lineaBase: '',
           metasPorFrecuencia: [
             {
               semestre1:
@@ -54,13 +59,13 @@ export const TabComponenteMA = ({
                 valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre4,
             },
           ],
-          valorNumerador: valoresComponente[index]?.valorNumerador,
-          valorDenominador: valoresComponente[index]?.valorDenominador,
-          sentidoDelIndicador: valoresComponente[index]?.sentidoDelIndicador,
-          unidadResponsable: valoresComponente[index]?.unidadResponsable,
-          descIndicador: valoresComponente[index]?.descIndicador,
-          descNumerador: valoresComponente[index]?.descNumerador,
-          descDenominador: valoresComponente[index]?.descDenominador,
+          valorNumerador: '',
+          valorDenominador: '',
+          sentidoDelIndicador: '',
+          unidadResponsable: '',
+          descIndicador: '',
+          descNumerador: '',
+          descDenominador: '',
         });
       });
 
@@ -85,12 +90,20 @@ export const TabComponenteMA = ({
       <Box
         sx={{
           width: "100%",
-          height: "7vh",
           display: "flex",
-          alignItems: "center",
+          height: "7vh",
           justifyContent: "flex-end",
+          alignItems: "center",
+        }}
+        onClick={() => {
+          showMirFnc(true);
+          showFnc("Componentes");
         }}
       >
+        <InfoOutlinedIcon
+          fontSize="large"
+          sx={{ cursor: "pointer" }}
+        ></InfoOutlinedIcon>
         <Typography
           sx={{
             mr: "1vw",

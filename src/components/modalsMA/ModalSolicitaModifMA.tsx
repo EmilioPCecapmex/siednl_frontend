@@ -17,17 +17,15 @@ import {
   Typography,
   FormHelperText,
 } from "@mui/material";
-import { IUsuarios } from "../../screens/notification/interfaces";
-import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 
 export default function ModalSolicitaModif({
   open,
   handleClose,
-  MIR,
+  MA,
 }: {
   open: boolean;
   handleClose: Function;
-  MIR: string;
+  MA: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -35,12 +33,12 @@ export default function ModalSolicitaModif({
 
   const [comment, setComment] = useState("");
 
-  const comentMir = (id: string) => {
+  const comentMA = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        "http://10.200.4.105:8000/api/coment-MA",
         {
-          IdMir: id,
+          IdMA: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
         },
@@ -63,11 +61,11 @@ export default function ModalSolicitaModif({
         title: "Introduce usuario al que se le solicita modificación",
       });
     } else {
-      // createMIR(estado);
+      // createMA(estado);
     }
   };
 
-  // const createMIR = (estado: string) => {
+  // const createMA = (estado: string) => {
   //   if (estado === "Autorizada" && userSelected !== "0") {
   //     estado = "En Revisión";
   //   } else if (estado === "En Autorización" && userSelected !== "0") {
@@ -75,21 +73,21 @@ export default function ModalSolicitaModif({
   //   }
   //   axios
   //     .post(
-  //       "http://10.200.4.105:8000/api/create-mir",
+  //       "http://10.200.4.105:8000/api/create-MA",
   //       {
           
-  //         MIR: MIREdit == undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
+  //         MA: MAEdit == undefined ? MA : "[" + MA + "," + MAEdit + "]",
   //         Estado: estado,
   //         CreadoPor:
   //           userSelected !== "0"
   //             ? userSelected
   //             : localStorage.getItem("IdUsuario"),
-  //         AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
-  //         Institucion: JSON.parse(MIR)?.encabezado.institucion,
-  //         Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
-  //         Eje: JSON.parse(MIR)?.encabezado.eje,
-  //         Tematica: JSON.parse(MIR)?.encabezado.tema,
-  //         IdMir: IdMir,
+  //         AnioFiscal: JSON.parse(MA)?.encabezado.ejercicioFiscal,
+  //         Institucion: JSON.parse(MA)?.encabezado.institucion,
+  //         Programa: JSON.parse(MA)?.encabezado.nombre_del_programa,
+  //         Eje: JSON.parse(MA)?.encabezado.eje,
+  //         Tematica: JSON.parse(MA)?.encabezado.tema,
+  //         IdMA: IdMA,
   //       },
   //       {
   //         headers: {
@@ -99,11 +97,11 @@ export default function ModalSolicitaModif({
   //     )
   //     .then((r) => {
   //       if (comment != "") {
-  //         comentMir(r.data.data.ID);
+  //         comentMA(r.data.data.ID);
   //       }
   //       Toast.fire({
   //         icon: "success",
-  //         title: localStorage.getItem("Rol") === 'Verificador' ? 'MIR enviada a capturador': 'MIR enviada a revisión',
+  //         title: localStorage.getItem("Rol") === 'Verificador' ? 'MA enviada a capturador': 'MA enviada a revisión',
   //       });
 
   //       enviarNotificacion();
@@ -123,7 +121,7 @@ export default function ModalSolicitaModif({
       .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: JSON.parse(MIR)?.encabezado.institucion,
+          Institucion: JSON.parse(MA)?.encabezado.institucion,
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -139,7 +137,7 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
+      setInstSelected(JSON.parse(MA)?.encabezado.institucion);
     }
   }, [open]);
 
@@ -160,7 +158,7 @@ export default function ModalSolicitaModif({
       "http://10.200.4.105:8000/api/create-notif",
       {
         IdUsuarioDestino: userSelected,
-        Titulo: "MIR",
+        Titulo: "MA",
         Mensaje: "Se le ha solicitado una modificación.",
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },

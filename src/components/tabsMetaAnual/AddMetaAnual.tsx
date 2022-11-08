@@ -5,10 +5,7 @@ import { Box, Tooltip } from "@mui/material";
 import TabFinPropositoMR, { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
-import  {
-  IEncabezado,
-  TabEncabezadoMIR,
-} from "./TabEncabezadoMIR";
+import { IEncabezado, TabEncabezadoMIR } from "./TabEncabezadoMIR";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
@@ -16,18 +13,32 @@ import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
 import TabResumenMIR from "./TabResumenMir";
 
-export default function FullModalMetaAnual({
+export default function AddMetaAnual({
   MIR,
+  MA,
   showResume,
   IdMir,
-  anioFiscalEdit,
+  IdMA,
 }: {
   MIR: string;
+  MA: string;
   showResume: Function;
   IdMir: string;
-  anioFiscalEdit: string;
+  IdMA: string;
 }) {
   const [value, setValue] = React.useState(10);
+
+  const [showMir, setShowMir] = React.useState(false);
+
+  const [showSt, setShowSt] = React.useState("");
+
+  const showMirFnc = (state: boolean) => {
+    setShowMir(state);
+  };
+
+  const showFnc = (st: string) => {
+    setShowSt(st);
+  };
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
@@ -253,7 +264,7 @@ export default function FullModalMetaAnual({
             }}
           >
             <Tab
-              label="Encabezado"
+              label="Resumen Mir"
               value={10}
               sx={{
                 borderRight: "5px solid #b3afaf",
@@ -302,16 +313,6 @@ export default function FullModalMetaAnual({
                 backgroundColor: "#ccc",
               }}
             />
-            <Tab
-              label="Resumen MIR"
-              value={60}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
           </Tabs>
         </Box>
 
@@ -323,10 +324,9 @@ export default function FullModalMetaAnual({
         >
           <TabEncabezadoMIR
             resumenEncabezado={resumenEncabezado}
-            anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
-            show={value === 10 ? true : false}
+            show={value === 60 ? true : false}
             cargaFin={loadFin}
             cargaProposito={loadProposito}
             asignarComponente={noComponenteFnc}
@@ -335,12 +335,16 @@ export default function FullModalMetaAnual({
           ></TabEncabezadoMIR>
 
           <TabFinPropositoMR
+            showFnc={showFnc}
             show={value === 20 ? true : false}
             resumenFinMa={resumenFinMa}
             resumenPropositoMa={resumenPropositoMa}
+            showMirFnc={showMirFnc}
           ></TabFinPropositoMR>
 
           <TabComponenteMA
+            showFnc={showFnc}
+            showMirFnc={showMirFnc}
             show={value === 30 ? true : false}
             valoresComponenteMAFnc={valoresComponenteMAFnc}
             noComponentes={noComponentes}
@@ -349,6 +353,8 @@ export default function FullModalMetaAnual({
           ></TabComponenteMA>
 
           <TabActividadesMA
+            showFnc={showFnc}
+            showMirFnc={showMirFnc}
             actividadesMir={actividadesMir}
             compAct={compAct}
             show={value === 40 ? true : false}
@@ -364,10 +370,14 @@ export default function FullModalMetaAnual({
             cValor={cValorMA}
             fin={ValueFin}
             proposito={ValueProposito}
+            IdMir={IdMir}
+            IdMA={IdMA}
           ></TabResumenMA>
 
           <TabResumenMIR
-            show={value === 60 ? true : false}
+            show={showMir}
+            showMirFnc={showMirFnc}
+            showSt={showSt}
             componentes={noComponentes}
             componenteValor={componenteValor}
             cValor={cValor}

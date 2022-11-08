@@ -27,6 +27,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import FullModalMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
+import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
+import { IIMir } from "../mir/MIR";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
@@ -67,6 +69,8 @@ export const MetaAnual = () => {
 
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
+
+  const [maEdit, setMaEdit] = useState<Array<IIMir>>([]);
 
   //
   const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
@@ -507,11 +511,12 @@ export const MetaAnual = () => {
             flexWrap: "wrap",
           }}
         >
-          <FullModalMetaAnual
-            anioFiscalEdit={anioFiscalEdit}
+          <AddMetaAnual
             MIR={mirEdit[0]?.MIR || ""}
+            MA={mirEdit[0]?.MIR || ""}
             showResume={returnMain}
             IdMir={mirEdit[0]?.ID || ""}
+            IdMA={mirEdit[0]?.ID || ""}
           />
         </Box>
       )}
@@ -519,7 +524,8 @@ export const MetaAnual = () => {
   );
 };
 
-export interface IIMir {
+
+export interface IIMa {
   ID: string;
   AnioFiscal: string;
   Institucion: string;

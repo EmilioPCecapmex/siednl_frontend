@@ -12,6 +12,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { IActividadesMir, IComponenteActividad } from "./AddMetaAnual";
 import { ICValor } from "../tabsMir/ICValor";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 //funcion main
 export const TabActividadesMA = ({
@@ -21,6 +22,8 @@ export const TabActividadesMA = ({
   asignarCValorMIR,
   compAct,
   actividadesMir,
+  showMirFnc,
+  showFnc,
 }: {
   show: boolean;
   componentes: number[];
@@ -28,6 +31,8 @@ export const TabActividadesMA = ({
   asignarCValorMIR: Function;
   compAct: Array<IComponenteActividad>;
   actividadesMir: Array<ICValor>;
+  showMirFnc: Function;
+  showFnc: Function;
 }) => {
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -235,11 +240,18 @@ export const TabActividadesMA = ({
           width: "100%",
           display: "flex",
           height: "7vh",
-          alignItems: "center",
           justifyContent: "flex-end",
+          alignItems: "center",
+        }}
+        onClick={() => {
+          showMirFnc(true);
+          showFnc("Actividades");
         }}
       >
-        {/* Botones Componentes */}
+        <InfoOutlinedIcon
+          fontSize="large"
+          sx={{ cursor: "pointer" }}
+        ></InfoOutlinedIcon>
         <Typography
           sx={{
             mr: "1vw",
