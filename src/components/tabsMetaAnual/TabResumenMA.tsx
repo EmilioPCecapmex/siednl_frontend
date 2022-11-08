@@ -1137,7 +1137,7 @@ export function TabResumenMA({
         
       </Box>
       
-      <Box sx={{display:'flex'}}>
+      <Box sx={{display:'flex', justifyContent:'space-evenly', width:'100%'}}>
         <Button color="error" variant="outlined" onClick={() => ''}>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
