@@ -32,7 +32,8 @@ export function TabResumen2({
   showResume: Function;
   IdMir: string;
   mirEdit?: IEncabezadoEdit;
-}) {
+}) 
+  {
   const [MIR, setMIR] = useState<IMIR>();
 
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
@@ -53,6 +54,7 @@ export function TabResumen2({
     componentesM: Array<IComponente>,
     actividadesM: Array<IActividadesMir>
   ) => {
+    
     setMIR({
       encabezado: encabezadoM[0],
       fin: finM[0],
@@ -1398,6 +1400,8 @@ export function TabResumen2({
           mt: 2,
         }}
       >
+        {/*---------------------------------Aqui esta lo que ocupo--------------------------------*/}
+
         <Button color="error" variant="outlined" onClick={() => showResume()}>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
@@ -1467,6 +1471,7 @@ export function TabResumen2({
           MIR={JSON.stringify(MIR)}
           IdMir={IdMir}
         ></ModalEnviarMIR>
+
       </Box>
     </Box>
   );

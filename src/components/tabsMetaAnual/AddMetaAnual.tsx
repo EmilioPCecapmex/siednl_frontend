@@ -272,6 +272,7 @@ export default function FullModalMetaAnual({
             cValor={cValor}
             fin={ValueFin}
             proposito={ValueProposito}
+            encabezado ={encabezado}
           ></TabResumenMir> 
 
           <TabEncabezadoMA

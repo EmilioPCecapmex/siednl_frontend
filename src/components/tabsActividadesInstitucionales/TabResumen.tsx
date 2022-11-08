@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import axios from "axios";
 
-export function TabResumen({ show, showResume }: { show: boolean,   showResume: Function;
+export function TabResumen({ 
+  show, 
+  showResume }: 
+  { show: boolean,   
+    showResume: Function;
 }) {
   return (
     <Box
@@ -1284,7 +1288,7 @@ export function TabResumen({ show, showResume }: { show: boolean,   showResume: 
           justifyContent: "space-evenly",
           mt: 2,
         }}
-      >
+        >
         <Button color="error" variant="outlined" onClick={() => showResume()}>
           Cancelar
         </Button>
