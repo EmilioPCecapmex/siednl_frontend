@@ -79,7 +79,7 @@ export const ComentDialogMir = ({
 
   const getUsuariosXInstitucion = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Institucion: localStorage.getItem("IdInstitucion"),
@@ -103,7 +103,7 @@ export const ComentDialogMir = ({
 
   const getComents = () => {
     axios
-      .get("http://10.200.4.105:8000/api/coment-mir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
         params: {
           IdMir: id,
         },
@@ -120,7 +120,7 @@ export const ComentDialogMir = ({
 
   const enviarNotificacion = (v: string) => {
     axios.post(
-      "http://10.200.4.105:8000/api/create-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: v,
         Titulo: "Nuevo comentario MIR",
@@ -138,7 +138,7 @@ export const ComentDialogMir = ({
   const comentMir = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: coment,
@@ -180,22 +180,22 @@ export const ComentDialogMir = ({
 
   return (
     <Box>
-      <Tooltip title="Comentarios">
-        <span>
-          <IconButton onClick={handleClickOpen}>
-            <MessageIcon
-              sx={[
-                {
-                  "&:hover": {
-                    color: "indigo",
-                  },
-                  width: "1.2vw",
-                  height: "1.2vw",
-                },
-              ]}
-            />
-          </IconButton>
-        </span>
+         <Tooltip title="COMENTARIOS">
+                                <span>
+      <IconButton onClick={handleClickOpen}>
+        <MessageIcon
+          sx={[
+            {
+              "&:hover": {
+                color: "indigo",
+              },
+              width: "1.2vw",
+              height: "1.2vw",
+            },
+          ]}
+        />
+      </IconButton>
+      </span>
       </Tooltip>
 
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>

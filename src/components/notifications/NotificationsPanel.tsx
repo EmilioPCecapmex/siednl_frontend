@@ -33,7 +33,7 @@ export default function NotificationsPanel() {
   const obtenerNotificaciones = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/obtener-notif",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/obtener-notif",
         {
           IdUsuarioDestino: localStorage.getItem("IdUsuario"),
         },
@@ -51,12 +51,13 @@ export default function NotificationsPanel() {
             setSinNotificaciones(true);
           }
         }
-      });
+      }).catch((e) => {
+      })
   };
 
   const eliminaNotificacion = (v: string) => {
     axios
-      .delete("http://10.200.4.105:8000/api/borra-notif", {
+      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/borra-notif", {
         data: {
           IdNotificacion: v,
         },

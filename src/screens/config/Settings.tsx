@@ -3,34 +3,30 @@ import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
 import { SettingsCard } from "../../components/settings/SettingsCard";
-import {Catalogos} from "../../components/catalogos/Catalogos";
+import { Catalogos } from "../../components/catalogos/Catalogos";
 import { useNavigate } from "react-router-dom";
-
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export const Settings = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
- if(localStorage.getItem("Rol") !== "Administrador"){
-  navigate("../home")
- }
-  }, [])
-
+    if (localStorage.getItem("Rol") !== "Administrador") {
+      navigate("../home");
+    }
+  }, []);
 
   const [showCards, setShowCards] = useState(true);
-  const [optionSelected, setOptionSelected] = useState("")
-
-
-
+  const [optionSelected, setOptionSelected] = useState("");
 
   const showConfig = (selected: string) => {
     setOptionSelected(selected);
-    setShowCards(false)
-  }
+    setShowCards(false);
+  };
 
   const resetView = () => {
     setShowCards(true);
-  }
+  };
 
   return (
     <Box
@@ -38,9 +34,8 @@ export const Settings = () => {
         width: "100vw",
         height: "100vh",
         display: "grid",
-        gridTemplateColumns: '1fr 13fr',
+        gridTemplateColumns: "1fr 13fr",
         backgroundColor: "#F2F2F2",
-
       }}
     >
 
@@ -56,19 +51,26 @@ export const Settings = () => {
       />
 
       <Box>
+        {showCards ? (
 
-      {showCards ? <SettingsCard showConfig={showConfig}/> : null}
+          <>
+          
+        <SettingsCard showConfig={showConfig} />
+        <TutorialBox initialState={17} endState={19} />
 
-      {!showCards ? <Catalogos defSelected={optionSelected}/> : null}
-      
+          </>
+
+
+        ) : null}
+
+        {!showCards ? (
+        <>
+        <Catalogos defSelected={optionSelected} />
+        <TutorialBox initialState={19} endState={23} />
+
+        </>
+        ) : null}
       </Box>
-
-
-
-      
-
-     
     </Box>
-    
   );
 };

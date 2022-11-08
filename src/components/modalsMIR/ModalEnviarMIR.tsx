@@ -42,7 +42,7 @@ export default function ModalEnviarMIR({
   const comentMir = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -390,7 +390,7 @@ export default function ModalEnviarMIR({
     }
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
           MIR: MIR,
           Estado: estado,
@@ -441,7 +441,7 @@ export default function ModalEnviarMIR({
     }
 
     axios
-      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Institucion: inst,
@@ -466,7 +466,7 @@ export default function ModalEnviarMIR({
 
   const enviarNotificacion = (v: string) => {
     axios.post(
-      "http://10.200.4.105:8000/api/create-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: v,
         Titulo: "MIR",

@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import { Box, Tooltip, Typography } from "@mui/material";
+import { Box, Typography, Tooltip } from "@mui/material";
 import Swal from "sweetalert2";
 
 export const DeleteDialogMIR = ({
@@ -42,7 +42,7 @@ export const DeleteDialogMIR = ({
 
   const deleteMIR = () => {
     axios
-      .delete("http://10.200.4.105:8000/api/delete-mir", {
+      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-mir", {
         data: {
           Id: id,
           ModificadoPor: localStorage.getItem("IdUsuario"),
@@ -68,24 +68,23 @@ export const DeleteDialogMIR = ({
 
   return (
     <Box>
-      <Tooltip title={"Eliminar"}>
-        <span>
-          <IconButton onClick={handleClickOpen} disabled={disab ? true : false}>
-            <DeleteIcon
-              sx={[
-                {
-                  "&:hover": {
-                    color: "red",
-                  },
-                  width: "1.2vw",
-                  height: "1.2vw",
-                },
-              ]}
-            />
-          </IconButton>
-        </span>
+       <Tooltip title="ELIMINAR">
+                                <span>
+      <IconButton onClick={handleClickOpen} disabled={disab ? true : false}>
+        <DeleteIcon
+          sx={[
+            {
+              "&:hover": {
+                color: "red",
+              },
+              width: '1.2vw',
+              height: '1.2vw'
+            },
+          ]}
+        />
+      </IconButton>
+      </span>
       </Tooltip>
-
       <Dialog fullWidth open={open} onClose={handleClose}>
         <Box
           sx={{

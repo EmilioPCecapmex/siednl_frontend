@@ -233,7 +233,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Unidades Administrativas");
     setCatalogoActual("Unidades Administrativas");
     axios
-      .get("http://10.200.4.105:8000/api/unidadesAdministrativas", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -260,7 +260,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Instituciones - Unidades");
     setCatalogoActual("Instituciones - Unidades");
     axios
-      .get("http://10.200.4.105:8000/api/institucionesUnidad", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/institucionesUnidad", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -293,7 +293,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Programas - Instituciones");
     setCatalogoActual("Programas - Instituciones");
     axios
-      .get("http://10.200.4.105:8000/api/programasInstituciones", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programasInstituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -325,7 +325,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Años Fiscales");
     setCatalogoActual("Años Fiscales");
     axios
-      .get("http://10.200.4.105:8000/api/AniosFiscales", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/AniosFiscales", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -353,7 +353,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Beneficiarios");
     axios
-      .get("http://10.200.4.105:8000/api/Beneficiarios", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Beneficiarios", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -381,7 +381,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Clasificación Programática");
     axios
-      .get("http://10.200.4.105:8000/api/clasificacionesProgramaticas", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/clasificacionesProgramaticas", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -413,7 +413,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Dimensiones del Indicador");
     axios
-      .get("http://10.200.4.105:8000/api/dimensionesDelIndicador", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/dimensionesDelIndicador", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -445,7 +445,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Ejes");
     axios
-      .get("http://10.200.4.105:8000/api/ejes", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejes", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -469,7 +469,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Ejes del Plan Nacional de Desarrollo");
     axios
-      .get("http://10.200.4.105:8000/api/ejesPND", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejesPND", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -493,7 +493,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Estrategias");
     axios
-      .get("http://10.200.4.105:8000/api/Estrategias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Estrategias", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -521,7 +521,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Fórmulas");
     axios
-      .get("http://10.200.4.105:8000/api/Formulas", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Formulas", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -545,7 +545,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Fechas de captura");
     axios
-      .get("http://10.200.4.105:8000/api/fechasDeCaptura", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/fechasDeCaptura", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -578,7 +578,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Frecuencias");
     axios
-      .get("http://10.200.4.105:8000/api/Frecuencias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Frecuencias", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -606,7 +606,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Instituciones");
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -641,7 +641,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Lineas de acción");
     axios
-      .get("http://10.200.4.105:8000/api/lineasDeAccion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/lineasDeAccion", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -669,7 +669,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Metas ODS");
     axios
-      .get("http://10.200.4.105:8000/api/metasODS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/metasODS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -693,7 +693,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Modalidades");
     axios
-      .get("http://10.200.4.105:8000/api/modalidades", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/modalidades", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -721,7 +721,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Objetivos");
     axios
-      .get("http://10.200.4.105:8000/api/objetivos", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivos", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -747,7 +747,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       "Objetivos del Plan Estrategico del Estado de Nuevo León"
     );
     axios
-      .get("http://10.200.4.105:8000/api/objetivosPEENL", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosPEENL", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -775,7 +775,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Objetivos Desarrollo Sostenible");
     axios
-      .get("http://10.200.4.105:8000/api/objetivosDS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosDS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -803,7 +803,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("PED");
     axios
-      .get("http://10.200.4.105:8000/api/ped", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -843,7 +843,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Programas Presupuestarios");
     axios
-      .get("http://10.200.4.105:8000/api/programaPresupuestario", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -880,7 +880,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Roles");
     axios
-      .get("http://10.200.4.105:8000/api/roles", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -904,7 +904,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Temáticas");
     axios
-      .get("http://10.200.4.105:8000/api/tematica", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tematica", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -928,7 +928,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Tipos de Fórmula");
     axios
-      .get("http://10.200.4.105:8000/api/TipoDeFormula", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/TipoDeFormula", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -956,7 +956,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Tipos de indicador");
     axios
-      .get("http://10.200.4.105:8000/api/tipoDeIndicador", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -984,7 +984,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Unidades de medida");
     axios
-      .get("http://10.200.4.105:8000/api/unidadDeMedida", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/unidadDeMedida", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },

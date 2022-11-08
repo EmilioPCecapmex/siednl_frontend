@@ -27,6 +27,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import Swal from "sweetalert2";
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
@@ -109,7 +110,7 @@ export const MIR = () => {
 
   const getMIRs = () => {
     axios
-      .get("http://10.200.4.105:8000/api/mir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
@@ -156,12 +157,16 @@ export const MIR = () => {
     mir: string
   ) => {
     axios
-      .post("http://10.200.4.105:7001/fill_mir", JSON.parse(mir), {
-        responseType: "blob",
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .post(
+        process.env.REACT_APP_APPLICATION_FILL + "/fill_mir",
+        JSON.parse(mir),
+        {
+          responseType: "blob",
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         Toast.fire({
           icon: "success",
@@ -221,6 +226,8 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
+          <TutorialBox initialState={8} endState={13} />
+
           <Box
             sx={{
               mt: "3vh",
@@ -248,7 +255,7 @@ export const MIR = () => {
               <Input
                 size="small"
                 value={findTextStr}
-                placeholder="Busqueda"
+                placeholder="Búsqueda"
                 sx={{ width: "90%", fontFamily: "MontserratRegular" }}
                 disableUnderline
                 onChange={(v) => {
@@ -290,7 +297,7 @@ export const MIR = () => {
                   disabled
                   selected
                 >
-                  Estado MIR
+                  Filtro por estado de la MIR
                 </MenuItem>
                 <MenuItem
                   value={"Todos"}
@@ -300,16 +307,16 @@ export const MIR = () => {
                 </MenuItem>
 
                 <MenuItem
-                  value={"En Captura"}
+                  value={"En captura"}
                   sx={{ fontFamily: "MontserratRegular" }}
                 >
-                  En Captura
+                  En captura
                 </MenuItem>
                 <MenuItem
                   value={"En Revisión"}
                   sx={{ fontFamily: "MontserratRegular" }}
                 >
-                  Esperando Revisión
+                  Esperando revisión
                 </MenuItem>
                 <MenuItem
                   value={"En Autorización"}
@@ -390,37 +397,55 @@ export const MIR = () => {
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
                     <TableRow>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Ejercicio Fiscal
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Institución
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Nombre del Programa
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Estado
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
-                        Fecha Creación
+                        Fecha de Creación
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Opciones
@@ -451,6 +476,7 @@ export const MIR = () => {
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
                               width: "20%",
+                              textTransform: "uppercase",
                             }}
                             align="center"
                           >
@@ -461,6 +487,7 @@ export const MIR = () => {
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
                               width: "20%",
+                              textTransform: "uppercase",
                             }}
                             align="center"
                           >
@@ -471,6 +498,7 @@ export const MIR = () => {
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
                               width: "20%",
+                              textTransform: "uppercase",
                             }}
                             align="center"
                           >
@@ -506,7 +534,19 @@ export const MIR = () => {
                                 flexDirection: "row",
                               }}
                             >
-                              <Tooltip title="Descargar">
+                              <Tooltip
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
+                                    },
+                                  ],
+                                }}
+                                title="DESCARGAR MIR"
+                              >
                                 <span>
                                   <IconButton
                                     disabled={
@@ -560,7 +600,17 @@ export const MIR = () => {
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />
-                              <Tooltip title="Editar">
+                              <Tooltip title="EDITAR"
+                              PopperProps={{
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: {
+                                      offset: [0, -13],
+                                    },
+                                  },
+                                ],
+                              }}>
                                 <span>
                                   <IconButton
                                     disabled={

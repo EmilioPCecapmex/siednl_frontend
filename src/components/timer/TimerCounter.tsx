@@ -34,7 +34,7 @@ export const TimerCounter = () => {
     
     axios
       .post(
-        "http://10.200.4.105:5000/api/refresh-token",
+        process.env.REACT_APP_APPLICATION_LOGIN+ "/api/refresh-token",
         {
           refreshToken: localStorage.getItem("refreshToken"),
         },

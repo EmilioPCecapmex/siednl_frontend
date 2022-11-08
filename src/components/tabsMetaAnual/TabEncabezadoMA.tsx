@@ -11,15 +11,10 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { IFin, IProposito } from "./TabFinProposito";
-import { IComponente } from "./IComponente";
-import { ICompActividad } from "./ICompActividad";
-import { IEncabezadoEdit } from "./TabResumen2";
-import { IMIR, IMIREdit } from "./IMIR";
-import { Link } from "react-router-dom";
-
-
-
+import { IFin, IProposito } from "./TabFinPropositoMA";
+import { IComponente } from "../tabsMir/IComponente";
+import { ICompActividad } from "../tabsMir/ICompActividad";
+import { ICValor } from "../tabsMir/ICValor";
 
 export interface IEncabezado {
   ejercicioFiscal: string;
@@ -41,10 +36,10 @@ export function TabEncabezado({
   MIR,
   asignarComponente,
   asignarComponenteValor,
+  cValor,
   compAct,
   actividadesMir,
   anioFiscalEdit,
-  mirEdit
 }: {
   show: boolean;
   resumenEncabezado: Function;
@@ -53,14 +48,13 @@ export function TabEncabezado({
   MIR: string;
   asignarComponente: Function;
   asignarComponenteValor: Function;
+  cValor: Array<ICValor>;
   compAct: Function;
   actividadesMir: Function;
   anioFiscalEdit: string;
-  mirEdit?: IMIREdit;
-
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
-    "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
+    "Arrastre o de click aquí para seleccionar archivo"
   );
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
@@ -71,14 +65,12 @@ export function TabEncabezado({
   const [loadComponenteValor, setLoadComponenteValor] = useState<
     Array<IComponente>
   >([]);
-
-  const [loadComponentesFinish, setLoadComponentesFinish] = useState(false) 
   const [loadActividades, setLoadActividades] = useState([]);
   const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
 
   useEffect(() => {
-    if (MIR !== "" ) {
-      const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR)
+    if (MIR !== "") {
+      const jsonMir = JSON.parse(MIR);
 
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
@@ -135,7 +127,6 @@ export function TabEncabezado({
             index + 1,
           ]);
       });
-      setLoadComponentesFinish(true)
     }
   }, [MIR]);
 
@@ -143,7 +134,7 @@ export function TabEncabezado({
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
-  }, [loadComponentesFinish ]);
+  }, [loadComponentes]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -156,14 +147,6 @@ export function TabEncabezado({
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
-    //saca la cantidad de componentes
-    useEffect(() => {
-      loadComponenteValor.map((value,index)=>{
-        if(index>1 && index<6)
-        setLoadComponentes(loadComponentes=>[...loadComponentes,index+1])
-      })
-    }, [loadComponenteValor])
 
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
   function enCambioAnio(Id: string, Anio: string) {
@@ -549,7 +532,7 @@ export function TabEncabezado({
       });
   };
   const getIdLineaDeAccion = (Description: string) => {
-      axios
+    axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Lineas de Acción",
@@ -560,16 +543,12 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        if (r.data.data.length !== 0) {
-          lineaDeAccion.push(r.data.data[0]);
+        lineaDeAccion.push(r.data.data[0]);
         setDisabledLineasDeAccion(false);
-        }
-        
       })
       .catch((err)=>{
         
       })
-    
   };
   const getIdBeneficiario = (Description: string) => {
     axios
@@ -651,10 +630,6 @@ export function TabEncabezado({
         setCompActividad(response.data.componenteActividad);
         setLoadActividades(response.data.actividades);
         actividadesMir(response.data.actividades);
-        setTimeout(() => {
-          setLoadComponentesFinish(true)
-
-        }, 2000);
       })
       .catch((error) => {
         setErrorMsg(error.response.data || 'Formato de archivo incorrecto');
@@ -724,17 +699,8 @@ export function TabEncabezado({
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
     >
-
-     
-      <Box sx={{width: '5vw', height: '3vh', position: 'absolute', top: '1vh', right: '1vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <Button href="/files/MIR_2023.xlsx" target="_blank" download >
-        <Typography sx={{fontFamily: 'MontserratMedium', color: '#616161'}}>Plantilla</Typography>
-        </Button>
-      </Box>
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <Autocomplete
-                  disabled={mirEdit?.encabezado.ejercicioFiscal}
-
           disablePortal
           size="small"
           options={catalogoAniosFiscales}
@@ -760,7 +726,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Ejercicio Fiscal".toUpperCase()}
+              label={"Ejercicio Fiscal"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -853,7 +819,6 @@ export function TabEncabezado({
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
         <Autocomplete
           disablePortal
-          disabled={mirEdit?.encabezado.institucion}
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion}
           value={{
@@ -867,7 +832,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.NombreInstitucion.toUpperCase()}
+                  {option.NombreInstitucion}
                 </p>
               </li>
             );
@@ -875,7 +840,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Institución".toUpperCase()}
+              label={"Institución"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -886,7 +851,6 @@ export function TabEncabezado({
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
-                  textTransform: "uppercase",
                 },
               }}
             ></TextField>
@@ -903,7 +867,7 @@ export function TabEncabezado({
 
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.nombre_del_programa || disabledProgramas}
+          disabled={disabledProgramas}
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma}
@@ -922,7 +886,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Programa".toUpperCase()}
+              label={"Programa"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -950,7 +914,6 @@ export function TabEncabezado({
       <FormControl required sx={{ width: "20vw", mt: "6vh" }}>
         <Autocomplete
           disablePortal
-          disabled={mirEdit?.encabezado.eje}
           size="small"
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje}
@@ -975,7 +938,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Eje".toUpperCase()}
+              label={"Eje"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -999,7 +962,7 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.tema || disabledTematicas}
+          disabled={disabledTematicas}
           options={catalogoTematicas}
           size="small"
           getOptionLabel={(option) => option.Tematica}
@@ -1019,7 +982,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Tematica.toUpperCase()}
+                  {option.Tematica}
                 </p>
               </li>
             );
@@ -1027,7 +990,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Temática".toUpperCase()}
+              label={"Temática"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1038,7 +1001,6 @@ export function TabEncabezado({
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
-                  textTransform:"uppercase",
                 },
               }}
             ></TextField>
@@ -1057,7 +1019,7 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.objetivo || disabledObjetivos}
+          disabled={disabledObjetivos}
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo}
           value={{
@@ -1071,7 +1033,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Objetivo.toUpperCase()}
+                  {option.Objetivo}
                 </p>
               </li>
             );
@@ -1079,7 +1041,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Objetivo".toUpperCase()}
+              label={"Objetivo"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1090,7 +1052,6 @@ export function TabEncabezado({
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
-                  textTransform: "uppercase"
                 },
               }}
             ></TextField>
@@ -1109,7 +1070,7 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.estrategia || disabledEstrategias}
+          disabled={disabledEstrategias}
           options={catalogoEstrategias}
           size="small"
           getOptionLabel={(option) => option.Estrategia}
@@ -1131,7 +1092,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Estrategia".toUpperCase()}
+              label={"Estrategia"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1169,10 +1130,10 @@ export function TabEncabezado({
         <Autocomplete
           multiple
           limitTags={4}
-          disabled={mirEdit?.encabezado.lineas_de_accion || disabledLineasDeAccion}
+          disabled={disabledLineasDeAccion}
           options={catalogoLineasDeAccion}
           size="small"
-          getOptionLabel={(option) => option.LineaDeAccion.toUpperCase()}
+          getOptionLabel={(option) => option.LineaDeAccion}
           value={lineaDeAccion}
           renderOption={(props, option) => {
             return (
@@ -1180,7 +1141,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.LineaDeAccion.toUpperCase()}
+                  {option.LineaDeAccion}
                 </p>
               </li>
             );
@@ -1188,19 +1149,17 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Lineas de Acción".toUpperCase()}
+              label={"Lineas de Acción"}
               variant="standard"
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratSemiBold",
                   fontSize: ".8vw",
-                  
                 },
               }}
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
-                  textTransform:"uppercase"
                 },
               }}
             />
@@ -1212,7 +1171,6 @@ export function TabEncabezado({
             
             value.map((value2, index)=>{
               if (value2.Id !== '' && value2.LineaDeAccion !== '') {
-                
                 setLineaDeAccion(value);
               }
             })
@@ -1232,7 +1190,6 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
-        disabled={mirEdit?.encabezado.beneficiario}
           disablePortal
           size="small"
           options={catalogoBeneficiarios}
@@ -1255,7 +1212,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Beneficiario".toUpperCase()}
+              label={"Beneficiario"}
               variant="standard"
               InputLabelProps={{
                 style: {

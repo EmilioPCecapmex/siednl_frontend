@@ -45,7 +45,7 @@ export const DeleteDialog = ({
 
   const deleteUsuario = () => {
     axios
-      .delete("http://10.200.4.105:8000/api/deleteUser", {
+      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/deleteUser", {
         data: {
           IdUsuarioTiCentral: id,
           ModificadoPor: localStorage.getItem("IdUsuario"),

@@ -58,7 +58,7 @@ export const ModifyDialogCatalogos = ({
      if (tabla === "ProgramasPresupuestarios") {
       axios
         .put(
-          "http://10.200.4.105:8000/api/programaPresupuestario",
+          process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
           {
             IdProgramaPresupuestario: id,
             NuevoProgramaPresupuestario: nuevaDescripcion,
@@ -90,7 +90,7 @@ export const ModifyDialogCatalogos = ({
     } else {
       axios
         .put(
-          "http://10.200.4.105:8000/api/catalogos",
+          process.env.REACT_APP_APPLICATION_BACK + "/api/catalogos",
           {
             Id: id,
             NuevaDescripcion: nuevaDescripcion,
@@ -125,7 +125,7 @@ export const ModifyDialogCatalogos = ({
   const ModifyPorCatalogoFechas = () => {
 
     axios
-      .put("http://10.200.4.105:8000/api/fechaDeCaptura",  {
+      .put(process.env.REACT_APP_APPLICATION_BACK + "/api/fechaDeCaptura",  {
         IdFechaDeCaptura:id,
         NuevoDescripcion:nuevaDescripcion,
         NuevoFechaDeCaptura:fechaCaptura,
@@ -153,7 +153,7 @@ export const ModifyDialogCatalogos = ({
   const ModifyPorCatalogoProgramasP = () => {
 
     axios
-      .put("http://10.200.4.105:8000/api/programaPresupuestario",  {
+      .put(process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",  {
         IdProgramaPresupuestario:id,
         NuevoProgramaPresupuestario:nuevaDescripcion,
         IdInstitucion:institution,
@@ -180,7 +180,7 @@ export const ModifyDialogCatalogos = ({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },

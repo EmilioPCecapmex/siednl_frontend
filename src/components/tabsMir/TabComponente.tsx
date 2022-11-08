@@ -171,6 +171,7 @@ export const TabComponente = ({
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
             fontSize: "1.5vw",
+            textTransform:"uppercase"
           }}
         >
           Componente {componentSelect}
@@ -235,7 +236,7 @@ export const TabComponente = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium",textTransform:"uppercase" }}>
                     Componente {item}
                   </Typography>
                 </ListItemButton>
@@ -280,7 +281,7 @@ export const TabComponente = ({
               }}
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
-              label={"Resumen Narrativo"}
+              label={"Resumen Narrativo".toUpperCase()}
               value={valoresComponente[componentSelect - 1]?.resumen}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].resumen =
@@ -311,7 +312,7 @@ export const TabComponente = ({
                   : null
               }
               sx={{ width: "30%", boxShadow: 2 }}
-              label={"Indicador"}
+              label={"Indicador".toUpperCase()}
               value={valoresComponente[componentSelect - 1]?.indicador}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].indicador =
@@ -336,7 +337,7 @@ export const TabComponente = ({
               }}
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
-              label={"Fórmula"}
+              label={"Fórmula".toUpperCase()}
               value={valoresComponente[componentSelect - 1]?.formula}
               onClick={() => evalueTxtIndicador()}
               onChange={(c) => {
@@ -372,7 +373,7 @@ export const TabComponente = ({
               }}
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
-              label={"Frecuencia"}
+              label={"Frecuencia".toUpperCase()}
               value={valoresComponente[componentSelect - 1]?.frecuencia}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].frecuencia =
@@ -403,7 +404,7 @@ export const TabComponente = ({
               }}
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
-              label={"Medios de Verificación"}
+              label={"Medios de Verificación".toUpperCase()}
               value={valoresComponente[componentSelect - 1]?.medios}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].medios = c.target.value;
@@ -426,7 +427,7 @@ export const TabComponente = ({
                 },
               }}
               sx={{ width: "30%", boxShadow: 2 }}
-              label={"Supuestos"}
+              label={"Supuestos".toUpperCase()}
               value={valoresComponente[componentSelect - 1]?.supuestos}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].supuestos =

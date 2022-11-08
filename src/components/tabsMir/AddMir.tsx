@@ -9,6 +9,7 @@ import { TabActividades } from "./TabActividades";
 import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
 import { TabResumen2 } from "./TabResumen2";
+import { TutorialBox } from "../tutorialBox/tutorialBox";
 
 export default function FullModalMir({
   MIR,
@@ -148,6 +149,11 @@ export default function FullModalMir({
         mt: "8vh",
       }}
     >
+      {value === 10 ? <TutorialBox initialState={22} endState={27} /> : null}
+      {value === 20 ? <TutorialBox initialState={27} endState={28} /> : null}
+      {value === 30 ? <TutorialBox initialState={28} endState={29} /> : null}
+      {value === 50 ? <TutorialBox initialState={29} endState={32} /> : null}
+
       <Box
         sx={{
           width: "80vw",
