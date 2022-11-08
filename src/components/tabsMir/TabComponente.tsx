@@ -282,7 +282,7 @@ export const TabComponente = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Resumen Narrativo".toUpperCase()}
-              value={componenteValorMir[componentSelect - 1]?.resumen}
+              value={valoresComponente[componentSelect - 1]?.resumen}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].resumen =
                   c.target.value;
@@ -313,7 +313,7 @@ export const TabComponente = ({
               }
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Indicador".toUpperCase()}
-              value={componenteValorMir[componentSelect - 1]?.indicador}
+              value={valoresComponente[componentSelect - 1]?.indicador}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].indicador =
                   c.target.value;
@@ -338,7 +338,7 @@ export const TabComponente = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Fórmula".toUpperCase()}
-              value={componenteValorMir[componentSelect - 1]?.formula}
+              value={valoresComponente[componentSelect - 1]?.formula}
               onClick={() => evalueTxtIndicador()}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].formula =
@@ -374,7 +374,7 @@ export const TabComponente = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Frecuencia".toUpperCase()}
-              value={componenteValorMir[componentSelect - 1]?.frecuencia}
+              value={valoresComponente[componentSelect - 1]?.frecuencia}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].frecuencia =
                   c.target.value;
@@ -405,7 +405,7 @@ export const TabComponente = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Medios de Verificación".toUpperCase()}
-              value={componenteValorMir[componentSelect - 1]?.medios}
+              value={valoresComponente[componentSelect - 1]?.medios}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].medios = c.target.value;
                 valoresComponenteFnc([...valoresComponente]);
@@ -428,7 +428,7 @@ export const TabComponente = ({
               }}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Supuestos".toUpperCase()}
-              value={componenteValorMir[componentSelect - 1]?.supuestos}
+              value={valoresComponente[componentSelect - 1]?.supuestos}
               onChange={(c) => {
                 valoresComponente[componentSelect - 1].supuestos =
                   c.target.value;
