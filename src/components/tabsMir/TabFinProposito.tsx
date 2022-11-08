@@ -669,7 +669,7 @@ export function TabFinProposito({
                 onChange={(c) => {
                   setProposito({ ...proposito, frecuencia: c.target.value });
                 }}
-                value={proposito.frecuencia?.toUpperCase()}
+                value={proposito.frecuencia}
                 onBlur={() => evalueTxtFrecuenciaProposito()}
                 error={errorFrecuenciaProposito !== "" ? true : false}
                 helperText={
