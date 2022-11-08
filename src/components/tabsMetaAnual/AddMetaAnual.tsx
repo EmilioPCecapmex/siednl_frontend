@@ -14,7 +14,7 @@ import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-import TabResumenMIR from "./TabResumenMIR";
+import TabResumenMIR from "./TabResumenMir";
 
 export default function FullModalMetaAnual({
   MIR,

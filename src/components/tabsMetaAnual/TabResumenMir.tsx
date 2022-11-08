@@ -1,10 +1,17 @@
+import { Button, Checkbox } from "@mui/material";
 import { useEffect, useState } from "react";
-import { IEncabezado } from "./TabEncabezadoMIR";
-import { IFin, IProposito } from "./TabFinProposito";
+import { IEncabezado } from "../tabsMir/TabEncabezado";
+//import { IFinMA, IPropositoMA } from "./TabFinProposito";
 import { IComponente } from "../tabsMir/IComponente";
-import { ICValor } from "../tabsMir/ICValor";
-import { IMIR } from "../tabsMir/IMIR";
-import { IActividadesMir } from "./AddMetaAnual";
+import { IActividadesMir, ICValor } from "../tabsMir/ICValor";
+import { IFinMA, IPropositoMA } from "./IFin";
+import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
+import ModalSolicitaModifMA from "../modalsMA/ModalSolicitaModifMA";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+
+
 
 import {
   Box,
@@ -13,6 +20,8 @@ import {
   DialogContent,
   Typography,
 } from "@mui/material";
+import { IFin, IProposito } from "./TabFinProposito";
+import { IMIR } from "../tabsMir/IMIR";
 
 export function TabResumenMIR({
   show,
