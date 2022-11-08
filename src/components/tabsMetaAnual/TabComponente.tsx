@@ -38,6 +38,7 @@ export const TabComponenteMA = ({
     if (show === true) {
       let comp: IComponenteMA[] = [];
 
+
       noComponentes.map((x, index) => {
         return comp.push({
           componentes: '',
@@ -69,7 +70,11 @@ export const TabComponenteMA = ({
         });
       });
 
-      setComponentesValues(comp);
+      if(componentesValues.length <= 0){
+        setComponentesValues(comp);
+      }
+
+
     }
   }, [show]);
 
