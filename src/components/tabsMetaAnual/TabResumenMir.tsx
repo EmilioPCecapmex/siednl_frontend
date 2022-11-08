@@ -4,6 +4,7 @@ import { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IFinMA, IPropositoMA } from "./IFin";
+import { IComponenteMA, ICValorMA } from "./Interfaces";
 
 export function TabResumenMir({
   show,
@@ -20,8 +21,8 @@ export function TabResumenMir({
   fin: Array<IFinMA>;
   proposito: Array<IPropositoMA>;
   componentes: number[];
-  componenteValor: Array<IComponente>;
-  cValor: Array<ICValor>;
+  componenteValor: Array<IComponenteMA>;
+  cValor: Array<ICValorMA>;
   showResume: string;
 }) {
   return (
@@ -153,7 +154,7 @@ export function TabResumenMir({
               Orden:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {fin[0]?.orden}
+              {fin[0]?.sentidoDelIndicador}
             </Typography>
           </Box>
           <Box
@@ -327,7 +328,7 @@ export function TabResumenMir({
               Orden:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {proposito[0]?.orden}
+              {proposito[0]?.sentidoDelIndicador}
             </Typography>
           </Box>
 
@@ -410,7 +411,7 @@ export function TabResumenMir({
           </Box>
 
 
-          {/* <Typography
+          <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
             Componentes
@@ -443,12 +444,12 @@ export function TabResumenMir({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Resumen Narrativo:
+                    Meta Anual:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.resumen}
+                    {componenteValor[index - 1]?.metaAnual}
                   </Typography>
                 </Box>
                 <Box
@@ -465,12 +466,12 @@ export function TabResumenMir({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Indicador:
+                    Línea Base:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.indicador}
+                    {componenteValor[index - 1]?.lineaBase}
                   </Typography>
                 </Box>
                 <Box
@@ -487,12 +488,12 @@ export function TabResumenMir({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Fórmula:
+                    Valor numerador:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.formula}
+                    {componenteValor[index - 1]?.valorNumerador}
                   </Typography>
                 </Box>
                 <Box
@@ -509,12 +510,12 @@ export function TabResumenMir({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Frecuencia:
+                    Valor Denominador:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.frecuencia}
+                    {componenteValor[index - 1]?.valorDenominador}
                   </Typography>
                 </Box>
                 <Box
@@ -531,12 +532,12 @@ export function TabResumenMir({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Medios de Verificación:
+                    Sentido del indicador:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.medios}
+                    {componenteValor[index - 1]?.sentidoDelIndicador}
                   </Typography>
                 </Box>
                 <Box
@@ -553,12 +554,78 @@ export function TabResumenMir({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Supuestos:
+                    Unidad responsable de reportar el indicador:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.supuestos}
+                    {componenteValor[index - 1]?.unidadResponsable}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Descripción del indicador:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1]?.descIndicador}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Descripción del numerador:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1]?.descNumerador}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  >
+                    Descripción del denominador:
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  >
+                    {componenteValor[index - 1]?.descDenominador}
                   </Typography>
                 </Box>
               </Box>
@@ -602,7 +669,7 @@ export function TabResumenMir({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
-                      Resumen Narrativo:
+                      Meta Anual:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -610,7 +677,7 @@ export function TabResumenMir({
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
-                        ].resumen
+                        ].metaAnual
                       }
                     </Typography>
                   </Box>
@@ -628,7 +695,7 @@ export function TabResumenMir({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
-                      Indicador:
+                      Línea Base:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -636,7 +703,80 @@ export function TabResumenMir({
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
-                        ].indicador
+                        ].lineaBase
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%", mr:10}}
+                    >
+                      Metas por frecuencia:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Trimestre 1:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].metasPorFrecuencia[0].trimestre1
+                      }
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Trimestre 2:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].metasPorFrecuencia[0].trimestre2
+                      }
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Trimestre 3:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].metasPorFrecuencia[0].trimestre3
+                      }
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Trimestre 4:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].metasPorFrecuencia[0].trimestre4
                       }
                     </Typography>
                   </Box>
@@ -654,7 +794,7 @@ export function TabResumenMir({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
-                      Fórmula:
+                      Sentido del Indicador:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -662,7 +802,7 @@ export function TabResumenMir({
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
-                        ].formula
+                        ].sentidoDelIndicador
                       }
                     </Typography>
                   </Box>
@@ -680,7 +820,7 @@ export function TabResumenMir({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
-                      Frecuencia:
+                      Valor numerador:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -688,7 +828,7 @@ export function TabResumenMir({
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
-                        ].frecuencia
+                        ].valorNumerador
                       }
                     </Typography>
                   </Box>
@@ -706,7 +846,7 @@ export function TabResumenMir({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
-                      Medios de Verificación:
+                      Valor denominador:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -714,7 +854,7 @@ export function TabResumenMir({
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
-                        ].medios
+                        ].valorDenominador
                       }
                     </Typography>
                   </Box>
@@ -732,7 +872,7 @@ export function TabResumenMir({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
-                      Supuestos:
+                      Descripción del indicador:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -740,14 +880,66 @@ export function TabResumenMir({
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
-                        ].supuestos
+                        ].descIndicador
                       }
                     </Typography>
                   </Box>
-                </Box> */}
-              {/* );
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Descripción del numerador:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].descNumerador
+                      }
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    >
+                      Descripción del denominador:
+                    </Typography>
+                    <Typography
+                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    >
+                      {
+                        cValor[0].componentes[indexComponentes].actividades[
+                          indexActividades
+                        ].descDenominador
+                      }
+                    </Typography>
+                  </Box>
+                </Box> 
+               );
             });
-          })} */}
+          })}
         </Box>
       </Box>
     </Box>

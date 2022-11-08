@@ -11,7 +11,7 @@ import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import TabResumenMir from "./TabResumenMir";
-import { IComponenteMA } from "./Interfaces";
+import { IComponenteMA, ICValorMA } from "./Interfaces";
 
 export default function FullModalMetaAnual({
   MIR,
@@ -70,7 +70,7 @@ export default function FullModalMetaAnual({
       };
     })
   );
- const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
+  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     setValoresComponenteMA(state);
   };
   const valoresComponenteFnc = (state: Array<IComponente>) => {
@@ -79,7 +79,9 @@ export default function FullModalMetaAnual({
 
   // ACTIVIDADES
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>([]);
+  const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>(
+    []
+  );
   const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
     {
@@ -109,11 +111,50 @@ export default function FullModalMetaAnual({
     })
   );
 
+  const [cValorMA, setCValorMA] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                metaAnual: "",
+                lineaBase: "",
+                metasPorFrecuencia: [
+                  {
+                    semestre1: "",
+                    semestre2: "",
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
+                valorNumerador: "",
+                valorDenominador: "",
+                sentidoDelIndicador: "",
+                unidadResponsable: "",
+                descIndicador: "",
+                descNumerador: "",
+                descDenominador: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
   const asignarCValor = (state: Array<ICValor>) => {
     setCValor(state);
   };
 
-  const [openOptionDialog, setOpenOptionDialog]=useState("");
+  const asignarCValorMA = (state: Array<ICValorMA>) => {
+    setCValorMA(state);
+  };
+
+  const [openOptionDialog, setOpenOptionDialog] = useState("");
 
   useEffect(() => {
     let array = noComponentes.map((x, index) => {
@@ -134,7 +175,16 @@ export default function FullModalMetaAnual({
         componentes: "C" + (index + 1),
         metaAnual: "",
         lineaBase: "",
-        metasPorFrecuencia: [],
+        metasPorFrecuencia: [
+          {
+            semestre1: "",
+            semestre2: "",
+            trimestre1: "",
+            trimestre2: "",
+            trimestre3: "",
+            trimestre4: "",
+          },
+        ],
         valorNumerador: "",
         valorDenominador: "",
         sentidoDelIndicador: "",
@@ -145,8 +195,7 @@ export default function FullModalMetaAnual({
       };
     });
     setValoresComponenteMA(arrayMA);
-    console.log(valoresComponenteMA);
-    
+    //console.log(valoresComponenteMA);
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
@@ -177,13 +226,11 @@ export default function FullModalMetaAnual({
 
   const resumenFinMa = (arr: Array<IFinMA>) => {
     setValueFin(arr);
-    console.log(arr);
-    
+    //console.log(arr);
   };
   const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
     setValueProposito(arr);
-    console.log(arr);
-    
+    //console.log(arr);
   };
 
   return (
@@ -275,18 +322,17 @@ export default function FullModalMetaAnual({
             height: "77vh",
           }}
         >
-           <TabResumenMir
+          <TabResumenMir
             showResume="Fin"
             show={value === 50 ? true : false}
             componentes={noComponentes}
-            componenteValor={componenteValor}
-            cValor={cValor}
+            componenteValor={valoresComponenteMA}
+            cValor={cValorMA}
             fin={ValueFin}
             proposito={ValueProposito}
-          ></TabResumenMir> 
+          ></TabResumenMir>
 
           <TabEncabezadoMA
-          
             anioFiscalEdit={anioFiscalEdit}
             actividadesMir={setActividadesMir}
             compAct={setCompAct}
@@ -298,7 +344,7 @@ export default function FullModalMetaAnual({
             asignarComponenteValor={valoresComponenteFnc}
             MIR={MIR}
           ></TabEncabezadoMA>
-          
+
           <TabFinPropositoMR
             show={value === 20 ? true : false}
             resumenFin={resumenFin}
@@ -322,7 +368,7 @@ export default function FullModalMetaAnual({
             compAct={compAct}
             show={value === 40 ? true : false}
             componentes={noComponentes}
-            asignarCValor={asignarCValor}
+            asignarCValor={asignarCValorMA}
           ></TabActividadesMA>
           {/* <TabResumenMA
             showResume={showResume}

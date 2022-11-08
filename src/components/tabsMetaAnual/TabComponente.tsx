@@ -140,7 +140,7 @@ export const TabComponenteMA = ({
                   key={item}
                   onClick={() => {
                     setComponentSelect(item);
-                    console.log(item);
+                    ////console.log(item);
                   }}
                   sx={{
                     "&.Mui-selected ": {
@@ -195,6 +195,28 @@ export const TabComponenteMA = ({
                 setComponentesValues([...componentesValues]);
                 valoresComponenteMAFnc([...componentesValues]);
               }}
+              error={
+                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
+                  0 ||
+                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) >
+                  100 ||
+                isNaN(
+                  parseFloat(componentesValues[componentSelect - 1]?.metaAnual)
+                )
+                  ? true
+                  : false
+              }
+              helperText={
+                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
+                  0 ||
+                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) >
+                  100 ||
+                isNaN(
+                  parseFloat(componentesValues[componentSelect - 1]?.metaAnual)
+                )
+                  ? "Introducir valor entre 0 y 100. "
+                  : null
+              }
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -219,6 +241,28 @@ export const TabComponenteMA = ({
                 setComponentesValues([...componentesValues]);
                 valoresComponenteMAFnc([...componentesValues]);
               }}
+              error={
+                parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
+                  0 ||
+                parseFloat(componentesValues[componentSelect - 1]?.lineaBase) >
+                  100 ||
+                isNaN(
+                  parseFloat(componentesValues[componentSelect - 1]?.lineaBase)
+                )
+                  ? true
+                  : false
+              }
+              helperText={
+                parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
+                  0 ||
+                parseFloat(componentesValues[componentSelect - 1]?.lineaBase) >
+                  100 ||
+                isNaN(
+                  parseFloat(componentesValues[componentSelect - 1]?.lineaBase)
+                )
+                  ? "Introducir valor entre 0 y 100. "
+                  : null
+              }
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -335,7 +379,7 @@ export const TabComponenteMA = ({
                     componentSelect - 1
                   ].metasPorFrecuencia[0].trimestre1 = c.target.value;
                   setComponentesValues([...componentesValues]);
-                valoresComponenteMAFnc([...componentesValues]);
+                  valoresComponenteMAFnc([...componentesValues]);
                 }}
                 InputLabelProps={{
                   style: {
@@ -363,7 +407,7 @@ export const TabComponenteMA = ({
                     componentSelect - 1
                   ].metasPorFrecuencia[0].trimestre2 = c.target.value;
                   setComponentesValues([...componentesValues]);
-                valoresComponenteMAFnc([...componentesValues]);
+                  valoresComponenteMAFnc([...componentesValues]);
                 }}
                 InputLabelProps={{
                   style: {
@@ -391,7 +435,7 @@ export const TabComponenteMA = ({
                     componentSelect - 1
                   ].metasPorFrecuencia[0].trimestre3 = c.target.value;
                   setComponentesValues([...componentesValues]);
-                valoresComponenteMAFnc([...componentesValues]);
+                  valoresComponenteMAFnc([...componentesValues]);
                 }}
                 InputLabelProps={{
                   style: {
@@ -419,7 +463,7 @@ export const TabComponenteMA = ({
                     componentSelect - 1
                   ].metasPorFrecuencia[0].trimestre4 = c.target.value;
                   setComponentesValues([...componentesValues]);
-                valoresComponenteMAFnc([...componentesValues]);
+                  valoresComponenteMAFnc([...componentesValues]);
                 }}
                 InputLabelProps={{
                   style: {
@@ -460,7 +504,7 @@ export const TabComponenteMA = ({
                     componentSelect - 1
                   ].metasPorFrecuencia[0].semestre1 = c.target.value;
                   setComponentesValues([...componentesValues]);
-                valoresComponenteMAFnc([...componentesValues]);
+                  valoresComponenteMAFnc([...componentesValues]);
                 }}
                 InputLabelProps={{
                   style: {
@@ -488,7 +532,7 @@ export const TabComponenteMA = ({
                     componentSelect - 1
                   ].metasPorFrecuencia[0].semestre2 = c.target.value;
                   setComponentesValues([...componentesValues]);
-                valoresComponenteMAFnc([...componentesValues]);
+                  valoresComponenteMAFnc([...componentesValues]);
                 }}
                 InputLabelProps={{
                   style: {
@@ -609,8 +653,7 @@ export const TabComponenteMA = ({
                   c.target.value;
                 setComponentesValues([...componentesValues]);
                 valoresComponenteMAFnc([...componentesValues]);
-                console.log(componentesValues);
-                
+                ////console.log(componentesValues);
               }}
               InputLabelProps={{
                 style: {

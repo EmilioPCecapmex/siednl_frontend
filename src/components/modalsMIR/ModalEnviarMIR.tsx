@@ -17,7 +17,6 @@ import {
   Typography,
   FormHelperText,
 } from "@mui/material";
-import { IUsuarios } from "../../screens/notification/interfaces";
 
 export default function ModalEnviarMIR({
   open,

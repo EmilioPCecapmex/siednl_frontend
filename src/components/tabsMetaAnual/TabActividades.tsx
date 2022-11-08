@@ -11,6 +11,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { IActividadesMir, IComponenteActividad } from "./AddMetaAnual";
+import { IActividadesMA } from "./Interfaces";
 
 //funcion main
 export const TabActividadesMA = ({
@@ -35,70 +36,11 @@ export const TabActividadesMA = ({
     },
   ]);
 
-  useEffect(() => {
-    if (show === true && componentes.length > cValor[0].componentes.length) {
-      let restantes = componentes.length - cValor[0].componentes.length;
-      let prevState = [...cValor];
-      for (let index = 1; index <= restantes; index++) {
-        prevState[0].componentes.push({
-          actividades: [
-            {
-              actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
-              resumen: "",
-              indicador: "",
-              frecuencia: "",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-            {
-              actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
-              resumen: "",
-              indicador: "",
-              frecuencia: "",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-          ],
-        });
-        setCValor(prevState);
-      }
-    } else if (
-      show === true &&
-      componentes.length < cValor[0].componentes.length
-    ) {
-      let prevState = [...cValor];
-      let restantes = cValor[0].componentes.length - componentes.length;
-      for (let index = 1; index <= restantes; index++) {
-        prevState[0].componentes.pop();
-        setCValor(prevState);
-      }
-      setComponenteSelect(0);
-    }
-  }, [show]);
+  const [actividadesMA, setActividadesMA] = useState<Array<IActividadesMA>>([])
+  const [componenteSelect, setComponenteSelect] = useState(0);
+  const [actividadSelect, setActividadSelect] = useState(0);
 
-  const [cValor, setCValor] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
+
 
   const [aValorMA, setAValorMA] = useState(
     componenteActividad.map((item) => {
@@ -108,10 +50,16 @@ export const TabActividadesMA = ({
             actividades: x.map((c, index2) => {
               return {
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                componentes: "",
                 metaAnual: "",
                 lineaBase: "",
-                metasPorFrecuencia: [],
+                metasPorFrecuencia: [{
+                  semestre1: "",
+                  semestre2: "",
+                  trimestre1: "",
+                  trimestre2: "",
+                  trimestre3: "",
+                  trimestre4: "",
+                },],
                 valorNumerador: "",
                 valorDenominador: "",
                 sentidoDelIndicador: "",
@@ -128,16 +76,12 @@ export const TabActividadesMA = ({
   );
 
   useEffect(() => {
-    asignarCValor(cValor);
-  }, [cValor, componentes]);
-
-  useEffect(() => {
     if (compAct.length > 0) {
-      loadActividadesMir();
+      loadActividadesMA();
     }
   }, [compAct]);
 
-  const loadActividadesMir = () => {
+  const loadActividadesMA = () => {
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct.map((x, index) => {
@@ -145,12 +89,23 @@ export const TabActividadesMA = ({
             actividades: x.actividades.map((c, index2) => {
               return {
                 actividad: "",
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
+                metaAnual: "",
+                lineaBase: "",
+                metasPorFrecuencia: [{
+                  semestre1: "",
+                  semestre2: "",
+                  trimestre1: "",
+                  trimestre2: "",
+                  trimestre3: "",
+                  trimestre4: "",
+                },],
+                valorNumerador: "",
+                valorDenominador: "",
+                sentidoDelIndicador: "",
+                unidadResponsable: "",
+                descIndicador: "",
+                descNumerador: "",
+                descDenominador: "",
               };
             }),
           };
@@ -166,30 +121,13 @@ export const TabActividadesMA = ({
         parseInt(act) - 1
       ].actividad = x.actividad;
 
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].resumen = x?.resumen;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].indicador = x?.indicador;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].formula = x?.formula;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].frecuencia = x?.frecuencia;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].medios = x?.medios;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].supuestos = x?.supuestos;
     });
-    setCValor(y);
+    setAValorMA(y);
   };
 
-  const [componenteSelect, setComponenteSelect] = useState(0);
-  const [actividadSelect, setActividadSelect] = useState(0);
+
+
+
 
   const [open, setOpen] = useState(0);
 
@@ -297,7 +235,7 @@ export const TabActividadesMA = ({
                 </ListItemButton>
                 <Collapse in={open === item} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    {cValor[0].componentes[componenteSelect].actividades.map(
+                    {aValorMA[0].componentes[componenteSelect].actividades.map(
                       (value, x) => {
                         return (
                           <ListItemButton
@@ -353,7 +291,16 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Meta anual 2023"}
+              label={"Meta Anual 2023"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metaAnual}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metaAnual = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -371,6 +318,15 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Linea Base 2021"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].lineaBase}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].lineaBase = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -388,6 +344,15 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor númerador"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].valorNumerador}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].valorNumerador = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -405,6 +370,15 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del denominador"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].valorDenominador}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].valorDenominador = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -422,6 +396,15 @@ export const TabActividadesMA = ({
               sx={{ width: "15%", boxShadow: 2 }}
               variant={"filled"}
               label={"Sentido del indicador"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].sentidoDelIndicador}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].sentidoDelIndicador = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -451,6 +434,17 @@ export const TabActividadesMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 1"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metasPorFrecuencia[0].trimestre1 = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+                console.log(aValorMA);
+                
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -468,6 +462,17 @@ export const TabActividadesMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 2"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metasPorFrecuencia[0].trimestre2 = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+                console.log(aValorMA);
+                
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -485,6 +490,17 @@ export const TabActividadesMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 3"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metasPorFrecuencia[0].trimestre3 = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+                console.log(aValorMA);
+                
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -502,6 +518,17 @@ export const TabActividadesMA = ({
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 4"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metasPorFrecuencia[0].trimestre4 = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+                console.log(aValorMA);
+                
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -530,6 +557,15 @@ export const TabActividadesMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Unidad responsable de reportar el indicador"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].unidadResponsable}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].unidadResponsable = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -547,6 +583,15 @@ export const TabActividadesMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripción del indicador"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].descIndicador}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].descIndicador = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -575,6 +620,15 @@ export const TabActividadesMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripción del numerador"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].descNumerador}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].descNumerador = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -592,6 +646,17 @@ export const TabActividadesMA = ({
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
               label={"Descripcion del denominador"}
+              value={aValorMA[0].componentes[componenteSelect].actividades[actividadSelect].descDenominador}
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].descDenominador = c.target.value;
+                setAValorMA(y);
+                asignarCValor(y);
+                console.log(aValorMA);
+                
+              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
