@@ -1,14 +1,8 @@
 import { IComponente } from "./IComponente-Prueba-momentanea";
 import { IActividadesMir, ICValor } from "./ICValor-Prueba-momentanea";
-import { IEncabezado } from "./TabEncabezado";
 import { IFinMA, IPropositoMA } from "./IFin";
-import {
-  IActividadesMirEdit,
-  IComponenteMirEdit,
-  IEncabezadoEdit,
-  IFinEdit,
-  IPropositoEdit,
-} from "./TabResumenMir";
+import { IEncabezado } from "./TabEncabezadoMIR";
+import { IActividadesMirEdit, IComponenteMirEdit, IEncabezadoEdit, IFinEdit, IPropositoEdit } from "./TabResumenMA";
 
 export interface IMIR {
   encabezado: IEncabezado;
