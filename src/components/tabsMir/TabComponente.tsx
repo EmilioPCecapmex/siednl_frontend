@@ -17,18 +17,22 @@ import { IMIREdit } from "./IMIR";
 export const TabComponente = ({
   show,
   noComponentesFnc,
-  valoresComponenteFnc,
+  // valoresComponenteFnc,
   noComponentes,
   valoresComponente,
   mirEdit,
 }: {
   show: boolean;
   noComponentesFnc: Function;
-  valoresComponenteFnc: Function;
+  // valoresComponenteFnc: Function;
   noComponentes: number[];
   valoresComponente: Array<IComponente>;
   mirEdit?: IMIREdit;
 }) => {
+
+
+
+
   const agregarFnc = () => {
     let v = noComponentes.length + 1;
     if (v > 6) {
@@ -46,10 +50,12 @@ export const TabComponente = ({
           medios: "",
           supuestos: "",
         });
-        valoresComponenteFnc(prevState);
+        setComponenteValor(prevState);
       }
     }
   };
+
+
 
   const eliminarFnc = () => {
     let v = noComponentes.length - 1;
@@ -58,7 +64,7 @@ export const TabComponente = ({
       noComponentesFnc(noComponentes.splice(0, v));
       let prevState = [...valoresComponente];
       prevState.pop();
-      valoresComponenteFnc(prevState);
+      setComponenteValor(prevState);
       if (v < componentSelect) {
         setComponentSelect(v);
       }
@@ -132,6 +138,37 @@ export const TabComponente = ({
       }
     }
   };
+
+  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    })
+  );
+
+  useEffect(() => {
+    setComponenteValor(
+      noComponentes.map((x, index) => {
+        return {
+          componentes: "C" + (index + 1),
+          resumen: valoresComponente[index].resumen || "",
+          indicador: valoresComponente[index].indicador || "",
+          frecuencia: valoresComponente[index].frecuencia || "",
+          formula: valoresComponente[index].formula || "",
+          medios: valoresComponente[index].medios || "",
+          supuestos: valoresComponente[index].supuestos || ""
+        };
+      })
+    )
+  },[noComponentes])
+
 
   return (
     <Box
@@ -282,11 +319,11 @@ export const TabComponente = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Resumen Narrativo".toUpperCase()}
-              value={valoresComponente[componentSelect - 1]?.resumen}
+              value={componenteValor[componentSelect - 1]?.resumen}
               onChange={(c) => {
-                valoresComponente[componentSelect - 1].resumen =
-                  c.target.value;
-                valoresComponenteFnc([...valoresComponente]);
+                let prev = [...valoresComponente]
+                prev[componentSelect - 1].resumen = c.target.value;
+                setComponenteValor(prev);
               }}
             />
             <TextField
@@ -313,11 +350,11 @@ export const TabComponente = ({
               }
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Indicador".toUpperCase()}
-              value={valoresComponente[componentSelect - 1]?.indicador}
+              value={componenteValor[componentSelect - 1]?.indicador}
               onChange={(c) => {
-                valoresComponente[componentSelect - 1].indicador =
-                  c.target.value;
-                valoresComponenteFnc([...valoresComponente]);
+                let prev = [...valoresComponente]
+                prev[componentSelect - 1].indicador = c.target.value;
+                setComponenteValor(prev);
               }}
             />
             <TextField
@@ -338,12 +375,12 @@ export const TabComponente = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Fórmula".toUpperCase()}
-              value={valoresComponente[componentSelect - 1]?.formula}
+              value={componenteValor[componentSelect - 1]?.formula}
               onClick={() => evalueTxtIndicador()}
               onChange={(c) => {
-                valoresComponente[componentSelect - 1].formula =
-                  c.target.value;
-                valoresComponenteFnc([...valoresComponente]);
+                let prev = [...valoresComponente]
+                prev[componentSelect - 1].formula = c.target.value;
+                setComponenteValor(prev);
               }}
             />
           </Box>
@@ -374,11 +411,11 @@ export const TabComponente = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Frecuencia".toUpperCase()}
-              value={valoresComponente[componentSelect - 1]?.frecuencia}
+              value={componenteValor[componentSelect - 1]?.frecuencia}
               onChange={(c) => {
-                valoresComponente[componentSelect - 1].frecuencia =
-                  c.target.value;
-                valoresComponenteFnc([...valoresComponente]);
+                let prev = [...valoresComponente]
+                prev[componentSelect - 1].frecuencia = c.target.value;
+                setComponenteValor(prev);
               }}
               onBlur={() => evalueTxtFrecuencia()}
               error={errorFrecuencia === componentSelect - 1 ? true : false}
@@ -405,10 +442,11 @@ export const TabComponente = ({
               rows={4}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Medios de Verificación".toUpperCase()}
-              value={valoresComponente[componentSelect - 1]?.medios}
+              value={componenteValor[componentSelect - 1]?.medios}
               onChange={(c) => {
-                valoresComponente[componentSelect - 1].medios = c.target.value;
-                valoresComponenteFnc([...valoresComponente]);
+                let prev = [...valoresComponente]
+                prev[componentSelect - 1].medios = c.target.value;
+                setComponenteValor(prev);
               }}
             />
             <TextField
@@ -428,11 +466,11 @@ export const TabComponente = ({
               }}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Supuestos".toUpperCase()}
-              value={valoresComponente[componentSelect - 1]?.supuestos}
+              value={componenteValor[componentSelect - 1]?.supuestos}
               onChange={(c) => {
-                valoresComponente[componentSelect - 1].supuestos =
-                  c.target.value;
-                valoresComponenteFnc([...valoresComponente]);
+                let prev = [...valoresComponente]
+                prev[componentSelect - 1].supuestos = c.target.value;
+                setComponenteValor(prev);
               }}
             />
           </Box>
