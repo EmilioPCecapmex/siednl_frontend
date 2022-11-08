@@ -94,7 +94,7 @@ export const TabActividadesMA = ({
           return {
             actividades: x.actividades.map((c, index2) => {
               return {
-                actividad: "",
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
                 metaAnual: "",
                 lineaBase: "",
                 metasPorFrecuencia: [
@@ -167,7 +167,7 @@ export const TabActividadesMA = ({
           return {
             actividades: x.actividades.map((c, index2) => {
               return {
-                actividad: "",
+                actividad:  "A" + (index2 + 1) + "C" + (index + 1),
                 resumen: "",
                 indicador: "",
                 formula: "",

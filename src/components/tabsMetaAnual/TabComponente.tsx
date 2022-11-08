@@ -38,43 +38,34 @@ export const TabComponenteMA = ({
     if (show === true) {
       let comp: IComponenteMA[] = [];
 
-
       noComponentes.map((x, index) => {
         return comp.push({
-          componentes: '',
-          metaAnual: '',
-          lineaBase: '',
+          componentes: "",
+          metaAnual: "",
+          lineaBase: "",
           metasPorFrecuencia: [
             {
-              semestre1:
-                valoresComponente[index]?.metasPorFrecuencia[0]?.semestre1,
-              semestre2:
-                valoresComponente[index]?.metasPorFrecuencia[0]?.semestre2,
-              trimestre1:
-                valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre1,
-              trimestre2:
-                valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre2,
-              trimestre3:
-                valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre3,
-              trimestre4:
-                valoresComponente[index]?.metasPorFrecuencia[0]?.trimestre4,
+              semestre1: "",
+              semestre2: "",
+              trimestre1: "",
+              trimestre2: "",
+              trimestre3: "",
+              trimestre4: "",
             },
           ],
-          valorNumerador: '',
-          valorDenominador: '',
-          sentidoDelIndicador: '',
-          unidadResponsable: '',
-          descIndicador: '',
-          descNumerador: '',
-          descDenominador: '',
+          valorNumerador: "",
+          valorDenominador: "",
+          sentidoDelIndicador: "",
+          unidadResponsable: "",
+          descIndicador: "",
+          descNumerador: "",
+          descDenominador: "",
         });
       });
 
-      if(componentesValues.length <= 0){
+      if (componentesValues.length <= 0) {
         setComponentesValues(comp);
       }
-
-
     }
   }, [show]);
 

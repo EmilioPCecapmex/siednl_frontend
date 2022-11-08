@@ -1,10 +1,11 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { IFinMA, IPropositoMA } from "./IFin";
-import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
-import ModalSolicitaModifMA from "../modalsMA/ModalSolicitaModifMA";
+import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
+import { IFinMA, IPropositoMA } from "./IFin";
 import { IMA } from "./IMA";
+import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
+
 
 export function TabResumenMA({
   show,
@@ -41,6 +42,7 @@ export function TabResumenMA({
       componentes: componentesM,
       actividades: actividadesM,
     });
+    
   };
 
   useEffect(() => {
@@ -53,6 +55,7 @@ export function TabResumenMA({
     });
 
     asignarMA(fin, proposito, componenteValor, arr);
+    
   }, [componenteValor, proposito, fin, cValor, show]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
@@ -192,7 +195,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Orden:
+              Sentido del indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.sentidoDelIndicador}
@@ -210,7 +213,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Unidad responsable:
+              Unidad responsable de reportar el indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.unidadResponsable}
@@ -366,7 +369,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Orden:
+              Sentido del indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {proposito[0]?.sentidoDelIndicador}
@@ -385,7 +388,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Unidad Responsable:
+              Unidad responsable de reportar el indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {proposito[0]?.unidadResponsable}
@@ -1198,18 +1201,18 @@ export function TabResumenMA({
           </Typography>
         </Button>
 
-        <ModalSolicitaModifMA
+        <ModalSolicitaModif
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
           MA={JSON.stringify(MA)}
       
-        ></ModalSolicitaModifMA>
+        ></ModalSolicitaModif>
 
         <ModalEnviarMA
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           MA={JSON.stringify(MA)}
-          IdMA={''}
+          IdMA={IdMA}
           IdMIR={IdMir}
         ></ModalEnviarMA>
         </Box>

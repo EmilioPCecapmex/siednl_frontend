@@ -206,7 +206,7 @@ export function TabEncabezadoMIR({
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
     >
-      <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
+      {/* <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <TextField
           disabled
           value={anioFiscal}
@@ -420,7 +420,7 @@ export function TabEncabezadoMIR({
             },
           }}
         ></TextField>
-      </FormControl>
+      </FormControl> */}
     </Box>
   );
 }

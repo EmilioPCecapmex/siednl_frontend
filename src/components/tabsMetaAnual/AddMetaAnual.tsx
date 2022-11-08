@@ -26,7 +26,7 @@ export default function AddMetaAnual({
   IdMir: string;
   IdMA: string;
 }) {
-  const [value, setValue] = React.useState(10);
+  const [value, setValue] = React.useState(20);
 
   const [showMir, setShowMir] = React.useState(false);
 
@@ -263,7 +263,7 @@ export default function AddMetaAnual({
               boxShadow: 20,
             }}
           >
-            <Tab
+            {/* <Tab
               label="Resumen Mir"
               value={10}
               sx={{
@@ -272,7 +272,7 @@ export default function AddMetaAnual({
                 fontFamily: "MontserratBold",
                 backgroundColor: "#ccc",
               }}
-            />
+            /> */}
             <Tab
               label="Fin / Propósito"
               value={20}

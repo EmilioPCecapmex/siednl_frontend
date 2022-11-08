@@ -57,7 +57,7 @@ export default function ModalEnviarMA({
   };
 
   const checkMA = (v: string) => {
-    if (JSON.parse(MA)?.fin=== null) {
+    if (JSON.parse(MA)?.fin === null) {
       return Toast.fire({
         icon: "error",
         title: "Apartado 'Fin' sin completar",
@@ -71,7 +71,7 @@ export default function ModalEnviarMA({
         title: "Meta anual del apartado 'Fin' aún faltante",
       });
     } else if (
-      JSON.parse(MA)?.fin.lineaBase  === undefined ||
+      JSON.parse(MA)?.fin.lineaBase === undefined ||
       JSON.parse(MA)?.fin.lineaBase === ""
     ) {
       return Toast.fire({
@@ -88,11 +88,11 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.valorDenominador === undefined ||
-      JSON.parse(MA)?.fin.valorDenominador === "" 
+      JSON.parse(MA)?.fin.valorDenominador === ""
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Valor Denominador del apartado 'Fin' aún faltante",
+        title: "Valor denominador del apartado 'Fin' aún faltante",
       });
     } else if (
       JSON.parse(MA)?.fin.sentidoDelIndicador === undefined ||
@@ -100,7 +100,7 @@ export default function ModalEnviarMA({
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Sentido del lineaBase del apartado 'Fin' aún faltante",
+        title: "Sentido del indicador del apartado 'Fin' aún faltante",
       });
     } else if (
       JSON.parse(MA)?.fin.unidadResponsable === undefined ||
@@ -116,7 +116,7 @@ export default function ModalEnviarMA({
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Descripción del lineaBase del apartado 'Fin' aún faltante",
+        title: "Descripción del indicador del apartado 'Fin' aún faltante",
       });
     } else if (
       JSON.parse(MA)?.fin.descNumerador === undefined ||
@@ -132,9 +132,9 @@ export default function ModalEnviarMA({
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Descripción del numerador del apartado 'Fin' aún faltante",
+        title: "Descripción del denominador del apartado 'Fin' aún faltante",
       });
-    } else if (JSON.parse(MA)?.proposito=== null) {
+    } else if (JSON.parse(MA)?.proposito === null) {
       return Toast.fire({
         icon: "error",
         title: "Apartado 'Propósito' sin completar",
@@ -148,7 +148,7 @@ export default function ModalEnviarMA({
         title: "Meta anual del apartado 'Propósito' aún faltante",
       });
     } else if (
-      JSON.parse(MA)?.proposito.lineaBase  === undefined ||
+      JSON.parse(MA)?.proposito.lineaBase === undefined ||
       JSON.parse(MA)?.proposito.lineaBase === ""
     ) {
       return Toast.fire({
@@ -165,11 +165,11 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.valorDenominador === undefined ||
-      JSON.parse(MA)?.proposito.valorDenominador === "" 
+      JSON.parse(MA)?.proposito.valorDenominador === ""
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Valor Denominador del apartado 'Propósito' aún faltante",
+        title: "Valor denominador del apartado 'Propósito' aún faltante",
       });
     } else if (
       JSON.parse(MA)?.proposito.sentidoDelIndicador === undefined ||
@@ -177,7 +177,7 @@ export default function ModalEnviarMA({
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Sentido del lineaBase del apartado 'Propósito' aún faltante",
+        title: "Sentido del indicador del apartado 'Propósito' aún faltante",
       });
     } else if (
       JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
@@ -193,7 +193,8 @@ export default function ModalEnviarMA({
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Descripción del lineaBase del apartado 'Propósito' aún faltante",
+        title:
+          "Descripción del indicador del apartado 'Propósito' aún faltante",
       });
     } else if (
       JSON.parse(MA)?.proposito.descNumerador === undefined ||
@@ -201,7 +202,8 @@ export default function ModalEnviarMA({
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Descripción del numerador del apartado 'Propósito' aún faltante",
+        title:
+          "Descripción del numerador del apartado 'Propósito' aún faltante",
       });
     } else if (
       JSON.parse(MA)?.proposito.descDenominador === undefined ||
@@ -209,7 +211,8 @@ export default function ModalEnviarMA({
     ) {
       return Toast.fire({
         icon: "error",
-        title: "Descripción del numerador del apartado 'Propósito' aún faltante",
+        title:
+          "Descripción del denominador del apartado 'Propósito' aún faltante",
       });
     } else {
       checkComponentes(v);
@@ -245,36 +248,49 @@ export default function ModalEnviarMA({
           false
         );
       } else if (
-        componente.metasPorFrecuencia[0].semestre1 === undefined ||
-        componente.metasPorFrecuencia[0].semestre1 === ""
+        (componente.metasPorFrecuencia[0].semestre1 === undefined ||
+        componente.metasPorFrecuencia[0].semestre1 === "" ||
+        componente.metasPorFrecuencia[0].semestre2 === undefined ||
+        componente.metasPorFrecuencia[0].semestre2 === "") &&
+        (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
+        componente.metasPorFrecuencia[0].trimestre1 === "" ||
+        componente.metasPorFrecuencia[0].trimestre2 === undefined ||
+        componente.metasPorFrecuencia[0].trimestre2 === "" ||
+        componente.metasPorFrecuencia[0].trimestre3 === undefined ||
+        componente.metasPorFrecuencia[0].trimestre3 === "" ||
+        componente.metasPorFrecuencia[0].trimestre4 === undefined ||
+        componente.metasPorFrecuencia[0].trimestre4 === "")
       ) {
         return (
           Toast.fire({
             icon: "error",
-            title: `Semestre 1 de las metas por frecuencia del componente ${index + 1} aún faltante`,
+            title: `Metas por frecuencia del componente ${
+              index + 1
+            } aún faltante`,
           }),
           (err = 1),
           false
         );
       } else if (
         componente.valorNumerador === undefined ||
-        componente.valorNumerador === "" 
+        componente.valorNumerador === ""
       ) {
         return (
           Toast.fire({
             icon: "error",
-            title: `Valor Numerador del componente ${index + 1} aún faltante`,
+            title: `Valor numerador del componente ${index + 1} aún faltante`,
           }),
           (err = 1),
           false
         );
-      } else if (componente.valorDenominador === undefined || componente.valorDenominador === "") {
+      } else if (
+        componente.valorDenominador === undefined ||
+        componente.valorDenominador === ""
+      ) {
         return (
           Toast.fire({
             icon: "error",
-            title: `Valor del denominador del componente ${
-              index + 1
-            } aún faltante`,
+            title: `Valor denominador del componente ${index + 1} aún faltante`,
           }),
           (err = 1),
           false
@@ -286,7 +302,9 @@ export default function ModalEnviarMA({
         return (
           Toast.fire({
             icon: "error",
-            title: `Sentido del indicador del componente ${index + 1} aún faltante`,
+            title: `Sentido del indicador del componente ${
+              index + 1
+            } aún faltante`,
           }),
           (err = 1),
           false
@@ -298,7 +316,9 @@ export default function ModalEnviarMA({
         return (
           Toast.fire({
             icon: "error",
-            title: `Unidad Responsable de reportar el indicador del componente ${index + 1} aún faltante`,
+            title: `Unidad Responsable de reportar el indicador del componente ${
+              index + 1
+            } aún faltante`,
           }),
           (err = 1),
           false
@@ -310,7 +330,9 @@ export default function ModalEnviarMA({
         return (
           Toast.fire({
             icon: "error",
-            title: `Descripción del indicador del componente ${index + 1} aún faltante`,
+            title: `Descripción del indicador del componente ${
+              index + 1
+            } aún faltante`,
           }),
           (err = 1),
           false
@@ -322,7 +344,9 @@ export default function ModalEnviarMA({
         return (
           Toast.fire({
             icon: "error",
-            title: `Descripción del numerador del componente ${index + 1} aún faltante`,
+            title: `Descripción del numerador del componente ${
+              index + 1
+            } aún faltante`,
           }),
           (err = 1),
           false
@@ -334,7 +358,9 @@ export default function ModalEnviarMA({
         return (
           Toast.fire({
             icon: "error",
-            title: `Descripción del denominador del componente ${index + 1} aún faltante`,
+            title: `Descripción del denominador del componente ${
+              index + 1
+            } aún faltante`,
           }),
           (err = 1),
           false
@@ -353,13 +379,13 @@ export default function ModalEnviarMA({
     JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
       if (
         actividad.metaAnual === undefined ||
-        actividad.metaAnual === "" ||
-        actividad.metaAnual === null
+        actividad.metaAnual === "" 
       ) {
+        console.log(JSON.parse(MA));
         return (
           Toast.fire({
             icon: "error",
-            title: `Resumen narrativo de la ${actividad.actividad} aún faltante`,
+            title: `Meta Anual de la ${actividad.actividad} aún faltante`,
           }),
           (err = 1),
           false
@@ -371,38 +397,53 @@ export default function ModalEnviarMA({
         return (
           Toast.fire({
             icon: "error",
-            title: `Indicador de la ${actividad.actividad} aún faltante`,
+            title: `Línea base de la ${actividad.actividad} aún faltante`,
           }),
           (err = 1),
           false
         );
-      } else if (actividad.metasPorFrecuencia[0].semestre1 === undefined || actividad.metasPorFrecuencia[0].semestre1 === "") {
+      } else if (
+        (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
+        actividad.metasPorFrecuencia[0].semestre1 === "" ||
+        actividad.metasPorFrecuencia[0].semestre2 === undefined ||
+        actividad.metasPorFrecuencia[0].semestre2 === "") &&
+        (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
+        actividad.metasPorFrecuencia[0].trimestre1 === "" ||
+        actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
+        actividad.metasPorFrecuencia[0].trimestre2 === "" ||
+        actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
+        actividad.metasPorFrecuencia[0].trimestre3 === "" ||
+        actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
+        actividad.metasPorFrecuencia[0].trimestre4 === "" )
+      ) {
         return (
           Toast.fire({
             icon: "error",
-            title: `Formula de la ${actividad.actividad} aún faltante`,
+            title: `Metas por frecuencia de la ${actividad.actividad} incompleta.`,
           }),
           (err = 1),
           false
         );
       } else if (
         actividad.valorNumerador === undefined ||
-        actividad.valorNumerador === "" ||
-        actividad.valorNumerador.toLowerCase() !== "trimestral"
+        actividad.valorNumerador === "" 
       ) {
         return (
           Toast.fire({
             icon: "error",
-            title: `Frecuencia de la ${actividad.actividad} aún faltante`,
+            title: `Valor numerador de la ${actividad.actividad} aún faltante`,
           }),
           (err = 1),
           false
         );
-      } else if (actividad.valorDenominador === undefined || actividad.valorDenominador === "") {
+      } else if (
+        actividad.valorDenominador === undefined ||
+        actividad.valorDenominador === ""
+      ) {
         return (
           Toast.fire({
             icon: "error",
-            title: `Medios de Verificación de la ${actividad.actividad} aún faltante`,
+            title: `Valor denominador de la ${actividad.actividad} aún faltante`,
           }),
           (err = 1),
           false
@@ -414,7 +455,55 @@ export default function ModalEnviarMA({
         return (
           Toast.fire({
             icon: "error",
-            title: `Supuestos de la ${actividad.actividad} aún faltante`,
+            title: `Sentido del indicador de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        actividad.unidadResponsable === undefined ||
+        actividad.unidadResponsable === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Unidad responsable de reportar el indicador de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        actividad.descIndicador === undefined ||
+        actividad.descIndicador === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Descripción del indicador de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        actividad.descNumerador === undefined ||
+        actividad.descNumerador === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Descripción del numerador de la ${actividad.actividad} aún faltante`,
+          }),
+          (err = 1),
+          false
+        );
+      } else if (
+        actividad.descDenominador === undefined ||
+        actividad.descDenominador === ""
+      ) {
+        return (
+          Toast.fire({
+            icon: "error",
+            title: `Descripción del denominador de la ${actividad.actividad} aún faltante`,
           }),
           (err = 1),
           false
@@ -583,8 +672,8 @@ export default function ModalEnviarMA({
           <Typography
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
-            Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para
-            revisión.
+            Al confirmar, la Meta Anual se enviará a los usuarios
+            correspondientes para revisión.
           </Typography>
         </Box>
 
