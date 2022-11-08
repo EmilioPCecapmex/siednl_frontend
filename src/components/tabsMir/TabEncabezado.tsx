@@ -769,7 +769,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Ejercicio Fiscal"}
+              label={"Ejercicio Fiscal".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -884,7 +884,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Institución"}
+              label={"Institución".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -931,7 +931,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Programa"}
+              label={"Programa".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -984,7 +984,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Eje"}
+              label={"Eje".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1036,7 +1036,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Temática"}
+              label={"Temática".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1088,7 +1088,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Objetivo"}
+              label={"Objetivo".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1140,7 +1140,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Estrategia"}
+              label={"Estrategia".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1197,7 +1197,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Lineas de Acción"}
+              label={"Lineas de Acción".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1264,7 +1264,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Beneficiario"}
+              label={"Beneficiario".toUpperCase()}
               variant="standard"
               InputLabelProps={{
                 style: {

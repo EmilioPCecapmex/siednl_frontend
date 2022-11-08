@@ -31,12 +31,10 @@ import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
-
   resumeDefaultMIR = !resumeDefaultMIR;
 };
 
 export const MIR = () => {
-
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -152,42 +150,50 @@ export const MIR = () => {
     setOpenModalComents(false);
   };
 
-  const downloadMIR = (anio: string,inst: string,prog: string,mir: string) => {
+  const downloadMIR = (
+    anio: string,
+    inst: string,
+    prog: string,
+    mir: string
+  ) => {
     axios
-      .post(process.env.REACT_APP_APPLICATION_FILL+ "/fill_mir", JSON.parse(mir),
-       { 
-        responseType: 'blob',
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
+      .post(
+        process.env.REACT_APP_APPLICATION_FILL + "/fill_mir",
+        JSON.parse(mir),
+        {
+          responseType: "blob",
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
         }
-      }
       )
       .then((r) => {
         Toast.fire({
           icon: "success",
           title: "La descarga comenzara en un momento.",
         });
-   const href = URL.createObjectURL(r.data);
+        const href = URL.createObjectURL(r.data);
 
-    // create "a" HTML element with href to file & click
-    const link = document.createElement('a');
-    link.href = href;
-    link.setAttribute('download', 'MIR_'+ anio +'_'+inst +'_'+prog +'.xlsx'); //or any other extension
-    document.body.appendChild(link);
-    link.click();
+        // create "a" HTML element with href to file & click
+        const link = document.createElement("a");
+        link.href = href;
+        link.setAttribute(
+          "download",
+          "MIR_" + anio + "_" + inst + "_" + prog + ".xlsx"
+        ); //or any other extension
+        document.body.appendChild(link);
+        link.click();
 
-    // clean up "a" element & remove ObjectURL
-    document.body.removeChild(link);
-    URL.revokeObjectURL(href);
-       
+        // clean up "a" element & remove ObjectURL
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
       })
-      .catch((err) =>
-{
-  Toast.fire({
-    icon: "error",
-    title: "Error al intentar descargar el documento.",
-  });
-}      );
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: "Error al intentar descargar el documento.",
+        });
+      });
   };
 
   return (
@@ -199,7 +205,6 @@ export const MIR = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-
       <LateralMenu selection={2} />
       <Header
         details={{
@@ -292,7 +297,7 @@ export const MIR = () => {
                   disabled
                   selected
                 >
-                  Estado MIR
+                  Filtro por estado de la MIR
                 </MenuItem>
                 <MenuItem
                   value={"Todos"}
@@ -392,37 +397,55 @@ export const MIR = () => {
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
                     <TableRow>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Ejercicio Fiscal
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Institución
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Nombre del Programa
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Estado
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
-                        Fecha Creación
+                        Fecha de Creación
                       </TableCell>
                       <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
                         align="center"
                       >
                         Opciones
@@ -453,6 +476,7 @@ export const MIR = () => {
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
                               width: "20%",
+                              textTransform: "uppercase",
                             }}
                             align="center"
                           >
@@ -463,6 +487,7 @@ export const MIR = () => {
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
                               width: "20%",
+                              textTransform: "uppercase",
                             }}
                             align="center"
                           >
@@ -473,6 +498,7 @@ export const MIR = () => {
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
                               width: "20%",
+                              textTransform: "uppercase",
                             }}
                             align="center"
                           >
@@ -508,12 +534,33 @@ export const MIR = () => {
                                 flexDirection: "row",
                               }}
                             >
-                              <Tooltip title="Descargar MIR">
+                              <Tooltip
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
+                                    },
+                                  ],
+                                }}
+                                title="DESCARGAR MIR"
+                              >
                                 <span>
-                                  <IconButton disabled={row.Estado === "Autorizada" ? false : true} onClick={() => 
-                                        
-                                         downloadMIR(row.AnioFiscal, row.Institucion, row.Programa,row.MIR)
-                                      }>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                    onClick={() =>
+                                      downloadMIR(
+                                        row.AnioFiscal,
+                                        row.Institucion,
+                                        row.Programa,
+                                        row.MIR
+                                      )
+                                    }
+                                  >
                                     <DownloadIcon
                                       sx={[
                                         {
@@ -552,7 +599,17 @@ export const MIR = () => {
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />
-                              <Tooltip title="Editar">
+                              <Tooltip title="EDITAR"
+                              PopperProps={{
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: {
+                                      offset: [0, -13],
+                                    },
+                                  },
+                                ],
+                              }}>
                                 <span>
                                   <IconButton
                                     disabled={

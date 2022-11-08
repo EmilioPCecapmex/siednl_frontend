@@ -308,8 +308,8 @@ export function TabFinProposito({
             fontSize: "1.5vw",
           }}
         >
-          {showFin ? "Fin" : null}
-          {showProposito ? "Propósito" : null}
+          {showFin ? "Fin".toUpperCase() : null}
+          {showProposito ? "Propósito".toUpperCase() : null}
         </Typography>
       </Box>
       <Box
@@ -362,7 +362,7 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "MontserratMedium", textTransform:"uppercase" }}>
                 Fin
               </Typography>
             </ListItemButton>
@@ -392,7 +392,7 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "MontserratMedium", textTransform:"uppercase" }}>
                 Propósito
               </Typography>
             </ListItemButton>
@@ -417,7 +417,7 @@ export function TabFinProposito({
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Resumen Narrativo"}
+                label={"Resumen Narrativo".toUpperCase()}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -452,7 +452,7 @@ export function TabFinProposito({
                 onBlur={() =>
                   fin.indicador === "" ? null : evalueTxtindicador("fin")
                 }
-                label={"Indicador"}
+                label={"Indicador".toUpperCase()}
                 error={errorIndicadorFin === "fin" ? true : false}
                 helperText={
                   errorIndicadorFin
@@ -481,7 +481,7 @@ export function TabFinProposito({
                   },
                 }}
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula"}
+                label={"Fórmula".toUpperCase()}
                 onClick={() => handleClickOpen()}
                 value={fin.formula}
               />
@@ -492,7 +492,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
+                label={"Frecuencia".toUpperCase()}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -518,7 +518,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Medios de Verificación"}
+                label={"Medios de Verificación".toUpperCase()}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -540,7 +540,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos"}
+                label={"Supuestos".toUpperCase()}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -577,7 +577,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Resumen Narrativo"}
+                label={"Resumen Narrativo".toUpperCase()}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -615,7 +615,7 @@ export function TabFinProposito({
                     ? null
                     : evalueTxtindicador("proposito")
                 }
-                label={"Indicador"}
+                label={"Indicador".toUpperCase()}
                 error={errorIndicadorProposito === "proposito" ? true : false}
                 helperText={
                   errorIndicadorProposito
@@ -644,7 +644,7 @@ export function TabFinProposito({
                   },
                 }}
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula"}
+                label={"Fórmula".toUpperCase()}
                 onClick={() => handleClickOpen()}
                 value={proposito.formula}
               />
@@ -655,7 +655,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
+                label={"Frecuencia".toUpperCase()}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -669,7 +669,7 @@ export function TabFinProposito({
                 onChange={(c) => {
                   setProposito({ ...proposito, frecuencia: c.target.value });
                 }}
-                value={proposito.frecuencia.toUpperCase()}
+                value={proposito.frecuencia?.toUpperCase()}
                 onBlur={() => evalueTxtFrecuenciaProposito()}
                 error={errorFrecuenciaProposito !== "" ? true : false}
                 helperText={
@@ -692,7 +692,7 @@ export function TabFinProposito({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                label={"Medios de Verificación"}
+                label={"Medios de Verificación".toUpperCase()}
                 onChange={(c) => {
                   setProposito({
                     ...proposito,
@@ -707,7 +707,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos"}
+                label={"Supuestos".toUpperCase()}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",

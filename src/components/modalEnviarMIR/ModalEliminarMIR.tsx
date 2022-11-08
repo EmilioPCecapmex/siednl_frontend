@@ -68,7 +68,7 @@ export const DeleteDialogMIR = ({
 
   return (
     <Box>
-       <Tooltip title="Eliminar">
+       <Tooltip title="ELIMINAR">
                                 <span>
       <IconButton onClick={handleClickOpen} disabled={disab ? true : false}>
         <DeleteIcon

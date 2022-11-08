@@ -182,7 +182,7 @@ export const ComentDialogMir = ({
 
   return (
     <Box>
-         <Tooltip title="Comentarios">
+         <Tooltip title="COMENTARIOS">
                                 <span>
       <IconButton onClick={handleClickOpen}>
         <MessageIcon
