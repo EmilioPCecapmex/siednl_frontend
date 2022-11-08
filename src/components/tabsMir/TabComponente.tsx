@@ -17,14 +17,14 @@ import { IMIREdit } from "./IMIR";
 export const TabComponente = ({
   show,
   noComponentesFnc,
-  // valoresComponenteFnc,
+  valoresComponenteFnc,
   noComponentes,
   valoresComponente,
   mirEdit,
 }: {
   show: boolean;
   noComponentesFnc: Function;
-  // valoresComponenteFnc: Function;
+  valoresComponenteFnc: Function;
   noComponentes: number[];
   valoresComponente: Array<IComponente>;
   mirEdit?: IMIREdit;
@@ -51,6 +51,8 @@ export const TabComponente = ({
           supuestos: "",
         });
         setComponenteValor(prevState);
+        valoresComponenteFnc(prevState)
+
       }
     }
   };
@@ -65,6 +67,7 @@ export const TabComponente = ({
       let prevState = [...valoresComponente];
       prevState.pop();
       setComponenteValor(prevState);
+      valoresComponenteFnc(prevState)
       if (v < componentSelect) {
         setComponentSelect(v);
       }
@@ -84,7 +87,7 @@ export const TabComponente = ({
 
   const evalueTxtFrecuencia = () => {
     const cFrecuencia =
-      valoresComponente[componentSelect - 1].frecuencia?.toLowerCase();
+      componenteValor[componentSelect - 1].frecuencia?.toLowerCase();
     if (cFrecuencia !== undefined) {
       if (cFrecuencia === "semestral") {
         setErrorFrecuencia(-1);
@@ -97,7 +100,7 @@ export const TabComponente = ({
   };
 
   const handleClickOpen = () => {
-    setPrevTextFormula(valoresComponente[componentSelect - 1].formula);
+    setPrevTextFormula(componenteValor[componentSelect - 1].formula);
     setOpenFormulaDialog(true);
   };
 
@@ -106,12 +109,12 @@ export const TabComponente = ({
   };
 
   const changeFormula = (txt: string) => {
-    valoresComponente[componentSelect - 1].formula = txt;
+    componenteValor[componentSelect - 1].formula = txt;
   };
 
   const evalueTxtIndicador = () => {
     const cIndicador =
-      valoresComponente[componentSelect - 1].indicador?.toLowerCase();
+    componenteValor[componentSelect - 1].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
       if (cIndicador.includes("porcentaje")) {
         setTipoFormula("Porcentaje");
@@ -158,16 +161,17 @@ export const TabComponente = ({
       noComponentes.map((x, index) => {
         return {
           componentes: "C" + (index + 1),
-          resumen: valoresComponente[index].resumen || "",
-          indicador: valoresComponente[index].indicador || "",
-          frecuencia: valoresComponente[index].frecuencia || "",
-          formula: valoresComponente[index].formula || "",
-          medios: valoresComponente[index].medios || "",
-          supuestos: valoresComponente[index].supuestos || ""
+          resumen: valoresComponente[index]?.resumen || "",
+          indicador: valoresComponente[index]?.indicador || "",
+          frecuencia: valoresComponente[index]?.frecuencia || "",
+          formula: valoresComponente[index]?.formula || "",
+          medios: valoresComponente[index]?.medios || "",
+          supuestos: valoresComponente[index]?.supuestos || ""
         };
       })
     )
   },[noComponentes])
+
 
 
   return (
@@ -322,8 +326,10 @@ export const TabComponente = ({
               value={componenteValor[componentSelect - 1]?.resumen}
               onChange={(c) => {
                 let prev = [...valoresComponente]
+                let prevLocal = [...componenteValor]
+                prevLocal[componentSelect - 1].resumen = c.target.value;
                 prev[componentSelect - 1].resumen = c.target.value;
-                setComponenteValor(prev);
+                setComponenteValor(prevLocal);
               }}
             />
             <TextField
@@ -353,8 +359,10 @@ export const TabComponente = ({
               value={componenteValor[componentSelect - 1]?.indicador}
               onChange={(c) => {
                 let prev = [...valoresComponente]
+                let prevLocal = [...componenteValor]
+                prevLocal[componentSelect - 1].indicador = c.target.value;
                 prev[componentSelect - 1].indicador = c.target.value;
-                setComponenteValor(prev);
+                setComponenteValor(prevLocal);
               }}
             />
             <TextField
@@ -379,8 +387,10 @@ export const TabComponente = ({
               onClick={() => evalueTxtIndicador()}
               onChange={(c) => {
                 let prev = [...valoresComponente]
+                let prevLocal = [...componenteValor]
+                prevLocal[componentSelect - 1].formula = c.target.value;
                 prev[componentSelect - 1].formula = c.target.value;
-                setComponenteValor(prev);
+                setComponenteValor(prevLocal);
               }}
             />
           </Box>
@@ -414,8 +424,10 @@ export const TabComponente = ({
               value={componenteValor[componentSelect - 1]?.frecuencia}
               onChange={(c) => {
                 let prev = [...valoresComponente]
+                let prevLocal = [...componenteValor]
+                prevLocal[componentSelect - 1].frecuencia = c.target.value;
                 prev[componentSelect - 1].frecuencia = c.target.value;
-                setComponenteValor(prev);
+                setComponenteValor(prevLocal);
               }}
               onBlur={() => evalueTxtFrecuencia()}
               error={errorFrecuencia === componentSelect - 1 ? true : false}
@@ -445,8 +457,10 @@ export const TabComponente = ({
               value={componenteValor[componentSelect - 1]?.medios}
               onChange={(c) => {
                 let prev = [...valoresComponente]
+                let prevLocal = [...componenteValor]
+                prevLocal[componentSelect - 1].medios = c.target.value;
                 prev[componentSelect - 1].medios = c.target.value;
-                setComponenteValor(prev);
+                setComponenteValor(prevLocal);
               }}
             />
             <TextField
@@ -469,8 +483,10 @@ export const TabComponente = ({
               value={componenteValor[componentSelect - 1]?.supuestos}
               onChange={(c) => {
                 let prev = [...valoresComponente]
+                let prevLocal = [...componenteValor]
+                prevLocal[componentSelect - 1].supuestos = c.target.value;
                 prev[componentSelect - 1].supuestos = c.target.value;
-                setComponenteValor(prev);
+                setComponenteValor(prevLocal);
               }}
             />
           </Box>
