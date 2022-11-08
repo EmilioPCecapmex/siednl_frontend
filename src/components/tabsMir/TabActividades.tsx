@@ -375,6 +375,7 @@ export const TabActividades = ({
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
             fontSize: "1.5vw",
+            textTransform:"uppercase"
           }}
         >
           Componente {componenteSelect + 1} - Actividad {actividadSelect + 1}
@@ -449,7 +450,7 @@ export const TabActividades = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium",textTransform:"uppercase" }}>
                     Componente {item}
                   </Typography>
 
@@ -474,6 +475,7 @@ export const TabActividades = ({
                               "&.Mui-selected:hover": {
                                 backgroundColor: "#cbcbcb",
                               },
+                              textTransform:"uppercase"
                             }}
                           >
                             Actividad {x + 1}
@@ -530,7 +532,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
+              sx={{ width: "30%", boxShadow: 2, textTransform:"uppercase" }}
               label={"Resumen Narrativo"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
@@ -560,7 +562,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
+              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Indicador"}
               onBlur={() => evalueTxtIndicador()}
               error={
@@ -604,7 +606,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
+              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Fórmula"}
               onClick={() => evalueTxtIndicador()}
               value={
@@ -646,7 +648,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
+              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Frecuencia"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
@@ -689,7 +691,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
+              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Medios de Verificación"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
@@ -719,7 +721,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 }}
+              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Supuestos"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[

@@ -105,7 +105,7 @@ export const AddDialogCatalogo = ({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -124,7 +124,7 @@ export const AddDialogCatalogo = ({
 
   const getUnidadesAdministrativas = () => {
     axios
-      .get("http://10.200.4.105:8000/api/unidadesAdministrativas", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -136,7 +136,7 @@ export const AddDialogCatalogo = ({
 
   const getProgramas = () => {
     axios
-      .get("http://10.200.4.105:8000/api/programaPresupuestario", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -151,7 +151,7 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogo = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-catalogos",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-catalogos",
         {
           Descripcion: descripcion,
           Tabla: tabla,
@@ -184,7 +184,7 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoFechas = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-fechaDeCaptura",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-fechaDeCaptura",
         {
           Descripcion: descripcion,
           FechaDeCaptura: fechaCaptura,
@@ -216,7 +216,7 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoInstitucionUnidadAdmin = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-institucionUnidad",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-institucionUnidad",
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdInstitucion: institution,
@@ -249,7 +249,7 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-programaInstitucion",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-programaInstitucion",
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdPrograma: programa,
@@ -282,7 +282,7 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoProgramap = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-programaPresupuestario",
         {
           NombrePrograma: descripcion,
           IdInstitucion: institution,

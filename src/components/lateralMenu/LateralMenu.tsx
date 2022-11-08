@@ -123,7 +123,7 @@ export const LateralMenu = ({
       }
       axios
         .put(
-          "http://10.200.4.105:5000/api/change-password",
+          process.env.REACT_APP_APPLICATION_LOGIN+ "/api/change-password",
           {
             ContrasenaNueva: newPassword,
             IdUsuario: localStorage.getItem("IdCentral"),
@@ -256,7 +256,7 @@ export const LateralMenu = ({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
         },

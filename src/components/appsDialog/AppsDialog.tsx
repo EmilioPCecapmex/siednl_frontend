@@ -57,7 +57,7 @@ export const AppsDialog = ({
 
   const agregaVinculo = () => {
     axios
-      .post("http://10.200.4.105:8000/api/vincular-usuarioInsitucion",
+      .post(process.env.REACT_APP_APPLICATION_BACK + "/api/vincular-usuarioInsitucion",
        {
           IdUsuario: id,
           IdInstitucion: instSel.map((item) => {
@@ -92,7 +92,7 @@ export const AppsDialog = ({
 
   const getInstitucionesX = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuarioInsitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
           IdUsuario: id,
         },
@@ -109,7 +109,7 @@ export const AppsDialog = ({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },

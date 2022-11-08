@@ -90,7 +90,7 @@ export default function ModalCrearUsuario({
 
   const getInstituciones = () => {
     axios
-      .get("http://10.200.4.105:8000/api/instituciones", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -106,7 +106,7 @@ export default function ModalCrearUsuario({
 
   const getUserType = () => {
     axios
-      .get("http://10.200.4.105:8000/api/roles", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -119,7 +119,7 @@ export default function ModalCrearUsuario({
   const signUp = () => {
     axios
       .post(
-        "http://10.200.4.105:5000/api/sign-up",
+        process.env.REACT_APP_APPLICATION_LOGIN+ "/api/sign-up",
         {
           Nombre: names,
           ApellidoPaterno: firstName,
@@ -156,7 +156,7 @@ export default function ModalCrearUsuario({
   const siednlSignUp = (idUsrCentral: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/user-add",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
         {
           IdUsuarioCentral: idUsrCentral,
           IdInstitucion: institution,

@@ -97,7 +97,7 @@ export const MetaAnual = () => {
 
   const getMIRs = () => {
     axios
-      .get("http://10.200.4.105:8000/api/mir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),

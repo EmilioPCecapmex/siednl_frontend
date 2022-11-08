@@ -9,8 +9,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIREdit } from "./IMIR";
-import { TutorialBox } from "../tutorialBox/tutorialBox";
 
 export function TabFinProposito({
   show,
@@ -18,14 +16,12 @@ export function TabFinProposito({
   resumenProposito,
   cargaFin,
   cargaProposito,
-  mirEdit,
 }: {
   show: boolean;
   resumenFin: Function;
   resumenProposito: Function;
   cargaFin: Array<IFin>;
   cargaProposito: Array<IProposito>;
-  mirEdit?: IMIREdit;
 }) {
   const [tabFin, setTabFin] = useState([
     {
@@ -120,7 +116,7 @@ export function TabFinProposito({
   const evalueTxtindicador = (v: string) => {
     if (v === "fin") {
       const findicador = fin.indicador?.toLowerCase();
-      if (findicador !== undefined) {
+      if(findicador !== undefined){
         if (findicador.includes("porcentaje")) {
           setTipoFormula("Porcentaje");
           setErrorIndicadorFin("");
@@ -139,14 +135,16 @@ export function TabFinProposito({
           setElementoFormula("Fin");
         } else {
           setErrorIndicadorFin(v);
-          setFin({ ...fin, formula: "" });
+          setFin({...fin, formula: ""})
+
         }
       }
+ 
     }
 
     if (v === "proposito") {
       const pindicador = proposito.indicador?.toLowerCase();
-      if (pindicador !== undefined) {
+      if(pindicador !== undefined){
         if (pindicador.includes("porcentaje")) {
           setTipoFormula("Porcentaje");
           setErrorIndicadorProposito("");
@@ -165,13 +163,17 @@ export function TabFinProposito({
           setElementoFormula("Proposito");
         } else {
           setErrorIndicadorProposito(v);
-          setProposito({ ...proposito, formula: "" });
+          setProposito({...proposito, formula: ""})
+
         }
       }
+
+   
     }
   };
 
   useEffect(() => {
+    
     setTabFin([
       {
         resumen: fin.resumen,
@@ -203,7 +205,7 @@ export function TabFinProposito({
       medios: cargaFin[0]?.medios,
       supuestos: cargaFin[0]?.supuestos,
     });
-
+    
     setTimeout(() => {
       setProposito({
         resumen: cargaProposito[0]?.resumen,
@@ -214,6 +216,8 @@ export function TabFinProposito({
         supuestos: cargaProposito[0]?.supuestos,
       });
     }, 1000);
+   
+
   }, [cargaFin, cargaProposito]);
 
   useEffect(() => {
@@ -263,10 +267,12 @@ export function TabFinProposito({
   const changeFormula = (txt: string) => {
     if (elementoFormula === "Fin") {
       setFin({ ...fin, formula: txt });
-    } else if (elementoFormula === "Proposito") {
+    }else if(elementoFormula === "Proposito"){
       setProposito({ ...proposito, formula: txt });
+
     }
   };
+
 
   return (
     <Box
@@ -282,7 +288,6 @@ export function TabFinProposito({
         backgroundColor: "#fff",
       }}
     >
-
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
@@ -308,8 +313,8 @@ export function TabFinProposito({
             fontSize: "1.5vw",
           }}
         >
-          {showFin ? "Fin".toUpperCase() : null}
-          {showProposito ? "Propósito".toUpperCase() : null}
+          {showFin ? "Fin" : null}
+          {showProposito ? "Propósito" : null}
         </Typography>
       </Box>
       <Box
@@ -362,7 +367,7 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", textTransform:"uppercase" }}>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
                 Fin
               </Typography>
             </ListItemButton>
@@ -392,7 +397,7 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", textTransform:"uppercase" }}>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
                 Propósito
               </Typography>
             </ListItemButton>
@@ -412,12 +417,11 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={mirEdit?.fin.resumen}
                 rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Resumen Narrativo".toUpperCase()}
+                label={"ResumenNarrativo"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -434,7 +438,6 @@ export function TabFinProposito({
                 value={fin.resumen}
               />
               <TextField
-                disabled={mirEdit?.fin.indicador}
                 rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -452,7 +455,7 @@ export function TabFinProposito({
                 onBlur={() =>
                   fin.indicador === "" ? null : evalueTxtindicador("fin")
                 }
-                label={"Indicador".toUpperCase()}
+                label={"Indicador"}
                 error={errorIndicadorFin === "fin" ? true : false}
                 helperText={
                   errorIndicadorFin
@@ -465,7 +468,6 @@ export function TabFinProposito({
                 value={fin.indicador}
               />
               <TextField
-                disabled={mirEdit?.fin.formula}
                 rows={4}
                 multiline
                 variant="filled"
@@ -481,18 +483,17 @@ export function TabFinProposito({
                   },
                 }}
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula".toUpperCase()}
+                label={"Fórmula"}
                 onClick={() => handleClickOpen()}
                 value={fin.formula}
               />
 
               <TextField
-                disabled={mirEdit?.fin.frecuencia}
                 rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia".toUpperCase()}
+                label={"Frecuencia"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -501,6 +502,7 @@ export function TabFinProposito({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
+                    
                   },
                 }}
                 onChange={(c) => {
@@ -513,12 +515,11 @@ export function TabFinProposito({
               />
 
               <TextField
-                disabled={mirEdit?.fin.medios}
                 rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Medios de Verificación".toUpperCase()}
+                label={"Medios de Verificación"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -535,12 +536,11 @@ export function TabFinProposito({
                 value={fin.medios}
               />
               <TextField
-                disabled={mirEdit?.fin.supuestos}
                 rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos".toUpperCase()}
+                label={"Supuestos"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -572,12 +572,11 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={mirEdit?.proposito.resumen}
                 rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Resumen Narrativo".toUpperCase()}
+                label={"Resumen Narrativo"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -595,7 +594,6 @@ export function TabFinProposito({
               />
 
               <TextField
-                disabled={mirEdit?.proposito.indicador}
                 rows={4}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -615,7 +613,7 @@ export function TabFinProposito({
                     ? null
                     : evalueTxtindicador("proposito")
                 }
-                label={"Indicador".toUpperCase()}
+                label={"Indicador"}
                 error={errorIndicadorProposito === "proposito" ? true : false}
                 helperText={
                   errorIndicadorProposito
@@ -628,7 +626,6 @@ export function TabFinProposito({
                 value={proposito.indicador}
               />
               <TextField
-                disabled={mirEdit?.proposito.formula}
                 rows={4}
                 multiline
                 variant="filled"
@@ -644,21 +641,23 @@ export function TabFinProposito({
                   },
                 }}
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula".toUpperCase()}
+                label={"Fórmula"}
                 onClick={() => handleClickOpen()}
                 value={proposito.formula}
               />
 
               <TextField
-                disabled={mirEdit?.proposito.frecuencia}
                 rows={4}
                 multiline
                 variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia".toUpperCase()}
+                sx={{ width: "90%", boxShadow: 2,
+                
+              }}
+                label={"Frecuencia"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
+                    
                   },
                 }}
                 InputProps={{
@@ -669,7 +668,7 @@ export function TabFinProposito({
                 onChange={(c) => {
                   setProposito({ ...proposito, frecuencia: c.target.value });
                 }}
-                value={proposito.frecuencia?.toUpperCase()}
+                value={proposito.frecuencia}
                 onBlur={() => evalueTxtFrecuenciaProposito()}
                 error={errorFrecuenciaProposito !== "" ? true : false}
                 helperText={
@@ -677,7 +676,6 @@ export function TabFinProposito({
                 }
               />
               <TextField
-                disabled={mirEdit?.proposito.medios_verificacion}
                 rows={4}
                 multiline
                 variant="filled"
@@ -692,22 +690,18 @@ export function TabFinProposito({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                label={"Medios de Verificación".toUpperCase()}
+                label={"Medios de Verificación"}
                 onChange={(c) => {
-                  setProposito({
-                    ...proposito,
-                    medios_verificacion: c.target.value,
-                  });
+                  setProposito({ ...proposito, medios_verificacion: c.target.value });
                 }}
                 value={proposito.medios_verificacion}
               />
               <TextField
-                disabled={mirEdit?.proposito.supuestos}
                 rows={4}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos".toUpperCase()}
+                label={"Supuestos"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",

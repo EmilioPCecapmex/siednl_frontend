@@ -81,7 +81,7 @@ export default function ModalSolicitaModif({
     }
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
           
           MIR: MIREdit == undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
@@ -126,7 +126,7 @@ export default function ModalSolicitaModif({
 
   const getUsuariosXInstitucion = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Institucion: JSON.parse(MIR)?.encabezado.institucion,
@@ -163,7 +163,7 @@ export default function ModalSolicitaModif({
 
   const enviarNotificacion = () => {
     axios.post(
-      "http://10.200.4.105:8000/api/create-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: userSelected,
         Titulo: "MIR",
