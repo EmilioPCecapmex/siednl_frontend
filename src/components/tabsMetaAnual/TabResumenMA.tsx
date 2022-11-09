@@ -1,14 +1,12 @@
-import { Box, Typography, Button, Checkbox } from "@mui/material";
-import { IEncabezado } from "../tabsMir/TabEncabezado";
+import { Box, Typography, Button } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { IFin, IProposito } from "./TabFinProposito";
-import { IComponente } from "../tabsMir/IComponente";
-import { ICValor } from "../tabsMir/ICValor";
-import { IFinMA, IPropositoMA } from "./IFin";
-import { IComponenteMA, ICValorMA } from "./Interfaces";
-import { IMIR } from "./IMIR-Prueba-momentanea";
+import Swal from "sweetalert2";
 import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
-import ModalSolicitaModifMA from "../modalsMA/ModalSolicitaModifMA";
+import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
+import { IFinMA, IPropositoMA } from "./IFin";
+import { IMA } from "./IMA";
+import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 
 export function TabResumenMA({
   show,
@@ -17,6 +15,8 @@ export function TabResumenMA({
   componentes,
   componenteValor,
   cValor,
+  IdMir,
+  IdMA,
 }: {
   show: boolean;
   fin: Array<IFinMA>;
@@ -24,10 +24,36 @@ export function TabResumenMA({
   componentes: number[];
   componenteValor: Array<IComponenteMA>;
   cValor: Array<ICValorMA>;
+  IdMir: string;
+  IdMA: string;
 }) {
+  const [MA, setMA] = useState<IMA>();
 
-  
-  const [MIR, setMIR] = useState<IMIR>();
+  let asignarMA = (
+    finM: Array<IFinMA>,
+    propositoM: Array<IPropositoMA>,
+    componentesM: Array<IComponenteMA>,
+    actividadesM: Array<IActividadesMA>
+  ) => {
+    setMA({
+      fin: finM[0],
+      proposito: propositoM[0],
+      componentes: componentesM,
+      actividades: actividadesM,
+    });
+  };
+
+  useEffect(() => {
+    let arr: any[] = [];
+    cValor[0].componentes.map((a) => {
+      a.actividades.map((b) => {
+        Object.assign(b);
+        arr.push(b);
+      });
+    });
+
+    asignarMA(fin, proposito, componenteValor, arr);
+  }, [componenteValor, proposito, fin, cValor, show]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -36,9 +62,55 @@ export function TabResumenMA({
   };
 
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
+
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
-  }
+  };
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const creaMA = (estado: string) => {
+    console.log(IdMA);
+    
+    axios
+      .post(
+        "http://localhost:8000/api/create-MetaAnual",
+        {
+          MetaAnual: JSON.stringify(MA),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdMir: IdMir,
+          Estado: estado,
+          IdMA: IdMA,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        Toast.fire({
+          icon: "success",
+          title: 'r.data.data.message',
+        });
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: 'err.response.data.result.error',
+        });
+      });
+  };
 
   return (
     <Box
@@ -166,7 +238,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Orden:
+              Sentido del indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.sentidoDelIndicador}
@@ -184,7 +256,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Unidad responsable:
+              Unidad responsable de reportar el indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.unidadResponsable}
@@ -203,7 +275,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Descrioción del indicador:
+              Descripción del indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.descIndicador}
@@ -222,7 +294,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Descrioción del numerador:
+              Descripción del numerador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.descNumerador}
@@ -241,7 +313,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Descrioción del denominador:
+              Descripción del denominador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {fin[0]?.descDenominador}
@@ -340,7 +412,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Orden:
+              Sentido del indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {proposito[0]?.sentidoDelIndicador}
@@ -359,7 +431,7 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Unidad Responsable:
+              Unidad responsable de reportar el indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {proposito[0]?.unidadResponsable}
@@ -893,9 +965,9 @@ export function TabResumenMA({
                         </Typography>
                         <Typography sx={{ fontFamily: "MontserratLight" }}>
                           {
-                            cValor[0]?.componentes[indexComponentes]?.actividades[
-                              indexActividades
-                            ].metasPorFrecuencia[0]?.trimestre1
+                            cValor[0]?.componentes[indexComponentes]
+                              ?.actividades[indexActividades]
+                              .metasPorFrecuencia[0]?.trimestre1
                           }
                         </Typography>
                       </Box>
@@ -1134,11 +1206,17 @@ export function TabResumenMA({
             });
           })}
         </Box>
-        
       </Box>
-      
-      <Box sx={{display:'flex', justifyContent:'space-evenly', width:'100%'}}>
-        <Button color="error" variant="outlined" onClick={() => ''}>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "100%",
+          mt: 2,
+        }}
+      >
+        <Button color="error" variant="outlined" onClick={() => ""}>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
@@ -1154,10 +1232,15 @@ export function TabResumenMA({
           </Typography>
         </Button>
 
-        <Button
-          color="success"
-          variant="outlined"
-        >
+        <Button color="success" variant="outlined" onClick={() =>
+            creaMA(
+              localStorage.getItem("Rol") === "Capturador"
+                ? "En Captura"
+                : localStorage.getItem("Rol") === "Verificador"
+                ? "En Revisión"
+                : "En Autorización"
+            )
+          }>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Borrador
           </Typography>
@@ -1165,27 +1248,35 @@ export function TabResumenMA({
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => setOpenModalEnviar(true)}
+          onClick={() => ''
+            // checkMir(
+            //   localStorage.getItem("Rol") === "Capturador"
+            //     ? "En Captura"
+            //     : localStorage.getItem("Rol") === "Verificador"
+            //     ? "En Revisión"
+            //     : "En Autorización"
+            // )
+          }
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Enviar
           </Typography>
         </Button>
 
-        <ModalSolicitaModifMA
+        <ModalSolicitaModif
           open={openModalSolicitarModif}
-          //IdMir={IdMir}
           handleClose={handleCloseModif}
-          MIR={JSON.stringify(MIR)}
-      
-        ></ModalSolicitaModifMA>
+          MA={JSON.stringify(MA)}
+        ></ModalSolicitaModif>
 
         <ModalEnviarMA
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
-          MIR={JSON.stringify(MIR)}
+          MA={JSON.stringify(MA)}
+          IdMA={IdMA}
+          IdMIR={IdMir}
         ></ModalEnviarMA>
-        </Box>
+      </Box>
     </Box>
   );
 }

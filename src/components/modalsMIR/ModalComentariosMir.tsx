@@ -59,6 +59,7 @@ export const ComentDialogMir = ({
       FechaCreacion: "DD/MM/YYYY HH:mm:SS",
       Deleted: 0,
       error: "",
+      MIR_MA: "",
     },
   ]);
 
@@ -79,15 +80,18 @@ export const ComentDialogMir = ({
 
   const getUsuariosXInstitucion = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: localStorage.getItem("IdInstitucion"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            Institucion: localStorage.getItem("IdInstitucion"),
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           setUserXInst(r.data.data);
@@ -112,6 +116,7 @@ export const ComentDialogMir = ({
         },
       })
       .then((r) => {
+        
         setComents(r.data.data);
       });
   };
@@ -143,6 +148,7 @@ export const ComentDialogMir = ({
           IdMir: id,
           Coment: coment,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          MIR_MA:'MIR'
         },
         {
           headers: {
@@ -180,22 +186,22 @@ export const ComentDialogMir = ({
 
   return (
     <Box>
-         <Tooltip title="COMENTARIOS">
-                                <span>
-      <IconButton onClick={handleClickOpen}>
-        <MessageIcon
-          sx={[
-            {
-              "&:hover": {
-                color: "indigo",
-              },
-              width: "1.2vw",
-              height: "1.2vw",
-            },
-          ]}
-        />
-      </IconButton>
-      </span>
+      <Tooltip title="COMENTARIOS">
+        <span>
+          <IconButton onClick={handleClickOpen}>
+            <MessageIcon
+              sx={[
+                {
+                  "&:hover": {
+                    color: "indigo",
+                  },
+                  width: "1.2vw",
+                  height: "1.2vw",
+                },
+              ]}
+            />
+          </IconButton>
+        </span>
       </Tooltip>
 
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
@@ -252,39 +258,41 @@ export const ComentDialogMir = ({
 
                 <TableBody>
                   {coments.length >= 1 && !coments[0]?.error ? (
-                    coments.map((row, index) => (
-                      <TableRow key={index}>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                          align="center"
-                        >
-                          {row.NombreUsuario}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                          align="center"
-                        >
-                          {row.Comentario}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                          align="center"
-                        >
-                          {moment(row.FechaCreacion, moment.ISO_8601)
-                            .format("DD/MM/YYYY HH:mm:SS")
-                            .toString()}
-                        </TableCell>
-                      </TableRow>
-                    ))
+                    coments.map((row, index) =>
+                      row.MIR_MA === "MIR" ? (
+                        <TableRow key={index}>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.NombreUsuario}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.Comentario}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {moment(row.FechaCreacion, moment.ISO_8601)
+                              .format("DD/MM/YYYY HH:mm:SS")
+                              .toString()}
+                          </TableCell>
+                        </TableRow>
+                      ) : null
+                    )
                   ) : (
                     <TableRow>
                       <TableCell></TableCell>

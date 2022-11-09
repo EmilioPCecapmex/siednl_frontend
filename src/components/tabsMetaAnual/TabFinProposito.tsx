@@ -15,10 +15,14 @@ export function TabFinPropositoMR({
   show,
   resumenFinMa,
   resumenPropositoMa,
+  showMirFnc,
+  showFnc
 }: {
   show: boolean;
   resumenFinMa: Function;
   resumenPropositoMa: Function;
+  showMirFnc: Function;
+  showFnc: Function;
 }) {
   const [valueFin, setValueFin] = useState<Array<IFinMA>>([
     {
@@ -80,10 +84,12 @@ export function TabFinPropositoMR({
             justifyContent: "flex-end",
             alignItems: "center",
           }}
+          onClick={()=>{showMirFnc(true); showFin ? showFnc('Fin') : showFnc('Proposito')}}
         >
           <InfoOutlinedIcon
             fontSize="large"
             sx={{ cursor: "pointer" }}
+            
           ></InfoOutlinedIcon>
           <Typography
             sx={{

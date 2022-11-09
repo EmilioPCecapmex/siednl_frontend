@@ -26,7 +26,6 @@ export function TabEncabezadoMIR({
   resumenEncabezado,
   compAct,
   actividadesMir,
-  anioFiscalEdit,
 }: {
   show: boolean;
   cargaFin: Function;
@@ -37,7 +36,6 @@ export function TabEncabezadoMIR({
   asignarComponenteValor: Function;
   compAct: Function;
   actividadesMir: Function;
-  anioFiscalEdit: string;
 }) {
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
@@ -53,7 +51,7 @@ export function TabEncabezadoMIR({
   useEffect(() => {
     if (MIR !== "") {
       const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR);
-      setAnioFiscal(anioFiscalEdit);
+      setAnioFiscal(jsonMir.encabezado.ejercicioFiscal);
       setLoadFin([jsonMir.fin]);
       setLoadProposito([jsonMir.proposito]);
       setPrograma(jsonMir.encabezado.nombre_del_programa);
@@ -208,7 +206,7 @@ export function TabEncabezadoMIR({
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
     >
-      <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
+      {/* <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <TextField
           disabled
           value={anioFiscal}
@@ -422,7 +420,7 @@ export function TabEncabezadoMIR({
             },
           }}
         ></TextField>
-      </FormControl>
+      </FormControl> */}
     </Box>
   );
 }
