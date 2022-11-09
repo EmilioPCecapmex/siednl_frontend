@@ -58,7 +58,7 @@ export default function ModalEnviarMIR({
         setNewComent(false);
         setComment("");
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const checkMir = (v: string) => {
@@ -274,9 +274,8 @@ export default function ModalEnviarMIR({
         return (
           Toast.fire({
             icon: "error",
-            title: `Medios de Verificación del componente ${
-              index + 1
-            } aún faltante`,
+            title: `Medios de Verificación del componente ${index + 1
+              } aún faltante`,
           }),
           (err = 1),
           false
@@ -382,7 +381,48 @@ export default function ModalEnviarMIR({
     }
   };
 
-  const createMIR = (estado: string) => {
+  const CrearMetaAnual = (Estado: String,) => {
+    console.log(localStorage.getItem("IdUsuario"));
+    
+    axios
+      .post(
+        "http://10.200.4.199:8000/api/create-MetaAnual",
+        {
+          MetaAnual: "",
+          CreadoPor:localStorage.getItem("IdUsuario"),
+          IdMir: IdMir,
+          Estado: Estado,
+          Id:""
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        userXInst.map((user) => {
+          enviarNotificacion(user.IdUsuario);
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: r.data.data.message,
+        });
+        if (comment != "") {
+          comentMir(r.data.data.ID);
+        }
+        showResume();
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        });
+      });
+  }
+
+  const createMIR = (estado: string) => { 
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
     } else if (estado === "En Autorización" && userSelected !== "0") {
@@ -415,6 +455,11 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
         });
+
+        estado === "Autorizada" ?
+        CrearMetaAnual(estado)
+          : console.log("no esta autorizada")
+
 
         Toast.fire({
           icon: "success",
@@ -604,11 +649,11 @@ export default function ModalEnviarMIR({
               color="primary"
               onClick={() => {
                 checkMir(
-                  localStorage.getItem("Rol") == "Capturador"
-                    ? "En Revisión"
-                    : localStorage.getItem("Rol") == "Verificador"
-                    ? "En Autorización"
-                    : "Autorizada"
+                  localStorage.getItem("Rol") == "Capturador" ?
+                    "En Revisión" :
+                    localStorage.getItem("Rol") == "Verificador" ?
+                      "En Autorización"
+                      : "Autorizada"
                 );
                 handleClose();
                 setNewComent(false);
@@ -618,6 +663,8 @@ export default function ModalEnviarMIR({
                 Confirmar
               </Typography>
             </Button>
+
+
           </Box>
         </Box>
       </DialogContent>
