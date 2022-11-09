@@ -21,23 +21,21 @@ import {
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
-import FullModalMir from "../../components/tabsMir/AddMir";
-import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
-import FullModalMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
+import FullModalFichaTecnica from "../../components/tabsFichaTecnica/ResumenFT";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
-export let resumeDefaultMIR = true;
-export let setResumeDefaultMIR = () => {
-  resumeDefaultMIR = !resumeDefaultMIR;
+export let resumeDefaultFT = true;
+export let setResumeDefaultFT = () => {
+  resumeDefaultFT = !resumeDefaultFT;
 };
 
-export const MetaAnual = () => {
+export const FichaTecnica = () => {
   useEffect(() => {
     setShowResume(true);
     getMIRs();
-  }, [resumeDefaultMIR]);
+  }, [resumeDefaultFT]);
 
   const returnMain = () => {
     setShowResume(true);
@@ -146,13 +144,13 @@ export const MetaAnual = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={3} />
+      <LateralMenu selection={4} />
       <Header
         details={{
           name1: "Inicio",
           path1: "../home",
-          name2: "Meta Anual",
-          path2: "../metaAnual",
+          name2: "Ficha Técnica",
+          path2: "../fichatecnica",
           name3: "",
         }}
       />
@@ -407,38 +405,8 @@ export const MetaAnual = () => {
                                 .toString()}
                             </TableCell>
                             <TableCell align="center" sx={{ width: "10%" }}>
-                              <Box>
+                              {/*----------Ficha tecnica--------------*/}
 
-                                <Button
-                                  sx={{
-                                    backgroundColor: "#afafaf",
-                                    color: "white",
-                                    "&:hover": {
-                                      backgroundColor: "lightBlue",
-                                    },
-                                  }}
-                                  onClick={() => {
-                                    setAnioFiscalEdit(row.AnioFiscal);
-                                    setMirEdit([
-                                      {
-                                        ID: row.ID,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
-                                        Programa: row.Programa,
-                                        Eje: row.Eje,
-                                        Tematica: row.Tematica,
-                                        MIR: row.MIR,
-                                        Estado: row.Estado,
-                                        FechaCreacion: row.FechaCreacion,
-                                      },
-                                    ]);
-                                    setShowResume(false);
-                                  }}
-                                >
-                                  Meta Anual
-                                </Button>
-
-                              </Box>
                               <Box
                                 sx={{
                                   display: "flex",
@@ -468,17 +436,43 @@ export const MetaAnual = () => {
                                         ]}
                                       />
                                     </IconButton>
-                                      
-
-
                                   </span>
                                 </Tooltip>
-                                
-                                <ComentDialogMir
-                                  estado={row.Estado}
-                                  id={row.ID}
-                                  actualizado={actualizaContador}
-                                />
+
+                                <Tooltip title="Ver">
+                                  <span>
+                                    <IconButton>
+                                      <VisibilityIcon
+                                        sx={[
+                                          {
+                                            "&:hover": {
+                                              color: "blue",
+                                            },
+                                            width: "1.2vw",
+                                            height: "1.2vw",
+                                          },
+                                        ]}
+                                        onClick={() => {
+                                          setAnioFiscalEdit(row.AnioFiscal);
+                                          setMirEdit([
+                                            {
+                                              ID: row.ID,
+                                              AnioFiscal: row.AnioFiscal,
+                                              Institucion: row.Institucion,
+                                              Programa: row.Programa,
+                                              Eje: row.Eje,
+                                              Tematica: row.Tematica,
+                                              MIR: row.MIR,
+                                              Estado: row.Estado,
+                                              FechaCreacion: row.FechaCreacion,
+                                            },
+                                          ]);
+                                          setShowResume(false);
+                                        }}
+                                      />
+                                    </IconButton>
+                                  </span>
+                                </Tooltip>
                               </Box>
                             </TableCell>
                           </TableRow>
@@ -505,15 +499,15 @@ export const MetaAnual = () => {
         </Box>
       ) : (
         <Box
-          sx={{
+        sx={{
             display: "flex",
             justifyContent: "center",
             width: "85%",
             height: "92%",
-            flexWrap: "wrap",
-          }}
+            mt: "8vh",
+            }}
         >
-          <FullModalMetaAnual
+          <FullModalFichaTecnica
             anioFiscalEdit={anioFiscalEdit}
             MIR={mirEdit[0]?.MIR || ""}
             showResume={returnMain}
