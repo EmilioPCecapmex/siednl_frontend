@@ -20,6 +20,7 @@ import { TabComponente } from "./components/tabsMir/TabComponente";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import axios from "axios";
+import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
 
 function App() {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="users" element={<Usuarios />} />
         <Route path="*" element={<E404 />} />
+        <Route path="fichaTecnica" element={<ResumenFichaTecnica />} />
         <Route
           path="Institutionalactivities"
           element={<ActividadesInstitucionales />}

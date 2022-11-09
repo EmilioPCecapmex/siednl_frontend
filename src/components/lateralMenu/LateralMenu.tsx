@@ -388,7 +388,10 @@ export const LateralMenu = ({
                 />
               </ListItemButton>
 
-              <ListItemButton sx={st.subMenuItemStyle}>
+              <ListItemButton  onClick={() => {
+                  navigate("../fichatecnica")}}
+                sx={st.subMenuItemStyle}>
+                
                 <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
                 </Box>
