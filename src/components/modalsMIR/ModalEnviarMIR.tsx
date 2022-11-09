@@ -441,15 +441,18 @@ export default function ModalEnviarMIR({
     }
 
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: inst,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            Institucion: inst,
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           setUserXInst(r.data.data);
@@ -517,7 +520,9 @@ export default function ModalEnviarMIR({
           mb: 2,
         }}
       >
-        Confirmar Envío
+        {localStorage.getItem("Rol") === "Administrador"
+          ? "Confirmar Autorización"
+          : "Confirmar Envío"}
       </DialogTitle>
 
       <DialogContent
@@ -541,8 +546,9 @@ export default function ModalEnviarMIR({
           <Typography
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
-            Al confirmar, la MIR se enviará a los usuarios correspondientes para
-            revisión.
+            {localStorage.getItem("Rol") === "Administrador"
+              ? "Al confirmar, la MIR se autorizará y el apartado de Meta Anual será habilitado"
+              : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión"}
           </Typography>
         </Box>
 

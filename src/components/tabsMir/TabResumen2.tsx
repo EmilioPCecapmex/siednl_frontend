@@ -1445,7 +1445,9 @@ export function TabResumen2({
           onClick={() => setOpenModalEnviar(true)}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Enviar
+            {localStorage.getItem("Rol") === "Administrador"
+              ? 'Autorizar'
+              : 'Enviar'}
           </Typography>
         </Button>
 
