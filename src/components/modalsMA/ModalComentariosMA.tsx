@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -30,9 +29,9 @@ import {
 
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
-import { IIUserXInst } from "./ModalEnviarMA";
+import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 
-export const ComentDialogMir = ({
+export const ComentDialogMA = ({
   estado,
   id,
   actualizado,
@@ -60,6 +59,7 @@ export const ComentDialogMir = ({
       FechaCreacion: "DD/MM/YYYY HH:mm:SS",
       Deleted: 0,
       error: "",
+      MIR_MA: "",
     },
   ]);
 
@@ -80,15 +80,18 @@ export const ComentDialogMir = ({
 
   const getUsuariosXInstitucion = () => {
     axios
-      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: localStorage.getItem("IdInstitucion"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            Institucion: localStorage.getItem("IdInstitucion"),
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           setUserXInst(r.data.data);
@@ -104,7 +107,7 @@ export const ComentDialogMir = ({
 
   const getComents = () => {
     axios
-      .get("http://10.200.4.105:8000/api/coment-mir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
         params: {
           IdMir: id,
         },
@@ -113,6 +116,7 @@ export const ComentDialogMir = ({
         },
       })
       .then((r) => {
+        
         setComents(r.data.data);
       });
   };
@@ -121,7 +125,7 @@ export const ComentDialogMir = ({
 
   const enviarNotificacion = (v: string) => {
     axios.post(
-      "http://10.200.4.105:8000/api/create-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: v,
         Titulo: "Nuevo comentario MIR",
@@ -139,11 +143,12 @@ export const ComentDialogMir = ({
   const comentMir = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: coment,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          MIR_MA:'MA'
         },
         {
           headers: {
@@ -181,7 +186,7 @@ export const ComentDialogMir = ({
 
   return (
     <Box>
-      <Tooltip title="Comentarios">
+      <Tooltip title="COMENTARIOS">
         <span>
           <IconButton onClick={handleClickOpen}>
             <MessageIcon
@@ -253,39 +258,41 @@ export const ComentDialogMir = ({
 
                 <TableBody>
                   {coments.length >= 1 && !coments[0]?.error ? (
-                    coments.map((row, index) => (
-                      <TableRow key={index}>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                          align="center"
-                        >
-                          {row.NombreUsuario}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                          align="center"
-                        >
-                          {row.Comentario}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                          align="center"
-                        >
-                          {moment(row.FechaCreacion, moment.ISO_8601)
-                            .format("DD/MM/YYYY HH:mm:SS")
-                            .toString()}
-                        </TableCell>
-                      </TableRow>
-                    ))
+                    coments.map((row, index) =>
+                      row.MIR_MA === "MA" ? (
+                        <TableRow key={index}>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.NombreUsuario}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {row.Comentario}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                          >
+                            {moment(row.FechaCreacion, moment.ISO_8601)
+                              .format("DD/MM/YYYY HH:mm:SS")
+                              .toString()}
+                          </TableCell>
+                        </TableRow>
+                      ) : null
+                    )
                   ) : (
                     <TableRow>
                       <TableCell></TableCell>
@@ -373,4 +380,4 @@ export const ComentDialogMir = ({
   );
 };
 
-export default ComentDialogMir;
+export default ComentDialogMA;

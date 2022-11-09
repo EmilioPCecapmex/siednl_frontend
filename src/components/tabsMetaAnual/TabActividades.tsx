@@ -87,6 +87,10 @@ export const TabActividadesMA = ({
     }
   }, [compAct]);
 
+  useEffect(() => {
+    asignarCValor(aValorMA);
+  }, [aValorMA]);
+
   const loadActividadesMA = () => {
     let y = componenteActividad.map((item) => {
       return {
@@ -381,7 +385,7 @@ export const TabActividadesMA = ({
             <TextField
               rows={3}
               multiline
-              sx={{ width: "15%", boxShadow: 2 }}
+              sx={{ width: "20%", boxShadow: 2 }}
               variant={"filled"}
               label={"Meta Anual 2023"}
               error={
@@ -443,7 +447,7 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metaAnual = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
+                
               }}
               InputLabelProps={{
                 style: {
@@ -459,7 +463,7 @@ export const TabActividadesMA = ({
             <TextField
               rows={3}
               multiline
-              sx={{ width: "15%", boxShadow: 2 }}
+              sx={{ width: "20%", boxShadow: 2 }}
               variant={"filled"}
               label={"Linea Base 2021"}
               error={
@@ -521,7 +525,7 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].lineaBase = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
+                
               }}
               InputLabelProps={{
                 style: {
@@ -537,7 +541,7 @@ export const TabActividadesMA = ({
             <TextField
               rows={3}
               multiline
-              sx={{ width: "15%", boxShadow: 2 }}
+              sx={{ width: "20%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor númerador"}
               value={
@@ -551,7 +555,7 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].valorNumerador = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
+                
               }}
               InputLabelProps={{
                 style: {
@@ -567,7 +571,7 @@ export const TabActividadesMA = ({
             <TextField
               rows={3}
               multiline
-              sx={{ width: "15%", boxShadow: 2 }}
+              sx={{ width: "20%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del denominador"}
               value={
@@ -581,7 +585,7 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].valorDenominador = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
+                
               }}
               InputLabelProps={{
                 style: {
@@ -597,7 +601,7 @@ export const TabActividadesMA = ({
             <TextField
               rows={3}
               multiline
-              sx={{ width: "15%", boxShadow: 2 }}
+              sx={{ width: "20%", boxShadow: 2 }}
               variant={"filled"}
               label={"Sentido del indicador"}
               value={
@@ -611,7 +615,7 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].sentidoDelIndicador = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
+                
               }}
               InputLabelProps={{
                 style: {
@@ -653,8 +657,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metasPorFrecuencia[0].trimestre1 = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
-                console.log(aValorMA);
               }}
               InputLabelProps={{
                 style: {
@@ -684,8 +686,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metasPorFrecuencia[0].trimestre2 = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
-                console.log(aValorMA);
               }}
               InputLabelProps={{
                 style: {
@@ -715,8 +715,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metasPorFrecuencia[0].trimestre3 = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
-                console.log(aValorMA);
               }}
               InputLabelProps={{
                 style: {
@@ -746,8 +744,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metasPorFrecuencia[0].trimestre4 = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
-                console.log(aValorMA);
               }}
               InputLabelProps={{
                 style: {
@@ -788,7 +784,7 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].unidadResponsable = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
+                
               }}
               InputLabelProps={{
                 style: {
@@ -818,7 +814,7 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].descIndicador = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
+                
               }}
               InputLabelProps={{
                 style: {
@@ -859,7 +855,7 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].descNumerador = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
+                
               }}
               InputLabelProps={{
                 style: {
@@ -889,8 +885,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].descDenominador = c.target.value;
                 setAValorMA(y);
-                asignarCValor(y);
-                console.log(aValorMA);
               }}
               InputLabelProps={{
                 style: {

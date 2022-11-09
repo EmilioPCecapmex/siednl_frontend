@@ -1438,6 +1438,7 @@ export function TabResumen2({
             Borrador
           </Typography>
         </Button>
+        
         <Button
           color="primary"
           variant="outlined"

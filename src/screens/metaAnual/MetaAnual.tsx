@@ -29,6 +29,7 @@ import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import FullModalMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { IIMir } from "../mir/MIR";
+import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 
 export let resumeDefaultMIR = true;
 export let setResumeDefaultMIR = () => {
@@ -70,15 +71,16 @@ export const MetaAnual = () => {
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
-  const [maEdit, setMaEdit] = useState<Array<IIMir>>([]);
+  const [ma, setMa] = useState<Array<IIMa>>([]);
+  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
 
-  //
-  const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
+  const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
+
   // Filtrado por caracter
   const findText = (v: string, select: string) => {
     if (v !== "" || select !== "0") {
-      setMirsFiltered(
-        mirs.filter(
+      setMaFiltered(
+        ma.filter(
           (x) =>
             x.AnioFiscal.includes(findTextStr) ||
             x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
@@ -88,20 +90,20 @@ export const MetaAnual = () => {
       );
 
       if (select !== "0") {
-        setMirsFiltered(
-          mirs.filter((x) =>
+        setMaFiltered(
+          ma.filter((x) =>
             x.Estado.toLowerCase().includes(select.toLowerCase())
           )
         );
       }
     } else {
-      setMirsFiltered(mirs);
+      setMaFiltered(ma);
     }
   };
 
   const getMIRs = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
+      .get("http://localhost:8000/api/Lista-MetaAnual", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
@@ -111,9 +113,8 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
-        // setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-        setMirs(r.data.data);
-        setMirsFiltered(r.data.data);
+        setMa(r.data.data);
+        setMaFiltered(r.data.data);
       });
   };
 
@@ -350,13 +351,13 @@ export const MetaAnual = () => {
                   </TableHead>
 
                   <TableBody>
-                    {mirsFiltered
+                    {maFiltered
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) =>
-                        row.Estado !== "Autorizada" ? null : (
+                        
                           <TableRow key={index}>
                             <TableCell
                               sx={{
@@ -424,14 +425,28 @@ export const MetaAnual = () => {
                                     setAnioFiscalEdit(row.AnioFiscal);
                                     setMirEdit([
                                       {
-                                        ID: row.ID,
+                                        ID: row.IdMir,
+                                        AnioFiscal: row.AnioFiscal,
+                                        Institucion: row.Institucion,
+                                        Programa: '',
+                                        Eje: '',
+                                        Tematica: '',
+                                        MIR: row.MIR,
+                                        Estado: row.Estado,
+                                        FechaCreacion: row.FechaCreacion,
+                                      },
+                                    ]);
+                                    setMaEdit([
+                                      {
+                                        IdMa: row.IdMa,
+                                        IdMir: row.IdMir,
                                         AnioFiscal: row.AnioFiscal,
                                         Institucion: row.Institucion,
                                         Programa: row.Programa,
-                                        Eje: row.Eje,
-                                        Tematica: row.Tematica,
                                         MIR: row.MIR,
+                                        MetaAnual: row.MetaAnual,
                                         Estado: row.Estado,
+                                        CreadoPor: row.CreadoPor,
                                         FechaCreacion: row.FechaCreacion,
                                       },
                                     ]);
@@ -472,18 +487,15 @@ export const MetaAnual = () => {
                                     </IconButton>
                                   </span>
                                 </Tooltip>
-                                <ComentDialogMir
+                                <ComentDialogMA
                                   estado={row.Estado}
-                                  id={row.ID}
+                                  id={row.IdMa}
                                   actualizado={actualizaContador}
                                 />
                               </Box>
                             </TableCell>
                           </TableRow>
-                        )
                       )}
-
-                    {/* ))} */}
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -513,10 +525,10 @@ export const MetaAnual = () => {
         >
           <AddMetaAnual
             MIR={mirEdit[0]?.MIR || ""}
-            MA={mirEdit[0]?.MIR || ""}
+            MA={maEdit[0]?.MetaAnual || ""}
             showResume={returnMain}
             IdMir={mirEdit[0]?.ID || ""}
-            IdMA={mirEdit[0]?.ID || ""}
+            IdMA={maEdit[0]?.IdMa || ""}
           />
         </Box>
       )}
@@ -524,15 +536,15 @@ export const MetaAnual = () => {
   );
 };
 
-
 export interface IIMa {
-  ID: string;
+  IdMa: string;
+  IdMir: string;
   AnioFiscal: string;
   Institucion: string;
   Programa: string;
-  Eje: string;
-  Tematica: string;
-  MIR: string;
+  MIR: string
+  MetaAnual: string;
   Estado: string;
+  CreadoPor: string;
   FechaCreacion: string;
 }
