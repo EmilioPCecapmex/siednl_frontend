@@ -33,7 +33,7 @@ export default function FullModalMetaAnual({
     setValue(newValue);
   };
 
-  // COMPONENTES
+  // COMPONENTES ------------------ No me sirve para FichaTecnica
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
   const noComponenteFnc = (state: []) => {
@@ -80,7 +80,7 @@ export default function FullModalMetaAnual({
     setComponenteValor(state);
   };
 
-  // ACTIVIDADES
+  // ACTIVIDADES ------------------ No me sirve para FichaTecnica
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
   const [actividadesMir, setActividadesMir] = useState<Array<ICValor>>([]);
@@ -205,9 +205,11 @@ export default function FullModalMetaAnual({
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
 
+ // ------------------ No me sirve para FichaTecnica ---------------------------
   const resumenEncabezado = (arr: Array<IEncabezado>) => {
     setEncabezado(arr);
   };
+
   const loadFin = (arr: Array<IFin>) => {
     setCargaFin(arr);
   };
@@ -221,6 +223,7 @@ export default function FullModalMetaAnual({
   const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
     setValueProposito(arr);
   };
+// ------------------ No me sirve para FichaTecnica ---------------------------
 
   return (
     <Box
@@ -242,7 +245,9 @@ export default function FullModalMetaAnual({
           alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex" }}>
+        <Box 
+        sx={{ display: "flex" }}>
+          
           <Tabs
             value={value}
             onChange={handleChange}
