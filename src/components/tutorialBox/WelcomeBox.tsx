@@ -100,7 +100,7 @@ export const WelcomeBox = () => {
             width: "10vw",
             height: "4vh",
             color: "black",
-            fontFamily: "montserrat",
+            fontFamily: "MontserratMedium",
             fontSize: "0.6vw",
             margin:"1vw"
           }}

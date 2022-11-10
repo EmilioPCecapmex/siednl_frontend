@@ -733,13 +733,13 @@ export function TabEncabezado({
       </Box>
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <Autocomplete
-                  disabled={mirEdit?.encabezado.ejercicioFiscal}
+          disabled={mirEdit?.encabezado.ejercicioFiscal}
 
           disablePortal
           size="small"
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
-          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal }}
+          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal } }
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;

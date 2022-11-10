@@ -330,7 +330,7 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
             sx={{
               m: "2vh",
               width: "20vw",
-              fontFamily: "Montserrat",
+              fontFamily: "MontserratMedium",
               fontSize: "1vw",
             }}
           >
