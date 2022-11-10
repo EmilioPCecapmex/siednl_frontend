@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FormControl, TextField, Box, Autocomplete } from "@mui/material";
 import axios from "axios";
-import { IFin, IProposito } from "./TabFinProposito";
+import { IFin, IProposito } from "./TabFinPropositoMA";
 import { IComponente } from "../tabsMir/IComponente";
 
 export interface IEncabezado {

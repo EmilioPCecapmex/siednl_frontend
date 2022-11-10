@@ -58,7 +58,7 @@ export default function ModalEnviarMIR({
         setNewComent(false);
         setComment("");
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const checkMir = (v: string) => {
@@ -274,8 +274,9 @@ export default function ModalEnviarMIR({
         return (
           Toast.fire({
             icon: "error",
-            title: `Medios de Verificación del componente ${index + 1
-              } aún faltante`,
+            title: `Medios de Verificación del componente ${
+              index + 1
+            } aún faltante`,
           }),
           (err = 1),
           false
@@ -381,18 +382,16 @@ export default function ModalEnviarMIR({
     }
   };
 
-  const CrearMetaAnual = (Estado: String,) => {
-    console.log(localStorage.getItem("IdUsuario"));
-    
+  const CrearMetaAnual = () => {
     axios
       .post(
         "http://10.200.4.199:8000/api/create-MetaAnual",
         {
           MetaAnual: "",
-          CreadoPor:localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
-          Estado: Estado,
-          Id:""
+          Estado: "En Captura",
+          Id: "",
         },
         {
           headers: {
@@ -420,9 +419,9 @@ export default function ModalEnviarMIR({
           title: err.response.data.result.error,
         });
       });
-  }
+  };
 
-  const createMIR = (estado: string) => { 
+  const createMIR = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
     } else if (estado === "En Autorización" && userSelected !== "0") {
@@ -456,10 +455,9 @@ export default function ModalEnviarMIR({
           enviarNotificacion(user.IdUsuario);
         });
 
-        estado === "Autorizada" ?
-        CrearMetaAnual(estado)
-          : console.log("no esta autorizada")
-
+        estado === "Autorizada"
+          ? CrearMetaAnual()
+          : console.log("no esta autorizada");
 
         Toast.fire({
           icon: "success",
@@ -655,11 +653,11 @@ export default function ModalEnviarMIR({
               color="primary"
               onClick={() => {
                 checkMir(
-                  localStorage.getItem("Rol") == "Capturador" ?
-                    "En Revisión" :
-                    localStorage.getItem("Rol") == "Verificador" ?
-                      "En Autorización"
-                      : "Autorizada"
+                  localStorage.getItem("Rol") == "Capturador"
+                    ? "En Revisión"
+                    : localStorage.getItem("Rol") == "Verificador"
+                    ? "En Autorización"
+                    : "Autorizada"
                 );
                 handleClose();
                 setNewComent(false);
@@ -669,8 +667,6 @@ export default function ModalEnviarMIR({
                 Confirmar
               </Typography>
             </Button>
-
-
           </Box>
         </Box>
       </DialogContent>

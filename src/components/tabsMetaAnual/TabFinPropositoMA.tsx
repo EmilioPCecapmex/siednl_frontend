@@ -7,272 +7,63 @@ import {
   ListItemButton,
   Divider,
 } from "@mui/material";
-import axios from "axios";
-import { FormulaDialog } from "../formulasDialog/FormulaDialog";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { IFinMA } from "./IFin";
+import { IPropositoMA } from "./IFin";
 
-export function TabFinProposito({
+export function TabFinPropositoMA({
   show,
-  resumenFin,
-  resumenProposito,
-  cargaFin,
-  cargaProposito,
+  resumenFinMa,
+  resumenPropositoMa,
+  showMirFnc,
+  showFnc,
+  MA
 }: {
   show: boolean;
-  resumenFin: Function;
-  resumenProposito: Function;
-  cargaFin: Array<IFin>;
-  cargaProposito: Array<IProposito>;
+  resumenFinMa: Function;
+  resumenPropositoMa: Function;
+  showMirFnc: Function;
+  showFnc: Function;
+  MA: string;
 }) {
-  const [tabFin, setTabFin] = useState([
+  let jsonMA = MA === '' ? '' : JSON.parse(MA);
+
+  const [valueFin, setValueFin] = useState<Array<IFinMA>>([
     {
-      resumen: "",
-      indicador: "",
-      formula: "",
-      frecuencia: "",
-      medios: "",
-      supuestos: "",
+      metaAnual: jsonMA?.fin?.metaAnual || '',
+      lineaBase: jsonMA?.fin?.lineaBase || '',
+      valorNumerador: jsonMA?.fin?.valorNumerador || '',
+      valorDenominador: jsonMA?.fin?.valorDenominador || '',
+      sentidoDelIndicador: jsonMA?.fin?.sentidoDelIndicador || '',
+      unidadResponsable: jsonMA?.fin?.unidadResponsable || '',
+      descIndicador: jsonMA?.fin?.descIndicador || '',
+      descNumerador: jsonMA?.fin?.descNumerador || '',
+      descDenominador: jsonMA?.fin?.descDenominador || '',
     },
   ]);
 
-  const [tabProposito, setTabProposito] = useState([
+  //Si se usa la interfaz pero no entiendo como por ahora
+  const [valueProposito, setValueProposito] = useState<Array<IPropositoMA>>([
     {
-      resumen: "",
-      indicador: "",
-      formula: "",
-      frecuencia: "",
-      medios_verificacion: "",
-      supuestos: "",
+      metaAnual: jsonMA?.proposito?.metaAnual || "",
+      lineaBase: jsonMA?.proposito?.lineaBase || "",
+      valorNumerador: jsonMA?.proposito?.valorNumerador || "",
+      valorDenominador: jsonMA?.proposito?.valorDenominador || "",
+      sentidoDelIndicador: jsonMA?.proposito?.sentidoDelIndicador || "",
+      unidadResponsable: jsonMA?.proposito?.unidadResponsable || "",
+      descIndicador: jsonMA?.proposito?.descIndicador || "",
+      descNumerador: jsonMA?.proposito?.descNumerador || "",
+      descDenominador: jsonMA?.proposito?.descDenominador || "",
     },
   ]);
-
-  const [fin, setFin] = useState({
-    resumen: "",
-    indicador: "",
-    formula: "",
-    frecuencia: "",
-    medios: "",
-    supuestos: "",
-  });
-
-  const [proposito, setProposito] = useState({
-    resumen: "",
-    indicador: "",
-    formula: "",
-    frecuencia: "",
-    medios_verificacion: "",
-    supuestos: "",
-  });
 
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
 
-  const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
-
-  const [frecuencias, setFrecuencias] = useState<Array<IFrecuencias>>([]);
-
-  const getIndicadores = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          setIndicador(r.data.data);
-        }
-      });
-  };
-
   useEffect(() => {
-    getIndicadores();
-    getFrecuencias();
-  }, []);
-
-  const [errorIndicadorFin, setErrorIndicadorFin] = useState("");
-  const [errorIndicadorProposito, setErrorIndicadorProposito] = useState("");
-
-  const [errorFrecuenciaFin, setErrorFrecuenciaFin] = useState("");
-  const [errorFrecuenciaProposito, setErrorFrecuenciaProposito] = useState("");
-
-  const evalueTxtFrecuenciaFin = () => {
-    let txt = fin.frecuencia?.toLowerCase();
-    if (txt === "anual" || txt === "bienal") {
-      setErrorFrecuenciaFin("");
-    } else {
-      setErrorFrecuenciaFin("Frecuencia debe ser tipo Anual ó Bienal.");
-    }
-  };
-
-  const evalueTxtFrecuenciaProposito = () => {
-    let txt = proposito.frecuencia?.toLowerCase();
-    if (txt === "anual") {
-      setErrorFrecuenciaProposito("");
-    } else {
-      setErrorFrecuenciaProposito("Frecuencia debe ser tipo Anual.");
-    }
-  };
-
-  const evalueTxtindicador = (v: string) => {
-    if (v === "fin") {
-      const findicador = fin.indicador?.toLowerCase();
-      if(findicador !== undefined){
-        if (findicador.includes("porcentaje")) {
-          setTipoFormula("Porcentaje");
-          setErrorIndicadorFin("");
-          setElementoFormula("Fin");
-        } else if (findicador.includes("tasa")) {
-          setTipoFormula("Tasa");
-          setErrorIndicadorFin("");
-          setElementoFormula("Fin");
-        } else if (findicador.includes("indice" || "índice")) {
-          setTipoFormula("Índice");
-          setErrorIndicadorFin("");
-          setElementoFormula("Fin");
-        } else if (findicador.includes("promedio")) {
-          setTipoFormula("Promedio");
-          setErrorIndicadorFin("");
-          setElementoFormula("Fin");
-        } else {
-          setErrorIndicadorFin(v);
-          setFin({...fin, formula: ""})
-
-        }
-      }
- 
-    }
-
-    if (v === "proposito") {
-      const pindicador = proposito.indicador?.toLowerCase();
-      if(pindicador !== undefined){
-        if (pindicador.includes("porcentaje")) {
-          setTipoFormula("Porcentaje");
-          setErrorIndicadorProposito("");
-          setElementoFormula("Proposito");
-        } else if (pindicador.includes("tasa")) {
-          setTipoFormula("Tasa");
-          setErrorIndicadorProposito("");
-          setElementoFormula("Proposito");
-        } else if (pindicador.includes("indice" || "índice")) {
-          setTipoFormula("Índice");
-          setErrorIndicadorProposito("");
-          setElementoFormula("Proposito");
-        } else if (pindicador.includes("promedio")) {
-          setTipoFormula("Promedio");
-          setErrorIndicadorProposito("");
-          setElementoFormula("Proposito");
-        } else {
-          setErrorIndicadorProposito(v);
-          setProposito({...proposito, formula: ""})
-
-        }
-      }
-
-   
-    }
-  };
-
-  useEffect(() => {
-    
-    setTabFin([
-      {
-        resumen: fin.resumen,
-        indicador: fin.indicador,
-        formula: fin.formula,
-        frecuencia: fin.frecuencia,
-        medios: fin.medios,
-        supuestos: fin.supuestos,
-      },
-    ]);
-    setTabProposito([
-      {
-        resumen: proposito.resumen,
-        indicador: proposito.indicador,
-        formula: proposito.formula,
-        frecuencia: proposito.frecuencia,
-        medios_verificacion: proposito.medios_verificacion,
-        supuestos: proposito.supuestos,
-      },
-    ]);
-  }, [fin, proposito]);
-
-  useEffect(() => {
-    setFin({
-      resumen: cargaFin[0]?.resumen,
-      indicador: cargaFin[0]?.indicador,
-      formula: cargaFin[0]?.formula,
-      frecuencia: cargaFin[0]?.frecuencia,
-      medios: cargaFin[0]?.medios,
-      supuestos: cargaFin[0]?.supuestos,
-    });
-    
-    setTimeout(() => {
-      setProposito({
-        resumen: cargaProposito[0]?.resumen,
-        indicador: cargaProposito[0]?.indicador,
-        formula: cargaProposito[0]?.formula,
-        frecuencia: cargaProposito[0]?.frecuencia,
-        medios_verificacion: cargaProposito[0]?.medios_verificacion,
-        supuestos: cargaProposito[0]?.supuestos,
-      });
-    }, 1000);
-   
-
-  }, [cargaFin, cargaProposito]);
-
-  useEffect(() => {
-    resumenFin(tabFin);
-    resumenProposito(tabProposito);
-  }, [tabFin, tabProposito]);
-
-  const getFrecuencias = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/frecuencias", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          setFrecuencias(r.data.data);
-        }
-      });
-  };
-
-  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  const [prevTextFormula, setPrevTextFormula] = useState("");
-  const [tipoFormula, setTipoFormula] = useState("");
-  const [elementoFormula, setElementoFormula] = useState("");
-
-  const handleClickOpen = () => {
-    if (errorIndicadorFin === "" && fin.indicador !== undefined && showFin) {
-      setPrevTextFormula(fin.formula);
-      setOpenFormulaDialog(true);
-    }
-
-    if (
-      errorIndicadorProposito === "" &&
-      proposito.indicador !== undefined &&
-      showProposito
-    ) {
-      setPrevTextFormula(proposito.formula);
-      setOpenFormulaDialog(true);
-    }
-  };
-
-  const handleClose = () => {
-    setOpenFormulaDialog(false);
-  };
-
-  const changeFormula = (txt: string) => {
-    if (elementoFormula === "Fin") {
-      setFin({ ...fin, formula: txt });
-    }else if(elementoFormula === "Proposito"){
-      setProposito({ ...proposito, formula: txt });
-
-    }
-  };
-
+    resumenFinMa(valueFin);
+    resumenPropositoMa(valueProposito);
+  }, [valueFin, valueProposito]);
 
   return (
     <Box
@@ -288,35 +79,47 @@ export function TabFinProposito({
         backgroundColor: "#fff",
       }}
     >
-      <FormulaDialog
-        open={openFormulaDialog}
-        close={handleClose}
-        textoSet={changeFormula}
-        prevText={prevTextFormula}
-        tipo={tipoFormula}
-        elemento={elementoFormula}
-      />
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          height: "7vh",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        {/* Botones Componentes */}
-        <Typography
+      {showFin || showProposito ? (
+        <Box
           sx={{
-            mr: "1vw",
-            fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            width: "100%",
+            display: "flex",
+            height: "7vh",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+          onClick={()=>{showMirFnc(true); showFin ? showFnc('Fin') : showFnc('Proposito')}}
+        >
+          <InfoOutlinedIcon
+            fontSize="large"
+            sx={{ cursor: "pointer" }}
+            
+          ></InfoOutlinedIcon>
+          <Typography
+            sx={{
+              mr: "1vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: "1.5vw",
+            }}
+          >
+            {showFin ? "Fin" : null}
+            {showProposito ? "Propósito" : null}
+          </Typography>{" "}
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            height: "7vh",
+            justifyContent: "flex-end",
+            alignItems: "center",
           }}
         >
-          {showFin ? "Fin" : null}
-          {showProposito ? "Propósito" : null}
-        </Typography>
-      </Box>
+          {" "}
+        </Box>
+      )}
+
       <Box
         sx={{
           width: "100%",
@@ -406,120 +209,48 @@ export function TabFinProposito({
         </List>
 
         {showFin ? (
-          <>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "95%",
+              height: "100%",
+              alignItems: "center",
+              justifyItems: "center",
+            }}
+          >
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                width: "90%",
+                display: "flex",
+
+                width: "100%",
+                height: "30%",
                 alignItems: "center",
-                justifyItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
               <TextField
-                rows={4}
+                rows={3}
                 multiline
-                sx={{ width: "90%", boxShadow: 2 }}
+                sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"ResumenNarrativo"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setFin({ ...fin, resumen: c.target.value });
-                }}
-                value={fin.resumen}
-              />
-              <TextField
-                rows={4}
-                multiline
-                sx={{ width: "90%", boxShadow: 2 }}
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onBlur={() =>
-                  fin.indicador === "" ? null : evalueTxtindicador("fin")
+                label={"Meta anual 2023"}
+                error={
+                  parseFloat(valueFin[0].metaAnual) < 0 ||
+                  parseFloat(valueFin[0].metaAnual) > 100 ||
+                  (isNaN(parseFloat(valueFin[0].metaAnual)) &&
+                    valueFin[0].metaAnual != "")
+                    ? true
+                    : false
                 }
-                label={"Indicador"}
-                error={errorIndicadorFin === "fin" ? true : false}
                 helperText={
-                  errorIndicadorFin
-                    ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                  parseFloat(valueFin[0].metaAnual) < 0 ||
+                  parseFloat(valueFin[0].metaAnual) > 100 ||
+                  (isNaN(parseFloat(valueFin[0].metaAnual)) &&
+                    valueFin[0].metaAnual != "")
+                    ? "Introducir valor entre 0 y 100. "
                     : null
                 }
-                onChange={(c) => {
-                  setFin({ ...fin, indicador: c.target.value });
-                }}
-                value={fin.indicador}
-              />
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula"}
-                onClick={() => handleClickOpen()}
-                value={fin.formula}
-              />
-
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                    
-                  },
-                }}
-                onChange={(c) => {
-                  setFin({ ...fin, frecuencia: c.target.value });
-                }}
-                value={fin.frecuencia}
-                onBlur={() => evalueTxtFrecuenciaFin()}
-                error={errorFrecuenciaFin !== "" ? true : false}
-                helperText={errorFrecuenciaFin ? errorFrecuenciaFin : null}
-              />
-
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Medios de Verificación"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -531,16 +262,33 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, medios: c.target.value });
+                  valueFin[0].metaAnual = c.target.value;
+                  setValueFin([...valueFin]);
                 }}
-                value={fin.medios}
+                value={valueFin[0]?.metaAnual}
               />
               <TextField
-                rows={4}
+                rows={3}
                 multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos"}
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Linea Base 2021"}
+                error={
+                  parseFloat(valueFin[0].lineaBase) < 0 ||
+                  parseFloat(valueFin[0].lineaBase) > 100 ||
+                  (isNaN(parseFloat(valueFin[0].lineaBase)) &&
+                    valueFin[0].lineaBase != "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(valueFin[0].lineaBase) < 0 ||
+                  parseFloat(valueFin[0].lineaBase) > 100 ||
+                  (isNaN(parseFloat(valueFin[0].lineaBase)) &&
+                    valueFin[0].lineaBase != "")
+                    ? "Introducir valor entre 0 y 100. "
+                    : null
+                }
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -552,31 +300,218 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, supuestos: c.target.value });
+                  valueFin[0].lineaBase = c.target.value;
+                  setValueFin([...valueFin]);
                 }}
-                value={fin.supuestos}
+                value={valueFin[0]?.lineaBase}
+              />
+              <TextField
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor númerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].valorNumerador = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.valorNumerador}
+              />
+              <TextField
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].valorDenominador = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.valorDenominador}
+              />
+              <TextField
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Sentido del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].sentidoDelIndicador = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.sentidoDelIndicador}
               />
             </Box>
-          </>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Unidad responsable de reportar el indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].unidadResponsable = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.unidadResponsable}
+              />
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].descIndicador = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.descIndicador}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del numerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].descNumerador = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.descNumerador}
+              />
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripcion del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].descDenominador = c.target.value;
+                  setValueFin({ ...valueFin });
+                }}
+                value={valueFin[0]?.descDenominador}
+              />
+            </Box>
+          </Box>
         ) : null}
 
         {showProposito ? (
-          <>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "95%",
+              height: "100%",
+              alignItems: "center",
+              justifyItems: "center",
+            }}
+          >
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                width: "90%",
+                display: "flex",
+
+                width: "100%",
+                height: "30%",
                 alignItems: "center",
-                justifyItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
               <TextField
-                rows={4}
+                rows={3}
                 multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Resumen Narrativo"}
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Meta anual 2023"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -588,120 +523,17 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setProposito({ ...proposito, resumen: c.target.value });
+                  valueProposito[0].metaAnual = c.target.value;
+                  setValueProposito([...valueProposito]);
                 }}
-                value={proposito.resumen}
-              />
-
-              <TextField
-                rows={4}
-                multiline
-                sx={{ width: "90%", boxShadow: 2 }}
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onBlur={() =>
-                  proposito.indicador === ""
-                    ? null
-                    : evalueTxtindicador("proposito")
-                }
-                label={"Indicador"}
-                error={errorIndicadorProposito === "proposito" ? true : false}
-                helperText={
-                  errorIndicadorProposito
-                    ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
-                    : null
-                }
-                onChange={(c) => {
-                  setProposito({ ...proposito, indicador: c.target.value });
-                }}
-                value={proposito.indicador}
+                value={valueProposito[0]?.metaAnual}
               />
               <TextField
-                rows={4}
+                rows={3}
                 multiline
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula"}
-                onClick={() => handleClickOpen()}
-                value={proposito.formula}
-              />
-
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2,
-                
-              }}
-                label={"Frecuencia"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                    
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setProposito({ ...proposito, frecuencia: c.target.value });
-                }}
-                value={proposito.frecuencia}
-                onBlur={() => evalueTxtFrecuenciaProposito()}
-                error={errorFrecuenciaProposito !== "" ? true : false}
-                helperText={
-                  errorFrecuenciaProposito ? errorFrecuenciaProposito : null
-                }
-              />
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                label={"Medios de Verificación"}
-                onChange={(c) => {
-                  setProposito({ ...proposito, medios_verificacion: c.target.value });
-                }}
-                value={proposito.medios_verificacion}
-              />
-              <TextField
-                rows={4}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos"}
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Linea Base 2021"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -713,19 +545,196 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setProposito({ ...proposito, supuestos: c.target.value });
+                  valueProposito[0].lineaBase = c.target.value;
+                  setValueProposito([...valueProposito]);
                 }}
-                value={proposito.supuestos}
+                value={valueProposito[0]?.lineaBase}
+              />
+              <TextField
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor númerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueProposito[0].valorNumerador = c.target.value;
+                  setValueProposito([...valueProposito]);
+                }}
+                value={valueProposito[0]?.valorNumerador}
+              />
+              <TextField
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Valor del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueProposito[0].valorDenominador = c.target.value;
+                  setValueProposito([...valueProposito]);
+                }}
+                value={valueProposito[0]?.valorDenominador}
+              />
+              <TextField
+                rows={3}
+                multiline
+                sx={{ width: "15%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Sentido del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueProposito[0].sentidoDelIndicador = c.target.value;
+                  setValueProposito([...valueProposito]);
+                }}
+                value={valueProposito[0]?.sentidoDelIndicador}
               />
             </Box>
-          </>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Unidad responsable de reportar el indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueProposito[0].unidadResponsable = c.target.value;
+                  setValueProposito([...valueProposito]);
+                }}
+                value={valueProposito[0]?.unidadResponsable}
+              />
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del indicador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueProposito[0].descIndicador = c.target.value;
+                  setValueProposito([...valueProposito]);
+                }}
+                value={valueProposito[0]?.descIndicador}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripción del numerador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueProposito[0].descNumerador = c.target.value;
+                  setValueProposito([...valueProposito]);
+                }}
+                value={valueProposito[0]?.descNumerador}
+              />
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={"Descripcion del denominador"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueProposito[0].descDenominador = c.target.value;
+                  setValueProposito([...valueProposito]);
+                }}
+                value={valueProposito[0]?.descDenominador}
+              />
+            </Box>
+          </Box>
         ) : null}
       </Box>
     </Box>
   );
 }
 
-export default TabFinProposito;
+export default TabFinPropositoMA;
 
 export interface IIndicadores {
   Id: string;

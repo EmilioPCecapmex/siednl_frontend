@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box, Tooltip } from "@mui/material";
-import TabFinPropositoMR, { IFin, IProposito } from "./TabFinProposito";
+import TabFinPropositoMR, {
+  IFin,
+  IProposito,
+  TabFinPropositoMA,
+} from "./TabFinPropositoMA";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IEncabezado, TabEncabezadoMIR } from "./TabEncabezadoMIR";
@@ -161,6 +165,7 @@ export default function AddMetaAnual({
 
   const asignarCValorMA = (state: Array<ICValorMA>) => {
     setCValorMA(state);
+    
   };
 
   const asignarCValor = (state: Array<ICValor>) => {
@@ -216,7 +221,7 @@ export default function AddMetaAnual({
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
 
- // ------------------ No me sirve para FichaTecnica ---------------------------
+  // ------------------ No me sirve para FichaTecnica ---------------------------
   const resumenEncabezado = (arr: Array<IEncabezado>) => {
     setEncabezado(arr);
   };
@@ -234,7 +239,7 @@ export default function AddMetaAnual({
   const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
     setValueProposito(arr);
   };
-// ------------------ No me sirve para FichaTecnica ---------------------------
+  // ------------------ No me sirve para FichaTecnica ---------------------------
 
   return (
     <Box
@@ -256,9 +261,7 @@ export default function AddMetaAnual({
           alignItems: "center",
         }}
       >
-        <Box 
-        sx={{ display: "flex" }}>
-          
+        <Box sx={{ display: "flex" }}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -339,13 +342,14 @@ export default function AddMetaAnual({
             MIR={MIR}
           ></TabEncabezadoMIR>
 
-          <TabFinPropositoMR
+          <TabFinPropositoMA
+            MA={MA}
             showFnc={showFnc}
             show={value === 20 ? true : false}
             resumenFinMa={resumenFinMa}
             resumenPropositoMa={resumenPropositoMa}
             showMirFnc={showMirFnc}
-          ></TabFinPropositoMR>
+          ></TabFinPropositoMA>
 
           <TabComponenteMA
             showFnc={showFnc}
@@ -353,8 +357,8 @@ export default function AddMetaAnual({
             show={value === 30 ? true : false}
             valoresComponenteMAFnc={valoresComponenteMAFnc}
             noComponentes={noComponentes}
-            valoresComponente={valoresComponenteMA}
             valoresComponenteMir={componenteValor}
+            MA={MA}
           ></TabComponenteMA>
 
           <TabActividadesMA
@@ -366,6 +370,7 @@ export default function AddMetaAnual({
             componentes={noComponentes}
             asignarCValor={asignarCValorMA}
             asignarCValorMIR={asignarCValor}
+            MA={MA}
           ></TabActividadesMA>
 
           <TabResumenMA
@@ -377,6 +382,7 @@ export default function AddMetaAnual({
             proposito={ValueProposito}
             IdMir={IdMir}
             IdMA={IdMA}
+            showResume={showResume}
           ></TabResumenMA>
 
           <TabResumenMIR

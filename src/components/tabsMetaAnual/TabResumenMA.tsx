@@ -17,6 +17,7 @@ export function TabResumenMA({
   cValor,
   IdMir,
   IdMA,
+  showResume
 }: {
   show: boolean;
   fin: Array<IFinMA>;
@@ -26,6 +27,7 @@ export function TabResumenMA({
   cValor: Array<ICValorMA>;
   IdMir: string;
   IdMA: string;
+  showResume: Function;
 }) {
   const [MA, setMA] = useState<IMA>();
 
@@ -44,6 +46,8 @@ export function TabResumenMA({
   };
 
   useEffect(() => {
+    console.log(cValor);
+    
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
       a.actividades.map((b) => {
@@ -80,8 +84,6 @@ export function TabResumenMA({
   });
 
   const creaMA = (estado: string) => {
-    console.log(IdMA);
-    
     axios
       .post(
         "http://localhost:8000/api/create-MetaAnual",
@@ -90,7 +92,7 @@ export function TabResumenMA({
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
           Estado: estado,
-          IdMA: IdMA,
+          Id: IdMA,
         },
         {
           headers: {
@@ -101,13 +103,14 @@ export function TabResumenMA({
       .then((r) => {
         Toast.fire({
           icon: "success",
-          title: 'r.data.data.message',
+          title: r.data.data.message,
         });
+        showResume();
       })
       .catch((err) => {
         Toast.fire({
           icon: "error",
-          title: 'err.response.data.result.error',
+          title: err.response.data.result.error,
         });
       });
   };
@@ -1248,14 +1251,14 @@ export function TabResumenMA({
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => ''
-            // checkMir(
-            //   localStorage.getItem("Rol") === "Capturador"
-            //     ? "En Captura"
-            //     : localStorage.getItem("Rol") === "Verificador"
-            //     ? "En Revisión"
-            //     : "En Autorización"
-            // )
+          onClick={() => 
+          creaMA(
+            localStorage.getItem("Rol") === "Capturador"
+              ? "En Captura"
+              : localStorage.getItem("Rol") === "Verificador"
+              ? "En Revisión"
+              : "En Autorización"
+          )
           }
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>

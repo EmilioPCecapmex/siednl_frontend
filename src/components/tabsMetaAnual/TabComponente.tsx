@@ -15,18 +15,18 @@ export const TabComponenteMA = ({
   show,
   valoresComponenteMAFnc,
   noComponentes,
-  valoresComponente,
   valoresComponenteMir,
   showMirFnc,
   showFnc,
+  MA,
 }: {
   show: boolean;
   valoresComponenteMAFnc: Function;
   noComponentes: number[];
-  valoresComponente: Array<IComponenteMA>;
   valoresComponenteMir: Array<IComponente>;
   showMirFnc: Function;
   showFnc: Function;
+  MA: string;
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
@@ -34,40 +34,42 @@ export const TabComponenteMA = ({
     Array<IComponenteMA>
   >([]);
 
+  let jsonMA = JSON.parse(MA);
+
   useEffect(() => {
-    if (show === true) {
+    // if (show === true) {
       let comp: IComponenteMA[] = [];
 
       noComponentes.map((x, index) => {
         return comp.push({
-          componentes: "",
-          metaAnual: "",
-          lineaBase: "",
+          componentes: "C" + (index + 1),
+          metaAnual: MA === "" ? "" : jsonMA?.componentes[index]?.metaAnual || '',
+          lineaBase: MA === "" ? "" : jsonMA?.componentes[index]?.lineaBase || '',
           metasPorFrecuencia: [
             {
-              semestre1: "",
-              semestre2: "",
-              trimestre1: "",
-              trimestre2: "",
-              trimestre3: "",
-              trimestre4: "",
+              semestre1: MA === "" ? "" : jsonMA?.componentes[index]?.metasPorFrecuencia[0]?.semestre1 || '',
+              semestre2: MA === "" ? "" : jsonMA?.componentes[index]?.metasPorFrecuencia[0]?.semestre2 || '',
+              trimestre1: MA === "" ? "" : jsonMA?.componentes[index]?.metasPorFrecuencia[0]?.trimestre1 || '',
+              trimestre2: MA === "" ? "" : jsonMA?.componentes[index]?.metasPorFrecuencia[0]?.trimestre2 || '',
+              trimestre3: MA === "" ? "" : jsonMA?.componentes[index]?.metasPorFrecuencia[0]?.trimestre3 || '',
+              trimestre4: MA === "" ? "" : jsonMA?.componentes[index]?.metasPorFrecuencia[0]?.trimestre4 || '',
             },
           ],
-          valorNumerador: "",
-          valorDenominador: "",
-          sentidoDelIndicador: "",
-          unidadResponsable: "",
-          descIndicador: "",
-          descNumerador: "",
-          descDenominador: "",
+          valorNumerador: MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || '',
+          valorDenominador: MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || '',
+          sentidoDelIndicador: MA === "" ? "" : jsonMA?.componentes[index]?.sentidoDelIndicador || '',
+          unidadResponsable: MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || '',
+          descIndicador: MA === "" ? "" : jsonMA?.componentes[index]?.descIndicador || '',
+          descNumerador: MA === "" ? "" : jsonMA?.componentes[index]?.descNumerador || '',
+          descDenominador: MA === "" ? "" : jsonMA?.componentes[index]?.descDenominador || '',
         });
       });
 
-      if (componentesValues.length <= 0) {
+      // if (componentesValues.length <= 0) {
         setComponentesValues(comp);
-      }
-    }
-  }, [show]);
+      // }
+    // }
+  }, [ valoresComponenteMir]);
 
   useEffect(() => {
     valoresComponenteMAFnc(componentesValues);

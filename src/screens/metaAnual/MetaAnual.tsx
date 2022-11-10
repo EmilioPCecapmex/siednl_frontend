@@ -415,6 +415,7 @@ export const MetaAnual = () => {
                               <Box>
 
                                 <Button
+                                disabled = {row.Estado === 'Autorizada' ? true : false}
                                   sx={{
                                     backgroundColor: "#afafaf",
                                     color: "white",
@@ -424,19 +425,6 @@ export const MetaAnual = () => {
                                   }}
                                   onClick={() => {
                                     setAnioFiscalEdit(row.AnioFiscal);
-                                    setMirEdit([
-                                      {
-                                        ID: row.IdMir,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
-                                        Programa: '',
-                                        Eje: '',
-                                        Tematica: '',
-                                        MIR: row.MIR,
-                                        Estado: row.Estado,
-                                        FechaCreacion: row.FechaCreacion,
-                                      },
-                                    ]);
                                     setMaEdit([
                                       {
                                         IdMa: row.IdMa,
@@ -529,10 +517,10 @@ export const MetaAnual = () => {
           }}
         >
           <AddMetaAnual
-            MIR={mirEdit[0]?.MIR || ""}
+            MIR={maEdit[0]?.MIR || ""}
             MA={maEdit[0]?.MetaAnual || ""}
             showResume={returnMain}
-            IdMir={mirEdit[0]?.ID || ""}
+            IdMir={maEdit[0]?.IdMir || ""}
             IdMA={maEdit[0]?.IdMa || ""}
           />
         </Box>

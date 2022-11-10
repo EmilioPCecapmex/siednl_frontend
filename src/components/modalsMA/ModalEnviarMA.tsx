@@ -530,7 +530,7 @@ export default function ModalEnviarMA({
             userSelected !== "0"
               ? userSelected
               : localStorage.getItem("IdUsuario"),
-          IdMir: IdMIR,
+          IdMIR: IdMIR,
           Estado: estado,
           IdMA: IdMA,
         },
