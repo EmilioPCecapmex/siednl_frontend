@@ -17,6 +17,7 @@ export function TabResumenMA({
   cValor,
   IdMir,
   IdMA,
+  MIR,
   showResume
 }: {
   show: boolean;
@@ -27,6 +28,7 @@ export function TabResumenMA({
   cValor: Array<ICValorMA>;
   IdMir: string;
   IdMA: string;
+  MIR: string;
   showResume: Function;
 }) {
   const [MA, setMA] = useState<IMA>();
@@ -45,7 +47,8 @@ export function TabResumenMA({
     });
   };
 
-  useEffect(() => {    
+  useEffect(() => {
+    
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
       a.actividades.map((b) => {
@@ -1247,21 +1250,16 @@ export function TabResumenMA({
             Borrador
           </Typography>
         </Button>
+
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => 
-          creaMA(
-            localStorage.getItem("Rol") === "Capturador"
-              ? "En Captura"
-              : localStorage.getItem("Rol") === "Verificador"
-              ? "En Revisión"
-              : "En Autorización"
-          )
-          }
+          onClick={() => setOpenModalEnviar(true)}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Enviar
+            {localStorage.getItem("Rol") === "Administrador"
+              ? 'Autorizar'
+              : 'Enviar'}
           </Typography>
         </Button>
 
@@ -1269,6 +1267,10 @@ export function TabResumenMA({
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
           MA={JSON.stringify(MA)}
+          MIR={MIR}
+          showResume={showResume}
+          IdMA={IdMA}
+          IdMIR={IdMir}
         ></ModalSolicitaModif>
 
         <ModalEnviarMA
@@ -1277,6 +1279,7 @@ export function TabResumenMA({
           MA={JSON.stringify(MA)}
           IdMA={IdMA}
           IdMIR={IdMir}
+          showResume={showResume}
         ></ModalEnviarMA>
       </Box>
     </Box>

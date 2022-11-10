@@ -48,7 +48,7 @@ export const TabActividadesMA = ({
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-  let jsonMA = JSON.parse(MA);
+  let jsonMA =  MA === "" ? "" : JSON.parse(MA);
 
   const [aValorMA, setAValorMA] = useState(
     componenteActividad.map((item) => {

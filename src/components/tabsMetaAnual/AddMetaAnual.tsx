@@ -383,6 +383,7 @@ export default function AddMetaAnual({
             IdMir={IdMir}
             IdMA={IdMA}
             showResume={showResume}
+            MIR={MIR}
           ></TabResumenMA>
 
           <TabResumenMIR

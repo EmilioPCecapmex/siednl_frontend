@@ -232,6 +232,8 @@ export function TabEncabezado({
     }
   }
 
+  var y = new Date().getFullYear();
+
   //Desactivar si el anterior no tiene value
   const [disabledProgramas, setDisabledProgramas] = useState(true);
   const [disabledTematicas, setDisabledTematicas] = useState(true);
@@ -241,7 +243,7 @@ export function TabEncabezado({
   const [disabledButton, setDisabledButton] = useState(true);
 
   //Values
-  const [anioFiscal, setAnioFiscal] = useState("");
+  const [anioFiscal, setAnioFiscal] = useState(y.toString());
   const [institution, setInstitution] = useState("");
   const [programa, setPrograma] = useState("");
   const [eje, setEje] = useState("");

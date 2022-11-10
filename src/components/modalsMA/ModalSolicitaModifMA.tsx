@@ -22,10 +22,18 @@ export default function ModalSolicitaModif({
   open,
   handleClose,
   MA,
+  MIR,
+  IdMA,
+  IdMIR,
+  showResume,
 }: {
   open: boolean;
   handleClose: Function;
+  showResume: Function;
   MA: string;
+  MIR: string;
+  IdMA: string;
+  IdMIR: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -61,67 +69,68 @@ export default function ModalSolicitaModif({
         title: "Introduce usuario al que se le solicita modificación",
       });
     } else {
-      // createMA(estado);
+      createMA(estado);
     }
   };
 
-  // const createMA = (estado: string) => {
-  //   if (estado === "Autorizada" && userSelected !== "0") {
-  //     estado = "En Revisión";
-  //   } else if (estado === "En Autorización" && userSelected !== "0") {
-  //     estado = "En Captura";
-  //   }
-  //   axios
-  //     .post(
-  //       "http://10.200.4.105:8000/api/create-MA",
-  //       {
-          
-  //         MA: MAEdit == undefined ? MA : "[" + MA + "," + MAEdit + "]",
-  //         Estado: estado,
-  //         CreadoPor:
-  //           userSelected !== "0"
-  //             ? userSelected
-  //             : localStorage.getItem("IdUsuario"),
-  //         AnioFiscal: JSON.parse(MA)?.encabezado.ejercicioFiscal,
-  //         Institucion: JSON.parse(MA)?.encabezado.institucion,
-  //         Programa: JSON.parse(MA)?.encabezado.nombre_del_programa,
-  //         Eje: JSON.parse(MA)?.encabezado.eje,
-  //         Tematica: JSON.parse(MA)?.encabezado.tema,
-  //         IdMA: IdMA,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (comment != "") {
-  //         comentMA(r.data.data.ID);
-  //       }
-  //       Toast.fire({
-  //         icon: "success",
-  //         title: localStorage.getItem("Rol") === 'Verificador' ? 'MA enviada a capturador': 'MA enviada a revisión',
-  //       });
+  const createMA = (estado: string) => {
+    if (estado === "En Autorización" && userSelected !== "0") {
+      estado = "En Revisión";
+    } else if (estado === "En Revisión" && userSelected !== "0") {
+      estado = "En Captura";
+    }
+    axios
+      .post(
+        "http://localhost:8000/api/create-MetaAnual",
+        {
+          MetaAnual: MA,
+          CreadoPor:
+            userSelected !== "0"
+              ? userSelected
+              : localStorage.getItem("IdUsuario"),
+          IdMIR: IdMIR,
+          Estado: estado,
+          Id: IdMA,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (comment != "") {
+          comentMA(r.data.data.ID);
+        }
+        Toast.fire({
+          icon: "success",
+          title:
+            localStorage.getItem("Rol") === "Verificador"
+              ? "Meta anual enviada a capturador"
+              : "Meta anual enviada a revisión",
+        });
 
-  //       enviarNotificacion();
-  //       handleClose();
-  //       showResume();
-  //     })
-  //     .catch((err) => {
-  //       Toast.fire({
-  //         icon: "error",
-  //         title: err.response.data.result.error,
-  //       });
-  //     });
-  // };
+        enviarNotificacion();
+        handleClose();
+        showResume();
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        });
+      });
+  };
 
   const getUsuariosXInstitucion = () => {
+    console.log(MIR);
+    console.log(JSON.parse(MIR));
+
     axios
       .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: JSON.parse(MA)?.encabezado.institucion,
+          Institucion: JSON.parse(MIR)?.encabezado?.institucion,
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -137,7 +146,7 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MA)?.encabezado.institucion);
+      setInstSelected(JSON.parse(MA)?.encabezado?.institucion);
     }
   }, [open]);
 
@@ -158,7 +167,7 @@ export default function ModalSolicitaModif({
       "http://10.200.4.105:8000/api/create-notif",
       {
         IdUsuarioDestino: userSelected,
-        Titulo: "MA",
+        Titulo: "Meta Anual",
         Mensaje: "Se le ha solicitado una modificación.",
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },

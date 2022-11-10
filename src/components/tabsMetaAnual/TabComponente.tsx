@@ -34,7 +34,7 @@ export const TabComponenteMA = ({
     Array<IComponenteMA>
   >([]);
 
-  let jsonMA = JSON.parse(MA);
+  let jsonMA =  MA === "" ? "" : JSON.parse(MA);
 
   useEffect(() => {
     // if (show === true) {

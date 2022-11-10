@@ -19,12 +19,14 @@ export default function ModalEnviarMA({
   MA,
   IdMA,
   IdMIR,
+  showResume
 }: {
   open: boolean;
   handleClose: Function;
   MA: string;
   IdMA: string;
   IdMIR: string;
+  showResume: Function;
 }) {
   const [comment, setComment] = useState("");
 
@@ -520,7 +522,6 @@ export default function ModalEnviarMA({
     } else if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
     }
- 
     axios
       .post(
         "http://10.200.4.199:8000/api/create-MetaAnual",
@@ -532,7 +533,7 @@ export default function ModalEnviarMA({
               : localStorage.getItem("IdUsuario"),
           IdMIR: IdMIR,
           Estado: estado,
-          IdMA: IdMA,
+          Id: IdMA,
         },
         {
           headers: {
@@ -552,7 +553,7 @@ export default function ModalEnviarMA({
         if (comment != "") {
           comentMA(r.data.data.ID);
         }
-        // showResume();
+        showResume();
       })
       .catch((err) => {
         Toast.fire({
@@ -670,8 +671,9 @@ export default function ModalEnviarMA({
           <Typography
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
-            Al confirmar, la Meta Anual se enviará a los usuarios
-            correspondientes para revisión.
+            {localStorage.getItem("Rol") === "Administrador"
+              ? "Al confirmar, la Meta Anual se autorizará "
+              : "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para revisión"}
           </Typography>
         </Box>
 
@@ -733,9 +735,9 @@ export default function ModalEnviarMA({
               color="primary"
               onClick={() => {
                 checkMA(
-                  localStorage.getItem("Rol") == "Capturador"
+                  localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
-                    : localStorage.getItem("Rol") == "Verificador"
+                    : localStorage.getItem("Rol") === "Verificador"
                     ? "En Autorización"
                     : "Autorizada"
                 );
