@@ -305,7 +305,7 @@ export function TabFinProposito({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            fontSize: "1.2vw",
           }}
         >
           {showFin ? "Fin".toUpperCase() : null}
@@ -413,7 +413,7 @@ export function TabFinProposito({
             >
               <TextField
                 disabled={mirEdit?.fin.resumen}
-                rows={4}
+                rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant={"filled"}
@@ -435,7 +435,7 @@ export function TabFinProposito({
               />
               <TextField
                 disabled={mirEdit?.fin.indicador}
-                rows={4}
+                rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant="filled"
@@ -466,7 +466,7 @@ export function TabFinProposito({
               />
               <TextField
                 disabled={mirEdit?.fin.formula}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 InputLabelProps={{
@@ -488,7 +488,7 @@ export function TabFinProposito({
 
               <TextField
                 disabled={mirEdit?.fin.frecuencia}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -514,7 +514,7 @@ export function TabFinProposito({
 
               <TextField
                 disabled={mirEdit?.fin.medios}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -536,7 +536,7 @@ export function TabFinProposito({
               />
               <TextField
                 disabled={mirEdit?.fin.supuestos}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -573,7 +573,7 @@ export function TabFinProposito({
             >
               <TextField
                 disabled={mirEdit?.proposito.resumen}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -596,7 +596,7 @@ export function TabFinProposito({
 
               <TextField
                 disabled={mirEdit?.proposito.indicador}
-                rows={4}
+                rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant="filled"
@@ -629,7 +629,7 @@ export function TabFinProposito({
               />
               <TextField
                 disabled={mirEdit?.proposito.formula}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 InputLabelProps={{
@@ -651,7 +651,7 @@ export function TabFinProposito({
 
               <TextField
                 disabled={mirEdit?.proposito.frecuencia}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -678,7 +678,7 @@ export function TabFinProposito({
               />
               <TextField
                 disabled={mirEdit?.proposito.medios_verificacion}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -703,7 +703,7 @@ export function TabFinProposito({
               />
               <TextField
                 disabled={mirEdit?.proposito.supuestos}
-                rows={4}
+                rows={8}
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}

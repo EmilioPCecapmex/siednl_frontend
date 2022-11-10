@@ -17,6 +17,7 @@ import {
   Select,
   FormControl,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -30,17 +31,20 @@ import FullModalMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { IIMir } from "../mir/MIR";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-export let resumeDefaultMIR = true;
-export let setResumeDefaultMIR = () => {
-  resumeDefaultMIR = !resumeDefaultMIR;
+export let resumeDefaultMA = true;
+export let setResumeDefaultMA = () => {
+  resumeDefaultMA = !resumeDefaultMA;
 };
 
 export const MetaAnual = () => {
+
+  
   useEffect(() => {
     setShowResume(true);
     getMIRs();
-  }, [resumeDefaultMIR]);
+  }, [resumeDefaultMA]);
 
   const returnMain = () => {
     setShowResume(true);
@@ -103,7 +107,7 @@ export const MetaAnual = () => {
 
   const getMIRs = () => {
     axios
-      .get("http://localhost:8000/api/Lista-MetaAnual", {
+      .get("http://10.200.4.199:8000/api/Lista-MetaAnual", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
@@ -414,13 +418,13 @@ export const MetaAnual = () => {
                             <TableCell align="center" sx={{ width: "10%" }}>
                               <Box>
 
-                                <Button
+
+                                <IconButton
                                 disabled = {row.Estado === 'Autorizada' ? true : false}
                                   sx={{
-                                    backgroundColor: "#afafaf",
-                                    color: "white",
+                                    color: "#616161",
                                     "&:hover": {
-                                      backgroundColor: "lightBlue",
+                                      color: "blue",
                                     },
                                   }}
                                   onClick={() => {
@@ -442,8 +446,10 @@ export const MetaAnual = () => {
                                     setShowResume(false);
                                   }}
                                 >
-                                  Meta Anual
-                                </Button>
+                                  <Tooltip title="REGISTRAR META ANUAL">
+<AddCircleOutlineIcon/>
+                                  </Tooltip>
+                                </IconButton>
 
                               </Box>
                               <Box

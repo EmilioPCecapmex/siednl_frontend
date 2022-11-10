@@ -277,6 +277,7 @@ export default function FullModalMir({
           ></TabComponente>
           <TabActividades
             actividadesMir={actividadesMir}
+            componentesTextos={componenteValor}
             compAct={compAct}
             show={value === 40 ? true : false}
             componentes={noComponentes}

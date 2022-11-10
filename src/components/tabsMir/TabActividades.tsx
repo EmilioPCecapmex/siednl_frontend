@@ -28,6 +28,7 @@ export const TabActividades = ({
   compAct,
   actividadesMir,
   mirEdit,
+  componentesTextos
 }: {
   show: boolean;
   componentes: number[];
@@ -35,6 +36,7 @@ export const TabActividades = ({
   compAct: Array<IComponenteActividad>;
   actividadesMir: Array<IActividadesMir>;
   mirEdit?: IMIREdit;
+  componentesTextos: Array<IComponente>;
 }) => {
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -374,11 +376,10 @@ export const TabActividades = ({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
-            textTransform:"uppercase"
+            fontSize: "1.2vw",
           }}
         >
-          Componente {componenteSelect + 1} - Actividad {actividadSelect + 1}
+          COMPONENTE {componenteSelect + 1} - ACTIVIDAD {actividadSelect + 1}
         </Typography>
         <IconButton
           onClick={() => {
@@ -450,8 +451,8 @@ export const TabActividades = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium",textTransform:"uppercase" }}>
-                    Componente {item}
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    COMPONENTE {item}
                   </Typography>
 
                   {open === item ? <ExpandLess /> : <ExpandMore />}
@@ -478,7 +479,7 @@ export const TabActividades = ({
                               textTransform:"uppercase"
                             }}
                           >
-                            Actividad {x + 1}
+                            ACTIVIDAD {x + 1}
                           </ListItemButton>
                         );
                       }
@@ -505,9 +506,9 @@ export const TabActividades = ({
 
           {/* Renderizado de Actividades */}
 
-          {/* <Box>
-              <Typography>Actividad {actividadSelect + 1} - Componente {parseInt(componenteSelect) + 1}</Typography>
-            </Box> */}
+          <Box>
+              <Typography sx={{fontFamily: 'MontserratBold', fontSize: '1vw'}}>{componentesTextos[0].resumen}</Typography>
+            </Box>
           <Box
             sx={{
               width: "100%",
@@ -531,7 +532,8 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2, textTransform:"uppercase" }}
               label={"Resumen Narrativo"}
               value={
@@ -561,7 +563,8 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Indicador"}
               onBlur={() => evalueTxtIndicador()}
@@ -605,7 +608,8 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Fórmula"}
               onClick={() => evalueTxtIndicador()}
@@ -647,7 +651,8 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Frecuencia"}
               value={
@@ -690,7 +695,8 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Medios de Verificación"}
               value={
@@ -720,7 +726,8 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
               label={"Supuestos"}
               value={

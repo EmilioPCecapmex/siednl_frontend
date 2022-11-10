@@ -206,7 +206,7 @@ export const TabComponente = ({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            fontSize: "1.2vw",
             textTransform: "uppercase",
           }}
         >
@@ -320,7 +320,8 @@ export const TabComponente = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Resumen Narrativo".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.resumen}
@@ -335,7 +336,8 @@ export const TabComponente = ({
             <TextField
               disabled={mirEdit?.componentes[componentSelect - 1].indicador}
               multiline
-              rows={4}
+                              rows={8}
+
               variant="filled"
               InputLabelProps={{
                 style: {
@@ -380,7 +382,8 @@ export const TabComponente = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Fórmula".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.formula}
@@ -418,7 +421,8 @@ export const TabComponente = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Frecuencia".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.frecuencia}
@@ -451,7 +455,8 @@ export const TabComponente = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              rows={4}
+                              rows={8}
+
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Medios de Verificación".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.medios}
@@ -467,7 +472,8 @@ export const TabComponente = ({
               disabled={mirEdit?.componentes[componentSelect - 1].supuestos}
               variant="filled"
               multiline
-              rows={4}
+                              rows={8}
+
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",

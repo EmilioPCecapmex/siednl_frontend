@@ -45,9 +45,7 @@ export function TabResumenMA({
     });
   };
 
-  useEffect(() => {
-    console.log(cValor);
-    
+  useEffect(() => {    
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
       a.actividades.map((b) => {
@@ -83,10 +81,11 @@ export function TabResumenMA({
     },
   });
 
+
   const creaMA = (estado: string) => {
     axios
       .post(
-        "http://localhost:8000/api/create-MetaAnual",
+        "http://10.200.4.199:8000/api/create-MetaAnual",
         {
           MetaAnual: JSON.stringify(MA),
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -1219,7 +1218,7 @@ export function TabResumenMA({
           mt: 2,
         }}
       >
-        <Button color="error" variant="outlined" onClick={() => ""}>
+        <Button color="error" variant="outlined" onClick={() => showResume()}>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
