@@ -29,10 +29,16 @@ import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import Swal from "sweetalert2";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
+
+
 export let resumeDefaultMIR = true;
+
+
 export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
+
+
 
 export const MIR = () => {
   const Toast = Swal.mixin({

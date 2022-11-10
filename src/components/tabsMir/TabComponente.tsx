@@ -29,10 +29,6 @@ export const TabComponente = ({
   valoresComponente: Array<IComponente>;
   mirEdit?: IMIREdit;
 }) => {
-
-
-
-
   const agregarFnc = () => {
     let v = noComponentes.length + 1;
     if (v > 6) {
@@ -51,13 +47,10 @@ export const TabComponente = ({
           supuestos: "",
         });
         setComponenteValor(prevState);
-        valoresComponenteFnc(prevState)
-
+        valoresComponenteFnc(prevState);
       }
     }
   };
-
-
 
   const eliminarFnc = () => {
     let v = noComponentes.length - 1;
@@ -67,7 +60,7 @@ export const TabComponente = ({
       let prevState = [...valoresComponente];
       prevState.pop();
       setComponenteValor(prevState);
-      valoresComponenteFnc(prevState)
+      valoresComponenteFnc(prevState);
       if (v < componentSelect) {
         setComponentSelect(v);
       }
@@ -109,12 +102,16 @@ export const TabComponente = ({
   };
 
   const changeFormula = (txt: string) => {
-    componenteValor[componentSelect - 1].formula = txt;
+    let prev = [...valoresComponente];
+    let prevLocal = [...componenteValor];
+    prevLocal[componentSelect - 1].formula = txt;
+    prev[componentSelect - 1].formula = txt;
+    setComponenteValor(prevLocal);
   };
 
   const evalueTxtIndicador = () => {
     const cIndicador =
-    componenteValor[componentSelect - 1].indicador?.toLowerCase();
+      componenteValor[componentSelect - 1].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
       if (cIndicador.includes("porcentaje")) {
         setTipoFormula("Porcentaje");
@@ -166,13 +163,11 @@ export const TabComponente = ({
           frecuencia: valoresComponente[index]?.frecuencia || "",
           formula: valoresComponente[index]?.formula || "",
           medios: valoresComponente[index]?.medios || "",
-          supuestos: valoresComponente[index]?.supuestos || ""
+          supuestos: valoresComponente[index]?.supuestos || "",
         };
       })
-    )
-  },[noComponentes])
-
-
+    );
+  }, [noComponentes]);
 
   return (
     <Box
@@ -212,7 +207,7 @@ export const TabComponente = ({
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
             fontSize: "1.5vw",
-            textTransform:"uppercase"
+            textTransform: "uppercase",
           }}
         >
           Componente {componentSelect}
@@ -277,7 +272,12 @@ export const TabComponente = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium",textTransform:"uppercase" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      textTransform: "uppercase",
+                    }}
+                  >
                     Componente {item}
                   </Typography>
                 </ListItemButton>
@@ -325,8 +325,8 @@ export const TabComponente = ({
               label={"Resumen Narrativo".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.resumen}
               onChange={(c) => {
-                let prev = [...valoresComponente]
-                let prevLocal = [...componenteValor]
+                let prev = [...valoresComponente];
+                let prevLocal = [...componenteValor];
                 prevLocal[componentSelect - 1].resumen = c.target.value;
                 prev[componentSelect - 1].resumen = c.target.value;
                 setComponenteValor(prevLocal);
@@ -358,8 +358,8 @@ export const TabComponente = ({
               label={"Indicador".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.indicador}
               onChange={(c) => {
-                let prev = [...valoresComponente]
-                let prevLocal = [...componenteValor]
+                let prev = [...valoresComponente];
+                let prevLocal = [...componenteValor];
                 prevLocal[componentSelect - 1].indicador = c.target.value;
                 prev[componentSelect - 1].indicador = c.target.value;
                 setComponenteValor(prevLocal);
@@ -386,8 +386,8 @@ export const TabComponente = ({
               value={componenteValor[componentSelect - 1]?.formula}
               onClick={() => evalueTxtIndicador()}
               onChange={(c) => {
-                let prev = [...valoresComponente]
-                let prevLocal = [...componenteValor]
+                let prev = [...valoresComponente];
+                let prevLocal = [...componenteValor];
                 prevLocal[componentSelect - 1].formula = c.target.value;
                 prev[componentSelect - 1].formula = c.target.value;
                 setComponenteValor(prevLocal);
@@ -423,8 +423,8 @@ export const TabComponente = ({
               label={"Frecuencia".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.frecuencia}
               onChange={(c) => {
-                let prev = [...valoresComponente]
-                let prevLocal = [...componenteValor]
+                let prev = [...valoresComponente];
+                let prevLocal = [...componenteValor];
                 prevLocal[componentSelect - 1].frecuencia = c.target.value;
                 prev[componentSelect - 1].frecuencia = c.target.value;
                 setComponenteValor(prevLocal);
@@ -456,8 +456,8 @@ export const TabComponente = ({
               label={"Medios de Verificación".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.medios}
               onChange={(c) => {
-                let prev = [...valoresComponente]
-                let prevLocal = [...componenteValor]
+                let prev = [...valoresComponente];
+                let prevLocal = [...componenteValor];
                 prevLocal[componentSelect - 1].medios = c.target.value;
                 prev[componentSelect - 1].medios = c.target.value;
                 setComponenteValor(prevLocal);
@@ -482,8 +482,8 @@ export const TabComponente = ({
               label={"Supuestos".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.supuestos}
               onChange={(c) => {
-                let prev = [...valoresComponente]
-                let prevLocal = [...componenteValor]
+                let prev = [...valoresComponente];
+                let prevLocal = [...componenteValor];
                 prevLocal[componentSelect - 1].supuestos = c.target.value;
                 prev[componentSelect - 1].supuestos = c.target.value;
                 setComponenteValor(prevLocal);

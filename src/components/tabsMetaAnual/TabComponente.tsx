@@ -205,10 +205,9 @@ export const TabComponenteMA = ({
               label={"Meta anual 2023"}
               value={componentesValues[componentSelect - 1]?.metaAnual}
               onChange={(c) => {
-                componentesValues[componentSelect - 1].metaAnual =
-                  c.target.value;
-                setComponentesValues([...componentesValues]);
-                valoresComponenteMAFnc([...componentesValues]);
+                let prev = [...componentesValues]
+                prev[componentSelect - 1].metaAnual = c.target.value;
+                setComponentesValues(prev);
               }}
               error={
                 (parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <

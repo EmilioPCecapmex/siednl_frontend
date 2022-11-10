@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, Button, Tab, Tabs } from "@mui/material";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import escudo from "../../assets/logos/escudo.png";
@@ -8,8 +8,7 @@ import { WelcomeBox } from "../../components/tutorialBox/WelcomeBox";
 
 export const Home = () => {
 
-  
-  
+
   return (
     <Box
       sx={{
