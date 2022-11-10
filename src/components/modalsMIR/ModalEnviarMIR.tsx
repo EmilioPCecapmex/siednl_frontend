@@ -37,11 +37,12 @@ export default function ModalEnviarMIR({
   const comentMir = (id: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        "http://10.200.4.199:8000/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          MIR_MA:'MIR'
         },
         {
           headers: {

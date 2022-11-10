@@ -49,6 +49,7 @@ export default function ModalSolicitaModif({
           IdMir: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          MIR_MA:'MIR'
         },
         {
           headers: {
