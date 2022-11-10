@@ -1,11 +1,12 @@
 import { Box, Typography, Button } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
 import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IMA } from "./IMA";
 import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
-
 
 export function TabResumenMA({
   show,
@@ -16,6 +17,7 @@ export function TabResumenMA({
   cValor,
   IdMir,
   IdMA,
+  showResume
 }: {
   show: boolean;
   fin: Array<IFinMA>;
@@ -23,11 +25,10 @@ export function TabResumenMA({
   componentes: number[];
   componenteValor: Array<IComponenteMA>;
   cValor: Array<ICValorMA>;
-  IdMir:string;
-  IdMA:string;
+  IdMir: string;
+  IdMA: string;
+  showResume: Function;
 }) {
-
-  
   const [MA, setMA] = useState<IMA>();
 
   let asignarMA = (
@@ -42,10 +43,11 @@ export function TabResumenMA({
       componentes: componentesM,
       actividades: actividadesM,
     });
-    
   };
 
   useEffect(() => {
+    console.log(cValor);
+    
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
       a.actividades.map((b) => {
@@ -55,7 +57,6 @@ export function TabResumenMA({
     });
 
     asignarMA(fin, proposito, componenteValor, arr);
-    
   }, [componenteValor, proposito, fin, cValor, show]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
@@ -65,9 +66,54 @@ export function TabResumenMA({
   };
 
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
+
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
-  }
+  };
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const creaMA = (estado: string) => {
+    axios
+      .post(
+        "http://localhost:8000/api/create-MetaAnual",
+        {
+          MetaAnual: JSON.stringify(MA),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdMir: IdMir,
+          Estado: estado,
+          Id: IdMA,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        Toast.fire({
+          icon: "success",
+          title: r.data.data.message,
+        });
+        showResume();
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        });
+      });
+  };
 
   return (
     <Box
@@ -922,9 +968,9 @@ export function TabResumenMA({
                         </Typography>
                         <Typography sx={{ fontFamily: "MontserratLight" }}>
                           {
-                            cValor[0]?.componentes[indexComponentes]?.actividades[
-                              indexActividades
-                            ].metasPorFrecuencia[0]?.trimestre1
+                            cValor[0]?.componentes[indexComponentes]
+                              ?.actividades[indexActividades]
+                              .metasPorFrecuencia[0]?.trimestre1
                           }
                         </Typography>
                       </Box>
@@ -1163,11 +1209,17 @@ export function TabResumenMA({
             });
           })}
         </Box>
-        
       </Box>
-      
-      <Box sx={{display:'flex', justifyContent:'space-evenly', width:'100%', mt:2}}>
-        <Button color="error" variant="outlined" onClick={() => ''}>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "100%",
+          mt: 2,
+        }}
+      >
+        <Button color="error" variant="outlined" onClick={() => ""}>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
@@ -1183,10 +1235,15 @@ export function TabResumenMA({
           </Typography>
         </Button>
 
-        <Button
-          color="success"
-          variant="outlined"
-        >
+        <Button color="success" variant="outlined" onClick={() =>
+            creaMA(
+              localStorage.getItem("Rol") === "Capturador"
+                ? "En Captura"
+                : localStorage.getItem("Rol") === "Verificador"
+                ? "En Revisión"
+                : "En Autorización"
+            )
+          }>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Borrador
           </Typography>
@@ -1194,7 +1251,15 @@ export function TabResumenMA({
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => setOpenModalEnviar(true)}
+          onClick={() => 
+          creaMA(
+            localStorage.getItem("Rol") === "Capturador"
+              ? "En Captura"
+              : localStorage.getItem("Rol") === "Verificador"
+              ? "En Revisión"
+              : "En Autorización"
+          )
+          }
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Enviar
@@ -1205,7 +1270,6 @@ export function TabResumenMA({
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
           MA={JSON.stringify(MA)}
-      
         ></ModalSolicitaModif>
 
         <ModalEnviarMA
@@ -1215,7 +1279,7 @@ export function TabResumenMA({
           IdMA={IdMA}
           IdMIR={IdMir}
         ></ModalEnviarMA>
-        </Box>
+      </Box>
     </Box>
   );
 }

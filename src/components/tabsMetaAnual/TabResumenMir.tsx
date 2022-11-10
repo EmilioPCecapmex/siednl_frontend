@@ -9,7 +9,7 @@ import {
   DialogContent,
   Typography,
 } from "@mui/material";
-import { IFin, IProposito } from "./TabFinProposito";
+import { IFin, IProposito } from "./TabFinPropositoMA";
 import { IMIR } from "../tabsMir/IMIR";
 
 export function TabResumenMIR({

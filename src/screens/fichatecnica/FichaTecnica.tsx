@@ -21,26 +21,21 @@ import {
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
-import FullModalMir from "../../components/tabsMir/AddMir";
-import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
-import FullModalMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
-import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
-import { IIMir } from "../mir/MIR";
-import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
+import FullModalFichaTecnica from "../../components/tabsFichaTecnica/ResumenFT";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
-export let resumeDefaultMIR = true;
-export let setResumeDefaultMIR = () => {
-  resumeDefaultMIR = !resumeDefaultMIR;
+export let resumeDefaultFT = true;
+export let setResumeDefaultFT = () => {
+  resumeDefaultFT = !resumeDefaultFT;
 };
 
-export const MetaAnual = () => {
+export const FichaTecnica = () => {
   useEffect(() => {
     setShowResume(true);
     getMIRs();
-  }, [resumeDefaultMIR]);
+  }, [resumeDefaultFT]);
 
   const returnMain = () => {
     setShowResume(true);
@@ -71,16 +66,13 @@ export const MetaAnual = () => {
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
-  const [ma, setMa] = useState<Array<IIMa>>([]);
-  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
-
-  const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
-
+  //
+  const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
   const findText = (v: string, select: string) => {
     if (v !== "" || select !== "0") {
-      setMaFiltered(
-        ma.filter(
+      setMirsFiltered(
+        mirs.filter(
           (x) =>
             x.AnioFiscal.includes(findTextStr) ||
             x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
@@ -90,20 +82,20 @@ export const MetaAnual = () => {
       );
 
       if (select !== "0") {
-        setMaFiltered(
-          ma.filter((x) =>
+        setMirsFiltered(
+          mirs.filter((x) =>
             x.Estado.toLowerCase().includes(select.toLowerCase())
           )
         );
       }
     } else {
-      setMaFiltered(ma);
+      setMirsFiltered(mirs);
     }
   };
 
   const getMIRs = () => {
     axios
-      .get("http://localhost:8000/api/Lista-MetaAnual", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
@@ -113,8 +105,9 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
-        setMa(r.data.data);
-        setMaFiltered(r.data.data);
+        // setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
+        setMirs(r.data.data);
+        setMirsFiltered(r.data.data);
       });
   };
 
@@ -151,13 +144,13 @@ export const MetaAnual = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={3} />
+      <LateralMenu selection={4} />
       <Header
         details={{
           name1: "Inicio",
           path1: "../home",
-          name2: "Meta Anual",
-          path2: "../metaAnual",
+          name2: "Ficha Técnica",
+          path2: "../fichatecnica",
           name3: "",
         }}
       />
@@ -351,13 +344,13 @@ export const MetaAnual = () => {
                   </TableHead>
 
                   <TableBody>
-                    {maFiltered
+                    {mirsFiltered
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) =>
-                        
+                        row.Estado !== "Autorizada" ? null : (
                           <TableRow key={index}>
                             <TableCell
                               sx={{
@@ -412,40 +405,8 @@ export const MetaAnual = () => {
                                 .toString()}
                             </TableCell>
                             <TableCell align="center" sx={{ width: "10%" }}>
-                              <Box>
+                              {/*----------Ficha tecnica--------------*/}
 
-                                <Button
-                                disabled = {row.Estado === 'Autorizada' ? true : false}
-                                  sx={{
-                                    backgroundColor: "#afafaf",
-                                    color: "white",
-                                    "&:hover": {
-                                      backgroundColor: "lightBlue",
-                                    },
-                                  }}
-                                  onClick={() => {
-                                    setAnioFiscalEdit(row.AnioFiscal);
-                                    setMaEdit([
-                                      {
-                                        IdMa: row.IdMa,
-                                        IdMir: row.IdMir,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
-                                        Programa: row.Programa,
-                                        MIR: row.MIR,
-                                        MetaAnual: row.MetaAnual,
-                                        Estado: row.Estado,
-                                        CreadoPor: row.CreadoPor,
-                                        FechaCreacion: row.FechaCreacion,
-                                      },
-                                    ]);
-                                    setShowResume(false);
-                                  }}
-                                >
-                                  Meta Anual
-                                </Button>
-
-                              </Box>
                               <Box
                                 sx={{
                                   display: "flex",
@@ -475,20 +436,50 @@ export const MetaAnual = () => {
                                         ]}
                                       />
                                     </IconButton>
-                                      
-
-
                                   </span>
                                 </Tooltip>
-                                <ComentDialogMA
-                                  estado={row.Estado}
-                                  id={row.IdMa}
-                                  actualizado={actualizaContador}
-                                />
+
+                                <Tooltip title="Ver">
+                                  <span>
+                                    <IconButton>
+                                      <VisibilityIcon
+                                        sx={[
+                                          {
+                                            "&:hover": {
+                                              color: "blue",
+                                            },
+                                            width: "1.2vw",
+                                            height: "1.2vw",
+                                          },
+                                        ]}
+                                        onClick={() => {
+                                          setAnioFiscalEdit(row.AnioFiscal);
+                                          setMirEdit([
+                                            {
+                                              ID: row.ID,
+                                              AnioFiscal: row.AnioFiscal,
+                                              Institucion: row.Institucion,
+                                              Programa: row.Programa,
+                                              Eje: row.Eje,
+                                              Tematica: row.Tematica,
+                                              MIR: row.MIR,
+                                              Estado: row.Estado,
+                                              FechaCreacion: row.FechaCreacion,
+                                            },
+                                          ]);
+                                          setShowResume(false);
+                                        }}
+                                      />
+                                    </IconButton>
+                                  </span>
+                                </Tooltip>
                               </Box>
                             </TableCell>
                           </TableRow>
+                        )
                       )}
+
+                    {/* ))} */}
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -508,20 +499,19 @@ export const MetaAnual = () => {
         </Box>
       ) : (
         <Box
-          sx={{
+        sx={{
             display: "flex",
             justifyContent: "center",
             width: "85%",
             height: "92%",
-            flexWrap: "wrap",
-          }}
+            mt: "8vh",
+            }}
         >
-          <AddMetaAnual
-            MIR={maEdit[0]?.MIR || ""}
-            MA={maEdit[0]?.MetaAnual || ""}
+          <FullModalFichaTecnica
+            anioFiscalEdit={anioFiscalEdit}
+            MIR={mirEdit[0]?.MIR || ""}
             showResume={returnMain}
-            IdMir={maEdit[0]?.IdMir || ""}
-            IdMA={maEdit[0]?.IdMa || ""}
+            IdMir={mirEdit[0]?.ID || ""}
           />
         </Box>
       )}
@@ -529,15 +519,14 @@ export const MetaAnual = () => {
   );
 };
 
-export interface IIMa {
-  IdMa: string;
-  IdMir: string;
+export interface IIMir {
+  ID: string;
   AnioFiscal: string;
   Institucion: string;
   Programa: string;
-  MIR: string
-  MetaAnual: string;
+  Eje: string;
+  Tematica: string;
+  MIR: string;
   Estado: string;
-  CreadoPor: string;
   FechaCreacion: string;
 }

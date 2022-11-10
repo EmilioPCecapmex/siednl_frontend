@@ -16,7 +16,7 @@ import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import CampaignIcon from "@mui/icons-material/Campaign";
-import GroupIcon from '@mui/icons-material/Group';
+import GroupIcon from "@mui/icons-material/Group";
 import {
   Dialog,
   TextField,
@@ -34,9 +34,9 @@ import LockResetIcon from "@mui/icons-material/LockReset";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
-import {  setResumeDefaultMIR } from "../../screens/mir/MIR";
+import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 import { setResumeDefaultAI } from "../../screens/actividadesInstitucionales/ActividadesInstitucionales";
-
+import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
 
 export const LateralMenu = ({
   selection,
@@ -90,12 +90,10 @@ export const LateralMenu = ({
     localStorage.getItem("IdInstitucion") as string
   );
 
-
-
   const handleChange = (event: SelectChangeEvent) => {
     setInstitucionSeleccionada(event.target.value as string);
-    localStorage.setItem("IdInstitucion", event.target.value as string)
-    window.location.reload()
+    localStorage.setItem("IdInstitucion", event.target.value as string);
+    window.location.reload();
   };
 
   const goSettings = () => {
@@ -123,7 +121,7 @@ export const LateralMenu = ({
       }
       axios
         .put(
-          process.env.REACT_APP_APPLICATION_LOGIN+ "/api/change-password",
+          process.env.REACT_APP_APPLICATION_LOGIN + "/api/change-password",
           {
             ContrasenaNueva: newPassword,
             IdUsuario: localStorage.getItem("IdCentral"),
@@ -207,9 +205,11 @@ export const LateralMenu = ({
               helperText={error.label}
               size="small"
               type="password"
-              InputLabelProps={{style: {
-                fontFamily: "MontserratLight",
-              },}}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
               InputProps={{
                 style: {
                   fontFamily: "MontserratLight",
@@ -359,8 +359,9 @@ export const LateralMenu = ({
             <List component="div" disablePadding>
               <ListItemButton
                 onClick={() => {
-                  setResumeDefaultMIR()
-                  navigate("../mir")}}
+                  setResumeDefaultMIR();
+                  navigate("../mir");
+                }}
                 sx={st.subMenuItemStyle}
               >
                 <Box sx={st.iconMenuList}>
@@ -372,10 +373,11 @@ export const LateralMenu = ({
                   sx={st.selectedBox}
                 />
               </ListItemButton>
-              
+
               <ListItemButton
                 onClick={() => {
-                  navigate("../metaAnual")}}
+                  navigate("../metaAnual");
+                }}
                 sx={st.subMenuItemStyle}
               >
                 <Box sx={st.iconMenuList}>
@@ -388,7 +390,13 @@ export const LateralMenu = ({
                 />
               </ListItemButton>
 
-              <ListItemButton sx={st.subMenuItemStyle}>
+              <ListItemButton
+                onClick={() => {
+                  setResumeDefaultFT();
+                  navigate("../fichatecnica");
+                }}
+                sx={st.subMenuItemStyle}
+               >
                 <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
                 </Box>
@@ -398,11 +406,15 @@ export const LateralMenu = ({
                   sx={st.selectedBox}
                 />
               </ListItemButton>
+              
             </List>
           </Collapse>
-          <ListItemButton onClick={() => {
-                              setResumeDefaultAI()
-            navigate("../Institutionalactivities")}}>
+          <ListItemButton
+            onClick={() => {
+              setResumeDefaultAI();
+              navigate("../Institutionalactivities");
+            }}
+          >
             <Box sx={st.iconMenuList}>
               <LocationCityOutlinedIcon />
             </Box>
@@ -416,46 +428,51 @@ export const LateralMenu = ({
           </ListItemButton>
 
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
-          <ListItemButton onClick={() => navigate("../notifications")}>
-            <Box sx={st.iconMenuList}>
-              <CampaignIcon />
-            </Box>
-            <Typography sx={st.firstItemsStyle}>Notificaciones</Typography>
-            <Box
-              visibility={selection === 7 ? "visible" : "hidden"}
-              sx={st.selectedBox}
-            />
-          </ListItemButton> )}
+            <ListItemButton onClick={() => navigate("../notifications")}>
+              <Box sx={st.iconMenuList}>
+                <CampaignIcon />
+              </Box>
+              <Typography sx={st.firstItemsStyle}>Notificaciones</Typography>
+              <Box
+                visibility={selection === 7 ? "visible" : "hidden"}
+                sx={st.selectedBox}
+              />
+            </ListItemButton>
+          )}
         </List>
       </Box>
 
       <Box sx={st.dividerBox} />
       <Box sx={st.bottomMenuBox}>
         <List>
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (<ListItemButton onClick={() => goSettings()}>
-            <Box sx={st.iconMenuList}>
-              <SettingsOutlinedIcon />
-            </Box>
-            <Typography sx={st.bottomItemsStyle}>Configuración</Typography>
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <ListItemButton onClick={() => goSettings()}>
+              <Box sx={st.iconMenuList}>
+                <SettingsOutlinedIcon />
+              </Box>
+              <Typography sx={st.bottomItemsStyle}>Configuración</Typography>
 
-            <Box
-              visibility={selection === 6 ? "visible" : "hidden"}
-              sx={st.selectedBox}
-            />
-          </ListItemButton>)}
+              <Box
+                visibility={selection === 6 ? "visible" : "hidden"}
+                sx={st.selectedBox}
+              />
+            </ListItemButton>
+          )}
 
-          {localStorage.getItem("Rol") !== "Verificador" ?   null : (<ListItemButton onClick={() => navigate('../users')}>
-            <Box sx={st.iconMenuList}>
-              <GroupIcon />
-            </Box>
-            <Typography sx={st.bottomItemsStyle}>Usuarios</Typography>
+          {localStorage.getItem("Rol") !== "Verificador" ? null : (
+            <ListItemButton onClick={() => navigate("../users")}>
+              <Box sx={st.iconMenuList}>
+                <GroupIcon />
+              </Box>
+              <Typography sx={st.bottomItemsStyle}>Usuarios</Typography>
 
-            <Box
-              visibility={selection === 6 ? "visible" : "hidden"}
-              sx={st.selectedBox}
-            />
-          </ListItemButton>)}
-          
+              <Box
+                visibility={selection === 6 ? "visible" : "hidden"}
+                sx={st.selectedBox}
+              />
+            </ListItemButton>
+          )}
+
           <ListItemButton onClick={() => setOpenPasswordChange(true)}>
             <Box sx={st.iconMenuList}>
               <LockResetIcon />

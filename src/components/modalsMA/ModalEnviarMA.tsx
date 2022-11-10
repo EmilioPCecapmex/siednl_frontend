@@ -42,6 +42,7 @@ export default function ModalEnviarMA({
           IdMA: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          MIR_MA:'MA'
         },
         {
           headers: {
@@ -249,17 +250,17 @@ export default function ModalEnviarMA({
         );
       } else if (
         (componente.metasPorFrecuencia[0].semestre1 === undefined ||
-        componente.metasPorFrecuencia[0].semestre1 === "" ||
-        componente.metasPorFrecuencia[0].semestre2 === undefined ||
-        componente.metasPorFrecuencia[0].semestre2 === "") &&
+          componente.metasPorFrecuencia[0].semestre1 === "" ||
+          componente.metasPorFrecuencia[0].semestre2 === undefined ||
+          componente.metasPorFrecuencia[0].semestre2 === "") &&
         (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
-        componente.metasPorFrecuencia[0].trimestre1 === "" ||
-        componente.metasPorFrecuencia[0].trimestre2 === undefined ||
-        componente.metasPorFrecuencia[0].trimestre2 === "" ||
-        componente.metasPorFrecuencia[0].trimestre3 === undefined ||
-        componente.metasPorFrecuencia[0].trimestre3 === "" ||
-        componente.metasPorFrecuencia[0].trimestre4 === undefined ||
-        componente.metasPorFrecuencia[0].trimestre4 === "")
+          componente.metasPorFrecuencia[0].trimestre1 === "" ||
+          componente.metasPorFrecuencia[0].trimestre2 === undefined ||
+          componente.metasPorFrecuencia[0].trimestre2 === "" ||
+          componente.metasPorFrecuencia[0].trimestre3 === undefined ||
+          componente.metasPorFrecuencia[0].trimestre3 === "" ||
+          componente.metasPorFrecuencia[0].trimestre4 === undefined ||
+          componente.metasPorFrecuencia[0].trimestre4 === "")
       ) {
         return (
           Toast.fire({
@@ -377,11 +378,7 @@ export default function ModalEnviarMA({
   const checkActividades = (v: string) => {
     let err = 0;
     JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
-      if (
-        actividad.metaAnual === undefined ||
-        actividad.metaAnual === "" 
-      ) {
-        console.log(JSON.parse(MA));
+      if (actividad.metaAnual === undefined || actividad.metaAnual === "") {
         return (
           Toast.fire({
             icon: "error",
@@ -404,17 +401,17 @@ export default function ModalEnviarMA({
         );
       } else if (
         (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
-        actividad.metasPorFrecuencia[0].semestre1 === "" ||
-        actividad.metasPorFrecuencia[0].semestre2 === undefined ||
-        actividad.metasPorFrecuencia[0].semestre2 === "") &&
+          actividad.metasPorFrecuencia[0].semestre1 === "" ||
+          actividad.metasPorFrecuencia[0].semestre2 === undefined ||
+          actividad.metasPorFrecuencia[0].semestre2 === "") &&
         (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-        actividad.metasPorFrecuencia[0].trimestre1 === "" ||
-        actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-        actividad.metasPorFrecuencia[0].trimestre2 === "" ||
-        actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-        actividad.metasPorFrecuencia[0].trimestre3 === "" ||
-        actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-        actividad.metasPorFrecuencia[0].trimestre4 === "" )
+          actividad.metasPorFrecuencia[0].trimestre1 === "" ||
+          actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
+          actividad.metasPorFrecuencia[0].trimestre2 === "" ||
+          actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
+          actividad.metasPorFrecuencia[0].trimestre3 === "" ||
+          actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
+          actividad.metasPorFrecuencia[0].trimestre4 === "")
       ) {
         return (
           Toast.fire({
@@ -426,7 +423,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         actividad.valorNumerador === undefined ||
-        actividad.valorNumerador === "" 
+        actividad.valorNumerador === ""
       ) {
         return (
           Toast.fire({
@@ -523,17 +520,18 @@ export default function ModalEnviarMA({
     } else if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
     }
+ 
     axios
       .post(
-        "http://10.200.4.105:8000/api/create-MA",
+        "http://localhost:8000/api/create-MetaAnual",
         {
           MetaAnual: MA,
-          Estado: estado,
-          IdMir: IdMIR,
           CreadoPor:
             userSelected !== "0"
               ? userSelected
               : localStorage.getItem("IdUsuario"),
+          IdMIR: IdMIR,
+          Estado: estado,
           IdMA: IdMA,
         },
         {
