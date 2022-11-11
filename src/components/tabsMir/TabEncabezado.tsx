@@ -1208,10 +1208,6 @@ export function TabEncabezado({
             />
           )}
           onChange={(event, value) => {
-            // enCambioLineasDeAccion(value[0].Id,
-            //   value
-            // );
-            
             value.map((value2, index)=>{
               if (value2.Id !== '' && value2.LineaDeAccion !== '') {
                 

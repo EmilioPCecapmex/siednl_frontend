@@ -37,11 +37,12 @@ export default function ModalEnviarMIR({
   const comentMir = (id: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        "http://10.200.4.199:8000/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          MIR_MA:'MIR'
         },
         {
           headers: {
@@ -398,11 +399,6 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
         });
-
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
         if (comment != "") {
           comentMir(r.data.data.ID);
         }
@@ -456,7 +452,7 @@ export default function ModalEnviarMIR({
 
         Toast.fire({
           icon: "success",
-          title: r.data.data.message,
+          title: localStorage.getItem("Rol") === 'Administrador' ? '¡MIR autorizada con éxito!' : '¡MIR enviada con éxito!',
         });
         if (comment != "") {
           comentMir(r.data.data.ID);

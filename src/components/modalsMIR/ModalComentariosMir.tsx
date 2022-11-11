@@ -107,7 +107,7 @@ export const ComentDialogMir = ({
 
   const getComents = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+      .get("http://10.200.4.199:8000/api/coment-mir", {
         params: {
           IdMir: id,
         },
@@ -143,7 +143,7 @@ export const ComentDialogMir = ({
   const comentMir = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        "http://10.200.4.199:8000/api/coment-mir",
         {
           IdMir: id,
           Coment: coment,
@@ -173,6 +173,7 @@ export const ComentDialogMir = ({
         });
       })
       .catch((err) => {
+        
         Toast.fire({
           icon: "error",
           title: "Debes agregar un comentario",

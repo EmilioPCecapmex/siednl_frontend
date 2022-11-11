@@ -107,7 +107,7 @@ export const ComentDialogMA = ({
 
   const getComents = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+      .get("http://10.200.4.199:8000/api/coment-mir", {
         params: {
           IdMir: id,
         },
@@ -116,7 +116,6 @@ export const ComentDialogMA = ({
         },
       })
       .then((r) => {
-        
         setComents(r.data.data);
       });
   };
@@ -140,10 +139,11 @@ export const ComentDialogMA = ({
     );
   };
 
-  const comentMir = () => {
+  const comentMa = () => {
+    
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        "http://10.200.4.199:8000/api/coment-mir",
         {
           IdMir: id,
           Coment: coment,
@@ -173,6 +173,7 @@ export const ComentDialogMA = ({
         });
       })
       .catch((err) => {
+        
         Toast.fire({
           icon: "error",
           title: "Debes agregar un comentario",
@@ -363,7 +364,7 @@ export const ComentDialogMA = ({
                 disabled={estado === "Autorizada" ? true : false}
                 color="info"
                 onClick={() => {
-                  newComent ? comentMir() : setNewComent(true);
+                  newComent ? comentMa() : setNewComent(true);
                 }}
               >
                 <Typography

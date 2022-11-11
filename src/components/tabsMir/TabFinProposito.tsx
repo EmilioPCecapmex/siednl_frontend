@@ -6,6 +6,10 @@ import {
   List,
   ListItemButton,
   Divider,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
@@ -95,27 +99,6 @@ export function TabFinProposito({
 
   const [errorIndicadorFin, setErrorIndicadorFin] = useState("");
   const [errorIndicadorProposito, setErrorIndicadorProposito] = useState("");
-
-  const [errorFrecuenciaFin, setErrorFrecuenciaFin] = useState("");
-  const [errorFrecuenciaProposito, setErrorFrecuenciaProposito] = useState("");
-
-  const evalueTxtFrecuenciaFin = () => {
-    let txt = fin.frecuencia?.toLowerCase();
-    if (txt === "anual" || txt === "bienal") {
-      setErrorFrecuenciaFin("");
-    } else {
-      setErrorFrecuenciaFin("Frecuencia debe ser tipo Anual ó Bienal.");
-    }
-  };
-
-  const evalueTxtFrecuenciaProposito = () => {
-    let txt = proposito.frecuencia?.toLowerCase();
-    if (txt === "anual") {
-      setErrorFrecuenciaProposito("");
-    } else {
-      setErrorFrecuenciaProposito("Frecuencia debe ser tipo Anual.");
-    }
-  };
 
   const evalueTxtindicador = (v: string) => {
     if (v === "fin") {
@@ -282,7 +265,6 @@ export function TabFinProposito({
         backgroundColor: "#fff",
       }}
     >
-
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
@@ -362,7 +344,12 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  textTransform: "uppercase",
+                }}
+              >
                 Fin
               </Typography>
             </ListItemButton>
@@ -392,7 +379,12 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  textTransform: "uppercase",
+                }}
+              >
                 Propósito
               </Typography>
             </ListItemButton>
@@ -486,31 +478,20 @@ export function TabFinProposito({
                 value={fin.formula}
               />
 
-              <TextField
-                disabled={mirEdit?.fin.frecuencia}
-                rows={8}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"FRECUENCIA"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setFin({ ...fin, frecuencia: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
-                }}
-                value={fin.frecuencia}
-                onBlur={() => evalueTxtFrecuenciaFin()}
-                error={errorFrecuenciaFin !== "" ? true : false}
-                helperText={errorFrecuenciaFin ? errorFrecuenciaFin : null}
-              />
+              <FormControl sx={{ width: "10vw" }}>
+                <InputLabel>Frecuencia</InputLabel>
+                <Select
+                  disabled={mirEdit?.fin.frecuencia}
+                  value={fin.frecuencia || ""}
+                  label="Frecuencia"
+                  onChange={(event) => {
+                    setFin({ ...fin, frecuencia: event.target.value });
+                  }}
+                >
+                  <MenuItem value={"ANUAL"}>ANUAL</MenuItem>
+                  <MenuItem value={"BIENAL"}>BIENAL</MenuItem>
+                </Select>
+              </FormControl>
 
               <TextField
                 disabled={mirEdit?.fin.medios}
@@ -648,34 +629,22 @@ export function TabFinProposito({
                 onClick={() => handleClickOpen()}
                 value={proposito.formula}
               />
+              <FormControl sx={{ width: "10vw" }}>
+                <InputLabel>Frecuencia</InputLabel>
+                <Select
+                  disabled={mirEdit?.fin.frecuencia}
+                  value={fin.frecuencia || ""}
+                  label="Frecuencia"
+                  onChange={(event) => {
+                    console.log(event.target.value);
 
-              <TextField
-                disabled={mirEdit?.proposito.frecuencia}
-                rows={8}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"FRECUENCIA"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setProposito({ ...proposito, frecuencia: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
-                }}
-                value={proposito.frecuencia}
-                onBlur={() => evalueTxtFrecuenciaProposito()}
-                error={errorFrecuenciaProposito !== "" ? true : false}
-                helperText={
-                  errorFrecuenciaProposito ? errorFrecuenciaProposito : null
-                }
-              />
+                    setFin({ ...fin, frecuencia: event.target.value });
+                  }}
+                >
+                  <MenuItem value={"ANUAL"}>ANUAL</MenuItem>
+                </Select>
+              </FormControl>
+
               <TextField
                 disabled={mirEdit?.proposito.medios_verificacion}
                 rows={8}

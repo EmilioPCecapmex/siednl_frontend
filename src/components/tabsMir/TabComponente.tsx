@@ -7,6 +7,10 @@ import {
   Divider,
   List,
   ListItemButton,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
@@ -76,21 +80,6 @@ export const TabComponente = ({
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
   const [errorIndicador, setErrorIndicador] = useState(-1);
-  const [errorFrecuencia, setErrorFrecuencia] = useState(-2);
-
-  const evalueTxtFrecuencia = () => {
-    const cFrecuencia =
-      componenteValor[componentSelect - 1].frecuencia?.toLowerCase();
-    if (cFrecuencia !== undefined) {
-      if (cFrecuencia === "semestral") {
-        setErrorFrecuencia(-1);
-      } else if (cFrecuencia === "trimestral") {
-        setErrorFrecuencia(-1);
-      } else {
-        setErrorFrecuencia(componentSelect - 1);
-      }
-    }
-  };
 
   const handleClickOpen = () => {
     setPrevTextFormula(componenteValor[componentSelect - 1].formula);
@@ -407,40 +396,25 @@ export const TabComponente = ({
               alignItems: "center",
             }}
           >
-            <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1].frecuencia}
-              multiline
-              variant="filled"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-                              rows={8}
+            <FormControl sx={{width:'10vw'}}>
+                <InputLabel>Frecuencia</InputLabel>
+                <Select
+                disabled={mirEdit?.componentes[componentSelect - 1].frecuencia}
+                  value={componenteValor[componentSelect - 1]?.frecuencia || ''}
+                  label="Frecuencia"
+                  onChange={(c) => {
+                    let prev = [...valoresComponente]
+                    let prevLocal = [...componenteValor]
+                    prevLocal[componentSelect - 1].frecuencia = c.target.value;
+                    prev[componentSelect - 1].frecuencia = c.target.value;
+                    setComponenteValor(prevLocal);
+                  }}
+                >
+                  <MenuItem value={"SEMESTRAL"}>SEMESTRAL</MenuItem>
+                  <MenuItem value={"TRIMESTRAL"}>TRIMESTRAL</MenuItem>
+                </Select>
+              </FormControl>
 
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Frecuencia".toUpperCase()}
-              value={componenteValor[componentSelect - 1]?.frecuencia}
-              onChange={(c) => {
-                let prev = [...valoresComponente];
-                let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].frecuencia = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
-                prev[componentSelect - 1].frecuencia = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
-                setComponenteValor(prevLocal);
-              }}
-              onBlur={() => evalueTxtFrecuencia()}
-              error={errorFrecuencia === componentSelect - 1 ? true : false}
-              helperText={
-                errorFrecuencia === componentSelect - 1
-                  ? "Frecuencia debe ser Semestral ó Trimestral "
-                  : null
-              }
-            />
             <TextField
               disabled={mirEdit?.componentes[componentSelect - 1].medios}
               multiline

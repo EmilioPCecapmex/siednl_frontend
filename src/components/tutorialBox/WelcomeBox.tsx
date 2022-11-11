@@ -77,7 +77,7 @@ export const WelcomeBox = () => {
             alignItems:"center",
             flexDirection:"column"
           }}>
-            <Typography sx={{fontFamily:"MontserratSemiBold", fontSize:"2vw"}}> !Hola {localStorage.getItem("NombreUsuario")}¡</Typography>
+            <Typography sx={{fontFamily:"MontserratSemiBold", fontSize:"2vw"}}> ¡Hola {localStorage.getItem("NombreUsuario")}!</Typography>
           </Box>
           <Box sx={{
             width:"32vw",
