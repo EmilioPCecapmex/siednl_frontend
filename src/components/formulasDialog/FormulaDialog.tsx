@@ -36,7 +36,7 @@ export const FormulaDialog = ({
     if(descA === "" || descB === ""){
         setEmptyTxt(true)
     }else{
-        textoSet("(" + descA + "/" + descB + ")" + "*100");
+        textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")" + "*100");
         close();
     }
   };
@@ -128,7 +128,7 @@ export const FormulaDialog = ({
                 fontSize: '.8vw'
               },
             }}
-            onChange={(c) => setDescA(c.target.value)}
+            onChange={(c) => setDescA(c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n',''))}
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
@@ -149,7 +149,7 @@ export const FormulaDialog = ({
             multiline
             rows={4}
             value={descB}
-            onChange={(c) => setDescB(c.target.value)}
+            onChange={(c) => setDescB(c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n',''))}
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",

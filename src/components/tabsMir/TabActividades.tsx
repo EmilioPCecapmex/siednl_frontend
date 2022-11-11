@@ -545,7 +545,7 @@ export const TabActividades = ({
                 let y = [...cValor];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].resumen = c.target.value;
+                ].resumen = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setCValor(y);
               }}
             />
@@ -589,7 +589,7 @@ export const TabActividades = ({
                 let y = [...cValor];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].indicador = c.target.value;
+                ].indicador = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setCValor(y);
               }}
             />
@@ -622,7 +622,7 @@ export const TabActividades = ({
                 let y = [...cValor];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].formula = c.target.value;
+                ].formula = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setCValor(y);
               }}
             />
@@ -664,7 +664,7 @@ export const TabActividades = ({
                 let y = [...cValor];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].frecuencia = c.target.value;
+                ].frecuencia = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setCValor(y);
               }}
               onBlur={() => evalueTxtFrecuencia()}
@@ -708,7 +708,7 @@ export const TabActividades = ({
                 let y = [...cValor];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].medios = c.target.value;
+                ].medios = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setCValor(y);
               }}
             />
@@ -739,7 +739,7 @@ export const TabActividades = ({
                 let y = [...cValor];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].supuestos = c.target.value;
+                ].supuestos = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setCValor(y);
               }}
             />

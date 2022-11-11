@@ -91,9 +91,10 @@ export function TabResumen2({
 
 
   const createMIR = (estado: string) => {
+    // process.env.REACT_APP_APPLICATION_BACK + 
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
+        "http://localhost:8000/api/create-mir",
         {
           MIR: JSON.stringify(MIR),
           Estado: estado,

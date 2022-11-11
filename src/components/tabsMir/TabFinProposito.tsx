@@ -261,10 +261,10 @@ export function TabFinProposito({
   };
 
   const changeFormula = (txt: string) => {
-    if (elementoFormula === "Fin") {
-      setFin({ ...fin, formula: txt });
-    } else if (elementoFormula === "Proposito") {
-      setProposito({ ...proposito, formula: txt });
+    if (elementoFormula === "fin") {
+      setFin({ ...fin, formula: txt.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+    } else if (elementoFormula === "proposito") {
+      setProposito({ ...proposito, formula: txt.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
     }
   };
 
@@ -308,8 +308,8 @@ export function TabFinProposito({
             fontSize: "1.2vw",
           }}
         >
-          {showFin ? "Fin".toUpperCase() : null}
-          {showProposito ? "Propósito".toUpperCase() : null}
+          {showFin ? "FIN" : null}
+          {showProposito ? "PROPOSITO" : null}
         </Typography>
       </Box>
       <Box
@@ -417,7 +417,7 @@ export function TabFinProposito({
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Resumen Narrativo".toUpperCase()}
+                label={"RESUMEN NARRATIVO"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -429,7 +429,7 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, resumen: c.target.value });
+                  setFin({ ...fin, resumen: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
                 value={fin.resumen}
               />
@@ -452,7 +452,7 @@ export function TabFinProposito({
                 onBlur={() =>
                   fin.indicador === "" ? null : evalueTxtindicador("fin")
                 }
-                label={"Indicador".toUpperCase()}
+                label={"INDICADOR"}
                 error={errorIndicadorFin === "fin" ? true : false}
                 helperText={
                   errorIndicadorFin
@@ -460,7 +460,7 @@ export function TabFinProposito({
                     : null
                 }
                 onChange={(c) => {
-                  setFin({ ...fin, indicador: c.target.value });
+                  setFin({ ...fin, indicador: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
                 value={fin.indicador}
               />
@@ -481,7 +481,7 @@ export function TabFinProposito({
                   },
                 }}
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula".toUpperCase()}
+                label={"FÓRMULA"}
                 onClick={() => handleClickOpen()}
                 value={fin.formula}
               />
@@ -492,7 +492,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia".toUpperCase()}
+                label={"FRECUENCIA"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -504,7 +504,7 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, frecuencia: c.target.value });
+                  setFin({ ...fin, frecuencia: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
                 value={fin.frecuencia}
                 onBlur={() => evalueTxtFrecuenciaFin()}
@@ -518,7 +518,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Medios de Verificación".toUpperCase()}
+                label={"MEDIOS DE VERIFICACIÓN"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -530,7 +530,7 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, medios: c.target.value });
+                  setFin({ ...fin, medios: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
                 value={fin.medios}
               />
@@ -540,7 +540,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos".toUpperCase()}
+                label={"SUPUESTOS"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -552,7 +552,7 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, supuestos: c.target.value });
+                  setFin({ ...fin, supuestos: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
                 value={fin.supuestos}
               />
@@ -577,7 +577,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Resumen Narrativo".toUpperCase()}
+                label={"RESUMEN NARRATIVO"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -589,7 +589,7 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setProposito({ ...proposito, resumen: c.target.value });
+                  setProposito({ ...proposito, resumen: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
                 value={proposito.resumen}
               />
@@ -615,7 +615,7 @@ export function TabFinProposito({
                     ? null
                     : evalueTxtindicador("proposito")
                 }
-                label={"Indicador".toUpperCase()}
+                label={"INDICADOR"}
                 error={errorIndicadorProposito === "proposito" ? true : false}
                 helperText={
                   errorIndicadorProposito
@@ -623,7 +623,7 @@ export function TabFinProposito({
                     : null
                 }
                 onChange={(c) => {
-                  setProposito({ ...proposito, indicador: c.target.value });
+                  setProposito({ ...proposito, indicador: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
                 value={proposito.indicador}
               />
@@ -644,7 +644,7 @@ export function TabFinProposito({
                   },
                 }}
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Fórmula".toUpperCase()}
+                label={"FÓRMULA"}
                 onClick={() => handleClickOpen()}
                 value={proposito.formula}
               />
@@ -655,7 +655,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Frecuencia".toUpperCase()}
+                label={"FRECUENCIA"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -667,9 +667,9 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setProposito({ ...proposito, frecuencia: c.target.value });
+                  setProposito({ ...proposito, frecuencia: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
-                value={proposito.frecuencia?.toUpperCase()}
+                value={proposito.frecuencia}
                 onBlur={() => evalueTxtFrecuenciaProposito()}
                 error={errorFrecuenciaProposito !== "" ? true : false}
                 helperText={
@@ -692,11 +692,11 @@ export function TabFinProposito({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                label={"Medios de Verificación".toUpperCase()}
+                label={"MEDIOS DE VERIFICACIÓN"}
                 onChange={(c) => {
                   setProposito({
                     ...proposito,
-                    medios_verificacion: c.target.value,
+                    medios_verificacion: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n',''),
                   });
                 }}
                 value={proposito.medios_verificacion}
@@ -707,7 +707,7 @@ export function TabFinProposito({
                 multiline
                 variant="filled"
                 sx={{ width: "90%", boxShadow: 2 }}
-                label={"Supuestos".toUpperCase()}
+                label={"SUPUESTOS"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -719,7 +719,7 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setProposito({ ...proposito, supuestos: c.target.value });
+                  setProposito({ ...proposito, supuestos: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
                 }}
                 value={proposito.supuestos}
               />

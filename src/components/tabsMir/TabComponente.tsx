@@ -328,8 +328,8 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].resumen = c.target.value;
-                prev[componentSelect - 1].resumen = c.target.value;
+                prevLocal[componentSelect - 1].resumen = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prev[componentSelect - 1].resumen = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setComponenteValor(prevLocal);
               }}
             />
@@ -362,8 +362,8 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].indicador = c.target.value;
-                prev[componentSelect - 1].indicador = c.target.value;
+                prevLocal[componentSelect - 1].indicador = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prev[componentSelect - 1].indicador = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setComponenteValor(prevLocal);
               }}
             />
@@ -391,8 +391,8 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].formula = c.target.value;
-                prev[componentSelect - 1].formula = c.target.value;
+                prevLocal[componentSelect - 1].formula = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prev[componentSelect - 1].formula = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setComponenteValor(prevLocal);
               }}
             />
@@ -429,8 +429,8 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].frecuencia = c.target.value;
-                prev[componentSelect - 1].frecuencia = c.target.value;
+                prevLocal[componentSelect - 1].frecuencia = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prev[componentSelect - 1].frecuencia = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setComponenteValor(prevLocal);
               }}
               onBlur={() => evalueTxtFrecuencia()}
@@ -463,8 +463,8 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].medios = c.target.value;
-                prev[componentSelect - 1].medios = c.target.value;
+                prevLocal[componentSelect - 1].medios = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prev[componentSelect - 1].medios = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setComponenteValor(prevLocal);
               }}
             />
@@ -490,8 +490,8 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].supuestos = c.target.value;
-                prev[componentSelect - 1].supuestos = c.target.value;
+                prevLocal[componentSelect - 1].supuestos = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prev[componentSelect - 1].supuestos = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
                 setComponenteValor(prevLocal);
               }}
             />
