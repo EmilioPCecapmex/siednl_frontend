@@ -536,7 +536,7 @@ export default function ModalSolicitaModif({
           }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium", textAlign:'center' }}>
-            Selecciona un usuario de {JSON.parse(MIR)?.encabezado.institucion} para solicitar modificación
+            Selecciona un usuario de "JSON.parse(MIR)?.encabezado.institucion" para solicitar modificación
           </Typography>
           <FormControl
             sx={{
