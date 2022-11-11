@@ -24,6 +24,7 @@ export function TabResumenMA({
   componentes: number[];
   componenteValor: Array<IComponenteMA>;
   cValor: Array<ICValorMA>;
+  
   IdMir: string;
   IdMA: string;
 }) {
@@ -226,6 +227,7 @@ export function TabResumenMA({
               {fin[0]?.valorDenominador}
             </Typography>
           </Box>
+         
           <Box
             sx={{
               display: "flex",

@@ -1004,6 +1004,7 @@ export function TabResumenMIR({
         </Box>
       </DialogContent>
     </Dialog>
+    
   );
 }
 
