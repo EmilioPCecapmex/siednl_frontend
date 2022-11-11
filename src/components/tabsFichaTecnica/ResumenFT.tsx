@@ -9,11 +9,16 @@ export default function FullModalFichaTecnica({
   showResume,
   IdMir,
   anioFiscalEdit,
+  MA
+ 
 }: {
   MIR: string;
   showResume: Function;
   IdMir: string;
   anioFiscalEdit: string;
+  MA: string;
+
+  
 }) {
   const [value, setValue] = React.useState(10);
   const handleChange = (event: any, newValue: number) => {

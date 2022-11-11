@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box, Tooltip } from "@mui/material";
 import TabFinPropositoMR, {
   IFin,
   IProposito,
   TabFinPropositoMA,
 } from "./TabFinPropositoMA";
+import { Box, Tooltip, Typography } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IEncabezado, TabEncabezadoMIR } from "./TabEncabezadoMIR";
@@ -16,7 +16,9 @@ import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
 import TabResumenMIR from "./TabResumenMir";
-
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -126,6 +128,7 @@ export default function AddMetaAnual({
         }),
       };
     })
+    
   );
 
   const [cValorMA, setCValorMA] = useState(
@@ -398,10 +401,62 @@ export default function AddMetaAnual({
             proposito={cargaProposito}
           ></TabResumenMIR>
         </Box>
+
+
+
+
+
+        <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          height: "7vh",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        
+      >
+
+
+<ArrowCircleLeftIcon
+          fontSize="large"
+          sx={{ cursor: "pointer" }}
+          onClick={() => {
+            //showMirFnc(true);
+            //showFnc("Actividades");
+            
+            handleChange(true, value);
+            
+            
+          }}
+        >
+        </ArrowCircleLeftIcon> 
+
+        <ArrowCircleRightIcon
+          fontSize="large"
+          sx={{ cursor: "pointer" }}
+
+          onClick={() => {
+            handleChange(false, value);
+  
+          }}
+        >
+          
+        </ArrowCircleRightIcon>
+
+        
+      </Box>
       </Box>
     </Box>
+
+    
+    
   );
+
+  
 }
+
+
 
 export interface IComponenteActividad {
   actividades: number[];

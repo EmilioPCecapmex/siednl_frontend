@@ -33,9 +33,9 @@ import { IIMir } from "../mir/MIR";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-export let resumeDefaultMA = true;
+export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
-  resumeDefaultMA = !resumeDefaultMA;
+  ResumeDefaultMA = !ResumeDefaultMA;
 };
 
 export const MetaAnual = () => {
@@ -43,12 +43,12 @@ export const MetaAnual = () => {
   
   useEffect(() => {
     setShowResume(true);
-    getMIRs();
-  }, [resumeDefaultMA]);
+    getMA();
+  }, [ResumeDefaultMA]);
 
   const returnMain = () => {
     setShowResume(true);
-    getMIRs();
+    getMA();
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -101,7 +101,7 @@ export const MetaAnual = () => {
     }
   };
 
-  const getMIRs = () => {
+  const getMA = () => {
     axios
       .get("http://10.200.4.199:8000/api/Lista-MetaAnual", {
         params: {
@@ -119,13 +119,13 @@ export const MetaAnual = () => {
   };
 
   useEffect(() => {
-    getMIRs();
+    getMA();
   }, []);
 
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
-    getMIRs();
+    getMA();
   }, [actualizacion]);
 
   const actualizaContador = () => {

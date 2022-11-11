@@ -25,7 +25,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
 import FullModalFichaTecnica from "../../components/tabsFichaTecnica/ResumenFT";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-
+import { IIMir } from "../mir/MIR";
+import { IIMa} from "../metaAnual/MetaAnual";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -34,12 +35,12 @@ export let setResumeDefaultFT = () => {
 export const FichaTecnica = () => {
   useEffect(() => {
     setShowResume(true);
-    getMIRs();
+    getFT();
   }, [resumeDefaultFT]);
 
   const returnMain = () => {
     setShowResume(true);
-    getMIRs();
+    getFT();
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -62,17 +63,26 @@ export const FichaTecnica = () => {
   const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
   const [findTextStr, setFindTextStr] = useState("");
   const [findSelectStr, setFindSelectStr] = useState("0");
-
+//---------------------No los estoy usando-------------------------
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
+  const [ma, setMa] = useState<Array<IIMa>>([]);
+  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
+
+  const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
+//---------------------No los estoy usando-------------------------
+
+const [ft, setft] = useState<Array<IIFT>>([]);
+  const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
+
   //
-  const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
+  const [ftFiltered, setftFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
   const findText = (v: string, select: string) => {
     if (v !== "" || select !== "0") {
-      setMirsFiltered(
-        mirs.filter(
+      setMaFiltered(
+        ma.filter(
           (x) =>
             x.AnioFiscal.includes(findTextStr) ||
             x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
@@ -82,23 +92,24 @@ export const FichaTecnica = () => {
       );
 
       if (select !== "0") {
-        setMirsFiltered(
-          mirs.filter((x) =>
+        setMaFiltered(
+          ma.filter((x) =>
             x.Estado.toLowerCase().includes(select.toLowerCase())
           )
         );
       }
     } else {
-      setMirsFiltered(mirs);
+      setMaFiltered(ma);
     }
   };
 
-  const getMIRs = () => {
+  const getFT = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
+    .get("http://localhost:8000/api/Lista-Ficha-tecnica", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
+          
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -106,13 +117,15 @@ export const FichaTecnica = () => {
       })
       .then((r) => {
         // setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-        setMirs(r.data.data);
-        setMirsFiltered(r.data.data);
+        console.log(r.data.data);
+        
+        setft(r.data.data);
+        setftFiltered(r.data.data);
       });
   };
 
   useEffect(() => {
-    getMIRs();
+    getFT();
   }, []);
 
   const handleClickOpen = () => {
@@ -122,7 +135,7 @@ export const FichaTecnica = () => {
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
-    getMIRs();
+    getFT();
   }, [actualizacion]);
 
   const actualizaContador = () => {
@@ -344,7 +357,7 @@ export const FichaTecnica = () => {
                   </TableHead>
 
                   <TableBody>
-                    {mirsFiltered
+                    {ftFiltered
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
@@ -510,6 +523,7 @@ export const FichaTecnica = () => {
           <FullModalFichaTecnica
             anioFiscalEdit={anioFiscalEdit}
             MIR={mirEdit[0]?.MIR || ""}
+            MA={maEdit[0]?.MetaAnual || ""}
             showResume={returnMain}
             IdMir={mirEdit[0]?.ID || ""}
           />
@@ -519,14 +533,18 @@ export const FichaTecnica = () => {
   );
 };
 
-export interface IIMir {
-  ID: string;
+
+
+export interface IIFT {
+  IdMa: string;
+  IdMir: string;
   AnioFiscal: string;
   Institucion: string;
   Programa: string;
-  Eje: string;
-  Tematica: string;
-  MIR: string;
+  MIR: string
+  MetaAnual: string;
+  //FichaTecnica:String;
   Estado: string;
+  CreadoPor: string;
   FechaCreacion: string;
 }
