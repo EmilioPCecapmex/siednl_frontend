@@ -37,6 +37,7 @@ import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
 import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 import { setResumeDefaultAI } from "../../screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
+import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
 
 export const LateralMenu = ({
   selection,
@@ -376,6 +377,7 @@ export const LateralMenu = ({
 
               <ListItemButton
                 onClick={() => {
+                  setResumeDefaultMA();
                   navigate("../metaAnual");
                 }}
                 sx={st.subMenuItemStyle}

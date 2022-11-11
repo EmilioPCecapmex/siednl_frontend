@@ -31,20 +31,20 @@ import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { IIMir } from "../mir/MIR";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 
-export let resumeDefaultMIR = true;
-export let setResumeDefaultMIR = () => {
-  resumeDefaultMIR = !resumeDefaultMIR;
+export let ResumeDefaultMA = true;
+export let setResumeDefaultMA = () => {
+  ResumeDefaultMA = !ResumeDefaultMA;
 };
 
 export const MetaAnual = () => {
   useEffect(() => {
     setShowResume(true);
-    getMIRs();
-  }, [resumeDefaultMIR]);
+    getMA();
+  }, [ResumeDefaultMA]);
 
   const returnMain = () => {
     setShowResume(true);
-    getMIRs();
+    getMA();
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -101,7 +101,7 @@ export const MetaAnual = () => {
     }
   };
 
-  const getMIRs = () => {
+  const getMA = () => {
     axios
       .get("http://localhost:8000/api/Lista-MetaAnual", {
         params: {
@@ -119,7 +119,7 @@ export const MetaAnual = () => {
   };
 
   useEffect(() => {
-    getMIRs();
+    getMA();
   }, []);
 
   const handleClickOpen = () => {
@@ -129,7 +129,7 @@ export const MetaAnual = () => {
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
-    getMIRs();
+    getMA();
   }, [actualizacion]);
 
   const actualizaContador = () => {
