@@ -23,6 +23,7 @@ import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 import AddDialogCatalogo from "./AddDialogCatalogo";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+import { CSVCatalogo } from "./CSVCatalogo";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [defaultSelection, setDefaultSelection] = useState(defSelected);
@@ -158,71 +159,75 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "ObjetivosPEENL",
       selected: false,
     },
+    
     {
       id: 18,
-      Desc: "PED",
-      fnc: "getPED()",
-      Tabla: "PEDs",
-      selected: false,
-    },
-    {
-      id: 19,
       Desc: "Programas Presupuestarios",
       fnc: "getProgramaPresupuestario()",
       Tabla: "ProgramasPresupuestarios",
       selected: false,
     },
     {
-      id: 20,
+      id: 19,
       Desc: "Roles",
       fnc: "getRoles()",
       Tabla: "Roles",
       selected: false,
     },
     {
-      id: 21,
+      id: 20,
       Desc: "Temáticas",
       fnc: "getTematicas()",
       Tabla: "Tematicas",
       selected: false,
     },
     {
-      id: 22,
+      id: 21,
       Desc: "Tipos de Fórmula",
       fnc: "getTipoDeFormula()",
       Tabla: "TiposDeFormula",
       selected: false,
     },
     {
-      id: 23,
+      id: 22,
       Desc: "Tipos de Indicador",
       fnc: "getTipoDeIndicador()",
       Tabla: "TiposDeIndicador",
       selected: false,
     },
     {
-      id: 24,
+      id: 23,
       Desc: "Unidades de Medida",
       fnc: "getUnidadDeMedida()",
       Tabla: "UnidadesDeMedida",
       selected: false,
     },
     {
-      id: 25,
+      id: 24,
       Desc: "Unidades Administrativas",
       fnc: "getUnidadesAdministrativas()",
       Tabla: "UnidadesAdministrativas",
       selected: false,
     },
+  ];
+  //Lista exceptuando PED y Relaciones
+  const configOptionsExcept = [
     {
-      id: 26,
+      id: 1,
+      Desc: "PED",
+      fnc: "getPED()",
+      Tabla: "PEDs",
+      selected: false,
+    },
+    {
+      id: 2,
       Desc: "Instituciones - Unidades",
       fnc: "getInstitucionesUnidades()",
       Tabla: "InstitucionUnidad",
       selected: false,
     },
     {
-      id: 27,
+      id: 3,
       Desc: "Programas - Instituciones",
       fnc: "getProgramasInstituciones()",
       Tabla: "ProgramasInstituciones",
@@ -1469,7 +1474,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   ":hover": {
                     backgroundColor: "#ffdcac",
                   },
-                  right: "30vh",
+                  right: "35vh",
                   bottom: "11vh",
                   display: "flex",
                   alignItems: "center",
@@ -1480,6 +1485,28 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   catalogo={tablaActual}
                   tabla={tablaActual}
                   actualizado={actualizaContador}
+                />
+              </Box>
+              <Box
+                title="Exportar a excell"
+                borderRadius={100}
+                sx={{
+                  width: 50,
+                  height: 50,
+                  backgroundColor: "#c4a57b",
+                  position: "absolute",
+                  ":hover": {
+                    backgroundColor: "#ffdcac",
+                  },
+                  right: "28vh",
+                  bottom: "11vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CSVCatalogo
+                tabla={tablaActual}
                 />
               </Box>
             </Box>
