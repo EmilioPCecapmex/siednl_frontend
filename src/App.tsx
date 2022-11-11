@@ -21,6 +21,7 @@ import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import axios from "axios";
 import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
+import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 
 function App() {
   const navigate = useNavigate();
