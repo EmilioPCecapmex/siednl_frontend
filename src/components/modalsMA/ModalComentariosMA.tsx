@@ -139,7 +139,11 @@ export const ComentDialogMA = ({
     );
   };
 
-  const comentMir = () => {
+  const comentMa = () => {
+    console.log(id);
+    console.log(coment);
+    
+    
     axios
       .post(
         "http://10.200.4.199:8000/api/coment-mir",
@@ -172,6 +176,7 @@ export const ComentDialogMA = ({
         });
       })
       .catch((err) => {
+        
         Toast.fire({
           icon: "error",
           title: "Debes agregar un comentario",
@@ -362,7 +367,7 @@ export const ComentDialogMA = ({
                 disabled={estado === "Autorizada" ? true : false}
                 color="info"
                 onClick={() => {
-                  newComent ? comentMir() : setNewComent(true);
+                  newComent ? comentMa() : setNewComent(true);
                 }}
               >
                 <Typography

@@ -64,12 +64,8 @@ export const MetaAnual = () => {
     setPage(0);
   };
 
-  const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
   const [findTextStr, setFindTextStr] = useState("");
   const [findSelectStr, setFindSelectStr] = useState("0");
-
-  const [mirs, setMirs] = useState<Array<IIMir>>([]);
-  const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
   const [ma, setMa] = useState<Array<IIMa>>([]);
   const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
@@ -122,10 +118,6 @@ export const MetaAnual = () => {
     getMIRs();
   }, []);
 
-  const handleClickOpen = () => {
-    setShowResume(false);
-  };
-
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
@@ -136,11 +128,6 @@ export const MetaAnual = () => {
     setActualizacion(actualizacion + 1);
   };
 
-  const [openModalComents, setOpenModalComents] = useState(false);
-
-  const handleCloseComents = () => {
-    setOpenModalComents(false);
-  };
 
   return (
     <Box
@@ -424,7 +411,6 @@ export const MetaAnual = () => {
                                     },
                                   }}
                                   onClick={() => {
-                                    setAnioFiscalEdit(row.AnioFiscal);
                                     setMaEdit([
                                       {
                                         IdMa: row.IdMa,
@@ -482,7 +468,7 @@ export const MetaAnual = () => {
                                 </Tooltip>
                                 <ComentDialogMA
                                   estado={row.Estado}
-                                  id={row.IdMa}
+                                  id={row.IdMir}
                                   actualizado={actualizaContador}
                                 />
                               </Box>
@@ -497,7 +483,7 @@ export const MetaAnual = () => {
               <TablePagination
                 rowsPerPageOptions={[renglonesPagina]}
                 component="div"
-                count={mirs.length}
+                count={ma.length}
                 rowsPerPage={renglonesPagina}
                 page={page}
                 onPageChange={handleChangePage}
