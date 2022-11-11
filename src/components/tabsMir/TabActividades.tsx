@@ -421,7 +421,7 @@ export const TabActividades = ({
                 <Divider />
 
                 <ListItemButton
-                  selected={item == componenteSelect + 1 ? true : false}
+                  selected={item === componenteSelect + 1 ? true : false}
                   key={item}
                   onClick={() => {
                     setComponenteSelect(item - 1);
@@ -451,7 +451,7 @@ export const TabActividades = ({
                       (value, x) => {
                         return (
                           <ListItemButton
-                            selected={x == actividadSelect ? true : false}
+                            selected={x === actividadSelect ? true : false}
                             key={x}
                             onClick={() => {
                               setActividadSelect(x);

@@ -220,7 +220,7 @@ export const MetaAnual = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value == "Todos"
+                  v.target.value === "Todos"
                     ? findText(findTextStr, "")
                     : findText(findTextStr, v.target.value);
                   setFindSelectStr(v.target.value);

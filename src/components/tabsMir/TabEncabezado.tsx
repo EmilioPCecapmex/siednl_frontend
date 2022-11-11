@@ -226,7 +226,7 @@ export function TabEncabezado({
     setLineaDeAccion([]);
     setNombreArchivo(event.target.value.split("\\")[2]);
     {
-      nombreArchivo == null || uploadFile == null
+      nombreArchivo === null || uploadFile === null
         ? setDisabledButton(true)
         : setDisabledButton(false);
     }

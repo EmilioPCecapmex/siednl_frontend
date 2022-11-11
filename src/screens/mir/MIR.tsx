@@ -33,12 +33,9 @@ import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export let resumeDefaultMIR = true;
 
-
 export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
-
-
 
 export const MIR = () => {
   const Toast = Swal.mixin({
@@ -148,12 +145,6 @@ export const MIR = () => {
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
-  };
-
-  const [openModalComents, setOpenModalComents] = useState(false);
-
-  const handleCloseComents = () => {
-    setOpenModalComents(false);
   };
 
   const downloadMIR = (
@@ -291,7 +282,7 @@ export const MIR = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value == "Todos"
+                  v.target.value === "Todos"
                     ? findText(findTextStr, "")
                     : findText(findTextStr, v.target.value);
                   setFindSelectStr(v.target.value);

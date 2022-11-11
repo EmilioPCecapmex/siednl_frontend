@@ -7,14 +7,10 @@ import {
   ListItemButton,
   Divider,
   FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IMIREdit } from "./IMIR";
-import { TutorialBox } from "../tutorialBox/tutorialBox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -77,9 +73,9 @@ export function TabFinProposito({
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
 
-  const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
+  // const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
 
-  const [frecuencias, setFrecuencias] = useState<Array<IFrecuencias>>([]);
+  // const [frecuencias, setFrecuencias] = useState<Array<IFrecuencias>>([]);
 
   const getIndicadores = () => {
     axios
@@ -90,7 +86,7 @@ export function TabFinProposito({
       })
       .then((r) => {
         if (r.status === 200) {
-          setIndicador(r.data.data);
+          // setIndicador(r.data.data);
         }
       });
   };
@@ -216,7 +212,7 @@ export function TabFinProposito({
       })
       .then((r) => {
         if (r.status === 200) {
-          setFrecuencias(r.data.data);
+          // setFrecuencias(r.data.data);
         }
       });
   };
@@ -419,7 +415,7 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={mirEdit?.fin.resumen && fin.resumen != ""}
+                disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
                 rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -447,7 +443,7 @@ export function TabFinProposito({
                 value={fin.resumen}
               />
               <TextField
-                disabled={mirEdit?.fin.indicador && fin.indicador != ""}
+                disabled={mirEdit?.fin.indicador && fin.indicador !== ""}
                 rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -484,7 +480,7 @@ export function TabFinProposito({
                 value={fin.indicador}
               />
               <TextField
-                disabled={mirEdit?.fin.formula && fin.formula != ""}
+                disabled={mirEdit?.fin.formula && fin.formula !== ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -556,7 +552,7 @@ export function TabFinProposito({
               </FormControl>
 
               <TextField
-                disabled={mirEdit?.fin.medios && fin.medios != ""}
+                disabled={mirEdit?.fin.medios && fin.medios !== ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -584,7 +580,7 @@ export function TabFinProposito({
                 value={fin.medios}
               />
               <TextField
-                disabled={mirEdit?.fin.supuestos && fin.supuestos != ""}
+                disabled={mirEdit?.fin.supuestos && fin.supuestos !== ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -627,7 +623,7 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={mirEdit?.proposito.resumen && proposito.resumen != ""}
+                disabled={mirEdit?.proposito.resumen && proposito.resumen !== ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -657,7 +653,7 @@ export function TabFinProposito({
 
               <TextField
                 disabled={
-                  mirEdit?.proposito.indicador && proposito.indicador != ""
+                  mirEdit?.proposito.indicador && proposito.indicador !== ""
                 }
                 rows={8}
                 multiline
@@ -697,7 +693,7 @@ export function TabFinProposito({
                 value={proposito.indicador}
               />
               <TextField
-                disabled={mirEdit?.proposito.formula && proposito.formula != ""}
+                disabled={mirEdit?.proposito.formula && proposito.formula !== ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -753,7 +749,7 @@ export function TabFinProposito({
               <TextField
                 disabled={
                   mirEdit?.proposito.medios_verificacion &&
-                  proposito.medios_verificacion != ""
+                  proposito.medios_verificacion !== ""
                 }
                 rows={8}
                 multiline
@@ -783,7 +779,7 @@ export function TabFinProposito({
               />
               <TextField
                 disabled={
-                  mirEdit?.proposito.supuestos && proposito.supuestos != ""
+                  mirEdit?.proposito.supuestos && proposito.supuestos !== ""
                 }
                 rows={8}
                 multiline

@@ -239,7 +239,7 @@ export function TabFinPropositoMA({
                   parseFloat(valueFin[0].metaAnual) < 0 ||
                   parseFloat(valueFin[0].metaAnual) > 100 ||
                   (isNaN(parseFloat(valueFin[0].metaAnual)) &&
-                    valueFin[0].metaAnual != "")
+                    valueFin[0].metaAnual !== "")
                     ? true
                     : false
                 }
@@ -247,7 +247,7 @@ export function TabFinPropositoMA({
                   parseFloat(valueFin[0].metaAnual) < 0 ||
                   parseFloat(valueFin[0].metaAnual) > 100 ||
                   (isNaN(parseFloat(valueFin[0].metaAnual)) &&
-                    valueFin[0].metaAnual != "")
+                    valueFin[0].metaAnual !== "")
                     ? "Introducir valor entre 0 y 100. "
                     : null
                 }
@@ -277,7 +277,7 @@ export function TabFinPropositoMA({
                   parseFloat(valueFin[0].lineaBase) < 0 ||
                   parseFloat(valueFin[0].lineaBase) > 100 ||
                   (isNaN(parseFloat(valueFin[0].lineaBase)) &&
-                    valueFin[0].lineaBase != "")
+                    valueFin[0].lineaBase !== "")
                     ? true
                     : false
                 }
@@ -285,7 +285,7 @@ export function TabFinPropositoMA({
                   parseFloat(valueFin[0].lineaBase) < 0 ||
                   parseFloat(valueFin[0].lineaBase) > 100 ||
                   (isNaN(parseFloat(valueFin[0].lineaBase)) &&
-                    valueFin[0].lineaBase != "")
+                    valueFin[0].lineaBase !== "")
                     ? "Introducir valor entre 0 y 100. "
                     : null
                 }

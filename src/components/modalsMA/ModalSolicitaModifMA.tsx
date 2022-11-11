@@ -99,7 +99,7 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
-        if (comment != "") {
+        if (comment !== "") {
           comentMA(r.data.data.ID);
         }
         Toast.fire({
@@ -292,9 +292,9 @@ export default function ModalSolicitaModif({
               color="primary"
               onClick={() => {
                 checkUsuario(
-                  localStorage.getItem("Rol") == "Capturador"
+                  localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
-                    : localStorage.getItem("Rol") == "Verificador"
+                    : localStorage.getItem("Rol") === "Verificador"
                     ? "En Autorización"
                     : "Autorizada"
                 );

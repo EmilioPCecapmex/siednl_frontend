@@ -3,22 +3,16 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import {
   Box,
-  Alert,
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   Button,
-  AlertColor,
   Typography,
-  FormHelperText,
 } from "@mui/material";
-import { IUsuarios } from "../../screens/notification/interfaces";
-import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 
 export default function ModalSolicitaModif({
   open,
@@ -37,7 +31,7 @@ export default function ModalSolicitaModif({
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
-  const [instSelected, setInstSelected] = useState("");
+  // const [instSelected, setInstSelected] = useState("");
 
   const [comment, setComment] = useState("");
 
@@ -405,7 +399,7 @@ export default function ModalSolicitaModif({
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
           
-          MIR: MIREdit == undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
+          MIR: MIREdit === undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
           Estado: estado,
           CreadoPor:
             userSelected !== "0"
@@ -425,7 +419,7 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
-        if (comment != "") {
+        if (comment !== "") {
           comentMir(r.data.data.ID);
         }
         Toast.fire({
@@ -467,7 +461,7 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
+      // setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
     }
   }, [open]);
 
@@ -534,7 +528,7 @@ export default function ModalSolicitaModif({
           }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium", textAlign:'center' }}>
-            {MIR === undefined ? 'Selecciona una institución en el encabezado para asignar un usuario' : JSON.parse(MIR)?.encabezado?.institucion != '' ? `Selecciona un usuario de ${JSON.parse(MIR)?.encabezado?.institucion} para solicitar la modificación` : 'Selecciona una institución en el encabezado para asignar un usuario'}
+            {MIR === undefined ? 'Selecciona una institución en el encabezado para asignar un usuario' : JSON.parse(MIR)?.encabezado?.institucion !== '' ? `Selecciona un usuario de ${JSON.parse(MIR)?.encabezado?.institucion} para solicitar la modificación` : 'Selecciona una institución en el encabezado para asignar un usuario'}
           </Typography>
           <FormControl
             sx={{
@@ -615,9 +609,9 @@ export default function ModalSolicitaModif({
               color="primary"
               onClick={() => {
                 checkUsuario(
-                  localStorage.getItem("Rol") == "Capturador"
+                  localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
-                    : localStorage.getItem("Rol") == "Verificador"
+                    : localStorage.getItem("Rol") === "Verificador"
                     ? "En Autorización"
                     : "Autorizada"
                 );

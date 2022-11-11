@@ -30,7 +30,7 @@ export default function ModalEnviarMIR({
 
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
-  const [instSelected, setInstSelected] = useState("");
+  // const [instSelected, setInstSelected] = useState("");
 
   const [newComent, setNewComent] = React.useState(false);
 
@@ -398,7 +398,7 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
         });
-        if (comment != "") {
+        if (comment !== "") {
           comentMir(r.data.data.ID);
         }
         showResume();
@@ -453,7 +453,7 @@ export default function ModalEnviarMIR({
           icon: "success",
           title: localStorage.getItem("Rol") === 'Administrador' ? '¡MIR autorizada con éxito!' : '¡MIR enviada con éxito!',
         });
-        if (comment != "") {
+        if (comment !== "") {
           comentMir(r.data.data.ID);
         }
         showResume();
@@ -496,7 +496,7 @@ export default function ModalEnviarMIR({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
+      // setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
     }
   }, [open]);
 
@@ -643,9 +643,9 @@ export default function ModalEnviarMIR({
               color="primary"
               onClick={() => {
                 checkMir(
-                  localStorage.getItem("Rol") == "Capturador"
+                  localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
-                    : localStorage.getItem("Rol") == "Verificador"
+                    : localStorage.getItem("Rol") === "Verificador"
                     ? "En Autorización"
                     : "Autorizada"
                 );
