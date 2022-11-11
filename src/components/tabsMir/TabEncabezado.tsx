@@ -237,6 +237,11 @@ export function TabEncabezado({
     }
   }
 
+  function resultado(){
+    setDisabledButton(true);  
+    setNombreArchivo("Solo se aceptan archivos tipo xlsx");
+  }
+
   useEffect(() => {
     let a = nombreArchivo.split(".");
     setDocExt(a[a.length-1]) 
@@ -245,7 +250,9 @@ export function TabEncabezado({
   useEffect(() => {
    docExtencion==="xlsx"?
    setDisabledButton(false)
-   : setDisabledButton(true); setNombreArchivo("Tipo de archivo invalido, solo se aceptan archivos tipo xlsx")
+   : resultado();
+   console.log(docExtencion);
+  
   }, [docExtencion])
   
   
@@ -740,7 +747,7 @@ export function TabEncabezado({
       position="absolute"
       sx={{
         width: "75vw",
-        height: "77vh",
+        height: "75vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",
@@ -1064,6 +1071,7 @@ export function TabEncabezado({
                 </p>
               </li>
             );
+
           }}
           renderInput={(params) => (
             <TextField
@@ -1207,7 +1215,7 @@ export function TabEncabezado({
           width: "35vw",
         }}
       >
-        {/*---------------------------------Aqui esra el error de borrar lineas da aciion----------------------------------*/}
+        {/*---------------------------------Aqui esta el error de borrar lineas da aciion----------------------------------*/}
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
             multiple
@@ -1220,6 +1228,7 @@ export function TabEncabezado({
             //const replica = catalogoLineasDeAccion
             value={lineaDeAccion}
             renderOption={(props, option) => {
+              
               return (
                 <li {...props} key={option.Id}>
                   <p
@@ -1233,6 +1242,7 @@ export function TabEncabezado({
                 </li>
               );
             }}
+            //--------------------------- esto si va --------------------------------------------
             renderInput={(params) => (
 
               <TextField

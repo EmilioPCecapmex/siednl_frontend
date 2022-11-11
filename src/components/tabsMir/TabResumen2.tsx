@@ -224,7 +224,7 @@ export function TabResumen2({
       sx={{
         display: "flex",
         width: "75vw",
-        height: "85vh",
+        height: "75vh",
         boxShadow: 10,
         borderRadius: 5,
         alignItems: "center",
