@@ -1435,7 +1435,7 @@ export function TabResumen2({
           }
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Borrador
+            Guardar borrador
           </Typography>
         </Button>
         

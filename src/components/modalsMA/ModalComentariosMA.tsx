@@ -140,9 +140,6 @@ export const ComentDialogMA = ({
   };
 
   const comentMa = () => {
-    console.log(id);
-    console.log(coment);
-    
     
     axios
       .post(

@@ -1293,7 +1293,7 @@ export function TabResumen({
           Cancelar
         </Button>
         <Button color="warning" variant="outlined">
-          Borrador
+          Guardar borrador
         </Button>
         <Button color="success" variant="outlined">
           Enviar

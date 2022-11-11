@@ -6,6 +6,10 @@ import {
   List,
   ListItemButton,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Divider from "@mui/material/Divider";
@@ -221,7 +225,7 @@ export const TabActividades = ({
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-  const [open, setOpen] = useState(0);
+  const [open, setOpen] = useState(1);
 
   const handleClickComponente = (index: number) => {
     setOpen(index);
@@ -233,26 +237,6 @@ export const TabActividades = ({
   const [elementoFormula, setElementoFormula] = useState("");
   const [errorIndicadorComponente, setErrorIndicadorComponente] = useState(-1);
   const [errorIndicadorActividad, setErrorIndicadorActividad] = useState(-1);
-
-  const [errorFrecuenciaComponente, setErrorFrecuenciaComponente] =
-    useState(-1);
-  const [errorFrecuenciaActividad, setErrorFrecuenciaActividad] = useState(-1);
-
-  const evalueTxtFrecuencia = () => {
-    const cIndicador =
-      cValor[0].componentes[componenteSelect].actividades[
-        actividadSelect
-      ].frecuencia?.toLowerCase();
-    if (cIndicador !== undefined) {
-      if (cIndicador === "trimestral") {
-        setErrorFrecuenciaComponente(-1);
-        setErrorFrecuenciaActividad(-1);
-      } else {
-        setErrorFrecuenciaComponente(componenteSelect);
-        setErrorFrecuenciaActividad(actividadSelect);
-      }
-    }
-  };
 
   const handleClickOpen = () => {
     setPrevTextFormula(
@@ -375,7 +359,7 @@ export const TabActividades = ({
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
             fontSize: "1.5vw",
-            textTransform:"uppercase"
+            textTransform: "uppercase",
           }}
         >
           Componente {componenteSelect + 1} - Actividad {actividadSelect + 1}
@@ -450,7 +434,12 @@ export const TabActividades = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium",textTransform:"uppercase" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      textTransform: "uppercase",
+                    }}
+                  >
                     Componente {item}
                   </Typography>
 
@@ -475,7 +464,7 @@ export const TabActividades = ({
                               "&.Mui-selected:hover": {
                                 backgroundColor: "#cbcbcb",
                               },
-                              textTransform:"uppercase"
+                              textTransform: "uppercase",
                             }}
                           >
                             Actividad {x + 1}
@@ -501,13 +490,6 @@ export const TabActividades = ({
             justifyContent: "center",
           }}
         >
-          {/* Textfields box */}
-
-          {/* Renderizado de Actividades */}
-
-          {/* <Box>
-              <Typography>Actividad {actividadSelect + 1} - Componente {parseInt(componenteSelect) + 1}</Typography>
-            </Box> */}
           <Box
             sx={{
               width: "100%",
@@ -532,7 +514,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2, textTransform:"uppercase" }}
+              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
               label={"Resumen Narrativo"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
@@ -562,7 +544,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
+              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
               label={"Indicador"}
               onBlur={() => evalueTxtIndicador()}
               error={
@@ -606,7 +588,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
+              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
               label={"Fórmula"}
               onClick={() => evalueTxtIndicador()}
               value={
@@ -633,49 +615,27 @@ export const TabActividades = ({
               alignItems: "center",
             }}
           >
-            <TextField
-              disabled={mirEdit?.actividades[componenteSelect].frecuencia}
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={4}
-              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
-              label={"Frecuencia"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].frecuencia
-              }
-              onChange={(c) => {
-                let y = [...cValor];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].frecuencia = c.target.value;
-                setCValor(y);
-              }}
-              onBlur={() => evalueTxtFrecuencia()}
-              error={
-                errorFrecuenciaComponente === componenteSelect &&
-                errorFrecuenciaActividad === actividadSelect
-                  ? true
-                  : false
-              }
-              helperText={
-                errorFrecuenciaComponente === componenteSelect &&
-                errorFrecuenciaActividad === actividadSelect
-                  ? "Frecuencia debe ser Trimestral"
-                  : null
-              }
-            />
+            <FormControl sx={{ width: "10vw" }}>
+              <InputLabel>Frecuencia</InputLabel>
+              <Select
+                disabled={mirEdit?.actividades[componenteSelect].formula}
+                value={
+                  cValor[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].frecuencia
+                }
+                label="Frecuencia"
+                onChange={(c) => {
+                  let y = [...cValor];
+                  y[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].frecuencia = c.target.value;
+                  setCValor(y);
+                }}
+              >
+                <MenuItem value={"TRIMESTRAL"}>TRIMESTRAL</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               disabled={mirEdit?.actividades[componenteSelect].medios}
               variant="filled"
@@ -691,7 +651,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
+              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
               label={"Medios de Verificación"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[
@@ -721,7 +681,7 @@ export const TabActividades = ({
                 },
               }}
               rows={4}
-              sx={{ width: "30%", boxShadow: 2 , textTransform:"uppercase"}}
+              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
               label={"Supuestos"}
               value={
                 cValor[0].componentes[componenteSelect].actividades[

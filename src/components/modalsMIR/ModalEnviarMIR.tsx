@@ -399,11 +399,6 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
         });
-
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
         if (comment != "") {
           comentMir(r.data.data.ID);
         }
@@ -457,7 +452,7 @@ export default function ModalEnviarMIR({
 
         Toast.fire({
           icon: "success",
-          title: r.data.data.message,
+          title: localStorage.getItem("Rol") === 'Administrador' ? '¡MIR autorizada con éxito!' : '¡MIR enviada con éxito!',
         });
         if (comment != "") {
           comentMir(r.data.data.ID);
