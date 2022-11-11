@@ -17,9 +17,7 @@ import { ICompActividad } from "./ICompActividad";
 import { IEncabezadoEdit } from "./TabResumen2";
 import { IMIR, IMIREdit } from "./IMIR";
 import { Link } from "react-router-dom";
-
-
-
+import Stack from "@mui/material/Stack";
 
 export interface IEncabezado {
   ejercicioFiscal: string;
@@ -29,7 +27,7 @@ export interface IEncabezado {
   tema: string;
   objetivo: string;
   estrategia: string;
-  lineas_de_accion: Array<{Id:string, LineaDeAccion: string}>;
+  lineas_de_accion: Array<{ Id: string; LineaDeAccion: string }>;
   beneficiario: string;
 }
 
@@ -44,7 +42,7 @@ export function TabEncabezado({
   compAct,
   actividadesMir,
   anioFiscalEdit,
-  mirEdit
+  mirEdit,
 }: {
   show: boolean;
   resumenEncabezado: Function;
@@ -57,11 +55,13 @@ export function TabEncabezado({
   actividadesMir: Function;
   anioFiscalEdit: string;
   mirEdit?: IMIREdit;
-
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
+
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   );
+
+  const extensionList = ['xlsx'];
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
@@ -72,13 +72,13 @@ export function TabEncabezado({
     Array<IComponente>
   >([]);
 
-  const [loadComponentesFinish, setLoadComponentesFinish] = useState(false) 
+  const [loadComponentesFinish, setLoadComponentesFinish] = useState(false);
   const [loadActividades, setLoadActividades] = useState([]);
   const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
 
   useEffect(() => {
-    if (MIR !== "" ) {
-      const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR)
+    if (MIR !== "") {
+      const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR);
 
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
@@ -135,7 +135,7 @@ export function TabEncabezado({
             index + 1,
           ]);
       });
-      setLoadComponentesFinish(true)
+      setLoadComponentesFinish(true);
     }
   }, [MIR]);
 
@@ -143,7 +143,7 @@ export function TabEncabezado({
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
-  }, [loadComponentesFinish ]);
+  }, [loadComponentesFinish]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -157,13 +157,16 @@ export function TabEncabezado({
     },
   });
 
-    //saca la cantidad de componentes
-    useEffect(() => {
-      loadComponenteValor.map((value,index)=>{
-        if(index>1 && index<6)
-        setLoadComponentes(loadComponentes=>[...loadComponentes,index+1])
-      })
-    }, [loadComponenteValor])
+  //saca la cantidad de componentes
+  useEffect(() => {
+    loadComponenteValor.map((value, index) => {
+      if (index > 1 && index < 6)
+        setLoadComponentes((loadComponentes) => [
+          ...loadComponentes,
+          index + 1,
+        ]);
+    });
+  }, [loadComponenteValor]);
 
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
   function enCambioAnio(Id: string, Anio: string) {
@@ -222,11 +225,13 @@ export function TabEncabezado({
   }
 
   function enCambioFile(event: any) {
+    
     setUploadFile(event.target.files[0]);
     setLineaDeAccion([]);
     setNombreArchivo(event.target.value.split("\\")[2]);
     {
-      nombreArchivo == null || uploadFile == null
+      
+      nombreArchivo == null || uploadFile == null  
         ? setDisabledButton(true)
         : setDisabledButton(false);
     }
@@ -251,8 +256,9 @@ export function TabEncabezado({
   const [objetivo, setObjetivo] = useState("");
   const [estrategia, setEstrategia] = useState("");
 
-  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>([
-  ]);
+  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
+    []
+  );
   const [beneficiario, setBeneficiario] = useState("");
 
   //Catalogos
@@ -281,6 +287,8 @@ export function TabEncabezado({
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
     { Id: "0", Beneficiario: "" },
   ]);
+
+  const replica = catalogoLineasDeAccion
 
   //Alerta de archivo incorrecto
   const AlertDisplay = () => {
@@ -332,14 +340,17 @@ export function TabEncabezado({
   const getProgramas = (id: string) => {
     if (id !== undefined) {
       axios
-        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programaInstitucion", {
-          params: {
-            IdInstitucion: id,
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        })
+        .get(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/programaInstitucion",
+          {
+            params: {
+              IdInstitucion: id,
+            },
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
         .then((r) => {
           setCatalogoProgramas(r.data.data);
         })
@@ -551,7 +562,7 @@ export function TabEncabezado({
       });
   };
   const getIdLineaDeAccion = (Description: string) => {
-      axios
+    axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Lineas de Acción",
@@ -564,14 +575,10 @@ export function TabEncabezado({
       .then((r) => {
         if (r.data.data.length !== 0) {
           lineaDeAccion.push(r.data.data[0]);
-        setDisabledLineasDeAccion(false);
+          setDisabledLineasDeAccion(false);
         }
-        
       })
-      .catch((err)=>{
-        
-      })
-    
+      .catch((err) => {});
   };
   const getIdBeneficiario = (Description: string) => {
     axios
@@ -592,7 +599,7 @@ export function TabEncabezado({
   //Cuando se da click en cargar archivo
   const submitForm = (event: any) => {
     setDisabledButton(true);
-    
+
     event.preventDefault();
     setLoadingFile(true);
 
@@ -600,7 +607,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post(process.env.REACT_APP_APPLICATION_MID+ "/upload", dataArray, {
+      .post(process.env.REACT_APP_APPLICATION_MID + "/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -614,12 +621,13 @@ export function TabEncabezado({
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
         setTimeout(() => {
-          response.data.encabezado[0]?.lineas_de_accion?.split('.\n').map((value: string) => {
-            if (value !== '') {
-              
+          response.data.encabezado[0]?.lineas_de_accion
+            ?.split(".\n")
+            .map((value: string) => {
+              if (value !== "") {
                 getIdLineaDeAccion(value);
-            }
-          });
+              }
+            });
           setLoadingFile(false);
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
         }, 1500);
@@ -654,12 +662,11 @@ export function TabEncabezado({
         setLoadActividades(response.data.actividades);
         actividadesMir(response.data.actividades);
         setTimeout(() => {
-          setLoadComponentesFinish(true)
-
+          setLoadComponentesFinish(true);
         }, 2000);
       })
       .catch((error) => {
-        setErrorMsg(error.response.data || 'Formato de archivo incorrecto');
+        setErrorMsg(error.response.data || "Formato de archivo incorrecto");
         setShowAlert(true);
       });
   };
@@ -726,22 +733,32 @@ export function TabEncabezado({
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
     >
-
-     
-      <Box sx={{width: '5vw', height: '3vh', position: 'absolute', top: '1vh', right: '1vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <Button href="/files/MIR_2023.xlsx" target="_blank" download >
-        <Typography sx={{fontFamily: 'MontserratMedium', color: '#616161'}}>Plantilla</Typography>
+      <Box
+        sx={{
+          width: "5vw",
+          height: "3vh",
+          position: "absolute",
+          top: "1vh",
+          right: "1vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Button href="/files/MIR_2023.xlsx" target="_blank" download>
+          <Typography sx={{ fontFamily: "MontserratMedium", color: "#616161" }}>
+            Plantilla
+          </Typography>
         </Button>
       </Box>
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <Autocomplete
           disabled={mirEdit?.encabezado.ejercicioFiscal}
-
           disablePortal
           size="small"
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
-          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal } }
+          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal }}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;
@@ -905,7 +922,9 @@ export function TabEncabezado({
 
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.nombre_del_programa || disabledProgramas}
+          disabled={
+            mirEdit?.encabezado.nombre_del_programa || disabledProgramas
+          }
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma}
@@ -1040,7 +1059,7 @@ export function TabEncabezado({
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
-                  textTransform:"uppercase",
+                  textTransform: "uppercase",
                 },
               }}
             ></TextField>
@@ -1092,7 +1111,7 @@ export function TabEncabezado({
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
-                  textTransform: "uppercase"
+                  textTransform: "uppercase",
                 },
               }}
             ></TextField>
@@ -1168,71 +1187,82 @@ export function TabEncabezado({
           width: "35vw",
         }}
       >
-        <Autocomplete
-          multiple
-          limitTags={4}
-          disabled={mirEdit?.encabezado.lineas_de_accion || disabledLineasDeAccion}
-          options={catalogoLineasDeAccion}
-          size="small"
-          getOptionLabel={(option) => option.LineaDeAccion.toUpperCase()}
-          value={lineaDeAccion}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.LineaDeAccion.toUpperCase()}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"Lineas de Acción".toUpperCase()}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                  
-                },
-              }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                  textTransform:"uppercase"
-                },
-              }}
-            />
-          )}
-          onChange={(event, value) => {
-            value.map((value2, index)=>{
-              if (value2.Id !== '' && value2.LineaDeAccion !== '') {
+        {/*---------------------------------Aqui esra el error de borrar lineas da aciion----------------------------------*/}
+        <Stack spacing={3} sx={{ width: 500 }}>
+          <Autocomplete
+            multiple
+            id="tags-standard"
+            limitTags={4}
+          
+            options={replica}
+            size="small"
+            getOptionLabel={(option) => option.LineaDeAccion.toUpperCase()}
+            //const replica = catalogoLineasDeAccion
+            value={lineaDeAccion}
+            renderOption={(props, option) => {
+              return (
+                <li {...props} key={option.Id}>
+                  <p
+                    style={{
+                      fontFamily: "MontserratRegular",
+                      fontSize: ".7vw",
+                    }}
+                  >
+                    {option.LineaDeAccion.toUpperCase()}
+                  </p>
+                </li>
+              );
+            }}
+            renderInput={(params) => (
+
+              <TextField
+                {...params}
+                label={"Lineas de Acción".toUpperCase()}
+                variant="standard"
                 
-                setLineaDeAccion(value);
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                sx={{
+                  "& .MuiAutocomplete-input": {
+                    fontFamily: "MontserratRegular",
+                    textTransform: "uppercase",
+                  },
+                }}
+              />
+              
+            )}
+
+            onChange={(event, value) => {
+              value.map((value2, index) => {
+                if (value2.Id !== "" && value2.LineaDeAccion !== "") {
+                  setLineaDeAccion(value);
+                }
+              });
+            }}
+            isOptionEqualToValue={(
+              option: {
+                Id: string;
+                LineaDeAccion: string;
+              },
+              value: {
+                Id: string;
+                LineaDeAccion: string;
               }
-            })
-          }}
-          isOptionEqualToValue={(
-            option: {
-              Id: string;
-              LineaDeAccion: string;
-            },
-            value: {
-              Id: string;
-              LineaDeAccion: string;
-            }
-          ) => value.Id === option.Id}
-        />
+            ) => value.Id === option.Id}
+          />
+        </Stack>
       </FormControl>
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
-        disabled={mirEdit?.encabezado.beneficiario}
+          disabled={mirEdit?.encabezado.beneficiario}
           disablePortal
           size="small"
+
           options={catalogoBeneficiarios}
           getOptionLabel={(option) => option.Beneficiario}
           value={{

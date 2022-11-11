@@ -10,6 +10,8 @@ import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
 import { TabResumen2 } from "./TabResumen2";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 
 export default function FullModalMir({
   MIR,
@@ -56,6 +58,14 @@ export default function FullModalMir({
 
   const valoresComponenteFnc = (state: Array<IComponente>) => {
     setComponenteValor(state);
+  };
+
+  const cambiarTab = (option: string) => {
+    if (option === "adelante") {
+      if (value < 50) setValue(value + 10);
+    } else {
+      if (value > 10) setValue(value - 10);
+    }
   };
 
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -285,6 +295,52 @@ export default function FullModalMir({
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabActividades>
         </Box>
+
+        <Box
+          sx={{
+            width: "6%",
+            display: "flex",
+            height: "7vh",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+          }}
+        >
+          <ArrowCircleLeftIcon
+            fontSize="large"
+            sx={{
+              cursor: "pointer",
+              color: "#cfcfcf",
+              backgroundColor: "black",
+              borderRadius: 5,
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+                mt: 1,
+              },
+            }}
+            onClick={() => {
+              cambiarTab("atras");
+            }}
+          />
+
+          <ArrowCircleRightIcon
+            fontSize="large"
+            sx={{
+              cursor: "pointer",
+              color: "#cfcfcf",
+              backgroundColor: "black",
+              borderRadius: 5,
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+                mt: 1,
+              },
+            }}
+            onClick={() => {
+              cambiarTab("adelante");
+            }}
+          />
+          
+        </Box>
+
       </Box>
     </Box>
   );

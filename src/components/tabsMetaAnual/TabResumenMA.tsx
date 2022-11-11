@@ -125,7 +125,7 @@ export function TabResumenMA({
       sx={{
         display: "flex",
         width: "75vw",
-        height: "85vh",
+        height: "77vh",
         boxShadow: 10,
         borderRadius: 5,
         alignItems: "center",
@@ -1061,6 +1061,7 @@ export function TabResumenMA({
                       alignItems: "center",
                       borderBottom: 1,
                       borderColor: "#cfcfcf",
+                      
                     }}
                   >
                     <Typography
@@ -1087,6 +1088,7 @@ export function TabResumenMA({
                       alignItems: "center",
                       borderBottom: 1,
                       borderColor: "#cfcfcf",
+                      
                     }}
                   >
                     <Typography
@@ -1113,6 +1115,7 @@ export function TabResumenMA({
                       alignItems: "center",
                       borderBottom: 1,
                       borderColor: "#cfcfcf",
+                      
                     }}
                   >
                     <Typography
@@ -1139,6 +1142,7 @@ export function TabResumenMA({
                       alignItems: "center",
                       borderBottom: 1,
                       borderColor: "#cfcfcf",
+                      
                     }}
                   >
                     <Typography
@@ -1191,6 +1195,7 @@ export function TabResumenMA({
                       alignItems: "center",
                       borderBottom: 1,
                       borderColor: "#cfcfcf",
+                      
                     }}
                   >
                     <Typography
@@ -1221,6 +1226,7 @@ export function TabResumenMA({
           justifyContent: "space-evenly",
           width: "100%",
           mt: 2,
+          
         }}
       >
         <Button color="error" variant="outlined" onClick={() => showResume()}>
