@@ -17,6 +17,10 @@ import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IMIREdit } from "./IMIR";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
 
 export const TabComponente = ({
   show,
@@ -309,24 +313,28 @@ export const TabComponente = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-                              rows={8}
-
+              rows={8}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Resumen Narrativo".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.resumen}
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].resumen = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
-                prev[componentSelect - 1].resumen = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prevLocal[componentSelect - 1].resumen = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                prev[componentSelect - 1].resumen = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setComponenteValor(prevLocal);
               }}
             />
             <TextField
               disabled={mirEdit?.componentes[componentSelect - 1].indicador}
               multiline
-                              rows={8}
-
+              rows={8}
               variant="filled"
               InputLabelProps={{
                 style: {
@@ -351,8 +359,14 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].indicador = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
-                prev[componentSelect - 1].indicador = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prevLocal[componentSelect - 1].indicador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                prev[componentSelect - 1].indicador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setComponenteValor(prevLocal);
               }}
             />
@@ -371,8 +385,7 @@ export const TabComponente = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-                              rows={8}
-
+              rows={8}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Fórmula".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.formula}
@@ -380,8 +393,14 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].formula = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
-                prev[componentSelect - 1].formula = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prevLocal[componentSelect - 1].formula = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                prev[componentSelect - 1].formula = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setComponenteValor(prevLocal);
               }}
             />
@@ -396,24 +415,66 @@ export const TabComponente = ({
               alignItems: "center",
             }}
           >
-            <FormControl sx={{width:'10vw'}}>
-                <InputLabel>Frecuencia</InputLabel>
-                <Select
-                disabled={mirEdit?.componentes[componentSelect - 1].frecuencia}
-                  value={componenteValor[componentSelect - 1]?.frecuencia || ''}
-                  label="Frecuencia"
-                  onChange={(c) => {
-                    let prev = [...valoresComponente]
-                    let prevLocal = [...componenteValor]
-                    prevLocal[componentSelect - 1].frecuencia = c.target.value;
-                    prev[componentSelect - 1].frecuencia = c.target.value;
-                    setComponenteValor(prevLocal);
+            <FormControl
+              sx={{
+                width: "30%",
+                height: "70%",
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <FormLabel>FRECUENCIA</FormLabel>
+                <FormControlLabel
+                  value={"SEMESTRAL"}
+                  label={"SEMESTRAL"}
+                  sx={{
+                    fontFamily: "MontserratMedium", 
                   }}
-                >
-                  <MenuItem value={"SEMESTRAL"}>SEMESTRAL</MenuItem>
-                  <MenuItem value={"TRIMESTRAL"}>TRIMESTRAL</MenuItem>
-                </Select>
-              </FormControl>
+                  control={
+                    <Radio
+                      checked={
+                        componenteValor[componentSelect - 1]?.frecuencia ===
+                        "SEMESTRAL"
+                      }
+                      onChange={(c) => {
+                        let prev = [...valoresComponente];
+                        let prevLocal = [...componenteValor];
+                        prevLocal[componentSelect - 1].frecuencia =
+                          c.target.value;
+                        prev[componentSelect - 1].frecuencia = c.target.value;
+                        setComponenteValor(prevLocal);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"TRIMESTRAL"}
+                  label={"TRIMESTRAL"}
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                    fontWeight:'light'
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        componenteValor[componentSelect - 1]?.frecuencia ===
+                        "TRIMESTRAL"
+                      }
+                      onChange={(c) => {
+                        let prev = [...valoresComponente];
+                        let prevLocal = [...componenteValor];
+                        prevLocal[componentSelect - 1].frecuencia =
+                          c.target.value;
+                        prev[componentSelect - 1].frecuencia = c.target.value;
+                        setComponenteValor(prevLocal);
+                      }}
+                    />
+                  }
+                />
+            </FormControl>
 
             <TextField
               disabled={mirEdit?.componentes[componentSelect - 1].medios}
@@ -429,16 +490,21 @@ export const TabComponente = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-                              rows={8}
-
+              rows={8}
               sx={{ width: "30%", boxShadow: 2 }}
               label={"Medios de Verificación".toUpperCase()}
               value={componenteValor[componentSelect - 1]?.medios}
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].medios = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
-                prev[componentSelect - 1].medios = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prevLocal[componentSelect - 1].medios = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                prev[componentSelect - 1].medios = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setComponenteValor(prevLocal);
               }}
             />
@@ -446,8 +512,7 @@ export const TabComponente = ({
               disabled={mirEdit?.componentes[componentSelect - 1].supuestos}
               variant="filled"
               multiline
-                              rows={8}
-
+              rows={8}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -464,8 +529,14 @@ export const TabComponente = ({
               onChange={(c) => {
                 let prev = [...valoresComponente];
                 let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].supuestos = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
-                prev[componentSelect - 1].supuestos = c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','');
+                prevLocal[componentSelect - 1].supuestos = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                prev[componentSelect - 1].supuestos = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setComponenteValor(prevLocal);
               }}
             />

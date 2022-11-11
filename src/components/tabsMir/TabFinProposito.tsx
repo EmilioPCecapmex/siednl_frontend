@@ -15,6 +15,9 @@ import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IMIREdit } from "./IMIR";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import Radio from "@mui/material/Radio";
 
 export function TabFinProposito({
   show,
@@ -47,7 +50,7 @@ export function TabFinProposito({
       resumen: "",
       indicador: "",
       formula: "",
-      frecuencia: "",
+      frecuencia: "ANUAL",
       medios_verificacion: "",
       supuestos: "",
     },
@@ -66,7 +69,7 @@ export function TabFinProposito({
     resumen: "",
     indicador: "",
     formula: "",
-    frecuencia: "",
+    frecuencia: "ANUAL",
     medios_verificacion: "",
     supuestos: "",
   });
@@ -192,7 +195,7 @@ export function TabFinProposito({
         resumen: cargaProposito[0]?.resumen,
         indicador: cargaProposito[0]?.indicador,
         formula: cargaProposito[0]?.formula,
-        frecuencia: cargaProposito[0]?.frecuencia,
+        frecuencia: "ANUAL",
         medios_verificacion: cargaProposito[0]?.medios_verificacion,
         supuestos: cargaProposito[0]?.supuestos,
       });
@@ -245,9 +248,21 @@ export function TabFinProposito({
 
   const changeFormula = (txt: string) => {
     if (elementoFormula === "fin") {
-      setFin({ ...fin, formula: txt.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+      setFin({
+        ...fin,
+        formula: txt
+          .replaceAll('"', "")
+          .replaceAll("'", "")
+          .replaceAll("\n", ""),
+      });
     } else if (elementoFormula === "proposito") {
-      setProposito({ ...proposito, formula: txt.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+      setProposito({
+        ...proposito,
+        formula: txt
+          .replaceAll('"', "")
+          .replaceAll("'", "")
+          .replaceAll("\n", ""),
+      });
     }
   };
 
@@ -291,7 +306,7 @@ export function TabFinProposito({
           }}
         >
           {showFin ? "FIN" : null}
-          {showProposito ? "PROPOSITO" : null}
+          {showProposito ? "PROPÓSITO" : null}
         </Typography>
       </Box>
       <Box
@@ -404,7 +419,7 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={mirEdit?.fin.resumen}
+                disabled={mirEdit?.fin.resumen && fin.resumen != ""}
                 rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -421,12 +436,18 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, resumen: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+                  setFin({
+                    ...fin,
+                    resumen: c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""),
+                  });
                 }}
                 value={fin.resumen}
               />
               <TextField
-                disabled={mirEdit?.fin.indicador}
+                disabled={mirEdit?.fin.indicador && fin.indicador != ""}
                 rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -452,12 +473,18 @@ export function TabFinProposito({
                     : null
                 }
                 onChange={(c) => {
-                  setFin({ ...fin, indicador: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+                  setFin({
+                    ...fin,
+                    indicador: c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""),
+                  });
                 }}
                 value={fin.indicador}
               />
               <TextField
-                disabled={mirEdit?.fin.formula}
+                disabled={mirEdit?.fin.formula && fin.formula != ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -478,23 +505,58 @@ export function TabFinProposito({
                 value={fin.formula}
               />
 
-              <FormControl sx={{ width: "10vw" }}>
-                <InputLabel>Frecuencia</InputLabel>
-                <Select
-                  disabled={mirEdit?.fin.frecuencia}
-                  value={fin.frecuencia || ""}
-                  label="Frecuencia"
-                  onChange={(event) => {
-                    setFin({ ...fin, frecuencia: event.target.value });
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel>FRECUENCIA</FormLabel>
+                <FormControlLabel
+                  value={"ANUAL"}
+                  label={"ANUAL"}
+                  sx={{
+                    fontFamily: "MontserratMedium",
                   }}
-                >
-                  <MenuItem value={"ANUAL"}>ANUAL</MenuItem>
-                  <MenuItem value={"BIENAL"}>BIENAL</MenuItem>
-                </Select>
+                  control={
+                    <Radio
+                      checked={fin.frecuencia === "ANUAL"}
+                      onChange={(c) => {
+                        setFin({
+                          ...fin,
+                          frecuencia: c.target.value,
+                        });
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"BIENAL"}
+                  label={"BIENAL"}
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={fin.frecuencia === "BIENAL"}
+                      onChange={(c) => {
+                        setFin({
+                          ...fin,
+                          frecuencia: c.target.value,
+                        });
+                      }}
+                    />
+                  }
+                />
               </FormControl>
 
               <TextField
-                disabled={mirEdit?.fin.medios}
+                disabled={mirEdit?.fin.medios && fin.medios != ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -511,12 +573,18 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, medios: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+                  setFin({
+                    ...fin,
+                    medios: c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""),
+                  });
                 }}
                 value={fin.medios}
               />
               <TextField
-                disabled={mirEdit?.fin.supuestos}
+                disabled={mirEdit?.fin.supuestos && fin.supuestos != ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -533,7 +601,13 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({ ...fin, supuestos: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+                  setFin({
+                    ...fin,
+                    supuestos: c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""),
+                  });
                 }}
                 value={fin.supuestos}
               />
@@ -553,7 +627,7 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={mirEdit?.proposito.resumen}
+                disabled={mirEdit?.proposito.resumen && proposito.resumen != ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -570,13 +644,21 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setProposito({ ...proposito, resumen: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+                  setProposito({
+                    ...proposito,
+                    resumen: c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""),
+                  });
                 }}
                 value={proposito.resumen}
               />
 
               <TextField
-                disabled={mirEdit?.proposito.indicador}
+                disabled={
+                  mirEdit?.proposito.indicador && proposito.indicador != ""
+                }
                 rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -604,12 +686,18 @@ export function TabFinProposito({
                     : null
                 }
                 onChange={(c) => {
-                  setProposito({ ...proposito, indicador: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+                  setProposito({
+                    ...proposito,
+                    indicador: c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""),
+                  });
                 }}
                 value={proposito.indicador}
               />
               <TextField
-                disabled={mirEdit?.proposito.formula}
+                disabled={mirEdit?.proposito.formula && proposito.formula != ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -629,24 +717,44 @@ export function TabFinProposito({
                 onClick={() => handleClickOpen()}
                 value={proposito.formula}
               />
-              <FormControl sx={{ width: "10vw" }}>
-                <InputLabel>Frecuencia</InputLabel>
-                <Select
-                  disabled={mirEdit?.fin.frecuencia}
-                  value={fin.frecuencia || ""}
-                  label="Frecuencia"
-                  onChange={(event) => {
-                    console.log(event.target.value);
 
-                    setFin({ ...fin, frecuencia: event.target.value });
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel>FRECUENCIA</FormLabel>
+                <FormControlLabel
+                  value={"ANUAL"}
+                  label={"ANUAL"}
+                  sx={{
+                    fontFamily: "MontserratMedium",
                   }}
-                >
-                  <MenuItem value={"ANUAL"}>ANUAL</MenuItem>
-                </Select>
+                  control={
+                    <Radio
+                      checked={proposito.frecuencia === "ANUAL"}
+                      onChange={(c) => {
+                        setProposito({
+                          ...proposito,
+                          frecuencia: c.target.value,
+                        });
+                      }}
+                    />
+                  }
+                />
               </FormControl>
 
               <TextField
-                disabled={mirEdit?.proposito.medios_verificacion}
+                disabled={
+                  mirEdit?.proposito.medios_verificacion &&
+                  proposito.medios_verificacion != ""
+                }
                 rows={8}
                 multiline
                 variant="filled"
@@ -665,13 +773,18 @@ export function TabFinProposito({
                 onChange={(c) => {
                   setProposito({
                     ...proposito,
-                    medios_verificacion: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n',''),
+                    medios_verificacion: c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""),
                   });
                 }}
                 value={proposito.medios_verificacion}
               />
               <TextField
-                disabled={mirEdit?.proposito.supuestos}
+                disabled={
+                  mirEdit?.proposito.supuestos && proposito.supuestos != ""
+                }
                 rows={8}
                 multiline
                 variant="filled"
@@ -688,7 +801,13 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setProposito({ ...proposito, supuestos: c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+                  setProposito({
+                    ...proposito,
+                    supuestos: c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""),
+                  });
                 }}
                 value={proposito.supuestos}
               />

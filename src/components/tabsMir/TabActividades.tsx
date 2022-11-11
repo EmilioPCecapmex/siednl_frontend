@@ -24,6 +24,10 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IActividadesMir, IComponenteActividad } from "./AddMir";
 import { IMIREdit } from "./IMIR";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
 //funcion main
 export const TabActividades = ({
   show,
@@ -105,7 +109,7 @@ export const TabActividades = ({
                 resumen: "",
                 indicador: "",
                 formula: "",
-                frecuencia: "",
+                frecuencia: "TRIMESTRAL",
                 medios: "",
                 supuestos: "",
               };
@@ -137,7 +141,7 @@ export const TabActividades = ({
                 resumen: "",
                 indicador: "",
                 formula: "",
-                frecuencia: "",
+                frecuencia: "TRIMESTRAL",
                 medios: "",
                 supuestos: "",
               };
@@ -629,27 +633,49 @@ export const TabActividades = ({
               alignItems: "center",
             }}
           >
-            <FormControl sx={{ width: "10vw" }}>
-              <InputLabel>Frecuencia</InputLabel>
-              <Select
-                disabled={mirEdit?.actividades[componenteSelect].formula}
-                value={
-                  cValor[0].componentes[componenteSelect].actividades[
-                    actividadSelect
-                  ].frecuencia
-                }
-                label="Frecuencia"
-                onChange={(c) => {
-                  let y = [...cValor];
-                  y[0].componentes[componenteSelect].actividades[
-                    actividadSelect
-                  ].frecuencia = c.target.value;
-                  setCValor(y);
+            <FormControl
+              sx={{
+                width: "30%",
+                height: "70%",
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <FormLabel>FRECUENCIA</FormLabel>
+              <FormControlLabel
+                value={"TRIMESTRAL"}
+                label={"TRIMESTRAL"}
+                sx={{
+                  fontFamily: "MontserratMedium", 
                 }}
-              >
-                <MenuItem value={"TRIMESTRAL"}>TRIMESTRAL</MenuItem>
-              </Select>
+                control={
+                  <Radio
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    checked={
+                      cValor[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].frecuencia === "TRIMESTRAL"
+                    }
+                    onChange={(c) => {
+                      let y = [...cValor];
+                      y[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].frecuencia = c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "");
+                      setCValor(y);
+                    }}
+                  />
+                }
+              />
             </FormControl>
+
             <TextField
               disabled={mirEdit?.actividades[componenteSelect].medios}
               variant="filled"

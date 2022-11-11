@@ -201,8 +201,7 @@ export default function ModalSolicitaModif({
       });
     } else if (
       JSON.parse(MIR)?.proposito.frecuencia === undefined ||
-      JSON.parse(MIR)?.proposito.frecuencia === "" ||
-      JSON.parse(MIR)?.proposito.frecuencia.toLowerCase() !== "anual"
+      JSON.parse(MIR)?.proposito.frecuencia === "" 
     ) {
       return Toast.fire({
         icon: "error",
@@ -536,7 +535,7 @@ export default function ModalSolicitaModif({
           }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium", textAlign:'center' }}>
-            Selecciona un usuario de "JSON.parse(MIR)?.encabezado.institucion" para solicitar modificación
+            {MIR === undefined ? 'Selecciona una institución en el encabezado para asignar un usuario' : JSON.parse(MIR)?.encabezado?.institucion != '' ? `Selecciona un usuario de ${JSON.parse(MIR)?.encabezado?.institucion} para solicitar la modificación` : 'Selecciona una institución en el encabezado para asignar un usuario'}
           </Typography>
           <FormControl
             sx={{

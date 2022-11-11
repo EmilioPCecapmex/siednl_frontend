@@ -184,8 +184,7 @@ export default function ModalEnviarMIR({
       });
     } else if (
       JSON.parse(MIR)?.proposito.frecuencia === undefined ||
-      JSON.parse(MIR)?.proposito.frecuencia === "" ||
-      JSON.parse(MIR)?.proposito.frecuencia.toLowerCase() !== "anual"
+      JSON.parse(MIR)?.proposito.frecuencia === "" 
     ) {
       return Toast.fire({
         icon: "error",
