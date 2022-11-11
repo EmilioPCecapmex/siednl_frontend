@@ -457,7 +457,6 @@ export default function ModalSolicitaModif({
         },
       })
       .then((r) => {
-        console.log(r.data.data);
         
         if (r.status === 200) {
           setUserXInst(r.data.data);

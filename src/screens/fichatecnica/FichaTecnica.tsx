@@ -116,8 +116,6 @@ const [ft, setft] = useState<Array<IIFT>>([]);
         },
       })
       .then((r) => {
-        // setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-        console.log(r.data.data);
         
         setft(r.data.data);
         setftFiltered(r.data.data);

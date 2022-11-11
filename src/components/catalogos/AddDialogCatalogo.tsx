@@ -367,7 +367,6 @@ export const AddDialogCatalogo = ({
               onChange={(v) => setDescripcion(v.target.value)}
             />
             <TextField
-              label={"Fecha de captura"}
               variant="outlined"
               onChange={(x) => setFechaCaptura(x.target.value)}
               multiline={descripcion.length < 20 ? false : true}

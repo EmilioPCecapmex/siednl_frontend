@@ -123,8 +123,6 @@ export default function ModalSolicitaModif({
   };
 
   const getUsuariosXInstitucion = () => {
-    console.log(MIR);
-    console.log(JSON.parse(MIR));
 
     axios
       .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
