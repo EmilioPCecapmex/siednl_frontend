@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FormControl,
   TextField,
@@ -29,7 +29,7 @@ export interface IEncabezado {
   tema: string;
   objetivo: string;
   estrategia: string;
-  lineas_de_accion: Array<{Id:string, LineaDeAccion: string}>;
+  lineas_de_accion: Array<{ Id: string, LineaDeAccion: string }>;
   beneficiario: string;
 }
 
@@ -62,6 +62,8 @@ export function TabEncabezado({
   const [nombreArchivo, setNombreArchivo] = useState(
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   );
+  const [docExtencion,setDocExt] = useState("");
+
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
@@ -72,12 +74,12 @@ export function TabEncabezado({
     Array<IComponente>
   >([]);
 
-  const [loadComponentesFinish, setLoadComponentesFinish] = useState(false) 
+  const [loadComponentesFinish, setLoadComponentesFinish] = useState(false)
   const [loadActividades, setLoadActividades] = useState([]);
   const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
 
   useEffect(() => {
-    if (MIR !== "" ) {
+    if (MIR !== "") {
       const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR)
 
       setAnioFiscal(anioFiscalEdit);
@@ -143,7 +145,7 @@ export function TabEncabezado({
   useEffect(() => {
     asignarComponente(loadComponentes);
     asignarComponenteValor(loadComponenteValor);
-  }, [loadComponentesFinish ]);
+  }, [loadComponentesFinish]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -157,13 +159,13 @@ export function TabEncabezado({
     },
   });
 
-    //saca la cantidad de componentes
-    useEffect(() => {
-      loadComponenteValor.map((value,index)=>{
-        if(index>1 && index<6)
-        setLoadComponentes(loadComponentes=>[...loadComponentes,index+1])
-      })
-    }, [loadComponenteValor])
+  //saca la cantidad de componentes
+  useEffect(() => {
+    loadComponenteValor.map((value, index) => {
+      if (index > 1 && index < 6)
+        setLoadComponentes(loadComponentes => [...loadComponentes, index + 1])
+    })
+  }, [loadComponenteValor])
 
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
   function enCambioAnio(Id: string, Anio: string) {
@@ -221,16 +223,28 @@ export function TabEncabezado({
     setBeneficiario(Ben);
   }
 
+
   function enCambioFile(event: any) {
     setUploadFile(event.target.files[0]);
     setLineaDeAccion([]);
     setNombreArchivo(event.target.value.split("\\")[2]);
-    {
-      nombreArchivo == null || uploadFile == null
-        ? setDisabledButton(true)
-        : setDisabledButton(false);
-    }
   }
+
+  useEffect(() => {
+    let a = nombreArchivo.split(".");
+    setDocExt(a[a.length-1]) 
+  }, [nombreArchivo])
+
+  useEffect(() => {
+   docExtencion==="xlsx"?
+   setDisabledButton(false)
+   : ()=>{setDisabledButton(true); setNombreArchivo("Tipo de archivo invalido, solo se aceptan archivos tipo xlsx")}
+  }, [docExtencion])
+  
+  
+
+
+
 
   var y = new Date().getFullYear();
 
@@ -466,7 +480,7 @@ export function TabEncabezado({
       .then((r) => {
         setInstitution(r.data.data[0].NombreInstitucion);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   const getIdPrograma = (Description: string) => {
     axios
@@ -551,7 +565,7 @@ export function TabEncabezado({
       });
   };
   const getIdLineaDeAccion = (Description: string) => {
-      axios
+    axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
         params: {
           Col: "Lineas de Acción",
@@ -564,14 +578,14 @@ export function TabEncabezado({
       .then((r) => {
         if (r.data.data.length !== 0) {
           lineaDeAccion.push(r.data.data[0]);
-        setDisabledLineasDeAccion(false);
+          setDisabledLineasDeAccion(false);
         }
-        
+
       })
-      .catch((err)=>{
-        
+      .catch((err) => {
+
       })
-    
+
   };
   const getIdBeneficiario = (Description: string) => {
     axios
@@ -592,7 +606,7 @@ export function TabEncabezado({
   //Cuando se da click en cargar archivo
   const submitForm = (event: any) => {
     setDisabledButton(true);
-    
+
     event.preventDefault();
     setLoadingFile(true);
 
@@ -600,7 +614,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post(process.env.REACT_APP_APPLICATION_MID+ "/upload", dataArray, {
+      .post(process.env.REACT_APP_APPLICATION_MID + "/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -616,8 +630,8 @@ export function TabEncabezado({
         setTimeout(() => {
           response.data.encabezado[0]?.lineas_de_accion?.split('.\n').map((value: string) => {
             if (value !== '') {
-              
-                getIdLineaDeAccion(value);
+
+              getIdLineaDeAccion(value);
             }
           });
           setLoadingFile(false);
@@ -727,10 +741,10 @@ export function TabEncabezado({
       }}
     >
 
-     
-      <Box sx={{width: '5vw', height: '3vh', position: 'absolute', top: '1vh', right: '1vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <Button href="/files/MIR_2023.xlsx" target="_blank" download >
-        <Typography sx={{fontFamily: 'MontserratMedium', color: '#616161'}}>Plantilla</Typography>
+
+      <Box sx={{ width: '5vw', height: '3vh', position: 'absolute', top: '1vh', right: '1vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Button href="/files/MIR_2023.xlsx" target="_blank" download >
+          <Typography sx={{ fontFamily: 'MontserratMedium', color: '#616161' }}>Plantilla</Typography>
         </Button>
       </Box>
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
@@ -741,7 +755,7 @@ export function TabEncabezado({
           size="small"
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
-          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal } }
+          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal }}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;
@@ -821,6 +835,7 @@ export function TabEncabezado({
         <input
           type="file"
           onChange={(v) => enCambioFile(v)}
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           style={{
             color: "#000",
             opacity: 0,
@@ -1040,7 +1055,7 @@ export function TabEncabezado({
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
-                  textTransform:"uppercase",
+                  textTransform: "uppercase",
                 },
               }}
             ></TextField>
@@ -1196,21 +1211,21 @@ export function TabEncabezado({
                 style: {
                   fontFamily: "MontserratSemiBold",
                   fontSize: ".8vw",
-                  
+
                 },
               }}
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
-                  textTransform:"uppercase"
+                  textTransform: "uppercase"
                 },
               }}
             />
           )}
           onChange={(event, value) => {
-            value.map((value2, index)=>{
+            value.map((value2, index) => {
               if (value2.Id !== '' && value2.LineaDeAccion !== '') {
-                
+
                 setLineaDeAccion(value);
               }
             })
@@ -1230,7 +1245,7 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
-        disabled={mirEdit?.encabezado.beneficiario}
+          disabled={mirEdit?.encabezado.beneficiario}
           disablePortal
           size="small"
           options={catalogoBeneficiarios}
