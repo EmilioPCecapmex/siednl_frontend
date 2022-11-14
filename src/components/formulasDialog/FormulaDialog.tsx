@@ -152,7 +152,7 @@ export const FormulaDialog = ({
               },
             }}
           />
-          {tipo === "Indice" || tipo === "indice" || tipo === "Índice"|| tipo === "índice"?"":
+          {tipo === "Indice"|| tipo === "Índice"?"":
           <TextField
           label="Descripción B"
           sx={{width: '45%'}}
