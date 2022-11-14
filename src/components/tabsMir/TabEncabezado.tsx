@@ -820,6 +820,7 @@ export function TabEncabezado({
 
         <input
           type="file"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           onChange={(v) => enCambioFile(v)}
           style={{
             color: "#000",

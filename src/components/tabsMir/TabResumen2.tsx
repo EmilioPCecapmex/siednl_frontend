@@ -85,13 +85,10 @@ export function TabResumen2({
     }
   };
 
-  useEffect(() => {
-    console.log(componenteValor)
-  },[componenteValor])
 
 
   const createMIR = (estado: string) => {
-+    axios
+ axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {

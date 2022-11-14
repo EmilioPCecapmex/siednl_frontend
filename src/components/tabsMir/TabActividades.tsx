@@ -363,17 +363,18 @@ export const TabActividades = ({
             fontSize: "1.2vw",
           }}
         >
-          COMPONENTE {componenteSelect + 1} - ACTIVIDAD {actividadSelect + 1}
+          ACTIVIDAD # {actividadSelect + 1}
         </Typography>
         <IconButton
           onClick={() => {
             agregarAFnc(componenteSelect);
           }}
+          disabled={mirEdit === undefined? false: mirEdit === null ? false: true}
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-        <IconButton onClick={() => eliminarAFnc()} sx={{ mr: "1vw" }}>
+        <IconButton onClick={() => eliminarAFnc()} sx={{ mr: "1vw" }} disabled={mirEdit === undefined? false:mirEdit === null ? false: true}>
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
       </Box>
@@ -490,9 +491,12 @@ export const TabActividades = ({
 
           {/* Renderizado de Actividades */}
 
-          <Box>
-            <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
-              {componentesTextos[0].resumen}
+          <Box sx={{width: '90%'}}>
+          <Typography sx={{ fontFamily: "MontserratSemiBold", fontSize: "1vw", textAlign: 'center' }}>
+              COMPONENTE # {componenteSelect + 1}
+            </Typography>
+            <Typography sx={{ fontFamily: "MontserratLight", fontSize: ".8vw", textAlign: 'center' }}>
+            {componentesTextos[componenteSelect].resumen}
             </Typography>
           </Box>
           <Box

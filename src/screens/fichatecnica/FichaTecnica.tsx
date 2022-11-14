@@ -478,6 +478,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                                               MIR: row.MIR,
                                               Estado: row.Estado,
                                               FechaCreacion: row.FechaCreacion,
+                                              CreadoPor: row.CreadoPor
                                             },
                                           ]);
                                           setShowResume(false);

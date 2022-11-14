@@ -156,7 +156,8 @@ export const TabComponente = ({
         };
       })
     );
-  }, [noComponentes]);
+  }, [noComponentes, show]);
+
 
   return (
     <Box
@@ -199,12 +200,12 @@ export const TabComponente = ({
             textTransform: "uppercase",
           }}
         >
-          Componente {componentSelect}
+          Componente #{componentSelect}
         </Typography>
-        <IconButton onClick={() => agregarFnc()}>
+        <IconButton onClick={() => agregarFnc()} disabled={mirEdit === undefined? false: mirEdit === null ? false: true}>
           <AddCircleIcon fontSize="large" />
         </IconButton>
-        <IconButton onClick={() => eliminarFnc()} sx={{ mr: "1vw" }}>
+        <IconButton onClick={() => eliminarFnc()} sx={{ mr: "1vw" }} disabled={mirEdit === undefined? false: mirEdit === null ? false: true}>
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
       </Box>

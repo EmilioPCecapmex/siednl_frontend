@@ -244,9 +244,9 @@ export function TabFinProposito({
   };
 
   const changeFormula = (txt: string) => {
-    if (elementoFormula === "fin") {
+    if (elementoFormula === "Fin") {
       setFin({ ...fin, formula: txt.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
-    } else if (elementoFormula === "proposito") {
+    } else if (elementoFormula === "Proposito") {
       setProposito({ ...proposito, formula: txt.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
     }
   };
@@ -633,12 +633,10 @@ export function TabFinProposito({
                 <InputLabel>Frecuencia</InputLabel>
                 <Select
                   disabled={mirEdit?.fin.frecuencia}
-                  value={fin.frecuencia || ""}
+                  value={proposito.frecuencia || ""}
                   label="Frecuencia"
                   onChange={(event) => {
-                    console.log(event.target.value);
-
-                    setFin({ ...fin, frecuencia: event.target.value });
+                    setProposito({ ...proposito, frecuencia: event.target.value });
                   }}
                 >
                   <MenuItem value={"ANUAL"}>ANUAL</MenuItem>

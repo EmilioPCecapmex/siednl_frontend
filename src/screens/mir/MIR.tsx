@@ -360,6 +360,7 @@ export const MIR = () => {
                     MIR: "",
                     Estado: "",
                     FechaCreacion: "",
+                    CreadoPor: ""
                   },
                 ]);
                 handleClickOpen();
@@ -454,6 +455,15 @@ export const MIR = () => {
                         }}
                         align="center"
                       >
+                        Creado Por
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: "MontserratBold",
+                          textTransform: "uppercase",
+                        }}
+                        align="center"
+                      >
                         Opciones
                       </TableCell>
                     </TableRow>
@@ -530,6 +540,17 @@ export const MIR = () => {
                             {moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              width: "20%",
+                              textTransform: "uppercase",
+                            }}
+                            align="center"
+                          >
+                           {row.CreadoPor}
                           </TableCell>
                           <TableCell align="center" sx={{ width: "10%" }}>
                             <Box
@@ -646,6 +667,7 @@ export const MIR = () => {
                                           MIR: row.MIR,
                                           Estado: row.Estado,
                                           FechaCreacion: row.FechaCreacion,
+                                          CreadoPor: row.CreadoPor
                                         },
                                       ]);
                                       setShowResume(false);
@@ -720,4 +742,5 @@ export interface IIMir {
   MIR: string;
   Estado: string;
   FechaCreacion: string;
+  CreadoPor: string;
 }
