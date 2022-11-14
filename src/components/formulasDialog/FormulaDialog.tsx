@@ -36,15 +36,31 @@ export const FormulaDialog = ({
     if(descA === "" || descB === ""){
         setEmptyTxt(true)
     }else{
-        textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")" + "*100");
+        if(tipo === "Porcentaje"){
+          textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")*100");
+          console.log(textoSet);
         close();
+      }else if (tipo === "Tasa"){
+        textoSet("("+"(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "-" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")" + "/"+ descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")"+ "*100");
+        
+        console.log(textoSet);
+        close();
+      }else if (tipo === "Promedio"){
+        textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")");
+        console.log(textoSet);
+      close();
+      }else if (tipo === "Indice" || tipo === "Índice"){
+        textoSet(descA.replaceAll('"','').replaceAll("'","").replaceAll('\n',''));
+        console.log(textoSet);
+      close();
+      }
     }
   };
 
   useLayoutEffect(() => {
     if (prevText !== "" && prevText !== undefined) {
-      setDescA(prevText?.substring(1).split("/")[0]);
-      setDescB(prevText?.substring(1).split("/")[1].split(")")[0]);
+      
+      
     } else if (prevText === "") {
       setDescA("");
       setDescB("");
@@ -105,7 +121,7 @@ export const FormulaDialog = ({
         autoHideDuration={2000}
       >
         <Alert severity="warning">
-            Completa ambos campos
+          {tipo === "Indice" || tipo === "indice" || tipo === "Índice"|| tipo === "índice" ?"Completa el campo":"Completa ambos campos"}
         </Alert>
         </Snackbar>
         <Box
@@ -136,28 +152,31 @@ export const FormulaDialog = ({
               },
             }}
           />
+          {tipo === "Indice" || tipo === "indice" || tipo === "Índice"|| tipo === "índice"?"":
           <TextField
-            label="Descripción B"
-            sx={{width: '45%'}}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratSemiBold",
-                fontSize: '.8vw'
+          label="Descripción B"
+          sx={{width: '45%'}}
+          InputLabelProps={{
+            style: {
+              fontFamily: "MontserratSemiBold",
+              fontSize: '.8vw'
 
-              },
-            }}
-            multiline
-            rows={4}
-            value={descB}
-            onChange={(c) => setDescB(c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n',''))}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-                fontSize: '.8vw'
+            },
+          }}
+          multiline
+          rows={4}
+          value={descB}
+          onChange={(c) => setDescB(c.target.value.replaceAll('"','').replaceAll("'","").replaceAll('\n',''))}
+          InputProps={{
+            style: {
+              fontFamily: "MontserratRegular",
+              fontSize: '.8vw'
 
-              },
-            }}
-          />{" "}
+            },
+          }}
+        />
+          }
+          {" "}
         </Box>
       </DialogContent>
       <Box
