@@ -3,43 +3,46 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import * as React from "react";
 import logoExcell from "../../assets/img/xlsx_Logo.png";
-import { Catalogos } from "./Catalogos";
+import { Catalogos, IDatosTabla } from "./Catalogos";
 
-export const CSVCatalogo = ({ tabla }: { tabla: string }) => {
+export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTabla[]  }) => {
+
+  
 
   const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([
     { Id: "", NombreInstitucion: "" },
   ]);
+  const [catalogoProgramas, setCatalogoProgramas] = React.useState([
+    { Id: "", NombrePrograma: "" },
+  ]);
 
   const download = (data: any) => {
-    const blob = new Blob([data], { type: "text/csv" });
+    const blob = new Blob([data], { type: "application/octet-stream" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.setAttribute("href", url);
-    a.setAttribute("download", `${tabla}.csv`);
+    a.setAttribute("download", `${tabla}.txt`.replace(' ','').toLowerCase());
     a.click();
   };
 
   const csvmaker = (data: any, headerNumber: number) => {
     let csvRows = [];
 
-    if(tabla === "Instituciones"){
     const headers = Object.keys(data[0]);
     csvRows.push(headers[headerNumber]);
     console.log(csvRows);
     
     let values = {};
     for(let i = 0; i<data.length; i++){
-    values = data[i].NombreInstitucion;
+    values = data[i].Desc;
     csvRows.push(values);
     }
 
     return csvRows.join("\n");
-  }
   };
 
   const get = () => {
-    const csvdata = csvmaker(catalogoInstituciones,1)
+    const csvdata = csvmaker(datos,1)
     download(csvdata);
   };
 
@@ -63,6 +66,18 @@ export const CSVCatalogo = ({ tabla }: { tabla: string }) => {
             }
           );
         }
+      });
+  };
+
+  const getProgramas = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoProgramas(r.data.data);
       });
   };
 
