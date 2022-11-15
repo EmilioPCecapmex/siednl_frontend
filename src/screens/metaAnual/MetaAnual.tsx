@@ -270,6 +270,62 @@ export const MetaAnual = () => {
               boxShadow: 5,
             }}
           >
+            <Table>
+              <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    align="center"
+                  >
+                    EJERCICIO FISCAL
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    align="center"
+                  >
+                    INSTITUCIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    align="center"
+                  >
+                    NOMBRE DEL PROGRAMA
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    align="center"
+                  >
+                    ESTADO
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    align="center"
+                  >
+                    FECHA CREACIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    align="center"
+                  >
+                    CREADO POR
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    align="center"
+                  >
+                    OPCIONES
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
             <Box
               sx={{
                 width: "100%",
@@ -289,47 +345,6 @@ export const MetaAnual = () => {
             >
               <TableContainer>
                 <Table>
-                  <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Ejercicio Fiscal
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Institución
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Nombre del Programa
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Estado
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Fecha Creación
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Opciones
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-
                   <TableBody>
                     {maFiltered
                       .slice(
@@ -337,12 +352,20 @@ export const MetaAnual = () => {
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) => (
-                        <TableRow key={index}>
+                        <TableRow
+                          key={index}
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(7,1fr)",
+                          }}
+                        >
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "15%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
@@ -352,37 +375,45 @@ export const MetaAnual = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "20%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
-                            {row.Institucion}
+                            {row.Institucion.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "20%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
-                            {row.Programa}
+                            {row.Programa.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "20%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
-                            {row.Estado}
+                            {row.Estado.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "15%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
@@ -390,7 +421,26 @@ export const MetaAnual = () => {
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.CreadoPor.toUpperCase()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
                             <Box>
                               <IconButton
                                 disabled={
@@ -425,14 +475,7 @@ export const MetaAnual = () => {
                                 </Tooltip>
                               </IconButton>
                             </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "row",
-                              }}
-                            >
+                            <Box sx={{ display: "flex" }}>
                               <Tooltip title="Descargar">
                                 <span>
                                   <IconButton
