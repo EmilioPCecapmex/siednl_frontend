@@ -32,6 +32,7 @@ export default function ModalEnviarMIR({
 
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
+  // const [instSelected, setInstSelected] = useState("");
 
   const [newComent, setNewComent] = React.useState(false);
 
@@ -160,8 +161,7 @@ export default function ModalEnviarMIR({
     }
     if (
       JSON.parse(MIR)?.proposito.frecuencia === undefined ||
-      JSON.parse(MIR)?.proposito.frecuencia === "" ||
-      JSON.parse(MIR)?.proposito.frecuencia.toLowerCase() !== "anual"
+      JSON.parse(MIR)?.proposito.frecuencia === "" 
     ) {
       errores.push(
         "<strong>PROPOSITO: Frecuencia</strong>, solo puede ser Anual o Bienal."
@@ -329,7 +329,7 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
         });
-        if (comment != "") {
+        if (comment !== "") {
           comentMir(r.data.data.ID);
         }
         showResume();
@@ -392,6 +392,40 @@ export default function ModalEnviarMIR({
         errores.push(err.response.data.result.error);
       });
   };
+
+  const getUsuariosXInstitucion = () => {
+    let inst = JSON.parse(MIR)?.encabezado.institucion;
+
+    if (localStorage.getItem("Rol") === "Verificador") {
+      inst = "admin";
+    }
+
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            Institucion: inst,
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          setUserXInst(r.data.data);
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (open) {
+      getUsuariosXInstitucion();
+      // setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
+    }
+  }, [open]);
 
   const enviarNotificacion = (v: string) => {
     axios.post(
@@ -520,9 +554,9 @@ export default function ModalEnviarMIR({
               color="primary"
               onClick={() => {
                 checkMir(
-                  localStorage.getItem("Rol") == "Capturador"
+                  localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
-                    : localStorage.getItem("Rol") == "Verificador"
+                    : localStorage.getItem("Rol") === "Verificador"
                     ? "En Autorización"
                     : "Autorizada"
                 );

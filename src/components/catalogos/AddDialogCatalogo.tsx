@@ -50,7 +50,6 @@ export const AddDialogCatalogo = ({
 
   const [descripcion, setDescripcion] = React.useState("");
   const [programa, setPrograma] = React.useState("");
-  const [institucion, setInstitucion] = React.useState("");
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth();
@@ -367,7 +366,6 @@ export const AddDialogCatalogo = ({
               onChange={(v) => setDescripcion(v.target.value)}
             />
             <TextField
-              label={"Fecha de captura"}
               variant="outlined"
               onChange={(x) => setFechaCaptura(x.target.value)}
               multiline={descripcion.length < 20 ? false : true}

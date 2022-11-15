@@ -299,7 +299,7 @@ export const LateralMenu = ({
 
       <Box sx={st.userInfoBox}>
         {localStorage.getItem("NombreUsuario")}
-        <Typography sx={st.rolStyle}>{localStorage.getItem("Rol")}</Typography>
+        <Typography sx={st.rolStyle}>{localStorage.getItem("Rol") === 'Administrador' ? 'Autorizador' : localStorage.getItem("Rol")}</Typography>
       </Box>
 
       <Typography sx={st.institucionStyle}>Institución</Typography>

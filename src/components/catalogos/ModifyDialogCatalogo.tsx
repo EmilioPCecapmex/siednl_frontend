@@ -51,8 +51,38 @@ export const ModifyDialogCatalogos = ({
   const handleClose = () => {
     setOpen(false);
   };
+
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth();
+  let date = today.getDate();
+  let monthS = "";
+  let dateS = "";
+
+  React.useEffect(() => {
+    today = new Date();
+    year = today.getFullYear();
+    month = today.getMonth();
+    month = month + 1;
+    date = today.getDate();
+
+    if (month < 10) {
+      monthS = "0" + month;
+    } else {
+      monthS = month.toString();
+    }
+
+    if (date < 10) {
+      dateS = "0" + date;
+    }
+
+    setFechaCaptura(year + "-" + monthS + "-" + dateS);
+  }, [actualizado]);
+
   const [nuevaDescripcion, setnuevaDescripcion] = React.useState("");
-  const [fechaCaptura, setFechaCaptura] = React.useState("");
+  const [fechaCaptura, setFechaCaptura] = React.useState(
+    year + "-" + monthS + "-" + dateS
+  );
 
   const ModifyPorCatalogo = () => {
      if (tabla === "ProgramasPresupuestarios") {
@@ -297,7 +327,26 @@ export const ModifyDialogCatalogos = ({
   
           <DialogContent sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}}>
               <TextField  label={"Descripcion"} variant="outlined" onChange={(v)=>setnuevaDescripcion(v.target.value)} sx={{mt:"2vh"}} />
-              <TextField  label={"Fecha de captura"} variant="outlined" onChange={(x)=>setFechaCaptura(x.target.value)} sx={{mt:"2vh"}} />
+              <TextField
+              variant="outlined"
+              onChange={(x) => setFechaCaptura(x.target.value)}
+              multiline={descripcion.length < 20 ? false : true}
+              defaultValue={fechaCaptura}
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              style={{ marginTop: "2vh" }}
+              type="date"
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              rows={3}
+            />
           </DialogContent>
   
           <DialogActions sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} >

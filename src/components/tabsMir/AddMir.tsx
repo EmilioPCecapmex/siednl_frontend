@@ -23,6 +23,7 @@ export default function FullModalMir({
   anioFiscalEdit: string;
 }) {
   const [value, setValue] = React.useState(10);
+  
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
