@@ -12,7 +12,7 @@ import { TabResumen2 } from "./TabResumen2";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-
+import IconButton from "@mui/material/IconButton";
 export default function FullModalMir({
   MIR,
   showResume,
@@ -305,39 +305,31 @@ export default function FullModalMir({
             alignItems: "center",
           }}
         >
-          <ArrowCircleLeftIcon
-            fontSize="large"
-            sx={{
-              cursor: "pointer",
-              color: "#cfcfcf",
-              backgroundColor: "black",
-              borderRadius: 5,
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-                mt: 1,
-              },
-            }}
+           {value > 10 ? (
+            <IconButton
+            
             onClick={() => {
               cambiarTab("atras");
             }}
-          />
+            >
+               <ArrowCircleLeftIcon/>
+            </IconButton>
+          ): null
+          }
 
-          <ArrowCircleRightIcon
-            fontSize="large"
+
+          {value < 50 ? (
+            <IconButton
             sx={{
-              cursor: "pointer",
-              color: "#cfcfcf",
-              backgroundColor: "black",
-              borderRadius: 5,
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-                mt: 1,
-              },
+              width:"100%",height: "100%",
             }}
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          />
+              onClick={() => {
+                cambiarTab("adelante");
+              }}
+            >
+              <ArrowCircleRightIcon />
+            </IconButton>
+          ) : null}
           
         </Box>
 

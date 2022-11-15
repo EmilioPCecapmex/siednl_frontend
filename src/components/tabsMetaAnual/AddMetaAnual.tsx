@@ -19,6 +19,9 @@ import TabResumenMIR from "./TabResumenMir";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import Hidden from "@mui/material/Hidden";
+import { visuallyHidden } from "@mui/utils";
+import IconButton from "@mui/material/IconButton";
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -410,47 +413,36 @@ export default function AddMetaAnual({
 
         <Box
           sx={{
-            width: "6%",
+            width: "20%",
+            height :"10%",
             display: "flex",
-            height: "7vh",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
             alignItems: "center",
           }}
-        >
-          <ArrowCircleLeftIcon
-            fontSize="large"
-            sx={{
-              cursor: "pointer",
-              color: "#cfcfcf",
-              backgroundColor: "black",
-              borderRadius: 5,
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-                mt: 1,
-              },
-            }}
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          />
-
-          <ArrowCircleRightIcon
-            fontSize="large"
-            sx={{
-              cursor: "pointer",
-              color: "#cfcfcf",
-              backgroundColor: "black",
-              borderRadius: 5,
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-                mt: 1,
-              },
-            }}
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          />
-          
+          >
+          <Box>
+            {value > 20 ? (
+              <IconButton
+                onClick={() => {
+                  cambiarTab("atras");
+                }}
+              >
+                <ArrowCircleLeftIcon />
+              </IconButton>
+            ) : null}
+          </Box>
+          <Box>
+            {value < 50 ? (
+              <IconButton
+                size="large"
+                onClick={() => {
+                  cambiarTab("adelante");
+                }}
+              >
+                <ArrowCircleRightIcon />
+              </IconButton>
+            ) : null}
+          </Box>
         </Box>
       </Box>
     </Box>
