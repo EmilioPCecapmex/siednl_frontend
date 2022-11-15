@@ -110,7 +110,7 @@ export const TutorialBox = ({
         setBottomArrow(false);
 
         setMessage(
-          "Como usuario administrador, podras enviar notificaciones a diferentes usuarios."
+          "Como usuario autorizador, podras enviar notificaciones a diferentes usuarios."
         );
         break;
       case 6:
@@ -122,7 +122,7 @@ export const TutorialBox = ({
         setBottomArrow(true);
 
         setMessage(
-          "El usuario administrador puede acceder a información de los catálogos con opcion de añadir o modificar registros."
+          "El usuario autorizador puede acceder a información de los catálogos con opcion de añadir o modificar registros."
         );
         break;
 
@@ -405,7 +405,7 @@ export const TutorialBox = ({
         setLeftArrow(false);
         setBottomArrow(false);
         setMessage(
-          "Como usuario Administrador puedes solicitar una modificación a la información de la MIR. Al seleccionar un campo este se habilitara para edición al usuario seleccionado."
+          "Como usuario autorizador puedes solicitar una modificación a la información de la MIR. Al seleccionar un campo este se habilitara para edición al usuario seleccionado."
         );
         break;
       case 31:

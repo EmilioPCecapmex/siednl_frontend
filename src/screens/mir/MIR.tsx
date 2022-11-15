@@ -21,6 +21,7 @@ import {
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
+
 import FullModalMir from "../../components/tabsMir/AddMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
@@ -28,8 +29,7 @@ import moment from "moment";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import Swal from "sweetalert2";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
-
-
+import { IInstituciones } from "../../components/appsDialog/AppsDialog";
 
 export let resumeDefaultMIR = true;
 
@@ -50,6 +50,25 @@ export const MIR = () => {
     },
   });
 
+  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+
+  const getInstituciones = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setInstituciones(r.data.data);
+        }
+      });
+  };
+
   useEffect(() => {
     setShowResume(true);
     getMIRs();
@@ -63,7 +82,7 @@ export const MIR = () => {
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
 
-  const renglonesPagina = 7;
+  const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   // Realiza el cambio de pagina
@@ -79,6 +98,7 @@ export const MIR = () => {
 
   const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
   const [findTextStr, setFindTextStr] = useState("");
+  const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
 
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
@@ -87,8 +107,9 @@ export const MIR = () => {
   //
   const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
-  const findText = (v: string, select: string) => {
-    if (v !== "" || select !== "0") {
+
+  const findText = (v: string, est: string, inst: string) => {
+    if (v !== "" || est !== "0" || inst !== "0") {
       setMirsFiltered(
         mirs.filter(
           (x) =>
@@ -99,12 +120,28 @@ export const MIR = () => {
         )
       );
 
-      if (select !== "0") {
+      if (est !== "0" && inst !== "0") {
         setMirsFiltered(
-          mirs.filter((x) =>
-            x.Estado.toLowerCase().includes(select.toLowerCase())
+          mirs.filter(
+            (x) =>
+              x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+              x.Institucion.toLowerCase().includes(inst.toLowerCase())
           )
         );
+      } else if (est !== "0") {
+        setMirsFiltered(
+          mirs.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
+        );
+      } else if (inst !== "0") {
+        setMirsFiltered(
+          mirs.filter((x) =>
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+          )
+        );
+      } else {
+        console.log(mirs);
+
+        setMirsFiltered(mirs);
       }
     } else {
       setMirsFiltered(mirs);
@@ -131,6 +168,7 @@ export const MIR = () => {
 
   useEffect(() => {
     getMIRs();
+    getInstituciones();
   }, []);
 
   const handleClickOpen = () => {
@@ -232,16 +270,17 @@ export const MIR = () => {
               height: "15vh",
               backgroundColor: "#fff",
               borderRadius: 5,
-              display: "flex",
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
               boxShadow: 5,
               alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyItems: "center",
             }}
           >
             <Box
               sx={{
                 display: "flex",
-                width: "30%",
+                width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
                 border: 1,
@@ -257,7 +296,7 @@ export const MIR = () => {
                 disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
-                  findText(v.target.value, findSelectStr);
+                  findText(v.target.value, findSelectStr, "");
                 }}
               />
               <SearchIcon />
@@ -266,7 +305,7 @@ export const MIR = () => {
             <FormControl
               sx={{
                 display: "flex",
-                width: "30%",
+                width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
                 border: 1,
@@ -283,8 +322,12 @@ export const MIR = () => {
                 disableUnderline
                 onChange={(v) => {
                   v.target.value === "Todos"
-                    ? findText(findTextStr, "")
-                    : findText(findTextStr, v.target.value);
+                    ? findText(
+                        findTextStr,
+                        "0",
+                        findInstStr === "Todos" ? "0" : findInstStr
+                      )
+                    : findText(findTextStr, v.target.value, findInstStr);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -330,6 +373,61 @@ export const MIR = () => {
               </Select>
             </FormControl>
 
+            <FormControl
+              sx={{
+                display: "flex",
+                width: "70%",
+                alignItems: "center",
+                justifyContent: "center",
+                border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
+              }}
+            >
+              <Select
+                size="small"
+                variant="standard"
+                value={findInstStr}
+                sx={{ fontFamily: "MontserratRegular" }}
+                fullWidth
+                disableUnderline
+                onChange={(v) => {
+                  v.target.value === "Todos"
+                    ? findText(
+                        findTextStr,
+                        findSelectStr === "Todos" ? "0" : findSelectStr,
+                        "0"
+                      )
+                    : findText(findTextStr, findSelectStr, v.target.value);
+                  setFindInstStr(v.target.value);
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  disabled
+                  selected
+                >
+                  Filtro por institución de la MIR
+                </MenuItem>
+
+                <MenuItem
+                  value={"Todos"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Todos
+                </MenuItem>
+
+                {instituciones?.map((item) => {
+                  return (
+                    <MenuItem value={item.NombreInstitucion} key={item.Id}>
+                      {item.NombreInstitucion}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
             <Button
               sx={{
                 backgroundColor: "#c2a37b",
@@ -372,6 +470,70 @@ export const MIR = () => {
               boxShadow: 5,
             }}
           >
+            <TableHead sx={{ backgroundColor: "#edeaea", width:'100%', display:'flex', justifyContent:'space-between' }}>
+              <TableRow sx={{ width:'100%'}}>
+                <TableCell
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    textTransform: "uppercase",
+                    width:'13%'
+                  }}
+                  align="center"
+                >
+                  Ejercicio Fiscal
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    textTransform: "uppercase",
+                    width:'20%'
+                  }}
+                  align="center"
+                >
+                  Institución
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    textTransform: "uppercase",
+                    width:'19%'
+                  }}
+                  align="center"
+                >
+                  Nombre del Programa
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    textTransform: "uppercase",
+                    width:'19%'
+                  }}
+                  align="center"
+                >
+                  Estado
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    textTransform: "uppercase",
+                    width:'15%'
+                  }}
+                  align="center"
+                >
+                  Fecha de Creación
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    textTransform: "uppercase",
+                    width:'15%'
+                  }}
+                  align="center"
+                >
+                  Opciones
+                </TableCell>
+              </TableRow>
+            </TableHead>
             <Box
               sx={{
                 width: "100%",
@@ -391,65 +553,6 @@ export const MIR = () => {
             >
               <TableContainer>
                 <Table>
-                  <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          textTransform: "uppercase",
-                        }}
-                        align="center"
-                      >
-                        Ejercicio Fiscal
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          textTransform: "uppercase",
-                        }}
-                        align="center"
-                      >
-                        Institución
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          textTransform: "uppercase",
-                        }}
-                        align="center"
-                      >
-                        Nombre del Programa
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          textTransform: "uppercase",
-                        }}
-                        align="center"
-                      >
-                        Estado
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          textTransform: "uppercase",
-                        }}
-                        align="center"
-                      >
-                        Fecha de Creación
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          textTransform: "uppercase",
-                        }}
-                        align="center"
-                      >
-                        Opciones
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-
                   <TableBody>
                     {mirsFiltered
                       .slice(
@@ -572,7 +675,7 @@ export const MIR = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                              
+
                               <ComentDialogMir
                                 estado={row.Estado}
                                 id={row.ID}
@@ -597,17 +700,19 @@ export const MIR = () => {
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />
-                              <Tooltip title="EDITAR"
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
+                              <Tooltip
+                                title="EDITAR"
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
                                     },
-                                  },
-                                ],
-                              }}>
+                                  ],
+                                }}
+                              >
                                 <span>
                                   <IconButton
                                     disabled={

@@ -7,25 +7,18 @@ import {
   ListItemButton,
   TextField,
   FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Divider from "@mui/material/Divider";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IComponente } from "./IComponente";
-import { ICValor } from "./ICValor";
 import Collapse from "@mui/material/Collapse";
-import ListItemText from "@mui/material/ListItemText";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IActividadesMir, IComponenteActividad } from "./AddMir";
 import { IMIREdit } from "./IMIR";
 import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 //funcion main
@@ -153,11 +146,11 @@ export const TabActividades = ({
 
     actividadesMir.map((x, index) => {
       let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1].substring(0, 1);
+      let comp = x.actividad?.split("C")[1]?.substring(0, 1);
 
       y[0].componentes[parseInt(comp) - 1].actividades[
         parseInt(act) - 1
-      ].actividad = x.actividad;
+      ].actividad = x?.actividad;
       y[0].componentes[parseInt(comp) - 1].actividades[
         parseInt(act) - 1
       ].resumen = x?.resumen;
@@ -649,7 +642,7 @@ export const TabActividades = ({
                 value={"TRIMESTRAL"}
                 label={"TRIMESTRAL"}
                 sx={{
-                  fontFamily: "MontserratMedium", 
+                  fontFamily: "MontserratMedium",
                 }}
                 control={
                   <Radio

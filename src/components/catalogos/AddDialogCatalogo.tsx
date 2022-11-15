@@ -50,7 +50,6 @@ export const AddDialogCatalogo = ({
 
   const [descripcion, setDescripcion] = React.useState("");
   const [programa, setPrograma] = React.useState("");
-  const [institucion, setInstitucion] = React.useState("");
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth();

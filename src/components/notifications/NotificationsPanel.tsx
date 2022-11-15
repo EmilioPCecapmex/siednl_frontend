@@ -48,7 +48,7 @@ export default function NotificationsPanel() {
           if (r.data.data.length >= 1) {
             setNotificaciones(r.data.data);
           } else {
-            setSinNotificaciones(true);
+            setSinNotificaciones(false);
           }
         }
       }).catch((e) => {
@@ -68,6 +68,7 @@ export default function NotificationsPanel() {
       .then((r) => {
         if (r.status === 200) {
           obtenerNotificaciones();
+          setNotificaciones([]);
         }
       })
       .catch((err) => {
