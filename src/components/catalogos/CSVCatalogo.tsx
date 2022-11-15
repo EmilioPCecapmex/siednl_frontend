@@ -5,14 +5,16 @@ import * as React from "react";
 import logoExcell from "../../assets/img/xlsx_Logo.png";
 import { Catalogos } from "./Catalogos";
 
-export const CSVCatalogo = ({ tabla }: { tabla: string }) => {
 
+export const CSVCatalogo = ({ tabla }: { tabla: string }) => {
   const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([
     { Id: "", NombreInstitucion: "" },
   ]);
 
   const download = (data: any) => {
-    const blob = new Blob([data], { type: "text/csv" });
+    const blob = new Blob([data], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;",
+    });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.setAttribute("href", url);
@@ -20,26 +22,27 @@ export const CSVCatalogo = ({ tabla }: { tabla: string }) => {
     a.click();
   };
 
+  
   const csvmaker = (data: any, headerNumber: number) => {
     let csvRows = [];
 
-    if(tabla === "Instituciones"){
-    const headers = Object.keys(data[0]);
-    csvRows.push(headers[headerNumber]);
-    console.log(csvRows);
-    
-    let values = {};
-    for(let i = 0; i<data.length; i++){
-    values = data[i].NombreInstitucion;
-    csvRows.push(values);
-    }
+    if (tabla === "Instituciones") {
+      const headers = Object.keys(data[0]);
+      csvRows.push(headers[headerNumber]);
+      console.log(csvRows);
 
-    return csvRows.join("\n");
-  }
+      let values = {};
+      for (let i = 0; i < data.length; i++) {
+        values = data[i].NombreInstitucion;
+        csvRows.push(values);
+      }
+
+      return csvRows.join("\n");
+    }
   };
 
   const get = () => {
-    const csvdata = csvmaker(catalogoInstituciones,1)
+    const csvdata = csvmaker(catalogoInstituciones, 1);
     download(csvdata);
   };
 
@@ -66,7 +69,6 @@ export const CSVCatalogo = ({ tabla }: { tabla: string }) => {
       });
   };
 
-
   const getInstituciones = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
@@ -74,11 +76,9 @@ export const CSVCatalogo = ({ tabla }: { tabla: string }) => {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
         params: {
-
           IdUsuario: localStorage.getItem("IdUsuario"),
 
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
         },
       })
       .then((r) => {
@@ -86,14 +86,11 @@ export const CSVCatalogo = ({ tabla }: { tabla: string }) => {
       });
   };
 
-  
   React.useEffect(() => {
     getInstituciones();
-
   }, []);
-  
 
-  <Catalogos defSelected=""/>
+  <Catalogos defSelected="" />;
   return (
     <>
       <img
