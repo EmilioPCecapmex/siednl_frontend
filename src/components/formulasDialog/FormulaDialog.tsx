@@ -32,7 +32,20 @@ export const FormulaDialog = ({
   const [descB, setDescB] = useState("");
   const [emptyTxt, setEmptyTxt] = useState(false)
 
+  console.log(descA);
+  console.log(tipo)
   const checkValues = () => {
+    if(tipo === "Indice" || tipo === "Índice"){
+      if(descA === ""){
+        setEmptyTxt(true)
+      }else{
+        if (tipo === "Indice" || tipo === "Índice"){
+          textoSet(descA.replaceAll('"','').replaceAll("'","").replaceAll('\n',''));
+          console.log(textoSet);
+        close();
+        }
+      }
+    }else{
     if(descA === "" || descB === ""){
         setEmptyTxt(true)
     }else{
@@ -49,13 +62,17 @@ export const FormulaDialog = ({
         textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")");
         console.log(textoSet);
       close();
-      }else if (tipo === "Indice" || tipo === "Índice"){
-        textoSet(descA.replaceAll('"','').replaceAll("'","").replaceAll('\n',''));
-        console.log(textoSet);
-      close();
       }
     }
-  };
+  }
+};
+
+  useEffect(() => {
+    
+  
+    
+  }, [tipo])
+  
 
   useLayoutEffect(() => {
     if (prevText !== "" && prevText !== undefined) {
@@ -121,7 +138,7 @@ export const FormulaDialog = ({
         autoHideDuration={2000}
       >
         <Alert severity="warning">
-          {tipo === "Indice" || tipo === "indice" || tipo === "Índice"|| tipo === "índice" ?"Completa el campo":"Completa ambos campos"}
+          Verifica información
         </Alert>
         </Snackbar>
         <Box
