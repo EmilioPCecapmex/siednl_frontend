@@ -9,6 +9,9 @@ import { IMIR } from "./IMIR";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
+import { ActividadesInstitucionales } from "../../screens/actividadesInstitucionales/ActividadesInstitucionales";
+import { getValue } from "@mui/system";
+import { createDecipheriv } from "crypto";
 
 export function TabResumen2({
   show,
@@ -211,6 +214,150 @@ export function TabResumen2({
   >([]);
 
 
+  useEffect(() => {
+    console.log(editActividades);
+  }, [editActividades]);
+
+  const [disablebutton, setDisablebutton] = useState(false);
+  // useEffect(() => {
+  //   setDisablebutton(
+  //     editEncabezado.beneficiario &&
+  //       editEncabezado.eje &&
+  //       editEncabezado.ejercicioFiscal &&
+  //       editEncabezado.estrategia &&
+  //       editEncabezado.institucion &&
+  //       editEncabezado.lineas_de_accion &&
+  //       editEncabezado.nombre_del_programa &&
+  //       editEncabezado.objetivo &&
+  //       editEncabezado.tema
+  //   );
+  // }, [
+  //   editEncabezado.beneficiario,
+  //   editEncabezado.eje,
+  //   editEncabezado.ejercicioFiscal,
+  //   editEncabezado.estrategia,
+  //   editEncabezado.institucion,
+  //   editEncabezado.lineas_de_accion,
+  //   editEncabezado.nombre_del_programa,
+  //   editEncabezado.objetivo,
+  //   editEncabezado.tema,
+  // ]);
+
+   const [disablebutton2, setDisablebutton2] = useState(false);
+  // useEffect(() => {
+  //   setDisablebutton2(
+  //     editFin.formula &&
+  //       editFin.frecuencia &&
+  //       editFin.indicador &&
+  //       editFin.medios &&
+  //       editFin.resumen &&
+  //       editFin.supuestos
+  //   );
+  // }, [
+  //   editFin.formula,
+  //   editFin.frecuencia,
+  //   editFin.indicador,
+  //   editFin.medios,
+  //   editFin,
+  //   editFin.supuestos,
+  // ]);
+
+  // // const validador = (aEdit:any) => aEdit === true
+
+  // //  let ARRAY =[editActividades];
+
+  // // console.log("IDENTIFICADOR: ",ARRAY.every(validador));
+
+   const [disablebutton3, setDisablebutton3] = useState(false);
+  // useEffect(() => {
+  //   setDisablebutton3(
+  //     editProposito.formula &&
+  //       editProposito.frecuencia &&
+  //       editProposito.indicador &&
+  //       editProposito.medios_verificacion &&
+  //       editProposito.resumen &&
+  //       editProposito.supuestos
+  //   );
+  // }, [
+  //   editProposito.formula,
+  //   editProposito.frecuencia,
+  //   editProposito.indicador,
+  //   editProposito.medios_verificacion,
+  //   editProposito.resumen,
+  //   editProposito.supuestos,
+  // ]);
+
+  const [disablebuttoncomponentes, setDisablebuttoncomponentes] = useState(false);
+  const [disablebuttonactividades, setDisablebuttonactividades] = useState(false);
+  useEffect(() => {
+
+      
+    let arrayEncabezado = Object.entries(editEncabezado);
+    let arrayFin = Object.entries(editFin);
+    let arrayProposito = Object.entries(editProposito);
+
+    let arrayComponentes = editComponentes.map((item) => {
+      let a = [
+        item.formula,
+        item.frecuencia,
+        item.indicador,
+        item.medios,
+        item.resumen,
+        item.supuestos,
+      ];
+
+      let x = a.every((value) => value === true);
+      return x;
+    });
+
+    let arrayActividad = editActividades.map((item) => {
+      let a = [
+        //item.actividad,
+        item.formula,
+        item.frecuencia,
+        item.indicador,
+        item.medios,
+        item.resumen,
+        item.supuestos,
+      ];
+
+      let x = a.every((value) => value === true);
+      return x;
+    });
+
+
+    let respEncabezado = arrayEncabezado.every((item) => item[1] === true);
+    let respFin = arrayFin.every((item) => item[1] === true);
+    let respProposito = arrayProposito.every((item) => item[1] === true);
+    let respuestaComponentes = arrayComponentes.every((item) => item === true);
+    let respuestaActividades = arrayActividad.every((item) => item === true);
+    
+    setDisablebutton(
+      respEncabezado
+    )
+    
+    setDisablebutton2(
+      respFin
+    )
+
+    setDisablebutton3(
+      respProposito
+    )  
+
+    setDisablebuttoncomponentes(
+      respuestaComponentes
+    )
+
+    setDisablebuttonactividades(
+      respuestaActividades
+    )
+    
+  }, [editEncabezado, editFin, editProposito, editComponentes, editActividades]);
+
+//  useEffect(() =>
+//  setDisablebutton_all 
+//  )
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -218,7 +365,7 @@ export function TabResumen2({
       sx={{
         display: "flex",
         width: "75vw",
-        height: "85vh",
+        height: "75vh",
         boxShadow: 10,
         borderRadius: 5,
         alignItems: "center",
@@ -308,6 +455,8 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
+              {/* Validar que se seleecione alguno en estos puntos estan*/}
+
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
                   value={!editEncabezado.institucion}
@@ -1372,6 +1521,7 @@ export function TabResumen2({
                           let past = [...editActividades];
                           past[indexComponentes].resumen = !v.target.checked;
                           setEditActividades(past);
+                          console.log(past);
                         }}
                       />
                     )}
@@ -1530,6 +1680,7 @@ export function TabResumen2({
                         value={!editActividades[indexComponentes]?.medios}
                         onChange={(v) => {
                           let past = [...editActividades];
+
                           past[indexComponentes].medios = !v.target.checked;
                           setEditActividades(past);
                         }}
@@ -1613,8 +1764,14 @@ export function TabResumen2({
             Cancelar
           </Typography>
         </Button>
+
         <Button
-          disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+          /////////////////////////////////////////////// Aqui estoy /////////////////////////////////////
+          
+          disabled={
+          disablebutton && disablebutton2 && disablebutton3 && disablebuttoncomponentes && disablebuttonactividades
+          }
+
           color="warning"
           variant="outlined"
           onClick={() => setOpenModalSolicitarModif(true)}
@@ -1636,6 +1793,7 @@ export function TabResumen2({
                 : "En Autorización"
             )
           }
+          //al menos un opcion
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Guardar borrador

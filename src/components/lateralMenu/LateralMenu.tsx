@@ -302,30 +302,8 @@ export const LateralMenu = ({
         <Typography sx={st.rolStyle}>{localStorage.getItem("Rol") === 'Administrador' ? 'Autorizador' : localStorage.getItem("Rol")}</Typography>
       </Box>
 
-      <Typography sx={st.institucionStyle}>Institución</Typography>
-
       <Box sx={st.selectInstitucionBox}>
-        {renderInfo ? (
-          <Select
-            value={
-              institucionSeleccionada ||
-              (localStorage.getItem("IdInstitucion") as string)
-            }
-            label="Institución"
-            onChange={handleChange}
-            variant="standard"
-            disableUnderline
-            sx={st.selectInstitucionStyle}
-          >
-            {instituciones?.map((item) => {
-              return (
-                <MenuItem value={item.Id} key={item.Id || Math.random()}>
-                  {item.NombreInstitucion}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        ) : null}
+       
       </Box>
 
       <Box sx={st.dividerBox} />

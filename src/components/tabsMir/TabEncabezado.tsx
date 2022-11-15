@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FormControl,
   TextField,
@@ -17,7 +17,7 @@ import { ICompActividad } from "./ICompActividad";
 import { IEncabezadoEdit } from "./TabResumen2";
 import { IMIR, IMIREdit } from "./IMIR";
 import { Link } from "react-router-dom";
-import { isEmptyBindingElement } from "typescript";
+import Stack from "@mui/material/Stack";
 
 export interface IEncabezado {
   ejercicioFiscal: string;
@@ -27,7 +27,7 @@ export interface IEncabezado {
   tema: string;
   objetivo: string;
   estrategia: string;
-  lineas_de_accion: Array<{ Id: string; LineaDeAccion: string }>;
+  lineas_de_accion: Array<{ Id: string, LineaDeAccion: string }>;
   beneficiario: string;
 }
 
@@ -56,9 +56,15 @@ export function TabEncabezado({
   anioFiscalEdit: string;
   mirEdit?: IMIREdit;
 }) {
+  const [value, setValue] = useState("");
   const [nombreArchivo, setNombreArchivo] = useState(
+
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   );
+  const [docExtencion,setDocExt] = useState("");
+
+
+  const extensionList = ['xlsx'];
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
@@ -69,13 +75,13 @@ export function TabEncabezado({
     Array<IComponente>
   >([]);
 
-  const [loadComponentesFinish, setLoadComponentesFinish] = useState(false);
+  const [loadComponentesFinish, setLoadComponentesFinish] = useState(false)
   const [loadActividades, setLoadActividades] = useState([]);
   const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
 
   useEffect(() => {
     if (MIR !== "") {
-      const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR);
+      const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR)
 
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
@@ -158,12 +164,9 @@ export function TabEncabezado({
   useEffect(() => {
     loadComponenteValor.map((value, index) => {
       if (index > 1 && index < 6)
-        setLoadComponentes((loadComponentes) => [
-          ...loadComponentes,
-          index + 1,
-        ]);
-    });
-  }, [loadComponenteValor]);
+        setLoadComponentes(loadComponentes => [...loadComponentes, index + 1])
+    })
+  }, [loadComponenteValor])
 
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
   function enCambioAnio(Id: string, Anio: string) {
@@ -221,16 +224,42 @@ export function TabEncabezado({
     setBeneficiario(Ben);
   }
 
+
   function enCambioFile(event: any) {
+    
     setUploadFile(event.target.files[0]);
     setLineaDeAccion([]);
     setNombreArchivo(event.target.value.split("\\")[2]);
     {
-      nombreArchivo === null || uploadFile === null
+      
+      nombreArchivo == null || uploadFile == null  
         ? setDisabledButton(true)
         : setDisabledButton(false);
     }
   }
+
+  function resultado(){
+    setDisabledButton(true);  
+    setNombreArchivo("Solo se aceptan archivos tipo xlsx");
+  }
+
+  useEffect(() => {
+    let a = nombreArchivo.split(".");
+    setDocExt(a[a.length-1]) 
+  }, [nombreArchivo])
+
+  useEffect(() => {
+   docExtencion==="xlsx"?
+   setDisabledButton(false)
+   : resultado();
+   console.log(docExtencion);
+  
+  }, [docExtencion])
+  
+  
+
+
+
 
   var y = new Date().getFullYear();
 
@@ -283,6 +312,8 @@ export function TabEncabezado({
     { Id: "0", Beneficiario: "" },
   ]);
 
+  const replica = catalogoLineasDeAccion
+
   //Alerta de archivo incorrecto
   const AlertDisplay = () => {
     setDisabledButton(true);
@@ -303,6 +334,10 @@ export function TabEncabezado({
   const [uploadFile, setUploadFile] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  console.log(lineaDeAccion)
+  const onClearLineasDeAccion = () => {
+    setLineaDeAccion([]);
+  }
 
   //Obtener catálogos por id dependiendo de la seleccion anterior
   const getAniosFiscales = () => {
@@ -470,7 +505,7 @@ export function TabEncabezado({
       .then((r) => {
         setInstitution(r.data.data[0].NombreInstitucion);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   const getIdPrograma = (Description: string) => {
     axios
@@ -570,8 +605,12 @@ export function TabEncabezado({
           lineaDeAccion.push(r.data.data[0]);
           setDisabledLineasDeAccion(false);
         }
+
       })
-      .catch((err) => {});
+      .catch((err) => {
+
+      })
+
   };
   const getIdBeneficiario = (Description: string) => {
     axios
@@ -614,13 +653,12 @@ export function TabEncabezado({
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
         setTimeout(() => {
-          response.data.encabezado[0]?.lineas_de_accion
-            ?.split(".\n")
-            .map((value: string) => {
-              if (value !== "") {
-                getIdLineaDeAccion(value);
-              }
-            });
+          response.data.encabezado[0]?.lineas_de_accion?.split('.\n').map((value: string) => {
+            if (value !== '') {
+
+              getIdLineaDeAccion(value);
+            }
+          });
           setLoadingFile(false);
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
         }, 1500);
@@ -714,7 +752,7 @@ export function TabEncabezado({
       position="absolute"
       sx={{
         width: "75vw",
-        height: "77vh",
+        height: "75vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",
@@ -920,8 +958,7 @@ export function TabEncabezado({
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
         <Autocomplete
           disabled={
-            (mirEdit?.encabezado.nombre_del_programa && programa !== "") ||
-            disabledProgramas
+            mirEdit?.encabezado.nombre_del_programa || disabledProgramas
           }
           options={catalogoProgramas}
           size="small"
@@ -1044,6 +1081,7 @@ export function TabEncabezado({
                 </p>
               </li>
             );
+
           }}
           renderInput={(params) => (
             <TextField
@@ -1193,67 +1231,78 @@ export function TabEncabezado({
           width: "35vw",
         }}
       >
-        <Autocomplete
-          multiple
-          disableCloseOnSelect
-          limitTags={4}
-          disabled={
-            (mirEdit?.encabezado.lineas_de_accion &&
-              lineaDeAccion.length !== 0) ||
-            disabledLineasDeAccion
-          }
-          options={catalogoLineasDeAccion}
-          size="small"
-          getOptionLabel={(option) => option.LineaDeAccion.toUpperCase()}
-          value={lineaDeAccion}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.LineaDeAccion.toUpperCase()}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"Lineas de Acción".toUpperCase()}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
-              }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                  textTransform: "uppercase",
-                },
-              }}
-            />
-          )}
-          onChange={(event, value) => {
-            if (value.length !== 0) {
-              setLineaDeAccion(value);
-            } else {
-              setLineaDeAccion([]);
-            }
-          }}
-          isOptionEqualToValue={(
-            option: {
-              Id: string;
-              LineaDeAccion: string;
-            },
-            value: {
-              Id: string;
-              LineaDeAccion: string;
-            }
-          ) => value.Id === option.Id}
-        />
+        {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
+        <Stack spacing={3} sx={{ width: 500 }}>
+          <Autocomplete
+            multiple
+            id="tags-standard"
+            limitTags={4}
+          
+            options={replica}
+            size="small"
+            getOptionLabel={(option) => option.LineaDeAccion.toUpperCase()}
+            //const replica = catalogoLineasDeAccion
+            value={lineaDeAccion}
+            
+            renderOption={(props, option) => {
+              return (
+                <li {...props} key={option.Id}>
+                  <p
+                    style={{
+                      fontFamily: "MontserratRegular",
+                      fontSize: ".7vw",
+                    }}
+                  >
+                    {option.LineaDeAccion.toUpperCase()}
+                  </p>
+                </li>
+              );
+            }}
+            onInputChange={()=>onClearLineasDeAccion()}
+            //onClearLineasDeAccion
+            //--------------------------- esto si va --------------------------------------------
+            renderInput={(params) => (
+
+              <TextField
+                {...params}
+                label={"Lineas de Acción".toUpperCase()}
+                variant="standard"
+                
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                sx={{
+                  "& .MuiAutocomplete-input": {
+                    fontFamily: "MontserratRegular",
+                    textTransform: "uppercase",
+                  },
+                }}
+              />
+              
+            )}
+              
+            onChange={(event, value) => {
+              value.map((value2, index) => {
+                if (value2.Id !== "" && value2.LineaDeAccion !== "") {
+                  setLineaDeAccion(value);
+                }
+              });
+            }}
+            isOptionEqualToValue={(
+              option: {
+                Id: string;
+                LineaDeAccion: string;
+              },
+              value: {
+                Id: string;
+                LineaDeAccion: string;
+              }
+            ) => value.Id === option.Id}
+          />
+        </Stack>
       </FormControl>
 
       <FormControl required sx={{ width: "20vw" }}>
@@ -1261,6 +1310,7 @@ export function TabEncabezado({
           disabled={mirEdit?.encabezado.beneficiario}
           disablePortal
           size="small"
+
           options={catalogoBeneficiarios}
           getOptionLabel={(option) => option.Beneficiario}
           value={{
