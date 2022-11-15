@@ -262,8 +262,8 @@ export default function AddMetaAnual({
     >
       <Box
         sx={{
-          width: "80vw",
-          height: "96vh",
+          width: "75vw",
+          height: "90vh",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
