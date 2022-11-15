@@ -1021,24 +1021,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setDescripctionFiltered(text);
   };
 
-  const [datosTabla, setDatosTabla] = React.useState([
-    {
-      Id: "",
-      Desc: "",
-      fnc: "",
-      Tabla: "",
-      selected: "",
-    },
+  const [datosTabla, setDatosTabla] = React.useState<Array<IDatosTabla>>([
   ]);
 
-  const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState([
-    {
-      Id: "",
-      Desc: "",
-      fnc: "",
-      Tabla: "",
-      selected: "",
-    },
+  const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState<Array<IDatosTabla>>([
   ]);
   const findText = () => {
     if (descripctionFiltered !== "") {
@@ -1507,6 +1493,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               >
                 <CSVCatalogo
                 tabla={tablaActual}
+                datos={datosTabla}
                 />
               </Box>
             </Box>
@@ -1516,3 +1503,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     </Box>
   );
 };
+
+
+export interface IDatosTabla {
+  Id: string;
+  Desc: string;
+  fnc: string;
+  Tabla: string;
+  selected: string;
+}
