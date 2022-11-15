@@ -1,5 +1,5 @@
 import { Box, Divider, Typography } from "@mui/material";
-import logo from "../../assets/logos/Coat_of_arms_of_Nuevo_Leon.svg";
+import logo from "../../assets/logos/logo_tesoreriah1.png";
 import { FinFechaTecnica } from "./FinFichaTecnica";
 import { PropositoFichaTecnica } from "./PropositoFichaTecnica";
 import { CompFichaTecnica } from "./CompFichaTecnica";
@@ -519,9 +519,10 @@ export const ResumenFichaTecnica = () => {
             width: "100%",
             height: "20vh",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "start",
           }}
         >
+          <Box sx={{width:"20%", height:"100%", backgroundColor:"red"}}>hola</Box>
           {/* <Box sx={{}}>
          <img src={logo} alt="Logo" style={{ width:"3vw", height:"4vh"}} />
          </Box> */}
