@@ -58,7 +58,6 @@ export function TabEncabezado({
 }) {
   const [value, setValue] = useState("");
   const [nombreArchivo, setNombreArchivo] = useState(
-
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   );
   const [docExtencion,setDocExt] = useState("");
@@ -229,7 +228,11 @@ export function TabEncabezado({
     
     setUploadFile(event.target.files[0]);
     setLineaDeAccion([]);
-    setNombreArchivo(event.target.value.split("\\")[2]);
+    
+    if (event.target.value !== ''){
+      setNombreArchivo(event.target.value.split("\\")[2]);
+    }
+    
     {
       
       nombreArchivo == null || uploadFile == null  
@@ -244,8 +247,11 @@ export function TabEncabezado({
   }
 
   useEffect(() => {
-    let a = nombreArchivo.split(".");
+    if(nombreArchivo !== ''){
+      let a = nombreArchivo.split(".");
     setDocExt(a[a.length-1]) 
+    }
+    
   }, [nombreArchivo])
 
   useEffect(() => {
@@ -253,11 +259,6 @@ export function TabEncabezado({
    setDisabledButton(false)
    : resultado();
   }, [docExtencion])
-  
-  
-
-
-
 
   var y = new Date().getFullYear();
 
