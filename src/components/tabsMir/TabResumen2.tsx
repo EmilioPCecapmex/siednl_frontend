@@ -32,8 +32,7 @@ export function TabResumen2({
   showResume: Function;
   IdMir: string;
   mirEdit?: IEncabezadoEdit;
-}) 
-  {
+}) {
   const [MIR, setMIR] = useState<IMIR>();
 
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
@@ -54,7 +53,6 @@ export function TabResumen2({
     componentesM: Array<IComponente>,
     actividadesM: Array<IActividadesMir>
   ) => {
-    
     setMIR({
       encabezado: encabezadoM[0],
       fin: finM[0],
@@ -85,10 +83,8 @@ export function TabResumen2({
     }
   };
 
-
-
   const createMIR = (estado: string) => {
- axios
+    axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
@@ -214,6 +210,7 @@ export function TabResumen2({
     Array<IActividadesMirEdit>
   >([]);
 
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -250,7 +247,13 @@ export function TabResumen2({
         }}
       >
         <Box sx={{ p: 5, display: "flex", flexDirection: "column" }}>
-          <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1, textTransform:"uppercase" }}>
+          <Typography
+            sx={{
+              fontFamily: "MontserratBold",
+              borderBottom: 1,
+              textTransform: "uppercase",
+            }}
+          >
             Datos Generales
           </Typography>
 
@@ -278,7 +281,13 @@ export function TabResumen2({
                 />
               )}
 
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  width: "20%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Ejercicio Fiscal:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -311,10 +320,22 @@ export function TabResumen2({
                 />
               )}
 
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  width: "20%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Institución:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratLight",
+                  width: "80%",
+                  textTransform: "uppercase",
+                }}
+              >
                 {encabezado[0]?.institucion === "Selecciona"
                   ? ""
                   : encabezado[0]?.institucion}
@@ -345,7 +366,13 @@ export function TabResumen2({
                 />
               )}
 
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  width: "20%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Programa:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -378,7 +405,13 @@ export function TabResumen2({
                 />
               )}
 
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  width: "20%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Eje:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -411,10 +444,22 @@ export function TabResumen2({
                 />
               )}
 
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  width: "20%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Temática:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratLight",
+                  width: "80%",
+                  textTransform: "uppercase",
+                }}
+              >
                 {encabezado[0]?.tema === "Selecciona"
                   ? ""
                   : encabezado[0]?.tema}
@@ -444,7 +489,13 @@ export function TabResumen2({
                   }}
                 />
               )}
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  width: "20%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Objetivo:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -479,7 +530,13 @@ export function TabResumen2({
                   }}
                 />
               )}
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  width: "20%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Estrategia:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -512,7 +569,13 @@ export function TabResumen2({
                 />
               )}
 
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+              <Typography
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  width: "20%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Beneficiario:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -545,7 +608,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" , textTransform:"uppercase"}}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Lineas de Acción:
             </Typography>
             <Box>
@@ -558,8 +627,8 @@ export function TabResumen2({
                         fontFamily: "MontserratLight",
                         width: "100%",
                         borderBottom: "1px solid lightGrey",
-                        "&:last-Child": { borderBottom: 0 }, 
-                        textTransform:"uppercase"
+                        "&:last-Child": { borderBottom: 0 },
+                        textTransform: "uppercase",
                       }}
                     >
                       {value?.LineaDeAccion === "Selecciona"
@@ -573,7 +642,12 @@ export function TabResumen2({
           </Box>
 
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5, textTransform:"uppercase" }}
+            sx={{
+              fontFamily: "MontserratBold",
+              borderBottom: 1,
+              mt: 5,
+              textTransform: "uppercase",
+            }}
           >
             Fin
           </Typography>
@@ -597,7 +671,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Resumen Narrativo:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -624,7 +704,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -651,7 +737,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Fórmula:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -678,7 +770,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Frecuencia:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -705,7 +803,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Medios de Verificación:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -732,7 +836,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Supuestos:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -740,7 +850,12 @@ export function TabResumen2({
             </Typography>
           </Box>
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5, textTransform:"uppercase" }}
+            sx={{
+              fontFamily: "MontserratBold",
+              borderBottom: 1,
+              mt: 5,
+              textTransform: "uppercase",
+            }}
           >
             Propósito
           </Typography>
@@ -767,7 +882,13 @@ export function TabResumen2({
               />
             )}
 
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Resumen Narrativo:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -797,7 +918,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Indicador:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -827,7 +954,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Fórmula:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -857,7 +990,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Frecuencia:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -887,7 +1026,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Medios de Verificación:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -917,7 +1062,13 @@ export function TabResumen2({
                 }}
               />
             )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                width: "20%",
+                textTransform: "uppercase",
+              }}
+            >
               Supuestos:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
@@ -925,7 +1076,12 @@ export function TabResumen2({
             </Typography>
           </Box>
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5, textTransform:"uppercase" }}
+            sx={{
+              fontFamily: "MontserratBold",
+              borderBottom: 1,
+              mt: 5,
+              textTransform: "uppercase",
+            }}
           >
             Componentes
           </Typography>
@@ -939,7 +1095,7 @@ export function TabResumen2({
                     borderBottom: 1,
                     mt: 5,
                     textAlign: "center",
-                     textTransform:"uppercase"
+                    textTransform: "uppercase",
                   }}
                 >
                   Componente {index}
@@ -966,7 +1122,11 @@ export function TabResumen2({
                     />
                   )}
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      width: "20%",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Resumen Narrativo:
                   </Typography>
@@ -999,7 +1159,11 @@ export function TabResumen2({
                   )}
 
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      width: "20%",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Indicador:
                   </Typography>
@@ -1032,7 +1196,11 @@ export function TabResumen2({
                   )}
 
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      width: "20%",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Fórmula:
                   </Typography>
@@ -1065,7 +1233,11 @@ export function TabResumen2({
                   )}
 
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      width: "20%",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Frecuencia:
                   </Typography>
@@ -1098,7 +1270,11 @@ export function TabResumen2({
                   )}
 
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      width: "20%",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Medios de Verificación:
                   </Typography>
@@ -1131,7 +1307,11 @@ export function TabResumen2({
                   )}
 
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      width: "20%",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Supuestos:
                   </Typography>
@@ -1146,7 +1326,12 @@ export function TabResumen2({
           })}
 
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5, textTransform:"uppercase" }}
+            sx={{
+              fontFamily: "MontserratBold",
+              borderBottom: 1,
+              mt: 5,
+              textTransform: "uppercase",
+            }}
           >
             Actividades
           </Typography>
@@ -1162,8 +1347,8 @@ export function TabResumen2({
                       fontFamily: "MontserratMedium",
                       borderBottom: 1,
                       mt: 5,
-                      textAlign: "center"
-                      , textTransform:"uppercase"
+                      textAlign: "center",
+                      textTransform: "uppercase",
                     }}
                   >
                     Componente {indexComponentes + 1} - Actividad{" "}
@@ -1192,18 +1377,20 @@ export function TabResumen2({
                     )}
 
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        width: "20%",
+                        textTransform: "uppercase",
+                      }}
                     >
                       Resumen Narrativo:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
                     >
-                      {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].resumen?.toUpperCase()
-                      }
+                      {cValor[0].componentes[indexComponentes].actividades[
+                        indexActividades
+                      ].resumen?.toUpperCase()}
                     </Typography>
                   </Box>
                   <Box
@@ -1229,18 +1416,20 @@ export function TabResumen2({
                     )}
 
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        width: "20%",
+                        textTransform: "uppercase",
+                      }}
                     >
                       Indicador:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
                     >
-                      {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].indicador?.toUpperCase()
-                      }
+                      {cValor[0].componentes[indexComponentes].actividades[
+                        indexActividades
+                      ].indicador?.toUpperCase()}
                     </Typography>
                   </Box>
                   <Box
@@ -1266,18 +1455,20 @@ export function TabResumen2({
                     )}
 
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        width: "20%",
+                        textTransform: "uppercase",
+                      }}
                     >
                       Fórmula:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
                     >
-                      {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].formula?.toUpperCase()
-                      }
+                      {cValor[0].componentes[indexComponentes].actividades[
+                        indexActividades
+                      ].formula?.toUpperCase()}
                     </Typography>
                   </Box>
                   <Box
@@ -1303,18 +1494,24 @@ export function TabResumen2({
                     )}
 
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        width: "20%",
+                        textTransform: "uppercase",
+                      }}
                     >
                       Frecuencia:
                     </Typography>
                     <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%", textTransform:"uppercase" }}
+                      sx={{
+                        fontFamily: "MontserratLight",
+                        width: "80%",
+                        textTransform: "uppercase",
+                      }}
                     >
-                      {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].frecuencia?.toUpperCase()
-                      }
+                      {cValor[0].componentes[indexComponentes].actividades[
+                        indexActividades
+                      ].frecuencia?.toUpperCase()}
                     </Typography>
                   </Box>
                   <Box
@@ -1340,18 +1537,20 @@ export function TabResumen2({
                     )}
 
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        width: "20%",
+                        textTransform: "uppercase",
+                      }}
                     >
                       Medios de Verificación:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
                     >
-                      {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].medios?.toUpperCase()
-                      }
+                      {cValor[0].componentes[indexComponentes].actividades[
+                        indexActividades
+                      ].medios?.toUpperCase()}
                     </Typography>
                   </Box>
                   <Box
@@ -1377,18 +1576,20 @@ export function TabResumen2({
                     )}
 
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%", textTransform:"uppercase" }}
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        width: "20%",
+                        textTransform: "uppercase",
+                      }}
                     >
                       Supuestos:
                     </Typography>
                     <Typography
                       sx={{ fontFamily: "MontserratLight", width: "80%" }}
                     >
-                      {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].supuestos?.toUpperCase()
-                      }
+                      {cValor[0].componentes[indexComponentes].actividades[
+                        indexActividades
+                      ].supuestos?.toUpperCase()}
                     </Typography>
                   </Box>
                 </Box>
@@ -1440,7 +1641,7 @@ export function TabResumen2({
             Guardar borrador
           </Typography>
         </Button>
-        
+
         <Button
           color="primary"
           variant="outlined"
@@ -1448,8 +1649,8 @@ export function TabResumen2({
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"
-              ? 'Autorizar'
-              : 'Enviar'}
+              ? "Autorizar"
+              : "Enviar"}
           </Typography>
         </Button>
 
@@ -1479,7 +1680,6 @@ export function TabResumen2({
           MIR={JSON.stringify(MIR)}
           IdMir={IdMir}
         ></ModalEnviarMIR>
-
       </Box>
     </Box>
   );

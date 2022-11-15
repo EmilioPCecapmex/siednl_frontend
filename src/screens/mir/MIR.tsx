@@ -17,6 +17,7 @@ import {
   Select,
   FormControl,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -29,16 +30,11 @@ import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import Swal from "sweetalert2";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
-
-
 export let resumeDefaultMIR = true;
-
 
 export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
-
-
 
 export const MIR = () => {
   const Toast = Swal.mixin({
@@ -202,6 +198,25 @@ export const MIR = () => {
       });
   };
 
+  const colorMir = (v: string, mEdit : string) => {
+    if(mEdit !== undefined){
+      let isModification = mEdit;
+      isModification = JSON.parse(mEdit);
+      if(isModification[1]){
+        return "#cccc00"
+      }
+    }
+    if(v === "En Captura"){
+      return '#b3e6b3'
+    }else if(v === "En Revisión"){
+      return '#e6e6ff'
+    }else if(v === "En Autorización"){
+      return '#b3b3ff'
+    }else if(v === "Autorizada"){
+      return '#0000ff'
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -360,7 +375,7 @@ export const MIR = () => {
                     MIR: "",
                     Estado: "",
                     FechaCreacion: "",
-                    CreadoPor: ""
+                    CreadoPor: "",
                   },
                 ]);
                 handleClickOpen();
@@ -511,23 +526,51 @@ export const MIR = () => {
                           </TableCell>
                           <TableCell
                             sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
                               width: "20%",
                               textTransform: "uppercase",
                             }}
-                            align="center"
                           >
-                            {row.Estado === "En Captura" &&
-                            localStorage.getItem("Rol") === "Capturador"
-                              ? "Borrador"
-                              : row.Estado === "En Revisión" &&
-                                localStorage.getItem("Rol") === "Verificador"
-                              ? "Esperando revisión"
-                              : row.Estado === "En Autorización" &&
-                                localStorage.getItem("Rol") === "Administrador"
-                              ? "Esperando autorización"
-                              : row.Estado}
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                height: "5vh",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  width: "10%",
+                                  height: "15%",
+                                  backgroundColor: colorMir(row.Estado, row.MIR),
+                                }}
+                              ></Box>
+                              <Typography
+                                sx={{
+                                  width: "60%",
+                                  fontFamily: "MontserratRegular",
+                                  color: '#616161',
+                                  fontSize: ".7vw",
+                                  ml: '10%',
+                                  textAlign: 'center'
+                                }}
+                              >
+                                {row.Estado === "En Captura" &&
+                                localStorage.getItem("Rol") === "Capturador"
+                                  ? "Borrador"
+                                  : row.Estado === "En Revisión" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Verificador"
+                                  ? "Esperando revisión"
+                                  : row.Estado === "En Autorización" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Administrador"
+                                  ? "Esperando autorización"
+                                  : row.Estado}
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell
                             sx={{
@@ -550,7 +593,7 @@ export const MIR = () => {
                             }}
                             align="center"
                           >
-                           {row.CreadoPor}
+                            {row.CreadoPor}
                           </TableCell>
                           <TableCell align="center" sx={{ width: "10%" }}>
                             <Box
@@ -602,7 +645,7 @@ export const MIR = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                              
+
                               <ComentDialogMir
                                 estado={row.Estado}
                                 id={row.ID}
@@ -627,17 +670,19 @@ export const MIR = () => {
                                 id={row.ID}
                                 actualizado={actualizaContador}
                               />
-                              <Tooltip title="EDITAR"
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
+                              <Tooltip
+                                title="EDITAR"
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
                                     },
-                                  },
-                                ],
-                              }}>
+                                  ],
+                                }}
+                              >
                                 <span>
                                   <IconButton
                                     disabled={
@@ -667,7 +712,7 @@ export const MIR = () => {
                                           MIR: row.MIR,
                                           Estado: row.Estado,
                                           FechaCreacion: row.FechaCreacion,
-                                          CreadoPor: row.CreadoPor
+                                          CreadoPor: row.CreadoPor,
                                         },
                                       ]);
                                       setShowResume(false);

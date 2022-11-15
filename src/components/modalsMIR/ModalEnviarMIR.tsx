@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 
-export const errores: string[] = [];
+export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
   open,
@@ -59,53 +59,60 @@ export default function ModalEnviarMIR({
   };
 
   const checkMir = (v: string) => {
+    errores = []
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
-      errores.push("Encabezado: año fiscal no seleccionado.");
+      errores.push("<strong>Encabezado<(strong>: año fiscal no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
-      errores.push("Encabezado: institución no seleccionada.");
+      errores.push("<strong>Encabezado:</strong> institución no seleccionada.");
     }
     if (JSON.parse(MIR)?.encabezado.nombre_del_programa === "") {
-      errores.push("Encabezado: programa presupuestario no seleccionado.");
+      errores.push(
+        "<strong>Encabezado:</strong> programa presupuestario no seleccionado."
+      );
     }
     if (JSON.parse(MIR)?.encabezado.eje === "") {
-      errores.push("Encabezado: eje no seleccionado.");
+      errores.push("<strong>Encabezado:</strong> eje no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.tema === "") {
-      errores.push("Encabezado: temática no seleccionada.");
+      errores.push("<strong>Encabezado:</strong> temática no seleccionada.");
     }
     if (JSON.parse(MIR)?.encabezado.objetivo === "") {
-      errores.push("Encabezado: objetivo no seleccionado.");
+      errores.push("<strong>Encabezado:</strong> objetivo no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.estrategia === "") {
-      errores.push("Encabezado: estrategia no seleccionada.");
+      errores.push("<strong>Encabezado:</strong> estrategia no seleccionada.");
     }
     if (JSON.parse(MIR)?.encabezado.lineas_de_accion === "") {
-      errores.push("Encabezado: selecciona al menos 1 línea de acción.");
+      errores.push(
+        "<strong>Encabezado:</strong> selecciona al menos 1 línea de acción."
+      );
     }
     if (JSON.parse(MIR)?.encabezado.beneficiario === "") {
-      errores.push("Encabezado: beneficiario no seleccionado.");
+      errores.push(
+        "<strong>Encabezado:</strong> beneficiario no seleccionado."
+      );
     }
     if (JSON.parse(MIR)?.fin === null) {
-      errores.push("Sección <strong> FIN </strong> Faltante");
+      errores.push("Sección <strong> FIN </strong> Faltante.");
     }
     if (
       JSON.parse(MIR)?.fin.resumen === undefined ||
       JSON.parse(MIR)?.fin.resumen === ""
     ) {
-      errores.push("<strong>FIN: Resumen Narrativo</strong> sin información");
+      errores.push("<strong>FIN: Resumen Narrativo</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.fin.indicador === undefined ||
       JSON.parse(MIR)?.fin.indicador === ""
     ) {
-      errores.push("<strong>FIN: Indicador</strong> sin información");
+      errores.push("<strong>FIN: Indicador</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.fin.formula === undefined ||
       JSON.parse(MIR)?.fin.formula === ""
     ) {
-      errores.push("<strong>FIN: Fórmula</strong> sin información");
+      errores.push("<strong>FIN: Fórmula</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.fin.frecuencia === undefined ||
@@ -113,76 +120,94 @@ export default function ModalEnviarMIR({
       (JSON.parse(MIR)?.fin.frecuencia.toLowerCase() !== "anual" &&
         JSON.parse(MIR)?.fin.frecuencia.toLowerCase() !== "bienal")
     ) {
-      errores.push("<strong>FIN: Frecuencia</strong>, solo puede ser Anual o Bienal.");
+      errores.push(
+        "<strong>FIN: Frecuencia</strong>, solo puede ser Anual o Bienal."
+      );
     }
     if (
       JSON.parse(MIR)?.fin.medios === undefined ||
       JSON.parse(MIR)?.fin.medios === ""
     ) {
-      errores.push("<strong>FIN: Medios de Verificación</strong> sin información");    }
+      errores.push(
+        "<strong>FIN: Medios de Verificación</strong> sin información."
+      );
+    }
     if (
       JSON.parse(MIR)?.fin.supuestos === undefined ||
       JSON.parse(MIR)?.fin.supuestos === ""
     ) {
-      errores.push("<strong>FIN: Supuestos</strong> sin información");    }
+      errores.push("<strong>FIN: Supuestos</strong> sin información.");
+    }
     if (
       JSON.parse(MIR)?.proposito.resumen === undefined ||
       JSON.parse(MIR)?.proposito.resumen === ""
     ) {
-      errores.push("<strong>PROPOSITO: Resumen Narrativo</strong> sin información");
+      errores.push(
+        "<strong>PROPOSITO: Resumen Narrativo</strong> sin información."
+      );
     }
     if (
       JSON.parse(MIR)?.proposito.indicador === undefined ||
       JSON.parse(MIR)?.proposito.indicador === ""
     ) {
-      errores.push("<strong>PROPOSITO: Indicador</strong> sin información");
+      errores.push("<strong>PROPOSITO: Indicador</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.proposito.formula === undefined ||
       JSON.parse(MIR)?.proposito.formula === ""
     ) {
-      errores.push("<strong>PROPOSITO: Fórmula</strong> sin información");
+      errores.push("<strong>PROPOSITO: Fórmula</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.proposito.frecuencia === undefined ||
       JSON.parse(MIR)?.proposito.frecuencia === "" ||
       JSON.parse(MIR)?.proposito.frecuencia.toLowerCase() !== "anual"
     ) {
-      errores.push("<strong>PROPOSITO: Frecuencia</strong>, solo puede ser Anual o Bienal.");
+      errores.push(
+        "<strong>PROPOSITO: Frecuencia</strong>, solo puede ser Anual o Bienal."
+      );
     }
     if (
       JSON.parse(MIR)?.proposito.medios_verificacion === undefined ||
       JSON.parse(MIR)?.proposito.medios_verificacion === ""
     ) {
       errores.push(
-        "<strong>PROPOSITO: Medios de Verificación</strong> sin información"
+        "<strong>PROPOSITO: Medios de Verificación</strong> sin información."
       );
     }
     if (
       JSON.parse(MIR)?.proposito.supuestos === undefined ||
       JSON.parse(MIR)?.proposito.supuestos === ""
     ) {
-      errores.push("Supuestos del apartado 'Propósito' aún faltante");
+      errores.push("<strong>PROPOSITO: Supuestos</strong> sin información.");
     }
     checkComponentes(v);
   };
 
   const checkComponentes = (v: string) => {
-    JSON.parse(MIR)?.componentes.every((componente: any, index: number) => {
+    JSON.parse(MIR)?.componentes.map((componente: any, index: number) => {
       if (
         componente.resumen === undefined ||
         componente.resumen === "" ||
         componente.resumen === null
       ) {
         errores.push(
-          `Resumen narrativo del componente ${index + 1} aún faltante`
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Resumen Narrativo sin información.`
         );
       }
       if (componente.indicador === undefined || componente.indicador === "") {
-        errores.push(`Indicador del componente ${index + 1} aún faltante`);
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Indicador sin información.`
+        );
       }
       if (componente.formula === undefined || componente.formula === "") {
-        errores.push(`Formula del componente ${index + 1} aún faltante`);
+        errores.push(
+          `<strong> Componente ${index + 1} </strong>: Fórmula sin información.`
+        );
       }
       if (
         componente.frecuencia === undefined ||
@@ -190,15 +215,25 @@ export default function ModalEnviarMIR({
         (componente.frecuencia.toLowerCase() !== "semestral" &&
           componente.frecuencia.toLowerCase() !== "trimestral")
       ) {
-        errores.push(`Frecuencia del componente ${index + 1} aún faltante`);
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Frecuencia sin información.`
+        );
       }
       if (componente.medios === undefined || componente.medios === "") {
         errores.push(
-          `Medios de Verificación del componente ${index + 1} aún faltante`
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Medios de Verificación sin información.`
         );
       }
       if (componente.supuestos === undefined || componente.supuestos === "") {
-        errores.push(`Supuestos del componente ${index + 1} aún faltante`);
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Supuestos sin información.`
+        );
       } else {
         return true;
       }
@@ -208,23 +243,27 @@ export default function ModalEnviarMIR({
 
   const checkActividades = (v: string) => {
     let err = 0;
-    JSON.parse(MIR)?.actividades.every((actividad: any, index: number) => {
+    JSON.parse(MIR)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.resumen === undefined ||
         actividad.resumen === "" ||
         actividad.resumen === null
       ) {
         errores.push(
-          `Resumen narrativo de la ${actividad.actividad} aún faltante`
+          `<strong> Actividad ${actividad.actividad} </strong>: Resumen Narrativo sin información.`
         );
         err = 1;
       }
       if (actividad.indicador === undefined || actividad.indicador === "") {
-        errores.push(`Indicador de la ${actividad.actividad} aún faltante`);
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Indicador sin información.`
+        );
         err = 1;
       }
       if (actividad.formula === undefined || actividad.formula === "") {
-        errores.push(`Formula de la ${actividad.actividad} aún faltante`);
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Fórmula sin información.`
+        );
         err = 1;
       }
       if (
@@ -232,17 +271,21 @@ export default function ModalEnviarMIR({
         actividad.frecuencia === "" ||
         actividad.frecuencia.toLowerCase() !== "trimestral"
       ) {
-        errores.push(`Frecuencia de la ${actividad.actividad} aún faltante`);
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Frecuencia sin información.`
+        );
         err = 1;
       }
       if (actividad.medios === undefined || actividad.medios === "") {
         errores.push(
-          `Medios de Verificación de la ${actividad.actividad} aún faltante`
+          `<strong> Actividad ${actividad.actividad} </strong>: Medios de Verificación sin información.`
         );
         err = 1;
       }
       if (actividad.supuestos === undefined || actividad.supuestos === "") {
-        errores.push(`Supuestos de la ${actividad.actividad} aún faltante`);
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Supuestos sin información.`
+        );
         err = 1;
       }
     });

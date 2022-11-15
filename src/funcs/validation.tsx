@@ -1,7 +1,5 @@
 import axios from "axios";
 
-export let sessionUntil = "";
-
 const params = new URLSearchParams(window.location.search);
 
 export const getUserDetails = (idCentral: string) => {
@@ -60,7 +58,7 @@ export const sessionValid = () => {
     )
     .then((r) => {
       if (r.status === 200) {
-        sessionUntil = r.data.expDateTime;
+        localStorage.setItem("sUntil", r.data.expDateTime)
         localStorage.setItem("jwtToken", jt);
         localStorage.setItem("refreshToken", rft);
         localStorage.setItem("validation", "true");
@@ -91,7 +89,7 @@ export const continueSession = () => {
     )
     .then((r) => {
       if (r.status === 200) {
-        sessionUntil = r.data.expDateTime;
+        localStorage.setItem("sUntil", r.data.expDateTime)
         localStorage.setItem("validation", "true");
         if (r.data.data.IdUsuario) {
           localStorage.setItem("IdCentral", r.data.data.IdUsuario);

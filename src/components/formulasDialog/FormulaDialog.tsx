@@ -36,8 +36,15 @@ export const FormulaDialog = ({
     if(descA === "" || descB === ""){
         setEmptyTxt(true)
     }else{
-        textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")" + "*100");
-        close();
+      console.log(tipo)
+       
+        if(tipo === 'Índice'){
+          textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")");
+          close();
+        }else if(tipo === 'Porcentaje'){
+          textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")" + "*100");
+          close();
+        }
     }
   };
 
