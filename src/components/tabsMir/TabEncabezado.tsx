@@ -56,6 +56,7 @@ export function TabEncabezado({
   anioFiscalEdit: string;
   mirEdit?: IMIREdit;
 }) {
+  const [value, setValue] = useState("");
   const [nombreArchivo, setNombreArchivo] = useState(
 
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
@@ -333,6 +334,10 @@ export function TabEncabezado({
   const [uploadFile, setUploadFile] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  console.log(lineaDeAccion)
+  const onClearLineasDeAccion = () => {
+    setLineaDeAccion([]);
+  }
 
   //Obtener catálogos por id dependiendo de la seleccion anterior
   const getAniosFiscales = () => {
@@ -1215,7 +1220,7 @@ export function TabEncabezado({
           width: "35vw",
         }}
       >
-        {/*---------------------------------Aqui esta el error de borrar lineas da aciion----------------------------------*/}
+        {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
             multiple
@@ -1227,8 +1232,8 @@ export function TabEncabezado({
             getOptionLabel={(option) => option.LineaDeAccion.toUpperCase()}
             //const replica = catalogoLineasDeAccion
             value={lineaDeAccion}
+            
             renderOption={(props, option) => {
-              
               return (
                 <li {...props} key={option.Id}>
                   <p
@@ -1242,6 +1247,8 @@ export function TabEncabezado({
                 </li>
               );
             }}
+            onInputChange={()=>onClearLineasDeAccion()}
+            //onClearLineasDeAccion
             //--------------------------- esto si va --------------------------------------------
             renderInput={(params) => (
 
@@ -1265,7 +1272,7 @@ export function TabEncabezado({
               />
               
             )}
-
+              
             onChange={(event, value) => {
               value.map((value2, index) => {
                 if (value2.Id !== "" && value2.LineaDeAccion !== "") {
