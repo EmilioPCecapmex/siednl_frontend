@@ -52,6 +52,7 @@ export default function NotificationsPanel() {
           }
         }
       }).catch((e) => {
+        return null
       })
   };
 

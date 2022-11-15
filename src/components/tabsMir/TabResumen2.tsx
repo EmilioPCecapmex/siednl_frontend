@@ -213,11 +213,6 @@ export function TabResumen2({
     Array<IActividadesMirEdit>
   >([]);
 
-
-  useEffect(() => {
-    console.log(editActividades);
-  }, [editActividades]);
-
   const [disablebutton, setDisablebutton] = useState(false);
   // useEffect(() => {
   //   setDisablebutton(
@@ -1521,7 +1516,6 @@ export function TabResumen2({
                           let past = [...editActividades];
                           past[indexComponentes].resumen = !v.target.checked;
                           setEditActividades(past);
-                          console.log(past);
                         }}
                       />
                     )}

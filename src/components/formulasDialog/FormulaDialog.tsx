@@ -32,8 +32,6 @@ export const FormulaDialog = ({
   const [descB, setDescB] = useState("");
   const [emptyTxt, setEmptyTxt] = useState(false)
 
-  console.log(descA);
-  console.log(tipo)
   const checkValues = () => {
     if(tipo === "Indice" || tipo === "Índice"){
       if(descA === ""){
@@ -41,7 +39,6 @@ export const FormulaDialog = ({
       }else{
         if (tipo === "Indice" || tipo === "Índice"){
           textoSet(descA.replaceAll('"','').replaceAll("'","").replaceAll('\n',''));
-          console.log(textoSet);
         close();
         }
       }
@@ -51,16 +48,12 @@ export const FormulaDialog = ({
     }else{
         if(tipo === "Porcentaje"){
           textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")*100");
-          console.log(textoSet);
         close();
       }else if (tipo === "Tasa"){
         textoSet("("+"(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "-" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")" + "/"+ descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")"+ "*100");
-        
-        console.log(textoSet);
         close();
       }else if (tipo === "Promedio"){
         textoSet("(" + descA.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + "/" + descB.replaceAll('"','').replaceAll("'","").replaceAll('\n','') + ")");
-        console.log(textoSet);
       close();
       }
     }

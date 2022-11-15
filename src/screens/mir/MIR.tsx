@@ -140,8 +140,6 @@ export const MIR = () => {
           )
         );
       } else {
-        console.log(mirs);
-
         setMirsFiltered(mirs);
       }
     } else {
@@ -490,7 +488,7 @@ export const MIR = () => {
               flexDirection: "column",
               boxShadow: 5,
             }}
-          >
+          ><Table>
             <TableHead sx={{ backgroundColor: "#edeaea", width:'100%', display:'flex', justifyContent:'space-between' }}>
               <TableRow sx={{ width:'100%'}}>
                 <TableCell
@@ -555,6 +553,7 @@ export const MIR = () => {
                 </TableCell>
               </TableRow>
             </TableHead>
+            </Table>
             <Box
               sx={{
                 width: "100%",

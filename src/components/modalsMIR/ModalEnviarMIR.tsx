@@ -33,6 +33,7 @@ export default function ModalEnviarMIR({
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
   // const [instSelected, setInstSelected] = useState("");
+  let err = 0;
 
   const [newComent, setNewComent] = React.useState(false);
 
@@ -60,59 +61,74 @@ export default function ModalEnviarMIR({
   };
 
   const checkMir = (v: string) => {
-    errores = []
+    errores = [];
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
+      err = 1;
       errores.push("<strong>Encabezado<(strong>: año fiscal no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
+      console.log("asasas");
+
+      err = 1;
       errores.push("<strong>Encabezado:</strong> institución no seleccionada.");
     }
     if (JSON.parse(MIR)?.encabezado.nombre_del_programa === "") {
+      err = 1;
       errores.push(
         "<strong>Encabezado:</strong> programa presupuestario no seleccionado."
       );
     }
     if (JSON.parse(MIR)?.encabezado.eje === "") {
+      err = 1;
       errores.push("<strong>Encabezado:</strong> eje no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.tema === "") {
+      err = 1;
       errores.push("<strong>Encabezado:</strong> temática no seleccionada.");
     }
     if (JSON.parse(MIR)?.encabezado.objetivo === "") {
+      err = 1;
       errores.push("<strong>Encabezado:</strong> objetivo no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.estrategia === "") {
+      err = 1;
       errores.push("<strong>Encabezado:</strong> estrategia no seleccionada.");
     }
     if (JSON.parse(MIR)?.encabezado.lineas_de_accion === "") {
+      err = 1;
       errores.push(
         "<strong>Encabezado:</strong> selecciona al menos 1 línea de acción."
       );
     }
     if (JSON.parse(MIR)?.encabezado.beneficiario === "") {
+      err = 1;
       errores.push(
         "<strong>Encabezado:</strong> beneficiario no seleccionado."
       );
     }
     if (JSON.parse(MIR)?.fin === null) {
+      err = 1;
       errores.push("Sección <strong> FIN </strong> Faltante.");
     }
     if (
       JSON.parse(MIR)?.fin.resumen === undefined ||
       JSON.parse(MIR)?.fin.resumen === ""
     ) {
+      err = 1;
       errores.push("<strong>FIN: Resumen Narrativo</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.fin.indicador === undefined ||
       JSON.parse(MIR)?.fin.indicador === ""
     ) {
+      err = 1;
       errores.push("<strong>FIN: Indicador</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.fin.formula === undefined ||
       JSON.parse(MIR)?.fin.formula === ""
     ) {
+      err = 1;
       errores.push("<strong>FIN: Fórmula</strong> sin información.");
     }
     if (
@@ -121,6 +137,7 @@ export default function ModalEnviarMIR({
       (JSON.parse(MIR)?.fin.frecuencia.toLowerCase() !== "anual" &&
         JSON.parse(MIR)?.fin.frecuencia.toLowerCase() !== "bienal")
     ) {
+      err = 1;
       errores.push(
         "<strong>FIN: Frecuencia</strong>, solo puede ser Anual o Bienal."
       );
@@ -129,6 +146,7 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.fin.medios === undefined ||
       JSON.parse(MIR)?.fin.medios === ""
     ) {
+      err = 1;
       errores.push(
         "<strong>FIN: Medios de Verificación</strong> sin información."
       );
@@ -137,12 +155,14 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.fin.supuestos === undefined ||
       JSON.parse(MIR)?.fin.supuestos === ""
     ) {
+      err = 1;
       errores.push("<strong>FIN: Supuestos</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.proposito.resumen === undefined ||
       JSON.parse(MIR)?.proposito.resumen === ""
     ) {
+      err = 1;
       errores.push(
         "<strong>PROPOSITO: Resumen Narrativo</strong> sin información."
       );
@@ -151,18 +171,21 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.proposito.indicador === undefined ||
       JSON.parse(MIR)?.proposito.indicador === ""
     ) {
+      err = 1;
       errores.push("<strong>PROPOSITO: Indicador</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.proposito.formula === undefined ||
       JSON.parse(MIR)?.proposito.formula === ""
     ) {
+      err = 1;
       errores.push("<strong>PROPOSITO: Fórmula</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.proposito.frecuencia === undefined ||
-      JSON.parse(MIR)?.proposito.frecuencia === "" 
+      JSON.parse(MIR)?.proposito.frecuencia === ""
     ) {
+      err = 1;
       errores.push(
         "<strong>PROPOSITO: Frecuencia</strong>, solo puede ser Anual o Bienal."
       );
@@ -171,6 +194,7 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.proposito.medios_verificacion === undefined ||
       JSON.parse(MIR)?.proposito.medios_verificacion === ""
     ) {
+      err = 1;
       errores.push(
         "<strong>PROPOSITO: Medios de Verificación</strong> sin información."
       );
@@ -179,6 +203,7 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.proposito.supuestos === undefined ||
       JSON.parse(MIR)?.proposito.supuestos === ""
     ) {
+      err = 1;
       errores.push("<strong>PROPOSITO: Supuestos</strong> sin información.");
     }
     checkComponentes(v);
@@ -191,6 +216,7 @@ export default function ModalEnviarMIR({
         componente.resumen === "" ||
         componente.resumen === null
       ) {
+        err = 1;
         errores.push(
           `<strong> Componente ${
             index + 1
@@ -198,6 +224,7 @@ export default function ModalEnviarMIR({
         );
       }
       if (componente.indicador === undefined || componente.indicador === "") {
+        err = 1;
         errores.push(
           `<strong> Componente ${
             index + 1
@@ -205,6 +232,7 @@ export default function ModalEnviarMIR({
         );
       }
       if (componente.formula === undefined || componente.formula === "") {
+        err = 1;
         errores.push(
           `<strong> Componente ${index + 1} </strong>: Fórmula sin información.`
         );
@@ -215,6 +243,7 @@ export default function ModalEnviarMIR({
         (componente.frecuencia.toLowerCase() !== "semestral" &&
           componente.frecuencia.toLowerCase() !== "trimestral")
       ) {
+        err = 1;
         errores.push(
           `<strong> Componente ${
             index + 1
@@ -222,6 +251,7 @@ export default function ModalEnviarMIR({
         );
       }
       if (componente.medios === undefined || componente.medios === "") {
+        err = 1;
         errores.push(
           `<strong> Componente ${
             index + 1
@@ -229,6 +259,7 @@ export default function ModalEnviarMIR({
         );
       }
       if (componente.supuestos === undefined || componente.supuestos === "") {
+        err = 1;
         errores.push(
           `<strong> Componente ${
             index + 1
@@ -242,7 +273,6 @@ export default function ModalEnviarMIR({
   };
 
   const checkActividades = (v: string) => {
-    let err = 0;
     JSON.parse(MIR)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.resumen === undefined ||
@@ -255,10 +285,10 @@ export default function ModalEnviarMIR({
         err = 1;
       }
       if (actividad.indicador === undefined || actividad.indicador === "") {
+        err = 1;
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: Indicador sin información.`
         );
-        err = 1;
       }
       if (actividad.formula === undefined || actividad.formula === "") {
         errores.push(
@@ -335,6 +365,7 @@ export default function ModalEnviarMIR({
         showResume();
       })
       .catch((err) => {
+        err = 1;
         errores.push(err.response.data.result.error);
       });
   };
@@ -374,10 +405,11 @@ export default function ModalEnviarMIR({
           enviarNotificacion(user.IdUsuario);
         });
 
-        estado === "Autorizada"
-          ? CrearMetaAnual()
-          : console.log("no esta autorizada");
+        if (estado === "Autorizada") {
+          CrearMetaAnual();
+        }
 
+        err = 1;
         errores.push(
           localStorage.getItem("Rol") === "Administrador"
             ? "¡MIR autorizada con éxito!"
@@ -389,6 +421,7 @@ export default function ModalEnviarMIR({
         showResume();
       })
       .catch((err) => {
+        err = 1;
         errores.push(err.response.data.result.error);
       });
   };

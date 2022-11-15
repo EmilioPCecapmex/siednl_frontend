@@ -240,7 +240,7 @@ export function TabEncabezado({
 
   function resultado(){
     setDisabledButton(true);  
-    setNombreArchivo("Solo se aceptan archivos tipo xlsx");
+    setNombreArchivo("ARRASTRE O DE CLICK AQUI PARA CARGAR MIR");
   }
 
   useEffect(() => {
@@ -252,8 +252,6 @@ export function TabEncabezado({
    docExtencion==="xlsx"?
    setDisabledButton(false)
    : resultado();
-   console.log(docExtencion);
-  
   }, [docExtencion])
   
   
@@ -334,7 +332,6 @@ export function TabEncabezado({
   const [uploadFile, setUploadFile] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  console.log(lineaDeAccion)
   const onClearLineasDeAccion = () => {
     setLineaDeAccion([]);
   }
