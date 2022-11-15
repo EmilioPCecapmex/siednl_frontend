@@ -345,6 +345,7 @@ export function TabResumen2({
 
     setDisablebuttonactividades(
       respuestaActividades
+      
     )
     
   }, [editEncabezado, editFin, editProposito, editComponentes, editActividades]);
