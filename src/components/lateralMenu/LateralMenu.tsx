@@ -392,7 +392,7 @@ export const LateralMenu = ({
               <ListItemButton
                 onClick={() => {
                   setResumeDefaultFT();
-                  navigate("../fichatecnica");
+                  navigate("../fichaTecnica");
                 }}
                 sx={st.subMenuItemStyle}
                >

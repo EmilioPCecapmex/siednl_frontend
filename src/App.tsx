@@ -13,14 +13,10 @@ import {
   sessionValid,
 } from "./funcs/validation";
 import { useNavigate } from "react-router-dom";
-import { LateralMenu } from "./components/lateralMenu/LateralMenu";
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
-import { TabComponente } from "./components/tabsMir/TabComponente";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
-import axios from "axios";
-import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 
 function App() {
@@ -63,7 +59,7 @@ function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="users" element={<Usuarios />} />
         <Route path="*" element={<E404 />} />
-        <Route path="fichaTecnica" element={<ResumenFichaTecnica />} />
+        <Route path="fichaTecnica" element={<FichaTecnica />} />
         <Route
           path="Institutionalactivities"
           element={<ActividadesInstitucionales />}
@@ -71,7 +67,6 @@ function App() {
         <Route path="mir" element={<MIR />} />
         <Route path="metaAnual" element={<MetaAnual />} />
         <Route path="notifications" element={<Notification />} />
-        <Route path="fichatecnica" element={<FichaTecnica />} />
       </Routes>
     </>
   );
