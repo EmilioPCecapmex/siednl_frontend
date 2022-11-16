@@ -105,7 +105,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
 
   const getFT = () => {
     axios
-    .get("http://localhost:8000/api/Lista-Ficha-tecnica", {
+    .get("http://10.200.4.199:8000/api/Lista-Ficha-tecnica", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
@@ -116,10 +116,12 @@ const [ft, setft] = useState<Array<IIFT>>([]);
         },
       })
       .then((r) => {
-        
+        console.log(r);
         setft(r.data.data);
         setftFiltered(r.data.data);
-      });
+      }).catch((err) => {
+        console.log(err)
+      })
   };
 
   useEffect(() => {
