@@ -78,7 +78,6 @@ export default function ModalSolicitaModif({
       errores.push("<strong>Encabezado<(strong>: año fiscal no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
-      console.log("asasas");
 
       err = 1;
       errores.push("<strong>Encabezado:</strong> institución no seleccionada.");

@@ -6,10 +6,14 @@ import {
   List,
   ListItemButton,
   Divider,
+  FormControl,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { IFinMA } from "./IFin";
 import { IPropositoMA } from "./IFin";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import Radio from "@mui/material/Radio";
 
 export function TabFinPropositoMA({
   show,
@@ -17,7 +21,7 @@ export function TabFinPropositoMA({
   resumenPropositoMa,
   showMirFnc,
   showFnc,
-  MA
+  MA,
 }: {
   show: boolean;
   resumenFinMa: Function;
@@ -26,19 +30,19 @@ export function TabFinPropositoMA({
   showFnc: Function;
   MA: string;
 }) {
-  let jsonMA = MA === '' ? '' : JSON.parse(MA);
+  let jsonMA = MA === "" ? "" : JSON.parse(MA);
 
   const [valueFin, setValueFin] = useState<Array<IFinMA>>([
     {
-      metaAnual: jsonMA?.fin?.metaAnual || '',
-      lineaBase: jsonMA?.fin?.lineaBase || '',
-      valorNumerador: jsonMA?.fin?.valorNumerador || '',
-      valorDenominador: jsonMA?.fin?.valorDenominador || '',
-      sentidoDelIndicador: jsonMA?.fin?.sentidoDelIndicador || '',
-      unidadResponsable: jsonMA?.fin?.unidadResponsable || '',
-      descIndicador: jsonMA?.fin?.descIndicador || '',
-      descNumerador: jsonMA?.fin?.descNumerador || '',
-      descDenominador: jsonMA?.fin?.descDenominador || '',
+      metaAnual: jsonMA?.fin?.metaAnual || "",
+      lineaBase: jsonMA?.fin?.lineaBase || "",
+      valorNumerador: jsonMA?.fin?.valorNumerador || "",
+      valorDenominador: jsonMA?.fin?.valorDenominador || "",
+      sentidoDelIndicador: jsonMA?.fin?.sentidoDelIndicador || "",
+      unidadResponsable: jsonMA?.fin?.unidadResponsable || "",
+      descIndicador: jsonMA?.fin?.descIndicador || "",
+      descNumerador: jsonMA?.fin?.descNumerador || "",
+      descDenominador: jsonMA?.fin?.descDenominador || "",
     },
   ]);
 
@@ -88,12 +92,14 @@ export function TabFinPropositoMA({
             justifyContent: "flex-end",
             alignItems: "center",
           }}
-          onClick={()=>{showMirFnc(true); showFin ? showFnc('Fin') : showFnc('Proposito')}}
+          onClick={() => {
+            showMirFnc(true);
+            showFin ? showFnc("Fin") : showFnc("Proposito");
+          }}
         >
           <InfoOutlinedIcon
             fontSize="large"
             sx={{ cursor: "pointer" }}
-            
           ></InfoOutlinedIcon>
           <Typography
             sx={{
@@ -349,28 +355,92 @@ export function TabFinPropositoMA({
                 }}
                 value={valueFin[0]?.valorDenominador}
               />
-              <TextField
-                rows={3}
-                multiline
-                sx={{ width: "15%", boxShadow: 2 }}
-                variant={"filled"}
-                label={"Sentido del indicador"}
-                InputLabelProps={{
-                  style: {
+
+              <FormControl
+                sx={{
+                  width: "15%",
+                  height: "70%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "flex-start",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: 12,
+                  }}
+                >
+                  SENTIDO DEL INDICADOR
+                </FormLabel>
+                <FormControlLabel
+                  value={"ASCENDENTE"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: 12, fontFamily: "MontserratMedium" }}
+                    >
+                      ASCENDENTE
+                    </Typography>
+                  }
+                  sx={{
                     fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueFin[0].sentidoDelIndicador = c.target.value;
-                  setValueFin([...valueFin]);
-                }}
-                value={valueFin[0]?.sentidoDelIndicador}
-              />
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        valueFin[0]?.sentidoDelIndicador === "ASCENDENTE"
+                      }
+                      onChange={(c) => {
+                        valueFin[0].sentidoDelIndicador = c.target.value;
+                        setValueFin([...valueFin]);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"DESCENDENTE"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: 12, fontFamily: "MontserratMedium" }}
+                    >
+                      DESCENDENTE
+                    </Typography>
+                  }
+                  control={
+                    <Radio
+                      checked={
+                        valueFin[0].sentidoDelIndicador === "DESCENDENTE"
+                      }
+                      onChange={(c) => {
+                        valueFin[0].sentidoDelIndicador = c.target.value;
+                        setValueFin([...valueFin]);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NORMAL"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: 12, fontFamily: "MontserratMedium" }}
+                    >
+                      NORMAL
+                    </Typography>
+                  }
+                  control={
+                    <Radio
+                      checked={valueFin[0].sentidoDelIndicador === "NORMAL"}
+                      onChange={(c) => {
+                        valueFin[0].sentidoDelIndicador = c.target.value;
+                        setValueFin([...valueFin]);
+                      }}
+                    />
+                  }
+                />
+              </FormControl>
+              
             </Box>
             <Box
               sx={{
@@ -594,28 +664,92 @@ export function TabFinPropositoMA({
                 }}
                 value={valueProposito[0]?.valorDenominador}
               />
-              <TextField
-                rows={3}
-                multiline
-                sx={{ width: "15%", boxShadow: 2 }}
-                variant={"filled"}
-                label={"Sentido del indicador"}
-                InputLabelProps={{
-                  style: {
+              <FormControl
+                sx={{
+                  width: "15%",
+                  height: "70%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "flex-start",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: 12,
+                  }}
+                >
+                  SENTIDO DEL INDICADOR
+                </FormLabel>
+                <FormControlLabel
+                  value={"ASCENDENTE"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: 12, fontFamily: "MontserratMedium" }}
+                    >
+                      ASCENDENTE
+                    </Typography>
+                  }
+                  sx={{
                     fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueProposito[0].sentidoDelIndicador = c.target.value;
-                  setValueProposito([...valueProposito]);
-                }}
-                value={valueProposito[0]?.sentidoDelIndicador}
-              />
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        valueProposito[0]?.sentidoDelIndicador === "ASCENDENTE"
+                      }
+                      onChange={(c) => {
+                        valueProposito[0].sentidoDelIndicador = c.target.value;
+                        setValueProposito([...valueProposito]);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"DESCENDENTE"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: 12, fontFamily: "MontserratMedium" }}
+                    >
+                      DESCENDENTE
+                    </Typography>
+                  }
+                  control={
+                    <Radio
+                      checked={
+                        valueProposito[0]?.sentidoDelIndicador === "DESCENDENTE"
+                      }
+                      onChange={(c) => {
+                        valueProposito[0].sentidoDelIndicador = c.target.value;
+                        setValueProposito([...valueProposito]);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NORMAL"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: 12, fontFamily: "MontserratMedium" }}
+                    >
+                      NORMAL
+                    </Typography>
+                  }
+                  control={
+                    <Radio
+                      checked={
+                        valueProposito[0]?.sentidoDelIndicador === "NORMAL"
+                      }
+                      onChange={(c) => {
+                        valueProposito[0].sentidoDelIndicador = c.target.value;
+                        setValueProposito([...valueProposito]);
+                      }}
+                    />
+                  }
+                />
+              </FormControl>
             </Box>
             <Box
               sx={{

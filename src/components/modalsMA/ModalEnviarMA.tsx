@@ -17,13 +17,15 @@ export default function ModalEnviarMA({
   open,
   handleClose,
   MA,
+  MIR,
   IdMA,
   IdMIR,
-  showResume
+  showResume,
 }: {
   open: boolean;
   handleClose: Function;
   MA: string;
+  MIR: string;
   IdMA: string;
   IdMIR: string;
   showResume: Function;
@@ -44,7 +46,7 @@ export default function ModalEnviarMA({
           IdMA: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA:'MA'
+          MIR_MA: "MA",
         },
         {
           headers: {
@@ -67,7 +69,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.metaAnual === undefined ||
-      JSON.parse(MA)?.fin.metaAnual === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual)
     ) {
       return Toast.fire({
         icon: "error",
@@ -75,7 +77,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.lineaBase === undefined ||
-      JSON.parse(MA)?.fin.lineaBase === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase)
     ) {
       return Toast.fire({
         icon: "error",
@@ -83,7 +85,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.valorNumerador === undefined ||
-      JSON.parse(MA)?.fin.valorNumerador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -91,7 +93,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.valorDenominador === undefined ||
-      JSON.parse(MA)?.fin.valorDenominador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -107,7 +109,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.unidadResponsable === undefined ||
-      JSON.parse(MA)?.fin.unidadResponsable === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable)
     ) {
       return Toast.fire({
         icon: "error",
@@ -115,7 +117,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.descIndicador === undefined ||
-      JSON.parse(MA)?.fin.descIndicador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descIndicador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -123,7 +125,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.descNumerador === undefined ||
-      JSON.parse(MA)?.fin.descNumerador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descNumerador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -131,7 +133,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.fin.descDenominador === undefined ||
-      JSON.parse(MA)?.fin.descDenominador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descDenominador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -144,7 +146,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.metaAnual === undefined ||
-      JSON.parse(MA)?.proposito.metaAnual === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual)
     ) {
       return Toast.fire({
         icon: "error",
@@ -152,7 +154,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.lineaBase === undefined ||
-      JSON.parse(MA)?.proposito.lineaBase === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase)
     ) {
       return Toast.fire({
         icon: "error",
@@ -160,7 +162,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.valorNumerador === undefined ||
-      JSON.parse(MA)?.proposito.valorNumerador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorNumerador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -168,7 +170,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.valorDenominador === undefined ||
-      JSON.parse(MA)?.proposito.valorDenominador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -184,7 +186,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
-      JSON.parse(MA)?.proposito.unidadResponsable === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable)
     ) {
       return Toast.fire({
         icon: "error",
@@ -192,7 +194,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.descIndicador === undefined ||
-      JSON.parse(MA)?.proposito.descIndicador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descIndicador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -201,7 +203,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.descNumerador === undefined ||
-      JSON.parse(MA)?.proposito.descNumerador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descNumerador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -210,7 +212,7 @@ export default function ModalEnviarMA({
       });
     } else if (
       JSON.parse(MA)?.proposito.descDenominador === undefined ||
-      JSON.parse(MA)?.proposito.descDenominador === ""
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descDenominador)
     ) {
       return Toast.fire({
         icon: "error",
@@ -227,7 +229,7 @@ export default function ModalEnviarMA({
     JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
       if (
         componente.metaAnual === undefined ||
-        componente.metaAnual === "" ||
+        /^[\s]*$/.test(componente.metaAnual) ||
         componente.metaAnual === null
       ) {
         return (
@@ -240,7 +242,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         componente.lineaBase === undefined ||
-        componente.lineaBase === ""
+        /^[\s]*$/.test(componente.lineaBase)
       ) {
         return (
           Toast.fire({
@@ -252,17 +254,17 @@ export default function ModalEnviarMA({
         );
       } else if (
         (componente.metasPorFrecuencia[0].semestre1 === undefined ||
-          componente.metasPorFrecuencia[0].semestre1 === "" ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
           componente.metasPorFrecuencia[0].semestre2 === undefined ||
-          componente.metasPorFrecuencia[0].semestre2 === "") &&
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2)) &&
         (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
-          componente.metasPorFrecuencia[0].trimestre1 === "" ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1) ||
           componente.metasPorFrecuencia[0].trimestre2 === undefined ||
-          componente.metasPorFrecuencia[0].trimestre2 === "" ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2) ||
           componente.metasPorFrecuencia[0].trimestre3 === undefined ||
-          componente.metasPorFrecuencia[0].trimestre3 === "" ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3) ||
           componente.metasPorFrecuencia[0].trimestre4 === undefined ||
-          componente.metasPorFrecuencia[0].trimestre4 === "")
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
       ) {
         return (
           Toast.fire({
@@ -276,7 +278,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         componente.valorNumerador === undefined ||
-        componente.valorNumerador === ""
+        /^[\s]*$/.test(componente.valorNumerador)
       ) {
         return (
           Toast.fire({
@@ -288,7 +290,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         componente.valorDenominador === undefined ||
-        componente.valorDenominador === ""
+        /^[\s]*$/.test(componente.valorDenominador)
       ) {
         return (
           Toast.fire({
@@ -314,7 +316,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         componente.unidadResponsable === undefined ||
-        componente.unidadResponsable === ""
+        /^[\s]*$/.test(componente.unidadResponsable)
       ) {
         return (
           Toast.fire({
@@ -328,7 +330,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         componente.descIndicador === undefined ||
-        componente.descIndicador === ""
+        /^[\s]*$/.test(componente.descIndicador)
       ) {
         return (
           Toast.fire({
@@ -342,7 +344,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         componente.descNumerador === undefined ||
-        componente.descNumerador === ""
+        /^[\s]*$/.test(componente.descNumerador)
       ) {
         return (
           Toast.fire({
@@ -356,7 +358,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         componente.descDenominador === undefined ||
-        componente.descDenominador === ""
+        /^[\s]*$/.test(componente.descDenominador)
       ) {
         return (
           Toast.fire({
@@ -380,7 +382,10 @@ export default function ModalEnviarMA({
   const checkActividades = (v: string) => {
     let err = 0;
     JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
-      if (actividad.metaAnual === undefined || actividad.metaAnual === "") {
+      if (
+        actividad.metaAnual === undefined ||
+        /^[\s]*$/.test(actividad.metaAnual)
+      ) {
         return (
           Toast.fire({
             icon: "error",
@@ -391,7 +396,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         actividad.lineaBase === undefined ||
-        actividad.lineaBase === ""
+        /^[\s]*$/.test(actividad.lineaBase)
       ) {
         return (
           Toast.fire({
@@ -403,17 +408,17 @@ export default function ModalEnviarMA({
         );
       } else if (
         (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
-          actividad.metasPorFrecuencia[0].semestre1 === "" ||
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre1) ||
           actividad.metasPorFrecuencia[0].semestre2 === undefined ||
-          actividad.metasPorFrecuencia[0].semestre2 === "") &&
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre2)) &&
         (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-          actividad.metasPorFrecuencia[0].trimestre1 === "" ||
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
           actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-          actividad.metasPorFrecuencia[0].trimestre2 === "" ||
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
           actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-          actividad.metasPorFrecuencia[0].trimestre3 === "" ||
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
           actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-          actividad.metasPorFrecuencia[0].trimestre4 === "")
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
       ) {
         return (
           Toast.fire({
@@ -425,7 +430,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         actividad.valorNumerador === undefined ||
-        actividad.valorNumerador === ""
+        /^[\s]*$/.test(actividad.valorNumerador)
       ) {
         return (
           Toast.fire({
@@ -437,7 +442,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         actividad.valorDenominador === undefined ||
-        actividad.valorDenominador === ""
+        /^[\s]*$/.test(actividad.valorDenominador)
       ) {
         return (
           Toast.fire({
@@ -461,7 +466,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         actividad.unidadResponsable === undefined ||
-        actividad.unidadResponsable === ""
+        /^[\s]*$/.test(actividad.unidadResponsable)
       ) {
         return (
           Toast.fire({
@@ -473,7 +478,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         actividad.descIndicador === undefined ||
-        actividad.descIndicador === ""
+        /^[\s]*$/.test(actividad.descIndicador)
       ) {
         return (
           Toast.fire({
@@ -485,7 +490,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         actividad.descNumerador === undefined ||
-        actividad.descNumerador === ""
+        /^[\s]*$/.test(actividad.descNumerador)
       ) {
         return (
           Toast.fire({
@@ -497,7 +502,7 @@ export default function ModalEnviarMA({
         );
       } else if (
         actividad.descDenominador === undefined ||
-        actividad.descDenominador === ""
+        /^[\s]*$/.test(actividad.descDenominador)
       ) {
         return (
           Toast.fire({
@@ -517,21 +522,19 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
-    if (estado === "Autorizada" && userSelected !== "0") {
-      estado = "En Revisión";
-    } else if (estado === "En Autorización" && userSelected !== "0") {
-      estado = "En Captura";
-    }
+
+    console.log(estado);
+    console.log(IdMIR);
+    console.log(IdMA);
+    
+    
     axios
       .post(
         "http://10.200.4.199:8000/api/create-MetaAnual",
         {
           MetaAnual: MA,
-          CreadoPor:
-            userSelected !== "0"
-              ? userSelected
-              : localStorage.getItem("IdUsuario"),
-          IdMIR: IdMIR,
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
         },
@@ -563,18 +566,18 @@ export default function ModalEnviarMA({
       });
   };
 
-  const getUsuariosXlineaBase = () => {
-    let inst = JSON.parse(MA)?.fin.lineaBase;
+  const getUsuariosXInstitucion = () => {
+    let inst = JSON.parse(MIR)?.fin.institucion;
 
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
     }
 
     axios
-      .get("http://10.200.4.105:8000/api/usuarioXlineaBase", {
+      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          lineaBase: inst,
+          institucion: inst,
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -589,8 +592,8 @@ export default function ModalEnviarMA({
 
   useEffect(() => {
     if (open) {
-      getUsuariosXlineaBase();
-      setInstSelected(JSON.parse(MA)?.fin.lineaBase);
+      getUsuariosXInstitucion();
+      setInstSelected(JSON.parse(MIR)?.fin.institucion);
     }
   }, [open]);
 

@@ -1285,6 +1285,7 @@ export function TabResumenMA({
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           MA={JSON.stringify(MA)}
+          MIR={MIR}
           IdMA={IdMA}
           IdMIR={IdMir}
           showResume={showResume}

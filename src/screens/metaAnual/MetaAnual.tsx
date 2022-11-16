@@ -25,6 +25,7 @@ import moment from "moment";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { IInstituciones } from "../../components/appsDialog/AppsDialog";
 
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
@@ -60,6 +61,7 @@ export const MetaAnual = () => {
   };
 
   const [findTextStr, setFindTextStr] = useState("");
+  const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
 
   const [ma, setMa] = useState<Array<IIMa>>([]);
@@ -67,9 +69,33 @@ export const MetaAnual = () => {
 
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
 
+  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+
+  const getInstituciones = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setInstituciones(r.data.data);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getInstituciones()
+  }, [])
+  
+
   // Filtrado por caracter
-  const findText = (v: string, select: string) => {
-    if (v !== "" || select !== "0") {
+  const findText = (v: string, est: string, inst: string) => {
+    if (v !== "" || est !== "0" || inst !== "0") {
       setMaFiltered(
         ma.filter(
           (x) =>
@@ -80,12 +106,26 @@ export const MetaAnual = () => {
         )
       );
 
-      if (select !== "0") {
+      if (est !== "0" && inst !== "0") {
         setMaFiltered(
-          ma.filter((x) =>
-            x.Estado.toLowerCase().includes(select.toLowerCase())
+          ma.filter(
+            (x) =>
+              x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+              x.Institucion.toLowerCase().includes(inst.toLowerCase())
           )
         );
+      } else if (est !== "0") {
+        setMaFiltered(
+          ma.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
+        );
+      } else if (inst !== "0") {
+        setMaFiltered(
+          ma.filter((x) =>
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+          )
+        );
+      } else {
+        setMaFiltered(ma);
       }
     } else {
       setMaFiltered(ma);
@@ -123,25 +163,24 @@ export const MetaAnual = () => {
     setActualizacion(actualizacion + 1);
   };
 
-  const colorMir = (v: string, mEdit : string) => {
-    if(mEdit !== undefined){
+  const colorMir = (v: string, mEdit: string) => {
+    if (mEdit !== undefined) {
       let isModification = mEdit;
       isModification = JSON.parse(mEdit);
-      if(isModification[1]){
-        return "#cccc00"
+      if (isModification[1]) {
+        return "#cccc00";
       }
     }
-    if(v === "En Captura"){
-      return '#b3e6b3'
-    }else if(v === "En Revisión"){
-      return '#e6e6ff'
-    }else if(v === "En Autorización"){
-      return '#b3b3ff'
-    }else if(v === "Autorizada"){
-      return '#0000ff'
+    if (v === "En Captura") {
+      return "#b3e6b3";
+    } else if (v === "En Revisión") {
+      return "#e6e6ff";
+    } else if (v === "En Autorización") {
+      return "#b3b3ff";
+    } else if (v === "Autorizada") {
+      return "#0000ff";
     }
-  }
-
+  };
 
   return (
     <Box
@@ -180,16 +219,17 @@ export const MetaAnual = () => {
               height: "15vh",
               backgroundColor: "#fff",
               borderRadius: 5,
-              display: "flex",
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
               boxShadow: 5,
               alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyItems: "center",
             }}
           >
             <Box
               sx={{
                 display: "flex",
-                width: "30%",
+                width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
                 border: 1,
@@ -205,7 +245,7 @@ export const MetaAnual = () => {
                 disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
-                  findText(v.target.value, findSelectStr);
+                  findText(v.target.value, findSelectStr, "");
                 }}
               />
               <SearchIcon />
@@ -214,7 +254,7 @@ export const MetaAnual = () => {
             <FormControl
               sx={{
                 display: "flex",
-                width: "30%",
+                width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
                 border: 1,
@@ -231,8 +271,12 @@ export const MetaAnual = () => {
                 disableUnderline
                 onChange={(v) => {
                   v.target.value === "Todos"
-                    ? findText(findTextStr, "")
-                    : findText(findTextStr, v.target.value);
+                    ? findText(
+                        findTextStr,
+                        "0",
+                        findInstStr === "Todos" ? "0" : findInstStr
+                      )
+                    : findText(findTextStr, v.target.value, findInstStr);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -242,7 +286,7 @@ export const MetaAnual = () => {
                   disabled
                   selected
                 >
-                  Estado MIR
+                  Filtro por estado de la Meta Anual
                 </MenuItem>
                 <MenuItem
                   value={"Todos"}
@@ -275,6 +319,61 @@ export const MetaAnual = () => {
                 >
                   Autorizada
                 </MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl
+              sx={{
+                display: "flex",
+                width: "70%",
+                alignItems: "center",
+                justifyContent: "center",
+                border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
+              }}
+            >
+              <Select
+                size="small"
+                variant="standard"
+                value={findInstStr}
+                sx={{ fontFamily: "MontserratRegular" }}
+                fullWidth
+                disableUnderline
+                onChange={(v) => {
+                  v.target.value === "Todos"
+                    ? findText(
+                        findTextStr,
+                        findSelectStr === "Todos" ? "0" : findSelectStr,
+                        "0"
+                      )
+                    : findText(findTextStr, findSelectStr, v.target.value);
+                  setFindInstStr(v.target.value);
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  disabled
+                  selected
+                >
+                  Filtro por institución
+                </MenuItem>
+
+                <MenuItem
+                  value={"Todos"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Todos
+                </MenuItem>
+
+                {instituciones?.map((item) => {
+                  return (
+                    <MenuItem value={item.NombreInstitucion} key={item.Id}>
+                      {item.NombreInstitucion}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Box>
@@ -330,7 +429,7 @@ export const MetaAnual = () => {
                     sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
                     align="center"
                   >
-                    FECHA CREACIÓN
+                    FECHA DE CREACIÓN
                   </TableCell>
                   <TableCell
                     sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
@@ -426,7 +525,7 @@ export const MetaAnual = () => {
                             }}
                             align="center"
                           >
-                             <Box
+                            <Box
                               sx={{
                                 display: "flex",
                                 flexDirection: "row",
@@ -441,17 +540,20 @@ export const MetaAnual = () => {
                                   width: ".5vw",
                                   height: "1vh",
                                   borderRadius: 100,
-                                  backgroundColor: colorMir(row.Estado, row.MIR),
+                                  backgroundColor: colorMir(
+                                    row.Estado,
+                                    row.MIR
+                                  ),
                                 }}
                               />
                               <Typography
                                 sx={{
                                   width: "60%",
                                   fontFamily: "MontserratRegular",
-                                  color: '#616161',
+                                  color: "#616161",
                                   fontSize: ".7vw",
-                                  ml: '10%',
-                                  textAlign: 'center'
+                                  ml: "10%",
+                                  textAlign: "center",
                                 }}
                               >
                                 {row.Estado === "En Captura" &&
@@ -496,6 +598,7 @@ export const MetaAnual = () => {
                             {row.CreadoPor.toUpperCase()}
                           </TableCell>
                           <TableCell
+                            align="center"
                             sx={{
                               display: "flex",
                               flexDirection: "column",
@@ -503,10 +606,29 @@ export const MetaAnual = () => {
                               justifyContent: "center",
                             }}
                           >
-                            <Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                              }}
+                            >
                               <IconButton
                                 disabled={
-                                  row.Estado === "Autorizada" ? true : false
+                                  row.Estado === "En Captura" &&
+                                  localStorage.getItem("Rol") ===
+                                    "Capturador"
+                                    ? false
+                                    : row.Estado === "En Revisión" &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador"
+                                    ? false
+                                    : row.Estado === "En Autorización" &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador"
+                                    ? false
+                                    : true
                                 }
                                 sx={{
                                   color: "#616161",

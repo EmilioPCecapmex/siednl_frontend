@@ -5,6 +5,7 @@ import {
   List,
   ListItemButton,
   TextField,
+  FormControl,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
@@ -13,6 +14,9 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { IComponenteActividad } from "./AddMetaAnual";
 import { ICValor } from "../tabsMir/ICValor";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import Radio from "@mui/material/Radio";
 
 //funcion main
 export const TabActividadesMA = ({
@@ -48,7 +52,7 @@ export const TabActividadesMA = ({
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-  let jsonMA =  MA === "" ? "" : JSON.parse(MA);
+  let jsonMA = MA === "" ? "" : JSON.parse(MA);
 
   const [aValorMA, setAValorMA] = useState(
     componenteActividad.map((item) => {
@@ -93,7 +97,6 @@ export const TabActividadesMA = ({
 
   useEffect(() => {
     asignarCValor(aValorMA);
-    
   }, [aValorMA]);
 
   const loadActividadesMA = () => {
@@ -105,63 +108,71 @@ export const TabActividadesMA = ({
               return {
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
                 metaAnual:
-                  MA === "" ? "" : jsonMA?.actividades[index2]?.metaAnual || '',
+                  MA === "" ? "" : jsonMA?.actividades[index2]?.metaAnual || "",
                 lineaBase:
-                  MA === "" ? "" : jsonMA?.actividades[index2]?.lineaBase || '',
+                  MA === "" ? "" : jsonMA?.actividades[index2]?.lineaBase || "",
                 metasPorFrecuencia: [
                   {
                     semestre1:
                       MA === ""
                         ? ""
                         : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.semestre1 || '',
+                            ?.semestre1 || "",
                     semestre2:
                       MA === ""
                         ? ""
                         : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.semestre2 || '',
+                            ?.semestre2 || "",
                     trimestre1:
                       MA === ""
                         ? ""
                         : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.trimestre1 || '',
+                            ?.trimestre1 || "",
                     trimestre2:
                       MA === ""
                         ? ""
                         : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.trimestre2 || '',
+                            ?.trimestre2 || "",
                     trimestre3:
                       MA === ""
                         ? ""
                         : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.trimestre3 || '',
+                            ?.trimestre3 || "",
                     trimestre4:
                       MA === ""
                         ? ""
                         : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.trimestre4 || '',
+                            ?.trimestre4 || "",
                   },
                 ],
                 valorNumerador:
-                  MA === "" ? "" : jsonMA?.actividades[index2]?.valorNumerador || '',
+                  MA === ""
+                    ? ""
+                    : jsonMA?.actividades[index2]?.valorNumerador || "",
                 valorDenominador:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.valorDenominador || '',
+                    : jsonMA?.actividades[index2]?.valorDenominador || "",
                 sentidoDelIndicador:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.sentidoDelIndicador || '',
+                    : jsonMA?.actividades[index2]?.sentidoDelIndicador || "",
                 unidadResponsable:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.unidadResponsable || '',
+                    : jsonMA?.actividades[index2]?.unidadResponsable || "",
                 descIndicador:
-                  MA === "" ? "" : jsonMA?.actividades[index2]?.descIndicador || '',
+                  MA === ""
+                    ? ""
+                    : jsonMA?.actividades[index2]?.descIndicador || "",
                 descNumerador:
-                  MA === "" ? "" : jsonMA?.actividades[index2]?.descNumerador || '',
+                  MA === ""
+                    ? ""
+                    : jsonMA?.actividades[index2]?.descNumerador || "",
                 descDenominador:
-                  MA === "" ? "" : jsonMA?.actividades[index2]?.descDenominador || '',
+                  MA === ""
+                    ? ""
+                    : jsonMA?.actividades[index2]?.descDenominador || "",
               };
             }),
           };
@@ -427,11 +438,23 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              rows={3}
+              rows={1}
               multiline
-              sx={{ width: "20%", boxShadow: 2 }}
+              sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Meta Anual 2023"}
+              value={
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metaAnual
+              }
+              onChange={(c) => {
+                let y = [...aValorMA];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metaAnual = c.target.value;
+                setAValorMA(y);
+              }}
               error={
                 (parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
@@ -480,19 +503,6 @@ export const TabActividadesMA = ({
                   ? "Introducir valor entre 0 y 100. "
                   : null
               }
-              value={
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metaAnual
-              }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metaAnual = c.target.value;
-                setAValorMA(y);
-                
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -505,59 +515,11 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={3}
+              rows={1}
               multiline
-              sx={{ width: "20%", boxShadow: 2 }}
+              sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Linea Base 2021"}
-              error={
-                (parseFloat(
-                  aValorMA[0].componentes[componenteSelect].actividades[
-                    actividadSelect
-                  ].lineaBase
-                ) < 0 ||
-                  parseFloat(
-                    aValorMA[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].lineaBase
-                  ) > 100 ||
-                  isNaN(
-                    parseFloat(
-                      aValorMA[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].lineaBase
-                    )
-                  )) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].lineaBase !== ""
-                  ? true
-                  : false
-              }
-              helperText={
-                (parseFloat(
-                  aValorMA[0].componentes[componenteSelect].actividades[
-                    actividadSelect
-                  ].lineaBase
-                ) < 0 ||
-                  parseFloat(
-                    aValorMA[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].lineaBase
-                  ) > 100 ||
-                  isNaN(
-                    parseFloat(
-                      aValorMA[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].lineaBase
-                    )
-                  )) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].lineaBase !== ""
-                  ? "Introducir valor entre 0 y 100. "
-                  : null
-              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -570,6 +532,54 @@ export const TabActividadesMA = ({
                 ].lineaBase = c.target.value;
                 setAValorMA(y);
               }}
+              error={
+                (parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].lineaBase
+                ) < 0 ||
+                  parseFloat(
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ].lineaBase
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      aValorMA[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].lineaBase
+                    )
+                  )) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].lineaBase !== ""
+                  ? true
+                  : false
+              }
+              helperText={
+                (parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].lineaBase
+                ) < 0 ||
+                  parseFloat(
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ].lineaBase
+                  ) > 100 ||
+                  isNaN(
+                    parseFloat(
+                      aValorMA[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].lineaBase
+                    )
+                  )) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].lineaBase !== ""
+                  ? "Introducir valor entre 0 y 100. "
+                  : null
+              }
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -582,11 +592,11 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={3}
+              rows={1}
               multiline
-              sx={{ width: "20%", boxShadow: 2 }}
+              sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Valor númerador"}
+              label={"Valor del númerador"}
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -611,9 +621,9 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={3}
+              rows={1}
               multiline
-              sx={{ width: "20%", boxShadow: 2 }}
+              sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del denominador"}
               value={
@@ -639,35 +649,108 @@ export const TabActividadesMA = ({
                 },
               }}
             />
-            <TextField
-              rows={3}
-              multiline
-              sx={{ width: "20%", boxShadow: 2 }}
-              variant={"filled"}
-              label={"Sentido del indicador"}
-              value={
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].sentidoDelIndicador
-              }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].sentidoDelIndicador = c.target.value;
-                setAValorMA(y);
+
+            <FormControl
+              sx={{
+                width: "15%",
+                height: "80%",
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "flex-start",
               }}
-              InputLabelProps={{
-                style: {
+            >
+              <FormLabel
+                sx={{
+                  fontFamily: "MontserratBold",
+                  fontSize: 12,
+                }}
+              >
+                SENTIDO DEL INDICADOR
+              </FormLabel>
+              <FormControlLabel
+                value={"ASCENDENTE"}
+                label={
+                  <Typography
+                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                  >
+                    ASCENDENTE
+                  </Typography>
+                }
+                sx={{
                   fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-            />
+                }}
+                control={
+                  <Radio
+                    checked={
+                      aValorMA[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].sentidoDelIndicador === "ASCENDENTE"
+                    }
+                    onChange={(c) => {
+                      let y = [...aValorMA];
+                      y[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].sentidoDelIndicador = c.target.value;
+                      setAValorMA(y);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"DESCENDENTE"}
+                label={
+                  <Typography
+                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                  >
+                    DESCENDENTE
+                  </Typography>
+                }
+                control={
+                  <Radio
+                    checked={
+                      aValorMA[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].sentidoDelIndicador === "DESCENDENTE"
+                    }
+                    onChange={(c) => {
+                      let y = [...aValorMA];
+                      y[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].sentidoDelIndicador = c.target.value;
+                      setAValorMA(y);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"NORMAL"}
+                label={
+                  <Typography
+                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                  >
+                    NORMAL
+                  </Typography>
+                }
+                control={
+                  <Radio
+                    checked={
+                      aValorMA[0]?.componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].sentidoDelIndicador === "NORMAL"
+                    }
+                    onChange={(c) => {
+                      let y = [...aValorMA];
+                      y[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].sentidoDelIndicador = c.target.value;
+                      setAValorMA(y);
+                    }}
+                  />
+                }
+              />
+            </FormControl>
           </Box>
           <Box
             sx={{
@@ -681,7 +764,7 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              rows={3}
+              rows={1}
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
@@ -710,7 +793,7 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={3}
+              rows={1}
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
@@ -739,7 +822,7 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={3}
+              rows={1}
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
@@ -768,7 +851,7 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={3}
+              rows={1}
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}

@@ -261,7 +261,6 @@ export function TabResumen2({
 
   // //  let ARRAY =[editActividades];
 
-  // // console.log("IDENTIFICADOR: ",ARRAY.every(validador));
 
    const [disablebutton3, setDisablebutton3] = useState(false);
   // useEffect(() => {
