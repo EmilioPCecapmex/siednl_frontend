@@ -241,7 +241,7 @@ export function TabEncabezado({
     }
   }
 
-  function resultado(){
+  const resultado = () =>{
     setDisabledButton(true);  
     setNombreArchivo("ARRASTRE O DE CLICK AQUI PARA CARGAR MIR");
   }

@@ -495,9 +495,10 @@ export const MIR = () => {
                   sx={{
                     fontFamily: "MontserratBold",
                     textTransform: "uppercase",
-                    width:'13%'
+                    width:'12%',
                   }}
                   align="center"
+    
                 >
                   Ejercicio Fiscal
                 </TableCell>
@@ -505,7 +506,8 @@ export const MIR = () => {
                   sx={{
                     fontFamily: "MontserratBold",
                     textTransform: "uppercase",
-                    width:'20%'
+                    width:'16%',
+
                   }}
                   align="center"
                 >
@@ -515,7 +517,8 @@ export const MIR = () => {
                   sx={{
                     fontFamily: "MontserratBold",
                     textTransform: "uppercase",
-                    width:'19%'
+                    width:'17%',
+
                   }}
                   align="center"
                 >
@@ -525,7 +528,8 @@ export const MIR = () => {
                   sx={{
                     fontFamily: "MontserratBold",
                     textTransform: "uppercase",
-                    width:'19%'
+                    width:'15%',                    
+
                   }}
                   align="center"
                 >
@@ -535,11 +539,21 @@ export const MIR = () => {
                   sx={{
                     fontFamily: "MontserratBold",
                     textTransform: "uppercase",
-                    width:'15%'
+                    width:'12%',
                   }}
                   align="center"
                 >
                   Fecha de Creación
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    textTransform: "uppercase",
+                    width:'13%'
+                  }}
+                  align="center"
+                >
+                  Creado Por
                 </TableCell>
                 <TableCell
                   sx={{
@@ -585,7 +599,7 @@ export const MIR = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "15%",
+                              width: "12%",
                             }}
                             align="center"
                           >
@@ -595,7 +609,7 @@ export const MIR = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "20%",
+                              width: "16%",
                               textTransform: "uppercase",
                             }}
                             align="center"
@@ -606,7 +620,7 @@ export const MIR = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "20%",
+                              width: "17%",
                               textTransform: "uppercase",
                             }}
                             align="center"
@@ -615,7 +629,7 @@ export const MIR = () => {
                           </TableCell>
                           <TableCell
                             sx={{
-                              width: "20%",
+                              width: "15%",
                               textTransform: "uppercase",
                             }}
                           >
@@ -631,11 +645,12 @@ export const MIR = () => {
                             >
                               <Box
                                 sx={{
-                                  width: "10%",
-                                  height: "15%",
+                                  width: ".5vw",
+                                  height: "1vh",
+                                  borderRadius: 100,
                                   backgroundColor: colorMir(row.Estado, row.MIR),
                                 }}
-                              ></Box>
+                              />
                               <Typography
                                 sx={{
                                   width: "60%",
@@ -665,7 +680,7 @@ export const MIR = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "15%",
+                              width: "12%",
                             }}
                             align="center"
                           >
@@ -677,14 +692,14 @@ export const MIR = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "20%",
+                              width: "13%",
                               textTransform: "uppercase",
                             }}
                             align="center"
                           >
                             {row.CreadoPor}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell align="center" sx={{ width: "15%" }}>
                             <Box
                               sx={{
                                 display: "flex",

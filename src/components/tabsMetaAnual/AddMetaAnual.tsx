@@ -6,7 +6,7 @@ import TabFinPropositoMR, {
   IProposito,
   TabFinPropositoMA,
 } from "./TabFinPropositoMA";
-import { Box, Tooltip, Typography } from "@mui/material";
+import { Box, Tooltip, IconButton } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IEncabezado, TabEncabezadoMIR } from "./TabEncabezadoMIR";
@@ -258,12 +258,13 @@ export default function AddMetaAnual({
         width: "100%",
         height: "92%",
         mt: "8vh",
+        
       }}
     >
       <Box
         sx={{
-          width: "80vw",
-          height: "96vh",
+          width: "75vw",
+          height: "90vh",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
@@ -409,47 +410,38 @@ export default function AddMetaAnual({
         </Box>
 
         <Box
-          sx={{
-            width: "6%",
-            display: "flex",
-            height: "7vh",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
+        sx={{
+          width: "30%",
+          display: "flex",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
         >
-          <ArrowCircleLeftIcon
-            fontSize="large"
-            sx={{
-              cursor: "pointer",
-              color: "#cfcfcf",
-              backgroundColor: "black",
-              borderRadius: 5,
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-                mt: 1,
-              },
-            }}
+            <IconButton
             onClick={() => {
               cambiarTab("atras");
             }}
-          />
+          >
+            <ArrowCircleLeftIcon
+              fontSize="large"
+              sx={{
+                color: "#c4a57b",
+              }}
+            />
+          </IconButton>
 
-          <ArrowCircleRightIcon
-            fontSize="large"
-            sx={{
-              cursor: "pointer",
-              color: "#cfcfcf",
-              backgroundColor: "black",
-              borderRadius: 5,
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-                mt: 1,
-              },
-            }}
+          <IconButton
             onClick={() => {
               cambiarTab("adelante");
             }}
-          />
+          >
+            <ArrowCircleRightIcon
+            fontSize="large"
+              sx={{
+                color: "#c4a57b",
+              }}
+            />
+          </IconButton>
           
         </Box>
       </Box>

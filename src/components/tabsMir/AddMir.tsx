@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
@@ -25,7 +25,6 @@ export default function FullModalMir({
   anioFiscalEdit: string;
 }) {
   const [value, setValue] = React.useState(10);
-  
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
@@ -156,7 +155,7 @@ export default function FullModalMir({
         display: "flex",
         justifyContent: "space-evenly",
         width: "100%",
-        height: "92%",
+        height: "100%",
         mt: "8vh",
       }}
     >
@@ -266,6 +265,7 @@ export default function FullModalMir({
             cargaProposito={cargaProposito}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabFinProposito>
+
           <TabResumen2
             showResume={showResume}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
@@ -278,6 +278,7 @@ export default function FullModalMir({
             proposito={proposito}
             IdMir={IdMir}
           ></TabResumen2>
+
           <TabComponente
             show={value === 30 ? true : false}
             noComponentesFnc={noComponentesFnc}
@@ -286,6 +287,7 @@ export default function FullModalMir({
             valoresComponente={componenteValor}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabComponente>
+
           <TabActividades
             actividadesMir={actividadesMir}
             componentesTextos={componenteValor}
@@ -296,53 +298,45 @@ export default function FullModalMir({
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabActividades>
         </Box>
-
         <Box
           sx={{
-            width: "6%",
+            width: "30%",
             display: "flex",
-            height: "7vh",
             justifyContent: "space-evenly",
             alignItems: "center",
           }}
         >
-          <ArrowCircleLeftIcon
-            fontSize="large"
-            sx={{
-              cursor: "pointer",
-              color: "#cfcfcf",
-              backgroundColor: "black",
-              borderRadius: 5,
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-                mt: 1,
-              },
-            }}
+          <IconButton
             onClick={() => {
               cambiarTab("atras");
             }}
-          />
+          >
+            <ArrowCircleLeftIcon
+              fontSize="large"
+              sx={{
+                color: "#c4a57b",
+              }}
+            />
+          </IconButton>
 
-          <ArrowCircleRightIcon
-            fontSize="large"
-            sx={{
-              cursor: "pointer",
-              color: "#cfcfcf",
-              backgroundColor: "black",
-              borderRadius: 5,
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-                mt: 1,
-              },
-            }}
+          <IconButton
             onClick={() => {
               cambiarTab("adelante");
             }}
-          />
-          
-        </Box>
+          >
+            <ArrowCircleRightIcon
+            fontSize="large"
+              sx={{
+                color: "#c4a57b",
+              }}
+            />
+          </IconButton>
 
+         
+        </Box>
       </Box>
+      
+
     </Box>
   );
 }

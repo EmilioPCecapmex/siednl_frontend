@@ -16,6 +16,7 @@ import {
   Select,
   FormControl,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -121,6 +122,26 @@ export const MetaAnual = () => {
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
   };
+
+  const colorMir = (v: string, mEdit : string) => {
+    if(mEdit !== undefined){
+      let isModification = mEdit;
+      isModification = JSON.parse(mEdit);
+      if(isModification[1]){
+        return "#cccc00"
+      }
+    }
+    if(v === "En Captura"){
+      return '#b3e6b3'
+    }else if(v === "En Revisión"){
+      return '#e6e6ff'
+    }else if(v === "En Autorización"){
+      return '#b3b3ff'
+    }else if(v === "Autorizada"){
+      return '#0000ff'
+    }
+  }
+
 
   return (
     <Box
@@ -405,7 +426,48 @@ export const MetaAnual = () => {
                             }}
                             align="center"
                           >
-                            {row.Estado.toUpperCase()}
+                             <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                height: "5vh",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  width: ".5vw",
+                                  height: "1vh",
+                                  borderRadius: 100,
+                                  backgroundColor: colorMir(row.Estado, row.MIR),
+                                }}
+                              />
+                              <Typography
+                                sx={{
+                                  width: "60%",
+                                  fontFamily: "MontserratRegular",
+                                  color: '#616161',
+                                  fontSize: ".7vw",
+                                  ml: '10%',
+                                  textAlign: 'center'
+                                }}
+                              >
+                                {row.Estado === "En Captura" &&
+                                localStorage.getItem("Rol") === "Capturador"
+                                  ? "Borrador"
+                                  : row.Estado === "En Revisión" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Verificador"
+                                  ? "Esperando revisión"
+                                  : row.Estado === "En Autorización" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Administrador"
+                                  ? "Esperando autorización"
+                                  : row.Estado}
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell
                             sx={{

@@ -44,7 +44,7 @@ export const lstXl = {
   },
   institucionStyle: {
     fontFamily: "MontserratMedium",
-    fontSize: ".6vw",
+    fontSize: ".5vw",
     ml: 1,
     mt: 3,
   },
