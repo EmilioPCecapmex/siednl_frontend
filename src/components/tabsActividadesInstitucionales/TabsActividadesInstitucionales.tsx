@@ -124,7 +124,7 @@ export default function TabsActividadesInstitucionales({ returnMain}: { returnMa
             show={value === 40 ? true : false}
           ></TabAvance>
           <TabResumen
-            show={value==50 ? true : false}
+            show={value === 50 ? true : false}
             showResume={returnMain}
           ></TabResumen>
         </Box>

@@ -116,8 +116,6 @@ const [ft, setft] = useState<Array<IIFT>>([]);
         },
       })
       .then((r) => {
-        // setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-        console.log(r.data.data);
         
         setft(r.data.data);
         setftFiltered(r.data.data);
@@ -235,7 +233,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value == "Todos"
+                  v.target.value === "Todos"
                     ? findText(findTextStr, "")
                     : findText(findTextStr, v.target.value);
                   setFindSelectStr(v.target.value);
@@ -478,6 +476,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                                               MIR: row.MIR,
                                               Estado: row.Estado,
                                               FechaCreacion: row.FechaCreacion,
+                                              CreadoPor: row.CreadoPor
                                             },
                                           ]);
                                           setShowResume(false);

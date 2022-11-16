@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import { TabComponente } from "./TabComponente";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
@@ -155,7 +155,7 @@ export default function FullModalMir({
         display: "flex",
         justifyContent: "space-evenly",
         width: "100%",
-        height: "92%",
+        height: "100%",
         mt: "8vh",
       }}
     >
@@ -265,6 +265,7 @@ export default function FullModalMir({
             cargaProposito={cargaProposito}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabFinProposito>
+
           <TabResumen2
             showResume={showResume}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
@@ -277,6 +278,7 @@ export default function FullModalMir({
             proposito={proposito}
             IdMir={IdMir}
           ></TabResumen2>
+
           <TabComponente
             show={value === 30 ? true : false}
             noComponentesFnc={noComponentesFnc}
@@ -285,6 +287,7 @@ export default function FullModalMir({
             valoresComponente={componenteValor}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabComponente>
+
           <TabActividades
             actividadesMir={actividadesMir}
             componentesTextos={componenteValor}
@@ -295,45 +298,45 @@ export default function FullModalMir({
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabActividades>
         </Box>
-
         <Box
           sx={{
-            width: "6%",
+            width: "30%",
             display: "flex",
-            height: "7vh",
             justifyContent: "space-evenly",
             alignItems: "center",
           }}
         >
-           {value > 10 ? (
-            <IconButton
-            
+          <IconButton
             onClick={() => {
               cambiarTab("atras");
             }}
-            >
-               <ArrowCircleLeftIcon/>
-            </IconButton>
-          ): null
-          }
-
-
-          {value < 50 ? (
-            <IconButton
-            sx={{
-              width:"100%",height: "100%",
-            }}
-              onClick={() => {
-                cambiarTab("adelante");
+          >
+            <ArrowCircleLeftIcon
+              fontSize="large"
+              sx={{
+                color: "#c4a57b",
               }}
-            >
-              <ArrowCircleRightIcon />
-            </IconButton>
-          ) : null}
-          
-        </Box>
+            />
+          </IconButton>
 
+          <IconButton
+            onClick={() => {
+              cambiarTab("adelante");
+            }}
+          >
+            <ArrowCircleRightIcon
+            fontSize="large"
+              sx={{
+                color: "#c4a57b",
+              }}
+            />
+          </IconButton>
+
+         
+        </Box>
       </Box>
+      
+
     </Box>
   );
 }

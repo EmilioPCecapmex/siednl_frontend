@@ -2,39 +2,44 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { continueSession, logout, sessionUntil } from "../../funcs/validation";
+import { continueSession, logout } from "../../funcs/validation";
 
 export const TimerCounter = () => {
-  const session = new Date(sessionUntil);
   const [actualDate, setActualDate] = useState(new Date());
-  const [rest, setRest] = useState(0);
+  // const [rest, setRest] = useState(0);
+
+  var rest = parseInt(localStorage.getItem("sessionT") as string);
+
   const [messageSend, setMessageSend] = useState(true);
 
-
   setTimeout(() => {
-    if (rest >= 0 || Number.isNaN(rest)) {
-      setActualDate(new Date());
-        setRest(session.getTime() - actualDate.getTime());
-    }
+    const session = new Date(localStorage.getItem("sUntil") as string);
+    var dateT = new Date();
+    localStorage.setItem("actualD", dateT as unknown as string);
+    setActualDate(new Date(localStorage.getItem("actualD") as string));
+    localStorage.setItem(
+      "sessionT",
+      (session.getTime() - actualDate.getTime()).toString()
+    );
   }, 1000);
 
+  useEffect(() => {
+    if (Math.floor(rest / 60 / 1000) <= 2 && rest > 0 && messageSend) {
+      setMessageSend(false);
+      alertaSession();
+    }
+  }, [Math.floor(rest / 60 / 1000) < 2]);
 
   useEffect(() => {
-    if(Math.floor(rest/60/1000) <= 2 && rest !== 0 && messageSend) {
-      setMessageSend(false)
-      alertaSession()
+    if (Math.floor(rest / 60 / 1000) <= 5 && Math.floor(rest / 60 / 1000) > 2   && rest > 0) {
+      renewSession()
     }
-  },[Math.floor(rest/60/1000) < 2])
-
-
-
-
+    },[])
 
   const renewSession = () => {
-    
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN+ "/api/refresh-token",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/refresh-token",
         {
           refreshToken: localStorage.getItem("refreshToken"),
         },
@@ -47,9 +52,11 @@ export const TimerCounter = () => {
       .then((r) => {
         if (r.data.token) {
           localStorage.setItem("jwtToken", r.data.token);
-          continueSession().then(r => {
-            setTimeout(() => {setMessageSend(true);}, 5000)
-          })
+          continueSession().then((r) => {
+            setTimeout(() => {
+              setMessageSend(true);
+            }, 5000);
+          });
         }
       })
       .catch((err) => {
@@ -69,6 +76,7 @@ export const TimerCounter = () => {
       cancelButtonColor: "#A40000",
       confirmButtonText: "Renovar",
       cancelButtonText: "Salir",
+      allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
         renewSession();

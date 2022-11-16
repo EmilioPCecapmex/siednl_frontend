@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { IActividadesMir, IComponenteActividad } from "./AddMetaAnual";
+import { IComponenteActividad } from "./AddMetaAnual";
 import { ICValor } from "../tabsMir/ICValor";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
@@ -350,7 +350,7 @@ export const TabActividadesMA = ({
                 <Divider />
 
                 <ListItemButton
-                  selected={item == componenteSelect + 1 ? true : false}
+                  selected={item === componenteSelect + 1 ? true : false}
                   key={item}
                   onClick={() => {
                     setComponenteSelect(item - 1);
@@ -379,7 +379,7 @@ export const TabActividadesMA = ({
                       (value, x) => {
                         return (
                           <ListItemButton
-                            selected={x == actividadSelect ? true : false}
+                            selected={x === actividadSelect ? true : false}
                             key={x}
                             onClick={() => {
                               setActividadSelect(x);
@@ -452,7 +452,7 @@ export const TabActividadesMA = ({
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual != ""
+                ].metaAnual !== ""
                   ? true
                   : false
               }
@@ -476,7 +476,7 @@ export const TabActividadesMA = ({
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual != ""
+                ].metaAnual !== ""
                   ? "Introducir valor entre 0 y 100. "
                   : null
               }
@@ -530,7 +530,7 @@ export const TabActividadesMA = ({
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase != ""
+                ].lineaBase !== ""
                   ? true
                   : false
               }
@@ -554,7 +554,7 @@ export const TabActividadesMA = ({
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase != ""
+                ].lineaBase !== ""
                   ? "Introducir valor entre 0 y 100. "
                   : null
               }

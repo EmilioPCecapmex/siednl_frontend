@@ -86,12 +86,8 @@ export function TabResumen2({
     }
   };
 
-  useEffect(() => {
-    console.log(componenteValor);
-  }, [componenteValor]);
-
   const createMIR = (estado: string) => {
-    axios
+   axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
@@ -216,10 +212,6 @@ export function TabResumen2({
   const [editActividades, setEditActividades] = useState<
     Array<IActividadesMirEdit>
   >([]);
-
-  useEffect(() => {
-    console.log(editActividades);
-  }, [editActividades]);
 
   const [disablebutton, setDisablebutton] = useState(false);
   // useEffect(() => {
@@ -482,7 +474,6 @@ export function TabResumen2({
               >
                 Institución:
               </Typography>
-
               <Typography
                 sx={{
                   fontFamily: "MontserratLight",
@@ -1526,7 +1517,6 @@ export function TabResumen2({
                           let past = [...editActividades];
                           past[indexComponentes].resumen = !v.target.checked;
                           setEditActividades(past);
-                          console.log(past);
                         }}
                       />
                     )}

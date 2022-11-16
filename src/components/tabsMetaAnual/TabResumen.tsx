@@ -38,31 +38,33 @@ export function TabResumenMR({
 }) {
   const [MIR, setMIR] = useState<IMIR>();
 
-  const [openModalEnviar, setOpenModalEnviar] = useState(false);
-  const handleCloseEnviar = () => {
-    setOpenModalEnviar(false);
-  };
-
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
+
   const [openFin, setOpenFin] = useState(false);
+
   const handleClickOpen = () => {
     setOpenFin(false);
   };
 
   const [openProposito, setOpenProposito] = useState(false);
+
   const handleClickOpenP = () => {
     setOpenProposito(false);
   };
 
   const [openComponentes, setOpenComponentes] = useState(false);
+
   const [numComponente, setNumComponente] = useState(0);
+
   const handleClickOpenC = () => {
     setOpenComponentes(false);
   };
 
 
   const [openComponentesActividades, setOpenComponentesActividades] = useState(false);
+  
   const [numComponenteActividades, setNumComponenteActividades] = useState(0);
+
   const handleClickOpenCA = () => {
     setOpenComponentesActividades(false);
   };

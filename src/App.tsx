@@ -38,7 +38,7 @@ function App() {
     if (jt !== null) {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign("http://login.com");
+          window.location.assign("http://10.200.4.106/");
         } else if ((r as boolean) === true) {
           setTimeout(() => {
             navigate("../home");
@@ -48,11 +48,12 @@ function App() {
     } else {
       continueSession().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign("http://login.com");
+          window.location.assign("http://10.200.4.106/");
         }
       });
     }
   }, []);
+
 
   return (
     <>

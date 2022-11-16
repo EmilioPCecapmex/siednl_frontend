@@ -58,7 +58,6 @@ export function TabEncabezado({
 }) {
   const [value, setValue] = useState("");
   const [nombreArchivo, setNombreArchivo] = useState(
-
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   );
   const [docExtencion,setDocExt] = useState("");
@@ -229,7 +228,11 @@ export function TabEncabezado({
     
     setUploadFile(event.target.files[0]);
     setLineaDeAccion([]);
-    setNombreArchivo(event.target.value.split("\\")[2]);
+    
+    if (event.target.value !== ''){
+      setNombreArchivo(event.target.value.split("\\")[2]);
+    }
+    
     {
       
       nombreArchivo == null || uploadFile == null  
@@ -238,28 +241,24 @@ export function TabEncabezado({
     }
   }
 
-  function resultado(){
+  const resultado = () =>{
     setDisabledButton(true);  
-    setNombreArchivo("Solo se aceptan archivos tipo xlsx");
+    setNombreArchivo("ARRASTRE O DE CLICK AQUI PARA CARGAR MIR");
   }
 
   useEffect(() => {
-    let a = nombreArchivo.split(".");
+    if(nombreArchivo !== ''){
+      let a = nombreArchivo.split(".");
     setDocExt(a[a.length-1]) 
+    }
+    
   }, [nombreArchivo])
 
   useEffect(() => {
    docExtencion==="xlsx"?
    setDisabledButton(false)
    : resultado();
-   console.log(docExtencion);
-  
   }, [docExtencion])
-  
-  
-
-
-
 
   var y = new Date().getFullYear();
 
@@ -334,7 +333,6 @@ export function TabEncabezado({
   const [uploadFile, setUploadFile] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  console.log(lineaDeAccion)
   const onClearLineasDeAccion = () => {
     setLineaDeAccion([]);
   }
@@ -860,6 +858,9 @@ export function TabEncabezado({
               position: "absolute",
               fontFamily: "MontserratLight",
               fontSize: ".7vw",
+              textAlign:'center',
+              width:'28vw',
+              mb:1
             }}
           >
             {nombreArchivo}
@@ -868,8 +869,8 @@ export function TabEncabezado({
 
         <input
           type="file"
-          onChange={(v) => enCambioFile(v)}
           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          onChange={(v) => enCambioFile(v)}
           style={{
             color: "#000",
             opacity: 0,
@@ -885,7 +886,7 @@ export function TabEncabezado({
             sx={{
               backgroundColor: "#b0e2ff8f",
               color: "black",
-              height: "5vh",
+              height: "3vh",
               width: "10vw",
               mb: 0.5,
             }}
@@ -1052,7 +1053,9 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.tema || disabledTematicas}
+          disabled={
+            (mirEdit?.encabezado.tema && tematica !== "") || disabledTematicas
+          }
           options={catalogoTematicas}
           size="small"
           getOptionLabel={(option) => option.Tematica}
@@ -1111,7 +1114,10 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.objetivo || disabledObjetivos}
+          disabled={
+            (mirEdit?.encabezado.objetivo && objetivo !== "") ||
+            disabledObjetivos
+          }
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo}
           value={{
@@ -1163,7 +1169,10 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.estrategia || disabledEstrategias}
+          disabled={
+            (mirEdit?.encabezado.estrategia && estrategia !== "") ||
+            disabledEstrategias
+          }
           options={catalogoEstrategias}
           size="small"
           getOptionLabel={(option) => option.Estrategia}
@@ -1200,12 +1209,12 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>
+          onChange={(event, value) => {
             enCambioEstrategia(
               value?.IdEstrategia as string,
               (value?.Estrategia as string) || ""
-            )
-          }
+            );
+          }}
           isOptionEqualToValue={(option, value) =>
             option.IdEstrategia === value.IdEstrategia
           }
