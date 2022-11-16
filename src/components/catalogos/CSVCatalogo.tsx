@@ -25,6 +25,7 @@ export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTab
     a.click();
   };
 
+  
   const csvmaker = (data: any, headerNumber: number) => {
     let csvRows = [];
 
@@ -89,11 +90,9 @@ export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTab
           Authorization: localStorage.getItem("jwtToken") || "",
         },
         params: {
-
           IdUsuario: localStorage.getItem("IdUsuario"),
 
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
         },
       })
       .then((r) => {
@@ -101,14 +100,11 @@ export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTab
       });
   };
 
-  
   React.useEffect(() => {
     getInstituciones();
-
   }, []);
-  
 
-  <Catalogos defSelected=""/>
+  <Catalogos defSelected="" />;
   return (
     <>
      <IconButton>

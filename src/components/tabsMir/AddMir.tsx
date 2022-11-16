@@ -10,7 +10,9 @@ import { IComponente } from "./IComponente";
 import { ICValor } from "./ICValor";
 import { TabResumen2 } from "./TabResumen2";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
-
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import IconButton from "@mui/material/IconButton";
 export default function FullModalMir({
   MIR,
   showResume,
@@ -56,6 +58,14 @@ export default function FullModalMir({
 
   const valoresComponenteFnc = (state: Array<IComponente>) => {
     setComponenteValor(state);
+  };
+
+  const cambiarTab = (option: string) => {
+    if (option === "adelante") {
+      if (value < 50) setValue(value + 10);
+    } else {
+      if (value > 10) setValue(value - 10);
+    }
   };
 
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -285,6 +295,44 @@ export default function FullModalMir({
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabActividades>
         </Box>
+
+        <Box
+          sx={{
+            width: "6%",
+            display: "flex",
+            height: "7vh",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+          }}
+        >
+           {value > 10 ? (
+            <IconButton
+            
+            onClick={() => {
+              cambiarTab("atras");
+            }}
+            >
+               <ArrowCircleLeftIcon/>
+            </IconButton>
+          ): null
+          }
+
+
+          {value < 50 ? (
+            <IconButton
+            sx={{
+              width:"100%",height: "100%",
+            }}
+              onClick={() => {
+                cambiarTab("adelante");
+              }}
+            >
+              <ArrowCircleRightIcon />
+            </IconButton>
+          ) : null}
+          
+        </Box>
+
       </Box>
     </Box>
   );

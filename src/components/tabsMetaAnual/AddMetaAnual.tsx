@@ -17,8 +17,11 @@ import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
 import TabResumenMIR from "./TabResumenMir";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import Hidden from "@mui/material/Hidden";
+import { visuallyHidden } from "@mui/utils";
+import IconButton from "@mui/material/IconButton";
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -48,6 +51,14 @@ export default function AddMetaAnual({
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
+  };
+
+  const cambiarTab = (option: string) => {
+    if (option === "adelante") {
+      if (value < 50) setValue(value + 10);
+    } else {
+      if (value > 20) setValue(value - 10);
+    }
   };
 
   // COMPONENTES ------------------ No me sirve para FichaTecnica
@@ -128,7 +139,6 @@ export default function AddMetaAnual({
         }),
       };
     })
-    
   );
 
   const [cValorMA, setCValorMA] = useState(
@@ -168,7 +178,6 @@ export default function AddMetaAnual({
 
   const asignarCValorMA = (state: Array<ICValorMA>) => {
     setCValorMA(state);
-    
   };
 
   const asignarCValor = (state: Array<ICValor>) => {
@@ -256,8 +265,8 @@ export default function AddMetaAnual({
     >
       <Box
         sx={{
-          width: "80vw",
-          height: "86vh",
+          width: "75vw",
+          height: "90vh",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
@@ -402,61 +411,43 @@ export default function AddMetaAnual({
           ></TabResumenMIR>
         </Box>
 
-
-
-
-
         <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          height: "7vh",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        
-      >
-
-
-<ArrowCircleLeftIcon
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-          onClick={() => {
-            //showMirFnc(true);
-            //showFnc("Actividades");
-            
-            handleChange(true, value);
-            
-            
+          sx={{
+            width: "20%",
+            height :"10%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
-        >
-        </ArrowCircleLeftIcon> 
-
-        <ArrowCircleRightIcon
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-
-          onClick={() => {
-            handleChange(false, value);
-  
-          }}
-        >
-          
-        </ArrowCircleRightIcon>
-
-        
-      </Box>
+          >
+          <Box>
+            {value > 20 ? (
+              <IconButton
+                onClick={() => {
+                  cambiarTab("atras");
+                }}
+              >
+                <ArrowCircleLeftIcon />
+              </IconButton>
+            ) : null}
+          </Box>
+          <Box>
+            {value < 50 ? (
+              <IconButton
+                size="large"
+                onClick={() => {
+                  cambiarTab("adelante");
+                }}
+              >
+                <ArrowCircleRightIcon />
+              </IconButton>
+            ) : null}
+          </Box>
+        </Box>
       </Box>
     </Box>
-
-    
-    
   );
-
-  
 }
-
-
 
 export interface IComponenteActividad {
   actividades: number[];

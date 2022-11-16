@@ -15,6 +15,11 @@ import {
   TablePagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary, {
+  AccordionSummaryProps,
+} from "@mui/material/AccordionSummary";
+import Accordion, { AccordionProps } from "@mui/material/Accordion";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -27,6 +32,7 @@ import { CSVCatalogo } from "./CSVCatalogo";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [defaultSelection, setDefaultSelection] = useState(defSelected);
+  const [expanded, setExpanded] = React.useState<string | false>("panel1");
 
   useEffect(() => {
     let tableOption = configOptions.find((item) => item.Desc === defSelected);
@@ -52,6 +58,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getAniosFiscales()",
       Tabla: "AniosFiscales",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 2,
@@ -59,6 +66,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getBeneficiarios()",
       Tabla: "Beneficiarios",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 3,
@@ -66,6 +74,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getClasificacionesProgramaticas()",
       Tabla: "ClasificacionesProgramaticas",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 4,
@@ -73,6 +82,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getDimensionesDelIndicador()",
       Tabla: "DimensionesDelIndicador",
       selected: false,
+      tipo: "Catalogos",
     },
     { id: 5, Desc: "Ejes", fnc: "getEjes()", Tabla: "Ejes", selected: true },
     {
@@ -81,6 +91,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       Tabla: "EjesPND",
       fnc: "getEjesPND()",
       selected: true,
+      tipo: "Catalogos",
     },
     {
       id: 7,
@@ -88,6 +99,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getEstrategias()",
       Tabla: "Estrategias ",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 8,
@@ -95,6 +107,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getFechasDeCaptura()",
       Tabla: "FechasDeCaptura",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 9,
@@ -102,6 +115,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getFormulas()",
       Tabla: "Formulas",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 10,
@@ -109,6 +123,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getFrecuencias()",
       Tabla: "Frecuencias",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 11,
@@ -116,6 +131,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getInstituciones()",
       Tabla: "Instituciones",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 12,
@@ -123,6 +139,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getLineasDeAccion()",
       Tabla: "LineasDeAccion",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 13,
@@ -130,6 +147,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getMetasODS()",
       Tabla: "MetasODS",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 14,
@@ -137,6 +155,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getModalidades()",
       Tabla: "Modalidades",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 15,
@@ -144,6 +163,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getObjetivos()",
       Tabla: "Objetivos",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 16,
@@ -151,6 +171,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getObjetivosDS()",
       Tabla: "ObjetivosDS",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 17,
@@ -158,14 +179,16 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getObjetivosPEENL()",
       Tabla: "ObjetivosPEENL",
       selected: false,
+      tipo: "Catalogos",
     },
-    
+
     {
       id: 18,
       Desc: "Programas Presupuestarios",
       fnc: "getProgramaPresupuestario()",
       Tabla: "ProgramasPresupuestarios",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 19,
@@ -173,6 +196,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getRoles()",
       Tabla: "Roles",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 20,
@@ -180,6 +204,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getTematicas()",
       Tabla: "Tematicas",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 21,
@@ -187,6 +212,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getTipoDeFormula()",
       Tabla: "TiposDeFormula",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 22,
@@ -194,6 +220,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getTipoDeIndicador()",
       Tabla: "TiposDeIndicador",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 23,
@@ -201,6 +228,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getUnidadDeMedida()",
       Tabla: "UnidadesDeMedida",
       selected: false,
+      tipo: "Catalogos",
     },
     {
       id: 24,
@@ -208,41 +236,45 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       fnc: "getUnidadesAdministrativas()",
       Tabla: "UnidadesAdministrativas",
       selected: false,
+      tipo: "Catalogos",
     },
-  ];
-  //Lista exceptuando PED y Relaciones
-  const configOptionsExcept = [
     {
-      id: 1,
+      id: 25,
       Desc: "PED",
       fnc: "getPED()",
       Tabla: "PEDs",
       selected: false,
+      tipo: "Relaciones",
     },
     {
-      id: 2,
+      id: 26,
       Desc: "Instituciones - Unidades",
       fnc: "getInstitucionesUnidades()",
       Tabla: "InstitucionUnidad",
       selected: false,
+      tipo: "Relaciones",
     },
     {
-      id: 3,
+      id: 27,
       Desc: "Programas - Instituciones",
       fnc: "getProgramasInstituciones()",
       Tabla: "ProgramasInstituciones",
       selected: false,
+      tipo: "Relaciones",
     },
   ];
   const getUnidadesAdministrativas = () => {
     setSelected("Unidades Administrativas");
     setCatalogoActual("Unidades Administrativas");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -265,15 +297,18 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Instituciones - Unidades");
     setCatalogoActual("Instituciones - Unidades");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/institucionesUnidad", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/institucionesUnidad",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
-       
+
           update = update.map(
             (item: {
               Id: string;
@@ -298,11 +333,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Programas - Instituciones");
     setCatalogoActual("Programas - Instituciones");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programasInstituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/programasInstituciones",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -386,11 +424,15 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Clasificación Programática");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/clasificacionesProgramaticas", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/clasificacionesProgramaticas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -418,11 +460,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Dimensiones del Indicador");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/dimensionesDelIndicador", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/dimensionesDelIndicador",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -848,11 +893,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Programas Presupuestarios");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -1079,6 +1127,27 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
   const [colorB, setColorB] = useState("#fff");
   const [rowColorB, setRowColorB] = useState("");
+  const [colorCatalogo, setColorCatalogo] = useState("");
+  const [colorRelaciones, setColorRelaciones] = useState("");
+
+  const handleChange =
+    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+      setExpanded(newExpanded ? panel : false);
+      if(panel === "panel1" && newExpanded === true){
+        setColorCatalogo("#c4a57b");
+        setColorRelaciones("");
+      }
+      else if(panel === "panel2" && newExpanded === true){
+        setColorCatalogo("");
+        setColorRelaciones("#c4a57b");
+      }else{
+        setColorCatalogo("");
+        setColorRelaciones("");
+      }
+      
+      
+      
+    };
 
   return (
     <Box
@@ -1114,9 +1183,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           >
             <List
               sx={{
+                
+                height:"100vh",
                 pb: 2,
                 pt: 2,
-                height: "100vh",
+                
                 borderRight: "solid 1px",
                 overflow: "auto",
                 borderRadius: ".4vw",
@@ -1131,36 +1202,130 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 },
               }}
             >
+              <Accordion
+                      expanded={expanded === "panel1"}
+                      onChange={handleChange("panel1")}
+                    >
+                      <AccordionSummary
+                        aria-controls="panel1d-content"
+                        id="panel1d-header"
+                        sx={{
+                          backgroundColor:colorCatalogo,
+                          '&:hover': {
+                            backgroundColor: '#cbcbcb',
+                        },
+                        }}
+                      >
+                        <Typography sx={{ fontFamily: "MontserratMedium" }}>Catálogos</Typography>
+                      </AccordionSummary>
+                      
               {configOptions.map((item) => {
                 return (
-                  <Box key={item.id}>
-                    <ListItemButton
-                      key={item.id}
-                      sx={{
-                        pl: 2,
-                        "&.Mui-selected ": {
-                          backgroundColor: "#c4a57b",
-                        },
-                        "&.Mui-selected:hover": {
-                          backgroundColor: "#cbcbcb",
-                        },
-                      }}
-                      selected={selected === item.Desc ? true : false}
-                      onClick={() => {
-                        eval(item.fnc);
-                        setTablaActual(item.Tabla);
-                        setDefaultSelection(item.Desc);
-                      }}
+                  <Box key={item.id} sx={{}}>
+                    {item.tipo === "Catalogos" ? (
+                     
+                     <AccordionDetails >
+                          <ListItemButton
+                            key={item.id}
+                            sx={{
+                              width:"100%",
+                              height:"100%",
+                              pl: 2,
+                              "&.Mui-selected ": {
+                                backgroundColor: "#c4a57b",
+                              },
+                              "&.Mui-selected:hover": {
+                                backgroundColor: "#cbcbcb",
+                              },
+                            }}
+                            selected={selected === item.Desc ? true : false}
+                            onClick={() => {
+                              eval(item.fnc);
+                              setTablaActual(item.Tabla);
+                              setDefaultSelection(item.Desc);
+                            }}
+                          >
+                            
+                            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                              {item.Desc}
+                            </Typography>
+                           
+                          </ListItemButton>
+                          </AccordionDetails>
+                          
+                      
+                    ) : 
+                    ""
+                    }
+                    <Divider />
+                  </Box>
+                );
+              })}
+               </Accordion>
+               <Accordion
+                      expanded={expanded === "panel2"}
+                      onChange={handleChange("panel2")}
+                      
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                        {item.Desc}
-                      </Typography>
-                    </ListItemButton>
+                      <AccordionSummary
+                        aria-controls="panel2d-content"
+                        id="panel2d-header"
+                        
+                        sx={{
+                          backgroundColor:colorRelaciones,
+                          '&:hover': {
+                            backgroundColor: '#cbcbcb',
+                        },
+                        }}
+                      >
+                        <Typography sx={{ fontFamily: "MontserratMedium" }}>Relaciones</Typography>
+                      </AccordionSummary>
+                      
+              {configOptions.map((item) => {
+                return (
+                  <Box key={item.id} sx={{}}>
+                    {item.tipo === "Relaciones" ? (
+                     
+                     <AccordionDetails >
+                          <ListItemButton
+                            key={item.id}
+                            sx={{
+                              pl: 2,
+                              
+                              height:"",
+                              "&.Mui-selected ": {
+                                backgroundColor: "#c4a57b",
+                              },
+                              "&.Mui-selected:hover": {
+                                backgroundColor: "#cbcbcb",
+                              },
+                            }}
+                            selected={selected === item.Desc ? true : false}
+                            onClick={() => {
+                              eval(item.fnc);
+                              setTablaActual(item.Tabla);
+                              setDefaultSelection(item.Desc);
+                            }}
+                          >
+                            
+                            <Typography sx={{ fontFamily: "MontserratMedium"}}>
+                              {item.Desc}
+                            </Typography>
+                           
+                          </ListItemButton>
+                          </AccordionDetails>
+                          
+                      
+                    ) : 
+                    ""
+                    }
+                    
 
                     <Divider />
                   </Box>
                 );
               })}
+               </Accordion>
             </List>
           </Box>
 

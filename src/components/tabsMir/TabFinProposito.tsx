@@ -258,7 +258,7 @@ export function TabFinProposito({
       sx={{
         display: "flex",
         width: "75vw",
-        height: "77vh",
+        height: "75vh",
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
