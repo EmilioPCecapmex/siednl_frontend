@@ -2,13 +2,12 @@ import { Dialog, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import * as React from "react";
-import logoExcell from "../../assets/img/xlsx_Logo.png";
+import DownloadIcon from '@mui/icons-material/Download';
 import { Catalogos, IDatosTabla } from "./Catalogos";
 
 export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTabla[]  }) => {
 
   
-
 
 
   const download = (data: any) => {
@@ -46,12 +45,12 @@ export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTab
   
   return (
     <>
-      <img
-        src={logoExcell}
-        alt="Logo"
-        style={{ width: "2.5vw", height: "3.5vh" }}
-        onClick={() => get()}
-      />
+     <IconButton>
+    <DownloadIcon sx={{
+              width: 40,
+              height: 40,
+            }} onClick={()=>get()}/>
+    </IconButton>
     </>
   )
 }

@@ -1,3 +1,4 @@
+import logo from "../../assets/logos/logo_tesoreriah1.png";
 import { Box, Divider, Typography } from "@mui/material";
 
 export const ActFichaTecnica = () => {
@@ -217,12 +218,13 @@ export const ActFichaTecnica = () => {
             width: "100%",
             height: "20vh",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "start",
+            
           }}
         >
-          {/* <Box sx={{}}>
-         <img src={logo} alt="Logo" style={{ width:"3vw", height:"4vh"}} />
-         </Box> */}
+           <Box sx={{width:"20%", height:"100%", ml:"4vw", mt:"5vh", mr:"1vw"}}>
+         <img src={logo} alt="Logo" style={{ width:"6vw", height:"12vh"}} />
+         </Box> 
 
           <Box
             sx={{

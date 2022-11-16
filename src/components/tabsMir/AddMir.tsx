@@ -12,7 +12,6 @@ import { TabResumen2 } from "./TabResumen2";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-
 export default function FullModalMir({
   MIR,
   showResume,

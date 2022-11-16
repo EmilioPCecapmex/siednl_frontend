@@ -519,12 +519,12 @@ export const ResumenFichaTecnica = () => {
             height: "20vh",
             display: "flex",
             justifyContent: "start",
+            
           }}
         >
-          <Box sx={{width:"20%", height:"100%", backgroundColor:"red"}}>hola</Box>
-          {/* <Box sx={{}}>
-         <img src={logo} alt="Logo" style={{ width:"3vw", height:"4vh"}} />
-         </Box> */}
+           <Box sx={{width:"20%", height:"100%", ml:"4vw", mt:"5vh", mr:"1vw"}}>
+         <img src={logo} alt="Logo" style={{ width:"6vw", height:"12vh"}} />
+         </Box> 
 
           <Box
             sx={{
