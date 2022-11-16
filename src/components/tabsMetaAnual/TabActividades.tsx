@@ -273,7 +273,7 @@ export const TabActividadesMA = ({
     asignarCValorMIR(cValorMIR);
   }, [cValorMIR, componentes]);
 
-  const [open, setOpen] = useState(0);
+  const [open, setOpen] = useState(1);
 
   const handleClickComponente = (index: number) => {
     setOpen(index);
@@ -302,12 +302,12 @@ export const TabActividadesMA = ({
           justifyContent: "flex-end",
           alignItems: "center",
         }}
-        onClick={() => {
-          showMirFnc(true);
-          showFnc("Actividades");
-        }}
       >
         <InfoOutlinedIcon
+          onClick={() => {
+            showMirFnc(true);
+            showFnc("Actividades");
+          }}
           fontSize="large"
           sx={{ cursor: "pointer" }}
         ></InfoOutlinedIcon>
@@ -318,7 +318,7 @@ export const TabActividadesMA = ({
             fontSize: "1.5vw",
           }}
         >
-          Componente {componenteSelect + 1} - Actividad {actividadSelect + 1}
+          COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
         </Typography>
       </Box>
 
@@ -378,8 +378,8 @@ export const TabActividadesMA = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                    Componente {item}
+                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize:'0.7vw' }}>
+                    COMPONENTE {item}
                   </Typography>
 
                   {open === item ? <ExpandLess /> : <ExpandMore />}
@@ -396,6 +396,7 @@ export const TabActividadesMA = ({
                               setActividadSelect(x);
                             }}
                             sx={{
+                              height: "3vh",
                               pl: 4,
                               "&.Mui-selected ": {
                                 backgroundColor: "#efd8b9",
@@ -405,7 +406,7 @@ export const TabActividadesMA = ({
                               },
                             }}
                           >
-                            Actividad {x + 1}
+                            ACTIVIDAD {x + 1}
                           </ListItemButton>
                         );
                       }
@@ -442,7 +443,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Meta Anual 2023"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  META ANUAL 2023
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -461,11 +468,6 @@ export const TabActividadesMA = ({
                     actividadSelect
                   ].metaAnual
                 ) < 0 ||
-                  parseFloat(
-                    aValorMA[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].metaAnual
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
@@ -485,11 +487,6 @@ export const TabActividadesMA = ({
                     actividadSelect
                   ].metaAnual
                 ) < 0 ||
-                  parseFloat(
-                    aValorMA[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].metaAnual
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
@@ -500,7 +497,7 @@ export const TabActividadesMA = ({
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].metaAnual !== ""
-                  ? "Introducir valor entre 0 y 100. "
+                  ? "Introducir valor mayor que 0."
                   : null
               }
               InputLabelProps={{
@@ -519,7 +516,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Linea Base 2021"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                LÍNEA BASE 2021
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -538,11 +541,6 @@ export const TabActividadesMA = ({
                     actividadSelect
                   ].lineaBase
                 ) < 0 ||
-                  parseFloat(
-                    aValorMA[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].lineaBase
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
@@ -562,11 +560,6 @@ export const TabActividadesMA = ({
                     actividadSelect
                   ].lineaBase
                 ) < 0 ||
-                  parseFloat(
-                    aValorMA[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].lineaBase
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
@@ -577,7 +570,7 @@ export const TabActividadesMA = ({
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].lineaBase !== ""
-                  ? "Introducir valor entre 0 y 100. "
+                  ? "Introducir valor mayor que 0."
                   : null
               }
               InputLabelProps={{
@@ -596,7 +589,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Valor del númerador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  VALOR DEL NUMERADOR
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -625,7 +624,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Valor del denominador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  VALOR DEL DENOMINADOR
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -673,7 +678,7 @@ export const TabActividadesMA = ({
                 value={"ASCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
                   >
                     ASCENDENTE
                   </Typography>
@@ -702,7 +707,7 @@ export const TabActividadesMA = ({
                 value={"DESCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
                   >
                     DESCENDENTE
                   </Typography>
@@ -728,7 +733,7 @@ export const TabActividadesMA = ({
                 value={"NORMAL"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
                   >
                     NORMAL
                   </Typography>
@@ -755,7 +760,6 @@ export const TabActividadesMA = ({
           <Box
             sx={{
               display: "flex",
-
               width: "100%",
               height: "20%",
               alignItems: "center",
@@ -768,7 +772,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Trimestre 1"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  TRIMESTRE 1
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -797,7 +807,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Trimestre 2"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  TRIMESTRE 2
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -826,7 +842,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Trimestre 3"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  TRIMESTRE 3
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -855,7 +877,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Trimestre 4"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  TRIMESTRE 4
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -883,9 +911,8 @@ export const TabActividadesMA = ({
           <Box
             sx={{
               display: "flex",
-
               width: "100%",
-              height: "33%",
+              height: "30%",
               alignItems: "center",
               justifyContent: "space-evenly",
             }}
@@ -895,7 +922,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Unidad responsable de reportar el indicador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -924,7 +957,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripción del indicador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL INDICADOR
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -952,9 +991,8 @@ export const TabActividadesMA = ({
           <Box
             sx={{
               display: "flex",
-
               width: "100%",
-              height: "33%",
+              height: "30%",
               alignItems: "center",
               justifyContent: "space-evenly",
             }}
@@ -964,7 +1002,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripción del numerador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL NUMERADOR
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -993,7 +1037,13 @@ export const TabActividadesMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripcion del denominador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL DENOMINADOR
+                </Typography>
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect

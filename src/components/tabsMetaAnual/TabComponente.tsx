@@ -134,12 +134,12 @@ export const TabComponenteMA = ({
           justifyContent: "flex-end",
           alignItems: "center",
         }}
-        onClick={() => {
-          showMirFnc(true);
-          showFnc("Componentes");
-        }}
       >
         <InfoOutlinedIcon
+          onClick={() => {
+            showMirFnc(true);
+            showFnc("Componentes");
+          }}
           fontSize="large"
           sx={{ cursor: "pointer" }}
         ></InfoOutlinedIcon>
@@ -150,7 +150,7 @@ export const TabComponenteMA = ({
             fontSize: "1.5vw",
           }}
         >
-          Componente {componentSelect}
+          COMPONENTE {componentSelect}
         </Typography>
       </Box>
 
@@ -209,7 +209,7 @@ export const TabComponenteMA = ({
                   }}
                 >
                   <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                    Componente {item}
+                    COMPONENTE {item}
                   </Typography>
                 </ListItemButton>
 
@@ -242,7 +242,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Meta anual 2023"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  META ANUAL 2023
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.metaAnual}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].metaAnual =
@@ -252,9 +258,6 @@ export const TabComponenteMA = ({
               error={
                 (parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
                   0 ||
-                  parseFloat(
-                    componentesValues[componentSelect - 1]?.metaAnual
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
                       componentesValues[componentSelect - 1]?.metaAnual
@@ -267,16 +270,13 @@ export const TabComponenteMA = ({
               helperText={
                 (parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
                   0 ||
-                  parseFloat(
-                    componentesValues[componentSelect - 1]?.metaAnual
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
                       componentesValues[componentSelect - 1]?.metaAnual
                     )
                   )) &&
                 componentesValues[componentSelect - 1]?.metaAnual !== ""
-                  ? "Introducir valor entre 0 y 100. "
+                  ? "Introducir valor mayor que 0"
                   : null
               }
               InputLabelProps={{
@@ -295,7 +295,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Linea Base 2021"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  LÍNEA BASE 2021
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.lineaBase}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].lineaBase =
@@ -305,9 +311,6 @@ export const TabComponenteMA = ({
               error={
                 (parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
                   0 ||
-                  parseFloat(
-                    componentesValues[componentSelect - 1]?.lineaBase
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
                       componentesValues[componentSelect - 1]?.lineaBase
@@ -320,16 +323,13 @@ export const TabComponenteMA = ({
               helperText={
                 (parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
                   0 ||
-                  parseFloat(
-                    componentesValues[componentSelect - 1]?.lineaBase
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
                       componentesValues[componentSelect - 1]?.lineaBase
                     )
                   )) &&
                 componentesValues[componentSelect - 1]?.lineaBase !== ""
-                  ? "Introducir valor entre 0 y 100. "
+                  ? "Introducir valor mayor que 0."
                   : null
               }
               InputLabelProps={{
@@ -348,7 +348,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Valor del númerador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  VALOR DEL NUMERADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.valorNumerador}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].valorNumerador =
@@ -371,7 +377,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Valor del denominador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  VALOR DEL DENOMINADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.valorDenominador}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].valorDenominador =
@@ -412,7 +424,7 @@ export const TabComponenteMA = ({
                 value={"ASCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
                   >
                     ASCENDENTE
                   </Typography>
@@ -439,7 +451,7 @@ export const TabComponenteMA = ({
                 value={"DESCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
                   >
                     DESCENDENTE
                   </Typography>
@@ -463,7 +475,7 @@ export const TabComponenteMA = ({
                 value={"NORMAL"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
                   >
                     NORMAL
                   </Typography>
@@ -489,10 +501,10 @@ export const TabComponenteMA = ({
           {valoresComponenteMir[
             componentSelect - 1
           ].frecuencia.toLowerCase() === "trimestral" ? (
+            
             <Box
               sx={{
                 display: "flex",
-
                 width: "100%",
                 height: "20%",
                 alignItems: "center",
@@ -505,7 +517,13 @@ export const TabComponenteMA = ({
                 multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Trimestre 1"}
+                label={
+                  <Typography
+                    sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  >
+                    TRIMESTRE 1
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre1
@@ -532,7 +550,13 @@ export const TabComponenteMA = ({
                 multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Trimestre 2"}
+                label={
+                  <Typography
+                    sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  >
+                    TRIMESTRE 2
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre2
@@ -559,7 +583,13 @@ export const TabComponenteMA = ({
                 multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Trimestre 3"}
+                label={
+                  <Typography
+                    sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  >
+                    TRIMESTRE 3
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre3
@@ -586,7 +616,13 @@ export const TabComponenteMA = ({
                 multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Trimestre 4"}
+                label={
+                  <Typography
+                    sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  >
+                    TRIMESTRE 4
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre4
@@ -613,7 +649,6 @@ export const TabComponenteMA = ({
             <Box
               sx={{
                 display: "flex",
-
                 width: "100%",
                 height: "20%",
                 alignItems: "center",
@@ -626,7 +661,13 @@ export const TabComponenteMA = ({
                 multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Semestre 1"}
+                label={
+                  <Typography
+                    sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  >
+                    SEMESTRE 1
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.semestre1
@@ -653,7 +694,13 @@ export const TabComponenteMA = ({
                 multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Semestre 2"}
+                label={
+                  <Typography
+                    sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  >
+                    SEMESTRE 2
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.semestre2
@@ -681,7 +728,6 @@ export const TabComponenteMA = ({
           <Box
             sx={{
               display: "flex",
-
               width: "100%",
               height: "30%",
               alignItems: "center",
@@ -693,7 +739,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Unidad responsable de reportar el indicador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.unidadResponsable}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].unidadResponsable =
@@ -716,7 +768,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripción del indicador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL INDICADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.descIndicador}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descIndicador =
@@ -738,7 +796,6 @@ export const TabComponenteMA = ({
           <Box
             sx={{
               display: "flex",
-
               width: "100%",
               height: "30%",
               alignItems: "center",
@@ -750,7 +807,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripción del numerador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL NUMERADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.descNumerador}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descNumerador =
@@ -773,7 +836,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripcion del denominador"}
+              label={
+                <Typography
+                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL DENOMINADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.descDenominador}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descDenominador =

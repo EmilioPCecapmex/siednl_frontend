@@ -115,6 +115,7 @@ export const MetaAnual = () => {
           )
         );
       } else if (est !== "0") {
+        
         setMaFiltered(
           ma.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
         );
@@ -240,7 +241,7 @@ export const MetaAnual = () => {
               <Input
                 size="small"
                 value={findTextStr}
-                placeholder="Busqueda"
+                placeholder="Búsqueda"
                 sx={{ width: "90%", fontFamily: "MontserratRegular" }}
                 disableUnderline
                 onChange={(v) => {
@@ -282,11 +283,11 @@ export const MetaAnual = () => {
               >
                 <MenuItem
                   value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
+                  sx={{ fontFamily: "MontserratRegular"}}
                   disabled
                   selected
                 >
-                  Filtro por estado de la Meta Anual
+                  Filtro por estado de la MA
                 </MenuItem>
                 <MenuItem
                   value={"Todos"}
@@ -402,43 +403,43 @@ export const MetaAnual = () => {
                   }}
                 >
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     EJERCICIO FISCAL
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     INSTITUCIÓN
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     NOMBRE DEL PROGRAMA
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     ESTADO
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     FECHA DE CREACIÓN
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     CREADO POR
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     OPCIONES
@@ -555,10 +556,12 @@ export const MetaAnual = () => {
                                   ml: "10%",
                                   textAlign: "center",
                                 }}
+
                               >
-                                {row.Estado === "En Captura" &&
+                                
+                                {(row.Estado === "En Captura" &&
                                 localStorage.getItem("Rol") === "Capturador"
-                                  ? "Borrador"
+                                  ? "Esperando captura"
                                   : row.Estado === "En Revisión" &&
                                     localStorage.getItem("Rol") ===
                                       "Verificador"
@@ -567,7 +570,7 @@ export const MetaAnual = () => {
                                     localStorage.getItem("Rol") ===
                                       "Administrador"
                                   ? "Esperando autorización"
-                                  : row.Estado}
+                                  : row.Estado).toUpperCase()}
                               </Typography>
                             </Box>
                           </TableCell>

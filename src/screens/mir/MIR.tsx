@@ -450,7 +450,7 @@ export const MIR = () => {
               sx={{
                 backgroundColor: "#c2a37b",
                 width: "10vw",
-                height: "4vh",
+                height: "3.3vh",
                 color: "black",
                 fontFamily: "MontserratMedium",
                 fontSize: "0.6vw",
@@ -501,43 +501,43 @@ export const MIR = () => {
                   }}
                 >
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     EJERCICIO FISCAL
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     INSTITUCIÓN
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     NOMBRE DEL PROGRAMA
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     ESTADO
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     FECHA DE CREACIÓN
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     CREADO POR
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0 }}
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
                     align="center"
                   >
                     OPCIONES
