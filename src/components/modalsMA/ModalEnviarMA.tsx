@@ -544,6 +544,10 @@ export default function ModalEnviarMA({
           enviarNotificacion(user.IdUsuario);
         });
 
+        if (estado === "Autorizada") {
+          CrearFichaTecnica();
+        }
+
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
@@ -558,6 +562,33 @@ export default function ModalEnviarMA({
           icon: "error",
           title: err.response.data.result.error,
         });
+      });
+  };
+
+  const CrearFichaTecnica = () => {
+    axios
+      .post(
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        {
+          FichaTecnica: "",
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdMir: IdMIR,
+          IdMa: IdMA,
+          Id: "",
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        userXInst.map((user) => {
+          enviarNotificacion(user.IdUsuario);
+        });
+        showResume();
+      })
+      .catch((err) => {
       });
   };
 
