@@ -523,11 +523,6 @@ export default function ModalEnviarMA({
 
   const creaMA = (estado: string) => {
 
-    console.log(estado);
-    console.log(IdMIR);
-    console.log(IdMA);
-    
-    
     axios
       .post(
         "http://10.200.4.199:8000/api/create-MetaAnual",
