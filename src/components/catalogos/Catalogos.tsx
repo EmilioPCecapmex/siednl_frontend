@@ -370,7 +370,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; Beneficiario: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.Beneficiario,
+                Desc: item.Beneficiario.toUpperCase(),
                 Tabla: "Beneficiarios",
               };
             }
@@ -402,7 +402,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: item.ClasificacionProgramatica,
+                Desc: item.ClasificacionProgramatica.toUpperCase(),
                 Tabla: "ClasificacionesProgramaticas",
               };
             }
@@ -434,7 +434,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: item.DimensionDelIndicador,
+                Desc: item.DimensionDelIndicador.toUpperCase(),
                 Tabla: "DimensionesDelIndicador",
               };
             }
@@ -460,7 +460,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Eje: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Eje, Tabla: "Ejes" };
+              return { Id: item.Id, Desc: item.Eje.toUpperCase(), Tabla: "Ejes" };
             }
           );
           setDatosTabla(update);
@@ -484,7 +484,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; EjePND: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.EjePND, Tabla: "EjesPND" };
+              return { Id: item.Id, Desc: item.EjePND.toUpperCase(), Tabla: "EjesPND" };
             }
           );
           setDatosTabla(update);
@@ -510,7 +510,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; Estrategia: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.Estrategia,
+                Desc: item.Estrategia.toUpperCase(),
                 Tabla: "Estrategias",
               };
             }
@@ -536,7 +536,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Formula: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Formula, Tabla: "Formulas" };
+              return { Id: item.Id, Desc: item.Formula.toUpperCase(), Tabla: "Formulas" };
             }
           );
           setDatosTabla(update);
@@ -567,7 +567,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: item.FechaDeCaptura + " / " + item.Descripcion,
+                Desc: item.FechaDeCaptura + " / " + item.Descripcion.toUpperCase(),
                 Tabla: "FechasDeCaptura",
               };
             }
@@ -595,7 +595,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; Frecuencia: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.Frecuencia,
+                Desc: item.Frecuencia.toUpperCase(),
                 Tabla: "Frecuencias",
               };
             }
@@ -631,7 +631,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: item.NombreInstitucion,
+                Desc: item.NombreInstitucion.toUpperCase(),
                 Tabla: "Instituciones",
               };
             }
@@ -658,7 +658,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; LineaDeAccion: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.LineaDeAccion,
+                Desc: item.LineaDeAccion.toUpperCase(),
                 Tabla: "LineasDeAccion",
               };
             }
@@ -684,7 +684,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; MetaODS: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.MetaODS, Tabla: "MetasODS" };
+              return { Id: item.Id, Desc: item.MetaODS.toUpperCase(), Tabla: "MetasODS" };
             }
           );
           setDatosTabla(update);
@@ -710,7 +710,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; Modalidad: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.Modalidad,
+                Desc: item.Modalidad.toUpperCase(),
                 Tabla: "Modalidades",
               };
             }
@@ -736,7 +736,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Objetivo: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Objetivo, Tabla: "Objetivos" };
+              return { Id: item.Id, Desc: item.Objetivo.toUpperCase(), Tabla: "Objetivos" };
             }
           );
           setDatosTabla(update);
@@ -764,7 +764,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; ObjetivoPEENL: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.ObjetivoPEENL,
+                Desc: item.ObjetivoPEENL.toUpperCase(),
                 Tabla: "ObjetivosPEENL",
               };
             }
@@ -792,7 +792,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; ObjetivoDS: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.ObjetivoDS,
+                Desc: item.ObjetivoDS.toUpperCase(),
                 Tabla: "ObjetivosDS",
               };
             }
@@ -832,7 +832,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: `${item.Eje}; ${item.Tematica}; ${item.Objetivo}; ${item.Estrategia}; ${item.LineaDeAccion}; ${item.ObjetivoDS}; ${item.MetaODS}; ${item.EjePND}; ${item.ObjetivoPEENL}`,
+                Desc: `${item.Eje.toUpperCase()}; ${item.Tematica.toUpperCase()}; ${item.Objetivo.toUpperCase()}; ${item.Estrategia.toUpperCase()}; ${item.LineaDeAccion.toUpperCase()}; ${item.ObjetivoDS.toUpperCase()}; ${item.MetaODS.toUpperCase()}; ${item.EjePND.toUpperCase()}; ${item.ObjetivoPEENL.toUpperCase()}`,
                 Tabla: "PEDs",
               };
             }
@@ -867,9 +867,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 Id: item.Id,
                 Desc:
                   "Programa: " +
-                  item.NombrePrograma +
+                  item.NombrePrograma.toUpperCase() +
                   " / Institución: " +
-                  item.NombreInstitucion,
+                  item.NombreInstitucion.toUpperCase(),
                 Tabla: "ProgramasPresupuestarios",
               };
             }
@@ -895,7 +895,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Rol: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Rol, Tabla: "Roles" };
+              return { Id: item.Id, Desc: item.Rol.toUpperCase(), Tabla: "Roles" };
             }
           );
           setDatosTabla(update);
@@ -919,7 +919,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Tematica: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Tematica, Tabla: "Tematicas" };
+              return { Id: item.Id, Desc: item.Tematica.toUpperCase(), Tabla: "Tematicas" };
             }
           );
           setDatosTabla(update);
@@ -945,7 +945,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; TipoDeFormula: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.TipoDeFormula,
+                Desc: item.TipoDeFormula.toUpperCase(),
                 Tabla: "TiposDeFormula",
               };
             }
@@ -973,7 +973,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; TipoDeIndicador: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.TipoDeIndicador,
+                Desc: item.TipoDeIndicador.toUpperCase(),
                 Tabla: "TiposDeIndicador",
               };
             }
@@ -1001,7 +1001,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; UnidadDeMedida: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.UnidadDeMedida,
+                Desc: item.UnidadDeMedida.toUpperCase(),
                 Tabla: "UnidadesDeMedida",
               };
             }
