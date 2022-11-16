@@ -550,7 +550,7 @@ export default function ModalEnviarMA({
           icon: "success",
           title: r.data.data.message,
         });
-        if (comment != "") {
+        if (comment !== "") {
           comentMA(r.data.data.ID);
         }
         showResume();

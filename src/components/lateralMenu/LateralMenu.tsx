@@ -93,8 +93,6 @@ export const LateralMenu = ({
 
   const handleChange = (event: SelectChangeEvent) => {
     setInstitucionSeleccionada(event.target.value as string);
-    localStorage.setItem("IdInstitucion", event.target.value as string);
-    window.location.reload();
   };
 
   const goSettings = () => {
@@ -299,12 +297,33 @@ export const LateralMenu = ({
 
       <Box sx={st.userInfoBox}>
         {localStorage.getItem("NombreUsuario")}
-        <Typography sx={st.rolStyle}>{localStorage.getItem("Rol")}</Typography>
+        <Typography sx={st.rolStyle}>{localStorage.getItem("Rol") === 'Administrador' ? 'Autorizador' : localStorage.getItem("Rol")}</Typography>
       </Box>
+      <Typography sx={st.institucionStyle}>INSTITUCIONES ASIGNADAS</Typography>
 
-      <Box sx={st.selectInstitucionBox}>
-       
-      </Box>
+<Box sx={st.selectInstitucionBox}>
+  {renderInfo ? (
+    <Select
+      value={
+        institucionSeleccionada ||
+        (localStorage.getItem("IdInstitucion") as string)
+      }
+      label="Institución"
+      onChange={handleChange}
+      variant="standard"
+      disableUnderline
+      sx={st.selectInstitucionStyle}
+    >
+      {instituciones?.map((item) => {
+        return (
+          <MenuItem value={item.Id} key={item.Id || Math.random()}>
+            {item.NombreInstitucion}
+          </MenuItem>
+        );
+      })}
+    </Select>
+  ) : null}
+</Box>
 
       <Box sx={st.dividerBox} />
       <Box sx={st.menuListBox}>

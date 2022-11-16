@@ -226,7 +226,7 @@ export const TabComponenteMA = ({
                       componentesValues[componentSelect - 1]?.metaAnual
                     )
                   )) &&
-                componentesValues[componentSelect - 1]?.metaAnual != ""
+                componentesValues[componentSelect - 1]?.metaAnual !== ""
                   ? true
                   : false
               }
@@ -241,7 +241,7 @@ export const TabComponenteMA = ({
                       componentesValues[componentSelect - 1]?.metaAnual
                     )
                   )) &&
-                componentesValues[componentSelect - 1]?.metaAnual != ""
+                componentesValues[componentSelect - 1]?.metaAnual !== ""
                   ? "Introducir valor entre 0 y 100. "
                   : null
               }
@@ -280,7 +280,7 @@ export const TabComponenteMA = ({
                       componentesValues[componentSelect - 1]?.lineaBase
                     )
                   )) &&
-                componentesValues[componentSelect - 1]?.lineaBase != ""
+                componentesValues[componentSelect - 1]?.lineaBase !== ""
                   ? true
                   : false
               }
@@ -295,7 +295,7 @@ export const TabComponenteMA = ({
                       componentesValues[componentSelect - 1]?.lineaBase
                     )
                   )) &&
-                componentesValues[componentSelect - 1]?.lineaBase != ""
+                componentesValues[componentSelect - 1]?.lineaBase !== ""
                   ? "Introducir valor entre 0 y 100. "
                   : null
               }

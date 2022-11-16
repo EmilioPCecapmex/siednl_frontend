@@ -11,7 +11,6 @@ import {
   TableBody,
   Tooltip,
   IconButton,
-  Button,
   TablePagination,
   Input,
   Select,
@@ -20,18 +19,12 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
-import FullModalMir from "../../components/tabsMir/AddMir";
-import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
-import FullModalMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
-import { IIMir } from "../mir/MIR";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
@@ -39,8 +32,6 @@ export let setResumeDefaultMA = () => {
 };
 
 export const MetaAnual = () => {
-
-  
   useEffect(() => {
     setShowResume(true);
     getMA();
@@ -132,6 +123,25 @@ export const MetaAnual = () => {
     setActualizacion(actualizacion + 1);
   };
 
+  const colorMir = (v: string, mEdit : string) => {
+    if(mEdit !== undefined){
+      let isModification = mEdit;
+      isModification = JSON.parse(mEdit);
+      if(isModification[1]){
+        return "#cccc00"
+      }
+    }
+    if(v === "En Captura"){
+      return '#b3e6b3'
+    }else if(v === "En Revisión"){
+      return '#e6e6ff'
+    }else if(v === "En Autorización"){
+      return '#b3b3ff'
+    }else if(v === "Autorizada"){
+      return '#0000ff'
+    }
+  }
+
 
   return (
     <Box
@@ -220,7 +230,7 @@ export const MetaAnual = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value == "Todos"
+                  v.target.value === "Todos"
                     ? findText(findTextStr, "")
                     : findText(findTextStr, v.target.value);
                   setFindSelectStr(v.target.value);
@@ -347,140 +357,172 @@ export const MetaAnual = () => {
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .map((row, index) =>
-                        
-                          <TableRow key={index}>
-                            <TableCell
+                      .map((row, index) => (
+                        <TableRow key={index}>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              width: "15%",
+                            }}
+                            align="center"
+                          >
+                            {row.AnioFiscal}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              width: "20%",
+                            }}
+                            align="center"
+                          >
+                            {row.Institucion}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              width: "20%",
+                            }}
+                            align="center"
+                          >
+                            {row.Programa}
+                          </TableCell>
+                          <TableCell
+                           sx={{
+                            width: "15%",
+                            textTransform: "uppercase",
+                          }}
+                          >
+                             <Box
                               sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "15%",
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                height: "5vh",
+                                alignItems: "center",
+                                justifyContent: "center",
                               }}
-                              align="center"
                             >
-                              {row.AnioFiscal}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
-                            >
-                              {row.Institucion}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
-                            >
-                              {row.Programa}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
-                            >
-                              {row.Estado}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "15%",
-                              }}
-                              align="center"
-                            >
-                              {moment(row.FechaCreacion, moment.ISO_8601)
-                                .format("DD/MM/YYYY HH:mm:SS")
-                                .toString()}
-                            </TableCell>
-                            <TableCell align="center" sx={{ width: "10%" }}>
-                              <Box>
-
-
-                                <IconButton
-                                disabled = {row.Estado === 'Autorizada' ? true : false}
-                                  sx={{
-                                    color: "#616161",
-                                    "&:hover": {
-                                      color: "blue",
-                                    },
-                                  }}
-                                  onClick={() => {
-                                    setMaEdit([
-                                      {
-                                        IdMa: row.IdMa,
-                                        IdMir: row.IdMir,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
-                                        Programa: row.Programa,
-                                        MIR: row.MIR,
-                                        MetaAnual: row.MetaAnual,
-                                        Estado: row.Estado,
-                                        CreadoPor: row.CreadoPor,
-                                        FechaCreacion: row.FechaCreacion,
-                                      },
-                                    ]);
-                                    setShowResume(false);
-                                  }}
-                                >
-                                  <Tooltip title="REGISTRAR META ANUAL">
-<AddCircleOutlineIcon/>
-                                  </Tooltip>
-                                </IconButton>
-
-                              </Box>
                               <Box
                                 sx={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  flexDirection: "row",
+                                  width: ".5vw",
+                                  height: "1vh",
+                                  borderRadius: 100,
+                                  backgroundColor: colorMir(row.Estado, row.MIR),
+                                }}
+                              />
+                              <Typography
+                                sx={{
+                                  width: "60%",
+                                  fontFamily: "MontserratRegular",
+                                  color: '#616161',
+                                  fontSize: ".7vw",
+                                  ml: '10%',
+                                  textAlign: 'center'
                                 }}
                               >
-                                <Tooltip title="Descargar">
-                                  <span>
-                                    <IconButton
-                                      disabled={
-                                        row.Estado === "Autorizada"
-                                          ? false
-                                          : true
-                                      }
-                                    >
-                                      <DownloadIcon
-                                        sx={[
-                                          {
-                                            "&:hover": {
-                                              color: "orange",
-                                            },
-                                            width: "1.2vw",
-                                            height: "1.2vw",
-                                          },
-                                        ]}
-                                      />
-                                    </IconButton>
-                                      
-
-
-                                  </span>
+                                {row.Estado === "En Captura" &&
+                                localStorage.getItem("Rol") === "Capturador"
+                                  ? "Borrador"
+                                  : row.Estado === "En Revisión" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Verificador"
+                                  ? "Esperando revisión"
+                                  : row.Estado === "En Autorización" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Administrador"
+                                  ? "Esperando autorización"
+                                  : row.Estado}
+                              </Typography>
+                            </Box>
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              width: "15%",
+                            }}
+                            align="center"
+                          >
+                            {moment(row.FechaCreacion, moment.ISO_8601)
+                              .format("DD/MM/YYYY HH:mm:SS")
+                              .toString()}
+                          </TableCell>
+                          <TableCell align="center" sx={{ width: "10%" }}>
+                            <Box>
+                              <IconButton
+                                disabled={
+                                  row.Estado === "Autorizada" ? true : false
+                                }
+                                sx={{
+                                  color: "#616161",
+                                  "&:hover": {
+                                    color: "blue",
+                                  },
+                                }}
+                                onClick={() => {
+                                  setMaEdit([
+                                    {
+                                      IdMa: row.IdMa,
+                                      IdMir: row.IdMir,
+                                      AnioFiscal: row.AnioFiscal,
+                                      Institucion: row.Institucion,
+                                      Programa: row.Programa,
+                                      MIR: row.MIR,
+                                      MetaAnual: row.MetaAnual,
+                                      Estado: row.Estado,
+                                      CreadoPor: row.CreadoPor,
+                                      FechaCreacion: row.FechaCreacion,
+                                    },
+                                  ]);
+                                  setShowResume(false);
+                                }}
+                              >
+                                <Tooltip title="REGISTRAR META ANUAL">
+                                  <AddCircleOutlineIcon />
                                 </Tooltip>
-                                <ComentDialogMA
-                                  estado={row.Estado}
-                                  id={row.IdMir}
-                                  actualizado={actualizaContador}
-                                />
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                      )}
+                              </IconButton>
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Tooltip title="Descargar">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "orange",
+                                          },
+                                          width: "1.2vw",
+                                          height: "1.2vw",
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                              <ComentDialogMA
+                                estado={row.Estado}
+                                id={row.IdMir}
+                                actualizado={actualizaContador}
+                              />
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -527,7 +569,7 @@ export interface IIMa {
   AnioFiscal: string;
   Institucion: string;
   Programa: string;
-  MIR: string
+  MIR: string;
   MetaAnual: string;
   Estado: string;
   CreadoPor: string;

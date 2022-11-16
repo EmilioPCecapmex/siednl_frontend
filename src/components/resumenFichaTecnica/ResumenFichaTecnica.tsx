@@ -431,7 +431,6 @@ export const ResumenFichaTecnica = () => {
         </>
       ) : i === subTitleColumnsNormalPag1Value.length - 1 ? (
         <>
-          {console.log(subTitleColumnsNormalPag1Value.length)}
           <Box sx={sxBoxMediumSize}>
             {/*ROW*/}
             <Box sx={sxSubtitleMediumSize}>

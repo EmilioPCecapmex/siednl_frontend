@@ -6,7 +6,7 @@ import TabFinPropositoMR, {
   IProposito,
   TabFinPropositoMA,
 } from "./TabFinPropositoMA";
-import { Box, Tooltip, Typography } from "@mui/material";
+import { Box, Tooltip, IconButton } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IEncabezado, TabEncabezadoMIR } from "./TabEncabezadoMIR";
@@ -261,6 +261,7 @@ export default function AddMetaAnual({
         width: "100%",
         height: "92%",
         mt: "8vh",
+        
       }}
     >
       <Box
@@ -412,37 +413,39 @@ export default function AddMetaAnual({
         </Box>
 
         <Box
-          sx={{
-            width: "20%",
-            height :"10%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
+        sx={{
+          width: "30%",
+          display: "flex",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
+        >
+            <IconButton
+            onClick={() => {
+              cambiarTab("atras");
+            }}
           >
-          <Box>
-            {value > 20 ? (
-              <IconButton
-                onClick={() => {
-                  cambiarTab("atras");
-                }}
-              >
-                <ArrowCircleLeftIcon />
-              </IconButton>
-            ) : null}
-          </Box>
-          <Box>
-            {value < 50 ? (
-              <IconButton
-                size="large"
-                onClick={() => {
-                  cambiarTab("adelante");
-                }}
-              >
-                <ArrowCircleRightIcon />
-              </IconButton>
-            ) : null}
-          </Box>
+            <ArrowCircleLeftIcon
+              fontSize="large"
+              sx={{
+                color: "#c4a57b",
+              }}
+            />
+          </IconButton>
+
+          <IconButton
+            onClick={() => {
+              cambiarTab("adelante");
+            }}
+          >
+            <ArrowCircleRightIcon
+            fontSize="large"
+              sx={{
+                color: "#c4a57b",
+              }}
+            />
+          </IconButton>
+          
         </Box>
       </Box>
     </Box>

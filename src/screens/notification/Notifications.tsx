@@ -17,7 +17,6 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableFooter,
   TablePagination,
   TableRow,
   Input,
@@ -168,7 +167,12 @@ export const Notification = () => {
 
   const getUsuarios = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
+      .get("http://10.200.4.199:8000/api/usuarios",
+      
+       {params:{
+        IdUsuario: localStorage.getItem("IdUsuario"),
+        IdInstitucion: ''
+      },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
           "Content-Type": "application/json",
