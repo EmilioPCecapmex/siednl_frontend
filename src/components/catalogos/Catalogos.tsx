@@ -282,7 +282,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             (item: { Id: string; Unidad: string; Tabla: string }) => {
               return {
                 Id: item.Id,
-                Desc: item.Unidad,
+                Desc: item.Unidad.toUpperCase(),
                 Tabla: "UnidadesAdministrativas",
               };
             }
@@ -318,7 +318,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: item.NombreInstitucion + " / " + item.Unidad,
+                Desc:
+                  item.NombreInstitucion.toUpperCase() +
+                  " / " +
+                  item.Unidad.toUpperCase(),
                 Tabla: "InstitucionUnidad",
               };
             }
@@ -353,7 +356,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: item.NombreInstitucion + " / " + item.NombrePrograma,
+                Desc:
+                  item.NombreInstitucion.toUpperCase() +
+                  " / " +
+                  item.NombrePrograma.toUpperCase(),
                 Tabla: "ProgramasInstituciones",
               };
             }
@@ -505,7 +511,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Eje: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Eje.toUpperCase(), Tabla: "Ejes" };
+              return {
+                Id: item.Id,
+                Desc: item.Eje.toUpperCase(),
+                Tabla: "Ejes",
+              };
             }
           );
           setDatosTabla(update);
@@ -529,7 +539,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; EjePND: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.EjePND.toUpperCase(), Tabla: "EjesPND" };
+              return {
+                Id: item.Id,
+                Desc: item.EjePND.toUpperCase(),
+                Tabla: "EjesPND",
+              };
             }
           );
           setDatosTabla(update);
@@ -581,7 +595,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Formula: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Formula.toUpperCase(), Tabla: "Formulas" };
+              return {
+                Id: item.Id,
+                Desc: item.Formula.toUpperCase(),
+                Tabla: "Formulas",
+              };
             }
           );
           setDatosTabla(update);
@@ -612,7 +630,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc: item.FechaDeCaptura + " / " + item.Descripcion.toUpperCase(),
+                Desc:
+                  item.FechaDeCaptura + " / " + item.Descripcion.toUpperCase(),
                 Tabla: "FechasDeCaptura",
               };
             }
@@ -729,7 +748,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; MetaODS: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.MetaODS.toUpperCase(), Tabla: "MetasODS" };
+              return {
+                Id: item.Id,
+                Desc: item.MetaODS.toUpperCase(),
+                Tabla: "MetasODS",
+              };
             }
           );
           setDatosTabla(update);
@@ -781,7 +804,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Objetivo: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Objetivo.toUpperCase(), Tabla: "Objetivos" };
+              return {
+                Id: item.Id,
+                Desc: item.Objetivo.toUpperCase(),
+                Tabla: "Objetivos",
+              };
             }
           );
           setDatosTabla(update);
@@ -943,7 +970,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Rol: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Rol.toUpperCase(), Tabla: "Roles" };
+              return {
+                Id: item.Id,
+                Desc: item.Rol.toUpperCase(),
+                Tabla: "Roles",
+              };
             }
           );
           setDatosTabla(update);
@@ -967,7 +998,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           let update = r.data.data;
           update = update.map(
             (item: { Id: string; Tematica: string; Tabla: string }) => {
-              return { Id: item.Id, Desc: item.Tematica.toUpperCase(), Tabla: "Tematicas" };
+              return {
+                Id: item.Id,
+                Desc: item.Tematica.toUpperCase(),
+                Tabla: "Tematicas",
+              };
             }
           );
           setDatosTabla(update);
@@ -1069,11 +1104,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setDescripctionFiltered(text);
   };
 
-  const [datosTabla, setDatosTabla] = React.useState<Array<IDatosTabla>>([
-  ]);
+  const [datosTabla, setDatosTabla] = React.useState<Array<IDatosTabla>>([]);
 
-  const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState<Array<IDatosTabla>>([
-  ]);
+  const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState<
+    Array<IDatosTabla>
+  >([]);
   const findText = () => {
     if (descripctionFiltered !== "") {
       setDataDescripctionFiltered(
@@ -1133,20 +1168,16 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
-      if(panel === "panel1" && newExpanded === true){
+      if (panel === "panel1" && newExpanded === true) {
         setColorCatalogo("#c4a57b");
         setColorRelaciones("");
-      }
-      else if(panel === "panel2" && newExpanded === true){
+      } else if (panel === "panel2" && newExpanded === true) {
         setColorCatalogo("");
         setColorRelaciones("#c4a57b");
-      }else{
+      } else {
         setColorCatalogo("");
         setColorRelaciones("");
       }
-      
-      
-      
     };
 
   return (
@@ -1183,11 +1214,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           >
             <List
               sx={{
-                
-                height:"100vh",
+                height: "100vh",
                 pb: 2,
                 pt: 2,
-                
+
                 borderRight: "solid 1px",
                 overflow: "auto",
                 borderRadius: ".4vw",
@@ -1203,33 +1233,34 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               }}
             >
               <Accordion
-                      expanded={expanded === "panel1"}
-                      onChange={handleChange("panel1")}
-                    >
-                      <AccordionSummary
-                        aria-controls="panel1d-content"
-                        id="panel1d-header"
-                        sx={{
-                          backgroundColor:colorCatalogo,
-                          '&:hover': {
-                            backgroundColor: '#cbcbcb',
-                        },
-                        }}
-                      >
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>Catálogos</Typography>
-                      </AccordionSummary>
-                      
-              {configOptions.map((item) => {
-                return (
-                  <Box key={item.id} sx={{}}>
-                    {item.tipo === "Catalogos" ? (
-                     
-                     <AccordionDetails >
+                expanded={expanded === "panel1"}
+                onChange={handleChange("panel1")}
+              >
+                <AccordionSummary
+                  aria-controls="panel1d-content"
+                  id="panel1d-header"
+                  sx={{
+                    backgroundColor: colorCatalogo,
+                    "&:hover": {
+                      backgroundColor: "#cbcbcb",
+                    },
+                  }}
+                >
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    Catálogos
+                  </Typography>
+                </AccordionSummary>
+
+                {configOptions.map((item) => {
+                  return (
+                    <Box key={item.id} sx={{}}>
+                      {item.tipo === "Catalogos" ? (
+                        <AccordionDetails>
                           <ListItemButton
                             key={item.id}
                             sx={{
-                              width:"100%",
-                              height:"100%",
+                              width: "100%",
+                              height: "100%",
                               pl: 2,
                               "&.Mui-selected ": {
                                 backgroundColor: "#c4a57b",
@@ -1245,54 +1276,49 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               setDefaultSelection(item.Desc);
                             }}
                           >
-                            
                             <Typography sx={{ fontFamily: "MontserratMedium" }}>
                               {item.Desc}
                             </Typography>
-                           
                           </ListItemButton>
-                          </AccordionDetails>
-                          
-                      
-                    ) : 
-                    ""
-                    }
-                    <Divider />
-                  </Box>
-                );
-              })}
-               </Accordion>
-               <Accordion
-                      expanded={expanded === "panel2"}
-                      onChange={handleChange("panel2")}
-                      
-                    >
-                      <AccordionSummary
-                        aria-controls="panel2d-content"
-                        id="panel2d-header"
-                        
-                        sx={{
-                          backgroundColor:colorRelaciones,
-                          '&:hover': {
-                            backgroundColor: '#cbcbcb',
-                        },
-                        }}
-                      >
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>Relaciones</Typography>
-                      </AccordionSummary>
-                      
-              {configOptions.map((item) => {
-                return (
-                  <Box key={item.id} sx={{}}>
-                    {item.tipo === "Relaciones" ? (
-                     
-                     <AccordionDetails >
+                        </AccordionDetails>
+                      ) : (
+                        ""
+                      )}
+                      <Divider />
+                    </Box>
+                  );
+                })}
+              </Accordion>
+              <Accordion
+                expanded={expanded === "panel2"}
+                onChange={handleChange("panel2")}
+              >
+                <AccordionSummary
+                  aria-controls="panel2d-content"
+                  id="panel2d-header"
+                  sx={{
+                    backgroundColor: colorRelaciones,
+                    "&:hover": {
+                      backgroundColor: "#cbcbcb",
+                    },
+                  }}
+                >
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    Relaciones
+                  </Typography>
+                </AccordionSummary>
+
+                {configOptions.map((item) => {
+                  return (
+                    <Box key={item.id} sx={{}}>
+                      {item.tipo === "Relaciones" ? (
+                        <AccordionDetails>
                           <ListItemButton
                             key={item.id}
                             sx={{
                               pl: 2,
-                              
-                              height:"",
+
+                              height: "",
                               "&.Mui-selected ": {
                                 backgroundColor: "#c4a57b",
                               },
@@ -1307,25 +1333,20 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               setDefaultSelection(item.Desc);
                             }}
                           >
-                            
-                            <Typography sx={{ fontFamily: "MontserratMedium"}}>
+                            <Typography sx={{ fontFamily: "MontserratMedium" }}>
                               {item.Desc}
                             </Typography>
-                           
                           </ListItemButton>
-                          </AccordionDetails>
-                          
-                      
-                    ) : 
-                    ""
-                    }
-                    
+                        </AccordionDetails>
+                      ) : (
+                        ""
+                      )}
 
-                    <Divider />
-                  </Box>
-                );
-              })}
-               </Accordion>
+                      <Divider />
+                    </Box>
+                  );
+                })}
+              </Accordion>
             </List>
           </Box>
 
@@ -1656,10 +1677,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   justifyContent: "center",
                 }}
               >
-                <CSVCatalogo
-                tabla={tablaActual}
-                datos={datosTabla}
-                />
+                <CSVCatalogo tabla={tablaActual} datos={datosTabla} />
               </Box>
             </Box>
           </Box>
@@ -1668,7 +1686,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     </Box>
   );
 };
-
 
 export interface IDatosTabla {
   Id: string;

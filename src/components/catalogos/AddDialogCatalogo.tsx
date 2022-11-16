@@ -312,7 +312,10 @@ export const AddDialogCatalogo = ({
     return (
       <Box sx={{ display: "flex" }}>
         <IconButton onClick={handleClickOpen}>
-          <AddIcon />
+          <AddIcon sx={{
+              width: 50,
+              height: 50,
+            }}/>
         </IconButton>
         <Dialog fullWidth open={open} onClose={handleClose}>
           <Box
@@ -417,7 +420,10 @@ export const AddDialogCatalogo = ({
     return (
       <Box sx={{ display: "flex" }}>
         <IconButton onClick={handleClickOpen}>
-          <AddIcon />
+          <AddIcon sx={{
+              width: 50,
+              height: 50,
+            }}/>
         </IconButton>
         <Dialog fullWidth open={open} onClose={handleClose}>
           <Box
@@ -570,7 +576,10 @@ export const AddDialogCatalogo = ({
     return (
       <Box sx={{ display: "flex" }}>
         <IconButton onClick={handleClickOpen}>
-          <AddIcon />
+          <AddIcon sx={{
+              width: 50,
+              height: 50,
+            }}/>
         </IconButton>
         <Dialog fullWidth open={open} onClose={handleClose}>
           <Box
@@ -752,7 +761,10 @@ export const AddDialogCatalogo = ({
       <Box sx={{ display: "flex" }}>
         <Tooltip title="Editar">
           <IconButton onClick={handleClickOpen}>
-            <AddIcon />
+            <AddIcon sx={{
+              width: 50,
+              height: 50,
+            }}/>
           </IconButton>
         </Tooltip>
         <Dialog fullWidth open={open} onClose={handleClose}>

@@ -46,7 +46,10 @@ export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTab
   return (
     <>
      <IconButton>
-    <DownloadIcon onClick={()=>get()}/>
+    <DownloadIcon sx={{
+              width: 40,
+              height: 40,
+            }} onClick={()=>get()}/>
     </IconButton>
     </>
   )
