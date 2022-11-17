@@ -14,6 +14,7 @@ import { IPropositoMA } from "./IFin";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
+import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 
 export function TabFinPropositoMA({
   show,
@@ -22,6 +23,7 @@ export function TabFinPropositoMA({
   showMirFnc,
   showFnc,
   MA,
+  MIR,
 }: {
   show: boolean;
   resumenFinMa: Function;
@@ -29,6 +31,7 @@ export function TabFinPropositoMA({
   showMirFnc: Function;
   showFnc: Function;
   MA: string;
+  MIR: string;
 }) {
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
 
@@ -69,6 +72,60 @@ export function TabFinPropositoMA({
     resumenPropositoMa(valueProposito);
   }, [valueFin, valueProposito]);
 
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [prevTextFormula, setPrevTextFormula] = useState("");
+  const [tipoFormula, setTipoFormula] = useState("");
+  const [elementoFormula, setElementoFormula] = useState("");
+
+  const handleClickOpen = () => {
+    if (showFin) {
+      setTipoFormula(
+        JSON.parse(MIR).fin.indicador.includes("PORCENTAJE")
+          ? "Porcentaje"
+          : JSON.parse(MIR).fin.indicador.includes("TASA")
+          ? "Tasa"
+          : JSON.parse(MIR).fin.indicador.includes("INDICE" || "ÍNDICE")
+          ? "Indice"
+          : JSON.parse(MIR).fin.indicador.includes("PROMEDIO")
+          ? "Promedio"
+          : ""
+      );
+      setElementoFormula("Fin");
+      setOpenFormulaDialog(true);
+    }
+    if (showProposito) {
+      setTipoFormula(
+        JSON.parse(MIR).fin.indicador.includes("PORCENTAJE")
+          ? "Porcentaje"
+          : JSON.parse(MIR).fin.indicador.includes("TASA")
+          ? "Tasa"
+          : JSON.parse(MIR).fin.indicador.includes("INDICE")
+          ? "Indice"
+          : "Promedio"
+      );
+      setElementoFormula("Propósito");
+      setOpenFormulaDialog(true);
+    }
+  };
+
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+
+  const changeFormula = (txt: string) => {
+    if (elementoFormula === "Fin") {
+      valueFin[0].valorNumerador = txt.split(",")[0];
+      valueFin[0].valorDenominador = txt.split(",")[1];
+      valueFin[0].metaAnual = txt.split(",")[2] + "%";
+      setValueFin([...valueFin]);
+    } else if (elementoFormula === "Propósito") {
+      valueProposito[0].valorNumerador = txt.split(",")[0];
+      valueProposito[0].valorDenominador = txt.split(",")[1];
+      valueProposito[0].metaAnual = txt.split(",")[2] + "%";
+      setValueProposito([...valueProposito]);
+    }
+  };
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -83,6 +140,15 @@ export function TabFinPropositoMA({
         backgroundColor: "#fff",
       }}
     >
+      <FormulaDialogMA
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        MIR={MIR}
+      />
       {showFin || showProposito ? (
         <Box
           sx={{
@@ -110,7 +176,7 @@ export function TabFinPropositoMA({
           >
             {showFin ? "FIN" : null}
             {showProposito ? "PROPÓSITO" : null}
-          </Typography>{" "}
+          </Typography>
         </Box>
       ) : (
         <Box
@@ -121,9 +187,7 @@ export function TabFinPropositoMA({
             justifyContent: "flex-end",
             alignItems: "center",
           }}
-        >
-          {" "}
-        </Box>
+        ></Box>
       )}
 
       <Box
@@ -163,7 +227,7 @@ export function TabFinPropositoMA({
             <ListItemButton
               selected={showFin}
               onClick={() => {
-                setShowFin(!showFin);
+                setShowFin(true);
                 setShowProposito(false);
               }}
               sx={{
@@ -193,7 +257,7 @@ export function TabFinPropositoMA({
             <ListItemButton
               selected={showProposito}
               onClick={() => {
-                setShowProposito(!showProposito);
+                setShowProposito(true);
                 setShowFin(false);
               }}
               sx={{
@@ -234,8 +298,7 @@ export function TabFinPropositoMA({
               }}
             >
               <TextField
-                rows={1}
-                multiline
+                disabled
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -244,20 +307,6 @@ export function TabFinPropositoMA({
                   >
                     META ANUAL 2023
                   </Typography>
-                }
-                error={
-                  parseFloat(valueFin[0].metaAnual) < 0 ||
-                  (isNaN(parseFloat(valueFin[0].metaAnual)) &&
-                    valueFin[0].metaAnual !== "")
-                    ? true
-                    : false
-                }
-                helperText={
-                  parseFloat(valueFin[0].metaAnual) < 0 ||
-                  (isNaN(parseFloat(valueFin[0].metaAnual)) &&
-                    valueFin[0].metaAnual !== "")
-                    ? "Introducir valor mayor que 0."
-                    : null
                 }
                 InputLabelProps={{
                   style: {
@@ -269,15 +318,10 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onChange={(c) => {
-                  valueFin[0].metaAnual = c.target.value;
-                  setValueFin([...valueFin]);
-                }}
+                onClick={() => handleClickOpen()}
                 value={valueFin[0]?.metaAnual}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -318,8 +362,6 @@ export function TabFinPropositoMA({
                 value={valueFin[0]?.lineaBase}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -339,15 +381,10 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onChange={(c) => {
-                  valueFin[0].valorNumerador = c.target.value;
-                  setValueFin([...valueFin]);
-                }}
+                onClick={() => handleClickOpen()}
                 value={valueFin[0]?.valorNumerador}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -367,13 +404,9 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onChange={(c) => {
-                  valueFin[0].valorDenominador = c.target.value;
-                  setValueFin([...valueFin]);
-                }}
+                onClick={() => handleClickOpen()}
                 value={valueFin[0]?.valorDenominador}
               />
-
               <FormControl
                 sx={{
                   width: "15%",
@@ -601,7 +634,7 @@ export function TabFinPropositoMA({
               flexDirection: "column",
               width: "90%",
               alignItems: "center",
-              justifyItems: "center",
+              justifyContent: "center",
             }}
           >
             <Box
@@ -614,8 +647,7 @@ export function TabFinPropositoMA({
               }}
             >
               <TextField
-                rows={1}
-                multiline
+                disabled
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -635,15 +667,10 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onChange={(c) => {
-                  valueProposito[0].metaAnual = c.target.value;
-                  setValueProposito([...valueProposito]);
-                }}
+                onClick={() => handleClickOpen()}
                 value={valueProposito[0]?.metaAnual}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -652,6 +679,20 @@ export function TabFinPropositoMA({
                   >
                     LÍNEA BASE 2021
                   </Typography>
+                }
+                error={
+                  parseFloat(valueProposito[0].lineaBase) < 0 ||
+                  (isNaN(parseFloat(valueProposito[0].lineaBase)) &&
+                    valueProposito[0].lineaBase !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(valueProposito[0].lineaBase) < 0 ||
+                  (isNaN(parseFloat(valueProposito[0].lineaBase)) &&
+                    valueProposito[0].lineaBase !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
                 }
                 InputLabelProps={{
                   style: {
@@ -670,8 +711,6 @@ export function TabFinPropositoMA({
                 value={valueProposito[0]?.lineaBase}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -691,15 +730,10 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onChange={(c) => {
-                  valueProposito[0].valorNumerador = c.target.value;
-                  setValueProposito([...valueProposito]);
-                }}
+                onClick={() => handleClickOpen()}
                 value={valueProposito[0]?.valorNumerador}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -719,10 +753,7 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onChange={(c) => {
-                  valueProposito[0].valorDenominador = c.target.value;
-                  setValueProposito([...valueProposito]);
-                }}
+                onClick={() => handleClickOpen()}
                 value={valueProposito[0]?.valorDenominador}
               />
               <FormControl

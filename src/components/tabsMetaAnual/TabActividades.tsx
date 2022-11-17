@@ -17,6 +17,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
+import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 
 //funcion main
 export const TabActividadesMA = ({
@@ -29,6 +30,7 @@ export const TabActividadesMA = ({
   showMirFnc,
   showFnc,
   MA,
+  MIR,
 }: {
   show: boolean;
   componentes: number[];
@@ -39,6 +41,7 @@ export const TabActividadesMA = ({
   showMirFnc: Function;
   showFnc: Function;
   MA: string;
+  MIR: string;
 }) => {
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
@@ -279,6 +282,55 @@ export const TabActividadesMA = ({
     setOpen(index);
   };
 
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [prevTextFormula, setPrevTextFormula] = useState("");
+  const [tipoFormula, setTipoFormula] = useState("");
+  const [elementoFormula, setElementoFormula] = useState("");
+
+  const handleClickOpen = () => {
+    console.log(JSON.parse(MIR).componentes[componenteSelect].actividades[
+      actividadSelect
+    ].indicador);
+    
+    setTipoFormula(
+      JSON.parse(MIR).componentes[componenteSelect].actividades[
+        actividadSelect
+      ].indicador.includes("PORCENTAJE")
+        ? "Porcentaje"
+        : JSON.parse(MIR).componentes[componenteSelect].actividades[
+            actividadSelect
+          ].indicador.includes("TASA")
+        ? "Tasa"
+        : JSON.parse(MIR).componentes[componenteSelect].actividades[
+            actividadSelect
+          ].indicador.includes("INDICE" || "ÍNDICE")
+        ? "Indice"
+        : JSON.parse(MIR).componentes[componenteSelect].actividades[
+            actividadSelect
+          ].indicador.includes("PROMEDIO")
+        ? "Promedio"
+        : ""
+    );
+    setElementoFormula(
+      "C" +
+        (componenteSelect + 1).toString() +
+        "A" +
+        (actividadSelect + 1).toString()
+    );
+    setOpenFormulaDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+
+  const changeFormula = (txt: string) => {
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metaAnual = txt;
+    setAValorMA([...aValorMA]);
+  };
+
   //return main
   return (
     <Box
@@ -294,6 +346,15 @@ export const TabActividadesMA = ({
         backgroundColor: "#fff",
       }}
     >
+      <FormulaDialogMA
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        MIR={MIR}
+      />
       <Box
         sx={{
           width: "100%",
@@ -378,7 +439,9 @@ export const TabActividadesMA = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize:'0.7vw' }}>
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                  >
                     COMPONENTE {item}
                   </Typography>
 
@@ -439,45 +502,59 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              rows={1}
-              multiline
+              disabled
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   META ANUAL 2023
                 </Typography>
               }
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              onClick={() => handleClickOpen()}
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].metaAnual
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metaAnual = c.target.value;
-                setAValorMA(y);
-              }}
+            />
+            <TextField
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  LÍNEA BASE 2021
+                </Typography>
+              }
               error={
                 (parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].metaAnual
+                  ].lineaBase
                 ) < 0 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].metaAnual
+                      ].lineaBase
                     )
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual !== ""
+                ].lineaBase !== ""
                   ? true
                   : false
               }
@@ -485,18 +562,18 @@ export const TabActividadesMA = ({
                 (parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].metaAnual
+                  ].lineaBase
                 ) < 0 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].metaAnual
+                      ].lineaBase
                     )
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual !== ""
+                ].lineaBase !== ""
                   ? "Introducir valor mayor que 0."
                   : null
               }
@@ -510,19 +587,6 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-            />
-            <TextField
-              rows={1}
-              multiline
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
-                >
-                LÍNEA BASE 2021
-                </Typography>
-              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -535,43 +599,16 @@ export const TabActividadesMA = ({
                 ].lineaBase = c.target.value;
                 setAValorMA(y);
               }}
-              error={
-                (parseFloat(
-                  aValorMA[0].componentes[componenteSelect].actividades[
-                    actividadSelect
-                  ].lineaBase
-                ) < 0 ||
-                  isNaN(
-                    parseFloat(
-                      aValorMA[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].lineaBase
-                    )
-                  )) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].lineaBase !== ""
-                  ? true
-                  : false
-              }
-              helperText={
-                (parseFloat(
-                  aValorMA[0].componentes[componenteSelect].actividades[
-                    actividadSelect
-                  ].lineaBase
-                ) < 0 ||
-                  isNaN(
-                    parseFloat(
-                      aValorMA[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].lineaBase
-                    )
-                  )) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].lineaBase !== ""
-                  ? "Introducir valor mayor que 0."
-                  : null
+            />
+            <TextField
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  VALOR DEL NUMERADOR
+                </Typography>
               }
               InputLabelProps={{
                 style: {
@@ -583,31 +620,23 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-            />
-            <TextField
-              rows={1}
-              multiline
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
-                >
-                  VALOR DEL NUMERADOR
-                </Typography>
-              }
+              onClick={() => handleClickOpen()}
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].valorNumerador
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].valorNumerador = c.target.value;
-                setAValorMA(y);
-              }}
+            />
+            <TextField
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  VALOR DEL DENOMINADOR
+                </Typography>
+              }
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -618,41 +647,12 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-            />
-            <TextField
-              rows={1}
-              multiline
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
-                >
-                  VALOR DEL DENOMINADOR
-                </Typography>
-              }
+              onClick={() => handleClickOpen()}
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].valorDenominador
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].valorDenominador = c.target.value;
-                setAValorMA(y);
-              }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
             />
 
             <FormControl
@@ -678,7 +678,7 @@ export const TabActividadesMA = ({
                 value={"ASCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
                   >
                     ASCENDENTE
                   </Typography>
@@ -707,7 +707,7 @@ export const TabActividadesMA = ({
                 value={"DESCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
                   >
                     DESCENDENTE
                   </Typography>
@@ -733,7 +733,7 @@ export const TabActividadesMA = ({
                 value={"NORMAL"}
                 label={
                   <Typography
-                    sx={{ fontSize: '0.6vw', fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
                   >
                     NORMAL
                   </Typography>
@@ -768,13 +768,11 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              rows={1}
-              multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   TRIMESTRE 1
                 </Typography>
@@ -803,13 +801,11 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={1}
-              multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   TRIMESTRE 2
                 </Typography>
@@ -838,13 +834,11 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={1}
-              multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   TRIMESTRE 3
                 </Typography>
@@ -873,13 +867,11 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
-              rows={1}
-              multiline
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   TRIMESTRE 4
                 </Typography>
@@ -924,7 +916,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
                 </Typography>
@@ -959,7 +951,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL INDICADOR
                 </Typography>
@@ -1004,7 +996,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL NUMERADOR
                 </Typography>
@@ -1039,7 +1031,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: '0.7vw', fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL DENOMINADOR
                 </Typography>
