@@ -76,6 +76,8 @@ export const FormulaDialogMA = ({
   }, [open]);
 
   let noComponente = parseInt(elemento.split(" ")[1]);
+  let noActividad = parseInt(elemento.split("")[3]);
+  
 
   return (
     <Dialog open={open} fullWidth>
@@ -128,6 +130,8 @@ export const FormulaDialogMA = ({
             ? JSON.parse(MIR).proposito.formula
             : elemento.includes("Componente")
             ? JSON.parse(MIR).componentes[noComponente - 1].formula
+            : elemento.includes("A#")
+            ? JSON.parse(MIR).actividades[noActividad - 1].formula
             : null}
         </Typography>
       </Box>
@@ -149,11 +153,7 @@ export const FormulaDialogMA = ({
           }}
         >
           <TextField
-            label={
-              tipo === "Tasa"
-                ? "Valor T"
-                : "Valor del numerador"
-            }
+            label={tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
             sx={{ width: "45%" }}
             value={descA}
             error={
@@ -193,11 +193,7 @@ export const FormulaDialogMA = ({
             ""
           ) : (
             <TextField
-              label={
-                tipo === "Tasa"
-                  ? "Valor T-1"
-                  : "Valor del denominador"
-              }
+              label={tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
               sx={{ width: "45%" }}
               InputLabelProps={{
                 style: {

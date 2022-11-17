@@ -288,29 +288,27 @@ export const TabActividadesMA = ({
   const [elementoFormula, setElementoFormula] = useState("");
 
   const handleClickOpen = () => {
-    console.log(JSON.parse(MIR).componentes[componenteSelect].actividades[
-      actividadSelect
-    ].indicador);
-    
+
     setTipoFormula(
-      JSON.parse(MIR).componentes[componenteSelect].actividades[
-        actividadSelect
-      ].indicador.includes("PORCENTAJE")
+      JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+        "PORCENTAJE"
+      )
         ? "Porcentaje"
-        : JSON.parse(MIR).componentes[componenteSelect].actividades[
-            actividadSelect
-          ].indicador.includes("TASA")
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "TASA"
+          )
         ? "Tasa"
-        : JSON.parse(MIR).componentes[componenteSelect].actividades[
-            actividadSelect
-          ].indicador.includes("INDICE" || "ÍNDICE")
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "INDICE" || "ÍNDICE"
+          )
         ? "Indice"
-        : JSON.parse(MIR).componentes[componenteSelect].actividades[
-            actividadSelect
-          ].indicador.includes("PROMEDIO")
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "PROMEDIO"
+          )
         ? "Promedio"
         : ""
     );
+
     setElementoFormula(
       "C" +
         (componenteSelect + 1).toString() +
@@ -327,7 +325,13 @@ export const TabActividadesMA = ({
   const changeFormula = (txt: string) => {
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metaAnual = txt;
+    ].valorNumerador = txt.split(",")[0];
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].valorDenominador = txt.split(",")[1];
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metaAnual = txt.split(",")[2];
     setAValorMA([...aValorMA]);
   };
 
