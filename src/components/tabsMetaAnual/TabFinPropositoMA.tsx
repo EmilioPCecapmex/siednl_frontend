@@ -30,6 +30,7 @@ export function TabFinPropositoMA({
   showFnc: Function;
   MA: string;
 }) {
+  
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
 
   const [valueFin, setValueFin] = useState<Array<IFinMA>>([
@@ -787,7 +788,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].unidadResponsable = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.unidadResponsable}
+                // value={valueProposito[0]?.unidadResponsable}
               />
               <TextField
                 rows={5}

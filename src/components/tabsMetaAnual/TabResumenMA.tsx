@@ -26,7 +26,6 @@ export function TabResumenMA({
   componentes: number[];
   componenteValor: Array<IComponenteMA>;
   cValor: Array<ICValorMA>;
-  
   IdMir: string;
   IdMA: string;
   MIR: string;
@@ -49,7 +48,6 @@ export function TabResumenMA({
   };
 
   useEffect(() => {
-    
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
       a.actividades.map((b) => {
@@ -57,6 +55,55 @@ export function TabResumenMA({
         arr.push(b);
       });
     });
+    let cEdit = componenteValor.map((item) => {
+      return {
+        componentes: item.componentes,
+        metaAnual: true,
+        lineaBase: true,
+        metasPorFrecuencia: [{
+          semestre1: true,
+          semestre2: true,
+          trimestre1: true,
+          trimestre2: true,
+          trimestre3: true,
+          trimestre4: true
+        }],
+        valorNumerador: true,
+        valorDenominador: true,
+        sentidoDelIndicador: true,
+        unidadResponsable: true,
+        descIndicador: true,
+        descNumerador: true,
+        descDenominador: true,
+      };
+    });
+    setEditComponentes(cEdit);
+
+    let aEdit = arr.map((item) => {
+      return {
+        actividad: item.actividad,
+        metaAnual: true,
+        lineaBase: true,
+        metasPorFrecuencia: [{
+          semestre1: true,
+          semestre2: true,
+          trimestre1: true,
+          trimestre2: true,
+          trimestre3: true,
+          trimestre4: true
+        }],
+        valorNumerador: true,
+        valorDenominador: true,
+        sentidoDelIndicador: true,
+        unidadResponsable: true,
+        descIndicador: true,
+        descNumerador: true,
+        descDenominador: true,
+      };
+    });
+
+    setEditActividades(aEdit);
+    
 
     asignarMA(fin, proposito, componenteValor, arr);
   }, [componenteValor, proposito, fin, cValor, show]);
@@ -142,6 +189,14 @@ export function TabResumenMA({
     descNumerador: true,
     descDenominador: true
   });
+
+  const [editComponentes, setEditComponentes] = useState<
+  Array<IComponenteEditMA>
+>([]);
+
+const [editActividades, setEditActividades] = useState<
+  Array<IActividadesEditMA>
+>([]);
 
   return (
     <Box
@@ -701,6 +756,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.metaAnual}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].metaAnual = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -723,6 +788,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.lineaBase}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].lineaBase = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -769,15 +844,23 @@ export function TabResumenMA({
                         justifyContent: "space-evenly",
                       }}
                     >
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.metasPorFrecuencia[0].semestre1}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].metasPorFrecuencia[0].semestre1 = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Semestre 1:
                         </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "100%" }}
-                        >
+                       <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}> 
                           {
                             componenteValor[index - 1]?.metasPorFrecuencia[0]
                               ?.semestre1
@@ -785,15 +868,23 @@ export function TabResumenMA({
                         </Typography>
                       </Box>
 
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.metasPorFrecuencia[0].semestre2}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].metasPorFrecuencia[0].semestre2 = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Semestre 2:
                         </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "100%" }}
-                        >
+                       <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}> 
                           {
                             componenteValor[index - 1]?.metasPorFrecuencia[0]
                               ?.semestre2
@@ -809,60 +900,92 @@ export function TabResumenMA({
                         justifyContent: "space-evenly",
                       }}
                     >
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.metasPorFrecuencia[0].trimestre1}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].metasPorFrecuencia[0].trimestre1 = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Trimestre 1:
                         </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "100%" }}
-                        >
+                       <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}> 
                           {
                             componenteValor[index - 1]?.metasPorFrecuencia[0]
                               ?.trimestre1
                           }
                         </Typography>
                       </Box>
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.metasPorFrecuencia[0].trimestre2}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].metasPorFrecuencia[0].trimestre2 = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Trimestre 2:
                         </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "100%" }}
-                        >
+                       <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}> 
                           {
                             componenteValor[index - 1]?.metasPorFrecuencia[0]
                               ?.trimestre2
                           }
                         </Typography>
                       </Box>
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.metasPorFrecuencia[0].trimestre3}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].metasPorFrecuencia[0].trimestre3 = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Trimestre 3:
                         </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "100%" }}
-                        >
+                       <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}> 
                           {
                             componenteValor[index - 1]?.metasPorFrecuencia[0]
                               ?.trimestre3
                           }
                         </Typography>
                       </Box>
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.metasPorFrecuencia[0].trimestre4}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].metasPorFrecuencia[0].trimestre4 = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Trimestre 4:
                         </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "100%" }}
-                        >
+                       <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}> 
                           {
                             componenteValor[index - 1]?.metasPorFrecuencia[0]
                               ?.trimestre4
@@ -883,6 +1006,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.valorNumerador}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].valorNumerador = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -905,6 +1038,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.valorDenominador}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].valorDenominador = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -928,6 +1071,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.sentidoDelIndicador}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].sentidoDelIndicador = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -950,6 +1103,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.unidadResponsable}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].unidadResponsable = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -972,6 +1135,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.descIndicador}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].descIndicador = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -994,6 +1167,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.descNumerador}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].descNumerador = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -1016,6 +1199,16 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
+                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                    <Checkbox
+                      value={!editComponentes[index - 1]?.descDenominador}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].descDenominador = !v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  )}
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
@@ -1065,6 +1258,16 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.metaAnual}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].metaAnual = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1091,6 +1294,16 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                       {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.lineaBase}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].lineaBase = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1117,6 +1330,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                  
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
@@ -1133,14 +1347,24 @@ export function TabResumenMA({
                         justifyContent: "space-evenly",
                       }}
                     >
-                      <Box sx={{ width: "8%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.metasPorFrecuencia[0].trimestre1}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].metasPorFrecuencia[0].trimestre1 = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
-                          Trimestre 1:
+                          Trimestre 1: 
                         </Typography>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
-                          {
+                        <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
                             cValor[0]?.componentes[indexComponentes]
                               ?.actividades[indexActividades]
                               .metasPorFrecuencia[0]?.trimestre1
@@ -1148,13 +1372,23 @@ export function TabResumenMA({
                         </Typography>
                       </Box>
 
-                      <Box sx={{ width: "8%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.metasPorFrecuencia[0].trimestre2}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].metasPorFrecuencia[0].trimestre2 = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Trimestre 2:
                         </Typography>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
                           {
                             cValor[0].componentes[indexComponentes].actividades[
                               indexActividades
@@ -1163,13 +1397,23 @@ export function TabResumenMA({
                         </Typography>
                       </Box>
 
-                      <Box sx={{ width: "8%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.metasPorFrecuencia[0].trimestre3}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].metasPorFrecuencia[0].trimestre3 = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Trimestre 3:
                         </Typography>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
                           {
                             cValor[0].componentes[indexComponentes].actividades[
                               indexActividades
@@ -1178,13 +1422,23 @@ export function TabResumenMA({
                         </Typography>
                       </Box>
 
-                      <Box sx={{ width: "8%", display: "flex" }}>
+                      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.metasPorFrecuencia[0].trimestre4}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].metasPorFrecuencia[0].trimestre4 = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
                           Trimestre 4:
                         </Typography>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
                           {
                             cValor[0].componentes[indexComponentes].actividades[
                               indexActividades
@@ -1206,6 +1460,16 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                       {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.valorNumerador}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].valorNumerador = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1233,6 +1497,16 @@ export function TabResumenMA({
                       
                     }}
                   >
+                         {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.valorDenominador}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].valorDenominador = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1260,6 +1534,16 @@ export function TabResumenMA({
                       
                     }}
                   >
+                         {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.sentidoDelIndicador}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].sentidoDelIndicador = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1287,6 +1571,16 @@ export function TabResumenMA({
                       
                     }}
                   >
+                         {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.unidadResponsable}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].unidadResponsable = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1314,6 +1608,16 @@ export function TabResumenMA({
                       
                     }}
                   >
+                         {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.descIndicador}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].descIndicador = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1340,6 +1644,16 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
+                         {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.descNumerador}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].descNumerador = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1367,6 +1681,16 @@ export function TabResumenMA({
                       
                     }}
                   >
+                         {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                      <Checkbox
+                        value={!editActividades[indexComponentes]?.descDenominador}
+                        onChange={(v) => {
+                          let past = [...editActividades];
+                          past[indexComponentes].descDenominador = !v.target.checked;
+                          setEditActividades(past);
+                        }}
+                      />
+                    )}
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                     >
@@ -1448,6 +1772,16 @@ export function TabResumenMA({
           showResume={showResume}
           IdMA={IdMA}
           IdMIR={IdMir}
+          MAEdit={
+            localStorage.getItem("Rol") !== "Administrador"
+              ? ""
+              : JSON.stringify({
+                  fin: editFin,
+                  proposito: editProposito,
+                  componentes: editComponentes,
+                  actividades: editActividades,
+                })
+          }
         ></ModalSolicitaModif>
 
         <ModalEnviarMA
@@ -1491,3 +1825,50 @@ export interface IPropositoEditMA {
   descNumerador: boolean;
   descDenominador: boolean;
 }
+
+export interface IActividadesEditMA {
+  actividad: string;
+  metaAnual: boolean;
+  lineaBase: boolean;
+  metasPorFrecuencia: Array<IFrecuenciasActEdit>;
+  valorNumerador: boolean;
+  valorDenominador: boolean;
+  sentidoDelIndicador: boolean;
+  unidadResponsable: boolean;
+  descIndicador: boolean;
+  descNumerador: boolean;
+  descDenominador: boolean;
+}
+
+export interface IComponenteEditMA {
+  componentes: string;
+  metaAnual: boolean;
+  lineaBase: boolean;
+  metasPorFrecuencia: Array<IFrecuenciasEdit>;
+  valorNumerador: boolean;
+  valorDenominador: boolean;
+  sentidoDelIndicador: boolean;
+  unidadResponsable: boolean;
+  descIndicador: boolean;
+  descNumerador: boolean;
+  descDenominador: boolean;
+}
+
+export interface IFrecuenciasEdit {
+  semestre1: boolean;
+  semestre2: boolean;
+  trimestre1: boolean;
+  trimestre2: boolean;
+  trimestre3: boolean;
+  trimestre4: boolean;
+}
+
+export interface IFrecuenciasActEdit {
+  semestre1: boolean;
+  semestre2: boolean;
+  trimestre1: boolean;
+  trimestre2: boolean;
+  trimestre3: boolean;
+  trimestre4: boolean;
+}
+

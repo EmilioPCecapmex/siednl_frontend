@@ -26,6 +26,7 @@ export default function ModalSolicitaModif({
   IdMA,
   IdMIR,
   showResume,
+  MAEdit,
 }: {
   open: boolean;
   handleClose: Function;
@@ -34,6 +35,7 @@ export default function ModalSolicitaModif({
   MIR: string;
   IdMA: string;
   IdMIR: string;
+  MAEdit: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -81,14 +83,14 @@ export default function ModalSolicitaModif({
     }
     axios
       .post(
-        "http://localhost:8000/api/create-MetaAnual",
+        "http://10.200.4.199:8000/api/create-MetaAnual",
         {
-          MetaAnual: MA,
+          MetaAnual: MAEdit === undefined ? MA : "[" + MA + "," + MAEdit + "]",
           CreadoPor:
             userSelected !== "0"
               ? userSelected
               : localStorage.getItem("IdUsuario"),
-          IdMIR: IdMIR,
+          IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
         },
@@ -102,6 +104,7 @@ export default function ModalSolicitaModif({
         if (comment !== "") {
           comentMA(r.data.data.ID);
         }
+        console.log(r.data)
         Toast.fire({
           icon: "success",
           title:
