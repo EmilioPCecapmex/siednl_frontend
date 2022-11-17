@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const tabResumen = () => {
+export const TabResumen = () => {
   return (
-    <div>tabResumen</div>
+    <div>tabActividades</div>
   )
 }

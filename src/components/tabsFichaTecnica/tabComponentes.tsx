@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const tabComponentes = () => {
+export const TabComponentes = () => {
   return (
     <div>tabComponentes</div>
   )

@@ -23,7 +23,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import FullModalFichaTecnica from "../../components/tabsFichaTecnica/ResumenFT";
+import FullModalFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IIMir } from "../mir/MIR";
 import { IIMa} from "../metaAnual/MetaAnual";

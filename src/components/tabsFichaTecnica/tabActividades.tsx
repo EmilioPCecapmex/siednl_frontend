@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const tabActividades = () => {
+export const TabActividades = () => {
   return (
     <div>tabActividades</div>
   )
