@@ -21,7 +21,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import Hidden from "@mui/material/Hidden";
 import { visuallyHidden } from "@mui/utils";
-import IconButton from "@mui/material/IconButton";
+
 export default function AddMetaAnual({
   MIR,
   MA,

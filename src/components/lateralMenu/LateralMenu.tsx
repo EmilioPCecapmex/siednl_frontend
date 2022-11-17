@@ -115,9 +115,29 @@ export const LateralMenu = ({
     const cambiarContrasena = () => {
       if (newPassword === "") {
         setError({ label: "Ingresa una contraseña.", show: true });
+        return null;
 
+      } 
+      if(newPassword.length < 8){
+        setError({ label: "Su contraseña debe contar con al menos 8 caracteres.", show: true });
         return null;
       }
+
+     const regex3 =   /^[a-zA-Z]+$/;
+     const regex5 =  /^[a-zA-Z-0-9]+$/;
+
+      if(newPassword.match(regex3)){
+        console.log("Entre ",newPassword);
+        setError({ label: "Su contraseña debe contar con al menos un numero", show: true });
+        return null;
+      }
+        
+      if(newPassword.match(regex5)){
+        console.log("Entre ",newPassword);
+        setError({ label: "Su contraseña debe contar con un caracter especial", show: true });
+        return null;
+      }
+
       axios
         .put(
           process.env.REACT_APP_APPLICATION_LOGIN + "/api/change-password",
