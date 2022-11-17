@@ -22,6 +22,7 @@ import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
 import FullModalFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -452,10 +453,10 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                                   </span>
                                 </Tooltip>
 
-                                <Tooltip title="Ver">
+                                <Tooltip title="REGISTRAR META ANUAL">
                                   <span>
                                     <IconButton>
-                                      <VisibilityIcon
+                                      <AddCircleOutlineIcon
                                         sx={[
                                           {
                                             "&:hover": {

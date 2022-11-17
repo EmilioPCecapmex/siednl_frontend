@@ -1,6 +1,20 @@
 import React from 'react'
 
-export const TabFinProposito = () => {
+export function TabFinProposito({
+  show,
+  resumenFin,
+  resumenProposito,
+  cargaFin,
+  cargaProposito,
+  mirEdit,
+}: {
+  show: boolean;
+  resumenFin: Function;
+  resumenProposito: Function;
+  cargaFin: Array<any>;
+  cargaProposito: Array<any>;
+  mirEdit?: any;
+}) {
   return (
     //TODO ESTO VA EN TODOS
     /*-DATOS DEL INDICADOR-*/
@@ -14,6 +28,6 @@ export const TabFinProposito = () => {
     //MONITOREABLE
     //ADECUADO
     //APORTE MARGINAL
-    <div>tabFinProposito</div>
+    <></>
   )
 }
