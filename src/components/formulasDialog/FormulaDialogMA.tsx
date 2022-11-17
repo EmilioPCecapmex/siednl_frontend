@@ -77,6 +77,8 @@ export const FormulaDialogMA = ({
 
   let noComponente = parseInt(elemento.split(" ")[1]);
   let noActividad = parseInt(elemento.split("")[3]);
+  console.log(JSON.parse(MIR).actividades[noActividad-1]?.formula);
+  
   
 
   return (
@@ -130,8 +132,8 @@ export const FormulaDialogMA = ({
             ? JSON.parse(MIR).proposito.formula
             : elemento.includes("Componente")
             ? JSON.parse(MIR).componentes[noComponente - 1].formula
-            : elemento.includes("A#")
-            ? JSON.parse(MIR).actividades[noActividad - 1].formula
+            : elemento.includes("A")
+            ? JSON.parse(MIR).actividades[noActividad - 1]?.formula
             : null}
         </Typography>
       </Box>

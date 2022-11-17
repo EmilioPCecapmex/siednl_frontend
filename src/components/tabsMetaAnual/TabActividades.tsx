@@ -69,8 +69,6 @@ export const TabActividadesMA = ({
                 lineaBase: "",
                 metasPorFrecuencia: [
                   {
-                    semestre1: "",
-                    semestre2: "",
                     trimestre1: "",
                     trimestre2: "",
                     trimestre3: "",
@@ -116,16 +114,6 @@ export const TabActividadesMA = ({
                   MA === "" ? "" : jsonMA?.actividades[index2]?.lineaBase || "",
                 metasPorFrecuencia: [
                   {
-                    semestre1:
-                      MA === ""
-                        ? ""
-                        : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.semestre1 || "",
-                    semestre2:
-                      MA === ""
-                        ? ""
-                        : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.semestre2 || "",
                     trimestre1:
                       MA === ""
                         ? ""
@@ -331,7 +319,7 @@ export const TabActividadesMA = ({
     ].valorDenominador = txt.split(",")[1];
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metaAnual = txt.split(",")[2];
+    ].metaAnual = txt.split(",")[2] + "%";
     setAValorMA([...aValorMA]);
   };
 

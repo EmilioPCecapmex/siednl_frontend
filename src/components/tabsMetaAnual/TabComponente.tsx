@@ -521,8 +521,6 @@ export const TabComponenteMA = ({
               }}
             >
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -554,8 +552,6 @@ export const TabComponenteMA = ({
                 }}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -587,8 +583,6 @@ export const TabComponenteMA = ({
                 }}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -620,8 +614,6 @@ export const TabComponenteMA = ({
                 }}
               />
               <TextField
-                rows={1}
-                multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
