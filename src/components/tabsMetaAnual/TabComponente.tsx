@@ -149,7 +149,6 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula = (txt: string) => {
-    console.log(txt);
     componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
     componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];
     componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] + "%";
