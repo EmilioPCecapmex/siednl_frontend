@@ -64,7 +64,7 @@ export default function ModalEnviarMIR({
     errores = [];
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       err = 1;
-      errores.push("<strong>Encabezado<(strong>: año fiscal no seleccionado.");
+      errores.push("<strong>Encabezado:</strong> año fiscal no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
       console.log("asasas");
