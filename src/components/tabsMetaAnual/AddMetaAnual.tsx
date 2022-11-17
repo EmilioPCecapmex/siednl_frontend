@@ -356,6 +356,7 @@ export default function AddMetaAnual({
 
           <TabFinPropositoMA
             MA={MA}
+            MIR={MIR}
             showFnc={showFnc}
             show={value === 20 ? true : false}
             resumenFinMa={resumenFinMa}
@@ -371,6 +372,7 @@ export default function AddMetaAnual({
             noComponentes={noComponentes}
             valoresComponenteMir={componenteValor}
             MA={MA}
+            MIR={MIR}
           ></TabComponenteMA>
 
           <TabActividadesMA
@@ -383,6 +385,7 @@ export default function AddMetaAnual({
             asignarCValor={asignarCValorMA}
             asignarCValorMIR={asignarCValor}
             MA={MA}
+            MIR={MIR}
           ></TabActividadesMA>
 
           <TabResumenMA

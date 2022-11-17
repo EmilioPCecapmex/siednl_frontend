@@ -14,6 +14,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
+import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 
 export const TabComponenteMA = ({
   show,
@@ -23,6 +24,7 @@ export const TabComponenteMA = ({
   showMirFnc,
   showFnc,
   MA,
+  MIR,
 }: {
   show: boolean;
   valoresComponenteMAFnc: Function;
@@ -31,6 +33,7 @@ export const TabComponenteMA = ({
   showMirFnc: Function;
   showFnc: Function;
   MA: string;
+  MIR: string;
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
@@ -112,6 +115,47 @@ export const TabComponenteMA = ({
     valoresComponenteMAFnc(componentesValues);
   }, [componentesValues]);
 
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [prevTextFormula, setPrevTextFormula] = useState("");
+  const [tipoFormula, setTipoFormula] = useState("");
+  const [elementoFormula, setElementoFormula] = useState("");
+
+  const handleClickOpen = () => {
+    setTipoFormula(
+      JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+        "PORCENTAJE"
+      )
+        ? "Porcentaje"
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+            "TASA"
+          )
+        ? "Tasa"
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+            "INDICE" || "ÍNDICE"
+          )
+        ? "Indice"
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+            "PROMEDIO"
+          )
+        ? "Promedio"
+        : ""
+    );
+    setElementoFormula("Componente " + componentSelect.toString());
+    setOpenFormulaDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+
+  const changeFormula = (txt: string) => {
+    console.log(txt);
+    componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
+    componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];
+    componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] + "%";
+    setComponentesValues([...componentesValues]);
+  };
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -126,6 +170,15 @@ export const TabComponenteMA = ({
         backgroundColor: "#fff",
       }}
     >
+      <FormulaDialogMA
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        MIR={MIR}
+      />
       <Box
         sx={{
           width: "100%",
@@ -134,12 +187,12 @@ export const TabComponenteMA = ({
           justifyContent: "flex-end",
           alignItems: "center",
         }}
-        onClick={() => {
-          showMirFnc(true);
-          showFnc("Componentes");
-        }}
       >
         <InfoOutlinedIcon
+          onClick={() => {
+            showMirFnc(true);
+            showFnc("Componentes");
+          }}
           fontSize="large"
           sx={{ cursor: "pointer" }}
         ></InfoOutlinedIcon>
@@ -150,7 +203,7 @@ export const TabComponenteMA = ({
             fontSize: "1.5vw",
           }}
         >
-          Componente {componentSelect}
+          COMPONENTE {componentSelect}
         </Typography>
       </Box>
 
@@ -209,7 +262,7 @@ export const TabComponenteMA = ({
                   }}
                 >
                   <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                    Componente {item}
+                    COMPONENTE {item}
                   </Typography>
                 </ListItemButton>
 
@@ -238,46 +291,61 @@ export const TabComponenteMA = ({
             }}
           >
             <TextField
-              rows={1}
-              type="number"
-
+              disabled
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Meta anual 2023"}
-              value={componentesValues[componentSelect - 1]?.metaAnual}
-              onChange={(c) => {
-                componentesValues[componentSelect - 1].metaAnual =
-                  c.target.value;
-                setComponentesValues([...componentesValues]);
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  META ANUAL 2023
+                </Typography>
+              }
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
               }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              onClick={() => handleClickOpen()}
+              value={componentesValues[componentSelect - 1]?.metaAnual}
+            />
+            <TextField
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  LÍNEA BASE 2021
+                </Typography>
+              }
               error={
-                (parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
+                (parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
                   0 ||
-                  parseFloat(
-                    componentesValues[componentSelect - 1]?.metaAnual
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
-                      componentesValues[componentSelect - 1]?.metaAnual
+                      componentesValues[componentSelect - 1]?.lineaBase
                     )
                   )) &&
-                componentesValues[componentSelect - 1]?.metaAnual !== ""
+                componentesValues[componentSelect - 1]?.lineaBase !== ""
                   ? true
                   : false
               }
               helperText={
-                (parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
+                (parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
                   0 ||
-                  parseFloat(
-                    componentesValues[componentSelect - 1]?.metaAnual
-                  ) > 100 ||
                   isNaN(
                     parseFloat(
-                      componentesValues[componentSelect - 1]?.metaAnual
+                      componentesValues[componentSelect - 1]?.lineaBase
                     )
                   )) &&
-                componentesValues[componentSelect - 1]?.metaAnual !== ""
-                  ? "Introducir valor entre 0 y 100. "
+                componentesValues[componentSelect - 1]?.lineaBase !== ""
+                  ? "Introducir valor mayor que 0."
                   : null
               }
               InputLabelProps={{
@@ -290,49 +358,22 @@ export const TabComponenteMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-            />
-            <TextField
-              rows={1}
-              type="number"
-
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={"Linea Base 2021"}
-              value={componentesValues[componentSelect - 1]?.lineaBase}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].lineaBase =
                   c.target.value;
                 setComponentesValues([...componentesValues]);
               }}
-              error={
-                (parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
-                  0 ||
-                  parseFloat(
-                    componentesValues[componentSelect - 1]?.lineaBase
-                  ) > 100 ||
-                  isNaN(
-                    parseFloat(
-                      componentesValues[componentSelect - 1]?.lineaBase
-                    )
-                  )) &&
-                componentesValues[componentSelect - 1]?.lineaBase !== ""
-                  ? true
-                  : false
-              }
-              helperText={
-                (parseFloat(componentesValues[componentSelect - 1]?.lineaBase) <
-                  0 ||
-                  parseFloat(
-                    componentesValues[componentSelect - 1]?.lineaBase
-                  ) > 100 ||
-                  isNaN(
-                    parseFloat(
-                      componentesValues[componentSelect - 1]?.lineaBase
-                    )
-                  )) &&
-                componentesValues[componentSelect - 1]?.lineaBase !== ""
-                  ? "Introducir valor entre 0 y 100. "
-                  : null
+              value={componentesValues[componentSelect - 1]?.lineaBase}
+            />
+            <TextField
+              sx={{ width: "18%", boxShadow: 2 }}
+              variant={"filled"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  VALOR DEL NUMERADOR
+                </Typography>
               }
               InputLabelProps={{
                 style: {
@@ -344,44 +385,19 @@ export const TabComponenteMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-            />
-            <TextField
-              rows={1}
-              type="number"
-
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={"Valor del númerador"}
+              onClick={() => handleClickOpen()}
               value={componentesValues[componentSelect - 1]?.valorNumerador}
-              onChange={(c) => {
-                componentesValues[componentSelect - 1].valorNumerador =
-                  c.target.value;
-                setComponentesValues([...componentesValues]);
-              }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
             />
             <TextField
-              rows={1}
-              type="number"
-
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Valor del denominador"}
-              value={componentesValues[componentSelect - 1]?.valorDenominador}
-              onChange={(c) => {
-                componentesValues[componentSelect - 1].valorDenominador =
-                  c.target.value;
-                setComponentesValues([...componentesValues]);
-              }}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  VALOR DEL DENOMINADOR
+                </Typography>
+              }
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -392,6 +408,8 @@ export const TabComponenteMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
+              onClick={() => handleClickOpen()}
+              value={componentesValues[componentSelect - 1]?.valorDenominador}
             />
             <FormControl
               sx={{
@@ -416,7 +434,7 @@ export const TabComponenteMA = ({
                 value={"ASCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
                   >
                     ASCENDENTE
                   </Typography>
@@ -443,7 +461,7 @@ export const TabComponenteMA = ({
                 value={"DESCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
                   >
                     DESCENDENTE
                   </Typography>
@@ -467,7 +485,7 @@ export const TabComponenteMA = ({
                 value={"NORMAL"}
                 label={
                   <Typography
-                    sx={{ fontSize: 11, fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
                   >
                     NORMAL
                   </Typography>
@@ -496,7 +514,6 @@ export const TabComponenteMA = ({
             <Box
               sx={{
                 display: "flex",
-
                 width: "100%",
                 height: "20%",
                 alignItems: "center",
@@ -510,7 +527,13 @@ export const TabComponenteMA = ({
 
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Trimestre 1"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    TRIMESTRE 1
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre1
@@ -538,7 +561,13 @@ export const TabComponenteMA = ({
 
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Trimestre 2"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    TRIMESTRE 2
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre2
@@ -566,7 +595,13 @@ export const TabComponenteMA = ({
 
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Trimestre 3"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    TRIMESTRE 3
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre3
@@ -594,7 +629,13 @@ export const TabComponenteMA = ({
 
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Trimestre 4"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    TRIMESTRE 4
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre4
@@ -621,7 +662,6 @@ export const TabComponenteMA = ({
             <Box
               sx={{
                 display: "flex",
-
                 width: "100%",
                 height: "20%",
                 alignItems: "center",
@@ -635,7 +675,13 @@ export const TabComponenteMA = ({
 
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Semestre 1"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    SEMESTRE 1
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.semestre1
@@ -663,7 +709,13 @@ export const TabComponenteMA = ({
 
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                label={"Semestre 2"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    SEMESTRE 2
+                  </Typography>
+                }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.semestre2
@@ -691,7 +743,6 @@ export const TabComponenteMA = ({
           <Box
             sx={{
               display: "flex",
-
               width: "100%",
               height: "30%",
               alignItems: "center",
@@ -703,7 +754,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Unidad responsable de reportar el indicador"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.unidadResponsable}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].unidadResponsable =
@@ -726,7 +783,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripción del indicador"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL INDICADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.descIndicador}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descIndicador =
@@ -748,7 +811,6 @@ export const TabComponenteMA = ({
           <Box
             sx={{
               display: "flex",
-
               width: "100%",
               height: "30%",
               alignItems: "center",
@@ -760,7 +822,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripción del numerador"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL NUMERADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.descNumerador}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descNumerador =
@@ -783,7 +851,13 @@ export const TabComponenteMA = ({
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
               variant={"filled"}
-              label={"Descripcion del denominador"}
+              label={
+                <Typography
+                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                >
+                  DESCRIPCIÓN DEL DENOMINADOR
+                </Typography>
+              }
               value={componentesValues[componentSelect - 1]?.descDenominador}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descDenominador =
