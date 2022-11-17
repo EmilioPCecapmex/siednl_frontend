@@ -154,7 +154,7 @@ export default function FullModalMir({
         display: "flex",
         justifyContent: "space-evenly",
         width: "100%",
-        height: "100%",
+        height: "92%",
         mt: "8vh",
       }}
     >
@@ -165,8 +165,8 @@ export default function FullModalMir({
 
       <Box
         sx={{
-          width: "80vw",
-          height: "86vh",
+          width: "75vw",
+          height: "90vh",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
@@ -311,9 +311,10 @@ export default function FullModalMir({
             }}
           >
             <ArrowCircleLeftIcon
-              fontSize="large"
               sx={{
                 color: "#c4a57b",
+                width: '3vw',
+                height: '3vw'
               }}
             />
           </IconButton>
@@ -324,10 +325,11 @@ export default function FullModalMir({
             }}
           >
             <ArrowCircleRightIcon
-            fontSize="large"
-              sx={{
-                color: "#c4a57b",
-              }}
+             sx={{
+              color: "#c4a57b",
+              width: '3vw',
+              height: '3vw'
+            }}
             />
           </IconButton>
 

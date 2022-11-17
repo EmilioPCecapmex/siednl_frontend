@@ -425,9 +425,10 @@ export default function AddMetaAnual({
             }}
           >
             <ArrowCircleLeftIcon
-              fontSize="large"
               sx={{
                 color: "#c4a57b",
+                width: '3vw',
+                height: '3vw'
               }}
             />
           </IconButton>
@@ -438,9 +439,10 @@ export default function AddMetaAnual({
             }}
           >
             <ArrowCircleRightIcon
-            fontSize="large"
-              sx={{
+               sx={{
                 color: "#c4a57b",
+                width: '3vw',
+                height: '3vw'
               }}
             />
           </IconButton>

@@ -237,10 +237,10 @@ export function TabFinPropositoMA({
             >
               <TextField
                 rows={3}
-                multiline
-                sx={{ width: "15%", boxShadow: 2 }}
+                type="number"
+                sx={{ width: "15%", boxShadow: 2}}
                 variant={"filled"}
-                label={"Meta anual 2023"}
+                label={"META ANUAL 2023"}
                 error={
                   parseFloat(valueFin[0].metaAnual) < 0 ||
                   parseFloat(valueFin[0].metaAnual) > 100 ||
@@ -275,7 +275,7 @@ export function TabFinPropositoMA({
               />
               <TextField
                 rows={3}
-                multiline
+                type="number"
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Linea Base 2021"}
@@ -313,7 +313,8 @@ export function TabFinPropositoMA({
               />
               <TextField
                 rows={3}
-                multiline
+                type="number"
+
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Valor númerador"}
@@ -335,7 +336,8 @@ export function TabFinPropositoMA({
               />
               <TextField
                 rows={3}
-                multiline
+                type="number"
+
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Valor del denominador"}
@@ -578,7 +580,8 @@ export function TabFinPropositoMA({
             >
               <TextField
                 rows={3}
-                multiline
+                type="number"
+
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Meta anual 2023"}
@@ -600,7 +603,8 @@ export function TabFinPropositoMA({
               />
               <TextField
                 rows={3}
-                multiline
+                type="number"
+
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Linea Base 2021"}
@@ -622,7 +626,8 @@ export function TabFinPropositoMA({
               />
               <TextField
                 rows={3}
-                multiline
+                type="number"
+
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Valor númerador"}
@@ -644,7 +649,8 @@ export function TabFinPropositoMA({
               />
               <TextField
                 rows={3}
-                multiline
+                type="number"
+
                 sx={{ width: "15%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Valor del denominador"}

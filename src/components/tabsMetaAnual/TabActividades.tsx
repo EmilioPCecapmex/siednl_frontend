@@ -378,7 +378,7 @@ export const TabActividadesMA = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize: '.7vw' }}>
                     Componente {item}
                   </Typography>
 
@@ -405,7 +405,9 @@ export const TabActividadesMA = ({
                               },
                             }}
                           >
+                            <Typography sx={{fontFamily: 'MontserratMedium'}}>
                             Actividad {x + 1}
+                            </Typography>
                           </ListItemButton>
                         );
                       }
@@ -439,7 +441,8 @@ export const TabActividadesMA = ({
           >
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Meta Anual 2023"}
@@ -516,7 +519,8 @@ export const TabActividadesMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Linea Base 2021"}
@@ -593,7 +597,8 @@ export const TabActividadesMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del númerador"}
@@ -622,7 +627,8 @@ export const TabActividadesMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del denominador"}
@@ -765,7 +771,8 @@ export const TabActividadesMA = ({
           >
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 1"}
@@ -794,7 +801,8 @@ export const TabActividadesMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 2"}
@@ -823,7 +831,8 @@ export const TabActividadesMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 3"}
@@ -852,7 +861,8 @@ export const TabActividadesMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Trimestre 4"}

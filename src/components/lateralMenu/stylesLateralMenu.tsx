@@ -17,7 +17,7 @@ export const lstXl = {
   },
   avatarBox: {
     width: "100%",
-    height: "14vh",
+    height: "11vh",
     justifyContent: "center",
     display: "flex",
     alignItems: "center",
@@ -69,7 +69,7 @@ export const lstXl = {
   },
   menuListBox: {
     width: "100%",
-    height: "50vh",
+    height: "47vh",
 
   },
   selectedBox: {
@@ -163,7 +163,7 @@ export const lstLg = {
   },
   menuListBox: {
     width: "100%",
-    height: "43vh",
+    height: "33vh",
 
   },
   selectedBox: {
@@ -258,7 +258,7 @@ export const lstMd = {
   },
   menuListBox: {
     width: "100%",
-    height: "45vh",
+    height: "40vh",
 
   },
   selectedBox: {
@@ -354,7 +354,7 @@ export const lstSm = {
   },
   menuListBox: {
     width: "100%",
-    height: "45vh",
+    height: "40vh",
 
   },
   selectedBox: {

@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -118,6 +118,31 @@ export function TabResumenMA({
       });
   };
 
+  
+  const [editFin, setEditFin] = useState<IFinEditMA>({
+    metaAnual: true,
+    lineaBase: true,
+    valorNumerador: true,
+    valorDenominador: true,
+    sentidoDelIndicador: true,
+    unidadResponsable: true,
+    descIndicador: true,
+    descNumerador: true,
+    descDenominador: true
+  });
+
+  const [editProposito, setEditProposito] = useState<IPropositoEditMA>({
+    metaAnual: true,
+    lineaBase: true,
+    valorNumerador: true,
+    valorDenominador: true,
+    sentidoDelIndicador: true,
+    unidadResponsable: true,
+    descIndicador: true,
+    descNumerador: true,
+    descDenominador: true
+  });
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -171,6 +196,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+             {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.metaAnual}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, metaAnual: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Meta Anual:
             </Typography>
@@ -189,6 +222,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+             {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.lineaBase}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, lineaBase: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Línea Base:
             </Typography>
@@ -207,6 +248,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.valorNumerador}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, valorNumerador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Valor Numerador:
             </Typography>
@@ -225,6 +274,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.valorDenominador}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, valorDenominador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Valor Denomidador:
             </Typography>
@@ -244,6 +301,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.sentidoDelIndicador}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, sentidoDelIndicador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Sentido del indicador:
             </Typography>
@@ -262,6 +327,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.unidadResponsable}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, unidadResponsable: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Unidad responsable de reportar el indicador:
             </Typography>
@@ -281,6 +354,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.descIndicador}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, descIndicador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Descripción del indicador:
             </Typography>
@@ -300,6 +381,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.descNumerador}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, descNumerador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Descripción del numerador:
             </Typography>
@@ -319,6 +408,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editFin.descDenominador}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, descDenominador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Descripción del denominador:
             </Typography>
@@ -344,6 +441,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.metaAnual}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, metaAnual: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Meta anual:
             </Typography>
@@ -363,6 +468,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.lineaBase}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, lineaBase: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Linea Base:
             </Typography>
@@ -381,6 +494,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.valorNumerador}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, valorNumerador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Valor Numerador:
             </Typography>
@@ -399,6 +520,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.valorDenominador}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, valorDenominador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Valor Denominador:
             </Typography>
@@ -418,6 +547,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.sentidoDelIndicador}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, sentidoDelIndicador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Sentido del indicador:
             </Typography>
@@ -437,6 +574,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.unidadResponsable}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, unidadResponsable: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Unidad responsable de reportar el indicador:
             </Typography>
@@ -456,6 +601,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.descIndicador}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, descIndicador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Descripción del indicador:
             </Typography>
@@ -475,6 +628,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.descNumerador}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, descNumerador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Descripción del numerador:
             </Typography>
@@ -494,6 +655,14 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
+               {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editProposito.descDenominador}
+                onChange={(v) => {
+                  setEditProposito({ ...editProposito, descDenominador: !v.target.checked });
+                }}
+              />
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               Descripción del denominador:
             </Typography>
@@ -1296,3 +1465,29 @@ export function TabResumenMA({
 }
 
 export default TabResumenMA;
+
+export interface IFinEditMA {
+    
+  metaAnual: boolean;
+  lineaBase: boolean;
+  valorNumerador: boolean;
+  valorDenominador: boolean;
+  sentidoDelIndicador: boolean;
+  unidadResponsable: boolean;
+  descIndicador: boolean;
+  descNumerador: boolean;
+  descDenominador: boolean;
+}
+
+export interface IPropositoEditMA {
+  
+  metaAnual: boolean;
+  lineaBase: boolean;
+  valorNumerador: boolean;
+  valorDenominador: boolean;
+  sentidoDelIndicador: boolean;
+  unidadResponsable: boolean;
+  descIndicador: boolean;
+  descNumerador: boolean;
+  descDenominador: boolean;
+}

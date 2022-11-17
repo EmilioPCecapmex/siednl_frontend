@@ -239,7 +239,8 @@ export const TabComponenteMA = ({
           >
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Meta anual 2023"}
@@ -292,7 +293,8 @@ export const TabComponenteMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Linea Base 2021"}
@@ -345,7 +347,8 @@ export const TabComponenteMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del númerador"}
@@ -368,7 +371,8 @@ export const TabComponenteMA = ({
             />
             <TextField
               rows={1}
-              multiline
+              type="number"
+
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={"Valor del denominador"}
@@ -502,7 +506,8 @@ export const TabComponenteMA = ({
             >
               <TextField
                 rows={1}
-                multiline
+                type="number"
+
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Trimestre 1"}
@@ -529,7 +534,8 @@ export const TabComponenteMA = ({
               />
               <TextField
                 rows={1}
-                multiline
+                type="number"
+
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Trimestre 2"}
@@ -556,7 +562,8 @@ export const TabComponenteMA = ({
               />
               <TextField
                 rows={1}
-                multiline
+                type="number"
+
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Trimestre 3"}
@@ -583,7 +590,8 @@ export const TabComponenteMA = ({
               />
               <TextField
                 rows={1}
-                multiline
+                type="number"
+
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Trimestre 4"}
@@ -623,7 +631,8 @@ export const TabComponenteMA = ({
             >
               <TextField
                 rows={1}
-                multiline
+                type="number"
+
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Semestre 1"}
@@ -650,7 +659,8 @@ export const TabComponenteMA = ({
               />
               <TextField
                 rows={1}
-                multiline
+                type="number"
+
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={"Semestre 2"}
