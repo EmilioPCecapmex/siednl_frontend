@@ -77,9 +77,6 @@ export const FormulaDialogMA = ({
 
   let noComponente = parseInt(elemento.split(" ")[1]);
   let noActividad = parseInt(elemento.split("")[3]);
-  console.log(JSON.parse(MIR).actividades[noActividad-1]?.formula);
-  
-  
 
   return (
     <Dialog open={open} fullWidth>
