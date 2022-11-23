@@ -48,18 +48,18 @@ export const FormulaDialogMA = ({
         setEmptyTxt(true);
       } else {
         if (tipo === "Porcentaje") {
-          let MA = (parseInt(descA) / parseInt(descB)) * 100;
-          textoSet(descA + "," + descB + "," + MA);
+          let MA = (parseFloat(descA) / parseFloat(descB)) * 100;
+          textoSet(descA + "," + descB + "," + MA.toFixed(2));
           close();
         } else if (tipo === "Tasa") {
-          let T = parseInt(descA) - parseInt(descB);
+          let T = parseFloat(descA) - parseFloat(descB);
           let MA =
-            ((parseInt(descA) - parseInt(descB)) / parseInt(descB)) * 100;
-          textoSet(T + "," + descB + "," + MA);
+            ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
+          textoSet(T.toFixed(2) + "," + descB + "," + MA.toFixed(2));
           close();
         } else if (tipo === "Promedio") {
-          let MA = parseInt(descA) / parseInt(descB);
-          textoSet(descA + "," + descB + "," + MA);
+          let MA = parseFloat(descA) / parseFloat(descB);
+          textoSet(descA + "," + descB + "," + MA.toFixed(2));
           close();
         }
       }
@@ -75,15 +75,15 @@ export const FormulaDialogMA = ({
     setEmptyTxt(false);
   }, [open]);
 
-  let noComponente = parseInt(elemento.split(" ")[1]);
-  let noActividad = parseInt(elemento.split("")[3]);
+  let noComponente = parseFloat(elemento.split(" ")[1]);
+  let noActividad = parseFloat(elemento.split("")[3]);
 
   return (
     <Dialog open={open} fullWidth>
       <Box
         sx={{
           width: "100%",
-          height: "15vh",
+          height: "18vh",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -152,6 +152,7 @@ export const FormulaDialogMA = ({
           }}
         >
           <TextField
+            type={"number"}
             label={tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
             sx={{ width: "45%" }}
             value={descA}
@@ -192,6 +193,7 @@ export const FormulaDialogMA = ({
             ""
           ) : (
             <TextField
+            type={"number"}
               label={tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
               sx={{ width: "45%" }}
               InputLabelProps={{

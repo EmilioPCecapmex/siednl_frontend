@@ -15,6 +15,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
+import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 
 export const TabComponenteMA = ({
   show,
@@ -120,6 +121,9 @@ export const TabComponenteMA = ({
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
 
+  const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
+  const [frecuencia, setFrecuencia] = useState("");
+
   const handleClickOpen = () => {
     setTipoFormula(
       JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
@@ -148,10 +152,58 @@ export const TabComponenteMA = ({
     setOpenFormulaDialog(false);
   };
 
+  const handleClickOpen2 = () => {
+    setTipoFormula(
+      JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+        "PORCENTAJE"
+      )
+        ? "Porcentaje"
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+            "TASA"
+          )
+        ? "Tasa"
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+            "INDICE" || "ÍNDICE"
+          )
+        ? "Indice"
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+            "PROMEDIO"
+          )
+        ? "Promedio"
+        : ""
+    );
+    setElementoFormula("Componente " + componentSelect.toString());
+    setOpenFormulaDialogMACA(true);
+  };
+
+  const handleClose2 = () => {
+    setOpenFormulaDialogMACA(false);
+  };
+
   const changeFormula = (txt: string) => {
     componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
     componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];
     componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] + "%";
+    setComponentesValues([...componentesValues]);
+  };
+
+  const changeFormula2 = (txt: string) => {
+    // frecuencia === "trimestral"
+    //   ? (
+    componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre1 =
+      txt.split(",")[0] + "%";
+    componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 =
+      txt.split(",")[1] + "%";
+    componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre3 =
+      txt.split(",")[2] + "%";
+    componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre4 =
+      txt.split(",")[3] + "%";
+    // ):(
+    componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre1 =
+      txt.split(",")[0] + "%";
+    componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre2 =
+      txt.split(",")[1] + "%";
+    // );
     setComponentesValues([...componentesValues]);
   };
 
@@ -177,6 +229,17 @@ export const TabComponenteMA = ({
         tipo={tipoFormula}
         elemento={elementoFormula}
         MIR={MIR}
+      />
+
+      <FormulaDialogMACA
+        open={openFormulaDialogMACA}
+        close={handleClose2}
+        textoSet={changeFormula2}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        MIR={MIR}
+        frecuencia={frecuencia}
       />
       <Box
         sx={{
@@ -312,6 +375,18 @@ export const TabComponenteMA = ({
               }}
               onClick={() => handleClickOpen()}
               value={componentesValues[componentSelect - 1]?.metaAnual}
+              error={
+                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
+                0
+                  ? true
+                  : false
+              }
+              helperText={
+                parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
+                0
+                  ? "Meta Anual debe ser valor mayor que 0"
+                  : null
+              }
             />
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
@@ -424,7 +499,7 @@ export const TabComponenteMA = ({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: 12,
+                  fontSize: "0.6vw",
                 }}
               >
                 SENTIDO DEL INDICADOR
@@ -523,6 +598,14 @@ export const TabComponenteMA = ({
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
+                onClick={() => {
+                  setFrecuencia(
+                    valoresComponenteMir[
+                      componentSelect - 1
+                    ].frecuencia.toLowerCase()
+                  );
+                  handleClickOpen2();
+                }}
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -534,12 +617,6 @@ export const TabComponenteMA = ({
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre1
                 }
-                onChange={(c) => {
-                  componentesValues[
-                    componentSelect - 1
-                  ].metasPorFrecuencia[0].trimestre1 = c.target.value;
-                  setComponentesValues([...componentesValues]);
-                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -554,6 +631,14 @@ export const TabComponenteMA = ({
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
+                onClick={() => {
+                  setFrecuencia(
+                    valoresComponenteMir[
+                      componentSelect - 1
+                    ].frecuencia.toLowerCase()
+                  );
+                  handleClickOpen2();
+                }}
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -565,12 +650,6 @@ export const TabComponenteMA = ({
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre2
                 }
-                onChange={(c) => {
-                  componentesValues[
-                    componentSelect - 1
-                  ].metasPorFrecuencia[0].trimestre2 = c.target.value;
-                  setComponentesValues([...componentesValues]);
-                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -585,6 +664,14 @@ export const TabComponenteMA = ({
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
+                onClick={() => {
+                  setFrecuencia(
+                    valoresComponenteMir[
+                      componentSelect - 1
+                    ].frecuencia.toLowerCase()
+                  );
+                  handleClickOpen2();
+                }}
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -596,12 +683,6 @@ export const TabComponenteMA = ({
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre3
                 }
-                onChange={(c) => {
-                  componentesValues[
-                    componentSelect - 1
-                  ].metasPorFrecuencia[0].trimestre3 = c.target.value;
-                  setComponentesValues([...componentesValues]);
-                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -616,6 +697,14 @@ export const TabComponenteMA = ({
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
+                onClick={() => {
+                  setFrecuencia(
+                    valoresComponenteMir[
+                      componentSelect - 1
+                    ].frecuencia.toLowerCase()
+                  );
+                  handleClickOpen2();
+                }}
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -627,12 +716,6 @@ export const TabComponenteMA = ({
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.trimestre4
                 }
-                onChange={(c) => {
-                  componentesValues[
-                    componentSelect - 1
-                  ].metasPorFrecuencia[0].trimestre4 = c.target.value;
-                  setComponentesValues([...componentesValues]);
-                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -661,6 +744,14 @@ export const TabComponenteMA = ({
                 multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
+                onClick={() => {
+                  setFrecuencia(
+                    valoresComponenteMir[
+                      componentSelect - 1
+                    ].frecuencia.toLowerCase()
+                  );
+                  handleClickOpen2();
+                }}
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -672,12 +763,6 @@ export const TabComponenteMA = ({
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.semestre1
                 }
-                onChange={(c) => {
-                  componentesValues[
-                    componentSelect - 1
-                  ].metasPorFrecuencia[0].semestre1 = c.target.value;
-                  setComponentesValues([...componentesValues]);
-                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -694,6 +779,14 @@ export const TabComponenteMA = ({
                 multiline
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
+                onClick={() => {
+                  setFrecuencia(
+                    valoresComponenteMir[
+                      componentSelect - 1
+                    ].frecuencia.toLowerCase()
+                  );
+                  handleClickOpen2();
+                }}
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -705,12 +798,6 @@ export const TabComponenteMA = ({
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                     ?.semestre2
                 }
-                onChange={(c) => {
-                  componentesValues[
-                    componentSelect - 1
-                  ].metasPorFrecuencia[0].semestre2 = c.target.value;
-                  setComponentesValues([...componentesValues]);
-                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",

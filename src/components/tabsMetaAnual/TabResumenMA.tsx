@@ -600,7 +600,7 @@ export function TabResumenMA({
                         justifyContent: "space-evenly",
                       }}
                     >
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{ width: "20%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -616,7 +616,7 @@ export function TabResumenMA({
                         </Typography>
                       </Box>
 
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{ width: "20%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -640,7 +640,7 @@ export function TabResumenMA({
                         justifyContent: "space-evenly",
                       }}
                     >
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{ width: "20%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -655,7 +655,7 @@ export function TabResumenMA({
                           }
                         </Typography>
                       </Box>
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{ width: "20%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -670,7 +670,7 @@ export function TabResumenMA({
                           }
                         </Typography>
                       </Box>
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{ width: "20%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -685,7 +685,7 @@ export function TabResumenMA({
                           }
                         </Typography>
                       </Box>
-                      <Box sx={{ width: "15%", display: "flex" }}>
+                      <Box sx={{ width: "20%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -964,7 +964,7 @@ export function TabResumenMA({
                         justifyContent: "space-evenly",
                       }}
                     >
-                      <Box sx={{ width: "8%", display: "flex" }}>
+                      <Box sx={{ width: "13%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -979,7 +979,7 @@ export function TabResumenMA({
                         </Typography>
                       </Box>
 
-                      <Box sx={{ width: "8%", display: "flex" }}>
+                      <Box sx={{ width: "13%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -994,7 +994,7 @@ export function TabResumenMA({
                         </Typography>
                       </Box>
 
-                      <Box sx={{ width: "8%", display: "flex" }}>
+                      <Box sx={{ width: "13%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >
@@ -1009,7 +1009,7 @@ export function TabResumenMA({
                         </Typography>
                       </Box>
 
-                      <Box sx={{ width: "8%", display: "flex" }}>
+                      <Box sx={{ width: "13%", display: "flex" }}>
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "100%" }}
                         >

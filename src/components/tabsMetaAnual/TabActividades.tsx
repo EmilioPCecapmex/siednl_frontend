@@ -18,6 +18,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
+import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 
 //funcion main
 export const TabActividadesMA = ({
@@ -276,7 +277,6 @@ export const TabActividadesMA = ({
   const [elementoFormula, setElementoFormula] = useState("");
 
   const handleClickOpen = () => {
-
     setTipoFormula(
       JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
         "PORCENTAJE"
@@ -322,6 +322,57 @@ export const TabActividadesMA = ({
     ].metaAnual = txt.split(",")[2] + "%";
     setAValorMA([...aValorMA]);
   };
+  const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
+
+  const handleClickOpen2 = () => {
+    setTipoFormula(
+      JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+        "PORCENTAJE"
+      )
+        ? "Porcentaje"
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "TASA"
+          )
+        ? "Tasa"
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "INDICE" || "ÍNDICE"
+          )
+        ? "Indice"
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "PROMEDIO"
+          )
+        ? "Promedio"
+        : ""
+    );
+
+    setElementoFormula(
+      "C" +
+        (componenteSelect + 1).toString() +
+        "A" +
+        (actividadSelect + 1).toString()
+    );
+    setOpenFormulaDialogMACA(true);
+  };
+
+  const handleClose2 = () => {
+    setOpenFormulaDialogMACA(false);
+  };
+
+  const changeFormula2 = (txt: string) => {
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0] + "%";
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1] + "%";
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2] + "%";
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3] + "%";
+    setAValorMA([...aValorMA]);
+  };
 
   //return main
   return (
@@ -346,6 +397,16 @@ export const TabActividadesMA = ({
         tipo={tipoFormula}
         elemento={elementoFormula}
         MIR={MIR}
+      />
+      <FormulaDialogMACA
+        open={openFormulaDialogMACA}
+        close={handleClose2}
+        textoSet={changeFormula2}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        MIR={MIR}
+        frecuencia={"trimestral"}
       />
       <Box
         sx={{
@@ -519,6 +580,24 @@ export const TabActividadesMA = ({
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
                 ].metaAnual
+              }
+              error={
+                parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].metaAnual
+                ) < 0
+                  ? true
+                  : false
+              }
+              helperText={
+                parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].metaAnual
+                ) < 0
+                  ? "Meta Anual debe ser valor mayor que 0"
+                  : null
               }
             />
             <TextField
@@ -762,6 +841,7 @@ export const TabActividadesMA = ({
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
+              onClick={() => handleClickOpen2()}
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -774,13 +854,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metasPorFrecuencia[0].trimestre1
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metasPorFrecuencia[0].trimestre1 = c.target.value;
-                setAValorMA(y);
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -795,6 +868,7 @@ export const TabActividadesMA = ({
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
+              onClick={() => handleClickOpen2()}
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -807,13 +881,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metasPorFrecuencia[0].trimestre2
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metasPorFrecuencia[0].trimestre2 = c.target.value;
-                setAValorMA(y);
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -828,6 +895,7 @@ export const TabActividadesMA = ({
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
+              onClick={() => handleClickOpen2()}
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -840,13 +908,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metasPorFrecuencia[0].trimestre3
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metasPorFrecuencia[0].trimestre3 = c.target.value;
-                setAValorMA(y);
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -861,6 +922,7 @@ export const TabActividadesMA = ({
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
+              onClick={() => handleClickOpen2()}
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -873,13 +935,6 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].metasPorFrecuencia[0].trimestre4
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metasPorFrecuencia[0].trimestre4 = c.target.value;
-                setAValorMA(y);
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
