@@ -308,6 +308,11 @@ export const TabActividades = ({
       } else {
         setErrorIndicadorComponente(componenteSelect);
         setErrorIndicadorActividad(actividadSelect);
+        let y = [...cValor];
+        y[0].componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador = "";
+        setCValor(y);
       }
     }
   };
@@ -366,12 +371,20 @@ export const TabActividades = ({
           onClick={() => {
             agregarAFnc(componenteSelect);
           }}
-          disabled={mirEdit === undefined? false: mirEdit === null ? false: true}
+          disabled={
+            mirEdit === undefined ? false : mirEdit === null ? false : true
+          }
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-        <IconButton onClick={() => eliminarAFnc()} sx={{ mr: "1vw" }} disabled={mirEdit === undefined? false:mirEdit === null ? false: true}>
+        <IconButton
+          onClick={() => eliminarAFnc()}
+          sx={{ mr: "1vw" }}
+          disabled={
+            mirEdit === undefined ? false : mirEdit === null ? false : true
+          }
+        >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
       </Box>
@@ -488,12 +501,24 @@ export const TabActividades = ({
 
           {/* Renderizado de Actividades */}
 
-          <Box sx={{width: '90%'}}>
-          <Typography sx={{ fontFamily: "MontserratSemiBold", fontSize: "1vw", textAlign: 'center' }}>
+          <Box sx={{ width: "90%" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
               COMPONENTE # {componenteSelect + 1}
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", fontSize: ".8vw", textAlign: 'center' }}>
-            {componentesTextos[componenteSelect].resumen}
+            <Typography
+              sx={{
+                fontFamily: "MontserratLight",
+                fontSize: ".8vw",
+                textAlign: "center",
+              }}
+            >
+              {componentesTextos[componenteSelect].resumen}
             </Typography>
           </Box>
           <Box

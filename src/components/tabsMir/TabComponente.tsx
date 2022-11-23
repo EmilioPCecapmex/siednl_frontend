@@ -128,6 +128,12 @@ export const TabComponente = ({
         setErrorIndicador(-1);
       } else {
         setErrorIndicador(componentSelect - 1);
+        let prev = [...valoresComponente];
+                let prevLocal = [...componenteValor];
+                prevLocal[componentSelect - 1].indicador = "";
+                prev[componentSelect - 1].indicador = "";
+                setComponenteValor(prevLocal);
+                
       }
     }
   };
