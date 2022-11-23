@@ -76,16 +76,17 @@ export default function ModalSolicitaModif({
   };
 
   const createMA = (estado: string) => {
-    if (estado === "En Autorización" && userSelected !== "0") {
+    if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
-    } else if (estado === "En Revisión" && userSelected !== "0") {
+    } else if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
     }
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
-          MetaAnual: MAEdit === undefined ? MA : "[" + MA + "," + MAEdit + "]",
+          // MetaAnual: MAEdit === undefined ? MA : "[" + MA + "," + MAEdit + "]",
+          MetaAnual: MA,
           CreadoPor:
             userSelected !== "0"
               ? userSelected

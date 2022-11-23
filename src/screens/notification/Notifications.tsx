@@ -167,7 +167,7 @@ export const Notification = () => {
 
   const getUsuarios = () => {
     axios
-      .get("http://10.200.4.199:8000/api/usuarios",
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios",
       
        {params:{
         IdUsuario: localStorage.getItem("IdUsuario"),

@@ -308,6 +308,13 @@ export const TabActividades = ({
       } else {
         setErrorIndicadorComponente(componenteSelect);
         setErrorIndicadorActividad(actividadSelect);
+
+        let y = [...cValor];
+        y[0].componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador = "";
+        setCValor(y);      
+      
       }
     }
   };

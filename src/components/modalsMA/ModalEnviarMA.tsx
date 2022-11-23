@@ -525,7 +525,7 @@ export default function ModalEnviarMA({
 
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: MA,
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -568,7 +568,7 @@ export default function ModalEnviarMA({
   const CrearFichaTecnica = () => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
           FichaTecnica: "",
           CreadoPor: localStorage.getItem("IdUsuario"),

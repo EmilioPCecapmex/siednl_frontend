@@ -7,6 +7,9 @@ import {
   ListItemButton,
   Divider,
   FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { IFinMA } from "./IFin";
@@ -15,6 +18,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
+import axios from "axios";
 
 export function TabFinPropositoMA({
   show,
@@ -71,6 +75,7 @@ export function TabFinPropositoMA({
   useEffect(() => {
     resumenFinMa(valueFin);
     resumenPropositoMa(valueProposito);
+    getUnidades();
   }, [valueFin, valueProposito]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
@@ -125,6 +130,25 @@ export function TabFinPropositoMA({
       valueProposito[0].metaAnual = txt.split(",")[2] + "%";
       setValueProposito([...valueProposito]);
     }
+  };
+
+  const getUnidades = () => {
+    axios
+      .post(
+        "http://10.200.4.192:8000/api/listadoUnidadesInst",
+        {
+          Institucion: 'SECRETARÍA GENERAL DE GOBIERNO',
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+       console.log(r.data.data)
+      })
+      
   };
 
   return (
@@ -502,7 +526,20 @@ export function TabFinPropositoMA({
                 justifyContent: "space-evenly",
               }}
             >
-              <TextField
+              <FormControl sx={{width: "40%", boxShadow: 2 }}>
+                <InputLabel id='unri'>
+                  <Typography sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}>
+                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
+
+                  </Typography>
+                </InputLabel>
+                <Select labelId="unri" variant="standard">
+                
+
+</Select>
+              </FormControl>
+            
+              {/* <TextField
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -529,7 +566,7 @@ export function TabFinPropositoMA({
                   setValueFin([...valueFin]);
                 }}
                 value={valueFin[0]?.unidadResponsable}
-              />
+              /> */}
               <TextField
                 rows={5}
                 multiline

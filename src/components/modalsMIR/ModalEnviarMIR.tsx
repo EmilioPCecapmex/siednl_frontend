@@ -40,7 +40,7 @@ export default function ModalEnviarMIR({
   const comentMir = (id: string) => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -349,7 +349,7 @@ export default function ModalEnviarMIR({
   const CrearMetaAnual = () => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
