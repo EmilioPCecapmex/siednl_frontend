@@ -741,7 +741,8 @@ export const TabComponenteMA = ({
             >
               <TextField
                 rows={1}
-                multiline
+                type="number"
+
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() => {
@@ -776,7 +777,8 @@ export const TabComponenteMA = ({
               />
               <TextField
                 rows={1}
-                multiline
+                type="number"
+
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() => {

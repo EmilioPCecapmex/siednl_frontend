@@ -7,6 +7,9 @@ import {
   ListItemButton,
   Divider,
   FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { IFinMA } from "./IFin";
@@ -15,6 +18,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
+import axios from "axios";
 
 export function TabFinPropositoMA({
   show,
@@ -33,6 +37,7 @@ export function TabFinPropositoMA({
   MA: string;
   MIR: string;
 }) {
+  
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
   
 
@@ -70,6 +75,7 @@ export function TabFinPropositoMA({
   useEffect(() => {
     resumenFinMa(valueFin);
     resumenPropositoMa(valueProposito);
+    getUnidades();
   }, [valueFin, valueProposito]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
@@ -124,6 +130,25 @@ export function TabFinPropositoMA({
       valueProposito[0].metaAnual = txt.split(",")[2] + "%";
       setValueProposito([...valueProposito]);
     }
+  };
+
+  const getUnidades = () => {
+    axios
+      .post(
+        "http://10.200.4.192:8000/api/listadoUnidadesInst",
+        {
+          Institucion: 'SECRETARÍA GENERAL DE GOBIERNO',
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+       console.log(r.data.data)
+      })
+      
   };
 
   return (
@@ -896,7 +921,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].unidadResponsable = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.unidadResponsable}
+                 value={valueProposito[0]?.unidadResponsable}
               />
               <TextField
                 rows={5}

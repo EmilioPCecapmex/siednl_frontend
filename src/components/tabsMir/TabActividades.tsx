@@ -308,6 +308,13 @@ export const TabActividades = ({
       } else {
         setErrorIndicadorComponente(componenteSelect);
         setErrorIndicadorActividad(actividadSelect);
+
+        let y = [...cValor];
+        y[0].componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador = "";
+        setCValor(y);      
+      
       }
     }
   };
@@ -433,7 +440,7 @@ export const TabActividades = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize: '.7vw' }}>
                     COMPONENTE {item}
                   </Typography>
 
@@ -458,10 +465,11 @@ export const TabActividades = ({
                               "&.Mui-selected:hover": {
                                 backgroundColor: "#cbcbcb",
                               },
-                              textTransform: "uppercase",
                             }}
                           >
-                            ACTIVIDAD {x + 1}
+                              <Typography sx={{fontFamily: 'MontserratMedium'}}>
+                            Actividad {x + 1}
+                            </Typography>
                           </ListItemButton>
                         );
                       }

@@ -1169,11 +1169,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
       if (panel === "panel1" && newExpanded === true) {
-        setColorCatalogo("#c4a57b");
+        setColorCatalogo("#E5C498");
         setColorRelaciones("");
       } else if (panel === "panel2" && newExpanded === true) {
         setColorCatalogo("");
-        setColorRelaciones("#c4a57b");
+        setColorRelaciones("#E5C498");
       } else {
         setColorCatalogo("");
         setColorRelaciones("");
@@ -1261,7 +1261,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                             sx={{
                               width: "100%",
                               height: "100%",
-                              pl: 2,
                               "&.Mui-selected ": {
                                 backgroundColor: "#c4a57b",
                               },

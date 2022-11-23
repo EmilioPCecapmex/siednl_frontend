@@ -105,7 +105,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
 
   const getFT = () => {
     axios
-    .get("http://localhost:8000/api/Lista-Ficha-tecnica", {
+    .get("http://10.200.4.105:8000/api/Lista-Ficha-tecnica", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),

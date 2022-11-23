@@ -18,6 +18,7 @@ import { Notification } from "./screens/notification/Notifications";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
+import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
 
 function App() {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="users" element={<Usuarios />} />
         <Route path="*" element={<E404 />} />
-        <Route path="fichaTecnica" element={<FichaTecnica />} />
+        <Route path="fichaTecnica" element={<ResumenFichaTecnica />} />
         <Route
           path="Institutionalactivities"
           element={<ActividadesInstitucionales />}

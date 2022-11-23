@@ -806,7 +806,6 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.resumen}
