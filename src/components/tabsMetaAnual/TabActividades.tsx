@@ -579,14 +579,20 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual
+                ].metaAnual || ''
               }
               error={
                 parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
                   ].metaAnual
-                ) < 0
+                ) < 0 ||
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metaAnual !==
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].metasPorFrecuencia[0]?.trimestre4
                   ? true
                   : false
               }
@@ -595,7 +601,13 @@ export const TabActividadesMA = ({
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
                   ].metaAnual
-                ) < 0
+                ) < 0 ||
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].metaAnual !==
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].metasPorFrecuencia[0]?.trimestre4
                   ? "Meta Anual debe ser valor mayor que 0"
                   : null
               }
@@ -661,7 +673,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase
+                ].lineaBase || ''
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -695,7 +707,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].valorNumerador
+                ].valorNumerador || ''
               }
             />
             <TextField
@@ -722,7 +734,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].valorDenominador
+                ].valorDenominador || ''
               }
             />
 
@@ -852,7 +864,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre1
+                ].metasPorFrecuencia[0].trimestre1 || ''
               }
               InputLabelProps={{
                 style: {
@@ -879,7 +891,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre2
+                ].metasPorFrecuencia[0].trimestre2 || ''
               }
               InputLabelProps={{
                 style: {
@@ -906,7 +918,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre3
+                ].metasPorFrecuencia[0].trimestre3 || ''
               }
               InputLabelProps={{
                 style: {
@@ -933,7 +945,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre4
+                ].metasPorFrecuencia[0].trimestre4 || ''
               }
               InputLabelProps={{
                 style: {
@@ -971,7 +983,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].unidadResponsable
+                ].unidadResponsable || ''
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -1006,7 +1018,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descIndicador
+                ].descIndicador || ''
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -1051,7 +1063,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descNumerador
+                ].descNumerador || ''
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -1086,7 +1098,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descDenominador
+                ].descDenominador || ''
               }
               onChange={(c) => {
                 let y = [...aValorMA];

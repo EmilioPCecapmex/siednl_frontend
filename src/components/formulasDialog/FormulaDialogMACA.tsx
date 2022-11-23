@@ -179,6 +179,7 @@ export const FormulaDialogMACA = ({
             textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
             close();
           } else if (tipo === "Tasa") {
+            
             let S1 =
               ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) *
               100;

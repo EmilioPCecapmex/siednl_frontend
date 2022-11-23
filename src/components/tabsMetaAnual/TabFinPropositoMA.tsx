@@ -135,7 +135,7 @@ export function TabFinPropositoMA({
   const getUnidades = () => {
     axios
       .post(
-        "http://10.200.4.192:8000/api/listadoUnidadesInst",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
         {
           Institucion: 'SECRETARÍA GENERAL DE GOBIERNO',
         },
@@ -344,7 +344,7 @@ export function TabFinPropositoMA({
                 },
               }}
               onClick={() => handleClickOpen()}
-              value={valueFin[0]?.metaAnual}
+              value={valueFin[0]?.metaAnual || ''}
               error={
                 parseFloat(valueFin[0]?.metaAnual) < 0 ? true : false
               }
@@ -392,7 +392,7 @@ export function TabFinPropositoMA({
                 valueFin[0].lineaBase = c.target.value;
                 setValueFin([...valueFin]);
               }}
-              value={valueFin[0]?.lineaBase}
+              value={valueFin[0]?.lineaBase || ''}
             />
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
@@ -415,7 +415,7 @@ export function TabFinPropositoMA({
                 },
               }}
               onClick={() => handleClickOpen()}
-              value={valueFin[0]?.valorNumerador}
+              value={valueFin[0]?.valorNumerador || ''}
             />
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
@@ -438,7 +438,7 @@ export function TabFinPropositoMA({
                 },
               }}
               onClick={() => handleClickOpen()}
-              value={valueFin[0]?.valorDenominador}
+              value={valueFin[0]?.valorDenominador || ''}
             />
             <FormControl
               sx={{
@@ -562,7 +562,7 @@ export function TabFinPropositoMA({
                 valueFin[0].unidadResponsable = c.target.value;
                 setValueFin([...valueFin]);
               }}
-              value={valueFin[0]?.unidadResponsable}
+              value={valueFin[0]?.unidadResponsable || ''}
             />
             <TextField
               rows={5}
@@ -590,7 +590,7 @@ export function TabFinPropositoMA({
                 valueFin[0].descIndicador = c.target.value;
                 setValueFin([...valueFin]);
               }}
-              value={valueFin[0]?.descIndicador}
+              value={valueFin[0]?.descIndicador || ''}
             />
           </Box>
           <Box
@@ -628,7 +628,7 @@ export function TabFinPropositoMA({
                 valueFin[0].descNumerador = c.target.value;
                 setValueFin([...valueFin]);
               }}
-              value={valueFin[0]?.descNumerador}
+              value={valueFin[0]?.descNumerador || ''}
             />
             <TextField
               rows={5}
@@ -656,7 +656,7 @@ export function TabFinPropositoMA({
                 valueFin[0].descDenominador = c.target.value;
                 setValueFin([...valueFin]);
               }}
-              value={valueFin[0]?.descDenominador}
+              value={valueFin[0]?.descDenominador || ''}
             />
           </Box>
         </Box>
@@ -703,7 +703,7 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.metaAnual}
+                value={valueProposito[0]?.metaAnual || ''}
                 error={
                   parseFloat(valueProposito[0]?.metaAnual) < 0 ? true : false
                 }
@@ -751,7 +751,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].lineaBase = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.lineaBase}
+                value={valueProposito[0]?.lineaBase || ''}
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -774,7 +774,7 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.valorNumerador}
+                value={valueProposito[0]?.valorNumerador || ''}
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -797,7 +797,7 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.valorDenominador}
+                value={valueProposito[0]?.valorDenominador || ''}
               />
               <FormControl
                 sx={{
@@ -921,7 +921,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].unidadResponsable = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                 value={valueProposito[0]?.unidadResponsable}
+                 value={valueProposito[0]?.unidadResponsable || ''}
               />
               <TextField
                 rows={5}
@@ -949,7 +949,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].descIndicador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descIndicador}
+                value={valueProposito[0]?.descIndicador || ''}
               />
             </Box>
             <Box
@@ -987,7 +987,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].descNumerador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descNumerador}
+                value={valueProposito[0]?.descNumerador || ''}
               />
               <TextField
                 rows={5}
@@ -1015,7 +1015,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].descDenominador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descDenominador}
+                value={valueProposito[0]?.descDenominador || ''}
               />
             </Box>
           </Box>

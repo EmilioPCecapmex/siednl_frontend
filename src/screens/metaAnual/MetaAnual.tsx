@@ -598,7 +598,7 @@ export const MetaAnual = () => {
                             }}
                             align="center"
                           >
-                            {row.CreadoPor.toUpperCase()}
+                            {row.Estado === "En Captura" ? 'SIN ASIGNAR' : row.CreadoPor.toUpperCase()}
                           </TableCell>
                           <TableCell
                             align="center"

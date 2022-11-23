@@ -600,7 +600,7 @@ export default function ModalEnviarMA({
     }
 
     axios
-      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           institucion: inst,
@@ -625,11 +625,11 @@ export default function ModalEnviarMA({
 
   const enviarNotificacion = (v: string) => {
     axios.post(
-      "http://10.200.4.105:8000/api/create-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: v,
         Titulo: "MA",
-        Mensaje: "Se ha creado una nueva MA",
+        Mensaje: "Se ha creado una nueva meta anual",
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
       {
@@ -667,7 +667,7 @@ export default function ModalEnviarMA({
   };
 
   return (
-    <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
+    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle
         sx={{
           fontFamily: "MontserratBold",
@@ -690,11 +690,10 @@ export default function ModalEnviarMA({
 
         <Box
           sx={{
-            width: "30vw",
+            width: "20vw",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
-            mb: 2,
           }}
         >
           <Typography
@@ -702,12 +701,14 @@ export default function ModalEnviarMA({
           >
             {localStorage.getItem("Rol") === "Administrador"
               ? "Al confirmar, la Meta Anual se autorizará "
+              : localStorage.getItem("Rol") === "Verificador"
+              ? "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para autorización"
               : "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para revisión"}
           </Typography>
         </Box>
 
         {newComent ? (
-          <Box sx={{ width: "30vw" }}>
+          <Box sx={{ width: "30vw", mt:2}}>
             <TextField
               multiline
               rows={3}
@@ -722,8 +723,6 @@ export default function ModalEnviarMA({
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            marginBlockEnd: "1vh",
-            paddingBlockEnd: "1vh",
           }}
         >
           <Box
@@ -732,7 +731,7 @@ export default function ModalEnviarMA({
               alignItems: "flex-end",
               justifyContent: "space-between",
               width: "30vw",
-              mt: "4vh",
+              mt: 2,
             }}
           >
             <Button

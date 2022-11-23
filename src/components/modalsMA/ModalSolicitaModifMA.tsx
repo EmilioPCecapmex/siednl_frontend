@@ -110,7 +110,7 @@ export default function ModalSolicitaModif({
           icon: "success",
           title:
             localStorage.getItem("Rol") === "Verificador"
-              ? "Meta anual enviada a capturador"
+              ? "Meta anual enviada a capturador para corrección"
               : "Meta anual enviada a revisión",
         });
 
@@ -129,7 +129,7 @@ export default function ModalSolicitaModif({
   const getUsuariosXInstitucion = () => {
 
     axios
-      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Institucion: JSON.parse(MIR)?.encabezado?.institucion,
@@ -166,7 +166,7 @@ export default function ModalSolicitaModif({
 
   const enviarNotificacion = () => {
     axios.post(
-      "http://10.200.4.105:8000/api/create-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: userSelected,
         Titulo: "Meta Anual",

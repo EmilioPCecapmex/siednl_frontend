@@ -43,6 +43,7 @@ export const TabComponenteMA = ({
   >([]);
 
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
+  
 
   useEffect(() => {
     // if (show === true) {
@@ -188,22 +189,23 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula2 = (txt: string) => {
-    // frecuencia === "trimestral"
-    //   ? (
-    componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre1 =
-      txt.split(",")[0] + "%";
-    componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 =
-      txt.split(",")[1] + "%";
-    componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre3 =
-      txt.split(",")[2] + "%";
-    componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre4 =
-      txt.split(",")[3] + "%";
-    // ):(
-    componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre1 =
-      txt.split(",")[0] + "%";
-    componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre2 =
-      txt.split(",")[1] + "%";
-    // );
+    
+    if (frecuencia === "trimestral") {
+      componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre1 =
+        txt.split(",")[0] + "%";
+      componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 =
+        txt.split(",")[1] + "%";
+      componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre3 =
+        txt.split(",")[2] + "%";
+      componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre4 =
+        txt.split(",")[3] + "%";
+    } else {
+      componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre1 =
+        txt.split(",")[0] + "%";
+      componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre2 =
+        txt.split(",")[1] + "%";
+    }
+
     setComponentesValues([...componentesValues]);
   };
 
@@ -374,17 +376,31 @@ export const TabComponenteMA = ({
                 },
               }}
               onClick={() => handleClickOpen()}
-              value={componentesValues[componentSelect - 1]?.metaAnual}
+              value={componentesValues[componentSelect - 1]?.metaAnual || ''}
               error={
                 parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
-                0
+                  0 ||
+                (componentesValues[componentSelect - 1]?.metaAnual !==
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                    ?.trimestre4 && componentesValues[componentSelect - 1]?.metaAnual !==
+                    componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                      ?.semestre2)
                   ? true
                   : false
               }
               helperText={
                 parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
-                0
-                  ? "Meta Anual debe ser valor mayor que 0"
+                  0 ||
+                  (componentesValues[componentSelect - 1]?.metaAnual !==
+                    componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                      ?.trimestre4 && componentesValues[componentSelect - 1]?.metaAnual !==
+                      componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
+                        ?.semestre2)
+                  ? valoresComponenteMir[
+                      componentSelect - 1
+                    ].frecuencia.toLowerCase() === "trimestral"
+                    ? "Meta Anual debe ser igual que el valor del trimestre 4, verifica los valores"
+                    : "Meta Anual debe ser igual que el valor del semestre 2, verifica los valores"
                   : null
               }
             />
@@ -437,7 +453,7 @@ export const TabComponenteMA = ({
                   c.target.value;
                 setComponentesValues([...componentesValues]);
               }}
-              value={componentesValues[componentSelect - 1]?.lineaBase}
+              value={componentesValues[componentSelect - 1]?.lineaBase || ''}
             />
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
@@ -460,7 +476,7 @@ export const TabComponenteMA = ({
                 },
               }}
               onClick={() => handleClickOpen()}
-              value={componentesValues[componentSelect - 1]?.valorNumerador}
+              value={componentesValues[componentSelect - 1]?.valorNumerador || ''}
             />
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
@@ -483,7 +499,7 @@ export const TabComponenteMA = ({
                 },
               }}
               onClick={() => handleClickOpen()}
-              value={componentesValues[componentSelect - 1]?.valorDenominador}
+              value={componentesValues[componentSelect - 1]?.valorDenominador || ''}
             />
             <FormControl
               sx={{
@@ -615,7 +631,7 @@ export const TabComponenteMA = ({
                 }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre1
+                    ?.trimestre1 || ''
                 }
                 InputLabelProps={{
                   style: {
@@ -648,7 +664,7 @@ export const TabComponenteMA = ({
                 }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre2
+                    ?.trimestre2 || ''
                 }
                 InputLabelProps={{
                   style: {
@@ -681,7 +697,7 @@ export const TabComponenteMA = ({
                 }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre3
+                    ?.trimestre3 || ''
                 }
                 InputLabelProps={{
                   style: {
@@ -714,7 +730,7 @@ export const TabComponenteMA = ({
                 }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre4
+                    ?.trimestre4 || ''
                 }
                 InputLabelProps={{
                   style: {
@@ -740,9 +756,6 @@ export const TabComponenteMA = ({
               }}
             >
               <TextField
-                rows={1}
-                type="number"
-
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() => {
@@ -762,7 +775,7 @@ export const TabComponenteMA = ({
                 }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.semestre1
+                    ?.semestre1 || ''
                 }
                 InputLabelProps={{
                   style: {
@@ -776,9 +789,6 @@ export const TabComponenteMA = ({
                 }}
               />
               <TextField
-                rows={1}
-                type="number"
-
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() => {
@@ -798,7 +808,7 @@ export const TabComponenteMA = ({
                 }
                 value={
                   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.semestre2
+                    ?.semestre2 || ''
                 }
                 InputLabelProps={{
                   style: {
@@ -835,7 +845,7 @@ export const TabComponenteMA = ({
                   UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
                 </Typography>
               }
-              value={componentesValues[componentSelect - 1]?.unidadResponsable}
+              value={componentesValues[componentSelect - 1]?.unidadResponsable || ''}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].unidadResponsable =
                   c.target.value;
@@ -864,7 +874,7 @@ export const TabComponenteMA = ({
                   DESCRIPCIÓN DEL INDICADOR
                 </Typography>
               }
-              value={componentesValues[componentSelect - 1]?.descIndicador}
+              value={componentesValues[componentSelect - 1]?.descIndicador || ''}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descIndicador =
                   c.target.value;
@@ -903,7 +913,7 @@ export const TabComponenteMA = ({
                   DESCRIPCIÓN DEL NUMERADOR
                 </Typography>
               }
-              value={componentesValues[componentSelect - 1]?.descNumerador}
+              value={componentesValues[componentSelect - 1]?.descNumerador || ''}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descNumerador =
                   c.target.value;
@@ -932,7 +942,7 @@ export const TabComponenteMA = ({
                   DESCRIPCIÓN DEL DENOMINADOR
                 </Typography>
               }
-              value={componentesValues[componentSelect - 1]?.descDenominador}
+              value={componentesValues[componentSelect - 1]?.descDenominador || ''}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descDenominador =
                   c.target.value;
