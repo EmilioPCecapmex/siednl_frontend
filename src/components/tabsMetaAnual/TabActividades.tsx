@@ -608,7 +608,7 @@ export const TabActividadesMA = ({
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
                   ].metasPorFrecuencia[0]?.trimestre4
-                  ? "Meta Anual debe ser valor mayor que 0"
+                  ? "El valor de la meta anual debe coincidir con el valor del trimestre 4, verifica los valores"
                   : null
               }
             />
@@ -752,7 +752,7 @@ export const TabActividadesMA = ({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: 12,
+                  fontSize: "0.6vw",
                 }}
               >
                 SENTIDO DEL INDICADOR

@@ -3,15 +3,15 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import {
   Box,
-  Alert,
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
   Button,
-  AlertColor,
   Typography,
 } from "@mui/material";
+
+export let errores: string[] = [];
 
 export default function ModalEnviarMA({
   open,
@@ -31,11 +31,7 @@ export default function ModalEnviarMA({
   showResume: Function;
 }) {
   const [comment, setComment] = useState("");
-
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
-  const [userSelected, setUserSelected] = useState("0");
-  const [instSelected, setInstSelected] = useState("");
-
   const [newComent, setNewComent] = React.useState(false);
 
   const comentMA = (id: string) => {
@@ -61,198 +57,211 @@ export default function ModalEnviarMA({
       .catch((err) => {});
   };
 
+  let err = 0;
+
   const checkMA = (v: string) => {
+    errores = [];
     if (JSON.parse(MA)?.fin === null) {
-      return Toast.fire({
-        icon: "error",
-        title: "Apartado 'Fin' sin completar",
-      });
-    } else if (
+      err = 1;
+      errores.push("Sección <strong>Fin</strong> incompleta.");
+    }
+    if (
       JSON.parse(MA)?.fin.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Meta anual del apartado 'Fin' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push("<strong>Fin</strong>: Meta anual sin información.");
+    }
+    if (
       JSON.parse(MA)?.fin.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Línea base del apartado 'Fin' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push("<strong>Fin</strong>: Línea base sin información.");
+    }
+    if (
       JSON.parse(MA)?.fin.valorNumerador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Valor numerador del apartado 'Fin' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push("<strong>Fin</strong>: Valor del numerador sin información.");
+    }
+    if (
       JSON.parse(MA)?.fin.valorDenominador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Valor denominador del apartado 'Fin' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Fin</strong>: Valor del denominador sin información."
+      );
+    }
+    if (
       JSON.parse(MA)?.fin.sentidoDelIndicador === undefined ||
       JSON.parse(MA)?.fin.sentidoDelIndicador === ""
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Sentido del indicador del apartado 'Fin' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Fin</strong>: Sentido del indicador no seleccionado."
+      );
+    }
+    if (
       JSON.parse(MA)?.fin.unidadResponsable === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Unidad responsable del apartado 'Fin' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Fin</strong>: Unidad responsable de reportar el indicador sin información."
+      );
+    }
+    if (
       JSON.parse(MA)?.fin.descIndicador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.descIndicador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Descripción del indicador del apartado 'Fin' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Fin</strong>: Descripción del indicador sin información."
+      );
+    }
+    if (
       JSON.parse(MA)?.fin.descNumerador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.descNumerador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Descripción del numerador del apartado 'Fin' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Fin</strong>: Descripción del numerador sin información."
+      );
+    }
+    if (
       JSON.parse(MA)?.fin.descDenominador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.descDenominador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Descripción del denominador del apartado 'Fin' aún faltante",
-      });
-    } else if (JSON.parse(MA)?.proposito === null) {
-      return Toast.fire({
-        icon: "error",
-        title: "Apartado 'Propósito' sin completar",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Fin</strong>: Descripción del denominador sin información."
+      );
+    }
+    if (JSON.parse(MA)?.proposito === null) {
+      err = 1;
+      errores.push("Sección <strong>Propósito</strong> incompleta.");
+    }
+    if (
       JSON.parse(MA)?.proposito.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Meta anual del apartado 'Propósito' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push("<strong>Proposito</strong>: Meta Anual sin información.");
+    }
+    if (
       JSON.parse(MA)?.proposito.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Línea base del apartado 'Propósito' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push("<strong>Proposito</strong>: Línea base sin información.");
+    }
+    if (
       JSON.parse(MA)?.proposito.valorNumerador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorNumerador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Valor numerador del apartado 'Propósito' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Proposito</strong>: Valor del numerador sin información."
+      );
+    }
+    if (
       JSON.parse(MA)?.proposito.valorDenominador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Valor denominador del apartado 'Propósito' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Proposito</strong>: Valor del denominador sin información."
+      );
+    }
+    if (
       JSON.parse(MA)?.proposito.sentidoDelIndicador === undefined ||
       JSON.parse(MA)?.proposito.sentidoDelIndicador === ""
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Sentido del indicador del apartado 'Propósito' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Proposito</strong>: Sentido del indicador no seleccionado."
+      );
+    }
+    if (
       JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title: "Unidad responsable del apartado 'Propósito' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Proposito</strong>: Unidad responsable de reportar el indicador sin seleccionar."
+      );
+    }
+    if (
       JSON.parse(MA)?.proposito.descIndicador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.descIndicador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title:
-          "Descripción del indicador del apartado 'Propósito' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Proposito</strong>: Descripción del indicador sin información."
+      );
+    }
+    if (
       JSON.parse(MA)?.proposito.descNumerador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.descNumerador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title:
-          "Descripción del numerador del apartado 'Propósito' aún faltante",
-      });
-    } else if (
+      err = 1;
+      errores.push(
+        "<strong>Proposito</strong>: Descripción del numerador sin información."
+      );
+    }
+    if (
       JSON.parse(MA)?.proposito.descDenominador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.descDenominador)
     ) {
-      return Toast.fire({
-        icon: "error",
-        title:
-          "Descripción del denominador del apartado 'Propósito' aún faltante",
-      });
-    } else {
-      checkComponentes(v);
+      err = 1;
+      errores.push(
+        "<strong>Proposito</strong>: Descripción del denominador sin información."
+      );
     }
+
+    checkComponentes(v);
   };
 
   const checkComponentes = (v: string) => {
-    let err = 0;
     JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
       if (
         componente.metaAnual === undefined ||
         /^[\s]*$/.test(componente.metaAnual) ||
         componente.metaAnual === null
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Meta anual del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Meta anual sin información.`
         );
-      } else if (
+      }
+      if (
+        componente.metasPorFrecuencia[0].trimestre4 !== componente.metaAnual &&
+        componente.metasPorFrecuencia[0].semestre2 !== componente.metaAnual
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4 o semestre 2 correspondiente.`
+        );
+      }
+      if (
         componente.lineaBase === undefined ||
         /^[\s]*$/.test(componente.lineaBase)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Línea base del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Línea base sin información.`
         );
-      } else if (
+      }
+      if (
         (componente.metasPorFrecuencia[0].semestre1 === undefined ||
           /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
           componente.metasPorFrecuencia[0].semestre2 === undefined ||
@@ -266,147 +275,124 @@ export default function ModalEnviarMA({
           componente.metasPorFrecuencia[0].trimestre4 === undefined ||
           /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Metas por frecuencia del componente ${
-              index + 1
-            } aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información.`
         );
-      } else if (
+      }
+      if (
         componente.valorNumerador === undefined ||
         /^[\s]*$/.test(componente.valorNumerador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Valor numerador del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Valor del numerador sin información.`
         );
-      } else if (
+      }
+      if (
         componente.valorDenominador === undefined ||
         /^[\s]*$/.test(componente.valorDenominador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Valor denominador del componente ${index + 1} aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Valor del denominador sin información.`
         );
-      } else if (
+      }
+      if (
         componente.sentidoDelIndicador === undefined ||
         componente.sentidoDelIndicador === ""
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Sentido del indicador del componente ${
-              index + 1
-            } aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Sentido del indicador sin seleccionar.`
         );
-      } else if (
+      }
+      if (
         componente.unidadResponsable === undefined ||
         /^[\s]*$/.test(componente.unidadResponsable)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Unidad Responsable de reportar el indicador del componente ${
-              index + 1
-            } aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
         );
-      } else if (
+      }
+      if (
         componente.descIndicador === undefined ||
         /^[\s]*$/.test(componente.descIndicador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Descripción del indicador del componente ${
-              index + 1
-            } aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Descripción del indicador sin información.`
         );
-      } else if (
+      }
+      if (
         componente.descNumerador === undefined ||
         /^[\s]*$/.test(componente.descNumerador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Descripción del numerador del componente ${
-              index + 1
-            } aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Descripción del numerador sin información.`
         );
-      } else if (
+      }
+      if (
         componente.descDenominador === undefined ||
         /^[\s]*$/.test(componente.descDenominador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Descripción del denominador del componente ${
-              index + 1
-            } aún faltante`,
-          }),
-          (err = 1),
-          false
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Descripción del denominador sin información.`
         );
-      } else {
-        return true;
       }
+      return true;
     });
-    if (err !== 1) {
-      checkActividades(v);
-    }
+    checkActividades(v);
   };
 
   const checkActividades = (v: string) => {
-    let err = 0;
     JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
       if (
         actividad.metaAnual === undefined ||
         /^[\s]*$/.test(actividad.metaAnual)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Meta Anual de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
+        actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4
+      ) {
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4.`
+        );
+        err = 1;
+      }
+      if (
         actividad.lineaBase === undefined ||
         /^[\s]*$/.test(actividad.lineaBase)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Línea base de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
         (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
           /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre1) ||
           actividad.metasPorFrecuencia[0].semestre2 === undefined ||
@@ -420,109 +406,95 @@ export default function ModalEnviarMA({
           actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
           /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Metas por frecuencia de la ${actividad.actividad} incompleta.`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
         actividad.valorNumerador === undefined ||
         /^[\s]*$/.test(actividad.valorNumerador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Valor numerador de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
         actividad.valorDenominador === undefined ||
         /^[\s]*$/.test(actividad.valorDenominador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Valor denominador de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
         actividad.sentidoDelIndicador === undefined ||
         actividad.sentidoDelIndicador === ""
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Sentido del indicador de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
         actividad.unidadResponsable === undefined ||
         /^[\s]*$/.test(actividad.unidadResponsable)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Unidad responsable de reportar el indicador de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
         actividad.descIndicador === undefined ||
         /^[\s]*$/.test(actividad.descIndicador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Descripción del indicador de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
         actividad.descNumerador === undefined ||
         /^[\s]*$/.test(actividad.descNumerador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Descripción del numerador de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
         );
-      } else if (
+        err = 1;
+      }
+      if (
         actividad.descDenominador === undefined ||
         /^[\s]*$/.test(actividad.descDenominador)
       ) {
-        return (
-          Toast.fire({
-            icon: "error",
-            title: `Descripción del denominador de la ${actividad.actividad} aún faltante`,
-          }),
-          (err = 1),
-          false
+        errores.push(
+          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
         );
-      } else {
-        return true;
+        err = 1;
       }
     });
-    if (err !== 1) {
+    if (err === 0) {
       creaMA(v);
+    } else {
+      Toast.fire({
+        icon: "error",
+        html: `
+        <div style="height:50%;">
+        <h3>Se han encontrado los siguientes errores:</h3>
+        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
+      <small>
+      <strong>
+      *</strong>${errores.join("<br><strong>*</strong>")}
+      </small>
+      </div>
+      </div>`,
+      });
     }
   };
 
   const creaMA = (estado: string) => {
-
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -552,6 +524,7 @@ export default function ModalEnviarMA({
           icon: "success",
           title: r.data.data.message,
         });
+
         if (comment !== "") {
           comentMA(r.data.data.ID);
         }
@@ -588,27 +561,29 @@ export default function ModalEnviarMA({
         });
         showResume();
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
 
   const getUsuariosXInstitucion = () => {
-    let inst = JSON.parse(MIR)?.fin.institucion;
+    let inst = JSON.parse(MIR)?.encabezado.institucion;
 
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
     }
 
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          institucion: inst,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            institucion: inst,
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           setUserXInst(r.data.data);
@@ -619,7 +594,6 @@ export default function ModalEnviarMA({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MIR)?.fin.institucion);
     }
   }, [open]);
 
@@ -629,7 +603,7 @@ export default function ModalEnviarMA({
       {
         IdUsuarioDestino: v,
         Titulo: "MA",
-        Mensaje: "Se ha creado una nueva meta anual",
+        Mensaje: "Se ha creado una nueva Meta anual",
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
       {
@@ -641,30 +615,16 @@ export default function ModalEnviarMA({
   };
 
   const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
+    toast: false,
+    position: "center",
+    showConfirmButton: true,
+    heightAuto: false,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
-  const [errorForm, setErrorsForm] = useState({
-    visible: false,
-    text: "",
-    type: "",
-  });
-
-  const AlertForm = () => {
-    return (
-      <Box sx={{ mt: "1vh", mb: "2vh" }}>
-        <Alert severity={errorForm.type as AlertColor}>{errorForm.text}</Alert>
-      </Box>
-    );
-  };
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
@@ -676,7 +636,9 @@ export default function ModalEnviarMA({
           mb: 2,
         }}
       >
-        Confirmar Envío
+        {localStorage.getItem("Rol") === "Administrador"
+          ? "Confirmar Autorización"
+          : "Confirmar Envío"}
       </DialogTitle>
 
       <DialogContent
@@ -686,21 +648,20 @@ export default function ModalEnviarMA({
           alignItems: "center",
         }}
       >
-        {errorForm.visible ? <AlertForm /> : null}
-
         <Box
           sx={{
-            width: "20vw",
+            width: "30vw",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
+            mb: 2,
           }}
         >
           <Typography
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la Meta Anual se autorizará "
+              ? "Al confirmar, la Meta Anual se autorizará y el apartado de la Ficha Técnica será habilitado"
               : localStorage.getItem("Rol") === "Verificador"
               ? "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para autorización"
               : "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para revisión"}
@@ -708,7 +669,7 @@ export default function ModalEnviarMA({
         </Box>
 
         {newComent ? (
-          <Box sx={{ width: "30vw", mt:2}}>
+          <Box sx={{ width: "30vw" }}>
             <TextField
               multiline
               rows={3}
@@ -723,6 +684,8 @@ export default function ModalEnviarMA({
           sx={{
             display: "flex",
             justifyContent: "space-between",
+            marginBlockEnd: "1vh",
+            paddingBlockEnd: "1vh",
           }}
         >
           <Box
@@ -731,7 +694,7 @@ export default function ModalEnviarMA({
               alignItems: "flex-end",
               justifyContent: "space-between",
               width: "30vw",
-              mt: 2,
+              mt: "4vh",
             }}
           >
             <Button

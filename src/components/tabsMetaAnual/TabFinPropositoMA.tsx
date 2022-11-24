@@ -527,11 +527,12 @@ export function TabFinPropositoMA({
               />
             </FormControl>
           </Box>
+
           <Box
             sx={{
               display: "flex",
               width: "100%",
-              height: "33%",
+              height: "53%",
               alignItems: "center",
               justifyContent: "space-evenly",
             }}
@@ -890,7 +891,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "33%",
+                height: "53%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
