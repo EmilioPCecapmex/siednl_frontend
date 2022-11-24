@@ -89,7 +89,7 @@ export const TabActividades = ({
       }
       setComponenteSelect(0);
     }
-  }, [show]);
+  }, [show, compAct]);
 
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
@@ -115,13 +115,13 @@ export const TabActividades = ({
 
   useEffect(() => {
     asignarCValor(cValor);
-  }, [cValor, componentes]);
+  }, [cValor]);
 
   useEffect(() => {
     if (compAct.length > 0) {
       loadActividadesMir();
     }
-  }, [compAct]);
+  }, [compAct, componentes]);
 
   const loadActividadesMir = () => {
     let y = componenteActividad.map((item) => {
@@ -130,7 +130,10 @@ export const TabActividades = ({
           return {
             actividades: x.actividades.map((c, index2) => {
               return {
-                actividad: actividadesMir[index2]?.actividad || "",
+                actividad: actividadesMir[index2]?.actividad || "A" +
+                (cValor[0].componentes[index].actividades.length + 1) +
+                "C" +
+                (index + 1),
                 resumen: actividadesMir[index2]?.resumen || "",
                 indicador: actividadesMir[index2]?.indicador || "",
                 formula: actividadesMir[index2]?.formula || "",
@@ -143,8 +146,6 @@ export const TabActividades = ({
         }),
       };
     });
-
-    console.log(y);
     
 
     actividadesMir.map((x, index) => {
@@ -539,7 +540,7 @@ export const TabActividades = ({
                 textAlign: "center",
               }}
             >
-              {componentesTextos[componenteSelect].resumen}
+              {componentesTextos[componenteSelect]?.resumen}
             </Typography>
           </Box>
           <Box
