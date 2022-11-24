@@ -8,9 +8,6 @@ import {
   List,
   ListItemButton,
   FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
@@ -18,7 +15,6 @@ import { IComponente } from "./IComponente";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IMIREdit } from "./IMIR";
 import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 
@@ -37,47 +33,38 @@ export const TabComponente = ({
   valoresComponente: Array<IComponente>;
   mirEdit?: IMIREdit;
 }) => {
-  const agregarFnc = () => {
-    let v = noComponentes.length + 1;
-    if (v > 6) {
-    } else {
-      noComponentesFnc([...noComponentes, v]);
 
-      if (valoresComponente.length < 6) {
-        let prevState = [...valoresComponente];
-        prevState.push({
-          componentes: "C" + (noComponentes.length + 1),
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        });
-        setComponenteValor(prevState);
-        valoresComponenteFnc(prevState);
-      }
-    }
-  };
-
-  const eliminarFnc = () => {
-    let v = noComponentes.length - 1;
-    if (v < 2) {
-    } else {
-      noComponentesFnc(noComponentes.splice(0, v));
-      let prevState = [...valoresComponente];
-      prevState.pop();
-      setComponenteValor(prevState);
-      valoresComponenteFnc(prevState);
-      if (v < componentSelect) {
-        setComponentSelect(v);
-      }
-    }
-  };
+  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    })
+  );
+  
+  useEffect(() => {
+    setComponenteValor(
+      noComponentes.map((x, index) => {
+        return {
+          componentes: "C" + (index + 1),
+          resumen: valoresComponente[index]?.resumen || "",
+          indicador: valoresComponente[index]?.indicador || "",
+          frecuencia: valoresComponente[index]?.frecuencia || "",
+          formula: valoresComponente[index]?.formula || "",
+          medios: valoresComponente[index]?.medios || "",
+          supuestos: valoresComponente[index]?.supuestos || "",
+        };
+      })
+    );
+  }, [noComponentes, show]);
 
   const [componentSelect, setComponentSelect] = useState(1);
-
-  //----------------------------------------------------------------------------------------------
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [prevTextFormula, setPrevTextFormula] = useState("");
@@ -131,37 +118,44 @@ export const TabComponente = ({
       }
     }
   };
+  
+  const agregarFnc = () => {
+    let v = noComponentes.length + 1;
+    if (v > 6) {
+    } else {
+      noComponentesFnc([...noComponentes, v]);
 
-  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    })
-  );
+      if (valoresComponente.length < 6) {
+        let prevState = [...valoresComponente];
+        prevState.push({
+          componentes: "C" + (noComponentes.length + 1),
+          resumen: "",
+          indicador: "",
+          frecuencia: "",
+          formula: "",
+          medios: "",
+          supuestos: "",
+        });
+        setComponenteValor(prevState);
+        valoresComponenteFnc(prevState);
+      }
+    }
+  };
 
-  useEffect(() => {
-    setComponenteValor(
-      noComponentes.map((x, index) => {
-        return {
-          componentes: "C" + (index + 1),
-          resumen: valoresComponente[index]?.resumen || "",
-          indicador: valoresComponente[index]?.indicador || "",
-          frecuencia: valoresComponente[index]?.frecuencia || "",
-          formula: valoresComponente[index]?.formula || "",
-          medios: valoresComponente[index]?.medios || "",
-          supuestos: valoresComponente[index]?.supuestos || "",
-        };
-      })
-    );
-  }, [noComponentes, show]);
-
+  const eliminarFnc = () => {
+    let v = noComponentes.length - 1;
+    if (v < 2) {
+    } else {
+      noComponentesFnc(noComponentes.splice(0, v));
+      let prevState = [...valoresComponente];
+      prevState.pop();
+      setComponenteValor(prevState);
+      valoresComponenteFnc(prevState);
+      if (v < componentSelect) {
+        setComponentSelect(v);
+      }
+    }
+  };
 
   return (
     <Box
@@ -206,10 +200,21 @@ export const TabComponente = ({
         >
           Componente #{componentSelect}
         </Typography>
-        <IconButton onClick={() => agregarFnc()} disabled={mirEdit === undefined? false: mirEdit === null ? false: true}>
+        <IconButton
+          onClick={() => agregarFnc()}
+          disabled={
+            mirEdit === undefined ? false : mirEdit === null ? false : true
+          }
+        >
           <AddCircleIcon fontSize="large" />
         </IconButton>
-        <IconButton onClick={() => eliminarFnc()} sx={{ mr: "1vw" }} disabled={mirEdit === undefined? false: mirEdit === null ? false: true}>
+        <IconButton
+          onClick={() => eliminarFnc()}
+          sx={{ mr: "1vw" }}
+          disabled={
+            mirEdit === undefined ? false : mirEdit === null ? false : true
+          }
+        >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
       </Box>
@@ -428,53 +433,53 @@ export const TabComponente = ({
               }}
             >
               <FormLabel>FRECUENCIA</FormLabel>
-                <FormControlLabel
-                  value={"SEMESTRAL"}
-                  label={"SEMESTRAL"}
-                  sx={{
-                    fontFamily: "MontserratMedium", 
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        componenteValor[componentSelect - 1]?.frecuencia ===
-                        "SEMESTRAL"
-                      }
-                      onChange={(c) => {
-                        let prev = [...valoresComponente];
-                        let prevLocal = [...componenteValor];
-                        prevLocal[componentSelect - 1].frecuencia =
-                          c.target.value;
-                        prev[componentSelect - 1].frecuencia = c.target.value;
-                        setComponenteValor(prevLocal);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"TRIMESTRAL"}
-                  label={"TRIMESTRAL"}
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                    fontWeight:'light'
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        componenteValor[componentSelect - 1]?.frecuencia ===
-                        "TRIMESTRAL"
-                      }
-                      onChange={(c) => {
-                        let prev = [...valoresComponente];
-                        let prevLocal = [...componenteValor];
-                        prevLocal[componentSelect - 1].frecuencia =
-                          c.target.value;
-                        prev[componentSelect - 1].frecuencia = c.target.value;
-                        setComponenteValor(prevLocal);
-                      }}
-                    />
-                  }
-                />
+              <FormControlLabel
+                value={"SEMESTRAL"}
+                label={"SEMESTRAL"}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componenteValor[componentSelect - 1]?.frecuencia ===
+                      "SEMESTRAL"
+                    }
+                    onChange={(c) => {
+                      let prev = [...valoresComponente];
+                      let prevLocal = [...componenteValor];
+                      prevLocal[componentSelect - 1].frecuencia =
+                        c.target.value;
+                      prev[componentSelect - 1].frecuencia = c.target.value;
+                      setComponenteValor(prevLocal);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"TRIMESTRAL"}
+                label={"TRIMESTRAL"}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontWeight: "light",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componenteValor[componentSelect - 1]?.frecuencia ===
+                      "TRIMESTRAL"
+                    }
+                    onChange={(c) => {
+                      let prev = [...valoresComponente];
+                      let prevLocal = [...componenteValor];
+                      prevLocal[componentSelect - 1].frecuencia =
+                        c.target.value;
+                      prev[componentSelect - 1].frecuencia = c.target.value;
+                      setComponenteValor(prevLocal);
+                    }}
+                  />
+                }
+              />
             </FormControl>
 
             <TextField

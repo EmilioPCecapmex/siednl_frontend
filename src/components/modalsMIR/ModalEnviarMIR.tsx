@@ -411,12 +411,12 @@ export default function ModalEnviarMIR({
           CrearMetaAnual();
         }
 
-        err = 1;
-        errores.push(
-          localStorage.getItem("Rol") === "Administrador"
-            ? "¡MIR autorizada con éxito!"
-            : "¡MIR enviada con éxito!"
-        );
+        Toast.fire({
+          icon: "success",
+          title: localStorage.getItem("Rol") === "Administrador"
+          ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
+          : "¡MIR enviada con éxito!",
+        });
 
         if (comment != "") {
           comentMir(r.data.data.ID);

@@ -18,6 +18,7 @@ import TabResumenMA from "./TabResumenMA";
 import TabResumenMIR from "./TabResumenMir";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import { IComponenteActividad } from "../tabsMir/AddMir";
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -454,17 +455,3 @@ export default function AddMetaAnual({
   );
 }
 
-export interface IComponenteActividad {
-  actividades: number[];
-  componente: string;
-}
-
-export interface IActividadesMir {
-  actividad: string;
-  formula: string;
-  frecuencia: string;
-  indicador: string;
-  medios: string;
-  resumen: string;
-  supuestos: string;
-}

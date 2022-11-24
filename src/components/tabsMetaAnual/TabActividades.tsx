@@ -11,7 +11,6 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { IComponenteActividad } from "./AddMetaAnual";
 import { ICValor } from "../tabsMir/ICValor";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -19,6 +18,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
+import { IComponenteActividad } from "../tabsMir/AddMir";
 
 //funcion main
 export const TabActividadesMA = ({

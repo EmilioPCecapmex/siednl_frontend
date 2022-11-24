@@ -130,13 +130,13 @@ export const TabActividades = ({
           return {
             actividades: x.actividades.map((c, index2) => {
               return {
-                actividad: "",
-                resumen: "",
-                indicador: "",
-                formula: "",
+                actividad: actividadesMir[index2]?.actividad || "",
+                resumen: actividadesMir[index2]?.resumen || "",
+                indicador: actividadesMir[index2]?.indicador || "",
+                formula: actividadesMir[index2]?.formula || "",
                 frecuencia: "TRIMESTRAL",
-                medios: "",
-                supuestos: "",
+                medios: actividadesMir[index2]?.medios || "",
+                supuestos: actividadesMir[index2]?.supuestos || "",
               };
             }),
           };
@@ -144,9 +144,12 @@ export const TabActividades = ({
       };
     });
 
+    console.log(y);
+    
+
     actividadesMir.map((x, index) => {
-      let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1]?.substring(0, 1);
+      let act = x.actividad?.split("")[1];
+      let comp = x.actividad?.split("")[3];
 
       y[0].componentes[parseInt(comp) - 1].actividades[
         parseInt(act) - 1
@@ -209,9 +212,10 @@ export const TabActividades = ({
 
   const eliminarAFnc = () => {
     let act = cValor[0].componentes[componenteSelect].actividades;
-    let v = act.length;
+    let v = act.length - 1;
 
-    if (v > 2) {
+    if (v < 2) {
+    } else {
       let a = actividades;
       a.pop();
       setActividades(a);
@@ -313,8 +317,7 @@ export const TabActividades = ({
         y[0].componentes[componenteSelect].actividades[
           actividadSelect
         ].indicador = "";
-        setCValor(y);      
-      
+        setCValor(y);
       }
     }
   };
@@ -372,13 +375,35 @@ export const TabActividades = ({
         <IconButton
           onClick={() => {
             agregarAFnc(componenteSelect);
+
+            if (
+              actividadSelect + 1 ===
+              cValor[0].componentes[componenteSelect].actividades.length - 1
+            ) {
+              setActividadSelect(
+                cValor[0].componentes[componenteSelect].actividades.length - 1
+              );
+            }
           }}
-          disabled={mirEdit === undefined? false: mirEdit === null ? false: true}
+          disabled={
+            mirEdit === undefined ? false : mirEdit === null ? false : true
+          }
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-        <IconButton onClick={() => eliminarAFnc()} sx={{ mr: "1vw" }} disabled={mirEdit === undefined? false:mirEdit === null ? false: true}>
+        <IconButton
+          onClick={() => {
+            eliminarAFnc();
+            setActividadSelect(
+              cValor[0].componentes[componenteSelect].actividades.length - 1
+            );
+          }}
+          sx={{ mr: "1vw" }}
+          disabled={
+            mirEdit === undefined ? false : mirEdit === null ? false : true
+          }
+        >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
       </Box>
@@ -426,7 +451,6 @@ export const TabActividades = ({
                   key={item}
                   onClick={() => {
                     setComponenteSelect(item - 1);
-
                     handleClickComponente(item);
                     setActividadSelect(0);
                   }}
@@ -440,7 +464,9 @@ export const TabActividades = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize: '.7vw' }}>
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                  >
                     COMPONENTE {item}
                   </Typography>
 
@@ -467,8 +493,8 @@ export const TabActividades = ({
                               },
                             }}
                           >
-                              <Typography sx={{fontFamily: 'MontserratMedium'}}>
-                            Actividad {x + 1}
+                            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                              Actividad {x + 1}
                             </Typography>
                           </ListItemButton>
                         );
@@ -496,12 +522,24 @@ export const TabActividades = ({
 
           {/* Renderizado de Actividades */}
 
-          <Box sx={{width: '90%'}}>
-          <Typography sx={{ fontFamily: "MontserratSemiBold", fontSize: "1vw", textAlign: 'center' }}>
+          <Box sx={{ width: "90%" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
               COMPONENTE # {componenteSelect + 1}
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", fontSize: ".8vw", textAlign: 'center' }}>
-            {componentesTextos[componenteSelect].resumen}
+            <Typography
+              sx={{
+                fontFamily: "MontserratLight",
+                fontSize: ".8vw",
+                textAlign: "center",
+              }}
+            >
+              {componentesTextos[componenteSelect].resumen}
             </Typography>
           </Box>
           <Box
@@ -533,7 +571,7 @@ export const TabActividades = ({
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].resumen
+                ]?.resumen
               }
               onChange={(c) => {
                 let y = [...cValor];
@@ -579,7 +617,7 @@ export const TabActividades = ({
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].indicador
+                ]?.indicador
               }
               onChange={(c) => {
                 let y = [...cValor];
@@ -614,7 +652,7 @@ export const TabActividades = ({
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].formula
+                ]?.formula
               }
               onChange={(c) => {
                 let y = [...cValor];
@@ -664,7 +702,7 @@ export const TabActividades = ({
                     checked={
                       cValor[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].frecuencia === "TRIMESTRAL"
+                      ]?.frecuencia === "TRIMESTRAL"
                     }
                     onChange={(c) => {
                       let y = [...cValor];
@@ -701,7 +739,7 @@ export const TabActividades = ({
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].medios
+                ]?.medios
               }
               onChange={(c) => {
                 let y = [...cValor];
@@ -734,7 +772,7 @@ export const TabActividades = ({
               value={
                 cValor[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].supuestos
+                ]?.supuestos
               }
               onChange={(c) => {
                 let y = [...cValor];

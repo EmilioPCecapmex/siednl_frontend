@@ -7,11 +7,11 @@ import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
 import { IMIR } from "../tabsMir/IMIR";
-import { IActividadesMir } from "./AddMetaAnual";
 //import { IEncabezado } from "./TabEncabezado";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { IActividadesMir } from "./ICValor";
 
 
 export function TabResumenMR({
