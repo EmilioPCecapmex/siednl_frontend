@@ -26,6 +26,7 @@ export default function ModalSolicitaModif({
   IdMA,
   IdMIR,
   showResume,
+  MAEdit,
 }: {
   open: boolean;
   handleClose: Function;
@@ -34,6 +35,7 @@ export default function ModalSolicitaModif({
   MIR: string;
   IdMA: string;
   IdMIR: string;
+  MAEdit: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -74,21 +76,22 @@ export default function ModalSolicitaModif({
   };
 
   const createMA = (estado: string) => {
-    if (estado === "En Autorización" && userSelected !== "0") {
+    if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
-    } else if (estado === "En Revisión" && userSelected !== "0") {
+    } else if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
     }
     axios
       .post(
-        "http://localhost:8000/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
+          // MetaAnual: MAEdit === undefined ? MA : "[" + MA + "," + MAEdit + "]",
           MetaAnual: MA,
           CreadoPor:
             userSelected !== "0"
               ? userSelected
               : localStorage.getItem("IdUsuario"),
-          IdMIR: IdMIR,
+          IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
         },
@@ -102,11 +105,12 @@ export default function ModalSolicitaModif({
         if (comment !== "") {
           comentMA(r.data.data.ID);
         }
+        console.log(r.data)
         Toast.fire({
           icon: "success",
           title:
             localStorage.getItem("Rol") === "Verificador"
-              ? "Meta anual enviada a capturador"
+              ? "Meta anual enviada a capturador para corrección"
               : "Meta anual enviada a revisión",
         });
 
@@ -125,7 +129,7 @@ export default function ModalSolicitaModif({
   const getUsuariosXInstitucion = () => {
 
     axios
-      .get("http://10.200.4.105:8000/api/usuarioXInstitucion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Institucion: JSON.parse(MIR)?.encabezado?.institucion,
@@ -162,7 +166,7 @@ export default function ModalSolicitaModif({
 
   const enviarNotificacion = () => {
     axios.post(
-      "http://10.200.4.105:8000/api/create-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: userSelected,
         Titulo: "Meta Anual",

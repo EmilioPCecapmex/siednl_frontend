@@ -21,7 +21,6 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import Hidden from "@mui/material/Hidden";
 import { visuallyHidden } from "@mui/utils";
-
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -357,6 +356,7 @@ export default function AddMetaAnual({
 
           <TabFinPropositoMA
             MA={MA}
+            MIR={MIR}
             showFnc={showFnc}
             show={value === 20 ? true : false}
             resumenFinMa={resumenFinMa}
@@ -372,6 +372,7 @@ export default function AddMetaAnual({
             noComponentes={noComponentes}
             valoresComponenteMir={componenteValor}
             MA={MA}
+            MIR={MIR}
           ></TabComponenteMA>
 
           <TabActividadesMA
@@ -384,6 +385,7 @@ export default function AddMetaAnual({
             asignarCValor={asignarCValorMA}
             asignarCValorMIR={asignarCValor}
             MA={MA}
+            MIR={MIR}
           ></TabActividadesMA>
 
           <TabResumenMA
@@ -426,9 +428,10 @@ export default function AddMetaAnual({
             }}
           >
             <ArrowCircleLeftIcon
-              fontSize="large"
               sx={{
                 color: "#c4a57b",
+                width: '3vw',
+                height: '3vw'
               }}
             />
           </IconButton>
@@ -439,9 +442,10 @@ export default function AddMetaAnual({
             }}
           >
             <ArrowCircleRightIcon
-            fontSize="large"
-              sx={{
+               sx={{
                 color: "#c4a57b",
+                width: '3vw',
+                height: '3vw'
               }}
             />
           </IconButton>

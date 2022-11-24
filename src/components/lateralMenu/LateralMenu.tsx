@@ -302,6 +302,12 @@ export const LateralMenu = ({
         <img src={logo} alt="Logo" style={st.imgSize} />
       </Box>
 
+      <Box sx={{    width: "100%"}}>
+        <Typography sx={{textAlign: 'center', fontFamily: 'MontserratSemiBold'}}>
+          Sistema del Presupuesto Basado en Resultados
+        </Typography>
+      </Box>
+
       <Box sx={st.avatarBox}>
         <Avatar
           style={{
@@ -412,7 +418,7 @@ export const LateralMenu = ({
               <ListItemButton
                 onClick={() => {
                   setResumeDefaultFT();
-                  navigate("../fichatecnica");
+                  navigate("../fichaTecnica");
                 }}
                 sx={st.subMenuItemStyle}
                >

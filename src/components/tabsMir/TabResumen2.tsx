@@ -261,7 +261,6 @@ export function TabResumen2({
 
   // //  let ARRAY =[editActividades];
 
-  // // console.log("IDENTIFICADOR: ",ARRAY.every(validador));
 
    const [disablebutton3, setDisablebutton3] = useState(false);
   // useEffect(() => {
@@ -807,7 +806,6 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.resumen}

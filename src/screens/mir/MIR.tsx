@@ -230,24 +230,24 @@ export const MIR = () => {
       });
   };
 
-  const colorMir = (v: string, mEdit : string) => {
-    if(mEdit !== undefined){
+  const colorMir = (v: string, mEdit: string) => {
+    if (mEdit !== undefined) {
       let isModification = mEdit;
       isModification = JSON.parse(mEdit);
-      if(isModification[1]){
-        return "#cccc00"
+      if (isModification[1]) {
+        return "#cccc00";
       }
     }
-    if(v === "En Captura"){
-      return '#b3e6b3'
-    }else if(v === "En Revisión"){
-      return '#e6e6ff'
-    }else if(v === "En Autorización"){
-      return '#b3b3ff'
-    }else if(v === "Autorizada"){
-      return '#0000ff'
+    if (v === "En Captura") {
+      return "#b3e6b3";
+    } else if (v === "En Revisión") {
+      return "#e6e6ff";
+    } else if (v === "En Autorización") {
+      return "#b3b3ff";
+    } else if (v === "Autorizada") {
+      return "#0000ff";
     }
-  }
+  };
 
   return (
     <Box
@@ -450,7 +450,7 @@ export const MIR = () => {
               sx={{
                 backgroundColor: "#c2a37b",
                 width: "10vw",
-                height: "4vh",
+                height: "3.3vh",
                 color: "black",
                 fontFamily: "MontserratMedium",
                 fontSize: "0.6vw",
@@ -488,85 +488,62 @@ export const MIR = () => {
               flexDirection: "column",
               boxShadow: 5,
             }}
-          ><Table>
-            <TableHead sx={{ backgroundColor: "#edeaea", width:'100%', display:'flex', justifyContent:'space-between' }}>
-              <TableRow sx={{ width:'100%'}}>
-                <TableCell
+          >
+            <Table>
+              <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
+                <TableRow
                   sx={{
-                    fontFamily: "MontserratBold",
-                    textTransform: "uppercase",
-                    width:'12%',
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
-                  align="center"
-    
                 >
-                  Ejercicio Fiscal
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    textTransform: "uppercase",
-                    width:'16%',
-
-                  }}
-                  align="center"
-                >
-                  Institución
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    textTransform: "uppercase",
-                    width:'17%',
-
-                  }}
-                  align="center"
-                >
-                  Nombre del Programa
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    textTransform: "uppercase",
-                    width:'15%',                    
-
-                  }}
-                  align="center"
-                >
-                  Estado
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    textTransform: "uppercase",
-                    width:'12%',
-                  }}
-                  align="center"
-                >
-                  Fecha de Creación
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    textTransform: "uppercase",
-                    width:'13%'
-                  }}
-                  align="center"
-                >
-                  Creado Por
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    textTransform: "uppercase",
-                    width:'15%'
-                  }}
-                  align="center"
-                >
-                  Opciones
-                </TableCell>
-              </TableRow>
-            </TableHead>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    EJERCICIO FISCAL
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    INSTITUCIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    NOMBRE DEL PROGRAMA
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    ESTADO
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    FECHA DE CREACIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    CREADO POR
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    OPCIONES
+                  </TableCell>
+                </TableRow>
+              </TableHead>
             </Table>
             <Box
               sx={{
@@ -594,12 +571,20 @@ export const MIR = () => {
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) => (
-                        <TableRow key={index}>
+                        <TableRow
+                          key={index}
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(7,1fr)",
+                          }}
+                        >
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "12%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
@@ -609,29 +594,35 @@ export const MIR = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "16%",
-                              textTransform: "uppercase",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
-                            {row.Institucion}
+                            {row.Institucion.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "17%",
-                              textTransform: "uppercase",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
-                            {row.Programa}
+                            {row.Programa.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
-                              width: "15%",
-                              textTransform: "uppercase",
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
+                            align="center"
                           >
                             <Box
                               sx={{
@@ -648,17 +639,20 @@ export const MIR = () => {
                                   width: ".5vw",
                                   height: "1vh",
                                   borderRadius: 100,
-                                  backgroundColor: colorMir(row.Estado, row.MIR),
+                                  backgroundColor: colorMir(
+                                    row.Estado,
+                                    row.MIR
+                                  ),
                                 }}
                               />
                               <Typography
                                 sx={{
                                   width: "60%",
                                   fontFamily: "MontserratRegular",
-                                  color: '#616161',
+                                  color: "#616161",
                                   fontSize: ".7vw",
-                                  ml: '10%',
-                                  textAlign: 'center'
+                                  ml: "10%",
+                                  textAlign: "center",
                                 }}
                               >
                                 {row.Estado === "En Captura" &&
@@ -680,7 +674,9 @@ export const MIR = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "12%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
@@ -692,14 +688,23 @@ export const MIR = () => {
                             sx={{
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              width: "13%",
-                              textTransform: "uppercase",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             align="center"
                           >
-                            {row.CreadoPor}
+                            {row.CreadoPor.toUpperCase()}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "15%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
                             <Box
                               sx={{
                                 display: "flex",

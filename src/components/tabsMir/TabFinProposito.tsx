@@ -227,7 +227,6 @@ export function TabFinProposito({
       setPrevTextFormula(fin.formula);
       setOpenFormulaDialog(true);
     }
-
     if (
       errorIndicadorProposito === "" &&
       proposito.indicador !== undefined &&

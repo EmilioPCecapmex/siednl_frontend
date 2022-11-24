@@ -13,15 +13,12 @@ import {
   sessionValid,
 } from "./funcs/validation";
 import { useNavigate } from "react-router-dom";
-import { LateralMenu } from "./components/lateralMenu/LateralMenu";
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
-import { TabComponente } from "./components/tabsMir/TabComponente";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
-import axios from "axios";
-import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
+import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
 
 function App() {
   const navigate = useNavigate();
@@ -71,7 +68,6 @@ function App() {
         <Route path="mir" element={<MIR />} />
         <Route path="metaAnual" element={<MetaAnual />} />
         <Route path="notifications" element={<Notification />} />
-        <Route path="fichatecnica" element={<FichaTecnica />} />
       </Routes>
     </>
   );

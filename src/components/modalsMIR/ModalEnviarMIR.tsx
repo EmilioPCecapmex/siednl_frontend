@@ -40,7 +40,7 @@ export default function ModalEnviarMIR({
   const comentMir = (id: string) => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -67,8 +67,6 @@ export default function ModalEnviarMIR({
       errores.push("<strong>Encabezado<(strong>: año fiscal no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
-      console.log("asasas");
-
       err = 1;
       errores.push("<strong>Encabezado:</strong> institución no seleccionada.");
     }
@@ -112,30 +110,28 @@ export default function ModalEnviarMIR({
     }
     if (
       JSON.parse(MIR)?.fin.resumen === undefined ||
-      JSON.parse(MIR)?.fin.resumen === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.fin.resumen)
     ) {
       err = 1;
       errores.push("<strong>FIN: Resumen Narrativo</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.fin.indicador === undefined ||
-      JSON.parse(MIR)?.fin.indicador === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.fin.indicador)
     ) {
       err = 1;
       errores.push("<strong>FIN: Indicador</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.fin.formula === undefined ||
-      JSON.parse(MIR)?.fin.formula === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.fin.formula)
     ) {
       err = 1;
       errores.push("<strong>FIN: Fórmula</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.fin.frecuencia === undefined ||
-      JSON.parse(MIR)?.fin.frecuencia === "" ||
-      (JSON.parse(MIR)?.fin.frecuencia.toLowerCase() !== "anual" &&
-        JSON.parse(MIR)?.fin.frecuencia.toLowerCase() !== "bienal")
+      JSON.parse(MIR)?.fin.frecuencia === ""
     ) {
       err = 1;
       errores.push(
@@ -144,7 +140,7 @@ export default function ModalEnviarMIR({
     }
     if (
       JSON.parse(MIR)?.fin.medios === undefined ||
-      JSON.parse(MIR)?.fin.medios === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.fin.medios)
     ) {
       err = 1;
       errores.push(
@@ -153,14 +149,14 @@ export default function ModalEnviarMIR({
     }
     if (
       JSON.parse(MIR)?.fin.supuestos === undefined ||
-      JSON.parse(MIR)?.fin.supuestos === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.fin.supuestos)
     ) {
       err = 1;
       errores.push("<strong>FIN: Supuestos</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.proposito.resumen === undefined ||
-      JSON.parse(MIR)?.proposito.resumen === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.proposito.resumen)
     ) {
       err = 1;
       errores.push(
@@ -169,14 +165,14 @@ export default function ModalEnviarMIR({
     }
     if (
       JSON.parse(MIR)?.proposito.indicador === undefined ||
-      JSON.parse(MIR)?.proposito.indicador === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.proposito.indicador)
     ) {
       err = 1;
       errores.push("<strong>PROPOSITO: Indicador</strong> sin información.");
     }
     if (
       JSON.parse(MIR)?.proposito.formula === undefined ||
-      JSON.parse(MIR)?.proposito.formula === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.proposito.formula)
     ) {
       err = 1;
       errores.push("<strong>PROPOSITO: Fórmula</strong> sin información.");
@@ -192,7 +188,7 @@ export default function ModalEnviarMIR({
     }
     if (
       JSON.parse(MIR)?.proposito.medios_verificacion === undefined ||
-      JSON.parse(MIR)?.proposito.medios_verificacion === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.proposito.medios_verificacion)
     ) {
       err = 1;
       errores.push(
@@ -201,7 +197,7 @@ export default function ModalEnviarMIR({
     }
     if (
       JSON.parse(MIR)?.proposito.supuestos === undefined ||
-      JSON.parse(MIR)?.proposito.supuestos === ""
+      /^[\s]*$/.test(JSON.parse(MIR)?.proposito.supuestos)
     ) {
       err = 1;
       errores.push("<strong>PROPOSITO: Supuestos</strong> sin información.");
@@ -213,7 +209,7 @@ export default function ModalEnviarMIR({
     JSON.parse(MIR)?.componentes.map((componente: any, index: number) => {
       if (
         componente.resumen === undefined ||
-        componente.resumen === "" ||
+        /^[\s]*$/.test(componente.resumen) ||
         componente.resumen === null
       ) {
         err = 1;
@@ -223,7 +219,10 @@ export default function ModalEnviarMIR({
           } </strong>: Resumen Narrativo sin información.`
         );
       }
-      if (componente.indicador === undefined || componente.indicador === "") {
+      if (
+        componente.indicador === undefined ||
+        /^[\s]*$/.test(componente.indicador)
+      ) {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -231,18 +230,16 @@ export default function ModalEnviarMIR({
           } </strong>: Indicador sin información.`
         );
       }
-      if (componente.formula === undefined || componente.formula === "") {
+      if (
+        componente.formula === undefined ||
+        /^[\s]*$/.test(componente.formula)
+      ) {
         err = 1;
         errores.push(
           `<strong> Componente ${index + 1} </strong>: Fórmula sin información.`
         );
       }
-      if (
-        componente.frecuencia === undefined ||
-        componente.frecuencia === "" ||
-        (componente.frecuencia.toLowerCase() !== "semestral" &&
-          componente.frecuencia.toLowerCase() !== "trimestral")
-      ) {
+      if (componente.frecuencia === undefined || componente.frecuencia === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -250,7 +247,10 @@ export default function ModalEnviarMIR({
           } </strong>: Frecuencia sin información.`
         );
       }
-      if (componente.medios === undefined || componente.medios === "") {
+      if (
+        componente.medios === undefined ||
+        /^[\s]*$/.test(componente.medios)
+      ) {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -258,7 +258,10 @@ export default function ModalEnviarMIR({
           } </strong>: Medios de Verificación sin información.`
         );
       }
-      if (componente.supuestos === undefined || componente.supuestos === "") {
+      if (
+        componente.supuestos === undefined ||
+        /^[\s]*$/.test(componente.supuestos)
+      ) {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -276,7 +279,7 @@ export default function ModalEnviarMIR({
     JSON.parse(MIR)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.resumen === undefined ||
-        actividad.resumen === "" ||
+        /^[\s]*$/.test(actividad.resumen) ||
         actividad.resumen === null
       ) {
         errores.push(
@@ -284,35 +287,40 @@ export default function ModalEnviarMIR({
         );
         err = 1;
       }
-      if (actividad.indicador === undefined || actividad.indicador === "") {
+      if (
+        actividad.indicador === undefined ||
+        /^[\s]*$/.test(actividad.indicador)
+      ) {
         err = 1;
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: Indicador sin información.`
         );
       }
-      if (actividad.formula === undefined || actividad.formula === "") {
+      if (
+        actividad.formula === undefined ||
+        /^[\s]*$/.test(actividad.formula)
+      ) {
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: Fórmula sin información.`
         );
         err = 1;
       }
-      if (
-        actividad.frecuencia === undefined ||
-        actividad.frecuencia === "" ||
-        actividad.frecuencia.toLowerCase() !== "trimestral"
-      ) {
+      if (actividad.frecuencia === undefined || actividad.frecuencia === "") {
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: Frecuencia sin información.`
         );
         err = 1;
       }
-      if (actividad.medios === undefined || actividad.medios === "") {
+      if (actividad.medios === undefined || /^[\s]*$/.test(actividad.medios)) {
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: Medios de Verificación sin información.`
         );
         err = 1;
       }
-      if (actividad.supuestos === undefined || actividad.supuestos === "") {
+      if (
+        actividad.supuestos === undefined ||
+        /^[\s]*$/.test(actividad.supuestos)
+      ) {
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: Supuestos sin información.`
         );
@@ -341,7 +349,7 @@ export default function ModalEnviarMIR({
   const CrearMetaAnual = () => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -359,9 +367,6 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
         });
-        if (comment !== "") {
-          comentMir(r.data.data.ID);
-        }
         showResume();
       })
       .catch((err) => {
@@ -524,7 +529,7 @@ export default function ModalEnviarMIR({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la MIR se autorizará y el apartado de Meta Anual será habilitado"
+              ? "Al confirmar, la MIR se autorizará y el apartado de Meta Anual para esta MIR será habilitado"
               : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión"}
           </Typography>
         </Box>

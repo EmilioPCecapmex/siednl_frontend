@@ -42,7 +42,7 @@ export default function ModalSolicitaModif({
   const comentMir = (id: string) => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -78,7 +78,6 @@ export default function ModalSolicitaModif({
       errores.push("<strong>Encabezado<(strong>: año fiscal no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
-      console.log("asasas");
 
       err = 1;
       errores.push("<strong>Encabezado:</strong> institución no seleccionada.");
