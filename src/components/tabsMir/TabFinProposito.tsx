@@ -538,6 +538,9 @@ export function TabFinProposito({
                 />
               </FormControl>
 
+              
+
+
               <TextField
                 disabled={mirEdit?.fin.medios && fin.medios !== ""}
                 rows={8}
