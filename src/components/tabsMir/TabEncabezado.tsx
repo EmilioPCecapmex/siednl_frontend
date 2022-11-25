@@ -774,13 +774,14 @@ export function TabEncabezado({
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
+       >
         <Button href="/files/MIR_2023.xlsx" target="_blank" download>
           <Typography sx={{ fontFamily: "MontserratMedium", color: "#616161" }}>
             Plantilla
           </Typography>
         </Button>
       </Box>
+
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <Autocomplete
           disabled={mirEdit?.encabezado.ejercicioFiscal}
@@ -904,6 +905,7 @@ export function TabEncabezado({
       </Box>
 
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+        
         <Autocomplete
           disablePortal
           disabled={mirEdit?.encabezado.institucion}

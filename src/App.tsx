@@ -19,6 +19,9 @@ import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
+import { TabFinPropositoFT } from "./components/tabsFichaTecnica/TabFinPropositoFT";
+import TabEncabezado from "./components/tabsMir/TabEncabezado";
+import { TabEncabezadoFT } from "./components/tabsFichaTecnica/TabEncabezadoFT";
 
 function App() {
   const navigate = useNavigate();
@@ -60,7 +63,7 @@ function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="users" element={<Usuarios />} />
         <Route path="*" element={<E404 />} />
-        <Route path="fichaTecnica" element={<FichaTecnica />} />
+        <Route path="fichaTecnica" element={<FichaTecnica/>} />
         <Route
           path="Institutionalactivities"
           element={<ActividadesInstitucionales />}
