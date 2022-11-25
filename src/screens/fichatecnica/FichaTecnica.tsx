@@ -325,13 +325,6 @@ export const FichaTecnica = () => {
                 },
               }}
             >
-              <button
-                onClick={() => {
-                  setShowResume(!showResume);
-                }}
-              >
-                FichaTecnica
-              </button>
               <TableContainer>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
