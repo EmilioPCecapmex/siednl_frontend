@@ -5,11 +5,11 @@ import Tab from "@mui/material/Tab";
 import { TabEncabezado } from "./TabEncabezado";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
-import { TabFinProposito } from "./tabFinProposito";
 import { TabComponentes } from "./tabComponentes";
 import { TabActividades } from "./tabActividades";
+import { TabFinPropositoFT } from "./TabFinPropositoFT";
 import TabResumenFT from "./tabResumen";
-
+import { TabFinProposito } from "./tabFinProposito";
 
 export default function AddFichaTecnica({
   MIR,
@@ -184,59 +184,68 @@ export default function AddFichaTecnica({
             height: "77vh",
           }}
         >
+          {value === 10 ? (
           <TabEncabezado
             show={value === 10 ? true : false}
             anioFiscalEdit={anioFiscalEdit}
             fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
-            actividadesFichaTecnica={()=>{}}
-            componenteActividad={()=>{}}
-            resumenEncabezado={()=>{}}
-            cargaFin={()=>{}}
-            cargaProposito={()=>{}}
-            asignarComponente={()=>{}}
-            asignarComponenteValor={()=>{}}
+            actividadesFichaTecnica={() => {}}
+            componenteActividad={() => {}}
+            resumenEncabezado={() => {}}
+            cargaFin={() => {}}
+            cargaProposito={() => {}}
+            asignarComponente={() => {}}
+            asignarComponenteValor={() => {}}
             fichaTecnica={""}
           ></TabEncabezado>
+          ) : null}
+
+          {value === 20 ? (
             <TabFinProposito
-            show={value === 20 ? true : false}
-            resumenFin={()=>{}}
-            resumenProposito={()=>{}}
-            cargaFin={[]}
-            cargaProposito={[]}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabFinProposito>
+              resumenFin={() => {}}
+              resumenProposito={() => {}}
+              cargaFin={[]}
+              cargaProposito={[]}
+              mirEdit={MIR ? JSON.parse(MIR)[1] : null}
+            ></TabFinProposito>
+          ) : null}
 
-          <TabComponentes
-            show={value === 30 ? true : false}
-            noComponentesFnc={()=>{}}
-            valoresComponenteFnc={()=>{}}
-            noComponentes={[]}
-            valoresComponente={[]}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabComponentes>
+          {value === 30 ? (
+            <TabComponentes
+              noComponentesFnc={() => {}}
+              valoresComponenteFnc={() => {}}
+              noComponentes={[]}
+              valoresComponente={[]}
+              mirEdit={MIR ? JSON.parse(MIR)[1] : null}
+            ></TabComponentes>
+          ) : null}
 
-          <TabActividades
-            show={value === 40 ? true : false}
-            actividadesFichaTecnica={[]}
-            componentesTextos={[]}
-            componenteActividad={[]}
-            componentes={[]}
-            asignarCValor={()=>{}}
-            fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabActividades>
+          {value === 40 ? (
+            <TabActividades
+              show={value === 40 ? true : false}
+              actividadesFichaTecnica={[]}
+              componentesTextos={[]}
+              componenteActividad={[]}
+              componentes={[]}
+              asignarCValor={() => {}}
+              fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
+            ></TabActividades>
+          ) : null}
 
-          <TabResumenFT
-            show={value === 50 ? true : false}
-            componentes={noComponentes}
-            componenteValor={valoresComponenteMA}
-            cValor={cValorMA}
-            fin={ValueFin}
-            proposito={ValueProposito}
-            IdMir={IdMir}
-            IdMA={IdMA}
-            showResume={showResume}
-            MIR={MIR}
-          ></TabResumenFT>
+          {value === 50 ? (
+            <TabResumenFT
+              show={value === 50 ? true : false}
+              componentes={noComponentes}
+              componenteValor={valoresComponenteMA}
+              cValor={cValorMA}
+              fin={ValueFin}
+              proposito={ValueProposito}
+              IdMir={IdMir}
+              IdMA={IdMA}
+              showResume={showResume}
+              MIR={MIR}
+            ></TabResumenFT>
+          ) : null}
         </Box>
       </Box>
     </Box>

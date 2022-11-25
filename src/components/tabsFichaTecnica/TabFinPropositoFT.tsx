@@ -21,9 +21,23 @@ import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
-export function TabFinPropositoFT() {
+export function TabFinPropositoFT({
+  
+  resumenFin,
+  resumenProposito,
+  cargaFin,
+  cargaProposito,
+  mirEdit,
+}: {
+  
+  resumenFin: Function;
+  resumenProposito: Function;
+  cargaFin: Array<any>;
+  cargaProposito: Array<any>;
+  mirEdit?: any;
+}) {
   //este expor necesita variables
-
+  
   {
     /*----------Funcionalidad del texto escrito por el usuario----------*/
   }
@@ -71,18 +85,7 @@ export function TabFinPropositoFT() {
   const [adecuado, setAdecuado] = useState();
   const [aporteMarginal, setAporteMarginal] = useState();
 
-  {
-    /*Esto es un json de prueba*/
-  }
-  const top100Films = [
-    { label: "The Shawshank Redemption", year: 1994 },
-    { label: "The Godfather", year: 1972 },
-    { label: "The Godfather: Part II", year: 1974 },
-    { label: "The Dark Knight", year: 2008 },
-  ];
-  {
-    /*Esto es un json de prueba*/
-  }
+ 
 
   {
     /*----------Funcionalidad del texto escrito por el usuario----------*/
