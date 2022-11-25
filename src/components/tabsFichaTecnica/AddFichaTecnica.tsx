@@ -4,10 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Tooltip } from "@mui/material";
 import { TabEncabezado } from "./TabEncabezado";
-import { TabFinProposito } from "./tabFinProposito";
-import { TabComponentes } from "./tabComponentes";
-import { TabActividades } from "./tabActividades";
-import { TabResumen } from "./tabResumen";
+
 
 export default function FullModalFichaTecnica({
   MIR,
@@ -129,46 +126,6 @@ export default function FullModalFichaTecnica({
             fichaTecnica={""}
           ></TabEncabezado>
 
-          <TabFinProposito
-            show={value === 20 ? true : false}
-            resumenFin={()=>{}}
-            resumenProposito={()=>{}}
-            cargaFin={[]}
-            cargaProposito={[]}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabFinProposito>
-
-          <TabComponentes
-            show={value === 30 ? true : false}
-            noComponentesFnc={()=>{}}
-            valoresComponenteFnc={()=>{}}
-            noComponentes={[]}
-            valoresComponente={[]}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabComponentes>
-
-          <TabActividades
-            show={value === 40 ? true : false}
-            actividadesFichaTecnica={[]}
-            componentesTextos={[]}
-            componenteActividad={[]}
-            componentes={[]}
-            asignarCValor={()=>{}}
-            fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabActividades>
-
-          <TabResumen
-            show={value === 50 ? true : false}
-            showResume={()=>{}}
-            fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
-            componentes={[]}
-            componenteValor={[]}
-            cValor={[]}
-            encabezado={[]}
-            fin={[]}
-            proposito={[]}
-            IdFichaTecnica={""}
-          ></TabResumen>
         </Box>
       </Box>
     </Box>

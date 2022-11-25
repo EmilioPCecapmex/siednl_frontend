@@ -316,46 +316,60 @@ const [ft, setft] = useState<Array<IIFT>>([]);
             >
               <TableContainer>
                 <Table>
-                  <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Ejercicio Fiscal
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Institución
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Nombre del Programa
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Estado
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Fecha Creación
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Opciones
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
+                <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    EJERCICIO FISCAL
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    INSTITUCIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    NOMBRE DEL PROGRAMA
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    ESTADO
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    FECHA DE CREACIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    CREADO POR
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    OPCIONES
+                  </TableCell>
+                </TableRow>
+              </TableHead>
 
                   <TableBody>
                     {ftFiltered
@@ -365,12 +379,18 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                       )
                       .map((row, index) =>
                         row.Estado !== "Autorizada" ? null : (
-                          <TableRow key={index}>
+                          <TableRow key={index}
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(7,1fr)",
+                          }}>
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
                                 fontSize: ".7vw",
-                                width: "15%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                               }}
                               align="center"
                             >
@@ -379,20 +399,24 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
                             >
                               {row.Institucion}
                             </TableCell>
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
                             >
                               {row.Programa}
                             </TableCell>
@@ -400,7 +424,9 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                               sx={{
                                 fontFamily: "MontserratRegular",
                                 fontSize: ".7vw",
-                                width: "20%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                               }}
                               align="center"
                             >
@@ -409,8 +435,10 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "15%",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                               }}
                               align="center"
                             >
