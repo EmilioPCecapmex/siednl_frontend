@@ -4,10 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Tooltip } from "@mui/material";
 import { TabEncabezado } from "./TabEncabezado";
-import { TabFinProposito } from "./TabFinProposito";
-import { TabResumen } from "./TabResumen";
-import { TabComponentes } from "./TabComponentes";
-import { TabActividades } from "./TabActividades";
+import { TabFinProposito } from "./tabFinProposito";
+import { TabComponentes } from "./tabComponentes";
+import { TabActividades } from "./tabActividades";
+import { TabResumen } from "./tabResumen";
 
 export default function FullModalFichaTecnica({
   MIR,
