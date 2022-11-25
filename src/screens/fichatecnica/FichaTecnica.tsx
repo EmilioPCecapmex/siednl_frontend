@@ -22,8 +22,9 @@ import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
-import FullModalFichaTecnica from "../../components/tabsFichaTecnica/ResumenFT";
+import FullModalFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IIMir } from "../mir/MIR";
 import { IIMa} from "../metaAnual/MetaAnual";
@@ -105,7 +106,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
 
   const getFT = () => {
     axios
-    .get("http://10.200.4.105:8000/api/Lista-Ficha-tecnica", {
+    .get("http://10.200.4.199:8000/api/Lista-Ficha-tecnica", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
@@ -116,10 +117,12 @@ const [ft, setft] = useState<Array<IIFT>>([]);
         },
       })
       .then((r) => {
-        
+        console.log(r);
         setft(r.data.data);
         setftFiltered(r.data.data);
-      });
+      }).catch((err) => {
+        console.log(err)
+      })
   };
 
   useEffect(() => {
@@ -450,10 +453,10 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                                   </span>
                                 </Tooltip>
 
-                                <Tooltip title="Ver">
+                                <Tooltip title="REGISTRAR META ANUAL">
                                   <span>
                                     <IconButton>
-                                      <VisibilityIcon
+                                      <AddCircleOutlineIcon
                                         sx={[
                                           {
                                             "&:hover": {
