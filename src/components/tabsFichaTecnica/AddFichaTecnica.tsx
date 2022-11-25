@@ -213,7 +213,6 @@ export default function AddFichaTecnica({
 
           {value === 30 ? (
             <TabComponentes
-            
             show={value === 30 ? true : false}
               noComponentesFnc={() => {}}
               valoresComponenteFnc={() => {}}
