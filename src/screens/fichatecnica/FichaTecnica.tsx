@@ -11,7 +11,6 @@ import {
   TableBody,
   Tooltip,
   IconButton,
-  Button,
   TablePagination,
   Input,
   Select,
@@ -19,13 +18,11 @@ import {
   MenuItem,
 } from "@mui/material";
 import axios from "axios";
-import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
 import FullModalFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IIMir } from "../mir/MIR";
 import { IIMa} from "../metaAnual/MetaAnual";
 export let resumeDefaultFT = true;
@@ -446,9 +443,26 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                                 .format("DD/MM/YYYY HH:mm:SS")
                                 .toString()}
                             </TableCell>
-                            <TableCell align="center" sx={{ width: "10%" }}>
-                              {/*----------Ficha tecnica--------------*/}
-
+                            <TableCell
+                              sx={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                              align="center"
+                            >
+                              {row.CreadoPor}
+                            </TableCell>
+                            <TableCell sx={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                              align="center">
                               <Box
                                 sx={{
                                   display: "flex",
