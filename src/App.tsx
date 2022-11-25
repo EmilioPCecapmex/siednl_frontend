@@ -63,7 +63,7 @@ function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="users" element={<Usuarios />} />
         <Route path="*" element={<E404 />} />
-        <Route path="fichaTecnica" element={<TabFinPropositoFT/>} />
+        <Route path="fichaTecnica" element={<FichaTecnica/>} />
         <Route
           path="Institutionalactivities"
           element={<ActividadesInstitucionales />}

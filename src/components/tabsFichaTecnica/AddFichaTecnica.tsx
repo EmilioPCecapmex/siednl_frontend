@@ -2,15 +2,13 @@ import { Box, Typography, Button, Checkbox } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Tooltip } from "@mui/material";
 import { TabEncabezado } from "./TabEncabezado";
-import { TabFinProposito } from "./TabFinProposito";
-import { TabComponentes } from "./TabComponentes";
-import { TabActividades } from "./TabActividades";
-import TabResumen from "../tabsActividadesInstitucionales/TabResumen";
-import { TabResumenFT } from "./TabResumen";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
+import { TabFinProposito } from "./tabFinProposito";
+import { TabComponentes } from "./tabComponentes";
+import { TabActividades } from "./tabActividades";
+import TabResumenFT from "./tabResumen";
 
 
 export default function AddFichaTecnica({
