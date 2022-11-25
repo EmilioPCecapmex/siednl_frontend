@@ -11,7 +11,6 @@ import {
   TableBody,
   Tooltip,
   IconButton,
-  Button,
   TablePagination,
   Input,
   Select,
@@ -27,12 +26,11 @@ import {
   FormLabel,
 } from "@mui/material";
 import axios from "axios";
-import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
-import FullModalFichaTecnica from "../../components/tabsFichaTecnica/ResumenFT";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import FullModalFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import { IIMir } from "../mir/MIR";
 import { IIMa } from "../metaAnual/MetaAnual";
 import FormGroup from "@mui/material/FormGroup";
@@ -123,7 +121,7 @@ export const FichaTecnica = () => {
 
   const getFT = () => {
     axios
-      .get("http://10.200.4.105:8000/api/Lista-Ficha-tecnica", {
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-Ficha-tecnica", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
@@ -135,7 +133,9 @@ export const FichaTecnica = () => {
       .then((r) => {
         setft(r.data.data);
         setftFiltered(r.data.data);
-      });
+      }).catch((err) => {
+        console.log(err)
+      })
   };
 
   useEffect(() => {
@@ -337,46 +337,60 @@ export const FichaTecnica = () => {
               </button>
               <TableContainer>
                 <Table>
-                  <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Ejercicio Fiscal
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Institución
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Nombre del Programa
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Estado
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Fecha Creación
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Opciones
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
+                <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    EJERCICIO FISCAL
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    INSTITUCIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    NOMBRE DEL PROGRAMA
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    ESTADO
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    FECHA DE CREACIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    CREADO POR
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    OPCIONES
+                  </TableCell>
+                </TableRow>
+              </TableHead>
 
                   <TableBody>
                     {ftFiltered
@@ -386,12 +400,18 @@ export const FichaTecnica = () => {
                       )
                       .map((row, index) =>
                         row.Estado !== "Autorizada" ? null : (
-                          <TableRow key={index}>
+                          <TableRow key={index}
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(7,1fr)",
+                          }}>
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
                                 fontSize: ".7vw",
-                                width: "15%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                               }}
                               align="center"
                             >
@@ -400,20 +420,24 @@ export const FichaTecnica = () => {
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
                             >
                               {row.Institucion}
                             </TableCell>
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
                             >
                               {row.Programa}
                             </TableCell>
@@ -421,7 +445,9 @@ export const FichaTecnica = () => {
                               sx={{
                                 fontFamily: "MontserratRegular",
                                 fontSize: ".7vw",
-                                width: "20%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                               }}
                               align="center"
                             >
@@ -430,8 +456,10 @@ export const FichaTecnica = () => {
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "15%",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                               }}
                               align="center"
                             >
@@ -439,9 +467,26 @@ export const FichaTecnica = () => {
                                 .format("DD/MM/YYYY HH:mm:SS")
                                 .toString()}
                             </TableCell>
-                            <TableCell align="center" sx={{ width: "10%" }}>
-                              {/*----------Ficha tecnica--------------*/}
-
+                            <TableCell
+                              sx={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                              align="center"
+                            >
+                              {row.CreadoPor}
+                            </TableCell>
+                            <TableCell sx={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                              align="center">
                               <Box
                                 sx={{
                                   display: "flex",
@@ -474,10 +519,10 @@ export const FichaTecnica = () => {
                                   </span>
                                 </Tooltip>
 
-                                <Tooltip title="Ver">
+                                <Tooltip title="REGISTRAR META ANUAL">
                                   <span>
                                     <IconButton>
-                                      <VisibilityIcon
+                                      <AddCircleOutlineIcon
                                         sx={[
                                           {
                                             "&:hover": {

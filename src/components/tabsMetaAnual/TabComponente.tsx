@@ -349,7 +349,7 @@ export const TabComponenteMA = ({
             sx={{
               display: "flex",
               width: "100%",
-              height: "30%",
+              height: "33%",
               alignItems: "center",
               justifyContent: "space-evenly",
             }}
@@ -399,8 +399,8 @@ export const TabComponenteMA = ({
                   ? valoresComponenteMir[
                       componentSelect - 1
                     ].frecuencia.toLowerCase() === "trimestral"
-                    ? "Meta Anual debe ser igual que el valor del trimestre 4, verifica los valores"
-                    : "Meta Anual debe ser igual que el valor del semestre 2, verifica los valores"
+                    ? "El valor de la meta anual debe coincidir con el valor del trimestre 4, verifica los valores"
+                    : "El valor de la meta anual debe coincidir con el valor del semestre 2, verifica los valores"
                   : null
               }
             />

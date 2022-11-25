@@ -121,7 +121,10 @@ export function TabFinProposito({
           setElementoFormula("Fin");
         } else {
           setErrorIndicadorFin(v);
-          setFin({ ...fin, formula: "" });
+          setFin({
+            ...fin,
+            indicador: ""
+          });
         }
       }
     }
@@ -147,7 +150,8 @@ export function TabFinProposito({
           setElementoFormula("Proposito");
         } else {
           setErrorIndicadorProposito(v);
-          setProposito({ ...proposito, formula: "" });
+          setProposito({ ...proposito, formula: "algo" });
+          setProposito({ ...proposito, indicador: "" });
         }
       }
     }
