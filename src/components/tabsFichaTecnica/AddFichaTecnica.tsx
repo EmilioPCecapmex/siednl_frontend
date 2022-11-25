@@ -240,6 +240,7 @@ export default function AddFichaTecnica({
               componentes={noComponentes}
               componenteValor={valoresComponenteMA}
               cValor={cValorMA}
+              encabezado={[]}
               fin={ValueFin}
               proposito={ValueProposito}
               IdMir={IdMir}
