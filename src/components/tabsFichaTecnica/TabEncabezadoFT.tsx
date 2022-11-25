@@ -105,9 +105,9 @@ export function TabEncabezadoFT() {
           disablePortal
           size="small"
           options={top100Films}
-          renderOption={(props, option) => {
+          renderOption={(props: any, option: any) => {
             return (
-              <li {...props} key={option}>
+              <li {...props}>
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
@@ -136,7 +136,6 @@ export function TabEncabezadoFT() {
           )}onChange={() =>
             {}
           }
-          isOptionEqualToValue={() => {}}
           
         />
       </FormControl>
@@ -148,9 +147,9 @@ export function TabEncabezadoFT() {
           disablePortal
           size="small"
           options={top100Films}
-          renderOption={(props, option) => {
+          renderOption={(props:any, option:any) => {
             return (
-              <li {...props} key={option}>
+              <li {...props}>
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
@@ -179,7 +178,6 @@ export function TabEncabezadoFT() {
           )}onChange={() =>
             {}
           }
-          isOptionEqualToValue={() => {}}
           
         />
       </FormControl>
