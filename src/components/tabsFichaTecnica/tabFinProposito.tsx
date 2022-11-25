@@ -26,14 +26,14 @@ import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 export function TabFinProposito({
-  
+  show,
   resumenFin,
   resumenProposito,
   cargaFin,
   cargaProposito,
   mirEdit,
 }: {
-  
+  show: boolean;
   resumenFin: Function;
   resumenProposito: Function;
   cargaFin: Array<any>;
