@@ -657,16 +657,16 @@ export const MIR = () => {
                               >
                                 {row.Estado === "En Captura" &&
                                 localStorage.getItem("Rol") === "Capturador"
-                                  ? "Borrador"
+                                  ? "BORRADOR"
                                   : row.Estado === "En Revisión" &&
                                     localStorage.getItem("Rol") ===
                                       "Verificador"
-                                  ? "Esperando revisión"
+                                  ? "ESPERANDO REVISIÓN"
                                   : row.Estado === "En Autorización" &&
                                     localStorage.getItem("Rol") ===
                                       "Administrador"
-                                  ? "Esperando autorización"
-                                  : row.Estado}
+                                  ? "ESPERANDO AUTORIZACIÓN"
+                                  : row.Estado.toUpperCase()}
                               </Typography>
                             </Box>
                           </TableCell>

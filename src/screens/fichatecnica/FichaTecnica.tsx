@@ -17,6 +17,7 @@ import {
   Select,
   FormControl,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -147,6 +148,25 @@ const [ft, setft] = useState<Array<IIFT>>([]);
 
   const handleCloseComents = () => {
     setOpenModalComents(false);
+  };
+
+  const colorMir = (v: string, mEdit: string) => {
+    if (mEdit !== undefined) {
+      let isModification = mEdit;
+      isModification = JSON.parse(mEdit);
+      if (isModification[1]) {
+        return "#cccc00";
+      }
+    }
+    if (v === "En Captura") {
+      return "#b3e6b3";
+    } else if (v === "En Revisión") {
+      return "#e6e6ff";
+    } else if (v === "En Autorización") {
+      return "#b3b3ff";
+    } else if (v === "Autorizada") {
+      return "#0000ff";
+    }
   };
 
   return (
@@ -378,7 +398,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) =>
-                        row.Estado !== "Autorizada" ? null : (
+                        
                           <TableRow key={index}
                           sx={{
                             display: "grid",
@@ -406,7 +426,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                             }}
                             align="center"
                             >
-                              {row.Institucion}
+                              {row.Institucion.toUpperCase()}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -418,8 +438,64 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                             }}
                             align="center"
                             >
-                              {row.Programa}
+                              {row.Programa.toUpperCase()}
                             </TableCell>
+                            <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                height: "5vh",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  width: ".5vw",
+                                  height: "1vh",
+                                  borderRadius: 100,
+                                  backgroundColor: colorMir(
+                                    row.Estado,
+                                    row.MIR
+                                  ),
+                                }}
+                              />
+                              <Typography
+                                sx={{
+                                  width: "60%",
+                                  fontFamily: "MontserratRegular",
+                                  color: "#616161",
+                                  fontSize: ".7vw",
+                                  ml: "10%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                 {row.Estado === "En Captura" &&
+                                localStorage.getItem("Rol") === "Capturador"
+                                  ? "BORRADOR"
+                                  : row.Estado === "En Revisión" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Verificador"
+                                  ? "ESPERANDO REVISIÓN"
+                                  : row.Estado === "En Autorización" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Administrador"
+                                  ? "ESPERANDO AUTORIZACIÓN"
+                                  : row.Estado.toUpperCase()}
+                              </Typography>
+                            </Box>
+                          </TableCell>
                             <TableCell
                               sx={{
                                 fontFamily: "MontserratRegular",
@@ -430,34 +506,41 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                               }}
                               align="center"
                             >
-                              {row.Estado}
+                              {moment(row.FechaCreacion, moment.ISO_8601)
+                                .format("DD/MM/YYYY HH:mm:SS")
+                                .toString()} 
                             </TableCell>
                             <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
+                            sx={{
+                              fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
-                              }}
-                              align="center"
-                            >
-                              {moment(row.FechaCreacion, moment.ISO_8601)
-                                .format("DD/MM/YYYY HH:mm:SS")
-                                .toString()}
-                            </TableCell>
-                            <TableCell align="center" sx={{ width: "10%" }}>
+                            }}
+                            align="center"
+                          >
+                            {row.Estado === "En Captura" ? 'SIN ASIGNAR' : row.CreadoPor.toUpperCase()}
+                          </TableCell>
+
+                            <TableCell  align="center"
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}>
                               {/*----------Ficha tecnica--------------*/}
 
                               <Box
                                 sx={{
                                   display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
                                 }}
                               >
-                                <Tooltip title="Descargar">
+                                <Tooltip title="DESCARGAR">
                                   <span>
                                     <IconButton
                                       disabled={
@@ -520,7 +603,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                             </TableCell>
                           </TableRow>
                         )
-                      )}
+                      }
 
                     {/* ))} */}
                   </TableBody>
