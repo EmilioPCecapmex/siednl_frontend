@@ -34,6 +34,7 @@ import { IIMir } from "../mir/MIR";
 import { IIMa } from "../metaAnual/MetaAnual";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TabFinPropositoFT from "../../components/tabsMir/TabFinProposito";
+import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -649,6 +650,11 @@ export const FichaTecnica = () => {
             alignItems: "center",
           }}
         >
+          <AddFichaTecnica
+          
+          >
+
+          </AddFichaTecnica>
         
         </Box>
       )}
