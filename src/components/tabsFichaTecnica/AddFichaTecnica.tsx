@@ -7,19 +7,24 @@ import { TabEncabezado } from "./TabEncabezado";
 import { TabFinProposito } from "./TabFinProposito";
 import { TabComponentes } from "./TabComponentes";
 import { TabActividades } from "./TabActividades";
-import { TabResumen } from "./TabResumen";
+import TabResumen from "../tabsActividadesInstitucionales/TabResumen";
+import { TabResumenFT } from "./TabResumen";
+import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
+import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
 
 
-export default function FullModalFichaTecnica({
+export default function AddFichaTecnica({
   MIR,
   showResume,
   IdMir,
+  IdMA,
   anioFiscalEdit,
   MA,
 }: {
   MIR: string;
   showResume: Function;
   IdMir: string;
+  IdMA: string;
   anioFiscalEdit: string;
   MA: string;
 }) {
@@ -27,6 +32,71 @@ export default function FullModalFichaTecnica({
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
+  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+  const [valoresComponenteMA, setValoresComponenteMA] = useState<
+    Array<IComponenteMA>
+  >(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        metaAnual: "",
+        lineaBase: "",
+        metasPorFrecuencia: [],
+        valorNumerador: "",
+        valorDenominador: "",
+        sentidoDelIndicador: "",
+        unidadResponsable: "",
+        descIndicador: "",
+        descNumerador: "",
+        descDenominador: "",
+      };
+    })
+  );
+
+  const [actividades, setActividades] = React.useState([1, 2]);
+  const [componenteActividad, setComponenteActividad] = useState([
+    {
+      componentes: noComponentes.map((x) => actividades),
+    },
+  ]);
+
+  const [cValorMA, setCValorMA] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                metaAnual: "",
+                lineaBase: "",
+                metasPorFrecuencia: [
+                  {
+                    semestre1: "",
+                    semestre2: "",
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
+                valorNumerador: "",
+                valorDenominador: "",
+                sentidoDelIndicador: "",
+                unidadResponsable: "",
+                descIndicador: "",
+                descNumerador: "",
+                descDenominador: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+  const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
+  const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
+
   return (
     <Box
       sx={{
@@ -157,18 +227,18 @@ export default function FullModalFichaTecnica({
             fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabActividades>
 
-          <TabResumen
+          <TabResumenFT
             show={value === 50 ? true : false}
-            showResume={()=>{}}
-            fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
-            componentes={[]}
-            componenteValor={[]}
-            cValor={[]}
-            encabezado={[]}
-            fin={[]}
-            proposito={[]}
-            IdFichaTecnica={""}
-          ></TabResumen>
+            componentes={noComponentes}
+            componenteValor={valoresComponenteMA}
+            cValor={cValorMA}
+            fin={ValueFin}
+            proposito={ValueProposito}
+            IdMir={IdMir}
+            IdMA={IdMA}
+            showResume={showResume}
+            MIR={MIR}
+          ></TabResumenFT>
         </Box>
       </Box>
     </Box>

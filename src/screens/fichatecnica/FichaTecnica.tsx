@@ -30,13 +30,8 @@ import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
-import FullModalFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import { IIMir } from "../mir/MIR";
 import { IIMa } from "../metaAnual/MetaAnual";
-import FormGroup from "@mui/material/FormGroup";
-import Switch from "@mui/material/Switch";
-import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
@@ -382,13 +377,13 @@ export const FichaTecnica = () => {
                 },
               }}
             >
-              {/* <button
+              <button
                 onClick={() => {
                   setShowResume(!showResume);
                 }}
               >
                 FichaTecnica
-              </button> */}
+              </button>
               <TableContainer>
                 <Table>
                 <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
@@ -619,7 +614,7 @@ export const FichaTecnica = () => {
                                   </span>
                                 </Tooltip>
 
-                                <Tooltip title="REGISTRAR META ANUAL">
+                                <Tooltip title="REGISTRAR FICHA TÉCNICA">
                                   <span>
                                     <IconButton>
                                       <AddCircleOutlineIcon

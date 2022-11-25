@@ -16,6 +16,7 @@ export function TabFinProposito({
   mirEdit?: any;
 }) {
   return (
+    
     //TODO ESTO VA EN TODOS
     /*-DATOS DEL INDICADOR-*/
     //TIPO DE INDICADOR
@@ -28,6 +29,6 @@ export function TabFinProposito({
     //MONITOREABLE
     //ADECUADO
     //APORTE MARGINAL
-    <></>
+    <>hola</>
   )
 }
