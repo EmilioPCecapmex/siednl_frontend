@@ -16,36 +16,18 @@ import {
   Select,
   FormControl,
   MenuItem,
-  Autocomplete,
-  Divider,
-  ListItemButton,
-  List,
   Typography,
-  TextField,
-  Radio,
-  FormLabel,
 } from "@mui/material";
 import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
-import { IIMir } from "../mir/MIR";
-import { IIMa } from "../metaAnual/MetaAnual";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import TabFinPropositoFT from "../../components/tabsMir/TabFinProposito";
 import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
 };
-
-const top100Films = [
-  { label: "The Shawshank Redemption", year: 1994 },
-  { label: "The Godfather", year: 1972 },
-  { label: "The Godfather: Part II", year: 1974 },
-  { label: "The Dark Knight", year: 2008 },
-];
 
 export const FichaTecnica = () => {
   useEffect(() => {
@@ -57,26 +39,6 @@ export const FichaTecnica = () => {
     setShowResume(true);
     getFT();
   };
-
-  const [fin, setFin] = useState({
-    frecuencia: "",
-    claridad: "",
-    relevancia: "",
-    economia: "",
-    monitoreable: "",
-    Adecuado: "",
-    aporte_marginal: "",
-  });
-
-  const [proposito, setProposito] = useState({
-    frecuencia: "SELECCIÓN ESTRATEGICO",
-    claridad: "No",
-    relevancia: "No",
-    economia: "No",
-    monitoreable: "No",
-    Adecuado: "No",
-    aporte_marginal: "Na",
-  });
 
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
@@ -695,12 +657,12 @@ export const FichaTecnica = () => {
           }}
         >
           <AddFichaTecnica
-          MIR=""
-          showResume={()=>{}}
-          IdMir=""
-          IdMA=""
-          anioFiscalEdit=""
-          MA=""
+          MIR={FTEdit[0].MIR}
+          showResume={returnMain}
+          IdMir={FTEdit[0].IdMir}
+          IdMA={FTEdit[0].IdMa}
+          anioFiscalEdit={FTEdit[0].AnioFiscal}
+          MA={FTEdit[0].MetaAnual}
           />
         </Box>
       )}
