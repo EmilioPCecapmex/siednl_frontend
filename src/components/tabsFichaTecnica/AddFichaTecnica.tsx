@@ -8,7 +8,7 @@ import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
 import { TabFinProposito } from "./tabFinProposito";
 import { TabComponentes } from "./tabComponentes";
 import { TabActividades } from "./tabActividades";
-import TabResumenFT from "./tabResumen";
+import TabResumenFT from "./TabResumenFT";
 
 
 export default function AddFichaTecnica({

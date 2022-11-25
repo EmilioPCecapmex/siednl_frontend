@@ -694,7 +694,14 @@ export const FichaTecnica = () => {
             alignItems: "center",
           }}
         >
-          <AddFichaTecnica></AddFichaTecnica>
+          <AddFichaTecnica
+          MIR=""
+          showResume={()=>{}}
+          IdMir=""
+          IdMA=""
+          anioFiscalEdit=""
+          MA=""
+          />
         </Box>
       )}
     </Box>
