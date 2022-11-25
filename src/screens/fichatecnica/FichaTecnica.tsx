@@ -17,6 +17,14 @@ import {
   Select,
   FormControl,
   MenuItem,
+  Autocomplete,
+  Divider,
+  ListItemButton,
+  List,
+  Typography,
+  TextField,
+  Radio,
+  FormLabel,
 } from "@mui/material";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -26,11 +34,29 @@ import moment from "moment";
 import FullModalFichaTecnica from "../../components/tabsFichaTecnica/ResumenFT";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IIMir } from "../mir/MIR";
-import { IIMa} from "../metaAnual/MetaAnual";
+import { IIMa } from "../metaAnual/MetaAnual";
+import FormGroup from "@mui/material/FormGroup";
+import Switch from "@mui/material/Switch";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
+import FormControlLabel from "@mui/material/FormControlLabel";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
 };
+
+{
+  /*Esto es un json de prueba*/
+}
+const top100Films = [
+  { label: "The Shawshank Redemption", year: 1994 },
+  { label: "The Godfather", year: 1972 },
+  { label: "The Godfather: Part II", year: 1974 },
+  { label: "The Dark Knight", year: 2008 },
+];
+{
+  /*Esto es un json de prueba*/
+}
 
 export const FichaTecnica = () => {
   useEffect(() => {
@@ -42,6 +68,32 @@ export const FichaTecnica = () => {
     setShowResume(true);
     getFT();
   };
+
+  {
+    /* Funcionalidad sacada de mir  */
+  }
+  const [fin, setFin] = useState({
+    frecuencia: "",
+    claridad: "",
+    relevancia: "",
+    economia: "",
+    monitoreable: "",
+    Adecuado: "",
+    aporte_marginal: "",
+  });
+
+  const [proposito, setProposito] = useState({
+    frecuencia: "SELECCIÓN ESTRATEGICO",
+    claridad: "No",
+    relevancia: "No",
+    economia: "No",
+    monitoreable: "No",
+    Adecuado: "No",
+    aporte_marginal: "Na",
+  });
+  {
+    /* Funcionalidad sacada de mir  */
+  }
 
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
@@ -63,7 +115,7 @@ export const FichaTecnica = () => {
   const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
   const [findTextStr, setFindTextStr] = useState("");
   const [findSelectStr, setFindSelectStr] = useState("0");
-//---------------------No los estoy usando-------------------------
+  //---------------------No los estoy usando-------------------------
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
@@ -71,9 +123,9 @@ export const FichaTecnica = () => {
   const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
 
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
-//---------------------No los estoy usando-------------------------
+  //---------------------No los estoy usando-------------------------
 
-const [ft, setft] = useState<Array<IIFT>>([]);
+  const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
 
   //
@@ -105,18 +157,16 @@ const [ft, setft] = useState<Array<IIFT>>([]);
 
   const getFT = () => {
     axios
-    .get("http://10.200.4.105:8000/api/Lista-Ficha-tecnica", {
+      .get("http://10.200.4.105:8000/api/Lista-Ficha-tecnica", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
-          
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
-        
         setft(r.data.data);
         setftFiltered(r.data.data);
       });
@@ -145,7 +195,8 @@ const [ft, setft] = useState<Array<IIFT>>([]);
   const handleCloseComents = () => {
     setOpenModalComents(false);
   };
-
+  const [showFin, setShowFin] = useState(true);
+  const [showProposito, setShowProposito] = useState(false);
   return (
     <Box
       sx={{
@@ -311,6 +362,13 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                 },
               }}
             >
+              {/* <button
+                onClick={() => {
+                  setShowResume(!showResume);
+                }}
+              >
+                FichaTecnica
+              </button> */}
               <TableContainer>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#edeaea" }}>
@@ -476,7 +534,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                                               MIR: row.MIR,
                                               Estado: row.Estado,
                                               FechaCreacion: row.FechaCreacion,
-                                              CreadoPor: row.CreadoPor
+                                              CreadoPor: row.CreadoPor,
                                             },
                                           ]);
                                           setShowResume(false);
@@ -511,28 +569,433 @@ const [ft, setft] = useState<Array<IIFT>>([]);
         </Box>
       ) : (
         <Box
-        sx={{
+          sx={{
+            width: "100%",
+            heigth: "100%",
             display: "flex",
             justifyContent: "center",
-            width: "85%",
-            height: "92%",
-            mt: "8vh",
-            }}
+            alignItems: "center",
+          }}
         >
-          <FullModalFichaTecnica
-            anioFiscalEdit={anioFiscalEdit}
-            MIR={mirEdit[0]?.MIR || ""}
-            MA={maEdit[0]?.MetaAnual || ""}
-            showResume={returnMain}
-            IdMir={mirEdit[0]?.ID || ""}
-          />
+          <Box
+            sx={{
+              display: "flex",
+              width: "75vw",
+              height: "75vh",
+              boxShadow: 10,
+              borderRadius: 5,
+              flexDirection: "column",
+              backgroundColor: "#fff",
+            }}
+          >
+            {/* Aqui va un FormulaDialog */}
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                height: "7vh",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              {/* Botones Componentes */}
+              <Typography
+                sx={{
+                  mr: "1vw",
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: "1.2vw",
+                }}
+              >
+                {showFin ? "FIN" : null}
+                {showProposito ? "PROPÓSITO" : null}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+              }}
+            >
+              <List
+                sx={{
+                  width: "10vw",
+                  height: "65vh",
+                  borderRight: "solid",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  borderColor: "#BCBCBC",
+                  "&::-webkit-scrollbar": {
+                    width: ".3vw",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "rgba(0,0,0,.5)",
+                    outline: "1px solid slategrey",
+                    borderRadius: 10,
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    height: "10vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Divider />
+                  <ListItemButton
+                    selected={showFin}
+                    onClick={() => {
+                      setShowFin(!showFin);
+                      setShowProposito(false);
+                    }}
+                    sx={{
+                      "&.Mui-selected ": {
+                        backgroundColor: "#c4a57b",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#cbcbcb",
+                      },
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Fin
+                    </Typography>
+                  </ListItemButton>
+                  <Divider />
+                </Box>
+                {/*--------------------------------Aqui esta el boton de Fin--------------------------*/}
+                <Box
+                  sx={{
+                    height: "10vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ListItemButton
+                    selected={showProposito}
+                    onClick={() => {
+                      setShowProposito(!showProposito);
+                      setShowFin(false);
+                    }}
+                    sx={{
+                      "&.Mui-selected ": {
+                        backgroundColor: "#c4a57b",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#cbcbcb",
+                      },
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Propósito
+                    </Typography>
+                  </ListItemButton>
+                  <Divider />
+                </Box>
+                {/*--------------------------------Aqui esta el boton de  proposito--------------------------*/}
+              </List>
+              {/*--------------------------------Aqui termina la lista y empieza el diseño de Fin--------------------------*/}
+              {showFin ? (
+                <>
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr 1fr",
+                      width: "90%",
+                      alignItems: "center",
+                      justifyItems: "center",
+                    }}
+                  >
+                    <FormControl
+                      sx={{
+                        width: "90%",
+                        height: "60%",
+                        backgroundColor: "#f0f0f0",
+                        boxShadow: 2,
+                        fontFamily: "MontserratMedium",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                      }}
+                    >
+                      <FormLabel>FRECUENCIA</FormLabel>
+                      <FormControlLabel
+                        value={"SELECCIÓN ESTRATEGICO"}
+                        label={"SELECCIÓN ESTRATEGICO"}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                        }}
+                        control={
+                          <Radio
+                            checked={fin.frecuencia === "SELECCIÓN ESTRATEGICO"}
+                            onChange={(c) => {
+                              setFin({
+                                ...fin,
+                                frecuencia: c.target.value,
+                              });
+                            }}
+                          />
+                        }
+                      />
+                      <FormControlLabel
+                        value={"DE GESTIÓN"}
+                        label={"DE GESTIÓN"}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                        }}
+                        control={
+                          <Radio
+                            checked={fin.frecuencia === "DE GESTIÓN"}
+                            onChange={(c) => {
+                              setFin({
+                                ...fin,
+                                frecuencia: c.target.value,
+                              });
+                            }}
+                          />
+                        }
+                      />
+                    </FormControl>
+                    <Autocomplete
+                      disabled={false}
+                      disablePortal
+                      size="medium"
+                      fullWidth
+                      options={top100Films}
+                      renderOption={(props, option) => {
+                        return (
+                          <li {...props} key={option.label}>
+                            <p
+                              style={{
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                            >
+                              {option.label}
+                            </p>
+                          </li>
+                        );
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={"DIMENSIÓN"}
+                          variant="filled"
+                          InputLabelProps={{
+                            style: {
+                              fontFamily: "MontserratSemiBold",
+                              fontSize: ".8vw",
+                            },
+                          }}
+                          sx={{
+                            "& .MuiAutocomplete-input": {
+                              fontFamily: "MontserratRegular",
+                            },
+                          }}
+                        ></TextField>
+                      )}
+                      onChange={() => {}}
+                    />
+                    <TextField
+                      rows={8}
+                      multiline
+                      variant="filled"
+                      sx={{ width: "90%", boxShadow: 2 }}
+                      label={"UNIDAD DE MEDIDA"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                          fontSize: ".8vw",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                    />
+
+                    <FormControl
+                      sx={{
+                        width: "90%",
+                        height: "60%",
+                        backgroundColor: "#f0f0f0",
+                        boxShadow: 2,
+                        fontFamily: "MontserratMedium",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                      }}
+                    >
+                      <FormLabel>CLARIDAD</FormLabel>
+                      <FormControlLabel
+                        value={"SI"}
+                        label={"SI"}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                        }}
+                        control={
+                          <Radio
+                            checked={fin.claridad === "SI"}
+                            onChange={(c) => {
+                              setFin({
+                                ...fin,
+                                claridad: c.target.value,
+                              });
+                            }}
+                          />
+                        }
+                      />
+                      <FormControlLabel
+                        value={"NO"}
+                        label={"NO"}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                        }}
+                        control={
+                          <Radio
+                            checked={fin.claridad === "NO"}
+                            onChange={(c) => {
+                              setFin({
+                                ...fin,
+                                claridad: c.target.value,
+                              });
+                            }}
+                          />
+                        }
+                      />
+                    </FormControl>
+
+                    <FormControl
+                      sx={{
+                        width: "90%",
+                        height: "60%",
+                        backgroundColor: "#f0f0f0",
+                        boxShadow: 2,
+                        fontFamily: "MontserratMedium",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                      }}
+                    >
+                      <FormLabel>RELEVANCIA</FormLabel>
+                      <FormControlLabel
+                        value={"SI"}
+                        label={"SI"}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                        }}
+                        control={
+                          <Radio
+                            checked={fin.relevancia === "SI"}
+                            onChange={(c) => {
+                              setFin({
+                                ...fin,
+                                relevancia: c.target.value,
+                              });
+                            }}
+                          />
+                        }
+                      />
+                      <FormControlLabel
+                        value={"NO"}
+                        label={"NO"}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                        }}
+                        control={
+                          <Radio
+                            checked={fin.relevancia === "NO"}
+                            onChange={(c) => {
+                              setFin({
+                                ...fin,
+                                relevancia: c.target.value,
+                              });
+                            }}
+                          />
+                        }
+                      />
+                    </FormControl>
+
+                    <FormControl
+                      sx={{
+                        width: "90%",
+                        height: "60%",
+                        backgroundColor: "#f0f0f0",
+                        boxShadow: 2,
+                        fontFamily: "MontserratMedium",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                      }}
+                    >
+                      <FormLabel>ECONOMÍA</FormLabel>
+                      <FormControlLabel
+                        value={"SI"}
+                        label={"SI"}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                        }}
+                        control={
+                          <Radio
+                            checked={fin.relevancia === "SI"}
+                            onChange={(c) => {
+                              setFin({
+                                ...fin,
+                                relevancia: c.target.value,
+                              });
+                            }}
+                          />
+                        }
+                      />
+                      <FormControlLabel
+                        value={"NO"}
+                        label={"NO"}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                        }}
+                        control={
+                          <Radio
+                            checked={fin.relevancia === "NO"}
+                            onChange={(c) => {
+                              setFin({
+                                ...fin,
+                                relevancia: c.target.value,
+                              });
+                            }}
+                          />
+                        }
+                      />
+                    </FormControl>
+                  </Box>
+                </>
+
+
+
+              ) : null}
+
+              {showProposito ? (
+                <>
+                  <Box></Box>
+                </>
+              ) : null}
+            </Box>
+          </Box>
         </Box>
       )}
     </Box>
   );
 };
-
-
 
 export interface IIFT {
   IdMa: string;
@@ -540,7 +1003,7 @@ export interface IIFT {
   AnioFiscal: string;
   Institucion: string;
   Programa: string;
-  MIR: string
+  MIR: string;
   MetaAnual: string;
   //FichaTecnica:String;
   Estado: string;
