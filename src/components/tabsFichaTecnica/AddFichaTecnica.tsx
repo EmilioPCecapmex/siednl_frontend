@@ -1,4 +1,3 @@
-import { Box, Typography, Button, Checkbox } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -9,6 +8,12 @@ import { TabActividades } from "./tabActividades";
 import TabResumenFT from "./TabResumenFT";
 import { TabComponentes } from "./tabComponentes";
 import { TabFinProposito } from "./tabFinProposito";
+import { TabEncabezadoFT } from "./TabEncabezadoFT";
+
+import { Box, IconButton } from "@mui/material";
+
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 
 export default function AddFichaTecnica({
   MIR,
@@ -94,22 +99,28 @@ export default function AddFichaTecnica({
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
 
+  const cambiarTab = (option: string) => {
+    if (option === "adelante") {
+      if (value < 50) setValue(value + 10);
+    } else {
+      if (value > 10) setValue(value - 10);
+    }
+  };
+
   return (
     <Box
       sx={{
-        width: "50vw",
-        height: "86vh",
-        borderRadius: 5,
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-evenly",
+        width: "100%",
+        height: "92%",
+        mt: "8vh",
       }}
     >
       <Box
         sx={{
-          width: "100%",
-          height: "100%",
+          width: "75vw",
+          height: "90vh",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
@@ -170,6 +181,7 @@ export default function AddFichaTecnica({
               label="Resumen"
               value={50}
               sx={{
+                borderRight: "5px solid #b3afaf",
                 color: "black",
                 fontFamily: "MontserratBold",
                 backgroundColor: "#ccc",
@@ -177,77 +189,93 @@ export default function AddFichaTecnica({
             />
           </Tabs>
         </Box>
+
         <Box
           sx={{
             width: "75vw",
             height: "77vh",
           }}
         >
-          {value === 10 ? (
-          <TabEncabezado
-            show={value === 10 ? true : false}
-            anioFiscalEdit={anioFiscalEdit}
-            fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
-            actividadesFichaTecnica={() => {}}
-            componenteActividad={() => {}}
-            resumenEncabezado={() => {}}
-            cargaFin={() => {}}
-            cargaProposito={() => {}}
-            asignarComponente={() => {}}
-            asignarComponenteValor={() => {}}
-            fichaTecnica={""}
-          ></TabEncabezado>
-          ) : null}
+          <TabEncabezadoFT show={value === 10 ? true : false}></TabEncabezadoFT>
 
-          {value === 20 ? (
-            <TabFinProposito
-            
+          <TabFinProposito
             show={value === 20 ? true : false}
-              resumenFin={() => {}}
-              resumenProposito={() => {}}
-              cargaFin={[]}
-              cargaProposito={[]}
-              mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            ></TabFinProposito>
-          ) : null}
+            resumenFin={() => {}}
+            resumenProposito={() => {}}
+            cargaFin={[]}
+            cargaProposito={[]}
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
+          ></TabFinProposito>
 
-          {value === 30 ? (
-            <TabComponentes
+          <TabComponentes
             show={value === 30 ? true : false}
-              noComponentesFnc={() => {}}
-              valoresComponenteFnc={() => {}}
-              noComponentes={[]}
-              valoresComponente={[]}
-              mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            ></TabComponentes>
-          ) : null}
+            noComponentesFnc={() => {}}
+            valoresComponenteFnc={() => {}}
+            noComponentes={[]}
+            valoresComponente={[]}
+            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
+          ></TabComponentes>
 
-          {value === 40 ? (
-            <TabActividades
-              show={value === 40 ? true : false}
-              actividadesFichaTecnica={[]}
-              componentesTextos={[]}
-              componenteActividad={[]}
-              componentes={[]}
-              asignarCValor={() => {}}
-              fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
-            ></TabActividades>
-          ) : null}
+          <TabActividades
+            show={value === 40 ? true : false}
+            actividadesFichaTecnica={[]}
+            componentesTextos={[]}
+            componenteActividad={[]}
+            componentes={[]}
+            asignarCValor={() => {}}
+            fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
+          ></TabActividades>
 
-          {value === 50 ? (
-            <TabResumenFT
-              show={value === 50 ? true : false}
-              componentes={noComponentes}
-              componenteValor={valoresComponenteMA}
-              cValor={cValorMA}
-              fin={ValueFin}
-              proposito={ValueProposito}
-              IdMir={IdMir}
-              IdMA={IdMA}
-              showResume={showResume}
-              MIR={MIR}
-            ></TabResumenFT>
-          ) : null}
+          <TabResumenFT
+            show={value === 50 ? true : false}
+            componentes={noComponentes}
+            componenteValor={valoresComponenteMA}
+            cValor={cValorMA}
+            fin={ValueFin}
+            proposito={ValueProposito}
+            IdMir={IdMir}
+            IdMA={IdMA}
+            showResume={showResume}
+            MIR={MIR}
+          ></TabResumenFT>
+        </Box>
+
+        <Box
+          sx={{
+            width: "30%",
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+          }}
+        >
+          <IconButton
+          disabled={value === 10 ? true : false}
+            onClick={() => {
+              cambiarTab("atras");
+            }}
+          >
+            <ArrowCircleLeftIcon
+              sx={{
+                color: "#c4a57b",
+                width: "3vw",
+                height: "3vw",
+              }}
+            />
+          </IconButton>
+
+          <IconButton
+            onClick={() => {
+              cambiarTab("adelante");
+            }}
+          >
+            <ArrowCircleRightIcon
+              sx={{
+                color: "#c4a57b",
+                width: "3vw",
+                height: "3vw",
+              }}
+            />
+          </IconButton>
         </Box>
       </Box>
     </Box>

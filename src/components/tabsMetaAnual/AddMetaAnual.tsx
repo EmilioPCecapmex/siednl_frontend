@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {
-  IFin,
-  IProposito,
-  TabFinPropositoMA,
-} from "./TabFinPropositoMA";
+import { IFin, IProposito, TabFinPropositoMA } from "./TabFinPropositoMA";
 import { Box, IconButton } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
 import { ICValor } from "../tabsMir/ICValor";
-import { IEncabezado, TabEncabezadoMIR } from "./TabEncabezadoMIR";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
@@ -19,6 +14,7 @@ import TabResumenMIR from "./TabResumenMir";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IEncabezado } from "../tabsMir/TabEncabezado";
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -220,7 +216,6 @@ export default function AddMetaAnual({
       };
     });
     setValoresComponenteMA(arrayMA);
-    
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
@@ -259,7 +254,6 @@ export default function AddMetaAnual({
         width: "100%",
         height: "92%",
         mt: "8vh",
-        
       }}
     >
       <Box
@@ -282,16 +276,6 @@ export default function AddMetaAnual({
               boxShadow: 20,
             }}
           >
-            {/* <Tab
-              label="Resumen Mir"
-              value={10}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            /> */}
             <Tab
               label="Fin / Propósito"
               value={20}
@@ -341,17 +325,6 @@ export default function AddMetaAnual({
             height: "77vh",
           }}
         >
-          <TabEncabezadoMIR
-            resumenEncabezado={resumenEncabezado}
-            actividadesMir={setActividadesMir}
-            compAct={setCompAct}
-            show={value === 60 ? true : false}
-            cargaFin={loadFin}
-            cargaProposito={loadProposito}
-            asignarComponente={noComponenteFnc}
-            asignarComponenteValor={valoresComponenteFnc}
-            MIR={MIR}
-          ></TabEncabezadoMIR>
 
           <TabFinPropositoMA
             MA={MA}
@@ -414,14 +387,14 @@ export default function AddMetaAnual({
         </Box>
 
         <Box
-        sx={{
-          width: "30%",
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
+          sx={{
+            width: "30%",
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+          }}
         >
-            <IconButton
+          <IconButton
             onClick={() => {
               cambiarTab("atras");
             }}
@@ -429,8 +402,8 @@ export default function AddMetaAnual({
             <ArrowCircleLeftIcon
               sx={{
                 color: "#c4a57b",
-                width: '3vw',
-                height: '3vw'
+                width: "3vw",
+                height: "3vw",
               }}
             />
           </IconButton>
@@ -441,17 +414,15 @@ export default function AddMetaAnual({
             }}
           >
             <ArrowCircleRightIcon
-               sx={{
+              sx={{
                 color: "#c4a57b",
-                width: '3vw',
-                height: '3vw'
+                width: "3vw",
+                height: "3vw",
               }}
             />
           </IconButton>
-          
         </Box>
       </Box>
     </Box>
   );
 }
-
