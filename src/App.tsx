@@ -19,7 +19,6 @@ import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
-import { TabFinPropositoFT } from "./components/tabsFichaTecnica/TabFinPropositoFT";
 import TabEncabezado from "./components/tabsMir/TabEncabezado";
 import { TabEncabezadoFT } from "./components/tabsFichaTecnica/TabEncabezadoFT";
 

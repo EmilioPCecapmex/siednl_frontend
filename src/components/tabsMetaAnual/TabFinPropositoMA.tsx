@@ -37,9 +37,7 @@ export function TabFinPropositoMA({
   MA: string;
   MIR: string;
 }) {
-  
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
-  
 
   const [valueFin, setValueFin] = useState<Array<IFinMA>>([
     {
@@ -137,7 +135,7 @@ export function TabFinPropositoMA({
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
         {
-          Institucion: 'SECRETARÍA GENERAL DE GOBIERNO',
+          Institucion: "SECRETARÍA GENERAL DE GOBIERNO",
         },
         {
           headers: {
@@ -146,9 +144,8 @@ export function TabFinPropositoMA({
         }
       )
       .then((r) => {
-       console.log(r.data.data)
-      })
-      
+        console.log(r.data.data);
+      });
   };
 
   return (
@@ -269,9 +266,9 @@ export function TabFinPropositoMA({
                 FIN
               </Typography>
             </ListItemButton>
-
             <Divider />
           </Box>
+
           <Box
             sx={{
               display: "flex",
@@ -305,362 +302,358 @@ export function TabFinPropositoMA({
 
         {showFin ? (
           <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "90%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Box
             sx={{
               display: "flex",
-              width: "100%",
-              height: "30%",
+              flexDirection: "column",
+              width: "90%",
               alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyContent: "center",
             }}
           >
-            <TextField
-              disabled
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  META ANUAL 2023
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onClick={() => handleClickOpen()}
-              value={valueFin[0]?.metaAnual || ''}
-              error={
-                parseFloat(valueFin[0]?.metaAnual) < 0 ? true : false
-              }
-              helperText={
-                parseFloat(valueFin[0]?.metaAnual) < 0
-                  ? "Meta Anual debe ser valor mayor que 0"
-                  : null
-              }
-            />
-            <TextField
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  LÍNEA BASE 2021
-                </Typography>
-              }
-              error={
-                parseFloat(valueFin[0].lineaBase) < 0 ||
-                (isNaN(parseFloat(valueFin[0].lineaBase)) &&
-                valueFin[0].lineaBase !== "")
-                  ? true
-                  : false
-              }
-              helperText={
-                parseFloat(valueFin[0].lineaBase) < 0 ||
-                (isNaN(parseFloat(valueFin[0].lineaBase)) &&
-                valueFin[0].lineaBase !== "")
-                  ? "Introducir valor mayor que 0"
-                  : null
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onChange={(c) => {
-                valueFin[0].lineaBase = c.target.value;
-                setValueFin([...valueFin]);
-              }}
-              value={valueFin[0]?.lineaBase || ''}
-            />
-            <TextField
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  VALOR DEL NUMERADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onClick={() => handleClickOpen()}
-              value={valueFin[0]?.valorNumerador || ''}
-            />
-            <TextField
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  VALOR DEL DENOMINADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onClick={() => handleClickOpen()}
-              value={valueFin[0]?.valorDenominador || ''}
-            />
-            <FormControl
+            <Box
               sx={{
-                width: "15%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
+                display: "flex",
+                width: "100%",
+                height: "30%",
+                alignItems: "center",
                 justifyContent: "space-evenly",
-                alignItems: "flex-start",
               }}
             >
-              <FormLabel
+              <TextField
+                disabled
+                sx={{ width: "18%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    META ANUAL 2023
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onClick={() => handleClickOpen()}
+                value={valueFin[0]?.metaAnual || ""}
+                error={parseFloat(valueFin[0]?.metaAnual) < 0 ? true : false}
+                helperText={
+                  parseFloat(valueFin[0]?.metaAnual) < 0
+                    ? "Meta Anual debe ser valor mayor que 0"
+                    : null
+                }
+              />
+              <TextField
+                sx={{ width: "18%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    LÍNEA BASE 2021
+                  </Typography>
+                }
+                error={
+                  parseFloat(valueFin[0].lineaBase) < 0 ||
+                  (isNaN(parseFloat(valueFin[0].lineaBase)) &&
+                    valueFin[0].lineaBase !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(valueFin[0].lineaBase) < 0 ||
+                  (isNaN(parseFloat(valueFin[0].lineaBase)) &&
+                    valueFin[0].lineaBase !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].lineaBase = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.lineaBase || ""}
+              />
+              <TextField
+                sx={{ width: "18%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    VALOR DEL NUMERADOR
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onClick={() => handleClickOpen()}
+                value={valueFin[0]?.valorNumerador || ""}
+              />
+              <TextField
+                sx={{ width: "18%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    VALOR DEL DENOMINADOR
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onClick={() => handleClickOpen()}
+                value={valueFin[0]?.valorDenominador || ""}
+              />
+              <FormControl
                 sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: "0.6vw",
+                  width: "15%",
+                  height: "70%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "flex-start",
                 }}
               >
-                SENTIDO DEL INDICADOR
-              </FormLabel>
-              <FormControlLabel
-                value={"ASCENDENTE"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
-                  >
-                    ASCENDENTE
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      valueFin[0]?.sentidoDelIndicador === "ASCENDENTE"
-                    }
-                    onChange={(c) => {
-                      valueFin[0].sentidoDelIndicador = c.target.value;
-                      setValueFin([...valueFin]);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"DESCENDENTE"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DESCENDENTE
-                  </Typography>
-                }
-                control={
-                  <Radio
-                    checked={
-                      valueFin[0]?.sentidoDelIndicador === "DESCENDENTE"
-                    }
-                    onChange={(c) => {
-                      valueFin[0].sentidoDelIndicador = c.target.value;
-                      setValueFin([...valueFin]);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"NORMAL"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
-                  >
-                    NORMAL
-                  </Typography>
-                }
-                control={
-                  <Radio
-                    checked={
-                      valueFin[0]?.sentidoDelIndicador === "NORMAL"
-                    }
-                    onChange={(c) => {
-                      valueFin[0].sentidoDelIndicador = c.target.value;
-                      setValueFin([...valueFin]);
-                    }}
-                  />
-                }
-              />
-            </FormControl>
-          </Box>
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  SENTIDO DEL INDICADOR
+                </FormLabel>
+                <FormControlLabel
+                  value={"ASCENDENTE"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    >
+                      ASCENDENTE
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        valueFin[0]?.sentidoDelIndicador === "ASCENDENTE"
+                      }
+                      onChange={(c) => {
+                        valueFin[0].sentidoDelIndicador = c.target.value;
+                        setValueFin([...valueFin]);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"DESCENDENTE"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    >
+                      DESCENDENTE
+                    </Typography>
+                  }
+                  control={
+                    <Radio
+                      checked={
+                        valueFin[0]?.sentidoDelIndicador === "DESCENDENTE"
+                      }
+                      onChange={(c) => {
+                        valueFin[0].sentidoDelIndicador = c.target.value;
+                        setValueFin([...valueFin]);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NORMAL"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    >
+                      NORMAL
+                    </Typography>
+                  }
+                  control={
+                    <Radio
+                      checked={valueFin[0]?.sentidoDelIndicador === "NORMAL"}
+                      onChange={(c) => {
+                        valueFin[0].sentidoDelIndicador = c.target.value;
+                        setValueFin([...valueFin]);
+                      }}
+                    />
+                  }
+                />
+              </FormControl>
+            </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              height: "53%",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <TextField
-              rows={5}
-              multiline
-              sx={{ width: "40%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                height: "53%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
+            >
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].unidadResponsable = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.unidadResponsable || ""}
+              />
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DESCRIPCIÓN DEL INDICADOR
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].descIndicador = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.descIndicador || ""}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                height: "33%",
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
-              onChange={(c) => {
-                valueFin[0].unidadResponsable = c.target.value;
-                setValueFin([...valueFin]);
-              }}
-              value={valueFin[0]?.unidadResponsable || ''}
-            />
-            <TextField
-              rows={5}
-              multiline
-              sx={{ width: "40%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  DESCRIPCIÓN DEL INDICADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onChange={(c) => {
-                valueFin[0].descIndicador = c.target.value;
-                setValueFin([...valueFin]);
-              }}
-              value={valueFin[0]?.descIndicador || ''}
-            />
+            >
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DESCRIPCIÓN DEL NUMERADOR
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].descNumerador = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.descNumerador || ""}
+              />
+              <TextField
+                rows={5}
+                multiline
+                sx={{ width: "40%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DESCRIPCIÓN DEL DENOMINADOR
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onChange={(c) => {
+                  valueFin[0].descDenominador = c.target.value;
+                  setValueFin([...valueFin]);
+                }}
+                value={valueFin[0]?.descDenominador || ""}
+              />
+            </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              height: "33%",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <TextField
-              rows={5}
-              multiline
-              sx={{ width: "40%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  DESCRIPCIÓN DEL NUMERADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onChange={(c) => {
-                valueFin[0].descNumerador = c.target.value;
-                setValueFin([...valueFin]);
-              }}
-              value={valueFin[0]?.descNumerador || ''}
-            />
-            <TextField
-              rows={5}
-              multiline
-              sx={{ width: "40%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  DESCRIPCIÓN DEL DENOMINADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onChange={(c) => {
-                valueFin[0].descDenominador = c.target.value;
-                setValueFin([...valueFin]);
-              }}
-              value={valueFin[0]?.descDenominador || ''}
-            />
-          </Box>
-        </Box>
         ) : null}
 
         {showProposito ? (
@@ -704,7 +697,7 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.metaAnual || ''}
+                value={valueProposito[0]?.metaAnual || ""}
                 error={
                   parseFloat(valueProposito[0]?.metaAnual) < 0 ? true : false
                 }
@@ -752,7 +745,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].lineaBase = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.lineaBase || ''}
+                value={valueProposito[0]?.lineaBase || ""}
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -775,7 +768,7 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.valorNumerador || ''}
+                value={valueProposito[0]?.valorNumerador || ""}
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -798,7 +791,7 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.valorDenominador || ''}
+                value={valueProposito[0]?.valorDenominador || ""}
               />
               <FormControl
                 sx={{
@@ -922,7 +915,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].unidadResponsable = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                 value={valueProposito[0]?.unidadResponsable || ''}
+                value={valueProposito[0]?.unidadResponsable || ""}
               />
               <TextField
                 rows={5}
@@ -950,7 +943,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].descIndicador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descIndicador || ''}
+                value={valueProposito[0]?.descIndicador || ""}
               />
             </Box>
             <Box
@@ -988,7 +981,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].descNumerador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descNumerador || ''}
+                value={valueProposito[0]?.descNumerador || ""}
               />
               <TextField
                 rows={5}
@@ -1016,7 +1009,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].descDenominador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descDenominador || ''}
+                value={valueProposito[0]?.descDenominador || ""}
               />
             </Box>
           </Box>

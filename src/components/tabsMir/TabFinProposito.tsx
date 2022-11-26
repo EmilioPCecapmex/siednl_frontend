@@ -73,10 +73,6 @@ export function TabFinProposito({
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
 
-  // const [indicador, setIndicador] = useState<Array<IIndicadores>>([]);
-
-  // const [frecuencias, setFrecuencias] = useState<Array<IFrecuencias>>([]);
-
   const getIndicadores = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
@@ -86,7 +82,6 @@ export function TabFinProposito({
       })
       .then((r) => {
         if (r.status === 200) {
-          // setIndicador(r.data.data);
         }
       });
   };
@@ -275,6 +270,7 @@ export function TabFinProposito({
         tipo={tipoFormula}
         elemento={elementoFormula}
       />
+
       <Box
         sx={{
           width: "100%",
@@ -284,18 +280,18 @@ export function TabFinProposito({
           alignItems: "center",
         }}
       >
-        {/* Botones Componentes */}
         <Typography
-          sx={{
-            mr: "1vw",
-            fontFamily: "MontserratSemiBold",
-            fontSize: "1.2vw",
-          }}
-        >
-          {showFin ? "FIN" : null}
-          {showProposito ? "PROPÓSITO" : null}
-        </Typography>
+            sx={{
+              mr: "1vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: "1.5vw",
+            }}
+          >
+            {showFin ? "FIN" : null}
+            {showProposito ? "PROPÓSITO" : null}
+          </Typography>
       </Box>
+
       <Box
         sx={{
           width: "100%",
@@ -324,7 +320,6 @@ export function TabFinProposito({
         >
           <Box
             sx={{
-              height: "10vh",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -334,10 +329,11 @@ export function TabFinProposito({
             <ListItemButton
               selected={showFin}
               onClick={() => {
-                setShowFin(!showFin);
+                setShowFin(true);
                 setShowProposito(false);
               }}
               sx={{
+                height: "7vh",
                 "&.Mui-selected ": {
                   backgroundColor: "#c4a57b",
                 },
@@ -346,21 +342,16 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-                  textTransform: "uppercase",
-                }}
-              >
-                Fin
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                FIN
               </Typography>
             </ListItemButton>
 
             <Divider />
           </Box>
+
           <Box
             sx={{
-              height: "10vh",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -369,10 +360,11 @@ export function TabFinProposito({
             <ListItemButton
               selected={showProposito}
               onClick={() => {
-                setShowProposito(!showProposito);
+                setShowProposito(true);
                 setShowFin(false);
               }}
               sx={{
+                height: "7vh",
                 "&.Mui-selected ": {
                   backgroundColor: "#c4a57b",
                 },
@@ -381,13 +373,8 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-                  textTransform: "uppercase",
-                }}
-              >
-                Propósito
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                PROPÓSITO
               </Typography>
             </ListItemButton>
             <Divider />

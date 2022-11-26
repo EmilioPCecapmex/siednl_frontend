@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
+import { IInstituciones, LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
 import {
   Box,
@@ -58,6 +58,7 @@ export const FichaTecnica = () => {
   };
 
   const [findTextStr, setFindTextStr] = useState("");
+  const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
 
   const [ft, setft] = useState<Array<IIFT>>([]);
@@ -67,8 +68,8 @@ export const FichaTecnica = () => {
   const [ftFiltered, setftFiltered] = useState<Array<IIFT>>([]);
 
   // Filtrado por caracter
-  const findText = (v: string, select: string) => {
-    if (v !== "" || select !== "0") {
+  const findText = (v: string, est: string, inst: string) => {
+    if (v !== "" || est !== "0" || inst !== "0") {
       setftFiltered(
         ft.filter(
           (x) =>
@@ -79,12 +80,27 @@ export const FichaTecnica = () => {
         )
       );
 
-      if (select !== "0") {
+      if (est !== "0" && inst !== "0") {
         setftFiltered(
-          ft.filter((x) =>
-            x.Estado.toLowerCase().includes(select.toLowerCase())
+          ft.filter(
+            (x) =>
+              x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+              x.Institucion.toLowerCase().includes(inst.toLowerCase())
           )
         );
+      } else if (est !== "0") {
+        
+        setftFiltered(
+          ft.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
+        );
+      } else if (inst !== "0") {
+        setftFiltered(
+          ft.filter((x) =>
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+          )
+        );
+      } else {
+        setftFiltered(ft);
       }
     } else {
       setftFiltered(ft);
@@ -160,6 +176,29 @@ export const FichaTecnica = () => {
     }
   };
 
+  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+
+  const getInstituciones = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setInstituciones(r.data.data);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getInstituciones()
+  }, [])
+
   return (
     <Box
       sx={{
@@ -181,32 +220,33 @@ export const FichaTecnica = () => {
       />
       {showResume ? (
         <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "85%",
+          height: "92%",
+          mt: "8vh",
+          flexWrap: "wrap",
+        }}
+      >
+        <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            width: "85%",
-            height: "92%",
-            mt: "8vh",
-            flexWrap: "wrap",
+            mt: "3vh",
+            width: "60%",
+            height: "15vh",
+            backgroundColor: "#fff",
+            borderRadius: 5,
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            boxShadow: 5,
+            alignItems: "center",
+            justifyItems: "center",
           }}
         >
-          <Box
-            sx={{
-              mt: "3vh",
-              width: "60%",
-              height: "15vh",
-              backgroundColor: "#fff",
-              borderRadius: 5,
-              display: "flex",
-              boxShadow: 5,
-              alignItems: "center",
-              justifyContent: "space-evenly",
-            }}
-          >
             <Box
               sx={{
                 display: "flex",
-                width: "30%",
+                width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
                 border: 1,
@@ -217,12 +257,12 @@ export const FichaTecnica = () => {
               <Input
                 size="small"
                 value={findTextStr}
-                placeholder="Busqueda"
+                placeholder="Búsqueda"
                 sx={{ width: "90%", fontFamily: "MontserratRegular" }}
                 disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
-                  findText(v.target.value, findSelectStr);
+                  findText(v.target.value, findSelectStr, "");
                 }}
               />
               <SearchIcon />
@@ -231,7 +271,7 @@ export const FichaTecnica = () => {
             <FormControl
               sx={{
                 display: "flex",
-                width: "30%",
+                width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
                 border: 1,
@@ -242,15 +282,19 @@ export const FichaTecnica = () => {
               <Select
                 size="small"
                 variant="standard"
-                value={findSelectStr}
+                value={findInstStr}
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
                   v.target.value === "Todos"
-                    ? findText(findTextStr, "")
-                    : findText(findTextStr, v.target.value);
-                  setFindSelectStr(v.target.value);
+                    ? findText(
+                        findTextStr,
+                        findSelectStr === "Todos" ? "0" : findSelectStr,
+                        "0"
+                      )
+                    : findText(findTextStr, findSelectStr, v.target.value);
+                  setFindInstStr(v.target.value);
                 }}
               >
                 <MenuItem
@@ -259,7 +303,7 @@ export const FichaTecnica = () => {
                   disabled
                   selected
                 >
-                  Estado MIR
+                  Filtro por estado de la Ficha Técnica
                 </MenuItem>
                 <MenuItem
                   value={"Todos"}
@@ -294,6 +338,61 @@ export const FichaTecnica = () => {
                 </MenuItem>
               </Select>
             </FormControl>
+
+            <FormControl
+              sx={{
+                display: "flex",
+                width: "70%",
+                alignItems: "center",
+                justifyContent: "center",
+                border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
+              }}
+            >
+              <Select
+                size="small"
+                variant="standard"
+                value={findInstStr}
+                sx={{ fontFamily: "MontserratRegular" }}
+                fullWidth
+                disableUnderline
+                onChange={(v) => {
+                  v.target.value === "Todos"
+                    ? findText(
+                        findTextStr,
+                        findSelectStr === "Todos" ? "0" : findSelectStr,
+                        "0"
+                      )
+                    : findText(findTextStr, findSelectStr, v.target.value);
+                  setFindInstStr(v.target.value);
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  disabled
+                  selected
+                >
+                  Filtro por institución
+                </MenuItem>
+
+                <MenuItem
+                  value={"Todos"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Todos
+                </MenuItem>
+
+                {instituciones?.map((item) => {
+                  return (
+                    <MenuItem value={item.NombreInstitucion} key={item.Id}>
+                      {item.NombreInstitucion}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
           </Box>
 
           <Box
@@ -308,6 +407,62 @@ export const FichaTecnica = () => {
               boxShadow: 5,
             }}
           >
+            <Table>
+              <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    EJERCICIO FISCAL
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    INSTITUCIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    NOMBRE DEL PROGRAMA
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    ESTADO
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    FECHA DE CREACIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    CREADO POR
+                  </TableCell>
+                  <TableCell
+                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    align="center"
+                  >
+                    OPCIONES
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
             <Box
               sx={{
                 width: "100%",
@@ -327,89 +482,6 @@ export const FichaTecnica = () => {
             >
               <TableContainer>
                 <Table>
-                  <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
-                    <TableRow
-                      sx={{
-                        width: "100%",
-                        display: "grid",
-                        gridTemplateColumns: "repeat(7, 1fr)",
-                        justifyContent: "space-evenly",
-                        alignItems: "center",
-                      }}
-                    >
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          borderBottom: 0,
-                          fontSize: "0.8vw",
-                        }}
-                        align="center"
-                      >
-                        EJERCICIO FISCAL
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          borderBottom: 0,
-                          fontSize: "0.8vw",
-                        }}
-                        align="center"
-                      >
-                        INSTITUCIÓN
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          borderBottom: 0,
-                          fontSize: "0.8vw",
-                        }}
-                        align="center"
-                      >
-                        NOMBRE DEL PROGRAMA
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          borderBottom: 0,
-                          fontSize: "0.8vw",
-                        }}
-                        align="center"
-                      >
-                        ESTADO
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          borderBottom: 0,
-                          fontSize: "0.8vw",
-                        }}
-                        align="center"
-                      >
-                        FECHA DE CREACIÓN
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          borderBottom: 0,
-                          fontSize: "0.8vw",
-                        }}
-                        align="center"
-                      >
-                        CREADO POR
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontFamily: "MontserratBold",
-                          borderBottom: 0,
-                          fontSize: "0.8vw",
-                        }}
-                        align="center"
-                      >
-                        OPCIONES
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-
                   <TableBody>
                     {ftFiltered
                       .slice(
@@ -642,11 +714,11 @@ export const FichaTecnica = () => {
       ) : (
         <Box
           sx={{
-            width: "100%",
-            heigth: "100%",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            width: "85%",
+            height: "92%",
+            flexWrap: "wrap",
           }}
         >
           <AddFichaTecnica

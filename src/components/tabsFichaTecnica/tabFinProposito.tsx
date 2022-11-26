@@ -1,4 +1,3 @@
-
 import {
   Box,
   Typography,
@@ -11,10 +10,8 @@ import {
   FormControlLabel,
   Radio,
   Autocomplete,
-  
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -40,62 +37,51 @@ export function TabFinProposito({
   cargaProposito: Array<any>;
   mirEdit?: any;
 }) {
+  const [fin, setFin] = useState([
+    {
+      frecuencia: "",
+      claridad: "",
+      relevancia: "",
+      economia: "",
+      monitoreable: "",
+      adecuado: "",
+      aporte_marginal: "",
+      dimension: "",
+      unidadDeMedida: "",
+    },
+  ]);
 
+  const [proposito, setProposito] = useState([
+    {
+      frecuencia: "",
+      claridad: "",
+      relevancia: "",
+      economia: "",
+      monitoreable: "",
+      adecuado: "",
+      aporte_marginal: "",
+      dimension: "",
+      unidadDeMedida: "",
+    },
+  ]);
 
-  const [fin, setFin] = useState({
-    frecuencia: "",
-    claridad: "",
-    relevancia: "",
-    economia: "",
-    monitoreable: "",
-    adecuado: "",
-    aporte_marginal: "",
-    dimension:"",
-  });
-
-  const [proposito, setProposito] = useState({
-    frecuencia: "SELECCIÓN ESTRATEGICO",
-    claridad: "NO",
-    relevancia: "NO",
-    economia: "NO",
-    monitoreable: "NO",
-    adecuado: "NO",
-    aporte_marginal: "NA",
-    dimension:"EFICIENCIA",
-  });
-  {
-    /* Funcionalidad sacada de mir  */
-  }
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
-  const [checked, setChecked] = React.useState(true);
 
-  const [showSeleccionEstrategica, setSeleccionEstrategica] = useState(true);
-  const [showDeGestion, setShowDeGestion] = useState(false);
-
-  const [tipodeIndicador, setTipoDeIndicador] = useState();
-  const [dimension, setDimension] = useState();
-  const [unidadDeMedida, setUnidadDeMedida] = useState();
-  const [claridad, setClaridad] = useState();
-  const [relevancia, setRelevancia] = useState();
-  const [economia, setEconomia] = useState();
-  const [montoreable, setMontoreable] = useState();
-  const [adecuado, setAdecuado] = useState();
-  const [aporteMarginal, setAporteMarginal] = useState();
   return (
-    
     <Box
-        sx={{
-          display: "flex",
-          width: "75vw",
-          height: "75vh",
-          boxShadow: 10,
-          borderRadius: 5,
-          flexDirection: "column",
-          backgroundColor: "#fff",
-        }}
-      >
-        {/* Aqui va un FormulaDialog */}
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
+      sx={{
+        display: "flex",
+        width: "75vw",
+        height: "77vh",
+        boxShadow: 10,
+        borderRadius: 5,
+        flexDirection: "column",
+        backgroundColor: "#fff",
+      }}
+    >
         <Box
           sx={{
             width: "100%",
@@ -105,671 +91,137 @@ export function TabFinProposito({
             alignItems: "center",
           }}
         >
-          {/* Botones Componentes */}
           <Typography
             sx={{
               mr: "1vw",
               fontFamily: "MontserratSemiBold",
-              fontSize: "1.2vw",
+              fontSize: "1.5vw",
             }}
           >
             {showFin ? "FIN" : null}
             {showProposito ? "PROPÓSITO" : null}
           </Typography>
         </Box>
-        <Box
+
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+        }}
+      >
+        <List
           sx={{
-            width: "100%",
-            height: "100%",
+            width: "10vw",
+            height: "65vh",
+            borderRight: "solid",
             display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            borderColor: "#BCBCBC",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            },
           }}
         >
-          <List
+         <Box
             sx={{
-              width: "10vw",
-              height: "65vh",
-              borderRight: "solid",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              borderColor: "#BCBCBC",
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgba(0,0,0,.5)",
-                outline: "1px solid slategrey",
-                borderRadius: 10,
-              },
             }}
           >
-            <Box
+            <Divider />
+            <ListItemButton
+              selected={showFin}
+              onClick={() => {
+                setShowFin(true);
+                setShowProposito(false);
+              }}
               sx={{
-                height: "10vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
+                height: "7vh",
+                "&.Mui-selected ": {
+                  backgroundColor: "#c4a57b",
+                },
+                "&.Mui-selected:hover": {
+                  backgroundColor: "#cbcbcb",
+                },
               }}
             >
-              <Divider />
-              <ListItemButton
-                selected={showFin}
-                onClick={() => {
-                  setShowFin(!showFin);
-                  setShowProposito(false);
-                }}
-                sx={{
-                  "&.Mui-selected ": {
-                    backgroundColor: "#c4a57b",
-                  },
-                  "&.Mui-selected:hover": {
-                    backgroundColor: "#cbcbcb",
-                  },
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Fin
-                </Typography>
-              </ListItemButton>
-              <Divider />
-            </Box>
-            {/*--------------------------------Aqui esta el boton de Fin--------------------------*/}
-            <Box
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                FIN
+              </Typography>
+            </ListItemButton>
+            <Divider />
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <ListItemButton
+              selected={showProposito}
+              onClick={() => {
+                setShowProposito(true);
+                setShowFin(false);
+              }}
               sx={{
-                height: "10vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
+                height: "7vh",
+                "&.Mui-selected ": {
+                  backgroundColor: "#c4a57b",
+                },
+                "&.Mui-selected:hover": {
+                  backgroundColor: "#cbcbcb",
+                },
               }}
             >
-              <ListItemButton
-                selected={showProposito}
-                onClick={() => {
-                  setShowProposito(!showProposito);
-                  setShowFin(false);
-                }}
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                PROPÓSITO
+              </Typography>
+            </ListItemButton>
+            <Divider />
+          </Box>
+        </List>
+
+        {showFin ? (
+          <>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                width: "90%",
+                alignItems: "center",
+                justifyItems: "center",
+              }}
+            >
+              <FormControl
                 sx={{
-                  "&.Mui-selected ": {
-                    backgroundColor: "#c4a57b",
-                  },
-                  "&.Mui-selected:hover": {
-                    backgroundColor: "#cbcbcb",
-                  },
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Propósito
-                </Typography>
-              </ListItemButton>
-              <Divider />
-            </Box>
-            {/*--------------------------------Aqui esta el boton de  proposito--------------------------*/}
-          </List>
-          {/*--------------------------------Aqui termina la lista y empieza el diseño de Fin--------------------------*/}
-          {showFin ? (
-            <>
-              <Box
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr",
                   width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
                   alignItems: "center",
-                  justifyItems: "center",
                 }}
               >
-                <FormControl
+                <FormLabel
                   sx={{
-                    width: "90%",
-                    height: "60%",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    backgroundColor: "#f0f0f0",
-                    alignItems: "center",
-                    justifyItems: "center",
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
                   }}
                 >
-                  <FormLabel>FRECUENCIA</FormLabel>
-                  <Box
-                    sx={{
-                      width: "90%",
-                      height: "60%",
-                      backgroundColor: "#f0f0f0",
-                      justifyItems: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <FormControl
-                      sx={{
-                        width: "90%",
-                        height: "60%",
-                        backgroundColor: "#f0f0f0",
-                        justifyItems: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <FormControlLabel
-                        value={"SELECCIÓN ESTRATEGICO"}
-                        label={"SELECCIÓN ESTRATEGICO"}
-                        sx={{
-                          fontFamily: "MontserratMedium",
-                        }}
-                        control={
-                          <Radio
-                            checked={fin.frecuencia === "SELECCIÓN ESTRATEGICO"}
-                            onChange={(c) => {
-                              setFin({
-                                ...fin,
-                                frecuencia: c.target.value,
-                              });
-                            }}
-                          />
-                        }
-                      />
-                      <FormControlLabel
-                        value={"DE GESTIÓN"}
-                        label={"DE GESTIÓN"}
-                        sx={{
-                          fontFamily: "MontserratMedium",
-                        }}
-                        control={
-                          <Radio
-                            checked={fin.frecuencia === "DE GESTIÓN"}
-                            onChange={(c) => {
-                              setFin({
-                                ...fin,
-                                frecuencia: c.target.value,
-                              });
-                            }}
-                          />
-                        }
-                      />
-                    </FormControl>
-                  </Box>
-                </FormControl>
-
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    backgroundColor: "#f0f0f0",
-                    alignItems: "center",
-                    justifyItems: "center",
-                  }}
-                >
-                  <FormLabel>DIMENSIÓN</FormLabel>
-
-                  <Box
-                    sx={{
-                      width: "90%",
-
-                      backgroundColor: "#f0f0f0",
-                      justifyItems: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <FormControl
-                      sx={{
-                        width: "90%",
-                        height: "60%",
-                        backgroundColor: "#f0f0f0",
-                        justifyItems: "center",
-                      }}
-                    >
-                      <FormControlLabel
-                        value={"EFICIENCIA"}
-                        label={"EFICIENCIA"}
-                        sx={{
-                          fontFamily: "MontserratMedium",
-                        }}
-                        control={
-                          <Radio
-                            checked={fin.dimension === "EFICIENCIA"}
-                            onChange={(c) => {
-                              setFin({
-                                ...fin,
-                                dimension: c.target.value,
-                              });
-                            }}
-                          />
-                        }
-                      />
-
-                      <FormControlLabel
-                        value={"EFICACIA"}
-                        label={"EFICACIA"}
-                        sx={{
-                          fontFamily: "MontserratMedium",
-                        }}
-                        control={
-                          <Radio
-                            checked={fin.dimension === "EFICACIA"}
-                            onChange={(c) => {
-                              setFin({
-                                ...fin,
-                                dimension: c.target.value,
-                              });
-                            }}
-                          />
-                        }
-                      />
-                      <FormControlLabel
-                        value={"CALIDAD"}
-                        label={"CALIDAD"}
-                        sx={{
-                          fontFamily: "MontserratMedium",
-                        }}
-                        control={
-                          <Radio
-                            checked={fin.dimension === "CALIDAD"}
-                            onChange={(c) => {
-                              setFin({
-                                ...fin,
-                                dimension: c.target.value,
-                              });
-                            }}
-                          />
-                        }
-                      />
-
-                      <FormControlLabel
-                        value={"ECONOMÍA"}
-                        label={"ECONOMÍA"}
-                        sx={{
-                          fontFamily: "MontserratMedium",
-                        }}
-                        control={
-                          <Radio
-                            checked={fin.dimension === "ECONOMÍA"}
-                            onChange={(c) => {
-                              setFin({
-                                ...fin,
-                                dimension: c.target.value,
-                              });
-                            }}
-                          />
-                        }
-                      />
-                    </FormControl>
-                  </Box>
-                </FormControl>
-
-                <TextField
-                  rows={8}
-                  multiline
-                  variant="filled"
-                  sx={{ width: "90%", boxShadow: 2 }}
-                  label={"UNIDAD DE MEDIDA"}
-                  InputLabelProps={{
-                    style: {
-                      fontFamily: "MontserratMedium",
-                      fontSize: ".8vw",
-                    },
-                  }}
-                  InputProps={{
-                    style: {
-                      fontFamily: "MontserratRegular",
-                    },
-                  }}
-                />
-
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormLabel>CLARIDAD</FormLabel>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={"SI"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.claridad === "SI"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            claridad: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={"NO"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.claridad === "NO"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            claridad: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </FormControl>
-
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormLabel>RELEVANCIA</FormLabel>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={"SI"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.relevancia === "SI"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            relevancia: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={"NO"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.relevancia === "NO"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            relevancia: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </FormControl>
-
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormLabel>ECONOMÍA</FormLabel>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={"SI"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.economia === "SI"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            economia: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={"NO"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.economia === "NO"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            economia: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </FormControl>
-
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormLabel>MONITOREABLE</FormLabel>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={"SI"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.monitoreable === "SI"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            monitoreable: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={"NO"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.monitoreable === "NO"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            monitoreable: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </FormControl>
-
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormLabel>ADECUADO</FormLabel>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={"SI"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.adecuado === "SI"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            adecuado: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={"NO"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.adecuado === "NO"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            adecuado: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </FormControl>
-
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormLabel>APORTE MARGINAL</FormLabel>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={"SI"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.aporte_marginal === "SI"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            aporte_marginal: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={"NO"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.aporte_marginal === "NO"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            aporte_marginal: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NA"}
-                    label={"NA"}
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin.aporte_marginal === "NA"}
-                        onChange={(c) => {
-                          setFin({
-                            ...fin,
-                            aporte_marginal: c.target.value,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </FormControl>
-              </Box>
-            </>
-          ) : null}
-
-          {showProposito ? (
-            <>
-              <Box
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr",
-                  width: "90%",
-                  alignItems: "center",
-                  justifyItems: "center",
-                }}
-              >
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormLabel>FRECUENCIA</FormLabel>
+                  FRECUENCIA
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SELECCIÓN ESTRATEGICO"}
                     label={"SELECCIÓN ESTRATEGICO"}
@@ -778,13 +230,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={
-                          proposito.frecuencia === "SELECCIÓN ESTRATEGICO"
-                        }
+                        checked={fin[0].frecuencia === "SELECCIÓN ESTRATEGICO"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            frecuencia: c.target.value,
+                          fin[0].frecuencia = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -798,30 +248,40 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.frecuencia === "DE GESTIÓN"}
+                        checked={fin[0].frecuencia === "DE GESTIÓN"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            frecuencia: c.target.value,
+                          fin[0].frecuencia = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
                     }
                   />
-                </FormControl>
+                </Box>
+              </FormControl>
 
-                <FormControl
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
                   sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
                   }}
                 >
-                  <FormLabel>DIMENSIÓN</FormLabel>
+                  DIMENSIÓN
+                </FormLabel>
+
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"EFICIENCIA"}
                     label={"EFICIENCIA"}
@@ -830,11 +290,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.dimension === "EFICIENCIA"}
+                        checked={fin[0].dimension === "EFICIENCIA"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            dimension: c.target.value,
+                          fin[0].dimension = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -848,11 +308,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.dimension === "EFICACIA"}
+                        checked={fin[0].dimension === "EFICACIA"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            dimension: c.target.value,
+                          fin[0].dimension = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -866,11 +326,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.dimension === "CALIDAD"}
+                        checked={fin[0].dimension === "CALIDAD"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            dimension: c.target.value,
+                          fin[0].dimension = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -885,48 +345,65 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.dimension === "ECONOMÍA"}
+                        checked={fin[0].dimension === "ECONOMÍA"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            dimension: c.target.value,
+                          fin[0].dimension = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
                     }
                   />
-                </FormControl>
-                <TextField
-                  rows={8}
-                  multiline
-                  variant="filled"
-                  sx={{ width: "90%", boxShadow: 2 }}
-                  label={"UNIDAD DE MEDIDA"}
-                  InputLabelProps={{
-                    style: {
-                      fontFamily: "MontserratMedium",
-                      fontSize: ".8vw",
-                    },
-                  }}
-                  InputProps={{
-                    style: {
-                      fontFamily: "MontserratRegular",
-                    },
-                  }}
-                />
+                </Box>
+              </FormControl>
 
-                <FormControl
-                  sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
+              <TextField
+                rows={8}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"UNIDAD DE MEDIDA"}
+                InputLabelProps={{
+                  style: {
                     fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    fontSize: ".8vw",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={fin[0].unidadDeMedida}
+                onChange={(c) => {
+                  fin[0].unidadDeMedida = c.target.value;
+                  setFin({
+                    ...fin,
+                  });
+                }}
+              />
+
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
                   }}
                 >
-                  <FormLabel>CLARIDAD</FormLabel>
+                  CLARIDAD
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={"SI"}
@@ -935,11 +412,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.claridad === "SI"}
+                        checked={fin[0].claridad === "SI"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            claridad: c.target.value,
+                          fin[0].claridad = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -953,30 +430,39 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.claridad === "NO"}
+                        checked={fin[0].claridad === "NO"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            claridad: c.target.value,
+                          fin[0].claridad = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
                     }
                   />
-                </FormControl>
+                </Box>
+              </FormControl>
 
-                <FormControl
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
                   sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
                   }}
                 >
-                  <FormLabel>RELEVANCIA</FormLabel>
+                  RELEVANCIA
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={"SI"}
@@ -985,11 +471,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.relevancia === "SI"}
+                        checked={fin[0].relevancia === "SI"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            relevancia: c.target.value,
+                          fin[0].relevancia = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -1003,30 +489,39 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.relevancia === "NO"}
+                        checked={fin[0].relevancia === "NO"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            relevancia: c.target.value,
+                          fin[0].relevancia = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
                     }
                   />
-                </FormControl>
+                </Box>
+              </FormControl>
 
-                <FormControl
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
                   sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
                   }}
                 >
-                  <FormLabel>ECONOMÍA</FormLabel>
+                  ECONOMÍA
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={"SI"}
@@ -1035,11 +530,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.economia === "SI"}
+                        checked={fin[0].economia === "SI"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            economia: c.target.value,
+                          fin[0].economia = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -1053,30 +548,39 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.economia === "NO"}
+                        checked={fin[0].economia === "NO"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            economia: c.target.value,
+                          fin[0].economia = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
                     }
                   />
-                </FormControl>
+                </Box>
+              </FormControl>
 
-                <FormControl
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
                   sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
                   }}
                 >
-                  <FormLabel>MONITOREABLE</FormLabel>
+                  MONITOREABLE
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={"SI"}
@@ -1085,11 +589,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.monitoreable === "SI"}
+                        checked={fin[0].monitoreable === "SI"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            monitoreable: c.target.value,
+                          fin[0].monitoreable = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -1103,30 +607,39 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.monitoreable === "NO"}
+                        checked={fin[0].monitoreable === "NO"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            monitoreable: c.target.value,
+                          fin[0].monitoreable = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
                     }
                   />
-                </FormControl>
+                </Box>
+              </FormControl>
 
-                <FormControl
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
                   sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
                   }}
                 >
-                  <FormLabel>ADECUADO</FormLabel>
+                  ADECUADO
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={"SI"}
@@ -1135,11 +648,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.adecuado === "SI"}
+                        checked={fin[0].adecuado === "SI"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            adecuado: c.target.value,
+                          fin[0].adecuado = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -1153,30 +666,39 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.adecuado === "NO"}
+                        checked={fin[0].adecuado === "NO"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            adecuado: c.target.value,
+                          fin[0].adecuado = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
                     }
                   />
-                </FormControl>
+                </Box>
+              </FormControl>
 
-                <FormControl
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
                   sx={{
-                    width: "90%",
-                    height: "60%",
-                    backgroundColor: "#f0f0f0",
-                    boxShadow: 2,
-                    fontFamily: "MontserratMedium",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
                   }}
                 >
-                  <FormLabel>APORTE MARGINAL</FormLabel>
+                  APORTE MARGINAL
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={"SI"}
@@ -1185,12 +707,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.aporte_marginal === "SI"}
+                        checked={fin[0].aporte_marginal === "SI"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            
-                            aporte_marginal: c.target.value,
+                          fin[0].aporte_marginal = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -1204,11 +725,11 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.aporte_marginal === "NO"}
+                        checked={fin[0].aporte_marginal === "NO"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            aporte_marginal: c.target.value,
+                          fin[0].aporte_marginal = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
@@ -1222,21 +743,592 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito.aporte_marginal === "NA"}
+                        checked={fin[0].aporte_marginal === "NA"}
                         onChange={(c) => {
-                          setProposito({
-                            ...proposito,
-                            aporte_marginal: c.target.value,
+                          fin[0].aporte_marginal = c.target.value;
+                          setFin({
+                            ...fin,
                           });
                         }}
                       />
                     }
                   />
-                </FormControl>
-              </Box>
-            </>
-          ) : null}
-        </Box>
+                </Box>
+              </FormControl>
+            </Box>
+          </>
+        ) : null}
+
+        {showProposito ? (
+          <>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                width: "90%",
+                alignItems: "center",
+                justifyItems: "center",
+              }}
+            >
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  FRECUENCIA
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <FormControlLabel
+                    value={"SELECCIÓN ESTRATEGICO"}
+                    label={"SELECCIÓN ESTRATEGICO"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={
+                          proposito[0].frecuencia === "SELECCIÓN ESTRATEGICO"
+                        }
+                        onChange={(c) => {
+                          proposito[0].frecuencia = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"DE GESTIÓN"}
+                    label={"DE GESTIÓN"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].frecuencia === "DE GESTIÓN"}
+                        onChange={(c) => {
+                          proposito[0].frecuencia = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </Box>
+              </FormControl>
+
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  DIMENSIÓN
+                </FormLabel>
+
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <FormControlLabel
+                    value={"EFICIENCIA"}
+                    label={"EFICIENCIA"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].dimension === "EFICIENCIA"}
+                        onChange={(c) => {
+                          proposito[0].dimension = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"EFICACIA"}
+                    label={"EFICACIA"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].dimension === "EFICACIA"}
+                        onChange={(c) => {
+                          proposito[0].dimension = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"CALIDAD"}
+                    label={"CALIDAD"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].dimension === "CALIDAD"}
+                        onChange={(c) => {
+                          proposito[0].dimension = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+
+                  <FormControlLabel
+                    value={"ECONOMÍA"}
+                    label={"ECONOMÍA"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].dimension === "ECONOMÍA"}
+                        onChange={(c) => {
+                          proposito[0].dimension = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </Box>
+              </FormControl>
+
+              <TextField
+                rows={8}
+                multiline
+                variant="filled"
+                sx={{ width: "90%", boxShadow: 2 }}
+                label={"UNIDAD DE MEDIDA"}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                    fontSize: ".8vw",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={proposito[0].unidadDeMedida}
+                onChange={(c) => {
+                  proposito[0].unidadDeMedida = c.target.value;
+                  setProposito({
+                    ...proposito,
+                  });
+                }}
+              />
+
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  CLARIDAD
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <FormControlLabel
+                    value={"SI"}
+                    label={"SI"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].claridad === "SI"}
+                        onChange={(c) => {
+                          proposito[0].claridad = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NO"}
+                    label={"NO"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].claridad === "NO"}
+                        onChange={(c) => {
+                          proposito[0].claridad = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </Box>
+              </FormControl>
+
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  RELEVANCIA
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <FormControlLabel
+                    value={"SI"}
+                    label={"SI"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].relevancia === "SI"}
+                        onChange={(c) => {
+                          proposito[0].relevancia = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NO"}
+                    label={"NO"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].relevancia === "NO"}
+                        onChange={(c) => {
+                          proposito[0].relevancia = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </Box>
+              </FormControl>
+
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  ECONOMÍA
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <FormControlLabel
+                    value={"SI"}
+                    label={"SI"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].economia === "SI"}
+                        onChange={(c) => {
+                          proposito[0].economia = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NO"}
+                    label={"NO"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].economia === "NO"}
+                        onChange={(c) => {
+                          proposito[0].economia = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </Box>
+              </FormControl>
+
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  MONITOREABLE
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <FormControlLabel
+                    value={"SI"}
+                    label={"SI"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].monitoreable === "SI"}
+                        onChange={(c) => {
+                          proposito[0].monitoreable = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NO"}
+                    label={"NO"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].monitoreable === "NO"}
+                        onChange={(c) => {
+                          proposito[0].monitoreable = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </Box>
+              </FormControl>
+
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  ADECUADO
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <FormControlLabel
+                    value={"SI"}
+                    label={"SI"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].adecuado === "SI"}
+                        onChange={(c) => {
+                          proposito[0].adecuado = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NO"}
+                    label={"NO"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].adecuado === "NO"}
+                        onChange={(c) => {
+                          proposito[0].adecuado = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </Box>
+              </FormControl>
+
+              <FormControl
+                sx={{
+                  width: "90%",
+                  height: "60%",
+                  backgroundColor: "#f0f0f0",
+                  boxShadow: 2,
+                  fontFamily: "MontserratMedium",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormLabel
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: "0.6vw",
+                  }}
+                >
+                  APORTE MARGINAL
+                </FormLabel>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <FormControlLabel
+                    value={"SI"}
+                    label={"SI"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].aporte_marginal === "SI"}
+                        onChange={(c) => {
+                          proposito[0].aporte_marginal = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NO"}
+                    label={"NO"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].aporte_marginal === "NO"}
+                        onChange={(c) => {
+                          proposito[0].aporte_marginal = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NA"}
+                    label={"NA"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito[0].aporte_marginal === "NA"}
+                        onChange={(c) => {
+                          proposito[0].aporte_marginal = c.target.value;
+                          setProposito({
+                            ...proposito,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </Box>
+              </FormControl>
+            </Box>
+          </>
+        ) : null}
       </Box>
-  )
+    </Box>
+  );
 }

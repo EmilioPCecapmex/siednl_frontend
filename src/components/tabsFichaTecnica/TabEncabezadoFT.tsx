@@ -14,7 +14,11 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 
-export function TabEncabezadoFT() {
+export function TabEncabezadoFT({
+  show,
+}: {
+  show: boolean;
+}) {
 
 
 
@@ -36,7 +40,7 @@ export function TabEncabezadoFT() {
   {
     return (
       <Box
-      visibility={{/*{show ? "visible" : "hidden"}*/}}
+      visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
         width: "75vw",
@@ -48,12 +52,10 @@ export function TabEncabezadoFT() {
         boxShadow: 20,
         borderRadius: 5,
         display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
-        gridTemplateRows: "4fr 1fr 1fr 1fr",
-      }}>
-
-      
-        
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gridTemplateRows: "1fr 1fr 1fr 2fr",
+      }}
+    >
         <TextField
         rows={8}
         multiline
