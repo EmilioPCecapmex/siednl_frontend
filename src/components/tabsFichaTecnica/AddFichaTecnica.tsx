@@ -237,6 +237,7 @@ export default function AddFichaTecnica({
             IdMA={IdMA}
             showResume={showResume}
             MIR={MIR}
+            encabezado={['']}
           ></TabResumenFT>
         </Box>
 
