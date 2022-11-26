@@ -39,7 +39,7 @@ export function TabFinProposito({
 }) {
   const [fin, setFin] = useState([
     {
-      frecuencia: "",
+      tipoDeIndicador: "",
       claridad: "",
       relevancia: "",
       economia: "",
@@ -51,9 +51,10 @@ export function TabFinProposito({
     },
   ]);
 
+  
   const [proposito, setProposito] = useState([
     {
-      frecuencia: "",
+      tipoDeIndicador: "",
       claridad: "",
       relevancia: "",
       economia: "",
@@ -64,7 +65,12 @@ export function TabFinProposito({
       unidadDeMedida: "",
     },
   ]);
-
+  
+  useEffect(() => {
+    resumenFin(fin);
+    resumenProposito(proposito);
+  }, [fin, proposito]);
+  
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
 
@@ -219,7 +225,7 @@ export function TabFinProposito({
                     fontSize: "0.6vw",
                   }}
                 >
-                  FRECUENCIA
+                  TIPO DE INDICADOR
                 </FormLabel>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
@@ -230,9 +236,9 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={fin[0].frecuencia === "SELECCIÓN ESTRATEGICO"}
+                        checked={fin[0].tipoDeIndicador === "SELECCIÓN ESTRATEGICO"}
                         onChange={(c) => {
-                          fin[0].frecuencia = c.target.value;
+                          fin[0].tipoDeIndicador = c.target.value;
                           setFin({
                             ...fin,
                           });
@@ -248,9 +254,9 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={fin[0].frecuencia === "DE GESTIÓN"}
+                        checked={fin[0].tipoDeIndicador === "DE GESTIÓN"}
                         onChange={(c) => {
-                          fin[0].frecuencia = c.target.value;
+                          fin[0].tipoDeIndicador = c.target.value;
                           setFin({
                             ...fin,
                           });
@@ -787,7 +793,7 @@ export function TabFinProposito({
                     fontSize: "0.6vw",
                   }}
                 >
-                  FRECUENCIA
+                  TIPO DE INDICADOR
                 </FormLabel>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
@@ -799,10 +805,10 @@ export function TabFinProposito({
                     control={
                       <Radio
                         checked={
-                          proposito[0].frecuencia === "SELECCIÓN ESTRATEGICO"
+                          proposito[0].tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
                         }
                         onChange={(c) => {
-                          proposito[0].frecuencia = c.target.value;
+                          proposito[0].tipoDeIndicador = c.target.value;
                           setProposito({
                             ...proposito,
                           });
@@ -818,9 +824,9 @@ export function TabFinProposito({
                     }}
                     control={
                       <Radio
-                        checked={proposito[0].frecuencia === "DE GESTIÓN"}
+                        checked={proposito[0].tipoDeIndicador === "DE GESTIÓN"}
                         onChange={(c) => {
-                          proposito[0].frecuencia = c.target.value;
+                          proposito[0].tipoDeIndicador = c.target.value;
                           setProposito({
                             ...proposito,
                           });
