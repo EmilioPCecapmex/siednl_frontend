@@ -31,15 +31,21 @@ export default function ModalCrearUsuario({
   handleClose: Function;
 }) {
   const [username, setUsername] = useState("");
+  const [contrasena, setContrasena] = useState("");
   const [email, setEmail] = useState("");
   const [names, setNames] = useState("");
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
+  const [curp, setCURP] = useState("");
+  const [rfc, setRFC] = useState("");
+
   const [institution, setInstitution] = useState("0");
   const [rol, setRol] = useState("");
   const [userType, setUserType] = useState("0");
+
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
+  const [ext, setExt] = useState("");
   const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
@@ -119,7 +125,7 @@ export default function ModalCrearUsuario({
   const signUp = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN+ "/api/sign-up",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/sign-up",
         {
           Nombre: names,
           ApellidoPaterno: firstName,
@@ -127,6 +133,12 @@ export default function ModalCrearUsuario({
           NombreUsuario: username,
           CorreoElectronico: email,
           IdUsuarioModificador: localStorage.getItem("IdUsuario"),
+          Curp:curp,
+          Rfc:rfc,
+          Telefono:telephone,
+          Ext:ext,
+          Celular:cellphone,
+          IdTipoUsuario: localStorage.getItem("IdUsuario"),
         },
         {
           headers: {
@@ -136,6 +148,44 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 201) {
+//////////////////////////////////////////////////////////////
+axios
+      .post(
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
+        {
+          IdUsuario: names,
+          DatosAdicionales: ,
+          TipoSolicitud: "Alta",
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdApp: ,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 201) {
+
+          
+          cleanForm();
+          handleClose();
+          setIdUsuarioCentral(r.data.IdUsuario);
+          siednlSignUp(r.data.IdUsuario);
+        }
+      })
+      .catch((r) => {
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
+      });
+///////////////////////////////////////////////////////////
+
           cleanForm();
           handleClose();
           setIdUsuarioCentral(r.data.IdUsuario);
@@ -152,6 +202,11 @@ export default function ModalCrearUsuario({
         }
       });
   };
+
+
+
+
+
 
   const siednlSignUp = (idUsrCentral: string) => {
     axios
@@ -289,7 +344,8 @@ export default function ModalCrearUsuario({
           sx={{
             width: "100%",
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
+            mt: "3vh",
           }}
         >
           <TextField
@@ -304,13 +360,25 @@ export default function ModalCrearUsuario({
           />
 
           <TextField
+            label="Contraseña"
+            variant="outlined"
+            value={contrasena}
+            sx={{
+              width: "30%",
+
+            }}
+            type="password"
+            onChange={(v) => setContrasena(v.target.value)}
+          />
+
+          <TextField
             label="Correo Electrónico"
             variant="outlined"
             type="email"
             onChange={(v) => setEmail(v.target.value)}
             value={email}
             sx={{
-              width: "40%",
+              width: "30%",
               mr: "2vw",
             }}
           />
@@ -355,8 +423,7 @@ export default function ModalCrearUsuario({
             }}
           />
         </Box>
-
-        <Box
+<Box
           sx={{
             width: "100%",
             display: "flex",
@@ -439,7 +506,39 @@ export default function ModalCrearUsuario({
             </Select>
           </FormControl>
         </Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            mt: "3vh",
+          }}
+        >
+          <TextField
+            label="CURP"
+            variant="outlined"
+            value={curp}
+            onChange={(x) => setCURP(x.target.value)}
+            sx={{
+              width: "40%",
+              ml: "2vw",
+            }}
+          />
 
+          <TextField
+            label="RFC"
+            variant="outlined"
+            value={rfc}
+            onChange={(x) => setRFC(x.target.value)}
+            sx={{
+              width: "40%",
+              mr: "2vw",
+            }}
+          />
+
+
+        </Box>
+        
         <Box
           sx={{
             width: "100%",
@@ -452,8 +551,8 @@ export default function ModalCrearUsuario({
             label="Teléfono"
             variant="outlined"
             sx={{
-              width: "30%",
-              ml: "10vw",
+              width: "40%",
+              ml: "2vw",
             }}
             type="tel"
             value={telephone}
@@ -465,13 +564,28 @@ export default function ModalCrearUsuario({
             variant="outlined"
             type="tel"
             sx={{
-              width: "30%",
-              mr: "10vw",
+              width: "40%",
+
             }}
             value={cellphone}
             onChange={(x) => setCellphone(x.target.value)}
           />
+
+          <TextField
+            label="Extensión "
+            variant="outlined"
+            sx={{
+              width: "10%",
+              mr: "2vw",
+            }}
+            type="tel"
+            value={ext}
+            onChange={(x) => setExt(x.target.value)}
+          />
         </Box>
+        
+
+
 
         <Box
           sx={{
