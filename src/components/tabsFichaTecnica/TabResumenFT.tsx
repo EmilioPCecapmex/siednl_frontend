@@ -1259,7 +1259,7 @@ export function TabResumenFT({
                     >
                       {
                               cValor[0].componentes[indexComponentes]
-                                .actividades[indexActividades].actividad
+                                .actividades[indexActividades].tipoDeIndicador
                             }
                     </Typography>
                   </Box>
