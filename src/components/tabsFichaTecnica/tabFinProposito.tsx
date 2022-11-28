@@ -288,6 +288,7 @@ export function TabFinProposito({
                 </FormLabel>
 
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <Box sx={{ display:"flex", flexDirection:"row"}}>
                   <FormControlLabel
                     value={"EFICIENCIA"}
                     label={"EFICIENCIA"}
@@ -324,6 +325,8 @@ export function TabFinProposito({
                       />
                     }
                   />
+                  </Box>
+                  <Box sx={{ display:"flex", flexDirection:"row"}}>
                   <FormControlLabel
                     value={"CALIDAD"}
                     label={"CALIDAD"}
@@ -347,6 +350,7 @@ export function TabFinProposito({
                     value={"ECONOMÍA"}
                     label={"ECONOMÍA"}
                     sx={{
+                      ml:"0.5vw",
                       fontFamily: "MontserratMedium",
                     }}
                     control={
@@ -361,6 +365,7 @@ export function TabFinProposito({
                       />
                     }
                   />
+                  </Box>
                 </Box>
               </FormControl>
 
@@ -858,6 +863,7 @@ export function TabFinProposito({
                 </FormLabel>
 
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <Box sx={{ display:"flex", flexDirection:"row"}}>
                   <FormControlLabel
                     value={"EFICIENCIA"}
                     label={"EFICIENCIA"}
@@ -894,6 +900,8 @@ export function TabFinProposito({
                       />
                     }
                   />
+                  </Box>
+                  <Box sx={{ display:"flex", flexDirection:"row"}}>
                   <FormControlLabel
                     value={"CALIDAD"}
                     label={"CALIDAD"}
@@ -918,6 +926,7 @@ export function TabFinProposito({
                     label={"ECONOMÍA"}
                     sx={{
                       fontFamily: "MontserratMedium",
+                      ml:"0.5vw",
                     }}
                     control={
                       <Radio
@@ -931,6 +940,7 @@ export function TabFinProposito({
                       />
                     }
                   />
+                  </Box>
                 </Box>
               </FormControl>
 

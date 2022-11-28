@@ -457,6 +457,7 @@ export const TabActividadesFT = ({
             </FormLabel>
 
             <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
               <FormControlLabel
                 value={"EFICIENCIA"}
                 label={"EFICIENCIA"}
@@ -503,6 +504,8 @@ export const TabActividadesFT = ({
                   />
                 }
               />
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "row" }}>
               <FormControlLabel
                 value={"CALIDAD"}
                 label={"CALIDAD"}
@@ -532,6 +535,7 @@ export const TabActividadesFT = ({
                 label={"ECONOMÍA"}
                 sx={{
                   fontFamily: "MontserratMedium",
+                  ml:"0.5vw",
                 }}
                 control={
                   <Radio
@@ -550,6 +554,7 @@ export const TabActividadesFT = ({
                   />
                 }
               />
+              </Box>
             </Box>
           </FormControl>
 
