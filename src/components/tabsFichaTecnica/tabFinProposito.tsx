@@ -26,16 +26,18 @@ export function TabFinProposito({
   show,
   resumenFin,
   resumenProposito,
-  cargaFin,
-  cargaProposito,
-  mirEdit,
+  MA,
+  MIR,
+  
 }: {
   show: boolean;
   resumenFin: Function;
   resumenProposito: Function;
-  cargaFin: Array<any>;
-  cargaProposito: Array<any>;
-  mirEdit?: any;
+  MA: string;
+  MIR: string;
+ 
+  
+
 }) {
   const [fin, setFin] = useState([
     {

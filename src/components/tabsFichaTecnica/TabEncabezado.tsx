@@ -37,30 +37,14 @@ export interface IIEncabezadoFT {
 export function TabEncabezado({
   show,
   resumenEncabezado,
-  cargaFin,
-  cargaProposito,
-  fichaTecnica,
-  asignarComponente,
-  asignarComponenteValor,
-  componenteActividad,
-  actividadesFichaTecnica,
-  anioFiscalEdit,
-  fichaTecnicaEdit,
+ 
 }: {
   show: boolean;
   resumenEncabezado: Function;
-  cargaFin: Function;
-  cargaProposito: Function;
-  fichaTecnica: string;
-  asignarComponente: Function;
-  asignarComponenteValor: Function;
-  componenteActividad: Function;
-  actividadesFichaTecnica: Function;
-  anioFiscalEdit: string;
-  fichaTecnicaEdit: any;
+  
 }) {
- 
-const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
+
+  const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
 const [encabezado2, setEncabezado2] = useState<Array<IIEncabezadoFT>>([]);
 
 
@@ -75,7 +59,7 @@ const [objetivoDS, setObjetivoODS] = useState([
 const getMetas = () => {
   axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/metasODS", {
-     
+
       headers: {
         Authorization: localStorage.getItem("jwtToken") || "",
       },
@@ -88,7 +72,7 @@ const getMetas = () => {
 const getObjetivos = () => {
   axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosDS", {
-     
+
       headers: {
         Authorization: localStorage.getItem("jwtToken") || "",
       },
@@ -125,8 +109,8 @@ useEffect(() => {
       gridTemplateRows: "4fr 1fr 1fr 1fr",
     }}>
 
-    
-      
+
+
       <TextField
       rows={8}
       multiline
@@ -143,122 +127,125 @@ useEffect(() => {
           fontFamily: "MontserratRegular",
         },
       }}
-       >
-        Hola1
-      </TextField>
-      
-      
+
+      >
+      Hola1
+    </TextField>
+
+
 {/*------------------------TF1--------------------- */}
-    
-    <TextField 
-    rows={8}
-    multiline
-    sx={{ width: "90%", boxShadow: 2 }}
-    variant={"filled"}
-    label="OBJETIVO SECTORIAL, ESPECIAL O REGIONAL"
-    InputLabelProps={{
-      style: {
-        fontFamily: "MontserratMedium",
-      },
-    }}
-    InputProps={{
-      style: {
-        fontFamily: "MontserratRegular",
-      },
-    }}>
-        Hola2
-      </TextField>
-    
-      
+
+  <TextField 
+  rows={8}
+  multiline
+  sx={{ width: "90%", boxShadow: 2 }}
+  variant={"filled"}
+  label="OBJETIVO SECTORIAL, ESPECIAL O REGIONAL"
+  InputLabelProps={{
+    style: {
+      fontFamily: "MontserratMedium",
+    },
+  }}
+  InputProps={{
+    style: {
+      fontFamily: "MontserratRegular",
+    },
+  }}>
+      Hola2
+    </TextField>
+
+
 {/*------------------------TF2--------------------- */}
 
 <FormControl sx={{ gridRow: "2", width: "20vw", mt: "6vh" }}>
-      <Autocomplete
-        disabled={false}
-        disablePortal
-        size="small"
-        options={objetivoDS}
-        getOptionLabel={(option) => option.ObjetivoDS}
-        renderOption={(props:any, option:any) => {
-          return (
-            <li {...props}>
-              <p
-                style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-              >
-                {option.ObjetivoDS}
-              </p>
-            </li>
-          );
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label={"OBJETIVO ODS"}
-            variant="standard"
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratSemiBold",
-                fontSize: ".8vw",
-              },
-            }}
-            sx={{
-              "& .MuiAutocomplete-input": {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-          >
-            
-          </TextField>
-        )}
-        isOptionEqualToValue={(option, value) => option.Id === value.Id}
-      />
-    </FormControl>
-     
+    <Autocomplete
+      disabled={false}
+      disablePortal
+      size="small"
+      options={objetivoDS}
+      getOptionLabel={(option) => option.ObjetivoDS}
+      renderOption={(props:any, option:any) => {
+        return (
+          <li {...props}>
+            <p
+              style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+            >
+              {option.ObjetivoDS}
+            </p>
+          </li>
+        );
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={"OBJETIVO ODS"}
+          variant="standard"
+          InputLabelProps={{
+            style: {
+              fontFamily: "MontserratSemiBold",
+              fontSize: ".8vw",
+            },
+          }}
+          sx={{
+            "& .MuiAutocomplete-input": {
+              fontFamily: "MontserratRegular",
+            },
+          }}
+        >
+
+        </TextField>
+      )}
+      isOptionEqualToValue={(option, value) => option.Id === value.Id}
+    />
+  </FormControl>
+
 {/*------------------------TF3--------------------- */}
 <FormControl sx={{ gridRow: "2", width: "20vw", mt: "6vh" }}>
-      <Autocomplete
-        disabled={false}
-        disablePortal
-        size="small"
-        options={metaODS}
-        getOptionLabel={(option) => option.MetaODS}
-        renderOption={(props:any, option:any) => {
-          return (
-            <li {...props}>
-              <p
-                style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-              >
-                {option.MetaODS}
-              </p>
-            </li>
-          );
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label={"META ODS"}
-            variant="standard"
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratSemiBold",
-                fontSize: ".8vw",
-              },
-            }}
-            sx={{
-              "& .MuiAutocomplete-input": {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-          >
-            
-          </TextField>
-        )}
-        isOptionEqualToValue={(option, value) => option.Id === value.Id}
-      />
-    </FormControl>
+    <Autocomplete
+      disabled={false}
+      disablePortal
+      size="small"
+      options={metaODS}
+      getOptionLabel={(option) => option.MetaODS}
+      renderOption={(props:any, option:any) => {
+        return (
+          <li {...props}>
+            <p
+              style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+            >
+              {option.MetaODS}
+            </p>
+          </li>
+        );
+      }}
+
+
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={"META ODS"}
+          variant="standard"
+          InputLabelProps={{
+            style: {
+              fontFamily: "MontserratSemiBold",
+              fontSize: ".8vw",
+            },
+          }}
+          sx={{
+            "& .MuiAutocomplete-input": {
+              fontFamily: "MontserratRegular",
+            },
+          }}
+        >
+
+        </TextField>
+      )}
+      isOptionEqualToValue={(option, value) => option.Id === value.Id}
+    />
+  </FormControl>
 
 
 {/*------------------------TF4--------------------- */}
-    </Box>
-  );
+  </Box>
+);
 }

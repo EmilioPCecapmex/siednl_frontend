@@ -149,6 +149,7 @@ export const TabComponenteMA = ({
     setOpenFormulaDialog(true);
   };
 
+
   const handleClose = () => {
     setOpenFormulaDialog(false);
   };
@@ -180,7 +181,7 @@ export const TabComponenteMA = ({
   const handleClose2 = () => {
     setOpenFormulaDialogMACA(false);
   };
-
+///////// esto es necesario 
   const changeFormula = (txt: string) => {
     componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
     componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];
@@ -208,6 +209,8 @@ export const TabComponenteMA = ({
 
     setComponentesValues([...componentesValues]);
   };
+
+
 
   return (
     <Box
@@ -251,7 +254,7 @@ export const TabComponenteMA = ({
           justifyContent: "flex-end",
           alignItems: "center",
         }}
-      >
+        >
         <InfoOutlinedIcon
           onClick={() => {
             showMirFnc(true);
@@ -385,7 +388,7 @@ export const TabComponenteMA = ({
                     ?.trimestre4 && componentesValues[componentSelect - 1]?.metaAnual !==
                     componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
                       ?.semestre2)
-                  ? true
+                  ? true 
                   : false
               }
               helperText={
