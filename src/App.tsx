@@ -18,9 +18,6 @@ import { Notification } from "./screens/notification/Notifications";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
-import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
-import TabEncabezado from "./components/tabsMir/TabEncabezado";
-import { TabEncabezadoFT } from "./components/tabsFichaTecnica/TabEncabezadoFT";
 
 function App() {
   const navigate = useNavigate();
