@@ -19,6 +19,9 @@ export function TabFinProposito({
   cargaFin,
   cargaProposito,
   FtEdit,
+  MA,
+  MIR,
+  
 }: {
   show: boolean;
   resumenFin: Function;
@@ -26,6 +29,11 @@ export function TabFinProposito({
   cargaFin: Array<IFinFT>;
   cargaProposito: Array<IFinFT>;
   FtEdit?: any;
+  MA: string;
+  MIR: string;
+ 
+  
+
 }) {
   const [fin, setFin] = useState([
     {

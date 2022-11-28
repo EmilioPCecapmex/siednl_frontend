@@ -5,12 +5,9 @@ import { TabEncabezado } from "./TabEncabezado";
 import { IComponenteMA, ICValorMA } from "../tabsMetaAnual/Interfaces";
 import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
 import TabResumenFT from "./TabResumenFT";
-import { TabComponentes } from "./tabComponentes";
+import { TabComponenteFT} from "./tabComponentes";
 import { TabFinProposito } from "./tabFinProposito";
-import { TabEncabezadoFT } from "./TabEncabezadoFT";
-
 import { Box, IconButton } from "@mui/material";
-
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
@@ -242,7 +239,16 @@ export default function AddFichaTecnica({
             height: "77vh",
           }}
         >
-          <TabEncabezadoFT show={value === 10 ? true : false}></TabEncabezadoFT>
+
+         
+          {/* {value === 10 ? 
+          <TabEncabezado
+          show={value === 10 ? true : false}
+          resumenEncabezado ={() => {}}
+          >
+          </TabEncabezado> 
+          : null } */}
+
 
           <TabFinProposito
             show={value === 20 ? true : false}
@@ -251,16 +257,20 @@ export default function AddFichaTecnica({
             cargaFin={[]}
             cargaProposito={[]}
             FtEdit={MIR ? JSON.parse(MIR)[1] : null}
+            MA={MA}
+            MIR={MIR}
+          
+            
           ></TabFinProposito>
 
-          <TabComponentes
+          <TabComponenteFT
             show={value === 30 ? true : false}
-            noComponentesFnc={() => {}}
+            noComponentesFnc ={() => {}}
             valoresComponenteFnc={() => {}}
-            noComponentes={[]}
+            noComponentes={noComponentes}
             valoresComponente={[]}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabComponentes>
+
+          ></TabComponenteFT>
 
           <TabActividadesFT
             showFnc={showFnc}
