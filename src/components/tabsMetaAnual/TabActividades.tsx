@@ -49,7 +49,7 @@ export const TabActividadesMA = ({
 
   const [componenteActividad, setComponenteActividad] = useState([
     {
-      componentes: componentes.map((x) => actividades),
+      componentes: componentes.map((x) => compAct),
     },
   ]);
 
@@ -173,15 +173,71 @@ export const TabActividadesMA = ({
     });
 
     actividadesMir.map((x, index) => {
-      let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1].substring(0, 1);
+      let act = x.actividad?.split("")[1];
+      let comp = x.actividad?.split("")[3];
 
       y[0].componentes[parseInt(comp) - 1].actividades[
         parseInt(act) - 1
       ].actividad = x.actividad;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].metaAnual = x.metaAnual;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].lineaBase = x.lineaBase;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].metasPorFrecuencia[0].trimestre1 = x.metasPorFrecuencia[0].trimestre1;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].metasPorFrecuencia[0].trimestre2 = x.metasPorFrecuencia[0].trimestre2;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].metasPorFrecuencia[0].trimestre3 = x.metasPorFrecuencia[0].trimestre3;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].metasPorFrecuencia[0].trimestre4 = x.metasPorFrecuencia[0].trimestre4;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].valorNumerador = x.valorNumerador;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].valorDenominador = x.valorDenominador;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].sentidoDelIndicador = x.sentidoDelIndicador;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].unidadResponsable = x.unidadResponsable;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].descIndicador = x.descIndicador;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].descNumerador = x.descNumerador;
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].descDenominador = x.descDenominador;
+      
+      
     });
     setAValorMA(y);
   };
+
+  let jsonMir = JSON.parse(MIR)
 
   const [cValorMIR, setCValorMIR] = useState(
     componenteActividad.map((item) => {
@@ -191,12 +247,12 @@ export const TabActividadesMA = ({
             actividades: x.map((c, index2) => {
               return {
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
+                resumen: jsonMir.actividades[index].resumen,
+                indicador: jsonMir.actividades[index].resumen,
+                formula: jsonMir.actividades[index].resumen,
+                frecuencia: jsonMir.actividades[index].resumen,
+                medios: jsonMir.actividades[index].resumen,
+                supuestos: jsonMir.actividades[index].resumen,
               };
             }),
           };
@@ -219,12 +275,12 @@ export const TabActividadesMA = ({
             actividades: x.actividades.map((c, index2) => {
               return {
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
+                resumen: jsonMir.actividades[index2].resumen,
+                indicador: jsonMir.actividades[index2].indicador,
+                formula: jsonMir.actividades[index2].formula,
+                frecuencia: jsonMir.actividades[index2].frecuencia,
+                medios: jsonMir.actividades[index2].medios,
+                supuestos: jsonMir.actividades[index2].supuestos,
               };
             }),
           };
@@ -520,6 +576,7 @@ export const TabActividadesMA = ({
                               "&.Mui-selected:hover": {
                                 backgroundColor: "#cbcbcb",
                               },
+                              fontSize: "0.7vw",
                             }}
                           >
                             ACTIVIDAD {x + 1}
@@ -549,7 +606,7 @@ export const TabActividadesMA = ({
             sx={{
               display: "flex",
               width: "100%",
-              height: "30%",
+              height: "33%",
               alignItems: "center",
               justifyContent: "space-evenly",
             }}
@@ -579,20 +636,20 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual || ''
+                ]?.metaAnual || ""
               }
               error={
                 parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].metaAnual
+                  ]?.metaAnual
                 ) < 0 ||
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual !==
+                ]?.metaAnual !==
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].metasPorFrecuencia[0]?.trimestre4
+                  ]?.metasPorFrecuencia[0]?.trimestre4
                   ? true
                   : false
               }
@@ -600,14 +657,14 @@ export const TabActividadesMA = ({
                 parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].metaAnual
+                  ]?.metaAnual
                 ) < 0 ||
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual !==
+                ]?.metaAnual !==
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].metasPorFrecuencia[0]?.trimestre4
+                  ]?.metasPorFrecuencia[0]?.trimestre4
                   ? "El valor de la meta anual debe coincidir con el valor del trimestre 4, verifica los valores"
                   : null
               }
@@ -626,18 +683,18 @@ export const TabActividadesMA = ({
                 (parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].lineaBase
+                  ]?.lineaBase
                 ) < 0 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].lineaBase
+                      ]?.lineaBase
                     )
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase !== ""
+                ]?.lineaBase !== ""
                   ? true
                   : false
               }
@@ -645,18 +702,18 @@ export const TabActividadesMA = ({
                 (parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].lineaBase
+                  ]?.lineaBase
                 ) < 0 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].lineaBase
+                      ]?.lineaBase
                     )
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase !== ""
+                ]?.lineaBase !== ""
                   ? "Introducir valor mayor que 0."
                   : null
               }
@@ -673,7 +730,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase || ''
+                ]?.lineaBase || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -707,7 +764,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].valorNumerador || ''
+                ]?.valorNumerador || ""
               }
             />
             <TextField
@@ -734,7 +791,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].valorDenominador || ''
+                ]?.valorDenominador || ""
               }
             />
 
@@ -774,7 +831,7 @@ export const TabActividadesMA = ({
                     checked={
                       aValorMA[0]?.componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].sentidoDelIndicador === "ASCENDENTE"
+                      ]?.sentidoDelIndicador === "ASCENDENTE"
                     }
                     onChange={(c) => {
                       let y = [...aValorMA];
@@ -800,7 +857,7 @@ export const TabActividadesMA = ({
                     checked={
                       aValorMA[0]?.componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].sentidoDelIndicador === "DESCENDENTE"
+                      ]?.sentidoDelIndicador === "DESCENDENTE"
                     }
                     onChange={(c) => {
                       let y = [...aValorMA];
@@ -826,7 +883,7 @@ export const TabActividadesMA = ({
                     checked={
                       aValorMA[0]?.componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].sentidoDelIndicador === "NORMAL"
+                      ]?.sentidoDelIndicador === "NORMAL"
                     }
                     onChange={(c) => {
                       let y = [...aValorMA];
@@ -864,7 +921,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre1 || ''
+                ]?.metasPorFrecuencia[0].trimestre1 || ""
               }
               InputLabelProps={{
                 style: {
@@ -891,7 +948,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre2 || ''
+                ]?.metasPorFrecuencia[0].trimestre2 || ""
               }
               InputLabelProps={{
                 style: {
@@ -918,7 +975,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre3 || ''
+                ]?.metasPorFrecuencia[0].trimestre3 || ""
               }
               InputLabelProps={{
                 style: {
@@ -945,7 +1002,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre4 || ''
+                ]?.metasPorFrecuencia[0].trimestre4 || ""
               }
               InputLabelProps={{
                 style: {
@@ -983,7 +1040,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].unidadResponsable || ''
+                ]?.unidadResponsable || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -1018,7 +1075,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descIndicador || ''
+                ]?.descIndicador || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -1063,7 +1120,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descNumerador || ''
+                ]?.descNumerador || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -1098,7 +1155,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descDenominador || ''
+                ]?.descDenominador || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];

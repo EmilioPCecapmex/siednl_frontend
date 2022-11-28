@@ -934,7 +934,7 @@ export function TabResumenMIR({
                           >
                             {
                               cValor[0].componentes[indexComponentes]
-                                .actividades[indexActividades].frecuencia
+                                .actividades[indexActividades]?.frecuencia
                             }
                           </Typography>
                         </Box>

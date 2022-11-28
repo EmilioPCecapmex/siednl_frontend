@@ -39,6 +39,9 @@ export const TabActividades = ({
   mirEdit?: IMIREdit;
   componentesTextos: Array<IComponente>;
 }) => {
+
+
+  
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
 
@@ -48,6 +51,7 @@ export const TabActividades = ({
     },
   ]);
 
+  
   useEffect(() => {
     if (show === true && componentes.length > cValor[0].componentes.length) {
       let restantes = componentes.length - cValor[0].componentes.length;
@@ -129,6 +133,7 @@ export const TabActividades = ({
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
+              
               return {
                 actividad: actividadesMir[index2]?.actividad || "A" +
                 (cValor[0].componentes[index].actividades.length + 1) +

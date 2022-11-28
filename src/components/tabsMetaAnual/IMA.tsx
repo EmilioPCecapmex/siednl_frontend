@@ -12,13 +12,3 @@ export interface IMA {
   actividades: Array<IActividadesMA>;
 }
 
-export interface IMIREdit {
-
-  fin: IFinEdit;
-
-  proposito: IPropositoEdit;
-
-  componentes: Array<IComponenteMirEdit>;
-
-  actividades: Array<IActividadesMirEdit>;
-}

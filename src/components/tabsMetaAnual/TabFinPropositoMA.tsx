@@ -144,7 +144,6 @@ export function TabFinPropositoMA({
         }
       )
       .then((r) => {
-        console.log(r.data.data);
       });
   };
 
@@ -262,7 +261,9 @@ export function TabFinPropositoMA({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+              >
                 FIN
               </Typography>
             </ListItemButton>
@@ -292,7 +293,9 @@ export function TabFinPropositoMA({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+              >
                 PROPÓSITO
               </Typography>
             </ListItemButton>
@@ -314,7 +317,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "30%",
+                height: "33%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -438,7 +441,7 @@ export function TabFinPropositoMA({
               <FormControl
                 sx={{
                   width: "15%",
-                  height: "70%",
+                  height: "80%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -525,7 +528,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "53%",
+                height: "50%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -591,7 +594,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "33%",
+                height: "30%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -670,7 +673,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "30%",
+                height: "33%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -796,7 +799,7 @@ export function TabFinPropositoMA({
               <FormControl
                 sx={{
                   width: "15%",
-                  height: "70%",
+                  height: "80%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -884,7 +887,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "53%",
+                height: "50%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -950,7 +953,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "33%",
+                height: "30%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}

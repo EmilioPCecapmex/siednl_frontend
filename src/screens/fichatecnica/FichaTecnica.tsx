@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { IInstituciones, LateralMenu } from "../../components/lateralMenu/LateralMenu";
+import {
+  IInstituciones,
+  LateralMenu,
+} from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
 import {
   Box,
@@ -89,7 +92,6 @@ export const FichaTecnica = () => {
           )
         );
       } else if (est !== "0") {
-        
         setftFiltered(
           ft.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
         );
@@ -125,9 +127,7 @@ export const FichaTecnica = () => {
         setft(r.data.data);
         setftFiltered(r.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -196,8 +196,8 @@ export const FichaTecnica = () => {
   };
 
   useEffect(() => {
-    getInstituciones()
-  }, [])
+    getInstituciones();
+  }, []);
 
   return (
     <Box
@@ -220,29 +220,29 @@ export const FichaTecnica = () => {
       />
       {showResume ? (
         <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          width: "85%",
-          height: "92%",
-          mt: "8vh",
-          flexWrap: "wrap",
-        }}
-      >
-        <Box
           sx={{
-            mt: "3vh",
-            width: "60%",
-            height: "15vh",
-            backgroundColor: "#fff",
-            borderRadius: 5,
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            boxShadow: 5,
-            alignItems: "center",
-            justifyItems: "center",
+            display: "flex",
+            justifyContent: "center",
+            width: "85%",
+            height: "92%",
+            mt: "8vh",
+            flexWrap: "wrap",
           }}
         >
+          <Box
+            sx={{
+              mt: "3vh",
+              width: "60%",
+              height: "15vh",
+              backgroundColor: "#fff",
+              borderRadius: 5,
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              boxShadow: 5,
+              alignItems: "center",
+              justifyItems: "center",
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -419,43 +419,71 @@ export const FichaTecnica = () => {
                   }}
                 >
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
                     align="center"
                   >
                     EJERCICIO FISCAL
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
                     align="center"
                   >
                     INSTITUCIÓN
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
                     align="center"
                   >
                     NOMBRE DEL PROGRAMA
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
                     align="center"
                   >
                     ESTADO
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
                     align="center"
                   >
                     FECHA DE CREACIÓN
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
                     align="center"
                   >
                     CREADO POR
                   </TableCell>
                   <TableCell
-                    sx={{ fontFamily: "MontserratBold", borderBottom: 0, fontSize:'0.8vw' }}
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
                     align="center"
                   >
                     OPCIONES
@@ -658,7 +686,27 @@ export const FichaTecnica = () => {
 
                               <Tooltip title="REGISTRAR FICHA TÉCNICA">
                                 <span>
-                                  <IconButton>
+                                  <IconButton
+                                    onClick={() => {
+                                      setFTEdit([
+                                        {
+                                          Id: row.Id,
+                                          IdMir: row.IdMir,
+                                          IdMa: row.IdMa,
+                                          FichaTecnica: row.FichaTecnica,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Institucion: row.Institucion,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                        },
+                                      ]);
+                                      setShowResume(false);
+                                    }}
+                                  >
                                     <AddCircleOutlineIcon
                                       sx={{
                                         "&:hover": {
@@ -666,25 +714,6 @@ export const FichaTecnica = () => {
                                         },
                                         width: "1.2vw",
                                         height: "1.2vw",
-                                      }}
-                                      onClick={() => {
-                                        setFTEdit([
-                                          {
-                                            Id: row.Id,
-                                            IdMir: row.IdMir,
-                                            IdMa: row.IdMa,
-                                            FichaTecnica: row.FichaTecnica,
-                                            Estado: row.Estado,
-                                            CreadoPor: row.CreadoPor,
-                                            FechaCreacion: row.FechaCreacion,
-                                            AnioFiscal: row.AnioFiscal,
-                                            Institucion: row.Institucion,
-                                            Programa: row.Programa,
-                                            MIR: row.MIR,
-                                            MetaAnual: row.MetaAnual,
-                                          },
-                                        ]);
-                                        setShowResume(false);
                                       }}
                                     />
                                   </IconButton>
@@ -722,12 +751,12 @@ export const FichaTecnica = () => {
           }}
         >
           <AddFichaTecnica
-          MIR={FTEdit[0].MIR}
-          showResume={returnMain}
-          IdMir={FTEdit[0].IdMir}
-          IdMA={FTEdit[0].IdMa}
-          anioFiscalEdit={FTEdit[0].AnioFiscal}
-          MA={FTEdit[0].MetaAnual}
+            MIR={FTEdit[0].MIR}
+            showResume={returnMain}
+            IdMir={FTEdit[0].IdMir}
+            IdMA={FTEdit[0].IdMa}
+            MA={FTEdit[0].MetaAnual}
+            FT={FTEdit[0].FichaTecnica}
           />
         </Box>
       )}

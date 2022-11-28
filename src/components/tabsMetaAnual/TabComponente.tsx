@@ -43,7 +43,7 @@ export const TabComponenteMA = ({
   >([]);
 
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
-  
+
 
   useEffect(() => {
     // if (show === true) {
@@ -325,7 +325,7 @@ export const TabComponenteMA = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw"  }}>
                     COMPONENTE {item}
                   </Typography>
                 </ListItemButton>
@@ -398,7 +398,7 @@ export const TabComponenteMA = ({
                         ?.semestre2)
                   ? valoresComponenteMir[
                       componentSelect - 1
-                    ].frecuencia.toLowerCase() === "trimestral"
+                    ].frecuencia?.toLowerCase() === "trimestral"
                     ? "El valor de la meta anual debe coincidir con el valor del trimestre 4, verifica los valores"
                     : "El valor de la meta anual debe coincidir con el valor del semestre 2, verifica los valores"
                   : null
@@ -600,7 +600,7 @@ export const TabComponenteMA = ({
 
           {valoresComponenteMir[
             componentSelect - 1
-          ].frecuencia.toLowerCase() === "trimestral" ? (
+          ].frecuencia?.toLowerCase() === "trimestral" ? (
             <Box
               sx={{
                 display: "flex",
@@ -618,7 +618,7 @@ export const TabComponenteMA = ({
                   setFrecuencia(
                     valoresComponenteMir[
                       componentSelect - 1
-                    ].frecuencia.toLowerCase()
+                    ].frecuencia?.toLowerCase()
                   );
                   handleClickOpen2();
                 }}
@@ -651,7 +651,7 @@ export const TabComponenteMA = ({
                   setFrecuencia(
                     valoresComponenteMir[
                       componentSelect - 1
-                    ].frecuencia.toLowerCase()
+                    ].frecuencia?.toLowerCase()
                   );
                   handleClickOpen2();
                 }}
@@ -684,7 +684,7 @@ export const TabComponenteMA = ({
                   setFrecuencia(
                     valoresComponenteMir[
                       componentSelect - 1
-                    ].frecuencia.toLowerCase()
+                    ].frecuencia?.toLowerCase()
                   );
                   handleClickOpen2();
                 }}
@@ -717,7 +717,7 @@ export const TabComponenteMA = ({
                   setFrecuencia(
                     valoresComponenteMir[
                       componentSelect - 1
-                    ].frecuencia.toLowerCase()
+                    ].frecuencia?.toLowerCase()
                   );
                   handleClickOpen2();
                 }}
@@ -762,7 +762,7 @@ export const TabComponenteMA = ({
                   setFrecuencia(
                     valoresComponenteMir[
                       componentSelect - 1
-                    ].frecuencia.toLowerCase()
+                    ].frecuencia?.toLowerCase()
                   );
                   handleClickOpen2();
                 }}
@@ -795,7 +795,7 @@ export const TabComponenteMA = ({
                   setFrecuencia(
                     valoresComponenteMir[
                       componentSelect - 1
-                    ].frecuencia.toLowerCase()
+                    ].frecuencia?.toLowerCase()
                   );
                   handleClickOpen2();
                 }}

@@ -16,22 +16,22 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import { ICValor } from "../tabsMir/ICValor";
-import { ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
+import { IComponentesFT, ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
 
 export default function AddFichaTecnica({
   MIR,
   showResume,
   IdMir,
   IdMA,
-  anioFiscalEdit,
   MA,
+  FT,
 }: {
   MIR: string;
   showResume: Function;
   IdMir: string;
   IdMA: string;
-  anioFiscalEdit: string;
   MA: string;
+  FT: string;
 }) {
   const [value, setValue] = React.useState(10);
   const handleChange = (event: any, newValue: number) => {
@@ -39,21 +39,20 @@ export default function AddFichaTecnica({
   };
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
   const [valoresComponenteMA, setValoresComponenteMA] = useState<
-    Array<IComponenteMA>
+    Array<IComponentesFT>
   >(
     noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
+        tipoDeIndicador: "",
+        claridad: "",
+        relevancia: "",
+        economia: "",
+        monitoreable: "",
+        adecuado: "",
+        aporte_marginal: "",
+        dimension: "",
+        unidadDeMedida: "",
       };
     })
   );
@@ -91,8 +90,6 @@ export default function AddFichaTecnica({
   );
   const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
-
-  
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
@@ -253,7 +250,7 @@ export default function AddFichaTecnica({
             resumenProposito={resumenProposito}
             cargaFin={[]}
             cargaProposito={[]}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
+            FtEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabFinProposito>
 
           <TabComponentes
@@ -288,7 +285,7 @@ export default function AddFichaTecnica({
             IdMir={IdMir}
             IdMA={IdMA}
             showResume={showResume}
-            MIR={MIR}
+            Ft={FT}
             encabezado={[""]}
           ></TabResumenFT>
         </Box>

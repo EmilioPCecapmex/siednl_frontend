@@ -541,7 +541,7 @@ export default function ModalEnviarMA({
   const CrearFichaTecnica = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
         {
           FichaTecnica: "",
           CreadoPor: localStorage.getItem("IdUsuario"),

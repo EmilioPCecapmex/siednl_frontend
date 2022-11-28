@@ -54,19 +54,51 @@ export default function AddMetaAnual({
     }
   };
 
-  // COMPONENTES ------------------ No me sirve para FichaTecnica
+  const jsonMir = JSON.parse(MIR);
+
+  useEffect(() => {
+    let act: number[] = [];
+    let comp: string[] = [];
+    let ambos: any = [];
+    let i = 1;
+    let j = 1;
+
+    jsonMir.componentes.map((x: any) => {
+      comp.push("C" + j);
+      jsonMir.actividades.map((a: any) => {
+        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+          act.push(i);
+          i++;
+        }
+      });
+      ambos.push({ actividades: act, componente: "C" + j });
+      act = [];
+      i = 1;
+      j++;
+    });
+
+    setCompAct(ambos)
+
+    jsonMir.componentes.map((value: any, index: number) => {
+      if (index > 1 && index < 6)
+        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
+    });
+    
+  }, []);
+
+  // COMPONENTES
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
     noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
+        resumen: jsonMir.componentes[index].resumen,
+        indicador: jsonMir.componentes[index].indicador,
+        frecuencia: jsonMir.componentes[index].frecuencia,
+        formula: jsonMir.componentes[index].formula,
+        medios: jsonMir.componentes[index].medios,
+        supuestos: jsonMir.componentes[index].supuestos,
       };
     })
   );
@@ -90,14 +122,12 @@ export default function AddMetaAnual({
       };
     })
   );
+
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     setValoresComponenteMA(state);
   };
-  const valoresComponenteFnc = (state: Array<IComponente>) => {
-    setComponenteValor(state);
-  };
 
-  // ACTIVIDADES ------------------ No me sirve para FichaTecnica
+  // ACTIVIDADES
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
   const [actividadesMir, setActividadesMir] = useState<Array<ICValor>>([]);
@@ -107,7 +137,7 @@ export default function AddMetaAnual({
       componentes: noComponentes.map((x) => actividades),
     },
   ]);
-
+  
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
       return {
@@ -115,13 +145,13 @@ export default function AddMetaAnual({
           return {
             actividades: x.map((c, index2) => {
               return {
-                actividad: "",
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
+                actividad:  "A" + (index2 + 1) + "C" + (index + 1),
+                resumen: jsonMir.actividades[index].resumen,
+                indicador: jsonMir.actividades[index].indicador,
+                formula: jsonMir.actividades[index].formula,
+                frecuencia: jsonMir.actividades[index].frecuencia,
+                medios: jsonMir.actividades[index].medios,
+                supuestos: jsonMir.actividades[index].supuestos,
               };
             }),
           };
@@ -173,19 +203,22 @@ export default function AddMetaAnual({
     setCValor(state);
   };
 
+
   useEffect(() => {
     let array = noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
+        resumen: jsonMir.componentes[index].resumen,
+        indicador: jsonMir.componentes[index].indicador,
+        frecuencia: jsonMir.componentes[index].frecuencia,
+        formula: jsonMir.componentes[index].formula,
+        medios: jsonMir.componentes[index].medios,
+        supuestos: jsonMir.componentes[index].supuestos,
       };
     });
+
     setComponenteValor(array);
+    
 
     let arrayMA = noComponentes.map((x, index) => {
       return {
@@ -212,7 +245,8 @@ export default function AddMetaAnual({
       };
     });
     setValoresComponenteMA(arrayMA);
-  }, []);
+
+  }, [noComponentes]);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
 
@@ -321,7 +355,6 @@ export default function AddMetaAnual({
             height: "77vh",
           }}
         >
-
           <TabFinPropositoMA
             MA={MA}
             MIR={MIR}

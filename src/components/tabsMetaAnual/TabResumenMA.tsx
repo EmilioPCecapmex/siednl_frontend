@@ -1279,7 +1279,7 @@ const [editActividades, setEditActividades] = useState<
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
-                        ].metaAnual
+                        ].actividad
                       }
                     </Typography>
                   </Box>

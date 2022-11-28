@@ -56,14 +56,10 @@ export function TabEncabezado({
   anioFiscalEdit: string;
   mirEdit?: IMIREdit;
 }) {
-  const [value, setValue] = useState("");
   const [nombreArchivo, setNombreArchivo] = useState(
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   );
   const [docExtencion,setDocExt] = useState("");
-
-
-  const extensionList = ['xlsx'];
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
@@ -105,7 +101,6 @@ export function TabEncabezado({
 
       let act: number[] = [];
       let comp: string[] = [];
-      // let ambos: [number[],string[]]=[[], []]
       let ambos: any = [];
       let i = 1;
       let j = 1;
