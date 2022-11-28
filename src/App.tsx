@@ -8,10 +8,7 @@ import { Settings } from "./screens/config/Settings";
 import { E404 } from "./screens/e404/E404";
 import { Usuarios } from "./screens/config/Usuarios";
 import { Init } from "./screens/init/Init";
-import {
-  continueSession,
-  sessionValid,
-} from "./funcs/validation";
+import { continueSession, sessionValid } from "./funcs/validation";
 import { useNavigate } from "react-router-dom";
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
@@ -24,20 +21,16 @@ function App() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const jt = params.get("jwt") || null;
-
-
-
-
-
+  const IdApp = params.get("IdApp");
 
   useLayoutEffect(() => {
-
     if (jt !== null) {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
           window.location.assign("http://10.200.4.106/");
         } else if ((r as boolean) === true) {
           setTimeout(() => {
+            localStorage.setItem("IdApp", IdApp as string);
             navigate("../home");
           }, 100);
         }
@@ -50,7 +43,6 @@ function App() {
       });
     }
   }, []);
-
 
   return (
     <>
