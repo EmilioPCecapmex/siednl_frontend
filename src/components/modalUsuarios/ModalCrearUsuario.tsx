@@ -149,41 +149,7 @@ export default function ModalCrearUsuario({
       .then((r) => {
         if (r.status === 201) {
 //////////////////////////////////////////////////////////////
-axios
-      .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
-        {
-          IdUsuario: names,
-          DatosAdicionales: ,
-          TipoSolicitud: "Alta",
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          IdApp: ,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 201) {
 
-          
-          cleanForm();
-          handleClose();
-          setIdUsuarioCentral(r.data.IdUsuario);
-          siednlSignUp(r.data.IdUsuario);
-        }
-      })
-      .catch((r) => {
-        if (r.response.status === 409) {
-          setErrorsForm({
-            visible: true,
-            text: r.response.data.msg,
-            type: "error",
-          });
-        }
-      });
 ///////////////////////////////////////////////////////////
 
           cleanForm();
