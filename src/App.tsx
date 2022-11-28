@@ -28,6 +28,8 @@ function App() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const jt = params.get("jwt") || null;
+  const IdApp = params.get("IdApp");
+
 
 
 
@@ -42,6 +44,7 @@ function App() {
           window.location.assign("http://10.200.4.106/");
         } else if ((r as boolean) === true) {
           setTimeout(() => {
+            localStorage.setItem("IdApp", IdApp as string)
             navigate("../home");
           }, 100);
         }
