@@ -57,10 +57,6 @@ export default function AddMetaAnual({
   // COMPONENTES ------------------ No me sirve para FichaTecnica
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  const noComponenteFnc = (state: []) => {
-    setNoComponentes(state);
-  };
-
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
     noComponentes.map((x, index) => {
       return {

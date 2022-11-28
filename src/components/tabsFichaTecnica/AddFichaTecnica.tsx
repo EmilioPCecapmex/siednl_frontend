@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { TabEncabezado } from "./TabEncabezado";
-import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
+import { IComponenteMA, ICValorMA } from "../tabsMetaAnual/Interfaces";
 import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
-import { TabActividades } from "./tabActividades";
 import TabResumenFT from "./TabResumenFT";
 import { TabComponentes } from "./tabComponentes";
 import { TabFinProposito } from "./tabFinProposito";
@@ -14,6 +13,10 @@ import { Box, IconButton } from "@mui/material";
 
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import { TabActividadesFT } from "./tabActividades";
+import { IComponenteActividad } from "../tabsMir/AddMir";
+import { ICValor } from "../tabsMir/ICValor";
+import { ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
 
 export default function AddFichaTecnica({
   MIR,
@@ -62,7 +65,7 @@ export default function AddFichaTecnica({
     },
   ]);
 
-  const [cValorMA, setCValorMA] = useState(
+  const [cValorMA, setCValorFT] = useState(
     componenteActividad.map((item) => {
       return {
         componentes: item.componentes.map((x, index) => {
@@ -70,25 +73,15 @@ export default function AddFichaTecnica({
             actividades: x.map((c, index2) => {
               return {
                 actividad: "",
-                metaAnual: "",
-                lineaBase: "",
-                metasPorFrecuencia: [
-                  {
-                    semestre1: "",
-                    semestre2: "",
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
+                tipoDeIndicador: "",
+                claridad: "",
+                relevancia: "",
+                economia: "",
+                monitoreable: "",
+                adecuado: "",
+                aporte_marginal: "",
+                dimension: "",
+                unidadDeMedida: "",
               };
             }),
           };
@@ -96,8 +89,10 @@ export default function AddFichaTecnica({
       };
     })
   );
-  const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
-  const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
+  const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
+  const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
+
+  
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
@@ -106,6 +101,60 @@ export default function AddFichaTecnica({
       if (value > 10) setValue(value - 10);
     }
   };
+
+  const [showSt, setShowSt] = React.useState("");
+
+  const showFnc = (st: string) => {
+    setShowSt(st);
+  };
+
+  const resumenFin = (st: Array<IFinFT>) => {
+    setValueFin(st);
+  };
+
+  const resumenProposito = (st: Array<IPropositoFT>) => {
+    setValueProposito(st);
+  };
+
+  const [showMir, setShowMir] = React.useState(false);
+
+  const showMirFnc = (state: boolean) => {
+    setShowMir(state);
+  };
+
+  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
+
+  const [actividadesMir, setActividadesMir] = useState<Array<ICValor>>([]);
+
+  const asignarCValorFT = (state: Array<ICValorFT>) => {
+    setCValorFT(state);
+  };
+
+  const asignarCValor = (state: Array<ICValor>) => {
+    setCValor(state);
+  };
+
+  const [cValor, setCValor] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                resumen: "",
+                indicador: "",
+                formula: "",
+                frecuencia: "",
+                medios: "",
+                supuestos: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
 
   return (
     <Box
@@ -200,8 +249,8 @@ export default function AddFichaTecnica({
 
           <TabFinProposito
             show={value === 20 ? true : false}
-            resumenFin={() => {}}
-            resumenProposito={() => {}}
+            resumenFin={resumenFin}
+            resumenProposito={resumenProposito}
             cargaFin={[]}
             cargaProposito={[]}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
@@ -216,15 +265,18 @@ export default function AddFichaTecnica({
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabComponentes>
 
-          <TabActividades
+          <TabActividadesFT
+            showFnc={showFnc}
+            showMirFnc={showMirFnc}
+            actividadesMir={actividadesMir}
+            compAct={compAct}
             show={value === 40 ? true : false}
-            actividadesFichaTecnica={[]}
-            componentesTextos={[]}
-            componenteActividad={[]}
-            componentes={[]}
-            asignarCValor={() => {}}
-            fichaTecnicaEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabActividades>
+            componentes={noComponentes}
+            asignarCValor={asignarCValorFT}
+            asignarCValorMIR={asignarCValor}
+            MA={MA}
+            MIR={MIR}
+          ></TabActividadesFT>
 
           <TabResumenFT
             show={value === 50 ? true : false}
@@ -237,6 +289,7 @@ export default function AddFichaTecnica({
             IdMA={IdMA}
             showResume={showResume}
             MIR={MIR}
+            encabezado={[""]}
           ></TabResumenFT>
         </Box>
 
@@ -249,7 +302,7 @@ export default function AddFichaTecnica({
           }}
         >
           <IconButton
-          disabled={value === 10 ? true : false}
+            disabled={value === 10 ? true : false}
             onClick={() => {
               cambiarTab("atras");
             }}
