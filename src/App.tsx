@@ -19,6 +19,10 @@ import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { ResumenFichaTecnica } from "./components/resumenFichaTecnica/ResumenFichaTecnica";
+import { Document } from "./screens/Document";
+import { RecibeDocumento } from "./screens/RecibeDocumento";
+import { ListadoDocumentos } from "./screens/ListadoDocumentos";
+import { Gonzo } from "./screens/Gonzo";
 
 function App() {
   const navigate = useNavigate();
@@ -68,6 +72,14 @@ function App() {
         <Route path="mir" element={<MIR />} />
         <Route path="metaAnual" element={<MetaAnual />} />
         <Route path="notifications" element={<Notification />} />
+        <Route path="document" element={<Document />} />
+        <Route path="recibeDoc" element={<RecibeDocumento />} />
+        <Route path="listadoDoc" element={<ListadoDocumentos />} />
+
+        <Route path="gonzo" element={<Gonzo />} />
+
+
+
       </Routes>
     </>
   );
