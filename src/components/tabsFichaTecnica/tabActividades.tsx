@@ -377,7 +377,7 @@ export const TabActividadesFT = ({
               justifyContent: "space-evenly",
               alignItems: "center",
             }}
-          >
+           >
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
