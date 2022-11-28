@@ -726,7 +726,6 @@ export const FichaTecnica = () => {
           showResume={returnMain}
           IdMir={FTEdit[0].IdMir}
           IdMA={FTEdit[0].IdMa}
-          anioFiscalEdit={FTEdit[0].AnioFiscal}
           MA={FTEdit[0].MetaAnual}
           />
         </Box>

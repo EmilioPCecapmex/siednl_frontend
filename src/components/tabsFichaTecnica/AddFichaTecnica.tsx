@@ -23,14 +23,12 @@ export default function AddFichaTecnica({
   showResume,
   IdMir,
   IdMA,
-  anioFiscalEdit,
   MA,
 }: {
   MIR: string;
   showResume: Function;
   IdMir: string;
   IdMA: string;
-  anioFiscalEdit: string;
   MA: string;
 }) {
   const [value, setValue] = React.useState(10);
@@ -251,9 +249,10 @@ export default function AddFichaTecnica({
             show={value === 20 ? true : false}
             resumenFin={resumenFin}
             resumenProposito={resumenProposito}
-            cargaFin={[]}
-            cargaProposito={[]}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
+            MA={MA}
+            MIR={MIR}
+            showFnc={showFnc}
+            showMirFnc={showMirFnc}
           ></TabFinProposito>
 
           <TabComponentes
