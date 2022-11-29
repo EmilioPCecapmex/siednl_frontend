@@ -25,7 +25,7 @@ export function TabFinPropositoMA({
   resumenFinMa,
   resumenPropositoMa,
   showMirFnc,
-  showFnc,
+  setTxtShowFnc,
   MA,
   MIR,
 }: {
@@ -33,7 +33,7 @@ export function TabFinPropositoMA({
   resumenFinMa: Function;
   resumenPropositoMa: Function;
   showMirFnc: Function;
-  showFnc: Function;
+  setTxtShowFnc: Function;
   MA: string;
   MIR: string;
 }) {
@@ -77,7 +77,6 @@ export function TabFinPropositoMA({
   }, [valueFin, valueProposito]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  const [prevTextFormula, setPrevTextFormula] = useState("");
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
 
@@ -143,8 +142,7 @@ export function TabFinPropositoMA({
           },
         }
       )
-      .then((r) => {
-      });
+      .then((r) => {});
   };
 
   return (
@@ -165,7 +163,6 @@ export function TabFinPropositoMA({
         open={openFormulaDialog}
         close={handleClose}
         textoSet={changeFormula}
-        prevText={prevTextFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
         MIR={MIR}
@@ -183,7 +180,7 @@ export function TabFinPropositoMA({
           <InfoOutlinedIcon
             onClick={() => {
               showMirFnc(true);
-              showFin ? showFnc("Fin") : showFnc("Proposito");
+              showFin ? setTxtShowFnc("Fin") : setTxtShowFnc("Proposito");
             }}
             fontSize="large"
             sx={{ cursor: "pointer" }}

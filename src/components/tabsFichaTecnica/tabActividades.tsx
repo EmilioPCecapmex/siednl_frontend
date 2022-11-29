@@ -27,9 +27,10 @@ export const TabActividadesFT = ({
   compAct,
   actividadesMir,
   showMirFnc,
-  showFnc,
+  setTxtShowFnc,
   MA,
   MIR,
+  FT,
 }: {
   show: boolean;
   componentes: number[];
@@ -38,22 +39,23 @@ export const TabActividadesFT = ({
   compAct: Array<IComponenteActividad>;
   actividadesMir: Array<ICValor>;
   showMirFnc: Function;
-  showFnc: Function;
+  setTxtShowFnc: Function;
   MA: string;
   MIR: string;
+  FT: string;
 }) => {
   // business logic-------------------------------------------------------------------------------
 
   const [componenteActividad, setComponenteActividad] = useState([
     {
-      componentes: componentes.map((x) => [1, 2]),
+      componentes: componentes.map((x) => compAct),
     },
   ]);
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-  let jsonMA = MA === "" ? "" : JSON.parse(MA);
+  let jsonFT = FT === undefined || FT === "" ? "" : JSON.parse(FT);
 
   const [aValorFT, setAValorFT] = useState(
     componenteActividad.map((item) => {
@@ -97,16 +99,26 @@ export const TabActividadesFT = ({
           return {
             actividades: x.actividades.map((c, index2) => {
               return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                tipoDeIndicador: "",
-                claridad: "",
-                relevancia: "",
-                economia: "",
-                monitoreable: "",
-                adecuado: "",
-                aporte_marginal: "",
-                dimension: "",
-                unidadDeMedida: "",
+                actividad:
+                  FT === "" || FT === undefined ? "" : "A" + (index2 + 1) + "C" + (index + 1),
+                tipoDeIndicador:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.tipoDeIndicador,
+                claridad:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.claridad,
+                relevancia:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.relevancia,
+                economia:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.economia,
+                monitoreable:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.monitoreable,
+                adecuado:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.adecuado,
+                aporte_marginal:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.aporte_marginal,
+                dimension:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.dimension,
+                unidadDeMedida:
+                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.unidadDeMedida,
               };
             }),
           };
@@ -125,7 +137,89 @@ export const TabActividadesFT = ({
     setAValorFT(y);
   };
 
+  let jsonMir = JSON.parse(MIR);
 
+  const [cValorMIR, setCValorMIR] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                resumen: jsonMir.actividades[index].resumen || "",
+                indicador: jsonMir.actividades[index].resumen,
+                formula: jsonMir.actividades[index].resumen,
+                frecuencia: jsonMir.actividades[index].resumen,
+                medios: jsonMir.actividades[index].resumen,
+                supuestos: jsonMir.actividades[index].resumen,
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
+  useEffect(() => {
+    if (compAct.length > 0) {
+      loadActividadesMir();
+    }
+  }, [compAct]);
+
+  const loadActividadesMir = () => {
+    let y = componenteActividad.map((item) => {
+      return {
+        componentes: compAct.map((x, index) => {
+          return {
+            actividades: x.actividades.map((c, index2) => {
+              return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                resumen: jsonMir.actividades[index2].resumen,
+                indicador: jsonMir.actividades[index2].indicador,
+                formula: jsonMir.actividades[index2].formula,
+                frecuencia: jsonMir.actividades[index2].frecuencia,
+                medios: jsonMir.actividades[index2].medios,
+                supuestos: jsonMir.actividades[index2].supuestos,
+              };
+            }),
+          };
+        }),
+      };
+    });
+
+    actividadesMir.map((x, index) => {
+      let act = x.actividad?.split("A")[1]?.split("C")[0];
+      let comp = x.actividad?.split("C")[1].substring(0, 1);
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].actividad = x.actividad;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].resumen = x?.resumen;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].indicador = x?.indicador;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].formula = x?.formula;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].frecuencia = x?.frecuencia;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].medios = x?.medios;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].supuestos = x?.supuestos;
+    });
+    setCValorMIR(y);
+  };
+
+  useEffect(() => {
+    asignarCValorMIR(cValorMIR);
+  }, [cValorMIR, componentes]);
 
   const [open, setOpen] = useState(1);
 
@@ -160,7 +254,7 @@ export const TabActividadesFT = ({
         <InfoOutlinedIcon
           onClick={() => {
             showMirFnc(true);
-            showFnc("Actividades");
+            setTxtShowFnc("Actividades");
           }}
           fontSize="large"
           sx={{ cursor: "pointer" }}
@@ -295,7 +389,7 @@ export const TabActividadesFT = ({
               justifyContent: "space-evenly",
               alignItems: "center",
             }}
-           >
+          >
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
@@ -308,15 +402,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"SELECCIÓN ESTRATEGICO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SELECCIÓN ESTRATEGICO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SELECCIÓN ESTRATEGICO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -325,7 +419,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
+                      ]?.tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -340,15 +434,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"DE GESTIÓN"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        DE GESTIÓN
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    DE GESTIÓN
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -357,7 +451,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].tipoDeIndicador === "DE GESTIÓN"
+                      ]?.tipoDeIndicador === "DE GESTIÓN"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -393,139 +487,139 @@ export const TabActividadesFT = ({
             </FormLabel>
 
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <FormControlLabel
-                value={"EFICIENCIA"}
-                label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        EFICIENCIA
-                      </Typography>
-                    }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension === "EFICIENCIA"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"EFICACIA"}
-                label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        EFICACIA
-                      </Typography>
-                    }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension === "EFICACIA"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
+              <Box sx={{ display: "flex", flexDirection: "row" }}>
+                <FormControlLabel
+                  value={"EFICIENCIA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      EFICIENCIA
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.dimension === "EFICIENCIA"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].dimension = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"EFICACIA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      EFICACIA
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.dimension === "EFICACIA"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].dimension = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
               </Box>
               <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <FormControlLabel
-                value={"CALIDAD"}
-                label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        CALIDAD
-                      </Typography>
-                    }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension === "CALIDAD"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
+                <FormControlLabel
+                  value={"CALIDAD"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      CALIDAD
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.dimension === "CALIDAD"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].dimension = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
 
-              <FormControlLabel
-                value={"ECONOMÍA"}
-                label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        ECONOMÍA
-                      </Typography>
-                    }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                  ml:"0.4vw",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension === "ECONOMÍA"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
+                <FormControlLabel
+                  value={"ECONOMÍA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      ECONOMÍA
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                    ml: "0.4vw",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.dimension === "ECONOMÍA"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].dimension = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
               </Box>
             </Box>
           </FormControl>
@@ -555,9 +649,9 @@ export const TabActividadesFT = ({
               setAValorFT(y);
             }}
             value={
-              aValorFT[0].componentes[componenteSelect].actividades[
+              aValorFT[0].componentes[componenteSelect]?.actividades[
                 actividadSelect
-              ].unidadDeMedida || ""
+              ]?.unidadDeMedida || ""
             }
           />
 
@@ -584,15 +678,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -601,7 +695,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].claridad === "SI"
+                      ]?.claridad === "SI"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -616,15 +710,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -633,7 +727,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].claridad === "NO"
+                      ]?.claridad === "NO"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -671,15 +765,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -688,7 +782,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].relevancia === "SI"
+                      ]?.relevancia === "SI"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -703,15 +797,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -720,7 +814,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].relevancia === "NO"
+                      ]?.relevancia === "NO"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -758,15 +852,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -775,7 +869,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].economia === "SI"
+                      ]?.economia === "SI"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -790,15 +884,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -807,7 +901,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].economia === "NO"
+                      ]?.economia === "NO"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -845,15 +939,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -862,7 +956,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].monitoreable === "SI"
+                      ]?.monitoreable === "SI"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -877,15 +971,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -894,7 +988,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].monitoreable === "NO"
+                      ]?.monitoreable === "NO"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -932,15 +1026,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -949,7 +1043,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].adecuado === "SI"
+                      ]?.adecuado === "SI"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -964,15 +1058,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -981,7 +1075,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].adecuado === "NO"
+                      ]?.adecuado === "NO"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -1019,15 +1113,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -1036,7 +1130,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].aporte_marginal === "SI"
+                      ]?.aporte_marginal === "SI"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -1051,15 +1145,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -1068,7 +1162,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].aporte_marginal === "NO"
+                      ]?.aporte_marginal === "NO"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];
@@ -1083,15 +1177,15 @@ export const TabActividadesFT = ({
               <FormControlLabel
                 value={"NA"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NA
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NA
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -1100,7 +1194,7 @@ export const TabActividadesFT = ({
                     checked={
                       aValorFT[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].aporte_marginal === "NA"
+                      ]?.aporte_marginal === "NA"
                     }
                     onChange={(c) => {
                       let y = [...aValorFT];

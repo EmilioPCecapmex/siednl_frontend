@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { TabEncabezado } from "./TabEncabezado";
-import { IComponenteMA, ICValorMA } from "../tabsMetaAnual/Interfaces";
-import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
 import TabResumenFT from "./TabResumenFT";
 import { TabComponenteFT} from "./tabComponentes";
 import { TabFinProposito } from "./tabFinProposito";
@@ -31,6 +28,7 @@ export default function AddFichaTecnica({
   FT: string;
 }) {
   const [value, setValue] = React.useState(10);
+  
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
@@ -54,10 +52,9 @@ export default function AddFichaTecnica({
     })
   );
 
-  const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
     {
-      componentes: noComponentes.map((x) => actividades),
+      componentes: noComponentes.map((x) => [1, 2]),
     },
   ]);
 
@@ -86,6 +83,7 @@ export default function AddFichaTecnica({
     })
   );
   const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
+
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
 
   const cambiarTab = (option: string) => {
@@ -98,7 +96,7 @@ export default function AddFichaTecnica({
 
   const [showSt, setShowSt] = React.useState("");
 
-  const showFnc = (st: string) => {
+  const setTxtShowFnc = (st: string) => {
     setShowSt(st);
   };
 
@@ -118,7 +116,6 @@ export default function AddFichaTecnica({
 
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
-  const [actividadesMir, setActividadesMir] = useState<Array<ICValor>>([]);
 
   const asignarCValorFT = (state: Array<ICValorFT>) => {
     setCValorFT(state);
@@ -149,6 +146,38 @@ export default function AddFichaTecnica({
       };
     })
   );
+
+  let jsonMir = JSON.parse(MIR);
+  
+  useEffect(() => {
+    let act: number[] = [];
+    let comp: string[] = [];
+    let ambos: any = [];
+    let i = 1;
+    let j = 1;
+
+    jsonMir.componentes.map((x: any) => {
+      comp.push("C" + j);
+      jsonMir.actividades.map((a: any) => {
+        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+          act.push(i);
+          i++;
+        }
+      });
+      ambos.push({ actividades: act, componente: "C" + j });
+      act = [];
+      i = 1;
+      j++;
+    });
+
+    setCompAct(ambos)
+
+    jsonMir.componentes.map((value: any, index: number) => {
+      if (index > 1 && index < 6)
+        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
+    });
+    
+  }, []);
 
   return (
     <Box
@@ -259,8 +288,6 @@ export default function AddFichaTecnica({
             FtEdit={MIR ? JSON.parse(MIR)[1] : null}
             MA={MA}
             MIR={MIR}
-          
-            
           ></TabFinProposito>
 
           <TabComponenteFT
@@ -269,20 +296,20 @@ export default function AddFichaTecnica({
             valoresComponenteFnc={() => {}}
             noComponentes={noComponentes}
             valoresComponente={[]}
-
           ></TabComponenteFT>
 
           <TabActividadesFT
-            showFnc={showFnc}
-            showMirFnc={showMirFnc}
-            actividadesMir={actividadesMir}
-            compAct={compAct}
             show={value === 40 ? true : false}
+            setTxtShowFnc={setTxtShowFnc}
+            showMirFnc={showMirFnc}
+            actividadesMir={[]}
+            compAct={compAct}
             componentes={noComponentes}
             asignarCValor={asignarCValorFT}
             asignarCValorMIR={asignarCValor}
             MA={MA}
             MIR={MIR}
+            FT={FT}
           ></TabActividadesFT>
 
           <TabResumenFT
@@ -298,6 +325,7 @@ export default function AddFichaTecnica({
             Ft={FT}
             encabezado={[""]}
           ></TabResumenFT>
+          
         </Box>
 
         <Box

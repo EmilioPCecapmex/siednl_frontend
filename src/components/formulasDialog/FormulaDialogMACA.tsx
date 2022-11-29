@@ -8,13 +8,12 @@ import {
   Alert,
   Snackbar,
 } from "@mui/material";
-import {useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export const FormulaDialogMACA = ({
   open,
   close,
   textoSet,
-  prevText,
   tipo,
   elemento,
   MIR,
@@ -23,7 +22,6 @@ export const FormulaDialogMACA = ({
   open: boolean;
   close: Function;
   textoSet: Function;
-  prevText: string;
   tipo: string;
   elemento: string;
   MIR: string;
@@ -39,6 +37,17 @@ export const FormulaDialogMACA = ({
   const [descH, setDescH] = useState("");
   const [emptyTxt, setEmptyTxt] = useState(false);
 
+  const limpiaVar = () => {
+    setDescA("");
+    setDescB("");
+    setDescC("");
+    setDescD("");
+    setDescE("");
+    setDescF("");
+    setDescG("");
+    setDescH("");
+  };
+
   const checkValues = () => {
     if (tipo === "Indice" || tipo === "Índice") {
       if (descA === "") {
@@ -48,7 +57,9 @@ export const FormulaDialogMACA = ({
           textoSet(
             descA.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")
           );
+          limpiaVar();
           close();
+
         }
       }
     } else {
@@ -94,7 +105,9 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
             );
-            close();
+            
+          limpiaVar();
+          close();
           } else if (tipo === "Tasa") {
             let T1 =
               ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) *
@@ -135,7 +148,9 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
             );
-            close();
+            
+          limpiaVar();
+          close();
           } else if (tipo === "Promedio") {
             let T1 = parseFloat(descA) / parseFloat(descB);
             let T2 =
@@ -162,7 +177,9 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
             );
-            close();
+            
+          limpiaVar();
+          close();
           }
         }
       } else {
@@ -177,9 +194,10 @@ export const FormulaDialogMACA = ({
               100;
 
             textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
-            close();
-          } else if (tipo === "Tasa") {
             
+          limpiaVar();
+          close();
+          } else if (tipo === "Tasa") {
             let S1 =
               ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) *
               100;
@@ -190,14 +208,18 @@ export const FormulaDialogMACA = ({
                 (parseFloat(descB) + parseFloat(descD))) *
               100;
             textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
-            close();
+            
+          limpiaVar();
+          close();
           } else if (tipo === "Promedio") {
             let S1 = parseFloat(descA) / parseFloat(descB);
             let S2 =
               (parseFloat(descA) + parseFloat(descC)) /
               (parseFloat(descB) + parseFloat(descD));
             textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
-            close();
+            
+          limpiaVar();
+          close();
           }
         }
       }
@@ -205,17 +227,6 @@ export const FormulaDialogMACA = ({
   };
 
   useLayoutEffect(() => {
-    if (prevText !== "" && prevText !== undefined) {
-    } else if (prevText === "") {
-      setDescA("");
-      setDescB("");
-      setDescC("");
-      setDescD("");
-      setDescE("");
-      setDescF("");
-      setDescG("");
-      setDescH("");
-    }
     setEmptyTxt(false);
   }, [open]);
 
@@ -349,27 +360,20 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
-                      </Typography>
-                    
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
+                  </Typography>
                 }
                 sx={{ width: "95%", mb: 2 }}
                 value={descA}
-                error={
-                  parseFloat(descA) < 0
-                    ? true
-                    : false
-                }
+                error={parseFloat(descA) < 0 ? true : false}
                 helperText={
-                  parseFloat(descA) < 0
-                    ? "Introducir valor mayor que 0"
-                    : null
+                  parseFloat(descA) < 0 ? "Introducir valor mayor que 0" : null
                 }
                 InputLabelProps={{
                   style: {

@@ -25,28 +25,22 @@ export const TabActividadesMA = ({
   show,
   componentes,
   asignarCValor,
-  asignarCValorMIR,
   compAct,
-  actividadesMir,
   showMirFnc,
-  showFnc,
+  setTxtShowFnc,
   MA,
   MIR,
 }: {
   show: boolean;
   componentes: number[];
   asignarCValor: Function;
-  asignarCValorMIR: Function;
   compAct: Array<IComponenteActividad>;
-  actividadesMir: Array<ICValor>;
   showMirFnc: Function;
-  showFnc: Function;
+  setTxtShowFnc: Function;
   MA: string;
   MIR: string;
 }) => {
   // business logic-------------------------------------------------------------------------------
-  const [actividades, setActividades] = React.useState([1, 2]);
-
   const [componenteActividad, setComponenteActividad] = useState([
     {
       componentes: componentes.map((x) => compAct),
@@ -172,154 +166,8 @@ export const TabActividadesMA = ({
       };
     });
 
-    actividadesMir.map((x, index) => {
-      let act = x.actividad?.split("")[1];
-      let comp = x.actividad?.split("")[3];
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].actividad = x.actividad;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].metaAnual = x.metaAnual;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].lineaBase = x.lineaBase;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].metasPorFrecuencia[0].trimestre1 = x.metasPorFrecuencia[0].trimestre1;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].metasPorFrecuencia[0].trimestre2 = x.metasPorFrecuencia[0].trimestre2;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].metasPorFrecuencia[0].trimestre3 = x.metasPorFrecuencia[0].trimestre3;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].metasPorFrecuencia[0].trimestre4 = x.metasPorFrecuencia[0].trimestre4;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].valorNumerador = x.valorNumerador;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].valorDenominador = x.valorDenominador;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].sentidoDelIndicador = x.sentidoDelIndicador;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].unidadResponsable = x.unidadResponsable;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].descIndicador = x.descIndicador;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].descNumerador = x.descNumerador;
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].descDenominador = x.descDenominador;
-      
-      
-    });
     setAValorMA(y);
   };
-
-  let jsonMir = JSON.parse(MIR)
-
-  const [cValorMIR, setCValorMIR] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: jsonMir.actividades[index].resumen,
-                indicador: jsonMir.actividades[index].resumen,
-                formula: jsonMir.actividades[index].resumen,
-                frecuencia: jsonMir.actividades[index].resumen,
-                medios: jsonMir.actividades[index].resumen,
-                supuestos: jsonMir.actividades[index].resumen,
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  useEffect(() => {
-    if (compAct.length > 0) {
-      loadActividadesMir();
-    }
-  }, [compAct]);
-
-  const loadActividadesMir = () => {
-    let y = componenteActividad.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
-          return {
-            actividades: x.actividades.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: jsonMir.actividades[index2].resumen,
-                indicador: jsonMir.actividades[index2].indicador,
-                formula: jsonMir.actividades[index2].formula,
-                frecuencia: jsonMir.actividades[index2].frecuencia,
-                medios: jsonMir.actividades[index2].medios,
-                supuestos: jsonMir.actividades[index2].supuestos,
-              };
-            }),
-          };
-        }),
-      };
-    });
-
-    actividadesMir.map((x, index) => {
-      let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1].substring(0, 1);
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].actividad = x.actividad;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].resumen = x?.resumen;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].indicador = x?.indicador;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].formula = x?.formula;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].frecuencia = x?.frecuencia;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].medios = x?.medios;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].supuestos = x?.supuestos;
-    });
-    setCValorMIR(y);
-  };
-
-  useEffect(() => {
-    asignarCValorMIR(cValorMIR);
-  }, [cValorMIR, componentes]);
 
   const [open, setOpen] = useState(1);
 
@@ -328,7 +176,6 @@ export const TabActividadesMA = ({
   };
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  const [prevTextFormula, setPrevTextFormula] = useState("");
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
 
@@ -449,7 +296,6 @@ export const TabActividadesMA = ({
         open={openFormulaDialog}
         close={handleClose}
         textoSet={changeFormula}
-        prevText={prevTextFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
         MIR={MIR}
@@ -458,7 +304,6 @@ export const TabActividadesMA = ({
         open={openFormulaDialogMACA}
         close={handleClose2}
         textoSet={changeFormula2}
-        prevText={prevTextFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
         MIR={MIR}
@@ -476,7 +321,7 @@ export const TabActividadesMA = ({
         <InfoOutlinedIcon
           onClick={() => {
             showMirFnc(true);
-            showFnc("Actividades");
+            setTxtShowFnc("Actividades");
           }}
           fontSize="large"
           sx={{ cursor: "pointer" }}

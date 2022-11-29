@@ -22,8 +22,6 @@ export interface IFrecuencias {
 }
 
 export interface IFrecuenciasAct {
-  semestre1: string;
-  semestre2: string;
   trimestre1: string;
   trimestre2: string;
   trimestre3: string;

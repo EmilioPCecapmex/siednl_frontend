@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { IFin, IProposito, TabFinPropositoMA } from "./TabFinPropositoMA";
+import { TabFinPropositoMA } from "./TabFinPropositoMA";
 import { Box, IconButton } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
-import { ICValor } from "../tabsMir/ICValor";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-import TabResumenMIR from "./TabResumenMir";
+import TabResumenMIR from "../modalsMA/ModalResumenMir";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IComponenteActividad } from "../tabsMir/AddMir";
-import { IEncabezado } from "../tabsMir/TabEncabezado";
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -38,7 +36,7 @@ export default function AddMetaAnual({
     setShowMir(state);
   };
 
-  const showFnc = (st: string) => {
+  const setTxtShowFnc = (st: string) => {
     setShowSt(st);
   };
 
@@ -89,20 +87,6 @@ export default function AddMetaAnual({
   // COMPONENTES
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        resumen: jsonMir.componentes[index].resumen,
-        indicador: jsonMir.componentes[index].indicador,
-        frecuencia: jsonMir.componentes[index].frecuencia,
-        formula: jsonMir.componentes[index].formula,
-        medios: jsonMir.componentes[index].medios,
-        supuestos: jsonMir.componentes[index].supuestos,
-      };
-    })
-  );
-
   const [valoresComponenteMA, setValoresComponenteMA] = useState<
     Array<IComponenteMA>
   >(
@@ -130,35 +114,11 @@ export default function AddMetaAnual({
   // ACTIVIDADES
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
-  const [actividadesMir, setActividadesMir] = useState<Array<ICValor>>([]);
-  const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
     {
-      componentes: noComponentes.map((x) => actividades),
+      componentes: noComponentes.map((x) => [1, 2]),
     },
   ]);
-  
-  const [cValor, setCValor] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad:  "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: jsonMir.actividades[index].resumen,
-                indicador: jsonMir.actividades[index].indicador,
-                formula: jsonMir.actividades[index].formula,
-                frecuencia: jsonMir.actividades[index].frecuencia,
-                medios: jsonMir.actividades[index].medios,
-                supuestos: jsonMir.actividades[index].supuestos,
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
 
   const [cValorMA, setCValorMA] = useState(
     componenteActividad.map((item) => {
@@ -172,8 +132,6 @@ export default function AddMetaAnual({
                 lineaBase: "",
                 metasPorFrecuencia: [
                   {
-                    semestre1: "",
-                    semestre2: "",
                     trimestre1: "",
                     trimestre2: "",
                     trimestre3: "",
@@ -199,27 +157,8 @@ export default function AddMetaAnual({
     setCValorMA(state);
   };
 
-  const asignarCValor = (state: Array<ICValor>) => {
-    setCValor(state);
-  };
-
-
   useEffect(() => {
-    let array = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        resumen: jsonMir.componentes[index].resumen,
-        indicador: jsonMir.componentes[index].indicador,
-        frecuencia: jsonMir.componentes[index].frecuencia,
-        formula: jsonMir.componentes[index].formula,
-        medios: jsonMir.componentes[index].medios,
-        supuestos: jsonMir.componentes[index].supuestos,
-      };
-    });
-
-    setComponenteValor(array);
     
-
     let arrayMA = noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
@@ -248,25 +187,9 @@ export default function AddMetaAnual({
 
   }, [noComponentes]);
 
-  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
-
-  const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
-  const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([]);
-
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
 
-  // ------------------ No me sirve para FichaTecnica ---------------------------
-  const resumenEncabezado = (arr: Array<IEncabezado>) => {
-    setEncabezado(arr);
-  };
-
-  const loadFin = (arr: Array<IFin>) => {
-    setCargaFin(arr);
-  };
-  const loadProposito = (arr: Array<IProposito>) => {
-    setCargaProposito(arr);
-  };
 
   const resumenFinMa = (arr: Array<IFinMA>) => {
     setValueFin(arr);
@@ -274,7 +197,6 @@ export default function AddMetaAnual({
   const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
     setValueProposito(arr);
   };
-  // ------------------ No me sirve para FichaTecnica ---------------------------
 
   return (
     <Box
@@ -356,35 +278,32 @@ export default function AddMetaAnual({
           }}
         >
           <TabFinPropositoMA
+            show={value === 20 ? true : false}
             MA={MA}
             MIR={MIR}
-            showFnc={showFnc}
-            show={value === 20 ? true : false}
+            setTxtShowFnc={setTxtShowFnc}
             resumenFinMa={resumenFinMa}
             resumenPropositoMa={resumenPropositoMa}
             showMirFnc={showMirFnc}
           ></TabFinPropositoMA>
 
           <TabComponenteMA
-            showFnc={showFnc}
-            showMirFnc={showMirFnc}
             show={value === 30 ? true : false}
+            setTxtShowFnc={setTxtShowFnc}
+            showMirFnc={showMirFnc}
             valoresComponenteMAFnc={valoresComponenteMAFnc}
             noComponentes={noComponentes}
-            valoresComponenteMir={componenteValor}
             MA={MA}
             MIR={MIR}
           ></TabComponenteMA>
 
           <TabActividadesMA
-            showFnc={showFnc}
-            showMirFnc={showMirFnc}
-            actividadesMir={actividadesMir}
-            compAct={compAct}
             show={value === 40 ? true : false}
+            setTxtShowFnc={setTxtShowFnc}
+            showMirFnc={showMirFnc}
+            compAct={compAct}
             componentes={noComponentes}
             asignarCValor={asignarCValorMA}
-            asignarCValorMIR={asignarCValor}
             MA={MA}
             MIR={MIR}
           ></TabActividadesMA>
@@ -406,12 +325,8 @@ export default function AddMetaAnual({
             show={showMir}
             showMirFnc={showMirFnc}
             showSt={showSt}
-            componentes={noComponentes}
-            componenteValor={componenteValor}
-            cValor={cValor}
-            encabezado={encabezado}
-            fin={cargaFin}
-            proposito={cargaProposito}
+            MIR={MIR}
+            noComponentes={noComponentes}
           ></TabResumenMIR>
         </Box>
 
