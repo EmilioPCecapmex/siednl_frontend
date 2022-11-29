@@ -123,8 +123,9 @@ export interface IActividadesEditFT {
   unidadDeMedida: boolean;
 }
 
-
 export interface IFT {
+  encabezado: IEncabezadoFT;
+
   fin: IFinFT;
 
   proposito: IPropositoFT;

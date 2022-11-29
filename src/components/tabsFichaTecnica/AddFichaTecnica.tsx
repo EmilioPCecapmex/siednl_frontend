@@ -9,7 +9,6 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/AddMir";
-import { ICValor } from "../tabsMir/ICValor";
 import { IComponentesFT, ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
 
 export default function AddFichaTecnica({
@@ -300,17 +299,18 @@ export default function AddFichaTecnica({
 
           <TabResumenFT
             show={value === 50 ? true : false}
-            componentes={noComponentes}
-            IdFT=""
-            componenteValor={valoresComponenteMA}
-            cValor={cValorFT}
+            encabezado={[]}
             fin={ValueFin}
             proposito={ValueProposito}
+            componentes={noComponentes}
+            componenteValor={[]}
+            cValor={cValorFT}
             IdMir={IdMir}
             IdMA={IdMA}
+            IdFT=""
             showResume={showResume}
             Ft={FT}
-            encabezado={[]}
+            MIR={MIR}
           ></TabResumenFT>
         </Box>
 

@@ -28,7 +28,7 @@ export function TabFinPropositoFT({
 }) {
 
   
-  let jsonFT = FT === "" ? "" : JSON.parse(FT);
+  let jsonFT = FT === "" || FT === undefined ? "" : JSON.parse(FT);
 
   const [fin, setFin] = useState<Array<IFinFT>>([
     {

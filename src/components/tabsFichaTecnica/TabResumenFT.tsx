@@ -4,24 +4,8 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
-import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
-import { IMA } from "../tabsMetaAnual/IMA";
-import {
-  IActividadesMA,
-  IComponenteMA,
-} from "../tabsMetaAnual/Interfaces";
-import {
-  IActividadesEditFT,
-  IActividadesFT,
-  IComponenteEditFT,
-  IComponentesFT,
-  ICValorFT,
-  IFinEditFT,
-  IFinFT,
-  IFT,
-  IPropositoEditFT,
-  IPropositoFT,
-} from "./Interfaces";
+import { IActividadesFT, ICValorFT, IEncabezadoFT, IFinFT, IFT, IPropositoFT } from "./Interfaces";
+import { IComponenteFT } from "./tabComponentes";
 
 export function TabResumenFT({
   show,
@@ -33,10 +17,10 @@ export function TabResumenFT({
   cValor,
   IdMir,
   IdMA,
-  Ft,
   IdFT,
-  MIR,
   showResume,
+  Ft,
+  MIR,
 }: {
   show: boolean;
   encabezado: Array<IEncabezadoFT>;
@@ -47,6 +31,7 @@ export function TabResumenFT({
   cValor: Array<ICValorFT>;
   IdMir: string;
   IdMA: string;
+  Ft: string;
   IdFT: string;
   MIR: string;
   showResume: Function;
