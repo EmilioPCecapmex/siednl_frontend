@@ -17,6 +17,13 @@ export interface ICValorFT {
 }
 [];
 
+export interface IEncabezadoFT {
+  programaSER: string;
+  objetivoSER: string;
+  catalogoObjetivoODS: string;
+  catalogoMetaODS: string;
+}
+
 export interface IFinFT {
   tipoDeIndicador: string;
   claridad: string;
