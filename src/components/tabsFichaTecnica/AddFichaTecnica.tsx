@@ -280,6 +280,7 @@ export default function AddFichaTecnica({
           <TabResumenFT
             show={value === 50 ? true : false}
             componentes={noComponentes}
+            IdFT=""
             componenteValor={valoresComponenteMA}
             cValor={cValorMA}
             fin={ValueFin}
@@ -288,7 +289,7 @@ export default function AddFichaTecnica({
             IdMA={IdMA}
             showResume={showResume}
             MIR={MIR}
-            encabezado={[""]}
+            encabezado={[]}
           ></TabResumenFT>
         </Box>
 

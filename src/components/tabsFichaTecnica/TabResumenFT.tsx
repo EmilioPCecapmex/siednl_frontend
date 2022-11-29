@@ -2,22 +2,16 @@ import { Box, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
+import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
-import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
-import { IMA } from "../tabsMetaAnual/IMA";
-import {
-  IActividadesMA,
-  IComponenteMA,
-  ICValorMA,
-} from "../tabsMetaAnual/Interfaces";
+import { IFT } from "../tabsFichaTecnica/IFT";
 import {
   IActividadesEditMA,
   IComponenteEditMA,
   IFinEditMA,
   IPropositoEditMA,
 } from "../tabsMetaAnual/TabResumenMA";
-import { ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
+import { IActividadesFT, IComponenteFT, ICValorFT, IEncabezadoFT, IFinFT, IPropositoFT } from "./Interfaces";
 
 export function TabResumenFT({
   show,
@@ -29,30 +23,35 @@ export function TabResumenFT({
   cValor,
   IdMir,
   IdMA,
+  IdFT,
   MIR,
   showResume,
 }: {
   show: boolean;
-  encabezado: Array<any>;
+  encabezado: Array<IEncabezadoFT>;
   fin: Array<IFinFT>;
   proposito: Array<IPropositoFT>;
   componentes: number[];
-  componenteValor: Array<IComponenteMA>;
+  componenteValor: Array<IComponenteFT>;
   cValor: Array<ICValorFT>;
   IdMir: string;
   IdMA: string;
+  IdFT: string;
   MIR: string;
   showResume: Function;
 }) {
-  const [MA, setMA] = useState<IMA>();
+  const [FT, setFT] = useState<IFT>();
+  
 
-  let asignarMA = (
-    finM: Array<IFinMA>,
-    propositoM: Array<IPropositoMA>,
-    componentesM: Array<IComponenteMA>,
-    actividadesM: Array<IActividadesMA>
+  let asignarFT = (
+    encabezadoM: Array<IEncabezadoFT>,
+    finM: Array<IFinFT>,
+    propositoM: Array<IPropositoFT>,
+    componentesM: Array<IComponenteFT>,
+    actividadesM: Array<IActividadesFT>
   ) => {
-    setMA({
+    setFT({
+      encabezado: encabezadoM[0],
       fin: finM[0],
       proposito: propositoM[0],
       componentes: componentesM,
@@ -71,25 +70,15 @@ export function TabResumenFT({
     let cEdit = componenteValor.map((item) => {
       return {
         componentes: item.componentes,
-        metaAnual: true,
-        lineaBase: true,
-        metasPorFrecuencia: [
-          {
-            semestre1: true,
-            semestre2: true,
-            trimestre1: true,
-            trimestre2: true,
-            trimestre3: true,
-            trimestre4: true,
-          },
-        ],
-        valorNumerador: true,
-        valorDenominador: true,
-        sentidoDelIndicador: true,
-        unidadResponsable: true,
-        descIndicador: true,
-        descNumerador: true,
-        descDenominador: true,
+        tipoDeIndicador: true,
+        claridad: true,
+        relevancia: true,
+        economia: true,
+        monitoreable: true,
+        adecuado: true,
+        aporte_marginal: true,
+        dimension: true,
+        unidadDeMedida: true,
       };
     });
     setEditComponentes(cEdit);
@@ -97,25 +86,15 @@ export function TabResumenFT({
     let aEdit = arr.map((item) => {
       return {
         actividad: item.actividad,
-        metaAnual: true,
-        lineaBase: true,
-        metasPorFrecuencia: [
-          {
-            semestre1: true,
-            semestre2: true,
-            trimestre1: true,
-            trimestre2: true,
-            trimestre3: true,
-            trimestre4: true,
-          },
-        ],
-        valorNumerador: true,
-        valorDenominador: true,
-        sentidoDelIndicador: true,
-        unidadResponsable: true,
-        descIndicador: true,
-        descNumerador: true,
-        descDenominador: true,
+        tipoDeIndicador: true,
+        claridad: true,
+        relevancia: true,
+        economia: true,
+        monitoreable: true,
+        adecuado: true,
+        aporte_marginal: true,
+        dimension: true,
+        unidadDeMedida: true,
       };
     });
 
@@ -148,12 +127,12 @@ export function TabResumenFT({
     },
   });
 
-  const creaMA = (estado: string) => {
+  const creaFT = (estado: string) => {
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
-          MetaAnual: JSON.stringify(MA),
+          MetaAnual: JSON.stringify(FT),
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
           Estado: estado,
@@ -179,37 +158,43 @@ export function TabResumenFT({
         });
       });
   };
-
-  const [editFin, setEditFin] = useState<IFinEditMA>({
-    metaAnual: true,
-    lineaBase: true,
-    valorNumerador: true,
-    valorDenominador: true,
-    sentidoDelIndicador: true,
-    unidadResponsable: true,
-    descIndicador: true,
-    descNumerador: true,
-    descDenominador: true,
+  const [editEncabezado, setEditEncabezado] = useState<IEncabezadoEditFT>({
+    programaSER: true,
+    objetivoSER: true,
+    catalogoObjetivoODS: true,
+    catalogoMetaODS: true,
   });
 
-  const [editProposito, setEditProposito] = useState<IPropositoEditMA>({
-    metaAnual: true,
-    lineaBase: true,
-    valorNumerador: true,
-    valorDenominador: true,
-    sentidoDelIndicador: true,
-    unidadResponsable: true,
-    descIndicador: true,
-    descNumerador: true,
-    descDenominador: true,
+  const [editFin, setEditFin] = useState<IFinEditFT>({
+    tipoDeIndicador: true,
+    claridad: true,
+    relevancia: true,
+    economia: true,
+    monitoreable: true,
+    adecuado: true,
+    aporte_marginal: true,
+    dimension: true,
+    unidadDeMedida: true,
+  });
+
+  const [editProposito, setEditProposito] = useState<IPropositoEditFT>({
+    tipoDeIndicador: true,
+    claridad: true,
+    relevancia: true,
+    economia: true,
+    monitoreable: true,
+    adecuado: true,
+    aporte_marginal: true,
+    dimension: true,
+    unidadDeMedida: true,
   });
 
   const [editComponentes, setEditComponentes] = useState<
-    Array<IComponenteEditMA>
+    Array<IComponenteEditFT>
   >([]);
 
   const [editActividades, setEditActividades] = useState<
-    Array<IActividadesEditMA>
+    Array<IActividadesEditFT>
   >([]);
 
   return (
@@ -267,9 +252,9 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.metaAnual}
+                value={!editEncabezado.programaSER}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, metaAnual: !v.target.checked });
+                  setEditEncabezado({ ...editEncabezado, programaSER: !v.target.checked });
                 }}
               />
             )}
@@ -277,7 +262,7 @@ export function TabResumenFT({
               PROGRAMA SECTORIAL SECTORIAL, ESPECIAL O REGIONAL:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.metaAnual}
+              {encabezado[0]?.programaSER}
             </Typography>
           </Box>
           <Box
@@ -293,9 +278,9 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.lineaBase}
+                value={!editEncabezado.objetivoSER}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, lineaBase: !v.target.checked });
+                  setEditEncabezado({ ...editEncabezado, objetivoSER: !v.target.checked });
                 }}
               />
             )}
@@ -303,7 +288,7 @@ export function TabResumenFT({
               OBJETIVO PROGRAMA SECTORIAL, ESPECIAL O REGIONAL:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.lineaBase}
+              {encabezado[0]?.objetivoSER}
             </Typography>
           </Box>
           <Box
@@ -319,9 +304,9 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.valorNumerador}
+                value={!editEncabezado.catalogoObjetivoODS}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, valorNumerador: !v.target.checked });
+                  setEditEncabezado({ ...editEncabezado, catalogoObjetivoODS: !v.target.checked });
                 }}
               />
             )}
@@ -329,7 +314,7 @@ export function TabResumenFT({
               OBJETIVO ODS:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.valorNumerador}
+              {encabezado[0]?.catalogoObjetivoODS}
             </Typography>
           </Box>
           <Box
@@ -345,11 +330,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.valorDenominador}
+                value={!editEncabezado.catalogoMetaODS}
                 onChange={(v) => {
-                  setEditFin({
-                    ...editFin,
-                    valorDenominador: !v.target.checked,
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    catalogoMetaODS: !v.target.checked,
                   });
                 }}
               />
@@ -358,7 +343,7 @@ export function TabResumenFT({
               META ODS:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.valorDenominador}
+              {encabezado[0]?.catalogoMetaODS}
             </Typography>
           </Box>
 
@@ -382,11 +367,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.metaAnual}
+                value={!editFin.tipoDeIndicador}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    metaAnual: !v.target.checked,
+                  setEditFin({
+                    ...editFin,
+                    tipoDeIndicador: !v.target.checked,
                   });
                 }}
               />
@@ -412,11 +397,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.lineaBase}
+                value={!editFin.dimension}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    lineaBase: !v.target.checked,
+                  setEditFin({
+                    ...editFin,
+                    dimension: !v.target.checked,
                   });
                 }}
               />
@@ -441,11 +426,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.valorNumerador}
+                value={!editFin.unidadDeMedida}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    valorNumerador: !v.target.checked,
+                  setEditFin({
+                    ...editFin,
+                    unidadDeMedida: !v.target.checked,
                   });
                 }}
               />
@@ -470,12 +455,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.valorDenominador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    valorDenominador: !v.target.checked,
-                  });
+              value={!editFin.claridad}
+              onChange={(v) => {
+                setEditFin({
+                  ...editFin,
+                  claridad: !v.target.checked,
+                });
                 }}
               />
             )}
@@ -500,12 +485,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.sentidoDelIndicador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    sentidoDelIndicador: !v.target.checked,
-                  });
+              value={!editFin.relevancia}
+              onChange={(v) => {
+                setEditFin({
+                  ...editFin,
+                  relevancia: !v.target.checked,
+                });
                 }}
               />
             )}
@@ -530,12 +515,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.unidadResponsable}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    unidadResponsable: !v.target.checked,
-                  });
+              value={!editFin.economia}
+              onChange={(v) => {
+                setEditFin({
+                  ...editFin,
+                  economia: !v.target.checked,
+                });
                 }}
               />
             )}
@@ -560,12 +545,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descIndicador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descIndicador: !v.target.checked,
-                  });
+              value={!editFin.monitoreable}
+              onChange={(v) => {
+                setEditFin({
+                  ...editFin,
+                  monitoreable: !v.target.checked,
+                });
                 }}
               />
             )}
@@ -590,12 +575,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descNumerador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descNumerador: !v.target.checked,
-                  });
+              value={!editFin.adecuado}
+              onChange={(v) => {
+                setEditFin({
+                  ...editFin,
+                  adecuado: !v.target.checked,
+                });
                 }}
               />
             )}
@@ -620,12 +605,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descDenominador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descDenominador: !v.target.checked,
-                  });
+              value={!editFin.aporte_marginal}
+              onChange={(v) => {
+                setEditFin({
+                  ...editFin,
+                  aporte_marginal: !v.target.checked,
+                });
                 }}
               />
             )}
@@ -658,11 +643,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.metaAnual}
+                value={!editProposito.tipoDeIndicador}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    metaAnual: !v.target.checked,
+                    tipoDeIndicador: !v.target.checked,
                   });
                 }}
               />
@@ -688,11 +673,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.lineaBase}
+                value={!editProposito.dimension}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    lineaBase: !v.target.checked,
+                    dimension: !v.target.checked,
                   });
                 }}
               />
@@ -717,11 +702,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.valorNumerador}
+                value={!editProposito.unidadDeMedida}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    valorNumerador: !v.target.checked,
+                    unidadDeMedida: !v.target.checked,
                   });
                 }}
               />
@@ -746,11 +731,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.valorDenominador}
+                value={!editProposito.claridad}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    valorDenominador: !v.target.checked,
+                    claridad: !v.target.checked,
                   });
                 }}
               />
@@ -762,7 +747,6 @@ export function TabResumenFT({
               {proposito[0]?.claridad}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -776,11 +760,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.sentidoDelIndicador}
+                value={!editProposito.relevancia}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    sentidoDelIndicador: !v.target.checked,
+                    relevancia: !v.target.checked,
                   });
                 }}
               />
@@ -792,7 +776,6 @@ export function TabResumenFT({
               {proposito[0]?.relevancia}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -806,11 +789,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.unidadResponsable}
+                value={!editProposito.economia}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    unidadResponsable: !v.target.checked,
+                    economia: !v.target.checked,
                   });
                 }}
               />
@@ -822,7 +805,6 @@ export function TabResumenFT({
               {proposito[0]?.economia}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -836,11 +818,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descIndicador}
+                value={!editProposito.monitoreable}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    descIndicador: !v.target.checked,
+                    monitoreable: !v.target.checked,
                   });
                 }}
               />
@@ -852,7 +834,6 @@ export function TabResumenFT({
               {proposito[0]?.monitoreable}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -866,11 +847,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descNumerador}
+                value={!editProposito.adecuado}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    descNumerador: !v.target.checked,
+                    adecuado: !v.target.checked,
                   });
                 }}
               />
@@ -882,7 +863,6 @@ export function TabResumenFT({
               {proposito[0]?.adecuado}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -896,11 +876,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descDenominador}
+                value={!editProposito.aporte_marginal}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    descDenominador: !v.target.checked,
+                    aporte_marginal: !v.target.checked,
                   });
                 }}
               />
@@ -945,12 +925,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.metaAnual}
+                value={!editComponentes[index - 1]?.tipoDeIndicador}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    metaAnual: !v.target.checked,
-                  });
+                  let past = [...editComponentes];
+                  past[index - 1].tipoDeIndicador = !v.target.checked;
+                  setEditComponentes(past);
                 }}
               />
             )}
@@ -958,7 +937,7 @@ export function TabResumenFT({
               TIPO DE INDICADOR:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.tipoDeIndicador}
             </Typography>
           </Box>
 
@@ -975,20 +954,19 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.lineaBase}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    lineaBase: !v.target.checked,
-                  });
-                }}
+              value={!editComponentes[index - 1]?.dimension}
+              onChange={(v) => {
+                let past = [...editComponentes];
+                past[index - 1].dimension = !v.target.checked;
+                setEditComponentes(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               DIMENSIÓN:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.dimension}
             </Typography>
           </Box>
           <Box
@@ -1004,20 +982,19 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.valorNumerador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    valorNumerador: !v.target.checked,
-                  });
-                }}
+              value={!editComponentes[index - 1]?.unidadDeMedida}
+              onChange={(v) => {
+                let past = [...editComponentes];
+                past[index - 1].unidadDeMedida = !v.target.checked;
+                setEditComponentes(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               UNIDAD DE MEDIDA:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.unidadDeMedida}
             </Typography>
           </Box>
           <Box
@@ -1033,20 +1010,19 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.valorDenominador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    valorDenominador: !v.target.checked,
-                  });
-                }}
+              value={!editComponentes[index - 1]?.claridad}
+              onChange={(v) => {
+                let past = [...editComponentes];
+                past[index - 1].claridad = !v.target.checked;
+                setEditComponentes(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               CLARIDAD:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.claridad}
             </Typography>
           </Box>
 
@@ -1063,20 +1039,19 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.sentidoDelIndicador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    sentidoDelIndicador: !v.target.checked,
-                  });
-                }}
+              value={!editComponentes[index - 1]?.relevancia}
+              onChange={(v) => {
+                let past = [...editComponentes];
+                past[index - 1].relevancia = !v.target.checked;
+                setEditComponentes(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               RELEVANCIA:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.relevancia}
             </Typography>
           </Box>
 
@@ -1093,20 +1068,19 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.unidadResponsable}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    unidadResponsable: !v.target.checked,
-                  });
-                }}
+              value={!editComponentes[index - 1]?.economia}
+              onChange={(v) => {
+                let past = [...editComponentes];
+                past[index - 1].economia = !v.target.checked;
+                setEditComponentes(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               ECONOMÍA:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.economia}
             </Typography>
           </Box>
 
@@ -1123,20 +1097,19 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descIndicador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descIndicador: !v.target.checked,
-                  });
-                }}
+              value={!editComponentes[index - 1]?.monitoreable}
+              onChange={(v) => {
+                let past = [...editComponentes];
+                past[index - 1].monitoreable = !v.target.checked;
+                setEditComponentes(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               MONITOREABLE:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.monitoreable}
             </Typography>
           </Box>
 
@@ -1153,20 +1126,19 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descNumerador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descNumerador: !v.target.checked,
-                  });
-                }}
+              value={!editComponentes[index - 1]?.adecuado}
+              onChange={(v) => {
+                let past = [...editComponentes];
+                past[index - 1].adecuado = !v.target.checked;
+                setEditComponentes(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               ADECUADO:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.adecuado}
             </Typography>
           </Box>
 
@@ -1183,20 +1155,19 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descDenominador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descDenominador: !v.target.checked,
-                  });
-                }}
+              value={!editComponentes[index - 1]?.aporte_marginal}
+              onChange={(v) => {
+                let past = [...editComponentes];
+                past[index - 1].aporte_marginal = !v.target.checked;
+                setEditComponentes(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               APORTE MARGINAL:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.aporte_marginal}
             </Typography>
           </Box>
                 {/*COMPONENTE*/}
@@ -1241,10 +1212,10 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editActividades[indexComponentes]?.metaAnual}
+                        value={!editActividades[indexComponentes]?.tipoDeIndicador}
                         onChange={(v) => {
                           let past = [...editActividades];
-                          past[indexComponentes].metaAnual = !v.target.checked;
+                          past[indexComponentes].tipoDeIndicador = !v.target.checked;
                           setEditActividades(past);
                         }}
                       />
@@ -1276,12 +1247,11 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.lineaBase}
+                value={!editActividades[indexComponentes]?.dimension}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    lineaBase: !v.target.checked,
-                  });
+                  let past = [...editActividades];
+                  past[indexComponentes].dimension = !v.target.checked;
+                  setEditActividades(past);
                 }}
               />
             )}
@@ -1308,13 +1278,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.valorNumerador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    valorNumerador: !v.target.checked,
-                  });
-                }}
+              value={!editActividades[indexComponentes]?.unidadDeMedida}
+              onChange={(v) => {
+                let past = [...editActividades];
+                past[indexComponentes].unidadDeMedida = !v.target.checked;
+                setEditActividades(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
@@ -1340,13 +1309,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.valorDenominador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    valorDenominador: !v.target.checked,
-                  });
-                }}
+              value={!editActividades[indexComponentes]?.claridad}
+              onChange={(v) => {
+                let past = [...editActividades];
+                past[indexComponentes].claridad = !v.target.checked;
+                setEditActividades(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
@@ -1373,13 +1341,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.sentidoDelIndicador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    sentidoDelIndicador: !v.target.checked,
-                  });
-                }}
+              value={!editActividades[indexComponentes]?.relevancia}
+              onChange={(v) => {
+                let past = [...editActividades];
+                past[indexComponentes].relevancia = !v.target.checked;
+                setEditActividades(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
@@ -1406,13 +1373,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.unidadResponsable}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    unidadResponsable: !v.target.checked,
-                  });
-                }}
+              value={!editActividades[indexComponentes]?.economia}
+              onChange={(v) => {
+                let past = [...editActividades];
+                past[indexComponentes].economia = !v.target.checked;
+                setEditActividades(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
@@ -1439,13 +1405,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descIndicador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descIndicador: !v.target.checked,
-                  });
-                }}
+              value={!editActividades[indexComponentes]?.monitoreable}
+              onChange={(v) => {
+                let past = [...editActividades];
+                past[indexComponentes].monitoreable = !v.target.checked;
+                setEditActividades(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
@@ -1472,13 +1437,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descNumerador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descNumerador: !v.target.checked,
-                  });
-                }}
+              value={!editActividades[indexComponentes]?.adecuado}
+              onChange={(v) => {
+                let past = [...editActividades];
+                past[indexComponentes].adecuado = !v.target.checked;
+                setEditActividades(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
@@ -1505,13 +1469,12 @@ export function TabResumenFT({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.descDenominador}
-                onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    descDenominador: !v.target.checked,
-                  });
-                }}
+              value={!editActividades[indexComponentes]?.aporte_marginal}
+              onChange={(v) => {
+                let past = [...editActividades];
+                past[indexComponentes].aporte_marginal = !v.target.checked;
+                setEditActividades(past);
+              }}
               />
             )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
@@ -1560,7 +1523,7 @@ export function TabResumenFT({
           color="success"
           variant="outlined"
           onClick={() =>
-            creaMA(
+            creaFT(
               localStorage.getItem("Rol") === "Capturador"
                 ? "En Captura"
                 : localStorage.getItem("Rol") === "Verificador"
@@ -1586,10 +1549,11 @@ export function TabResumenFT({
           </Typography>
         </Button>
 
+        {/*CAMBIAR POR EL MODAL DE MODIFICAR DE FICHA TÉCNICA*/}
         <ModalSolicitaModif
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
-          MA={JSON.stringify(MA)}
+          MA={JSON.stringify(FT)}
           MIR={MIR}
           showResume={showResume}
           IdMA={IdMA}
@@ -1606,18 +1570,78 @@ export function TabResumenFT({
           }
         ></ModalSolicitaModif>
 
-        <ModalEnviarMA
+        <ModalEnviarFT
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
-          MA={JSON.stringify(MA)}
           MIR={MIR}
           IdMA={IdMA}
           IdMIR={IdMir}
           showResume={showResume}
-        ></ModalEnviarMA>
+          FT={JSON.stringify(FT)}
+          IdFT={IdFT}
+        ></ModalEnviarFT>
       </Box>
     </Box>
   );
 }
 
 export default TabResumenFT;
+
+export interface IEncabezadoEditFT {
+  programaSER: boolean;
+  objetivoSER: boolean;
+  catalogoObjetivoODS: boolean;
+  catalogoMetaODS: boolean;
+}
+
+export interface IFinEditFT {
+  tipoDeIndicador: boolean;
+  claridad: boolean;
+  relevancia: boolean;
+  economia: boolean;
+  monitoreable: boolean;
+  adecuado: boolean;
+  aporte_marginal: boolean;
+  dimension: boolean;
+  unidadDeMedida: boolean;
+}
+
+export interface IPropositoEditFT {
+  tipoDeIndicador: boolean;
+  claridad: boolean;
+  relevancia: boolean;
+  economia: boolean;
+  monitoreable: boolean;
+  adecuado: boolean;
+  aporte_marginal: boolean;
+  dimension: boolean;
+  unidadDeMedida: boolean;
+}
+
+export interface IActividadesEditFT {
+  actividad: string;
+  tipoDeIndicador: boolean;
+  claridad: boolean;
+  relevancia: boolean;
+  economia: boolean;
+  monitoreable: boolean;
+  adecuado: boolean;
+  aporte_marginal: boolean;
+  dimension: boolean;
+  unidadDeMedida: boolean;
+}
+
+export interface IComponenteEditFT {
+  componentes: string;
+  tipoDeIndicador: boolean;
+  claridad: boolean;
+  relevancia: boolean;
+  economia: boolean;
+  monitoreable: boolean;
+  adecuado: boolean;
+  aporte_marginal: boolean;
+  dimension: boolean;
+  unidadDeMedida: boolean;
+}
+
+

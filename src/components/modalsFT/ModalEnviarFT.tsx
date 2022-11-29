@@ -16,7 +16,6 @@ export let errores: string[] = [];
 export default function ModalEnviarFT({
   open,
   handleClose,
-  MA,
   MIR,
   FT,
   IdFT,
@@ -26,7 +25,6 @@ export default function ModalEnviarFT({
 }: {
   open: boolean;
   handleClose: Function;
-  MA: string;
   MIR: string;
   FT: string;
   IdFT: string;
@@ -63,6 +61,79 @@ export default function ModalEnviarFT({
 
   let err = 0;
 
+  const checkFTEncabezado = (v: string) => {
+    errores = [];
+    if (JSON.parse(FT)?.encabezado === null) {
+      err = 1;
+      errores.push("Sección <strong>Encabezado</strong> incompleta.");
+    }
+    if (
+      JSON.parse(FT)?.encabezado.tipoDeIndicador === undefined 
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Tipo de indicador no seleccionado."
+      );
+    }
+    if (
+      JSON.parse(FT)?.encabezado.dimension === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Encabezado</strong>: Dimensión no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.encabezado.unidadDeMedida === undefined ||
+      JSON.parse(FT)?.encabezado.unidadDeMedida === "" ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida)
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Unidad de medida sin información."
+      );
+    }
+    if (
+      JSON.parse(FT)?.encabezado.claridad === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Encabezado</strong>: Claridad no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.encabezado.relevancia === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Encabezado</strong>: Relevancia no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.encabezado.economia === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Encabezado</strong>: Economia no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.encabezado.monitoreable === undefined 
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Monitoreable no seleccionado."
+      );
+    }
+    if (
+      JSON.parse(FT)?.encabezado.adecuado === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Encabezado</strong>: Adecuado no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.encabezado.aporte_marginal === undefined 
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Aporte Marginal no seleccionado."
+      );
+    }
+    checkFT(v);
+  };
+
   const checkFT = (v: string) => {
     errores = [];
     if (JSON.parse(FT)?.fin === null) {
@@ -70,15 +141,13 @@ export default function ModalEnviarFT({
       errores.push("Sección <strong>Fin</strong> incompleta.");
     }
     if (
-      JSON.parse(FT)?.fin.tipoDeIndicador === undefined ||
-      /^[\s]*$/.test(JSON.parse(FT)?.fin.tipoDeIndicador)
+      JSON.parse(FT)?.fin.tipoDeIndicador === undefined 
     ) {
       err = 1;
       errores.push("<strong>Fin</strong>: Tipo de indicador no seleccionado.");
     }
     if (
-      JSON.parse(FT)?.fin.dimension === undefined ||
-      /^[\s]*$/.test(JSON.parse(FT)?.fin.dimension)
+      JSON.parse(FT)?.fin.dimension === undefined 
     ) {
       err = 1;
       errores.push("<strong>Fin</strong>: Dimensión no seleccionado.");
@@ -91,114 +160,107 @@ export default function ModalEnviarFT({
       errores.push("<strong>Fin</strong>: Unidad de medida sin información.");
     }
     if (
-        JSON.parse(FT)?.fin.claridad === undefined ||
-        /^[\s]*$/.test(JSON.parse(FT)?.fin.claridad)
-      ) {
-        err = 1;
-        errores.push("<strong>Fin</strong>: Claridad no seleccionado.");
-      }
-      if (
-        JSON.parse(FT)?.fin.relevancia === undefined ||
-        /^[\s]*$/.test(JSON.parse(FT)?.fin.relevancia)
-      ) {
-        err = 1;
-        errores.push("<strong>Fin</strong>: Relevancia no seleccionado.");
-      }
-      if (
-        JSON.parse(FT)?.fin.economia === undefined ||
-        /^[\s]*$/.test(JSON.parse(FT)?.fin.economia)
-      ) {
-        err = 1;
-        errores.push("<strong>Fin</strong>: Economia no seleccionado.");
-      }
-      if (
-        JSON.parse(FT)?.fin.monitoreable === undefined ||
-        /^[\s]*$/.test(JSON.parse(FT)?.fin.monitoreable)
-      ) {
-        err = 1;
-        errores.push("<strong>Fin</strong>: Monitoreable no seleccionado.");
-      }
-      if (
-        JSON.parse(FT)?.fin.adecuado === undefined ||
-        /^[\s]*$/.test(JSON.parse(FT)?.fin.adecuado)
-      ) {
-        err = 1;
-        errores.push("<strong>Fin</strong>: Adecuado no seleccionado.");
-      }
-      if (
-        JSON.parse(FT)?.fin.aporte_marginal === undefined ||
-        /^[\s]*$/.test(JSON.parse(FT)?.fin.aporte_marginal)
-      ) {
-        err = 1;
-        errores.push("<strong>Fin</strong>: Aporte Marginal no seleccionado.");
-      }
-      if (JSON.parse(FT)?.proposito === null) {
-        err = 1;
-        errores.push("Sección <strong>Propósito</strong> incompleta.");
-      }
-      if (
-        JSON.parse(FT)?.proposito.tipoDeIndicador === undefined ||
-        /^[\s]*$/.test(JSON.parse(FT)?.proposito.tipoDeIndicador)
-      ) {
-        err = 1;
-        errores.push("<strong>Propósito</strong>: Tipo de indicador no seleccionado.");
-      }
-      if (
-        JSON.parse(FT)?.proposito.dimension === undefined ||
-        /^[\s]*$/.test(JSON.parse(FT)?.proposito.dimension)
-      ) {
-        err = 1;
-        errores.push("<strong>Propósito</strong>: Dimensión no seleccionado.");
-      }
-      if (
-        JSON.parse(FT)?.proposito.unidadDeMedida === undefined ||
-        JSON.parse(FT)?.proposito.unidadDeMedida === ""
-      ) {
-        err = 1;
-        errores.push("<strong>Propósito</strong>: Unidad de medida sin información.");
-      }
-      if (
-          JSON.parse(FT)?.proposito.claridad === undefined ||
-          /^[\s]*$/.test(JSON.parse(FT)?.proposito.claridad)
-        ) {
-          err = 1;
-          errores.push("<strong>Propósito</strong>: Claridad no seleccionado.");
-        }
-        if (
-          JSON.parse(FT)?.proposito.relevancia === undefined ||
-          /^[\s]*$/.test(JSON.parse(FT)?.proposito.relevancia)
-        ) {
-          err = 1;
-          errores.push("<strong>Fin</strong>: Relevancia no seleccionado.");
-        }
-        if (
-          JSON.parse(FT)?.proposito.economia === undefined ||
-          /^[\s]*$/.test(JSON.parse(FT)?.proposito.economia)
-        ) {
-          err = 1;
-          errores.push("<strong>Propósito</strong>: Economia no seleccionado.");
-        }
-        if (
-          JSON.parse(FT)?.proposito.monitoreable === undefined ||
-          /^[\s]*$/.test(JSON.parse(FT)?.proposito.monitoreable)
-        ) {
-          err = 1;
-          errores.push("<strong>Propósito</strong>: Monitoreable no seleccionado.");
-        }
-        if (
-          JSON.parse(FT)?.proposito.adecuado === undefined ||
-          /^[\s]*$/.test(JSON.parse(FT)?.proposito.adecuado)
-        ) {
-          err = 1;
-          errores.push("<strong>Propósito</strong>: Adecuado no seleccionado.");
-        }
-        if (
-          JSON.parse(FT)?.proposito.aporte_marginal === undefined ||
-          /^[\s]*$/.test(JSON.parse(FT)?.proposito.aporte_marginal)
-        ) {
-          err = 1;
-          errores.push("<strong>Propósito</strong>: Aporte marginal no seleccionado.");
-        }
+      JSON.parse(FT)?.fin.claridad === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Fin</strong>: Claridad no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.fin.relevancia === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Fin</strong>: Relevancia no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.fin.economia === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Fin</strong>: Economia no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.fin.monitoreable === undefined
+    ) {
+      err = 1;
+      errores.push("<strong>Fin</strong>: Monitoreable no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.fin.adecuado === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Fin</strong>: Adecuado no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.fin.aporte_marginal === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Fin</strong>: Aporte Marginal no seleccionado.");
+    }
+    if (JSON.parse(FT)?.proposito === null) {
+      err = 1;
+      errores.push("Sección <strong>Propósito</strong> incompleta.");
+    }
+    if (
+      JSON.parse(FT)?.proposito.tipoDeIndicador === undefined 
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Propósito</strong>: Tipo de indicador no seleccionado."
+      );
+    }
+    if (
+      JSON.parse(FT)?.proposito.dimension === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Propósito</strong>: Dimensión no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.proposito.unidadDeMedida === undefined ||
+      JSON.parse(FT)?.proposito.unidadDeMedida === "" ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.unidadDeMedida)
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Propósito</strong>: Unidad de medida sin información."
+      );
+    }
+    if (
+      JSON.parse(FT)?.proposito.claridad === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Propósito</strong>: Claridad no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.proposito.relevancia === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Fin</strong>: Relevancia no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.proposito.economia === undefined
+    ) {
+      err = 1;
+      errores.push("<strong>Propósito</strong>: Economia no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.proposito.monitoreable === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Propósito</strong>: Monitoreable no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.proposito.adecuado === undefined 
+    ) {
+      err = 1;
+      errores.push("<strong>Propósito</strong>: Adecuado no seleccionado.");
+    }
+    if (
+      JSON.parse(FT)?.proposito.aporte_marginal === undefined 
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Propósito</strong>: Aporte marginal no seleccionado."
+      );
+    }
 
     checkComponentes(v);
   };
@@ -206,8 +268,7 @@ export default function ModalEnviarFT({
   const checkComponentes = (v: string) => {
     JSON.parse(FT)?.componentes.every((componente: any, index: number) => {
       if (
-        componente.tipoDeIndicador === undefined ||
-        /^[\s]*$/.test(componente.tipoDeIndicador) 
+        componente.tipoDeIndicador === undefined 
       ) {
         err = 1;
         errores.push(
@@ -217,8 +278,7 @@ export default function ModalEnviarFT({
         );
       }
       if (
-        componente.dimension === undefined ||
-        /^[\s]*$/.test(componente.dimension) 
+        componente.dimension === undefined 
       ) {
         err = 1;
         errores.push(
@@ -230,7 +290,7 @@ export default function ModalEnviarFT({
       if (
         componente.unidadDeMedida === undefined ||
         /^[\s]*$/.test(componente.unidadDeMedida) ||
-        componente.unidadDeMedida === null
+        componente.unidadDeMedida === ""
       ) {
         err = 1;
         errores.push(
@@ -240,8 +300,7 @@ export default function ModalEnviarFT({
         );
       }
       if (
-        componente.claridad === undefined ||
-        /^[\s]*$/.test(componente.claridad) 
+        componente.claridad === undefined 
       ) {
         err = 1;
         errores.push(
@@ -251,8 +310,7 @@ export default function ModalEnviarFT({
         );
       }
       if (
-        componente.relevancia === undefined ||
-        /^[\s]*$/.test(componente.relevancia) 
+        componente.relevancia === undefined 
       ) {
         err = 1;
         errores.push(
@@ -262,8 +320,7 @@ export default function ModalEnviarFT({
         );
       }
       if (
-        componente.economia === undefined ||
-        /^[\s]*$/.test(componente.economia) 
+        componente.economia === undefined 
       ) {
         err = 1;
         errores.push(
@@ -273,8 +330,7 @@ export default function ModalEnviarFT({
         );
       }
       if (
-        componente.monitoreable === undefined ||
-        /^[\s]*$/.test(componente.monitoreable) 
+        componente.monitoreable === undefined 
       ) {
         err = 1;
         errores.push(
@@ -284,8 +340,7 @@ export default function ModalEnviarFT({
         );
       }
       if (
-        componente.adecuado === undefined ||
-        /^[\s]*$/.test(componente.adecuado) 
+        componente.adecuado === undefined 
       ) {
         err = 1;
         errores.push(
@@ -295,8 +350,7 @@ export default function ModalEnviarFT({
         );
       }
       if (
-        componente.aporte_marginal === undefined ||
-        /^[\s]*$/.test(componente.aporte_marginal) 
+        componente.aporte_marginal === undefined 
       ) {
         err = 1;
         errores.push(
@@ -311,112 +365,78 @@ export default function ModalEnviarFT({
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
+    JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
       if (
-        actividad.metaAnual === undefined ||
-        /^[\s]*$/.test(actividad.metaAnual)
+        actividad.tipoDeIndicador === undefined 
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Tipo de indicador no seleccionado.`
         );
         err = 1;
       }
       if (
-        actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4
+        actividad.dimension === undefined 
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Dimension no seleccionado.`
         );
         err = 1;
       }
       if (
-        actividad.lineaBase === undefined ||
-        /^[\s]*$/.test(actividad.lineaBase)
+        actividad.unidadDeMedida === undefined ||
+        /^[\s]*$/.test(actividad.unidadDeMedida) ||
+        actividad.unidadDeMedida === ""
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Unidad de mdedida sin información.`
         );
         err = 1;
       }
       if (
-        (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre1) ||
-          actividad.metasPorFrecuencia[0].semestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre2)) &&
-        (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
-          actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
-          actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
-          actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
+        actividad.claridad === undefined 
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Claridad no seleccionado.`
         );
         err = 1;
       }
       if (
-        actividad.valorNumerador === undefined ||
-        /^[\s]*$/.test(actividad.valorNumerador)
+        actividad.relevancia === undefined 
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Relevancia no seleccionado.`
         );
         err = 1;
       }
       if (
-        actividad.valorDenominador === undefined ||
-        /^[\s]*$/.test(actividad.valorDenominador)
+        actividad.economia === undefined 
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Economia no seleccionado.`
         );
         err = 1;
       }
       if (
-        actividad.sentidoDelIndicador === undefined ||
-        actividad.sentidoDelIndicador === ""
+        actividad.monitoreable === undefined 
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Monitoreable no seleccionado.`
         );
         err = 1;
       }
       if (
-        actividad.unidadResponsable === undefined ||
-        /^[\s]*$/.test(actividad.unidadResponsable)
+        actividad.adecuado === undefined 
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Adecuado no seleccionado.`
         );
         err = 1;
       }
       if (
-        actividad.descIndicador === undefined ||
-        /^[\s]*$/.test(actividad.descIndicador)
+        actividad.aporte_marginal === undefined 
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descNumerador === undefined ||
-        /^[\s]*$/.test(actividad.descNumerador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descDenominador === undefined ||
-        /^[\s]*$/.test(actividad.descDenominador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
+          `<strong> Actividad ${actividad.actividad} </strong>: Aporte marginal no seleccionado.`
         );
         err = 1;
       }
@@ -469,7 +489,7 @@ export default function ModalEnviarFT({
         });
 
         if (comment !== "") {
-            comentFT(r.data.data.ID);
+          comentFT(r.data.data.ID);
         }
         showResume();
       })
@@ -578,10 +598,10 @@ export default function ModalEnviarFT({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la Meta Anual se autorizará y el apartado de la Ficha Técnica será habilitado"
+              ? "Al confirmar, la Ficha Técnica se autorizará"
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para autorización"
-              : "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para revisión"}
+              ? "Al confirmar, la Ficha Técnica se enviará a los usuarios correspondientes para autorización"
+              : "Al confirmar, la Ficha Técnica se enviará a los usuarios correspondientes para revisión"}
           </Typography>
         </Box>
 
