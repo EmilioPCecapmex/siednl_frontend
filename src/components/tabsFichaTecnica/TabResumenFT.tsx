@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
-import { IActividadesFT, ICValorFT, IEncabezadoFT, IFinFT, IFT, IPropositoFT } from "./Interfaces";
-import { IComponenteFT } from "./tabComponentes";
+import { IActividadesFT, IComponentesFT, ICValorFT, IEncabezadoFT, IFinFT, IFT, IPropositoFT } from "./Interfaces";
 
 export function TabResumenFT({
   show,
@@ -27,7 +26,7 @@ export function TabResumenFT({
   fin: Array<IFinFT>;
   proposito: Array<IPropositoFT>;
   componentes: number[];
-  componenteValor: Array<IComponenteFT>;
+  componenteValor: Array<IComponentesFT>;
   cValor: Array<ICValorFT>;
   IdMir: string;
   IdMA: string;
@@ -43,7 +42,7 @@ export function TabResumenFT({
     encabezadoM: Array<IEncabezadoFT>,
     finM: Array<IFinFT>,
     propositoM: Array<IPropositoFT>,
-    componentesM: Array<IComponenteFT>,
+    componentesM: Array<IComponentesFT>,
     actividadesM: Array<IActividadesFT>
   ) => {
     setFT({
@@ -889,6 +888,7 @@ export function TabResumenFT({
             </Typography>
           </Box>
           {/*PROPÓSITO FIN*/}
+  {/*---------------------------------Componentes--------------------------------------- */}
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
@@ -1082,6 +1082,8 @@ export function TabResumenFT({
 
           <Box
             sx={{
+
+              
               display: "flex",
               flexDirection: "row",
               width: "100%",

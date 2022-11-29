@@ -4,12 +4,15 @@ import Tab from "@mui/material/Tab";
 import TabResumenFT from "./TabResumenFT";
 import { TabComponenteFT } from "./tabComponentes";
 import { TabFinPropositoFT } from "./tabFinProposito";
+import { TabComponenteFT2 } from "./TabComponentes2";
+import { TabFinProposito } from "./tabFinProposito";
 import { Box, IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/AddMir";
-import { IComponentesFT, ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
+import { ICValor } from "../tabsMir/ICValor";
+import { ICValorFT, IFinFT, IPropositoFT, IComponenteFT } from "./Interfaces";
 
 export default function AddFichaTecnica({
   MIR,
@@ -19,6 +22,7 @@ export default function AddFichaTecnica({
   IdMir,
   IdMA,
   IdFT,
+  anioFiscalEdit,
 }: {
   MIR: string;
   MA: string;
@@ -27,7 +31,9 @@ export default function AddFichaTecnica({
   IdMir: string;
   IdMA: string;
   IdFT: string;
+  anioFiscalEdit: string;
 }) {
+
   const [value, setValue] = React.useState(10);
 
   const [showMir, setShowMir] = React.useState(false);
@@ -263,15 +269,12 @@ export default function AddFichaTecnica({
             height: "77vh",
           }}
         >
-          {/* {value === 10 ? 
-          <TabEncabezado
-          show={value === 10 ? true : false}
-          resumenEncabezado ={() => {}}
-          >
-          </TabEncabezado> 
-          : null } */}
+            <TabEncabezado
+              show={value === 10 ? true : false}
+              resumenEncabezado={() => {}}
+            ></TabEncabezado>
 
-          <TabFinPropositoFT
+          <TabFinProposito
             show={value === 20 ? true : false}
             resumenFinFT={resumenFinFT}
             resumenPropositoFT={resumenPropositoFT}
@@ -279,13 +282,26 @@ export default function AddFichaTecnica({
             MIR={MIR}
           ></TabFinPropositoFT>
 
-          <TabComponenteFT
+          {/* <TabComponenteFT
             show={value === 30 ? true : false}
             noComponentesFnc={() => {}}
             valoresComponenteFnc={() => {}}
             noComponentes={noComponentes}
-            valoresComponente={[]}
-          ></TabComponenteFT>
+            // valoresComponente={() => {}}
+
+          ></TabComponenteFT> */}
+
+          <TabComponenteFT2
+            show={value === 30 ? true : false}
+            //noComponentesFnc ={() => {}}
+            valoresComponenteMAFnc={() => {}}
+            noComponentes={noComponentes}
+            // valoresComponente={() => {}}
+            showFnc={showFnc}
+            showMirFnc={showMirFnc}
+            valoresComponenteMA={valoresComponenteFT}
+            FT={FT}
+          ></TabComponenteFT2>
 
           <TabActividadesFT
             show={value === 40 ? true : false}
@@ -299,7 +315,9 @@ export default function AddFichaTecnica({
 
           <TabResumenFT
             show={value === 50 ? true : false}
-            encabezado={[]}
+            componentes={noComponentes}
+            componenteValor={valoresComponenteFT}
+            cValor={cValorMA}
             fin={ValueFin}
             proposito={ValueProposito}
             componentes={noComponentes}

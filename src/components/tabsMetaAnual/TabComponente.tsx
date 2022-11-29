@@ -84,14 +84,13 @@ export const TabComponenteMA = ({
                     ?.trimestre4 || "",
           },
         ],
-        valorNumerador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || "",
+
+        valorNumerador: MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || "",
         valorDenominador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || "",
+
+ MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || "",
         sentidoDelIndicador:
-          MA === ""
-            ? ""
-            : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
+          MA === "" ? "": jsonMA?.componentes[index]?.sentidoDelIndicador || "",
         unidadResponsable:
           MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
         descIndicador:
@@ -644,6 +643,7 @@ export const TabComponenteMA = ({
                   },
                 }}
               />
+
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
