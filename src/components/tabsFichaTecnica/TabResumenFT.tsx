@@ -8,7 +8,7 @@ import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
 import { IMA } from "../tabsMetaAnual/IMA";
 import {
   IActividadesMA,
-  IComponenteMA,
+  
   ICValorMA,
 } from "../tabsMetaAnual/Interfaces";
 import {
@@ -17,7 +17,7 @@ import {
   IFinEditMA,
   IPropositoEditMA,
 } from "../tabsMetaAnual/TabResumenMA";
-import { ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
+import { ICValorFT, IFinFT, IPropositoFT, IComponenteFT} from "./Interfaces";
 
 export function TabResumenFT({
   show,
@@ -37,7 +37,7 @@ export function TabResumenFT({
   fin: Array<IFinFT>;
   proposito: Array<IPropositoFT>;
   componentes: number[];
-  componenteValor: Array<IComponenteMA>;
+  componenteValor: Array<IComponenteFT>;
   cValor: Array<ICValorFT>;
   IdMir: string;
   IdMA: string;
@@ -49,13 +49,13 @@ export function TabResumenFT({
   let asignarMA = (
     finM: Array<IFinMA>,
     propositoM: Array<IPropositoMA>,
-    componentesM: Array<IComponenteMA>,
+    componentesFT: Array<IComponenteFT>,
     actividadesM: Array<IActividadesMA>
   ) => {
     setMA({
       fin: finM[0],
       proposito: propositoM[0],
-      componentes: componentesM,
+      componentes: componentesFT,
       actividades: actividadesM,
     });
   };
@@ -913,6 +913,7 @@ export function TabResumenFT({
             </Typography>
           </Box>
           {/*PROPÓSITO FIN*/}
+  {/*---------------------------------Componentes--------------------------------------- */}
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
@@ -958,7 +959,7 @@ export function TabResumenFT({
               TIPO DE INDICADOR:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.tipoDeIndicador}
             </Typography>
           </Box>
 
@@ -988,7 +989,7 @@ export function TabResumenFT({
               DIMENSIÓN:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.dimension}
             </Typography>
           </Box>
           <Box
@@ -1017,7 +1018,7 @@ export function TabResumenFT({
               UNIDAD DE MEDIDA:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.unidadDeMedida}
             </Typography>
           </Box>
           <Box
@@ -1046,7 +1047,7 @@ export function TabResumenFT({
               CLARIDAD:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.claridad}
             </Typography>
           </Box>
 
@@ -1076,7 +1077,7 @@ export function TabResumenFT({
               RELEVANCIA:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.relevancia}
             </Typography>
           </Box>
 
@@ -1106,12 +1107,14 @@ export function TabResumenFT({
               ECONOMÍA:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.economia}
             </Typography>
           </Box>
 
           <Box
             sx={{
+
+              
               display: "flex",
               flexDirection: "row",
               width: "100%",
@@ -1136,7 +1139,7 @@ export function TabResumenFT({
               MONITOREABLE:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.monitoreable}
             </Typography>
           </Box>
 
@@ -1166,7 +1169,7 @@ export function TabResumenFT({
               ADECUADO:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.adecuado}
             </Typography>
           </Box>
 
@@ -1196,7 +1199,7 @@ export function TabResumenFT({
               APORTE MARGINAL:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-            {componenteValor[index - 1]?.lineaBase}
+            {componenteValor[index - 1]?.aporte_marginal}
             </Typography>
           </Box>
                 {/*COMPONENTE*/}

@@ -40,3 +40,17 @@ export interface IPropositoFT {
   dimension: string;
   unidadDeMedida: string;
 }
+
+export interface IComponenteFT {
+  componentes: string;
+  tipoDeIndicador: string;
+  frecuencia: string;
+  claridad: string;
+  relevancia: string;
+  economia: string;
+  monitoreable: string;
+  adecuado: string;
+  aporte_marginal: string;
+  dimension: string;
+  unidadDeMedida: string;
+}

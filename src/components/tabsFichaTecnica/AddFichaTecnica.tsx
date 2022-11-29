@@ -5,7 +5,7 @@ import { TabEncabezado } from "./TabEncabezado";
 import { IComponenteMA, ICValorMA } from "../tabsMetaAnual/Interfaces";
 import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
 import TabResumenFT from "./TabResumenFT";
-import { TabComponenteFT} from "./tabComponentes";
+import { TabComponenteFT2 } from "./TabComponentes2";
 import { TabFinProposito } from "./tabFinProposito";
 import { Box, IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
@@ -13,7 +13,7 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import { ICValor } from "../tabsMir/ICValor";
-import { ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
+import { ICValorFT, IFinFT, IPropositoFT, IComponenteFT } from "./Interfaces";
 
 export default function AddFichaTecnica({
   MIR,
@@ -22,6 +22,7 @@ export default function AddFichaTecnica({
   IdMA,
   anioFiscalEdit,
   MA,
+  FT,
 }: {
   MIR: string;
   showResume: Function;
@@ -29,31 +30,27 @@ export default function AddFichaTecnica({
   IdMA: string;
   anioFiscalEdit: string;
   MA: string;
+  FT: string;
 }) {
+
   const [value, setValue] = React.useState(10);
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
+
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
-  const [valoresComponenteMA, setValoresComponenteMA] = useState<
-    Array<IComponenteMA>
+  const [valoresComponenteFT, setValoresComponenteFT] = useState<
+    Array<IComponenteFT>
   >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
-    })
+  [
+    
+  ]
   );
+
+const valoresComponenteMAFnc = (state: Array<IComponenteFT>) => {
+    setValoresComponenteFT(state);
+  };
+
 
   const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
@@ -89,8 +86,6 @@ export default function AddFichaTecnica({
   const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
 
-  
-
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
       if (value < 50) setValue(value + 10);
@@ -98,35 +93,25 @@ export default function AddFichaTecnica({
       if (value > 10) setValue(value - 10);
     }
   };
-
   const [showSt, setShowSt] = React.useState("");
-
   const showFnc = (st: string) => {
     setShowSt(st);
   };
-
   const resumenFin = (st: Array<IFinFT>) => {
     setValueFin(st);
   };
-
   const resumenProposito = (st: Array<IPropositoFT>) => {
     setValueProposito(st);
   };
-
   const [showMir, setShowMir] = React.useState(false);
-
   const showMirFnc = (state: boolean) => {
     setShowMir(state);
   };
-
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-
   const [actividadesMir, setActividadesMir] = useState<Array<ICValor>>([]);
-
   const asignarCValorFT = (state: Array<ICValorFT>) => {
     setCValorFT(state);
   };
-
   const asignarCValor = (state: Array<ICValor>) => {
     setCValor(state);
   };
@@ -242,16 +227,12 @@ export default function AddFichaTecnica({
             height: "77vh",
           }}
         >
-
-         
-          {value === 10 ? 
-          <TabEncabezado
-          show={value === 10 ? true : false}
-          resumenEncabezado ={() => {}}
-          >
-          </TabEncabezado> 
-          : null }
-
+          {value === 10 ? (
+            <TabEncabezado
+              show={value === 10 ? true : false}
+              resumenEncabezado={() => {}}
+            ></TabEncabezado>
+          ) : null}
 
           <TabFinProposito
             show={value === 20 ? true : false}
@@ -259,18 +240,28 @@ export default function AddFichaTecnica({
             resumenProposito={resumenProposito}
             MA={MA}
             MIR={MIR}
-          
-            
           ></TabFinProposito>
 
-          <TabComponenteFT
+          {/* <TabComponenteFT
             show={value === 30 ? true : false}
             noComponentesFnc ={() => {}}
             valoresComponenteFnc={() => {}}
             noComponentes={noComponentes}
-            valoresComponente={() => {}}
+            // valoresComponente={() => {}}
 
-          ></TabComponenteFT>
+          ></TabComponenteFT> */}
+
+          <TabComponenteFT2
+            show={value === 30 ? true : false}
+            //noComponentesFnc ={() => {}}
+            valoresComponenteMAFnc={() => {}}
+            noComponentes={noComponentes}
+            // valoresComponente={() => {}}
+            showFnc={showFnc}
+            showMirFnc={showMirFnc}
+            valoresComponenteMA={valoresComponenteFT}
+            FT={FT}
+          ></TabComponenteFT2>
 
           <TabActividadesFT
             showFnc={showFnc}
@@ -288,7 +279,7 @@ export default function AddFichaTecnica({
           <TabResumenFT
             show={value === 50 ? true : false}
             componentes={noComponentes}
-            componenteValor={valoresComponenteMA}
+            componenteValor={valoresComponenteFT}
             cValor={cValorMA}
             fin={ValueFin}
             proposito={ValueProposito}

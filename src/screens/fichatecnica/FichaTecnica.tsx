@@ -728,6 +728,7 @@ export const FichaTecnica = () => {
           IdMA={FTEdit[0].IdMa}
           anioFiscalEdit={FTEdit[0].AnioFiscal}
           MA={FTEdit[0].MetaAnual}
+          FT={FTEdit[0].FichaTecnica}
           />
         </Box>
       )}
