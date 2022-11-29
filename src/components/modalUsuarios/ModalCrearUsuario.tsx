@@ -15,6 +15,7 @@ import {
   Button,
   AlertColor,
 } from "@mui/material";
+import { ITipoSolicitud } from "./InterfazUsuario";
 
 export interface IInstituciones {
   Id: string;
@@ -30,6 +31,8 @@ export default function ModalCrearUsuario({
   open: boolean;
   handleClose: Function;
 }) {
+
+
   const [username, setUsername] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [email, setEmail] = useState("");
@@ -46,14 +49,19 @@ export default function ModalCrearUsuario({
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
   const [ext, setExt] = useState("");
+  const [comentario, setComentario] = useState("");
+
   const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
   ]);
 
+  const [idSolicitud, setIdSolicitud] = useState("");
+
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
   ]);
+
 
   const Toast = Swal.mixin({
     toast: true,
@@ -110,6 +118,21 @@ export default function ModalCrearUsuario({
       });
   };
 
+  // const getTipoSolicitud = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoSolicitudes", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setTiposSolicitud(r.data.data);
+  //     });
+  // };
+
   const getUserType = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
@@ -122,23 +145,14 @@ export default function ModalCrearUsuario({
       });
   };
 
-  const signUp = () => {
+  const createComentarios = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/sign-up",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
         {
-          Nombre: names,
-          ApellidoPaterno: firstName,
-          ApellidoMaterno: secondName,
-          NombreUsuario: username,
-          CorreoElectronico: email,
-          IdUsuarioModificador: localStorage.getItem("IdUsuario"),
-          Curp:curp,
-          Rfc:rfc,
-          Telefono:telephone,
-          Ext:ext,
-          Celular:cellphone,
-          IdTipoUsuario: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdSolicitud: idSolicitud,
+          Comentario: comentario
         },
         {
           headers: {
@@ -148,14 +162,94 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 201) {
-//////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////
-
           cleanForm();
           handleClose();
-          setIdUsuarioCentral(r.data.IdUsuario);
-          siednlSignUp(r.data.IdUsuario);
+          
+          Toast.fire({
+              icon: "success",
+              title: "¡Registro exitoso!",
+            });
+        }
+      })
+      .catch((r) => {
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
+      });
+  }
+
+  const createSolicitud = () => {
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
+        {
+          IdUsuario: idUsuarioCentral,
+          DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
+          TipoSolicitud: "a5838dce-6c49-11ed-a880-040300000000",
+          CreadoPor: localStorage.getItem("IdCentral"),
+          IdApp: localStorage.getItem("IdApp"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 201) {
+          
+          cleanForm();
+          setIdSolicitud("ID DE SOLICITUD")
+          Toast.fire({
+              icon: "success",
+              title: "¡Registro exitoso!",
+            });
+        }
+      })
+      .catch((r) => {
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
+      });
+  }
+
+  const signUp = () => {
+    axios
+      .post(
+        "http://localhost:5000/api/sign-up",
+        {
+          Nombre: names,
+          ApellidoPaterno: firstName,
+          ApellidoMaterno: secondName,
+          NombreUsuario: username,
+          CorreoElectronico: email,
+          IdUsuarioModificador: localStorage.getItem("IdCentral"),
+          Curp: curp,
+          Rfc: rfc,
+          Telefono: telephone,
+          Ext: ext,
+          Celular: cellphone,
+          IdTipoUsuario: "",
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 201) {
+            setIdUsuarioCentral(r.data.IdUsuario);
+            handleClose();
+            siednlSignUp(r.data.IdUsuario);
         }
       })
       .catch((r) => {
@@ -168,9 +262,6 @@ export default function ModalCrearUsuario({
         }
       });
   };
-
-
-
 
 
 
@@ -195,13 +286,24 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 200) {
-          Toast.fire({
-            icon: "success",
-            title: "¡Registro exitoso!",
-          });
+          // Toast.fire({
+          //   icon: "success",
+          //   title: "¡Registro exitoso!",
+          // });
         }
       });
   };
+
+
+  
+  // useEffect(() => {
+  //   createComentarios();
+  // }, [idSolicitud]);
+
+  
+  useEffect(() => {
+    createSolicitud();
+  }, [idUsuarioCentral]);
 
   const checkForm = () => {
     setErrorsForm({
@@ -278,6 +380,7 @@ export default function ModalCrearUsuario({
   useEffect(() => {
     getInstituciones();
     getUserType();
+    // getTipoSolicitud();
   }, []);
 
   return (
@@ -389,7 +492,7 @@ export default function ModalCrearUsuario({
             }}
           />
         </Box>
-<Box
+        <Box
           sx={{
             width: "100%",
             display: "flex",
@@ -504,7 +607,7 @@ export default function ModalCrearUsuario({
 
 
         </Box>
-        
+
         <Box
           sx={{
             width: "100%",
@@ -549,7 +652,31 @@ export default function ModalCrearUsuario({
             onChange={(x) => setExt(x.target.value)}
           />
         </Box>
-        
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            mt: "3vh",
+          }}
+        >
+
+          <TextField
+            label="Comentarios "
+            variant="outlined"
+            multiline
+            rows={3}
+            sx={{
+              width: "95%",
+              mr: "2vw", ml: "2vw",
+            }}
+            type="tel"
+            value={comentario}
+            onChange={(x) => setComentario(x.target.value)}
+          />
+        </Box>
+
 
 
 
