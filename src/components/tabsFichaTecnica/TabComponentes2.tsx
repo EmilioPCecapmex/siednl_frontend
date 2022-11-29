@@ -16,7 +16,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
-import { IComponenteFT } from "../tabsFichaTecnica/Interfaces";
+import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 
 
 export const TabComponenteFT2 = ({
@@ -33,7 +33,7 @@ export const TabComponenteFT2 = ({
   show: boolean;
   valoresComponenteMAFnc: Function;
   noComponentes: number[];
-  valoresComponenteMA: Array<IComponenteFT>;
+  valoresComponenteMA: Array<IComponentesFT>;
   showMirFnc: Function;
   showFnc: Function;
   FT: string;
@@ -43,21 +43,19 @@ export const TabComponenteFT2 = ({
   const [componentSelect, setComponentSelect] = useState(1);
 
   const [componentesValues, setComponentesValues] = useState<
-    Array<IComponenteFT>
+    Array<IComponentesFT>
   >([]);
 
    let jsonFT = FT === "" ? "" : JSON.parse(FT);
 
   useEffect(() => {
     // if (show === true) {
-    let comp: IComponenteFT[] = [];
+    let comp: IComponentesFT[] = [];
 
     noComponentes.map((x, index) => {
       return comp.push({
         componentes: "C" + (index + 1),
-
         tipoDeIndicador: FT === "" ? "" : jsonFT?.componentes[index]?.tipoDeIndicador || "",
-        frecuencia: FT === "" ? "" : jsonFT?.componentes[index]?.frecuencia || "",
         claridad: FT === "" ? "" : jsonFT?.componentes[index]?.claridad || "",
         relevancia: FT === "" ? "" : jsonFT?.componentes[index]?.relevancia || "",
         economia: FT === "" ? "" : jsonFT?.componentes[index]?.economia || "",
