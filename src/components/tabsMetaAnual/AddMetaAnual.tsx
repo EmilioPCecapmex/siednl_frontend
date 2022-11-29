@@ -75,13 +75,12 @@ export default function AddMetaAnual({
       j++;
     });
 
-    setCompAct(ambos)
+    setCompAct(ambos);
 
     jsonMir.componentes.map((value: any, index: number) => {
       if (index > 1 && index < 6)
         setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
     });
-    
   }, []);
 
   // COMPONENTES
@@ -158,7 +157,6 @@ export default function AddMetaAnual({
   };
 
   useEffect(() => {
-    
     let arrayMA = noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
@@ -184,12 +182,10 @@ export default function AddMetaAnual({
       };
     });
     setValoresComponenteMA(arrayMA);
-
   }, [noComponentes]);
 
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
-
 
   const resumenFinMa = (arr: Array<IFinMA>) => {
     setValueFin(arr);

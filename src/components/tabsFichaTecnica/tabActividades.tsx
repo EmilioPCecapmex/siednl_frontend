@@ -23,25 +23,17 @@ export const TabActividadesFT = ({
   show,
   componentes,
   asignarCValor,
-  asignarCValorMIR,
   compAct,
-  actividadesMir,
   showMirFnc,
   setTxtShowFnc,
-  MA,
-  MIR,
   FT,
 }: {
   show: boolean;
   componentes: number[];
   asignarCValor: Function;
-  asignarCValorMIR: Function;
   compAct: Array<IComponenteActividad>;
-  actividadesMir: Array<ICValor>;
   showMirFnc: Function;
   setTxtShowFnc: Function;
-  MA: string;
-  MIR: string;
   FT: string;
 }) => {
   // business logic-------------------------------------------------------------------------------
@@ -126,103 +118,11 @@ export const TabActividadesFT = ({
       };
     });
 
-    actividadesMir.map((x, index) => {
-      let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1].substring(0, 1);
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].actividad = x.actividad;
-    });
     setAValorFT(y);
   };
 
-  let jsonMir = JSON.parse(MIR);
-
-  const [cValorMIR, setCValorMIR] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: jsonMir.actividades[index].resumen || "",
-                indicador: jsonMir.actividades[index].resumen,
-                formula: jsonMir.actividades[index].resumen,
-                frecuencia: jsonMir.actividades[index].resumen,
-                medios: jsonMir.actividades[index].resumen,
-                supuestos: jsonMir.actividades[index].resumen,
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  useEffect(() => {
-    if (compAct.length > 0) {
-      loadActividadesMir();
-    }
-  }, [compAct]);
-
-  const loadActividadesMir = () => {
-    let y = componenteActividad.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
-          return {
-            actividades: x.actividades.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: jsonMir.actividades[index2].resumen,
-                indicador: jsonMir.actividades[index2].indicador,
-                formula: jsonMir.actividades[index2].formula,
-                frecuencia: jsonMir.actividades[index2].frecuencia,
-                medios: jsonMir.actividades[index2].medios,
-                supuestos: jsonMir.actividades[index2].supuestos,
-              };
-            }),
-          };
-        }),
-      };
-    });
-
-    actividadesMir.map((x, index) => {
-      let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1].substring(0, 1);
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].actividad = x.actividad;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].resumen = x?.resumen;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].indicador = x?.indicador;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].formula = x?.formula;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].frecuencia = x?.frecuencia;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].medios = x?.medios;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].supuestos = x?.supuestos;
-    });
-    setCValorMIR(y);
-  };
-
-  useEffect(() => {
-    asignarCValorMIR(cValorMIR);
-  }, [cValorMIR, componentes]);
-
   const [open, setOpen] = useState(1);
-
+  
   const handleClickComponente = (index: number) => {
     setOpen(index);
   };
