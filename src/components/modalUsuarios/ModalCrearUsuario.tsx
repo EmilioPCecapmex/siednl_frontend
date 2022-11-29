@@ -34,7 +34,6 @@ export default function ModalCrearUsuario({
 
 
   const [username, setUsername] = useState("");
-  const [contrasena, setContrasena] = useState("");
   const [email, setEmail] = useState("");
   const [names, setNames] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -185,11 +184,11 @@ export default function ModalCrearUsuario({
   const createSolicitud = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
+        "http://10.200.4.192:5000/api/create-solicitud",
         {
           IdUsuario: idUsuarioCentral,
           DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
-          TipoSolicitud: "a5838dce-6c49-11ed-a880-040300000000",
+          TipoSolicitud: "Alta",
           CreadoPor: localStorage.getItem("IdCentral"),
           IdApp: localStorage.getItem("IdApp"),
         },
@@ -202,7 +201,6 @@ export default function ModalCrearUsuario({
       .then((r) => {
         if (r.status === 201) {
           
-          cleanForm();
           setIdSolicitud("ID DE SOLICITUD")
           Toast.fire({
               icon: "success",
@@ -249,7 +247,7 @@ export default function ModalCrearUsuario({
         if (r.status === 201) {
             setIdUsuarioCentral(r.data.IdUsuario);
             handleClose();
-            siednlSignUp(r.data.IdUsuario);
+            //siednlSignUp(r.data.IdUsuario);
         }
       })
       .catch((r) => {
@@ -302,10 +300,15 @@ export default function ModalCrearUsuario({
 
   
   useEffect(() => {
-    createSolicitud();
+    if(idUsuarioCentral!=""){
+      createSolicitud();
+    }
+      
   }, [idUsuarioCentral]);
 
   const checkForm = () => {
+    
+    
     setErrorsForm({
       visible: false,
       text: "",
@@ -360,7 +363,19 @@ export default function ModalCrearUsuario({
         text: "Selecciona el tipo de usuario a crear.",
         type: "error",
       });
-    } else if (telephone === "") {
+    } else if (curp === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    }else if (rfc === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    }else if (telephone === "") {
       setErrorsForm({
         visible: true,
         text: "Ingresa un teléfono de contacto.",
@@ -372,7 +387,13 @@ export default function ModalCrearUsuario({
         text: "Ingresa un número celular de contacto.",
         type: "error",
       });
-    } else {
+    } else if (ext === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    }else {
       signUp();
     }
   };
@@ -428,17 +449,7 @@ export default function ModalCrearUsuario({
             onChange={(v) => setUsername(v.target.value)}
           />
 
-          <TextField
-            label="Contraseña"
-            variant="outlined"
-            value={contrasena}
-            sx={{
-              width: "30%",
-
-            }}
-            type="password"
-            onChange={(v) => setContrasena(v.target.value)}
-          />
+          
 
           <TextField
             label="Correo Electrónico"
@@ -701,7 +712,7 @@ export default function ModalCrearUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
-              onClick={() => handleClose()}
+              onClick={() =>{ handleClose()}}
             >
               Cancelar
             </Button>
@@ -709,7 +720,8 @@ export default function ModalCrearUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
-              onClick={() => checkForm()}
+              onClick={() => {checkForm(); 
+              }}
             >
               Registrar
             </Button>
