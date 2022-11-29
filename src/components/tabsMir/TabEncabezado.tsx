@@ -56,14 +56,10 @@ export function TabEncabezado({
   anioFiscalEdit: string;
   mirEdit?: IMIREdit;
 }) {
-  const [value, setValue] = useState("");
   const [nombreArchivo, setNombreArchivo] = useState(
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   );
   const [docExtencion,setDocExt] = useState("");
-
-
-  const extensionList = ['xlsx'];
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
@@ -105,7 +101,6 @@ export function TabEncabezado({
 
       let act: number[] = [];
       let comp: string[] = [];
-      // let ambos: [number[],string[]]=[[], []]
       let ambos: any = [];
       let i = 1;
       let j = 1;
@@ -774,13 +769,14 @@ export function TabEncabezado({
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
+       >
         <Button href="/files/MIR_2023.xlsx" target="_blank" download>
           <Typography sx={{ fontFamily: "MontserratMedium", color: "#616161" }}>
             Plantilla
           </Typography>
         </Button>
       </Box>
+
       <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
         <Autocomplete
           disabled={mirEdit?.encabezado.ejercicioFiscal}
@@ -904,6 +900,7 @@ export function TabEncabezado({
       </Box>
 
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+        
         <Autocomplete
           disablePortal
           disabled={mirEdit?.encabezado.institucion}

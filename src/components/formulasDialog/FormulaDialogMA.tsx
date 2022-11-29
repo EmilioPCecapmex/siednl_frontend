@@ -14,7 +14,6 @@ export const FormulaDialogMA = ({
   open,
   close,
   textoSet,
-  prevText,
   tipo,
   elemento,
   MIR,
@@ -22,7 +21,6 @@ export const FormulaDialogMA = ({
   open: boolean;
   close: Function;
   textoSet: Function;
-  prevText: string;
   tipo: string;
   elemento: string;
   MIR: string;
@@ -30,6 +28,11 @@ export const FormulaDialogMA = ({
   const [descA, setDescA] = useState("");
   const [descB, setDescB] = useState("");
   const [emptyTxt, setEmptyTxt] = useState(false);
+
+  const limpiaVar = () => {
+    setDescA("");
+    setDescB("");
+  };
 
   const checkValues = () => {
     if (tipo === "Indice" || tipo === "Índice") {
@@ -40,6 +43,8 @@ export const FormulaDialogMA = ({
           textoSet(
             descA.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")
           );
+          
+          limpiaVar();
           close();
         }
       }
@@ -48,18 +53,24 @@ export const FormulaDialogMA = ({
         setEmptyTxt(true);
       } else {
         if (tipo === "Porcentaje") {
-          let MA = (parseInt(descA) / parseInt(descB)) * 100;
-          textoSet(descA + "," + descB + "," + MA);
+          let MA = (parseFloat(descA) / parseFloat(descB)) * 100;
+          textoSet(descA + "," + descB + "," + MA.toFixed(2));
+          
+          limpiaVar();
           close();
         } else if (tipo === "Tasa") {
-          let T = parseInt(descA) - parseInt(descB);
+          let T = parseFloat(descA) - parseFloat(descB);
           let MA =
-            ((parseInt(descA) - parseInt(descB)) / parseInt(descB)) * 100;
-          textoSet(T + "," + descB + "," + MA);
+            ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
+          textoSet(T.toFixed(2) + "," + descB + "," + MA.toFixed(2));
+          
+          limpiaVar();
           close();
         } else if (tipo === "Promedio") {
-          let MA = parseInt(descA) / parseInt(descB);
-          textoSet(descA + "," + descB + "," + MA);
+          let MA = parseFloat(descA) / parseFloat(descB);
+          textoSet(descA + "," + descB + "," + MA.toFixed(2));
+          
+          limpiaVar();
           close();
         }
       }
@@ -67,24 +78,18 @@ export const FormulaDialogMA = ({
   };
 
   useLayoutEffect(() => {
-    if (prevText !== "" && prevText !== undefined) {
-    } else if (prevText === "") {
-      setDescA("");
-      setDescB("");
-    }
     setEmptyTxt(false);
   }, [open]);
 
-  let noComponente = parseInt(elemento.split(" ")[1]);
-  let noActividad = parseInt(elemento.split("")[3]);
-  
+  let noComponente = parseFloat(elemento.split(" ")[1]);
+  let noActividad = parseFloat(elemento.split("")[3]);
 
   return (
     <Dialog open={open} fullWidth>
       <Box
         sx={{
           width: "100%",
-          height: "15vh",
+          height: "18vh",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -130,8 +135,8 @@ export const FormulaDialogMA = ({
             ? JSON.parse(MIR).proposito.formula
             : elemento.includes("Componente")
             ? JSON.parse(MIR).componentes[noComponente - 1].formula
-            : elemento.includes("A#")
-            ? JSON.parse(MIR).actividades[noActividad - 1].formula
+            : elemento.includes("A")
+            ? JSON.parse(MIR).actividades[noActividad - 1]?.formula
             : null}
         </Typography>
       </Box>
@@ -153,6 +158,7 @@ export const FormulaDialogMA = ({
           }}
         >
           <TextField
+            type={"number"}
             label={tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
             sx={{ width: "45%" }}
             value={descA}
@@ -193,6 +199,7 @@ export const FormulaDialogMA = ({
             ""
           ) : (
             <TextField
+            type={"number"}
               label={tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
               sx={{ width: "45%" }}
               InputLabelProps={{

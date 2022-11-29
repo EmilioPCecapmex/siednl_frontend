@@ -11,44 +11,39 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { IComponenteActividad } from "./AddMetaAnual";
 import { ICValor } from "../tabsMir/ICValor";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
+import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
+import { IComponenteActividad } from "../tabsMir/AddMir";
 
 //funcion main
 export const TabActividadesMA = ({
   show,
   componentes,
   asignarCValor,
-  asignarCValorMIR,
   compAct,
-  actividadesMir,
   showMirFnc,
-  showFnc,
+  setTxtShowFnc,
   MA,
   MIR,
 }: {
   show: boolean;
   componentes: number[];
   asignarCValor: Function;
-  asignarCValorMIR: Function;
   compAct: Array<IComponenteActividad>;
-  actividadesMir: Array<ICValor>;
   showMirFnc: Function;
-  showFnc: Function;
+  setTxtShowFnc: Function;
   MA: string;
   MIR: string;
 }) => {
   // business logic-------------------------------------------------------------------------------
-  const [actividades, setActividades] = React.useState([1, 2]);
-
   const [componenteActividad, setComponenteActividad] = useState([
     {
-      componentes: componentes.map((x) => actividades),
+      componentes: componentes.map((x) => compAct),
     },
   ]);
 
@@ -69,8 +64,6 @@ export const TabActividadesMA = ({
                 lineaBase: "",
                 metasPorFrecuencia: [
                   {
-                    semestre1: "",
-                    semestre2: "",
                     trimestre1: "",
                     trimestre2: "",
                     trimestre3: "",
@@ -116,16 +109,6 @@ export const TabActividadesMA = ({
                   MA === "" ? "" : jsonMA?.actividades[index2]?.lineaBase || "",
                 metasPorFrecuencia: [
                   {
-                    semestre1:
-                      MA === ""
-                        ? ""
-                        : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.semestre1 || "",
-                    semestre2:
-                      MA === ""
-                        ? ""
-                        : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.semestre2 || "",
                     trimestre1:
                       MA === ""
                         ? ""
@@ -183,98 +166,8 @@ export const TabActividadesMA = ({
       };
     });
 
-    actividadesMir.map((x, index) => {
-      let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1].substring(0, 1);
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].actividad = x.actividad;
-    });
     setAValorMA(y);
   };
-
-  const [cValorMIR, setCValorMIR] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  useEffect(() => {
-    if (compAct.length > 0) {
-      loadActividadesMir();
-    }
-  }, [compAct]);
-
-  const loadActividadesMir = () => {
-    let y = componenteActividad.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
-          return {
-            actividades: x.actividades.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
-              };
-            }),
-          };
-        }),
-      };
-    });
-
-    actividadesMir.map((x, index) => {
-      let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1].substring(0, 1);
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].actividad = x.actividad;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].resumen = x?.resumen;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].indicador = x?.indicador;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].formula = x?.formula;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].frecuencia = x?.frecuencia;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].medios = x?.medios;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].supuestos = x?.supuestos;
-    });
-    setCValorMIR(y);
-  };
-
-  useEffect(() => {
-    asignarCValorMIR(cValorMIR);
-  }, [cValorMIR, componentes]);
 
   const [open, setOpen] = useState(1);
 
@@ -283,12 +176,10 @@ export const TabActividadesMA = ({
   };
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  const [prevTextFormula, setPrevTextFormula] = useState("");
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
 
   const handleClickOpen = () => {
-
     setTipoFormula(
       JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
         "PORCENTAJE"
@@ -331,7 +222,58 @@ export const TabActividadesMA = ({
     ].valorDenominador = txt.split(",")[1];
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metaAnual = txt.split(",")[2];
+    ].metaAnual = txt.split(",")[2] + "%";
+    setAValorMA([...aValorMA]);
+  };
+  const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
+
+  const handleClickOpen2 = () => {
+    setTipoFormula(
+      JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+        "PORCENTAJE"
+      )
+        ? "Porcentaje"
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "TASA"
+          )
+        ? "Tasa"
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "INDICE" || "ÍNDICE"
+          )
+        ? "Indice"
+        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
+            "PROMEDIO"
+          )
+        ? "Promedio"
+        : ""
+    );
+
+    setElementoFormula(
+      "C" +
+        (componenteSelect + 1).toString() +
+        "A" +
+        (actividadSelect + 1).toString()
+    );
+    setOpenFormulaDialogMACA(true);
+  };
+
+  const handleClose2 = () => {
+    setOpenFormulaDialogMACA(false);
+  };
+
+  const changeFormula2 = (txt: string) => {
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0] + "%";
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1] + "%";
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2] + "%";
+    aValorMA[0].componentes[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3] + "%";
     setAValorMA([...aValorMA]);
   };
 
@@ -354,10 +296,18 @@ export const TabActividadesMA = ({
         open={openFormulaDialog}
         close={handleClose}
         textoSet={changeFormula}
-        prevText={prevTextFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
         MIR={MIR}
+      />
+      <FormulaDialogMACA
+        open={openFormulaDialogMACA}
+        close={handleClose2}
+        textoSet={changeFormula2}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        MIR={MIR}
+        frecuencia={"trimestral"}
       />
       <Box
         sx={{
@@ -371,7 +321,7 @@ export const TabActividadesMA = ({
         <InfoOutlinedIcon
           onClick={() => {
             showMirFnc(true);
-            showFnc("Actividades");
+            setTxtShowFnc("Actividades");
           }}
           fontSize="large"
           sx={{ cursor: "pointer" }}
@@ -471,6 +421,7 @@ export const TabActividadesMA = ({
                               "&.Mui-selected:hover": {
                                 backgroundColor: "#cbcbcb",
                               },
+                              fontSize: "0.7vw",
                             }}
                           >
                             ACTIVIDAD {x + 1}
@@ -500,7 +451,7 @@ export const TabActividadesMA = ({
             sx={{
               display: "flex",
               width: "100%",
-              height: "30%",
+              height: "33%",
               alignItems: "center",
               justifyContent: "space-evenly",
             }}
@@ -530,7 +481,37 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metaAnual
+                ]?.metaAnual || ""
+              }
+              error={
+                parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.metaAnual
+                ) < 0 ||
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metaAnual !==
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.metasPorFrecuencia[0]?.trimestre4
+                  ? true
+                  : false
+              }
+              helperText={
+                parseFloat(
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.metaAnual
+                ) < 0 ||
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metaAnual !==
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.metasPorFrecuencia[0]?.trimestre4
+                  ? "El valor de la meta anual debe coincidir con el valor del trimestre 4, verifica los valores"
+                  : null
               }
             />
             <TextField
@@ -547,18 +528,18 @@ export const TabActividadesMA = ({
                 (parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].lineaBase
+                  ]?.lineaBase
                 ) < 0 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].lineaBase
+                      ]?.lineaBase
                     )
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase !== ""
+                ]?.lineaBase !== ""
                   ? true
                   : false
               }
@@ -566,18 +547,18 @@ export const TabActividadesMA = ({
                 (parseFloat(
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].lineaBase
+                  ]?.lineaBase
                 ) < 0 ||
                   isNaN(
                     parseFloat(
                       aValorMA[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].lineaBase
+                      ]?.lineaBase
                     )
                   )) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase !== ""
+                ]?.lineaBase !== ""
                   ? "Introducir valor mayor que 0."
                   : null
               }
@@ -594,7 +575,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase
+                ]?.lineaBase || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -628,7 +609,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].valorNumerador
+                ]?.valorNumerador || ""
               }
             />
             <TextField
@@ -655,7 +636,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].valorDenominador
+                ]?.valorDenominador || ""
               }
             />
 
@@ -673,7 +654,7 @@ export const TabActividadesMA = ({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: 12,
+                  fontSize: "0.6vw",
                 }}
               >
                 SENTIDO DEL INDICADOR
@@ -695,7 +676,7 @@ export const TabActividadesMA = ({
                     checked={
                       aValorMA[0]?.componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].sentidoDelIndicador === "ASCENDENTE"
+                      ]?.sentidoDelIndicador === "ASCENDENTE"
                     }
                     onChange={(c) => {
                       let y = [...aValorMA];
@@ -721,7 +702,7 @@ export const TabActividadesMA = ({
                     checked={
                       aValorMA[0]?.componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].sentidoDelIndicador === "DESCENDENTE"
+                      ]?.sentidoDelIndicador === "DESCENDENTE"
                     }
                     onChange={(c) => {
                       let y = [...aValorMA];
@@ -747,7 +728,7 @@ export const TabActividadesMA = ({
                     checked={
                       aValorMA[0]?.componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].sentidoDelIndicador === "NORMAL"
+                      ]?.sentidoDelIndicador === "NORMAL"
                     }
                     onChange={(c) => {
                       let y = [...aValorMA];
@@ -774,6 +755,7 @@ export const TabActividadesMA = ({
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
+              onClick={() => handleClickOpen2()}
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -784,15 +766,8 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre1
+                ]?.metasPorFrecuencia[0].trimestre1 || ""
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metasPorFrecuencia[0].trimestre1 = c.target.value;
-                setAValorMA(y);
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -807,6 +782,7 @@ export const TabActividadesMA = ({
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
+              onClick={() => handleClickOpen2()}
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -817,15 +793,8 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre2
+                ]?.metasPorFrecuencia[0].trimestre2 || ""
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metasPorFrecuencia[0].trimestre2 = c.target.value;
-                setAValorMA(y);
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -840,6 +809,7 @@ export const TabActividadesMA = ({
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
+              onClick={() => handleClickOpen2()}
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -850,15 +820,8 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre3
+                ]?.metasPorFrecuencia[0].trimestre3 || ""
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metasPorFrecuencia[0].trimestre3 = c.target.value;
-                setAValorMA(y);
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -873,6 +836,7 @@ export const TabActividadesMA = ({
             <TextField
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
+              onClick={() => handleClickOpen2()}
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -883,15 +847,8 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].metasPorFrecuencia[0].trimestre4
+                ]?.metasPorFrecuencia[0].trimestre4 || ""
               }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].metasPorFrecuencia[0].trimestre4 = c.target.value;
-                setAValorMA(y);
-              }}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -928,7 +885,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].unidadResponsable
+                ]?.unidadResponsable || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -963,7 +920,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descIndicador
+                ]?.descIndicador || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -1008,7 +965,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descNumerador
+                ]?.descNumerador || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];
@@ -1043,7 +1000,7 @@ export const TabActividadesMA = ({
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descDenominador
+                ]?.descDenominador || ""
               }
               onChange={(c) => {
                 let y = [...aValorMA];

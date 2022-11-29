@@ -25,7 +25,7 @@ export function TabFinPropositoMA({
   resumenFinMa,
   resumenPropositoMa,
   showMirFnc,
-  showFnc,
+  setTxtShowFnc,
   MA,
   MIR,
 }: {
@@ -33,11 +33,10 @@ export function TabFinPropositoMA({
   resumenFinMa: Function;
   resumenPropositoMa: Function;
   showMirFnc: Function;
-  showFnc: Function;
+  setTxtShowFnc: Function;
   MA: string;
   MIR: string;
 }) {
-  
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
 
   const [valueFin, setValueFin] = useState<Array<IFinMA>>([
@@ -54,7 +53,6 @@ export function TabFinPropositoMA({
     },
   ]);
 
-  //Si se usa la interfaz pero no entiendo como por ahora
   const [valueProposito, setValueProposito] = useState<Array<IPropositoMA>>([
     {
       metaAnual: jsonMA?.proposito?.metaAnual || "",
@@ -79,7 +77,6 @@ export function TabFinPropositoMA({
   }, [valueFin, valueProposito]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  const [prevTextFormula, setPrevTextFormula] = useState("");
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
 
@@ -135,9 +132,9 @@ export function TabFinPropositoMA({
   const getUnidades = () => {
     axios
       .post(
-        "http://10.200.4.192:8000/api/listadoUnidadesInst",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
         {
-          Institucion: 'SECRETARÍA GENERAL DE GOBIERNO',
+          Institucion: "SECRETARÍA GENERAL DE GOBIERNO",
         },
         {
           headers: {
@@ -145,10 +142,7 @@ export function TabFinPropositoMA({
           },
         }
       )
-      .then((r) => {
-       console.log(r.data.data)
-      })
-      
+      .then((r) => {});
   };
 
   return (
@@ -169,7 +163,6 @@ export function TabFinPropositoMA({
         open={openFormulaDialog}
         close={handleClose}
         textoSet={changeFormula}
-        prevText={prevTextFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
         MIR={MIR}
@@ -187,7 +180,7 @@ export function TabFinPropositoMA({
           <InfoOutlinedIcon
             onClick={() => {
               showMirFnc(true);
-              showFin ? showFnc("Fin") : showFnc("Proposito");
+              showFin ? setTxtShowFnc("Fin") : setTxtShowFnc("Proposito");
             }}
             fontSize="large"
             sx={{ cursor: "pointer" }}
@@ -265,13 +258,15 @@ export function TabFinPropositoMA({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+              >
                 FIN
               </Typography>
             </ListItemButton>
-
             <Divider />
           </Box>
+
           <Box
             sx={{
               display: "flex",
@@ -295,7 +290,9 @@ export function TabFinPropositoMA({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+              >
                 PROPÓSITO
               </Typography>
             </ListItemButton>
@@ -317,7 +314,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "30%",
+                height: "33%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -344,7 +341,13 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueFin[0]?.metaAnual}
+                value={valueFin[0]?.metaAnual || ""}
+                error={parseFloat(valueFin[0]?.metaAnual) < 0 ? true : false}
+                helperText={
+                  parseFloat(valueFin[0]?.metaAnual) < 0
+                    ? "Meta Anual debe ser valor mayor que 0"
+                    : null
+                }
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -384,7 +387,7 @@ export function TabFinPropositoMA({
                   valueFin[0].lineaBase = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-                value={valueFin[0]?.lineaBase}
+                value={valueFin[0]?.lineaBase || ""}
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -407,7 +410,7 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueFin[0]?.valorNumerador}
+                value={valueFin[0]?.valorNumerador || ""}
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -430,12 +433,12 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueFin[0]?.valorDenominador}
+                value={valueFin[0]?.valorDenominador || ""}
               />
               <FormControl
                 sx={{
                   width: "15%",
-                  height: "70%",
+                  height: "80%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -487,7 +490,7 @@ export function TabFinPropositoMA({
                   control={
                     <Radio
                       checked={
-                        valueFin[0].sentidoDelIndicador === "DESCENDENTE"
+                        valueFin[0]?.sentidoDelIndicador === "DESCENDENTE"
                       }
                       onChange={(c) => {
                         valueFin[0].sentidoDelIndicador = c.target.value;
@@ -507,7 +510,7 @@ export function TabFinPropositoMA({
                   }
                   control={
                     <Radio
-                      checked={valueFin[0].sentidoDelIndicador === "NORMAL"}
+                      checked={valueFin[0]?.sentidoDelIndicador === "NORMAL"}
                       onChange={(c) => {
                         valueFin[0].sentidoDelIndicador = c.target.value;
                         setValueFin([...valueFin]);
@@ -517,29 +520,17 @@ export function TabFinPropositoMA({
                 />
               </FormControl>
             </Box>
+
             <Box
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "33%",
+                height: "50%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
             >
-              <FormControl sx={{width: "40%", boxShadow: 2 }}>
-                <InputLabel id='unri'>
-                  <Typography sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}>
-                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
-
-                  </Typography>
-                </InputLabel>
-                <Select labelId="unri" variant="standard">
-                
-
-</Select>
-              </FormControl>
-            
-              {/* <TextField
+              <TextField
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -565,8 +556,8 @@ export function TabFinPropositoMA({
                   valueFin[0].unidadResponsable = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-                value={valueFin[0]?.unidadResponsable}
-              /> */}
+                value={valueFin[0]?.unidadResponsable || ""}
+              />
               <TextField
                 rows={5}
                 multiline
@@ -593,14 +584,14 @@ export function TabFinPropositoMA({
                   valueFin[0].descIndicador = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-                value={valueFin[0]?.descIndicador}
+                value={valueFin[0]?.descIndicador || ""}
               />
             </Box>
             <Box
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "33%",
+                height: "30%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -631,7 +622,7 @@ export function TabFinPropositoMA({
                   valueFin[0].descNumerador = c.target.value;
                   setValueFin([...valueFin]);
                 }}
-                value={valueFin[0]?.descNumerador}
+                value={valueFin[0]?.descNumerador || ""}
               />
               <TextField
                 rows={5}
@@ -657,9 +648,9 @@ export function TabFinPropositoMA({
                 }}
                 onChange={(c) => {
                   valueFin[0].descDenominador = c.target.value;
-                  setValueFin({ ...valueFin });
+                  setValueFin([...valueFin]);
                 }}
-                value={valueFin[0]?.descDenominador}
+                value={valueFin[0]?.descDenominador || ""}
               />
             </Box>
           </Box>
@@ -679,7 +670,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "30%",
+                height: "33%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -706,7 +697,15 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.metaAnual}
+                value={valueProposito[0]?.metaAnual || ""}
+                error={
+                  parseFloat(valueProposito[0]?.metaAnual) < 0 ? true : false
+                }
+                helperText={
+                  parseFloat(valueProposito[0]?.metaAnual) < 0
+                    ? "Meta Anual debe ser valor mayor que 0"
+                    : null
+                }
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -746,7 +745,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].lineaBase = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.lineaBase}
+                value={valueProposito[0]?.lineaBase || ""}
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -769,7 +768,7 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.valorNumerador}
+                value={valueProposito[0]?.valorNumerador || ""}
               />
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
@@ -792,12 +791,12 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.valorDenominador}
+                value={valueProposito[0]?.valorDenominador || ""}
               />
               <FormControl
                 sx={{
                   width: "15%",
-                  height: "70%",
+                  height: "80%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -885,7 +884,7 @@ export function TabFinPropositoMA({
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "33%",
+                height: "50%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -916,7 +915,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].unidadResponsable = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                 value={valueProposito[0]?.unidadResponsable}
+                value={valueProposito[0]?.unidadResponsable || ""}
               />
               <TextField
                 rows={5}
@@ -944,14 +943,14 @@ export function TabFinPropositoMA({
                   valueProposito[0].descIndicador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descIndicador}
+                value={valueProposito[0]?.descIndicador || ""}
               />
             </Box>
             <Box
               sx={{
                 display: "flex",
                 width: "100%",
-                height: "33%",
+                height: "30%",
                 alignItems: "center",
                 justifyContent: "space-evenly",
               }}
@@ -982,7 +981,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].descNumerador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descNumerador}
+                value={valueProposito[0]?.descNumerador || ""}
               />
               <TextField
                 rows={5}
@@ -1010,7 +1009,7 @@ export function TabFinPropositoMA({
                   valueProposito[0].descDenominador = c.target.value;
                   setValueProposito([...valueProposito]);
                 }}
-                value={valueProposito[0]?.descDenominador}
+                value={valueProposito[0]?.descDenominador || ""}
               />
             </Box>
           </Box>

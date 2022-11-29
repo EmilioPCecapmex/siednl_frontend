@@ -1,5 +1,4 @@
 export interface IFinMA {
-    
     metaAnual: string;
     lineaBase: string;
     valorNumerador: string;
@@ -12,7 +11,6 @@ export interface IFinMA {
 }
 
 export interface IPropositoMA {
-    
     metaAnual: string;
     lineaBase: string;
     valorNumerador: string;

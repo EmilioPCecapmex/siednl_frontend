@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
+import {
+  IInstituciones,
+  LateralMenu,
+} from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
 import {
   Box,
@@ -11,22 +14,19 @@ import {
   TableBody,
   Tooltip,
   IconButton,
-  Button,
   TablePagination,
   Input,
   Select,
   FormControl,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
-import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
-import FullModalFichaTecnica from "../../components/tabsFichaTecnica/ResumenFT";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { IIMir } from "../mir/MIR";
-import { IIMa} from "../metaAnual/MetaAnual";
+import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -60,29 +60,21 @@ export const FichaTecnica = () => {
     setPage(0);
   };
 
-  const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
   const [findTextStr, setFindTextStr] = useState("");
+  const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
-//---------------------No los estoy usando-------------------------
-  const [mirs, setMirs] = useState<Array<IIMir>>([]);
-  const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
-  const [ma, setMa] = useState<Array<IIMa>>([]);
-  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
-
-  const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
-//---------------------No los estoy usando-------------------------
-
-const [ft, setft] = useState<Array<IIFT>>([]);
+  const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
 
   //
-  const [ftFiltered, setftFiltered] = useState<Array<IIMir>>([]);
+  const [ftFiltered, setftFiltered] = useState<Array<IIFT>>([]);
+
   // Filtrado por caracter
-  const findText = (v: string, select: string) => {
-    if (v !== "" || select !== "0") {
-      setMaFiltered(
-        ma.filter(
+  const findText = (v: string, est: string, inst: string) => {
+    if (v !== "" || est !== "0" || inst !== "0") {
+      setftFiltered(
+        ft.filter(
           (x) =>
             x.AnioFiscal.includes(findTextStr) ||
             x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
@@ -91,35 +83,51 @@ const [ft, setft] = useState<Array<IIFT>>([]);
         )
       );
 
-      if (select !== "0") {
-        setMaFiltered(
-          ma.filter((x) =>
-            x.Estado.toLowerCase().includes(select.toLowerCase())
+      if (est !== "0" && inst !== "0") {
+        setftFiltered(
+          ft.filter(
+            (x) =>
+              x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+              x.Institucion.toLowerCase().includes(inst.toLowerCase())
           )
         );
+      } else if (est !== "0") {
+        setftFiltered(
+          ft.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
+        );
+      } else if (inst !== "0") {
+        setftFiltered(
+          ft.filter((x) =>
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+          )
+        );
+      } else {
+        setftFiltered(ft);
       }
     } else {
-      setMaFiltered(ma);
+      setftFiltered(ft);
     }
   };
 
   const getFT = () => {
     axios
-    .get("http://10.200.4.105:8000/api/Lista-Ficha-tecnica", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-          
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-Ficha-tecnica",
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            IdInstitucion: localStorage.getItem("IdInstitucion"),
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
-        
         setft(r.data.data);
         setftFiltered(r.data.data);
-      });
+      })
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -145,6 +153,51 @@ const [ft, setft] = useState<Array<IIFT>>([]);
   const handleCloseComents = () => {
     setOpenModalComents(false);
   };
+
+  const [showFin, setShowFin] = useState(true);
+  const [showProposito, setShowProposito] = useState(false);
+
+  const colorMir = (v: string, mEdit: string) => {
+    if (mEdit !== undefined) {
+      let isModification = mEdit;
+      isModification = JSON.parse(mEdit);
+      if (isModification[1]) {
+        return "#cccc00";
+      }
+    }
+    if (v === "En Captura") {
+      return "#b3e6b3";
+    } else if (v === "En Revisión") {
+      return "#e6e6ff";
+    } else if (v === "En Autorización") {
+      return "#b3b3ff";
+    } else if (v === "Autorizada") {
+      return "#0000ff";
+    }
+  };
+
+  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+
+  const getInstituciones = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setInstituciones(r.data.data);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getInstituciones();
+  }, []);
 
   return (
     <Box
@@ -183,16 +236,17 @@ const [ft, setft] = useState<Array<IIFT>>([]);
               height: "15vh",
               backgroundColor: "#fff",
               borderRadius: 5,
-              display: "flex",
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
               boxShadow: 5,
               alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyItems: "center",
             }}
           >
             <Box
               sx={{
                 display: "flex",
-                width: "30%",
+                width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
                 border: 1,
@@ -203,12 +257,12 @@ const [ft, setft] = useState<Array<IIFT>>([]);
               <Input
                 size="small"
                 value={findTextStr}
-                placeholder="Busqueda"
+                placeholder="Búsqueda"
                 sx={{ width: "90%", fontFamily: "MontserratRegular" }}
                 disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
-                  findText(v.target.value, findSelectStr);
+                  findText(v.target.value, findSelectStr, "");
                 }}
               />
               <SearchIcon />
@@ -217,7 +271,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
             <FormControl
               sx={{
                 display: "flex",
-                width: "30%",
+                width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
                 border: 1,
@@ -228,15 +282,19 @@ const [ft, setft] = useState<Array<IIFT>>([]);
               <Select
                 size="small"
                 variant="standard"
-                value={findSelectStr}
+                value={findInstStr}
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
                   v.target.value === "Todos"
-                    ? findText(findTextStr, "")
-                    : findText(findTextStr, v.target.value);
-                  setFindSelectStr(v.target.value);
+                    ? findText(
+                        findTextStr,
+                        findSelectStr === "Todos" ? "0" : findSelectStr,
+                        "0"
+                      )
+                    : findText(findTextStr, findSelectStr, v.target.value);
+                  setFindInstStr(v.target.value);
                 }}
               >
                 <MenuItem
@@ -245,7 +303,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                   disabled
                   selected
                 >
-                  Estado MIR
+                  Filtro por estado de la Ficha Técnica
                 </MenuItem>
                 <MenuItem
                   value={"Todos"}
@@ -280,6 +338,61 @@ const [ft, setft] = useState<Array<IIFT>>([]);
                 </MenuItem>
               </Select>
             </FormControl>
+
+            <FormControl
+              sx={{
+                display: "flex",
+                width: "70%",
+                alignItems: "center",
+                justifyContent: "center",
+                border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
+              }}
+            >
+              <Select
+                size="small"
+                variant="standard"
+                value={findInstStr}
+                sx={{ fontFamily: "MontserratRegular" }}
+                fullWidth
+                disableUnderline
+                onChange={(v) => {
+                  v.target.value === "Todos"
+                    ? findText(
+                        findTextStr,
+                        findSelectStr === "Todos" ? "0" : findSelectStr,
+                        "0"
+                      )
+                    : findText(findTextStr, findSelectStr, v.target.value);
+                  setFindInstStr(v.target.value);
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  disabled
+                  selected
+                >
+                  Filtro por institución
+                </MenuItem>
+
+                <MenuItem
+                  value={"Todos"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Todos
+                </MenuItem>
+
+                {instituciones?.map((item) => {
+                  return (
+                    <MenuItem value={item.NombreInstitucion} key={item.Id}>
+                      {item.NombreInstitucion}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
           </Box>
 
           <Box
@@ -294,6 +407,90 @@ const [ft, setft] = useState<Array<IIFT>>([]);
               boxShadow: 5,
             }}
           >
+            <Table>
+              <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    EJERCICIO FISCAL
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    INSTITUCIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    NOMBRE DEL PROGRAMA
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    ESTADO
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    FECHA DE CREACIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    CREADO POR
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    OPCIONES
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
             <Box
               sx={{
                 width: "100%",
@@ -313,185 +510,219 @@ const [ft, setft] = useState<Array<IIFT>>([]);
             >
               <TableContainer>
                 <Table>
-                  <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                    <TableRow>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Ejercicio Fiscal
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Institución
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Nombre del Programa
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Estado
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Fecha Creación
-                      </TableCell>
-                      <TableCell
-                        sx={{ fontFamily: "MontserratBold" }}
-                        align="center"
-                      >
-                        Opciones
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-
                   <TableBody>
                     {ftFiltered
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .map((row, index) =>
-                        row.Estado !== "Autorizada" ? null : (
-                          <TableRow key={index}>
-                            <TableCell
+                      .map((row, index) => (
+                        <TableRow
+                          key={index}
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(7,1fr)",
+                          }}
+                        >
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.AnioFiscal}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.Institucion.toUpperCase()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.Programa.toUpperCase()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            <Box
                               sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "15%",
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                height: "5vh",
+                                alignItems: "center",
+                                justifyContent: "center",
                               }}
-                              align="center"
                             >
-                              {row.AnioFiscal}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
-                            >
-                              {row.Institucion}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
-                            >
-                              {row.Programa}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "20%",
-                              }}
-                              align="center"
-                            >
-                              {row.Estado}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                                width: "15%",
-                              }}
-                              align="center"
-                            >
-                              {moment(row.FechaCreacion, moment.ISO_8601)
-                                .format("DD/MM/YYYY HH:mm:SS")
-                                .toString()}
-                            </TableCell>
-                            <TableCell align="center" sx={{ width: "10%" }}>
-                              {/*----------Ficha tecnica--------------*/}
-
                               <Box
                                 sx={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  flexDirection: "row",
+                                  width: ".5vw",
+                                  height: "1vh",
+                                  borderRadius: 100,
+                                  backgroundColor: colorMir(
+                                    row.Estado,
+                                    row.MIR
+                                  ),
+                                }}
+                              />
+                              <Typography
+                                sx={{
+                                  width: "60%",
+                                  fontFamily: "MontserratRegular",
+                                  color: "#616161",
+                                  fontSize: ".7vw",
+                                  ml: "10%",
+                                  textAlign: "center",
                                 }}
                               >
-                                <Tooltip title="Descargar">
-                                  <span>
-                                    <IconButton
-                                      disabled={
-                                        row.Estado === "Autorizada"
-                                          ? false
-                                          : true
-                                      }
-                                    >
-                                      <DownloadIcon
-                                        sx={[
-                                          {
-                                            "&:hover": {
-                                              color: "orange",
-                                            },
-                                            width: "1.2vw",
-                                            height: "1.2vw",
-                                          },
-                                        ]}
-                                      />
-                                    </IconButton>
-                                  </span>
-                                </Tooltip>
+                                {row.Estado === "En Captura" &&
+                                localStorage.getItem("Rol") === "Capturador"
+                                  ? "BORRADOR"
+                                  : row.Estado === "En Revisión" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Verificador"
+                                  ? "ESPERANDO REVISIÓN"
+                                  : row.Estado === "En Autorización" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Administrador"
+                                  ? "ESPERANDO AUTORIZACIÓN"
+                                  : row.Estado.toUpperCase()}
+                              </Typography>
+                            </Box>
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {moment(row.FechaCreacion, moment.ISO_8601)
+                              .format("DD/MM/YYYY HH:mm:SS")
+                              .toString()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.Estado === "En Captura"
+                              ? "SIN ASIGNAR"
+                              : row.CreadoPor.toUpperCase()}
+                          </TableCell>
 
-                                <Tooltip title="Ver">
-                                  <span>
-                                    <IconButton>
-                                      <VisibilityIcon
-                                        sx={[
-                                          {
-                                            "&:hover": {
-                                              color: "blue",
-                                            },
-                                            width: "1.2vw",
-                                            height: "1.2vw",
+                          <TableCell
+                            align="center"
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Tooltip title="DESCARGAR">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "orange",
                                           },
-                                        ]}
-                                        onClick={() => {
-                                          setAnioFiscalEdit(row.AnioFiscal);
-                                          setMirEdit([
-                                            {
-                                              ID: row.ID,
-                                              AnioFiscal: row.AnioFiscal,
-                                              Institucion: row.Institucion,
-                                              Programa: row.Programa,
-                                              Eje: row.Eje,
-                                              Tematica: row.Tematica,
-                                              MIR: row.MIR,
-                                              Estado: row.Estado,
-                                              FechaCreacion: row.FechaCreacion,
-                                              CreadoPor: row.CreadoPor
-                                            },
-                                          ]);
-                                          setShowResume(false);
-                                        }}
-                                      />
-                                    </IconButton>
-                                  </span>
-                                </Tooltip>
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                        )
-                      )}
+                                          width: "1.2vw",
+                                          height: "1.2vw",
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
 
-                    {/* ))} */}
+                              <Tooltip title="REGISTRAR FICHA TÉCNICA">
+                                <span>
+                                  <IconButton
+                                    onClick={() => {
+                                      setFTEdit([
+                                        {
+                                          Id: row.Id,
+                                          IdMir: row.IdMir,
+                                          IdMa: row.IdMa,
+                                          FichaTecnica: row.FichaTecnica,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Institucion: row.Institucion,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                        },
+                                      ]);
+                                      setShowResume(false);
+                                    }}
+                                  >
+                                    <AddCircleOutlineIcon
+                                      sx={{
+                                        "&:hover": {
+                                          color: "blue",
+                                        },
+                                        width: "1.2vw",
+                                        height: "1.2vw",
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -500,7 +731,7 @@ const [ft, setft] = useState<Array<IIFT>>([]);
               <TablePagination
                 rowsPerPageOptions={[renglonesPagina]}
                 component="div"
-                count={mirs.length}
+                count={ft.length}
                 rowsPerPage={renglonesPagina}
                 page={page}
                 onPageChange={handleChangePage}
@@ -511,20 +742,21 @@ const [ft, setft] = useState<Array<IIFT>>([]);
         </Box>
       ) : (
         <Box
-        sx={{
+          sx={{
             display: "flex",
             justifyContent: "center",
             width: "85%",
             height: "92%",
-            mt: "8vh",
-            }}
+            flexWrap: "wrap",
+          }}
         >
-          <FullModalFichaTecnica
-            anioFiscalEdit={anioFiscalEdit}
-            MIR={mirEdit[0]?.MIR || ""}
-            MA={maEdit[0]?.MetaAnual || ""}
+          <AddFichaTecnica
+            MIR={FTEdit[0].MIR}
             showResume={returnMain}
-            IdMir={mirEdit[0]?.ID || ""}
+            IdMir={FTEdit[0].IdMir}
+            IdMA={FTEdit[0].IdMa}
+            MA={FTEdit[0].MetaAnual}
+            FT={FTEdit[0].FichaTecnica}
           />
         </Box>
       )}
@@ -532,18 +764,17 @@ const [ft, setft] = useState<Array<IIFT>>([]);
   );
 };
 
-
-
 export interface IIFT {
-  IdMa: string;
+  Id: string;
   IdMir: string;
-  AnioFiscal: string;
-  Institucion: string;
-  Programa: string;
-  MIR: string
-  MetaAnual: string;
-  //FichaTecnica:String;
+  IdMa: string;
+  FichaTecnica: string;
   Estado: string;
   CreadoPor: string;
   FechaCreacion: string;
+  AnioFiscal: string;
+  Institucion: string;
+  Programa: string;
+  MIR: string;
+  MetaAnual: string;
 }

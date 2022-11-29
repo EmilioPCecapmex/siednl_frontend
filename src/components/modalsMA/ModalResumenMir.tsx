@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { IEncabezado } from "../tabsMir/TabEncabezado";
-import { IComponente } from "../tabsMir/IComponente";
-import { IActividadesMir, ICValor } from "../tabsMir/ICValor";
+import { ICValor } from "../tabsMir/ICValor";
 import {
   Box,
   Dialog,
@@ -9,65 +7,149 @@ import {
   DialogContent,
   Typography,
 } from "@mui/material";
-import { IFin, IProposito } from "./TabFinPropositoMA";
-import { IMIR } from "../tabsMir/IMIR";
+import { IComponenteActividad } from "../tabsMir/AddMir";
 
 export function TabResumenMIR({
   show,
   showMirFnc,
   showSt,
-  encabezado,
-  fin,
-  proposito,
-  componentes,
-  componenteValor,
-  cValor,
+  MIR,
+  noComponentes,
 }: {
   show: boolean;
   showMirFnc: Function;
   showSt: string;
-  encabezado: Array<IEncabezado>;
-  fin: Array<IFin>;
-  proposito: Array<IProposito>;
-  componentes: number[];
-  componenteValor: Array<IComponente>;
-  cValor: Array<ICValor>;
+  MIR: string;
+  noComponentes: number[];
 }) {
-  const [MIR, setMIR] = useState<IMIR>();
 
   const [open, setOpen] = useState(false);
 
-  let asignarMIR = (
-    encabezadoM: Array<IEncabezado>,
-    finM: Array<IFin>,
-    propositoM: Array<IProposito>,
-    componentesM: Array<IComponente>,
-    actividadesM: Array<IActividadesMir>
-  ) => {
-    setMIR({
-      encabezado: encabezadoM[0],
-      fin: finM[0],
-      proposito: propositoM[0],
-      componentes: componentesM,
-      actividades: actividadesM,
-    });
-  };
+  let encabezado = JSON.parse(MIR).encabezado
+  let fin = JSON.parse(MIR).fin
+  let proposito = JSON.parse(MIR).proposito
+  let Componentes = JSON.parse(MIR).componentes
+  let actividades = JSON.parse(MIR).actividades
+
+  
+  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
+  
+  const [componenteActividad, setComponenteActividad] = useState([
+    {
+      componentes: noComponentes.map((x) => [1, 2]),
+    },
+  ]);
+
+  const [cValor, setCValor] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad:  "A" + (index2 + 1) + "C" + (index + 1),
+                resumen: '',
+                indicador: '',
+                formula:'',
+                frecuencia: '',
+                medios: '',
+                supuestos: '',
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
 
   useEffect(() => {
-    let arr: any[] = [];
-    cValor[0].componentes.map((a) => {
-      a.actividades.map((b) => {
-        Object.assign(b);
-        arr.push(b);
+    let act: number[] = [];
+    let comp: string[] = [];
+    let ambos: any = [];
+    let i = 1;
+    let j = 1;
+
+    Componentes.map((x: any) => {
+      comp.push("C" + j);
+      actividades.map((a: any) => {
+        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+          act.push(i);
+          i++;
+        }
       });
+      ambos.push({ actividades: act, componente: "C" + j });
+      act = [];
+      i = 1;
+      j++;
     });
 
-    asignarMIR(encabezado, fin, proposito, componenteValor, arr);
-  }, [encabezado, componenteValor, proposito, fin, cValor, show]);
+    setCompAct(ambos)
+    
+  }, []);
+
+  useEffect(() => {
+    if (compAct.length > 0) {
+      loadActividadesMir();
+    }
+    
+  }, [compAct]);
+
+  const loadActividadesMir = () => {
+    let y = componenteActividad.map((item) => {
+      return {
+        componentes: compAct.map((x, index) => {
+          return {
+            actividades: x.actividades.map((c, index2) => {
+              return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                resumen: '',
+                indicador: '',
+                formula: '',
+                frecuencia: '',
+                medios: '',
+                supuestos: '',
+              };
+            }),
+          };
+        }),
+      };
+    });
+
+    actividades.map((x: any) => {
+      let act = x.actividad?.split("A")[1]?.split("C")[0];
+      let comp = x.actividad?.split("C")[1].substring(0, 1);
+
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].actividad = x.actividad;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].resumen = x?.resumen;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].indicador = x?.indicador;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].formula = x?.formula;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].frecuencia = x?.frecuencia;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].medios = x?.medios;
+      y[0].componentes[parseInt(comp) - 1].actividades[
+        parseInt(act) - 1
+      ].supuestos = x?.supuestos;
+    });
+    
+    setCValor(y);
+  };
 
   useEffect(() => {
     setOpen(show);
   }, [show]);
+
+
 
   return (
     <Dialog
@@ -139,9 +221,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado[0]?.ejercicioFiscal === "Selecciona"
+                  {encabezado?.ejercicioFiscal === "Selecciona"
                     ? ""
-                    : encabezado[0]?.ejercicioFiscal}
+                    : encabezado?.ejercicioFiscal}
                 </Typography>
               </Box>
 
@@ -164,9 +246,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado[0]?.institucion === "Selecciona"
+                  {encabezado?.institucion === "Selecciona"
                     ? ""
-                    : encabezado[0]?.institucion}
+                    : encabezado?.institucion}
                 </Typography>
               </Box>
             </Box>
@@ -190,9 +272,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado[0]?.nombre_del_programa === "Selecciona"
+                  {encabezado?.nombre_del_programa === "Selecciona"
                     ? ""
-                    : encabezado[0]?.nombre_del_programa}
+                    : encabezado?.nombre_del_programa}
                 </Typography>
               </Box>
 
@@ -215,9 +297,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado[0]?.eje === "Selecciona"
+                  {encabezado?.eje === "Selecciona"
                     ? ""
-                    : encabezado[0]?.eje}
+                    : encabezado?.eje}
                 </Typography>
               </Box>
             </Box>
@@ -242,9 +324,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado[0]?.tema === "Selecciona"
+                  {encabezado?.tema === "Selecciona"
                     ? ""
-                    : encabezado[0]?.tema}
+                    : encabezado?.tema}
                 </Typography>
               </Box>
 
@@ -267,9 +349,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado[0]?.objetivo === "Selecciona"
+                  {encabezado?.objetivo === "Selecciona"
                     ? ""
-                    : encabezado[0]?.objetivo}
+                    : encabezado?.objetivo}
                 </Typography>
               </Box>
             </Box>
@@ -294,9 +376,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado[0]?.estrategia === "Selecciona"
+                  {encabezado?.estrategia === "Selecciona"
                     ? ""
-                    : encabezado[0]?.estrategia}
+                    : encabezado?.estrategia}
                 </Typography>
               </Box>
 
@@ -320,9 +402,9 @@ export function TabResumenMIR({
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
                   
-                  {encabezado[0]?.beneficiario === "Selecciona"
+                  {encabezado?.beneficiario === "Selecciona"
                     ? ""
-                    : encabezado[0]?.beneficiario}
+                    : encabezado?.beneficiario}
                 </Typography>
               </Box>
             </Box>
@@ -342,7 +424,7 @@ export function TabResumenMIR({
                 Lineas de Acción:
               </Typography>
               <Box>
-                {encabezado[0]?.lineas_de_accion.map(
+                {encabezado?.lineas_de_accion.map(
                   (value: { Id: string; LineaDeAccion: string }, x: any) => {
                     return (
                       <Typography
@@ -390,7 +472,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {fin[0]?.resumen}
+                    {fin?.resumen}
                   </Typography>
                 </Box>
                 <Box
@@ -412,7 +494,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {fin[0]?.indicador}
+                    {fin?.indicador}
                   </Typography>
                 </Box>
                 <Box
@@ -434,7 +516,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {fin[0]?.formula}
+                    {fin?.formula}
                   </Typography>
                 </Box>
                 <Box
@@ -456,7 +538,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {fin[0]?.frecuencia}
+                    {fin?.frecuencia}
                   </Typography>
                 </Box>
                 <Box
@@ -478,7 +560,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {fin[0]?.medios}
+                    {fin?.medios}
                   </Typography>
                 </Box>
                 <Box
@@ -500,7 +582,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {fin[0]?.supuestos}
+                    {fin?.supuestos}
                   </Typography>
                 </Box>
               </Box>
@@ -530,7 +612,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {proposito[0]?.resumen}
+                    {proposito?.resumen}
                   </Typography>
                 </Box>
                 <Box
@@ -552,7 +634,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {proposito[0]?.indicador}
+                    {proposito?.indicador}
                   </Typography>
                 </Box>
                 <Box
@@ -574,7 +656,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {proposito[0]?.formula}
+                    {proposito?.formula}
                   </Typography>
                 </Box>
                 <Box
@@ -596,7 +678,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {proposito[0]?.frecuencia}
+                    {proposito?.frecuencia}
                   </Typography>
                 </Box>
                 <Box
@@ -618,7 +700,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {proposito[0]?.medios_verificacion}
+                    {proposito?.medios_verificacion}
                   </Typography>
                 </Box>
                 <Box
@@ -640,7 +722,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {proposito[0]?.supuestos}
+                    {proposito?.supuestos}
                   </Typography>
                 </Box>
               </Box>
@@ -652,7 +734,7 @@ export function TabResumenMIR({
                   Componentes
                 </Typography>
 
-                {componentes.map((index) => {
+                {noComponentes.map((index) => {
                   return (
                     <Box key={index}>
                       <Typography
@@ -684,7 +766,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
                         >
-                          {componenteValor[index - 1]?.resumen}
+                          {Componentes[index - 1]?.resumen}
                         </Typography>
                       </Box>
                       <Box
@@ -706,7 +788,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
                         >
-                          {componenteValor[index - 1]?.indicador}
+                          {Componentes[index - 1]?.indicador}
                         </Typography>
                       </Box>
                       <Box
@@ -728,7 +810,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
                         >
-                          {componenteValor[index - 1]?.formula}
+                          {Componentes[index - 1]?.formula}
                         </Typography>
                       </Box>
                       <Box
@@ -750,7 +832,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
                         >
-                          {componenteValor[index - 1]?.frecuencia}
+                          {Componentes[index - 1]?.frecuencia}
                         </Typography>
                       </Box>
                       <Box
@@ -772,7 +854,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
                         >
-                          {componenteValor[index - 1]?.medios}
+                          {Componentes[index - 1]?.medios}
                         </Typography>
                       </Box>
                       <Box
@@ -794,7 +876,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
                         >
-                          {componenteValor[index - 1]?.supuestos}
+                          {Componentes[index - 1]?.supuestos}
                         </Typography>
                       </Box>
                     </Box>
@@ -810,9 +892,7 @@ export function TabResumenMIR({
                 </Typography>
 
                 {cValor[0]?.componentes.map((item, indexComponentes) => {
-                  let i = 0;
                   return item.actividades.map((value, indexActividades) => {
-                    i++;
                     return (
                       <Box key={indexActividades}>
                         <Typography
@@ -849,8 +929,7 @@ export function TabResumenMIR({
                             sx={{ fontFamily: "MontserratLight", width: "80%" }}
                           >
                             {
-                              cValor[0].componentes[indexComponentes]
-                                .actividades[indexActividades].resumen
+                              actividades[indexActividades].resumen
                             }
                           </Typography>
                         </Box>
@@ -877,8 +956,7 @@ export function TabResumenMIR({
                             sx={{ fontFamily: "MontserratLight", width: "80%" }}
                           >
                             {
-                              cValor[0].componentes[indexComponentes]
-                                .actividades[indexActividades].indicador
+                              actividades[indexActividades].indicador
                             }
                           </Typography>
                         </Box>
@@ -905,8 +983,7 @@ export function TabResumenMIR({
                             sx={{ fontFamily: "MontserratLight", width: "80%" }}
                           >
                             {
-                              cValor[0].componentes[indexComponentes]
-                                .actividades[indexActividades].formula
+                              actividades[indexActividades].formula
                             }
                           </Typography>
                         </Box>
@@ -933,8 +1010,7 @@ export function TabResumenMIR({
                             sx={{ fontFamily: "MontserratLight", width: "80%" }}
                           >
                             {
-                              cValor[0].componentes[indexComponentes]
-                                .actividades[indexActividades].frecuencia
+                              actividades[indexActividades]?.frecuencia
                             }
                           </Typography>
                         </Box>
@@ -961,8 +1037,7 @@ export function TabResumenMIR({
                             sx={{ fontFamily: "MontserratLight", width: "80%" }}
                           >
                             {
-                              cValor[0].componentes[indexComponentes]
-                                .actividades[indexActividades].medios
+                              actividades[indexActividades].medios
                             }
                           </Typography>
                         </Box>
@@ -989,8 +1064,7 @@ export function TabResumenMIR({
                             sx={{ fontFamily: "MontserratLight", width: "80%" }}
                           >
                             {
-                              cValor[0].componentes[indexComponentes]
-                                .actividades[indexActividades].supuestos
+                              actividades[indexActividades].supuestos
                             }
                           </Typography>
                         </Box>

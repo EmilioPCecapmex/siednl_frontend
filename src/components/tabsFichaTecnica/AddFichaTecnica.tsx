@@ -1,59 +1,154 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { TabFinPropositoMA } from "./TabFinPropositoMA";
+import TabResumenFT from "./TabResumenFT";
+import { TabComponenteFT} from "./tabComponentes";
+import { TabFinProposito } from "./tabFinProposito";
 import { Box, IconButton } from "@mui/material";
-import { IComponente } from "../tabsMir/IComponente";
-import { TabComponenteMA } from "./TabComponente";
-import { TabActividadesMA } from "./TabActividades";
-import { IFinMA, IPropositoMA } from "./IFin";
-import { IComponenteMA, ICValorMA } from "./Interfaces";
-import TabResumenMA from "./TabResumenMA";
-import TabResumenMIR from "../modalsMA/ModalResumenMir";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/AddMir";
-export default function AddMetaAnual({
+import { ICValor } from "../tabsMir/ICValor";
+import { IComponentesFT, ICValorFT, IFinFT, IPropositoFT } from "./Interfaces";
+
+export default function AddFichaTecnica({
   MIR,
-  MA,
   showResume,
   IdMir,
   IdMA,
+  MA,
+  FT,
 }: {
   MIR: string;
-  MA: string;
   showResume: Function;
   IdMir: string;
   IdMA: string;
+  MA: string;
+  FT: string;
 }) {
-  const [value, setValue] = React.useState(20);
-
-  const [showMir, setShowMir] = React.useState(false);
-
-  const [showSt, setShowSt] = React.useState("");
-
-  const showMirFnc = (state: boolean) => {
-    setShowMir(state);
-  };
-
-  const setTxtShowFnc = (st: string) => {
-    setShowSt(st);
-  };
-
+  const [value, setValue] = React.useState(10);
+  
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
+  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+  const [valoresComponenteMA, setValoresComponenteMA] = useState<
+    Array<IComponentesFT>
+  >(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        tipoDeIndicador: "",
+        claridad: "",
+        relevancia: "",
+        economia: "",
+        monitoreable: "",
+        adecuado: "",
+        aporte_marginal: "",
+        dimension: "",
+        unidadDeMedida: "",
+      };
+    })
+  );
+
+  const [componenteActividad, setComponenteActividad] = useState([
+    {
+      componentes: noComponentes.map((x) => [1, 2]),
+    },
+  ]);
+
+  const [cValorMA, setCValorFT] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                tipoDeIndicador: "",
+                claridad: "",
+                relevancia: "",
+                economia: "",
+                monitoreable: "",
+                adecuado: "",
+                aporte_marginal: "",
+                dimension: "",
+                unidadDeMedida: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+  const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
+
+  const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
       if (value < 50) setValue(value + 10);
     } else {
-      if (value > 20) setValue(value - 10);
+      if (value > 10) setValue(value - 10);
     }
   };
 
-  const jsonMir = JSON.parse(MIR);
+  const [showSt, setShowSt] = React.useState("");
 
+  const setTxtShowFnc = (st: string) => {
+    setShowSt(st);
+  };
+
+  const resumenFin = (st: Array<IFinFT>) => {
+    setValueFin(st);
+  };
+
+  const resumenProposito = (st: Array<IPropositoFT>) => {
+    setValueProposito(st);
+  };
+
+  const [showMir, setShowMir] = React.useState(false);
+
+  const showMirFnc = (state: boolean) => {
+    setShowMir(state);
+  };
+
+  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
+
+
+  const asignarCValorFT = (state: Array<ICValorFT>) => {
+    setCValorFT(state);
+  };
+
+  const asignarCValor = (state: Array<ICValor>) => {
+    setCValor(state);
+  };
+
+  const [cValor, setCValor] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                resumen: "",
+                indicador: "",
+                formula: "",
+                frecuencia: "",
+                medios: "",
+                supuestos: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
+  let jsonMir = JSON.parse(MIR);
+  
   useEffect(() => {
     let act: number[] = [];
     let comp: string[] = [];
@@ -83,120 +178,6 @@ export default function AddMetaAnual({
     });
     
   }, []);
-
-  // COMPONENTES
-  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
-
-  const [valoresComponenteMA, setValoresComponenteMA] = useState<
-    Array<IComponenteMA>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
-    })
-  );
-
-  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-    setValoresComponenteMA(state);
-  };
-
-  // ACTIVIDADES
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-
-  const [componenteActividad, setComponenteActividad] = useState([
-    {
-      componentes: noComponentes.map((x) => [1, 2]),
-    },
-  ]);
-
-  const [cValorMA, setCValorMA] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "",
-                metaAnual: "",
-                lineaBase: "",
-                metasPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  const asignarCValorMA = (state: Array<ICValorMA>) => {
-    setCValorMA(state);
-  };
-
-  useEffect(() => {
-    
-    let arrayMA = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [
-          {
-            semestre1: "",
-            semestre2: "",
-            trimestre1: "",
-            trimestre2: "",
-            trimestre3: "",
-            trimestre4: "",
-          },
-        ],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
-    });
-    setValoresComponenteMA(arrayMA);
-
-  }, [noComponentes]);
-
-  const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
-  const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
-
-
-  const resumenFinMa = (arr: Array<IFinMA>) => {
-    setValueFin(arr);
-  };
-  const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
-    setValueProposito(arr);
-  };
 
   return (
     <Box
@@ -228,6 +209,16 @@ export default function AddMetaAnual({
               boxShadow: 20,
             }}
           >
+            <Tab
+              label="Encabezado"
+              value={10}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                backgroundColor: "#ccc",
+              }}
+            />
             <Tab
               label="Fin / Propósito"
               value={20}
@@ -277,38 +268,51 @@ export default function AddMetaAnual({
             height: "77vh",
           }}
         >
-          <TabFinPropositoMA
+
+         
+          {/* {value === 10 ? 
+          <TabEncabezado
+          show={value === 10 ? true : false}
+          resumenEncabezado ={() => {}}
+          >
+          </TabEncabezado> 
+          : null } */}
+
+
+          <TabFinProposito
             show={value === 20 ? true : false}
+            resumenFin={resumenFin}
+            resumenProposito={resumenProposito}
+            cargaFin={[]}
+            cargaProposito={[]}
+            FtEdit={MIR ? JSON.parse(MIR)[1] : null}
             MA={MA}
             MIR={MIR}
-            setTxtShowFnc={setTxtShowFnc}
-            resumenFinMa={resumenFinMa}
-            resumenPropositoMa={resumenPropositoMa}
-            showMirFnc={showMirFnc}
-          ></TabFinPropositoMA>
+          ></TabFinProposito>
 
-          <TabComponenteMA
+          <TabComponenteFT
             show={value === 30 ? true : false}
-            setTxtShowFnc={setTxtShowFnc}
-            showMirFnc={showMirFnc}
-            valoresComponenteMAFnc={valoresComponenteMAFnc}
+            noComponentesFnc ={() => {}}
+            valoresComponenteFnc={() => {}}
             noComponentes={noComponentes}
-            MA={MA}
-            MIR={MIR}
-          ></TabComponenteMA>
+            valoresComponente={[]}
+          ></TabComponenteFT>
 
-          <TabActividadesMA
+          <TabActividadesFT
             show={value === 40 ? true : false}
             setTxtShowFnc={setTxtShowFnc}
             showMirFnc={showMirFnc}
+            actividadesMir={[]}
             compAct={compAct}
             componentes={noComponentes}
-            asignarCValor={asignarCValorMA}
+            asignarCValor={asignarCValorFT}
+            asignarCValorMIR={asignarCValor}
             MA={MA}
             MIR={MIR}
-          ></TabActividadesMA>
+            FT={FT}
+          ></TabActividadesFT>
 
-          <TabResumenMA
+          <TabResumenFT
             show={value === 50 ? true : false}
             componentes={noComponentes}
             componenteValor={valoresComponenteMA}
@@ -318,16 +322,10 @@ export default function AddMetaAnual({
             IdMir={IdMir}
             IdMA={IdMA}
             showResume={showResume}
-            MIR={MIR}
-          ></TabResumenMA>
-
-          <TabResumenMIR
-            show={showMir}
-            showMirFnc={showMirFnc}
-            showSt={showSt}
-            MIR={MIR}
-            noComponentes={noComponentes}
-          ></TabResumenMIR>
+            Ft={FT}
+            encabezado={[""]}
+          ></TabResumenFT>
+          
         </Box>
 
         <Box
@@ -339,6 +337,7 @@ export default function AddMetaAnual({
           }}
         >
           <IconButton
+            disabled={value === 10 ? true : false}
             onClick={() => {
               cambiarTab("atras");
             }}

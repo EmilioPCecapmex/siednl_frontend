@@ -3,13 +3,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import {
   Box,
-  Alert,
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
   Button,
-  AlertColor,
   Typography,
 } from "@mui/material";
 
@@ -32,7 +30,6 @@ export default function ModalEnviarMIR({
 
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
-  // const [instSelected, setInstSelected] = useState("");
   let err = 0;
 
   const [newComent, setNewComent] = React.useState(false);
@@ -64,7 +61,7 @@ export default function ModalEnviarMIR({
     errores = [];
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       err = 1;
-      errores.push("<strong>Encabezado<(strong>: año fiscal no seleccionado.");
+      errores.push("<strong>Encabezado:</strong> año fiscal no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
       err = 1;
@@ -334,8 +331,8 @@ export default function ModalEnviarMIR({
         icon: "error",
         html: `
         <div style="height:50%;">
-        <h1>Se han encontrado los siguientes errores:</h1>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 100px; overflow: auto;">
+        <h3>Se han encontrado los siguientes errores:</h3>
+        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
       <small>
       <strong>
       *</strong>${errores.join("<br><strong>*</strong>")}
@@ -414,12 +411,13 @@ export default function ModalEnviarMIR({
           CrearMetaAnual();
         }
 
-        err = 1;
-        errores.push(
-          localStorage.getItem("Rol") === "Administrador"
-            ? "¡MIR autorizada con éxito!"
-            : "¡MIR enviada con éxito!"
-        );
+        Toast.fire({
+          icon: "success",
+          title: localStorage.getItem("Rol") === "Administrador"
+          ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
+          : "¡MIR enviada con éxito!",
+        });
+
         if (comment != "") {
           comentMir(r.data.data.ID);
         }
@@ -433,11 +431,9 @@ export default function ModalEnviarMIR({
 
   const getUsuariosXInstitucion = () => {
     let inst = JSON.parse(MIR)?.encabezado.institucion;
-
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
     }
-
     axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
@@ -461,7 +457,6 @@ export default function ModalEnviarMIR({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      // setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
     }
   }, [open]);
 
@@ -529,7 +524,9 @@ export default function ModalEnviarMIR({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la MIR se autorizará y el apartado de Meta Anual para esta MIR será habilitado"
+              ? "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado"
+              : localStorage.getItem("Rol") === "Verificador"
+              ? "Al confirmar, la MIR se enviará a los usuarios correspondientes para autorización"
               : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión"}
           </Typography>
         </Box>
