@@ -9,3 +9,8 @@ export default interface IRegistroUsuario {
     CreadoPor:        string;
     ModificadoPor: string;
 }
+
+export  interface ITipoSolicitud{
+    IdTipoSolicitud:string;
+    TipoSolicitud:string;
+}
