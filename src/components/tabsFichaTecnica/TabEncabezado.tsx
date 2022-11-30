@@ -165,7 +165,7 @@ export function TabEncabezado({
           },
         }}
       >
-        Hola1
+        
       </TextField>
 
       {/*------------------------TF1--------------------- */}

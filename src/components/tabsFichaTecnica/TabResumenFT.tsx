@@ -346,7 +346,7 @@ export function TabResumenFT({
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
-            FIN
+            FIN 
           </Typography>
 
           <Box
