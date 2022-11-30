@@ -18,7 +18,6 @@ import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 
-
 export const TabComponenteFT = ({
   show,
   valoresComponenteFTFnc,
@@ -26,8 +25,7 @@ export const TabComponenteFT = ({
   showMirFnc,
   showFnc,
   FT,
-}: 
-{
+}: {
   show: boolean;
   valoresComponenteFTFnc: Function;
   noComponentes: number[];
@@ -41,7 +39,7 @@ export const TabComponenteFT = ({
     Array<IComponentesFT>
   >([]);
 
-   let jsonFT = FT === "" || FT === undefined ? "" : JSON.parse(FT);
+  let jsonFT = FT === "" || FT === undefined ? "" : JSON.parse(FT);
 
   useEffect(() => {
     let comp: IComponentesFT[] = [];
@@ -49,31 +47,51 @@ export const TabComponenteFT = ({
     noComponentes.map((x, index) => {
       return comp.push({
         componentes: "C" + (index + 1),
-        tipoDeIndicador: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.tipoDeIndicador || "",
-        claridad: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.claridad || "",
-        relevancia: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.relevancia || "",
-        economia: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.economia || "",
-        monitoreable: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.monitoreable || "",
-        adecuado: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.adecuado || "",
-        aporte_marginal: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.aporte_marginal || "",
-        dimension: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.dimension || "",
-        unidadDeMedida: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.unidadDeMedida || ""
+        tipoDeIndicador:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.tipoDeIndicador || "",
+        claridad:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.claridad || "",
+        relevancia:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.relevancia || "",
+        economia:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.economia || "",
+        monitoreable:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.monitoreable || "",
+        adecuado:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.adecuado || "",
+        aporte_marginal:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.aporte_marginal || "",
+        dimension:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.dimension || "",
+        unidadDeMedida:
+          FT === "" || FT === undefined
+            ? ""
+            : jsonFT?.componentes[index]?.unidadDeMedida || "",
       });
     });
 
     setComponentesValues(comp);
-
-    
   }, [FT]);
 
-
   useEffect(() => {
-    
     valoresComponenteFTFnc(componentesValues);
-  
-  }, [show])
-  
-
+  }, [show]);
 
   return (
     <Box
@@ -205,7 +223,7 @@ export const TabComponenteFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               TIPO DE INDICADOR
@@ -216,12 +234,13 @@ export const TabComponenteFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
                     SELECCIÓN ESTRATEGICO
-                  </Typography>}
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -245,7 +264,7 @@ export const TabComponenteFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -286,131 +305,130 @@ export const TabComponenteFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               DIMENSIÓN
             </FormLabel>
 
-            <Box sx={{ display: "grid", gridTemplateColumns:'repeat(2,1fr)' }}>
-              
-                <FormControlLabel
-                  value={"EFICIENCIA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.8vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      EFICIENCIA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        componentesValues[componentSelect - 1]?.dimension ===
-                        "EFICIENCIA"
-                      }
-                      onChange={(c) => {
-                        componentesValues[componentSelect - 1].dimension =
-                          c.target.value;
-                        setComponentesValues([...componentesValues]);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"EFICACIA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.8vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      EFICACIA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        componentesValues[componentSelect - 1]?.dimension ===
-                        "EFICACIA"
-                      }
-                      onChange={(c) => {
-                        componentesValues[componentSelect - 1].dimension =
-                          c.target.value;
-                        setComponentesValues([...componentesValues]);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"CALIDAD"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.8vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      CALIDAD
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        componentesValues[componentSelect - 1]?.dimension ===
-                        "CALIDAD"
-                      }
-                      onChange={(c) => {
-                        componentesValues[componentSelect - 1].dimension =
-                          c.target.value;
-                        setComponentesValues([...componentesValues]);
-                      }}
-                    />
-                  }
-                />
+            <Box sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
+              <FormControlLabel
+                value={"EFICIENCIA"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    EFICIENCIA
+                  </Typography>
+                }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componentesValues[componentSelect - 1]?.dimension ===
+                      "EFICIENCIA"
+                    }
+                    onChange={(c) => {
+                      componentesValues[componentSelect - 1].dimension =
+                        c.target.value;
+                      setComponentesValues([...componentesValues]);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"EFICACIA"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    EFICACIA
+                  </Typography>
+                }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componentesValues[componentSelect - 1]?.dimension ===
+                      "EFICACIA"
+                    }
+                    onChange={(c) => {
+                      componentesValues[componentSelect - 1].dimension =
+                        c.target.value;
+                      setComponentesValues([...componentesValues]);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"CALIDAD"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    CALIDAD
+                  </Typography>
+                }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componentesValues[componentSelect - 1]?.dimension ===
+                      "CALIDAD"
+                    }
+                    onChange={(c) => {
+                      componentesValues[componentSelect - 1].dimension =
+                        c.target.value;
+                      setComponentesValues([...componentesValues]);
+                    }}
+                  />
+                }
+              />
 
-                <FormControlLabel
-                  value={"ECONOMÍA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.8vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      ECONOMÍA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        componentesValues[componentSelect - 1]?.dimension ===
-                        "ECONOMÍA"
-                      }
-                      onChange={(c) => {
-                        componentesValues[componentSelect - 1].dimension =
-                          c.target.value;
-                        setComponentesValues([...componentesValues]);
-                      }}
-                    />
-                  }
-                />
+              <FormControlLabel
+                value={"ECONOMÍA"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    ECONOMÍA
+                  </Typography>
+                }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componentesValues[componentSelect - 1]?.dimension ===
+                      "ECONOMÍA"
+                    }
+                    onChange={(c) => {
+                      componentesValues[componentSelect - 1].dimension =
+                        c.target.value;
+                      setComponentesValues([...componentesValues]);
+                    }}
+                  />
+                }
+              />
             </Box>
           </FormControl>
 
@@ -453,7 +471,7 @@ export const TabComponenteFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               CLARIDAD
@@ -462,15 +480,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -491,15 +509,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -533,7 +551,7 @@ export const TabComponenteFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               RELEVANCIA
@@ -542,15 +560,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -572,15 +590,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -615,7 +633,7 @@ export const TabComponenteFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               ECONOMÍA
@@ -624,15 +642,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -653,15 +671,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -695,7 +713,7 @@ export const TabComponenteFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               MONITOREABLE
@@ -704,15 +722,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -734,15 +752,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -777,7 +795,7 @@ export const TabComponenteFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               ADECUADO
@@ -786,15 +804,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -815,15 +833,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -857,7 +875,7 @@ export const TabComponenteFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               APORTE MARGINAL
@@ -866,15 +884,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"SI"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SI
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -896,15 +914,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"NO"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NO
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -925,15 +943,15 @@ export const TabComponenteFT = ({
               <FormControlLabel
                 value={"NA"}
                 label={
-                      <Typography
-                        sx={{
-                          fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NA
-                      </Typography>
-                    }
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    NA
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}

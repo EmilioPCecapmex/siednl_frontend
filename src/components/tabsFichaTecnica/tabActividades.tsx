@@ -92,25 +92,45 @@ export const TabActividadesFT = ({
             actividades: x.actividades.map((c, index2) => {
               return {
                 actividad:
-                  FT === "" || FT === undefined ? "" : "A" + (index2 + 1) + "C" + (index + 1),
+                  FT === "" || FT === undefined
+                    ? ""
+                    : "A" + (index2 + 1) + "C" + (index + 1),
                 tipoDeIndicador:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.tipoDeIndicador,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.tipoDeIndicador,
                 claridad:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.claridad,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.claridad,
                 relevancia:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.relevancia,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.relevancia,
                 economia:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.economia,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.economia,
                 monitoreable:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.monitoreable,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.monitoreable,
                 adecuado:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.adecuado,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.adecuado,
                 aporte_marginal:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.aporte_marginal,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.aporte_marginal,
                 dimension:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.dimension,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.dimension,
                 unidadDeMedida:
-                  FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.unidadDeMedida,
+                  FT === "" || FT === undefined
+                    ? ""
+                    : jsonFT?.actividades[index2]?.unidadDeMedida,
               };
             }),
           };
@@ -122,7 +142,7 @@ export const TabActividadesFT = ({
   };
 
   const [open, setOpen] = useState(1);
-  
+
   const handleClickComponente = (index: number) => {
     setOpen(index);
   };
@@ -293,7 +313,7 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               TIPO DE INDICADOR
@@ -304,7 +324,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -336,7 +356,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -380,142 +400,142 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               DIMENSIÓN
             </FormLabel>
 
-            <Box sx={{ display: "grid", gridTemplateColumns:'repeat(2,1fr)' }}>
-                <FormControlLabel
-                  value={"EFICIENCIA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.8vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      EFICIENCIA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.dimension === "EFICIENCIA"
-                      }
-                      onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ].dimension = c.target.value;
-                        setAValorFT(y);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"EFICACIA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.8vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      EFICACIA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.dimension === "EFICACIA"
-                      }
-                      onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ].dimension = c.target.value;
-                        setAValorFT(y);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"CALIDAD"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.8vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      CALIDAD
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.dimension === "CALIDAD"
-                      }
-                      onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ].dimension = c.target.value;
-                        setAValorFT(y);
-                      }}
-                    />
-                  }
-                />
+            <Box sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
+              <FormControlLabel
+                value={"EFICIENCIA"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    EFICIENCIA
+                  </Typography>
+                }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      aValorFT[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.dimension === "EFICIENCIA"
+                    }
+                    onChange={(c) => {
+                      let y = [...aValorFT];
+                      y[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].dimension = c.target.value;
+                      setAValorFT(y);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"EFICACIA"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    EFICACIA
+                  </Typography>
+                }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      aValorFT[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.dimension === "EFICACIA"
+                    }
+                    onChange={(c) => {
+                      let y = [...aValorFT];
+                      y[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].dimension = c.target.value;
+                      setAValorFT(y);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"CALIDAD"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    CALIDAD
+                  </Typography>
+                }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      aValorFT[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.dimension === "CALIDAD"
+                    }
+                    onChange={(c) => {
+                      let y = [...aValorFT];
+                      y[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].dimension = c.target.value;
+                      setAValorFT(y);
+                    }}
+                  />
+                }
+              />
 
-                <FormControlLabel
-                  value={"ECONOMÍA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.8vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      ECONOMÍA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.dimension === "ECONOMÍA"
-                      }
-                      onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ].dimension = c.target.value;
-                        setAValorFT(y);
-                      }}
-                    />
-                  }
-                />
+              <FormControlLabel
+                value={"ECONOMÍA"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.7vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    ECONOMÍA
+                  </Typography>
+                }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      aValorFT[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.dimension === "ECONOMÍA"
+                    }
+                    onChange={(c) => {
+                      let y = [...aValorFT];
+                      y[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ].dimension = c.target.value;
+                      setAValorFT(y);
+                    }}
+                  />
+                }
+              />
             </Box>
           </FormControl>
 
@@ -564,7 +584,7 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               CLARIDAD
@@ -575,7 +595,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -607,7 +627,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -651,7 +671,7 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               RELEVANCIA
@@ -662,7 +682,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -694,7 +714,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -738,7 +758,7 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               ECONOMÍA
@@ -749,7 +769,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -781,7 +801,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -825,7 +845,7 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               MONITOREABLE
@@ -836,7 +856,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -868,7 +888,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -912,7 +932,7 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               ADECUADO
@@ -923,7 +943,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -955,7 +975,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -999,7 +1019,7 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.6vw",
+                fontSize: "0.8vw",
               }}
             >
               APORTE MARGINAL
@@ -1010,7 +1030,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -1042,7 +1062,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -1074,7 +1094,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                      fontSize: "0.7vw",
                       fontFamily: "MontserratMedium",
                     }}
                   >

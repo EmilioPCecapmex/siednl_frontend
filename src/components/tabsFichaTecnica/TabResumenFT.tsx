@@ -123,11 +123,12 @@ export function TabResumenFT({
   });
 
   const creaFT = (estado: string) => {
+    
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-tipoDeIndicador",
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
         {
-          tipoDeIndicador: JSON.stringify(FT),
+          FichaTecnica: JSON.stringify(FT),
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
           Estado: estado,

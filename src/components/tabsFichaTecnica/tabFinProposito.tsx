@@ -212,7 +212,7 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: "0.8vw",
                   }}
                 >
                   TIPO DE INDICADOR
@@ -223,7 +223,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -252,7 +252,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -291,7 +291,7 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: "0.8vw",
                   }}
                 >
                   DIMENSIÓN
@@ -305,7 +305,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -332,7 +332,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -359,7 +359,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -387,7 +387,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -452,7 +452,7 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: "0.8vw",
                   }}
                 >
                   CLARIDAD
@@ -463,7 +463,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -490,7 +490,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -529,7 +529,7 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: "0.8vw",
                   }}
                 >
                   RELEVANCIA
@@ -540,7 +540,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -567,7 +567,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -606,7 +606,7 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: "0.8vw",
                   }}
                 >
                   ECONOMÍA
@@ -617,7 +617,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -644,7 +644,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -683,7 +683,7 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: "0.8vw",
                   }}
                 >
                   MONITOREABLE
@@ -694,7 +694,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -721,7 +721,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -760,7 +760,7 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: "0.8vw",
                   }}
                 >
                   ADECUADO
@@ -771,7 +771,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -798,7 +798,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -837,7 +837,7 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: "0.8vw",
                   }}
                 >
                   APORTE MARGINAL
@@ -848,7 +848,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -875,7 +875,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -902,7 +902,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.8vw",
+                          fontSize: "0.7vw",
                           fontFamily: "MontserratMedium",
                         }}
                       >
