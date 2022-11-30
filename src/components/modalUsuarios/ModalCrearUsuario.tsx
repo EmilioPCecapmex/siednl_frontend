@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -15,7 +15,6 @@ import {
   Button,
   AlertColor,
 } from "@mui/material";
-import { ITipoSolicitud } from "./InterfazUsuario";
 
 export interface IInstituciones {
   Id: string;
@@ -222,7 +221,7 @@ export default function ModalCrearUsuario({
   const signUp = () => {
     axios
       .post(
-        "http://localhost:5000/api/sign-up",
+        "http://10.200.4.192:5000/api/sign-up",
         {
           Nombre: names,
           ApellidoPaterno: firstName,
@@ -251,6 +250,7 @@ export default function ModalCrearUsuario({
         }
       })
       .catch((r) => {
+        console.log(r)
         if (r.response.status === 409) {
           setErrorsForm({
             visible: true,

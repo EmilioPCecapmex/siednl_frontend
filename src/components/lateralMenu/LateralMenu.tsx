@@ -127,13 +127,11 @@ export const LateralMenu = ({
      const regex5 =  /^[a-zA-Z-0-9]+$/;
 
       if(newPassword.match(regex3)){
-        console.log("Entre ",newPassword);
         setError({ label: "Su contraseña debe contar con al menos un numero", show: true });
         return null;
       }
         
       if(newPassword.match(regex5)){
-        console.log("Entre ",newPassword);
         setError({ label: "Su contraseña debe contar con un caracter especial", show: true });
         return null;
       }

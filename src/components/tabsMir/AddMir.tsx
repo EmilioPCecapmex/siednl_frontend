@@ -127,6 +127,7 @@ export default function FullModalMir({
   }, []);
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
+
   const [fin, setFin] = useState<Array<IFin>>([]);
   const [proposito, setProposito] = useState<Array<IProposito>>([]);
   const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
@@ -135,6 +136,8 @@ export default function FullModalMir({
   const resumenEncabezado = (arr: Array<IEncabezado>) => {
     setEncabezado(arr);
   };
+  
+
   const resumenFin = (arr: Array<IFin>) => {
     setFin(arr);
   };
