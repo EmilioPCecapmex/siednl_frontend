@@ -144,6 +144,12 @@ export default function AddFichaTecnica({
   const asignarCValorFT = (state: Array<ICValorFT>) => {
     setCValorFT(state);
   };
+  
+  const valoresComponenteFTFnc = (state: Array<IComponentesFT>) => {
+    setValoresComponenteFT(state);
+    console.log(state);
+    
+  };
 
   useEffect(() => {
     let arrayFT = noComponentes.map((x, index) => {
@@ -268,6 +274,7 @@ export default function AddFichaTecnica({
             <TabEncabezado
               show={value === 10 ? true : false}
               resumenEncabezado={() => {}}
+              MIR={MIR}
             ></TabEncabezado>
 
           <TabFinPropositoFT
@@ -289,13 +296,10 @@ export default function AddFichaTecnica({
 
           <TabComponenteFT2
             show={value === 30 ? true : false}
-            //noComponentesFnc ={() => {}}
-            valoresComponenteMAFnc={() => {}}
+            valoresComponenteFTFnc={valoresComponenteFTFnc}
             noComponentes={noComponentes}
-            // valoresComponente={() => {}}
             showFnc={setTxtShowFnc}
             showMirFnc={showMirFnc}
-            valoresComponenteMA={[]}
             FT={FT}
           ></TabComponenteFT2>
 
