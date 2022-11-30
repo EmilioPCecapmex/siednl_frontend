@@ -33,65 +33,67 @@ export const TabComponenteFT = ({
   showFnc: Function;
   FT: string;
 }) => {
+  
   const [componentSelect, setComponentSelect] = useState(1);
 
   const [componentesValues, setComponentesValues] = useState<
     Array<IComponentesFT>
   >([]);
 
-  let jsonFT = FT === "" || FT === undefined ? "" : JSON.parse(FT);
+  let jsonFT = FT === "" ? "" : JSON.parse(FT);
 
   useEffect(() => {
+    
     let comp: IComponentesFT[] = [];
 
     noComponentes.map((x, index) => {
       return comp.push({
         componentes: "C" + (index + 1),
         tipoDeIndicador:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.tipoDeIndicador || "",
         claridad:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.claridad || "",
         relevancia:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.relevancia || "",
         economia:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.economia || "",
         monitoreable:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.monitoreable || "",
         adecuado:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.adecuado || "",
         aporte_marginal:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.aporte_marginal || "",
         dimension:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.dimension || "",
         unidadDeMedida:
-          FT === "" || FT === undefined
+          FT === ""
             ? ""
             : jsonFT?.componentes[index]?.unidadDeMedida || "",
       });
     });
 
     setComponentesValues(comp);
-  }, [FT]);
+  }, [noComponentes]);
 
   useEffect(() => {
     valoresComponenteFTFnc(componentesValues);
-  }, [show]);
+  }, [FT, show]);
 
   return (
     <Box

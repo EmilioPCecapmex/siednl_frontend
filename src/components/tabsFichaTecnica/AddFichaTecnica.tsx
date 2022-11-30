@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import TabResumenFT, { IEncabezadoEditFT } from "./TabResumenFT";
-import { TabFinPropositoFT } from "./tabFinProposito";
+import TabResumenFT from "./TabResumenFT";
 import { Box, IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
@@ -11,6 +10,7 @@ import { IComponenteActividad } from "../tabsMir/AddMir";
 import { ICValorFT, IFinFT, IPropositoFT, IComponentesFT, IEncabezadoFT } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
+import { TabFinPropositoFT } from "./TabFinProposito";
 
 export default function AddFichaTecnica({
   MIR,
@@ -29,9 +29,6 @@ export default function AddFichaTecnica({
   IdMA: string;
   IdFT: string;
 }) {
-
-
-  const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>();
   
   const [value, setValue] = React.useState(10);
 
@@ -62,6 +59,7 @@ export default function AddFichaTecnica({
   const jsonMir = JSON.parse(MIR);
 
   useEffect(() => {
+
     let act: number[] = [];
     let comp: string[] = [];
     let ambos: any = [];
@@ -154,7 +152,6 @@ export default function AddFichaTecnica({
 
   const valoresComponenteFTFnc = (state: Array<IComponentesFT>) => {
     setValoresComponenteFT(state);
-    console.log(state);
   };
 
   const [ValueEncabezado, setValueEncabezado] = useState<Array<IEncabezadoFT>>([]);
@@ -276,7 +273,6 @@ export default function AddFichaTecnica({
             resumenFinFT={resumenFinFT}
             resumenPropositoFT={resumenPropositoFT}
             FT={FT}
-            MIR={MIR}
           ></TabFinPropositoFT>
 
           <TabComponenteFT
@@ -310,7 +306,6 @@ export default function AddFichaTecnica({
             IdMA={IdMA}
             IdFT={IdFT}
             showResume={showResume}
-            Ft={FT}
             MIR={MIR}
           ></TabResumenFT>
         </Box>

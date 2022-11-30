@@ -565,7 +565,7 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MA)?.encabezado?.institucion);
+      setInstSelected(JSON.parse(MIR)?.encabezado?.institucion);
     }
   }, [open]);
 

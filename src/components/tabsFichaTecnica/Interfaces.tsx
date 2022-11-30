@@ -20,8 +20,8 @@ export interface ICValorFT {
 export interface IEncabezadoFT {
   programaSER: string;
   objetivoSER: string;
-  catalogoObjetivoODS: string;
-  catalogoMetaODS: string;
+  objetivoODS: string;
+  metaODS: string;
 }
 
 export interface IFinFT {

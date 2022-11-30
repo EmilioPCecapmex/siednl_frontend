@@ -898,8 +898,8 @@ export function TabEncabezado({
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
         
         <Autocomplete
-          disablePortal
           disabled={mirEdit?.encabezado.institucion}
+          disablePortal
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion}
           value={{
