@@ -74,11 +74,7 @@ export const TabActividadesFT = ({
     })
   );
 
-  useEffect(() => {
-    if (compAct.length > 0) {
-      loadActividadesFT();
-    }
-  }, [compAct]);
+  
 
   useEffect(() => {
     asignarCValor(aValorFT);
@@ -135,7 +131,11 @@ export const TabActividadesFT = ({
 
  
 
-  
+  useEffect(() => {
+    if (compAct.length > 0) {
+      loadActividadesFT();
+    }
+  }, [compAct]);
 
   const loadActividadesFT = () => {
     let y = componenteActividad.map((item) => {
@@ -145,7 +145,7 @@ export const TabActividadesFT = ({
             actividades: x.actividades.map((c, index2) => {
               return {
                 actividad:
-                  FT === "" || FT === undefined ? "" : "A" + (index2 + 1) + "C" + (index + 1),
+                FT === "" || FT === undefined ? "" :jsonFT?.actividades[index2]?.actividad || "A" + (aValorFT[0].componentes[index].actividades.length + 1) + "C" + (index + 1),
                 tipoDeIndicador:
                   FT === "" || FT === undefined ? "" : jsonFT?.actividades[index2]?.tipoDeIndicador,
                 claridad:
@@ -173,6 +173,9 @@ export const TabActividadesFT = ({
 
     setAValorFT(y);
   };
+
+ 
+  
 
   const [open, setOpen] = useState(1);
   
