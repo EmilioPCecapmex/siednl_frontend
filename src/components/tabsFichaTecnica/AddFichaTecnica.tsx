@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import TabResumenFT, { IEncabezadoEditFT } from "./TabResumenFT";
-import { TabFinPropositoFT } from "./tabFinProposito";
-import { TabComponenteFT2 } from "./TabComponentes2";
+import TabResumenFT from "./TabResumenFT";
 import { Box, IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
@@ -11,6 +9,8 @@ import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import { ICValorFT, IFinFT, IPropositoFT, IComponentesFT, IEncabezadoFT } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
+import { TabComponenteFT } from "./TabComponentes";
+import { TabFinPropositoFT } from "./TabFinProposito";
 
 export default function AddFichaTecnica({
   MIR,
@@ -29,9 +29,6 @@ export default function AddFichaTecnica({
   IdMA: string;
   IdFT: string;
 }) {
-
-
-  const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>();
   
   const [value, setValue] = React.useState(10);
 
@@ -62,6 +59,7 @@ export default function AddFichaTecnica({
   const jsonMir = JSON.parse(MIR);
 
   useEffect(() => {
+
     let act: number[] = [];
     let comp: string[] = [];
     let ambos: any = [];
@@ -90,9 +88,10 @@ export default function AddFichaTecnica({
     });
   }, []);
 
+  ////////////////// Componentes //////////////////////////
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  const [valoresComponenteMA, setValoresComponenteFT] = useState<
+  const [valoresComponente, setValoresComponenteFT] = useState<
     Array<IComponentesFT>
   >(
     noComponentes.map((x, index) => {
@@ -111,8 +110,11 @@ export default function AddFichaTecnica({
     })
   );
 
+  const valoresComponenteMAFnc = (state: Array<IComponentesFT>) => {
+    setValoresComponenteFT(state);
+  };
+  ////////////////////Actividades/////////////////////////////////
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-
   const [componenteActividad, setComponenteActividad] = useState([
     {
       componentes: noComponentes.map((x) => [1, 2]),
@@ -143,28 +145,14 @@ export default function AddFichaTecnica({
       };
     })
   );
-
+  //////////// Actividades/////////////////////7
   const asignarCValorFT = (state: Array<ICValorFT>) => {
     setCValorFT(state);
   };
 
-  useEffect(() => {
-    let arrayFT = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        tipoDeIndicador: "",
-        claridad: "",
-        relevancia: "",
-        economia: "",
-        monitoreable: "",
-        adecuado: "",
-        aporte_marginal: "",
-        dimension: "",
-        unidadDeMedida: "",
-      };
-    });
-    setValoresComponenteFT(arrayFT);
-  }, [noComponentes]);
+  const valoresComponenteFTFnc = (state: Array<IComponentesFT>) => {
+    setValoresComponenteFT(state);
+  };
 
   const [ValueEncabezado, setValueEncabezado] = useState<Array<IEncabezadoFT>>([]);
 
@@ -277,6 +265,7 @@ export default function AddFichaTecnica({
               show={value === 10 ? true : false}
               resumenEncabezadoFT={resumenEncabezadoFT}
               FT={FT}
+              MIR={MIR}
             ></TabEncabezado>
 
           <TabFinPropositoFT
@@ -284,29 +273,16 @@ export default function AddFichaTecnica({
             resumenFinFT={resumenFinFT}
             resumenPropositoFT={resumenPropositoFT}
             FT={FT}
-            MIR={MIR}
           ></TabFinPropositoFT>
 
-          {/* <TabComponenteFT
+          <TabComponenteFT
             show={value === 30 ? true : false}
-            noComponentesFnc={() => {}}
-            valoresComponenteFnc={() => {}}
+            valoresComponenteFTFnc={valoresComponenteFTFnc}
             noComponentes={noComponentes}
-            // valoresComponente={() => {}}
-
-          ></TabComponenteFT> */}
-
-          <TabComponenteFT2
-            show={value === 30 ? true : false}
-            //noComponentesFnc ={() => {}}
-            valoresComponenteMAFnc={() => {}}
-            noComponentes={noComponentes}
-            // valoresComponente={() => {}}
             showFnc={setTxtShowFnc}
             showMirFnc={showMirFnc}
-            valoresComponenteMA={[]}
             FT={FT}
-          ></TabComponenteFT2>
+          ></TabComponenteFT>
 
           <TabActividadesFT
             show={value === 40 ? true : false}
@@ -324,13 +300,12 @@ export default function AddFichaTecnica({
             fin={ValueFin}
             proposito={ValueProposito}
             componentes={noComponentes}
-            componenteValor={[]}
+            componenteValor={valoresComponente}
             cValor={cValorFT}
             IdMir={IdMir}
             IdMA={IdMA}
             IdFT={IdFT}
             showResume={showResume}
-            Ft={FT}
             MIR={MIR}
           ></TabResumenFT>
         </Box>

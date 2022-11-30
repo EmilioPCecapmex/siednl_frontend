@@ -250,7 +250,6 @@ export default function ModalCrearUsuario({
         }
       })
       .catch((r) => {
-        console.log(r)
         if (r.response.status === 409) {
           setErrorsForm({
             visible: true,

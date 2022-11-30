@@ -42,7 +42,6 @@ export const TabComponenteMA = ({
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
 
   useEffect(() => {
-    // if (show === true) {
     let comp: IComponenteMA[] = [];
 
     noComponentes.map((x, index) => {
@@ -85,12 +84,14 @@ export const TabComponenteMA = ({
           },
         ],
 
-        valorNumerador: MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || "",
+        valorNumerador:
+          MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || "",
         valorDenominador:
-
- MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || "",
+          MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || "",
         sentidoDelIndicador:
-          MA === "" ? "": jsonMA?.componentes[index]?.sentidoDelIndicador || "",
+          MA === ""
+            ? ""
+            : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
         unidadResponsable:
           MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
         descIndicador:
@@ -102,15 +103,12 @@ export const TabComponenteMA = ({
       });
     });
 
-    // if (componentesValues.length <= 0) {
     setComponentesValues(comp);
-    // }
-    // }
-  }, [show]);
+  }, [noComponentes]);
 
   useEffect(() => {
     valoresComponenteMAFnc(componentesValues);
-  }, [componentesValues]);
+  }, [MA, show]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
@@ -174,7 +172,7 @@ export const TabComponenteMA = ({
   const handleClose2 = () => {
     setOpenFormulaDialogMACA(false);
   };
-  ///////// esto es necesario
+
   const changeFormula = (txt: string) => {
     componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
     componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];

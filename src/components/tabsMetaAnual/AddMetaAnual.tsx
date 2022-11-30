@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { TabFinPropositoMA } from "./TabFinPropositoMA";
+import { IFin, IProposito, TabFinPropositoMA } from "./TabFinPropositoMA";
 import { Box, IconButton } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
+import { ICValor } from "../tabsMir/ICValor";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-import TabResumenMIR from "../modalsMA/ModalResumenMir";
+
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IEncabezado } from "../tabsMir/TabEncabezado";
+import TabResumenMIR from "../modalsMA/ModalResumenMir";
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -36,7 +39,7 @@ export default function AddMetaAnual({
     setShowMir(state);
   };
 
-  const setTxtShowFnc = (st: string) => {
+  const showFnc = (st: string) => {
     setShowSt(st);
   };
 
@@ -52,39 +55,22 @@ export default function AddMetaAnual({
     }
   };
 
-  const jsonMir = JSON.parse(MIR);
-
-  useEffect(() => {
-    let act: number[] = [];
-    let comp: string[] = [];
-    let ambos: any = [];
-    let i = 1;
-    let j = 1;
-
-    jsonMir.componentes.map((x: any) => {
-      comp.push("C" + j);
-      jsonMir.actividades.map((a: any) => {
-        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-          act.push(i);
-          i++;
-        }
-      });
-      ambos.push({ actividades: act, componente: "C" + j });
-      act = [];
-      i = 1;
-      j++;
-    });
-
-    setCompAct(ambos);
-
-    jsonMir.componentes.map((value: any, index: number) => {
-      if (index > 1 && index < 6)
-        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
-    });
-  }, []);
-
-  // COMPONENTES
+  // COMPONENTES ------------------ No me sirve para FichaTecnica
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+
+  const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    })
+  );
 
   const [valoresComponenteMA, setValoresComponenteMA] = useState<
     Array<IComponenteMA>
@@ -105,19 +91,45 @@ export default function AddMetaAnual({
       };
     })
   );
-
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     setValoresComponenteMA(state);
   };
+  const valoresComponenteFnc = (state: Array<IComponente>) => {
+    setComponenteValor(state);
+  };
 
-  // ACTIVIDADES
+  // ACTIVIDADES ------------------ No me sirve para FichaTecnica
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
+  const [actividadesMir, setActividadesMir] = useState<Array<ICValor>>([]);
+  const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
     {
-      componentes: noComponentes.map((x) => [1, 2]),
+      componentes: noComponentes.map((x) => actividades),
     },
   ]);
+
+  const [cValor, setCValor] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                resumen: "",
+                indicador: "",
+                formula: "",
+                frecuencia: "",
+                medios: "",
+                supuestos: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
 
   const [cValorMA, setCValorMA] = useState(
     componenteActividad.map((item) => {
@@ -131,6 +143,7 @@ export default function AddMetaAnual({
                 lineaBase: "",
                 metasPorFrecuencia: [
                   {
+                   
                     trimestre1: "",
                     trimestre2: "",
                     trimestre3: "",
@@ -156,7 +169,24 @@ export default function AddMetaAnual({
     setCValorMA(state);
   };
 
+  const asignarCValor = (state: Array<ICValor>) => {
+    setCValor(state);
+  };
+
   useEffect(() => {
+    let array = noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        resumen: "",
+        indicador: "",
+        frecuencia: "",
+        formula: "",
+        medios: "",
+        supuestos: "",
+      };
+    });
+    setComponenteValor(array);
+
     let arrayMA = noComponentes.map((x, index) => {
       return {
         componentes: "C" + (index + 1),
@@ -182,10 +212,27 @@ export default function AddMetaAnual({
       };
     });
     setValoresComponenteMA(arrayMA);
-  }, [noComponentes]);
+  }, []);
+
+  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
+
+  const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
+  const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([]);
 
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
+
+  // ------------------ No me sirve para FichaTecnica ---------------------------
+  const resumenEncabezado = (arr: Array<IEncabezado>) => {
+    setEncabezado(arr);
+  };
+
+  const loadFin = (arr: Array<IFin>) => {
+    setCargaFin(arr);
+  };
+  const loadProposito = (arr: Array<IProposito>) => {
+    setCargaProposito(arr);
+  };
 
   const resumenFinMa = (arr: Array<IFinMA>) => {
     setValueFin(arr);
@@ -193,6 +240,7 @@ export default function AddMetaAnual({
   const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
     setValueProposito(arr);
   };
+  // ------------------ No me sirve para FichaTecnica ---------------------------
 
   return (
     <Box
@@ -273,20 +321,21 @@ export default function AddMetaAnual({
             height: "77vh",
           }}
         >
+
           <TabFinPropositoMA
-            show={value === 20 ? true : false}
             MA={MA}
             MIR={MIR}
-            setTxtShowFnc={setTxtShowFnc}
+            setTxtShowFnc={showFnc}
+            show={value === 20 ? true : false}
             resumenFinMa={resumenFinMa}
             resumenPropositoMa={resumenPropositoMa}
             showMirFnc={showMirFnc}
           ></TabFinPropositoMA>
 
           <TabComponenteMA
-            show={value === 30 ? true : false}
-            setTxtShowFnc={setTxtShowFnc}
+            setTxtShowFnc={showFnc}
             showMirFnc={showMirFnc}
+            show={value === 30 ? true : false}
             valoresComponenteMAFnc={valoresComponenteMAFnc}
             noComponentes={noComponentes}
             MA={MA}
@@ -294,10 +343,10 @@ export default function AddMetaAnual({
           ></TabComponenteMA>
 
           <TabActividadesMA
-            show={value === 40 ? true : false}
-            setTxtShowFnc={setTxtShowFnc}
+            setTxtShowFnc={showFnc}
             showMirFnc={showMirFnc}
             compAct={compAct}
+            show={value === 40 ? true : false}
             componentes={noComponentes}
             asignarCValor={asignarCValorMA}
             MA={MA}
@@ -317,13 +366,17 @@ export default function AddMetaAnual({
             MIR={MIR}
           ></TabResumenMA>
 
-          <TabResumenMIR
+          {/* <TabResumenMIR
             show={showMir}
             showMirFnc={showMirFnc}
             showSt={showSt}
-            MIR={MIR}
-            noComponentes={noComponentes}
-          ></TabResumenMIR>
+            //componentes={noComponentes}
+            componenteValor={componenteValor}
+            cValor={cValor}
+            encabezado={encabezado}
+            fin={cargaFin}
+            proposito={cargaProposito}
+          ></TabResumenMIR> */}
         </Box>
 
         <Box
