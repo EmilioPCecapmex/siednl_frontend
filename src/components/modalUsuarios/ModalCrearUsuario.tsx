@@ -147,9 +147,9 @@ export default function ModalCrearUsuario({
   const createComentarios = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
+        "http://10.200.4.192:5000/api/create-comentario",
         {
-          CreadoPor: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
           Comentario: comentario
         },
@@ -201,11 +201,13 @@ export default function ModalCrearUsuario({
       .then((r) => {
         if (r.status === 201) {
           
-          setIdSolicitud("ID DE SOLICITUD")
-          Toast.fire({
-              icon: "success",
-              title: "¡Registro exitoso!",
-            });
+          setIdSolicitud(r.data.data.IdSolicitud)
+          cleanForm();
+          // Toast.fire({
+          //     icon: "success",
+          //     title: "¡Registro exitoso!",
+          //   });
+            
         }
       })
       .catch((r) => {
@@ -222,7 +224,7 @@ export default function ModalCrearUsuario({
   const signUp = () => {
     axios
       .post(
-        "http://localhost:5000/api/sign-up",
+        "http://10.200.4.192:5000/api/sign-up",
         {
           Nombre: names,
           ApellidoPaterno: firstName,
@@ -244,10 +246,14 @@ export default function ModalCrearUsuario({
         }
       )
       .then((r) => {
+        console.log(r.status);
+        
         if (r.status === 201) {
+          console.log(r.data);
+          
             setIdUsuarioCentral(r.data.IdUsuario);
             handleClose();
-            //siednlSignUp(r.data.IdUsuario);
+            siednlSignUp(r.data.IdUsuario);
         }
       })
       .catch((r) => {
@@ -294,9 +300,12 @@ export default function ModalCrearUsuario({
 
 
   
-  // useEffect(() => {
-  //   createComentarios();
-  // }, [idSolicitud]);
+  useEffect(() => {
+    if(idSolicitud===""){
+      createComentarios();
+    }
+    
+  }, [idSolicitud]);
 
   
   useEffect(() => {
@@ -458,7 +467,7 @@ export default function ModalCrearUsuario({
             onChange={(v) => setEmail(v.target.value)}
             value={email}
             sx={{
-              width: "30%",
+              width: "50%",
               mr: "2vw",
             }}
           />
