@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import TabResumenFT from "./TabResumenFT";
+import TabResumenFT, { IEncabezadoEditFT } from "./TabResumenFT";
 import { TabFinPropositoFT } from "./tabFinProposito";
 import { Box, IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/AddMir";
-import { ICValorFT, IFinFT, IPropositoFT, IComponentesFT } from "./Interfaces";
+import { ICValorFT, IFinFT, IPropositoFT, IComponentesFT, IEncabezadoFT } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
 
@@ -29,6 +29,10 @@ export default function AddFichaTecnica({
   IdMA: string;
   IdFT: string;
 }) {
+
+
+  const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>();
+  
   const [value, setValue] = React.useState(10);
 
   const [showMir, setShowMir] = React.useState(false);
@@ -153,27 +157,15 @@ export default function AddFichaTecnica({
     console.log(state);
   };
 
-  // useEffect(() => {
-  //   let arrayFT = noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       tipoDeIndicador: "",
-  //       claridad: "",
-  //       relevancia: "",
-  //       economia: "",
-  //       monitoreable: "",
-  //       adecuado: "",
-  //       aporte_marginal: "",
-  //       dimension: "",
-  //       unidadDeMedida: "",
-  //     };
-  //   });
-  //   setValoresComponenteFT(arrayFT);
-  // }, [noComponentes]);
+  const [ValueEncabezado, setValueEncabezado] = useState<Array<IEncabezadoFT>>([]);
 
   const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
 
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
+
+  const resumenEncabezadoFT = (st: Array<IEncabezadoFT>) => {
+    setValueEncabezado(st);
+  };
 
   const resumenFinFT = (st: Array<IFinFT>) => {
     setValueFin(st);
@@ -272,11 +264,11 @@ export default function AddFichaTecnica({
             height: "77vh",
           }}
         >
-          <TabEncabezado
-            show={value === 10 ? true : false}
-            resumenEncabezado={() => {}}
-            MIR={MIR}
-          ></TabEncabezado>
+            <TabEncabezado
+              show={value === 10 ? true : false}
+              resumenEncabezadoFT={resumenEncabezadoFT}
+              FT={FT}
+            ></TabEncabezado>
 
           <TabFinPropositoFT
             show={value === 20 ? true : false}
@@ -307,7 +299,7 @@ export default function AddFichaTecnica({
 
           <TabResumenFT
             show={value === 50 ? true : false}
-            encabezado={[]}
+            encabezado={ValueEncabezado}
             fin={ValueFin}
             proposito={ValueProposito}
             componentes={noComponentes}

@@ -15,6 +15,7 @@ export const getUserDetails = (idCentral: string) => {
     })
     .then((r) => {
       if (r.status === 200) {
+        
         localStorage.setItem("IdUsuario", r.data.data.Id);
         localStorage.setItem(
           "NombreUsuario",
@@ -45,6 +46,7 @@ export const getUserDetails = (idCentral: string) => {
 export const sessionValid = () => {
   const jt = params.get("jwt") || "";
   const rft = params.get("rf") || "";
+
   return axios
     .post(
       process.env.REACT_APP_APPLICATION_LOGIN+ "/api/verify",
@@ -58,6 +60,7 @@ export const sessionValid = () => {
     )
     .then((r) => {
       if (r.status === 200) {
+
         localStorage.setItem("sUntil", r.data.expDateTime)
         localStorage.setItem("jwtToken", jt);
         localStorage.setItem("refreshToken", rft);

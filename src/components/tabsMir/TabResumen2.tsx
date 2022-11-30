@@ -621,7 +621,7 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-              {" "}
+              
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
                   value={!editEncabezado.objetivo}
@@ -662,7 +662,7 @@ export function TabResumen2({
                 borderColor: "#cfcfcf",
               }}
             >
-              {" "}
+              
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
                   value={!editEncabezado.estrategia}
@@ -838,7 +838,7 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
+            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.indicador}
@@ -871,7 +871,7 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
+            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.formula}
@@ -904,7 +904,7 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
+            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.frecuencia}
@@ -937,7 +937,7 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
+            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.medios}
@@ -970,7 +970,7 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
+            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.supuestos}
@@ -1049,7 +1049,7 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
+            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editProposito.indicador}
@@ -1085,7 +1085,7 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
+            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editProposito.formula}
@@ -1121,7 +1121,6 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editProposito.frecuencia}
@@ -1157,7 +1156,6 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editProposito.medios_verificacion}
@@ -1193,7 +1191,6 @@ export function TabResumen2({
               borderColor: "#cfcfcf",
             }}
           >
-            {" "}
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editProposito.supuestos}
@@ -1494,7 +1491,7 @@ export function TabResumen2({
                       textTransform: "uppercase",
                     }}
                   >
-                    Componente {indexComponentes + 1} - Actividad{" "}
+                    Componente {indexComponentes + 1} - Actividad
                     {indexActividades + 1}
                   </Typography>
                   <Box

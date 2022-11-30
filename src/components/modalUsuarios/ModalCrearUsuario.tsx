@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -30,24 +30,36 @@ export default function ModalCrearUsuario({
   open: boolean;
   handleClose: Function;
 }) {
+
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [names, setNames] = useState("");
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
+  const [curp, setCURP] = useState("");
+  const [rfc, setRFC] = useState("");
+
   const [institution, setInstitution] = useState("0");
   const [rol, setRol] = useState("");
   const [userType, setUserType] = useState("0");
+
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
+  const [ext, setExt] = useState("");
+  const [comentario, setComentario] = useState("");
+
   const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
   ]);
 
+  const [idSolicitud, setIdSolicitud] = useState("");
+
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
   ]);
+
 
   const Toast = Swal.mixin({
     toast: true,
@@ -104,6 +116,21 @@ export default function ModalCrearUsuario({
       });
   };
 
+  // const getTipoSolicitud = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoSolicitudes", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setTiposSolicitud(r.data.data);
+  //     });
+  // };
+
   const getUserType = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
@@ -116,17 +143,14 @@ export default function ModalCrearUsuario({
       });
   };
 
-  const signUp = () => {
+  const createComentarios = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN+ "/api/sign-up",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
         {
-          Nombre: names,
-          ApellidoPaterno: firstName,
-          ApellidoMaterno: secondName,
-          NombreUsuario: username,
-          CorreoElectronico: email,
-          IdUsuarioModificador: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdSolicitud: idSolicitud,
+          Comentario: comentario
         },
         {
           headers: {
@@ -138,8 +162,11 @@ export default function ModalCrearUsuario({
         if (r.status === 201) {
           cleanForm();
           handleClose();
-          setIdUsuarioCentral(r.data.IdUsuario);
-          siednlSignUp(r.data.IdUsuario);
+          
+          Toast.fire({
+              icon: "success",
+              title: "¡Registro exitoso!",
+            });
         }
       })
       .catch((r) => {
@@ -151,7 +178,90 @@ export default function ModalCrearUsuario({
           });
         }
       });
+  }
+
+  const createSolicitud = () => {
+    axios
+      .post(
+        "http://10.200.4.192:5000/api/create-solicitud",
+        {
+          IdUsuario: idUsuarioCentral,
+          DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
+          TipoSolicitud: "Alta",
+          CreadoPor: localStorage.getItem("IdCentral"),
+          IdApp: localStorage.getItem("IdApp"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 201) {
+          
+          setIdSolicitud("ID DE SOLICITUD")
+          Toast.fire({
+              icon: "success",
+              title: "¡Registro exitoso!",
+            });
+        }
+      })
+      .catch((r) => {
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
+      });
+  }
+
+  const signUp = () => {
+    axios
+      .post(
+        "http://10.200.4.192:5000/api/sign-up",
+        {
+          Nombre: names,
+          ApellidoPaterno: firstName,
+          ApellidoMaterno: secondName,
+          NombreUsuario: username,
+          CorreoElectronico: email,
+          IdUsuarioModificador: localStorage.getItem("IdCentral"),
+          Curp: curp,
+          Rfc: rfc,
+          Telefono: telephone,
+          Ext: ext,
+          Celular: cellphone,
+          IdTipoUsuario: "",
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 201) {
+            setIdUsuarioCentral(r.data.IdUsuario);
+            handleClose();
+            //siednlSignUp(r.data.IdUsuario);
+        }
+      })
+      .catch((r) => {
+        console.log(r)
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
+      });
   };
+
+
 
   const siednlSignUp = (idUsrCentral: string) => {
     axios
@@ -174,15 +284,31 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 200) {
-          Toast.fire({
-            icon: "success",
-            title: "¡Registro exitoso!",
-          });
+          // Toast.fire({
+          //   icon: "success",
+          //   title: "¡Registro exitoso!",
+          // });
         }
       });
   };
 
+
+  
+  // useEffect(() => {
+  //   createComentarios();
+  // }, [idSolicitud]);
+
+  
+  useEffect(() => {
+    if(idUsuarioCentral!=""){
+      createSolicitud();
+    }
+      
+  }, [idUsuarioCentral]);
+
   const checkForm = () => {
+    
+    
     setErrorsForm({
       visible: false,
       text: "",
@@ -237,7 +363,19 @@ export default function ModalCrearUsuario({
         text: "Selecciona el tipo de usuario a crear.",
         type: "error",
       });
-    } else if (telephone === "") {
+    } else if (curp === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    }else if (rfc === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    }else if (telephone === "") {
       setErrorsForm({
         visible: true,
         text: "Ingresa un teléfono de contacto.",
@@ -249,7 +387,13 @@ export default function ModalCrearUsuario({
         text: "Ingresa un número celular de contacto.",
         type: "error",
       });
-    } else {
+    } else if (ext === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    }else {
       signUp();
     }
   };
@@ -257,6 +401,7 @@ export default function ModalCrearUsuario({
   useEffect(() => {
     getInstituciones();
     getUserType();
+    // getTipoSolicitud();
   }, []);
 
   return (
@@ -289,7 +434,8 @@ export default function ModalCrearUsuario({
           sx={{
             width: "100%",
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
+            mt: "3vh",
           }}
         >
           <TextField
@@ -303,6 +449,8 @@ export default function ModalCrearUsuario({
             onChange={(v) => setUsername(v.target.value)}
           />
 
+          
+
           <TextField
             label="Correo Electrónico"
             variant="outlined"
@@ -310,7 +458,7 @@ export default function ModalCrearUsuario({
             onChange={(v) => setEmail(v.target.value)}
             value={email}
             sx={{
-              width: "40%",
+              width: "30%",
               mr: "2vw",
             }}
           />
@@ -355,7 +503,6 @@ export default function ModalCrearUsuario({
             }}
           />
         </Box>
-
         <Box
           sx={{
             width: "100%",
@@ -439,6 +586,38 @@ export default function ModalCrearUsuario({
             </Select>
           </FormControl>
         </Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            mt: "3vh",
+          }}
+        >
+          <TextField
+            label="CURP"
+            variant="outlined"
+            value={curp}
+            onChange={(x) => setCURP(x.target.value)}
+            sx={{
+              width: "40%",
+              ml: "2vw",
+            }}
+          />
+
+          <TextField
+            label="RFC"
+            variant="outlined"
+            value={rfc}
+            onChange={(x) => setRFC(x.target.value)}
+            sx={{
+              width: "40%",
+              mr: "2vw",
+            }}
+          />
+
+
+        </Box>
 
         <Box
           sx={{
@@ -452,8 +631,8 @@ export default function ModalCrearUsuario({
             label="Teléfono"
             variant="outlined"
             sx={{
-              width: "30%",
-              ml: "10vw",
+              width: "40%",
+              ml: "2vw",
             }}
             type="tel"
             value={telephone}
@@ -465,13 +644,52 @@ export default function ModalCrearUsuario({
             variant="outlined"
             type="tel"
             sx={{
-              width: "30%",
-              mr: "10vw",
+              width: "40%",
+
             }}
             value={cellphone}
             onChange={(x) => setCellphone(x.target.value)}
           />
+
+          <TextField
+            label="Extensión "
+            variant="outlined"
+            sx={{
+              width: "10%",
+              mr: "2vw",
+            }}
+            type="tel"
+            value={ext}
+            onChange={(x) => setExt(x.target.value)}
+          />
         </Box>
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            mt: "3vh",
+          }}
+        >
+
+          <TextField
+            label="Comentarios "
+            variant="outlined"
+            multiline
+            rows={3}
+            sx={{
+              width: "95%",
+              mr: "2vw", ml: "2vw",
+            }}
+            type="tel"
+            value={comentario}
+            onChange={(x) => setComentario(x.target.value)}
+          />
+        </Box>
+
+
+
 
         <Box
           sx={{
@@ -494,7 +712,7 @@ export default function ModalCrearUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
-              onClick={() => handleClose()}
+              onClick={() =>{ handleClose()}}
             >
               Cancelar
             </Button>
@@ -502,7 +720,8 @@ export default function ModalCrearUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
-              onClick={() => checkForm()}
+              onClick={() => {checkForm(); 
+              }}
             >
               Registrar
             </Button>

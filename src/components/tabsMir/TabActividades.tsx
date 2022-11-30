@@ -153,7 +153,7 @@ export const TabActividades = ({
     });
     
 
-    actividadesMir.map((x, index) => {
+    actividadesMir.map((x) => {
       let act = x.actividad?.split("")[1];
       let comp = x.actividad?.split("")[3];
 
@@ -326,14 +326,6 @@ export const TabActividades = ({
       }
     }
   };
-
-  useEffect(() => {
-    let act: number[] = [];
-    let comp: string[] = [];
-    let ambos: any = [];
-    let i = 1;
-    let j = 1;
-  }, [actividades]);
 
   //return main
   return (

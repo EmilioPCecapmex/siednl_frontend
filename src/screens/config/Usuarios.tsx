@@ -25,7 +25,6 @@ export const Usuarios = () => {
     }
      }, [])
 
-     
   const [openModalUsuarios, setOpenModalUsuarios] = useState(false);
   const [openModalVincularUsuario, setOpenModalVincularUsuario] = useState(false);
 
@@ -139,7 +138,8 @@ export const Usuarios = () => {
             >
               Vincular
             </Typography>
-          </Button>  <Button
+          </Button>  
+          <Button
             variant="contained"
             disabled={localStorage.getItem("Rol") === "Capturador" ? true: false}
             sx={{
