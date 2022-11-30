@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import TabResumenFT from "./TabResumenFT";
+import TabResumenFT, { IEncabezadoEditFT } from "./TabResumenFT";
 import { TabFinPropositoFT } from "./tabFinProposito";
 import { TabComponenteFT2 } from "./TabComponentes2";
 import { Box, IconButton } from "@mui/material";
@@ -9,7 +9,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/AddMir";
-import { ICValorFT, IFinFT, IPropositoFT, IComponentesFT } from "./Interfaces";
+import { ICValorFT, IFinFT, IPropositoFT, IComponentesFT, IEncabezadoFT } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
 
 export default function AddFichaTecnica({
@@ -30,6 +30,12 @@ export default function AddFichaTecnica({
   IdFT: string;
 }) {
 
+  useEffect(() => {
+    console.log(FT)
+  }, [FT])
+
+  const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>();
+  
   const [value, setValue] = React.useState(10);
 
   const [showMir, setShowMir] = React.useState(false);
@@ -163,10 +169,16 @@ export default function AddFichaTecnica({
     setValoresComponenteFT(arrayFT);
   }, [noComponentes]);
 
+  const [ValueEncabezado, setValueEncabezado] = useState<Array<IEncabezadoFT>>([]);
 
   const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
 
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
+
+  const resumenEncabezadoFT = (st: Array<IEncabezadoFT>) => {
+    setValueEncabezado(st);
+    console.log(st)
+  };
 
   const resumenFinFT = (st: Array<IFinFT>) => {
     setValueFin(st);
@@ -267,7 +279,8 @@ export default function AddFichaTecnica({
         >
             <TabEncabezado
               show={value === 10 ? true : false}
-              resumenEncabezado={() => {}}
+              resumenEncabezadoFT={resumenEncabezadoFT}
+              FT={FT}
             ></TabEncabezado>
 
           <TabFinPropositoFT
@@ -311,7 +324,7 @@ export default function AddFichaTecnica({
 
           <TabResumenFT
             show={value === 50 ? true : false}
-            encabezado={[]}
+            encabezado={ValueEncabezado}
             fin={ValueFin}
             proposito={ValueProposito}
             componentes={noComponentes}

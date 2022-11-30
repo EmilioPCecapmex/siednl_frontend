@@ -46,7 +46,7 @@ export const TabComponenteFT2 = ({
     Array<IComponentesFT>
   >([]);
 
-   let jsonFT = FT === "" ? "" : JSON.parse(FT);
+   let jsonFT = FT === "" || FT === undefined ? "" : JSON.parse(FT);
 
   useEffect(() => {
     // if (show === true) {
@@ -55,15 +55,15 @@ export const TabComponenteFT2 = ({
     noComponentes.map((x, index) => {
       return comp.push({
         componentes: "C" + (index + 1),
-        tipoDeIndicador: FT === "" ? "" : jsonFT?.componentes[index]?.tipoDeIndicador || "",
-        claridad: FT === "" ? "" : jsonFT?.componentes[index]?.claridad || "",
-        relevancia: FT === "" ? "" : jsonFT?.componentes[index]?.relevancia || "",
-        economia: FT === "" ? "" : jsonFT?.componentes[index]?.economia || "",
-        monitoreable: FT === "" ? "" : jsonFT?.componentes[index]?.monitoreable || "",
-        adecuado: FT === "" ? "" : jsonFT?.componentes[index]?.adecuado || "",
-        aporte_marginal: FT === "" ? "" : jsonFT?.componentes[index]?.aporte_marginal || "",
-        dimension: FT === "" ? "" : jsonFT?.componentes[index]?.dimension || "",
-        unidadDeMedida: FT === "" ? "" : jsonFT?.componentes[index]?.unidadDeMedida || ""
+        tipoDeIndicador: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.tipoDeIndicador || "",
+        claridad: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.claridad || "",
+        relevancia: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.relevancia || "",
+        economia: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.economia || "",
+        monitoreable: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.monitoreable || "",
+        adecuado: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.adecuado || "",
+        aporte_marginal: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.aporte_marginal || "",
+        dimension: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.dimension || "",
+        unidadDeMedida: FT === "" || FT === undefined ? "" : jsonFT?.componentes[index]?.unidadDeMedida || ""
       });
     });
 

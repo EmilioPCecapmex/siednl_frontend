@@ -34,7 +34,7 @@ export default function ModalEnviarFT({
 }) {
   const [comment, setComment] = useState("");
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
-  const [newComent, setNewComent] = React.useState(false);
+  const [newComent, setNewComent] = React.useState(false); 
 
   const comentFT = (id: string) => {
     axios
@@ -62,81 +62,55 @@ export default function ModalEnviarFT({
   let err = 0;
 
   const checkFTEncabezado = (v: string) => {
+    console.log(JSON.parse(FT));
+    
     errores = [];
-    if (JSON.parse(FT)?.encabezado === null) {
+    if (JSON.parse(FT)?.encabezado === null || JSON.parse(FT)?.encabezado === undefined) {
       err = 1;
       errores.push("Sección <strong>Encabezado</strong> incompleta.");
     }
     if (
-      JSON.parse(FT)?.encabezado.tipoDeIndicador === undefined 
+      JSON.parse(FT)?.encabezado.programaSER === undefined ||
+      JSON.parse(FT)?.encabezado.programaSER === "" ||
+      JSON.parse(FT)?.encabezado.programaSER === null ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
     ) {
       err = 1;
       errores.push(
-        "<strong>Encabezado</strong>: Tipo de indicador no seleccionado."
+        "<strong>Encabezado</strong>: Programa sectorial, especial o regional sin información."
       );
     }
     if (
-      JSON.parse(FT)?.encabezado.dimension === undefined 
+      JSON.parse(FT)?.encabezado.objetivoSER === undefined ||
+      JSON.parse(FT)?.encabezado.objetivoSER === "" ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoSER)
     ) {
       err = 1;
-      errores.push("<strong>Encabezado</strong>: Dimensión no seleccionado.");
+      errores.push("<strong>Encabezado</strong>: Objetivo sectorial, especial o regional sin información.");
     }
     if (
-      JSON.parse(FT)?.encabezado.unidadDeMedida === undefined ||
-      JSON.parse(FT)?.encabezado.unidadDeMedida === "" ||
-      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida)
+      JSON.parse(FT)?.encabezado.catalogoObjetivoODS === undefined ||
+      JSON.parse(FT)?.encabezado.catalogoObjetivoODS === "" 
     ) {
       err = 1;
       errores.push(
-        "<strong>Encabezado</strong>: Unidad de medida sin información."
+        "<strong>Encabezado</strong>: Objetivo ODS no seleccionado."
       );
     }
     if (
-      JSON.parse(FT)?.encabezado.claridad === undefined 
-    ) {
-      err = 1;
-      errores.push("<strong>Encabezado</strong>: Claridad no seleccionado.");
-    }
-    if (
-      JSON.parse(FT)?.encabezado.relevancia === undefined 
-    ) {
-      err = 1;
-      errores.push("<strong>Encabezado</strong>: Relevancia no seleccionado.");
-    }
-    if (
-      JSON.parse(FT)?.encabezado.economia === undefined 
-    ) {
-      err = 1;
-      errores.push("<strong>Encabezado</strong>: Economia no seleccionado.");
-    }
-    if (
-      JSON.parse(FT)?.encabezado.monitoreable === undefined 
+      JSON.parse(FT)?.encabezado.catalogoMetaODS === undefined ||
+      JSON.parse(FT)?.encabezado.catalogoMetaODS === "" 
     ) {
       err = 1;
       errores.push(
-        "<strong>Encabezado</strong>: Monitoreable no seleccionado."
+        "<strong>Encabezado</strong>: Meta ODS no seleccionado."
       );
     }
-    if (
-      JSON.parse(FT)?.encabezado.adecuado === undefined 
-    ) {
-      err = 1;
-      errores.push("<strong>Encabezado</strong>: Adecuado no seleccionado.");
-    }
-    if (
-      JSON.parse(FT)?.encabezado.aporte_marginal === undefined 
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Encabezado</strong>: Aporte Marginal no seleccionado."
-      );
-    }
-    checkFT(v);
-  };
+  }
 
   const checkFT = (v: string) => {
-    errores = [];
-    if (JSON.parse(FT)?.fin === null) {
+    
+    if (JSON.parse(FT)?.fin === null || JSON.parse(FT)?.fin === undefined) {
       err = 1;
       errores.push("Sección <strong>Fin</strong> incompleta.");
     }
@@ -154,7 +128,8 @@ export default function ModalEnviarFT({
     }
     if (
       JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
-      JSON.parse(FT)?.fin.unidadDeMedida === ""
+      JSON.parse(FT)?.fin.unidadDeMedida === "" ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.unidadDeMedida)
     ) {
       err = 1;
       errores.push("<strong>Fin</strong>: Unidad de medida sin información.");
@@ -461,9 +436,10 @@ export default function ModalEnviarFT({
   };
 
   const crearFichaTecnica = (estado: string) => {
+    console.log("hola")
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -598,10 +574,10 @@ export default function ModalEnviarFT({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la Ficha Técnica se autorizará"
+              ? "Al confirmar, la Ficha Técnica se autorizará."
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la Ficha Técnica se enviará a los usuarios correspondientes para autorización"
-              : "Al confirmar, la Ficha Técnica se enviará a los usuarios correspondientes para revisión"}
+              ? "Al confirmar, la Ficha Técnica se enviará a los usuarios correspondientes para autorización."
+              : "Al confirmar, la Ficha Técnica se enviará a los usuarios correspondientes para revisión."}
           </Typography>
         </Box>
 
@@ -662,7 +638,7 @@ export default function ModalEnviarFT({
               variant="contained"
               color="primary"
               onClick={() => {
-                checkFT(
+                checkFTEncabezado(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
                     : localStorage.getItem("Rol") === "Verificador"
