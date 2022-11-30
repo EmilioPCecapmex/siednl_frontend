@@ -11,7 +11,7 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { ICValor } from "../tabsMir/ICValor";
+import { ICValorFT } from "../tabsFichaTecnica/Interfaces";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -83,6 +83,59 @@ export const TabActividadesFT = ({
   useEffect(() => {
     asignarCValor(aValorFT);
   }, [aValorFT]);
+
+  useEffect(() => {
+    if (show === true && componentes.length > aValorFT[0].componentes.length) {
+      let restantes = componentes.length - aValorFT[0].componentes.length;
+      let prevState = [...aValorFT];
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.push({
+          actividades: [
+            {
+              actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
+              tipoDeIndicador: "",
+                claridad: "",
+                relevancia: "",
+                economia: "",
+                monitoreable: "",
+                adecuado: "",
+                aporte_marginal: "",
+                dimension: "",
+                unidadDeMedida: "",
+            },
+            {
+              actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
+              tipoDeIndicador: "",
+              claridad: "",
+              relevancia: "",
+              economia: "",
+              monitoreable: "",
+              adecuado: "",
+              aporte_marginal: "",
+              dimension: "",
+              unidadDeMedida: "",
+            },
+          ],
+        });
+        setAValorFT(prevState);
+      }
+    } else if (
+      show === true &&
+      componentes.length < aValorFT[0].componentes.length
+    ) {
+      let prevState = [...aValorFT];
+      let restantes = aValorFT[0].componentes.length - componentes.length;
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.pop();
+        setAValorFT(prevState);
+      }
+      setComponenteSelect(0);
+    }
+  }, [show, compAct]);
+
+ 
+
+  
 
   const loadActividadesFT = () => {
     let y = componenteActividad.map((item) => {
