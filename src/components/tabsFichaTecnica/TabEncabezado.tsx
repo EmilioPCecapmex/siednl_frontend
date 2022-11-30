@@ -32,6 +32,10 @@ export function TabEncabezado({
 
   const [programaSER, setProgramaSER] = useState("");
   const [objetivoSER, setObjetivoSER] = useState("");
+  const [objetivoODSSel, setObjetivoODSSel] = useState("");
+  const [metaODSSel, SetMetaODSSel] = useState("");
+
+
   
 
 
@@ -98,19 +102,19 @@ useEffect(() => {
       {
         programaSER: programaSER,
         objetivoSER: objetivoSER,
-        catalogoMetaODS: metaODS[0].MetaODS,
-        catalogoObjetivoODS: objetivoDS[0].ObjetivoDS,
+        catalogoMetaODS: metaODSSel,
+        catalogoObjetivoODS: objetivoODSSel,
       }
     ]
   );
 
-}, [programaSER, objetivoSER, metaODS, objetivoDS])
+}, [programaSER, objetivoSER, metaODSSel, objetivoODSSel])
 
 
 
   return (
     <Box
-    visibility={{/*{show ? "visible" : "hidden"}*/}}
+    visibility={show ? "visible" : "hidden"}
     position="absolute"
     sx={{
       width: "75vw",
@@ -220,6 +224,7 @@ useEffect(() => {
 
         </TextField>
       )}
+      onChange={(event, value) => setObjetivoODSSel(value?.ObjetivoDS as string)}
       
       isOptionEqualToValue={(option, value) => option.Id === value.Id}
     />
@@ -267,6 +272,10 @@ useEffect(() => {
         </TextField>
       )}
       isOptionEqualToValue={(option, value) => option.Id === value.Id}
+      onChange={(event, value) => {
+        console.log('1212')
+        SetMetaODSSel(value?.MetaODS as string)}}
+
     />
   </FormControl>
 

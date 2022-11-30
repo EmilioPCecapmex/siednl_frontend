@@ -52,7 +52,6 @@ export function TabResumenFT({
     componentesM: Array<IComponentesFT>,
     actividadesM: Array<IActividadesFT>
   ) => {
-    console.log("encabezado:", encabezado)
     setFT({
       encabezado: encabezado[0],
       fin: finM[0],

@@ -30,9 +30,6 @@ export default function AddFichaTecnica({
   IdFT: string;
 }) {
 
-  useEffect(() => {
-    console.log(FT)
-  }, [FT])
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>();
   
@@ -177,7 +174,6 @@ export default function AddFichaTecnica({
 
   const resumenEncabezadoFT = (st: Array<IEncabezadoFT>) => {
     setValueEncabezado(st);
-    console.log(st)
   };
 
   const resumenFinFT = (st: Array<IFinFT>) => {

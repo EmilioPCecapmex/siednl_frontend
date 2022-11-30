@@ -62,7 +62,6 @@ export default function ModalEnviarFT({
   let err = 0;
 
   const checkFTEncabezado = (v: string) => {
-    console.log(JSON.parse(FT));
     
     errores = [];
     if (JSON.parse(FT)?.encabezado === null || JSON.parse(FT)?.encabezado === undefined) {
@@ -436,7 +435,6 @@ export default function ModalEnviarFT({
   };
 
   const crearFichaTecnica = (estado: string) => {
-    console.log("hola")
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
