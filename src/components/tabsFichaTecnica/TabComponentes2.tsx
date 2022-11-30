@@ -21,9 +21,8 @@ import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 
 export const TabComponenteFT2 = ({
   show,
-  valoresComponenteMAFnc,
+  valoresComponenteFTFnc,
   noComponentes,
-  valoresComponenteMA,
   showMirFnc,
   showFnc,
   FT,
@@ -31,9 +30,8 @@ export const TabComponenteFT2 = ({
 // MIR,
 {
   show: boolean;
-  valoresComponenteMAFnc: Function;
+  valoresComponenteFTFnc: Function;
   noComponentes: number[];
-  valoresComponenteMA: Array<IComponentesFT>;
   showMirFnc: Function;
   showFnc: Function;
   FT: string;
@@ -49,7 +47,8 @@ export const TabComponenteFT2 = ({
    let jsonFT = FT === "" || FT === undefined ? "" : JSON.parse(FT);
 
   useEffect(() => {
-    // if (show === true) {
+
+
     let comp: IComponentesFT[] = [];
 
     noComponentes.map((x, index) => {
@@ -67,112 +66,11 @@ export const TabComponenteFT2 = ({
       });
     });
 
-    // if (componentesValues.length <= 0) {
     setComponentesValues(comp);
-    // }
-    // }
-  }, [valoresComponenteMA]);
 
-  useEffect(() => {
-    valoresComponenteMAFnc(componentesValues);
-  }, [componentesValues]);
-
-
-
-  // const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  // const [prevTextFormula, setPrevTextFormula] = useState("");
-  // const [tipoFormula, setTipoFormula] = useState("");
-  // const [elementoFormula, setElementoFormula] = useState("");
-
-  // const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
-  // const [frecuencia, setFrecuencia] = useState("");
-
-  //////////////////////////////////////////////////////////////////////////////////////
-  // const handleClickOpen = () => {
-  //   setTipoFormula(
-  //     JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-  //       "PORCENTAJE"
-  //     )
-  //       ? "Porcentaje"
-  //       : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-  //           "TASA"
-  //         )
-  //       ? "Tasa"
-  //       : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-  //           "INDICE" || "ÍNDICE"
-  //         )
-  //       ? "Indice"
-  //       : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-  //           "PROMEDIO"
-  //         )
-  //       ? "Promedio"
-  //       : ""
-  //   );
-  //   setElementoFormula("Componente " + componentSelect.toString());
-  //   setOpenFormulaDialog(true);
-  // };
-  /////////////////////////////////////////////////////////////////////
-
-  // const handleClose = () => {
-  //   setOpenFormulaDialog(false);
-  // };
-  ///////////////////////////////////////////////////////////////////////////
-  // const handleClickOpen2 = () => {
-  //   setTipoFormula(
-  //     JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-  //       "PORCENTAJE"
-  //     )
-  //       ? "Porcentaje"
-  //       : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-  //           "TASA"
-  //         )
-  //       ? "Tasa"
-  //       : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-  //           "INDICE" || "ÍNDICE"
-  //         )
-  //       ? "Indice"
-  //       : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-  //           "PROMEDIO"
-  //         )
-  //       ? "Promedio"
-  //       : ""
-  //   );
-  //   setElementoFormula("Componente " + componentSelect.toString());
-  //   setOpenFormulaDialogMACA(true);
-  // };
-  /////////////////////////////////////////////////////////////////////////////////
-  // const handleClose2 = () => {
-  //   setOpenFormulaDialogMACA(false);
-  // };
-
-  ///////// esto es necesario
-  // const changeFormula = (txt: string) => {
-  //   componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
-  //   componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];
-  //   componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] + "%";
-  //   setComponentesValues([...componentesValues]);
-  // };
-
-  // const changeFormula2 = (txt: string) => {
-
-  //   if (frecuencia === "trimestral") {
-  //     componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre1 =
-  //       txt.split(",")[0] + "%";
-  //     componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 =
-  //       txt.split(",")[1] + "%";
-  //     componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre3 =
-  //       txt.split(",")[2] + "%";
-  //     componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre4 =
-  //       txt.split(",")[3] + "%";
-  //   } else {
-  //     componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre1 =
-  //       txt.split(",")[0] + "%";
-  //     componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre2 =
-  //       txt.split(",")[1] + "%";
-  //   }
-
-  //   setComponentesValues([...componentesValues]);
-  // };
+    valoresComponenteFTFnc(componentesValues);
+    
+  }, [show]);
 
   return (
     <Box
@@ -188,27 +86,6 @@ export const TabComponenteFT2 = ({
         backgroundColor: "#fff",
       }}
     >
-      {/* <FormulaDialogMA
-        open={openFormulaDialog}
-        // close={handleClose}
-        // textoSet={changeFormula}
-        prevText={prevTextFormula}
-        tipo={tipoFormula}
-        elemento={elementoFormula}
-        MIR={MIR}
-      />
-
-      <FormulaDialogMACA
-        open={openFormulaDialogMACA}
-        // close={handleClose2}
-        // textoSet={changeFormula2}
-        prevText={prevTextFormula}
-        tipo={tipoFormula}
-        elemento={elementoFormula}
-        MIR={MIR}
-        frecuencia={frecuencia}
-      /> */}
-
       <Box
         sx={{
           width: "100%",
@@ -333,7 +210,15 @@ export const TabComponenteFT2 = ({
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SELECCIÓN ESTRATEGICO"}
-                label={"SELECCIÓN ESTRATEGICO"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    SELECCIÓN ESTRATEGICO
+                  </Typography>}
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -354,7 +239,16 @@ export const TabComponenteFT2 = ({
 
               <FormControlLabel
                 value={"DE GESTIÓN"}
-                label={"DE GESTIÓN"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: "0.8vw",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    DE GESTIÓN
+                  </Typography>
+                }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -395,11 +289,20 @@ export const TabComponenteFT2 = ({
               DIMENSIÓN
             </FormLabel>
 
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ display: "grid", gridTemplateColumns:'repeat(2,1fr)' }}>
+              
                 <FormControlLabel
                   value={"EFICIENCIA"}
-                  label={"EFICIENCIA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      EFICIENCIA
+                    </Typography>
+                  }
                   sx={{
                     fontFamily: "MontserratMedium",
                   }}
@@ -419,7 +322,16 @@ export const TabComponenteFT2 = ({
                 />
                 <FormControlLabel
                   value={"EFICACIA"}
-                  label={"EFICACIA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      EFICACIA
+                    </Typography>
+                  }
                   sx={{
                     fontFamily: "MontserratMedium",
                   }}
@@ -437,11 +349,18 @@ export const TabComponenteFT2 = ({
                     />
                   }
                 />
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <FormControlLabel
                   value={"CALIDAD"}
-                  label={"CALIDAD"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      CALIDAD
+                    </Typography>
+                  }
                   sx={{
                     fontFamily: "MontserratMedium",
                   }}
@@ -462,9 +381,17 @@ export const TabComponenteFT2 = ({
 
                 <FormControlLabel
                   value={"ECONOMÍA"}
-                  label={"ECONOMÍA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: "0.8vw",
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      ECONOMÍA
+                    </Typography>
+                  }
                   sx={{
-                    ml: "0.5vw",
                     fontFamily: "MontserratMedium",
                   }}
                   control={
@@ -481,7 +408,6 @@ export const TabComponenteFT2 = ({
                     />
                   }
                 />
-              </Box>
             </Box>
           </FormControl>
 
@@ -532,7 +458,16 @@ export const TabComponenteFT2 = ({
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
-                label={"SI"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        SI
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -552,7 +487,16 @@ export const TabComponenteFT2 = ({
 
               <FormControlLabel
                 value={"NO"}
-                label={"NO"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NO
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -594,7 +538,16 @@ export const TabComponenteFT2 = ({
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
-                label={"SI"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        SI
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -615,7 +568,16 @@ export const TabComponenteFT2 = ({
 
               <FormControlLabel
                 value={"NO"}
-                label={"NO"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NO
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -658,7 +620,16 @@ export const TabComponenteFT2 = ({
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
-                label={"SI"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        SI
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -678,7 +649,16 @@ export const TabComponenteFT2 = ({
 
               <FormControlLabel
                 value={"NO"}
-                label={"NO"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NO
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -720,7 +700,16 @@ export const TabComponenteFT2 = ({
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
-                label={"SI"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        SI
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -741,7 +730,16 @@ export const TabComponenteFT2 = ({
 
               <FormControlLabel
                 value={"NO"}
-                label={"NO"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NO
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -784,7 +782,16 @@ export const TabComponenteFT2 = ({
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
-                label={"SI"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        SI
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -804,7 +811,16 @@ export const TabComponenteFT2 = ({
 
               <FormControlLabel
                 value={"NO"}
-                label={"NO"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NO
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -846,7 +862,16 @@ export const TabComponenteFT2 = ({
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
-                label={"SI"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        SI
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -867,7 +892,16 @@ export const TabComponenteFT2 = ({
 
               <FormControlLabel
                 value={"NO"}
-                label={"NO"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NO
+                      </Typography>
+                    }
                 sx={{
                   fontFamily: "MontserratMedium",
                 }}
@@ -876,6 +910,35 @@ export const TabComponenteFT2 = ({
                     checked={
                       componentesValues[componentSelect - 1]
                         ?.aporte_marginal === "NO"
+                    }
+                    onChange={(c) => {
+                      componentesValues[componentSelect - 1].aporte_marginal =
+                        c.target.value;
+                      setComponentesValues([...componentesValues]);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"NA"}
+                label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.8vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NA
+                      </Typography>
+                    }
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componentesValues[componentSelect - 1]
+                        ?.aporte_marginal === "NA"
                     }
                     onChange={(c) => {
                       componentesValues[componentSelect - 1].aporte_marginal =

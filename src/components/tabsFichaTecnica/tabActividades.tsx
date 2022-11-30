@@ -386,8 +386,7 @@ export const TabActividadesFT = ({
               DIMENSIÓN
             </FormLabel>
 
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ display: "grid", gridTemplateColumns:'repeat(2,1fr)' }}>
                 <FormControlLabel
                   value={"EFICIENCIA"}
                   label={
@@ -452,8 +451,6 @@ export const TabActividadesFT = ({
                     />
                   }
                 />
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <FormControlLabel
                   value={"CALIDAD"}
                   label={
@@ -501,7 +498,6 @@ export const TabActividadesFT = ({
                   }
                   sx={{
                     fontFamily: "MontserratMedium",
-                    ml: "0.4vw",
                   }}
                   control={
                     <Radio
@@ -520,7 +516,6 @@ export const TabActividadesFT = ({
                     />
                   }
                 />
-              </Box>
             </Box>
           </FormControl>
 
