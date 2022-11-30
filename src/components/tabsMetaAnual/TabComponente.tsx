@@ -174,7 +174,7 @@ export const TabComponenteMA = ({
   const handleClose2 = () => {
     setOpenFormulaDialogMACA(false);
   };
-  ///////// esto es necesario
+  
   const changeFormula = (txt: string) => {
     componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
     componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];

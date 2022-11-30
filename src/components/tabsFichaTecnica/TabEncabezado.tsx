@@ -93,7 +93,7 @@ useEffect(() => {
 
   return (
     <Box
-    visibility={{/*{show ? "visible" : "hidden"}*/}}
+    visibility={show ? "visible" : "hidden"}
     position="absolute"
     sx={{
       width: "75vw",

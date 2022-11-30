@@ -46,7 +46,8 @@ export const TabActividadesMA = ({
       componentes: componentes.map((x) => compAct),
     },
   ]);
-
+  
+  
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
@@ -292,6 +293,7 @@ export const TabActividadesMA = ({
         backgroundColor: "#fff",
       }}
     >
+      {console.log("Actividades")}
       <FormulaDialogMA
         open={openFormulaDialog}
         close={handleClose}
