@@ -268,6 +268,7 @@ export default function AddFichaTecnica({
               show={value === 10 ? true : false}
               resumenEncabezadoFT={resumenEncabezadoFT}
               FT={FT}
+              MIR={MIR}
             ></TabEncabezado>
 
           <TabFinPropositoFT
