@@ -17,6 +17,13 @@ export interface ICValorFT {
 }
 [];
 
+export interface IEncabezadoFT {
+  programaSER: string;
+  objetivoSER: string;
+  catalogoObjetivoODS: string;
+  catalogoMetaODS: string;
+}
+
 export interface IFinFT {
   tipoDeIndicador: string;
   claridad: string;
@@ -116,8 +123,9 @@ export interface IActividadesEditFT {
   unidadDeMedida: boolean;
 }
 
-
 export interface IFT {
+  encabezado: IEncabezadoFT;
+
   fin: IFinFT;
 
   proposito: IPropositoFT;

@@ -2,24 +2,15 @@ import { Box, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
+import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
-import { IFinMA, IPropositoMA } from "../tabsMetaAnual/IFin";
-import { IMA } from "../tabsMetaAnual/IMA";
 import {
-  IActividadesMA,
-  IComponenteMA,
-} from "../tabsMetaAnual/Interfaces";
-import {
-  IActividadesEditFT,
   IActividadesFT,
-  IComponenteEditFT,
   IComponentesFT,
   ICValorFT,
-  IFinEditFT,
+  IEncabezadoFT,
   IFinFT,
   IFT,
-  IPropositoEditFT,
   IPropositoFT,
 } from "./Interfaces";
 
@@ -33,11 +24,13 @@ export function TabResumenFT({
   cValor,
   IdMir,
   IdMA,
-  Ft,
+  IdFT,
   showResume,
+  Ft,
+  MIR,
 }: {
   show: boolean;
-  encabezado: Array<any>;
+  encabezado: Array<IEncabezadoFT>;
   fin: Array<IFinFT>;
   proposito: Array<IPropositoFT>;
   componentes: number[];
@@ -46,17 +39,21 @@ export function TabResumenFT({
   IdMir: string;
   IdMA: string;
   Ft: string;
+  IdFT: string;
+  MIR: string;
   showResume: Function;
 }) {
   const [FT, setFT] = useState<IFT>();
 
   let asignarFT = (
+    encabezado: Array<IEncabezadoFT>,
     finM: Array<IFinFT>,
     propositoM: Array<IPropositoFT>,
     componentesM: Array<IComponentesFT>,
     actividadesM: Array<IActividadesFT>
   ) => {
     setFT({
+      encabezado: encabezado[0],
       fin: finM[0],
       proposito: propositoM[0],
       componentes: componentesM,
@@ -105,7 +102,7 @@ export function TabResumenFT({
 
     setEditActividades(aEdit);
 
-    // asignarFT(fin, proposito, componenteValor, arr);
+    asignarFT(encabezado, fin, proposito, componenteValor, arr);
   }, [componenteValor, proposito, fin, cValor, show]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
@@ -132,16 +129,17 @@ export function TabResumenFT({
     },
   });
 
-  const creaMA = (estado: string) => {
+  const creaFT = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-tipoDeIndicador",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/api/create-FichaTecnica",
         {
-          tipoDeIndicador: JSON.stringify(FT),
+          FichaTecnica: JSON.stringify(FT),
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
+          IdMa: IdMA,
           Estado: estado,
-          Id: IdMA,
+          Id: IdFT,
         },
         {
           headers: {
@@ -163,6 +161,12 @@ export function TabResumenFT({
         });
       });
   };
+  const [editEncabezado, setEditEncabezado] = useState<IEncabezadoEditFT>({
+    programaSER: true,
+    objetivoSER: true,
+    catalogoObjetivoODS: true,
+    catalogoMetaODS: true,
+  });
 
   const [editFin, setEditFin] = useState<IFinEditFT>({
     tipoDeIndicador: true,
@@ -251,9 +255,9 @@ export function TabResumenFT({
           >
             {/* {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.}
+                value={!editEncabezado.programaSER}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, tipoDeIndicador: !v.target.checked });
+                  setEditEncabezado({ ...editEncabezado, programaSER: !v.target.checked });
                 }}
               />
             )} */}
@@ -261,7 +265,7 @@ export function TabResumenFT({
               PROGRAMA SECTORIAL SECTORIAL, ESPECIAL O REGIONAL:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.tipoDeIndicador}
+              {encabezado[0]?.programaSER}
             </Typography>
           </Box>
           <Box
@@ -277,9 +281,9 @@ export function TabResumenFT({
           >
             {/* {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.dimension}
+                value={!editEncabezado.objetivoSER}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, dimension: !v.target.checked });
+                  setEditEncabezado({ ...editEncabezado, objetivoSER: !v.target.checked });
                 }}
               />
             )} */}
@@ -287,7 +291,7 @@ export function TabResumenFT({
               OBJETIVO PROGRAMA SECTORIAL, ESPECIAL O REGIONAL:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.dimension}
+              {encabezado[0]?.objetivoSER}
             </Typography>
           </Box>
           <Box
@@ -303,9 +307,9 @@ export function TabResumenFT({
           >
             {/* {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.unidadDeMedida}
+                value={!editEncabezado.catalogoObjetivoODS}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, unidadDeMedida: !v.target.checked });
+                  setEditEncabezado({ ...editEncabezado, catalogoObjetivoODS: !v.target.checked });
                 }}
               />
             )} */}
@@ -313,7 +317,7 @@ export function TabResumenFT({
               OBJETIVO ODS:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.unidadDeMedida}
+              {encabezado[0]?.catalogoObjetivoODS}
             </Typography>
           </Box>
           <Box
@@ -329,11 +333,11 @@ export function TabResumenFT({
           >
             {/* {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.claridad}
+                value={!editEncabezado.catalogoMetaODS}
                 onChange={(v) => {
-                  setEditFin({
-                    ...editFin,
-                    claridad: !v.target.checked,
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    catalogoMetaODS: !v.target.checked,
                   });
                 }}
               />
@@ -342,7 +346,7 @@ export function TabResumenFT({
               META ODS:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.claridad}
+              {encabezado[0]?.catalogoMetaODS}
             </Typography>
           </Box>
 
@@ -746,7 +750,6 @@ export function TabResumenFT({
               {proposito[0]?.claridad}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -776,7 +779,6 @@ export function TabResumenFT({
               {proposito[0]?.relevancia}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -806,7 +808,6 @@ export function TabResumenFT({
               {proposito[0]?.economia}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -836,7 +837,6 @@ export function TabResumenFT({
               {proposito[0]?.monitoreable}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -866,7 +866,6 @@ export function TabResumenFT({
               {proposito[0]?.adecuado}
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -897,6 +896,7 @@ export function TabResumenFT({
             </Typography>
           </Box>
           {/*PROPÓSITO FIN*/}
+          {/*---------------------------------Componentes--------------------------------------- */}
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
@@ -929,12 +929,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.tipoDeIndicador}
+                      value={!editComponentes[index - 1]?.tipoDeIndicador}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0][0],
-                        //   tipoDeIndicador: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].tipoDeIndicador = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -963,12 +962,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.dimension}
+                      value={!editComponentes[index - 1]?.dimension}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0],
-                        //   dimension: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].dimension = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -980,7 +978,7 @@ export function TabResumenFT({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.componentes}
+                    {componenteValor[index - 1]?.dimension}
                   </Typography>
                 </Box>
                 <Box
@@ -996,12 +994,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.unidadDeMedida}
+                      value={!editComponentes[index - 1]?.unidadDeMedida}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0],
-                        //   unidadDeMedida: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].unidadDeMedida = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -1029,12 +1026,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.claridad}
+                      value={!editComponentes[index - 1]?.claridad}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0],
-                        //   claridad: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].claridad = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -1063,12 +1059,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.relevancia}
+                      value={!editComponentes[index - 1]?.relevancia}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0],
-                        //   relevancia: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].relevancia = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -1097,12 +1092,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.economia}
+                      value={!editComponentes[index - 1]?.economia}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0],
-                        //   economia: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].economia = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -1131,12 +1125,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.componentes}
+                      value={!editComponentes[index - 1]?.monitoreable}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0],
-                        //   descIndicador: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].monitoreable = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -1165,12 +1158,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.adecuado}
+                      value={!editComponentes[index - 1]?.adecuado}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0],
-                        //   ade: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].adecuado = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -1199,12 +1191,11 @@ export function TabResumenFT({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[0]?.aporte_marginal}
+                      value={!editComponentes[index - 1]?.aporte_marginal}
                       onChange={(v) => {
-                        // setEditComponentes({
-                        //   ...editComponentes[0],
-                        //   descDenominador: !v.target.checked,
-                        // });
+                        let past = [...editComponentes];
+                        past[index - 1].aporte_marginal = !v.target.checked;
+                        setEditComponentes(past);
                       }}
                     />
                   )}
@@ -1260,10 +1251,13 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editActividades[indexComponentes]?.tipoDeIndicador}
+                        value={
+                          !editActividades[indexComponentes]?.tipoDeIndicador
+                        }
                         onChange={(v) => {
                           let past = [...editActividades];
-                          past[indexComponentes].tipoDeIndicador = !v.target.checked;
+                          past[indexComponentes].tipoDeIndicador =
+                            !v.target.checked;
                           setEditActividades(past);
                         }}
                       />
@@ -1296,12 +1290,11 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editComponentes[0]?.dimension}
+                        value={!editActividades[indexComponentes]?.dimension}
                         onChange={(v) => {
-                          // setEditComponentes({
-                          //   ...editComponentes[0],
-                          //   dimension: !v.target.checked,
-                          // });
+                          let past = [...editActividades];
+                          past[indexComponentes].dimension = !v.target.checked;
+                          setEditActividades(past);
                         }}
                       />
                     )}
@@ -1333,12 +1326,14 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editComponentes[0]?.unidadDeMedida}
+                        value={
+                          !editActividades[indexComponentes]?.unidadDeMedida
+                        }
                         onChange={(v) => {
-                          // setEditComponentes({
-                          //   ...editComponentes[0],
-                          //   unidadDeMedida: !v.target.checked,
-                          // });
+                          let past = [...editActividades];
+                          past[indexComponentes].unidadDeMedida =
+                            !v.target.checked;
+                          setEditActividades(past);
                         }}
                       />
                     )}
@@ -1370,12 +1365,11 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editComponentes[0]?.claridad}
+                        value={!editActividades[indexComponentes]?.claridad}
                         onChange={(v) => {
-                          // setEditComponentes({
-                          //   ...editComponentes[0],
-                          //   claridad: !v.target.checked,
-                          // });
+                          let past = [...editActividades];
+                          past[indexComponentes].claridad = !v.target.checked;
+                          setEditActividades(past);
                         }}
                       />
                     )}
@@ -1408,12 +1402,11 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editComponentes[0]?.relevancia}
+                        value={!editActividades[indexComponentes]?.relevancia}
                         onChange={(v) => {
-                          // setEditComponentes({
-                          //   ...editComponentes[0],
-                          //   relevancia: !v.target.checked,
-                          // });
+                          let past = [...editActividades];
+                          past[indexComponentes].relevancia = !v.target.checked;
+                          setEditActividades(past);
                         }}
                       />
                     )}
@@ -1446,12 +1439,11 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editComponentes[0]?.economia}
+                        value={!editActividades[indexComponentes]?.economia}
                         onChange={(v) => {
-                          // setEditComponentes({
-                          //   ...editComponentes[0],
-                          //   economia: !v.target.checked,
-                          // });
+                          let past = [...editActividades];
+                          past[indexComponentes].economia = !v.target.checked;
+                          setEditActividades(past);
                         }}
                       />
                     )}
@@ -1484,12 +1476,12 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editComponentes[0]?.monitoreable}
+                        value={!editActividades[indexComponentes]?.monitoreable}
                         onChange={(v) => {
-                          // setEditComponentes({
-                          //   ...editComponentes[0],
-                          //   descIndicador: !v.target.checked,
-                          // });
+                          let past = [...editActividades];
+                          past[indexComponentes].monitoreable =
+                            !v.target.checked;
+                          setEditActividades(past);
                         }}
                       />
                     )}
@@ -1522,12 +1514,11 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editComponentes[0]?.adecuado}
+                        value={!editActividades[indexComponentes]?.adecuado}
                         onChange={(v) => {
-                          // setEditComponentes({
-                          //   ...editComponentes[0],
-                          //   descNumerador: !v.target.checked,
-                          // });
+                          let past = [...editActividades];
+                          past[indexComponentes].adecuado = !v.target.checked;
+                          setEditActividades(past);
                         }}
                       />
                     )}
@@ -1560,12 +1551,14 @@ export function TabResumenFT({
                   >
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Checkbox
-                        value={!editComponentes[0]?.aporte_marginal}
+                        value={
+                          !editActividades[indexComponentes]?.aporte_marginal
+                        }
                         onChange={(v) => {
-                          // setEditComponentes({
-                          //   ...editComponentes[0],
-                          //   descDenominador: !v.target.checked,
-                          // });
+                          let past = [...editActividades];
+                          past[indexComponentes].aporte_marginal =
+                            !v.target.checked;
+                          setEditActividades(past);
                         }}
                       />
                     )}
@@ -1619,7 +1612,7 @@ export function TabResumenFT({
           color="success"
           variant="outlined"
           onClick={() =>
-            creaMA(
+            creaFT(
               localStorage.getItem("Rol") === "Capturador"
                 ? "En Captura"
                 : localStorage.getItem("Rol") === "Verificador"
@@ -1645,9 +1638,98 @@ export function TabResumenFT({
           </Typography>
         </Button>
 
+        {/*CAMBIAR POR EL MODAL DE MODIFICAR DE FICHA TÉCNICA*/}
+        <ModalSolicitaModif
+          open={openModalSolicitarModif}
+          handleClose={handleCloseModif}
+          MA={JSON.stringify(FT)}
+          MIR={MIR}
+          showResume={showResume}
+          IdMA={IdMA}
+          IdMIR={IdMir}
+          MAEdit={
+            localStorage.getItem("Rol") !== "Administrador"
+              ? ""
+              : JSON.stringify({
+                  fin: editFin,
+                  proposito: editProposito,
+                  componentes: editComponentes,
+                  actividades: editActividades,
+                })
+          }
+        ></ModalSolicitaModif>
+
+        <ModalEnviarFT
+          open={openModalEnviar}
+          handleClose={handleCloseEnviar}
+          MIR={MIR}
+          IdMA={IdMA}
+          IdMIR={IdMir}
+          showResume={showResume}
+          FT={JSON.stringify(FT)}
+          
+          IdFT={IdFT}
+        ></ModalEnviarFT>
       </Box>
     </Box>
   );
 }
 
 export default TabResumenFT;
+
+export interface IEncabezadoEditFT {
+  programaSER: boolean;
+  objetivoSER: boolean;
+  catalogoObjetivoODS: boolean;
+  catalogoMetaODS: boolean;
+}
+
+export interface IFinEditFT {
+  tipoDeIndicador: boolean;
+  claridad: boolean;
+  relevancia: boolean;
+  economia: boolean;
+  monitoreable: boolean;
+  adecuado: boolean;
+  aporte_marginal: boolean;
+  dimension: boolean;
+  unidadDeMedida: boolean;
+}
+
+export interface IPropositoEditFT {
+  tipoDeIndicador: boolean;
+  claridad: boolean;
+  relevancia: boolean;
+  economia: boolean;
+  monitoreable: boolean;
+  adecuado: boolean;
+  aporte_marginal: boolean;
+  dimension: boolean;
+  unidadDeMedida: boolean;
+}
+
+export interface IActividadesEditFT {
+  actividad: string;
+  tipoDeIndicador: boolean;
+  claridad: boolean;
+  relevancia: boolean;
+  economia: boolean;
+  monitoreable: boolean;
+  adecuado: boolean;
+  aporte_marginal: boolean;
+  dimension: boolean;
+  unidadDeMedida: boolean;
+}
+
+export interface IComponenteEditFT {
+  componentes: string;
+  tipoDeIndicador: boolean;
+  claridad: boolean;
+  relevancia: boolean;
+  economia: boolean;
+  monitoreable: boolean;
+  adecuado: boolean;
+  aporte_marginal: boolean;
+  dimension: boolean;
+  unidadDeMedida: boolean;
+}

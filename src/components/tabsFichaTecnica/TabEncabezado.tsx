@@ -13,39 +13,30 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
+import { IEncabezadoFT } from "./Interfaces";
 
-export interface IEncabezadoFT {
-  Id: string;
-  MetaODS: string;
-  FechaCreacion: Date;
-  CreadoPor: string;
-  UltimaModificacion: string;
-  ModificadoPor: string;
-  Deleted: number;
-}
 
-export interface IIEncabezadoFT {
-  Id: string;
-  ObjetivoDS: string;
-  FechaCreacion: Date;
-  CreadoPor: string;
-  UltimaModificacion: string;
-  ModificadoPor: string;
-  Deleted: number;
-}
 
 export function TabEncabezado({
   show,
-  resumenEncabezado,
- 
+  resumenEncabezadoFT,
+  FT,
+  
 }: {
   show: boolean;
-  resumenEncabezado: Function;
-  
+  resumenEncabezadoFT: Function;
+  FT: string;
 }) {
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
-const [encabezado2, setEncabezado2] = useState<Array<IIEncabezadoFT>>([]);
+
+  const [programaSER, setProgramaSER] = useState("");
+  const [objetivoSER, setObjetivoSER] = useState("");
+  const [objetivoODSSel, setObjetivoODSSel] = useState("");
+  const [metaODSSel, SetMetaODSSel] = useState("");
+
+
+  
 
 
 const [metaODS, setMetaODS] = useState([
@@ -83,6 +74,21 @@ const getObjetivos = () => {
 };
 
 useEffect(() => {
+  
+  
+  
+    
+  }, [])
+
+useEffect(() => {
+  
+resumenEncabezadoFT(encabezado)
+
+  
+}, [resumenEncabezadoFT])
+
+
+useEffect(() => {
   getMetas()
 }, [])
 
@@ -90,10 +96,25 @@ useEffect(() => {
   getObjetivos()
 }, [])
 
+useEffect(() => {
+  setEncabezado(
+    [
+      {
+        programaSER: programaSER,
+        objetivoSER: objetivoSER,
+        catalogoMetaODS: metaODSSel,
+        catalogoObjetivoODS: objetivoODSSel,
+      }
+    ]
+  );
+
+}, [programaSER, objetivoSER, metaODSSel, objetivoODSSel])
+
+
 
   return (
     <Box
-    visibility={{/*{show ? "visible" : "hidden"}*/}}
+    visibility={show ? "visible" : "hidden"}
     position="absolute"
     sx={{
       width: "75vw",
@@ -112,6 +133,10 @@ useEffect(() => {
 
 
       <TextField
+      onChange={
+        (a)=>setProgramaSER(a.target.value)
+      }
+      value={programaSER}
       rows={8}
       multiline
       sx={{ width: "90%", boxShadow: 2 }}
@@ -129,13 +154,17 @@ useEffect(() => {
       }}
 
       >
-      Hola1
+      
     </TextField>
 
 
 {/*------------------------TF1--------------------- */}
 
   <TextField 
+  onChange={
+    (v)=>setObjetivoSER(v.target.value)
+  }
+  value={objetivoSER}
   rows={8}
   multiline
   sx={{ width: "90%", boxShadow: 2 }}
@@ -151,7 +180,7 @@ useEffect(() => {
       fontFamily: "MontserratRegular",
     },
   }}>
-      Hola2
+      
     </TextField>
 
 
@@ -195,6 +224,8 @@ useEffect(() => {
 
         </TextField>
       )}
+      onChange={(event, value) => setObjetivoODSSel(value?.ObjetivoDS as string)}
+      
       isOptionEqualToValue={(option, value) => option.Id === value.Id}
     />
   </FormControl>
@@ -241,6 +272,10 @@ useEffect(() => {
         </TextField>
       )}
       isOptionEqualToValue={(option, value) => option.Id === value.Id}
+      onChange={(event, value) => {
+        console.log('1212')
+        SetMetaODSSel(value?.MetaODS as string)}}
+
     />
   </FormControl>
 

@@ -11,65 +11,61 @@ import {
 import { useEffect, useState } from "react";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { IFinFT } from "./Interfaces";
-export function TabFinProposito({
+import { IFinFT, IPropositoFT } from "./Interfaces";
+export function TabFinPropositoFT({
   show,
-  resumenFin,
-  resumenProposito,
-  cargaFin,
-  cargaProposito,
-  FtEdit,
-  MA,
+  resumenFinFT,
+  resumenPropositoFT,
+  FT,
   MIR,
   
 }: {
   show: boolean;
-  resumenFin: Function;
-  resumenProposito: Function;
-  cargaFin: Array<IFinFT>;
-  cargaProposito: Array<IFinFT>;
-  FtEdit?: any;
-  MA: string;
+  resumenFinFT: Function;
+  resumenPropositoFT: Function;
+  FT: string;
   MIR: string;
- 
-  
-
 }) {
-  const [fin, setFin] = useState([
+
+  
+  let jsonFT = FT === "" || FT === undefined ? "" : JSON.parse(FT);
+
+  const [fin, setFin] = useState<Array<IFinFT>>([
     {
-      tipoDeIndicador: "",
-      claridad: "",
-      relevancia: "",
-      economia: "",
-      monitoreable: "",
-      adecuado: "",
-      aporte_marginal: "",
-      dimension: "",
-      unidadDeMedida: "",
+      tipoDeIndicador: jsonFT?.fin?.tipoDeIndicador || "",
+      claridad: jsonFT?.fin?.claridad || "",
+      relevancia: jsonFT?.fin?.relevancia || "",
+      economia: jsonFT?.fin?.economia || "",
+      monitoreable: jsonFT?.fin?.monitoreable || "",
+      adecuado: jsonFT?.fin?.adecuado || "",
+      aporte_marginal: jsonFT?.fin?.aporte_marginal || "",
+      dimension: jsonFT?.fin?.dimension || "",
+      unidadDeMedida: jsonFT?.fin?.unidadDeMedida || "",
     },
   ]);
 
-  const [proposito, setProposito] = useState([
+  const [proposito, setProposito] = useState<Array<IPropositoFT>>([
     {
-      tipoDeIndicador: "",
-      claridad: "",
-      relevancia: "",
-      economia: "",
-      monitoreable: "",
-      adecuado: "",
-      aporte_marginal: "",
-      dimension: "",
-      unidadDeMedida: "",
+      tipoDeIndicador: jsonFT?.fin?.tipoDeIndicador || "",
+      claridad: jsonFT?.fin?.claridad || "",
+      relevancia: jsonFT?.fin?.relevancia || "",
+      economia: jsonFT?.fin?.economia || "",
+      monitoreable: jsonFT?.fin?.monitoreable || "",
+      adecuado: jsonFT?.fin?.adecuado || "",
+      aporte_marginal: jsonFT?.fin?.aporte_marginal || "",
+      dimension: jsonFT?.fin?.dimension || "",
+      unidadDeMedida: jsonFT?.fin?.unidadDeMedida || "",
     },
   ]);
-
-  useEffect(() => {
-    resumenFin(fin);
-    resumenProposito(proposito);
-  }, [fin, proposito]);
-
+  
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
+
+  useEffect(() => {
+    resumenFinFT(fin);
+    resumenPropositoFT(proposito);
+  }, [fin, proposito]);
+
 
   return (
     <Box
