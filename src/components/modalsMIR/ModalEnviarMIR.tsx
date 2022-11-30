@@ -59,6 +59,7 @@ export default function ModalEnviarMIR({
 
   const checkMir = (v: string) => {
     errores = [];
+    console.log(MIR)
     if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
       err = 1;
       errores.push("<strong>Encabezado:</strong> año fiscal no seleccionado.");

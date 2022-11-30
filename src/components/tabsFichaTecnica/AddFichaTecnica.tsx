@@ -10,7 +10,7 @@ import { IComponenteActividad } from "../tabsMir/AddMir";
 import { ICValorFT, IFinFT, IPropositoFT, IComponentesFT, IEncabezadoFT } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
-import { TabFinPropositoFT } from "./TabFinProposito";
+import { TabFinPropositoFT } from "./tabFinProposito";
 
 export default function AddFichaTecnica({
   MIR,
