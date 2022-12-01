@@ -73,6 +73,63 @@ export const TabActividadesFT = ({
     })
   );
 
+  
+
+  useEffect(() => {
+    asignarCValor(aValorFT);
+  }, [aValorFT]);
+
+  useEffect(() => {
+    if (show === true && componentes.length > aValorFT[0].componentes.length) {
+      let restantes = componentes.length - aValorFT[0].componentes.length;
+      let prevState = [...aValorFT];
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.push({
+          actividades: [
+            {
+              actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
+              tipoDeIndicador: "",
+                claridad: "",
+                relevancia: "",
+                economia: "",
+                monitoreable: "",
+                adecuado: "",
+                aporte_marginal: "",
+                dimension: "",
+                unidadDeMedida: "",
+            },
+            {
+              actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
+              tipoDeIndicador: "",
+              claridad: "",
+              relevancia: "",
+              economia: "",
+              monitoreable: "",
+              adecuado: "",
+              aporte_marginal: "",
+              dimension: "",
+              unidadDeMedida: "",
+            },
+          ],
+        });
+        setAValorFT(prevState);
+      }
+    } else if (
+      show === true &&
+      componentes.length < aValorFT[0].componentes.length
+    ) {
+      let prevState = [...aValorFT];
+      let restantes = aValorFT[0].componentes.length - componentes.length;
+      for (let index = 1; index <= restantes; index++) {
+        prevState[0].componentes.pop();
+        setAValorFT(prevState);
+      }
+      setComponenteSelect(0);
+    }
+  }, [show, compAct]);
+
+ 
+
   useEffect(() => {
     if (compAct.length > 0) {
       loadActividadesFT();
@@ -136,6 +193,9 @@ export const TabActividadesFT = ({
 
     setAValorFT(y);
   };
+
+ 
+  
 
   const [open, setOpen] = useState(1);
 

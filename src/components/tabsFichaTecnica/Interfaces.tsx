@@ -126,12 +126,8 @@ export interface IActividadesEditFT {
 
 export interface IFT {
   encabezado: IEncabezadoFT;
-
   fin: IFinFT;
-
   proposito: IPropositoFT;
-
   componentes: Array<IComponentesFT>;
-
   actividades: Array<IActividadesFT>;
 }
