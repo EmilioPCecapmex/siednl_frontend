@@ -40,11 +40,11 @@ export default function ModalSolicitaModif({
   const [instSelected, setInstSelected] = useState("");
 
   const [comment, setComment] = useState("");
-
+// De momento no para ficha tecnica hasta que este coment-FT
   const comentMA = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-MA",
+        "http://10.200.4.105:8000/api/coment-mir",
         {
           IdMA: id,
           Coment: comment,
@@ -61,6 +61,7 @@ export default function ModalSolicitaModif({
       })
       .catch((err) => {});
   };
+////////////////////////////////////////////
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
@@ -72,9 +73,9 @@ export default function ModalSolicitaModif({
       checkMA(estado);
     }
   };
-
+////////////////////////////
   let err = 0;
-
+////////////////////////////////////////////7
   const checkMA = (v: string) => {
     errores = [];
     if (JSON.parse(MA)?.fin === null) {
@@ -240,7 +241,7 @@ export default function ModalSolicitaModif({
 
     checkComponentes(v);
   };
-
+/////////////////////////////////////////////////////////////////////
   const checkComponentes = (v: string) => {
     JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
       if (
@@ -472,6 +473,7 @@ export default function ModalSolicitaModif({
         err = 1;
       }
     });
+    //////////////////////////////////////////777
     if (err === 0) {
       createMA(v);
     } else {
@@ -490,7 +492,7 @@ export default function ModalSolicitaModif({
       });
     }
   };
-
+///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
@@ -540,7 +542,7 @@ export default function ModalSolicitaModif({
         });
       });
   };
-
+////////////////////////////////////////////////////////////////////////
   const getUsuariosXInstitucion = () => {
     axios
       .get(
@@ -561,14 +563,14 @@ export default function ModalSolicitaModif({
         }
       });
   };
-
+///////////////////////////////////////////////////////////////////////
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
       setInstSelected(JSON.parse(MA)?.encabezado?.institucion);
     }
   }, [open]);
-
+///////////////////////////////////////////////////////////////////////////////////
   const Toast = Swal.mixin({
     toast: false,
     position: "center",
@@ -580,7 +582,7 @@ export default function ModalSolicitaModif({
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
+///////////////////////////////////////////////////////////////////////////////////
   const enviarNotificacion = () => {
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
@@ -597,7 +599,7 @@ export default function ModalSolicitaModif({
       }
     );
   };
-
+//////////////////////////////////////////////////////////////////////////////
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
@@ -614,14 +616,16 @@ export default function ModalSolicitaModif({
             justifyContent: "center",
           }}
         />
-      </Box>
+       </Box>
 
-      <DialogContent
+
+
+       <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
         }}
-      >
+       >
         <Box
           sx={{
             width: "100%",
@@ -729,6 +733,7 @@ export default function ModalSolicitaModif({
           </Box>
         </Box>
       </DialogContent>
+      
     </Dialog>
   );
 }
