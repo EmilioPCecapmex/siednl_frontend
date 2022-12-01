@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import {
@@ -14,16 +14,19 @@ import ModalCrearUsuario from "../../components/modalUsuarios/ModalCrearUsuario"
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import ModalVincularUsuario from "../../components/modalUsuarios/ModalVincularUsuario";
 import { useNavigate } from "react-router-dom";
+import SendIcon from '@mui/icons-material/Send';
+import ScheduleSendIcon from '@mui/icons-material/ScheduleSend';
+import DialogSolicitudes from "../../components/solicitudes/DialogSolicitudes";
 
 export const Usuarios = () => {
   const navigate = useNavigate();
 
 
   useEffect(() => {
-    if(localStorage.getItem("Rol") === "Capturador"){
-     navigate("../home")
+    if (localStorage.getItem("Rol") === "Capturador") {
+      navigate("../home")
     }
-     }, [])
+  }, [])
 
   const [openModalUsuarios, setOpenModalUsuarios] = useState(false);
   const [openModalVincularUsuario, setOpenModalVincularUsuario] = useState(false);
@@ -44,6 +47,17 @@ export const Usuarios = () => {
 
   const dataFilter = (text: string) => {
     setUsersFiltered(text);
+  };
+
+
+  //variables y funciones Solicitudes Pendeintes
+  const [openDialogSolicitudesP, setOpenDialogSolicitudesP] = useState(false);
+  const handleClickOpenDialogSolicitudesP = () => {
+    setOpenDialogSolicitudesP(true);
+  };
+
+  const handleCloseSolicitudesP = () => {
+    setOpenDialogSolicitudesP(false);
   };
 
   return (
@@ -77,16 +91,19 @@ export const Usuarios = () => {
         }}
       >
         <ModalCrearUsuario
-        title="Crear Usuario"
+          title="Crear Solicitud Nuevo Usuario"
           open={openModalUsuarios}
           handleClose={handleCloseModalUsuarios}
         />
 
-<ModalVincularUsuario
-        title="Vincular Usuario"
+        <ModalVincularUsuario
+          title="Vincular Usuario"
           open={openModalVincularUsuario}
           handleClose={handleCloseModalVincularUsuario}
         />
+        {/* <DialogSolicitudes 
+        open={openDialogSolicitudesP} 
+        handleClose={handleCloseSolicitudesP}/> */}
 
         <Box
           sx={{
@@ -120,46 +137,66 @@ export const Usuarios = () => {
           </Box>
 
           <Box>
-          <Button
-            variant="contained"
-            disabled={localStorage.getItem("Rol") !== "Administrador" ? true: false}
-            sx={{
-              mr: 3,
-              backgroundColor: "#15212F",
-              ":hover": {
-                backgroundColor: "#ccc",
-              },
-            }}
-            onClick={() => setOpenModalVincularUsuario(true)}
-          >
-            <AddLinkIcon sx={{ mr: 1 }} />
-            <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+            <Button
+              variant="contained"
+              disabled={localStorage.getItem("Rol") !== "Administrador" ? true : false}
+              sx={{
+                mr: 3,
+                backgroundColor: "#15212F",
+                ":hover": {
+                  backgroundColor: "#ccc",
+                },
+              }}
+              onClick={() => handleClickOpenDialogSolicitudesP()}
             >
-              Vincular
-            </Typography>
-          </Button>  
-          <Button
-            variant="contained"
-            disabled={localStorage.getItem("Rol") === "Capturador" ? true: false}
-            sx={{
-              mr: 3,
-              backgroundColor: "#c4a55a",
-              ":hover": {
-                backgroundColor: "#ccc",
-              },
-            }}
-            onClick={() => setOpenModalUsuarios(true)}
-          >
-            <PersonAddIcon sx={{ mr: 1 }} />
-            <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+              <ScheduleSendIcon sx={{ mr: 1 }} />
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+              >
+                SOLICITUDES PENDIENTES
+              </Typography>
+            </Button>
+
+            <Button
+              variant="contained"
+              disabled={localStorage.getItem("Rol") !== "Administrador" ? true : false}
+              sx={{
+                mr: 3,
+                backgroundColor: "#15212F",
+                ":hover": {
+                  backgroundColor: "#ccc",
+                },
+              }}
+              onClick={() => setOpenModalVincularUsuario(true)}
             >
-              Añadir
-            </Typography>
-          </Button>
+              <AddLinkIcon sx={{ mr: 1 }} />
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+              >
+                Vincular
+              </Typography>
+            </Button>
+            <Button
+              variant="contained"
+              disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+              sx={{
+                mr: 3,
+                backgroundColor: "#c4a55a",
+                ":hover": {
+                  backgroundColor: "#ccc",
+                },
+              }}
+              onClick={() => setOpenModalUsuarios(true)}
+            >
+              <SendIcon sx={{ mr: 1 }} />
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+              >
+                CREAR SOLICITUD
+              </Typography>
+            </Button>
           </Box>
-          
+
         </Box>
 
         {/* ----- */}
