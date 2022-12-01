@@ -29,7 +29,6 @@ export function TabResumenFT({
   cValor: Array<ICValorFT>;
   IdMir: string;
   IdFT: string;
-  Ft: string;
   IdMA: string;
   MIR: string;
   showResume: Function;
