@@ -44,7 +44,7 @@ export default function ModalSolicitaModif({
   const comentMA = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-MA",
+        "http://10.200.4.105:8000/api/coment-mir",
         {
           IdMA: id,
           Coment: comment,
@@ -565,7 +565,7 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MA)?.encabezado?.institucion);
+      setInstSelected(JSON.parse(MIR)?.encabezado?.institucion);
     }
   }, [open]);
 

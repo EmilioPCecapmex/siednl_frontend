@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { TabFinPropositoMA } from "./TabFinPropositoMA";
+import { IFin, IProposito, TabFinPropositoMA } from "./TabFinPropositoMA";
 import { Box, IconButton } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
+import { ICValor } from "../tabsMir/ICValor";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-import TabResumenMIR from "../modalsMA/ModalResumenMir";
+
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IEncabezado } from "../tabsMir/TabEncabezado";
+import TabResumenMIR from "../modalsMA/ModalResumenMir";
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -36,7 +39,7 @@ export default function AddMetaAnual({
     setShowMir(state);
   };
 
-  const setTxtShowFnc = (st: string) => {
+  const showFnc = (st: string) => {
     setShowSt(st);
   };
 
@@ -83,7 +86,7 @@ export default function AddMetaAnual({
     });
   }, []);
 
-  // COMPONENTES
+  // COMPONENTES ------------------ No me sirve para FichaTecnica
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
   const [valoresComponenteMA, setValoresComponenteMA] = useState<
@@ -105,14 +108,12 @@ export default function AddMetaAnual({
       };
     })
   );
-
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     setValoresComponenteMA(state);
   };
 
-  // ACTIVIDADES
+  // ACTIVIDADES ------------------ No me sirve para FichaTecnica
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-
   const [componenteActividad, setComponenteActividad] = useState([
     {
       componentes: noComponentes.map((x) => [1, 2]),
@@ -182,10 +183,12 @@ export default function AddMetaAnual({
       };
     });
     setValoresComponenteMA(arrayMA);
-  }, [noComponentes]);
+  }, []);
 
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
+
+  // ------------------ No me sirve para FichaTecnica ---------------------------
 
   const resumenFinMa = (arr: Array<IFinMA>) => {
     setValueFin(arr);
@@ -193,6 +196,7 @@ export default function AddMetaAnual({
   const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
     setValueProposito(arr);
   };
+  // ------------------ No me sirve para FichaTecnica ---------------------------
 
   return (
     <Box
@@ -274,19 +278,19 @@ export default function AddMetaAnual({
           }}
         >
           <TabFinPropositoMA
-            show={value === 20 ? true : false}
             MA={MA}
             MIR={MIR}
-            setTxtShowFnc={setTxtShowFnc}
+            setTxtShowFnc={showFnc}
+            show={value === 20 ? true : false}
             resumenFinMa={resumenFinMa}
             resumenPropositoMa={resumenPropositoMa}
             showMirFnc={showMirFnc}
           ></TabFinPropositoMA>
 
           <TabComponenteMA
-            show={value === 30 ? true : false}
-            setTxtShowFnc={setTxtShowFnc}
+            setTxtShowFnc={showFnc}
             showMirFnc={showMirFnc}
+            show={value === 30 ? true : false}
             valoresComponenteMAFnc={valoresComponenteMAFnc}
             noComponentes={noComponentes}
             MA={MA}
@@ -294,10 +298,10 @@ export default function AddMetaAnual({
           ></TabComponenteMA>
 
           <TabActividadesMA
-            show={value === 40 ? true : false}
-            setTxtShowFnc={setTxtShowFnc}
+            setTxtShowFnc={showFnc}
             showMirFnc={showMirFnc}
             compAct={compAct}
+            show={value === 40 ? true : false}
             componentes={noComponentes}
             asignarCValor={asignarCValorMA}
             MA={MA}
@@ -317,13 +321,17 @@ export default function AddMetaAnual({
             MIR={MIR}
           ></TabResumenMA>
 
-          <TabResumenMIR
+          {/* <TabResumenMIR
             show={showMir}
             showMirFnc={showMirFnc}
             showSt={showSt}
-            MIR={MIR}
-            noComponentes={noComponentes}
-          ></TabResumenMIR>
+            //componentes={noComponentes}
+            componenteValor={componenteValor}
+            cValor={cValor}
+            encabezado={encabezado}
+            fin={cargaFin}
+            proposito={cargaProposito}
+          ></TabResumenMIR> */}
         </Box>
 
         <Box

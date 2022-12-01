@@ -26,7 +26,6 @@ export function TabResumenFT({
   IdMA,
   IdFT,
   showResume,
-  Ft,
   MIR,
 }: {
   show: boolean;
@@ -38,7 +37,6 @@ export function TabResumenFT({
   cValor: Array<ICValorFT>;
   IdMir: string;
   IdMA: string;
-  Ft: string;
   IdFT: string;
   MIR: string;
   showResume: Function;
@@ -103,7 +101,8 @@ export function TabResumenFT({
     setEditActividades(aEdit);
 
     asignarFT(encabezado, fin, proposito, componenteValor, arr);
-  }, [componenteValor, proposito, fin, cValor, show]);
+    
+  }, [encabezado, componenteValor, proposito, fin, cValor, show]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -130,9 +129,10 @@ export function TabResumenFT({
   });
 
   const creaFT = (estado: string) => {
+    
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/api/create-FichaTecnica",
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
         {
           FichaTecnica: JSON.stringify(FT),
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -317,7 +317,7 @@ export function TabResumenFT({
               OBJETIVO ODS:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.catalogoObjetivoODS}
+              {encabezado[0]?.objetivoODS}
             </Typography>
           </Box>
           <Box
@@ -346,7 +346,7 @@ export function TabResumenFT({
               META ODS:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-              {encabezado[0]?.catalogoMetaODS}
+              {encabezado[0]?.metaODS}
             </Typography>
           </Box>
 
@@ -354,7 +354,7 @@ export function TabResumenFT({
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
-            FIN
+            FIN 
           </Typography>
 
           <Box

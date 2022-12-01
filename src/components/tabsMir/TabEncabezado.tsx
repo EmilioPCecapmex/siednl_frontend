@@ -14,9 +14,7 @@ import Swal from "sweetalert2";
 import { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "./IComponente";
 import { ICompActividad } from "./ICompActividad";
-import { IEncabezadoEdit } from "./TabResumen2";
-import { IMIR, IMIREdit } from "./IMIR";
-import { Link } from "react-router-dom";
+import {IMIREdit } from "./IMIR";
 import Stack from "@mui/material/Stack";
 
 export interface IEncabezado {
@@ -218,7 +216,6 @@ export function TabEncabezado({
   function enCambioBeneficiario(Id: string, Ben: string) {
     setBeneficiario(Ben);
   }
-
 
   function enCambioFile(event: any) {
     
@@ -604,8 +601,8 @@ export function TabEncabezado({
       .catch((err) => {
 
       })
-
   };
+
   const getIdBeneficiario = (Description: string) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
@@ -649,7 +646,6 @@ export function TabEncabezado({
         setTimeout(() => {
           response.data.encabezado[0]?.lineas_de_accion?.split('.\n').map((value: string) => {
             if (value !== '') {
-
               getIdLineaDeAccion(value);
             }
           });
@@ -902,8 +898,8 @@ export function TabEncabezado({
       <FormControl sx={{ width: "20vw", mt: "6vh" }}>
         
         <Autocomplete
-          disablePortal
           disabled={mirEdit?.encabezado.institucion}
+          disablePortal
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion}
           value={{

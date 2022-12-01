@@ -106,7 +106,6 @@ export default function ModalEnviarFT({
         "<strong>Encabezado</strong>: Meta ODS no seleccionado."
       );
     }
-    console.log("FIN: ",typeof(JSON.parse(FT)?.fin));
     if (JSON.parse(FT)?.fin === null) {
       err = 1;
       errores.push("Sección <strong>Fin</strong> incompleta.");
@@ -336,8 +335,9 @@ export default function ModalEnviarFT({
   };
 
   const checkActividades = (v: string) => {
+    console.log(FT)
+    console.log(123)
     JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
-      console.log(JSON.parse(FT)?.actividades)
       if (
         actividad.tipoDeIndicador === "" 
       ) {

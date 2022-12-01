@@ -690,10 +690,10 @@ export const FichaTecnica = () => {
                                     onClick={() => {
                                       setFTEdit([
                                         {
-                                          Id: row.Id,
+                                          IdFt: row.IdFt,
                                           IdMir: row.IdMir,
                                           IdMa: row.IdMa,
-                                          FichaTecnica: row.FichaTecnica,
+                                          FichaT: row.FichaT,
                                           Estado: row.Estado,
                                           CreadoPor: row.CreadoPor,
                                           FechaCreacion: row.FechaCreacion,
@@ -753,11 +753,11 @@ export const FichaTecnica = () => {
           <AddFichaTecnica
             MIR={FTEdit[0].MIR}
             MA={FTEdit[0].MetaAnual}
-            FT={FTEdit[0].FichaTecnica}
+            FT={FTEdit[0].FichaT}
             showResume={returnMain}
             IdMir={FTEdit[0].IdMir}
             IdMA={FTEdit[0].IdMa}
-            IdFT={FTEdit[0].Id}
+            IdFT={FTEdit[0].IdFt}
           />
         </Box>
       )}
@@ -766,10 +766,10 @@ export const FichaTecnica = () => {
 };
 
 export interface IIFT {
-  Id: string;
+  IdFt: string;
   IdMir: string;
   IdMa: string;
-  FichaTecnica: string;
+  FichaT: string;
   Estado: string;
   CreadoPor: string;
   FechaCreacion: string;
