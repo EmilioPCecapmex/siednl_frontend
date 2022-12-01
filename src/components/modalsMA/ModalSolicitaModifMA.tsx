@@ -244,21 +244,15 @@ export default function ModalSolicitaModif({
 /////////////////////////////////////////////////////////////////////
   const checkComponentes = (v: string) => {
     JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
-      if (
-        componente.metaAnual === undefined ||
-        /^[\s]*$/.test(componente.metaAnual) ||
-        componente.metaAnual === null
+
+      if (componente.metaAnual === undefined || /^[\s]*$/.test(componente.metaAnual) ||componente.metaAnual === null
       ) {
         err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Meta anual sin información.`
-        );
+        errores.push(`<strong> Componente ${index + 1} </strong>: Meta anual sin información.`);
       }
+
       if (
-        componente.lineaBase === undefined ||
-        /^[\s]*$/.test(componente.lineaBase)
+        componente.lineaBase === undefined || /^[\s]*$/.test(componente.lineaBase)
       ) {
         err = 1;
         errores.push(
@@ -365,11 +359,14 @@ export default function ModalSolicitaModif({
           } </strong>: Descripción del denominador sin información.`
         );
       }
+
       return true;
+
     });
+
     checkActividades(v);
   };
-
+///////////////////////////////////////////////////////////////////
   const checkActividades = (v: string) => {
     JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
       if (
@@ -472,7 +469,9 @@ export default function ModalSolicitaModif({
         );
         err = 1;
       }
-    });
+    }
+    
+    );
     //////////////////////////////////////////777
     if (err === 0) {
       createMA(v);
