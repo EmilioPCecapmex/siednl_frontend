@@ -61,6 +61,7 @@ export default function ModalEnviarMIR({
     errores = [];
     console.log(JSON.parse(MIR)?.encabezado);
     if (
+      JSON.parse(MIR)?.encabezado.ejercicioFiscal === "" ||
       JSON.parse(MIR)?.encabezado.institucion === "" ||
       JSON.parse(MIR)?.encabezado.nombre_del_programa === "" ||
       JSON.parse(MIR)?.encabezado.eje === "" ||
@@ -72,6 +73,10 @@ export default function ModalEnviarMIR({
     ) {
       err = 1;
       errores.push("SECCIÓN <strong> ENCABEZADO </strong> FALTANTE.");
+    }
+    if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
+      err = 1;
+      errores.push("<strong>ENCABEZADO: EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
       err = 1;
