@@ -18,7 +18,6 @@ import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { IFT } from "../tabsFichaTecnica/Interfaces";
 import { isMapIterator } from "util/types";
 
-
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -30,7 +29,7 @@ export default function ModalSolicitaModif({
   IdMIR,
   showResume,
   MAEdit,
-}:{
+}: {
   open: boolean;
   handleClose: Function;
   showResume: Function;
@@ -39,34 +38,31 @@ export default function ModalSolicitaModif({
   IdFT: string;
   IdMIR: string;
   MAEdit: string;
-  
-}){
+}) {
+  const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
+  const [userSelected, setUserSelected] = useState("0");
+  const [instSelected, setInstSelected] = useState("");
 
+  const [comentario, setComentario] = useState("");
 
-const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
-const [userSelected, setUserSelected] = useState("0");
-const [instSelected, setInstSelected] = useState("");
-
-const [comentario, setComentario] = useState("");
-
-const comentFT = (id: string) => {
-  axios.post(
-    process.env.REACT_APP_APPLICATION_BACK + "api/coment-mir",
-    {
-      IdMir: id,
-      Coment: comentario,
-      CreadoPor: localStorage.getItem("IdUsuario"),
-      MIR_MA: "FT",
-    },
-    {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
+  const comentFT = (id: string) => {
+    axios.post(
+      process.env.REACT_APP_APPLICATION_BACK + "api/coment-mir",
+      {
+        IdMir: id,
+        Coment: comentario,
+        CreadoPor: localStorage.getItem("IdUsuario"),
+        MIR_MA: "FT",
       },
-    }
-  );
-};
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    );
+  };
 
-const checkUsuario = (estado: string) => {
+  const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
       return Toast.fire({
         icon: "error",
@@ -78,36 +74,53 @@ const checkUsuario = (estado: string) => {
   };
 
   let err = 0;
-const checkFT = (V: string) => {
+
+
+
+  const checkFT = (v: string) => {
   
-/////////////////////////////////////////////////////////////////////////
-  if(FT ==="" || FT === undefined){
-    errores.push("<strong>Ficha tecnica</strong> incompleta.");
-    handleClose();
-    Toast.fire({
-      icon: "error",
-      html: `
-      <div style="height:50%;">
-      <h3>Se han encontrado los siguientes errores:</h3>
-      <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-    <small>
-    <strong>
-    *</strong>${errores.join("<br><strong>*</strong>")}
-    </small>
-    </div>
-    </div>`,
-    });
-  }
-  //////////////////////////////////////////////////////////////////////////
-  errores = [];
+    errores = [];
+
+
+    console.log(FT);
+    
+   
+
+
+    
+    if (JSON.parse(FT)?.encabezado.programaSER === null || JSON.parse(FT)?.encabezado.programaSER === undefined
+    || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER) ) {
+      err = 1;
+      errores.push("Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta.");
+    }
+
+    if (JSON.parse(FT)?.encabezado.objetivoSER === null || JSON.parse(FT)?.encabezado.objetivoSER === undefined
+    || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoSER) ) {
+      err = 1;
+      errores.push("Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta.");
+    }
+
+    if (JSON.parse(FT)?.encabezado.metaODS === null || JSON.parse(FT)?.encabezado.metaODS === undefined
+    || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.metaODS) ) {
+      err = 1;
+      errores.push("Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta.");
+    }
+    
+
+
+
+    if (JSON.parse(FT)?.encabezado.programaSER === null) {
+      err = 1;
+      errores.push("Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta.");
+    }
+
     if (JSON.parse(FT)?.fin === null) {
       err = 1;
       errores.push("Sección <strong>Fin</strong> incompleta.");
     }
     if (
       JSON.parse(FT)?.fin.tipoDeIndicador === undefined ||
-      JSON.parse(FT)?.fin.sentidoDelIndicador === ""
-     
+      JSON.parse(FT)?.fin.tipoDeIndicador === ""
     ) {
       err = 1;
       errores.push("<strong>Fin</strong>: Tipo de indicador sin información");
@@ -120,8 +133,7 @@ const checkFT = (V: string) => {
       errores.push("<strong>Fin</strong>: Diemension información");
     }
     if (
-      JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
-      /^[\s]*$/.test(JSON.parse(FT)?.fin.unidadDeMedida)
+      JSON.parse(FT)?.fin.unidadDeMedida === undefined || /^[\s]*$/.test(JSON.parse(FT)?.fin.unidadDeMedida )
     ) {
       err = 1;
       errores.push("<strong>Fin</strong>: Unidad de medida sin información");
@@ -175,11 +187,12 @@ const checkFT = (V: string) => {
     }
     if (
       JSON.parse(FT)?.proposito.tipoDeIndicador === undefined ||
-      JSON.parse(FT)?.proposito.sentidoDelIndicador === ""
-     
+      JSON.parse(FT)?.proposito.tipoDeIndicador === ""
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Tipo de indicador sin información");
+      errores.push(
+        "<strong>proposito</strong>: Tipo de indicador sin información"
+      );
     }
     if (
       JSON.parse(FT)?.proposito.dimension === undefined ||
@@ -193,7 +206,9 @@ const checkFT = (V: string) => {
       /^[\s]*$/.test(JSON.parse(FT)?.proposito.unidadDeMedida)
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Unidad de medida sin información");
+      errores.push(
+        "<strong>proposito</strong>: Unidad de medida sin información"
+      );
     }
     if (
       JSON.parse(FT)?.proposito.claridad === undefined ||
@@ -235,126 +250,310 @@ const checkFT = (V: string) => {
       JSON.parse(FT)?.proposito.aporte_marginal === ""
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Aporte marginal sin información");
+      errores.push(
+        "<strong>proposito</strong>: Aporte marginal sin información"
+      );
     }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    checkcomponentes(v);
+  };
+
+  const checkcomponentes = (v: string) => {
+    JSON.parse(FT)?.componentes.map((componente: any, index: number) => {
+      console.log(componente);
+      if (
+        componente.tipoDeIndicador === undefined ||
+        componente.tipoDeIndicador === null ||
+        componente.tipoDeIndicador === ""
+      ) {
+        err = 1;
+        //errores.push(`Sección <strong>componentes ${index + 1} </strong> incompleta.`);
+        errores.push(
+          `<strong>componente ${
+            index + 1
+          }  </strong>: Tipo de indicador sin información`
+        );
+      }
+      if (componente.dimension === undefined || componente.dimension === "") {
+        err = 1;
+        errores.push(
+          `<strong>componente ${index + 1} </strong>: Diemension información`
+        );
+      }
+      if (
+        componente.unidadDeMedida === undefined ||
+        /^[\s]*$/.test(componente.unidadDeMedida) ||
+        componente.unidadDeMedida === null
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>componente ${
+            index + 1
+          } </strong>: Unidad de medida sin información`
+        );
+      }
+      if (componente.claridad === undefined || componente.claridad === "") {
+        err = 1;
+        errores.push(
+          `<strong>componentes ${index + 1} </strong>: Claridad sin información`
+        );
+      }
+      if (componente.relevancia === undefined || componente.relevancia === "") {
+        err = 1;
+        errores.push(
+          `<strong>componentes ${
+            index + 1
+          } </strong>: Relevancia sin información`
+        );
+      }
+      if (componente.economia === undefined || componente.economia === "") {
+        err = 1;
+        errores.push(
+          `<strong>componentes ${index + 1} </strong>: Economía sin información`
+        );
+      }
+      if (
+        componente.monitoreable === undefined ||
+        componente.monitoreable === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>componentes ${
+            index + 1
+          } </strong>: Monitoreable sin información`
+        );
+      }
+      if (componente.adecuado === undefined || componente.adecuado === "") {
+        err = 1;
+        errores.push(
+          `<strong>componente ${index + 1} </strong>: Adecuado sin información`
+        );
+      }
+      if (
+        componente.aporte_marginal === undefined ||
+        componente.aporte_marginal === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>componente ${
+            index + 1
+          } </strong>: Aporte marginal sin información`
+        );
+      }
+
+      return true;
+    });
+
+    checkActividades(v);
+  };
+
+  const checkActividades = (v: string) => {
+    JSON.parse(FT)?.actividades.every((actividad: any, index: number) => {
+      if (
+        actividad.tipoDeIndicador === undefined ||
+        actividad.tipoDeIndicador === null ||
+        actividad.tipoDeIndicador === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${
+            index + 1
+          }  </strong>: Tipo de indicador sin información`
+        );
+      }
+
+      if (actividad.dimension === undefined || actividad.dimension === "") {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${
+            index + 1
+          }  </strong>: Tipo de Dimensíon sin información`
+        );
+      }
+
+      if (
+        actividad.unidadDeMedida === undefined ||
+        actividad.unidadDeMedida === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${
+            index + 1
+          }  </strong>: Tipo de Unidad de medida sin información`
+        );
+      }
+
+      if (actividad.claridad === undefined || actividad.claridad === "") {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${index + 1}  </strong>: Claridad sin información`
+        );
+      }
+
+      if (actividad.relevancia === undefined || actividad.relevancia === "") {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${
+            index + 1
+          }  </strong>: Relevancia sin información`
+        );
+      }
+
+      if (actividad.economia === undefined || actividad.economia === "") {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${index + 1}  </strong>: Economía sin información`
+        );
+      }
+
+      if (
+        actividad.monitoreable === undefined ||
+        actividad.monitoreable === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${
+            index + 1
+          }  </strong>: Monitoreable sin información`
+        );
+      }
+
+      if (actividad.adecuado === undefined || actividad.adecuado === "") {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${index + 1}  </strong>: Adecuado sin información`
+        );
+      }
+
+      if (
+        actividad.aporte_marginal === undefined ||
+        actividad.aporte_marginal === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>actividad ${index + 1}  </strong>: Adecuado sin información`
+        );
+      }
+    });
+
+    ////////////////////////////////////////////////////////
     if (err === 0) {
       //createFT(v);
     } else {
       Toast.fire({
         icon: "error",
         html: `
-        <div style="height:50%;">
-        <h3>Se han encontrado los siguientes errores:</h3>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-      <small>
-      <strong>
-      *</strong>${errores.join("<br><strong>*</strong>")}
-      </small>
-      </div>
-      </div>`,
+    <div style="height:50%;">
+    <h3>Se han encontrado los siguientes errores:</h3>
+    <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
+  <small>
+  <strong>
+  *</strong>${errores.join("<br><strong>*</strong>")}
+  </small>
+  </div>
+  </div>`,
       });
+      //////////////////////////////////////////////////
     }
-   
-};
-/////////////////////////////////////////////////////////////
-const createFT = (estado: string) => {
-  if (estado === "Autorizada" && userSelected !== "0") {
-    estado = "En Revisión";
-  } else if (estado === "En Autorización" && userSelected !== "0") {
-    estado = "En Captura";
-  }
-  axios
-    .post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
-      {
-        
-        FichaTecnica: FT,
-        CreadoPor:
-          userSelected !== "0"
-            ? userSelected
-            : localStorage.getItem("IdUsuario"),
-        IdMir: IdMIR,
-        Estado: estado,
-        Id: IdFT,
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
+  };
+
+  /////////////////////////////////////////////////////////////
+  const createFT = (estado: string) => {
+    if (estado === "Autorizada" && userSelected !== "0") {
+      estado = "En Revisión";
+    } else if (estado === "En Autorización" && userSelected !== "0") {
+      estado = "En Captura";
+    }
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
+        {
+          FichaTecnica: FT,
+          CreadoPor:
+            userSelected !== "0"
+              ? userSelected
+              : localStorage.getItem("IdUsuario"),
+          IdMir: IdMIR,
+          Estado: estado,
+          Id: IdFT,
         },
-      }
-    )
-    .then((r) => {
-      if (comentario !== "") {
-        comentFT(r.data.data.ID);
-      }
-      Toast.fire({
-        icon: "success",
-        title:
-          localStorage.getItem("Rol") === "Verificador"
-            ? "Ficha Tecnica enviada a capturador para corrección"
-            : "Ficha Tecnica enviada a revisión",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (comentario !== "") {
+          comentFT(r.data.data.ID);
+        }
+        Toast.fire({
+          icon: "success",
+          title:
+            localStorage.getItem("Rol") === "Verificador"
+              ? "Ficha Tecnica enviada a capturador para corrección"
+              : "Ficha Tecnica enviada a revisión",
+        });
+
+        //enviarNotificacion();
+        handleClose();
+        showResume();
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        });
       });
-
-      //enviarNotificacion();
-      handleClose();
-      showResume();
-    })
-    .catch((err) => {
-      Toast.fire({
-        icon: "error",
-        title: err.response.data.result.error,
+  };
+  /////////////////////////////////////////////////////////////
+  const getUsuariosXInstitucion = () => {
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            Institucion: JSON.parse(MIR)?.encabezado?.institucion,
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          setUserXInst(r.data.data);
+        }
       });
-    });
-};
-/////////////////////////////////////////////////////////////
-const getUsuariosXInstitucion = () => {
-  axios
-    .get(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-      {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: JSON.parse(MIR)?.encabezado?.institucion,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    )
-    .then((r) => {
-      if (r.status === 200) {
-        setUserXInst(r.data.data);
-      }
-    });
-};
-/////////////////////////////////////////////////////////////////
-useEffect(() => {
-  if (open) {
-    getUsuariosXInstitucion();
-    setInstSelected(JSON.parse(MIR)?.encabezado?.institucion);
-  }
-}, [open]);
+  };
+  /////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    if (open) {
+      getUsuariosXInstitucion();
+      setInstSelected(JSON.parse(MIR)?.encabezado?.institucion);
+    }
+  }, [open]);
 
-const Toast = Swal.mixin({
-  toast: false,
-  position: "center",
-  showConfirmButton: true,
-  heightAuto: false,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener("mouseenter", Swal.stopTimer);
-    toast.addEventListener("mouseleave", Swal.resumeTimer);
-  },
-});
+  const Toast = Swal.mixin({
+    toast: false,
+    position: "center",
+    showConfirmButton: true,
+    heightAuto: false,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
-return(
-  
-  <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
-
+  return (
+    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
         Solicitud de modificación
       </DialogTitle>
-
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Box
@@ -366,15 +565,14 @@ return(
             justifyContent: "center",
           }}
         />
-       </Box>
+      </Box>
 
-
-       <DialogContent
+      <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
         }}
-       >
+      >
         <Box
           sx={{
             width: "100%",
@@ -482,11 +680,6 @@ return(
           </Box>
         </Box>
       </DialogContent>
-
-      
-  </Dialog>
-)
+    </Dialog>
+  );
 }
-
-
-
