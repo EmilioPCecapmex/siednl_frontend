@@ -321,17 +321,13 @@ export default function AddMetaAnual({
             MIR={MIR}
           ></TabResumenMA>
 
-          {/* <TabResumenMIR
+          <TabResumenMIR
             show={showMir}
             showMirFnc={showMirFnc}
             showSt={showSt}
-            //componentes={noComponentes}
-            componenteValor={componenteValor}
-            cValor={cValor}
-            encabezado={encabezado}
-            fin={cargaFin}
-            proposito={cargaProposito}
-          ></TabResumenMIR> */}
+            MIR={MIR}
+            noComponentes={noComponentes}
+          ></TabResumenMIR>
         </Box>
 
         <Box

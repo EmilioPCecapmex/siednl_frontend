@@ -51,6 +51,7 @@ export const TabActividadesMA = ({
   const [actividadSelect, setActividadSelect] = useState(0);
 
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
+  let copJson = jsonMA;
 
   const [aValorMA, setAValorMA] = useState(
     componenteActividad.map((item) => {
@@ -101,64 +102,72 @@ export const TabActividadesMA = ({
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
+              console.log(copJson.actividades);     
+
+              if(MA !== ''){
+                 copJson.actividades.pop()
+              }
+              
               return {
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
                 metaAnual:
-                  MA === "" ? "" : jsonMA?.actividades[index2]?.metaAnual || "",
+                  MA === "" ? "" : copJson.actividades[index2]?.metaAnual || "",
                 lineaBase:
-                  MA === "" ? "" : jsonMA?.actividades[index2]?.lineaBase || "",
+                  MA === "" ? "" : copJson.actividades[index2]?.lineaBase || "",
                 metasPorFrecuencia: [
                   {
                     trimestre1:
                       MA === ""
                         ? ""
-                        : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
+                        : copJson.actividades[index2]?.metasPorFrecuencia[0]
                             ?.trimestre1 || "",
                     trimestre2:
                       MA === ""
                         ? ""
-                        : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
+                        : copJson.actividades[index2]?.metasPorFrecuencia[0]
                             ?.trimestre2 || "",
                     trimestre3:
                       MA === ""
                         ? ""
-                        : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
+                        : copJson.actividades[index2]?.metasPorFrecuencia[0]
                             ?.trimestre3 || "",
                     trimestre4:
                       MA === ""
                         ? ""
-                        : jsonMA?.actividades[index2]?.metasPorFrecuencia[0]
+                        : copJson.actividades[index2]?.metasPorFrecuencia[0]
                             ?.trimestre4 || "",
                   },
                 ],
                 valorNumerador:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.valorNumerador || "",
+                    : copJson.actividades[index2]?.valorNumerador || "",
                 valorDenominador:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.valorDenominador || "",
+                    : copJson.actividades[index2]?.valorDenominador || "",
                 sentidoDelIndicador:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.sentidoDelIndicador || "",
+                    : copJson.actividades[index2]?.sentidoDelIndicador || "",
                 unidadResponsable:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.unidadResponsable || "",
+                    : copJson.actividades[index2]?.unidadResponsable || "",
                 descIndicador:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.descIndicador || "",
+                    : copJson.actividades[index2]?.descIndicador || "",
                 descNumerador:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.descNumerador || "",
+                    : copJson.actividades[index2]?.descNumerador || "",
                 descDenominador:
                   MA === ""
                     ? ""
-                    : jsonMA?.actividades[index2]?.descDenominador || "",
+                    : copJson.actividades[index2]?.descDenominador || "",
+
+                    
               };
             }),
           };

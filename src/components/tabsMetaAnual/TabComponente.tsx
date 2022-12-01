@@ -40,6 +40,7 @@ export const TabComponenteMA = ({
   >([]);
 
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
+  
 
   useEffect(() => {
     let comp: IComponenteMA[] = [];
