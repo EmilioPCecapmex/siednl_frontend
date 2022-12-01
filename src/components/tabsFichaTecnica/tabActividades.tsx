@@ -11,7 +11,6 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { ICValor } from "../tabsMir/ICValor";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -84,53 +83,50 @@ export const TabActividadesFT = ({
     asignarCValor(aValorFT);
   }, [aValorFT]);
 
+  let aument_number = -1;
+
   const loadActividadesFT = () => {
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
+              
+              aument_number++;
+
               return {
                 actividad:
-                  FT === "" || FT === undefined
-                    ? ""
-                    : "A" + (index2 + 1) + "C" + (index + 1),
+                  FT === "" ? "" : "A" + (index2 + 1) + "C" + (index + 1),
                 tipoDeIndicador:
-                  FT === "" || FT === undefined
+                  FT === ""
                     ? ""
-                    : jsonFT?.actividades[index2]?.tipoDeIndicador,
+                    : jsonFT?.actividades[aument_number]?.tipoDeIndicador,
                 claridad:
-                  FT === "" || FT === undefined
-                    ? ""
-                    : jsonFT?.actividades[index2]?.claridad,
+                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.claridad,
                 relevancia:
-                  FT === "" || FT === undefined
+                  FT === ""
                     ? ""
-                    : jsonFT?.actividades[index2]?.relevancia,
+                    : jsonFT?.actividades[aument_number]?.relevancia,
                 economia:
-                  FT === "" || FT === undefined
-                    ? ""
-                    : jsonFT?.actividades[index2]?.economia,
+                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.economia,
                 monitoreable:
-                  FT === "" || FT === undefined
+                  FT === ""
                     ? ""
-                    : jsonFT?.actividades[index2]?.monitoreable,
+                    : jsonFT?.actividades[aument_number]?.monitoreable,
                 adecuado:
-                  FT === "" || FT === undefined
-                    ? ""
-                    : jsonFT?.actividades[index2]?.adecuado,
+                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.adecuado,
                 aporte_marginal:
-                  FT === "" || FT === undefined
+                  FT === ""
                     ? ""
-                    : jsonFT?.actividades[index2]?.aporte_marginal,
+                    : jsonFT?.actividades[aument_number]?.aporte_marginal,
                 dimension:
-                  FT === "" || FT === undefined
+                  FT === ""
                     ? ""
-                    : jsonFT?.actividades[index2]?.dimension,
+                    : jsonFT?.actividades[aument_number]?.dimension,
                 unidadDeMedida:
-                  FT === "" || FT === undefined
+                  FT === ""
                     ? ""
-                    : jsonFT?.actividades[index2]?.unidadDeMedida,
+                    : jsonFT?.actividades[aument_number]?.unidadDeMedida,
               };
             }),
           };

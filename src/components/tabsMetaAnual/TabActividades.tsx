@@ -51,7 +51,6 @@ export const TabActividadesMA = ({
   const [actividadSelect, setActividadSelect] = useState(0);
 
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
-  let copJson = jsonMA;
 
   const [aValorMA, setAValorMA] = useState(
     componenteActividad.map((item) => {
@@ -96,78 +95,81 @@ export const TabActividadesMA = ({
     asignarCValor(aValorMA);
   }, [aValorMA]);
 
+  let aument_number = -1;
+
   const loadActividadesMA = () => {
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
-              console.log(copJson.actividades);     
-
-              if(MA !== ''){
-                 copJson.actividades.pop()
-              }
               
+              aument_number++;
+
               return {
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
                 metaAnual:
-                  MA === "" ? "" : copJson.actividades[index2]?.metaAnual || "",
+                  MA === ""
+                    ? ""
+                    : jsonMA.actividades[aument_number]?.metaAnual || "",
                 lineaBase:
-                  MA === "" ? "" : copJson.actividades[index2]?.lineaBase || "",
+                  MA === ""
+                    ? ""
+                    : jsonMA.actividades[aument_number]?.lineaBase || "",
                 metasPorFrecuencia: [
                   {
                     trimestre1:
                       MA === ""
                         ? ""
-                        : copJson.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.trimestre1 || "",
+                        : jsonMA.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre1 || "",
                     trimestre2:
                       MA === ""
                         ? ""
-                        : copJson.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.trimestre2 || "",
+                        : jsonMA.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre2 || "",
                     trimestre3:
                       MA === ""
                         ? ""
-                        : copJson.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.trimestre3 || "",
+                        : jsonMA.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre3 || "",
                     trimestre4:
                       MA === ""
                         ? ""
-                        : copJson.actividades[index2]?.metasPorFrecuencia[0]
-                            ?.trimestre4 || "",
+                        : jsonMA.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre4 || "",
                   },
                 ],
                 valorNumerador:
                   MA === ""
                     ? ""
-                    : copJson.actividades[index2]?.valorNumerador || "",
+                    : jsonMA.actividades[aument_number]?.valorNumerador || "",
                 valorDenominador:
                   MA === ""
                     ? ""
-                    : copJson.actividades[index2]?.valorDenominador || "",
+                    : jsonMA.actividades[aument_number]?.valorDenominador || "",
                 sentidoDelIndicador:
                   MA === ""
                     ? ""
-                    : copJson.actividades[index2]?.sentidoDelIndicador || "",
+                    : jsonMA.actividades[aument_number]?.sentidoDelIndicador ||
+                      "",
                 unidadResponsable:
                   MA === ""
                     ? ""
-                    : copJson.actividades[index2]?.unidadResponsable || "",
+                    : jsonMA.actividades[aument_number]?.unidadResponsable ||
+                      "",
                 descIndicador:
                   MA === ""
                     ? ""
-                    : copJson.actividades[index2]?.descIndicador || "",
+                    : jsonMA.actividades[aument_number]?.descIndicador || "",
                 descNumerador:
                   MA === ""
                     ? ""
-                    : copJson.actividades[index2]?.descNumerador || "",
+                    : jsonMA.actividades[aument_number]?.descNumerador || "",
                 descDenominador:
                   MA === ""
                     ? ""
-                    : copJson.actividades[index2]?.descDenominador || "",
-
-                    
+                    : jsonMA.actividades[aument_number]?.descDenominador || "",
               };
             }),
           };

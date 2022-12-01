@@ -226,7 +226,7 @@ export default function ModalEnviarMA({
   };
 
   const checkComponentes = (v: string) => {
-    JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
+    JSON.parse(MA)?.componentes.map((componente: any, index: number) => {
       if (
         componente.metaAnual === undefined ||
         /^[\s]*$/.test(componente.metaAnual) ||
@@ -365,7 +365,7 @@ export default function ModalEnviarMA({
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
+    JSON.parse(MA)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.metaAnual === undefined ||
         /^[\s]*$/.test(actividad.metaAnual)

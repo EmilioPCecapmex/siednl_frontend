@@ -74,15 +74,19 @@ export function TabEncabezado({
       lda.push(x.Id);
     });
 
+    let ldae = '';
+    lda.every((x: any, index: number) => {
+      ldae = JSON.stringify(lda).replace("[", "").replace("]", "").replace('"',"'");
+    });
+
     setLineaDeAccion(JSON.stringify(lda).replace("[", "").replace("]", ""));
     getObjetivos(JSON.stringify(lda).replace("[", "").replace("]", ""));
   }, [show, MIR]);
 
   const getObjetivos = (id: string) => {
-    console.log(id);
     
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
+      .get("http://10.200.4.199:8000/api/ped-columns", {
         params: {
           Col: "ObjetivosDs",
           Id: id,
@@ -92,8 +96,6 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        console.log(r);
-        
         setCatalogoObjetivosDS(r.data.data);
       })
       .catch((err) => {});
