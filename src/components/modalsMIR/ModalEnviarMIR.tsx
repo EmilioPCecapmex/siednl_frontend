@@ -37,7 +37,7 @@ export default function ModalEnviarMIR({
   const comentMir = (id: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        "http://10.200.4.105:8000/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -59,7 +59,6 @@ export default function ModalEnviarMIR({
 
   const checkMir = (v: string) => {
     errores = [];
-    console.log(JSON.parse(MIR)?.encabezado);
     if (
       JSON.parse(MIR)?.encabezado.ejercicioFiscal === "" ||
       JSON.parse(MIR)?.encabezado.institucion === "" ||

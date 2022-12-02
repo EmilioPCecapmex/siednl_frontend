@@ -1,17 +1,10 @@
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Input,
   TextField,
   Box,
   TableContainer,
@@ -20,11 +13,9 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Autocomplete,
   Tooltip,
   IconButton,
   Button,
-  TablePagination,
 } from "@mui/material";
 
 import MessageIcon from "@mui/icons-material/Message";
@@ -107,7 +98,7 @@ export const ComentDialogMir = ({
 
   const getComents = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+      .get("http://10.200.4.105:8000/api/coment-mir", {
         params: {
           IdMir: id,
         },
@@ -143,7 +134,7 @@ export const ComentDialogMir = ({
   const comentMir = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        "http://10.200.4.105:8000/api/coment-mir",
         {
           IdMir: id,
           Coment: coment,
@@ -176,7 +167,7 @@ export const ComentDialogMir = ({
         
         Toast.fire({
           icon: "error",
-          title: "Debes agregar un comentario",
+          title: "Se produjo un error",
         });
       });
   };

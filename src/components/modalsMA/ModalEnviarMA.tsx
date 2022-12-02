@@ -37,9 +37,9 @@ export default function ModalEnviarMA({
   const comentMA = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-MA",
+        "http://10.200.4.105:8000/api/coment-mir",
         {
-          IdMA: id,
+          IdMir: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
           MIR_MA: "MA",
@@ -53,6 +53,7 @@ export default function ModalEnviarMA({
       .then((r) => {
         setNewComent(false);
         setComment("");
+        handleClose();
       })
       .catch((err) => {});
   };
@@ -60,7 +61,6 @@ export default function ModalEnviarMA({
   let err = 0;
 
   const checkMA = (v: string) => {
-    console.log(MA)
     errores = [];
     if (JSON.parse(MA)?.fin === null) {
       err = 1;
@@ -85,7 +85,9 @@ export default function ModalEnviarMA({
       /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Valor del numerador sin información.");
+      errores.push(
+        "<strong>Fin</strong>: Valor del numerador sin información."
+      );
     }
     if (
       JSON.parse(MA)?.fin.valorDenominador === undefined ||
@@ -376,9 +378,7 @@ export default function ModalEnviarMA({
         );
         err = 1;
       }
-      if (
-        actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4
-      ) {
+      if (actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4) {
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4.`
         );
@@ -527,7 +527,7 @@ export default function ModalEnviarMA({
         });
 
         if (comment !== "") {
-          comentMA(r.data.data.ID);
+          comentMA(IdMIR);
         }
         showResume();
       })
@@ -549,7 +549,7 @@ export default function ModalEnviarMA({
           IdMir: IdMIR,
           IdMa: IdMA,
           Id: "",
-          Estado: "En Captura"
+          Estado: "En Captura",
         },
         {
           headers: {
