@@ -152,23 +152,23 @@ export const TabComponenteMA = ({
     setTipoFormula(
       JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
         "PORCENTAJE"
-      )
+      ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "porcentaje")
         ? "Porcentaje"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "TASA"
-          )
+          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "tasa")
         ? "Tasa"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "INDICE" || "ÍNDICE"
-          )
+          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "indice" 
+           || JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "índice")
         ? "Indice"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "PROMEDIO"
-          )
+          ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "promedio")
         ? "Promedio"
         : ""
     );
-    console.log("ESTA2:", tipoFormula);
     setElementoFormula("Componente " + componentSelect.toString());
     setOpenFormulaDialogMACA(true);
   };
