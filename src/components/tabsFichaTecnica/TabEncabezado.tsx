@@ -14,13 +14,20 @@ export function TabEncabezado({
   FT: string;
   MIR: string;
 }) {
-
   const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
 
-  const [programaSER, setProgramaSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.programaSER || '');
-  const [objetivoSER, setObjetivoSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.objetivoSER || '');
-  const [objetivoODSSel, setObjetivoDSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.objetivoODS || '');
-  const [metaODSSel, setMetaODSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.metaODS || '');
+  const [programaSER, setProgramaSER] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.programaSER || ""
+  );
+  const [objetivoSER, setObjetivoSER] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.objetivoSER || ""
+  );
+  const [objetivoODSSel, setObjetivoDSSel] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.objetivoODS || ""
+  );
+  const [metaODSSel, setMetaODSSel] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.metaODS || ""
+  );
 
   const [disabledMetas, setDisabledMetas] = useState(true);
 
@@ -28,8 +35,6 @@ export function TabEncabezado({
     { Id: "", ObjetivoDS: "" },
   ]);
 
- 
-  
   const [catalogoMetasODS, setCatalogoMetasODS] = useState([
     { Id: "", MetaODS: "" },
   ]);
@@ -54,25 +59,22 @@ export function TabEncabezado({
   const getObjetivos = (id: Array<number>) => {
     id.map((value, index) => {
       axios
-      .get("http://10.200.4.199:8000/api/ped-columns", {
+        .get("http://10.200.4.199:8000/api/ped-columns", {
+          params: {
+            Col: "ObjetivosDs",
+            Id: value,
+          },
 
-        params: {
-          Col: "ObjetivosDs",
-          Id: value,
-        },
-
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-
-      })
-      .then((r) => {
-        setCatalogoObjetivosDS(r.data.data);
-      })
-      .catch((err) => {});
-    })
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
+        .then((r) => {
+          setCatalogoObjetivosDS(r.data.data);
+        })
+        .catch((err) => {});
+    });
   };
-////////////////////////////////////////////////////////////////
 
   const getMetas = (Id: string) => {
     axios
@@ -105,7 +107,6 @@ export function TabEncabezado({
       },
     ]);
   }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel]);
-//////////////////////////////////////////////////////////
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -167,7 +168,7 @@ export function TabEncabezado({
       ></TextField>
 
       {/*------------------------TF2--------------------- */}
-  
+
       <Box
         sx={{
           display: "flex",
@@ -178,7 +179,7 @@ export function TabEncabezado({
           height: "20vh",
           backgroundColor: "#e2e2e2",
         }}
-       >
+      >
         <FormControl sx={{ width: "30vw" }}>
           <Autocomplete
             options={catalogoObjetivosDS}
@@ -220,15 +221,16 @@ export function TabEncabezado({
               ></TextField>
             )}
             onChange={(event, value) =>
-              enCambioObjetivo(value?.Id as string, value?.ObjetivoDS as string || '')
+              enCambioObjetivo(
+                value?.Id as string,
+                (value?.ObjetivoDS as string) || ""
+              )
             }
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
           />
         </FormControl>
       </Box>
 
-      {/*------------------------TF3--------------------- */}
-      //////////////////////////////////////////////////////////////////////////////////
       <Box
         sx={{
           display: "flex",
@@ -242,7 +244,7 @@ export function TabEncabezado({
       >
         <FormControl sx={{ width: "30vw" }}>
           <Autocomplete
-            disabled={disabledMetas || objetivoODSSel === ''}
+            disabled={disabledMetas || objetivoODSSel === ""}
             options={catalogoMetasODS}
             getOptionLabel={(option) => option.MetaODS}
             value={{
@@ -283,11 +285,10 @@ export function TabEncabezado({
             )}
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
             onChange={(event, value) => {
-              setMetaODSSel(value?.MetaODS as string || '');
+              setMetaODSSel((value?.MetaODS as string) || "");
             }}
           />
         </FormControl>
-        ////////////////////////////////////////////////////////////////////////
       </Box>
     </Box>
   );
