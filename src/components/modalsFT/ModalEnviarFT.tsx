@@ -34,7 +34,7 @@ export default function ModalEnviarFT({
 }) {
   const [comment, setComment] = useState("");
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
-  const [newComent, setNewComent] = React.useState(false); 
+  const [newComent, setNewComent] = React.useState(false);
 
   const comentFT = (id: string) => {
     axios
@@ -64,7 +64,10 @@ export default function ModalEnviarFT({
   const checkFT = (v: string) => {
     errores = [];
 
-    if (JSON.parse(FT)?.encabezado === null || JSON.parse(FT)?.encabezado === undefined) {
+    if (
+      JSON.parse(FT)?.encabezado === null ||
+      JSON.parse(FT)?.encabezado === undefined
+    ) {
       err = 1;
       errores.push("Sección <strong>Encabezado</strong> incompleta.");
       //Se me ocurre hacer una variable que aumente por if que enttre y que con solo ser mayor a 1 ya muestre el header
@@ -86,11 +89,13 @@ export default function ModalEnviarFT({
       /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoSER)
     ) {
       err = 1;
-      errores.push("<strong>Encabezado</strong>: Objetivo sectorial, especial o regional sin información.");
+      errores.push(
+        "<strong>Encabezado</strong>: Objetivo sectorial, especial o regional sin información."
+      );
     }
     if (
       JSON.parse(FT)?.encabezado.objetivoODS === undefined ||
-      JSON.parse(FT)?.encabezado.objetivoODS === "" 
+      JSON.parse(FT)?.encabezado.objetivoODS === ""
     ) {
       err = 1;
       errores.push(
@@ -99,26 +104,20 @@ export default function ModalEnviarFT({
     }
     if (
       JSON.parse(FT)?.encabezado.metaODS === undefined ||
-      JSON.parse(FT)?.encabezado.metaODS === "" 
+      JSON.parse(FT)?.encabezado.metaODS === ""
     ) {
       err = 1;
-      errores.push(
-        "<strong>Encabezado</strong>: Meta ODS no seleccionado."
-      );
+      errores.push("<strong>Encabezado</strong>: Meta ODS no seleccionado.");
     }
     if (JSON.parse(FT)?.fin === null) {
       err = 1;
       errores.push("Sección <strong>Fin</strong> incompleta.");
     }
-    if (
-      JSON.parse(FT)?.fin.tipoDeIndicador === ""
-    ) {
+    if (JSON.parse(FT)?.fin.tipoDeIndicador === "") {
       err = 1;
       errores.push("<strong>Fin</strong>: Tipo de indicador no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.fin.dimension === ""
-    ) {
+    if (JSON.parse(FT)?.fin.dimension === "") {
       err = 1;
       errores.push("<strong>Fin</strong>: Dimensión no seleccionado.");
     }
@@ -130,39 +129,27 @@ export default function ModalEnviarFT({
       err = 1;
       errores.push("<strong>Fin</strong>: Unidad de medida sin información.");
     }
-    if (
-      JSON.parse(FT)?.fin.claridad === "" 
-    ) {
+    if (JSON.parse(FT)?.fin.claridad === "") {
       err = 1;
       errores.push("<strong>Fin</strong>: Claridad no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.fin.relevancia === "" 
-    ) {
+    if (JSON.parse(FT)?.fin.relevancia === "") {
       err = 1;
       errores.push("<strong>Fin</strong>: Relevancia no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.fin.economia === "" 
-    ) {
+    if (JSON.parse(FT)?.fin.economia === "") {
       err = 1;
       errores.push("<strong>Fin</strong>: Economia no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.fin.monitoreable === ""
-    ) {
+    if (JSON.parse(FT)?.fin.monitoreable === "") {
       err = 1;
       errores.push("<strong>Fin</strong>: Monitoreable no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.fin.adecuado === "" 
-    ) {
+    if (JSON.parse(FT)?.fin.adecuado === "") {
       err = 1;
       errores.push("<strong>Fin</strong>: Adecuado no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.fin.aporte_marginal === "" 
-    ) {
+    if (JSON.parse(FT)?.fin.aporte_marginal === "") {
       err = 1;
       errores.push("<strong>Fin</strong>: Aporte Marginal no seleccionado.");
     }
@@ -170,17 +157,13 @@ export default function ModalEnviarFT({
       err = 1;
       errores.push("Sección <strong>Propósito</strong> incompleta.");
     }
-    if (
-      JSON.parse(FT)?.proposito.tipoDeIndicador === "" 
-    ) {
+    if (JSON.parse(FT)?.proposito.tipoDeIndicador === "") {
       err = 1;
       errores.push(
         "<strong>Propósito</strong>: Tipo de indicador no seleccionado."
       );
     }
-    if (
-      JSON.parse(FT)?.proposito.dimension === "" 
-    ) {
+    if (JSON.parse(FT)?.proposito.dimension === "") {
       err = 1;
       errores.push("<strong>Propósito</strong>: Dimensión no seleccionado.");
     }
@@ -194,39 +177,27 @@ export default function ModalEnviarFT({
         "<strong>Propósito</strong>: Unidad de medida sin información."
       );
     }
-    if (
-      JSON.parse(FT)?.proposito.claridad === "" 
-    ) {
+    if (JSON.parse(FT)?.proposito.claridad === "") {
       err = 1;
       errores.push("<strong>Propósito</strong>: Claridad no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.proposito.relevancia === "" 
-    ) {
+    if (JSON.parse(FT)?.proposito.relevancia === "") {
       err = 1;
       errores.push("<strong>Propósito</strong>: Relevancia no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.proposito.economia === ""
-    ) {
+    if (JSON.parse(FT)?.proposito.economia === "") {
       err = 1;
       errores.push("<strong>Propósito</strong>: Economia no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.proposito.monitoreable === "" 
-    ) {
+    if (JSON.parse(FT)?.proposito.monitoreable === "") {
       err = 1;
       errores.push("<strong>Propósito</strong>: Monitoreable no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.proposito.adecuado === "" 
-    ) {
+    if (JSON.parse(FT)?.proposito.adecuado === "") {
       err = 1;
       errores.push("<strong>Propósito</strong>: Adecuado no seleccionado.");
     }
-    if (
-      JSON.parse(FT)?.proposito.aporte_marginal === "" 
-    ) {
+    if (JSON.parse(FT)?.proposito.aporte_marginal === "") {
       err = 1;
       errores.push(
         "<strong>Propósito</strong>: Aporte marginal no seleccionado."
@@ -237,9 +208,7 @@ export default function ModalEnviarFT({
 
   const checkComponentes = (v: string) => {
     JSON.parse(FT)?.componentes.map((componente: any, index: number) => {
-      if (
-        componente.tipoDeIndicador === "" 
-      ) {
+      if (componente.tipoDeIndicador === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -247,9 +216,7 @@ export default function ModalEnviarFT({
           } </strong>: Tipo de indicador no seleccionado.`
         );
       }
-      if (
-        componente.dimension === "" 
-      ) {
+      if (componente.dimension === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -269,9 +236,7 @@ export default function ModalEnviarFT({
           } </strong>: Unidad de medida sin información.`
         );
       }
-      if (
-        componente.claridad === "" 
-      ) {
+      if (componente.claridad === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -279,9 +244,7 @@ export default function ModalEnviarFT({
           } </strong>: Claridad no seleccionado.`
         );
       }
-      if (
-        componente.relevancia === "" 
-      ) {
+      if (componente.relevancia === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -289,9 +252,7 @@ export default function ModalEnviarFT({
           } </strong>: Relevancia no seleccionado.`
         );
       }
-      if (
-        componente.economia === "" 
-      ) {
+      if (componente.economia === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -299,9 +260,7 @@ export default function ModalEnviarFT({
           } </strong>: Economia no seleccionado.`
         );
       }
-      if (
-        componente.monitoreable === "" 
-      ) {
+      if (componente.monitoreable === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -309,9 +268,7 @@ export default function ModalEnviarFT({
           } </strong>: Monitoreable no seleccionado.`
         );
       }
-      if (
-        componente.adecuado === "" 
-      ) {
+      if (componente.adecuado === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -319,9 +276,7 @@ export default function ModalEnviarFT({
           } </strong>: Adecuado no seleccionado.`
         );
       }
-      if (
-        componente.aporte_marginal === "" 
-      ) {
+      if (componente.aporte_marginal === "") {
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -336,17 +291,13 @@ export default function ModalEnviarFT({
 
   const checkActividades = (v: string) => {
     JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
-      if (
-        actividad.tipoDeIndicador === "" 
-      ) {
+      if (actividad.tipoDeIndicador === "") {
         errores.push(
           `<strong>Actividad ${actividad.actividad} </strong>: Tipo de indicador no seleccionado.`
         );
         err = 1;
       }
-      if (
-        actividad.dimension === "" 
-      ) {
+      if (actividad.dimension === "") {
         errores.push(
           `<strong>Actividad ${actividad.actividad} </strong>: Dimension no seleccionado.`
         );
@@ -362,49 +313,37 @@ export default function ModalEnviarFT({
         );
         err = 1;
       }
-      if (
-        actividad.claridad === "" 
-      ) {
+      if (actividad.claridad === "") {
         errores.push(
           `<strong>Actividad ${actividad.actividad} </strong>: Claridad no seleccionado.`
         );
         err = 1;
       }
-      if (
-        actividad.relevancia === "" 
-      ) {
+      if (actividad.relevancia === "") {
         errores.push(
           `<strong>Actividad ${actividad.actividad} </strong>: Relevancia no seleccionado.`
         );
         err = 1;
       }
-      if (
-        actividad.economia === "" 
-      ) {
+      if (actividad.economia === "") {
         errores.push(
           `<strong>Actividad ${actividad.actividad} </strong>: Economia no seleccionado.`
         );
         err = 1;
       }
-      if (
-        actividad.monitoreable === "" 
-      ) {
+      if (actividad.monitoreable === "") {
         errores.push(
           `<strong>Actividad ${actividad.actividad} </strong>: Monitoreable no seleccionado.`
         );
         err = 1;
       }
-      if (
-        actividad.adecuado === "" 
-      ) {
+      if (actividad.adecuado === "") {
         errores.push(
           `<strong>Actividad ${actividad.actividad} </strong>: Adecuado no seleccionado.`
         );
         err = 1;
       }
-      if (
-        actividad.aporte_marginal === "" 
-      ) {
+      if (actividad.aporte_marginal === "") {
         errores.push(
           `<strong>Actividad ${actividad.actividad} </strong>: Aporte marginal no seleccionado.`
         );
