@@ -144,17 +144,18 @@ export function TabFinPropositoMA({
 
   const getUnidades = () => {
     axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
+      .get(
+        "http://localhost:8000/api/listadoUnidadesInst",
         {
-          params: {
-            Institucion: "a51c0b8b-56cf-11ed-a988-040300000000",
-          },
-
+        params: {
+            Institucion: "a515c0da-56cf-11ed-a988-040300000000",
+        },
+        
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
         }
+        
       )
 
       .then((r) => {
@@ -162,7 +163,9 @@ export function TabFinPropositoMA({
         console.log(r.data);
       })
 
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err)
+      });
   };
   //carga el codigo y trae la info del catalogo
   useEffect(() => {
