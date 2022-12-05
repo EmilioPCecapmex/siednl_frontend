@@ -33,6 +33,9 @@ export function TabResumenFT({
   MIR: string;
   showResume: Function;
 }) {
+  
+  console.log(cValor);
+
   const [FT, setFT] = useState<IFT>();
 
   let asignarFT = (

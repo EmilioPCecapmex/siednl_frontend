@@ -152,8 +152,7 @@ export const TabActividadesFT = ({
               aument_number++;
 
               return {
-                actividad:
-                  FT === "" ? "" : "A" + (index2 + 1) + "C" + (index + 1),
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
                 tipoDeIndicador:
                   FT === ""
                     ? ""

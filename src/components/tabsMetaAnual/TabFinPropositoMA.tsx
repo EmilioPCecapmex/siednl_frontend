@@ -7,9 +7,6 @@ import {
   ListItemButton,
   Divider,
   FormControl,
-  Select,
-  InputLabel,
-  MenuItem,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { IFinMA } from "./IFin";
