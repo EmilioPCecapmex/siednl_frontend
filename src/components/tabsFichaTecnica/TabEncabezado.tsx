@@ -14,16 +14,20 @@ export function TabEncabezado({
   FT: string;
   MIR: string;
 }) {
+
   const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
 
   const [programaSER, setProgramaSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.programaSER);
   const [objetivoSER, setObjetivoSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.objetivoSER);
   const [objetivoODSSel, setObjetivoODSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.ObjetivoODS);
-  const [metaODSSel, SetMetaODSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.metaODS);
+  
 
   const [catalogoObjetivosDS, setCatalogoObjetivosDS] = useState([
     { Id: "0", ObjetivoODS: "" },
   ]);
+
+  const [metaODSSel, SetMetaODSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.metaODS);
+  
   const [catalogoMetasODS, setCatalogoMetasODS] = useState([
     { Id: "0", MetaODS: "" },
   ]);
@@ -83,23 +87,28 @@ export function TabEncabezado({
     getObjetivos(JSON.stringify(lda).replace("[", "").replace("]", ""));
   }, [show, MIR]);
 
+  ///////////////////////////////////////////////////
   const getObjetivos = (id: string) => {
     
     axios
       .get("http://10.200.4.199:8000/api/ped-columns", {
+
         params: {
           Col: "ObjetivosDs",
           Id: id,
         },
+
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
+
       })
       .then((r) => {
         setCatalogoObjetivosDS(r.data.data);
       })
       .catch((err) => {});
   };
+////////////////////////////////////////////////////////////////
 
   const getMetas = () => {
     axios
@@ -124,7 +133,7 @@ export function TabEncabezado({
   // useEffect(() => {
   //   getObjetivos()
   // }, [])
-
+/////////////////////////////////////////////
   useEffect(() => {
     setEncabezado([
       {
@@ -135,7 +144,7 @@ export function TabEncabezado({
       },
     ]);
   }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel]);
-
+//////////////////////////////////////////////////////////
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -197,6 +206,7 @@ export function TabEncabezado({
       ></TextField>
 
       {/*------------------------TF2--------------------- */}
+  
       <Box
         sx={{
           display: "flex",
@@ -207,7 +217,7 @@ export function TabEncabezado({
           height: "20vh",
           backgroundColor: "#e2e2e2",
         }}
-      >
+       >
         <FormControl sx={{ width: "30vw" }}>
           <Autocomplete
             disabled={false}
@@ -259,6 +269,7 @@ export function TabEncabezado({
       </Box>
 
       {/*------------------------TF3--------------------- */}
+      //////////////////////////////////////////////////////////////////////////////////
       <Box
         sx={{
           display: "flex",
@@ -318,6 +329,7 @@ export function TabEncabezado({
             }}
           />
         </FormControl>
+        ////////////////////////////////////////////////////////////////////////
       </Box>
     </Box>
   );

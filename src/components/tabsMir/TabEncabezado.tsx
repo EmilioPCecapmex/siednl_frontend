@@ -61,17 +61,16 @@ export function TabEncabezado({
 
   const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
   const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
-  const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
+  
 
   const [loadComponentes, setLoadComponentes] = useState<Array<number>>([1, 2]);
-  const [loadComponenteValor, setLoadComponenteValor] = useState<
-    Array<IComponente>
-  >([]);
+  const [loadComponenteValor, setLoadComponenteValor] = useState<Array<IComponente>>([]);
 
   const [loadComponentesFinish, setLoadComponentesFinish] = useState(false)
   const [loadActividades, setLoadActividades] = useState([]);
   const [compActividad, setCompActividad] = useState<Array<ICompActividad>>([]);
 
+/////////////////////////////////////////////////
   useEffect(() => {
     if (MIR !== "") {
       
@@ -134,7 +133,7 @@ export function TabEncabezado({
       setLoadComponentesFinish(true);
     }
   }, [MIR]);
-
+////////////////////////////////////////
   //envio de valores a MIR
   useEffect(() => {
     asignarComponente(loadComponentes);
@@ -263,6 +262,7 @@ export function TabEncabezado({
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
 
+  const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
   //Values
   const [anioFiscal, setAnioFiscal] = useState(y.toString());
   const [institution, setInstitution] = useState("");
@@ -780,7 +780,10 @@ export function TabEncabezado({
           size="small"
           options={catalogoAniosFiscales}
           getOptionLabel={(option) => option.AnioFiscal}
-          value={{ Id: catalogoAniosFiscales[0].Id, AnioFiscal: anioFiscal }}
+          value={{ 
+            Id: catalogoAniosFiscales[0].Id, 
+            AnioFiscal: anioFiscal 
+          }}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;

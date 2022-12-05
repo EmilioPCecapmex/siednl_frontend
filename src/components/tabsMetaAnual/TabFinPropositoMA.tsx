@@ -10,6 +10,7 @@ import {
   Select,
   InputLabel,
   MenuItem,
+  Autocomplete,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { IFinMA } from "./IFin";
@@ -46,13 +47,16 @@ export function TabFinPropositoMA({
       valorNumerador: jsonMA?.fin?.valorNumerador || "",
       valorDenominador: jsonMA?.fin?.valorDenominador || "",
       sentidoDelIndicador: jsonMA?.fin?.sentidoDelIndicador || "",
+
       unidadResponsable: jsonMA?.fin?.unidadResponsable || "",
+
       descIndicador: jsonMA?.fin?.descIndicador || "",
       descNumerador: jsonMA?.fin?.descNumerador || "",
       descDenominador: jsonMA?.fin?.descDenominador || "",
     },
   ]);
 
+  //values
   const [valueProposito, setValueProposito] = useState<Array<IPropositoMA>>([
     {
       metaAnual: jsonMA?.proposito?.metaAnual || "",
@@ -61,6 +65,7 @@ export function TabFinPropositoMA({
       valorDenominador: jsonMA?.proposito?.valorDenominador || "",
       sentidoDelIndicador: jsonMA?.proposito?.sentidoDelIndicador || "",
       unidadResponsable: jsonMA?.proposito?.unidadResponsable || "",
+
       descIndicador: jsonMA?.proposito?.descIndicador || "",
       descNumerador: jsonMA?.proposito?.descNumerador || "",
       descDenominador: jsonMA?.proposito?.descDenominador || "",
@@ -68,6 +73,17 @@ export function TabFinPropositoMA({
   ]);
 
   const [showFin, setShowFin] = useState(true);
+  // variable para la lista
+  //const [unidadR, SetUnidadR] = useState(MA === '' ? '' : JSON.parse(MA).proposito.UnidadResponsable);
+  // catalogo de la lista
+
+  const [Catalogounidadresponsable, setCatalogounidadResponsable] = useState([
+    {
+      Id: 0,
+      UnidadResponsable: "",
+    },
+  ]);
+
   const [showProposito, setShowProposito] = useState(false);
 
   useEffect(() => {
@@ -134,16 +150,27 @@ export function TabFinPropositoMA({
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
         {
-          Institucion: "SECRETARÍA GENERAL DE GOBIERNO",
-        },
-        {
+          params: {
+            Institucion: "a51c0b8b-56cf-11ed-a988-040300000000",
+          },
+
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
         }
       )
-      .then((r) => {});
+
+      .then((r) => {
+        setCatalogounidadResponsable(r.data.data);
+        console.log(r.data);
+      })
+
+      .catch((err) => {});
   };
+  //carga el codigo y trae la info del catalogo
+  useEffect(() => {
+    getUnidades();
+  }, []);
 
   return (
     <Box
@@ -530,34 +557,60 @@ export function TabFinPropositoMA({
                 justifyContent: "space-evenly",
               }}
             >
-              <TextField
-                rows={5}
-                multiline
-                sx={{ width: "40%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueFin[0].unidadResponsable = c.target.value;
-                  setValueFin([...valueFin]);
-                }}
-                value={valueFin[0]?.unidadResponsable || ""}
-              />
+              <FormControl sx={{ width: "40%", boxShadow: 2 }}>
+                <Autocomplete
+                  disabled={false}
+                  disablePortal
+                  options={Catalogounidadresponsable}
+                  getOptionLabel={(option) => option.UnidadResponsable}
+                  value={{
+                    Id: Catalogounidadresponsable[0].Id,
+                    UnidadResponsable: valueFin[0].unidadResponsable,
+                  }}
+                  renderOption={(props: any, option: any) => {
+                    return (
+                      <li {...props}>
+                        <p
+                          style={{
+                            fontFamily: "MontserratRegular",
+                            fontSize: ".7vw",
+                          }}
+                        >
+                          {option.unidadResponsable}
+                        </p>
+                      </li>
+                    );
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={"UNIDADE RESPONSABLE"}
+                      variant="standard"
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratSemiBold",
+                          fontSize: ".8vw",
+                        },
+                      }}
+                      sx={{
+                        "& .MuiAutocomplete-input": {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                    ></TextField>
+                  )}
+                  onChange={(event, value) => {
+                    //SetUnidadR(value?.UnidadResponsable as string)
+                    valueFin[0].unidadResponsable =
+                      value?.UnidadResponsable as string;
+                    setValueFin([...valueFin]);
+                  }}
+                  isOptionEqualToValue={(option, value) =>
+                    option.Id === value.Id
+                  }
+                />
+              </FormControl>
+
               <TextField
                 rows={5}
                 multiline
@@ -880,6 +933,7 @@ export function TabFinPropositoMA({
                 />
               </FormControl>
             </Box>
+
             <Box
               sx={{
                 display: "flex",
@@ -889,34 +943,60 @@ export function TabFinPropositoMA({
                 justifyContent: "space-evenly",
               }}
             >
-              <TextField
-                rows={5}
-                multiline
-                sx={{ width: "40%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueProposito[0].unidadResponsable = c.target.value;
-                  setValueProposito([...valueProposito]);
-                }}
-                value={valueProposito[0]?.unidadResponsable || ""}
-              />
+              <FormControl sx={{ width: "40%", boxShadow: 2 }}>
+                <Autocomplete
+                  disabled={false}
+                  disablePortal
+                  options={Catalogounidadresponsable}
+                  getOptionLabel={(option) => option.UnidadResponsable}
+                  value={{
+                    Id: Catalogounidadresponsable[0].Id,
+                    UnidadResponsable: valueProposito[0].unidadResponsable,
+                  }}
+                  renderOption={(props: any, option: any) => {
+                    return (
+                      <li {...props}>
+                        <p
+                          style={{
+                            fontFamily: "MontserratRegular",
+                            fontSize: ".7vw",
+                          }}
+                        >
+                          {option.unidadResponsable}
+                        </p>
+                      </li>
+                    );
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={"UNIDADE RESPONSABLE"}
+                      variant="standard"
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratSemiBold",
+                          fontSize: ".8vw",
+                        },
+                      }}
+                      sx={{
+                        "& .MuiAutocomplete-input": {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                    ></TextField>
+                  )}
+                  onChange={(event, value) => {
+                    //SetUnidadR(value?.UnidadResponsable as string)
+                    valueProposito[0].unidadResponsable =
+                      value?.UnidadResponsable as string;
+                    setValueProposito([...valueProposito]);
+                  }}
+                  isOptionEqualToValue={(option, value) =>
+                    option.Id === value.Id
+                  }
+                />
+              </FormControl>
+
               <TextField
                 rows={5}
                 multiline

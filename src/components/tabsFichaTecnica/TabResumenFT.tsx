@@ -1638,7 +1638,9 @@ export function TabResumenFT({
            MIR={MIR}
            showResume={showResume}
            IdFT={IdFT}
+           IdMa ={IdMA}
            IdMIR={IdMir}
+
            MAEdit={
              localStorage.getItem("Rol") !== "Administrador"
               ? ""

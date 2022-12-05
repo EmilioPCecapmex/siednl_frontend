@@ -153,7 +153,7 @@ export const TabActividadesFT = ({
 
               return {
                 actividad:
-                  FT === "" ? "" : "A" + (index2 + 1) + "C" + (index + 1),
+                  "A" + (index2 + 1) + "C" + (index + 1),
                 tipoDeIndicador:
                   FT === ""
                     ? ""
