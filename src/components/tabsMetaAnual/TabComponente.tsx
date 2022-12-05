@@ -109,7 +109,7 @@ export const TabComponenteMA = ({
 
   useEffect(() => {
     valoresComponenteMAFnc(componentesValues);
-  }, [MA, show]);
+  }, [componentesValues]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");

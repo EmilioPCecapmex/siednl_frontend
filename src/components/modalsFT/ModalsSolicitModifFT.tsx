@@ -83,13 +83,6 @@ export default function ModalSolicitaModif({
   
     errores = [];
 
-
-    console.log(FT);
-    
-   
-
-
-    
     if (JSON.parse(FT)?.encabezado.programaSER === null || JSON.parse(FT)?.encabezado.programaSER === undefined
     || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER) ) {
       err = 1;
@@ -264,7 +257,6 @@ export default function ModalSolicitaModif({
 
   const checkcomponentes = (v: string) => {
     JSON.parse(FT)?.componentes.map((componente: any, index: number) => {
-      console.log(componente);
       if (
         componente.tipoDeIndicador === undefined ||
         componente.tipoDeIndicador === null ||
