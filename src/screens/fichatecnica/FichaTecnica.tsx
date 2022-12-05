@@ -687,6 +687,22 @@ export const FichaTecnica = () => {
                               <Tooltip title="REGISTRAR FICHA TÉCNICA">
                                 <span>
                                   <IconButton
+                                  disabled={
+                                    row.Estado === "En Captura" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Capturador"
+                                      ? false
+                                      : row.Estado === "En Revisión" &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador"
+                                      ? false
+                                      : row.Estado === "En Autorización" &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador"
+                                      ? false
+                                      : true
+                                  }
+                                  
                                     onClick={() => {
                                       setFTEdit([
                                         {
@@ -708,13 +724,6 @@ export const FichaTecnica = () => {
                                     }}
                                   >
                                     <AddCircleOutlineIcon
-                                      sx={{
-                                        "&:hover": {
-                                          color: "blue",
-                                        },
-                                        width: "1.2vw",
-                                        height: "1.2vw",
-                                      }}
                                     />
                                   </IconButton>
                                 </span>
