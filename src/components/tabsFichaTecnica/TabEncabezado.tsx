@@ -195,7 +195,7 @@ export function TabEncabezado({
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={"OBJETIVO DS"}
+                label={"OBJETIVO ODS"}
                 variant="standard"
                 InputLabelProps={{
                   style: {

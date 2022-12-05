@@ -89,8 +89,8 @@ export default function ModalEnviarFT({
       errores.push("<strong>Encabezado</strong>: Objetivo sectorial, especial o regional sin información.");
     }
     if (
-      JSON.parse(FT)?.encabezado.catalogoObjetivoODS === undefined ||
-      JSON.parse(FT)?.encabezado.catalogoObjetivoODS === "" 
+      JSON.parse(FT)?.encabezado.objetivoODS === undefined ||
+      JSON.parse(FT)?.encabezado.objetivoODS === "" 
     ) {
       err = 1;
       errores.push(
@@ -98,8 +98,8 @@ export default function ModalEnviarFT({
       );
     }
     if (
-      JSON.parse(FT)?.encabezado.catalogoMetaODS === undefined ||
-      JSON.parse(FT)?.encabezado.catalogoMetaODS === "" 
+      JSON.parse(FT)?.encabezado.metaODS === undefined ||
+      JSON.parse(FT)?.encabezado.metaODS === "" 
     ) {
       err = 1;
       errores.push(

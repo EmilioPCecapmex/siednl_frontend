@@ -159,8 +159,8 @@ export function TabResumenFT({
   const [editEncabezado, setEditEncabezado] = useState<IEncabezadoEditFT>({
     programaSER: true,
     objetivoSER: true,
-    catalogoObjetivoODS: true,
-    catalogoMetaODS: true,
+    objetivoODS: true,
+    metaODS: true,
   });
 
   const [editFin, setEditFin] = useState<IFinEditFT>({
@@ -1677,8 +1677,8 @@ export default TabResumenFT;
 export interface IEncabezadoEditFT {
   programaSER: boolean;
   objetivoSER: boolean;
-  catalogoObjetivoODS: boolean;
-  catalogoMetaODS: boolean;
+  objetivoODS: boolean;
+  metaODS: boolean;
 }
 
 export interface IFinEditFT {
