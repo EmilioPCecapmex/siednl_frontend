@@ -18,7 +18,7 @@ export function TabEncabezado({
 
   const [programaSER, setProgramaSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.programaSER || '');
   const [objetivoSER, setObjetivoSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.objetivoSER || '');
-  const [objetivoODSSel, setObjetivoDSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.ObjetivoODS || '');
+  const [objetivoODSSel, setObjetivoDSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.objetivoODS || '');
   const [metaODSSel, setMetaODSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.metaODS || '');
 
   const [disabledMetas, setDisabledMetas] = useState(true);

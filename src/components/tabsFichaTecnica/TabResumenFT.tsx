@@ -33,9 +33,6 @@ export function TabResumenFT({
   MIR: string;
   showResume: Function;
 }) {
-  
-  console.log(cValor);
-
   const [FT, setFT] = useState<IFT>();
 
   let asignarFT = (
@@ -124,7 +121,6 @@ export function TabResumenFT({
   });
 
   const creaFT = (estado: string) => {
-    
     axios
       .post(
         "http://10.200.4.199:8000/api/create-FichaTecnica",

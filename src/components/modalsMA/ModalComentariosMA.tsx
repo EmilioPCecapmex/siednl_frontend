@@ -164,9 +164,6 @@ export const ComentDialogMA = ({
         });
       })
       .catch((err) => {
-        console.log(err);
-        
-        
         Toast.fire({
           icon: "error",
           title: "Se produjo un error",
