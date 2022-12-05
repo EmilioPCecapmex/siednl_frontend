@@ -71,13 +71,13 @@ export function TabFinPropositoMA({
 
   const [showFin, setShowFin] = useState(true);
   // variable para la lista
-  //const [unidadR, SetUnidadR] = useState(MA === '' ? '' : JSON.parse(MA).proposito.UnidadResponsable);
+  //const [unidadR, SetUnidadR] = useState(MA === '' ? '' : JSON.parse(MA).proposito.unidad);
   // catalogo de la lista
 
   const [Catalogounidadresponsable, setCatalogounidadResponsable] = useState([
     {
       Id: 0,
-      UnidadResponsable: "",
+      unidad: "",
     },
   ]);
 
@@ -86,7 +86,6 @@ export function TabFinPropositoMA({
   useEffect(() => {
     resumenFinMa(valueFin);
     resumenPropositoMa(valueProposito);
-    getUnidades();
   }, [valueFin, valueProposito]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
@@ -145,17 +144,16 @@ export function TabFinPropositoMA({
   const getUnidades = () => {
     axios
       .get(
-        "http://localhost:8000/api/listadoUnidadesInst",
+        "http://10.200.4.105:8000/api/listadoUnidadesInst",
         {
-        params: {
-            Institucion: "a515c0da-56cf-11ed-a988-040300000000",
-        },
-        
+          params: {
+            Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
+          },
+
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
         }
-        
       )
 
       .then((r) => {
@@ -163,9 +161,7 @@ export function TabFinPropositoMA({
         console.log(r.data);
       })
 
-      .catch((err) => {
-        console.log(err)
-      });
+      .catch((err) => {});
   };
   //carga el codigo y trae la info del catalogo
   useEffect(() => {
@@ -562,25 +558,28 @@ export function TabFinPropositoMA({
                   disabled={false}
                   disablePortal
                   options={Catalogounidadresponsable}
-                  getOptionLabel={(option) => option.UnidadResponsable}
+                  getOptionLabel={(option) => option.unidad}
                   value={{
                     Id: Catalogounidadresponsable[0].Id,
-                    UnidadResponsable: valueFin[0].unidadResponsable,
+                    unidad: valueFin[0].unidadResponsable
                   }}
-                  renderOption={(props: any, option: any) => {
+                  renderOption={(props, option ) => {
                     return (
-                      <li {...props}>
+                      <li {...props} key={option.Id}>
                         <p
                           style={{
                             fontFamily: "MontserratRegular",
                             fontSize: ".7vw",
                           }}
                         >
-                          {option.unidadResponsable}
+                          {option.unidad}
                         </p>
+                      
                       </li>
                     );
+                   
                   }}
+                  
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -600,9 +599,8 @@ export function TabFinPropositoMA({
                     ></TextField>
                   )}
                   onChange={(event, value) => {
-                    //SetUnidadR(value?.UnidadResponsable as string)
                     valueFin[0].unidadResponsable =
-                      value?.UnidadResponsable as string;
+                      value?.unidad as string;
                     setValueFin([...valueFin]);
                   }}
                   isOptionEqualToValue={(option, value) =>
@@ -948,10 +946,10 @@ export function TabFinPropositoMA({
                   disabled={false}
                   disablePortal
                   options={Catalogounidadresponsable}
-                  getOptionLabel={(option) => option.UnidadResponsable}
+                  getOptionLabel={(option) => option.unidad}
                   value={{
                     Id: Catalogounidadresponsable[0].Id,
-                    UnidadResponsable: valueProposito[0].unidadResponsable,
+                    unidad: valueProposito[0].unidadResponsable,
                   }}
                   renderOption={(props: any, option: any) => {
                     return (
@@ -962,7 +960,7 @@ export function TabFinPropositoMA({
                             fontSize: ".7vw",
                           }}
                         >
-                          {option.unidadResponsable}
+                          {option.unidad}
                         </p>
                       </li>
                     );
@@ -986,11 +984,12 @@ export function TabFinPropositoMA({
                     ></TextField>
                   )}
                   onChange={(event, value) => {
-                    //SetUnidadR(value?.UnidadResponsable as string)
+                    //SetUnidadR(value?.unidad as string)
                     valueProposito[0].unidadResponsable =
-                      value?.UnidadResponsable as string;
+                      value?.unidad as string;
                     setValueProposito([...valueProposito]);
                   }}
+
                   isOptionEqualToValue={(option, value) =>
                     option.Id === value.Id
                   }
