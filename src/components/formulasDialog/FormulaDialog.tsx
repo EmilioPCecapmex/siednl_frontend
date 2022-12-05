@@ -37,10 +37,8 @@ export const FormulaDialog = ({
       if(descA === ""){
         setEmptyTxt(true)
       }else{
-        if (tipo === "Indice" || tipo === "Índice"){
-          textoSet(descA.replaceAll('"','').replaceAll("'","").replaceAll('\n',''));
+        textoSet(descA.replaceAll('"','').replaceAll("'","").replaceAll('\n',''));
         close();
-        }
       }
     }else{
     if(descA === "" || descB === ""){
