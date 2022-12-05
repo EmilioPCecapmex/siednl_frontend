@@ -14,6 +14,7 @@ export function TabEncabezado({
   FT: string;
   MIR: string;
 }) {
+
   const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
 
   const [programaSER, setProgramaSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.programaSER || '');
@@ -26,6 +27,9 @@ export function TabEncabezado({
   const [catalogoObjetivosDS, setCatalogoObjetivosDS] = useState([
     { Id: "", ObjetivoDS: "" },
   ]);
+
+ 
+  
   const [catalogoMetasODS, setCatalogoMetasODS] = useState([
     { Id: "", MetaODS: "" },
   ]);
@@ -51,13 +55,16 @@ export function TabEncabezado({
     id.map((value, index) => {
       axios
       .get("http://10.200.4.199:8000/api/ped-columns", {
+
         params: {
           Col: "ObjetivosDs",
           Id: value,
         },
+
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
+
       })
       .then((r) => {
         setCatalogoObjetivosDS(r.data.data);
@@ -65,6 +72,7 @@ export function TabEncabezado({
       .catch((err) => {});
     })
   };
+////////////////////////////////////////////////////////////////
 
   const getMetas = (Id: string) => {
     axios
@@ -97,7 +105,7 @@ export function TabEncabezado({
       },
     ]);
   }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel]);
-
+//////////////////////////////////////////////////////////
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -159,6 +167,7 @@ export function TabEncabezado({
       ></TextField>
 
       {/*------------------------TF2--------------------- */}
+  
       <Box
         sx={{
           display: "flex",
@@ -169,7 +178,7 @@ export function TabEncabezado({
           height: "20vh",
           backgroundColor: "#e2e2e2",
         }}
-      >
+       >
         <FormControl sx={{ width: "30vw" }}>
           <Autocomplete
             options={catalogoObjetivosDS}
@@ -219,6 +228,7 @@ export function TabEncabezado({
       </Box>
 
       {/*------------------------TF3--------------------- */}
+      //////////////////////////////////////////////////////////////////////////////////
       <Box
         sx={{
           display: "flex",
@@ -277,6 +287,7 @@ export function TabEncabezado({
             }}
           />
         </FormControl>
+        ////////////////////////////////////////////////////////////////////////
       </Box>
     </Box>
   );

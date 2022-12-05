@@ -35,9 +35,7 @@ export const TabComponenteMA = ({
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
-  const [componentesValues, setComponentesValues] = useState<
-    Array<IComponenteMA>
-  >([]);
+  const [componentesValues, setComponentesValues] = useState<Array<IComponenteMA>>([]);
 
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
 
@@ -92,8 +90,10 @@ export const TabComponenteMA = ({
           MA === ""
             ? ""
             : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
+
         unidadResponsable:
           MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
+          
         descIndicador:
           MA === "" ? "" : jsonMA?.componentes[index]?.descIndicador || "",
         descNumerador:

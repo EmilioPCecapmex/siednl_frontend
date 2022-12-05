@@ -26,6 +26,7 @@ export default function ModalSolicitaModif({
   FT,
   MIR,
   IdFT,
+  IdMa,
   IdMIR,
   showResume,
   MAEdit,
@@ -36,6 +37,7 @@ export default function ModalSolicitaModif({
   FT: string;
   MIR: string;
   IdFT: string;
+  IdMa: string;
   IdMIR: string;
   MAEdit: string;
 }) {
@@ -340,9 +342,12 @@ export default function ModalSolicitaModif({
 
     checkActividades(v);
   };
-
+////////////////////////////////////////////////////////////////////////
   const checkActividades = (v: string) => {
-    JSON.parse(FT)?.actividades.every((actividad: any, index: number) => {
+    console.log("1");
+    JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
+      console.log(actividad.actividad);
+      
       if (
         actividad.tipoDeIndicador === undefined ||
         actividad.tipoDeIndicador === null ||
@@ -351,7 +356,7 @@ export default function ModalSolicitaModif({
         err = 1;
         errores.push(
           `<strong>actividad ${
-            index + 1
+            actividad.actividad
           }  </strong>: Tipo de indicador sin información`
         );
       }
@@ -359,8 +364,7 @@ export default function ModalSolicitaModif({
       if (actividad.dimension === undefined || actividad.dimension === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${
-            index + 1
+          `<strong>actividad ${actividad.actividad
           }  </strong>: Tipo de Dimensíon sin información`
         );
       }
@@ -372,7 +376,7 @@ export default function ModalSolicitaModif({
         err = 1;
         errores.push(
           `<strong>actividad ${
-            index + 1
+            actividad.actividad
           }  </strong>: Tipo de Unidad de medida sin información`
         );
       }
@@ -380,7 +384,7 @@ export default function ModalSolicitaModif({
       if (actividad.claridad === undefined || actividad.claridad === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${index + 1}  </strong>: Claridad sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Claridad sin información`
         );
       }
 
@@ -388,7 +392,7 @@ export default function ModalSolicitaModif({
         err = 1;
         errores.push(
           `<strong>actividad ${
-            index + 1
+            actividad.actividad
           }  </strong>: Relevancia sin información`
         );
       }
@@ -396,7 +400,7 @@ export default function ModalSolicitaModif({
       if (actividad.economia === undefined || actividad.economia === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${index + 1}  </strong>: Economía sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Economía sin información`
         );
       }
 
@@ -407,7 +411,7 @@ export default function ModalSolicitaModif({
         err = 1;
         errores.push(
           `<strong>actividad ${
-            index + 1
+            actividad.actividad
           }  </strong>: Monitoreable sin información`
         );
       }
@@ -415,7 +419,7 @@ export default function ModalSolicitaModif({
       if (actividad.adecuado === undefined || actividad.adecuado === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${index + 1}  </strong>: Adecuado sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Adecuado sin información`
         );
       }
 
@@ -425,14 +429,16 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${index + 1}  </strong>: Adecuado sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Adecuado sin información`
         );
       }
+      
     });
+    
+    /////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////
     if (err === 0) {
-      //createFT(v);
+      createFT(v);
     } else {
       Toast.fire({
         icon: "error",
@@ -460,7 +466,7 @@ export default function ModalSolicitaModif({
     }
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor:
@@ -469,6 +475,7 @@ export default function ModalSolicitaModif({
               : localStorage.getItem("IdUsuario"),
           IdMir: IdMIR,
           Estado: estado,
+          IdMa: IdMa,
           Id: IdFT,
         },
         {

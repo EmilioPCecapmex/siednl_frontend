@@ -73,8 +73,6 @@ export const TabActividadesFT = ({
     })
   );
 
-  
-
   useEffect(() => {
     asignarCValor(aValorFT);
   }, [aValorFT]);
@@ -89,14 +87,14 @@ export const TabActividadesFT = ({
             {
               actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
               tipoDeIndicador: "",
-                claridad: "",
-                relevancia: "",
-                economia: "",
-                monitoreable: "",
-                adecuado: "",
-                aporte_marginal: "",
-                dimension: "",
-                unidadDeMedida: "",
+              claridad: "",
+              relevancia: "",
+              economia: "",
+              monitoreable: "",
+              adecuado: "",
+              aporte_marginal: "",
+              dimension: "",
+              unidadDeMedida: "",
             },
             {
               actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
@@ -128,8 +126,6 @@ export const TabActividadesFT = ({
     }
   }, [show, compAct]);
 
- 
-
   useEffect(() => {
     if (compAct.length > 0) {
       loadActividadesFT();
@@ -148,7 +144,6 @@ export const TabActividadesFT = ({
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
-              
               aument_number++;
 
               return {
@@ -192,9 +187,6 @@ export const TabActividadesFT = ({
 
     setAValorFT(y);
   };
-
- 
-  
 
   const [open, setOpen] = useState(1);
 
