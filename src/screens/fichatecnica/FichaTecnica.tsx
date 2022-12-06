@@ -27,6 +27,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
 import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
+import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -67,8 +68,30 @@ export const FichaTecnica = () => {
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
 
-  //
   const [ftFiltered, setftFiltered] = useState<Array<IIFT>>([]);
+
+  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+
+  const getInstituciones = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setInstituciones(r.data.data);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getInstituciones();
+  }, []);
 
   // Filtrado por caracter
   const findText = (v: string, est: string, inst: string) => {
@@ -148,15 +171,6 @@ export const FichaTecnica = () => {
     setActualizacion(actualizacion + 1);
   };
 
-  const [openModalComents, setOpenModalComents] = useState(false);
-
-  const handleCloseComents = () => {
-    setOpenModalComents(false);
-  };
-
-  const [showFin, setShowFin] = useState(true);
-  const [showProposito, setShowProposito] = useState(false);
-
   const colorMir = (v: string, mEdit: string) => {
     if (mEdit !== undefined) {
       let isModification = mEdit;
@@ -175,29 +189,6 @@ export const FichaTecnica = () => {
       return "#0000ff";
     }
   };
-
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
-
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          setInstituciones(r.data.data);
-        }
-      });
-  };
-
-  useEffect(() => {
-    getInstituciones();
-  }, []);
 
   return (
     <Box
@@ -290,11 +281,11 @@ export const FichaTecnica = () => {
                   v.target.value === "Todos"
                     ? findText(
                         findTextStr,
-                        findSelectStr === "Todos" ? "0" : findSelectStr,
+                        findInstStr === "Todos" ? "0" : findInstStr,
                         "0"
                       )
-                    : findText(findTextStr, findSelectStr, v.target.value);
-                  setFindInstStr(v.target.value);
+                    : findText(findTextStr, v.target.value, findInstStr);
+                  setFindSelectStr(v.target.value);
                 }}
               >
                 <MenuItem
@@ -603,7 +594,7 @@ export const FichaTecnica = () => {
                               >
                                 {row.Estado === "En Captura" &&
                                 localStorage.getItem("Rol") === "Capturador"
-                                  ? "BORRADOR"
+                                  ? "ESPERANDO CAPTURA"
                                   : row.Estado === "En Revisión" &&
                                     localStorage.getItem("Rol") ===
                                       "Verificador"
@@ -662,31 +653,12 @@ export const FichaTecnica = () => {
                                 flexDirection: "row",
                               }}
                             >
-                              <Tooltip title="DESCARGAR">
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "Autorizada" ? false : true
-                                    }
-                                  >
-                                    <DownloadIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "orange",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
                               <Tooltip title="REGISTRAR FICHA TÉCNICA">
                                 <span>
                                   <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? true : false
+                                    }
                                     onClick={() => {
                                       setFTEdit([
                                         {
@@ -710,7 +682,7 @@ export const FichaTecnica = () => {
                                     <AddCircleOutlineIcon
                                       sx={{
                                         "&:hover": {
-                                          color: "blue",
+                                          color: "lightBlue",
                                         },
                                         width: "1.2vw",
                                         height: "1.2vw",
@@ -719,6 +691,35 @@ export const FichaTecnica = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
+                            </Box>
+
+                            <Box sx={{ display: "flex" }}>
+                              <Tooltip title="DESCARGAR">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "orange",
+                                          },
+                                          width: "1.2vw",
+                                          height: "1.2vw",
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                              <ComentDialogFT
+                                estado={row.Estado}
+                                id={row.IdMir}
+                                actualizado={actualizaContador}
+                              />
                             </Box>
                           </TableCell>
                         </TableRow>

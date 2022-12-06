@@ -70,14 +70,11 @@ export function TabFinPropositoMA({
   ]);
 
   const [showFin, setShowFin] = useState(true);
-  // variable para la lista
-  //const [unidadR, SetUnidadR] = useState(MA === '' ? '' : JSON.parse(MA).proposito.unidad);
-  // catalogo de la lista
 
-  const [Catalogounidadresponsable, setCatalogounidadResponsable] = useState([
+  const [catalogoUnidadResponsable, setCatalogounidadResponsable] = useState([
     {
       Id: 0,
-      unidad: "",
+      Unidad: "",
     },
   ]);
 
@@ -143,18 +140,15 @@ export function TabFinPropositoMA({
 
   const getUnidades = () => {
     axios
-      .get(
-        "http://10.200.4.105:8000/api/listadoUnidadesInst",
-        {
-          params: {
-            Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
-          },
+      .get("http://10.200.4.105:8000/api/listadoUnidadesInst", {
+        params: {
+          Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
+        },
 
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
 
       .then((r) => {
         setCatalogounidadResponsable(r.data.data);
@@ -163,7 +157,7 @@ export function TabFinPropositoMA({
 
       .catch((err) => {});
   };
-  //carga el codigo y trae la info del catalogo
+
   useEffect(() => {
     getUnidades();
   }, []);
@@ -553,61 +547,68 @@ export function TabFinPropositoMA({
                 justifyContent: "space-evenly",
               }}
             >
-              <FormControl sx={{ width: "40%", boxShadow: 2 }}>
-                <Autocomplete
-                  disabled={false}
-                  disablePortal
-                  options={Catalogounidadresponsable}
-                  getOptionLabel={(option) => option.unidad}
-                  value={{
-                    Id: Catalogounidadresponsable[0].Id,
-                    unidad: valueFin[0].unidadResponsable
-                  }}
-                  renderOption={(props, option ) => {
-                    return (
-                      <li {...props} key={option.Id}>
-                        <p
-                          style={{
-                            fontFamily: "MontserratRegular",
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  boxShadow: 2,
+                  width: "40%",
+                  height: "12vh",
+                  backgroundColor: "#f0f0f0",
+                }}
+              >
+                <FormControl sx={{ width: "25vw" }}>
+                  <Autocomplete
+                    disabled={false}
+                    options={catalogoUnidadResponsable}
+                    getOptionLabel={(option) => option.Unidad}
+                    value={{
+                      Id: catalogoUnidadResponsable[0].Id,
+                      Unidad: valueFin[0].unidadResponsable,
+                    }}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.Id}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option.Unidad}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"UNIDAD RESPONSABLE"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
                             fontSize: ".7vw",
-                          }}
-                        >
-                          {option.unidad}
-                        </p>
-                      
-                      </li>
-                    );
-                   
-                  }}
-                  
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={"UNIDADE RESPONSABLE"}
-                      variant="standard"
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratSemiBold",
-                          fontSize: ".8vw",
-                        },
-                      }}
-                      sx={{
-                        "& .MuiAutocomplete-input": {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                    ></TextField>
-                  )}
-                  onChange={(event, value) => {
-                    valueFin[0].unidadResponsable =
-                      value?.unidad as string;
-                    setValueFin([...valueFin]);
-                  }}
-                  isOptionEqualToValue={(option, value) =>
-                    option.Id === value.Id
-                  }
-                />
-              </FormControl>
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                    onChange={(event, value) => {
+                      valueFin[0].unidadResponsable = value?.Unidad as string || '';
+                      setValueFin([...valueFin]);
+                    }}
+                    isOptionEqualToValue={(option, value) =>
+                      option.Id === value.Id
+                    }
+                  />
+                </FormControl>{" "}
+              </Box>
 
               <TextField
                 rows={5}
@@ -941,60 +942,69 @@ export function TabFinPropositoMA({
                 justifyContent: "space-evenly",
               }}
             >
-              <FormControl sx={{ width: "40%", boxShadow: 2 }}>
-                <Autocomplete
-                  disabled={false}
-                  disablePortal
-                  options={Catalogounidadresponsable}
-                  getOptionLabel={(option) => option.unidad}
-                  value={{
-                    Id: Catalogounidadresponsable[0].Id,
-                    unidad: valueProposito[0].unidadResponsable,
-                  }}
-                  renderOption={(props: any, option: any) => {
-                    return (
-                      <li {...props}>
-                        <p
-                          style={{
-                            fontFamily: "MontserratRegular",
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  boxShadow: 2,
+                  width: "40%",
+                  height: "12vh",
+                  backgroundColor: "#f0f0f0",
+                }}
+              >
+                <FormControl sx={{ width: "25vw" }}>
+                  <Autocomplete
+                    disabled={false}
+                    options={catalogoUnidadResponsable}
+                    getOptionLabel={(option) => option.Unidad}
+                    value={{
+                      Id: catalogoUnidadResponsable[0].Id,
+                      Unidad: valueProposito[0].unidadResponsable,
+                    }}
+                    renderOption={(props: any, option: any) => {
+                      return (
+                        <li {...props}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option.Unidad}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"UNIDAD RESPONSABLE"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
                             fontSize: ".7vw",
-                          }}
-                        >
-                          {option.unidad}
-                        </p>
-                      </li>
-                    );
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={"UNIDADE RESPONSABLE"}
-                      variant="standard"
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratSemiBold",
-                          fontSize: ".8vw",
-                        },
-                      }}
-                      sx={{
-                        "& .MuiAutocomplete-input": {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                    ></TextField>
-                  )}
-                  onChange={(event, value) => {
-                    //SetUnidadR(value?.unidad as string)
-                    valueProposito[0].unidadResponsable =
-                      value?.unidad as string;
-                    setValueProposito([...valueProposito]);
-                  }}
-
-                  isOptionEqualToValue={(option, value) =>
-                    option.Id === value.Id
-                  }
-                />
-              </FormControl>
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                    onChange={(event, value) => {
+                      valueProposito[0].unidadResponsable =
+                        value?.Unidad as string || '';
+                      setValueProposito([...valueProposito]);
+                    }}
+                    isOptionEqualToValue={(option, value) =>
+                      option.Id === value.Id
+                    }
+                  />
+                </FormControl>
+              </Box>
 
               <TextField
                 rows={5}

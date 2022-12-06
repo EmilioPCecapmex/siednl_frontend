@@ -118,7 +118,7 @@ export function TabFinProposito({
           setErrorIndicadorFin(v);
           setFin({
             ...fin,
-            indicador: ""
+            indicador: "",
           });
         }
       }
@@ -242,9 +242,21 @@ export function TabFinProposito({
 
   const changeFormula = (txt: string) => {
     if (elementoFormula === "Fin") {
-      setFin({ ...fin, formula: txt.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+      setFin({
+        ...fin,
+        formula: txt
+          .replaceAll('"', "")
+          .replaceAll("'", "")
+          .replaceAll("\n", ""),
+      });
     } else if (elementoFormula === "Proposito") {
-      setProposito({ ...proposito, formula: txt.replaceAll('"','').replaceAll("'","").replaceAll('\n','') });
+      setProposito({
+        ...proposito,
+        formula: txt
+          .replaceAll('"', "")
+          .replaceAll("'", "")
+          .replaceAll("\n", ""),
+      });
     }
   };
 
@@ -281,15 +293,15 @@ export function TabFinProposito({
         }}
       >
         <Typography
-            sx={{
-              mr: "1vw",
-              fontFamily: "MontserratSemiBold",
-              fontSize: "1.5vw",
-            }}
-          >
-            {showFin ? "FIN" : null}
-            {showProposito ? "PROPÓSITO" : null}
-          </Typography>
+          sx={{
+            mr: "1vw",
+            fontFamily: "MontserratSemiBold",
+            fontSize: "1.5vw",
+          }}
+        >
+          {showFin ? "FIN" : null}
+          {showProposito ? "PROPÓSITO" : null}
+        </Typography>
       </Box>
 
       <Box
@@ -482,7 +494,7 @@ export function TabFinProposito({
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "60%",
+                  height: "50%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -528,9 +540,6 @@ export function TabFinProposito({
                   }
                 />
               </FormControl>
-
-              
-
 
               <TextField
                 disabled={mirEdit?.fin.medios && fin.medios !== ""}
@@ -604,7 +613,9 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={mirEdit?.proposito.resumen && proposito.resumen !== ""}
+                disabled={
+                  mirEdit?.proposito.resumen && proposito.resumen !== ""
+                }
                 rows={8}
                 multiline
                 variant="filled"
@@ -674,7 +685,9 @@ export function TabFinProposito({
                 value={proposito.indicador}
               />
               <TextField
-                disabled={mirEdit?.proposito.formula && proposito.formula !== ""}
+                disabled={
+                  mirEdit?.proposito.formula && proposito.formula !== ""
+                }
                 rows={8}
                 multiline
                 variant="filled"
@@ -698,7 +711,7 @@ export function TabFinProposito({
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "60%",
+                  height: "50%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",

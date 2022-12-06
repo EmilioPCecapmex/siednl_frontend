@@ -39,9 +39,6 @@ export const TabActividades = ({
   mirEdit?: IMIREdit;
   componentesTextos: Array<IComponente>;
 }) => {
-
-
-  
   // business logic-------------------------------------------------------------------------------
   const [actividades, setActividades] = React.useState([1, 2]);
 
@@ -51,7 +48,6 @@ export const TabActividades = ({
     },
   ]);
 
-  
   useEffect(() => {
     if (show === true && componentes.length > cValor[0].componentes.length) {
       let restantes = componentes.length - cValor[0].componentes.length;
@@ -127,7 +123,6 @@ export const TabActividades = ({
     }
   }, [compAct, componentes]);
 
-  
   let aument_number = -1;
 
   const loadActividadesMir = () => {
@@ -136,15 +131,15 @@ export const TabActividades = ({
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
-
-              
               aument_number++;
-              
+
               return {
-                actividad: actividadesMir[index2]?.actividad || "A" +
-                (cValor[0].componentes[index].actividades.length + 1) +
-                "C" +
-                (index + 1),
+                actividad:
+                  actividadesMir[index2]?.actividad ||
+                  "A" +
+                    (cValor[0].componentes[index].actividades.length + 1) +
+                    "C" +
+                    (index + 1),
                 resumen: actividadesMir[aument_number]?.resumen || "",
                 indicador: actividadesMir[aument_number]?.indicador || "",
                 formula: actividadesMir[aument_number]?.formula || "",
@@ -157,7 +152,6 @@ export const TabActividades = ({
         }),
       };
     });
-    
 
     actividadesMir.map((x) => {
       let act = x.actividad?.split("")[1];
@@ -333,7 +327,6 @@ export const TabActividades = ({
     }
   };
 
-  //return main
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -356,6 +349,7 @@ export const TabActividades = ({
         tipo={tipoFormula}
         elemento={elementoFormula}
       />
+
       <Box
         sx={{
           width: "100%",
@@ -365,12 +359,11 @@ export const TabActividades = ({
           justifyContent: "flex-end",
         }}
       >
-        {/* Botones Componentes */}
         <Typography
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.2vw",
+            fontSize: "1.5vw",
           }}
         >
           ACTIVIDAD # {actividadSelect + 1}
@@ -467,9 +460,7 @@ export const TabActividades = ({
                     },
                   }}
                 >
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-                  >
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     COMPONENTE {item}
                   </Typography>
 
@@ -514,18 +505,14 @@ export const TabActividades = ({
 
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
             width: "90%",
             alignItems: "center",
-            justifyContent: "center",
+            justifyItems: "center",
           }}
         >
-          {/* Textfields box */}
-
-          {/* Renderizado de Actividades */}
-
-          <Box sx={{ width: "90%" }}>
+          <Box sx={{ width: "90%", gridColumn: "1/4" }}>
             <Typography
               sx={{
                 fontFamily: "MontserratSemiBold",
@@ -545,250 +532,221 @@ export const TabActividades = ({
               {componentesTextos[componenteSelect]?.resumen}
             </Typography>
           </Box>
-          <Box
-            sx={{
-              width: "100%",
-              height: "40%",
-              justifyContent: "space-evenly",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <TextField
-              disabled={mirEdit?.actividades[componenteSelect].resumen}
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={8}
-              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
-              label={"Resumen Narrativo"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ]?.resumen
-              }
-              onChange={(c) => {
-                let y = [...cValor];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].resumen = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setCValor(y);
-              }}
-            />
-            <TextField
-              disabled={mirEdit?.actividades[componenteSelect].indicador}
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={8}
-              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
-              label={"Indicador"}
-              onBlur={() => evalueTxtIndicador()}
-              error={
-                errorIndicadorComponente === componenteSelect &&
-                errorIndicadorActividad === actividadSelect
-                  ? true
-                  : false
-              }
-              helperText={
-                errorIndicadorComponente === componenteSelect &&
-                errorIndicadorActividad === actividadSelect
-                  ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
-                  : null
-              }
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ]?.indicador
-              }
-              onChange={(c) => {
-                let y = [...cValor];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].indicador = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setCValor(y);
-              }}
-            />
-            <TextField
-              disabled={mirEdit?.actividades[componenteSelect].formula}
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                readOnly: true,
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={8}
-              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
-              label={"Fórmula"}
-              onClick={() => evalueTxtIndicador()}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ]?.formula
-              }
-              onChange={(c) => {
-                let y = [...cValor];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].formula = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setCValor(y);
-              }}
-            />
-          </Box>
-          <Box
-            sx={{
-              width: "100%",
-              height: "40%",
 
-              justifyContent: "space-evenly",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <FormControl
-              sx={{
-                width: "30%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
+          <TextField
+            disabled={mirEdit?.actividades[componenteSelect].resumen}
+            rows={8}
+            multiline
+            sx={{ width: "90%", boxShadow: 2 }}
+            variant="filled"
+            label={"RESUMEN NARRATIVO"}
+            InputLabelProps={{
+              style: {
                 fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel>FRECUENCIA</FormLabel>
-              <FormControlLabel
-                value={"TRIMESTRAL"}
-                label={"TRIMESTRAL"}
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    checked={
-                      cValor[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.frecuencia === "TRIMESTRAL"
-                    }
-                    onChange={(c) => {
-                      let y = [...cValor];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].frecuencia = c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "");
-                      setCValor(y);
-                    }}
-                  />
-                }
-              />
-            </FormControl>
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              let y = [...cValor];
+              y[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ].resumen = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              setCValor(y);
+            }}
+            value={
+              cValor[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.resumen
+            }
+          />
+          <TextField
+            disabled={mirEdit?.actividades[componenteSelect].indicador}
+            rows={8}
+            multiline
+            sx={{ width: "90%", boxShadow: 2 }}
+            variant="filled"
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            label={"INDICADOR"}
+            onBlur={() => evalueTxtIndicador()}
+            error={
+              errorIndicadorComponente === componenteSelect &&
+              errorIndicadorActividad === actividadSelect
+                ? true
+                : false
+            }
+            helperText={
+              errorIndicadorComponente === componenteSelect &&
+              errorIndicadorActividad === actividadSelect
+                ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                : null
+            }
+            onChange={(c) => {
+              let y = [...cValor];
+              y[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ].indicador = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              setCValor(y);
+            }}
+            value={
+              cValor[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.indicador
+            }
+          />
+          <TextField
+            disabled={mirEdit?.actividades[componenteSelect].formula}
+            rows={8}
+            multiline
+            variant="filled"
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              readOnly: true,
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            sx={{ width: "90%", boxShadow: 2 }}
+            label={"FÓRMULA"}
+            onClick={() => evalueTxtIndicador()}
+            value={
+              cValor[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.formula
+            }
+          />
 
-            <TextField
-              disabled={mirEdit?.actividades[componenteSelect].medios}
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
+          <FormControl
+            sx={{
+              width: "90%",
+              height: "64%",
+              backgroundColor: "#f0f0f0",
+              boxShadow: 2,
+              fontFamily: "MontserratMedium",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <FormLabel>FRECUENCIA</FormLabel>
+            <FormControlLabel
+              value={"TRIMESTRAL"}
+              label={"TRIMESTRAL"}
+              sx={{
+                fontFamily: "MontserratMedium",
               }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={8}
-              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
-              label={"Medios de Verificación"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ]?.medios
+              control={
+                <Radio
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  checked={
+                    cValor[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.frecuencia === "TRIMESTRAL"
+                  }
+                  onChange={(c) => {
+                    let y = [...cValor];
+                    y[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ].frecuencia = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setCValor(y);
+                  }}
+                />
               }
-              onChange={(c) => {
-                let y = [...cValor];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].medios = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setCValor(y);
-              }}
             />
-            <TextField
-              disabled={mirEdit?.actividades[componenteSelect].supuestos}
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={8}
-              sx={{ width: "30%", boxShadow: 2, textTransform: "uppercase" }}
-              label={"Supuestos"}
-              value={
-                cValor[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ]?.supuestos
-              }
-              onChange={(c) => {
-                let y = [...cValor];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].supuestos = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setCValor(y);
-              }}
-            />
-          </Box>
+          </FormControl>
+
+          <TextField
+            disabled={mirEdit?.actividades[componenteSelect].medios}
+            rows={8}
+            multiline
+            variant="filled"
+            sx={{ width: "90%", boxShadow: 2 }}
+            label={"MEDIOS DE VERIFICACIÓN"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              let y = [...cValor];
+              y[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ].medios = c.target.value
+              .replaceAll('"', "")
+              .replaceAll("'", "")
+              .replaceAll("\n", "");
+              setCValor(y);
+            }}
+            value={
+              cValor[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.medios
+            }
+          />
+          <TextField
+            disabled={mirEdit?.actividades[componenteSelect].supuestos}
+            rows={8}
+            multiline
+            variant="filled"
+            sx={{ width: "90%", boxShadow: 2 }}
+            label={"SUPUESTOS"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            value={
+              cValor[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.supuestos
+            }
+            onChange={(c) => {
+              let y = [...cValor];
+              y[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ].supuestos = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              setCValor(y);
+            }}
+          />
         </Box>
       </Box>
     </Box>

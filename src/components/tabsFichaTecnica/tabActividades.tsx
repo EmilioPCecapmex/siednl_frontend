@@ -151,33 +151,39 @@ export const TabActividadesFT = ({
                 tipoDeIndicador:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.tipoDeIndicador,
+                    : jsonFT?.actividades[aument_number]?.tipoDeIndicador || "",
                 claridad:
-                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.claridad,
+                  FT === ""
+                    ? ""
+                    : jsonFT?.actividades[aument_number]?.claridad || "",
                 relevancia:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.relevancia,
+                    : jsonFT?.actividades[aument_number]?.relevancia || "",
                 economia:
-                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.economia,
+                  FT === ""
+                    ? ""
+                    : jsonFT?.actividades[aument_number]?.economia || "",
                 monitoreable:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.monitoreable,
+                    : jsonFT?.actividades[aument_number]?.monitoreable || "",
                 adecuado:
-                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.adecuado,
+                  FT === ""
+                    ? ""
+                    : jsonFT?.actividades[aument_number]?.adecuado || "",
                 aporte_marginal:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.aporte_marginal,
+                    : jsonFT?.actividades[aument_number]?.aporte_marginal || "",
                 dimension:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.dimension,
+                    : jsonFT?.actividades[aument_number]?.dimension || "",
                 unidadDeMedida:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.unidadDeMedida,
+                    : jsonFT?.actividades[aument_number]?.unidadDeMedida || "",
               };
             }),
           };
