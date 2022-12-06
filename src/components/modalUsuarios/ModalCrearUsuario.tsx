@@ -172,18 +172,19 @@ export default function ModalCrearUsuario({
         "http://10.200.4.105:5000/api/create-solicitud",
         {
           IdUsuario: idUsuarioCentral,
-          DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
+          DatosAdicionales: `Tipo de usuario: ${userType}, Cargo: ${rol}, Institución: ${institution}`,
           TipoSolicitud: "Alta",
           CreadoPor: localStorage.getItem("IdCentral"),
           IdApp: localStorage.getItem("IdApp"),
         },
         {
           headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
+            Authorization: localStorage.getItem("jwtToken") as string,
           },
         }
       )
       .then((r) => {
+        console.log(r)
         console.log(r.data.data[0][0].IdSolicitud)
         
         if ( r.data.data[0][0].Respuesta== 201) {
@@ -196,6 +197,7 @@ export default function ModalCrearUsuario({
         }
       })
       .catch((r) => {
+        console.log(r)
         if (r.data.data[0][0].Respuesta == 409) {
           setErrorsForm({
             visible: true,
