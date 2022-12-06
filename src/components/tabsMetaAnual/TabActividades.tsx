@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -6,12 +6,12 @@ import {
   ListItemButton,
   TextField,
   FormControl,
+  Autocomplete,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { ICValor } from "../tabsMir/ICValor";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -19,6 +19,7 @@ import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import { IComponenteActividad } from "../tabsMir/AddMir";
+import axios from "axios";
 
 //funcion main
 export const TabActividadesMA = ({
@@ -103,7 +104,6 @@ export const TabActividadesMA = ({
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
-              
               aument_number++;
 
               return {
@@ -287,6 +287,37 @@ export const TabActividadesMA = ({
     ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3] + "%";
     setAValorMA([...aValorMA]);
   };
+
+  const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
+    {
+      Id: 0,
+      Unidad: "",
+    },
+  ]);
+
+  const getUnidades = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/listadoUnidadesInst", {
+        params: {
+          Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
+        },
+
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+
+      .then((r) => {
+        setCatalogoUnidadResponsable(r.data.data);
+        console.log(r.data);
+      })
+
+      .catch((err) => {});
+  };
+
+  useEffect(() => {
+    getUnidades();
+  }, []);
 
   //return main
   return (
@@ -872,6 +903,7 @@ export const TabActividadesMA = ({
               }}
             />
           </Box>
+
           <Box
             sx={{
               display: "flex",
@@ -881,41 +913,74 @@ export const TabActividadesMA = ({
               justifyContent: "space-evenly",
             }}
           >
-            <TextField
-              rows={5}
-              multiline
-              sx={{ width: "40%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
-                </Typography>
-              }
-              value={
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ]?.unidadResponsable || ""
-              }
-              onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].unidadResponsable = c.target.value;
-                setAValorMA(y);
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: 2,
+                width: "40%",
+                height: "12vh",
+                backgroundColor: "#f0f0f0",
               }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-            />
+            >
+              <FormControl sx={{ width: "25vw" }}>
+                <Autocomplete
+                  disabled={false}
+                  options={catalogoUnidadResponsable}
+                  getOptionLabel={(option) => option.Unidad}
+                  value={{
+                    Id: catalogoUnidadResponsable[0].Id,
+                    Unidad:
+                      aValorMA[0].componentes[componenteSelect].actividades[
+                        actividadSelect
+                      ]?.unidadResponsable,
+                  }}
+                  renderOption={(props, option) => {
+                    return (
+                      <li {...props} key={option.Id}>
+                        <p
+                          style={{
+                            fontFamily: "MontserratRegular",
+                            fontSize: ".7vw",
+                          }}
+                        >
+                          {option.Unidad}
+                        </p>
+                      </li>
+                    );
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={"UNIDAD RESPONSABLE"}
+                      variant="standard"
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratSemiBold",
+                          fontSize: ".7vw",
+                        },
+                      }}
+                      sx={{
+                        "& .MuiAutocomplete-input": {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                    ></TextField>
+                  )}
+                  onChange={(event, value) => {
+                    let y = [...aValorMA];
+                    y[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ].unidadResponsable = value?.Unidad || "";
+                    setAValorMA(y);
+                  }}
+                  isOptionEqualToValue={(option, value) =>
+                    option.Id === value.Id
+                  }
+                />
+              </FormControl>{" "}
+            </Box>
             <TextField
               rows={5}
               multiline
