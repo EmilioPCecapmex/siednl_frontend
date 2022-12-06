@@ -116,21 +116,6 @@ export default function ModalCrearUsuario({
       });
   };
 
-  // const getTipoSolicitud = () => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoSolicitudes", {
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //       params: {
-  //         IdUsuario: localStorage.getItem("IdUsuario"),
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setTiposSolicitud(r.data.data);
-  //     });
-  // };
-
   const getUserType = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
@@ -146,7 +131,7 @@ export default function ModalCrearUsuario({
   const createComentarios = () => {
     axios
       .post(
-        "http://10.200.4.192:5000/api/create-comentario",
+        "http://10.200.4.105:5000/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -160,13 +145,14 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 201) {
-          cleanForm();
-          handleClose();
+          
           
           Toast.fire({
               icon: "success",
               title: "¡Registro exitoso!",
             });
+            cleanForm();
+          handleClose();
         }
       })
       .catch((r) => {
@@ -183,7 +169,7 @@ export default function ModalCrearUsuario({
   const createSolicitud = () => {
     axios
       .post(
-        "http://10.200.4.192:5000/api/create-solicitud",
+        "http://10.200.4.105:5000/api/create-solicitud",
         {
           IdUsuario: idUsuarioCentral,
           DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
@@ -198,19 +184,19 @@ export default function ModalCrearUsuario({
         }
       )
       .then((r) => {
-        if (r.status === 201) {
+        console.log(r.data.data[0][0].IdSolicitud)
+        
+        if ( r.data.data[0][0].Respuesta== 201) {
           
-          setIdSolicitud(r.data.data.IdSolicitud)
-          cleanForm();
-          // Toast.fire({
-          //     icon: "success",
-          //     title: "¡Registro exitoso!",
-          //   });
-            
+          setIdSolicitud(r.data.data[0][0].IdSolicitud)
+          Toast.fire({
+              icon: "success",
+              title: "¡Registro exitoso!",
+            });
         }
       })
       .catch((r) => {
-        if (r.response.status === 409) {
+        if (r.data.data[0][0].Respuesta == 409) {
           setErrorsForm({
             visible: true,
             text: r.response.data.msg,
@@ -221,9 +207,10 @@ export default function ModalCrearUsuario({
   }
 
   const signUp = () => {
+    console.log("hola Usuario");
     axios
       .post(
-        "http://10.200.4.192:5000/api/sign-up",
+        "http://10.200.4.105:5000/api/sign-up",
         {
           Nombre: names,
           ApellidoPaterno: firstName,
@@ -289,10 +276,10 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 200) {
-          // Toast.fire({
-          //   icon: "success",
-          //   title: "¡Registro exitoso!",
-          // });
+          Toast.fire({
+            icon: "success",
+            title: "¡Registro exitoso!",
+          });
         }
       });
   };
@@ -300,18 +287,17 @@ export default function ModalCrearUsuario({
 
   
   useEffect(() => {
-    if(idSolicitud===""){
+    if(idSolicitud!=""){
       createComentarios();
-    }
+  }
     
   }, [idSolicitud]);
 
-  
   useEffect(() => {
     if(idUsuarioCentral!=""){
       createSolicitud();
+      console.log("hola Solicitud");
     }
-      
   }, [idUsuarioCentral]);
 
   const checkForm = () => {
@@ -409,7 +395,7 @@ export default function ModalCrearUsuario({
   useEffect(() => {
     getInstituciones();
     getUserType();
-    // getTipoSolicitud();
+    
   }, []);
 
   return (
@@ -450,6 +436,7 @@ export default function ModalCrearUsuario({
             label="Usuario"
             variant="outlined"
             value={username}
+            inputProps={{ maxLength: 30 }}
             sx={{
               width: "30%",
               ml: "2vw",
@@ -463,10 +450,11 @@ export default function ModalCrearUsuario({
             label="Correo Electrónico"
             variant="outlined"
             type="email"
+            inputProps={{ maxLength: 50 }}
             onChange={(v) => setEmail(v.target.value)}
             value={email}
             sx={{
-              width: "50%",
+              width: "62%",
               mr: "2vw",
             }}
           />
@@ -483,6 +471,7 @@ export default function ModalCrearUsuario({
           <TextField
             label="Nombre(s)"
             variant="outlined"
+            inputProps={{ maxLength: 20 }}
             value={names}
             onChange={(x) => setNames(x.target.value)}
             sx={{
@@ -495,6 +484,7 @@ export default function ModalCrearUsuario({
             label="Apellido Paterno"
             variant="outlined"
             value={firstName}
+            inputProps={{ maxLength: 20 }}
             onChange={(x) => setFirstName(x.target.value)}
             sx={{
               width: "30%",
@@ -503,6 +493,7 @@ export default function ModalCrearUsuario({
           <TextField
             label="Apellido Materno"
             variant="outlined"
+            inputProps={{ maxLength: 20 }}
             value={secondName}
             onChange={(x) => setSecondName(x.target.value)}
             sx={{
@@ -561,6 +552,7 @@ export default function ModalCrearUsuario({
           <TextField
             label="Cargo"
             variant="outlined"
+            inputProps={{ maxLength: 25 }}
             value={rol}
             onChange={(x) => setRol(x.target.value)}
             sx={{
@@ -605,6 +597,7 @@ export default function ModalCrearUsuario({
           <TextField
             label="CURP"
             variant="outlined"
+            inputProps={{ maxLength: 18 }}
             value={curp}
             onChange={(x) => setCURP(x.target.value)}
             sx={{
@@ -616,6 +609,7 @@ export default function ModalCrearUsuario({
           <TextField
             label="RFC"
             variant="outlined"
+            inputProps={{ maxLength: 13 }}
             value={rfc}
             onChange={(x) => setRFC(x.target.value)}
             sx={{
@@ -638,6 +632,7 @@ export default function ModalCrearUsuario({
           <TextField
             label="Teléfono"
             variant="outlined"
+            inputProps={{ maxLength: 10 }}
             sx={{
               width: "40%",
               ml: "2vw",
@@ -650,6 +645,7 @@ export default function ModalCrearUsuario({
           <TextField
             label="Celular"
             variant="outlined"
+            inputProps={{ maxLength: 10 }}
             type="tel"
             sx={{
               width: "40%",
@@ -662,6 +658,7 @@ export default function ModalCrearUsuario({
           <TextField
             label="Extensión "
             variant="outlined"
+            inputProps={{ maxLength: 4 }}
             sx={{
               width: "10%",
               mr: "2vw",
@@ -685,6 +682,7 @@ export default function ModalCrearUsuario({
             label="Comentarios "
             variant="outlined"
             multiline
+            inputProps={{ maxLength: 2000 }}
             rows={3}
             sx={{
               width: "95%",
