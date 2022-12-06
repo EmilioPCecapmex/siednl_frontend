@@ -131,7 +131,7 @@ export default function ModalCrearUsuario({
   const createComentarios = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-comentario",
+        "http://10.200.4.105:5000/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -169,7 +169,7 @@ export default function ModalCrearUsuario({
   const createSolicitud = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-solicitud",
+        "http://10.200.4.105:5000/api/create-solicitud",
         {
           IdUsuario: idUsuarioCentral,
           DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
@@ -210,7 +210,7 @@ export default function ModalCrearUsuario({
     console.log("hola Usuario");
     axios
       .post(
-        "http://10.200.4.200:5000/api/sign-up",
+        "http://10.200.4.105:5000/api/sign-up",
         {
           Nombre: names,
           ApellidoPaterno: firstName,
