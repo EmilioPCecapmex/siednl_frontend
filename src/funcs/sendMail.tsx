@@ -3,7 +3,7 @@ import axios from "axios"
 export const enviarMail = (mensaje: string, destinatario: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/send-mail",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/send-email",
         {
           subject: "Alerta SIEDNL",
           message: mensaje,
@@ -15,11 +15,5 @@ export const enviarMail = (mensaje: string, destinatario: string) => {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
         }
-      ).then((r) => {
-        if(r.status === 201){
-            return true
-        }
-      }).catch((r) => {
-        return false
-      })
+      )
 }
