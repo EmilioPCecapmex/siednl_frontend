@@ -3,16 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
-import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
-import {
-  IActividadesFT,
-  IComponentesFT,
-  ICValorFT,
-  IEncabezadoFT,
-  IFinFT,
-  IFT,
-  IPropositoFT,
-} from "./Interfaces";
+import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
+import { IActividadesFT, IComponentesFT, ICValorFT, IEncabezadoFT, IFinFT, IFT, IPropositoFT } from "./Interfaces";
 
 export function TabResumenFT({
   show,
@@ -23,8 +15,8 @@ export function TabResumenFT({
   componenteValor,
   cValor,
   IdMir,
-  IdMA,
   IdFT,
+  IdMA,
   showResume,
   MIR,
 }: {
@@ -36,8 +28,8 @@ export function TabResumenFT({
   componenteValor: Array<IComponentesFT>;
   cValor: Array<ICValorFT>;
   IdMir: string;
-  IdMA: string;
   IdFT: string;
+  IdMA: string;
   MIR: string;
   showResume: Function;
 }) {
@@ -129,7 +121,6 @@ export function TabResumenFT({
   });
 
   const creaFT = (estado: string) => {
-    
     axios
       .post(
         "http://10.200.4.199:8000/api/create-FichaTecnica",
@@ -164,8 +155,8 @@ export function TabResumenFT({
   const [editEncabezado, setEditEncabezado] = useState<IEncabezadoEditFT>({
     programaSER: true,
     objetivoSER: true,
-    catalogoObjetivoODS: true,
-    catalogoMetaODS: true,
+    objetivoODS: true,
+    metaODS: true,
   });
 
   const [editFin, setEditFin] = useState<IFinEditFT>({
@@ -1639,37 +1630,41 @@ export function TabResumenFT({
         </Button>
 
         {/*CAMBIAR POR EL MODAL DE MODIFICAR DE FICHA TÉCNICA*/}
-        <ModalSolicitaModif
-          open={openModalSolicitarModif}
-          handleClose={handleCloseModif}
-          MA={JSON.stringify(FT)}
-          MIR={MIR}
-          showResume={showResume}
-          IdMA={IdMA}
-          IdMIR={IdMir}
-          MAEdit={
-            localStorage.getItem("Rol") !== "Administrador"
+        <ModalsSolicitModifFT
+           open={openModalSolicitarModif}
+           handleClose={handleCloseModif}
+          // Ft={JSON.stringify(FT)}
+           MIR={MIR}
+           showResume={showResume}
+           IdFT={IdFT}
+           IdMa ={IdMA}
+           IdMIR={IdMir}
+
+           MAEdit={
+             localStorage.getItem("Rol") !== "Administrador"
               ? ""
-              : JSON.stringify({
-                  fin: editFin,
+               : JSON.stringify({
+                   fin: editFin,
                   proposito: editProposito,
-                  componentes: editComponentes,
-                  actividades: editActividades,
-                })
-          }
-        ></ModalSolicitaModif>
+                   componentes: editComponentes,
+                   actividades: editActividades,
+                 })
+           }
+          FT = {JSON.stringify(FT)}
+        ></ModalsSolicitModifFT>
 
         <ModalEnviarFT
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           MIR={MIR}
-          IdMA={IdMA}
+          IdFT={IdFT}
           IdMIR={IdMir}
           showResume={showResume}
           FT={JSON.stringify(FT)}
-          
-          IdFT={IdFT}
+          IdMA={IdMA}
         ></ModalEnviarFT>
+
+
       </Box>
     </Box>
   );
@@ -1680,8 +1675,8 @@ export default TabResumenFT;
 export interface IEncabezadoEditFT {
   programaSER: boolean;
   objetivoSER: boolean;
-  catalogoObjetivoODS: boolean;
-  catalogoMetaODS: boolean;
+  objetivoODS: boolean;
+  metaODS: boolean;
 }
 
 export interface IFinEditFT {

@@ -16,55 +16,35 @@ export function TabEncabezado({
 }) {
   const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
 
-  const [programaSER, setProgramaSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.programaSER);
-  const [objetivoSER, setObjetivoSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.objetivoSER);
-  const [objetivoODSSel, setObjetivoODSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.ObjetivoODS);
-  const [metaODSSel, SetMetaODSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.metaODS);
+  const [programaSER, setProgramaSER] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.programaSER || ""
+  );
+  const [objetivoSER, setObjetivoSER] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.objetivoSER || ""
+  );
+  const [objetivoODSSel, setObjetivoDSSel] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.objetivoODS || ""
+  );
+  const [metaODSSel, setMetaODSSel] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.metaODS || ""
+  );
+
+  const [disabledMetas, setDisabledMetas] = useState(true);
 
   const [catalogoObjetivosDS, setCatalogoObjetivosDS] = useState([
-    { Id: "0", ObjetivoODS: "" },
+    { Id: "", ObjetivoDS: "" },
   ]);
+
   const [catalogoMetasODS, setCatalogoMetasODS] = useState([
-    { Id: "0", MetaODS: "" },
+    { Id: "", MetaODS: "" },
   ]);
 
-  const [lineaDeAccion, setLineaDeAccion] = useState("");
-  const [ObjetivoODS, setObjetivoODS] = useState("");
-  const [metaODS, setMetaODS] = useState("");
-
-  // const getIdObjetivoOds = (Description: string) => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-  //       params: {
-  //         Col: "Instituciones",
-  //         Descripcion: Description,
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setObjetivoODS(r.data.data[0].NombreInstitucion);
-  //     })
-  //     .catch((err) => {});
-  // };
-
-  // const getIdMetaOds = (Description: string) => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-  //       params: {
-  //         Col: "Instituciones",
-  //         Descripcion: Description,
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setMetaODS(r.data.data[0].NombreInstitucion);
-  //     })
-  //     .catch((err) => {});
-  // };
+  function enCambioObjetivo(Id: string, objetivo: string) {
+    setObjetivoDSSel(objetivo);
+    setMetaODSSel("");
+    setDisabledMetas(false);
+    getMetas(Id);
+  }
 
   let jsonMir = JSON.parse(MIR);
 
@@ -73,55 +53,49 @@ export function TabEncabezado({
     jsonMir.encabezado.lineas_de_accion.map((x: any, index: number) => {
       lda.push(x.Id);
     });
-
-    setLineaDeAccion(JSON.stringify(lda).replace("[", "").replace("]", ""));
-    getObjetivos(JSON.stringify(lda).replace("[", "").replace("]", ""));
+    getObjetivos(lda);
   }, [show, MIR]);
 
-  const getObjetivos = (id: string) => {
-    console.log(id);
-    
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
-        params: {
-          Col: "ObjetivosDs",
-          Id: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        console.log(r);
-        
-        setCatalogoObjetivosDS(r.data.data);
-      })
-      .catch((err) => {});
+  const getObjetivos = (id: Array<number>) => {
+    id.map((value, index) => {
+      axios
+        .get("http://10.200.4.199:8000/api/ped-columns", {
+          params: {
+            Col: "ObjetivosDs",
+            Id: value,
+          },
+
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
+        .then((r) => {
+          setCatalogoObjetivosDS(r.data.data);
+        })
+        .catch((err) => {});
+    });
   };
 
-  const getMetas = () => {
+  const getMetas = (Id: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/metasODS", {
+      .get("http://10.200.4.199:8000/api/ped-columns", {
+        params: {
+          Col: "MetasODS",
+          Id: Id,
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
         setCatalogoMetasODS(r.data.data);
-      });
+      })
+      .catch((err) => {});
   };
 
   useEffect(() => {
     resumenEncabezadoFT(encabezado);
   }, [resumenEncabezadoFT]);
-
-  useEffect(() => {
-    getMetas();
-  }, []);
-
-  // useEffect(() => {
-  //   getObjetivos()
-  // }, [])
 
   useEffect(() => {
     setEncabezado([
@@ -133,7 +107,6 @@ export function TabEncabezado({
       },
     ]);
   }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel]);
-
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -195,6 +168,7 @@ export function TabEncabezado({
       ></TextField>
 
       {/*------------------------TF2--------------------- */}
+
       <Box
         sx={{
           display: "flex",
@@ -208,24 +182,22 @@ export function TabEncabezado({
       >
         <FormControl sx={{ width: "30vw" }}>
           <Autocomplete
-            disabled={false}
-            disablePortal
             options={catalogoObjetivosDS}
-            getOptionLabel={(option) => option.ObjetivoODS}
+            getOptionLabel={(option) => option.ObjetivoDS}
             value={{
               Id: catalogoObjetivosDS[0].Id,
-              ObjetivoODS: objetivoODSSel,
+              ObjetivoDS: objetivoODSSel,
             }}
-            renderOption={(props: any, option: any) => {
+            renderOption={(props, option) => {
               return (
-                <li {...props}>
+                <li {...props} key={option.Id}>
                   <p
                     style={{
                       fontFamily: "MontserratRegular",
                       fontSize: ".7vw",
                     }}
                   >
-                    {option.ObjetivoODS}
+                    {option.ObjetivoDS}
                   </p>
                 </li>
               );
@@ -249,14 +221,16 @@ export function TabEncabezado({
               ></TextField>
             )}
             onChange={(event, value) =>
-              setObjetivoODSSel(value?.ObjetivoODS as string)
+              enCambioObjetivo(
+                value?.Id as string,
+                (value?.ObjetivoDS as string) || ""
+              )
             }
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
           />
         </FormControl>
       </Box>
 
-      {/*------------------------TF3--------------------- */}
       <Box
         sx={{
           display: "flex",
@@ -270,17 +244,16 @@ export function TabEncabezado({
       >
         <FormControl sx={{ width: "30vw" }}>
           <Autocomplete
-            disabled={false}
-            disablePortal
+            disabled={disabledMetas || objetivoODSSel === ""}
             options={catalogoMetasODS}
             getOptionLabel={(option) => option.MetaODS}
             value={{
               Id: catalogoMetasODS[0].Id,
               MetaODS: metaODSSel,
             }}
-            renderOption={(props: any, option: any) => {
+            renderOption={(props, option) => {
               return (
-                <li {...props}>
+                <li {...props} key={option.Id}>
                   <p
                     style={{
                       fontFamily: "MontserratRegular",
@@ -312,7 +285,7 @@ export function TabEncabezado({
             )}
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
             onChange={(event, value) => {
-              SetMetaODSSel(value?.MetaODS as string);
+              setMetaODSSel((value?.MetaODS as string) || "");
             }}
           />
         </FormControl>

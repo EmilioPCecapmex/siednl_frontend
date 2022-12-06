@@ -8,14 +8,10 @@ import {
   ListItemButton,
   FormControl,
 } from "@mui/material";
-import { IComponente } from "../tabsMir/IComponente";
-
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
-import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
-import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 
 export const TabComponenteFT = ({
@@ -93,7 +89,7 @@ export const TabComponenteFT = ({
 
   useEffect(() => {
     valoresComponenteFTFnc(componentesValues);
-  }, [FT, show]);
+  }, [componentesValues]);
 
   return (
     <Box

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { IFin, IProposito, TabFinPropositoMA } from "./TabFinPropositoMA";
+import {TabFinPropositoMA } from "./TabFinPropositoMA";
 import { Box, IconButton } from "@mui/material";
-import { IComponente } from "../tabsMir/IComponente";
-import { ICValor } from "../tabsMir/ICValor";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
@@ -14,7 +12,6 @@ import TabResumenMA from "./TabResumenMA";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IComponenteActividad } from "../tabsMir/AddMir";
-import { IEncabezado } from "../tabsMir/TabEncabezado";
 import TabResumenMIR from "../modalsMA/ModalResumenMir";
 export default function AddMetaAnual({
   MIR,
@@ -321,17 +318,13 @@ export default function AddMetaAnual({
             MIR={MIR}
           ></TabResumenMA>
 
-          {/* <TabResumenMIR
+          <TabResumenMIR
             show={showMir}
             showMirFnc={showMirFnc}
             showSt={showSt}
-            //componentes={noComponentes}
-            componenteValor={componenteValor}
-            cValor={cValor}
-            encabezado={encabezado}
-            fin={cargaFin}
-            proposito={cargaProposito}
-          ></TabResumenMIR> */}
+            MIR={MIR}
+            noComponentes={noComponentes}
+          ></TabResumenMIR>
         </Box>
 
         <Box

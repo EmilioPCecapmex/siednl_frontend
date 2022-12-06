@@ -35,9 +35,7 @@ export const TabComponenteMA = ({
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
-  const [componentesValues, setComponentesValues] = useState<
-    Array<IComponenteMA>
-  >([]);
+  const [componentesValues, setComponentesValues] = useState<Array<IComponenteMA>>([]);
 
   let jsonMA = MA === "" ? "" : JSON.parse(MA);
 
@@ -92,8 +90,10 @@ export const TabComponenteMA = ({
           MA === ""
             ? ""
             : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
+
         unidadResponsable:
           MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
+          
         descIndicador:
           MA === "" ? "" : jsonMA?.componentes[index]?.descIndicador || "",
         descNumerador:
@@ -108,7 +108,7 @@ export const TabComponenteMA = ({
 
   useEffect(() => {
     valoresComponenteMAFnc(componentesValues);
-  }, [MA, show]);
+  }, [componentesValues]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
@@ -117,23 +117,26 @@ export const TabComponenteMA = ({
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
   const [frecuencia, setFrecuencia] = useState("");
 
+  
+
   const handleClickOpen = () => {
     setTipoFormula(
       JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
         "PORCENTAJE"
-      )
+      ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "porcentaje")
         ? "Porcentaje"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "TASA"
-          )
+          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "tasa")
         ? "Tasa"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "INDICE" || "ÍNDICE"
-          )
+          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "indice" 
+           || JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "índice")
         ? "Indice"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "PROMEDIO"
-          )
+          ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "promedio")
         ? "Promedio"
         : ""
     );
@@ -149,19 +152,20 @@ export const TabComponenteMA = ({
     setTipoFormula(
       JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
         "PORCENTAJE"
-      )
+      ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "porcentaje")
         ? "Porcentaje"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "TASA"
-          )
+          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "tasa")
         ? "Tasa"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "INDICE" || "ÍNDICE"
-          )
+          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "indice" 
+           || JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "índice")
         ? "Indice"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "PROMEDIO"
-          )
+          ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "promedio")
         ? "Promedio"
         : ""
     );

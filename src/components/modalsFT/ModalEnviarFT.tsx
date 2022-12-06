@@ -39,7 +39,7 @@ export default function ModalEnviarFT({
   const comentFT = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-MA",
+        "http://10.200.4.105:8000/api/coment-mir",
         {
           IdMA: id,
           Coment: comment,
@@ -89,8 +89,8 @@ export default function ModalEnviarFT({
       errores.push("<strong>Encabezado</strong>: Objetivo sectorial, especial o regional sin información.");
     }
     if (
-      JSON.parse(FT)?.encabezado.catalogoObjetivoODS === undefined ||
-      JSON.parse(FT)?.encabezado.catalogoObjetivoODS === "" 
+      JSON.parse(FT)?.encabezado.objetivoODS === undefined ||
+      JSON.parse(FT)?.encabezado.objetivoODS === "" 
     ) {
       err = 1;
       errores.push(
@@ -98,8 +98,8 @@ export default function ModalEnviarFT({
       );
     }
     if (
-      JSON.parse(FT)?.encabezado.catalogoMetaODS === undefined ||
-      JSON.parse(FT)?.encabezado.catalogoMetaODS === "" 
+      JSON.parse(FT)?.encabezado.metaODS === undefined ||
+      JSON.parse(FT)?.encabezado.metaODS === "" 
     ) {
       err = 1;
       errores.push(
@@ -335,8 +335,6 @@ export default function ModalEnviarFT({
   };
 
   const checkActividades = (v: string) => {
-    console.log(FT)
-    console.log(123)
     JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.tipoDeIndicador === "" 
@@ -435,7 +433,7 @@ export default function ModalEnviarFT({
   const crearFichaTecnica = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor: localStorage.getItem("IdUsuario"),

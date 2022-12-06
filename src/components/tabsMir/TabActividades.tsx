@@ -135,24 +135,30 @@ export const TabActividades = ({
     }
   }, [compAct, componentes]);
 
+  
+  let aument_number = -1;
+
   const loadActividadesMir = () => {
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
+
+              
+              aument_number++;
               
               return {
                 actividad: actividadesMir[index2]?.actividad || "A" +
                 (cValor[0].componentes[index].actividades.length + 1) +
                 "C" +
                 (index + 1),
-                resumen: actividadesMir[index2]?.resumen || "",
-                indicador: actividadesMir[index2]?.indicador || "",
-                formula: actividadesMir[index2]?.formula || "",
+                resumen: actividadesMir[aument_number]?.resumen || "",
+                indicador: actividadesMir[aument_number]?.indicador || "",
+                formula: actividadesMir[aument_number]?.formula || "",
                 frecuencia: "TRIMESTRAL",
-                medios: actividadesMir[index2]?.medios || "",
-                supuestos: actividadesMir[index2]?.supuestos || "",
+                medios: actividadesMir[aument_number]?.medios || "",
+                supuestos: actividadesMir[aument_number]?.supuestos || "",
               };
             }),
           };
