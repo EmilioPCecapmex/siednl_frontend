@@ -25,6 +25,7 @@ import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import moment from "moment";
 import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 export let resumeDefaultFT = true;
@@ -668,6 +669,7 @@ export const FichaTecnica = () => {
                                     disabled={
                                       row.Estado === "Autorizada" ? false : true
                                     }
+                                    
                                   >
                                     <DownloadIcon
                                       sx={[
@@ -687,6 +689,21 @@ export const FichaTecnica = () => {
                               <Tooltip title="REGISTRAR FICHA TÉCNICA">
                                 <span>
                                   <IconButton
+                                    disabled={
+                                      row.Estado === "En Captura" &&
+                                      localStorage.getItem("Rol") ===
+                                        "Capturador"
+                                        ? false
+                                        : row.Estado === "En Revisión" &&
+                                          localStorage.getItem("Rol") ===
+                                            "Verificador"
+                                        ? false
+                                        : row.Estado === "En Autorización" &&
+                                          localStorage.getItem("Rol") ===
+                                            "Administrador"
+                                        ? false
+                                        : true
+                                    }
                                     onClick={() => {
                                       setFTEdit([
                                         {
@@ -707,15 +724,27 @@ export const FichaTecnica = () => {
                                       setShowResume(false);
                                     }}
                                   >
-                                    <AddCircleOutlineIcon
-                                      sx={{
+                                    <AddCircleOutlineIcon/>
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                              <Tooltip title="VER FICHA TÉCNICA">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                  >
+                                    <VisibilityIcon 
+                                     sx={[
+                                      {
                                         "&:hover": {
-                                          color: "blue",
+                                          color: "green",
                                         },
                                         width: "1.2vw",
                                         height: "1.2vw",
-                                      }}
-                                    />
+                                      },
+                                    ]}/>
                                   </IconButton>
                                 </span>
                               </Tooltip>
