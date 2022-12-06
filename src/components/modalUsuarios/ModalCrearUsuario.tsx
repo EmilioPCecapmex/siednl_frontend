@@ -211,7 +211,7 @@ export default function ModalCrearUsuario({
     axios
       .post(
         "http://10.200.4.105:5000/api/sign-up",
-        {
+        { 
           Nombre: names,
           ApellidoPaterno: firstName,
           ApellidoMaterno: secondName,
