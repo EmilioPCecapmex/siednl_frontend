@@ -286,7 +286,6 @@ export default function ModalCrearUsuario({
   useEffect(() => {
     if(idSolicitud!=""){
       createComentarios();
-    console.log("hola comentario");
   }
     
   }, [idSolicitud]);

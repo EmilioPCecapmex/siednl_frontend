@@ -101,9 +101,9 @@ export const Usuarios = () => {
           open={openModalVincularUsuario}
           handleClose={handleCloseModalVincularUsuario}
         />
-        {/* <DialogSolicitudes 
+        <DialogSolicitudes 
         open={openDialogSolicitudesP} 
-        handleClose={handleCloseSolicitudesP}/> */}
+        handleClose={handleCloseSolicitudesP}/>
 
         <Box
           sx={{

@@ -3,9 +3,11 @@ export interface ISolicitud{
         Mensaje:string,
         Id: string,
         IdUsuario: string,
+        NombreUsuario: string,
         DatosAdicionales: string,
         Estatus: string,
         TipoSolicitud: string,
+        NombreSolicitante: string,
         tipoSoli: string,
         CreadoPor: string,
         FechaDeCreacion: string,
@@ -31,7 +33,7 @@ export interface IDetalleSolicitud {
         Ext:               string;
         Celular:           string;
         IdTipoUsuario:     string;
-        EstaActivo:        number;
+        EstaActivo:        string;
         Deleted:           number;
         FechaDeCreacion:   string;
         CreadoPor:         string;

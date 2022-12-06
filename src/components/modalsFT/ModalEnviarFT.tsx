@@ -39,7 +39,7 @@ export default function ModalEnviarFT({
   const comentFT = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-MA",
+        "http://10.200.4.200:8000/api/coment-MA",
         {
           IdMA: id,
           Coment: comment,
