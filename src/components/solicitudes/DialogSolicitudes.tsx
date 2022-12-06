@@ -443,7 +443,7 @@ export const DialogSolicitudes = ({
 
 
                                                     <Box sx={{ display: "flex", width: "40%", justifyContent: "flex-start" }}>
-                                                        {solicitudesFiltered[selectedIndex]?.tipoSoli === "Modificacion" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 0 ? <Button variant="contained" color="info" onClick={() => { setOpenDialogRechazar(true); }}>MODIFICAR</Button> : null}
+                                                        {solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "MODIFICACION" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 0 ? <Button variant="contained" color="info" onClick={() => { setOpenDialogRechazar(true); }}>MODIFICAR</Button> : null}
                                                     </Box>
 
                                                     <Box sx={{ display: "flex", width: "40%", justifyContent: "flex-end" }}>

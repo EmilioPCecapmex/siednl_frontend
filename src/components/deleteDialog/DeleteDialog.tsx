@@ -193,13 +193,17 @@ export const DeleteDialog = ({
         multiline
         rows={3}
         onChange={(c)=>{setComentario(c.target.value) }}
+        inputProps={{
+          maxLength: 2000,
+        }}
         />
         </DialogContent>
 
         <DialogActions onClick={handleClose}>
           <Button>Cancelar</Button>
 
-          <Button onClick={deleteUsuario} autoFocus>
+          <Button onClick={deleteUsuario} autoFocus  disabled={comentario.length>=10?false:true}>
+            
             De Acuerdo
           </Button>
         </DialogActions>
