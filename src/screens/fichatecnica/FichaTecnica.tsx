@@ -28,6 +28,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import moment from "moment";
 import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
+import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -42,6 +43,12 @@ export const FichaTecnica = () => {
   const returnMain = () => {
     setShowResume(true);
     getFT();
+  };
+
+  const [openModalVerResumenFT, setOpenModalVerResumenFT] = useState(false);
+
+  const handleCloseVerResumenFT = () => {
+    setOpenModalVerResumenFT(false);
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -67,6 +74,7 @@ export const FichaTecnica = () => {
 
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
+  const [FTShow, setFTShow] = useState<Array<IIFT>>([]);
 
   //
   const [ftFiltered, setftFiltered] = useState<Array<IIFT>>([]);
@@ -734,6 +742,25 @@ export const FichaTecnica = () => {
                                     disabled={
                                       row.Estado === "Autorizada" ? false : true
                                     }
+                                    onClick={() => {
+                                      setFTShow([
+                                        {
+                                          IdFt: row.IdFt,
+                                          IdMir: row.IdMir,
+                                          IdMa: row.IdMa,
+                                          FichaT: row.FichaT,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Institucion: row.Institucion,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                        },
+                                      ]);
+                                      setOpenModalVerResumenFT(true);
+                                    }}
                                   >
                                     <VisibilityIcon 
                                      sx={[
@@ -768,6 +795,13 @@ export const FichaTecnica = () => {
               />
             </Box>
           </Box>
+          <ModalVerResumenFT
+          open={openModalVerResumenFT}
+          handleClose={handleCloseVerResumenFT}
+          MIR={FTShow[0]?.MIR}
+          MA={FTShow[0]?.MetaAnual}
+          FT={FTShow[0]?.FichaT}
+          />
         </Box>
       ) : (
         <Box

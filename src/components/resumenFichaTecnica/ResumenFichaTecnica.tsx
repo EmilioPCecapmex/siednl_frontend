@@ -4,9 +4,24 @@ import { FinFechaTecnica } from "./FinFichaTecnica";
 import { PropositoFichaTecnica } from "./PropositoFichaTecnica";
 import { CompFichaTecnica } from "./CompFichaTecnica";
 import { ActFichaTecnica } from "./ActFichaTecnica";
+import { useEffect, useState } from "react";
+import { IIMir } from "../../screens/mir/MIR";
+import axios from "axios";
 
-export const ResumenFichaTecnica = () => {
+export const ResumenFichaTecnica = (
+  {
+    MIR,
+    MA,
+    FT,
+  }: {
+    MIR: string;
+    MA: string;
+    FT: string;
+  }
+) => {
   let show = 1;
+
+  const [mirs, setMirs] = useState(Array<IIMir>);
 
   //DESIGNS
   const sxTitleDesignPage1 = {
@@ -79,6 +94,11 @@ export const ResumenFichaTecnica = () => {
     border: 1,
     ml: "2vw",
   };
+
+  
+  
+
+  
 
   //ARRAYS DEFAULT VALUES
   const headerTextsValue = [
@@ -165,12 +185,27 @@ export const ResumenFichaTecnica = () => {
     "META SEXENAL",
   ];
 
-  //EMPTY ARRAYS
+  //ARRAYS VACIOS QUE SE USAN
   const headerTypography = [];
   const conacAndProgramDesign = [];
   const generalTitlesDesign1 = [];
   const generalTitlesDesign2 = [];
   const Page1Content = [];
+
+  const jsonMir = JSON.parse(MIR);
+  const jsonMA = JSON.parse(MA);
+  const jsonFT = JSON.parse(FT);
+
+  const page1Values = [
+    jsonMir.encabezado.beneficiario,
+    jsonMir.encabezado.tema,
+    jsonMir.encabezado.objetivo,
+    jsonMir.encabezado.estrategia,
+    "Lineas de acción.",
+    jsonFT.encabezado.programaSER,
+    jsonFT.encabezado.objetivoSER,
+  ]
+  let value_increment = 0;
 
   //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
   for (let i = 0; i < headerTextsValue.length; i++) {
@@ -243,6 +278,7 @@ export const ResumenFichaTecnica = () => {
     );
   }
 
+
   //RECORRE EL ARREGLO DE LOS SUBTITULOS Y DEBERÁ RECORRER EL DE SUS RESULTADOS Y LO ACOMODA TODO EN UN ARREGLO.
   for (let i = 0; i < subTitleColumnsNormalPag1Value.length; i++) {
     Page1Content.push(
@@ -268,7 +304,7 @@ export const ResumenFichaTecnica = () => {
               <Typography
                 sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+               {jsonMir.encabezado.nombre_del_programa}
               </Typography>
             </Box>
           </Box>
@@ -364,7 +400,7 @@ export const ResumenFichaTecnica = () => {
             <Typography
               sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
             >
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              {jsonMir.encabezado.institucion}
             </Typography>
           </Box>
         </Box>
@@ -398,7 +434,7 @@ export const ResumenFichaTecnica = () => {
               <Typography
                 sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                {jsonMir.encabezado.eje}
               </Typography>
             </Box>
           </Box>
@@ -424,7 +460,7 @@ export const ResumenFichaTecnica = () => {
               <Typography
                 sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                {jsonFT.encabezado.objetivoODS}
               </Typography>
             </Box>
           </Box>
@@ -449,7 +485,7 @@ export const ResumenFichaTecnica = () => {
               <Typography
                 sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                {jsonFT.encabezado.metaODS}
               </Typography>
             </Box>
           </Box>
@@ -469,13 +505,16 @@ export const ResumenFichaTecnica = () => {
             <Typography
               sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              {page1Values[value_increment]}
             </Typography>
+            <Typography hidden={true}>{value_increment++}</Typography>
+            
           </Box>
         </Box>
       )
     );
   }
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -565,7 +604,7 @@ export const ResumenFichaTecnica = () => {
         <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
         <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
         {/*INICIA LA NUEVA PÁGINA QUE SE HARÁ COMPONENTE*/}
-        <FinFechaTecnica/>
+        <FinFechaTecnica MIR={MIR} MA={MA} FT={FT}/>
         <PropositoFichaTecnica/>
         <CompFichaTecnica/>
         <ActFichaTecnica/>

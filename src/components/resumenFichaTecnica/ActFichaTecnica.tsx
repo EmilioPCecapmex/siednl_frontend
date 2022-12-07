@@ -262,7 +262,7 @@ export const ActFichaTecnica = () => {
           }}
         >
           <Typography sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}>
-            ACTIVIDAD {1}
+           COMPONENTE 1 ACTIVIDAD 1 
           </Typography>
         </Box>
 
