@@ -12,7 +12,6 @@ export const FinFechaTecnica = ({
   MA: string;
   FT: string;
 }) => {
-  
   //DESIGNS
   const sxTitleDesignPage1 = {
     ml: "3vw",
@@ -148,12 +147,30 @@ export const FinFechaTecnica = ({
   const jsonMir = JSON.parse(MIR);
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
+  const [tipoFormula, setTipoFormula] = useState("");
+  const getTipoDeFormula = () => {
+    setTipoFormula(
+      jsonMir.fin.indicador.includes("PORCENTAJE") ||
+        jsonMir.fin.indicador === "PORCENTAJE"
+        ? "PORCENTAJE"
+        : jsonMir.fin.indicador.includes("TASA") ||
+          jsonMir.fin.indicador === "TASA"
+        ? "TASA"
+        : jsonMir.fin.indicador.includes("INDICE" || "ÍNDICE") ||
+          jsonMir.fin.indicador === "INDICE" ||
+          jsonMir.fin.indicador === "ÍNDICE"
+        ? "ÍNDICE"
+        : jsonMir.fin.indicador.includes("PROMEDIO") ||
+          jsonMir.fin.indicador === "PROMEDIO"
+        ? "PROMEDIO"
+        : ""
+    );
+  };
+  useEffect(() => {
+    getTipoDeFormula();
+  }, []);
 
-  
-
-
-
-  
+  console.log(tipoFormula);
 
   //EMPTY ARRAYS
   const headerTypography = [];
@@ -232,18 +249,47 @@ export const FinFechaTecnica = ({
       </Box>
     );
   }
+  const [variable1, setVariable1] = useState("");
+  const [variable2, setVariable2] = useState("");
 
   
-  
-  
+  //Forma de sacar tipo de formula
+  useEffect(() => {
+    if (tipoFormula === "TASA" || tipoFormula.includes("TASA")) {
+      console.log("entro");
+      let variable1Arreglo = jsonMir.fin.formula.replaceAll("(", "").split("-");
+      setVariable1(variable1Arreglo[0]);
 
-  //Forma de sacar TASA
-  let variable1Arreglo = jsonMir.fin.formula.replaceAll("(", "").split("-");
-  let variable2Arreglo = jsonMir.fin.formula.split("/");
-  let variable2 = variable2Arreglo[1]
-    .replaceAll(")", "")
-    .replaceAll(" * 100", "");
-  let variable1 = variable1Arreglo[0];
+      let variable2Arreglo = jsonMir.fin.formula.split("/");
+      setVariable2(
+        variable2Arreglo[1].replaceAll(")", "").replaceAll(" * 100", "")
+      );
+    }
+    if (tipoFormula === "PROMEDIO" || tipoFormula.includes("PROMEDIO")) {
+      let variable1Arreglo = jsonMir.fin.formula.replaceAll("(", "").split("/");
+      setVariable1(variable1Arreglo[0]);
+      setVariable2(variable1Arreglo[1].replaceAll(")", ""));
+    }
+
+    if (tipoFormula === "PORCENTAJE" || tipoFormula.includes("PORCENTAJE")) {
+      let variable1Arreglo = jsonMir.fin.formula.replaceAll("(", "").split("/");
+      setVariable1(variable1Arreglo[0]);
+
+      let variable2Arreglo = jsonMir.fin.formula.split("/");
+      setVariable2(
+        variable2Arreglo[1].replaceAll(")", "").replaceAll(" * 100", "")
+      );
+    }
+    if (
+      tipoFormula === "ÍNDICE" ||
+      tipoFormula === "INDICE" ||
+      tipoFormula.includes("ÍNDICE") ||
+      tipoFormula.includes("INDICE")
+    ) {
+      setVariable1(jsonMir.fin.formula);
+      setVariable2("");
+    }
+  }, []);
 
   return (
     <>
@@ -523,7 +569,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{/*TASA XDXDX*/}</Typography>
+            <Typography>{tipoFormula}</Typography>
           </Box>
         </Box>
         <Box

@@ -13,10 +13,14 @@ export const ResumenFichaTecnica = (
     MIR,
     MA,
     FT,
+    Conac,
+    Consecutivo,
   }: {
     MIR: string;
     MA: string;
     FT: string;
+    Conac:string;
+    Consecutivo:string;
   }
 ) => {
   let show = 1;
@@ -96,7 +100,8 @@ export const ResumenFichaTecnica = (
   };
 
   
-  
+  const conac = Conac;
+  const consecutivo = Consecutivo;
 
   
 
@@ -109,6 +114,9 @@ export const ResumenFichaTecnica = (
     "PROGRAMAS PRESUPUESTARIOS",
   ];
   const clasificacionProgramaticaValue = ["CONAC", "PROGRAMA"];
+  const clasificacionProgramaticaValues = [
+    conac, consecutivo];
+
   const titleColumnsNormalPag1Value = [
     "IDENTIFICACIÓN DEL PROGRAMA PRESUPUESTARIO",
     "ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO",
@@ -195,6 +203,7 @@ export const ResumenFichaTecnica = (
   const jsonMir = JSON.parse(MIR);
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
+  
 
   const page1Values = [
     jsonMir.encabezado.beneficiario,
@@ -246,7 +255,9 @@ export const ResumenFichaTecnica = (
             border: 1,
           }}
         >
-          <Typography sx={{ fontSize: "1vw" }}>L</Typography>
+          <Typography sx={{ fontSize: "1vw" }}>
+          {clasificacionProgramaticaValues[i]}
+          </Typography>
         </Box>
       </Box>
     );
@@ -368,7 +379,7 @@ export const ResumenFichaTecnica = (
               <Typography
                 sx={{ fontSize: "1vw", fontFamily: "MontserratRegular" }}
               >
-                L19E11339
+                {clasificacionProgramaticaValues[0]+clasificacionProgramaticaValues[1]}
               </Typography>
             </Box>
           </Box>

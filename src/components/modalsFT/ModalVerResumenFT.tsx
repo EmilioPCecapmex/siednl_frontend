@@ -15,13 +15,16 @@ export default function ModalVerResumenFT({
     MIR,
     MA,
     FT,
-    
+    Conac,
+    Consecutivo,
 }:{
     MIR:string;
     MA:string;
     FT:string;
     open:boolean;
     handleClose: Function;
+    Conac:string;
+    Consecutivo:string;
 }){
     return( 
     <Dialog fullWidth maxWidth="xl" open={open} onClose={() => handleClose()}>
@@ -53,6 +56,8 @@ export default function ModalVerResumenFT({
         MIR={MIR}
         MA={MA}
         FT={FT}
+        Conac={Conac}
+        Consecutivo={Consecutivo}
         />
     </DialogContent>
     </Dialog>

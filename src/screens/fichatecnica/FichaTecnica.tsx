@@ -141,6 +141,7 @@ export const FichaTecnica = () => {
 
   useEffect(() => {
     getFT();
+    console.log("este es el FTShow: ", FTShow[0]);
   }, []);
 
   const handleClickOpen = () => {
@@ -727,6 +728,8 @@ export const FichaTecnica = () => {
                                           Programa: row.Programa,
                                           MIR: row.MIR,
                                           MetaAnual: row.MetaAnual,
+                                          Conac:row.Conac,
+                                          Consecutivo:row.Consecutivo,
                                         },
                                       ]);
                                       setShowResume(false);
@@ -757,6 +760,8 @@ export const FichaTecnica = () => {
                                           Programa: row.Programa,
                                           MIR: row.MIR,
                                           MetaAnual: row.MetaAnual,
+                                          Conac:row.Conac,
+                                          Consecutivo:row.Consecutivo,
                                         },
                                       ]);
                                       setOpenModalVerResumenFT(true);
@@ -801,6 +806,8 @@ export const FichaTecnica = () => {
           MIR={FTShow[0]?.MIR}
           MA={FTShow[0]?.MetaAnual}
           FT={FTShow[0]?.FichaT}
+          Conac={FTShow[0]?.Conac}  
+          Consecutivo={FTShow[0]?.Consecutivo}                          
           />
         </Box>
       ) : (
@@ -841,4 +848,6 @@ export interface IIFT {
   Programa: string;
   MIR: string;
   MetaAnual: string;
+  Conac:string;
+  Consecutivo:string;
 }
