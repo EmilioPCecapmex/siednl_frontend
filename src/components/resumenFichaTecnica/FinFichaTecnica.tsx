@@ -147,30 +147,22 @@ export const FinFechaTecnica = ({
   const jsonMir = JSON.parse(MIR);
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
-  const [tipoFormula, setTipoFormula] = useState("");
-  const getTipoDeFormula = () => {
-    setTipoFormula(
-      jsonMir.fin.indicador.includes("PORCENTAJE") ||
-        jsonMir.fin.indicador === "PORCENTAJE"
-        ? "PORCENTAJE"
-        : jsonMir.fin.indicador.includes("TASA") ||
-          jsonMir.fin.indicador === "TASA"
-        ? "TASA"
-        : jsonMir.fin.indicador.includes("INDICE" || "ÍNDICE") ||
-          jsonMir.fin.indicador === "INDICE" ||
-          jsonMir.fin.indicador === "ÍNDICE"
-        ? "ÍNDICE"
-        : jsonMir.fin.indicador.includes("PROMEDIO") ||
-          jsonMir.fin.indicador === "PROMEDIO"
-        ? "PROMEDIO"
-        : ""
-    );
-  };
-  useEffect(() => {
-    getTipoDeFormula();
-  }, []);
-
-  console.log(tipoFormula);
+  const [tipoFormula, setTipoFormula] = useState(
+    jsonMir.fin.indicador.includes("PORCENTAJE") ||
+      jsonMir.fin.indicador === "PORCENTAJE"
+      ? "PORCENTAJE"
+      : jsonMir.fin.indicador.includes("TASA") ||
+        jsonMir.fin.indicador === "TASA"
+      ? "TASA"
+      : jsonMir.fin.indicador.includes("INDICE" || "ÍNDICE") ||
+        jsonMir.fin.indicador === "INDICE" ||
+        jsonMir.fin.indicador === "ÍNDICE"
+      ? "ÍNDICE"
+      : jsonMir.fin.indicador.includes("PROMEDIO") ||
+        jsonMir.fin.indicador === "PROMEDIO"
+      ? "PROMEDIO"
+      : ""
+  );
 
   //EMPTY ARRAYS
   const headerTypography = [];
@@ -252,14 +244,31 @@ export const FinFechaTecnica = ({
   const [variable1, setVariable1] = useState("");
   const [variable2, setVariable2] = useState("");
 
-  
+  //ROJO
+  let metaAnualNumero = parseFloat(jsonMA.fin.metaAnual);
+  let x = metaAnualNumero * 0.15;
+  let y = metaAnualNumero - x;
+  let z = metaAnualNumero + x;
+
+  let xString = x.toFixed(2).toString();
+  let yString = y.toFixed(2).toString();
+  let zString = z.toFixed(2).toString();
+
+  //VERDE
+  let x1 = metaAnualNumero * 0.05;
+  let y1 = metaAnualNumero - x1;
+  let z1 = metaAnualNumero + x1;
+
+  let x1String = x1.toFixed(2).toString();
+  let y1String = y1.toFixed(2).toString();
+  let z1String = z1.toFixed(2).toString();
+
   //Forma de sacar tipo de formula
   useEffect(() => {
     if (tipoFormula === "TASA" || tipoFormula.includes("TASA")) {
-      console.log("entro");
       let variable1Arreglo = jsonMir.fin.formula.replaceAll("(", "").split("-");
       setVariable1(variable1Arreglo[0]);
-
+      console.log(jsonMA.fin.metaAnual);
       let variable2Arreglo = jsonMir.fin.formula.split("/");
       setVariable2(
         variable2Arreglo[1].replaceAll(")", "").replaceAll(" * 100", "")
@@ -1058,6 +1067,7 @@ export const FinFechaTecnica = ({
               width: "18vw",
               height: "6vh",
               border: 1,
+              borderBottom: 0,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -1073,7 +1083,7 @@ export const FinFechaTecnica = ({
               width: "18vw",
               height: "8vh",
               border: 1,
-              borderTop: 0,
+              borderTop: 1,
               borderRight: 0,
               display: "flex",
               justifyContent: "center",
@@ -1615,9 +1625,9 @@ export const FinFechaTecnica = ({
               backgroundColor: "red",
             }}
           >
-            <Typography>{"V.I.<"} </Typography>
+            <Typography>{`V.I. < ${yString}`} </Typography>
             <Typography>{"Ó"} </Typography>
-            <Typography>{"< V.I."} </Typography>
+            <Typography>{`${zString} < V.I.`} </Typography>
           </Box>
         </Box>
 
@@ -1656,9 +1666,9 @@ export const FinFechaTecnica = ({
               backgroundColor: "yellow",
             }}
           >
-            <Typography>{"<= V.I. <"} </Typography>
+            <Typography>{`${z1String} <= V.I. < ${zString}`} </Typography>
             <Typography>{"Ó"} </Typography>
-            <Typography>{"< V.I. <="} </Typography>
+            <Typography>{`${yString} < V.I. <= ${y1String}`} </Typography>
           </Box>
         </Box>
         <Box
@@ -1695,9 +1705,20 @@ export const FinFechaTecnica = ({
               backgroundColor: "green",
             }}
           >
-            <Typography>{"<= V.I. <="} </Typography>
+            <Typography>{`${y1String} <= V.I. <= ${z1String}`} </Typography>
           </Box>
         </Box>
+      </Box>
+      <Box
+      sx={{ width: "40vw",
+      height: "3vh",
+      display: "flex",
+      justifyContent: "start",
+      alignItems: "center",
+      ml:"3.4vw"
+      }}
+      >
+        <Typography fontFamily= {"MontserratLight"}>V.I.:VALOR DEL INDICADOR</Typography>
       </Box>
       <Box
         sx={{

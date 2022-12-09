@@ -26,6 +26,9 @@ export default function ModalVerResumenFT({
     Conac:string;
     Consecutivo:string;
 }){
+
+  const jsonMir = JSON.parse(MIR);
+
     return( 
     <Dialog fullWidth maxWidth="xl" open={open} onClose={() => handleClose()}>
         <DialogTitle
@@ -36,7 +39,7 @@ export default function ModalVerResumenFT({
           mb: 2,
         }}
       >
-        Nombre de la MIR o por definir
+        FICHA TÉCNICA - {jsonMir.encabezado.nombre_del_programa} - {jsonMir.encabezado.ejercicioFiscal}
       </DialogTitle>
       
       <DialogContent
