@@ -158,6 +158,7 @@ export function TabResumenFT({
     objetivoSER: true,
     objetivoODS: true,
     metaODS: true,
+    unidadDeMedida: true,
   });
 
   const [editFin, setEditFin] = useState<IFinEditFT>({
@@ -339,6 +340,35 @@ export function TabResumenFT({
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {encabezado[0]?.metaODS}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              mt: 1,
+              alignItems: "center",
+              borderBottom: 1,
+              borderColor: "#cfcfcf",
+            }}
+          >
+             {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editEncabezado.unidadDeMedida}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    unidadDeMedida: !v.target.checked,
+                  });
+                }}
+              />
+            )} 
+            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              UNIDAD DE MEDIDA:
+            </Typography>
+            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              {encabezado[0]?.unidadDeMedida}
             </Typography>
           </Box>
 
@@ -1676,6 +1706,7 @@ export interface IEncabezadoEditFT {
   objetivoSER: boolean;
   objetivoODS: boolean;
   metaODS: boolean;
+  unidadDeMedida: boolean;
 }
 
 export interface IFinEditFT {

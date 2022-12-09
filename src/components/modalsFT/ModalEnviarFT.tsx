@@ -103,6 +103,17 @@ export default function ModalEnviarFT({
       );
     }
     if (
+      JSON.parse(FT)?.encabezado.unidadDeMedida === undefined ||
+      JSON.parse(FT)?.encabezado.unidadDeMedida === "" ||
+      JSON.parse(FT)?.encabezado.unidadDeMedida === null ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida)
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Unidad de medida sin información."
+      );
+    }
+    if (
       JSON.parse(FT)?.encabezado.metaODS === undefined ||
       JSON.parse(FT)?.encabezado.metaODS === ""
     ) {

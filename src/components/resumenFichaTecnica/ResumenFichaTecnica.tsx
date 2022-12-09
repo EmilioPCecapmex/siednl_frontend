@@ -48,7 +48,7 @@ export const ResumenFichaTecnica = (
   };
   const sxBoxMediumSize = {
     width: "62vw",
-    height: "5vh",
+    height: "6vh",
     display: "flex",
     flexDirection: "row",
     ml: "3.4vw",
@@ -297,9 +297,9 @@ export const ResumenFichaTecnica = (
       i === 0 ? (
         <>
           {generalTitlesDesign1[0]}
-          <Box sx={sxBoxSmallSize}>
+          <Box sx={sxBoxMediumSize}>
             {/*ROW*/}
-            <Box sx={sxSubtitleSmallSize}>
+            <Box sx={sxSubtitleMediumSize}>
               <Typography
                 sx={{
                   fontSize: "1vw",
@@ -311,7 +311,7 @@ export const ResumenFichaTecnica = (
               </Typography>
             </Box>
             {/*ROW*/}
-            <Box sx={sxResultFieldSmallSize}>
+            <Box sx={sxResultFieldMediumSize}>
               <Typography
                 sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
               >
@@ -397,9 +397,9 @@ export const ResumenFichaTecnica = (
           </Box>
         </Box>
       ) : i === 2 ? (
-        <Box sx={sxBoxSmallSize}>
+        <Box sx={sxBoxMediumSize}>
           {/*ROW*/}
-          <Box sx={sxSubtitleSmallSize}>
+          <Box sx={sxSubtitleMediumSize}>
             <Typography
               sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
             >
@@ -407,7 +407,7 @@ export const ResumenFichaTecnica = (
             </Typography>
           </Box>
           {/*ROW*/}
-          <Box sx={sxResultFieldSmallSize}>
+          <Box sx={sxResultFieldMediumSize}>
             <Typography
               sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
             >
