@@ -444,7 +444,7 @@ export default function ModalEnviarMIR({
       })
       .catch((err) => {
         err = 1;
-        errores.push(err.response.data.result.error);
+        errores.push(err);
       });
   };
 

@@ -233,7 +233,7 @@ export const TabActividadesMA = ({
     ].valorDenominador = txt.split(",")[1];
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metaAnual = txt.split(",")[2] + "%";
+    ].metaAnual = txt.split(",")[2] ;
     setAValorMA([...aValorMA]);
   };
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
@@ -275,16 +275,16 @@ export const TabActividadesMA = ({
   const changeFormula2 = (txt: string) => {
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0] + "%";
+    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0] ;
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1] + "%";
+    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1] ;
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2] + "%";
+    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2] ;
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3] + "%";
+    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3] ;
     setAValorMA([...aValorMA]);
   };
 
@@ -309,7 +309,6 @@ export const TabActividadesMA = ({
 
       .then((r) => {
         setCatalogoUnidadResponsable(r.data.data);
-        console.log(r.data);
       })
 
       .catch((err) => {});

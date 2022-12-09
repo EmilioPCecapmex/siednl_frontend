@@ -210,25 +210,25 @@ export const TabComponenteMA = ({
   const changeFormula = (txt: string) => {
     componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
     componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];
-    componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] + "%";
+    componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] ;
     setComponentesValues([...componentesValues]);
   };
 
   const changeFormula2 = (txt: string) => {
     if (frecuencia === "trimestral") {
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre1 =
-        txt.split(",")[0] + "%";
+        txt.split(",")[0] ;
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 =
-        txt.split(",")[1] + "%";
+        txt.split(",")[1] ;
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre3 =
-        txt.split(",")[2] + "%";
+        txt.split(",")[2] ;
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre4 =
-        txt.split(",")[3] + "%";
+        txt.split(",")[3] ;
     } else {
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre1 =
-        txt.split(",")[0] + "%";
+        txt.split(",")[0] ;
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre2 =
-        txt.split(",")[1] + "%";
+        txt.split(",")[1] ;
     }
 
     setComponentesValues([...componentesValues]);
@@ -255,7 +255,6 @@ export const TabComponenteMA = ({
 
       .then((r) => {
         setCatalogoUnidadResponsable(r.data.data);
-        console.log(r.data);
       })
 
       .catch((err) => {});

@@ -29,7 +29,6 @@ export const TabComponenteFT = ({
   showFnc: Function;
   FT: string;
 }) => {
-  
   const [componentSelect, setComponentSelect] = useState(1);
 
   const [componentesValues, setComponentesValues] = useState<
@@ -39,48 +38,25 @@ export const TabComponenteFT = ({
   let jsonFT = FT === "" ? "" : JSON.parse(FT);
 
   useEffect(() => {
-    
     let comp: IComponentesFT[] = [];
 
     noComponentes.map((x, index) => {
       return comp.push({
         componentes: "C" + (index + 1),
         tipoDeIndicador:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.tipoDeIndicador || "",
-        claridad:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.claridad || "",
+          FT === "" ? "" : jsonFT?.componentes[index]?.tipoDeIndicador || "",
+        claridad: FT === "" ? "" : jsonFT?.componentes[index]?.claridad || "",
         relevancia:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.relevancia || "",
-        economia:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.economia || "",
+          FT === "" ? "" : jsonFT?.componentes[index]?.relevancia || "",
+        economia: FT === "" ? "" : jsonFT?.componentes[index]?.economia || "",
         monitoreable:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.monitoreable || "",
-        adecuado:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.adecuado || "",
+          FT === "" ? "" : jsonFT?.componentes[index]?.monitoreable || "",
+        adecuado: FT === "" ? "" : jsonFT?.componentes[index]?.adecuado || "",
         aporte_marginal:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.aporte_marginal || "",
-        dimension:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.dimension || "",
+          FT === "" ? "" : jsonFT?.componentes[index]?.aporte_marginal || "",
+        dimension: FT === "" ? "" : jsonFT?.componentes[index]?.dimension || "",
         unidadDeMedida:
-          FT === ""
-            ? ""
-            : jsonFT?.componentes[index]?.unidadDeMedida || "",
+          FT === "" ? "" : jsonFT?.componentes[index]?.unidadDeMedida || "",
       });
     });
 

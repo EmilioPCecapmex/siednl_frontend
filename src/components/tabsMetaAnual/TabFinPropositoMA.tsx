@@ -128,21 +128,23 @@ export function TabFinPropositoMA({
     if (elementoFormula === "Fin") {
       valueFin[0].valorNumerador = txt.split(",")[0];
       valueFin[0].valorDenominador = txt.split(",")[1];
-      valueFin[0].metaAnual = txt.split(",")[2] + "%";
+      valueFin[0].metaAnual = txt.split(",")[2] ;
       setValueFin([...valueFin]);
     } else if (elementoFormula === "Propósito") {
       valueProposito[0].valorNumerador = txt.split(",")[0];
       valueProposito[0].valorDenominador = txt.split(",")[1];
-      valueProposito[0].metaAnual = txt.split(",")[2] + "%";
+      valueProposito[0].metaAnual = txt.split(",")[2] ;
       setValueProposito([...valueProposito]);
     }
   };
 
   const getUnidades = () => {
+    console.log(JSON.parse(MIR).encabezado.institucion);
+    
     axios
       .get("http://10.200.4.105:8000/api/listadoUnidadesInst", {
         params: {
-          Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
+          Institucion: JSON.parse(MIR).encabezado.institucion,
         },
 
         headers: {
@@ -152,7 +154,6 @@ export function TabFinPropositoMA({
 
       .then((r) => {
         setCatalogounidadResponsable(r.data.data);
-        console.log(r.data);
       })
 
       .catch((err) => {});
