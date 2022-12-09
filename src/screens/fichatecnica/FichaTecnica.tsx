@@ -141,7 +141,6 @@ export const FichaTecnica = () => {
 
   useEffect(() => {
     getFT();
-    console.log("este es el FTShow: ", FTShow[0]);
   }, []);
 
   const handleClickOpen = () => {

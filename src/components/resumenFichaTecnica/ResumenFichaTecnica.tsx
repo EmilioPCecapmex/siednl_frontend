@@ -37,15 +37,7 @@ export const ResumenFichaTecnica = (
     borderBottom: 2,
     mt: "1vw",
   };
-  const sxBoxSmallSize = {
-    width: "62vw",
-    height: "2vh",
-    display: "flex",
-    flexDirection: "row",
-    ml: "3.4vw",
-    mt: "1vw",
-    mb: "1vw",
-  };
+  
   const sxBoxMediumSize = {
     width: "62vw",
     height: "6vh",
@@ -55,24 +47,7 @@ export const ResumenFichaTecnica = (
     mt: "1vw",
     mb: "1vw",
   };
-  const sxBoxLargeSize = {
-    width: "62vw",
-    height: "8vh",
-    display: "flex",
-    flexDirection: "row",
-    ml: "3.4vw",
-    mt: "1vw",
-    mb: "1vw",
-  };
-  const sxSubtitleSmallSize = {
-    width: "22vw",
-    height: "2vh",
-    backgroundColor: "#D9D9D9",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    borderColor: "#D9D9D9",
-  };
+  
   const sxSubtitleMediumSize = {
     width: "22vw",
     height: "5vh",
@@ -82,14 +57,7 @@ export const ResumenFichaTecnica = (
     border: 1,
     borderColor: "#D9D9D9",
   };
-  const sxResultFieldSmallSize = {
-    width: "38vw",
-    height: "2vh",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    ml: "2vw",
-  };
+  
   const sxResultFieldMediumSize = {
     width: "38vw",
     height: "5vh",
@@ -215,20 +183,22 @@ export const ResumenFichaTecnica = (
     jsonFT.encabezado.objetivoSER,
   ]
   let value_increment = 0;
-
   //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
   for (let i = 0; i < headerTextsValue.length; i++) {
     headerTypography.push(
+      <Box key={Math.random()}>
       <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
         {headerTextsValue[i]}
       </Typography>
+      </Box>
+      
     );
   }
 
   //RECORRE EL ARREGLO PARA DARLE DISEÑO
   for (let i = 0; i < clasificacionProgramaticaValue.length; i++) {
     conacAndProgramDesign.push(
-      <Box sx={{ width: "15vw", height: "10vh", ml: 1 }}>
+      <Box key={Math.random()} sx={{ width: "15vw", height: "10vh", ml: 1 }}>
         <Box
           sx={{
             width: "15vw",
@@ -266,7 +236,7 @@ export const ResumenFichaTecnica = (
   //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG1
   for (let i = 0; i < titleColumnsNormalPag1Value.length; i++) {
     generalTitlesDesign1.push(
-      <Box sx={sxTitleDesignPage1}>
+      <Box key={Math.random()} sx={sxTitleDesignPage1}>
         <Typography
           sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
         >
@@ -279,7 +249,7 @@ export const ResumenFichaTecnica = (
   //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG2
   for (let i = 0; i < titleColumnsNormalPag2Value.length; i++) {
     generalTitlesDesign2.push(
-      <Box sx={sxTitleDesignPage1}>
+      <Box key={Math.random()} sx={sxTitleDesignPage1}>
         <Typography
           sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
         >
@@ -297,7 +267,7 @@ export const ResumenFichaTecnica = (
       i === 0 ? (
         <>
           {generalTitlesDesign1[0]}
-          <Box sx={sxBoxMediumSize}>
+          <Box key={Math.random()} sx={sxBoxMediumSize}>
             {/*ROW*/}
             <Box sx={sxSubtitleMediumSize}>
               <Typography
@@ -324,6 +294,7 @@ export const ResumenFichaTecnica = (
       i === 1 ? (
         //SE AGREGA DISEÑO DE CLASIFICACION PROGRAMATICA EXCLUSIVO DE SI MISMO
         <Box
+        key={Math.random()}
           sx={{
             width: "62vw",
             height: "10vh",
@@ -397,7 +368,7 @@ export const ResumenFichaTecnica = (
           </Box>
         </Box>
       ) : i === 2 ? (
-        <Box sx={sxBoxMediumSize}>
+        <Box key={Math.random()} sx={sxBoxMediumSize}>
           {/*ROW*/}
           <Box sx={sxSubtitleMediumSize}>
             <Typography
@@ -416,7 +387,7 @@ export const ResumenFichaTecnica = (
           </Box>
         </Box>
       ) : i === 4 ? (
-        <>
+        <Box key={Math.random()}>
           {generalTitlesDesign1[1]}
           <Box sx={sxBoxMediumSize}>
             {/*ROW*/}
@@ -449,9 +420,9 @@ export const ResumenFichaTecnica = (
               </Typography>
             </Box>
           </Box>
-        </>
+        </Box>
       ) : i === 11 ? (
-        <>
+        <Box key={Math.random()}>
           {generalTitlesDesign1[2]}
           <Box sx={sxBoxMediumSize}>
             {/*ROW*/}
@@ -475,9 +446,9 @@ export const ResumenFichaTecnica = (
               </Typography>
             </Box>
           </Box>
-        </>
+        </Box>
       ) : i === subTitleColumnsNormalPag1Value.length - 1 ? (
-        <>
+        <Box key={Math.random()}>
           <Box sx={sxBoxMediumSize}>
             {/*ROW*/}
             <Box sx={sxSubtitleMediumSize}>
@@ -500,9 +471,9 @@ export const ResumenFichaTecnica = (
               </Typography>
             </Box>
           </Box>
-        </>
+        </Box>
       ) : (
-        <Box sx={sxBoxMediumSize}>
+        <Box key={Math.random()} sx={sxBoxMediumSize}>
           {/*ROW*/}
           <Box sx={sxSubtitleMediumSize}>
             <Typography
@@ -616,8 +587,8 @@ export const ResumenFichaTecnica = (
         <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
         {/*INICIA LA NUEVA PÁGINA QUE SE HARÁ COMPONENTE*/}
         <FinFechaTecnica MIR={MIR} MA={MA} FT={FT}/>
-        <PropositoFichaTecnica/>
-        <CompFichaTecnica/>
+        <PropositoFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
+        <CompFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
         <ActFichaTecnica/>
       </Box>
     </Box>

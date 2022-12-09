@@ -1,8 +1,18 @@
 import logo from "../../assets/logos/logo_tesoreriah1.png";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { IComponente } from "../tabsMir/IComponente";
 
-export const CompFichaTecnica = () => {
-        //DESIGNS
+export const CompFichaTecnica = ({
+  MIR,
+  MA,
+  FT,
+}: {
+  MIR: string;
+  MA: string;
+  FT: string;
+}) => {
+  //DESIGNS
   const sxTitleDesignPage1 = {
     ml: "3vw",
     width: "62vw",
@@ -11,15 +21,6 @@ export const CompFichaTecnica = () => {
     justifyContent: "start",
     borderBottom: 2,
     mt: "1vw",
-  };
-  const sxBoxSmallSize = {
-    width: "62vw",
-    height: "2vh",
-    display: "flex",
-    flexDirection: "row",
-    ml: "3.4vw",
-    mt: "1vw",
-    mb: "1vw",
   };
   const sxBoxMediumSize = {
     width: "62vw",
@@ -30,15 +31,6 @@ export const CompFichaTecnica = () => {
     mt: "1vw",
     mb: "1vw",
   };
-  const sxSubtitleSmallSize = {
-    width: "22vw",
-    height: "2vh",
-    backgroundColor: "#D9D9D9",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    borderColor: "#D9D9D9",
-  };
   const sxSubtitleMediumSize = {
     width: "22vw",
     height: "5vh",
@@ -47,14 +39,6 @@ export const CompFichaTecnica = () => {
     alignItems: "center",
     border: 1,
     borderColor: "#D9D9D9",
-  };
-  const sxResultFieldSmallSize = {
-    width: "38vw",
-    height: "2vh",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    ml: "2vw",
   };
   const sxResultFieldMediumSize = {
     width: "38vw",
@@ -65,166 +49,123 @@ export const CompFichaTecnica = () => {
     ml: "2vw",
   };
 
-  //ARRAYS DEFAULT VALUES
-  const headerTextsValue = [
-    "GOBIERNO DEL ESTADO DE NUEVO LEÓN",
-    "SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL ESTADO",
-    "PRESUPUESTO POR RESULTADOS",
-    "FICHA TECNICA DE INDICADORES 2022",
-    "PROGRAMAS PRESUPUESTARIOS",
-  ];
-  const clasificacionProgramaticaValue = ["CONAC", "PROGRAMA"];
-  const titleColumnsNormalPag1Value = [
-    "IDENTIFICACIÓN DEL PROGRAMA PRESUPUESTARIO",
-    "ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO",
-    "ALINEACIÓN ODS",
-  ];
+  const jsonMir = JSON.parse(MIR);
+  const jsonMA = JSON.parse(MA);
+  const jsonFT = JSON.parse(FT);
 
-  const titleColumnsNormalPag2Value = [
-    "DATOS DEL INDICADOR:",
-    "CARACTERÍSTICAS DEL INDICADOR",
-    "DATOS DE LAS VARIABLES",
-    "METAS",
-    "PARÁMETROS DE SEMAFORIZACIÓN",
-  ];
+  // jsonMir.componentes[0].length
 
-  const subTitleColumnsIndicatorDataPag2Value = [
-    "NOMBRE DEL INDICADOR:",
-    "DESCRIPCIÓN:",
-    "UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR:",
-    "MÉTODO DE CÁLCULO:",
-  ];
+  const [tipoFormula, setTipoFormula] = useState(
+    jsonMir.componentes[0].indicador.includes("PORCENTAJE") ||
+      jsonMir.proposito.indicador === "PORCENTAJE"
+      ? "PORCENTAJE"
+      : jsonMir.proposito.indicador.includes("TASA") ||
+        jsonMir.proposito.indicador === "TASA"
+      ? "TASA"
+      : jsonMir.proposito.indicador.includes("INDICE" || "ÍNDICE") ||
+        jsonMir.proposito.indicador === "INDICE" ||
+        jsonMir.proposito.indicador === "ÍNDICE"
+      ? "ÍNDICE"
+      : jsonMir.proposito.indicador.includes("PROMEDIO") ||
+        jsonMir.proposito.indicador === "PROMEDIO"
+      ? "PROMEDIO"
+      : ""
+  );
 
-  const subTitleColumnsRowIndicatorDataPag2Value = [
-    "TIPO DE INDICADOR",
-    "DIMENSIÓN",
-    "TIPO DE FÓRMULA",
-    "UNIDAD DE MEDIDA",
-    "FRECUENCIA",
-    "SENTIDO DEL INDICADOR",
-  ];
 
-  const subTitleColumnsRowIndicatorCaracteristicsPag2Value = [
-    "CLARIDAD",
-    "RELEVANCIA",
-    "ECONOMÍA",
-    "MONITOREABLE",
-    "ADECUADO",
-    "APORTE MARGINAL",
-  ];
+  const [variable1, setVariable1] = useState("");
+  const [variable2, setVariable2] = useState("");
 
-  const subTitleColumnsRowVariableDataPag2Value = [
-    "NOMBRE",
-    "DESCRIPCIÓN",
-    "MEDIO DE VERIFICACIÓN / FUENTE DE INFORMACIÓN",
-    "UNIDAD DE MEDIDA",
-    "VALOR 2022",
-  ];
+  //ROJO
+  let metaAnualNumero = parseFloat(jsonMA.proposito.metaAnual);
+  let x = metaAnualNumero * 0.15;
+  let y = metaAnualNumero - x;
+  let z = metaAnualNumero + x;
 
-  //SUPUESTO ESTA SOLO
+  let xString = x.toFixed(2).toString();
+  let yString = y.toFixed(2).toString();
+  let zString = z.toFixed(2).toString();
 
-  const subTitleColumnsRowGoalsPag2Value = [
-    "LÍNEA BASE",
-    "META 2022",
-    "META 2023",
-    "META 2024",
-    "META 2025",
-    "META 2026",
-    "META 2027",
-    "META SEXENAL",
-  ];
+  //VERDE
+  let x1 = metaAnualNumero * 0.05;
+  let y1 = metaAnualNumero - x1;
+  let z1 = metaAnualNumero + x1;
 
-  //EMPTY ARRAYS
-  const headerTypography = [];
-  const conacAndProgramDesign = [];
-  const generalTitlesDesign1 = [];
-  const generalTitlesDesign2 = [];
-  const Page1Content = [];
+  let x1String = x1.toFixed(2).toString();
+  let y1String = y1.toFixed(2).toString();
+  let z1String = z1.toFixed(2).toString();
 
-  //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
-  for (let i = 0; i < headerTextsValue.length; i++) {
-    headerTypography.push(
-      <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
-        {headerTextsValue[i]}
-      </Typography>
-    );
-  }
+  //Forma de sacar tipo de formula
+  useEffect(() => {
+    if (tipoFormula === "TASA" || tipoFormula.includes("TASA")) {
+      let variable1Arreglo = jsonMir.proposito.formula
+        .replaceAll("(", "")
+        .split("-");
+      setVariable1(variable1Arreglo[0]);
+      let variable2Arreglo = jsonMir.proposito.formula.split("/");
+      setVariable2(
+        variable2Arreglo[1].replaceAll(")", "").replaceAll(" * 100", "")
+      );
+    }
+    if (tipoFormula === "PROMEDIO" || tipoFormula.includes("PROMEDIO")) {
+      let variable1Arreglo = jsonMir.proposito.formula
+        .replaceAll("(", "")
+        .split("/");
+      setVariable1(variable1Arreglo[0]);
+      setVariable2(variable1Arreglo[1].replaceAll(")", ""));
+    }
 
-  //RECORRE EL ARREGLO PARA DARLE DISEÑO
-  for (let i = 0; i < clasificacionProgramaticaValue.length; i++) {
-    conacAndProgramDesign.push(
-      <Box sx={{ width: "15vw", height: "10vh", ml: 1 }}>
+    if (tipoFormula === "PORCENTAJE" || tipoFormula.includes("PORCENTAJE")) {
+      let variable1Arreglo = jsonMir.proposito.formula
+        .replaceAll("(", "")
+        .split("/");
+      setVariable1(variable1Arreglo[0]);
+
+      let variable2Arreglo = jsonMir.proposito.formula.split("/");
+      setVariable2(
+        variable2Arreglo[1].replaceAll(")", "").replaceAll(" * 100", "")
+      );
+    }
+    if (
+      tipoFormula === "ÍNDICE" ||
+      tipoFormula === "INDICE" ||
+      tipoFormula.includes("ÍNDICE") ||
+      tipoFormula.includes("INDICE")
+    ) {
+      setVariable1(jsonMir.proposito.formula);
+      setVariable2("");
+    }
+  }, []);
+
+
+  return (
+    <>
+      {jsonMir.componentes.map((a: IComponente, index: number) => {
+       return (
+        <Box key={index}>
         <Box
-          sx={{
-            width: "15vw",
-            height: "7vh",
-            backgroundColor: "#D9D9D9",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            border: 1,
-            borderColor: "#D9D9D9",
-          }}
-        >
-          <Typography sx={{ fontSize: "1vw" }}>
-            {clasificacionProgramaticaValue[i]}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            width: "15vw",
-            height: "3vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: 1,
-          }}
-        >
-          <Typography sx={{ fontSize: "1vw" }}>L</Typography>
-        </Box>
-      </Box>
-    );
-  }
-
-  //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG1
-  for (let i = 0; i < titleColumnsNormalPag1Value.length; i++) {
-    generalTitlesDesign1.push(
-      <Box sx={sxTitleDesignPage1}>
-        <Typography
-          sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
-        >
-          {titleColumnsNormalPag1Value[i]}
-        </Typography>
-      </Box>
-    );
-  }
-
-  //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG2
-  for (let i = 0; i < titleColumnsNormalPag2Value.length; i++) {
-    generalTitlesDesign2.push(
-      <Box sx={sxTitleDesignPage1}>
-        <Typography
-          sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
-        >
-          {titleColumnsNormalPag2Value[i]}
-        </Typography>
-      </Box>
-    );
-  }
-    return (
-        <>
-         <Box
-          sx={{
+            sx={{
             width: "100%",
             height: "20vh",
             display: "flex",
             justifyContent: "start",
-            
           }}
-        >
-           <Box sx={{width:"20%", height:"100%", ml:"4vw", mt:"5vh", mr:"1vw"}}>
-         <img src={logo} alt="Logo" style={{ width:"6vw", height:"12vh"}} />
-         </Box> 
+        > 
+          <Box
+            sx={{
+              width: "20%",
+              height: "100%",
+              ml: "4vw",
+              mt: "5vh",
+              mr: "1vw",
+            }}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ width: "6vw", height: "12vh" }}
+            />
+          </Box>
 
           <Box
             sx={{
@@ -243,7 +184,31 @@ export const CompFichaTecnica = () => {
                 flexDirection: "column",
               }}
             >
-              {headerTypography}
+              <Typography
+                sx={{ fontFamily: "MontserratBold", textAlign: "center" }}
+              >
+                 GOBIERNO DEL ESTADO DE NUEVO LEÓN
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "MontserratBold", textAlign: "center" }}
+              >
+                SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL ESTADO
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "MontserratBold", textAlign: "center" }}
+              >
+                PRESUPUESTO POR RESULTADOS
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "MontserratBold", textAlign: "center" }}
+              >
+                FICHA TECNICA DE INDICADORES 2022
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "MontserratBold", textAlign: "center" }}
+              >
+                PROGRAMAS PRESUPUESTARIOS
+              </Typography>
             </Box>
           </Box>
         </Box>
@@ -262,7 +227,7 @@ export const CompFichaTecnica = () => {
           }}
         >
           <Typography sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}>
-            COMPONENTE {1}
+            {jsonMir.componentes[index].componentes}
           </Typography>
         </Box>
 
@@ -295,36 +260,30 @@ export const CompFichaTecnica = () => {
                 fontFamily: "MontserratRegular",
               }}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-              consectetur quae sunt odio? Magnam, porro dolores alias distinctio
-              illum possimus, rem doloribus sint, voluptates reiciendis
-              voluptatibus. Cumque error vitae quibusdam.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Eligendi consectetur quae sunt odio? Magnam, porro dolores alias
+              distinctio illum possimus, rem doloribus sint, voluptates
+              reiciendis voluptatibus. Cumque error vitae quibusdam.
             </Typography>
           </Box>
         </Box>
-        {generalTitlesDesign2[0]}
-        <Box sx={sxBoxSmallSize}>
-          <Box sx={sxSubtitleSmallSize}>
-            <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
-            >
-              {subTitleColumnsIndicatorDataPag2Value[0]}
-            </Typography>
-          </Box>
-          <Box sx={sxResultFieldSmallSize}>
-            <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
-            >
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            </Typography>
-          </Box>
+        <Box sx={sxTitleDesignPage1}>
+          <Typography
+            sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          >
+            DATOS DEL INDICADOR:
+          </Typography>
         </Box>
         <Box sx={sxBoxMediumSize}>
           <Box sx={sxSubtitleMediumSize}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={{
+                fontSize: "1vw",
+                fontFamily: "MontserratSemiBold",
+                ml: 1,
+              }}
             >
-              {subTitleColumnsIndicatorDataPag2Value[1]}
+              NOMBRE DEL INDICADOR
             </Typography>
           </Box>
           <Box sx={sxResultFieldMediumSize}>
@@ -338,9 +297,13 @@ export const CompFichaTecnica = () => {
         <Box sx={sxBoxMediumSize}>
           <Box sx={sxSubtitleMediumSize}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={{
+                fontSize: "1vw",
+                fontFamily: "MontserratSemiBold",
+                ml: 1,
+              }}
             >
-              {subTitleColumnsIndicatorDataPag2Value[2]}
+              DESCRIPCIÓN
             </Typography>
           </Box>
           <Box sx={sxResultFieldMediumSize}>
@@ -354,9 +317,33 @@ export const CompFichaTecnica = () => {
         <Box sx={sxBoxMediumSize}>
           <Box sx={sxSubtitleMediumSize}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={{
+                fontSize: "1vw",
+                fontFamily: "MontserratSemiBold",
+                ml: 1,
+              }}
             >
-              {subTitleColumnsIndicatorDataPag2Value[3]}
+              UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
+            </Typography>
+          </Box>
+          <Box sx={sxResultFieldMediumSize}>
+            <Typography
+              sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+            >
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            </Typography>
+          </Box>
+        </Box>
+        <Box sx={sxBoxMediumSize}>
+          <Box sx={sxSubtitleMediumSize}>
+            <Typography
+              sx={{
+                fontSize: "1vw",
+                fontFamily: "MontserratSemiBold",
+                ml: 1,
+              }}
+            >
+              MÉTODO DE CÁLCULO:
             </Typography>
           </Box>
           <Box sx={sxResultFieldMediumSize}>
@@ -398,7 +385,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorDataPag2Value[0]}
+                TIPO DE INDICADOR
               </Typography>
             </Box>
             <Box
@@ -407,7 +394,7 @@ export const CompFichaTecnica = () => {
                 height: "3vh",
                 border: 1,
                 borderTop: 0,
-                borderRight:0,
+                borderRight: 0,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -437,7 +424,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorDataPag2Value[1]}
+                DIMENSIÓN
               </Typography>
             </Box>
             <Box
@@ -446,7 +433,7 @@ export const CompFichaTecnica = () => {
                 height: "3vh",
                 border: 1,
                 borderTop: 0,
-                borderRight:0,
+                borderRight: 0,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -475,7 +462,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorDataPag2Value[2]}
+                TIPO DE FÓRMULA
               </Typography>
             </Box>
             <Box
@@ -484,7 +471,7 @@ export const CompFichaTecnica = () => {
                 height: "3vh",
                 border: 1,
                 borderTop: 0,
-                borderRight:0,
+                borderRight: 0,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -513,7 +500,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorDataPag2Value[3]}
+                UNIDAD DE MEDIDA
               </Typography>
             </Box>
             <Box
@@ -521,7 +508,7 @@ export const CompFichaTecnica = () => {
                 width: "12vw",
                 height: "3vh",
                 border: 1,
-                borderRight:0,
+                borderRight: 0,
                 borderTop: 0,
                 display: "flex",
                 justifyContent: "center",
@@ -551,7 +538,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorDataPag2Value[4]}
+                FRECUENCIA
               </Typography>
             </Box>
             <Box
@@ -559,7 +546,7 @@ export const CompFichaTecnica = () => {
                 width: "8vw",
                 height: "3vh",
                 border: 1,
-                borderRight:0,
+                borderRight: 0,
                 borderTop: 0,
                 display: "flex",
                 justifyContent: "center",
@@ -589,7 +576,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorDataPag2Value[5]}
+                SENTIDO DEL INDICADOR
               </Typography>
             </Box>
             <Box
@@ -607,7 +594,13 @@ export const CompFichaTecnica = () => {
             </Box>
           </Box>
         </Box>
-        {generalTitlesDesign2[1]}
+        <Box sx={sxTitleDesignPage1}>
+          <Typography
+            sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          >
+                CARACTERÍSTICAS DEL INDICADOR
+          </Typography>
+        </Box>
         <Box
           sx={{
             width: "62vw",
@@ -639,16 +632,16 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorCaracteristicsPag2Value[0]}
+                CLARIDAD
               </Typography>
             </Box>
             <Box
               sx={{
                 width: "11vw",
                 height: "3vh",
-               
+
                 border: 1,
-                borderRight:0,
+                borderRight: 0,
                 borderTop: 0,
                 display: "flex",
                 justifyContent: "center",
@@ -679,7 +672,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorCaracteristicsPag2Value[1]}
+                RELEVANCIA
               </Typography>
             </Box>
             <Box
@@ -687,7 +680,7 @@ export const CompFichaTecnica = () => {
                 width: "7vw",
                 height: "3vh",
                 border: 1,
-                borderRight:0,
+                borderRight: 0,
                 borderTop: 0,
                 display: "flex",
                 justifyContent: "center",
@@ -717,7 +710,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorCaracteristicsPag2Value[2]}
+                ECONOMÍA
               </Typography>
             </Box>
             <Box
@@ -725,7 +718,7 @@ export const CompFichaTecnica = () => {
                 width: "11vw",
                 height: "3vh",
                 border: 1,
-                borderRight:0,
+                borderRight: 0,
                 borderTop: 0,
                 display: "flex",
                 justifyContent: "center",
@@ -755,7 +748,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorCaracteristicsPag2Value[3]}
+                MONITOREABLE
               </Typography>
             </Box>
             <Box
@@ -763,7 +756,7 @@ export const CompFichaTecnica = () => {
                 width: "12vw",
                 height: "3vh",
                 border: 1,
-                borderRight:0,
+                borderRight: 0,
                 borderTop: 0,
                 display: "flex",
                 justifyContent: "center",
@@ -793,7 +786,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorCaracteristicsPag2Value[4]}
+                ADECUADO
               </Typography>
             </Box>
             <Box
@@ -801,7 +794,7 @@ export const CompFichaTecnica = () => {
                 width: "8vw",
                 height: "3vh",
                 border: 1,
-                borderRight:0,
+                borderRight: 0,
                 borderTop: 0,
                 display: "flex",
                 justifyContent: "center",
@@ -831,7 +824,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowIndicatorCaracteristicsPag2Value[5]}
+                APORTE MARGINAL
               </Typography>
             </Box>
             <Box
@@ -849,7 +842,13 @@ export const CompFichaTecnica = () => {
             </Box>
           </Box>
         </Box>
-        {generalTitlesDesign2[2]}
+        <Box sx={sxTitleDesignPage1}>
+          <Typography
+            sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          >
+DATOS DE LAS VARIABLES
+          </Typography>
+        </Box>
         <Box
           sx={{
             width: "62vw",
@@ -881,7 +880,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowVariableDataPag2Value[0]}
+                NOMBRE
               </Typography>
             </Box>
             <Box
@@ -934,7 +933,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowVariableDataPag2Value[1]}
+                DESCRIPCIÓN
               </Typography>
             </Box>
             <Box
@@ -986,7 +985,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowVariableDataPag2Value[2]}
+              MEDIO DE VERIFICACIÓN / FUENTE DE INFORMACIÓN
               </Typography>
             </Box>
             <Box
@@ -1038,7 +1037,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowVariableDataPag2Value[3]}
+              UNIDAD DE MEDIDA
               </Typography>
             </Box>
             <Box
@@ -1090,7 +1089,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowVariableDataPag2Value[4]}
+                VALOR 2022
               </Typography>
             </Box>
             <Box
@@ -1121,7 +1120,13 @@ export const CompFichaTecnica = () => {
             </Box>
           </Box>
         </Box>
-        {generalTitlesDesign2[3]}
+        <Box sx={sxTitleDesignPage1}>
+          <Typography
+            sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          >
+            METAS
+          </Typography>
+        </Box>
         <Box
           sx={{
             width: "62vw",
@@ -1153,7 +1158,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowGoalsPag2Value[0]}
+                LÍNEA BASE
               </Typography>
             </Box>
             <Box
@@ -1192,7 +1197,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowGoalsPag2Value[1]}
+                META 2022
               </Typography>
             </Box>
             <Box
@@ -1230,7 +1235,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowGoalsPag2Value[2]}
+                META 2023
               </Typography>
             </Box>
             <Box
@@ -1268,7 +1273,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowGoalsPag2Value[3]}
+                META 2024
               </Typography>
             </Box>
             <Box
@@ -1306,7 +1311,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowGoalsPag2Value[4]}
+                META 2025
               </Typography>
             </Box>
             <Box
@@ -1344,7 +1349,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowGoalsPag2Value[5]}
+                META 2026
               </Typography>
             </Box>
             <Box
@@ -1382,7 +1387,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowGoalsPag2Value[6]}
+                META 2027
               </Typography>
             </Box>
             <Box
@@ -1420,7 +1425,7 @@ export const CompFichaTecnica = () => {
               }}
             >
               <Typography sx={{ fontSize: "1vw" }}>
-                {subTitleColumnsRowGoalsPag2Value[7]}
+                META SEXENAL
               </Typography>
             </Box>
             <Box
@@ -1438,7 +1443,13 @@ export const CompFichaTecnica = () => {
             </Box>
           </Box>
         </Box>
-        {generalTitlesDesign2[4]}
+        <Box sx={sxTitleDesignPage1}>
+          <Typography
+            sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          >
+            PARÁMETROS DE SEMAFORIZACIÓN
+          </Typography>
+        </Box>
         <Box
           sx={{
             width: "62vw",
@@ -1580,11 +1591,14 @@ export const CompFichaTecnica = () => {
             mt: "5vh",
           }}
         >
-            {/*PÁGINA*/}
+          {/*PÁGINA*/}
           <Typography sx={{}}>Página 4</Typography>
         </Box>
         <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
         <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
-        </>
-    );
-}
+        </Box>
+       )
+      })}
+    </>
+  );
+};

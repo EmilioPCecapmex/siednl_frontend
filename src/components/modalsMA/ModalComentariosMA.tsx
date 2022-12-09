@@ -164,7 +164,6 @@ export const ComentDialogMA = ({
         });
       })
       .catch((err) => {
-        console.log(err);
         
         
         Toast.fire({

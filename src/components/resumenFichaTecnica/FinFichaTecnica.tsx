@@ -1,6 +1,5 @@
 import logo from "../../assets/logos/logo_tesoreriah1.png";
 import { Box, Divider, Typography } from "@mui/material";
-import { json } from "stream/consumers";
 import { useEffect, useState } from "react";
 
 export const FinFechaTecnica = ({
@@ -169,21 +168,22 @@ export const FinFechaTecnica = ({
   const conacAndProgramDesign = [];
   const generalTitlesDesign1 = [];
   const generalTitlesDesign2 = [];
-  const Page1Content = [];
 
   //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
   for (let i = 0; i < headerTextsValue.length; i++) {
     headerTypography.push(
+      <Box key={i}>
       <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
         {headerTextsValue[i]}
       </Typography>
+      </Box>
     );
   }
 
   //RECORRE EL ARREGLO PARA DARLE DISEÑO
   for (let i = 0; i < clasificacionProgramaticaValue.length; i++) {
     conacAndProgramDesign.push(
-      <Box sx={{ width: "15vw", height: "10vh", ml: 1 }}>
+      <Box key={i} sx={{ width: "15vw", height: "10vh", ml: 1 }}>
         <Box
           sx={{
             width: "15vw",
@@ -219,7 +219,7 @@ export const FinFechaTecnica = ({
   //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG1
   for (let i = 0; i < titleColumnsNormalPag1Value.length; i++) {
     generalTitlesDesign1.push(
-      <Box sx={sxTitleDesignPage1}>
+      <Box key={i} sx={sxTitleDesignPage1}>
         <Typography
           sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
         >
@@ -232,7 +232,7 @@ export const FinFechaTecnica = ({
   //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG2
   for (let i = 0; i < titleColumnsNormalPag2Value.length; i++) {
     generalTitlesDesign2.push(
-      <Box sx={sxTitleDesignPage1}>
+      <Box key={i} sx={sxTitleDesignPage1}>
         <Typography
           sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
         >
@@ -268,7 +268,6 @@ export const FinFechaTecnica = ({
     if (tipoFormula === "TASA" || tipoFormula.includes("TASA")) {
       let variable1Arreglo = jsonMir.fin.formula.replaceAll("(", "").split("-");
       setVariable1(variable1Arreglo[0]);
-      console.log(jsonMA.fin.metaAnual);
       let variable2Arreglo = jsonMir.fin.formula.split("/");
       setVariable2(
         variable2Arreglo[1].replaceAll(")", "").replaceAll(" * 100", "")
@@ -389,15 +388,15 @@ export const FinFechaTecnica = ({
         </Box>
       </Box>
       {generalTitlesDesign2[0]}
-      <Box sx={sxBoxSmallSize}>
-        <Box sx={sxSubtitleSmallSize}>
+      <Box sx={sxBoxMediumSize}>
+        <Box sx={sxSubtitleMediumSize}>
           <Typography
             sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
           >
             {subTitleColumnsIndicatorDataPag2Value[0]}
           </Typography>
         </Box>
-        <Box sx={sxResultFieldSmallSize}>
+        <Box sx={sxResultFieldMediumSize}>
           <Typography
             sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
           >
@@ -1142,7 +1141,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>ABSOLUTA</Typography>
+            <Typography>{jsonFT.encabezado.unidadDeMedida}</Typography>
           </Box>
           <Box
             sx={{
@@ -1156,7 +1155,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>ABSOLUTA</Typography>
+            <Typography>{jsonFT.encabezado.unidadDeMedida}</Typography>
           </Box>
         </Box>
         <Box
