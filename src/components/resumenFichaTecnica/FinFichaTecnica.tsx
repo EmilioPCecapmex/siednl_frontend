@@ -301,7 +301,7 @@ export const FinFechaTecnica = ({
 
   return (
     <>
-      <Box
+      <Box key={Math.random()}
         sx={{
           width: "100%",
           height: "20vh",
