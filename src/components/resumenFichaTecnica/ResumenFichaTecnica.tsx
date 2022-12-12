@@ -589,7 +589,7 @@ export const ResumenFichaTecnica = (
         <FinFechaTecnica MIR={MIR} MA={MA} FT={FT}/>
         <PropositoFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
         <CompFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
-        <ActFichaTecnica/>
+        <ActFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
       </Box>
     </Box>
   );

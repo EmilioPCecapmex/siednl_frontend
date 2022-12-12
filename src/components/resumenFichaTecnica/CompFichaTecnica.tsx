@@ -53,89 +53,98 @@ export const CompFichaTecnica = ({
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
 
-  
-
-  const TasaVar1 = (index:number) =>{
-    const ArrayVar1 = jsonMir.componentes[index].formula.replaceAll("(", "").split("-")
+  const TasaVar1 = (index: number) => {
+    const ArrayVar1 = jsonMir.componentes[index].formula
+      .replaceAll("(", "")
+      .split("-");
     return ArrayVar1[0];
-  }
+  };
 
-  const PromedioVar1 = (index:number) =>{
-    const ArrayVar1 = jsonMir.componentes[index].formula.replaceAll("(", "").split("/");
+  const PromedioVar1 = (index: number) => {
+    const ArrayVar1 = jsonMir.componentes[index].formula
+      .replaceAll("(", "")
+      .split("/");
     return ArrayVar1[0];
-  }
+  };
 
-  const PorcentajeVar1 = (index:number) => {
-    const ArrayVar1 = jsonMir.componentes[index].formula.replaceAll("(", "").split("/");
+  const PorcentajeVar1 = (index: number) => {
+    const ArrayVar1 = jsonMir.componentes[index].formula
+      .replaceAll("(", "")
+      .split("/");
     return ArrayVar1[0];
-  }
+  };
 
-  const TasaVar2 = (index:number) => {
-    const ArrayVar1 = jsonMir.componentes[index].formula.replaceAll("(", "").split("-")
+  const TasaVar2 = (index: number) => {
+    const ArrayVar1 = jsonMir.componentes[index].formula
+      .replaceAll("(", "")
+      .split("-");
     return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
-  }
+  };
 
-  const PromedioVar2 = (index:number) => {
-    const ArrayVar1 = jsonMir.componentes[index].formula.replaceAll("(", "").split("/");
+  const PromedioVar2 = (index: number) => {
+    const ArrayVar1 = jsonMir.componentes[index].formula
+      .replaceAll("(", "")
+      .split("/");
     return ArrayVar1[1].replaceAll(")", "");
-  }
+  };
 
-  const PorcentajeVar2 = (index:number) => {
-    const ArrayVar1 = jsonMir.componentes[index].formula.replaceAll("(", "").split("/");
+  const PorcentajeVar2 = (index: number) => {
+    const ArrayVar1 = jsonMir.componentes[index].formula
+      .replaceAll("(", "")
+      .split("/");
     return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
-  }
+  };
 
-  const CalculosPorComponente = (index:number, color:string) => {
+  const CalculosPorComponente = (index: number, color: string) => {
     let metaAnualNumero = parseFloat(jsonMA.componentes[index].metaAnual);
-    
+
     let x = metaAnualNumero * 0.15;
     let y = metaAnualNumero - x;
     let z = metaAnualNumero + x;
-  
+
     //let xString = x.toFixed(2);
     let xString = x.toFixed(2);
     let yString = y.toFixed(2);
     let zString = z.toFixed(2);
-  
+
     //VERDE
     let x1 = metaAnualNumero * 0.05;
     let y1 = metaAnualNumero - x1;
     let z1 = metaAnualNumero + x1;
-  
+
     let x1String = x1.toFixed(2);
     let y1String = y1.toFixed(2);
     let z1String = z1.toFixed(2);
 
-    if(color==="VERDE"){
-      return (<Typography>
-        {`${y1String} <= V.I. <= ${z1String}`}
-      </Typography>)
-      }
-
-    if(color==="ROJO"){
-    return (<>
-    <Typography>{`V.I. < ${yString}`} </Typography>
-    <Typography>{"Ó"} </Typography>
-    <Typography>{`${zString} < V.I.`} </Typography>
-            </>)
+    if (color === "VERDE") {
+      return <Typography>{`${y1String} <= V.I. <= ${z1String}`}</Typography>;
     }
-   
-    
-    if(color==="AMARILLO"){
-      return (<>
-            <Typography>{`${z1String} <= V.I. < ${zString}`} </Typography>
-            <Typography>{"Ó"} </Typography>
-            <Typography>{`${yString} < V.I. <= ${y1String}`} </Typography>
-              </>)
-      }
-     
-  }
+
+    if (color === "ROJO") {
+      return (
+        <>
+          <Typography>{`V.I. < ${yString}`} </Typography>
+          <Typography>{"Ó"} </Typography>
+          <Typography>{`${zString} < V.I.`} </Typography>
+        </>
+      );
+    }
+
+    if (color === "AMARILLO") {
+      return (
+        <>
+          <Typography>{`${z1String} <= V.I. < ${zString}`} </Typography>
+          <Typography>{"Ó"} </Typography>
+          <Typography>{`${yString} < V.I. <= ${y1String}`} </Typography>
+        </>
+      );
+    }
+  };
 
   //Forma de sacar tipo de formula
   return (
     <>
       {jsonMir.componentes.map((a: IComponente, index: number) => {
-        
         return (
           <Box key={index}>
             <Box
@@ -491,19 +500,38 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                 {jsonMir.componentes[index].indicador.toUpperCase().includes("PORCENTAJE") 
-                 || jsonMir.componentes[index].indicador.toUpperCase() === "PORCENTAJE"?<Typography>PORCENTAJE</Typography>:
-                 jsonMir.componentes[index].indicador.toUpperCase().includes("TASA") 
-                 || jsonMir.componentes[index].indicador.toUpperCase() === "TASA"?<Typography>TASA</Typography>:
-                 jsonMir.componentes[index].indicador.toUpperCase().includes("PROMEDIO") 
-                 || jsonMir.componentes[index].indicador.toUpperCase() === "PROMEDIO"?<Typography>PROMEDIO</Typography>:
-                 jsonMir.componentes[index].indicador.toUpperCase().includes("INDICE") 
-                 || jsonMir.componentes[index].indicador.toUpperCase() === "INDICE" ||
-                 jsonMir.componentes[index].indicador.toUpperCase().includes("ÍNDICE") 
-                 || jsonMir.componentes[index].indicador.toUpperCase() === "ÍNDICE"?
-                 <Typography>ÍNDICE</Typography>:<Typography>SI</Typography>}
-
-                 
+                  {jsonMir.componentes[index].indicador
+                    .toUpperCase()
+                    .includes("PORCENTAJE") ||
+                  jsonMir.componentes[index].indicador.toUpperCase() ===
+                    "PORCENTAJE" ? (
+                    <Typography>PORCENTAJE</Typography>
+                  ) : jsonMir.componentes[index].indicador
+                      .toUpperCase()
+                      .includes("TASA") ||
+                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                      "TASA" ? (
+                    <Typography>TASA</Typography>
+                  ) : jsonMir.componentes[index].indicador
+                      .toUpperCase()
+                      .includes("PROMEDIO") ||
+                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                      "PROMEDIO" ? (
+                    <Typography>PROMEDIO</Typography>
+                  ) : jsonMir.componentes[index].indicador
+                      .toUpperCase()
+                      .includes("INDICE") ||
+                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                      "INDICE" ||
+                    jsonMir.componentes[index].indicador
+                      .toUpperCase()
+                      .includes("ÍNDICE") ||
+                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                      "ÍNDICE" ? (
+                    <Typography>ÍNDICE</Typography>
+                  ) : (
+                    <Typography>SI</Typography>
+                  )}
                 </Box>
               </Box>
               <Box
@@ -929,20 +957,37 @@ export const CompFichaTecnica = ({
                 >
                   {/*vvaria1*/}
                   <Typography fontSize={".6vw"}>
-                  {
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("TASA") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "TASA"? TasaVar1(index):
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("PROMEDIO") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "PROMEDIO"? PromedioVar1(index):
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("PORCENTAJE") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "PORCENTAJE"? PorcentajeVar1(index):
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("INDICE") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "INDICE" ||
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("ÍNDICE") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "ÍNDICE"?
-                     jsonMir.componentes[index].formula:""
-                  }
-                    </Typography>
+                    {jsonMir.componentes[index].indicador
+                      .toUpperCase()
+                      .includes("TASA") ||
+                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                      "TASA"
+                      ? TasaVar1(index)
+                      : jsonMir.componentes[index].indicador
+                          .toUpperCase()
+                          .includes("PROMEDIO") ||
+                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                          "PROMEDIO"
+                      ? PromedioVar1(index)
+                      : jsonMir.componentes[index].indicador
+                          .toUpperCase()
+                          .includes("PORCENTAJE") ||
+                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                          "PORCENTAJE"
+                      ? PorcentajeVar1(index)
+                      : jsonMir.componentes[index].indicador
+                          .toUpperCase()
+                          .includes("INDICE") ||
+                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                          "INDICE" ||
+                        jsonMir.componentes[index].indicador
+                          .toUpperCase()
+                          .includes("ÍNDICE") ||
+                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                          "ÍNDICE"
+                      ? jsonMir.componentes[index].formula
+                      : ""}
+                  </Typography>
                 </Box>
                 <Box
                   sx={{
@@ -958,19 +1003,36 @@ export const CompFichaTecnica = ({
                 >
                   {/*vvaria2*/}
                   <Typography fontSize={".6vw"}>
-                  {
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("TASA") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "TASA"? TasaVar2(index):
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("PROMEDIO") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "PROMEDIO"? PromedioVar2(index):
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("PORCENTAJE") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "PORCENTAJE"? PorcentajeVar2(index):
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("INDICE") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "INDICE" ||
-                     jsonMir.componentes[index].indicador.toUpperCase().includes("ÍNDICE") 
-                     || jsonMir.componentes[index].indicador.toUpperCase() === "ÍNDICE"?
-                     jsonMir.componentes[index].formula:""
-                  }
+                    {jsonMir.componentes[index].indicador
+                      .toUpperCase()
+                      .includes("TASA") ||
+                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                      "TASA"
+                      ? TasaVar2(index)
+                      : jsonMir.componentes[index].indicador
+                          .toUpperCase()
+                          .includes("PROMEDIO") ||
+                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                          "PROMEDIO"
+                      ? PromedioVar2(index)
+                      : jsonMir.componentes[index].indicador
+                          .toUpperCase()
+                          .includes("PORCENTAJE") ||
+                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                          "PORCENTAJE"
+                      ? PorcentajeVar2(index)
+                      : jsonMir.componentes[index].indicador
+                          .toUpperCase()
+                          .includes("INDICE") ||
+                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                          "INDICE" ||
+                        jsonMir.componentes[index].indicador
+                          .toUpperCase()
+                          .includes("ÍNDICE") ||
+                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                          "ÍNDICE"
+                      ? jsonMir.componentes[index].formula
+                      : ""}
                   </Typography>
                 </Box>
               </Box>
@@ -1610,7 +1672,7 @@ export const CompFichaTecnica = ({
                     backgroundColor: "red",
                   }}
                 >
-                  {CalculosPorComponente(index,"ROJO")}
+                  {CalculosPorComponente(index, "ROJO")}
                 </Box>
               </Box>
 
@@ -1649,7 +1711,7 @@ export const CompFichaTecnica = ({
                     backgroundColor: "yellow",
                   }}
                 >
-                 {CalculosPorComponente(index,"AMARILLO")}
+                  {CalculosPorComponente(index, "AMARILLO")}
                 </Box>
               </Box>
               <Box
@@ -1687,7 +1749,7 @@ export const CompFichaTecnica = ({
                   }}
                 >
                   <Typography>
-                  {CalculosPorComponente(index,"VERDE")}
+                    {CalculosPorComponente(index, "VERDE")}
                   </Typography>
                 </Box>
               </Box>
