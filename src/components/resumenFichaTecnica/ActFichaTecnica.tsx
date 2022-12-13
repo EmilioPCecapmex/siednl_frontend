@@ -6,10 +6,12 @@ export const ActFichaTecnica = ({
   MIR,
   MA,
   FT,
+  NoPaginas,
 }: {
   MIR: string;
   MA: string;
   FT: string;
+  NoPaginas: number;
 }) => {
   //DESIGNS
   const sxTitleDesignPage1 = {
@@ -140,10 +142,12 @@ export const ActFichaTecnica = ({
     }
   };
   
+  let paginas = NoPaginas;
   
   return (
     <>
       {jsonMir.actividades.map((a: IActividades, index: number) => {
+        paginas=paginas+1;
         return (
           <Box key={index}>
             <Box
@@ -1764,8 +1768,8 @@ export const ActFichaTecnica = ({
                 mt: "5vh",
               }}
             >
-              {/*PÁGINA*/}
-              <Typography sx={{}}>Página 4</Typography>
+              {/*PÁGINA*/} 
+              <Typography sx={{}}>Página {paginas}</Typography>
             </Box>
             <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
             <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />

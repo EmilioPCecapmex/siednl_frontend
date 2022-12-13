@@ -3,6 +3,7 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { IComponente } from "../tabsMir/IComponente";
 
+
 export const CompFichaTecnica = ({
   MIR,
   MA,
@@ -141,10 +142,13 @@ export const CompFichaTecnica = ({
     }
   };
 
+   let paginacion = 3;
+
   //Forma de sacar tipo de formula
   return (
     <>
       {jsonMir.componentes.map((a: IComponente, index: number) => {
+        paginacion=paginacion+1;
         return (
           <Box key={index}>
             <Box
@@ -1748,9 +1752,8 @@ export const CompFichaTecnica = ({
                     backgroundColor: "green",
                   }}
                 >
-                  <Typography>
                     {CalculosPorComponente(index, "VERDE")}
-                  </Typography>
+                  
                 </Box>
               </Box>
             </Box>
@@ -1766,13 +1769,19 @@ export const CompFichaTecnica = ({
               }}
             >
               {/*PÁGINA*/}
-              <Typography sx={{}}>Página 4</Typography>
+              <Typography sx={{}}>Página {paginacion}</Typography>
             </Box>
             <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
             <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
           </Box>
         );
       })}
+       
     </>
   );
+  
 };
+
+export interface IPaginacionComponente {
+  paginacionComponente: number;
+}

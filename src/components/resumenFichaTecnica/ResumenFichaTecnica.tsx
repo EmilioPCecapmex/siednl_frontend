@@ -7,6 +7,7 @@ import { ActFichaTecnica } from "./ActFichaTecnica";
 import { useEffect, useState } from "react";
 import { IIMir } from "../../screens/mir/MIR";
 import axios from "axios";
+import { IComponente } from "../tabsMir/IComponente";
 
 export const ResumenFichaTecnica = (
   {
@@ -71,6 +72,9 @@ export const ResumenFichaTecnica = (
   const conac = Conac;
   const consecutivo = Consecutivo;
 
+  
+
+  
   
 
   //ARRAYS DEFAULT VALUES
@@ -171,6 +175,7 @@ export const ResumenFichaTecnica = (
   const jsonMir = JSON.parse(MIR);
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
+  
   
 
   const page1Values = [
@@ -496,7 +501,22 @@ export const ResumenFichaTecnica = (
       )
     );
   }
+  let paginacion = 3;
+  let paginaciones= [1];
+  
+  const [pagina, setPagina] = useState(0);
+  
 
+  //PARA SACAR EL ÚLTIMO NÚMERO DE PÁGINA DE LOS COMPONENTES
+  useEffect(() => {
+    jsonMir.componentes.map((a: IComponente, index: number) => {
+      paginacion = paginacion+1;
+      paginaciones.push(paginacion);
+    })
+    let ultimaPaginaciones = paginaciones[paginaciones.length - 1]
+    setPagina(ultimaPaginaciones);
+  }, [paginaciones])
+  
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -589,7 +609,7 @@ export const ResumenFichaTecnica = (
         <FinFechaTecnica MIR={MIR} MA={MA} FT={FT}/>
         <PropositoFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
         <CompFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
-        <ActFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
+        <ActFichaTecnica MIR={MIR} MA={MA} FT={FT} NoPaginas={pagina}/>
       </Box>
     </Box>
   );
