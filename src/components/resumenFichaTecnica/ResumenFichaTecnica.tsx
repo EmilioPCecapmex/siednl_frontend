@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, TextField, Typography } from "@mui/material";
 import logo from "../../assets/logos/logo_tesoreriah1.png";
 import { FinFechaTecnica } from "./FinFichaTecnica";
 import { PropositoFichaTecnica } from "./PropositoFichaTecnica";
@@ -9,24 +9,20 @@ import { IIMir } from "../../screens/mir/MIR";
 import axios from "axios";
 import { IComponente } from "../tabsMir/IComponente";
 
-export const ResumenFichaTecnica = (
-  {
-    MIR,
-    MA,
-    FT,
-    Conac,
-    Consecutivo,
-  }: {
-    MIR: string;
-    MA: string;
-    FT: string;
-    Conac:string;
-    Consecutivo:string;
-  }
-) => {
+export const ResumenFichaTecnica = ({
+  MIR,
+  MA,
+  FT,
+  Conac,
+  Consecutivo,
+}: {
+  MIR: string;
+  MA: string;
+  FT: string;
+  Conac: string;
+  Consecutivo: string;
+}) => {
   let show = 1;
-
-  const [mirs, setMirs] = useState(Array<IIMir>);
 
   //DESIGNS
   const sxTitleDesignPage1 = {
@@ -38,7 +34,7 @@ export const ResumenFichaTecnica = (
     borderBottom: 2,
     mt: "1vw",
   };
-  
+
   const sxBoxMediumSize = {
     width: "62vw",
     height: "6vh",
@@ -48,7 +44,7 @@ export const ResumenFichaTecnica = (
     mt: "1vw",
     mb: "1vw",
   };
-  
+
   const sxSubtitleMediumSize = {
     width: "22vw",
     height: "5vh",
@@ -58,7 +54,7 @@ export const ResumenFichaTecnica = (
     border: 1,
     borderColor: "#D9D9D9",
   };
-  
+
   const sxResultFieldMediumSize = {
     width: "38vw",
     height: "5vh",
@@ -68,14 +64,51 @@ export const ResumenFichaTecnica = (
     ml: "2vw",
   };
 
-  
+
+  const sxTitleColumn = {
+    width: "22vw",
+    backgroundColor: "#D9D9D9",
+    display: "flex",
+    alignItems: "center",
+    border: 1,
+    borderColor: "#D9D9D9",
+  };
+
+  const sxTitleStyle = {
+    fontSize: "1vw",
+    fontFamily: "MontserratSemiBold",
+    ml: 1,
+  };
+
+  const sxSpaceBetweenTitleResult = {
+    width: "62vw",
+    display: "flex",
+    flexDirection: "row",
+    ml: "3.4vw",
+    mt: "1vw",
+    mb: "1vw",
+  };
+
+  const sxResultSize = {
+    width: "38vw",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const sxResultContentDesign = {
+    border: 1,
+    width: "38vw",
+    display: "flex",
+    fontSize: ".8rem",
+    fontFamily: "MontserratRegular",
+    minHeight: "5vh",
+    ml: "2vw",
+    backgroundColor: "white",
+    textAlign: "justify",
+  };
+
   const conac = Conac;
   const consecutivo = Consecutivo;
-
-  
-
-  
-  
 
   //ARRAYS DEFAULT VALUES
   const headerTextsValue = [
@@ -86,8 +119,7 @@ export const ResumenFichaTecnica = (
     "PROGRAMAS PRESUPUESTARIOS",
   ];
   const clasificacionProgramaticaValue = ["CONAC", "PROGRAMA"];
-  const clasificacionProgramaticaValues = [
-    conac, consecutivo];
+  const clasificacionProgramaticaValues = [conac, consecutivo];
 
   const titleColumnsNormalPag1Value = [
     "IDENTIFICACIÓN DEL PROGRAMA PRESUPUESTARIO",
@@ -119,52 +151,6 @@ export const ResumenFichaTecnica = (
     "META ODS:",
   ];
 
-  const subTitleColumnsIndicatorDataPag2Value = [
-    "NOMBRE DEL INDICADOR:",
-    "DESCRIPCIÓN:",
-    "UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR:",
-    "MÉTODO DE CÁLCULO:",
-  ];
-
-  const subTitleColumnsRowIndicatorDataPag2Value = [
-    "TIPO DE INDICADOR",
-    "DIMENSIÓN",
-    "TIPO DE FÓRMULA",
-    "UNIDAD DE MEDIDA",
-    "FRECUENCIA",
-    "SENTIDO DEL INDICADOR",
-  ];
-
-  const subTitleColumnsRowIndicatorCaracteristicsPag2Value = [
-    "CLARIDAD",
-    "RELEVANCIA",
-    "ECONOMÍA",
-    "MONITOREABLE",
-    "ADECUADO",
-    "APORTE MARGINAL",
-  ];
-
-  const subTitleColumnsRowVariableDataPag2Value = [
-    "NOMBRE",
-    "DESCRIPCIÓN",
-    "MEDIO DE VERIFICACIÓN / FUENTE DE INFORMACIÓN",
-    "UNIDAD DE MEDIDA",
-    "VALOR 2022",
-  ];
-
-  //SUPUESTO ESTA SOLO
-
-  const subTitleColumnsRowGoalsPag2Value = [
-    "LÍNEA BASE",
-    "META 2022",
-    "META 2023",
-    "META 2024",
-    "META 2025",
-    "META 2026",
-    "META 2027",
-    "META SEXENAL",
-  ];
-
   //ARRAYS VACIOS QUE SE USAN
   const headerTypography = [];
   const conacAndProgramDesign = [];
@@ -173,34 +159,30 @@ export const ResumenFichaTecnica = (
   const Page1Content = [];
 
   const jsonMir = JSON.parse(MIR);
-  const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
-  
-  
 
   const page1Values = [
     jsonMir.encabezado.beneficiario,
     jsonMir.encabezado.tema,
     jsonMir.encabezado.objetivo,
     jsonMir.encabezado.estrategia,
-    jsonMir.encabezado.lineas_de_accion.map((value: { Id: string; LineaDeAccion: string }, x: any)=>{
-      return (
-        value?.LineaDeAccion+"\n"
-      );
-    }),
+    jsonMir.encabezado.lineas_de_accion.map(
+      (value: { Id: string; LineaDeAccion: string }, x: any) => {
+        return value?.LineaDeAccion;
+      }
+    ),
     jsonFT.encabezado.programaSER,
     jsonFT.encabezado.objetivoSER,
-  ]
+  ];
   let value_increment = 0;
   //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
   for (let i = 0; i < headerTextsValue.length; i++) {
     headerTypography.push(
       <Box key={Math.random()}>
-      <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
-        {headerTextsValue[i]}
-      </Typography>
+        <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
+          {headerTextsValue[i]}
+        </Typography>
       </Box>
-      
     );
   }
 
@@ -220,7 +202,8 @@ export const ResumenFichaTecnica = (
             borderColor: "#D9D9D9",
           }}
         >
-          <Typography sx={{ fontSize: "1vw" }}>
+          <Typography sx={{ fontSize: ".8rem",
+    fontFamily: "MontserratRegular", }}>
             {clasificacionProgramaticaValue[i]}
           </Typography>
         </Box>
@@ -234,8 +217,9 @@ export const ResumenFichaTecnica = (
             border: 1,
           }}
         >
-          <Typography sx={{ fontSize: "1vw" }}>
-          {clasificacionProgramaticaValues[i]}
+          <Typography sx={{ fontSize: ".8rem",
+    fontFamily: "MontserratRegular", }}>
+            {clasificacionProgramaticaValues[i]}
           </Typography>
         </Box>
       </Box>
@@ -268,7 +252,6 @@ export const ResumenFichaTecnica = (
     );
   }
 
-
   //RECORRE EL ARREGLO DE LOS SUBTITULOS Y DEBERÁ RECORRER EL DE SUS RESULTADOS Y LO ACOMODA TODO EN UN ARREGLO.
   for (let i = 0; i < subTitleColumnsNormalPag1Value.length; i++) {
     Page1Content.push(
@@ -276,25 +259,19 @@ export const ResumenFichaTecnica = (
       i === 0 ? (
         <>
           {generalTitlesDesign1[0]}
-          <Box key={Math.random()} sx={sxBoxMediumSize}>
+          <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
             {/*ROW*/}
-            <Box sx={sxSubtitleMediumSize}>
-              <Typography
-                sx={{
-                  fontSize: "1vw",
-                  fontFamily: "MontserratSemiBold",
-                  ml: 1,
-                }}
-              >
+            <Box sx={sxTitleColumn}>
+              <Typography sx={sxTitleStyle}>
                 {subTitleColumnsNormalPag1Value[i]}
               </Typography>
             </Box>
             {/*ROW*/}
-            <Box sx={sxResultFieldMediumSize}>
+            <Box sx={sxResultSize}>
               <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+                sx={sxResultContentDesign}
               >
-               {jsonMir.encabezado.nombre_del_programa}
+                {jsonMir.encabezado.nombre_del_programa}
               </Typography>
             </Box>
           </Box>
@@ -303,7 +280,7 @@ export const ResumenFichaTecnica = (
       i === 1 ? (
         //SE AGREGA DISEÑO DE CLASIFICACION PROGRAMATICA EXCLUSIVO DE SI MISMO
         <Box
-        key={Math.random()}
+          key={Math.random()}
           sx={{
             width: "62vw",
             height: "10vh",
@@ -357,9 +334,11 @@ export const ResumenFichaTecnica = (
               }}
             >
               <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratRegular" }}
+                sx={{ fontSize: ".8rem",
+                fontFamily: "MontserratRegular", }}
               >
-                {clasificacionProgramaticaValues[0]+clasificacionProgramaticaValues[1]}
+                {clasificacionProgramaticaValues[0] +
+                  clasificacionProgramaticaValues[1]}
               </Typography>
             </Box>
           </Box>
@@ -377,104 +356,85 @@ export const ResumenFichaTecnica = (
           </Box>
         </Box>
       ) : i === 2 ? (
-        <Box key={Math.random()} sx={sxBoxMediumSize}>
+        <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
           {/*ROW*/}
-          <Box sx={sxSubtitleMediumSize}>
+          <Box sx={sxTitleColumn}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={sxTitleStyle}
             >
               {subTitleColumnsNormalPag1Value[i]}
             </Typography>
           </Box>
           {/*ROW*/}
-          <Box sx={sxResultFieldMediumSize}>
+          <Box sx={sxResultSize}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+              sx={sxResultContentDesign}
             >
               {jsonMir.encabezado.institucion}
             </Typography>
           </Box>
         </Box>
       ) : i === 4 ? (
-        <Box key={Math.random()}>
+        <>
           {generalTitlesDesign1[1]}
-          <Box sx={sxBoxMediumSize}>
+          <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
             {/*ROW*/}
-            <Box sx={sxSubtitleMediumSize}>
+            <Box sx={sxTitleColumn}>
               <Typography
-                sx={{
-                  fontSize: "1vw",
-                  fontFamily: "MontserratSemiBold",
-                  ml: 1,
-                }}
+                sx={sxTitleStyle}
               >
                 {subTitleColumnsNormalPag1Value[i]}
               </Typography>
             </Box>
             {/*ROW*/}
             <Box
-              sx={{
-                width: "38vw",
-                height: "5vh",
-                display: "flex",
-                alignItems: "center",
-                border: 1,
-                ml: "2vw",
-              }}
+              sx={sxResultSize}
             >
               <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+                sx={sxResultContentDesign}
               >
                 {jsonMir.encabezado.eje}
               </Typography>
             </Box>
           </Box>
-        </Box>
+          </>
       ) : i === 11 ? (
-        <Box key={Math.random()}>
+       <>
           {generalTitlesDesign1[2]}
-          <Box sx={sxBoxMediumSize}>
+          <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
             {/*ROW*/}
-            <Box sx={sxSubtitleMediumSize}>
+            <Box sx={sxTitleColumn}>
               <Typography
-                sx={{
-                  fontSize: "1vw",
-                  fontFamily: "MontserratSemiBold",
-                  ml: 1,
-                }}
+                sx={sxTitleStyle}
               >
                 {subTitleColumnsNormalPag1Value[i]}
               </Typography>
             </Box>
             {/*ROW*/}
-            <Box sx={sxResultFieldMediumSize}>
+            <Box sx={sxResultSize}>
               <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+                sx={sxResultContentDesign}
               >
                 {jsonFT.encabezado.objetivoODS}
               </Typography>
             </Box>
           </Box>
-        </Box>
+          </>
       ) : i === subTitleColumnsNormalPag1Value.length - 1 ? (
         <Box key={Math.random()}>
-          <Box sx={sxBoxMediumSize}>
+          <Box sx={sxSpaceBetweenTitleResult}>
             {/*ROW*/}
-            <Box sx={sxSubtitleMediumSize}>
+            <Box sx={sxTitleColumn}>
               <Typography
-                sx={{
-                  fontSize: "1vw",
-                  fontFamily: "MontserratSemiBold",
-                  ml: 1,
-                }}
+                sx={sxTitleStyle}
               >
                 {subTitleColumnsNormalPag1Value[i]}
               </Typography>
             </Box>
             {/*ROW*/}
-            <Box sx={sxResultFieldMediumSize}>
+            <Box sx={sxResultSize}>
               <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+                sx={sxResultContentDesign}
               >
                 {jsonFT.encabezado.metaODS}
               </Typography>
@@ -482,9 +442,28 @@ export const ResumenFichaTecnica = (
           </Box>
         </Box>
       ) : (
-        <Box key={Math.random()} sx={sxBoxMediumSize}>
+        <Box
+          key={Math.random()}
+          sx={{
+            width: "62vw",
+            display: "flex",
+            flexDirection: "row",
+            ml: "3.4vw",
+            mt: "1vw",
+            mb: "1vw",
+          }}
+        >
           {/*ROW*/}
-          <Box sx={sxSubtitleMediumSize}>
+          <Box
+            sx={{
+              width: "22vw",
+              backgroundColor: "#D9D9D9",
+              display: "flex",
+              alignItems: "center",
+              border: 1,
+              borderColor: "#D9D9D9",
+            }}
+          >
             <Typography
               sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
             >
@@ -492,35 +471,49 @@ export const ResumenFichaTecnica = (
             </Typography>
           </Box>
           {/*ROW*/}
-          <Box sx={sxResultFieldMediumSize}>
+          <Box
+            sx={{
+              width: "38vw",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Typography
-              sx={{ fontSize: "0.6vw", fontFamily: "MontserratRegular", ml: 3 }}
+              sx={{
+                border: 1,
+                width: "38vw",
+                display: "flex",
+                fontSize: ".8rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                ml: "2vw",
+                backgroundColor: "white",
+                textAlign: "justify",
+              }}
             >
               {page1Values[value_increment]}
             </Typography>
             <Typography hidden={true}>{value_increment++}</Typography>
-            
           </Box>
         </Box>
       )
     );
   }
   let paginacion = 3;
-  let paginaciones= [1];
-  
+  let paginaciones = [1];
+
   const [pagina, setPagina] = useState(0);
-  
 
   //PARA SACAR EL ÚLTIMO NÚMERO DE PÁGINA DE LOS COMPONENTES
   useEffect(() => {
     jsonMir.componentes.map((a: IComponente, index: number) => {
-      paginacion = paginacion+1;
+      paginacion = paginacion + 1;
       paginaciones.push(paginacion);
-    })
-    let ultimaPaginaciones = paginaciones[paginaciones.length - 1]
+    });
+    let ultimaPaginaciones = paginaciones[paginaciones.length - 1];
     setPagina(ultimaPaginaciones);
-  }, [paginaciones])
-  
+  }, [paginaciones]);
+
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -564,12 +557,23 @@ export const ResumenFichaTecnica = (
             height: "20vh",
             display: "flex",
             justifyContent: "start",
-            
           }}
         >
-           <Box sx={{width:"20%", height:"100%", ml:"4vw", mt:"5vh", mr:"1vw"}}>
-         <img src={logo} alt="Logo" style={{ width:"6vw", height:"12vh"}} />
-         </Box> 
+          <Box
+            sx={{
+              width: "20%",
+              height: "100%",
+              ml: "4vw",
+              mt: "5vh",
+              mr: "1vw",
+            }}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ width: "6vw", height: "12vh" }}
+            />
+          </Box>
 
           <Box
             sx={{
@@ -607,13 +611,13 @@ export const ResumenFichaTecnica = (
         >
           <Typography sx={{}}>Página 1</Typography>
         </Box>
-        <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
-        <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
+        <Divider sx={{ height: "1vh", backgroundColor: "rgba(0,0,0,5)" }} />
+
         {/*INICIA LA NUEVA PÁGINA QUE SE HARÁ COMPONENTE*/}
-        <FinFechaTecnica MIR={MIR} MA={MA} FT={FT}/>
-        <PropositoFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
-        <CompFichaTecnica MIR={MIR} MA={MA} FT={FT}/>
-        <ActFichaTecnica MIR={MIR} MA={MA} FT={FT} NoPaginas={pagina}/>
+        <FinFechaTecnica MIR={MIR} MA={MA} FT={FT} />
+        <PropositoFichaTecnica MIR={MIR} MA={MA} FT={FT} />
+        <CompFichaTecnica MIR={MIR} MA={MA} FT={FT} />
+        <ActFichaTecnica MIR={MIR} MA={MA} FT={FT} NoPaginas={pagina} />
       </Box>
     </Box>
   );
