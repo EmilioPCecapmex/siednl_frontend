@@ -183,7 +183,11 @@ export const ResumenFichaTecnica = (
     jsonMir.encabezado.tema,
     jsonMir.encabezado.objetivo,
     jsonMir.encabezado.estrategia,
-    "Lineas de acción.",
+    jsonMir.encabezado.lineas_de_accion.map((value: { Id: string; LineaDeAccion: string }, x: any)=>{
+      return (
+        value?.LineaDeAccion+"\n"
+      );
+    }),
     jsonFT.encabezado.programaSER,
     jsonFT.encabezado.objetivoSER,
   ]
@@ -490,7 +494,7 @@ export const ResumenFichaTecnica = (
           {/*ROW*/}
           <Box sx={sxResultFieldMediumSize}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+              sx={{ fontSize: "0.6vw", fontFamily: "MontserratRegular", ml: 3 }}
             >
               {page1Values[value_increment]}
             </Typography>
