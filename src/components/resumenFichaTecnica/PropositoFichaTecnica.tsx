@@ -22,35 +22,6 @@ export const PropositoFichaTecnica = ({
     mt: "1vw",
   };
  
-  const sxBoxMediumSize = {
-    width: "62vw",
-    height: "5vh",
-    display: "flex",
-    flexDirection: "row",
-    ml: "3.4vw",
-    mt: "1vw",
-    mb: "1vw",
-  };
- 
-  const sxSubtitleMediumSize = {
-    width: "22vw",
-    height: "5vh",
-    backgroundColor: "#D9D9D9",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    borderColor: "#D9D9D9",
-  };
- 
-  const sxResultFieldMediumSize = {
-    width: "38vw",
-    height: "5vh",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    ml: "2vw",
-  };
-
   //Sizeable Design
   const sxTitleColumn = {
     width: "22vw",

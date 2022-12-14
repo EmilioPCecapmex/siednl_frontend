@@ -50,6 +50,60 @@ export const CompFichaTecnica = ({
     ml: "2vw",
   };
 
+   //Sizeable Design
+   const sxTitleColumn = {
+    width: "22vw",
+    backgroundColor: "#D9D9D9",
+    display: "flex",
+    alignItems: "center",
+    border: 1,
+    borderColor: "#D9D9D9",
+  };
+
+  const sxTitleStyle = {
+    fontSize: "1vw",
+    fontFamily: "MontserratSemiBold",
+    ml: 1,
+  };
+
+  const sxSpaceBetweenTitleResult = {
+    width: "62vw",
+    display: "flex",
+    flexDirection: "row",
+    ml: "3.4vw",
+    mt: "1vw",
+    mb: "1vw",
+  };
+
+  const sxResultSize = {
+    width: "38vw",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const sxResultContentDesign = {
+    border: 1,
+    width: "38vw",
+    display: "flex",
+    fontSize: ".8rem",
+    fontFamily: "MontserratRegular",
+    minHeight: "5vh",
+    ml: "2vw",
+    backgroundColor: "white",
+    textAlign: "justify",
+  };
+
+  //SMALL BOXES
+  const sxTitleSmallBoxes = {
+    fontSize: ".9vw",
+    fontFamily: "MontserratSemiBold",
+  };
+
+  const sxResultSmallBoxes = {
+    fontSize: ".8rem",
+    fontFamily: "MontserratRegular",
+  };
+
   const jsonMir = JSON.parse(MIR);
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
@@ -150,8 +204,8 @@ export const CompFichaTecnica = ({
       {jsonMir.componentes.map((a: IComponente, index: number) => {
         paginacion=paginacion+1;
         return (
-          <Box key={index}>
-            <Box
+          <>
+            <Box 
               sx={{
                 width: "100%",
                 height: "20vh",
@@ -256,7 +310,6 @@ export const CompFichaTecnica = ({
                 sx={{
                   width: "62vw",
                   height: "10vh",
-                  border: 1,
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -264,11 +317,16 @@ export const CompFichaTecnica = ({
               >
                 <Typography
                   sx={{
-                    ml: "2vw",
-                    mr: "2vw",
-                    fontSize: "1vw",
+                    border: 1,
+                    width: "62vw",
+                    height: "10vh",
+                    display: "flex",
+                    fontSize: ".8rem",
                     fontFamily: "MontserratRegular",
-                  }}
+                    minHeight: "5vh",
+                    backgroundColor: "white",
+                    textAlign: "justify",
+                   }}
                 >
                   {jsonMir.componentes[index].resumen}
                 </Typography>
@@ -285,99 +343,67 @@ export const CompFichaTecnica = ({
                 DATOS DEL INDICADOR:
               </Typography>
             </Box>
-            <Box sx={sxBoxMediumSize}>
-              <Box sx={sxSubtitleMediumSize}>
+            <Box sx={sxSpaceBetweenTitleResult}>
+              <Box sx={sxTitleColumn}>
                 <Typography
-                  sx={{
-                    fontSize: "1vw",
-                    fontFamily: "MontserratSemiBold",
-                    ml: 1,
-                  }}
+                  sx={sxTitleStyle}
                 >
                   NOMBRE DEL INDICADOR
                 </Typography>
               </Box>
-              <Box sx={sxResultFieldMediumSize}>
+              <Box sx={sxResultSize}>
                 <Typography
-                  sx={{
-                    fontSize: "0.6vw",
-                    fontFamily: "MontserratRegular",
-                    ml: 3,
-                  }}
+                 sx={sxResultContentDesign}
                 >
-                  {jsonMir.componentes[index].indicador}
+                  {jsonMir.componentes[index].indicador.toUpperCase()}
                 </Typography>
               </Box>
             </Box>
-            <Box sx={sxBoxMediumSize}>
-              <Box sx={sxSubtitleMediumSize}>
+            <Box sx={sxSpaceBetweenTitleResult}>
+              <Box sx={sxTitleColumn}>
                 <Typography
-                  sx={{
-                    fontSize: "1vw",
-                    fontFamily: "MontserratSemiBold",
-                    ml: 1,
-                  }}
+                  sx={sxTitleStyle}
                 >
                   DESCRIPCIÓN
                 </Typography>
               </Box>
-              <Box sx={sxResultFieldMediumSize}>
+              <Box sx={sxResultSize}>
                 <Typography
-                  sx={{
-                    fontSize: "1vw",
-                    fontFamily: "MontserratRegular",
-                    ml: 3,
-                  }}
+                  sx={sxResultContentDesign}
                 >
-                  {jsonMA.componentes[index].descIndicador}
+                  {jsonMA.componentes[index].descIndicador.toUpperCase()}
                 </Typography>
               </Box>
             </Box>
-            <Box sx={sxBoxMediumSize}>
-              <Box sx={sxSubtitleMediumSize}>
+            <Box sx={sxSpaceBetweenTitleResult}>
+              <Box sx={sxTitleColumn}>
                 <Typography
-                  sx={{
-                    fontSize: "1vw",
-                    fontFamily: "MontserratSemiBold",
-                    ml: 1,
-                  }}
+                  sx={sxTitleStyle}
                 >
                   UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
                 </Typography>
               </Box>
-              <Box sx={sxResultFieldMediumSize}>
+              <Box sx={sxResultSize}>
                 <Typography
-                  sx={{
-                    fontSize: "1vw",
-                    fontFamily: "MontserratRegular",
-                    ml: 3,
-                  }}
+                  sx={sxResultContentDesign}
                 >
-                  {jsonMA.componentes[index].unidadResponsable}
+                  {jsonMA.componentes[index].unidadResponsable.toUpperCase()}
                 </Typography>
               </Box>
             </Box>
-            <Box sx={sxBoxMediumSize}>
-              <Box sx={sxSubtitleMediumSize}>
+            <Box sx={sxSpaceBetweenTitleResult}>
+              <Box sx={sxTitleColumn}>
                 <Typography
-                  sx={{
-                    fontSize: "1vw",
-                    fontFamily: "MontserratSemiBold",
-                    ml: 1,
-                  }}
+                  sx={sxTitleStyle}
                 >
                   MÉTODO DE CÁLCULO:
                 </Typography>
               </Box>
-              <Box sx={sxResultFieldMediumSize}>
+              <Box sx={sxResultSize}>
                 <Typography
-                  sx={{
-                    fontSize: "0.6vw",
-                    fontFamily: "MontserratRegular",
-                    ml: 3,
-                  }}
+                  sx={sxResultContentDesign}
                 >
-                  {jsonMir.componentes[index].formula}
+                  {jsonMir.componentes[index].formula.toUpperCase()}
                 </Typography>
               </Box>
             </Box>
@@ -1773,7 +1799,7 @@ export const CompFichaTecnica = ({
             </Box>
             <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
             <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
-          </Box>
+            </>
         );
       })}
        
