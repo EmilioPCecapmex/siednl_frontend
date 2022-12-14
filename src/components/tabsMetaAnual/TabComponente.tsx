@@ -7,6 +7,7 @@ import {
   List,
   ListItemButton,
   FormControl,
+  Autocomplete,
 } from "@mui/material";
 import { IComponenteMA } from "./Interfaces";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -15,6 +16,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
+import axios from "axios";
 
 export const TabComponenteMA = ({
   show,
@@ -92,8 +94,10 @@ export const TabComponenteMA = ({
           MA === ""
             ? ""
             : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
+
         unidadResponsable:
           MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
+
         descIndicador:
           MA === "" ? "" : jsonMA?.componentes[index]?.descIndicador || "",
         descNumerador:
@@ -117,26 +121,38 @@ export const TabComponenteMA = ({
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
   const [frecuencia, setFrecuencia] = useState("");
 
-  
-
   const handleClickOpen = () => {
     setTipoFormula(
       JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
         "PORCENTAJE"
-      ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "porcentaje")
+      ) ||
+        JSON.parse(MIR).componentes[
+          componentSelect - 1
+        ].indicador.toLowerCase() === "porcentaje"
         ? "Porcentaje"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "TASA"
-          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "tasa")
+          ) ||
+          JSON.parse(MIR).componentes[
+            componentSelect - 1
+          ].indicador.toLowerCase() === "tasa"
         ? "Tasa"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "INDICE" || "ÍNDICE"
-          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "indice" 
-           || JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "índice")
+          ) ||
+          JSON.parse(MIR).componentes[
+            componentSelect - 1
+          ].indicador.toLowerCase() === "indice" ||
+          JSON.parse(MIR).componentes[
+            componentSelect - 1
+          ].indicador.toLowerCase() === "índice"
         ? "Indice"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "PROMEDIO"
-          ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "promedio")
+          ) ||
+          JSON.parse(MIR).componentes[
+            componentSelect - 1
+          ].indicador.toLowerCase() === "promedio"
         ? "Promedio"
         : ""
     );
@@ -152,20 +168,34 @@ export const TabComponenteMA = ({
     setTipoFormula(
       JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
         "PORCENTAJE"
-      ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "porcentaje")
+      ) ||
+        JSON.parse(MIR).componentes[
+          componentSelect - 1
+        ].indicador.toLowerCase() === "porcentaje"
         ? "Porcentaje"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "TASA"
-          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "tasa")
+          ) ||
+          JSON.parse(MIR).componentes[
+            componentSelect - 1
+          ].indicador.toLowerCase() === "tasa"
         ? "Tasa"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "INDICE" || "ÍNDICE"
-          )|| (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "indice" 
-           || JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "índice")
+          ) ||
+          JSON.parse(MIR).componentes[
+            componentSelect - 1
+          ].indicador.toLowerCase() === "indice" ||
+          JSON.parse(MIR).componentes[
+            componentSelect - 1
+          ].indicador.toLowerCase() === "índice"
         ? "Indice"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "PROMEDIO"
-          ) || (JSON.parse(MIR).componentes[componentSelect - 1].indicador.toLowerCase() === "promedio")
+          ) ||
+          JSON.parse(MIR).componentes[
+            componentSelect - 1
+          ].indicador.toLowerCase() === "promedio"
         ? "Promedio"
         : ""
     );
@@ -203,6 +233,37 @@ export const TabComponenteMA = ({
 
     setComponentesValues([...componentesValues]);
   };
+
+  const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
+    {
+      Id: 0,
+      Unidad: "",
+    },
+  ]);
+
+  const getUnidades = () => {
+    axios
+      .get("http://10.200.4.105:8000/api/listadoUnidadesInst", {
+        params: {
+          Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
+        },
+
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+
+      .then((r) => {
+        setCatalogoUnidadResponsable(r.data.data);
+        console.log(r.data);
+      })
+
+      .catch((err) => {});
+  };
+
+  useEffect(() => {
+    getUnidades();
+  }, []);
 
   return (
     <Box
@@ -835,37 +896,71 @@ export const TabComponenteMA = ({
               justifyContent: "space-evenly",
             }}
           >
-            <TextField
-              rows={5}
-              multiline
-              sx={{ width: "40%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
-                </Typography>
-              }
-              value={
-                componentesValues[componentSelect - 1]?.unidadResponsable || ""
-              }
-              onChange={(c) => {
-                componentesValues[componentSelect - 1].unidadResponsable =
-                  c.target.value;
-                setComponentesValues([...componentesValues]);
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: 2,
+                width: "40%",
+                height: "12vh",
+                backgroundColor: "#f0f0f0",
               }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-            />
+            >
+              <FormControl sx={{ width: "25vw" }}>
+                <Autocomplete
+                  disabled={false}
+                  options={catalogoUnidadResponsable}
+                  getOptionLabel={(option) => option.Unidad}
+                  value={{
+                    Id: catalogoUnidadResponsable[0].Id,
+                    Unidad:
+                      componentesValues[componentSelect - 1]?.unidadResponsable,
+                  }}
+                  renderOption={(props, option) => {
+                    return (
+                      <li {...props} key={option.Id}>
+                        <p
+                          style={{
+                            fontFamily: "MontserratRegular",
+                            fontSize: ".7vw",
+                          }}
+                        >
+                          {option.Unidad}
+                        </p>
+                      </li>
+                    );
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={"UNIDAD RESPONSABLE"}
+                      variant="standard"
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratSemiBold",
+                          fontSize: ".7vw",
+                        },
+                      }}
+                      sx={{
+                        "& .MuiAutocomplete-input": {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                    ></TextField>
+                  )}
+                  onChange={(event, value) => {
+                    componentesValues[componentSelect - 1].unidadResponsable =
+                      value?.Unidad || "";
+                    setComponentesValues([...componentesValues]);
+                  }}
+                  isOptionEqualToValue={(option, value) =>
+                    option.Id === value.Id
+                  }
+                />
+              </FormControl>{" "}
+            </Box>
+
             <TextField
               rows={5}
               multiline

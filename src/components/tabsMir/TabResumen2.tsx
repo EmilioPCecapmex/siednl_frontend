@@ -43,6 +43,10 @@ export function TabResumen2({
     setOpenModalEnviar(false);
   };
 
+useEffect(() => {
+console.log(cValor)
+  },[show])
+
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
   const handleCloseModif = () => {

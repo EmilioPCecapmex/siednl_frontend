@@ -383,7 +383,7 @@ export default function ModalEnviarFT({
   const crearFichaTecnica = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor: localStorage.getItem("IdUsuario"),

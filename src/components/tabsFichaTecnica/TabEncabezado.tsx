@@ -27,6 +27,7 @@ export function TabEncabezado({
   const [catalogoObjetivosDS, setCatalogoObjetivosDS] = useState([
     { Id: "", ObjetivoDS: "" },
   ]);
+
   const [catalogoMetasODS, setCatalogoMetasODS] = useState([
     { Id: "", MetaODS: "" },
   ]);
@@ -51,20 +52,21 @@ export function TabEncabezado({
   const getObjetivos = (id: Array<number>) => {
     id.map((value, index) => {
       axios
-      .get("http://10.200.4.199:8000/api/ped-columns", {
-        params: {
-          Col: "ObjetivosDs",
-          Id: value,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoObjetivosDS(r.data.data);
-      })
-      .catch((err) => {});
-    })
+        .get("http://10.200.4.199:8000/api/ped-columns", {
+          params: {
+            Col: "ObjetivosDs",
+            Id: value,
+          },
+
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
+        .then((r) => {
+          setCatalogoObjetivosDS(r.data.data);
+        })
+        .catch((err) => {});
+    });
   };
 
   const getMetas = (Id: string) => {
@@ -161,6 +163,7 @@ export function TabEncabezado({
       ></TextField>
 
       {/*------------------------TF2--------------------- */}
+
       <Box
         sx={{
           display: "flex",
@@ -213,14 +216,16 @@ export function TabEncabezado({
               ></TextField>
             )}
             onChange={(event, value) =>
-              enCambioObjetivo(value?.Id as string, value?.ObjetivoDS as string || '')
+              enCambioObjetivo(
+                value?.Id as string,
+                (value?.ObjetivoDS as string) || ""
+              )
             }
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
           />
         </FormControl>
       </Box>
 
-      {/*------------------------TF3--------------------- */}
       <Box
         sx={{
           display: "flex",
@@ -234,7 +239,7 @@ export function TabEncabezado({
       >
         <FormControl sx={{ width: "30vw" }}>
           <Autocomplete
-            disabled={disabledMetas || objetivoODSSel === ''}
+            disabled={disabledMetas || objetivoODSSel === ""}
             options={catalogoMetasODS}
             getOptionLabel={(option) => option.MetaODS}
             value={{
@@ -275,7 +280,7 @@ export function TabEncabezado({
             )}
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
             onChange={(event, value) => {
-              setMetaODSSel(value?.MetaODS as string || '');
+              setMetaODSSel((value?.MetaODS as string) || "");
             }}
           />
         </FormControl>

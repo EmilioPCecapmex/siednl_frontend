@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-
 import {
   Box,
   Dialog,
@@ -15,8 +14,6 @@ import {
   Typography,
 } from "@mui/material";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
-import { IFT } from "../tabsFichaTecnica/Interfaces";
-import { isMapIterator } from "util/types";
 
 export let errores: string[] = [];
 
@@ -26,6 +23,7 @@ export default function ModalSolicitaModif({
   FT,
   MIR,
   IdFT,
+  IdMa,
   IdMIR,
   showResume,
   MAEdit,
@@ -36,6 +34,7 @@ export default function ModalSolicitaModif({
   FT: string;
   MIR: string;
   IdFT: string;
+  IdMa: string;
   IdMIR: string;
   MAEdit: string;
 }) {
@@ -75,36 +74,49 @@ export default function ModalSolicitaModif({
 
   let err = 0;
 
-
-
   const checkFT = (v: string) => {
-  
     errores = [];
 
-    if (JSON.parse(FT)?.encabezado.programaSER === null || JSON.parse(FT)?.encabezado.programaSER === undefined
-    || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER) ) {
+    if (
+      JSON.parse(FT)?.encabezado.programaSER === null ||
+      JSON.parse(FT)?.encabezado.programaSER === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
+    ) {
       err = 1;
-      errores.push("Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta.");
+      errores.push(
+        "Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
+      );
     }
 
-    if (JSON.parse(FT)?.encabezado.objetivoSER === null || JSON.parse(FT)?.encabezado.objetivoSER === undefined
-    || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoSER) ) {
+    if (
+      JSON.parse(FT)?.encabezado.objetivoSER === null ||
+      JSON.parse(FT)?.encabezado.objetivoSER === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoSER)
+    ) {
       err = 1;
-      errores.push("Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta.");
+      errores.push(
+        "Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta."
+      );
     }
 
-    if (JSON.parse(FT)?.encabezado.metaODS === null || JSON.parse(FT)?.encabezado.metaODS === undefined
-    || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.metaODS) ) {
+    if (
+      JSON.parse(FT)?.encabezado.metaODS === null ||
+      JSON.parse(FT)?.encabezado.metaODS === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.metaODS)
+    ) {
       err = 1;
-      errores.push("Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta.");
+      errores.push(
+        "Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta."
+      );
     }
 
     if (JSON.parse(FT)?.encabezado.unidadDeMedida === null || JSON.parse(FT)?.encabezado.unidadDeMedida === undefined
     || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida) ) {
       err = 1;
-      errores.push("Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta.");
+      errores.push(
+        "Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
+      );
     }
-
     if (JSON.parse(FT)?.fin === null) {
       err = 1;
       errores.push("Sección <strong>Fin</strong> incompleta.");
@@ -124,7 +136,8 @@ export default function ModalSolicitaModif({
       errores.push("<strong>Fin</strong>: Diemension información");
     }
     if (
-      JSON.parse(FT)?.fin.unidadDeMedida === undefined || /^[\s]*$/.test(JSON.parse(FT)?.fin.unidadDeMedida )
+      JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.unidadDeMedida)
     ) {
       err = 1;
       errores.push("<strong>Fin</strong>: Unidad de medida sin información");
@@ -245,9 +258,6 @@ export default function ModalSolicitaModif({
         "<strong>proposito</strong>: Aporte marginal sin información"
       );
     }
-
-    /////////////////////////////////////////////////////////////////////////////
-
     checkcomponentes(v);
   };
 
@@ -259,7 +269,6 @@ export default function ModalSolicitaModif({
         componente.tipoDeIndicador === ""
       ) {
         err = 1;
-        //errores.push(`Sección <strong>componentes ${index + 1} </strong> incompleta.`);
         errores.push(
           `<strong>componente ${
             index + 1
@@ -332,15 +341,13 @@ export default function ModalSolicitaModif({
           } </strong>: Aporte marginal sin información`
         );
       }
-
       return true;
     });
-
     checkActividades(v);
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(FT)?.actividades.every((actividad: any, index: number) => {
+    JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.tipoDeIndicador === undefined ||
         actividad.tipoDeIndicador === null ||
@@ -348,108 +355,87 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${
-            index + 1
-          }  </strong>: Tipo de indicador sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Tipo de indicador sin información`
         );
       }
-
       if (actividad.dimension === undefined || actividad.dimension === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${
-            index + 1
-          }  </strong>: Tipo de Dimensíon sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Tipo de Dimensíon sin información`
         );
       }
-
       if (
         actividad.unidadDeMedida === undefined ||
         actividad.unidadDeMedida === ""
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${
-            index + 1
-          }  </strong>: Tipo de Unidad de medida sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Tipo de Unidad de medida sin información`
         );
       }
-
       if (actividad.claridad === undefined || actividad.claridad === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${index + 1}  </strong>: Claridad sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Claridad sin información`
         );
       }
-
       if (actividad.relevancia === undefined || actividad.relevancia === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${
-            index + 1
-          }  </strong>: Relevancia sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Relevancia sin información`
         );
       }
-
       if (actividad.economia === undefined || actividad.economia === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${index + 1}  </strong>: Economía sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Economía sin información`
         );
       }
-
       if (
         actividad.monitoreable === undefined ||
         actividad.monitoreable === ""
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${
-            index + 1
-          }  </strong>: Monitoreable sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Monitoreable sin información`
         );
       }
-
       if (actividad.adecuado === undefined || actividad.adecuado === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${index + 1}  </strong>: Adecuado sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Adecuado sin información`
         );
       }
-
       if (
         actividad.aporte_marginal === undefined ||
         actividad.aporte_marginal === ""
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${index + 1}  </strong>: Adecuado sin información`
+          `<strong>actividad ${actividad.actividad}  </strong>: Adecuado sin información`
         );
       }
     });
 
-    ////////////////////////////////////////////////////////
     if (err === 0) {
-      //createFT(v);
+      createFT(v);
     } else {
       Toast.fire({
         icon: "error",
         html: `
-    <div style="height:50%;">
-    <h3>Se han encontrado los siguientes errores:</h3>
-    <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-  <small>
-  <strong>
-  *</strong>${errores.join("<br><strong>*</strong>")}
-  </small>
-  </div>
-  </div>`,
+        <div style="height:50%;">
+        <h3>Se han encontrado los siguientes errores:</h3>
+        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
+      <small>
+      <strong>
+      *</strong>${errores.join("<br><strong>*</strong>")}
+      </small>
+      </div>
+      </div>`,
       });
-      //////////////////////////////////////////////////
     }
   };
 
-  /////////////////////////////////////////////////////////////
   const createFT = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
@@ -458,7 +444,7 @@ export default function ModalSolicitaModif({
     }
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor:
@@ -467,6 +453,7 @@ export default function ModalSolicitaModif({
               : localStorage.getItem("IdUsuario"),
           IdMir: IdMIR,
           Estado: estado,
+          IdMa: IdMa,
           Id: IdFT,
         },
         {
@@ -498,7 +485,7 @@ export default function ModalSolicitaModif({
         });
       });
   };
-  /////////////////////////////////////////////////////////////
+
   const getUsuariosXInstitucion = () => {
     axios
       .get(
@@ -519,7 +506,7 @@ export default function ModalSolicitaModif({
         }
       });
   };
-  /////////////////////////////////////////////////////////////////
+
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();

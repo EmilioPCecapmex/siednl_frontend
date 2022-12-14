@@ -69,11 +69,13 @@ export const FinFechaTecnica = ({
   const sxTitleSmallBoxes = {
     fontSize: ".9vw",
     fontFamily: "MontserratSemiBold",
+    textAlign: 'center'
   };
 
   const sxResultSmallBoxes = {
     fontSize: ".8rem",
     fontFamily: "MontserratRegular",
+    textAlign: 'center',
   };
 
   //ARRAYS DEFAULT VALUES
@@ -293,7 +295,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "29vw",
-              height: "15vh",
+              height: "20vh",
               display: "flex",
               flexDirection: "column",
             }}
@@ -410,18 +412,17 @@ export const FinFechaTecnica = ({
       <Box
         sx={{
           width: "62vw",
-          height: "6vh",
           display: "flex",
           flexDirection: "row",
           ml: "3.4vw",
           mt: "1vw",
+          height: '100%',
           mb: "1vw",
         }}
       >
         <Box
           sx={{
             width: "11vw",
-            height: "6vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -429,14 +430,15 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "11vw",
-              height: "3vh",
               border: 1,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "#D9D9D9",
+
             }}
           >
+
             <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorDataPag2Value[0]}
             </Typography>
@@ -444,13 +446,13 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "11vw",
-              height: "3vh",
               border: 1,
               borderTop: 0,
               borderRight: 0,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              
             }}
           >
             <Typography sx={sxResultSmallBoxes}>
@@ -462,7 +464,6 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "7vw",
-            height: "6vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -485,7 +486,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "7vw",
-              height: "3vh",
+              height: '100%',
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -502,9 +503,9 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "11vw",
-            height: "6vh",
             display: "flex",
             flexDirection: "column",
+            
           }}
         >
           <Box
@@ -525,7 +526,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "11vw",
-              height: "3vh",
+              height: "100%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -540,7 +541,7 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "12vw",
-            height: "6vh",
+
             display: "flex",
             flexDirection: "column",
           }}
@@ -563,7 +564,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "12vw",
-              height: "3vh",
+              height: "100%",
               border: 1,
               borderRight: 0,
               borderTop: 0,
@@ -580,7 +581,7 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "8vw",
-            height: "6vh",
+
             display: "flex",
             flexDirection: "column",
           }}
@@ -603,7 +604,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "8vw",
-              height: "3vh",
+              height: "100%",
               border: 1,
               borderRight: 0,
               borderTop: 0,
@@ -620,7 +621,6 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "13vw",
-            height: "6vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -643,7 +643,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "13vw",
-              height: "3vh",
+              height: "100%",
               border: 1,
               borderTop: 0,
               display: "flex",
@@ -915,7 +915,6 @@ export const FinFechaTecnica = ({
       <Box
         sx={{
           width: "62vw",
-          height: "22vh",
           display: "flex",
           flexDirection: "row",
           ml: "3.4vw",
@@ -926,15 +925,15 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "11vw",
-            height: "22vh",
+            height: '40vh',
             display: "flex",
             flexDirection: "column",
           }}
         >
           <Box
             sx={{
-              width: "11vw",
-              height: "6vh",
+              width: "100%",
+              height: "20%",
               border: 1,
               display: "flex",
               justifyContent: "center",
@@ -948,8 +947,9 @@ export const FinFechaTecnica = ({
           </Box>
           <Box
             sx={{
-              width: "11vw",
-              height: "7.7vh",
+              width: "100%",
+                            height: '40%',
+
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -960,12 +960,11 @@ export const FinFechaTecnica = ({
           >
             <Typography
               sx={{
-                width: "11vw",
-                height: "7.7vh",
+                width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
+                textAlign: 'justify',
                 fontFamily: "MontserratRegular",
-                minHeight: "5vh",
                 backgroundColor: "white",
               }}
             >
@@ -974,8 +973,9 @@ export const FinFechaTecnica = ({
           </Box>
           <Box
             sx={{
-              width: "11vw",
-              height: "8vh",
+              width: "100%",
+                            height: '40%',
+
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -986,12 +986,12 @@ export const FinFechaTecnica = ({
           >
             <Typography
               sx={{
-                width: "11vw",
-                height: "8vh",
+                width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
+                textAlign: 'justify',
+
                 fontFamily: "MontserratRegular",
-                minHeight: "5vh",
                 backgroundColor: "white",
               }}
             >
@@ -1003,15 +1003,14 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "11vw",
-            height: "22vh",
             display: "flex",
             flexDirection: "column",
           }}
         >
           <Box
             sx={{
-              width: "11vw",
-              height: "6vh",
+              width: "100%",
+              height: "20%",
               border: 1,
               display: "flex",
               justifyContent: "center",
@@ -1025,8 +1024,8 @@ export const FinFechaTecnica = ({
           </Box>
           <Box
             sx={{
-              width: "11vw",
-              height: "8vh",
+              width: "100%",
+              height: '40%',
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1037,14 +1036,12 @@ export const FinFechaTecnica = ({
           >
             <Typography
               sx={{
-                width: "11vw",
-                height: "7.7vh",
-                display: "flex",
+                width: "90%",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
                 minHeight: "5vh",
                 backgroundColor: "white",
-                textAlign: "justify",
+                textAlign: 'justify',
               }}
             >
               {jsonMA.fin.descNumerador.toUpperCase()}
@@ -1052,8 +1049,8 @@ export const FinFechaTecnica = ({
           </Box>
           <Box
             sx={{
-              width: "11vw",
-              height: "8vh",
+              width: "100%",
+              height: '40%',
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1064,14 +1061,11 @@ export const FinFechaTecnica = ({
           >
             <Typography
               sx={{
-                width: "11vw",
-                height: "7.7vh",
-                display: "flex",
+                width: "90%",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
-                minHeight: "5vh",
+                textAlign: 'justify',
                 backgroundColor: "white",
-                textAlign: "justify",
               }}
             >
               {jsonMA.fin.descDenominador.toUpperCase()}
@@ -1081,15 +1075,15 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "18vw",
-            height: "22vh",
+            height: '40vh',
             display: "flex",
             flexDirection: "column",
           }}
         >
           <Box
             sx={{
-              width: "18vw",
-              height: "6vh",
+              width: "100%",
+              height: "20%",
               border: 1,
               borderBottom: 0,
               display: "flex",
@@ -1104,8 +1098,8 @@ export const FinFechaTecnica = ({
           </Box>
           <Box
             sx={{
-              width: "18vw",
-              height: "7.8vh",
+              width: "100%",
+              height: '40%',
               border: 1,
               borderTop: 1,
               borderRight: 0,
@@ -1116,9 +1110,7 @@ export const FinFechaTecnica = ({
           >
             <Typography
               sx={{
-                width: "18vw",
-                height: "7.8vh",
-                display: "flex",
+                width: "90%",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
                 minHeight: "5vh",
@@ -1131,8 +1123,9 @@ export const FinFechaTecnica = ({
           </Box>
           <Box
             sx={{
-              width: "18vw",
-              height: "7.7vh",
+              width: "100%",
+              height: '40%',
+
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1143,9 +1136,7 @@ export const FinFechaTecnica = ({
           >
             <Typography
               sx={{
-                width: "18vw",
-                height: "7.7vh",
-                display: "flex",
+                width: "90%",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
                 minHeight: "5vh",
@@ -1160,15 +1151,15 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "11vw",
-            height: "22vh",
+            height: '40vh',
             display: "flex",
             flexDirection: "column",
           }}
         >
           <Box
             sx={{
-              width: "11vw",
-              height: "6vh",
+              width: "100%",
+              height: "20%",
               border: 1,
               display: "flex",
               justifyContent: "center",
@@ -1182,8 +1173,8 @@ export const FinFechaTecnica = ({
           </Box>
           <Box
             sx={{
-              width: "11vw",
-              height: "8vh",
+              width: "100%",
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1194,8 +1185,7 @@ export const FinFechaTecnica = ({
           >
             <Typography
               sx={{
-                width: "11vw",
-                height: "7.7vh",
+                width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
@@ -1210,8 +1200,8 @@ export const FinFechaTecnica = ({
           </Box>
           <Box
             sx={{
-              width: "11vw",
-              height: "8vh",
+              width: "100%",
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1222,8 +1212,7 @@ export const FinFechaTecnica = ({
           >
             <Typography
               sx={{
-                width: "11vw",
-                height: "7.7vh",
+                width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
@@ -1239,7 +1228,7 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "11vw",
-            height: "22vh",
+            height: "40vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -1247,7 +1236,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "11vw",
-              height: "6vh",
+              height: "20%",
               border: 1,
               display: "flex",
               justifyContent: "center",
@@ -1262,7 +1251,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "11vw",
-              height: "8vh",
+              height: "40%",
               border: 1,
               borderTop: 0,
               display: "flex",
@@ -1279,7 +1268,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "11vw",
-              height: "8vh",
+              height: "40%",
               border: 1,
               borderTop: 0,
               display: "flex",

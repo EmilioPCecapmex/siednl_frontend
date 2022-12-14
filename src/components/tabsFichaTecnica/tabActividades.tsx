@@ -73,8 +73,6 @@ export const TabActividadesFT = ({
     })
   );
 
-  
-
   useEffect(() => {
     asignarCValor(aValorFT);
   }, [aValorFT]);
@@ -89,14 +87,14 @@ export const TabActividadesFT = ({
             {
               actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
               tipoDeIndicador: "",
-                claridad: "",
-                relevancia: "",
-                economia: "",
-                monitoreable: "",
-                adecuado: "",
-                aporte_marginal: "",
-                dimension: "",
-                unidadDeMedida: "",
+              claridad: "",
+              relevancia: "",
+              economia: "",
+              monitoreable: "",
+              adecuado: "",
+              aporte_marginal: "",
+              dimension: "",
+              unidadDeMedida: "",
             },
             {
               actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
@@ -128,8 +126,6 @@ export const TabActividadesFT = ({
     }
   }, [show, compAct]);
 
- 
-
   useEffect(() => {
     if (compAct.length > 0) {
       loadActividadesFT();
@@ -148,42 +144,46 @@ export const TabActividadesFT = ({
         componentes: compAct.map((x, index) => {
           return {
             actividades: x.actividades.map((c, index2) => {
-              
               aument_number++;
 
               return {
-                actividad:
-                  FT === "" ? "" : "A" + (index2 + 1) + "C" + (index + 1),
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
                 tipoDeIndicador:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.tipoDeIndicador,
+                    : jsonFT?.actividades[aument_number]?.tipoDeIndicador || "",
                 claridad:
-                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.claridad,
+                  FT === ""
+                    ? ""
+                    : jsonFT?.actividades[aument_number]?.claridad || "",
                 relevancia:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.relevancia,
+                    : jsonFT?.actividades[aument_number]?.relevancia || "",
                 economia:
-                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.economia,
+                  FT === ""
+                    ? ""
+                    : jsonFT?.actividades[aument_number]?.economia || "",
                 monitoreable:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.monitoreable,
+                    : jsonFT?.actividades[aument_number]?.monitoreable || "",
                 adecuado:
-                  FT === "" ? "" : jsonFT?.actividades[aument_number]?.adecuado,
+                  FT === ""
+                    ? ""
+                    : jsonFT?.actividades[aument_number]?.adecuado || "",
                 aporte_marginal:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.aporte_marginal,
+                    : jsonFT?.actividades[aument_number]?.aporte_marginal || "",
                 dimension:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.dimension,
+                    : jsonFT?.actividades[aument_number]?.dimension || "",
                 unidadDeMedida:
                   FT === ""
                     ? ""
-                    : jsonFT?.actividades[aument_number]?.unidadDeMedida,
+                    : jsonFT?.actividades[aument_number]?.unidadDeMedida || "",
               };
             }),
           };
@@ -193,9 +193,6 @@ export const TabActividadesFT = ({
 
     setAValorFT(y);
   };
-
- 
-  
 
   const [open, setOpen] = useState(1);
 

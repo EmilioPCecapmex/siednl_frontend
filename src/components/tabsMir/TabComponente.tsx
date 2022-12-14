@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   IconButton,
@@ -33,7 +33,6 @@ export const TabComponente = ({
   valoresComponente: Array<IComponente>;
   mirEdit?: IMIREdit;
 }) => {
-
   const [componenteValor, setComponenteValor] = useState<Array<IComponente>>(
     noComponentes.map((x, index) => {
       return {
@@ -47,7 +46,7 @@ export const TabComponente = ({
       };
     })
   );
-  
+
   useEffect(() => {
     setComponenteValor(
       noComponentes.map((x, index) => {
@@ -116,15 +115,14 @@ export const TabComponente = ({
       } else {
         setErrorIndicador(componentSelect - 1);
         let prev = [...valoresComponente];
-                let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].indicador = "";
-                prev[componentSelect - 1].indicador = "";
-                setComponenteValor(prevLocal);
-                
+        let prevLocal = [...componenteValor];
+        prevLocal[componentSelect - 1].indicador = "";
+        prev[componentSelect - 1].indicador = "";
+        setComponenteValor(prevLocal);
       }
     }
   };
-  
+
   const agregarFnc = () => {
     let v = noComponentes.length + 1;
     if (v > 6) {
@@ -189,19 +187,17 @@ export const TabComponente = ({
       <Box
         sx={{
           width: "100%",
-          height: "7vh",
           display: "flex",
-          alignItems: "center",
+          height: "7vh",
           justifyContent: "flex-end",
+          alignItems: "center",
         }}
       >
-        {/* Botones Componentes */}
         <Typography
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.2vw",
-            textTransform: "uppercase",
+            fontSize: "1.5vw",
           }}
         >
           Componente #{componentSelect}
@@ -256,19 +252,18 @@ export const TabComponente = ({
               <Box
                 key={item}
                 sx={{
-                  height: "10vh",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                 }}
               >
                 <Divider />
-
                 <ListItemButton
                   selected={item === componentSelect ? true : false}
                   key={item}
                   onClick={() => setComponentSelect(item)}
                   sx={{
+                    height: "7vh",
                     "&.Mui-selected ": {
                       backgroundColor: "#c4a57b",
                     },
@@ -277,16 +272,10 @@ export const TabComponente = ({
                     },
                   }}
                 >
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    Componente {item}
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    COMPONENTE {item}
                   </Typography>
                 </ListItemButton>
-
                 <Divider />
               </Box>
             );
@@ -295,264 +284,228 @@ export const TabComponente = ({
 
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
             width: "90%",
             alignItems: "center",
-            justifyContent: "center",
+            justifyItems: "center",
           }}
         >
-          <Box
-            sx={{
-              width: "100%",
-              height: "40%",
-              justifyContent: "space-evenly",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1].resumen}
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={8}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Resumen Narrativo".toUpperCase()}
-              value={componenteValor[componentSelect - 1]?.resumen}
-              onChange={(c) => {
-                let prev = [...valoresComponente];
-                let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].resumen = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                prev[componentSelect - 1].resumen = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setComponenteValor(prevLocal);
-              }}
-            />
-            <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1].indicador}
-              multiline
-              rows={8}
-              variant="filled"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onBlur={() => evalueTxtIndicador()}
-              error={errorIndicador === componentSelect - 1 ? true : false}
-              helperText={
-                errorIndicador === componentSelect - 1
-                  ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
-                  : null
-              }
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Indicador".toUpperCase()}
-              value={componenteValor[componentSelect - 1]?.indicador}
-              onChange={(c) => {
-                let prev = [...valoresComponente];
-                let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].indicador = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                prev[componentSelect - 1].indicador = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setComponenteValor(prevLocal);
-              }}
-            />
-            <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1].formula}
-              variant="filled"
-              multiline
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                readOnly: true,
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={8}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Fórmula".toUpperCase()}
-              value={componenteValor[componentSelect - 1]?.formula}
-              onClick={() => evalueTxtIndicador()}
-              onChange={(c) => {
-                let prev = [...valoresComponente];
-                let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].formula = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                prev[componentSelect - 1].formula = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setComponenteValor(prevLocal);
-              }}
-            />
-          </Box>
-          <Box
-            sx={{
-              width: "100%",
-              height: "40%",
-
-              justifyContent: "space-evenly",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <FormControl
-              sx={{
-                width: "30%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
+          <TextField
+            disabled={mirEdit?.componentes[componentSelect - 1].resumen}
+            rows={8}
+            multiline
+            sx={{ width: "90%", boxShadow: 2 }}
+            variant="filled"
+            label={"RESUMEN NARRATIVO"}
+            InputLabelProps={{
+              style: {
                 fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel>FRECUENCIA</FormLabel>
-              <FormControlLabel
-                value={"SEMESTRAL"}
-                label={"SEMESTRAL"}
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      componenteValor[componentSelect - 1]?.frecuencia ===
-                      "SEMESTRAL"
-                    }
-                    onChange={(c) => {
-                      let prev = [...valoresComponente];
-                      let prevLocal = [...componenteValor];
-                      prevLocal[componentSelect - 1].frecuencia =
-                        c.target.value;
-                      prev[componentSelect - 1].frecuencia = c.target.value;
-                      setComponenteValor(prevLocal);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"TRIMESTRAL"}
-                label={"TRIMESTRAL"}
-                sx={{
-                  fontFamily: "MontserratMedium",
-                  fontWeight: "light",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      componenteValor[componentSelect - 1]?.frecuencia ===
-                      "TRIMESTRAL"
-                    }
-                    onChange={(c) => {
-                      let prev = [...valoresComponente];
-                      let prevLocal = [...componenteValor];
-                      prevLocal[componentSelect - 1].frecuencia =
-                        c.target.value;
-                      prev[componentSelect - 1].frecuencia = c.target.value;
-                      setComponenteValor(prevLocal);
-                    }}
-                  />
-                }
-              />
-            </FormControl>
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              let prev = [...valoresComponente];
+              let prevLocal = [...componenteValor];
+              prevLocal[componentSelect - 1].resumen = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              prev[componentSelect - 1].resumen = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              setComponenteValor(prevLocal);
+            }}
+            value={componenteValor[componentSelect - 1]?.resumen}
+          />
+          <TextField
+            disabled={mirEdit?.componentes[componentSelect - 1].indicador}
+            rows={8}
+            multiline
+            sx={{ width: "90%", boxShadow: 2 }}
+            variant="filled"
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onBlur={() => evalueTxtIndicador()}
+            label={"INDICADOR"}
+            error={errorIndicador === componentSelect - 1 ? true : false}
+            helperText={
+              errorIndicador === componentSelect - 1
+                ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                : null
+            }
+            onChange={(c) => {
+              let prev = [...valoresComponente];
+              let prevLocal = [...componenteValor];
+              prevLocal[componentSelect - 1].indicador = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              prev[componentSelect - 1].indicador = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              setComponenteValor(prevLocal);
+            }}
+            value={componenteValor[componentSelect - 1]?.indicador}
+          />
+          <TextField
+            disabled={mirEdit?.componentes[componentSelect - 1].formula}
+            rows={8}
+            multiline
+            variant="filled"
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              readOnly: true,
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            sx={{ width: "90%", boxShadow: 2 }}
+            label={"FÓRMULA"}
+            onClick={() => evalueTxtIndicador()}
+            value={componenteValor[componentSelect - 1]?.formula}
+          />
 
-            <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1].medios}
-              multiline
-              variant="filled"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
+          <FormControl
+            sx={{
+              width: "90%",
+              height: "50%",
+              backgroundColor: "#f0f0f0",
+              boxShadow: 2,
+              fontFamily: "MontserratMedium",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <FormLabel>FRECUENCIA</FormLabel>
+            <FormControlLabel
+              value={"SEMESTRAL"}
+              label={"SEMESTRAL"}
+              sx={{
+                fontFamily: "MontserratMedium",
               }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={8}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Medios de Verificación".toUpperCase()}
-              value={componenteValor[componentSelect - 1]?.medios}
-              onChange={(c) => {
-                let prev = [...valoresComponente];
-                let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].medios = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                prev[componentSelect - 1].medios = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setComponenteValor(prevLocal);
-              }}
+              control={
+                <Radio
+                  checked={
+                    componenteValor[componentSelect - 1]?.frecuencia ===
+                    "SEMESTRAL"
+                  }
+                  onChange={(c) => {
+                    let prev = [...valoresComponente];
+                    let prevLocal = [...componenteValor];
+                    prevLocal[componentSelect - 1].frecuencia = c.target.value;
+                    prev[componentSelect - 1].frecuencia = c.target.value;
+                    setComponenteValor(prevLocal);
+                  }}
+                />
+              }
             />
-            <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1].supuestos}
-              variant="filled"
-              multiline
-              rows={8}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
+            <FormControlLabel
+              value={"TRIMESTRAL"}
+              label={"TRIMESTRAL"}
+              sx={{
+                fontFamily: "MontserratMedium",
               }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              sx={{ width: "30%", boxShadow: 2 }}
-              label={"Supuestos".toUpperCase()}
-              value={componenteValor[componentSelect - 1]?.supuestos}
-              onChange={(c) => {
-                let prev = [...valoresComponente];
-                let prevLocal = [...componenteValor];
-                prevLocal[componentSelect - 1].supuestos = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                prev[componentSelect - 1].supuestos = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setComponenteValor(prevLocal);
-              }}
+              control={
+                <Radio
+                  checked={
+                    componenteValor[componentSelect - 1]?.frecuencia ===
+                    "TRIMESTRAL"
+                  }
+                  onChange={(c) => {
+                    let prev = [...valoresComponente];
+                    let prevLocal = [...componenteValor];
+                    prevLocal[componentSelect - 1].frecuencia = c.target.value;
+                    prev[componentSelect - 1].frecuencia = c.target.value;
+                    setComponenteValor(prevLocal);
+                  }}
+                />
+              }
             />
-          </Box>
+          </FormControl>
+
+          <TextField
+            disabled={mirEdit?.componentes[componentSelect - 1].medios}
+            rows={8}
+            multiline
+            variant="filled"
+            sx={{ width: "90%", boxShadow: 2 }}
+            label={"MEDIOS DE VERIFICACIÓN"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            onChange={(c) => {
+              let prev = [...valoresComponente];
+              let prevLocal = [...componenteValor];
+              prevLocal[componentSelect - 1].medios = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              prev[componentSelect - 1].medios = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              setComponenteValor(prevLocal);
+            }}
+            value={componenteValor[componentSelect - 1]?.medios}
+          />
+          <TextField
+            disabled={mirEdit?.componentes[componentSelect - 1].supuestos}
+            rows={8}
+            multiline
+            variant="filled"
+            sx={{ width: "90%", boxShadow: 2 }}
+            label={"SUPUESTOS"}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratRegular",
+              },
+            }}
+            value={componenteValor[componentSelect - 1]?.supuestos}
+            onChange={(c) => {
+              let prev = [...valoresComponente];
+              let prevLocal = [...componenteValor];
+              prevLocal[componentSelect - 1].supuestos = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              prev[componentSelect - 1].supuestos = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
+              setComponenteValor(prevLocal);
+            }}
+          />
         </Box>
       </Box>
     </Box>
