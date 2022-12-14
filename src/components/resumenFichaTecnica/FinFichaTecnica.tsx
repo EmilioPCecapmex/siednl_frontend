@@ -169,7 +169,6 @@ export const FinFechaTecnica = ({
 
   //EMPTY ARRAYS
   const headerTypography = [];
-  const conacAndProgramDesign = [];
   const generalTitlesDesign1 = [];
   const generalTitlesDesign2 = [];
 
@@ -177,7 +176,7 @@ export const FinFechaTecnica = ({
   for (let i = 0; i < headerTextsValue.length; i++) {
     headerTypography.push(
       <Box key={i}>
-        <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
+        <Typography sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}>
           {headerTextsValue[i]}
         </Typography>
       </Box>
@@ -356,7 +355,7 @@ export const FinFechaTecnica = ({
               textAlign: "justify",
             }}
           >
-            {jsonMir.fin.resumen}
+            {jsonMir.fin.resumen.toUpperCase()}
           </Typography>
         </Box>
       </Box>
@@ -393,7 +392,7 @@ export const FinFechaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMA.fin.unidadResponsable}
+            {jsonMA.fin.unidadResponsable.toUpperCase()}
           </Typography>
         </Box>
       </Box>
@@ -405,18 +404,18 @@ export const FinFechaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMir.fin.formula}
+            {jsonMir.fin.formula.toUpperCase()}
           </Typography>
         </Box>
       </Box>
       <Box
         sx={{
           width: "62vw",
+          height: '100%',
           display: "flex",
           flexDirection: "row",
           ml: "3.4vw",
           mt: "1vw",
-          height: '100%',
           mb: "1vw",
         }}
       >
@@ -542,7 +541,6 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "12vw",
-
             display: "flex",
             flexDirection: "column",
           }}
@@ -582,7 +580,6 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "8vw",
-
             display: "flex",
             flexDirection: "column",
           }}
@@ -653,7 +650,7 @@ export const FinFechaTecnica = ({
             }}
           >
             <Typography sx={sxResultSmallBoxes}>
-              {jsonMA.fin.sentidoDelIndicador}
+              {jsonMA.fin.sentidoDelIndicador.toUpperCase()}
             </Typography>
           </Box>
         </Box>
@@ -697,7 +694,6 @@ export const FinFechaTecnica = ({
             sx={{
               width: "11vw",
               height: "3vh",
-
               border: 1,
               borderRight: 0,
               borderTop: 0,
@@ -949,8 +945,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "100%",
-                            height: '40%',
-
+              height: '40%',
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -969,14 +964,13 @@ export const FinFechaTecnica = ({
                 backgroundColor: "white",
               }}
             >
-              {variable1}
+              {variable1.toUpperCase()}
             </Typography>
           </Box>
           <Box
             sx={{
               width: "100%",
-                            height: '40%',
-
+              height: '40%',
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -991,12 +985,11 @@ export const FinFechaTecnica = ({
                 display: "flex",
                 fontSize: ".7rem",
                 textAlign: 'justify',
-
                 fontFamily: "MontserratRegular",
                 backgroundColor: "white",
               }}
             >
-              {variable2}
+              {variable2.toUpperCase()}
             </Typography>
           </Box>
         </Box>
@@ -1119,14 +1112,13 @@ export const FinFechaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonMir.fin.medios}
+              {jsonMir.fin.medios.toUpperCase()}
             </Typography>
           </Box>
           <Box
             sx={{
               width: "100%",
               height: '40%',
-
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1145,7 +1137,7 @@ export const FinFechaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonMir.fin.medios}
+              {jsonMir.fin.medios.toUpperCase()}
             </Typography>
           </Box>
         </Box>
@@ -1196,7 +1188,7 @@ export const FinFechaTecnica = ({
                 //al final ponerle a estos 2 .toUpperCase() como no existe se rompe el programa
               }}
             >
-              {jsonFT.encabezado.unidadDeMedida}
+              {jsonFT.encabezado.unidadDeMedida.toUpperCase()}
             </Typography>
           </Box>
           <Box
@@ -1222,7 +1214,7 @@ export const FinFechaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonFT.encabezado.unidadDeMedida}
+              {jsonFT.encabezado.unidadDeMedida.toUpperCase()}
             </Typography>
           </Box>
         </Box>
@@ -1263,7 +1255,7 @@ export const FinFechaTecnica = ({
             <Typography
               sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
             >
-              {jsonMA.fin.valorNumerador}
+              {jsonMA.fin.valorNumerador.toUpperCase()}
             </Typography>
           </Box>
           <Box
@@ -1280,7 +1272,7 @@ export const FinFechaTecnica = ({
             <Typography
               sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
             >
-              {jsonMA.fin.valorDenominador}
+              {jsonMA.fin.valorDenominador.toUpperCase()}
             </Typography>
           </Box>
         </Box>
@@ -1336,7 +1328,7 @@ export const FinFechaTecnica = ({
               textAlign: "justify",
             }}
           >
-            {jsonMir.fin.supuestos}
+            {jsonMir.fin.supuestos.toUpperCase()}
           </Typography>
         </Box>
       </Box>
@@ -1781,7 +1773,7 @@ export const FinFechaTecnica = ({
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "green",
+              backgroundColor: "#4fb830",
             }}
           >
             <Typography sx={sxTitleSmallBoxes}>{`${y1String} <= V.I. <= ${z1String}`} </Typography>
