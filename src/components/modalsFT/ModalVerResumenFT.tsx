@@ -30,17 +30,23 @@ export default function ModalVerResumenFT({
   //const jsonMir = JSON.parse(MIR);
 
     return( 
-    <Dialog fullWidth maxWidth="xl" open={open} onClose={() => handleClose()}>
+    <Dialog fullWidth maxWidth="xl" open={open} onClose={() => handleClose()} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         <DialogTitle
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
           height: "2vh",
           mb: 2,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
         }}
       >
         FICHA TÉCNICA
         {/*  - }{jsonMir.encabezado.nombre_del_programa} - {jsonMir.encabezado.ejercicioFiscal} */}
+      <Button onClick={ () => handleClose()}>
+        X
+      </Button>
       </DialogTitle>
       
       <DialogContent
@@ -48,7 +54,6 @@ export default function ModalVerResumenFT({
         display: "flex",
         width: "75vw",
         height: "85vh",
-        
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",

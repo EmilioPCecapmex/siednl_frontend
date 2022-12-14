@@ -148,8 +148,8 @@ export const ResumenFichaTecnica = ({
   //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
   for (let i = 0; i < headerTextsValue.length; i++) {
     headerTypography.push(
-      <Box key={Math.random()}>
-        <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
+      <Box key={Math.random()} >
+        <Typography sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}>
           {headerTextsValue[i]}
         </Typography>
       </Box>
@@ -491,9 +491,7 @@ export const ResumenFichaTecnica = ({
       sx={{
         display: "flex",
         width: "75vw",
-        height: "85vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        height: "90%",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
@@ -505,7 +503,7 @@ export const ResumenFichaTecnica = ({
           width: "90%",
           border: 0.1,
           borderColor: "#909090",
-          height: "80%",
+          height: "100%",
           overflow: "auto",
           borderRadius: 1,
           "&::-webkit-scrollbar": {
@@ -527,15 +525,16 @@ export const ResumenFichaTecnica = ({
             height: "20vh",
             display: "flex",
             justifyContent: "start",
+            alignItems: 'center'
           }}
         >
           <Box
             sx={{
               width: "20%",
               height: "100%",
-              ml: "4vw",
-              mt: "5vh",
-              mr: "1vw",
+              display: 'flex', 
+              alignItems:'center',
+              justifyContent: 'center'
             }}
           >
             <img
@@ -547,17 +546,16 @@ export const ResumenFichaTecnica = ({
 
           <Box
             sx={{
-              width: "30vw",
-              height: "20vh",
+              width: "60%",
+              height: "100%",
               display: "flex",
               justifyContent: "center",
-              alignItems: "end",
             }}
           >
             <Box
               sx={{
-                width: "29vw",
-                height: "15vh",
+                width: "100%",
+                height: "20vh",
                 display: "flex",
                 flexDirection: "column",
               }}
