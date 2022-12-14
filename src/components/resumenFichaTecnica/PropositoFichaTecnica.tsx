@@ -21,15 +21,7 @@ export const PropositoFichaTecnica = ({
     borderBottom: 2,
     mt: "1vw",
   };
-  const sxBoxSmallSize = {
-    width: "62vw",
-    height: "2vh",
-    display: "flex",
-    flexDirection: "row",
-    ml: "3.4vw",
-    mt: "1vw",
-    mb: "1vw",
-  };
+ 
   const sxBoxMediumSize = {
     width: "62vw",
     height: "5vh",
@@ -39,15 +31,7 @@ export const PropositoFichaTecnica = ({
     mt: "1vw",
     mb: "1vw",
   };
-  const sxSubtitleSmallSize = {
-    width: "22vw",
-    height: "2vh",
-    backgroundColor: "#D9D9D9",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    borderColor: "#D9D9D9",
-  };
+ 
   const sxSubtitleMediumSize = {
     width: "22vw",
     height: "5vh",
@@ -57,14 +41,7 @@ export const PropositoFichaTecnica = ({
     border: 1,
     borderColor: "#D9D9D9",
   };
-  const sxResultFieldSmallSize = {
-    width: "38vw",
-    height: "2vh",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    ml: "2vw",
-  };
+ 
   const sxResultFieldMediumSize = {
     width: "38vw",
     height: "5vh",
@@ -72,6 +49,60 @@ export const PropositoFichaTecnica = ({
     alignItems: "center",
     border: 1,
     ml: "2vw",
+  };
+
+  //Sizeable Design
+  const sxTitleColumn = {
+    width: "22vw",
+    backgroundColor: "#D9D9D9",
+    display: "flex",
+    alignItems: "center",
+    border: 1,
+    borderColor: "#D9D9D9",
+  };
+
+  const sxTitleStyle = {
+    fontSize: "1vw",
+    fontFamily: "MontserratSemiBold",
+    ml: 1,
+  };
+
+  const sxSpaceBetweenTitleResult = {
+    width: "62vw",
+    display: "flex",
+    flexDirection: "row",
+    ml: "3.4vw",
+    mt: "1vw",
+    mb: "1vw",
+  };
+
+  const sxResultSize = {
+    width: "38vw",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const sxResultContentDesign = {
+    border: 1,
+    width: "38vw",
+    display: "flex",
+    fontSize: ".8rem",
+    fontFamily: "MontserratRegular",
+    minHeight: "5vh",
+    ml: "2vw",
+    backgroundColor: "white",
+    textAlign: "justify",
+  };
+
+  //SMALL BOXES
+  const sxTitleSmallBoxes = {
+    fontSize: ".9vw",
+    fontFamily: "MontserratSemiBold",
+  };
+
+  const sxResultSmallBoxes = {
+    fontSize: ".8rem",
+    fontFamily: "MontserratRegular",
   };
 
   //ARRAYS DEFAULT VALUES
@@ -82,7 +113,6 @@ export const PropositoFichaTecnica = ({
     "FICHA TECNICA DE INDICADORES 2022",
     "PROGRAMAS PRESUPUESTARIOS",
   ];
-  const clasificacionProgramaticaValue = ["CONAC", "PROGRAMA"];
   const titleColumnsNormalPag1Value = [
     "IDENTIFICACIÓN DEL PROGRAMA PRESUPUESTARIO",
     "ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO",
@@ -334,86 +364,90 @@ export const PropositoFichaTecnica = ({
             sx={{
               width: "62vw",
               height: "10vh",
-              border: 1,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
             }}
           >
             <Typography
-              sx={{
-                ml: "2vw",
-                mr: "2vw",
-                fontSize: "1vw",
-                fontFamily: "MontserratRegular",
-              }}
+             sx={{
+              border: 1,
+              width: "62vw",
+              height: "10vh",
+              display: "flex",
+              fontSize: ".8rem",
+              fontFamily: "MontserratRegular",
+              minHeight: "5vh",
+              backgroundColor: "white",
+              textAlign: "justify",
+             }}
             >
               {jsonMir.proposito.resumen}
             </Typography>
           </Box>
         </Box>
         {generalTitlesDesign2[0]}
-        <Box sx={sxBoxMediumSize}>
-          <Box sx={sxSubtitleMediumSize}>
+        <Box sx={sxSpaceBetweenTitleResult}>
+          <Box sx={sxTitleColumn}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={sxTitleStyle}
             >
               {subTitleColumnsIndicatorDataPag2Value[0]}
             </Typography>
           </Box>
-          <Box sx={sxResultFieldMediumSize}>
+          <Box sx={sxResultSize}>
             <Typography
-              sx={{ fontSize: "0.6vw", fontFamily: "MontserratRegular", ml: 3 }}
+              sx={sxResultContentDesign}
             >
-              {jsonMir.proposito.indicador}
+              {jsonMir.proposito.indicador.toUpperCase()}
             </Typography>
           </Box>
         </Box>
-        <Box sx={sxBoxMediumSize}>
-          <Box sx={sxSubtitleMediumSize}>
+        <Box sx={sxSpaceBetweenTitleResult}>
+          <Box sx={sxTitleColumn}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={sxTitleStyle}
             >
               {subTitleColumnsIndicatorDataPag2Value[1]}
             </Typography>
           </Box>
-          <Box sx={sxResultFieldMediumSize}>
+          <Box sx={sxResultSize}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+              sx={sxResultContentDesign}
             >
-               {jsonMA.proposito.descIndicador}
+               {jsonMA.proposito.descIndicador.toUpperCase()}
             </Typography>
           </Box>
         </Box>
-        <Box sx={sxBoxMediumSize}>
-          <Box sx={sxSubtitleMediumSize}>
+        <Box sx={sxSpaceBetweenTitleResult}>
+          <Box sx={sxTitleColumn}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={sxTitleStyle}
             >
               {subTitleColumnsIndicatorDataPag2Value[2]}
             </Typography>
           </Box>
-          <Box sx={sxResultFieldMediumSize}>
+          <Box sx={sxResultSize}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
+              sx={sxResultContentDesign}
             >
-              {jsonMA.proposito.unidadResponsable}
+              {jsonMA.proposito.unidadResponsable.toUpperCase()}
             </Typography>
           </Box>
         </Box>
-        <Box sx={sxBoxMediumSize}>
-          <Box sx={sxSubtitleMediumSize}>
+        <Box sx={sxSpaceBetweenTitleResult}>
+          <Box sx={sxTitleColumn}>
             <Typography
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={sxTitleStyle}
             >
               {subTitleColumnsIndicatorDataPag2Value[3]}
             </Typography>
           </Box>
-          <Box sx={sxResultFieldMediumSize}>
+          <Box sx={sxResultSize}>
             <Typography
-              sx={{ fontSize: "0.6vw", fontFamily: "MontserratRegular", ml: 3 }}
+              sx={sxResultContentDesign}
             >
-              {jsonMir.proposito.formula}
+              {jsonMir.proposito.formula.toUpperCase()}
             </Typography>
           </Box>
         </Box>
@@ -447,7 +481,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorDataPag2Value[0]}
               </Typography>
             </Box>
@@ -463,7 +497,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography fontSize={"0.6vw"}>{jsonFT.proposito.tipoDeIndicador}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.tipoDeIndicador}</Typography>
             </Box>
           </Box>
 
@@ -486,7 +520,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorDataPag2Value[1]}
               </Typography>
             </Box>
@@ -502,7 +536,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography fontSize={"0.6vw"}>{jsonFT.proposito.dimension}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.dimension}</Typography>
             </Box>
           </Box>
           <Box
@@ -524,7 +558,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorDataPag2Value[2]}
               </Typography>
             </Box>
@@ -540,7 +574,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{tipoFormula}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{tipoFormula}</Typography>
             </Box>
           </Box>
           <Box
@@ -562,7 +596,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorDataPag2Value[3]}
               </Typography>
             </Box>
@@ -578,7 +612,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.proposito.unidadDeMedida}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.unidadDeMedida.toUpperCase()}</Typography>
             </Box>
           </Box>
           <Box
@@ -600,7 +634,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorDataPag2Value[4]}
               </Typography>
             </Box>
@@ -616,7 +650,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonMir.proposito.frecuencia}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonMir.proposito.frecuencia}</Typography>
             </Box>
           </Box>
           <Box
@@ -638,7 +672,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorDataPag2Value[5]}
               </Typography>
             </Box>
@@ -653,7 +687,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonMA.proposito.sentidoDelIndicador}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonMA.proposito.sentidoDelIndicador}</Typography>
             </Box>
           </Box>
         </Box>
@@ -688,7 +722,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorCaracteristicsPag2Value[0]}
               </Typography>
             </Box>
@@ -705,7 +739,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.proposito.claridad}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.claridad}</Typography>
             </Box>
           </Box>
 
@@ -728,7 +762,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorCaracteristicsPag2Value[1]}
               </Typography>
             </Box>
@@ -744,7 +778,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.proposito.relevancia}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.relevancia}</Typography>
             </Box>
           </Box>
           <Box
@@ -766,7 +800,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorCaracteristicsPag2Value[2]}
               </Typography>
             </Box>
@@ -782,7 +816,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.proposito.economia}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.economia}</Typography>
             </Box>
           </Box>
           <Box
@@ -804,7 +838,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorCaracteristicsPag2Value[3]}
               </Typography>
             </Box>
@@ -820,7 +854,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.proposito.monitoreable}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.monitoreable}</Typography>
             </Box>
           </Box>
           <Box
@@ -842,7 +876,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorCaracteristicsPag2Value[4]}
               </Typography>
             </Box>
@@ -858,7 +892,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.proposito.adecuado}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.adecuado}</Typography>
             </Box>
           </Box>
           <Box
@@ -880,7 +914,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowIndicatorCaracteristicsPag2Value[5]}
               </Typography>
             </Box>
@@ -895,7 +929,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.proposito.aporte_marginal}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonFT.proposito.aporte_marginal}</Typography>
             </Box>
           </Box>
         </Box>
@@ -930,14 +964,14 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowVariableDataPag2Value[0]}
               </Typography>
             </Box>
             <Box
               sx={{
                 width: "11vw",
-                height: "8vh",
+                height: "7.7vh",
                 border: 1,
                 borderTop: 0,
                 borderRight: 0,
@@ -946,10 +980,18 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography fontSize={"0.6vw"}>{variable1}</Typography>
+              <Typography sx={{
+                width: "11vw",
+                height: "7.7vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+              }}>{variable1}</Typography>
             </Box>
             <Box
-              sx={{
+               sx={{
                 width: "11vw",
                 height: "8vh",
                 border: 1,
@@ -960,7 +1002,17 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography fontSize={"0.6vw"}>{variable2}</Typography>
+              <Typography
+                sx={{
+                  width: "11vw",
+                  height: "8vh",
+                  display: "flex",
+                  fontSize: ".7rem",
+                  fontFamily: "MontserratRegular",
+                  minHeight: "5vh",
+                  backgroundColor: "white",
+                }}
+              >{variable2}</Typography>
             </Box>
           </Box>
 
@@ -983,37 +1035,59 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowVariableDataPag2Value[1]}
               </Typography>
             </Box>
             <Box
+             sx={{
+              width: "11vw",
+              height: "8vh",
+              border: 1,
+              borderTop: 0,
+              borderRight: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
               sx={{
                 width: "11vw",
-                height: "8vh",
-                border: 1,
-                borderTop: 0,
-                borderRight: 0,
+                height: "7.7vh",
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
               }}
-            >
-              <Typography>{jsonMA.proposito.descNumerador}</Typography>
+            >{jsonMA.proposito.descNumerador}</Typography>
             </Box>
             <Box
+             sx={{
+              width: "11vw",
+              height: "8vh",
+              border: 1,
+              borderTop: 0,
+              borderRight: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
               sx={{
                 width: "11vw",
-                height: "8vh",
-                border: 1,
-                borderTop: 0,
-                borderRight: 0,
+                height: "7.7vh",
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
               }}
-            >
-              <Typography>{jsonMA.proposito.descDenominador}</Typography>
+            >{jsonMA.proposito.descDenominador}</Typography>
             </Box>
           </Box>
           <Box
@@ -1035,37 +1109,62 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowVariableDataPag2Value[2]}
               </Typography>
             </Box>
             <Box
               sx={{
                 width: "18vw",
-                height: "8vh",
+                height: "7.8vh",
                 border: 1,
-                borderTop: 0,
+                borderTop: 1,
                 borderRight: 0,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <Typography fontSize={"0.6vw"}>{jsonMir.proposito.medios_verificacion}</Typography>
+              <Typography
+                sx={{
+                  width: "18vw",
+                  height: "7.8vh",
+                  display: "flex",
+                  fontSize: ".7rem",
+                  fontFamily: "MontserratRegular",
+                  minHeight: "5vh",
+                  backgroundColor: "white",
+                  textAlign: "justify",
+                }}
+              >
+                {jsonMir.proposito.medios_verificacion}
+                </Typography>
             </Box>
             <Box
+             sx={{
+              width: "18vw",
+              height: "7.7vh",
+              border: 1,
+              borderTop: 0,
+              borderRight: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
               sx={{
                 width: "18vw",
-                height: "8vh",
-                border: 1,
-                borderTop: 0,
-                borderRight: 0,
+                height: "7.7vh",
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
               }}
             >
-              <Typography fontSize={"0.6vw"}>{jsonMir.proposito.medios_verificacion}</Typography>
+              {jsonMir.proposito.medios_verificacion}</Typography>
             </Box>
           </Box>
           <Box
@@ -1087,7 +1186,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowVariableDataPag2Value[3]}
               </Typography>
             </Box>
@@ -1103,7 +1202,20 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.encabezado.unidadDeMedida}</Typography>
+              <Typography
+                sx={{
+                  width: "11vw",
+                  height: "7.7vh",
+                  display: "flex",
+                  fontSize: ".7rem",
+                  fontFamily: "MontserratRegular",
+                  minHeight: "5vh",
+                  backgroundColor: "white",
+                  textAlign: "justify",
+                  //al final ponerle a estos 2 .toUpperCase() como no existe se rompe el programa
+                }}
+              >
+                {jsonFT.encabezado.unidadDeMedida}</Typography>
             </Box>
             <Box
               sx={{
@@ -1117,7 +1229,18 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonFT.encabezado.unidadDeMedida}</Typography>
+              <Typography
+                sx={{
+                  width: "11vw",
+                  height: "7.7vh",
+                  display: "flex",
+                  fontSize: ".7rem",
+                  fontFamily: "MontserratRegular",
+                  minHeight: "5vh",
+                  backgroundColor: "white",
+                  textAlign: "justify",
+                }}
+              >{jsonFT.encabezado.unidadDeMedida}</Typography>
             </Box>
           </Box>
           <Box
@@ -1139,22 +1262,25 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowVariableDataPag2Value[4]}
               </Typography>
             </Box>
             <Box
-              sx={{
-                width: "11vw",
-                height: "8vh",
-                border: 1,
-                borderTop: 0,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+             sx={{
+              width: "11vw",
+              height: "8vh",
+              border: 1,
+              borderTop: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
             >
-              <Typography>{jsonMA.proposito.valorNumerador}</Typography>
+              {jsonMA.proposito.valorNumerador}</Typography>
             </Box>
             <Box
               sx={{
@@ -1167,7 +1293,10 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonMA.proposito.valorDenominador}</Typography>
+              <Typography
+                sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+              >
+                {jsonMA.proposito.valorDenominador}</Typography>
             </Box>
           </Box>
         </Box>
@@ -1211,10 +1340,14 @@ export const PropositoFichaTecnica = ({
         >
           <Typography
             sx={{
-              ml: "2vw",
-              mr: "2vw",
-              fontSize: "1vw",
+              width: "62vw",
+              height:"6vh",
+              display: "flex",
+              fontSize: ".8rem",
               fontFamily: "MontserratRegular",
+              minHeight: "5vh",
+              backgroundColor: "white",
+              textAlign: "justify",
             }}
           >
             {jsonMir.proposito.supuestos}
@@ -1252,7 +1385,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowGoalsPag2Value[0]}
               </Typography>
             </Box>
@@ -1268,7 +1401,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonMA.proposito.lineaBase}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonMA.proposito.lineaBase}</Typography>
             </Box>
           </Box>
 
@@ -1291,7 +1424,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowGoalsPag2Value[1]}
               </Typography>
             </Box>
@@ -1307,7 +1440,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{jsonMA.proposito.metaAnual}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{jsonMA.proposito.metaAnual}</Typography>
             </Box>
           </Box>
           <Box
@@ -1329,7 +1462,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowGoalsPag2Value[2]}
               </Typography>
             </Box>
@@ -1345,7 +1478,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{"-" /*meta 2023*/}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2023*/}</Typography>
             </Box>
           </Box>
           <Box
@@ -1367,7 +1500,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowGoalsPag2Value[3]}
               </Typography>
             </Box>
@@ -1383,7 +1516,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{"-" /*meta 2024*/}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2024*/}</Typography>
             </Box>
           </Box>
           <Box
@@ -1405,7 +1538,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowGoalsPag2Value[4]}
               </Typography>
             </Box>
@@ -1421,7 +1554,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{"-" /*meta 2025*/}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2025*/}</Typography>
             </Box>
           </Box>
           <Box
@@ -1443,7 +1576,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowGoalsPag2Value[5]}
               </Typography>
             </Box>
@@ -1459,7 +1592,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{"-" /*meta 2026*/}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2026*/}</Typography>
             </Box>
           </Box>
           <Box
@@ -1481,7 +1614,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowGoalsPag2Value[6]}
               </Typography>
             </Box>
@@ -1497,7 +1630,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{"-" /*meta 2027*/}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2027*/}</Typography>
             </Box>
           </Box>
           <Box
@@ -1519,7 +1652,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>
+              <Typography sx={sxTitleSmallBoxes}>
                 {subTitleColumnsRowGoalsPag2Value[7]}
               </Typography>
             </Box>
@@ -1534,7 +1667,7 @@ export const PropositoFichaTecnica = ({
                 alignItems: "center",
               }}
             >
-              <Typography>{"" /*meta sexenal*/}</Typography>
+              <Typography sx={sxResultSmallBoxes}>{"" /*meta sexenal*/}</Typography>
             </Box>
           </Box>
         </Box>
@@ -1569,7 +1702,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>ROJO</Typography>
+              <Typography sx={sxTitleSmallBoxes}>ROJO</Typography>
             </Box>
             <Box
               sx={{
@@ -1585,9 +1718,9 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "red",
               }}
             >
-              <Typography>{`V.I. < ${yString}`} </Typography>
-            <Typography>{"Ó"} </Typography>
-            <Typography>{`${zString} < V.I.`} </Typography>
+              <Typography sx={sxTitleSmallBoxes}>{`V.I. < ${yString}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{"Ó"} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{`${zString} < V.I.`} </Typography>
             </Box>
           </Box>
 
@@ -1610,7 +1743,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>AMARILLO</Typography>
+              <Typography sx={sxTitleSmallBoxes}>AMARILLO</Typography>
             </Box>
             <Box
               sx={{
@@ -1626,9 +1759,9 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "yellow",
               }}
             >
-              <Typography>{`${z1String} <= V.I. < ${zString}`} </Typography>
-            <Typography>{"Ó"} </Typography>
-            <Typography>{`${yString} < V.I. <= ${y1String}`} </Typography>
+              <Typography sx={sxTitleSmallBoxes}>{`${z1String} <= V.I. < ${zString}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{"Ó"} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{`${yString} < V.I. <= ${y1String}`} </Typography>
             </Box>
           </Box>
           <Box
@@ -1650,7 +1783,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Typography sx={{ fontSize: "1vw" }}>VERDE</Typography>
+              <Typography sx={sxTitleSmallBoxes}>VERDE</Typography>
             </Box>
             <Box
               sx={{
@@ -1665,7 +1798,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "green",
               }}
             >
-             <Typography>{`${y1String} <= V.I. <= ${z1String}`} </Typography>
+             <Typography sx={sxTitleSmallBoxes}>{`${y1String} <= V.I. <= ${z1String}`} </Typography>
             </Box>
           </Box>
         </Box>
@@ -1680,10 +1813,9 @@ export const PropositoFichaTecnica = ({
             mt: "5vh",
           }}
         >
-          <Typography sx={{}}>Página 3</Typography>
+          <Typography sx={sxTitleSmallBoxes}>Página 3</Typography>
         </Box>
-        <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
-        <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
+        <Divider sx={{ height: "1vh", backgroundColor: "rgba(0,0,0,5)" }} />
         </>
     );
 }

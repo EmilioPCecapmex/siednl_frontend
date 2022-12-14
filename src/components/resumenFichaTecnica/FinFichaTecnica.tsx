@@ -1825,8 +1825,7 @@ export const FinFechaTecnica = ({
       >
         <Typography sx={sxTitleSmallBoxes}>Página 2</Typography>
       </Box>
-      <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
-      <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
+      <Divider sx={{ height: "1vh", backgroundColor: "rgba(0,0,0,5)" }} />
     </>
   );
 };
