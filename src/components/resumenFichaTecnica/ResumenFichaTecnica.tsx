@@ -162,17 +162,17 @@ export const ResumenFichaTecnica = ({
   const jsonFT = JSON.parse(FT);
 
   const page1Values = [
-    jsonMir.encabezado.beneficiario,
-    jsonMir.encabezado.tema,
-    jsonMir.encabezado.objetivo,
-    jsonMir.encabezado.estrategia,
+    jsonMir.encabezado.beneficiario.toUpperCase(),
+    jsonMir.encabezado.tema.toUpperCase(),
+    jsonMir.encabezado.objetivo.toUpperCase(),
+    jsonMir.encabezado.estrategia.toUpperCase(),
     jsonMir.encabezado.lineas_de_accion.map(
       (value: { Id: string; LineaDeAccion: string }, x: any) => {
-        return value?.LineaDeAccion;
+        return value?.LineaDeAccion.toUpperCase();
       }
     ),
-    jsonFT.encabezado.programaSER,
-    jsonFT.encabezado.objetivoSER,
+    jsonFT.encabezado.programaSER.toUpperCase(),
+    jsonFT.encabezado.objetivoSER.toUpperCase(),
   ];
   let value_increment = 0;
   //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
@@ -271,7 +271,7 @@ export const ResumenFichaTecnica = ({
               <Typography
                 sx={sxResultContentDesign}
               >
-                {jsonMir.encabezado.nombre_del_programa}
+                {jsonMir.encabezado.nombre_del_programa.toUpperCase()}
               </Typography>
             </Box>
           </Box>
@@ -370,7 +370,7 @@ export const ResumenFichaTecnica = ({
             <Typography
               sx={sxResultContentDesign}
             >
-              {jsonMir.encabezado.institucion}
+              {jsonMir.encabezado.institucion.toUpperCase()}
             </Typography>
           </Box>
         </Box>
@@ -393,7 +393,7 @@ export const ResumenFichaTecnica = ({
               <Typography
                 sx={sxResultContentDesign}
               >
-                {jsonMir.encabezado.eje}
+                {jsonMir.encabezado.eje.toUpperCase()}
               </Typography>
             </Box>
           </Box>
@@ -415,7 +415,7 @@ export const ResumenFichaTecnica = ({
               <Typography
                 sx={sxResultContentDesign}
               >
-                {jsonFT.encabezado.objetivoODS}
+                {jsonFT.encabezado.objetivoODS.toUpperCase()}
               </Typography>
             </Box>
           </Box>
@@ -436,7 +436,7 @@ export const ResumenFichaTecnica = ({
               <Typography
                 sx={sxResultContentDesign}
               >
-                {jsonFT.encabezado.metaODS}
+                {jsonFT.encabezado.metaODS.toUpperCase()}
               </Typography>
             </Box>
           </Box>
