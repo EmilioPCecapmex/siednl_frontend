@@ -21,57 +21,59 @@ export const FinFechaTecnica = ({
     borderBottom: 2,
     mt: "1vw",
   };
-  const sxBoxSmallSize = {
-    width: "62vw",
-    height: "2vh",
-    display: "flex",
-    flexDirection: "row",
-    ml: "3.4vw",
-    mt: "1vw",
-    mb: "1vw",
-  };
-  const sxBoxMediumSize = {
-    width: "62vw",
-    height: "5vh",
-    display: "flex",
-    flexDirection: "row",
-    ml: "3.4vw",
-    mt: "1vw",
-    mb: "1vw",
-  };
-  const sxSubtitleSmallSize = {
+
+  //Sizeable Design
+  const sxTitleColumn = {
     width: "22vw",
-    height: "2vh",
     backgroundColor: "#D9D9D9",
     display: "flex",
     alignItems: "center",
     border: 1,
     borderColor: "#D9D9D9",
   };
-  const sxSubtitleMediumSize = {
-    width: "22vw",
-    height: "5vh",
-    backgroundColor: "#D9D9D9",
-    display: "flex",
-    alignItems: "center",
-    border: 1,
-    borderColor: "#D9D9D9",
+
+  const sxTitleStyle = {
+    fontSize: "1vw",
+    fontFamily: "MontserratSemiBold",
+    ml: 1,
   };
-  const sxResultFieldSmallSize = {
-    width: "38vw",
-    height: "2vh",
+
+  const sxSpaceBetweenTitleResult = {
+    width: "62vw",
     display: "flex",
-    alignItems: "center",
-    border: 1,
-    ml: "2vw",
+    flexDirection: "row",
+    ml: "3.4vw",
+    mt: "1vw",
+    mb: "1vw",
   };
-  const sxResultFieldMediumSize = {
+
+  const sxResultSize = {
     width: "38vw",
-    height: "5vh",
-    display: "flex",
+    justifyContent: "center",
     alignItems: "center",
+  };
+
+  const sxResultContentDesign = {
     border: 1,
+    width: "38vw",
+    display: "flex",
+    fontSize: ".8rem",
+    fontFamily: "MontserratRegular",
+    minHeight: "5vh",
     ml: "2vw",
+    backgroundColor: "white",
+    textAlign: "justify",
+  };
+
+  //SMALL BOXES
+  const sxTitleSmallBoxes = {
+    fontSize: ".9vw",
+    fontFamily: "MontserratSemiBold",
+  };
+
+  const sxResultSmallBoxes = {
+    fontSize: ".8rem",
+    fontFamily: "MontserratRegular",
   };
 
   //ARRAYS DEFAULT VALUES
@@ -82,7 +84,7 @@ export const FinFechaTecnica = ({
     "FICHA TECNICA DE INDICADORES 2022",
     "PROGRAMAS PRESUPUESTARIOS",
   ];
-  const clasificacionProgramaticaValue = ["CONAC", "PROGRAMA"];
+
   const titleColumnsNormalPag1Value = [
     "IDENTIFICACIÓN DEL PROGRAMA PRESUPUESTARIO",
     "ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO",
@@ -173,45 +175,9 @@ export const FinFechaTecnica = ({
   for (let i = 0; i < headerTextsValue.length; i++) {
     headerTypography.push(
       <Box key={i}>
-      <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
-        {headerTextsValue[i]}
-      </Typography>
-      </Box>
-    );
-  }
-
-  //RECORRE EL ARREGLO PARA DARLE DISEÑO
-  for (let i = 0; i < clasificacionProgramaticaValue.length; i++) {
-    conacAndProgramDesign.push(
-      <Box key={i} sx={{ width: "15vw", height: "10vh", ml: 1 }}>
-        <Box
-          sx={{
-            width: "15vw",
-            height: "7vh",
-            backgroundColor: "#D9D9D9",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            border: 1,
-            borderColor: "#D9D9D9",
-          }}
-        >
-          <Typography sx={{ fontSize: "1vw" }}>
-            {clasificacionProgramaticaValue[i]}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            width: "15vw",
-            height: "3vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: 1,
-          }}
-        >
-          <Typography sx={{ fontSize: "1vw" }}>L</Typography>
-        </Box>
+        <Typography sx={{ fontFamily: "MontserratBold", textAlign: "center" }}>
+          {headerTextsValue[i]}
+        </Typography>
       </Box>
     );
   }
@@ -301,7 +267,8 @@ export const FinFechaTecnica = ({
 
   return (
     <>
-      <Box key={Math.random()}
+      <Box
+        key={Math.random()}
         sx={{
           width: "100%",
           height: "20vh",
@@ -369,7 +336,6 @@ export const FinFechaTecnica = ({
           sx={{
             width: "62vw",
             height: "10vh",
-            border: 1,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -377,10 +343,15 @@ export const FinFechaTecnica = ({
         >
           <Typography
             sx={{
-              ml: "2vw",
-              mr: "2vw",
-              fontSize: "1vw",
+              border: 1,
+              width: "62vw",
+              height: "10vh",
+              display: "flex",
+              fontSize: ".8rem",
               fontFamily: "MontserratRegular",
+              minHeight: "5vh",
+              backgroundColor: "white",
+              textAlign: "justify",
             }}
           >
             {jsonMir.fin.resumen}
@@ -388,66 +359,50 @@ export const FinFechaTecnica = ({
         </Box>
       </Box>
       {generalTitlesDesign2[0]}
-      <Box sx={sxBoxMediumSize}>
-        <Box sx={sxSubtitleMediumSize}>
-          <Typography
-            sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
-          >
+      <Box sx={sxSpaceBetweenTitleResult}>
+        <Box sx={sxTitleColumn}>
+          <Typography sx={sxTitleStyle}>
             {subTitleColumnsIndicatorDataPag2Value[0]}
           </Typography>
         </Box>
-        <Box sx={sxResultFieldMediumSize}>
-          <Typography
-            sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
-          >
-            {jsonMir.fin.indicador}
+        <Box sx={sxResultSize}>
+          <Typography sx={sxResultContentDesign}>
+            {jsonMir.fin.indicador.toUpperCase()}
           </Typography>
         </Box>
       </Box>
-      <Box sx={sxBoxMediumSize}>
-        <Box sx={sxSubtitleMediumSize}>
-          <Typography
-            sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
-          >
+      <Box sx={sxSpaceBetweenTitleResult}>
+        <Box sx={sxTitleColumn}>
+          <Typography sx={sxTitleStyle}>
             {subTitleColumnsIndicatorDataPag2Value[1]}
           </Typography>
         </Box>
-        <Box sx={sxResultFieldMediumSize}>
-          <Typography
-            sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
-          >
-            {jsonMA.fin.descIndicador}
+        <Box sx={sxResultSize}>
+          <Typography sx={sxResultContentDesign}>
+            {jsonMA.fin.descIndicador.toUpperCase()}
           </Typography>
         </Box>
       </Box>
-      <Box sx={sxBoxMediumSize}>
-        <Box sx={sxSubtitleMediumSize}>
-          <Typography
-            sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
-          >
+      <Box sx={sxSpaceBetweenTitleResult}>
+        <Box sx={sxTitleColumn}>
+          <Typography sx={sxTitleStyle}>
             {subTitleColumnsIndicatorDataPag2Value[2]}
           </Typography>
         </Box>
-        <Box sx={sxResultFieldMediumSize}>
-          <Typography
-            sx={{ fontSize: "1vw", fontFamily: "MontserratRegular", ml: 3 }}
-          >
+        <Box sx={sxResultSize}>
+          <Typography sx={sxResultContentDesign}>
             {jsonMA.fin.unidadResponsable}
           </Typography>
         </Box>
       </Box>
-      <Box sx={sxBoxMediumSize}>
-        <Box sx={sxSubtitleMediumSize}>
-          <Typography
-            sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
-          >
+      <Box sx={sxSpaceBetweenTitleResult}>
+        <Box sx={sxTitleColumn}>
+          <Typography sx={sxTitleStyle}>
             {subTitleColumnsIndicatorDataPag2Value[3]}
           </Typography>
         </Box>
-        <Box sx={sxResultFieldMediumSize}>
-          <Typography
-            sx={{ fontSize: "0.6vw", fontFamily: "MontserratRegular", ml: 3 }}
-          >
+        <Box sx={sxResultSize}>
+          <Typography sx={sxResultContentDesign}>
             {jsonMir.fin.formula}
           </Typography>
         </Box>
@@ -482,7 +437,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorDataPag2Value[0]}
             </Typography>
           </Box>
@@ -498,7 +453,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography fontSize={"0.7vw"}>
+            <Typography sx={sxResultSmallBoxes}>
               {jsonFT.fin.tipoDeIndicador}
             </Typography>
           </Box>
@@ -523,7 +478,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorDataPag2Value[1]}
             </Typography>
           </Box>
@@ -539,7 +494,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.fin.dimension}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonFT.fin.dimension}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -561,7 +518,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorDataPag2Value[2]}
             </Typography>
           </Box>
@@ -577,7 +534,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{tipoFormula}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{tipoFormula}</Typography>
           </Box>
         </Box>
         <Box
@@ -599,7 +556,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorDataPag2Value[3]}
             </Typography>
           </Box>
@@ -615,7 +572,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.fin.unidadDeMedida}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonFT.fin.unidadDeMedida.toUpperCase()}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -637,7 +596,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorDataPag2Value[4]}
             </Typography>
           </Box>
@@ -653,7 +612,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonMir.fin.frecuencia}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonMir.fin.frecuencia}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -675,7 +636,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorDataPag2Value[5]}
             </Typography>
           </Box>
@@ -690,7 +651,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonMA.fin.sentidoDelIndicador}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonMA.fin.sentidoDelIndicador}
+            </Typography>
           </Box>
         </Box>
       </Box>
@@ -725,7 +688,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorCaracteristicsPag2Value[0]}
             </Typography>
           </Box>
@@ -742,7 +705,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.fin.claridad}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonFT.fin.claridad}
+            </Typography>
           </Box>
         </Box>
 
@@ -765,7 +730,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorCaracteristicsPag2Value[1]}
             </Typography>
           </Box>
@@ -781,7 +746,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.fin.relevancia}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonFT.fin.relevancia}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -803,7 +770,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorCaracteristicsPag2Value[2]}
             </Typography>
           </Box>
@@ -819,7 +786,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.fin.economia}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonFT.fin.economia}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -841,7 +810,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorCaracteristicsPag2Value[3]}
             </Typography>
           </Box>
@@ -857,7 +826,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.fin.monitoreable}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonFT.fin.monitoreable}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -879,7 +850,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorCaracteristicsPag2Value[4]}
             </Typography>
           </Box>
@@ -895,7 +866,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.fin.adecuado}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonFT.fin.adecuado}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -917,7 +890,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorCaracteristicsPag2Value[5]}
             </Typography>
           </Box>
@@ -932,7 +905,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.fin.aporte_marginal}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonFT.fin.aporte_marginal}
+            </Typography>
           </Box>
         </Box>
       </Box>
@@ -967,8 +942,34 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowVariableDataPag2Value[0]}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              width: "11vw",
+              height: "7.7vh",
+              border: 1,
+              borderTop: 0,
+              borderRight: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                width: "11vw",
+                height: "7.7vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+              }}
+            >
+              {variable1}
             </Typography>
           </Box>
           <Box
@@ -983,21 +984,19 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography fontSize={"0.6vw"}>{variable1}</Typography>
-          </Box>
-          <Box
-            sx={{
-              width: "11vw",
-              height: "8vh",
-              border: 1,
-              borderTop: 0,
-              borderRight: 0,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography fontSize={"0.6vw"}>{variable2}</Typography>
+            <Typography
+              sx={{
+                width: "11vw",
+                height: "8vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+              }}
+            >
+              {variable2}
+            </Typography>
           </Box>
         </Box>
 
@@ -1020,7 +1019,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowVariableDataPag2Value[1]}
             </Typography>
           </Box>
@@ -1036,7 +1035,20 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonMA.fin.descNumerador}</Typography>
+            <Typography
+              sx={{
+                width: "11vw",
+                height: "7.7vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
+              }}
+            >
+              {jsonMA.fin.descNumerador.toUpperCase()}
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -1050,7 +1062,20 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonMA.fin.descDenominador}</Typography>
+            <Typography
+              sx={{
+                width: "11vw",
+                height: "7.7vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
+              }}
+            >
+              {jsonMA.fin.descDenominador.toUpperCase()}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -1073,14 +1098,14 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowVariableDataPag2Value[2]}
             </Typography>
           </Box>
           <Box
             sx={{
               width: "18vw",
-              height: "8vh",
+              height: "7.8vh",
               border: 1,
               borderTop: 1,
               borderRight: 0,
@@ -1089,12 +1114,25 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography fontSize={"0.6vw"}>{jsonMir.fin.medios}</Typography>
+            <Typography
+              sx={{
+                width: "18vw",
+                height: "7.8vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
+              }}
+            >
+              {jsonMir.fin.medios}
+            </Typography>
           </Box>
           <Box
             sx={{
               width: "18vw",
-              height: "8vh",
+              height: "7.7vh",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1103,7 +1141,20 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography fontSize={"0.6vw"}>{jsonMir.fin.medios}</Typography>
+            <Typography
+              sx={{
+                width: "18vw",
+                height: "7.7vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
+              }}
+            >
+              {jsonMir.fin.medios}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -1125,7 +1176,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowVariableDataPag2Value[3]}
             </Typography>
           </Box>
@@ -1141,7 +1192,21 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.encabezado.unidadDeMedida}</Typography>
+            <Typography
+              sx={{
+                width: "11vw",
+                height: "7.7vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
+                //al final ponerle a estos 2 .toUpperCase() como no existe se rompe el programa
+              }}
+            >
+              {jsonFT.encabezado.unidadDeMedida}
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -1155,7 +1220,20 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonFT.encabezado.unidadDeMedida}</Typography>
+            <Typography
+              sx={{
+                width: "11vw",
+                height: "7.7vh",
+                display: "flex",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
+              }}
+            >
+              {jsonFT.encabezado.unidadDeMedida}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -1177,7 +1255,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowVariableDataPag2Value[4]}
             </Typography>
           </Box>
@@ -1192,7 +1270,11 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonMA.fin.valorNumerador}</Typography>
+            <Typography
+              sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+            >
+              {jsonMA.fin.valorNumerador}
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -1205,7 +1287,11 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonMA.fin.valorDenominador}</Typography>
+            <Typography
+              sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+            >
+              {jsonMA.fin.valorDenominador}
+            </Typography>
           </Box>
         </Box>
       </Box>
@@ -1250,10 +1336,14 @@ export const FinFechaTecnica = ({
         >
           <Typography
             sx={{
-              ml: "2vw",
-              mr: "2vw",
-              fontSize: "1vw",
+              width: "62vw",
+              height:"6vh",
+              display: "flex",
+              fontSize: ".8rem",
               fontFamily: "MontserratRegular",
+              minHeight: "5vh",
+              backgroundColor: "white",
+              textAlign: "justify",
             }}
           >
             {jsonMir.fin.supuestos}
@@ -1291,7 +1381,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowGoalsPag2Value[0]}
             </Typography>
           </Box>
@@ -1307,7 +1397,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonMA.fin.lineaBase}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{jsonMA.fin.lineaBase}</Typography>
           </Box>
         </Box>
 
@@ -1330,7 +1420,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowGoalsPag2Value[1]}
             </Typography>
           </Box>
@@ -1346,7 +1436,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{jsonMA.fin.metaAnual}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{jsonMA.fin.metaAnual}</Typography>
           </Box>
         </Box>
         <Box
@@ -1368,7 +1458,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowGoalsPag2Value[2]}
             </Typography>
           </Box>
@@ -1384,7 +1474,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{"-" /*meta 2023*/}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2023*/}</Typography>
           </Box>
         </Box>
         <Box
@@ -1406,7 +1496,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowGoalsPag2Value[3]}
             </Typography>
           </Box>
@@ -1422,7 +1512,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{"-" /*meta 2024*/}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2024*/}</Typography>
           </Box>
         </Box>
         <Box
@@ -1444,7 +1534,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowGoalsPag2Value[4]}
             </Typography>
           </Box>
@@ -1460,7 +1550,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{"-" /*meta 2025*/}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2025*/}</Typography>
           </Box>
         </Box>
         <Box
@@ -1482,7 +1572,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowGoalsPag2Value[5]}
             </Typography>
           </Box>
@@ -1498,7 +1588,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{"-" /*meta 2026*/}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2026*/}</Typography>
           </Box>
         </Box>
         <Box
@@ -1520,7 +1610,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowGoalsPag2Value[6]}
             </Typography>
           </Box>
@@ -1536,7 +1626,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{"-" /*meta 2027*/}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2027*/}</Typography>
           </Box>
         </Box>
         <Box
@@ -1558,7 +1648,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>
+            <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowGoalsPag2Value[7]}
             </Typography>
           </Box>
@@ -1573,7 +1663,7 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography>{"" /*meta sexenal*/}</Typography>
+            <Typography sx={sxResultSmallBoxes}>{"" /*meta sexenal*/}</Typography>
           </Box>
         </Box>
       </Box>
@@ -1608,7 +1698,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>ROJO</Typography>
+            <Typography sx={sxTitleSmallBoxes}>ROJO</Typography>
           </Box>
           <Box
             sx={{
@@ -1624,9 +1714,9 @@ export const FinFechaTecnica = ({
               backgroundColor: "red",
             }}
           >
-            <Typography>{`V.I. < ${yString}`} </Typography>
-            <Typography>{"Ó"} </Typography>
-            <Typography>{`${zString} < V.I.`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{`V.I. < ${yString}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{"Ó"} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{`${zString} < V.I.`} </Typography>
           </Box>
         </Box>
 
@@ -1649,7 +1739,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>AMARILLO</Typography>
+            <Typography sx={sxTitleSmallBoxes}>AMARILLO</Typography>
           </Box>
           <Box
             sx={{
@@ -1665,9 +1755,9 @@ export const FinFechaTecnica = ({
               backgroundColor: "yellow",
             }}
           >
-            <Typography>{`${z1String} <= V.I. < ${zString}`} </Typography>
-            <Typography>{"Ó"} </Typography>
-            <Typography>{`${yString} < V.I. <= ${y1String}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{`${z1String} <= V.I. < ${zString}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{"Ó"} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{`${yString} < V.I. <= ${y1String}`} </Typography>
           </Box>
         </Box>
         <Box
@@ -1689,7 +1779,7 @@ export const FinFechaTecnica = ({
               backgroundColor: "#D9D9D9",
             }}
           >
-            <Typography sx={{ fontSize: "1vw" }}>VERDE</Typography>
+            <Typography sx={sxTitleSmallBoxes}>VERDE</Typography>
           </Box>
           <Box
             sx={{
@@ -1704,20 +1794,23 @@ export const FinFechaTecnica = ({
               backgroundColor: "green",
             }}
           >
-            <Typography>{`${y1String} <= V.I. <= ${z1String}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>{`${y1String} <= V.I. <= ${z1String}`} </Typography>
           </Box>
         </Box>
       </Box>
       <Box
-      sx={{ width: "40vw",
-      height: "3vh",
-      display: "flex",
-      justifyContent: "start",
-      alignItems: "center",
-      ml:"3.4vw"
-      }}
+        sx={{
+          width: "40vw",
+          height: "3vh",
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+          ml: "3.4vw",
+        }}
       >
-        <Typography fontFamily= {"MontserratLight"}>V.I.:VALOR DEL INDICADOR</Typography>
+        <Typography sx={sxResultSmallBoxes}>
+          V.I.:VALOR DEL INDICADOR
+        </Typography>
       </Box>
       <Box
         sx={{
@@ -1730,7 +1823,7 @@ export const FinFechaTecnica = ({
           mt: "5vh",
         }}
       >
-        <Typography sx={{}}>Página 2</Typography>
+        <Typography sx={sxTitleSmallBoxes}>Página 2</Typography>
       </Box>
       <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
       <Divider sx={{ backgroundColor: "rgba(0,0,0,5)" }} />
