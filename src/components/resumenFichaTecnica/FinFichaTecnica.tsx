@@ -446,6 +446,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "11vw",
+              height: '100%',
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1305,19 +1306,18 @@ export const FinFechaTecnica = ({
       <Box
         sx={{
           width: "62vw",
-          height: "6vh",
+          height: "10vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           ml: "3.4vw",
-          mb: "0.5vw",
+          mb: "1vw",
         }}
       >
         <Box
           sx={{
             width: "62vw",
-            height: "6vh",
-            border: 1,
+            height: "10vh",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -1325,8 +1325,9 @@ export const FinFechaTecnica = ({
         >
           <Typography
             sx={{
+              border: 1,
               width: "62vw",
-              height:"6vh",
+              height: "10vh",
               display: "flex",
               fontSize: ".8rem",
               fontFamily: "MontserratRegular",
