@@ -49,12 +49,10 @@ export default function ModalCrearUsuario({
   const [ext, setExt] = useState("");
   const [comentario, setComentario] = useState("");
 
-  const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
+  // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
   ]);
-
-  const [idSolicitud, setIdSolicitud] = useState("");
 
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
@@ -128,7 +126,7 @@ export default function ModalCrearUsuario({
       });
   };
 
-  const createComentarios = () => {
+  const createComentarios = (idSolicitud:string) => {
     axios
       .post(
         "http://10.200.4.105:5000/api/create-comentario",
@@ -145,13 +143,13 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 201) {
-          
-          
+
+
           Toast.fire({
-              icon: "success",
-              title: "¡Registro exitoso!",
-            });
-            cleanForm();
+            icon: "success",
+            title: "¡Registro exitoso!",
+          });
+          cleanForm();
           handleClose();
         }
       })
@@ -166,64 +164,67 @@ export default function ModalCrearUsuario({
       });
   }
 
-  const createSolicitud = () => {
-    axios
-      .post(
-        "http://10.200.4.105:5000/api/create-solicitud",
-        {
-          IdUsuario: idUsuarioCentral,
-          DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
-          TipoSolicitud: "Alta",
-          CreadoPor: localStorage.getItem("IdCentral"),
-          IdApp: localStorage.getItem("IdApp"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        console.log(r.data.data[0][0].IdSolicitud)
-        
-        if ( r.data.data[0][0].Respuesta== 201) {
-          
-          setIdSolicitud(r.data.data[0][0].IdSolicitud)
-          Toast.fire({
-              icon: "success",
-              title: "¡Registro exitoso!",
-            });
-        }
-      })
-      .catch((r) => {
-        if (r.data.data[0][0].Respuesta == 409) {
-          setErrorsForm({
-            visible: true,
-            text: r.response.data.msg,
-            type: "error",
-          });
-        }
-      });
-  }
+  // const createSolicitud = () => {
+  //   axios
+  //     .post(
+  //       "http://10.200.4.105:5000/api/create-solicitud",
+  //       {
+  //         IdUsuario: idUsuarioCentral,
+  //         DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
+  //         TipoSolicitud: "Alta",
+  //         CreadoPor: localStorage.getItem("IdCentral"),
+  //         IdApp: localStorage.getItem("IdApp"),
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       console.log(r.data.data[0][0].IdSolicitud)
+
+  //       if ( r.data.data[0][0].Respuesta== 201) {
+
+  //         setIdSolicitud(r.data.data[0][0].IdSolicitud)
+  //         Toast.fire({
+  //             icon: "success",
+  //             title: "¡Registro exitoso!",
+  //           });
+  //       }
+  //     })
+  //     .catch((r) => {
+  //       if (r.data.data[0][0].Respuesta == 409) {
+  //         setErrorsForm({
+  //           visible: true,
+  //           text: r.response.data.msg,
+  //           type: "error",
+  //         });
+  //       }
+  //     });
+  // }
 
   const signUp = () => {
     console.log("hola Usuario");
     axios
       .post(
-        "http://10.200.4.105:5000/api/sign-up",
-        { 
+        "http://10.200.4.200:5000/api/create-solicitud",
+        {
           Nombre: names,
-          ApellidoPaterno: firstName,
-          ApellidoMaterno: secondName,
+          APaterno: firstName,
+          AMaterno: secondName,
           NombreUsuario: username,
-          CorreoElectronico: email,
-          IdUsuarioModificador: localStorage.getItem("IdCentral"),
+          Email: email,
           Curp: curp,
-          Rfc: rfc,
-          Telefono: telephone,
-          Ext: ext,
+          RFC: rfc,
           Celular: cellphone,
-          IdTipoUsuario: "",
+          Telefono: telephone,
+          Extencion: ext,
+          DatosAdicionales: "",
+          TipoSolicitud: "Baja",
+          CreadoPor: localStorage.getItem("IdCentral"),
+          IdApp: localStorage.getItem("IdApp"),
+
         },
         {
           headers: {
@@ -232,10 +233,24 @@ export default function ModalCrearUsuario({
         }
       )
       .then((r) => {
-        if (r.status === 201) {
-            setIdUsuarioCentral(r.data.IdUsuario);
-            handleClose();
-            siednlSignUp(r.data.IdUsuario);
+        console.log(r);
+          console.log("---------------");
+        console.log(r.data.data[0][0].IdSolicitud)
+          console.log("---------------");
+          console.log(status);
+        if (r.status === 200) {
+          // setIdUsuarioCentral(r.data.IdUsuario);
+          
+          
+          siednlSignUp(r.data.data[0][0].IdSolicitud);
+          createComentarios(r.data.data[0][0].IdSolicitud);
+           
+            Toast.fire({
+              icon: "success",
+              title: "¡Registro exitoso!",
+            });
+          
+          handleClose();
         }
       })
       .catch((r) => {
@@ -282,24 +297,24 @@ export default function ModalCrearUsuario({
   };
 
 
-  
-  useEffect(() => {
-    if(idSolicitud!=""){
-      createComentarios();
-  }
-    
-  }, [idSolicitud]);
 
-  useEffect(() => {
-    if(idUsuarioCentral!=""){
-      createSolicitud();
-      console.log("hola Solicitud");
-    }
-  }, [idUsuarioCentral]);
+  // useEffect(() => {
+  //   if (idSolicitud != "") {
+  //     createComentarios();
+  //   }
+
+  // }, [idSolicitud]);
+
+  // useEffect(() => {
+  //   if(idUsuarioCentral!=""){
+  //     createSolicitud();
+  //     console.log("hola Solicitud");
+  //   }
+  // }, [idUsuarioCentral]);
 
   const checkForm = () => {
-    
-    
+
+
     setErrorsForm({
       visible: false,
       text: "",
@@ -360,13 +375,13 @@ export default function ModalCrearUsuario({
         text: "Ingresa un correo electrónico.",
         type: "error",
       });
-    }else if (rfc === "") {
+    } else if (rfc === "") {
       setErrorsForm({
         visible: true,
         text: "Ingresa un correo electrónico.",
         type: "error",
       });
-    }else if (telephone === "") {
+    } else if (telephone === "") {
       setErrorsForm({
         visible: true,
         text: "Ingresa un teléfono de contacto.",
@@ -384,7 +399,7 @@ export default function ModalCrearUsuario({
         text: "Ingresa un correo electrónico.",
         type: "error",
       });
-    }else {
+    } else {
       signUp();
     }
   };
@@ -392,7 +407,7 @@ export default function ModalCrearUsuario({
   useEffect(() => {
     getInstituciones();
     getUserType();
-    
+
   }, []);
 
   return (
@@ -441,7 +456,7 @@ export default function ModalCrearUsuario({
             onChange={(v) => setUsername(v.target.value)}
           />
 
-          
+
 
           <TextField
             label="Correo Electrónico"
@@ -715,7 +730,7 @@ export default function ModalCrearUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
-              onClick={() =>{ handleClose()}}
+              onClick={() => { handleClose() }}
             >
               Cancelar
             </Button>
@@ -723,7 +738,8 @@ export default function ModalCrearUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
-              onClick={() => {checkForm(); 
+              onClick={() => {
+                checkForm();
               }}
             >
               Registrar

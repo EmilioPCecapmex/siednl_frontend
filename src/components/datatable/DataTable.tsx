@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { DataUsuariosTiCentral } from "./interface";
 import { DeleteDialog } from "../deleteDialog/DeleteDialog";
 import {
   Box,
@@ -18,6 +17,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import ModalEditarUsuario from "../modalUsuarios/ModalEditarUsuario";
 import AppsDialog from "../appsDialog/AppsDialog";
+import DataUsuariosTiCentral from "./interface";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
@@ -258,6 +258,7 @@ export const DataTable = ({
                         id={row.Id}
                         actualizado={actualizaContador}
                         idUsaurioCentral={row.IdUsuarioTiCentral}
+                        dataUser={row}
                       />
 
                       <Tooltip title="Editar">
