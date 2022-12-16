@@ -60,7 +60,6 @@ export const sessionValid = () => {
     )
     .then((r) => {
       if (r.status === 200) {
-
         localStorage.setItem("sUntil", r.data.expDateTime)
         localStorage.setItem("jwtToken", jt);
         localStorage.setItem("refreshToken", rft);

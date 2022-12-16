@@ -9,7 +9,6 @@ export const Init = () => {
   
   setTimeout(() => {
     navigate('../home')
-
   },500);
 
 

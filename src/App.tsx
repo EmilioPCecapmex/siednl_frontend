@@ -27,11 +27,6 @@ function App() {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
           window.location.assign("http://10.200.4.106/");
-        } else if ((r as boolean) === true) {
-          setTimeout(() => {
-            localStorage.setItem("IdApp", IdApp as string);
-            navigate("../home");
-          }, 100);
         }
       });
     } else {
