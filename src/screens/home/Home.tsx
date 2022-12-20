@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Box, Button, Tab, Tabs } from "@mui/material";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
@@ -8,6 +8,8 @@ import { WelcomeBox } from "../../components/tutorialBox/WelcomeBox";
 
 export const Home = () => {
 
+
+ 
 
   return (
     <Box

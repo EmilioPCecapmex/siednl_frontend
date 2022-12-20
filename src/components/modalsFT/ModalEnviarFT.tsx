@@ -439,8 +439,8 @@ export default function ModalEnviarFT({
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMIR,
           IdMa: IdMA,
-          Estado: estado,
           Id: IdFT,
+          Estado: estado,
         },
         {
           headers: {

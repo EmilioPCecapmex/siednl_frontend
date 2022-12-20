@@ -129,8 +129,8 @@ export function TabResumenFT({
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
           IdMa: IdMA,
-          Estado: estado,
           Id: IdFT,
+          Estado: estado,
         },
         {
           headers: {
