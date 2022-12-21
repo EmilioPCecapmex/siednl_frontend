@@ -2,7 +2,7 @@ import axios from "axios";
 
 const params = new URLSearchParams(window.location.search);
 
-export const getUserDetails = (idCentral: string) => {
+export const getUserDetails = (idCentral: string,) => {
   return axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuario", {
       params: {
@@ -15,6 +15,7 @@ export const getUserDetails = (idCentral: string) => {
     })
     .then((r) => {
       if (r.status === 200) {
+        console.log(r);
         
         localStorage.setItem("IdUsuario", r.data.data.Id);
         localStorage.setItem(
@@ -36,12 +37,42 @@ export const getUserDetails = (idCentral: string) => {
         localStorage.setItem("Rol", r.data.data.Rol);
       }
     })
+    .catch((error) => { 
+      getDataSolicitud(idCentral);
+     
+    });
+};
+
+const getDataSolicitud = (idSolicitud: string) => {
+
+
+
+  return axios
+    .get("http://10.200.4.200:5000/api/datosAdicionalesSolicitud", {
+      params: {
+        IdSolicitud: idSolicitud,
+      },
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      if (r.status === 200) {
+        
+        
+
+
+      }
+    })
     .catch((error) => {
       if (error.response.status === 401) {
         localStorage.clear();
       }
     });
 };
+
+
 
 export const sessionValid = () => {
   const jt = params.get("jwt") || "";
@@ -66,6 +97,9 @@ export const sessionValid = () => {
         localStorage.setItem("refreshToken", rft);
         localStorage.setItem("validation", "true");
         localStorage.setItem("IdCentral", r.data.data.IdUsuario);
+
+
+
         getUserDetails(r.data.data.IdUsuario);
         return true;
       }

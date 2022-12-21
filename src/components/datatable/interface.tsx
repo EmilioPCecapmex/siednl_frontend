@@ -10,6 +10,9 @@
     NombreUsuario:     string;
     Cargo:             string;
     Telefono:          string;
+    Ext:               string;
+    Curp:              string;
+    Rfc:               string;
     Celular:           string;
     IdRol:             string;
     Rol:               string;
@@ -17,6 +20,20 @@
     NombreInstitucion: string;
     CreadoPor:         string;
     ModificadoPor:     string;
+  }
+
+  export interface IdataUser {
+    Id:                string;
+    Nombre:            string;
+    ApellidoPaterno:   string;
+    ApellidoMaterno:   string;
+    CorreoElectronico: string;
+    NombreUsuario:     string;
+    Telefono:          string;
+    Ext:               string;
+    Curp:              string;
+    Rfc:               string;
+    Celular:           string;
   }
 
   
