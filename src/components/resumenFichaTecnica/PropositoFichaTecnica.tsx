@@ -69,36 +69,16 @@ export const PropositoFichaTecnica = ({
   const sxTitleSmallBoxes = {
     fontSize: ".9vw",
     fontFamily: "MontserratSemiBold",
-    textAlign: 'center'
+    textAlign: "center",
   };
 
   const sxResultSmallBoxes = {
     fontSize: ".8rem",
     fontFamily: "MontserratRegular",
-    textAlign: 'center'
+    textAlign: "center",
   };
 
   //ARRAYS DEFAULT VALUES
-  const headerTextsValue = [
-    "GOBIERNO DEL ESTADO DE NUEVO LEÓN",
-    "SECRETARÍA DE propositoANZAS Y TESORERÍA GENERAL DEL ESTADO",
-    "PRESUPUESTO POR RESULTADOS",
-    "FICHA TECNICA DE INDICADORES 2022",
-    "PROGRAMAS PRESUPUESTARIOS",
-  ];
-  const titleColumnsNormalPag1Value = [
-    "IDENTIFICACIÓN DEL PROGRAMA PRESUPUESTARIO",
-    "ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO",
-    "ALINEACIÓN ODS",
-  ];
-
-  const titleColumnsNormalPag2Value = [
-    "DATOS DEL INDICADOR:",
-    "CARACTERÍSTICAS DEL INDICADOR",
-    "DATOS DE LAS VARIABLES",
-    "METAS",
-    "PARÁMETROS DE SEMAFORIZACIÓN",
-  ];
 
   const subTitleColumnsIndicatorDataPag2Value = [
     "NOMBRE DEL INDICADOR:",
@@ -165,50 +145,6 @@ export const PropositoFichaTecnica = ({
       ? "PROMEDIO"
       : ""
   );
-
-  //EMPTY ARRAYS
-  const headerTypography = [];
-  const generalTitlesDesign1 = [];
-  const generalTitlesDesign2 = [];
-
-  //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
-  for (let i = 0; i < headerTextsValue.length; i++) {
-    headerTypography.push(
-      <Box key={i}>
-        <Typography
-          sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
-        >
-          {headerTextsValue[i]}
-        </Typography>
-      </Box>
-    );
-  }
-
-  //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG1
-  for (let i = 0; i < titleColumnsNormalPag1Value.length; i++) {
-    generalTitlesDesign1.push(
-      <Box key={i} sx={sxTitleDesignPage1}>
-        <Typography
-          sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
-        >
-          {titleColumnsNormalPag1Value[i]}
-        </Typography>
-      </Box>
-    );
-  }
-
-  //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG2
-  for (let i = 0; i < titleColumnsNormalPag2Value.length; i++) {
-    generalTitlesDesign2.push(
-      <Box key={i} sx={sxTitleDesignPage1}>
-        <Typography
-          sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
-        >
-          {titleColumnsNormalPag2Value[i]}
-        </Typography>
-      </Box>
-    );
-  }
 
   const [variable1, setVariable1] = useState("");
   const [variable2, setVariable2] = useState("");
@@ -277,7 +213,6 @@ export const PropositoFichaTecnica = ({
   return (
     <>
       <Box
-        key={Math.random()}
         sx={{
           width: "100%",
           height: "20vh",
@@ -308,7 +243,46 @@ export const PropositoFichaTecnica = ({
               flexDirection: "column",
             }}
           >
-            {headerTypography}
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                textAlign: "center",
+              }}
+            >
+              GOBIERNO DEL ESTADO DE NUEVO LEÓN
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                textAlign: "center",
+              }}
+            >
+              SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL ESTADO
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                textAlign: "center",
+              }}
+            >
+              PRESUPUESTO POR RESULTADOS
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                textAlign: "center",
+              }}
+            >
+              FICHA TECNICA DE INDICADORES 2022
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                textAlign: "center",
+              }}
+            >
+              PROGRAMAS PRESUPUESTARIOS
+            </Typography>
           </Box>
         </Box>
       </Box>
@@ -368,7 +342,17 @@ export const PropositoFichaTecnica = ({
           </Typography>
         </Box>
       </Box>
-      {generalTitlesDesign2[0]}
+      <Box sx={sxTitleDesignPage1}>
+              <Typography
+                sx={{
+                  ml: 1,
+                  fontFamily: "MontserratBold",
+                  textAlign: "center",
+                }}
+              >
+                DATOS DEL INDICADOR:
+              </Typography>
+            </Box>
       <Box sx={sxSpaceBetweenTitleResult}>
         <Box sx={sxTitleColumn}>
           <Typography sx={sxTitleStyle}>
@@ -420,7 +404,7 @@ export const PropositoFichaTecnica = ({
       <Box
         sx={{
           width: "62vw",
-          height: '100%',
+          height: "100%",
           display: "flex",
           flexDirection: "row",
           ml: "3.4vw",
@@ -452,7 +436,7 @@ export const PropositoFichaTecnica = ({
           <Box
             sx={{
               width: "11vw",
-              height: '100%',
+              height: "100%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -492,7 +476,7 @@ export const PropositoFichaTecnica = ({
           <Box
             sx={{
               width: "7vw",
-              height: '100%',
+              height: "100%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -660,7 +644,17 @@ export const PropositoFichaTecnica = ({
           </Box>
         </Box>
       </Box>
-      {generalTitlesDesign2[1]}
+      <Box sx={sxTitleDesignPage1}>
+              <Typography
+                sx={{
+                  ml: 1,
+                  fontFamily: "MontserratBold",
+                  textAlign: "center",
+                }}
+              >
+                CARACTERÍSTICAS DEL INDICADOR
+              </Typography>
+            </Box>
       <Box
         sx={{
           width: "62vw",
@@ -913,7 +907,17 @@ export const PropositoFichaTecnica = ({
           </Box>
         </Box>
       </Box>
-      {generalTitlesDesign2[2]}
+      <Box sx={sxTitleDesignPage1}>
+              <Typography
+                sx={{
+                  ml: 1,
+                  fontFamily: "MontserratBold",
+                  textAlign: "center",
+                }}
+              >
+                DATOS DE LAS VARIABLES
+              </Typography>
+            </Box>
       <Box
         sx={{
           width: "62vw",
@@ -949,7 +953,7 @@ export const PropositoFichaTecnica = ({
           </Box>
           <Box
             sx={{
-               width: "100%",
+              width: "100%",
               height: "40%",
               border: 1,
               borderTop: 0,
@@ -961,10 +965,10 @@ export const PropositoFichaTecnica = ({
           >
             <Typography
               sx={{
-              width: "90%",
+                width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
-                textAlign: 'justify',
+                textAlign: "justify",
                 fontFamily: "MontserratRegular",
                 backgroundColor: "white",
               }}
@@ -975,7 +979,7 @@ export const PropositoFichaTecnica = ({
           <Box
             sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -986,10 +990,10 @@ export const PropositoFichaTecnica = ({
           >
             <Typography
               sx={{
-               width: "90%",
+                width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
-                textAlign: 'justify',
+                textAlign: "justify",
                 fontFamily: "MontserratRegular",
                 backgroundColor: "white",
               }}
@@ -1023,33 +1027,8 @@ export const PropositoFichaTecnica = ({
           </Box>
           <Box
             sx={{
-               width: "100%",
-              height: '40%',
-              border: 1,
-              borderTop: 0,
-              borderRight: 0,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-             sx={{
-                width: "90%",
-                fontSize: ".7rem",
-                fontFamily: "MontserratRegular",
-                minHeight: "5vh",
-                backgroundColor: "white",
-                textAlign: 'justify',
-              }}
-            >
-              {jsonMA.proposito.descNumerador.toUpperCase()}
-            </Typography>
-          </Box>
-          <Box
-            sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1060,10 +1039,35 @@ export const PropositoFichaTecnica = ({
           >
             <Typography
               sx={{
-                 width: "90%",
+                width: "90%",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
-                textAlign: 'justify',
+                minHeight: "5vh",
+                backgroundColor: "white",
+                textAlign: "justify",
+              }}
+            >
+              {jsonMA.proposito.descNumerador.toUpperCase()}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              height: "40%",
+              border: 1,
+              borderTop: 0,
+              borderRight: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                width: "90%",
+                fontSize: ".7rem",
+                fontFamily: "MontserratRegular",
+                textAlign: "justify",
                 backgroundColor: "white",
               }}
             >
@@ -1074,7 +1078,7 @@ export const PropositoFichaTecnica = ({
         <Box
           sx={{
             width: "18vw",
-            height: '40vh',
+            height: "40vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -1098,7 +1102,7 @@ export const PropositoFichaTecnica = ({
           <Box
             sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 1,
               borderRight: 0,
@@ -1122,8 +1126,8 @@ export const PropositoFichaTecnica = ({
           </Box>
           <Box
             sx={{
-             width: "100%",
-              height: '40%',
+              width: "100%",
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1149,7 +1153,7 @@ export const PropositoFichaTecnica = ({
         <Box
           sx={{
             width: "11vw",
-            height: '40vh',
+            height: "40vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -1210,7 +1214,7 @@ export const PropositoFichaTecnica = ({
           >
             <Typography
               sx={{
-                 width: "90%",
+                width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
@@ -1233,7 +1237,7 @@ export const PropositoFichaTecnica = ({
         >
           <Box
             sx={{
-             width: "11vw",
+              width: "11vw",
               height: "20%",
               border: 1,
               display: "flex",
@@ -1248,7 +1252,7 @@ export const PropositoFichaTecnica = ({
           </Box>
           <Box
             sx={{
-             width: "11vw",
+              width: "11vw",
               height: "40%",
               border: 1,
               borderTop: 0,
@@ -1265,7 +1269,7 @@ export const PropositoFichaTecnica = ({
           </Box>
           <Box
             sx={{
-             width: "11vw",
+              width: "11vw",
               height: "40%",
               border: 1,
               borderTop: 0,
@@ -1321,7 +1325,7 @@ export const PropositoFichaTecnica = ({
         >
           <Typography
             sx={{
-             border: 1,
+              border: 1,
               width: "62vw",
               height: "10vh",
               display: "flex",
@@ -1336,7 +1340,17 @@ export const PropositoFichaTecnica = ({
           </Typography>
         </Box>
       </Box>
-      {generalTitlesDesign2[3]}
+      <Box sx={sxTitleDesignPage1}>
+              <Typography
+                sx={{
+                  ml: 1,
+                  fontFamily: "MontserratBold",
+                  textAlign: "center",
+                }}
+              >
+                METAS
+              </Typography>
+            </Box>
       <Box
         sx={{
           width: "62vw",
@@ -1659,7 +1673,17 @@ export const PropositoFichaTecnica = ({
           </Box>
         </Box>
       </Box>
-      {generalTitlesDesign2[4]}
+      <Box sx={sxTitleDesignPage1}>
+              <Typography
+                sx={{
+                  ml: 1,
+                  fontFamily: "MontserratBold",
+                  textAlign: "center",
+                }}
+              >
+                PARÁMETROS DE SEMAFORIZACIÓN
+              </Typography>
+            </Box>
       <Box
         sx={{
           width: "62vw",
