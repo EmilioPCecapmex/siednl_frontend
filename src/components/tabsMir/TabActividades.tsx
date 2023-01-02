@@ -21,6 +21,7 @@ import { IMIREdit } from "./IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import { stringify } from "querystring";
 //funcion main
 export const TabActividades = ({
   show,
@@ -48,8 +49,30 @@ export const TabActividades = ({
     },
   ]);
 
+  const [cValor, setCValor] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                resumen: "",
+                indicador: "",
+                formula: "",
+                frecuencia: "TRIMESTRAL",
+                medios: "",
+                supuestos: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+  
   useEffect(() => {
-    if (show === true && componentes.length > cValor[0].componentes.length) {
+    if (componentes.length > cValor[0].componentes.length) {   
       let restantes = componentes.length - cValor[0].componentes.length;
       let prevState = [...cValor];
       for (let index = 1; index <= restantes; index++) {
@@ -76,46 +99,32 @@ export const TabActividades = ({
           ],
         });
         setCValor(prevState);
+        asignarCValor(prevState);
+
       }
     } else if (
-      show === true &&
       componentes.length < cValor[0].componentes.length
     ) {
       let prevState = [...cValor];
       let restantes = cValor[0].componentes.length - componentes.length;
+
       for (let index = 1; index <= restantes; index++) {
         prevState[0].componentes.pop();
         setCValor(prevState);
+
+        asignarCValor(prevState)
+
       }
       setComponenteSelect(0);
     }
-  }, [show, compAct]);
+  }, [compAct, componentes]);
 
-  const [cValor, setCValor] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "TRIMESTRAL",
-                medios: "",
-                supuestos: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
 
-  useEffect(() => {
-    asignarCValor(cValor);
-  }, [cValor]);
+
+    //ESTO ESTABA COMENTADO 125-127
+     useEffect(() => {
+      asignarCValor(cValor);
+   }, [cValor]);
 
   useEffect(() => {
     if (compAct.length > 0) {
@@ -212,6 +221,8 @@ export const TabActividades = ({
           supuestos: "",
         });
         setCValor(prevState);
+        asignarCValor(prevState);
+
       }
     }
   };
@@ -228,6 +239,8 @@ export const TabActividades = ({
       let prevState = [...cValor];
       prevState[0].componentes[componenteSelect].actividades.pop();
       setCValor(prevState);
+      asignarCValor(prevState);
+
     }
   };
 

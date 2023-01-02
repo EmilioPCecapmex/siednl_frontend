@@ -108,6 +108,7 @@ export default function FullModalMir({
   };
 
   const asignarCValor = (state: Array<ICValor>) => {
+    console.log(state)
     setCValor(state);
   };
 

@@ -64,6 +64,8 @@ export const MetaAnual = () => {
   const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
 
+  const [metaAnualDownloadDetails, setMetaAnualDownloadDetails] = useState<IDownloadMA>()
+
   const [ma, setMa] = useState<Array<IIMa>>([]);
   const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
 
@@ -84,6 +86,25 @@ export const MetaAnual = () => {
       .then((r) => {
         if (r.status === 200) {
           setInstituciones(r.data.data);
+        }
+      });
+  };
+
+  
+  const getMetaAnualDownload = (IdMa: string) => {
+    axios
+      .get("http://10.200.4.192:8000/api/descarga-ma", {
+        params: {
+          IdMetaAnual: IdMa,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setMetaAnualDownloadDetails(r.data.data);
+          console.log(r.data.data[0].MaCompleta)
         }
       });
   };
@@ -704,6 +725,9 @@ export const MetaAnual = () => {
                               <Tooltip title="DESCARGAR">
                                 <span>
                                   <IconButton
+                                  onClick={() => {
+                getMetaAnualDownload(row.IdMa);
+                                  }}
                                     disabled={
                                       row.Estado === "Autorizada" ? false : true
                                     }
@@ -782,4 +806,12 @@ export interface IIMa {
   Estado: string;
   CreadoPor: string;
   FechaCreacion: string;
+}
+
+export interface IDownloadMA {
+  MaId:       string;
+  MetaAnual:  string;
+  MirId:      string;
+  MIR:        string;
+  MaCompleta: string;
 }

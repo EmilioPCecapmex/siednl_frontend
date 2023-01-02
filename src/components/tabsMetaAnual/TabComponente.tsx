@@ -128,31 +128,31 @@ export const TabComponenteMA = ({
       ) ||
         JSON.parse(MIR).componentes[
           componentSelect - 1
-        ].indicador.toLowerCase() === "porcentaje"
+        ].indicador.toUpperCase() === "PORCENTAJE"
         ? "Porcentaje"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "TASA"
           ) ||
           JSON.parse(MIR).componentes[
             componentSelect - 1
-          ].indicador.toLowerCase() === "tasa"
+          ].indicador.toUpperCase() === "TASA"
         ? "Tasa"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "INDICE" || "ÍNDICE"
           ) ||
           JSON.parse(MIR).componentes[
             componentSelect - 1
-          ].indicador.toLowerCase() === "indice" ||
+          ].indicador.toUpperCase() === "INDICE" ||
           JSON.parse(MIR).componentes[
             componentSelect - 1
-          ].indicador.toLowerCase() === "índice"
-        ? "Indice"
+          ].indicador.toUpperCase() === "ÍNDICE"
+        ? "Índice"
         : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
             "PROMEDIO"
           ) ||
           JSON.parse(MIR).componentes[
             componentSelect - 1
-          ].indicador.toLowerCase() === "promedio"
+          ].indicador.toUpperCase() === "PROMEDIO"
         ? "Promedio"
         : ""
     );

@@ -157,6 +157,7 @@ export function TabResumenFT({
     objetivoSER: true,
     objetivoODS: true,
     metaODS: true,
+    unidadDeMedida: true,
   });
 
   const [editFin, setEditFin] = useState<IFinEditFT>({
@@ -244,14 +245,14 @@ export function TabResumenFT({
               borderColor: "#cfcfcf",
             }}
           >
-            {/* {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editEncabezado.programaSER}
                 onChange={(v) => {
                   setEditEncabezado({ ...editEncabezado, programaSER: !v.target.checked });
                 }}
               />
-            )} */}
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               PROGRAMA SECTORIAL SECTORIAL, ESPECIAL O REGIONAL:
             </Typography>
@@ -270,14 +271,14 @@ export function TabResumenFT({
               borderColor: "#cfcfcf",
             }}
           >
-            {/* {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editEncabezado.objetivoSER}
                 onChange={(v) => {
                   setEditEncabezado({ ...editEncabezado, objetivoSER: !v.target.checked });
                 }}
               />
-            )} */}
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               OBJETIVO PROGRAMA SECTORIAL, ESPECIAL O REGIONAL:
             </Typography>
@@ -296,14 +297,14 @@ export function TabResumenFT({
               borderColor: "#cfcfcf",
             }}
           >
-            {/* {localStorage.getItem("Rol") !== "Administrador" ? null : (
+             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editEncabezado.catalogoObjetivoODS}
+                value={!editEncabezado.objetivoODS}
                 onChange={(v) => {
-                  setEditEncabezado({ ...editEncabezado, catalogoObjetivoODS: !v.target.checked });
+                  setEditEncabezado({ ...editEncabezado, objetivoODS: !v.target.checked });
                 }}
               />
-            )} */}
+            )} 
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               OBJETIVO ODS:
             </Typography>
@@ -322,22 +323,51 @@ export function TabResumenFT({
               borderColor: "#cfcfcf",
             }}
           >
-            {/* {localStorage.getItem("Rol") !== "Administrador" ? null : (
+             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editEncabezado.catalogoMetaODS}
+                value={!editEncabezado.metaODS}
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    catalogoMetaODS: !v.target.checked,
+                    metaODS: !v.target.checked,
                   });
                 }}
               />
-            )} */}
+            )} 
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               META ODS:
             </Typography>
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               {encabezado[0]?.metaODS}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              mt: 1,
+              alignItems: "center",
+              borderBottom: 1,
+              borderColor: "#cfcfcf",
+            }}
+          >
+             {localStorage.getItem("Rol") !== "Administrador" ? null : (
+              <Checkbox
+                value={!editEncabezado.unidadDeMedida}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    unidadDeMedida: !v.target.checked,
+                  });
+                }}
+              />
+            )} 
+            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              UNIDAD DE MEDIDA:
+            </Typography>
+            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              {encabezado[0]?.unidadDeMedida}
             </Typography>
           </Box>
 
@@ -1677,6 +1707,7 @@ export interface IEncabezadoEditFT {
   objetivoSER: boolean;
   objetivoODS: boolean;
   metaODS: boolean;
+  unidadDeMedida: boolean;
 }
 
 export interface IFinEditFT {

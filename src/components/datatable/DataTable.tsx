@@ -255,8 +255,9 @@ export const DataTable = ({
 
                       <DeleteDialog
                         deleteText="usuario"
-                        id={row.IdUsuarioTiCentral}
+                        id={row.Id}
                         actualizado={actualizaContador}
+                        idUsaurioCentral={row.IdUsuarioTiCentral}
                       />
 
                       <Tooltip title="Editar">

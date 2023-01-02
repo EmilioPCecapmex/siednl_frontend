@@ -194,19 +194,24 @@ export const TabActividadesMA = ({
     setTipoFormula(
       JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
         "PORCENTAJE"
-      )
+      ) ||
+      JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "PORCENTAJE"
         ? "Porcentaje"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "TASA"
-          )
+          ) ||
+          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "TASA"
         ? "Tasa"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "INDICE" || "ÍNDICE"
-          )
-        ? "Indice"
+          ) ||
+          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "INDICE" ||
+          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "ÍNDICE"
+        ? "Índice"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "PROMEDIO"
-          )
+          ) ||
+          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "PROMEDIO"
         ? "Promedio"
         : ""
     );
@@ -242,22 +247,28 @@ export const TabActividadesMA = ({
     setTipoFormula(
       JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
         "PORCENTAJE"
-      )
+      ) ||
+      JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "PORCENTAJE"
         ? "Porcentaje"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "TASA"
-          )
+          ) ||
+          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "TASA"
         ? "Tasa"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "INDICE" || "ÍNDICE"
-          )
-        ? "Indice"
+          ) ||
+          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "INDICE" ||
+          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "ÍNDICE"
+        ? "Índice"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "PROMEDIO"
-          )
+          ) ||
+          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "PROMEDIO"
         ? "Promedio"
         : ""
     );
+    
 
     setElementoFormula(
       "C" +

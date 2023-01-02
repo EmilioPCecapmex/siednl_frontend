@@ -110,7 +110,8 @@ export default function ModalSolicitaModif({
       );
     }
 
-    if (JSON.parse(FT)?.encabezado.programaSER === null) {
+    if (JSON.parse(FT)?.encabezado.unidadDeMedida === null || JSON.parse(FT)?.encabezado.unidadDeMedida === undefined
+    || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida) ) {
       err = 1;
       errores.push(
         "Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."

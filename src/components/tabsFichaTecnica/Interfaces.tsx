@@ -22,6 +22,7 @@ export interface IEncabezadoFT {
   objetivoSER: string;
   objetivoODS: string;
   metaODS: string;
+  unidadDeMedida: string;
 }
 
 export interface IFinFT {

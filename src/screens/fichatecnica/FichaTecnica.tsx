@@ -25,9 +25,11 @@ import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import moment from "moment";
 import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
+import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -42,6 +44,12 @@ export const FichaTecnica = () => {
   const returnMain = () => {
     setShowResume(true);
     getFT();
+  };
+
+  const [openModalVerResumenFT, setOpenModalVerResumenFT] = useState(false);
+
+  const handleCloseVerResumenFT = () => {
+    setOpenModalVerResumenFT(false);
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -67,6 +75,7 @@ export const FichaTecnica = () => {
 
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
+  const [FTShow, setFTShow] = useState<Array<IIFT>>([]);
 
   const [ftFiltered, setftFiltered] = useState<Array<IIFT>>([]);
 
@@ -656,9 +665,21 @@ export const FichaTecnica = () => {
                               <Tooltip title="REGISTRAR FICHA TÉCNICA">
                                 <span>
                                   <IconButton
-                                    disabled={
-                                      row.Estado === "Autorizada" ? true : false
-                                    }
+                                    // disabled={
+                                    //   row.Estado === "En Captura" &&
+                                    //   localStorage.getItem("Rol") ===
+                                    //     "Capturador"
+                                    //     ? false
+                                    //     : row.Estado === "En Revisión" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //         "Verificador"
+                                    //     ? false
+                                    //     : row.Estado === "En Autorización" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //         "Administrador"
+                                    //     ? false
+                                    //     : true
+                                    // }
                                     onClick={() => {
                                       setFTEdit([
                                         {
@@ -674,20 +695,55 @@ export const FichaTecnica = () => {
                                           Programa: row.Programa,
                                           MIR: row.MIR,
                                           MetaAnual: row.MetaAnual,
+                                          Conac:row.Conac,
+                                          Consecutivo:row.Consecutivo,
                                         },
                                       ]);
                                       setShowResume(false);
                                     }}
                                   >
-                                    <AddCircleOutlineIcon
-                                      sx={{
+                                    <AddCircleOutlineIcon/>
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                              <Tooltip title="VER FICHA TÉCNICA">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                    onClick={() => {
+                                      setFTShow([
+                                        {
+                                          IdFt: row.IdFt,
+                                          IdMir: row.IdMir,
+                                          IdMa: row.IdMa,
+                                          FichaT: row.FichaT,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Institucion: row.Institucion,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                          Conac:row.Conac,
+                                          Consecutivo:row.Consecutivo,
+                                        },
+                                      ]);
+                                      setOpenModalVerResumenFT(true);
+                                    }}
+                                  >
+                                    <VisibilityIcon 
+                                     sx={[
+                                      {
                                         "&:hover": {
                                           color: "lightBlue",
                                         },
                                         width: "1.2vw",
                                         height: "1.2vw",
-                                      }}
-                                    />
+                                      },
+                                    ]}/>
                                   </IconButton>
                                 </span>
                               </Tooltip>
@@ -740,6 +796,15 @@ export const FichaTecnica = () => {
               />
             </Box>
           </Box>
+          <ModalVerResumenFT
+          open={openModalVerResumenFT}
+          handleClose={handleCloseVerResumenFT}
+          MIR={FTShow[0]?.MIR}
+          MA={FTShow[0]?.MetaAnual}
+          FT={FTShow[0]?.FichaT}
+          Conac={FTShow[0]?.Conac}  
+          Consecutivo={FTShow[0]?.Consecutivo}                          
+          />
         </Box>
       ) : (
         <Box
@@ -779,4 +844,6 @@ export interface IIFT {
   Programa: string;
   MIR: string;
   MetaAnual: string;
+  Conac:string;
+  Consecutivo:string;
 }
