@@ -208,27 +208,41 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula = (txt: string) => {
-    componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
-    componentesValues[componentSelect - 1].valorDenominador = txt.split(",")[1];
-    componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] ;
+    if (
+      JSON.parse(MIR).componentes[
+        componentSelect - 1
+      ].indicador.toLowerCase() === "indice" ||
+      JSON.parse(MIR).componentes[
+        componentSelect - 1
+      ].indicador.toLowerCase() === "índice"
+    ) {
+      componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] =
+        txt;
+    } else {
+      componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
+      componentesValues[componentSelect - 1].valorDenominador =
+        txt.split(",")[1];
+      componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2];
+    }
+
     setComponentesValues([...componentesValues]);
   };
 
   const changeFormula2 = (txt: string) => {
     if (frecuencia === "trimestral") {
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre1 =
-        txt.split(",")[0] ;
+        txt.split(",")[0];
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 =
-        txt.split(",")[1] ;
+        txt.split(",")[1];
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre3 =
-        txt.split(",")[2] ;
+        txt.split(",")[2];
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre4 =
-        txt.split(",")[3] ;
+        txt.split(",")[3];
     } else {
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre1 =
-        txt.split(",")[0] ;
+        txt.split(",")[0];
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].semestre2 =
-        txt.split(",")[1] ;
+        txt.split(",")[1];
     }
 
     setComponentesValues([...componentesValues]);
@@ -512,56 +526,92 @@ export const TabComponenteMA = ({
               }}
               value={componentesValues[componentSelect - 1]?.lineaBase || ""}
             />
-            <TextField
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  VALOR DEL NUMERADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onClick={() => handleClickOpen()}
-              value={
-                componentesValues[componentSelect - 1]?.valorNumerador || ""
-              }
-            />
-            <TextField
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  VALOR DEL DENOMINADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onClick={() => handleClickOpen()}
-              value={
-                componentesValues[componentSelect - 1]?.valorDenominador || ""
-              }
-            />
+            {JSON.parse(MIR).componentes[
+              componentSelect - 1
+            ].indicador.toLowerCase() === "indice" ||
+            JSON.parse(MIR).componentes[
+              componentSelect - 1
+            ].indicador.toLowerCase() === "índice" ? (
+              <TextField
+                sx={{ width: "18%", boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    ÍNDICE
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onClick={() => handleClickOpen()}
+                value={
+                  componentesValues[componentSelect - 1]?.valorNumerador || ""
+                }
+              />
+            ) : (
+              <Box sx={{ width: "45%"}}>
+                <TextField
+                  sx={{ width: "45%", boxShadow: 2, mr:'2%' }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    >
+                      VALOR DEL NUMERADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onClick={() => handleClickOpen()}
+                  value={
+                    componentesValues[componentSelect - 1]?.valorNumerador || ""
+                  }
+                />
+                <TextField
+                  sx={{ width: "45%", boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    >
+                      VALOR DEL DENOMINADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onClick={() => handleClickOpen()}
+                  value={
+                    componentesValues[componentSelect - 1]?.valorDenominador ||
+                    ""
+                  }
+                />
+              </Box>
+            )}
             <FormControl
               sx={{
                 width: "15%",

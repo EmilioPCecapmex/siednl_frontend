@@ -43,7 +43,6 @@ export const FormulaDialogMA = ({
           textoSet(
             descA.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")
           );
-          
           limpiaVar();
           close();
         }

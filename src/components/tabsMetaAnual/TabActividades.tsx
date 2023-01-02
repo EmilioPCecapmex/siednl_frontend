@@ -195,23 +195,32 @@ export const TabActividadesMA = ({
       JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
         "PORCENTAJE"
       ) ||
-      JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "PORCENTAJE"
+        JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() ===
+          "PORCENTAJE"
         ? "Porcentaje"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "TASA"
           ) ||
-          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "TASA"
+          JSON.parse(MIR).actividades[
+            actividadSelect
+          ].indicador.toUpperCase() === "TASA"
         ? "Tasa"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "INDICE" || "ÍNDICE"
           ) ||
-          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "INDICE" ||
-          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "ÍNDICE"
+          JSON.parse(MIR).actividades[
+            actividadSelect
+          ].indicador.toUpperCase() === "INDICE" ||
+          JSON.parse(MIR).actividades[
+            actividadSelect
+          ].indicador.toUpperCase() === "ÍNDICE"
         ? "Índice"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "PROMEDIO"
           ) ||
-          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "PROMEDIO"
+          JSON.parse(MIR).actividades[
+            actividadSelect
+          ].indicador.toUpperCase() === "PROMEDIO"
         ? "Promedio"
         : ""
     );
@@ -230,15 +239,27 @@ export const TabActividadesMA = ({
   };
 
   const changeFormula = (txt: string) => {
-    aValorMA[0].componentes[componenteSelect].actividades[
-      actividadSelect
-    ].valorNumerador = txt.split(",")[0];
-    aValorMA[0].componentes[componenteSelect].actividades[
-      actividadSelect
-    ].valorDenominador = txt.split(",")[1];
-    aValorMA[0].componentes[componenteSelect].actividades[
-      actividadSelect
-    ].metaAnual = txt.split(",")[2] ;
+    if (
+      JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() ===
+        "INDICE" ||
+      JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() ===
+        "ÍNDICE"
+    ) {
+      aValorMA[0].componentes[componenteSelect].actividades[
+        actividadSelect
+      ].metaAnual = txt;
+    } else {
+      aValorMA[0].componentes[componenteSelect].actividades[
+        actividadSelect
+      ].valorNumerador = txt.split(",")[0];
+      aValorMA[0].componentes[componenteSelect].actividades[
+        actividadSelect
+      ].valorDenominador = txt.split(",")[1];
+      aValorMA[0].componentes[componenteSelect].actividades[
+        actividadSelect
+      ].metaAnual = txt.split(",")[2];
+    }
+
     setAValorMA([...aValorMA]);
   };
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
@@ -248,27 +269,35 @@ export const TabActividadesMA = ({
       JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
         "PORCENTAJE"
       ) ||
-      JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "PORCENTAJE"
+        JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() ===
+          "PORCENTAJE"
         ? "Porcentaje"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "TASA"
           ) ||
-          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "TASA"
+          JSON.parse(MIR).actividades[
+            actividadSelect
+          ].indicador.toUpperCase() === "TASA"
         ? "Tasa"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "INDICE" || "ÍNDICE"
           ) ||
-          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "INDICE" ||
-          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "ÍNDICE"
+          JSON.parse(MIR).actividades[
+            actividadSelect
+          ].indicador.toUpperCase() === "INDICE" ||
+          JSON.parse(MIR).actividades[
+            actividadSelect
+          ].indicador.toUpperCase() === "ÍNDICE"
         ? "Índice"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "PROMEDIO"
           ) ||
-          JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() === "PROMEDIO"
+          JSON.parse(MIR).actividades[
+            actividadSelect
+          ].indicador.toUpperCase() === "PROMEDIO"
         ? "Promedio"
         : ""
     );
-    
 
     setElementoFormula(
       "C" +
@@ -286,16 +315,16 @@ export const TabActividadesMA = ({
   const changeFormula2 = (txt: string) => {
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0] ;
+    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1] ;
+    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2] ;
+    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2];
     aValorMA[0].componentes[componenteSelect].actividades[
       actividadSelect
-    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3] ;
+    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3];
     setAValorMA([...aValorMA]);
   };
 
@@ -637,60 +666,97 @@ export const TabActividadesMA = ({
                 setAValorMA(y);
               }}
             />
-            <TextField
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  VALOR DEL NUMERADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onClick={() => handleClickOpen()}
-              value={
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ]?.valorNumerador || ""
-              }
-            />
-            <TextField
-              sx={{ width: "18%", boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                >
-                  VALOR DEL DENOMINADOR
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              onClick={() => handleClickOpen()}
-              value={
-                aValorMA[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ]?.valorDenominador || ""
-              }
-            />
+            {JSON.parse(MIR).actividades[
+              actividadSelect
+            ].indicador.toUpperCase() === "INDICE" ||
+            JSON.parse(MIR).actividades[
+              actividadSelect
+            ].indicador.toUpperCase() === "ÍNDICE" ? (
+              <TextField
+                sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    ÍNDICE
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onClick={() => handleClickOpen()}
+                value={
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.valorNumerador || ""
+                }
+              />
+            ) : (
+              <Box sx={{ width: "45%" }}>
+                <TextField
+                  sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    >
+                      VALOR DEL NUMERADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onClick={() => handleClickOpen()}
+                  value={
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.valorNumerador || ""
+                  }
+                />
+                <TextField
+                  sx={{ width: "45%", boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    >
+                      VALOR DEL DENOMINADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onClick={() => handleClickOpen()}
+                  value={
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.valorDenominador || ""
+                  }
+                />
+              </Box>
+            )}
 
             <FormControl
               sx={{
