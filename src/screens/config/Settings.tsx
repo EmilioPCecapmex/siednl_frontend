@@ -39,7 +39,7 @@ export const Settings = () => {
       }}
     >
 
-      <LateralMenu selection={6} settingsCard={resetView} />
+      <LateralMenu selection={6} actionNumber={0} settingsCard={resetView} />
       <Header
         details={{
           name1: "Inicio",

@@ -25,7 +25,7 @@ export const Home = () => {
       <TutorialBox initialState={0} endState={8} />
       <WelcomeBox />
 
-      <LateralMenu selection={0} />
+      <LateralMenu selection={0} actionNumber={0}/>
       <Header
         details={{
           name1: "Inicio",

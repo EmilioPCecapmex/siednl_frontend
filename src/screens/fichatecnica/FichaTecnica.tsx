@@ -58,6 +58,8 @@ export const FichaTecnica = () => {
   const renglonesPagina = 7;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
+  const [actionNumber, setActionNumber] = useState(0);
+
   // Realiza el cambio de pagina
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -208,7 +210,7 @@ export const FichaTecnica = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={4} />
+      <LateralMenu selection={4} actionNumber={actionNumber} />
       <Header
         details={{
           name1: "Inicio",
@@ -700,6 +702,7 @@ export const FichaTecnica = () => {
                                         },
                                       ]);
                                       setShowResume(false);
+                                      setActionNumber(1);
                                     }}
                                   >
                                     <AddCircleOutlineIcon/>

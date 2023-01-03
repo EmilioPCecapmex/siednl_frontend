@@ -40,6 +40,7 @@ export const MetaAnual = () => {
 
   const returnMain = () => {
     setShowResume(true);
+    setActionNumber(1);
     getMA();
   };
 
@@ -48,6 +49,8 @@ export const MetaAnual = () => {
 
   const renglonesPagina = 7;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
+
+  const [actionNumber, setActionNumber] = useState(0);
 
   // Realiza el cambio de pagina
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -211,7 +214,7 @@ export const MetaAnual = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={3} />
+      <LateralMenu selection={3} actionNumber={actionNumber} />
       <Header
         details={{
           name1: "Inicio",
@@ -705,6 +708,7 @@ export const MetaAnual = () => {
                                         },
                                       ]);
                                       setShowResume(false);
+                                      setActionNumber(1)
                                     }}
                                   >
                                     <AddCircleOutlineIcon
