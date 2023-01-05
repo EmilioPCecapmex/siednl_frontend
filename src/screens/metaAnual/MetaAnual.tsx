@@ -26,6 +26,7 @@ import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
@@ -235,6 +236,7 @@ export const MetaAnual = () => {
             flexWrap: "wrap",
           }}
         >
+          <TutorialBox initialState={35} endState={39} />
           <Box
             sx={{
               mt: "3vh",

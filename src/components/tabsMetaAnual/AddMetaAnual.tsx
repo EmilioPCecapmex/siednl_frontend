@@ -13,6 +13,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import TabResumenMIR from "../modalsMA/ModalResumenMir";
+import { TutorialBox } from "../tutorialBox/tutorialBox";
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -205,6 +206,11 @@ export default function AddMetaAnual({
         mt: "8vh",
       }}
     >
+      {value === 10 ? <TutorialBox initialState={22} endState={27} /> : null}
+      {value === 20 ? <TutorialBox initialState={27} endState={28} /> : null}
+      {value === 30 ? <TutorialBox initialState={28} endState={30} /> : null}
+      {value === 40 ? <TutorialBox initialState={33} endState={35} /> : null}
+      {value === 50 ? <TutorialBox initialState={30} endState={33} /> : null}
       <Box
         sx={{
           width: "75vw",

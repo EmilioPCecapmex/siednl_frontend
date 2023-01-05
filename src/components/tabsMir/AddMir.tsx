@@ -165,8 +165,9 @@ export default function FullModalMir({
     >
       {value === 10 ? <TutorialBox initialState={22} endState={27} /> : null}
       {value === 20 ? <TutorialBox initialState={27} endState={28} /> : null}
-      {value === 30 ? <TutorialBox initialState={28} endState={29} /> : null}
-      {value === 50 ? <TutorialBox initialState={29} endState={32} /> : null}
+      {value === 30 ? <TutorialBox initialState={28} endState={30} /> : null}
+      {value === 40 ? <TutorialBox initialState={33} endState={35} /> : null}
+      {value === 50 ? <TutorialBox initialState={30} endState={33} /> : null}
 
       <Box
         sx={{
