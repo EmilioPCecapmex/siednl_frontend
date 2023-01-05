@@ -38,6 +38,7 @@ import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 import { setResumeDefaultAI } from "../../screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
 import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
+import TaskIcon from "@mui/icons-material/Task";
 
 export const LateralMenu = ({
   selection,
@@ -61,10 +62,27 @@ export const LateralMenu = ({
   else if (isSm) st = lstSm;
   // else if (isXs) st = lstXs;
   const navigate = useNavigate();
-  const [openProgramas, setOpenProgramas] = useState(true);
+  const [openProgramas, setOpenProgramas] = useState(false);
+  const [openDocs, setOpenDocs] = useState(false);
+
+  useEffect(() => {
+    if (selection === 8 || selection === 9) {
+      setOpenDocs(true);
+      setOpenProgramas(false);
+    } else {
+      setOpenProgramas(true);
+      setOpenDocs(false);
+    }
+  }, [selection]);
 
   const handleClickProgramas = () => {
     setOpenProgramas(!openProgramas);
+    setOpenDocs(false);
+  };
+
+  const handleClickDocs = () => {
+    setOpenDocs(!openDocs);
+    setOpenProgramas(false);
   };
 
   function stringToColor(string: string) {
@@ -116,23 +134,31 @@ export const LateralMenu = ({
       if (newPassword === "") {
         setError({ label: "Ingresa una contraseña.", show: true });
         return null;
-
-      } 
-      if(newPassword.length < 8){
-        setError({ label: "Su contraseña debe contar con al menos 8 caracteres.", show: true });
+      }
+      if (newPassword.length < 8) {
+        setError({
+          label: "Su contraseña debe contar con al menos 8 caracteres.",
+          show: true,
+        });
         return null;
       }
 
-     const regex3 =   /^[a-zA-Z]+$/;
-     const regex5 =  /^[a-zA-Z-0-9]+$/;
+      const regex3 = /^[a-zA-Z]+$/;
+      const regex5 = /^[a-zA-Z-0-9]+$/;
 
-      if(newPassword.match(regex3)){
-        setError({ label: "Su contraseña debe contar con al menos un numero", show: true });
+      if (newPassword.match(regex3)) {
+        setError({
+          label: "Su contraseña debe contar con al menos un numero",
+          show: true,
+        });
         return null;
       }
-        
-      if(newPassword.match(regex5)){
-        setError({ label: "Su contraseña debe contar con un caracter especial", show: true });
+
+      if (newPassword.match(regex5)) {
+        setError({
+          label: "Su contraseña debe contar con un caracter especial",
+          show: true,
+        });
         return null;
       }
 
@@ -300,8 +326,10 @@ export const LateralMenu = ({
         <img src={logo} alt="Logo" style={st.imgSize} />
       </Box>
 
-      <Box sx={{    width: "100%"}}>
-        <Typography sx={{textAlign: 'center', fontFamily: 'MontserratSemiBold'}}>
+      <Box sx={{ width: "100%" }}>
+        <Typography
+          sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
+        >
           Sistema del Presupuesto Basado en Resultados
         </Typography>
       </Box>
@@ -321,33 +349,37 @@ export const LateralMenu = ({
 
       <Box sx={st.userInfoBox}>
         {localStorage.getItem("NombreUsuario")}
-        <Typography sx={st.rolStyle}>{localStorage.getItem("Rol") === 'Administrador' ? 'Autorizador' : localStorage.getItem("Rol")}</Typography>
+        <Typography sx={st.rolStyle}>
+          {localStorage.getItem("Rol") === "Administrador"
+            ? "Autorizador"
+            : localStorage.getItem("Rol")}
+        </Typography>
       </Box>
       <Typography sx={st.institucionStyle}>INSTITUCIONES ASIGNADAS</Typography>
 
-<Box sx={st.selectInstitucionBox}>
-  {renderInfo ? (
-    <Select
-      value={
-        institucionSeleccionada ||
-        (localStorage.getItem("IdInstitucion") as string)
-      }
-      label="Institución"
-      onChange={handleChange}
-      variant="standard"
-      disableUnderline
-      sx={st.selectInstitucionStyle}
-    >
-      {instituciones?.map((item) => {
-        return (
-          <MenuItem value={item.Id} key={item.Id || Math.random()}>
-            {item.NombreInstitucion}
-          </MenuItem>
-        );
-      })}
-    </Select>
-  ) : null}
-</Box>
+      <Box sx={st.selectInstitucionBox}>
+        {renderInfo ? (
+          <Select
+            value={
+              institucionSeleccionada ||
+              (localStorage.getItem("IdInstitucion") as string)
+            }
+            label="Institución"
+            onChange={handleChange}
+            variant="standard"
+            disableUnderline
+            sx={st.selectInstitucionStyle}
+          >
+            {instituciones?.map((item) => {
+              return (
+                <MenuItem value={item.Id} key={item.Id || Math.random()}>
+                  {item.NombreInstitucion}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        ) : null}
+      </Box>
 
       <Box sx={st.dividerBox} />
       <Box sx={st.menuListBox}>
@@ -419,7 +451,7 @@ export const LateralMenu = ({
                   navigate("../fichaTecnica");
                 }}
                 sx={st.subMenuItemStyle}
-               >
+              >
                 <Box sx={st.iconMenuList}>
                   <KeyboardDoubleArrowRightIcon />
                 </Box>
@@ -429,7 +461,6 @@ export const LateralMenu = ({
                   sx={st.selectedBox}
                 />
               </ListItemButton>
-              
             </List>
           </Collapse>
           <ListItemButton
@@ -461,6 +492,58 @@ export const LateralMenu = ({
                 sx={st.selectedBox}
               />
             </ListItemButton>
+          )}
+
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Box>
+              <ListItemButton onClick={handleClickDocs}>
+                <Box sx={st.iconMenuList}>
+                  <TaskIcon />
+                </Box>
+
+                <Typography sx={st.firstItemsStyle}>Firma Digital</Typography>
+                {openDocs ? <ExpandLess /> : <ExpandMore />}
+                <Box
+                  visibility={selection === 1 ? "visible" : "hidden"}
+                  sx={st.selectedBox}
+                />
+              </ListItemButton>
+              <Collapse in={openDocs} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItemButton
+                    onClick={() => navigate("../firmado")}
+                    sx={{ ml: 2 }}
+                  >
+                    <Box sx={st.iconMenuList}>
+                      <KeyboardDoubleArrowRightIcon />
+                    </Box>
+                    <Typography sx={st.subMenuItemsText}>
+                      Firmado de Documentos
+                    </Typography>
+                    <Box
+                      visibility={selection === 8 ? "visible" : "hidden"}
+                      sx={st.selectedBox}
+                    />
+                  </ListItemButton>
+
+                  <ListItemButton
+                    onClick={() => navigate("../tabla")}
+                    sx={{ ml: 2 }}
+                  >
+                    <Box sx={st.iconMenuList}>
+                      <KeyboardDoubleArrowRightIcon />
+                    </Box>
+                    <Typography sx={st.subMenuItemsText}>
+                      Documentos Firmados
+                    </Typography>
+                    <Box
+                      visibility={selection === 9 ? "visible" : "hidden"}
+                      sx={st.selectedBox}
+                    />
+                  </ListItemButton>
+                </List>
+              </Collapse>
+            </Box>
           )}
         </List>
       </Box>

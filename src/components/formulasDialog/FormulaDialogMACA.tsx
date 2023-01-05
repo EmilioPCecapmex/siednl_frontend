@@ -59,8 +59,6 @@ export const FormulaDialogMACA = ({
           );
           limpiaVar();
           close();
-          console.log(descA);
-          
 
         }
       }

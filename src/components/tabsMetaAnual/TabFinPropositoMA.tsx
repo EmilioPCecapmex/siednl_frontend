@@ -156,8 +156,6 @@ export function TabFinPropositoMA({
   };
 
   const getUnidades = () => {
-    console.log(JSON.parse(MIR).encabezado.institucion);
-    
     axios
       .get("http://10.200.4.105:8000/api/listadoUnidadesInst", {
         params: {
