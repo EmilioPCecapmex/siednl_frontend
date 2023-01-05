@@ -200,7 +200,7 @@ export const TutorialBox = ({
         setBottomArrow(false);
 
         setMessage(
-          "Ademas, tendras posibilidad de modificar tus registros, eliminarlos y añadir comentarios."
+          "Además, tendras posibilidad de modificar tus registros, eliminarlos y añadir comentarios."
         );
         break;
 
@@ -375,7 +375,7 @@ export const TutorialBox = ({
         setLeftArrow(true);
         setBottomArrow(true);
         setMessage(
-          "Navega entre las diferentes opciones del menu de opciones de la MIR."
+          "Navega entre las diferentes opciones del menú de opciones de la MIR."
         );
         break;
         //COMPONENTES MIR
@@ -396,7 +396,7 @@ export const TutorialBox = ({
         setLeftArrow(true);
         setBottomArrow(true);
         setMessage(
-          "Navega entre las diferentes opciones del menu de opciones de la MIR."
+          "Navega entre las diferentes opciones del menú de opciones de la MIR."
         );
         break;
         //RESUMEN MIR
@@ -451,7 +451,7 @@ export const TutorialBox = ({
         setLeftArrow(true);
         setBottomArrow(true);
         setMessage(
-          "Navega entre las diferentes opciones del menu de opciones de la MIR."
+          "Navega entre las diferentes opciones del menú de opciones de la MIR."
         );
         break;
         //MA inicio
@@ -464,7 +464,7 @@ export const TutorialBox = ({
         setBottomArrow(false);
 
         setMessage(
-          "En la sección de MIR (Matriz Indicadora de Resultados) podras crear nuevas solicitudes y verificar el estado de MIRs anteriores."
+          "En la sección de MA (Meta Anual) podras crear nuevas solicitudes y verificar el estado de las Metas Anuales anteriores."
         );
 
         break;
@@ -491,7 +491,7 @@ export const TutorialBox = ({
         setBottomArrow(false);
 
         setMessage(
-          "Existen 3 estados base de la MIR. En Captura, En Revisión y Autorizada."
+          "Existen 3 estados base de la Meta Anual. En Captura, En Revisión y Autorizada."
         );
         break;
 
@@ -504,9 +504,77 @@ export const TutorialBox = ({
         setBottomArrow(false);
 
         setMessage(
-          "Ademas, tendras posibilidad de agregar, modificar tus registros, eliminarlos y añadir comentarios a tus Metas Anuales."
+          "Además, tendras posibilidad de agregar, modificar tus registros, eliminarlos y añadir comentarios a tus Metas Anuales."
         );
         break;
+        //MA FIN PROPOSITO
+        case 39:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Meta Anual."
+        );
+        break;
+        case 40:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Meta Anual."
+        );
+        break;
+        case 41:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Meta Anual."
+        );
+        break;
+        //RESUMEN MA
+        case 42:
+          setTop("13vh");
+          setRight("27vw");
+          setLeft("");
+          setTopArrow(true);
+          setLeftArrow(false);
+          setBottomArrow(false);
+          setMessage(
+            "En esta pestaña encontraras el desglose de la información que se ha capturado para la Meta Anual en curso."
+          );
+          break;
+        case 43:
+          setTop("28.3vh");
+          setRight("");
+          setLeft("12.5vw");
+          setTopArrow(true);
+          setLeftArrow(false);
+          setBottomArrow(false);
+          setMessage(
+            "Como usuario autorizador puedes solicitar una modificación a la información de la Meta Anual. Al seleccionar un campo este se habilitara para edición al usuario seleccionado."
+          );
+          break;
+        case 44:
+          setTop("77vh");
+          setRight("0vw");
+          setLeft("");
+          setTopArrow(false);
+          setLeftArrow(true);
+          setBottomArrow(true);
+          setMessage(
+            "Cuentas con diversas opciones para almacenar la Meta Anual como borrador, solicitar modificaciones o enviar para autorización."
+          );
+          break;
       //SECCIÓN FINAL
       default:
         break;
