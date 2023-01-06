@@ -492,51 +492,54 @@ export const Credenciales = ({
       </FormControl>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button
-          disabled={
-            keyFile === "" || cerFile === "" || contrasena === ""
-              ? true
-              : false || disableValidar
-          }
-          sx={{
+        {disableValidar ? (
+          <CheckCircleOutlineIcon color="success"></CheckCircleOutlineIcon>
+        ) : <Button
+        disabled={
+          keyFile === "" || cerFile === "" || contrasena === ""
+            ? true
+            : false || disableValidar
+        }
+        sx={{
+          backgroundColor:
+            keyFile === "" ||
+            cerFile === "" ||
+            contrasena === "" ||
+            disableValidar
+              ? "lightGrey"
+              : "#6d8cff",
+          height: "3vh",
+          color:
+            keyFile === "" ||
+            cerFile === "" ||
+            contrasena === "" ||
+            disableValidar
+              ? "black"
+              : "white",
+          "&&:hover": {
             backgroundColor:
               keyFile === "" ||
               cerFile === "" ||
               contrasena === "" ||
               disableValidar
                 ? "lightGrey"
-                : "#6d8cff",
-            height: "3vh",
-            color:
-              keyFile === "" ||
-              cerFile === "" ||
-              contrasena === "" ||
-              disableValidar
-                ? "black"
-                : "white",
-            "&&:hover": {
-              backgroundColor:
-                keyFile === "" ||
-                cerFile === "" ||
-                contrasena === "" ||
-                disableValidar
-                  ? "lightGrey"
-                  : "#6dddff",
-            },
-            fontSize: {
-              xs: "60%",
-              sm: "60%",
-              md: "60%",
-              lg: "60%",
-              xl: "100%",
-            },
-          }}
-          onClick={() => {
-            check();
-          }}
-        >
-          Validar
-        </Button>
+                : "#6dddff",
+          },
+          fontSize: {
+            xs: "60%",
+            sm: "60%",
+            md: "60%",
+            lg: "60%",
+            xl: "100%",
+          },
+        }}
+        onClick={() => {
+          check();
+        }}
+      >
+        Validar
+      </Button>}
+        
       </Box>
     </Box>
   );
