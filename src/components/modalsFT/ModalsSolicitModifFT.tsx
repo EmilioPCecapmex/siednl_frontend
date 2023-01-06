@@ -44,11 +44,11 @@ export default function ModalSolicitaModif({
 
   const [comentario, setComentario] = useState("");
 
-  const comentFT = (id: string) => {
+  const comentFT = () => {
     axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "api/coment-mir",
+      "http://10.200.4.105:8000/api/coment-mir",
       {
-        IdMir: id,
+        IdMir: IdMIR,
         Coment: comentario,
         CreadoPor: localStorage.getItem("IdUsuario"),
         MIR_MA: "FT",
@@ -464,7 +464,7 @@ export default function ModalSolicitaModif({
       )
       .then((r) => {
         if (comentario !== "") {
-          comentFT(r.data.data.ID);
+          comentFT();
         }
         Toast.fire({
           icon: "success",

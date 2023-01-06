@@ -41,9 +41,11 @@ import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
 
 export const LateralMenu = ({
   selection,
+  actionNumber,
   settingsCard,
 }: {
   selection: number;
+  actionNumber: number;
   settingsCard?: Function;
 }) => {
   const theme = useTheme();
@@ -66,6 +68,36 @@ export const LateralMenu = ({
   const handleClickProgramas = () => {
     setOpenProgramas(!openProgramas);
   };
+
+  const exitAlert = (urlNavigate:string) => {
+    if(selection === 2 || selection === 3 || selection === 4){
+      if(actionNumber === 1){
+        Swal.fire({
+          title: "Pregunta",
+          text:`¿Estas seguro de que quieres salir perderás tú progreso actual?`,
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#000E4E",
+          cancelButtonColor: "#A40000",
+          confirmButtonText: "Si",
+          cancelButtonText: "No",
+          allowOutsideClick: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate(urlNavigate);
+          } else {
+          }
+        });
+      }
+      else{
+        navigate(urlNavigate);
+      }
+      }
+      else{
+        navigate(urlNavigate);
+      }
+      
+  }
 
   function stringToColor(string: string) {
     let hash = 0;
@@ -99,7 +131,7 @@ export const LateralMenu = ({
     if (settingsCard) {
       settingsCard();
     }
-    navigate("../settings");
+    exitAlert("../settings");
   };
 
   const [openPasswordChange, setOpenPasswordChange] = useState(false);
@@ -352,7 +384,7 @@ export const LateralMenu = ({
       <Box sx={st.dividerBox} />
       <Box sx={st.menuListBox}>
         <List>
-          <ListItemButton onClick={() => navigate("../home")}>
+          <ListItemButton onClick={() => exitAlert("../home")}>
             <Box sx={st.iconMenuList}>
               <HomeOutlinedIcon />
             </Box>
@@ -382,7 +414,7 @@ export const LateralMenu = ({
               <ListItemButton
                 onClick={() => {
                   setResumeDefaultMIR();
-                  navigate("../mir");
+                  exitAlert("../mir");
                 }}
                 sx={st.subMenuItemStyle}
               >
@@ -399,7 +431,7 @@ export const LateralMenu = ({
               <ListItemButton
                 onClick={() => {
                   setResumeDefaultMA();
-                  navigate("../metaAnual");
+                  exitAlert("../metaAnual");
                 }}
                 sx={st.subMenuItemStyle}
               >
@@ -416,7 +448,7 @@ export const LateralMenu = ({
               <ListItemButton
                 onClick={() => {
                   setResumeDefaultFT();
-                  navigate("../fichaTecnica");
+                  exitAlert("../fichaTecnica");
                 }}
                 sx={st.subMenuItemStyle}
                >
@@ -435,7 +467,7 @@ export const LateralMenu = ({
           <ListItemButton
             onClick={() => {
               setResumeDefaultAI();
-              navigate("../Institutionalactivities");
+              exitAlert("../Institutionalactivities")
             }}
           >
             <Box sx={st.iconMenuList}>
@@ -451,7 +483,7 @@ export const LateralMenu = ({
           </ListItemButton>
 
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
-            <ListItemButton onClick={() => navigate("../notifications")}>
+            <ListItemButton onClick={() => exitAlert("../notifications")}>
               <Box sx={st.iconMenuList}>
                 <CampaignIcon />
               </Box>
@@ -483,7 +515,7 @@ export const LateralMenu = ({
           )}
 
           {localStorage.getItem("Rol") !== "Verificador" ? null : (
-            <ListItemButton onClick={() => navigate("../users")}>
+            <ListItemButton onClick={() => exitAlert("../users")}>
               <Box sx={st.iconMenuList}>
                 <GroupIcon />
               </Box>

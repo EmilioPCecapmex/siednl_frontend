@@ -92,13 +92,20 @@ export function TabFinPropositoMA({
   const handleClickOpen = () => {
     if (showFin) {
       setTipoFormula(
-        JSON.parse(MIR).fin.indicador.includes("PORCENTAJE")
+        JSON.parse(MIR).fin.indicador.toUpperCase().includes("PORCENTAJE") ||
+          JSON.parse(MIR).fin.indicador.toUpperCase() === "PORCENTAJE"
           ? "Porcentaje"
-          : JSON.parse(MIR).fin.indicador.includes("TASA")
+          : JSON.parse(MIR).fin.indicador.toUpperCase().includes("TASA") ||
+            JSON.parse(MIR).fin.indicador.toUpperCase() === "TASA"
           ? "Tasa"
-          : JSON.parse(MIR).fin.indicador.includes("INDICE" || "ÍNDICE")
+          : JSON.parse(MIR)
+              .fin.indicador.toUpperCase()
+              .includes("INDICE" || "ÍNDICE") ||
+            JSON.parse(MIR).fin.indicador.toUpperCase() === "INDICE" ||
+            JSON.parse(MIR).fin.indicador.toUpperCase() === "ÍNDICE"
           ? "Indice"
-          : JSON.parse(MIR).fin.indicador.includes("PROMEDIO")
+          : JSON.parse(MIR).fin.indicador.toUpperCase().includes("PROMEDIO") ||
+            JSON.parse(MIR).fin.indicador.toUpperCase() === "PROMEDIO"
           ? "Promedio"
           : ""
       );
@@ -107,13 +114,23 @@ export function TabFinPropositoMA({
     }
     if (showProposito) {
       setTipoFormula(
-        JSON.parse(MIR).fin.indicador.includes("PORCENTAJE")
-          ? "Porcentaje"
-          : JSON.parse(MIR).fin.indicador.includes("TASA")
-          ? "Tasa"
-          : JSON.parse(MIR).fin.indicador.includes("INDICE")
-          ? "Indice"
-          : "Promedio"
+        JSON.parse(MIR).proposito.indicador.toUpperCase().includes("PORCENTAJE") ||
+        JSON.parse(MIR).proposito.indicador.toUpperCase() === "PORCENTAJE"
+        ? "Porcentaje"
+        : JSON.parse(MIR).proposito.indicador.toUpperCase().includes("TASA") ||
+          JSON.parse(MIR).proposito.indicador.toUpperCase() === "TASA"
+        ? "Tasa"
+        : JSON.parse(MIR)
+            .proposito.indicador.toUpperCase()
+            .includes("INDICE" || "ÍNDICE") ||
+          JSON.parse(MIR).proposito.indicador.toUpperCase() === "INDICE" ||
+          JSON.parse(MIR).proposito.indicador.toUpperCase() === "ÍNDICE"
+        ? "Índice"
+        : JSON.parse(MIR).proposito.indicador.toUpperCase().includes("PROMEDIO") ||
+          JSON.parse(MIR).proposito.indicador.toUpperCase() === "PROMEDIO"
+        ? "Promedio"
+        : ""
+          
       );
       setElementoFormula("Propósito");
       setOpenFormulaDialog(true);
@@ -128,21 +145,23 @@ export function TabFinPropositoMA({
     if (elementoFormula === "Fin") {
       valueFin[0].valorNumerador = txt.split(",")[0];
       valueFin[0].valorDenominador = txt.split(",")[1];
-      valueFin[0].metaAnual = txt.split(",")[2] + "%";
+      valueFin[0].metaAnual = txt.split(",")[2] ;
       setValueFin([...valueFin]);
     } else if (elementoFormula === "Propósito") {
       valueProposito[0].valorNumerador = txt.split(",")[0];
       valueProposito[0].valorDenominador = txt.split(",")[1];
-      valueProposito[0].metaAnual = txt.split(",")[2] + "%";
+      valueProposito[0].metaAnual = txt.split(",")[2] ;
       setValueProposito([...valueProposito]);
     }
   };
 
   const getUnidades = () => {
+    console.log(JSON.parse(MIR).encabezado.institucion);
+    
     axios
       .get("http://10.200.4.105:8000/api/listadoUnidadesInst", {
         params: {
-          Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
+          Institucion: JSON.parse(MIR).encabezado.institucion,
         },
 
         headers: {
@@ -152,7 +171,6 @@ export function TabFinPropositoMA({
 
       .then((r) => {
         setCatalogounidadResponsable(r.data.data);
-        console.log(r.data);
       })
 
       .catch((err) => {});
@@ -600,7 +618,8 @@ export function TabFinPropositoMA({
                       ></TextField>
                     )}
                     onChange={(event, value) => {
-                      valueFin[0].unidadResponsable = value?.Unidad as string || '';
+                      valueFin[0].unidadResponsable =
+                        (value?.Unidad as string) || "";
                       setValueFin([...valueFin]);
                     }}
                     isOptionEqualToValue={(option, value) =>
@@ -996,7 +1015,7 @@ export function TabFinPropositoMA({
                     )}
                     onChange={(event, value) => {
                       valueProposito[0].unidadResponsable =
-                        value?.Unidad as string || '';
+                        (value?.Unidad as string) || "";
                       setValueProposito([...valueProposito]);
                     }}
                     isOptionEqualToValue={(option, value) =>

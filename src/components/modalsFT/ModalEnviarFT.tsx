@@ -36,12 +36,12 @@ export default function ModalEnviarFT({
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [newComent, setNewComent] = React.useState(false);
 
-  const comentFT = (id: string) => {
+  const comentFT = () => {
     axios
       .post(
         "http://10.200.4.105:8000/api/coment-mir",
         {
-          IdMA: id,
+          IdMir: IdMIR,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
           MIR_MA: "FT",
@@ -389,8 +389,8 @@ export default function ModalEnviarFT({
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMIR,
           IdMa: IdMA,
-          Estado: estado,
           Id: IdFT,
+          Estado: estado,
         },
         {
           headers: {
@@ -409,7 +409,7 @@ export default function ModalEnviarFT({
         });
 
         if (comment !== "") {
-          comentFT(r.data.data.ID);
+          comentFT();
         }
         showResume();
       })

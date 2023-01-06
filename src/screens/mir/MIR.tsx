@@ -35,7 +35,7 @@ import { IInstituciones } from "../../components/appsDialog/AppsDialog";
 export let resumeDefaultMIR = true;
 
 export let setResumeDefaultMIR = () => {
-  resumeDefaultMIR = !resumeDefaultMIR;
+  resumeDefaultMIR=!resumeDefaultMIR;
 };
 
 export const MIR = () => {
@@ -73,6 +73,7 @@ export const MIR = () => {
   useEffect(() => {
     setShowResume(true);
     getMIRs();
+    console.log("resumen defaultMIR: ",resumeDefaultMIR)
   }, [resumeDefaultMIR]);
 
   const returnMain = () => {
@@ -85,6 +86,12 @@ export const MIR = () => {
 
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
+
+  const [actionNumber, setActionNumber] = useState(0);
+
+  const onChangeActionNumberValue = () => {
+    setActionNumber(1)
+  }
 
   // Realiza el cambio de pagina
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -172,6 +179,7 @@ export const MIR = () => {
 
   const handleClickOpen = () => {
     setShowResume(false);
+    onChangeActionNumberValue();
   };
 
   const [actualizacion, setActualizacion] = useState(0);
@@ -258,7 +266,7 @@ export const MIR = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={2} />
+      <LateralMenu selection={2} actionNumber={actionNumber}/>
       <Header
         details={{
           name1: "Inicio",
@@ -825,6 +833,7 @@ export const MIR = () => {
                                         },
                                       ]);
                                       setShowResume(false);
+                                      setActionNumber(1);
                                     }}
                                   >
                                     <EditIcon
@@ -864,7 +873,7 @@ export const MIR = () => {
             </Box>
           </Box>
         </Box>
-      ) : (
+      ) : ( 
         <Box
           sx={{
             display: "flex",
@@ -880,6 +889,7 @@ export const MIR = () => {
             showResume={returnMain}
             IdMir={mirEdit[0]?.ID || ""}
           />
+          
         </Box>
       )}
     </Box>

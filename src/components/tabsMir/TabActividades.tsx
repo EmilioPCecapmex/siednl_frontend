@@ -121,10 +121,10 @@ export const TabActividades = ({
 
 
 
-
-  // useEffect(() => {
-  //   asignarCValor(cValor);
-  // }, [cValor]);
+    //ESTO ESTABA COMENTADO 125-127
+     useEffect(() => {
+      asignarCValor(cValor);
+   }, [cValor]);
 
   useEffect(() => {
     if (compAct.length > 0) {

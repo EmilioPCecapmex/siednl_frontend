@@ -70,7 +70,7 @@ export const Usuarios = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={6} />
+      <LateralMenu selection={6} actionNumber={0}/>
       <Header
         details={{
           name1: "Inicio",
