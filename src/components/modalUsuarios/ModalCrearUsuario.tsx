@@ -176,47 +176,45 @@ export default function ModalCrearUsuario({
       });
   }
 
-  const createSolicitud = () => {
-    axios
-      .post(
-        "http://10.200.4.105:5000/api/create-solicitud",
-        {
-          IdUsuario: idUsuarioCentral,
-          DatosAdicionales: `Tipo de usuario: ${userType}, Cargo: ${rol}, Institución: ${institution}`,
-          TipoSolicitud: "Alta",
-          CreadoPor: localStorage.getItem("IdCentral"),
-          IdApp: localStorage.getItem("IdApp"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") as string,
-          },
-        }
-      )
-      .then((r) => {
-        console.log(r)
-        console.log(r.data.data[0][0].IdSolicitud)
-        
-        if ( r.data.data[0][0].Respuesta== 201) {
-          
-          setIdSolicitud(r.data.data[0][0].IdSolicitud)
-          Toast.fire({
-              icon: "success",
-              title: "¡Registro exitoso!",
-            });
-        }
-      })
-      .catch((r) => {
-        console.log(r)
-        if (r.data.data[0][0].Respuesta == 409) {
-          setErrorsForm({
-            visible: true,
-            text: r.response.data.msg,
-            type: "error",
-          });
-        }
-      });
-  }
+  // const createSolicitud = () => {
+  //   axios
+  //     .post(
+  //       "http://10.200.4.105:5000/api/create-solicitud",
+  //       {
+  //         IdUsuario: idUsuarioCentral,
+  //         DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
+  //         TipoSolicitud: "Alta",
+  //         CreadoPor: localStorage.getItem("IdCentral"),
+  //         IdApp: localStorage.getItem("IdApp"),
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       console.log(r.data.data[0][0].IdSolicitud)
+
+  //       if ( r.data.data[0][0].Respuesta== 201) {
+
+  //         setIdSolicitud(r.data.data[0][0].IdSolicitud)
+  //         Toast.fire({
+  //             icon: "success",
+  //             title: "¡Registro exitoso!",
+  //           });
+  //       }
+  //     })
+  //     .catch((r) => {
+  //       if (r.data.data[0][0].Respuesta == 409) {
+  //         setErrorsForm({
+  //           visible: true,
+  //           text: r.response.data.msg,
+  //           type: "error",
+  //         });
+  //       }
+  //     });
+  // }
 
   const signUp = () => {
     console.log("hola Usuario");

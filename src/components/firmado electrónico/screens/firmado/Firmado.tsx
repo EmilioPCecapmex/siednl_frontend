@@ -105,7 +105,7 @@ export const Firmado = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={8} />
+      <LateralMenu selection={8} actionNumber={0} />
       <Header
         details={{
           name1: "Inicio",
