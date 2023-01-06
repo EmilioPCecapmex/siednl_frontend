@@ -1255,12 +1255,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   return (
                     <Box key={item.id} sx={{}}>
                       {item.tipo === "Catalogos" ? (
-                        <AccordionDetails>
+                        <AccordionDetails sx={{padding:0}}>
                           <ListItemButton
                             key={item.id}
+                            dense
                             sx={{
-                              width: "100%",
-                              height: "100%",
                               "&.Mui-selected ": {
                                 backgroundColor: "#c4a57b",
                               },
@@ -1279,28 +1278,48 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               {item.Desc}
                             </Typography>
                           </ListItemButton>
+                          <Divider/>
                         </AccordionDetails>
                       ) : (
                         ""
                       )}
-                      <Divider />
+                      
                     </Box>
                   );
                 })}
               </Accordion>
               <Accordion
+                disableGutters
+                elevation={0}
                 expanded={expanded === "panel2"}
                 onChange={handleChange("panel2")}
+                sx={{
+                  position: 'unset',
+                  border: 'none',
+                  boxShadow: 'none',
+                  maxWidth: 720,
+                  margin: '12 0',
+                  '&:before': {
+                      display: 'none',
+                      border: 'none'
+                  },
+                  
+                }}
               >
                 <AccordionSummary
                   aria-controls="panel2d-content"
                   id="panel2d-header"
                   sx={{
+                    content: {
+                      flexGrow: 0
+                    },
                     backgroundColor: colorRelaciones,
                     "&:hover": {
                       backgroundColor: "#cbcbcb",
                     },
+                    
                   }}
+                  
                 >
                   <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Relaciones
@@ -1311,13 +1330,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   return (
                     <Box key={item.id} sx={{}}>
                       {item.tipo === "Relaciones" ? (
-                        <AccordionDetails>
+                        <AccordionDetails sx={{padding:0}}>
                           <ListItemButton
                             key={item.id}
+                            
                             sx={{
-                              pl: 2,
-
-                              height: "",
+                              
+                              
                               "&.Mui-selected ": {
                                 backgroundColor: "#c4a57b",
                               },
@@ -1336,12 +1355,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               {item.Desc}
                             </Typography>
                           </ListItemButton>
+                          <Divider/>
                         </AccordionDetails>
                       ) : (
                         ""
                       )}
 
-                      <Divider />
+                     
                     </Box>
                   );
                 })}
