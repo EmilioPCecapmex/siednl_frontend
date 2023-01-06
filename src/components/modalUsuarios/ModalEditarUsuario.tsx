@@ -225,7 +225,8 @@ export default function ModalEditarUsuario({
          
         if (r.status === 200) {
           // siednlSignUp(r.data.data[0][0].IdSolicitud);
-          createComentarios(r.data.data[0][0].IdSolicitud);
+          if(comentario!="")
+            createComentarios(r.data.data[0][0].IdSolicitud);
            
             Toast.fire({
               icon: "success",
