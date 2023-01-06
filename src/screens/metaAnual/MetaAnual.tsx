@@ -107,7 +107,6 @@ export const MetaAnual = () => {
       .then((r) => {
         if (r.status === 200) {
           setMetaAnualDownloadDetails(r.data.data);
-          console.log(r.data.data[0].MaCompleta)
         }
       });
   };
