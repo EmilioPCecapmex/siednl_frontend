@@ -24,6 +24,8 @@ export const Documento = ({
   setReason,
   id,
   setUrl,
+  Rfc,
+  noSerie,
 }: {
   show: boolean;
   setNombreDoc: Function;
@@ -36,7 +38,27 @@ export const Documento = ({
   setReason: Function;
   id: string;
   setUrl: Function;
+  Rfc: string;
+  noSerie: string;
 }) => {
+  const fecha = new Date();
+  const anio = fecha.getFullYear();
+
+  let dia = fecha.getDate();
+  let hoy = dia.toString();
+  if (dia < 10) {
+    hoy = "0" + dia;
+  }
+
+  let mes = fecha.getMonth() + 1;
+  let mesActual = mes.toString();
+  if (mes < 10) {
+    mesActual = "0" + mes;
+  }
+
+
+  const fechaActual = `${anio}-${mesActual}-${hoy}`;
+
   const [noOficio, setNoOficio] = useState("");
   const [asunto, setAsunto] = useState("");
   const [ccp, setCcp] = useState("");
@@ -141,10 +163,32 @@ export const Documento = ({
   const [loading, setLoading] = useState(false);
 
   const check2 = () => {
+    console.log(noSerie);
+    console.log(Rfc);
+    console.log(noOficio);
+    console.log(asunto);
+    console.log(JSON.stringify(usuarios));
+    console.log(ccp);
+    console.log(localStorage.getItem("IdCentral"));
+    console.log(fechaActual);
+    console.log(localStorage.getItem("IdApp"));
+    console.log(id);
+    
+
     let dataArray = new FormData();
     dataArray.append("cer", cerFile);
     dataArray.append("key", keyFile);
     dataArray.append("phrase", password);
+    dataArray.append("Rfc", Rfc);
+    dataArray.append("NumeroOficio", noOficio);
+    dataArray.append("Asunto", asunto);
+    dataArray.append("Destinatario", JSON.stringify(usuarios));
+    dataArray.append("Ccp", ccp);
+    dataArray.append("CreadoPor", localStorage.getItem("IdCentral") || "");
+    dataArray.append("FechaFirma", fechaActual);
+    dataArray.append("IdApp", localStorage.getItem("IdApp") || "");
+    dataArray.append("SerialCertificado", noSerie);
+    dataArray.append("IdFirma", id);
 
     axios
       .post("http://10.210.0.27/api/sendfiel", dataArray, {
@@ -158,6 +202,7 @@ export const Documento = ({
         setCheckFile(true);
       })
       .catch((err) => {
+        setLoading(false);
         Toast.fire({
           icon: "error",
           html: `
@@ -383,13 +428,14 @@ export const Documento = ({
               />
             )}
             onChange={(event, value) => {
+              
               value.map((value2, index) => {
-                if (
-                  /^[\s]*$/.test(value2.Id) &&
-                  /^[\s]*$/.test(value2.Nombre)
-                ) {
+                // if (
+                //   /^[\s]*$/.test(value2.Id) &&
+                //   /^[\s]*$/.test(value2.Nombre)
+                // ) {
                   setUsuarios(value);
-                }
+                // }
               });
             }}
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
