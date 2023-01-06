@@ -71,8 +71,6 @@ export const DialogSolicitudes = ({
             .then((r) => {
                 if (r.status === 200) {
                     setDetalleSolicitud(r.data.data)
-                    console.log(r.data.data);
-
                 }
             });
     };

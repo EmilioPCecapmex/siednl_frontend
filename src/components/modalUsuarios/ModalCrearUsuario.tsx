@@ -184,9 +184,6 @@ export default function ModalCrearUsuario({
         }
       )
       .then((r) => {
-        console.log(r)
-        console.log(r.data.data[0][0].IdSolicitud)
-        
         if ( r.data.data[0][0].Respuesta== 201) {
           
           setIdSolicitud(r.data.data[0][0].IdSolicitud)
@@ -197,7 +194,6 @@ export default function ModalCrearUsuario({
         }
       })
       .catch((r) => {
-        console.log(r)
         if (r.data.data[0][0].Respuesta == 409) {
           setErrorsForm({
             visible: true,
@@ -209,7 +205,6 @@ export default function ModalCrearUsuario({
   }
 
   const signUp = () => {
-    console.log("hola Usuario");
     axios
       .post(
         "http://10.200.4.105:5000/api/sign-up",
@@ -234,11 +229,7 @@ export default function ModalCrearUsuario({
         }
       )
       .then((r) => {
-        console.log(r.status);
-        
         if (r.status === 201) {
-          console.log(r.data);
-          
             setIdUsuarioCentral(r.data.IdUsuario);
             handleClose();
             siednlSignUp(r.data.IdUsuario);
@@ -298,7 +289,6 @@ export default function ModalCrearUsuario({
   useEffect(() => {
     if(idUsuarioCentral!=""){
       createSolicitud();
-      console.log("hola Solicitud");
     }
   }, [idUsuarioCentral]);
 

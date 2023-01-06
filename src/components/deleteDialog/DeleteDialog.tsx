@@ -93,8 +93,6 @@ export const DeleteDialog = ({
         }
       )
       .then((r) => {
-        console.log(r.data.data[0][0].IdSolicitud)
-        
         if ( r.data.data[0][0].Respuesta== 201) {
           
           if(comentario.length>10){
