@@ -26,6 +26,7 @@ import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
@@ -40,6 +41,7 @@ export const MetaAnual = () => {
 
   const returnMain = () => {
     setShowResume(true);
+    setActionNumber(1);
     getMA();
   };
 
@@ -48,6 +50,8 @@ export const MetaAnual = () => {
 
   const renglonesPagina = 7;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
+
+  const [actionNumber, setActionNumber] = useState(0);
 
   // Realiza el cambio de pagina
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -210,7 +214,7 @@ export const MetaAnual = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={3} />
+      <LateralMenu selection={3} actionNumber={actionNumber} />
       <Header
         details={{
           name1: "Inicio",
@@ -231,6 +235,7 @@ export const MetaAnual = () => {
             flexWrap: "wrap",
           }}
         >
+          <TutorialBox initialState={35} endState={39} />
           <Box
             sx={{
               mt: "3vh",
@@ -704,6 +709,7 @@ export const MetaAnual = () => {
                                         },
                                       ]);
                                       setShowResume(false);
+                                      setActionNumber(1)
                                     }}
                                   >
                                     <AddCircleOutlineIcon

@@ -261,7 +261,7 @@ export const Notification = () => {
     >
       <TutorialBox initialState={13} endState={17} />
 
-      <LateralMenu selection={7} />
+      <LateralMenu selection={7} actionNumber={0}/>
       <Header
         details={{
           name1: "Notificaciones",

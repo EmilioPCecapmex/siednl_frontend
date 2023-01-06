@@ -34,13 +34,16 @@ function App() {
           setTimeout(() => {
             localStorage.setItem("IdApp", IdApp as string);
             navigate("../home");
-          }, 100);
+          }, 2000);
         }
       });
     } else {
+
       continueSession().then((r) => {
         if ((r as boolean) === false) {
           window.location.assign("http://10.200.4.106/");
+        }else{
+          navigate("../home");
         }
       });
     }

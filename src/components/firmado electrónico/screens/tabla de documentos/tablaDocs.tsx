@@ -148,7 +148,7 @@ export const TablaDocs = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={9} />
+      <LateralMenu selection={9} actionNumber={0} />
       <Header
         details={{
           name1: "Inicio",
