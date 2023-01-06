@@ -61,7 +61,6 @@ export const sessionValid = () => {
     )
     .then((r) => {
       if (r.status === 200) {
-
         localStorage.setItem("sUntil", r.data.expDateTime)
         localStorage.setItem("jwtToken", jt);
         localStorage.setItem("refreshToken", rft);
@@ -116,6 +115,4 @@ export const logout = () => {
   localStorage.clear();
   window.location.assign("http://10.200.4.106/");
 };
-
-
 

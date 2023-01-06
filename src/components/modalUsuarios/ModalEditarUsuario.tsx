@@ -15,31 +15,67 @@ import {
   Button,
   AlertColor,
 } from "@mui/material";
-import { IInstituciones } from "../lateralMenu/LateralMenu";
+import DataUsuariosTiCentral from "../datatable/interface";
+
+export interface IInstituciones {
+  Id: string;
+  NombreInstitucion: string;
+}
 
 export default function ModalEditarUsuario({
   title,
   open,
   handleClose,
-  IdUsuario,
+  
   actualizado,
+  dataUser,
 }: {
   title: string;
   open: boolean;
   handleClose: Function;
-  IdUsuario: string;
   actualizado: Function;
+  dataUser: DataUsuariosTiCentral;
 }) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [names, setNames] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [secondName, setSecondName] = useState("");
+
+
+  const [username, setUsername] = useState(dataUser.NombreUsuario);
+  const [email, setEmail] = useState(dataUser.CorreoElectronico);
+  const [names, setNames] = useState(dataUser.Nombre);
+  const [firstName, setFirstName] = useState(dataUser.ApellidoPaterno);
+  const [secondName, setSecondName] = useState(dataUser.ApellidoMaterno);
+  const [curp, setCURP] = useState("");
+  const [rfc, setRFC] = useState("");
+
   const [institution, setInstitution] = useState("0");
   const [rol, setRol] = useState("");
-  const [userType, setUserType] = useState("0");
+  const [userType, setUserType] = useState(dataUser.IdRol);
+
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
+  const [ext, setExt] = useState("");
+  const [comentario, setComentario] = useState("");
+
+  useEffect(() => {
+    setUsername(dataUser.NombreUsuario);
+    setEmail(dataUser.CorreoElectronico);
+    setNames(dataUser.Nombre);
+    setFirstName(dataUser.ApellidoPaterno);
+    setSecondName(dataUser.ApellidoMaterno);
+    setCURP(dataUser.Curp);
+    setRFC(dataUser.Rfc);
+    setTelephone(dataUser.Telefono);
+    setExt(dataUser.Ext);
+    setCellphone(dataUser.Celular);
+    setComentario("");
+
+    setInstitution(dataUser.IdInstitucion);
+    setRol(dataUser.Cargo);
+    console.log(dataUser);
+    
+  }, [])
+  
+
+  // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
   ]);
@@ -47,6 +83,7 @@ export default function ModalEditarUsuario({
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
   ]);
+
 
   const Toast = Swal.mixin({
     toast: true,
@@ -74,6 +111,19 @@ export default function ModalEditarUsuario({
     );
   };
 
+  const cleanForm = () => {
+    setUsername("");
+    setEmail("");
+    setNames("");
+    setFirstName("");
+    setSecondName("");
+    setInstitution("0");
+    setRol("");
+    setUserType("0");
+    setTelephone("");
+    setCellphone("");
+  };
+
   const getInstituciones = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
@@ -82,36 +132,11 @@ export default function ModalEditarUsuario({
         },
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-        }
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
       })
       .then((r) => {
         setCatalogoInstituciones(r.data.data);
-      });
-  };
-
-  const getUsuario = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuario", {
-        params: {
-          IdUsuario: IdUsuario,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        const user = r.data.data;
-        setUsername(user.NombreUsuario);
-        setEmail(user.CorreoElectronico);
-        setNames(user.Nombre);
-        setFirstName(user.ApellidoPaterno);
-        setSecondName(user.ApellidoMaterno);
-        setInstitution(user.IdInstitucion);
-        setRol(user.Cargo);
-        setUserType(user.IdRol);
-        setTelephone(user.Telefono);
-        setCellphone(user.Celular);
       });
   };
 
@@ -127,21 +152,14 @@ export default function ModalEditarUsuario({
       });
   };
 
-  const userModify = (idUsrCentral: string) => {
+  const createComentarios = (idSolicitud:string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/user-modify",
+        "http://10.200.4.105:5000/api/create-comentario",
         {
-          IdUsuarioTiCentral: idUsrCentral,
-          Nombre: names,
-          ApellidoPaterno: firstName,
-          ApellidoMaterno: secondName,
-          IdInstitucion: institution,
-          IdRol: userType,
-          Cargo: rol,
-          Telefono: telephone,
-          Celular: cellphone,
-          ModificadoPor: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdCentral"),
+          IdSolicitud: idSolicitud,
+          Comentario: comentario
         },
         {
           headers: {
@@ -150,22 +168,132 @@ export default function ModalEditarUsuario({
         }
       )
       .then((r) => {
-        if (r.status === 200) {
+        if (r.status === 201) {
+
+
           Toast.fire({
             icon: "success",
-            title: "¡Usuario modificado con éxito!",
+            title: "¡Registro exitoso!",
           });
-
-          actualizado();
+          cleanForm();
+          handleClose();
         }
       })
-      .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: "Permisos denegados",
-        })
-      );
+      .catch((r) => {
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
+      });
+  }
+
+  const solicitarModificacion = () => {
+    console.log("hola Usuario");
+    axios
+      .post(
+        "http://10.200.4.200:5000/api/create-solicitud",
+        {
+          Nombre: names,
+          APaterno: firstName,
+          AMaterno: secondName,
+          NombreUsuario: username,
+          Email: email,
+          Curp: curp,
+          RFC: rfc,
+          Celular: cellphone,
+          Telefono: telephone,
+          Extencion: ext,
+          DatosAdicionales:"Tipo de Usuario: "+dataUser.Rol+", Id Tipo de Usuario: "+dataUser.IdRol+", Cargo: "+dataUser.Cargo+", Institucion: "+dataUser.IdInstitucion,
+          TipoSolicitud: "MODIFICACION",
+          CreadoPor: localStorage.getItem("IdCentral"),
+          IdApp: localStorage.getItem("IdApp"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        console.log(r);
+          console.log("---------------");
+        console.log(r.data.data[0][0].IdSolicitud)
+          console.log("---------------");
+         
+        if (r.status === 200) {
+          // siednlSignUp(r.data.data[0][0].IdSolicitud);
+          if(comentario!="")
+            createComentarios(r.data.data[0][0].IdSolicitud);
+           
+            Toast.fire({
+              icon: "success",
+              title: "¡Registro exitoso!",
+            });
+          
+          handleClose();
+        }
+      })
+      .catch((r) => {
+        console.log(r)
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
+      });
   };
+
+
+
+  // const siednlSignUp = (idUsrCentral: string) => {
+  //   axios
+  //     .post(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
+  //       {
+  //         IdUsuarioCentral: idUsrCentral,
+  //         IdInstitucion: institution,
+  //         Cargo: rol,
+  //         Telefono: telephone,
+  //         Celular: cellphone,
+  //         CreadoPor: localStorage.getItem("IdUsuario"),
+  //         IdRol: userType,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         Toast.fire({
+  //           icon: "success",
+  //           title: "¡Registro exitoso!",
+  //         });
+  //       }
+  //     });
+  // };
+
+
+
+  // useEffect(() => {
+  //   if (idSolicitud != "") {
+  //     createComentarios();
+  //   }
+
+  // }, [idSolicitud]);
+
+  // useEffect(() => {
+  //   if(idUsuarioCentral!=""){
+  //     createSolicitud();
+  //     console.log("hola Solicitud");
+  //   }
+  // }, [idUsuarioCentral]);
 
   const checkForm = () => {
     setErrorsForm({
@@ -174,7 +302,19 @@ export default function ModalEditarUsuario({
       type: "",
     });
 
-    if (names === "") {
+    if (username === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un nombre de usuario.",
+        type: "error",
+      });
+    } else if (email === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    } else if (names === "") {
       setErrorsForm({
         visible: true,
         text: "Ingresa nombre del usuario.",
@@ -210,6 +350,18 @@ export default function ModalEditarUsuario({
         text: "Selecciona el tipo de usuario a crear.",
         type: "error",
       });
+    } else if (curp === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    } else if (rfc === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
     } else if (telephone === "") {
       setErrorsForm({
         visible: true,
@@ -222,15 +374,41 @@ export default function ModalEditarUsuario({
         text: "Ingresa un número celular de contacto.",
         type: "error",
       });
+    } else if (ext === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    }else if (username!=dataUser.NombreUsuario ) {
+      setErrorsForm({
+        visible: true,
+        text: "No se puede modificar nombre de usuario ",
+        type: "error",
+      });
+    }else if (email!=dataUser.CorreoElectronico ) {
+      setErrorsForm({
+        visible: true,
+        text: "No se puede modificar el correo electrónico ",
+        type: "error",
+      });
+    }else if (names===dataUser.Nombre && firstName===dataUser.ApellidoPaterno && secondName===dataUser.ApellidoMaterno && institution===dataUser.IdInstitucion 
+      && rol===dataUser.Cargo && userType===dataUser.IdRol && curp ===dataUser.Curp && rfc===dataUser.Rfc && telephone===dataUser.Telefono 
+      && ext===dataUser.Ext && cellphone===dataUser.Celular) {
+      setErrorsForm({
+        visible: true,
+        text: "No se detectaron modificaciones ",
+        type: "error",
+      });
     } else {
-      userModify(IdUsuario);
+      solicitarModificacion();
     }
   };
 
   useEffect(() => {
     getInstituciones();
     getUserType();
-    getUsuario();
+
   }, []);
 
   return (
@@ -250,6 +428,7 @@ export default function ModalEditarUsuario({
           }}
         />
       </Box>
+
       <DialogContent
         sx={{
           display: "flex",
@@ -263,50 +442,42 @@ export default function ModalEditarUsuario({
             width: "100%",
             display: "flex",
             justifyContent: "space-between",
+            mt: "3vh",
           }}
         >
+          
           <TextField
             label="Usuario"
+            helperText={"Este campo no se puede editar."}
             variant="outlined"
             value={username}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
+            inputProps={{ maxLength: 30, }}
             InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
+              readOnly: true,
             }}
             sx={{
-              width: "40%",
+              width: "30%",
               ml: "2vw",
             }}
-            disabled
             onChange={(v) => setUsername(v.target.value)}
           />
 
+
+
           <TextField
             label="Correo Electrónico"
+            helperText={"Este campo no se puede editar."}
             variant="outlined"
             type="email"
-            disabled
+            inputProps={{ maxLength: 50 }}
+            InputProps={{
+              readOnly: true,
+            }}
             onChange={(v) => setEmail(v.target.value)}
             value={email}
             sx={{
-              width: "40%",
+              width: "62%",
               mr: "2vw",
-            }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
             }}
           />
         </Box>
@@ -322,21 +493,12 @@ export default function ModalEditarUsuario({
           <TextField
             label="Nombre(s)"
             variant="outlined"
+            inputProps={{ maxLength: 20 }}
             value={names}
             onChange={(x) => setNames(x.target.value)}
             sx={{
               width: "30%",
               ml: "2vw",
-            }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
             }}
           />
 
@@ -344,43 +506,24 @@ export default function ModalEditarUsuario({
             label="Apellido Paterno"
             variant="outlined"
             value={firstName}
+            inputProps={{ maxLength: 20 }}
             onChange={(x) => setFirstName(x.target.value)}
             sx={{
               width: "30%",
-            }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
             }}
           />
           <TextField
             label="Apellido Materno"
             variant="outlined"
+            inputProps={{ maxLength: 20 }}
             value={secondName}
             onChange={(x) => setSecondName(x.target.value)}
             sx={{
               width: "30%",
               mr: "2vw",
             }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
           />
         </Box>
-
         <Box
           sx={{
             width: "100%",
@@ -389,29 +532,21 @@ export default function ModalEditarUsuario({
             mt: "3vh",
           }}
         >
-           <FormControl
+          <FormControl
             sx={{
               width: "30%",
               ml: "2vw",
             }}
           >
-            <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-              Tipo de Usuario
-            </InputLabel>
+            <InputLabel>Tipo de Usuario</InputLabel>
             <Select
               value={userType}
               label="Tipo de Usuario"
-              onChange={(x) => setUserType(x.target.value)}
-              sx={{
-                fontFamily: "MontserratRegular",
+              onChange={(x) => {
+                setUserType(x.target.value);
               }}
             >
-              <MenuItem
-                value={"0"}
-                key={0}
-                disabled
-                sx={{ fontFamily: "MontserratRegular" }}
-              >
+              <MenuItem value={"0"} key={0} disabled>
                 Selecciona
               </MenuItem>
 
@@ -435,68 +570,77 @@ export default function ModalEditarUsuario({
               })}
             </Select>
           </FormControl>
-         
 
           <TextField
             label="Cargo"
             variant="outlined"
+            inputProps={{ maxLength: 25 }}
             value={rol}
             onChange={(x) => setRol(x.target.value)}
             sx={{
               width: "30%",
             }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
           />
-           <FormControl
+
+          <FormControl
             sx={{
               width: "30%",
               mr: "2vw",
             }}
           >
-            <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-              Institución Principal
-            </InputLabel>
+            <InputLabel>Institución</InputLabel>
             <Select
+              disabled={userType === "Administrador" ? true : false}
               value={institution}
-              label="Institución Principal"
+              label="Institución"
               onChange={(x) => setInstitution(x.target.value)}
-              sx={{
-                fontFamily: "MontserratRegular",
-              }}
             >
-              <MenuItem
-                value={"0"}
-                key={0}
-                disabled
-                sx={{
-                  fontFamily: "MontserratRegular",
-                }}
-              >
+              <MenuItem value={"0"} key={0} disabled>
                 Selecciona
               </MenuItem>
               {catalogoInstituciones.map((item) => {
                 return (
-                  <MenuItem
-                    value={item.Id}
-                    key={item.Id}
-                    sx={{ fontFamily: "MontserratRegular" }}
-                  >
+                  <MenuItem value={item.Id} key={item.Id}>
                     {item.NombreInstitucion}
                   </MenuItem>
                 );
               })}
             </Select>
           </FormControl>
-         
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            mt: "3vh",
+          }}
+        >
+          <TextField
+            label="CURP"
+            variant="outlined"
+            inputProps={{ maxLength: 18 }}
+            value={curp}
+            onChange={(x) => setCURP(x.target.value)}
+            sx={{
+              width: "40%",
+              ml: "2vw",
+            }}
+          />
+
+          <TextField
+            label="RFC"
+            variant="outlined"
+            inputProps={{ maxLength: 13 }}
+            value={rfc}
+            onChange={(x) => setRFC(x.target.value)}
+            sx={{
+              width: "40%",
+              mr: "2vw",
+            }}
+          />
+
+
         </Box>
 
         <Box
@@ -510,47 +654,70 @@ export default function ModalEditarUsuario({
           <TextField
             label="Teléfono"
             variant="outlined"
+            inputProps={{ maxLength: 10 }}
             sx={{
-              width: "30%",
-              ml: "10vw",
+              width: "40%",
+              ml: "2vw",
             }}
             type="tel"
             value={telephone}
             onChange={(x) => setTelephone(x.target.value)}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
           />
 
           <TextField
             label="Celular"
             variant="outlined"
+            inputProps={{ maxLength: 10 }}
             type="tel"
             sx={{
-              width: "30%",
-              mr: "10vw",
+              width: "40%",
+
             }}
             value={cellphone}
             onChange={(x) => setCellphone(x.target.value)}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
+          />
+
+          <TextField
+            label="Extensión "
+            variant="outlined"
+            inputProps={{ maxLength: 4 }}
+            sx={{
+              width: "10%",
+              mr: "2vw",
             }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
+            type="tel"
+            value={ext}
+            onChange={(x) => setExt(x.target.value)}
           />
         </Box>
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            mt: "3vh",
+          }}
+        >
+
+          <TextField
+            label="Comentarios "
+            variant="outlined"
+            multiline
+            inputProps={{ maxLength: 2000 }}
+            rows={3}
+            sx={{
+              width: "95%",
+              mr: "2vw", ml: "2vw",
+            }}
+            type="tel"
+            value={comentario}
+            onChange={(x) => setComentario(x.target.value)}
+          />
+        </Box>
+
+
+
 
         <Box
           sx={{
@@ -568,12 +735,12 @@ export default function ModalEditarUsuario({
               width: "100vw",
               mt: "4vh",
             }}
-            onClick={() => handleClose()}
           >
             <Button
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
+              onClick={() => { handleClose() }}
             >
               Cancelar
             </Button>
@@ -582,9 +749,11 @@ export default function ModalEditarUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="primary"
-              onClick={() => checkForm()}
+              onClick={() => {
+                checkForm();
+              }}
             >
-              Actualizar
+              Solicitar Modificacion
             </Button>
           </Box>
         </Box>

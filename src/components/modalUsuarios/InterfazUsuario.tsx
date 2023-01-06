@@ -14,3 +14,10 @@ export  interface ITipoSolicitud{
     IdTipoSolicitud:string;
     TipoSolicitud:string;
 }
+
+export  interface IDatosAdicionales{
+    institution: string;
+    rol : string;
+    userType : string;
+}
+

@@ -71,8 +71,6 @@ export const DialogSolicitudes = ({
             .then((r) => {
                 if (r.status === 200) {
                     setDetalleSolicitud(r.data.data)
-                    console.log(r.data.data);
-
                 }
             });
     };
@@ -162,14 +160,14 @@ export const DialogSolicitudes = ({
 
             <Box sx={{
                 height: "80vh",
-                width: "80vw",
+                width: "82vw",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
             }}>
                 <Box sx={{
                     height: "95%",
-                    width: "95%",
+                    width: "98%",
                     border: "1px solid #b3afaf",
                     borderRadius: 5,
                     backgroundColor: '#E4E4E4',
@@ -302,7 +300,7 @@ export const DialogSolicitudes = ({
                                                                     {parseInt(item.Estatus) === 0 ? "PENDIENTE" : null}
                                                                     {parseInt(item.Estatus) === 1 ? "ACEPTADO" : null}
                                                                     {parseInt(item.Estatus) === 2 ? "RECHAZADO" : null}
-                                                                    {parseInt(item.Estatus) === 3 ? "ESTATUS 3" : null}
+                                                                    {parseInt(item.Estatus) === 3 ? "MODIFICACION SOLICITADA" : null}
                                                                 </Typography>
                                                             </Box>
 
@@ -323,8 +321,8 @@ export const DialogSolicitudes = ({
                     </Box>
 
                     {solicitudes.length != 0 ?
-                        <Box sx={{ width: "65%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                            <Box sx={{ width: "90%", height: "95%", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid #b3afaf", borderRadius: "15px", boxShadow: "15" }}>
+                        <Box sx={{ width: "70%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                            <Box sx={{ width: "95%", height: "95%", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid #b3afaf", borderRadius: "15px", boxShadow: "15" }}>
 
                                 <Box sx={{ width: "100%", height: "100%", bgcolor: "#fff", borderRadius: "15px", opacity: "80%", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", boxShadow: "15" }}>
 
@@ -443,7 +441,8 @@ export const DialogSolicitudes = ({
 
 
                                                     <Box sx={{ display: "flex", width: "40%", justifyContent: "flex-start" }}>
-                                                        {solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "MODIFICACION" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 0 ? <Button variant="contained" color="info" onClick={() => { setOpenDialogRechazar(true); }}>MODIFICAR</Button> : null}
+                                                        {solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "ALTA" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 3
+                                                        ? <Button variant="contained" color="info" onClick={() => { setOpenDialogRechazar(true); }}>MODIFICAR</Button> : null}
                                                     </Box>
 
                                                     <Box sx={{ display: "flex", width: "40%", justifyContent: "flex-end" }}>

@@ -15,6 +15,9 @@ import { Notification } from "./screens/notification/Notifications";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
+import { Firmado } from "./components/firmado electrónico/screens/firmado/Firmado";
+import { Documentos } from "./components/firmado electrónico/screens/documentos/Documentos";
+import { TablaDocs } from "./components/firmado electrónico/screens/tabla de documentos/tablaDocs";
 
 function App() {
   const navigate = useNavigate();
@@ -31,7 +34,7 @@ function App() {
           setTimeout(() => {
             localStorage.setItem("IdApp", IdApp as string);
             navigate("../home");
-          }, 100);
+          }, 2000);
         }
       });
     } else {
@@ -51,7 +54,7 @@ function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="users" element={<Usuarios />} />
         <Route path="*" element={<E404 />} />
-        <Route path="fichaTecnica" element={<FichaTecnica/>} />
+        <Route path="fichaTecnica" element={<FichaTecnica />} />
         <Route
           path="Institutionalactivities"
           element={<ActividadesInstitucionales />}
@@ -59,6 +62,10 @@ function App() {
         <Route path="mir" element={<MIR />} />
         <Route path="metaAnual" element={<MetaAnual />} />
         <Route path="notifications" element={<Notification />} />
+
+        <Route path="firmado" element={<Firmado />} />
+        <Route path="documentos" element={<Documentos />} />
+        <Route path="tabla" element={<TablaDocs />} />
       </Routes>
     </>
   );
