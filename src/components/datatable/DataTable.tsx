@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { DataUsuariosTiCentral } from "./interface";
 import { DeleteDialog } from "../deleteDialog/DeleteDialog";
 import {
   Box,
@@ -18,6 +17,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import ModalEditarUsuario from "../modalUsuarios/ModalEditarUsuario";
 import AppsDialog from "../appsDialog/AppsDialog";
+import DataUsuariosTiCentral from "./interface";
 
 // Selecciona inicial Nombre + inicial Apellido
 function stringAvatar(Nombre: string, ApellidoPaterno: string) {
@@ -40,19 +40,15 @@ export const DataTable = ({
   //# Renglones por pag
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
-  const [usuarios, setUsuarios] = useState<Array<DataUsuariosTiCentral>>([ ]);
+  const [usuarios, setUsuarios] = useState<Array<DataUsuariosTiCentral>>([]);
 
   //
   const [usersFiltered, setUsersFiltered] = useState<
     Array<DataUsuariosTiCentral>
   >([]);
 
-
-  
-
-
   // Consumo de API
- const getUsuarios = () => {
+  const getUsuarios = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
         headers: {
@@ -88,7 +84,7 @@ export const DataTable = ({
   const [actualizacion, setActualizacion] = useState(0);
   useEffect(() => {
     getUsuarios();
-  }, [actualizacion ]);
+  }, [actualizacion]);
 
 
   const actualizaContador = () => {
@@ -109,17 +105,40 @@ export const DataTable = ({
 
   const [openModalEditarUsuario, setOpenModalEditarUsuario] = useState(false);
 
+
+
   const handleCloseModalEditarUsuario = () => {
     setOpenModalEditarUsuario(false);
   };
 
-  const handleClickOpen = (id: string) => {
-    setOpenModalEditarUsuario(true);
-    setIdUsuarioEditar(id);
-  };
 
-  const [idUsuarioEditar, setIdUsuarioEditar] = useState("");
+  const [datosUsuario, setDatosUsuario] = useState<DataUsuariosTiCentral>(
+    {
+      Id: "",
+      IdUsuarioTiCentral: "",
+      Nombre: "",
+      ApellidoPaterno: "",
+      ApellidoMaterno: "",
+      CorreoElectronico: "",
+      NombreUsuario: "",
+      Cargo: "",
+      Telefono: "",
+      Ext: "",
+      Curp: "",
+      Rfc: "",
+      Celular: "",
+      IdRol: "",
+      Rol: "",
+      IdInstitucion: "",
+      NombreInstitucion: "",
+      CreadoPor: "",
+      ModificadoPor: "",
+    }
+  );
+  useEffect(() => {
 
+
+  }, [datosUsuario])
   return (
     <Box
       sx={{
@@ -258,27 +277,31 @@ export const DataTable = ({
                         id={row.Id}
                         actualizado={actualizaContador}
                         idUsaurioCentral={row.IdUsuarioTiCentral}
+                        dataUser={row}
                       />
 
                       <Tooltip title="Editar">
                         <span>
 
-                        <IconButton
-                                    disabled={localStorage.getItem("Rol") === "Capturador" ? true: false}
-                          onClick={() =>
-                            handleClickOpen(row.IdUsuarioTiCentral)
-                          }
-                        >
-                          <EditIcon
-                            sx={[
-                              {
-                                "&:hover": {
-                                  color: "red",
+                          <IconButton
+                            disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+                            onClick={() => {
+                              setDatosUsuario(row);
+                              setOpenModalEditarUsuario(true);
+
+                            }
+                            }
+                          >
+                            <EditIcon
+                              sx={[
+                                {
+                                  "&:hover": {
+                                    color: "red",
+                                  },
                                 },
-                              },
-                            ]}
-                          />
-                        </IconButton>
+                              ]}
+                            />
+                          </IconButton>
                         </span>
 
                       </Tooltip>
@@ -305,7 +328,7 @@ export const DataTable = ({
           title="Editar Usuario"
           open={openModalEditarUsuario}
           handleClose={handleCloseModalEditarUsuario}
-          IdUsuario={idUsuarioEditar}
+          dataUser={datosUsuario}
         />
       ) : null}
     </Box>
