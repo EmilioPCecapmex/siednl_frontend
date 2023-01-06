@@ -153,7 +153,7 @@ export const ComentDialogMir = ({
             enviarNotificacion(user.IdUsuario);
           });
         }
-
+        //AlertBox need return a variable equal to 1 here.
         setNewComent(false);
         setComent("");
         handleClose();

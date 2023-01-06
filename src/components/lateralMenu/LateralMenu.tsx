@@ -464,7 +464,7 @@ export const LateralMenu = ({
               
             </List>
           </Collapse>
-          <ListItemButton
+          {/* <ListItemButton
             onClick={() => {
               setResumeDefaultAI();
               exitAlert("../Institutionalactivities")
@@ -480,7 +480,7 @@ export const LateralMenu = ({
               visibility={selection === 5 ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
-          </ListItemButton>
+          </ListItemButton> */}
 
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <ListItemButton onClick={() => exitAlert("../notifications")}>
