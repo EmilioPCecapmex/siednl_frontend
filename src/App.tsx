@@ -34,7 +34,7 @@ function App() {
           setTimeout(() => {
             localStorage.setItem("IdApp", IdApp as string);
             navigate("../home");
-          }, 100);
+          }, 2000);
         }
       });
     } else {
