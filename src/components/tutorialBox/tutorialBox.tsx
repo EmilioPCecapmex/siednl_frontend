@@ -200,7 +200,7 @@ export const TutorialBox = ({
         setBottomArrow(false);
 
         setMessage(
-          "Ademas, tendras posibilidad de modificar tus registros, eliminarlos y añadir comentarios."
+          "Además, tendras posibilidad de modificar tus registros, eliminarlos y añadir comentarios."
         );
         break;
 
@@ -366,6 +366,7 @@ export const TutorialBox = ({
           "O si prefieres, puedes llenar la solicitud desde el sistema."
         );
         break;
+        //FIN PROPOSITO
       case 27:
         setTop("40vh");
         setRight("");
@@ -374,9 +375,10 @@ export const TutorialBox = ({
         setLeftArrow(true);
         setBottomArrow(true);
         setMessage(
-          "Navega entre las diferentes opciones del menu de opciones de la MIR."
+          "Navega entre las diferentes opciones del menú de opciones de la MIR."
         );
         break;
+        //COMPONENTES MIR
       case 28:
         setTop("17vh");
         setRight("7.3vw");
@@ -384,9 +386,21 @@ export const TutorialBox = ({
         setTopArrow(true);
         setLeftArrow(false);
         setBottomArrow(false);
-        setMessage("Agrega y/o elimina componentes y actividades para tu MIR.");
+        setMessage("Agrega y/o elimina componentes para tu MIR.");
         break;
-      case 29:
+        case 29:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la MIR."
+        );
+        break;
+        //RESUMEN MIR
+      case 30:
         setTop("13vh");
         setRight("27vw");
         setLeft("");
@@ -397,7 +411,7 @@ export const TutorialBox = ({
           "En esta pestaña encontraras el desglose de la información que se ha capturado para la MIR en curso."
         );
         break;
-      case 30:
+      case 31:
         setTop("28.3vh");
         setRight("");
         setLeft("12.5vw");
@@ -408,7 +422,7 @@ export const TutorialBox = ({
           "Como usuario autorizador puedes solicitar una modificación a la información de la MIR. Al seleccionar un campo este se habilitara para edición al usuario seleccionado."
         );
         break;
-      case 31:
+      case 32:
         setTop("77vh");
         setRight("0vw");
         setLeft("");
@@ -419,6 +433,148 @@ export const TutorialBox = ({
           "Cuentas con diversas opciones para almacenar la MIR como borrador, solicitar modificaciones o enviar para autorización."
         );
         break;
+        //ACTIVIDADES MIR
+        case 33:
+        setTop("17vh");
+        setRight("7.3vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage("Agrega y/o elimina actividades de tus componentes para tu MIR.");
+        break;
+        case 34:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la MIR."
+        );
+        break;
+        //MA inicio
+        case 35:
+        setTop("6vh");
+        setRight("");
+        setLeft("14vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "En la sección de MA (Meta Anual) podras crear nuevas solicitudes y verificar el estado de las Metas Anuales anteriores."
+        );
+
+        break;
+
+      case 36:
+        setTop("25vh");
+        setRight("");
+        setLeft("37vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Filtra los registros ligados a tu usuario y/o institución."
+        );
+        break;
+
+      case 37:
+        setTop("36vh");
+        setRight("42vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Existen 3 estados base de la Meta Anual. En Captura, En Revisión y Autorizada."
+        );
+        break;
+
+      case 38:
+        setTop("36vh");
+        setRight("12vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Además, tendras posibilidad de agregar, modificar tus registros, eliminarlos y añadir comentarios a tus Metas Anuales."
+        );
+        break;
+        //MA FIN PROPOSITO
+        case 39:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Meta Anual."
+        );
+        break;
+        case 40:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Meta Anual."
+        );
+        break;
+        case 41:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Meta Anual."
+        );
+        break;
+        //RESUMEN MA
+        case 42:
+          setTop("13vh");
+          setRight("27vw");
+          setLeft("");
+          setTopArrow(true);
+          setLeftArrow(false);
+          setBottomArrow(false);
+          setMessage(
+            "En esta pestaña encontraras el desglose de la información que se ha capturado para la Meta Anual en curso."
+          );
+          break;
+        case 43:
+          setTop("28.3vh");
+          setRight("");
+          setLeft("12.5vw");
+          setTopArrow(true);
+          setLeftArrow(false);
+          setBottomArrow(false);
+          setMessage(
+            "Como usuario autorizador puedes solicitar una modificación a la información de la Meta Anual. Al seleccionar un campo este se habilitara para edición al usuario seleccionado."
+          );
+          break;
+        case 44:
+          setTop("77vh");
+          setRight("0vw");
+          setLeft("");
+          setTopArrow(false);
+          setLeftArrow(true);
+          setBottomArrow(true);
+          setMessage(
+            "Cuentas con diversas opciones para almacenar la Meta Anual como borrador, solicitar modificaciones o enviar para autorización."
+          );
+          break;
       //SECCIÓN FINAL
       default:
         break;
