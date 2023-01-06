@@ -64,8 +64,8 @@ export const Credenciales = ({
       })
       .then((r) => {
         if (r.status === 200) {
-          setRfc(r.data.data.Rfc);
-          setRFC(r.data.data.Rfc);
+          setRfc(r.data.data.Rfc.toUpperCase());
+          setRFC(r.data.data.Rfc.toUpperCase());
         }
       });
   };

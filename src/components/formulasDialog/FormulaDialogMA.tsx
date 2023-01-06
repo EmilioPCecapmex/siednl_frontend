@@ -36,19 +36,19 @@ export const FormulaDialogMA = ({
 
   const checkValues = () => {
     if (tipo === "Indice" || tipo === "Índice") {
-      if (descA === "") {
+      if (/^[\s]*$/.test(descA)) {
         setEmptyTxt(true);
       } else {
         if (tipo === "Indice" || tipo === "Índice") {
           textoSet(
-            descA.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")
+            parseFloat(descA).toFixed(2)
           );
           limpiaVar();
           close();
         }
       }
     } else {
-      if (descA === "" || descB === "") {
+      if (/^[\s]*$/.test(descA) || /^[\s]*$/.test(descB)) {
         setEmptyTxt(true);
       } else {
         if (tipo === "Porcentaje") {
@@ -156,9 +156,11 @@ export const FormulaDialogMA = ({
             justifyContent: "space-evenly",
           }}
         >
-          <TextField
+          
+          {tipo === "Indice" || tipo === "Índice" ? (
+            <TextField
             type={"number"}
-            label={tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
+            label={"Valor"}
             sx={{ width: "45%" }}
             value={descA}
             error={
@@ -194,8 +196,6 @@ export const FormulaDialogMA = ({
               },
             }}
           />
-          {tipo === "Indice" || tipo === "Índice" ? (
-            ""
           ) : (
             <TextField
             type={"number"}
