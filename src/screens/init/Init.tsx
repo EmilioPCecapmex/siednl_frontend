@@ -7,10 +7,10 @@ export const Init = () => {
   const navigate = useNavigate();
 
   
-  setTimeout(() => {
-    navigate('../home')
+  // setTimeout(() => {
+  //   navigate('../home')
 
-  },500);
+  // },2000);
 
 
   return (

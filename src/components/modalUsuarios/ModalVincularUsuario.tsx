@@ -15,6 +15,8 @@ import {
   Button,
   AlertColor,
 } from "@mui/material";
+import { IdataUser } from "../datatable/interface";
+import { IDatosAdicionales } from "./InterfazUsuario";
 
 export default function ModalVincularUsuario({
   title,
@@ -30,12 +32,35 @@ export default function ModalVincularUsuario({
   const [names, setNames] = useState("");
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
-  const [institution, setInstitution] = useState("0");
-  const [rol, setRol] = useState("");
-  const [userType, setUserType] = useState("0");
+  // const [institution, setInstitution] = useState("0");
+  // const [rol, setRol] = useState("");
+  // const [userType, setUserType] = useState("0");
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
 
+  const [dataUser, setDataUser] = useState<IdataUser>(
+    {
+      Id: "",
+      Nombre: "",
+      ApellidoPaterno: "",
+      ApellidoMaterno: "",
+      CorreoElectronico: "",
+      NombreUsuario: "",
+      Telefono: "",
+      Ext: "",
+      Curp: "",
+      Rfc: "",
+      Celular: "",
+    }
+  );
+
+  const [datosAdicionales, setDatosAdicionales] = useState<IDatosAdicionales>(
+    {
+      institution: "0",
+      rol: "",
+      userType: "0"
+    }
+  );
   const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
@@ -82,9 +107,9 @@ export default function ModalVincularUsuario({
     setNames("");
     setFirstName("");
     setSecondName("");
-    setInstitution("0");
-    setRol("");
-    setUserType("0");
+    setDatosAdicionales({ ...datosAdicionales, institution: "0" });
+    setDatosAdicionales({ ...datosAdicionales, rol: "0" });
+    setDatosAdicionales({ ...datosAdicionales, userType: "0" });
     setTelephone("");
     setCellphone("");
   };
@@ -140,9 +165,9 @@ export default function ModalVincularUsuario({
             text: r.data.data.message,
             type: "success",
           });
+          getUserDetails(r.data.data.Id);
           setIdUsuarioCentral(r.data.data.Id);
           setFullView(true);
-          setNotEditable(true);
         } else {
           setErrorsForm({
             visible: true,
@@ -167,18 +192,69 @@ export default function ModalVincularUsuario({
     },
   });
 
-  const siednlSignUp = (idUsrCentral: string) => {
+
+  const getUserDetails = (idCentral: string,) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
+        "http://10.200.4.200:5000/api/user-detail",
         {
-          IdUsuarioCentral: idUsrCentral,
-          IdInstitucion: institution,
-          Cargo: rol,
-          Telefono: telephone,
-          Celular: cellphone,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          IdRol: userType,
+          IdUsuario: idCentral,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        console.log(r);
+
+        if (r.status === 200) {
+          let auxLlenado = dataUser;
+          auxLlenado.Id = r.data.data.Id;
+          auxLlenado.Nombre = r.data.data.Nombre;
+          auxLlenado.ApellidoPaterno = r.data.data.ApellidoPaterno;
+          auxLlenado.ApellidoMaterno = r.data.data.ApellidoMaterno;
+          auxLlenado.CorreoElectronico = r.data.data.CorreoElectronico;
+          auxLlenado.NombreUsuario = r.data.data.NombreUsuario;
+          auxLlenado.Telefono = r.data.data.Telefono;
+          auxLlenado.Ext = r.data.data.Ext;
+          auxLlenado.Celular = r.data.data.Celular;
+          auxLlenado.Curp = r.data.data.Curp;
+          auxLlenado.Rfc = r.data.data.Rfc;
+          setDataUser(auxLlenado);
+          setNotEditable(true);
+          setNames(auxLlenado.Nombre);
+          setFirstName(auxLlenado.ApellidoPaterno);
+          setSecondName(auxLlenado.ApellidoMaterno);
+
+
+
+        }
+      });
+  };
+  const signUp = () => {
+    console.log("hola Usuario");
+    axios
+      .post(
+        "http://10.200.4.200:5000/api/create-solicitud",
+        {
+          Nombre: dataUser.Nombre,
+          APaterno: dataUser.ApellidoPaterno,
+          AMaterno: dataUser.ApellidoMaterno,
+          NombreUsuario: dataUser.NombreUsuario,
+          Email: dataUser.CorreoElectronico,
+          Curp: dataUser.Curp,
+          RFC: dataUser.Rfc,
+          Celular: dataUser.Celular,
+          Telefono: dataUser.Telefono,
+          Extencion: dataUser.Ext,
+          DatosAdicionales: JSON.stringify(datosAdicionales),
+          TipoSolicitud: "VINCULACION",
+          CreadoPor: localStorage.getItem("IdCentral"),
+          IdApp: localStorage.getItem("IdApp"),
+
         },
         {
           headers: {
@@ -187,15 +263,56 @@ export default function ModalVincularUsuario({
         }
       )
       .then((r) => {
+
         if (r.status === 200) {
+          cleanForm();
           closeModal();
           Toast.fire({
             icon: "success",
             title: "Registro exitoso.",
           });
         }
+      })
+      .catch((r) => {
+        console.log(r)
+        if (r.response.status === 409) {
+          setErrorsForm({
+            visible: true,
+            text: r.response.data.msg,
+            type: "error",
+          });
+        }
       });
   };
+
+  // const siednlSignUp = (idUsrCentral: string) => {
+  //   axios
+  //     .post(
+  //       "http://10.200.4.200:8000/api/user-add",
+  //       {
+  //         IdUsuarioCentral: idUsrCentral,
+  //         IdInstitucion: institution,
+  //         Cargo: rol,
+  //         IdRol: userType,
+  //         CreadoPor: localStorage.getItem("IdUsuario"),
+
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         closeModal();
+  //         Toast.fire({
+  //           icon: "success",
+  //           title: "Registro exitoso.",
+  //         });
+  //       }
+  //     });
+  // };
 
   const checkForm = () => {
     setErrorsForm({
@@ -221,38 +338,26 @@ export default function ModalVincularUsuario({
         text: "Ingresa apellido materno del usuario.",
         type: "error",
       });
-    } else if (institution === "0") {
+    } else if (datosAdicionales.institution === "0") {
       setErrorsForm({
         visible: true,
         text: "Selecciona la institucion a la que pertenece el usuario.",
         type: "error",
       });
-    } else if (rol === "") {
+    } else if (datosAdicionales.rol === "") {
       setErrorsForm({
         visible: true,
         text: "Ingresa el cargo del usuario en la institución.",
         type: "error",
       });
-    } else if (userType === "0") {
+    } else if (datosAdicionales.userType === "0") {
       setErrorsForm({
         visible: true,
         text: "Selecciona el tipo de usuario a crear.",
         type: "error",
       });
-    } else if (telephone === "") {
-      setErrorsForm({
-        visible: true,
-        text: "Ingresa un teléfono de contacto.",
-        type: "error",
-      });
-    } else if (cellphone === "") {
-      setErrorsForm({
-        visible: true,
-        text: "Ingresa un número celular de contacto.",
-        type: "error",
-      });
     } else {
-      siednlSignUp(idUsuarioCentral);
+      signUp();
     }
   };
 
@@ -321,7 +426,7 @@ export default function ModalVincularUsuario({
           <Button
             variant="outlined"
             color="success"
-            onClick={() => verifyUser()}
+            onClick={() => { verifyUser(); setNotEditable(true); }}
             disabled={notEditable}
           >
             Verificar
@@ -342,6 +447,7 @@ export default function ModalVincularUsuario({
                 label="Nombre(s)"
                 variant="outlined"
                 value={names}
+                InputProps={{ readOnly: true }}
                 onChange={(x) => setNames(x.target.value)}
                 sx={{
                   width: "30%",
@@ -353,6 +459,7 @@ export default function ModalVincularUsuario({
                 label="Apellido Paterno"
                 variant="outlined"
                 value={firstName}
+                InputProps={{ readOnly: true }}
                 onChange={(x) => setFirstName(x.target.value)}
                 sx={{
                   width: "30%",
@@ -362,6 +469,7 @@ export default function ModalVincularUsuario({
                 label="Apellido Materno"
                 variant="outlined"
                 value={secondName}
+                InputProps={{ readOnly: true }}
                 onChange={(x) => setSecondName(x.target.value)}
                 sx={{
                   width: "30%",
@@ -388,9 +496,9 @@ export default function ModalVincularUsuario({
                   Institución
                 </InputLabel>
                 <Select
-                  value={institution}
+                  value={datosAdicionales.institution}
                   label="Institución"
-                  onChange={(x) => setInstitution(x.target.value)}
+                  onChange={(x) => setDatosAdicionales({ ...datosAdicionales, institution: x.target.value })}
                 >
                   <MenuItem value={"0"} key={0} disabled>
                     Selecciona
@@ -408,8 +516,8 @@ export default function ModalVincularUsuario({
               <TextField
                 label="Cargo"
                 variant="outlined"
-                value={rol}
-                onChange={(x) => setRol(x.target.value)}
+                value={datosAdicionales.rol}
+                onChange={(x) => setDatosAdicionales({ ...datosAdicionales, rol: x.target.value })}
                 sx={{
                   width: "30%",
                 }}
@@ -424,9 +532,9 @@ export default function ModalVincularUsuario({
                   Tipo de Usuario
                 </InputLabel>
                 <Select
-                  value={userType}
+                  value={datosAdicionales.userType}
                   label="Tipo de Usuario"
-                  onChange={(x) => setUserType(x.target.value)}
+                  onChange={(x) => setDatosAdicionales({ ...datosAdicionales, userType: x.target.value })}
                 >
                   <MenuItem value={"0"} key={0} disabled>
                     Selecciona
@@ -443,7 +551,7 @@ export default function ModalVincularUsuario({
               </FormControl>
             </Box>
 
-            <Box
+            {/* <Box
               sx={{
                 width: "100%",
                 display: "flex",
@@ -474,7 +582,7 @@ export default function ModalVincularUsuario({
                 value={cellphone}
                 onChange={(x) => setCellphone(x.target.value)}
               />
-            </Box>
+            </Box> */}
           </Box>
         ) : null}
 

@@ -15,6 +15,8 @@ export const getUserDetails = (idCentral: string) => {
     })
     .then((r) => {
       if (r.status === 200) {
+        console.log(r.data.data);
+        
         localStorage.setItem("IdUsuario", r.data.data.Id);
         localStorage.setItem(
           "NombreUsuario",
@@ -59,7 +61,6 @@ export const sessionValid = () => {
     )
     .then((r) => {
       if (r.status === 200) {
-
         localStorage.setItem("sUntil", r.data.expDateTime)
         localStorage.setItem("jwtToken", jt);
         localStorage.setItem("refreshToken", rft);
@@ -114,6 +115,4 @@ export const logout = () => {
   localStorage.clear();
   window.location.assign("http://10.200.4.106/");
 };
-
-
 

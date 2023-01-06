@@ -12,17 +12,20 @@ import axios from "axios";
 import { Box } from "@mui/material";
 import Swal from "sweetalert2";
 import TextField from '@mui/material/TextField';
+import DataUsuariosTiCentral from "../datatable/interface";
 
 export const DeleteDialog = ({
   deleteText,
   id,
   actualizado,
   idUsaurioCentral,
+  dataUser,
 }: {
   deleteText: string;
   id: string;
   actualizado: Function;
-  idUsaurioCentral:string;
+  idUsaurioCentral: string;
+  dataUser: DataUsuariosTiCentral;
 }) => {
   const [open, setOpen] = React.useState(false);
   const [comentario, setComentario] = React.useState("");
@@ -80,11 +83,20 @@ export const DeleteDialog = ({
       .post(
         "http://10.200.4.200:5000/api/create-solicitud",
         {
-          IdUsuario: idUsaurioCentral,
+          Nombre:dataUser.Nombre,
+          APaterno:dataUser.ApellidoPaterno,
+          AMaterno:dataUser.ApellidoMaterno ,
+          NombreUsuario:dataUser.NombreUsuario ,
+          Email:dataUser.CorreoElectronico,
+          Curp:dataUser.Curp,
+          RFC:dataUser.Rfc ,
+          Celular:dataUser.Celular ,
+          Telefono:dataUser.Telefono ,
+          Extencion:dataUser.Ext,
           DatosAdicionales: "",
           TipoSolicitud: "Baja",
           CreadoPor: localStorage.getItem("IdCentral"),
-          IdApp: localStorage.getItem("IdApp"),
+          IdApp: localStorage.getItem("IdApp")
         },
         {
           headers: {
@@ -93,21 +105,22 @@ export const DeleteDialog = ({
         }
       )
       .then((r) => {
-        if ( r.data.data[0][0].Respuesta== 201) {
-          
-          if(comentario.length>10){
-             setIdSolicitud(r.data.data[0][0].IdSolicitud)
+       
+        if (r.data.data[0][0].Respuesta == 201) {
+
+          if (comentario.length > 10) {
+            setIdSolicitud(r.data.data[0][0].IdSolicitud)
           }
-         
+
           Toast.fire({
-              icon: "success",
-              title: "Solicitud Creada!",
-            });
+            icon: "success",
+            title: "Solicitud Creada!",
+          });
         }
       })
       .catch((r) => {
         if (r.data.data[0][0].Respuesta == 409) {
-         
+
         }
       });
   }
@@ -129,13 +142,13 @@ export const DeleteDialog = ({
       )
       .then((r) => {
         if (r.status === 201) {
-          
-          
+
+
           Toast.fire({
-              icon: "success",
-              title: "Solicitud Creada!",
-            });
-            
+            icon: "success",
+            title: "Solicitud Creada!",
+          });
+
           handleClose();
         }
       })
@@ -147,9 +160,9 @@ export const DeleteDialog = ({
   }
 
   React.useEffect(() => {
-    if(idSolicitud!=""){
+    if (idSolicitud != "") {
       createComentarios();
-  }
+    }
   }, [idSolicitud]);
 
 
@@ -158,21 +171,21 @@ export const DeleteDialog = ({
       <Tooltip title="Eliminar">
         <span>
 
-        <IconButton
-          onClick={handleClickOpen}
-          disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
-        >
-          <DeleteIcon
-            sx={[
-              {
-                "&:hover": {
-                  color: "red",
+          <IconButton
+            onClick={handleClickOpen}
+            disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+          >
+            <DeleteIcon
+              sx={[
+                {
+                  "&:hover": {
+                    color: "red",
+                  },
                 },
-              },
-            ]}
-          />
+              ]}
+            />
 
-        </IconButton>
+          </IconButton>
         </span>
 
       </Tooltip>
@@ -184,24 +197,24 @@ export const DeleteDialog = ({
             Al confirmar, se creara una solicitud de baja de este {deleteText}.
           </DialogContentText>
 
-        <TextField  
-        sx={{width:"100%"}}
-        label="Agregar comentario"
-        variant="filled"
-        multiline
-        rows={3}
-        onChange={(c)=>{setComentario(c.target.value) }}
-        inputProps={{
-          maxLength: 2000,
-        }}
-        />
+          <TextField
+            sx={{ width: "100%" }}
+            label="Agregar comentario"
+            variant="filled"
+            multiline
+            rows={3}
+            onChange={(c) => { setComentario(c.target.value) }}
+            inputProps={{
+              maxLength: 2000,
+            }}
+          />
         </DialogContent>
 
         <DialogActions onClick={handleClose}>
           <Button>Cancelar</Button>
 
-          <Button onClick={deleteUsuario} autoFocus  disabled={comentario.length>=10?false:true}>
-            
+          <Button onClick={deleteUsuario} autoFocus disabled={comentario.length >= 10 ? false : true}>
+
             De Acuerdo
           </Button>
         </DialogActions>
