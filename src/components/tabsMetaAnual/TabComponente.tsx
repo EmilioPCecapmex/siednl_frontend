@@ -123,21 +123,21 @@ export const TabComponenteMA = ({
 
   const handleClickOpen = () => {
     setTipoFormula(
-      JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+      JSON.parse(MIR).componentes[componentSelect - 1].indicador.toUpperCase().includes(
         "PORCENTAJE"
       ) ||
         JSON.parse(MIR).componentes[
           componentSelect - 1
         ].indicador.toUpperCase() === "PORCENTAJE"
         ? "Porcentaje"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.toUpperCase().includes(
             "TASA"
           ) ||
           JSON.parse(MIR).componentes[
             componentSelect - 1
           ].indicador.toUpperCase() === "TASA"
         ? "Tasa"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.toUpperCase().includes(
             "INDICE" || "ÍNDICE"
           ) ||
           JSON.parse(MIR).componentes[
@@ -147,7 +147,7 @@ export const TabComponenteMA = ({
             componentSelect - 1
           ].indicador.toUpperCase() === "ÍNDICE"
         ? "Índice"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.toUpperCase().includes(
             "PROMEDIO"
           ) ||
           JSON.parse(MIR).componentes[
@@ -166,21 +166,21 @@ export const TabComponenteMA = ({
 
   const handleClickOpen2 = () => {
     setTipoFormula(
-      JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+      JSON.parse(MIR).componentes[componentSelect - 1].indicador.toUpperCase().includes(
         "PORCENTAJE"
       ) ||
         JSON.parse(MIR).componentes[
           componentSelect - 1
         ].indicador.toLowerCase() === "porcentaje"
         ? "Porcentaje"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.toUpperCase().includes(
             "TASA"
           ) ||
           JSON.parse(MIR).componentes[
             componentSelect - 1
           ].indicador.toLowerCase() === "tasa"
         ? "Tasa"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.toUpperCase().includes(
             "INDICE" || "ÍNDICE"
           ) ||
           JSON.parse(MIR).componentes[
@@ -190,7 +190,7 @@ export const TabComponenteMA = ({
             componentSelect - 1
           ].indicador.toLowerCase() === "índice"
         ? "Indice"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
+        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.toUpperCase().includes(
             "PROMEDIO"
           ) ||
           JSON.parse(MIR).componentes[
@@ -211,13 +211,14 @@ export const TabComponenteMA = ({
     if (
       JSON.parse(MIR).componentes[
         componentSelect - 1
-      ].indicador.toLowerCase() === "indice" ||
+      ].indicador.toLowerCase().includes("indice") ||
       JSON.parse(MIR).componentes[
         componentSelect - 1
-      ].indicador.toLowerCase() === "índice"
+      ].indicador.toLowerCase().includes("índice")
     ) {
-      componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] =
-        txt;
+      componentesValues[componentSelect - 1].valorNumerador = txt
+      componentesValues[componentSelect - 1].metaAnual = txt
+
     } else {
       componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
       componentesValues[componentSelect - 1].valorDenominador =
@@ -526,12 +527,14 @@ export const TabComponenteMA = ({
               }}
               value={componentesValues[componentSelect - 1]?.lineaBase || ""}
             />
+
+
             {JSON.parse(MIR).componentes[
               componentSelect - 1
-            ].indicador.toLowerCase() === "indice" ||
+            ].indicador.toLowerCase().includes("indice") ||
             JSON.parse(MIR).componentes[
               componentSelect - 1
-            ].indicador.toLowerCase() === "índice" ? (
+            ].indicador.toLowerCase().includes("índice") ? (
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}

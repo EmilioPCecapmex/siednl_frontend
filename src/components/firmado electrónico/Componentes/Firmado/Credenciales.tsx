@@ -21,19 +21,23 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 export const Credenciales = ({
   show,
   validado,
-  // setRFC,
+  setRFC,
   setNombre,
   setPassword,
   setKFile,
   setCFile,
+  setNoSerie,
+  noSerie
 }: {
   show: boolean;
   validado: Function;
-  // setRFC: Function;
+  setRFC: Function;
   setNombre: Function;
   setPassword: Function;
   setKFile: Function;
   setCFile: Function;
+  setNoSerie: Function;
+  noSerie: string;
 }) => {
   const fontTextfield = {
     fontFamily: "MontserratSemiBold",
@@ -60,7 +64,8 @@ export const Credenciales = ({
       })
       .then((r) => {
         if (r.status === 200) {
-          setRfc(r.data.data.Rfc);
+          setRfc(r.data.data.Rfc.toUpperCase());
+          setRFC(r.data.data.Rfc.toUpperCase());
         }
       });
   };
@@ -70,7 +75,6 @@ export const Credenciales = ({
   }, []);
 
   const [rfcCer, setRfcCer] = useState("");
-  const [noSerie, setNoSerie] = useState("");
   const [contrasena, setContrasena] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
