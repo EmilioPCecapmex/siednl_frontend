@@ -224,7 +224,7 @@ export default function ModalEditarUsuario({
            
             Toast.fire({
               icon: "success",
-              title: "¡Registro exitoso!",
+              title: r.data.data[0][0].Mensaje,
             });
           
           handleClose();

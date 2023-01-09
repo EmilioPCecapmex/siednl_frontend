@@ -83,7 +83,7 @@ export const DialogSolicitudes = ({
 
     const navigate = useNavigate();
     //registro seleccionado
-    const [selectedIndex, setSelectedIndex] = useState(-1);
+    const [selectedIndex, setSelectedIndex] = useState(-2);
     //filtrado port aplicacion
     const [filtroSelected, setFiltroSelected] = useState(3);
 
@@ -114,6 +114,7 @@ export const DialogSolicitudes = ({
     }, [filtroSelected])
 
     useEffect(() => {
+        if(selectedIndex >= 0)
         getDetalleSolicitud()
 
     }, [selectedIndex])
