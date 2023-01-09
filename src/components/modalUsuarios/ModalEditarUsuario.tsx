@@ -70,7 +70,6 @@ export default function ModalEditarUsuario({
 
     setInstitution(dataUser.IdInstitucion);
     setRol(dataUser.Cargo);
-    console.log(dataUser);
     
   }, [])
   
@@ -191,7 +190,6 @@ export default function ModalEditarUsuario({
   }
 
   const solicitarModificacion = () => {
-    console.log("hola Usuario");
     axios
       .post(
         "http://10.200.4.200:5000/api/create-solicitud",
@@ -218,10 +216,6 @@ export default function ModalEditarUsuario({
         }
       )
       .then((r) => {
-        console.log(r);
-          console.log("---------------");
-        console.log(r.data.data[0][0].IdSolicitud)
-          console.log("---------------");
          
         if (r.status === 200) {
           // siednlSignUp(r.data.data[0][0].IdSolicitud);
@@ -237,7 +231,6 @@ export default function ModalEditarUsuario({
         }
       })
       .catch((r) => {
-        console.log(r)
         if (r.response.status === 409) {
           setErrorsForm({
             visible: true,
@@ -291,7 +284,6 @@ export default function ModalEditarUsuario({
   // useEffect(() => {
   //   if(idUsuarioCentral!=""){
   //     createSolicitud();
-  //     console.log("hola Solicitud");
   //   }
   // }, [idUsuarioCentral]);
 

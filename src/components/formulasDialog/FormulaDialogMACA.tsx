@@ -332,18 +332,20 @@ export const FormulaDialogMACA = ({
             tipo.toLowerCase() === "índice") ? (
             <Box
               sx={{
-                width: "100%",
+                width: "80%",
                 display: "grid",
-                gridTemplateColumns: "repeat(1,1fr)",
+                gridTemplateColumns: "1fr 1fr",
                 gridTemplateRows: "repeat(4,1fr)",
                 justifyItems: "center",
                 alignItems: "center",
               }}
             >
+              
+              <Typography>Trimestre 1</Typography>
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "95%" }}
+                sx={{ width: "80%", mb: 2  }}
                 value={descA}
                 error={
                   parseFloat(descA) < 0 ||
@@ -378,10 +380,11 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
+              <Typography>Trimestre 2</Typography>
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "95%" }}
+                sx={{ width: "80%", mb: 2  }}
                 value={descB}
                 error={
                   parseFloat(descB) < 0 ||
@@ -416,10 +419,11 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
+              <Typography>Trimestre 3</Typography>
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "95%" }}
+                sx={{ width: "80%", mb: 2  }}
                 value={descC}
                 error={
                   parseFloat(descC) < 0 ||
@@ -454,10 +458,11 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
+              <Typography>Trimestre 4</Typography>
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "95%" }}
+                sx={{ width: "80%" }}
                 value={descD}
                 error={
                   parseFloat(descD) < 0 ||
@@ -791,18 +796,19 @@ export const FormulaDialogMACA = ({
               tipo.toLowerCase() === "índice") ? (
             <Box
               sx={{
-                width: "100%",
+                width: "80%",
                 display: "grid",
-                gridTemplateColumns: "repeat(1,1fr)",
+                gridTemplateColumns: "1fr 1fr",
                 gridTemplateRows: "repeat(2,1fr)",
                 justifyItems: "center",
                 alignItems: "center",
               }}
             >
+            <Typography>Semestre 1</Typography>
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "95%" }}
+                sx={{ width: "95%", mb:2 }}
                 value={descA}
                 error={
                   parseFloat(descA) < 0 ||
@@ -837,6 +843,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
+              <Typography>Semestre 2</Typography>
               <TextField
                 type={"number"}
                 label={"Valor"}

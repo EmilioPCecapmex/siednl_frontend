@@ -40,9 +40,7 @@ export const FormulaDialogMA = ({
         setEmptyTxt(true);
       } else {
         if (tipo === "Indice" || tipo === "Índice") {
-          textoSet(
-            parseFloat(descA).toFixed(2)
-          );
+          textoSet(parseFloat(descA).toFixed(2));
           limpiaVar();
           close();
         }
@@ -54,7 +52,7 @@ export const FormulaDialogMA = ({
         if (tipo === "Porcentaje") {
           let MA = (parseFloat(descA) / parseFloat(descB)) * 100;
           textoSet(descA + "," + descB + "," + MA.toFixed(2));
-          
+
           limpiaVar();
           close();
         } else if (tipo === "Tasa") {
@@ -62,13 +60,13 @@ export const FormulaDialogMA = ({
           let MA =
             ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
           textoSet(T.toFixed(2) + "," + descB + "," + MA.toFixed(2));
-          
+
           limpiaVar();
           close();
         } else if (tipo === "Promedio") {
           let MA = parseFloat(descA) / parseFloat(descB);
           textoSet(descA + "," + descB + "," + MA.toFixed(2));
-          
+
           limpiaVar();
           close();
         }
@@ -88,7 +86,6 @@ export const FormulaDialogMA = ({
       <Box
         sx={{
           width: "100%",
-          height: "18vh",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -152,64 +149,41 @@ export const FormulaDialogMA = ({
         <Box
           sx={{
             width: "100%",
+            height:'7vh',
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "center",
           }}
         >
-          
           {tipo === "Indice" || tipo === "Índice" ? (
             <TextField
-            type={"number"}
-            label={"Valor"}
-            sx={{ width: "45%" }}
-            value={descA}
-            error={
-              parseFloat(descA) < 0 ||
-              (isNaN(parseFloat(descA)) && descA !== "")
-                ? true
-                : false
-            }
-            helperText={
-              parseFloat(descA) < 0 ||
-              (isNaN(parseFloat(descA)) && descA !== "")
-                ? "Introducir valor mayor que 0"
-                : null
-            }
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratSemiBold",
-                fontSize: ".8vw",
-              },
-            }}
-            onChange={(c) =>
-              setDescA(
-                c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
-              )
-            }
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-                fontSize: ".8vw",
-              },
-            }}
-          />
-          ) : (
-            <TextField
-            type={"number"}
-              label={tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
+              type={"number"}
+              label={
+                <Typography sx={{ fontFamily: "MontserratBold" }}>
+                  {"Valor del índice"}
+                </Typography>
+              }
               sx={{ width: "45%" }}
+              value={descA}
+              error={
+                parseFloat(descA) < 0 ||
+                (isNaN(parseFloat(descA)) && descA !== "")
+                  ? true
+                  : false
+              }
+              helperText={
+                parseFloat(descA) < 0 ||
+                (isNaN(parseFloat(descA)) && descA !== "")
+                  ? "Introducir valor mayor que 0"
+                  : null
+              }
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratSemiBold",
                   fontSize: ".8vw",
                 },
               }}
-              value={descB}
               onChange={(c) =>
-                setDescB(
+                setDescA(
                   c.target.value
                     .replaceAll('"', "")
                     .replaceAll("'", "")
@@ -223,6 +197,69 @@ export const FormulaDialogMA = ({
                 },
               }}
             />
+          ) : (
+            <Box sx={{display:'flex', justifyContent:'center'}}>
+              <TextField
+                type={"number"}
+                label={
+                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                    {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
+                  </Typography>
+                }
+                sx={{ width: "45%", mr: 1 }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                value={descA}
+                onChange={(c) =>
+                  setDescA(
+                    c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                    fontSize: ".8vw",
+                  },
+                }}
+              />
+              <TextField
+                type={"number"}
+                label={
+                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                    {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
+                  </Typography>
+                } 
+                sx={{ width: "45%" }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                value={descB}
+                onChange={(c) =>
+                  setDescB(
+                    c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                    fontSize: ".8vw",
+                  },
+                }}
+              />
+            </Box>
           )}{" "}
         </Box>
       </DialogContent>

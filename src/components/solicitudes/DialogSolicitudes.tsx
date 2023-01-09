@@ -260,7 +260,7 @@ export const DialogSolicitudes = ({
                                                                     {"NOMBRE:"}
                                                                 </Typography>
                                                                 <Typography sx={{ fontFamily: 'MontserratMedium', ml: 1, fontSize: '.9rem' }}>
-                                                                    {item.NombreUsuario.toUpperCase()}
+                                                                    {item.NombreUsuario?.toUpperCase()}
                                                                 </Typography>
                                                             </Box>
 
@@ -273,7 +273,7 @@ export const DialogSolicitudes = ({
                                                                     {"TIPO DE SOLICITUD:"}
                                                                 </Typography>
                                                                 <Typography sx={{ fontFamily: 'MontserratMedium', ml: 1, fontSize: '.9rem' }}>
-                                                                    {item.tipoSoli.toUpperCase()}
+                                                                    {item.tipoSoli?.toUpperCase()}
                                                                 </Typography>
                                                             </Box>
 
@@ -286,7 +286,7 @@ export const DialogSolicitudes = ({
                                                                     {"SOLICITANTE:"}
                                                                 </Typography>
                                                                 <Typography sx={{ fontFamily: 'MontserratMedium', ml: 1, fontSize: '.9rem' }}>
-                                                                    {item.NombreSolicitante.toUpperCase()}
+                                                                    {item.NombreSolicitante?.toUpperCase()}
                                                                 </Typography>
                                                             </Box>
                                                             <Box sx={{ display: 'flex', width: '100%', alignItems: 'center' }}>
@@ -441,7 +441,7 @@ export const DialogSolicitudes = ({
 
 
                                                     <Box sx={{ display: "flex", width: "40%", justifyContent: "flex-start" }}>
-                                                        {solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "ALTA" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 3
+                                                        {solicitudesFiltered[selectedIndex]?.tipoSoli?.toUpperCase() === "ALTA" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 3
                                                         ? <Button variant="contained" color="info" onClick={() => { setOpenDialogRechazar(true); }}>MODIFICAR</Button> : null}
                                                     </Box>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Box,
   Button,
@@ -17,6 +17,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import CircularProgress from "@mui/material/CircularProgress";
+// import ReCAPTCHA from "react-google-recaptcha";
 
 export const Credenciales = ({
   show,
@@ -27,7 +29,7 @@ export const Credenciales = ({
   setKFile,
   setCFile,
   setNoSerie,
-  noSerie
+  noSerie,
 }: {
   show: boolean;
   validado: Function;
@@ -114,18 +116,28 @@ export const Credenciales = ({
         },
       })
       .then((r) => {
-        setRfcCer(r.data.rfc);
-        setNoSerie(r.data.serial);
+        setRfcCer(r.data.rfc.toUpperCase());
         setNombre(r.data.data.split("name=")[1].split("O=")[0]);
         setPassword(contrasena);
-        if (rfc === r.data.rfc) {
+        setTimeout(() => {
           setDisableValidar(true);
-          validado(true);
+        }, 500);
+        setTimeout(() => {
+          setNoSerie(r.data.serial);
+        }, 1000);
+        if (rfc === r.data.rfc) {
+          setTimeout(() => {
+            setLoading(false);
+          }, 1500);
+          setTimeout(() => {
+            validado(true);
+          }, 2000);
         }
       })
       .catch((err) => {
         setRfcCer("error");
         setDisableValidar(false);
+        setLoading(false);
         Toast.fire({
           icon: "error",
           html: `
@@ -164,6 +176,33 @@ export const Credenciales = ({
   }
 
   const [disableValidar, setDisableValidar] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (
+      !/^[\s]*$/.test(keyFile) &&
+      !/^[\s]*$/.test(cerFile) &&
+      !/^[\s]*$/.test(contrasena) &&
+      disableValidar === false
+    ) {
+      const listener = (event: any) => {
+        if (event.code === "Enter" || event.code === "NumpadEnter") {
+          event.preventDefault();
+          setLoading(true);
+          check();
+        }
+      };
+      document.addEventListener("keydown", listener);
+      return () => {
+        document.removeEventListener("keydown", listener);
+      };
+    }
+  }, [contrasena]);
+
+  // function onChange(value: any) {
+  //   console.log("Captcha value:", value);
+  // }
 
   return (
     <Box
@@ -492,54 +531,72 @@ export const Credenciales = ({
       </FormControl>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        {disableValidar ? (
+        {loading ? (
+          <CircularProgress></CircularProgress>
+        ) : !/^[\s]*$/.test(keyFile) &&
+          !/^[\s]*$/.test(cerFile) &&
+          !/^[\s]*$/.test(contrasena) &&
+          disableValidar ? (
           <CheckCircleOutlineIcon color="success"></CheckCircleOutlineIcon>
-        ) : <Button
-        disabled={
-          keyFile === "" || cerFile === "" || contrasena === ""
-            ? true
-            : false || disableValidar
-        }
-        sx={{
-          backgroundColor:
-            keyFile === "" ||
-            cerFile === "" ||
-            contrasena === "" ||
-            disableValidar
-              ? "lightGrey"
-              : "#6d8cff",
-          height: "3vh",
-          color:
-            keyFile === "" ||
-            cerFile === "" ||
-            contrasena === "" ||
-            disableValidar
-              ? "black"
-              : "white",
-          "&&:hover": {
-            backgroundColor:
-              keyFile === "" ||
-              cerFile === "" ||
-              contrasena === "" ||
-              disableValidar
-                ? "lightGrey"
-                : "#6dddff",
-          },
-          fontSize: {
-            xs: "60%",
-            sm: "60%",
-            md: "60%",
-            lg: "60%",
-            xl: "100%",
-          },
-        }}
-        onClick={() => {
-          check();
-        }}
-      >
-        Validar
-      </Button>}
-        
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            {/* <ReCAPTCHA sitekey="Invisible" onChange={() => {onChange; disableValidar(false);}} /> */}
+
+            <Button
+              type="submit"
+              disabled={
+                keyFile === "" || cerFile === "" || contrasena === ""
+                  ? true
+                  : false || disableValidar
+              }
+              sx={{
+                backgroundColor:
+                  keyFile === "" ||
+                  cerFile === "" ||
+                  contrasena === "" ||
+                  disableValidar
+                    ? "lightGrey"
+                    : "#6d8cff",
+                height: "3vh",
+                color:
+                  keyFile === "" ||
+                  cerFile === "" ||
+                  contrasena === "" ||
+                  disableValidar
+                    ? "black"
+                    : "white",
+                "&&:hover": {
+                  backgroundColor:
+                    keyFile === "" ||
+                    cerFile === "" ||
+                    contrasena === "" ||
+                    disableValidar
+                      ? "lightGrey"
+                      : "#6dddff",
+                },
+                fontSize: {
+                  xs: "60%",
+                  sm: "60%",
+                  md: "60%",
+                  lg: "60%",
+                  xl: "100%",
+                },
+              }}
+              onClick={() => {
+                check();
+                setLoading(true);
+              }}
+            >
+              Validar
+            </Button>
+          </Box>
+        )}
       </Box>
     </Box>
   );
