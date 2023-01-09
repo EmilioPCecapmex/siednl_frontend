@@ -192,35 +192,36 @@ export const TabActividadesMA = ({
 
   const handleClickOpen = () => {
     setTipoFormula(
-      JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
-        "PORCENTAJE"
-      ) ||
-        JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() ===
-          "PORCENTAJE"
+      JSON.parse(MIR)
+        .actividades[actividadSelect].indicador.toUpperCase()
+        .includes("PORCENTAJE") ||
+        JSON.parse(MIR)
+          .actividades[actividadSelect].indicador.toUpperCase()
+          .includes("PORCENTAJE")
         ? "Porcentaje"
-        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
-            "TASA"
-          ) ||
-          JSON.parse(MIR).actividades[
-            actividadSelect
-          ].indicador.toUpperCase() === "TASA"
+        : JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("TASA") ||
+          JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("TASA")
         ? "Tasa"
-        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
-            "INDICE" || "ÍNDICE"
-          ) ||
-          JSON.parse(MIR).actividades[
-            actividadSelect
-          ].indicador.toUpperCase() === "INDICE" ||
-          JSON.parse(MIR).actividades[
-            actividadSelect
-          ].indicador.toUpperCase() === "ÍNDICE"
+        : JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("INDICE" || "ÍNDICE") ||
+          JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("INDICE") ||
+          JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("ÍNDICE")
         ? "Índice"
-        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
-            "PROMEDIO"
-          ) ||
-          JSON.parse(MIR).actividades[
-            actividadSelect
-          ].indicador.toUpperCase() === "PROMEDIO"
+        : JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("PROMEDIO") ||
+          JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("PROMEDIO")
         ? "Promedio"
         : ""
     );
@@ -240,11 +241,16 @@ export const TabActividadesMA = ({
 
   const changeFormula = (txt: string) => {
     if (
-      JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() ===
-        "INDICE" ||
-      JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() ===
-        "ÍNDICE"
+      JSON.parse(MIR)
+        .actividades[actividadSelect].indicador.toUpperCase()
+        .includes("INDICE") ||
+      JSON.parse(MIR)
+        .actividades[actividadSelect].indicador.toUpperCase()
+        .includes("ÍNDICE")
     ) {
+      aValorMA[0].componentes[componenteSelect].actividades[
+        actividadSelect
+      ].valorNumerador = txt;
       aValorMA[0].componentes[componenteSelect].actividades[
         actividadSelect
       ].metaAnual = txt;
@@ -259,7 +265,6 @@ export const TabActividadesMA = ({
         actividadSelect
       ].metaAnual = txt.split(",")[2];
     }
-
     setAValorMA([...aValorMA]);
   };
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
@@ -269,32 +274,33 @@ export const TabActividadesMA = ({
       JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
         "PORCENTAJE"
       ) ||
-        JSON.parse(MIR).actividades[actividadSelect].indicador.toUpperCase() ===
-          "PORCENTAJE"
+        JSON.parse(MIR)
+          .actividades[actividadSelect].indicador.toUpperCase()
+          .includes("PORCENTAJE")
         ? "Porcentaje"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "TASA"
           ) ||
-          JSON.parse(MIR).actividades[
-            actividadSelect
-          ].indicador.toUpperCase() === "TASA"
+          JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("TASA")
         ? "Tasa"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "INDICE" || "ÍNDICE"
           ) ||
-          JSON.parse(MIR).actividades[
-            actividadSelect
-          ].indicador.toUpperCase() === "INDICE" ||
-          JSON.parse(MIR).actividades[
-            actividadSelect
-          ].indicador.toUpperCase() === "ÍNDICE"
+          JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("INDICE") ||
+          JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("ÍNDICE")
         ? "Índice"
         : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
             "PROMEDIO"
           ) ||
-          JSON.parse(MIR).actividades[
-            actividadSelect
-          ].indicador.toUpperCase() === "PROMEDIO"
+          JSON.parse(MIR)
+            .actividades[actividadSelect].indicador.toUpperCase()
+            .includes("PROMEDIO")
         ? "Promedio"
         : ""
     );
@@ -330,7 +336,7 @@ export const TabActividadesMA = ({
 
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
-      Id: 0,
+      Id: '',
       Unidad: "",
     },
   ]);
@@ -455,7 +461,6 @@ export const TabActividadesMA = ({
                 }}
               >
                 <Divider />
-
                 <ListItemButton
                   selected={item === componenteSelect + 1 ? true : false}
                   key={item}
@@ -666,14 +671,15 @@ export const TabActividadesMA = ({
                 setAValorMA(y);
               }}
             />
-            {JSON.parse(MIR).actividades[
-              actividadSelect
-            ].indicador.toUpperCase() === "INDICE" ||
-            JSON.parse(MIR).actividades[
-              actividadSelect
-            ].indicador.toUpperCase() === "ÍNDICE" ? (
+
+            {JSON.parse(MIR)
+              .actividades[actividadSelect].indicador.toUpperCase()
+              .includes("INDICE") ||
+            JSON.parse(MIR)
+              .actividades[actividadSelect].indicador.toUpperCase()
+              .includes("ÍNDICE") ? (
               <TextField
-                sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
+                sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
                   <Typography
@@ -1004,7 +1010,7 @@ export const TabActividadesMA = ({
                 <Autocomplete
                   disabled={false}
                   options={catalogoUnidadResponsable}
-                  getOptionLabel={(option) => option.Unidad}
+                  getOptionLabel={(option) => option.Unidad || ''}
                   value={{
                     Id: catalogoUnidadResponsable[0].Id,
                     Unidad:

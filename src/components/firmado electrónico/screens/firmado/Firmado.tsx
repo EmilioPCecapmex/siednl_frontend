@@ -80,6 +80,10 @@ export const Firmado = () => {
   const [url, setUrl] = useState("");
   const [nombreDoc, setNombreDoc] = useState("");
 
+  const [noSerie, setNoSerie] = useState("");
+
+  const [rfc, setRfc] = useState("");
+
   useEffect(() => {
     setId(uuidv4());
   }, []);
@@ -184,11 +188,13 @@ export const Firmado = () => {
           <Credenciales
             show={activeStep === 0 ? true : false}
             validado={setValido1}
-            // setRFC={setRfc} //"GOTJ971127BF8"
+            setRFC={setRfc} //"GOTJ971127BF8"
             setNombre={setNombre}
             setPassword={setPassword}
             setKFile={setKeyFile}
             setCFile={setCerFile}
+            setNoSerie={setNoSerie}
+            noSerie={noSerie}
           ></Credenciales>
           <Documento
             validado={setValido2}
@@ -202,6 +208,8 @@ export const Firmado = () => {
             setReason={setReason}
             id={id}
             setUrl={setUrl}
+            Rfc={rfc}
+            noSerie={noSerie}
           ></Documento>
           <Firma
             show={activeStep === 2 ? true : false}

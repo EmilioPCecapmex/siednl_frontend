@@ -24,6 +24,8 @@ export const Documento = ({
   setReason,
   id,
   setUrl,
+  Rfc,
+  noSerie,
 }: {
   show: boolean;
   setNombreDoc: Function;
@@ -36,7 +38,26 @@ export const Documento = ({
   setReason: Function;
   id: string;
   setUrl: Function;
+  Rfc: string;
+  noSerie: string;
 }) => {
+  const fecha = new Date();
+  const anio = fecha.getFullYear();
+
+  let dia = fecha.getDate();
+  let hoy = dia.toString();
+  if (dia < 10) {
+    hoy = "0" + dia;
+  }
+
+  let mes = fecha.getMonth() + 1;
+  let mesActual = mes.toString();
+  if (mes < 10) {
+    mesActual = "0" + mes;
+  }
+
+  const fechaActual = `${anio}-${mesActual}-${hoy}`;
+
   const [noOficio, setNoOficio] = useState("");
   const [asunto, setAsunto] = useState("");
   const [ccp, setCcp] = useState("");
@@ -140,11 +161,21 @@ export const Documento = ({
 
   const [loading, setLoading] = useState(false);
 
-  const check2 = () => {
+  const sendFiel = () => {
     let dataArray = new FormData();
     dataArray.append("cer", cerFile);
     dataArray.append("key", keyFile);
     dataArray.append("phrase", password);
+    dataArray.append("Rfc", Rfc);
+    dataArray.append("NumeroOficio", noOficio);
+    dataArray.append("Asunto", asunto);
+    dataArray.append("Destinatario", JSON.stringify(usuarios));
+    dataArray.append("Ccp", ccp);
+    dataArray.append("CreadoPor", localStorage.getItem("IdCentral") || "");
+    dataArray.append("FechaFirma", fechaActual);
+    dataArray.append("IdApp", localStorage.getItem("IdApp") || "");
+    dataArray.append("SerialCertificado", noSerie);
+    dataArray.append("IdFirma", id);
 
     axios
       .post("http://10.210.0.27/api/sendfiel", dataArray, {
@@ -158,6 +189,7 @@ export const Documento = ({
         setCheckFile(true);
       })
       .catch((err) => {
+        setLoading(false);
         Toast.fire({
           icon: "error",
           html: `
@@ -193,6 +225,7 @@ export const Documento = ({
       headers: {
         "Content-Type": "multipart/form-data",
         "Content-Disposition": "attachment",
+        Authorization: localStorage.getItem("jwtToken") as string,
       },
       data: dataArray,
     })
@@ -220,6 +253,27 @@ export const Documento = ({
         });
       });
   };
+
+  useEffect(() => {
+    if (
+      !/^[\s]*$/.test(file) &&
+      !/^[\s]*$/.test(noOficio) &&
+      !/^[\s]*$/.test(asunto) &&
+      disableFirmar === false
+    ) {
+      const listener = (event: any) => {
+        if (event.code === "Enter" || event.code === "NumpadEnter") {
+          event.preventDefault();
+          setLoading(true);
+          sendFiel();
+        }
+      };
+      document.addEventListener("keydown", listener);
+      return () => {
+        document.removeEventListener("keydown", listener);
+      };
+    }
+  }, [file, noOficio, asunto]);
 
   return (
     <Box
@@ -384,12 +438,12 @@ export const Documento = ({
             )}
             onChange={(event, value) => {
               value.map((value2, index) => {
-                if (
-                  /^[\s]*$/.test(value2.Id) &&
-                  /^[\s]*$/.test(value2.Nombre)
-                ) {
-                  setUsuarios(value);
-                }
+                // if (
+                //   /^[\s]*$/.test(value2.Id) &&
+                //   /^[\s]*$/.test(value2.Nombre)
+                // ) {
+                setUsuarios(value);
+                // }
               });
             }}
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
@@ -435,9 +489,9 @@ export const Documento = ({
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {loading ? (
           <CircularProgress></CircularProgress>
-        ) : /^[\s]*$/.test(noOficio) ||
-          /^[\s]*$/.test(asunto) ||
-          /^[\s]*$/.test(nombreArchivo) ||
+        ) : !/^[\s]*$/.test(noOficio) &&
+          !/^[\s]*$/.test(asunto) &&
+          !/^[\s]*$/.test(nombreArchivo) &&
           disableFirmar ? (
           <CheckCircleOutlineIcon color="success"></CheckCircleOutlineIcon>
         ) : (
@@ -465,7 +519,7 @@ export const Documento = ({
             }}
             onClick={() => {
               setLoading(true);
-              check2();
+              sendFiel();
             }}
           >
             Firmar

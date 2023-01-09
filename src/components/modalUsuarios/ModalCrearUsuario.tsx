@@ -194,7 +194,6 @@ export default function ModalCrearUsuario({
   //       }
   //     )
   //     .then((r) => {
-  //       console.log(r.data.data[0][0].IdSolicitud)
 
   //       if ( r.data.data[0][0].Respuesta== 201) {
 
@@ -217,7 +216,6 @@ export default function ModalCrearUsuario({
   // }
 
   const signUp = () => {
-    console.log("hola Usuario");
     axios
       .post(
         "http://10.200.4.200:5000/api/create-solicitud",
@@ -245,10 +243,6 @@ export default function ModalCrearUsuario({
         }
       )
       .then((r) => {
-        console.log(r);
-          console.log("---------------");
-        console.log(r.data.data[0][0].IdSolicitud)
-          console.log("---------------");
         
         if (r.status === 200) {
           // siednlSignUp(r.data.data[0][0].IdSolicitud);
@@ -317,7 +311,6 @@ export default function ModalCrearUsuario({
   // useEffect(() => {
   //   if(idUsuarioCentral!=""){
   //     createSolicitud();
-  //     console.log("hola Solicitud");
   //   }
   // }, [idUsuarioCentral]);
 
