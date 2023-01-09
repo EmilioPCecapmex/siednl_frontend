@@ -11,11 +11,12 @@ export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTab
 
 
   const download = (data: any) => {
-    const blob = new Blob([data], { type: "application/octet-stream" });
+    const BOM = "\uFEFF";
+    const blob = new Blob([BOM+data], { type: "application/octet-stream" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.setAttribute("href", url);
-    a.setAttribute("download", `${tabla}.txt`.replace(' ','').toLowerCase());
+    a.setAttribute("download", `${tabla}.csv`.replace(' ','').toLowerCase());
     a.click();
   };
 
@@ -27,6 +28,7 @@ export const CSVCatalogo = ({ tabla, datos }: { tabla: string, datos:  IDatosTab
     csvRows.push(headers[headerNumber]);
     
     let values = {};
+    
     for(let i = 0; i<data.length; i++){
     values = data[i].Desc;
     csvRows.push(values);
