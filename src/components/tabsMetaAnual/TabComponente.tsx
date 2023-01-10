@@ -123,36 +123,36 @@ export const TabComponenteMA = ({
 
   const handleClickOpen = () => {
     setTipoFormula(
-      JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-        "PORCENTAJE"
-      ) ||
-        JSON.parse(MIR).componentes[
-          componentSelect - 1
-        ].indicador.toUpperCase() === "PORCENTAJE"
+      JSON.parse(MIR)
+        .componentes[componentSelect - 1].indicador.toUpperCase()
+        .includes("PORCENTAJE") ||
+        JSON.parse(MIR)
+          .componentes[componentSelect - 1].indicador.toUpperCase()
+          .includes("PORCENTAJE")
         ? "Porcentaje"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-            "TASA"
-          ) ||
-          JSON.parse(MIR).componentes[
-            componentSelect - 1
-          ].indicador.toUpperCase() === "TASA"
+        : JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("TASA") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("TASA")
         ? "Tasa"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-            "INDICE" || "ÍNDICE"
-          ) ||
-          JSON.parse(MIR).componentes[
-            componentSelect - 1
-          ].indicador.toUpperCase() === "INDICE" ||
-          JSON.parse(MIR).componentes[
-            componentSelect - 1
-          ].indicador.toUpperCase() === "ÍNDICE"
+        : JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("INDICE" || "ÍNDICE") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("INDICE") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("ÍNDICE")
         ? "Índice"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-            "PROMEDIO"
-          ) ||
-          JSON.parse(MIR).componentes[
-            componentSelect - 1
-          ].indicador.toUpperCase() === "PROMEDIO"
+        : JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("PROMEDIO") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("PROMEDIO")
         ? "Promedio"
         : ""
     );
@@ -166,36 +166,36 @@ export const TabComponenteMA = ({
 
   const handleClickOpen2 = () => {
     setTipoFormula(
-      JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-        "PORCENTAJE"
-      ) ||
-        JSON.parse(MIR).componentes[
-          componentSelect - 1
-        ].indicador.toLowerCase() === "porcentaje"
+      JSON.parse(MIR)
+        .componentes[componentSelect - 1].indicador.toUpperCase()
+        .includes("PORCENTAJE") ||
+        JSON.parse(MIR)
+          .componentes[componentSelect - 1].indicador.toLowerCase()
+          .includes("porcentaje")
         ? "Porcentaje"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-            "TASA"
-          ) ||
-          JSON.parse(MIR).componentes[
-            componentSelect - 1
-          ].indicador.toLowerCase() === "tasa"
+        : JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("TASA") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toLowerCase()
+            .includes("tasa")
         ? "Tasa"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-            "INDICE" || "ÍNDICE"
-          ) ||
-          JSON.parse(MIR).componentes[
-            componentSelect - 1
-          ].indicador.toLowerCase() === "indice" ||
-          JSON.parse(MIR).componentes[
-            componentSelect - 1
-          ].indicador.toLowerCase() === "índice"
+        : JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("INDICE" || "ÍNDICE") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toLowerCase()
+            .includes("indice") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toLowerCase()
+            .includes("índice")
         ? "Indice"
-        : JSON.parse(MIR).componentes[componentSelect - 1].indicador.includes(
-            "PROMEDIO"
-          ) ||
-          JSON.parse(MIR).componentes[
-            componentSelect - 1
-          ].indicador.toLowerCase() === "promedio"
+        : JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toUpperCase()
+            .includes("PROMEDIO") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toLowerCase()
+            .includes("promedio")
         ? "Promedio"
         : ""
     );
@@ -209,15 +209,15 @@ export const TabComponenteMA = ({
 
   const changeFormula = (txt: string) => {
     if (
-      JSON.parse(MIR).componentes[
-        componentSelect - 1
-      ].indicador.toLowerCase() === "indice" ||
-      JSON.parse(MIR).componentes[
-        componentSelect - 1
-      ].indicador.toLowerCase() === "índice"
+      JSON.parse(MIR)
+        .componentes[componentSelect - 1].indicador.toLowerCase()
+        .includes("indice") ||
+      JSON.parse(MIR)
+        .componentes[componentSelect - 1].indicador.toLowerCase()
+        .includes("índice")
     ) {
-      componentesValues[componentSelect - 1].metaAnual = txt.split(",")[2] =
-        txt;
+      componentesValues[componentSelect - 1].valorNumerador = txt;
+      componentesValues[componentSelect - 1].metaAnual = txt;
     } else {
       componentesValues[componentSelect - 1].valorNumerador = txt.split(",")[0];
       componentesValues[componentSelect - 1].valorDenominador =
@@ -250,7 +250,7 @@ export const TabComponenteMA = ({
 
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
-      Id: 0,
+      Id: '',
       Unidad: "",
     },
   ]);
@@ -375,7 +375,6 @@ export const TabComponenteMA = ({
                 }}
               >
                 <Divider />
-
                 <ListItemButton
                   selected={item === componentSelect ? true : false}
                   key={item}
@@ -526,12 +525,13 @@ export const TabComponenteMA = ({
               }}
               value={componentesValues[componentSelect - 1]?.lineaBase || ""}
             />
-            {JSON.parse(MIR).componentes[
-              componentSelect - 1
-            ].indicador.toLowerCase() === "indice" ||
-            JSON.parse(MIR).componentes[
-              componentSelect - 1
-            ].indicador.toLowerCase() === "índice" ? (
+
+            {JSON.parse(MIR)
+              .componentes[componentSelect - 1].indicador.toLowerCase()
+              .includes("indice") ||
+            JSON.parse(MIR)
+              .componentes[componentSelect - 1].indicador.toLowerCase()
+              .includes("índice") ? (
               <TextField
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
@@ -558,9 +558,9 @@ export const TabComponenteMA = ({
                 }
               />
             ) : (
-              <Box sx={{ width: "45%"}}>
+              <Box sx={{ width: "45%" }}>
                 <TextField
-                  sx={{ width: "45%", boxShadow: 2, mr:'2%' }}
+                  sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
                   variant={"filled"}
                   label={
                     <Typography
@@ -960,7 +960,7 @@ export const TabComponenteMA = ({
                 <Autocomplete
                   disabled={false}
                   options={catalogoUnidadResponsable}
-                  getOptionLabel={(option) => option.Unidad}
+                  getOptionLabel={(option) => option.Unidad || ''}
                   value={{
                     Id: catalogoUnidadResponsable[0].Id,
                     Unidad:

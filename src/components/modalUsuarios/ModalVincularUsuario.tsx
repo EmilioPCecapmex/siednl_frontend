@@ -208,7 +208,6 @@ export default function ModalVincularUsuario({
         }
       )
       .then((r) => {
-        console.log(r);
 
         if (r.status === 200) {
           let auxLlenado = dataUser;
@@ -235,7 +234,6 @@ export default function ModalVincularUsuario({
       });
   };
   const signUp = () => {
-    console.log("hola Usuario");
     axios
       .post(
         "http://10.200.4.200:5000/api/create-solicitud",
@@ -274,7 +272,6 @@ export default function ModalVincularUsuario({
         }
       })
       .catch((r) => {
-        console.log(r)
         if (r.response.status === 409) {
           setErrorsForm({
             visible: true,

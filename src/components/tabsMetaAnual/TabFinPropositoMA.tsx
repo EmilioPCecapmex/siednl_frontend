@@ -73,7 +73,7 @@ export function TabFinPropositoMA({
 
   const [catalogoUnidadResponsable, setCatalogounidadResponsable] = useState([
     {
-      Id: 0,
+      Id: "",
       Unidad: "",
     },
   ]);
@@ -93,19 +93,19 @@ export function TabFinPropositoMA({
     if (showFin) {
       setTipoFormula(
         JSON.parse(MIR).fin.indicador.toUpperCase().includes("PORCENTAJE") ||
-          JSON.parse(MIR).fin.indicador.toUpperCase() === "PORCENTAJE"
+          JSON.parse(MIR).fin.indicador.toUpperCase().includes("PORCENTAJE")
           ? "Porcentaje"
           : JSON.parse(MIR).fin.indicador.toUpperCase().includes("TASA") ||
-            JSON.parse(MIR).fin.indicador.toUpperCase() === "TASA"
+            JSON.parse(MIR).fin.indicador.toUpperCase().includes("TASA")
           ? "Tasa"
           : JSON.parse(MIR)
               .fin.indicador.toUpperCase()
               .includes("INDICE" || "ÍNDICE") ||
-            JSON.parse(MIR).fin.indicador.toUpperCase() === "INDICE" ||
-            JSON.parse(MIR).fin.indicador.toUpperCase() === "ÍNDICE"
+            JSON.parse(MIR).fin.indicador.toUpperCase().includes("INDICE") ||
+            JSON.parse(MIR).fin.indicador.toUpperCase().includes("ÍNDICE")
           ? "Indice"
           : JSON.parse(MIR).fin.indicador.toUpperCase().includes("PROMEDIO") ||
-            JSON.parse(MIR).fin.indicador.toUpperCase() === "PROMEDIO"
+            JSON.parse(MIR).fin.indicador.toUpperCase().includes("PROMEDIO")
           ? "Promedio"
           : ""
       );
@@ -114,23 +114,34 @@ export function TabFinPropositoMA({
     }
     if (showProposito) {
       setTipoFormula(
-        JSON.parse(MIR).proposito.indicador.toUpperCase().includes("PORCENTAJE") ||
-        JSON.parse(MIR).proposito.indicador.toUpperCase() === "PORCENTAJE"
-        ? "Porcentaje"
-        : JSON.parse(MIR).proposito.indicador.toUpperCase().includes("TASA") ||
-          JSON.parse(MIR).proposito.indicador.toUpperCase() === "TASA"
-        ? "Tasa"
-        : JSON.parse(MIR)
+        JSON.parse(MIR)
+          .proposito.indicador.toUpperCase()
+          .includes("PORCENTAJE") ||
+          JSON.parse(MIR)
             .proposito.indicador.toUpperCase()
-            .includes("INDICE" || "ÍNDICE") ||
-          JSON.parse(MIR).proposito.indicador.toUpperCase() === "INDICE" ||
-          JSON.parse(MIR).proposito.indicador.toUpperCase() === "ÍNDICE"
-        ? "Índice"
-        : JSON.parse(MIR).proposito.indicador.toUpperCase().includes("PROMEDIO") ||
-          JSON.parse(MIR).proposito.indicador.toUpperCase() === "PROMEDIO"
-        ? "Promedio"
-        : ""
-          
+            .includes("PORCENTAJE")
+          ? "Porcentaje"
+          : JSON.parse(MIR)
+              .proposito.indicador.toUpperCase()
+              .includes("TASA") ||
+            JSON.parse(MIR).proposito.indicador.toUpperCase().includes("TASA")
+          ? "Tasa"
+          : JSON.parse(MIR)
+              .proposito.indicador.toUpperCase()
+              .includes("INDICE" || "ÍNDICE") ||
+            JSON.parse(MIR)
+              .proposito.indicador.toUpperCase()
+              .includes("INDICE") ||
+            JSON.parse(MIR).proposito.indicador.toUpperCase().includes("ÍNDICE")
+          ? "Índice"
+          : JSON.parse(MIR)
+              .proposito.indicador.toUpperCase()
+              .includes("PROMEDIO") ||
+            JSON.parse(MIR)
+              .proposito.indicador.toUpperCase()
+              .includes("PROMEDIO")
+          ? "Promedio"
+          : ""
       );
       setElementoFormula("Propósito");
       setOpenFormulaDialog(true);
@@ -143,14 +154,30 @@ export function TabFinPropositoMA({
 
   const changeFormula = (txt: string) => {
     if (elementoFormula === "Fin") {
-      valueFin[0].valorNumerador = txt.split(",")[0];
-      valueFin[0].valorDenominador = txt.split(",")[1];
-      valueFin[0].metaAnual = txt.split(",")[2] ;
+      if (
+        JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
+        JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice")
+      ) {
+        valueFin[0].valorNumerador = txt.split(",")[0];
+        valueFin[0].metaAnual = txt.split(",")[0];
+      } else {
+        valueFin[0].valorNumerador = txt.split(",")[0];
+        valueFin[0].valorDenominador = txt.split(",")[1];
+        valueFin[0].metaAnual = txt.split(",")[2];
+      }
       setValueFin([...valueFin]);
     } else if (elementoFormula === "Propósito") {
-      valueProposito[0].valorNumerador = txt.split(",")[0];
-      valueProposito[0].valorDenominador = txt.split(",")[1];
-      valueProposito[0].metaAnual = txt.split(",")[2] ;
+      if (
+        JSON.parse(MIR).proposito.indicador.toLowerCase().includes("indice") ||
+        JSON.parse(MIR).proposito.indicador.toLowerCase().includes("índice")
+      ) {
+        valueProposito[0].valorNumerador = txt.split(",")[0];
+        valueProposito[0].metaAnual = txt.split(",")[0];
+      } else {
+        valueProposito[0].valorNumerador = txt.split(",")[0];
+        valueProposito[0].valorDenominador = txt.split(",")[1];
+        valueProposito[0].metaAnual = txt.split(",")[2];
+      }
       setValueProposito([...valueProposito]);
     }
   };
@@ -422,52 +449,88 @@ export function TabFinPropositoMA({
                 }}
                 value={valueFin[0]?.lineaBase || ""}
               />
-              <TextField
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    VALOR DEL NUMERADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onClick={() => handleClickOpen()}
-                value={valueFin[0]?.valorNumerador || ""}
-              />
-              <TextField
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    VALOR DEL DENOMINADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onClick={() => handleClickOpen()}
-                value={valueFin[0]?.valorDenominador || ""}
-              />
+              {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
+                <TextField
+                  sx={{ width: "18%", boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    >
+                      ÍNDICE
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onClick={() => handleClickOpen()}
+                  value={valueFin[0]?.valorNumerador || ""}
+                />
+              ) : (
+                <Box sx={{ width: "45%" }}>
+                  <TextField
+                    sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
+                    variant={"filled"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.7vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        VALOR DEL NUMERADOR
+                      </Typography>
+                    }
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratMedium",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onClick={() => handleClickOpen()}
+                    value={valueFin[0]?.valorNumerador || ""}
+                  />
+                  <TextField
+                    sx={{ width: "45%", boxShadow: 2 }}
+                    variant={"filled"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.7vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        VALOR DEL DENOMINADOR
+                      </Typography>
+                    }
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratMedium",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onClick={() => handleClickOpen()}
+                    value={valueFin[0]?.valorDenominador || ""}
+                  />
+                </Box>
+              )}
+
               <FormControl
                 sx={{
                   width: "15%",
@@ -580,8 +643,8 @@ export function TabFinPropositoMA({
                     options={catalogoUnidadResponsable}
                     getOptionLabel={(option) => option.Unidad}
                     value={{
-                      Id: catalogoUnidadResponsable[0].Id,
-                      Unidad: valueFin[0].unidadResponsable,
+                      Id: catalogoUnidadResponsable[0].Id || '',
+                      Unidad: valueFin[0].unidadResponsable || '',
                     }}
                     renderOption={(props, option) => {
                       return (
@@ -816,52 +879,93 @@ export function TabFinPropositoMA({
                 }}
                 value={valueProposito[0]?.lineaBase || ""}
               />
-              <TextField
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    VALOR DEL NUMERADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.valorNumerador || ""}
-              />
-              <TextField
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    VALOR DEL DENOMINADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onClick={() => handleClickOpen()}
-                value={valueProposito[0]?.valorDenominador || ""}
-              />
+
+              {JSON.parse(MIR)
+                .proposito.indicador.toLowerCase()
+                .includes("indice") ||
+              JSON.parse(MIR)
+                .proposito.indicador.toLowerCase()
+                .includes("índice") ? (
+                <TextField
+                  sx={{ width: "18%", boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    >
+                      ÍNDICE
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onClick={() => handleClickOpen()}
+                  value={valueProposito[0]?.valorNumerador || ""}
+                />
+              ) : (
+                <Box sx={{ width: "45%" }}>
+                  <TextField
+                    sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
+                    variant={"filled"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.7vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        VALOR DEL NUMERADOR
+                      </Typography>
+                    }
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratMedium",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onClick={() => handleClickOpen()}
+                    value={valueProposito[0]?.valorNumerador || ""}
+                  />
+                  <TextField
+                    sx={{ width: "45%", boxShadow: 2 }}
+                    variant={"filled"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: "0.7vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        VALOR DEL DENOMINADOR
+                      </Typography>
+                    }
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratMedium",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onClick={() => handleClickOpen()}
+                    value={valueProposito[0]?.valorDenominador || ""}
+                  />
+                </Box>
+              )}
+
               <FormControl
                 sx={{
                   width: "15%",

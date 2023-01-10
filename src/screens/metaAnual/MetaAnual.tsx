@@ -553,7 +553,7 @@ export const MetaAnual = () => {
                             }}
                             align="center"
                           >
-                            {row.Institucion.toUpperCase()}
+                            {row.Institucion?.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{

@@ -56,7 +56,6 @@ export const Documento = ({
     mesActual = "0" + mes;
   }
 
-
   const fechaActual = `${anio}-${mesActual}-${hoy}`;
 
   const [noOficio, setNoOficio] = useState("");
@@ -162,19 +161,7 @@ export const Documento = ({
 
   const [loading, setLoading] = useState(false);
 
-  const check2 = () => {
-    console.log(noSerie);
-    console.log(Rfc);
-    console.log(noOficio);
-    console.log(asunto);
-    console.log(JSON.stringify(usuarios));
-    console.log(ccp);
-    console.log(localStorage.getItem("IdCentral"));
-    console.log(fechaActual);
-    console.log(localStorage.getItem("IdApp"));
-    console.log(id);
-    
-
+  const sendFiel = () => {
     let dataArray = new FormData();
     dataArray.append("cer", cerFile);
     dataArray.append("key", keyFile);
@@ -238,8 +225,7 @@ export const Documento = ({
       headers: {
         "Content-Type": "multipart/form-data",
         "Content-Disposition": "attachment",
-        Authorization: localStorage.getItem("jwtToken") || "",
-
+        Authorization: localStorage.getItem("jwtToken") as string,
       },
       data: dataArray,
     })
@@ -267,6 +253,27 @@ export const Documento = ({
         });
       });
   };
+
+  useEffect(() => {
+    if (
+      !/^[\s]*$/.test(file) &&
+      !/^[\s]*$/.test(noOficio) &&
+      !/^[\s]*$/.test(asunto) &&
+      disableFirmar === false
+    ) {
+      const listener = (event: any) => {
+        if (event.code === "Enter" || event.code === "NumpadEnter") {
+          event.preventDefault();
+          setLoading(true);
+          sendFiel();
+        }
+      };
+      document.addEventListener("keydown", listener);
+      return () => {
+        document.removeEventListener("keydown", listener);
+      };
+    }
+  }, [file, noOficio, asunto]);
 
   return (
     <Box
@@ -430,13 +437,12 @@ export const Documento = ({
               />
             )}
             onChange={(event, value) => {
-              
               value.map((value2, index) => {
                 // if (
                 //   /^[\s]*$/.test(value2.Id) &&
                 //   /^[\s]*$/.test(value2.Nombre)
                 // ) {
-                  setUsuarios(value);
+                setUsuarios(value);
                 // }
               });
             }}
@@ -483,9 +489,9 @@ export const Documento = ({
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {loading ? (
           <CircularProgress></CircularProgress>
-        ) : /^[\s]*$/.test(noOficio) ||
-          /^[\s]*$/.test(asunto) ||
-          /^[\s]*$/.test(nombreArchivo) ||
+        ) : !/^[\s]*$/.test(noOficio) &&
+          !/^[\s]*$/.test(asunto) &&
+          !/^[\s]*$/.test(nombreArchivo) &&
           disableFirmar ? (
           <CheckCircleOutlineIcon color="success"></CheckCircleOutlineIcon>
         ) : (
@@ -513,7 +519,7 @@ export const Documento = ({
             }}
             onClick={() => {
               setLoading(true);
-              check2();
+              sendFiel();
             }}
           >
             Firmar

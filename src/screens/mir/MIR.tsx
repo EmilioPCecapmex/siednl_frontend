@@ -73,7 +73,6 @@ export const MIR = () => {
   useEffect(() => {
     setShowResume(true);
     getMIRs();
-    console.log("resumen defaultMIR: ",resumeDefaultMIR)
   }, [resumeDefaultMIR]);
 
   const returnMain = () => {

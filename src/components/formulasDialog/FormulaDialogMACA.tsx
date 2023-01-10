@@ -49,30 +49,38 @@ export const FormulaDialogMACA = ({
   };
 
   const checkValues = () => {
-    if (tipo === "Indice" || tipo === "Índice") {
-      if (descA === "") {
-        setEmptyTxt(true);
-      } else {
-        if (tipo === "Indice" || tipo === "Índice") {
+    if (frecuencia === "trimestral") {
+      if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice") {
+        if (
+          /^[\s]*$/.test(descA) ||
+          /^[\s]*$/.test(descB) ||
+          /^[\s]*$/.test(descC) ||
+          /^[\s]*$/.test(descD)
+        ) {
+          setEmptyTxt(true);
+        } else {
           textoSet(
-            descA.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")
+            parseFloat(descA).toFixed(2) +
+              "," +
+              parseFloat(descB).toFixed(2) +
+              "," +
+              parseFloat(descC).toFixed(2) +
+              "," +
+              parseFloat(descD).toFixed(2)
           );
           limpiaVar();
           close();
-
         }
-      }
-    } else {
-      if (frecuencia === "trimestral") {
+      } else {
         if (
-          descA === "" ||
-          descB === "" ||
-          descC === "" ||
-          descD === "" ||
-          descE === "" ||
-          descF === "" ||
-          descG === "" ||
-          descH === ""
+          /^[\s]*$/.test(descA) ||
+          /^[\s]*$/.test(descB) ||
+          /^[\s]*$/.test(descC) ||
+          /^[\s]*$/.test(descD) ||
+          /^[\s]*$/.test(descE) ||
+          /^[\s]*$/.test(descF) ||
+          /^[\s]*$/.test(descG) ||
+          /^[\s]*$/.test(descH)
         ) {
           setEmptyTxt(true);
         } else {
@@ -105,9 +113,8 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
             );
-            
-          limpiaVar();
-          close();
+            limpiaVar();
+            close();
           } else if (tipo === "Tasa") {
             let T1 =
               ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) *
@@ -148,9 +155,9 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
             );
-            
-          limpiaVar();
-          close();
+
+            limpiaVar();
+            close();
           } else if (tipo === "Promedio") {
             let T1 = parseFloat(descA) / parseFloat(descB);
             let T2 =
@@ -177,51 +184,65 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
             );
-            
-          limpiaVar();
-          close();
+
+            limpiaVar();
+            close();
           }
         }
-      } else {
-        if (descA === "" || descB === "" || descC === "" || descD === "") {
+      }
+    } else {
+      if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice") 
+        if (/^[\s]*$/.test(descA) || /^[\s]*$/.test(descB)) {
           setEmptyTxt(true);
         } else {
-          if (tipo === "Porcentaje") {
-            let S1 = (parseFloat(descA) / parseFloat(descB)) * 100;
-            let S2 =
-              ((parseFloat(descA) + parseFloat(descC)) /
-                (parseFloat(descB) + parseFloat(descD))) *
-              100;
-
-            textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
-            
+          textoSet(
+            parseFloat(descA).toFixed(2) +
+              "," +
+              parseFloat(descB).toFixed(2)
+          );
           limpiaVar();
           close();
-          } else if (tipo === "Tasa") {
-            let S1 =
-              ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) *
-              100;
-            let S2 =
-              ((parseFloat(descA) +
-                parseFloat(descC) -
-                (parseFloat(descB) + parseFloat(descD))) /
-                (parseFloat(descB) + parseFloat(descD))) *
-              100;
-            textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
-            
-          limpiaVar();
-          close();
-          } else if (tipo === "Promedio") {
-            let S1 = parseFloat(descA) / parseFloat(descB);
-            let S2 =
-              (parseFloat(descA) + parseFloat(descC)) /
-              (parseFloat(descB) + parseFloat(descD));
-            textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
-            
-          limpiaVar();
-          close();
-          }
         }
+      else if (
+        /^[\s]*$/.test(descA) ||
+        /^[\s]*$/.test(descB) ||
+        /^[\s]*$/.test(descC) ||
+        /^[\s]*$/.test(descD)
+      ) {
+        setEmptyTxt(true);
+      } else if (tipo === "Porcentaje") {
+        let S1 = (parseFloat(descA) / parseFloat(descB)) * 100;
+        let S2 =
+          ((parseFloat(descA) + parseFloat(descC)) /
+            (parseFloat(descB) + parseFloat(descD))) *
+          100;
+
+        textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
+
+        limpiaVar();
+        close();
+      } else if (tipo === "Tasa") {
+        let S1 =
+          ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
+        let S2 =
+          ((parseFloat(descA) +
+            parseFloat(descC) -
+            (parseFloat(descB) + parseFloat(descD))) /
+            (parseFloat(descB) + parseFloat(descD))) *
+          100;
+        textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
+
+        limpiaVar();
+        close();
+      } else if (tipo === "Promedio") {
+        let S1 = parseFloat(descA) / parseFloat(descB);
+        let S2 =
+          (parseFloat(descA) + parseFloat(descC)) /
+          (parseFloat(descB) + parseFloat(descD));
+        textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
+
+        limpiaVar();
+        close();
       }
     }
   };
@@ -306,45 +327,177 @@ export const FormulaDialogMACA = ({
             justifyContent: "space-evenly",
           }}
         >
-          {tipo === "Indice" || tipo === "Índice" ? (
-            <TextField
-              type={"number"}
-              label={"Valor"}
-              sx={{ width: "95%" }}
-              value={descA}
-              error={
-                parseFloat(descA) < 0 ||
-                (isNaN(parseFloat(descA)) && descA !== "")
-                  ? true
-                  : false
-              }
-              helperText={
-                parseFloat(descA) < 0 ||
-                (isNaN(parseFloat(descA)) && descA !== "")
-                  ? "Introducir valor mayor que 0"
-                  : null
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
+          {frecuencia === "trimestral" &&
+          (tipo.toLowerCase() === "indice" ||
+            tipo.toLowerCase() === "índice") ? (
+            <Box
+              sx={{
+                width: "80%",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gridTemplateRows: "repeat(4,1fr)",
+                justifyItems: "center",
+                alignItems: "center",
               }}
-              onChange={(c) =>
-                setDescA(
-                  c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "")
-                )
-              }
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                  fontSize: ".8vw",
-                },
-              }}
-            />
+            >
+              
+              <Typography>Trimestre 1</Typography>
+              <TextField
+                type={"number"}
+                label={"Valor"}
+                sx={{ width: "80%", mb: 2  }}
+                value={descA}
+                error={
+                  parseFloat(descA) < 0 ||
+                  (isNaN(parseFloat(descA)) && descA !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(descA) < 0 ||
+                  (isNaN(parseFloat(descA)) && descA !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                onChange={(c) =>
+                  setDescA(
+                    c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                    fontSize: ".8vw",
+                  },
+                }}
+              />
+              <Typography>Trimestre 2</Typography>
+              <TextField
+                type={"number"}
+                label={"Valor"}
+                sx={{ width: "80%", mb: 2  }}
+                value={descB}
+                error={
+                  parseFloat(descB) < 0 ||
+                  (isNaN(parseFloat(descB)) && descB !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(descB) < 0 ||
+                  (isNaN(parseFloat(descB)) && descB !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                onChange={(c) =>
+                  setDescB(
+                    c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                    fontSize: ".8vw",
+                  },
+                }}
+              />
+              <Typography>Trimestre 3</Typography>
+              <TextField
+                type={"number"}
+                label={"Valor"}
+                sx={{ width: "80%", mb: 2  }}
+                value={descC}
+                error={
+                  parseFloat(descC) < 0 ||
+                  (isNaN(parseFloat(descC)) && descC !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(descC) < 0 ||
+                  (isNaN(parseFloat(descC)) && descC !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                onChange={(c) =>
+                  setDescC(
+                    c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                    fontSize: ".8vw",
+                  },
+                }}
+              />
+              <Typography>Trimestre 4</Typography>
+              <TextField
+                type={"number"}
+                label={"Valor"}
+                sx={{ width: "80%" }}
+                value={descD}
+                error={
+                  parseFloat(descD) < 0 ||
+                  (isNaN(parseFloat(descD)) && descD !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(descD) < 0 ||
+                  (isNaN(parseFloat(descD)) && descD !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                onChange={(c) =>
+                  setDescD(
+                    c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                    fontSize: ".8vw",
+                  },
+                }}
+              />
+            </Box>
           ) : frecuencia === "trimestral" ? (
             <Box
               sx={{
@@ -637,6 +790,98 @@ export const FormulaDialogMACA = ({
                   parseFloat(descF) +
                   parseFloat(descH) || 0}
               </Typography>
+            </Box>
+          ) : frecuencia === "semestral" &&
+            (tipo.toLowerCase() === "indice" ||
+              tipo.toLowerCase() === "índice") ? (
+            <Box
+              sx={{
+                width: "80%",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gridTemplateRows: "repeat(2,1fr)",
+                justifyItems: "center",
+                alignItems: "center",
+              }}
+            >
+            <Typography>Semestre 1</Typography>
+              <TextField
+                type={"number"}
+                label={"Valor"}
+                sx={{ width: "95%", mb:2 }}
+                value={descA}
+                error={
+                  parseFloat(descA) < 0 ||
+                  (isNaN(parseFloat(descA)) && descA !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(descA) < 0 ||
+                  (isNaN(parseFloat(descA)) && descA !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                onChange={(c) =>
+                  setDescA(
+                    c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                    fontSize: ".8vw",
+                  },
+                }}
+              />
+              <Typography>Semestre 2</Typography>
+              <TextField
+                type={"number"}
+                label={"Valor"}
+                sx={{ width: "95%" }}
+                value={descB}
+                error={
+                  parseFloat(descB) < 0 ||
+                  (isNaN(parseFloat(descB)) && descB !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(descB) < 0 ||
+                  (isNaN(parseFloat(descB)) && descB !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: ".8vw",
+                  },
+                }}
+                onChange={(c) =>
+                  setDescB(
+                    c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                    fontSize: ".8vw",
+                  },
+                }}
+              />
             </Box>
           ) : (
             <Box

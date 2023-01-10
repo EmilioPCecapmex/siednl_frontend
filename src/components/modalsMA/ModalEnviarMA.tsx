@@ -91,8 +91,11 @@ export default function ModalEnviarMA({
       );
     }
     if (
-      JSON.parse(MA)?.fin.valorDenominador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador)
+      !JSON.parse(MIR)
+        .fin.indicador.toLowerCase()
+        .includes("indice" || "índice") &&
+      (JSON.parse(MA)?.fin.valorDenominador === undefined ||
+        /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
     ) {
       err = 1;
       errores.push(
@@ -172,8 +175,11 @@ export default function ModalEnviarMA({
       );
     }
     if (
-      JSON.parse(MA)?.proposito.valorDenominador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador)
+      !JSON.parse(MIR)
+        .proposito.indicador.toLowerCase()
+        .includes("indice" || "índice") &&
+      (JSON.parse(MA)?.proposito.valorDenominador === undefined ||
+        /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador))
     ) {
       err = 1;
       errores.push(
@@ -298,8 +304,11 @@ export default function ModalEnviarMA({
         );
       }
       if (
-        componente.valorDenominador === undefined ||
-        /^[\s]*$/.test(componente.valorDenominador)
+        JSON.parse(MIR)
+          .componentes[index].indicador.toLowerCase()
+          .includes("índice" || "indice") &&
+        (componente.valorDenominador === undefined ||
+          /^[\s]*$/.test(componente.valorDenominador))
       ) {
         err = 1;
         errores.push(
@@ -423,8 +432,11 @@ export default function ModalEnviarMA({
         err = 1;
       }
       if (
-        actividad.valorDenominador === undefined ||
-        /^[\s]*$/.test(actividad.valorDenominador)
+        JSON.parse(MIR)
+          .actividades[index].indicador.toUpperCase()
+          .includes("ÍNDICE" || "INDICE") &&
+        (actividad.valorDenominador === undefined ||
+          /^[\s]*$/.test(actividad.valorDenominador))
       ) {
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`

@@ -1,6 +1,44 @@
 import axios from "axios";
+import { IDatosAdicionales } from "../components/modalUsuarios/InterfazUsuario";
 
 const params = new URLSearchParams(window.location.search);
+const IdApp = params.get("IdApp");
+
+
+export const sessionValid = () => {
+  const jt = params.get("jwt") || "";
+  const rft = params.get("rf") || "";
+
+  return axios
+    .post(
+      process.env.REACT_APP_APPLICATION_LOGIN + "/api/verify",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: jt,
+        },
+      }
+    )
+    .then((r) => {
+      if (r.status === 200) {
+        localStorage.setItem("sUntil", r.data.expDateTime);
+        localStorage.setItem("jwtToken", jt);
+        localStorage.setItem("refreshToken", rft);
+        localStorage.setItem("validation", "true");
+        localStorage.setItem("IdCentral", r.data.data.IdUsuario);
+        
+        return getUserDetails(r.data.data.IdUsuario);
+      }
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        localStorage.clear();
+        return false;
+      }
+    });
+};
+
 
 export const getUserDetails = (idCentral: string) => {
   return axios
@@ -15,14 +53,13 @@ export const getUserDetails = (idCentral: string) => {
     })
     .then((r) => {
       if (r.status === 200) {
-        console.log(r.data.data);
-        
         localStorage.setItem("IdUsuario", r.data.data.Id);
         localStorage.setItem(
           "NombreUsuario",
           r.data.data.Nombre.split(" ")[0] + " " + r.data.data.ApellidoPaterno
         );
         localStorage.setItem("FirstSignIn", r.data.data.PrimerInicioDeSesion);
+
         if (
           localStorage.getItem("IdInstitucion") === null ||
           localStorage.getItem("IdInstitucion") === null
@@ -34,46 +71,67 @@ export const getUserDetails = (idCentral: string) => {
             localStorage.getItem("IdInstitucion") as string
           );
         }
+
         localStorage.setItem("Rol", r.data.data.Rol);
-      }
-    })
-    .catch((error) => {
-      if (error.response.status === 401) {
-        localStorage.clear();
-      }
-    });
-};
 
-export const sessionValid = () => {
-  const jt = params.get("jwt") || "";
-  const rft = params.get("rf") || "";
-
-  return axios
-    .post(
-      process.env.REACT_APP_APPLICATION_LOGIN+ "/api/verify",
-      {},
-      {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: jt,
-        },
-      }
-    )
-    .then((r) => {
-      if (r.status === 200) {
-        localStorage.setItem("sUntil", r.data.expDateTime)
-        localStorage.setItem("jwtToken", jt);
-        localStorage.setItem("refreshToken", rft);
-        localStorage.setItem("validation", "true");
-        localStorage.setItem("IdCentral", r.data.data.IdUsuario);
-        getUserDetails(r.data.data.IdUsuario);
         return true;
       }
     })
     .catch((error) => {
       if (error.response.status === 401) {
         localStorage.clear();
+      }
+      getDataSolicitud(idCentral);
+    });
+};
+
+const getDataSolicitud = (idSolicitud: string) => {
+  axios
+    .get("http://10.200.4.200:5000/api/datosAdicionalesSolicitud", {
+      params: {
+        IdUsuario: idSolicitud,
+        IdApp: IdApp
+      },
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      if (r.status === 200) {
+        let objetoDatosAdicionales = JSON.parse(
+          r.data.data[0].DatosAdicionales
+        );
+        let CreadoPor = r.data.data[0].CreadoPor;
+        siednlSignUp(idSolicitud, objetoDatosAdicionales, CreadoPor);
+      }
+    })
+    .catch((error) => {
+        localStorage.clear();
         return false;
+    });
+};
+
+const siednlSignUp = (
+  idUsrCentral: string,
+  datosAdicionales: IDatosAdicionales,
+  idCreadoPor: string
+) => {
+  axios
+    .post(
+      "http://10.200.4.200:8000/api/user-add",
+      {
+        IdUsuarioCentral: idUsrCentral,
+        IdInstitucion: datosAdicionales.institution,
+        Cargo: datosAdicionales.rol,
+        IdRol: datosAdicionales.userType,
+        CreadoPor: idCreadoPor,
+      },
+      { headers: { Authorization: localStorage.getItem("jwtToken") || "" } }
+    )
+    .then((r) => {
+      if (r.status === 200) {
+        window.location.reload();
       }
     });
 };
@@ -81,7 +139,7 @@ export const sessionValid = () => {
 export const continueSession = () => {
   return axios
     .post(
-      process.env.REACT_APP_APPLICATION_LOGIN+ "/api/verify",
+      process.env.REACT_APP_APPLICATION_LOGIN + "/api/verify",
       {},
       {
         headers: {
@@ -92,7 +150,7 @@ export const continueSession = () => {
     )
     .then((r) => {
       if (r.status === 200) {
-        localStorage.setItem("sUntil", r.data.expDateTime)
+        localStorage.setItem("sUntil", r.data.expDateTime);
         localStorage.setItem("validation", "true");
         if (r.data.data.IdUsuario) {
           localStorage.setItem("IdCentral", r.data.data.IdUsuario);
@@ -105,14 +163,13 @@ export const continueSession = () => {
     })
     .catch((error) => {
       if (error.response.status === 401) {
-        localStorage.clear();
+        // localStorage.clear();
         return false;
       }
     });
 };
 
 export const logout = () => {
-  localStorage.clear();
+  // localStorage.clear();
   window.location.assign("http://10.200.4.106/");
 };
-

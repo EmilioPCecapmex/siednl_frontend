@@ -1,13 +1,34 @@
 import { Box, Typography, Button } from "@mui/material";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useState, useEffect} from 'react'; 
-import Slide from "@mui/material/Slide";
 import flecha from '../../assets/img/flecha.png';
 import axios from "axios";
 
 export const WelcomeBox = () => {
   const firstSign = localStorage.getItem("FirstSignIn");
     const [welcomeBoxValue, setWelcomeBoxValue] = useState(firstSign);
+
+    const enviarNotificacion = (v: string) => {
+      axios.post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
+        {
+          IdUsuarioDestino: v,
+          Titulo: "!Hola¡",
+          Mensaje: "Recuerda que siempre puedes consultar la bandeja de notificaciones",
+          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      );
+    };
+  
+    useEffect(() => {
+      if (localStorage.getItem("FirstSignIn") === '1') {
+        enviarNotificacion(localStorage.getItem("IdUsuario") || '');
+      }
+    }, [])
 
   const actualizaInicio =() =>{
     axios

@@ -64,18 +64,9 @@ export const LateralMenu = ({
   else if (isSm) st = lstSm;
   // else if (isXs) st = lstXs;
   const navigate = useNavigate();
-  const [openProgramas, setOpenProgramas] = useState(false);
+  const [openProgramas, setOpenProgramas] = useState(true);
   const [openDocs, setOpenDocs] = useState(false);
-
-  useEffect(() => {
-    if (selection === 8 || selection === 9) {
-      setOpenDocs(true);
-      setOpenProgramas(false);
-    } else {
-      setOpenProgramas(true);
-      setOpenDocs(false);
-    }
-  }, [selection]);
+  
 
   const handleClickProgramas = () => {
     setOpenProgramas(!openProgramas);
