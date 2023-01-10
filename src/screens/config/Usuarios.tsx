@@ -153,7 +153,7 @@ export const Usuarios = () => {
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
               >
-                SOLICITUDES PENDIENTES
+                HISTORIAL DE SOLICITUDES
               </Typography>
             </Button>
 
@@ -173,7 +173,7 @@ export const Usuarios = () => {
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
               >
-                Vincular
+                VINCULAR USUARIO
               </Typography>
             </Button>
             <Button
@@ -192,7 +192,7 @@ export const Usuarios = () => {
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
               >
-                CREAR SOLICITUD
+                CREAR SOLICITUD DE ALTA
               </Typography>
             </Button>
           </Box>
