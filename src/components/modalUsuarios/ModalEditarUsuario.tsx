@@ -206,7 +206,7 @@ export default function ModalEditarUsuario({
           Celular: cellphone,
           Telefono: telephone,
           Extencion: ext,
-          DatosAdicionales:"Tipo de Usuario: "+dataUser.Rol+", Id Tipo de Usuario: "+dataUser.IdRol+", Cargo: "+dataUser.Cargo+", Institucion: "+dataUser.IdInstitucion,
+          DatosAdicionales: JSON.stringify(da) "Tipo de Usuario: "+dataUser.Rol+", Id Tipo de Usuario: "+dataUser.IdRol+", Cargo: "+dataUser.Cargo+", Institucion: "+dataUser.IdInstitucion,
           TipoSolicitud: "MODIFICACION",
           CreadoPor: localStorage.getItem("IdCentral"),
           IdApp: localStorage.getItem("IdApp"),
