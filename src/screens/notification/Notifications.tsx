@@ -34,14 +34,13 @@ import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 
 export const Notification = () => {
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    if(localStorage.getItem("Rol") !== "Administrador"){
-     navigate("../home")
-    }
-     }, [])
 
-     
+  useEffect(() => {
+    if (localStorage.getItem("Rol") !== "Administrador") {
+      navigate("../home");
+    }
+  }, []);
+
   const [usuarios, setUsuarios] = useState<Array<IUsuarios>>();
   const [titulo, setTitulo] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -69,7 +68,7 @@ export const Notification = () => {
     setTitulo("");
     setMensaje("");
     setUsuarioSeleccionado("");
-    setCheckedEmail(false)
+    setCheckedEmail(false);
     setErrorForm({
       visible: false,
       text: "",
@@ -98,6 +97,7 @@ export const Notification = () => {
       });
     } else {
       enviarNotificacion();
+      enviarNotificacionMail();
     }
   };
 
@@ -119,10 +119,9 @@ export const Notification = () => {
       )
       .then((r) => {
         if (r.status === 200) {
-
-          if(checkedEmail) {
+          if (checkedEmail) {
             enviarNotificacionMail();
-          }else{
+          } else {
             limpiaForm();
             getNotifEnviadas();
             Toast.fire({
@@ -130,10 +129,7 @@ export const Notification = () => {
               title: "Notificación enviada",
             });
           }
-          }
-
-
-     
+        }
       });
   };
 
@@ -145,7 +141,7 @@ export const Notification = () => {
           IdDestinatario: usuarioSeleccionado,
           IdRemitente: localStorage.getItem("IdUsuario"),
           subject: titulo,
-          message: mensaje
+          message: mensaje,
         },
         {
           headers: {
@@ -167,17 +163,20 @@ export const Notification = () => {
 
   const getUsuarios = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios",
-      
-       {params:{
-        IdUsuario: localStorage.getItem("IdUsuario"),
-        IdInstitucion: ''
-      },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios",
+
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            IdInstitucion: "",
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((response) => {
         setUsuarios(response.data.data);
       });
@@ -197,7 +196,10 @@ export const Notification = () => {
         (x) =>
           x.NombreUsuarioDestino.toLowerCase().includes(v) ||
           x.FechaCreacion.toLowerCase().includes(v) ||
-          (x.Deleted ? "Leído" : "No Leído").toLowerCase().split(" ")[0].includes(v) ||
+          (x.Deleted ? "Leído" : "No Leído")
+            .toLowerCase()
+            .split(" ")[0]
+            .includes(v) ||
           x.Titulo.toLowerCase().includes(v) ||
           x.Mensaje.toLowerCase().includes(v)
       )
@@ -225,7 +227,6 @@ export const Notification = () => {
       });
   };
 
-
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(7);
 
@@ -247,7 +248,7 @@ export const Notification = () => {
     setPage(0);
   };
 
-  const [checkedEmail, setCheckedEmail] = useState(false)
+  const [checkedEmail, setCheckedEmail] = useState(false);
 
   return (
     <Box
@@ -261,7 +262,7 @@ export const Notification = () => {
     >
       <TutorialBox initialState={13} endState={17} />
 
-      <LateralMenu selection={7} actionNumber={0}/>
+      <LateralMenu selection={7} actionNumber={0} />
       <Header
         details={{
           name1: "Notificaciones",
@@ -390,7 +391,12 @@ export const Notification = () => {
               sx={{ width: "70%", display: "flex", alignItems: "center" }}
             >
               <FormControlLabel
-                control={<Checkbox checked={checkedEmail} onChange={(v) => setCheckedEmail(v.target.checked)} />}
+                control={
+                  <Checkbox
+                    checked={checkedEmail}
+                    onChange={(v) => setCheckedEmail(v.target.checked)}
+                  />
+                }
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
@@ -473,7 +479,7 @@ export const Notification = () => {
                   width: "100%",
                   display: "flex",
                   alignItems: "center",
-                  backgroundColor: '#E8E8E8',
+                  backgroundColor: "#E8E8E8",
                   height: "3vh",
                 }}
               >
@@ -586,7 +592,11 @@ export const Notification = () => {
                           component="th"
                           scope="row"
                         >
-                          {row.Deleted ? "Leído" : (row.Deleted === 0 ? "No Leído" : "Sin historial") }
+                          {row.Deleted
+                            ? "Leído"
+                            : row.Deleted === 0
+                            ? "No Leído"
+                            : "Sin historial"}
                         </TableCell>
                         <TableCell
                           sx={{

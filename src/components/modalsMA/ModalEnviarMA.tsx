@@ -10,6 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { sendMailCreateDocument } from "../../funcs/sendMailCreateDocument";
 
 export let errores: string[] = [];
 
@@ -560,6 +561,7 @@ export default function ModalEnviarMA({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
+          sendMailCreateDocument(user.IdUsuario, "FT")
         });
         showResume();
       })
