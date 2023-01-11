@@ -74,6 +74,7 @@ export function TabEncabezado({
   /////////////////////////////////////////////////
   useEffect(() => {
     if (MIR !== "") {
+      
       const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR);
 
       setAnioFiscal(anioFiscalEdit);
@@ -97,16 +98,20 @@ export function TabEncabezado({
       }, 1500);
 
       let act: number[] = [];
+      let act2: number[] = [];
       let comp: string[] = [];
       let ambos: any = [];
       let i = 1;
       let j = 1;
 
       jsonMir.componentes.map((x: any) => {
+        
         comp.push("C" + j);
         jsonMir.actividades.map((a: any) => {
+          
           if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
             act.push(i);
+            act2.push(i);
             i++;
           }
         });
@@ -116,11 +121,16 @@ export function TabEncabezado({
         j++;
       });
 
+      console.log(act2);
+      console.log(ambos);
+      
+      
+      
       compAct(ambos);
       setLoadComponenteValor(jsonMir.componentes);
       setCompActividad(ambos);
-      setLoadActividades(jsonMir.actividades);
-      actividadesMir(jsonMir.actividades);
+      setLoadActividades(jsonMir.actividades); 
+      actividadesMir(act2);
       setLoadingFile(false);
 
       jsonMir.componentes?.map((value: any, index: number) => {
@@ -574,8 +584,8 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        setEstrategia(r.data.data[0].Estrategia);
-        getLineasDeAccion(r.data.data[0].Id);
+        setEstrategia(r.data.data[0]?.Estrategia);
+        getLineasDeAccion(r.data.data[0]?.Id);
       });
   };
   const getIdLineaDeAccion = (Description: string) => {
@@ -776,7 +786,7 @@ export function TabEncabezado({
           disablePortal
           size="small"
           options={catalogoAniosFiscales}
-          getOptionLabel={(option) => option.AnioFiscal}
+          getOptionLabel={(option) => option.AnioFiscal || ''}
           value={{
             Id: catalogoAniosFiscales[0].Id,
             AnioFiscal: anioFiscal,
@@ -900,7 +910,7 @@ export function TabEncabezado({
           disabled={mirEdit?.encabezado.institucion}
           disablePortal
           options={catalogoInstituciones}
-          getOptionLabel={(option) => option.NombreInstitucion}
+          getOptionLabel={(option) => option.NombreInstitucion || ''}
           value={{
             Id: catalogoInstituciones[0].Id,
             NombreInstitucion: institution,
@@ -953,7 +963,7 @@ export function TabEncabezado({
           }
           options={catalogoProgramas}
           size="small"
-          getOptionLabel={(option) => option.NombrePrograma}
+          getOptionLabel={(option) => option.NombrePrograma || ''}
           value={{ Id: catalogoProgramas[0].Id, NombrePrograma: programa }}
           renderOption={(props, option) => {
             return (
@@ -1000,7 +1010,7 @@ export function TabEncabezado({
           disabled={mirEdit?.encabezado.eje}
           size="small"
           options={catalogoEjes}
-          getOptionLabel={(option) => option.Eje}
+          getOptionLabel={(option) => option.Eje || ''}
           value={{ Id: catalogoEjes[0].Id, Eje: eje }}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
@@ -1051,7 +1061,7 @@ export function TabEncabezado({
           }
           options={catalogoTematicas}
           size="small"
-          getOptionLabel={(option) => option.Tematica}
+          getOptionLabel={(option) => option.Tematica || ''}
           value={{
             IdTematica: catalogoTematicas[0].IdTematica,
             Tematica: tematica,
@@ -1111,7 +1121,7 @@ export function TabEncabezado({
             disabledObjetivos
           }
           options={catalogoObjetivos}
-          getOptionLabel={(option) => option.Objetivo}
+          getOptionLabel={(option) => option.Objetivo || ''}
           value={{
             IdObjetivo: catalogoObjetivos[0].IdObjetivo,
             Objetivo: objetivo,
@@ -1167,7 +1177,7 @@ export function TabEncabezado({
           }
           options={catalogoEstrategias}
           size="small"
-          getOptionLabel={(option) => option.Estrategia}
+          getOptionLabel={(option) => option.Estrategia || ''}
           value={{
             IdEstrategia: catalogoEstrategias[0].IdEstrategia,
             Estrategia: estrategia,
@@ -1229,7 +1239,7 @@ export function TabEncabezado({
             limitTags={4}
             options={replica}
             size="small"
-            getOptionLabel={(option) => option.LineaDeAccion.toUpperCase()}
+            getOptionLabel={(option) => option.LineaDeAccion.toUpperCase() || ''}
             //const replica = catalogoLineasDeAccion
             value={lineaDeAccion}
             renderOption={(props, option) => {
@@ -1295,7 +1305,7 @@ export function TabEncabezado({
           disablePortal
           size="small"
           options={catalogoBeneficiarios}
-          getOptionLabel={(option) => option.Beneficiario}
+          getOptionLabel={(option) => option.Beneficiario || ''}
           value={{
             Id: catalogoBeneficiarios[0].Id,
             Beneficiario: beneficiario,
