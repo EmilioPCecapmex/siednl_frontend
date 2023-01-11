@@ -44,6 +44,7 @@ export function TabResumen2({
   };
 
 useEffect(() => {
+  
   },[show])
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);

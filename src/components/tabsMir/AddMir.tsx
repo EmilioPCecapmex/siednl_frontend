@@ -30,7 +30,7 @@ export default function FullModalMir({
   };
 
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  
+
   const [actividadesMir, setActividadesMir] = useState<Array<IActividadesMir>>(
     []
   );
@@ -136,7 +136,6 @@ export default function FullModalMir({
   const resumenEncabezado = (arr: Array<IEncabezado>) => {
     setEncabezado(arr);
   };
-  
 
   const resumenFin = (arr: Array<IFin>) => {
     setFin(arr);
@@ -318,8 +317,8 @@ export default function FullModalMir({
             <ArrowCircleLeftIcon
               sx={{
                 color: "#c4a57b",
-                width: '3vw',
-                height: '3vw'
+                width: "3vw",
+                height: "3vw",
               }}
             />
           </IconButton>
@@ -330,19 +329,15 @@ export default function FullModalMir({
             }}
           >
             <ArrowCircleRightIcon
-             sx={{
-              color: "#c4a57b",
-              width: '3vw',
-              height: '3vw'
-            }}
+              sx={{
+                color: "#c4a57b",
+                width: "3vw",
+                height: "3vw",
+              }}
             />
           </IconButton>
-
-         
         </Box>
       </Box>
-      
-
     </Box>
   );
 }

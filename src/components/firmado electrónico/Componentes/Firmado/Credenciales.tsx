@@ -119,12 +119,15 @@ export const Credenciales = ({
         setRfcCer(r.data.rfc.toUpperCase());
         setNombre(r.data.data.split("name=")[1].split("O=")[0]);
         setPassword(contrasena);
+
         setTimeout(() => {
           setDisableValidar(true);
         }, 500);
+
         setTimeout(() => {
           setNoSerie(r.data.serial);
         }, 1000);
+
         if (rfc === r.data.rfc) {
           setTimeout(() => {
             setLoading(false);
@@ -133,6 +136,7 @@ export const Credenciales = ({
             validado(true);
           }, 2000);
         }
+        
       })
       .catch((err) => {
         setRfcCer("error");
@@ -201,7 +205,6 @@ export const Credenciales = ({
   }, [contrasena]);
 
   // function onChange(value: any) {
-  //   console.log("Captcha value:", value);
   // }
 
   return (

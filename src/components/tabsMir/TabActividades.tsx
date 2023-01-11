@@ -21,7 +21,7 @@ import { IMIREdit } from "./IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import { stringify } from "querystring";
+
 //funcion main
 export const TabActividades = ({
   show,
@@ -70,9 +70,9 @@ export const TabActividades = ({
       };
     })
   );
-  
+
   useEffect(() => {
-    if (componentes.length > cValor[0].componentes.length) {   
+    if (componentes.length > cValor[0].componentes.length) {
       let restantes = componentes.length - cValor[0].componentes.length;
       let prevState = [...cValor];
       for (let index = 1; index <= restantes; index++) {
@@ -100,11 +100,8 @@ export const TabActividades = ({
         });
         setCValor(prevState);
         asignarCValor(prevState);
-
       }
-    } else if (
-      componentes.length < cValor[0].componentes.length
-    ) {
+    } else if (componentes.length < cValor[0].componentes.length) {
       let prevState = [...cValor];
       let restantes = cValor[0].componentes.length - componentes.length;
 
@@ -112,19 +109,16 @@ export const TabActividades = ({
         prevState[0].componentes.pop();
         setCValor(prevState);
 
-        asignarCValor(prevState)
-
+        asignarCValor(prevState);
       }
       setComponenteSelect(0);
     }
   }, [compAct, componentes]);
 
-
-
-    //ESTO ESTABA COMENTADO 125-127
-     useEffect(() => {
-      asignarCValor(cValor);
-   }, [cValor]);
+  //ESTO ESTABA COMENTADO 125-127
+  useEffect(() => {
+    asignarCValor(cValor);
+  }, [cValor]);
 
   useEffect(() => {
     if (compAct.length > 0) {
@@ -135,6 +129,7 @@ export const TabActividades = ({
   let aument_number = -1;
 
   const loadActividadesMir = () => {
+
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct.map((x, index) => {
@@ -222,7 +217,6 @@ export const TabActividades = ({
         });
         setCValor(prevState);
         asignarCValor(prevState);
-
       }
     }
   };
@@ -240,7 +234,6 @@ export const TabActividades = ({
       prevState[0].componentes[componenteSelect].actividades.pop();
       setCValor(prevState);
       asignarCValor(prevState);
-
     }
   };
 
@@ -716,9 +709,9 @@ export const TabActividades = ({
               y[0].componentes[componenteSelect].actividades[
                 actividadSelect
               ].medios = c.target.value
-              .replaceAll('"', "")
-              .replaceAll("'", "")
-              .replaceAll("\n", "");
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
               setCValor(y);
             }}
             value={

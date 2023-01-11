@@ -219,7 +219,7 @@ export const Documento = ({
     dataArray.append("asunto", asunto);
 
     axios({
-      url: "http://10.200.4.192:90/firma",
+      url: "http://10.200.4.111:90/firma",
       method: "post",
       responseType: "blob",
       headers: {
@@ -231,11 +231,21 @@ export const Documento = ({
     })
       .then((response) => {
         setUrl(window.URL.createObjectURL(new Blob([response.data])));
+
         setCheckFile(true);
+
         // saveDocument();
-        validado(true);
-        setDisableValidar(true);
-        setLoading(false);
+        setTimeout(() => {
+          setDisableValidar(true);
+        }, 500);
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+
+        setTimeout(() => {
+          validado(true);
+        }, 1500);
       })
       .catch((err) => {
         setLoading(false);
