@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMailCreateDocument } from "../../funcs/sendMailCreateDocument";
+import { sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
 export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
@@ -33,6 +33,8 @@ export default function ModalEnviarMIR({
   let err = 0;
 
   const [newComent, setNewComent] = React.useState(false);
+
+  const enviarMensaje = "Se ha creado una nueva";
 
   const comentMir = (id: string) => {
     axios
@@ -413,7 +415,7 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
-          sendMailCreateDocument(user.IdUsuario, "MA");
+          sendMailCustomMessage(user.IdUsuario,enviarMensaje, "MA",);
         });
         showResume();
       })
@@ -457,7 +459,7 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
-          sendMailCreateDocument(user.IdUsuario, "MIR");
+          sendMailCustomMessage(user.IdUsuario,enviarMensaje, "MIR");
         });
 
         if (estado === "Autorizada") {
