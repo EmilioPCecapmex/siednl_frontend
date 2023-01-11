@@ -219,7 +219,7 @@ export const Documento = ({
     dataArray.append("asunto", asunto);
 
     axios({
-      url: "http://10.200.4.192:90/firma",
+      url: "http://10.200.4.46:90/firma", 
       method: "post",
       responseType: "blob",
       headers: {

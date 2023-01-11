@@ -18,12 +18,16 @@ import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { Firmado } from "./components/firmado electrónico/screens/firmado/Firmado";
 import { Documentos } from "./components/firmado electrónico/screens/documentos/Documentos";
 import { TablaDocs } from "./components/firmado electrónico/screens/tabla de documentos/tablaDocs";
+import axios from "axios";
 
 function App() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const jt = params.get("jwt") || null;
   const IdApp = params.get("IdApp");
+
+  
+  
 
   useLayoutEffect(() => {
     if (jt !== null) {
