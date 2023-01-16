@@ -11,6 +11,7 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import CommentIcon from '@mui/icons-material/Comment';
 import { parse } from "node:path/win32";
 import { DialogComentarios } from "./DialogComentarios";
+import ModalEditarSolicitud from "../modalUsuarios/ModalEditarSolicitud";
 
 interface IFiltros {
     Estatus: number,
@@ -31,11 +32,32 @@ export const DialogSolicitudes = ({
 
     const [solicitudesFiltered, setSolicitudesFiltered] = useState<Array<ISolicitud>>(solicitudes)
 
-    const [detalleSolicitud, setDetalleSolicitud] = useState<Array<IDetalleSolicitud>>([])
+    const [detalleSolicitud, setDetalleSolicitud] = useState<Array<IDetalleSolicitud>>([{
+        Respuesta:         "",
+        Mensaje:           "",
+        Id:                "",
+        Nombre:            "",
+        ApellidoPaterno:   "",
+        ApellidoMaterno:   "",
+        NombreUsuario:     "",
+        CorreoElectronico: "",
+        Curp:              "",
+        Rfc:               "",
+        Telefono:          "",
+        Ext:               "",
+        Celular:           "",
+        IdTipoUsuario:     "",
+        EstaActivo:        "",
+        Deleted:           0,
+        FechaDeCreacion:   "",
+        CreadoPor:         "",
+        Estatus:           0,
+        DatosAdicionales:  "",
+        NombreApp:      "",
+        NombreSolicitante: "",
+    }])
 
     const [solicitudSeleccionada, setSolicitudSeleccionada] = useState("")
-
-   
 
     const getSolicitudes = () => {
         axios
@@ -78,6 +100,7 @@ export const DialogSolicitudes = ({
 
     useEffect(() => {
         getSolicitudes()
+        console.log(detalleSolicitud[0]);
     }, [])
 
 
@@ -114,23 +137,20 @@ export const DialogSolicitudes = ({
     }, [filtroSelected])
 
     useEffect(() => {
-        if(selectedIndex >= 0)
-        getDetalleSolicitud()
+        if (selectedIndex >= 0)
+            getDetalleSolicitud()
 
     }, [selectedIndex])
 
 
 
-    const [openDialogRechazar, setOpenDialogRechazar] = useState(false);
-    const [openDialogAceptar, setOpenDialogAceptar] = useState(false);
+    const [openDialogModificar, setOpenDialogModificar] = useState(false);
 
-    const handleCloseOpenDialogRechazar = () => {
-        setOpenDialogRechazar(false);
+    const handleCloseOpenDialogModificar = () => {
+        setOpenDialogModificar(false);
     };
 
-    const handleCloseOpenDialogAceptar = () => {
-        setOpenDialogAceptar(false);
-    };
+
 
     const filtros = ([
         { Estatus: 0, Filtro: "Solo pendientes" },
@@ -147,8 +167,8 @@ export const DialogSolicitudes = ({
         }
     }
 
-    const [openComments,setOpenComments]=useState(false);
-    const handleCloseComments=()=>{
+    const [openComments, setOpenComments] = useState(false);
+    const handleCloseComments = () => {
         setOpenComments(false)
     }
 
@@ -440,9 +460,11 @@ export const DialogSolicitudes = ({
 
                                                     <Box sx={{ display: "flex", width: "40%", justifyContent: "flex-start" }}>
                                                         {solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "MODIFICACION" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 3
-                                                        ? <Button variant="contained" color="info" onClick={() => { setOpenDialogRechazar(true); }}>MODIFICAR</Button> : null}
+                                                        ?
+                                                                <Button variant="contained" color="info" onClick={() => {  setOpenDialogModificar(true)}}>MODIFICAR</Button>
+                                                          : null}
                                                     </Box>
-
+                                                    
                                                     <Box sx={{ display: "flex", width: "100%", justifyContent: "flex-end" }}>
                                                         <IconButton
                                                             onClick={() => {
@@ -471,7 +493,7 @@ export const DialogSolicitudes = ({
                                                         </IconButton>
                                                     </Box>
 
-                                                    {/* accionesSolicitud("rechazar")  */}
+                                                  
                                                 </Box>
                                             </Box>
 
@@ -494,7 +516,10 @@ export const DialogSolicitudes = ({
                 </Box>
             </Box>
             <DialogComentarios open={openComments} close={handleCloseComments} solicitud={solicitudSeleccionada}></DialogComentarios>
-        </Dialog>
+        
+            {openDialogModificar ? <ModalEditarSolicitud dataUser={detalleSolicitud[0]} handleClose={handleCloseOpenDialogModificar} open={openDialogModificar} idSolicitud={solicitudSeleccionada} />:null}
+        </Dialog >
+        
 
     );
 }
