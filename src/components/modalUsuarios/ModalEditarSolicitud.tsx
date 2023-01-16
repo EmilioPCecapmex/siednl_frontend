@@ -15,23 +15,30 @@ import {
   Button,
   AlertColor,
 } from "@mui/material";
-import DataUsuariosTiCentral from "../datatable/interface";
+import { IDetalleSolicitud } from "../solicitudes/ISolicitud";
 
 export interface IInstituciones {
   Id: string;
   NombreInstitucion: string;
 }
 
-export default function ModalEditarUsuario({
-  title,
+ interface IDatosAdicionales{
+  IdInstitucion:string;
+  Cargo:string;
+  IdRol:string;
+  Rol: string;
+  }
+
+export default function ModalEditarSolicitud({
   open,
   handleClose,
   dataUser,
+  idSolicitud,
 }: {
-  title: string;
   open: boolean;
   handleClose: Function;
-  dataUser: DataUsuariosTiCentral;
+  dataUser: IDetalleSolicitud;
+  idSolicitud:string;
 }) {
 
 
@@ -43,15 +50,16 @@ export default function ModalEditarUsuario({
   const [curp, setCURP] = useState(dataUser.Curp);
   const [rfc, setRFC] = useState(dataUser.Rfc);
 
-  const [institution, setInstitution] = useState(dataUser.IdInstitucion);
-  const [rol, setRol] = useState(dataUser.Cargo);
-  const [userType, setUserType] = useState(dataUser.IdRol);
-
   const [telephone, setTelephone] = useState(dataUser.Telefono);
   const [cellphone, setCellphone] = useState(dataUser.Celular);
   const [ext, setExt] = useState(dataUser.Ext);
   const [comentario, setComentario] = useState("");
 
+ const [datosAdicionales,setDatosAdicionales]=useState<IDatosAdicionales>(JSON.parse(dataUser.DatosAdicionales))
+
+  const [institution, setInstitution] = useState(datosAdicionales.IdInstitucion);
+  const [rol, setRol] = useState(datosAdicionales.Cargo);
+  const [userType, setUserType] = useState(datosAdicionales.IdRol);
   // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
@@ -183,7 +191,7 @@ export default function ModalEditarUsuario({
           Celular: cellphone,
           Telefono: telephone,
           Extencion: ext,
-          DatosAdicionales: JSON.stringify({Rol: dataUser.Rol ,IdRol: dataUser.IdRol , Cargo: dataUser.Cargo , IdInstitucion:dataUser.IdInstitucion}),
+          DatosAdicionales: JSON.stringify({Rol: datosAdicionales.Rol ,IdRol: datosAdicionales.IdRol , Cargo: datosAdicionales.Cargo , IdInstitucion: datosAdicionales.IdInstitucion}),
           TipoSolicitud: "MODIFICACION",
           CreadoPor: localStorage.getItem("IdCentral"),
           IdApp: localStorage.getItem("IdApp"),
@@ -220,51 +228,6 @@ export default function ModalEditarUsuario({
       });
   };
 
-
-
-  // const siednlSignUp = (idUsrCentral: string) => {
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
-  //       {
-  //         IdUsuarioCentral: idUsrCentral,
-  //         IdInstitucion: institution,
-  //         Cargo: rol,
-  //         Telefono: telephone,
-  //         Celular: cellphone,
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-  //         IdRol: userType,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         Toast.fire({
-  //           icon: "success",
-  //           title: "¡Registro exitoso!",
-  //         });
-  //       }
-  //     });
-  // };
-
-
-
-  // useEffect(() => {
-  //   if (idSolicitud != "") {
-  //     createComentarios();
-  //   }
-
-  // }, [idSolicitud]);
-
-  // useEffect(() => {
-  //   if(idUsuarioCentral!=""){
-  //     createSolicitud();
-  //   }
-  // }, [idUsuarioCentral]);
 
   const checkForm = () => {
     setErrorsForm({
@@ -363,8 +326,8 @@ export default function ModalEditarUsuario({
         text: "No se puede modificar el correo electrónico ",
         type: "error",
       });
-    }else if (names===dataUser.Nombre && firstName===dataUser.ApellidoPaterno && secondName===dataUser.ApellidoMaterno && institution===dataUser.IdInstitucion 
-      && rol===dataUser.Cargo && userType===dataUser.IdRol && curp ===dataUser.Curp && rfc===dataUser.Rfc && telephone===dataUser.Telefono 
+    }else if (names===dataUser.Nombre && firstName===dataUser.ApellidoPaterno && secondName===dataUser.ApellidoMaterno && institution===datosAdicionales.IdInstitucion 
+      && rol===datosAdicionales.Cargo && userType===datosAdicionales.IdRol && curp ===dataUser.Curp && rfc===dataUser.Rfc && telephone===dataUser.Telefono 
       && ext===dataUser.Ext && cellphone===dataUser.Celular) {
       setErrorsForm({
         visible: true,
@@ -379,13 +342,15 @@ export default function ModalEditarUsuario({
   useEffect(() => {
     getInstituciones();
     getUserType();
+    console.log(idSolicitud);
+    
 
   }, []);
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        {title.toUpperCase()}
+       EDITAR SOLICITUD
       </DialogTitle>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>

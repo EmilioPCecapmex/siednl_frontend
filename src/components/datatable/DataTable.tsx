@@ -324,7 +324,7 @@ export const DataTable = ({
 
       {openModalEditarUsuario ? (
         <ModalEditarUsuario
-          actualizado={actualizaContador}
+          // actualizado={actualizaContador}
           title="Editar Usuario"
           open={openModalEditarUsuario}
           handleClose={handleCloseModalEditarUsuario}
