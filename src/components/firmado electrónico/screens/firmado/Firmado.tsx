@@ -79,6 +79,7 @@ export const Firmado = () => {
   const [id, setId] = useState("");
   const [url, setUrl] = useState("");
   const [nombreDoc, setNombreDoc] = useState("");
+  const [date, setDate] = useState('');
 
   const [noSerie, setNoSerie] = useState("");
 
@@ -210,6 +211,7 @@ export const Firmado = () => {
             setUrl={setUrl}
             Rfc={rfc}
             noSerie={noSerie}
+            setDate={setDate}
           ></Documento>
           <Firma
             show={activeStep === 2 ? true : false}
@@ -218,6 +220,7 @@ export const Firmado = () => {
             asunto={reason}
             id={id}
             url={url}
+            date = {date}
           ></Firma>
 
           <Box sx={{ display: "flex", flexDirection: "row" }}>

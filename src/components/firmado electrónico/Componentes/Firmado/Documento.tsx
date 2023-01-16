@@ -26,6 +26,7 @@ export const Documento = ({
   setUrl,
   Rfc,
   noSerie,
+  setDate
 }: {
   show: boolean;
   setNombreDoc: Function;
@@ -40,6 +41,7 @@ export const Documento = ({
   setUrl: Function;
   Rfc: string;
   noSerie: string;
+  setDate: Function;
 }) => {
   const fecha = new Date();
   const anio = fecha.getFullYear();
@@ -140,25 +142,6 @@ export const Documento = ({
     },
   });
 
-  // const saveDocument = () => {
-  //   axios({
-  //     url: "http://10.200.4.105:8500/api/save",
-  //     method: "post",
-  //     data: {
-  //       Id: id,
-  //       Serie: "123456789",
-  //       Rfc: "peae950602u84",
-  //       NoOficio: noOficio,
-  //       Asunto: asunto,
-  //       Destinatario: usuarios,
-  //       Ccp: ccp,
-  //       CreadoPor: "a4f79e57-32b7-11ed-aed0-040300000000",
-  //       IdApp: "ffcc48cb-3087-11ed-aed0-040300000000",
-  //     },
-  //   }).then((r) => {
-  //   });
-  // };
-
   const [loading, setLoading] = useState(false);
 
   const sendFiel = () => {
@@ -230,6 +213,11 @@ export const Documento = ({
       data: dataArray,
     })
       .then((response) => {
+        let today = new Date();
+        let date = today.toLocaleDateString();
+        let hour = today.toTimeString();
+
+        setDate(date + " " + hour)
         setUrl(window.URL.createObjectURL(new Blob([response.data])));
 
         setCheckFile(true);
@@ -263,6 +251,7 @@ export const Documento = ({
         });
       });
   };
+
 
   useEffect(() => {
     if (

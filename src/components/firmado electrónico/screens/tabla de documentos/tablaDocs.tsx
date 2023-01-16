@@ -11,9 +11,7 @@ import {
   IconButton,
   TablePagination,
   Input,
-  Select,
   FormControl,
-  MenuItem,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -51,7 +49,8 @@ export const TablaDocs = () => {
   };
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findSistemStr, setFindSistemStr] = useState("0");
+  const [fecha1, setFecha1] = useState("");
+  const [fecha2, setFecha2] = useState("");
 
   const [phrase, setPhrase] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -61,33 +60,44 @@ export const TablaDocs = () => {
   const [docsFiltered, setDocsFiltered] = useState<Array<IIDocsFirmados>>([]);
 
   // Filtrado por caracter
-  const findText = (v: string, sistema: string) => {
-    if (v !== "" || sistema !== "0") {
+  const findText = (v: string, f1: string, f2: string) => {
+    let fecha1 = new Date(f1);
+    let fecha2 = new Date(f2);
+
+    fecha1.setDate(fecha1.getDate() + 1);
+    fecha1.setHours(0o0);
+    fecha2.setHours(0o0);
+    fecha2.setDate(fecha2.getDate() + 1);
+
+    if (!/^[\s]*$/.test(v) && !/^[\s]*$/.test(f1) && !/^[\s]*$/.test(f2)) {
       setDocsFiltered(
         docs.filter(
           (x) =>
-            x.Asunto.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.NumeroOficio.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.SerialCertificado.toLowerCase().includes(
-              findTextStr.toLowerCase()
-            ) ||
-            x.Sistema.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.Asunto.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.Nombre.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.Rfc.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.FechaFirma.toLowerCase().includes(findTextStr.toLowerCase())
+            (x.Asunto.toLowerCase().includes(v.toLowerCase()) ||
+              x.NumeroOficio.toLowerCase().includes(v.toLowerCase()) ||
+              x.Sistema.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaFirma.includes(v.toLowerCase())) &&
+            new Date(x.FechaFirma) >= fecha1 &&
+            new Date(x.FechaFirma) <= fecha2
         )
       );
-
-      if (sistema !== "0") {
-        setDocsFiltered(
-          docs.filter((x) =>
-            x.Sistema.toLowerCase().includes(sistema.toLowerCase())
-          )
-        );
-      } else {
-        setDocsFiltered(docs);
-      }
+    } else if (!/^[\s]*$/.test(f1) && !/^[\s]*$/.test(f2)) {
+      setDocsFiltered(
+        docs.filter(
+          (x) =>
+            new Date(x.FechaFirma) >= fecha1 && new Date(x.FechaFirma) <= fecha2
+        )
+      );
+    } else if (!/^[\s]*$/.test(v)) {
+      setDocsFiltered(
+        docs.filter(
+          (x) =>
+            x.Asunto.toLowerCase().includes(v.toLowerCase()) ||
+            x.NumeroOficio.toLowerCase().includes(v.toLowerCase()) ||
+            x.Sistema.toLowerCase().includes(v.toLowerCase()) ||
+            x.FechaFirma.includes(v.toLowerCase())
+        )
+      );
     } else {
       setDocsFiltered(docs);
     }
@@ -110,8 +120,6 @@ export const TablaDocs = () => {
   useEffect(() => {
     getDocs();
   }, []);
-
-  const [openModalVerResumenFT, setOpenModalVerResumenFT] = useState(false);
 
   const [openModalDescargar, setOpenModalDescargar] = useState(false);
 
@@ -142,8 +150,7 @@ export const TablaDocs = () => {
         document.body.appendChild(link);
         link.click();
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
 
   return (
@@ -192,7 +199,7 @@ export const TablaDocs = () => {
           <Box
             sx={{
               display: "flex",
-              width: "70%",
+              width: "60%",
               alignItems: "center",
               justifyContent: "center",
               border: 1,
@@ -203,67 +210,94 @@ export const TablaDocs = () => {
             <Input
               size="small"
               value={findTextStr}
-              placeholder="Búsqueda"
-              sx={{ width: "90%", fontFamily: "MontserratRegular" }}
+              placeholder="Búsqueda general"
+              sx={{ width: "100%", fontFamily: "MontserratRegular" }}
               disableUnderline
               onChange={(v) => {
                 setFindTextStr(v.target.value);
-                findText(v.target.value, findSistemStr);
+                findText(v.target.value, fecha1, fecha2);
               }}
             />
             <SearchIcon />
           </Box>
-
-          <FormControl
+          <Box
             sx={{
               display: "flex",
-              width: "70%",
-              alignItems: "center",
-              justifyContent: "center",
-              border: 1,
-              borderRadius: 2,
-              borderColor: "#616161",
+              flexDirection: "column",
+              width: "100%",
+              pr: 10,
             }}
           >
-            <Select
-              size="small"
-              variant="standard"
-              value={findSistemStr}
-              sx={{ fontFamily: "MontserratRegular" }}
-              fullWidth
-              disableUnderline
-              onChange={(v) => {
-                v.target.value === "Todos"
-                  ? findText(findTextStr, "0")
-                  : findText(findTextStr, v.target.value);
-                setFindSistemStr(v.target.value);
+            <Typography sx={{ width: "100%", fontFamily: "MontserratMedium" }}>
+              Búsqueda por rango de fechas
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <MenuItem
-                value={"0"}
-                sx={{ fontFamily: "MontserratRegular" }}
-                disabled
-                selected
+              <Typography sx={{ fontFamily: "MontserratRegular", mr: 1 }}>
+                Desde
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "40%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: 1,
+                  borderRadius: 2,
+                  borderColor: "#616161",
+                }}
               >
-                Filtro por sistema
-              </MenuItem>
-
-              <MenuItem
-                value={"Todos"}
-                sx={{ fontFamily: "MontserratRegular" }}
+                <Input
+                  type="date"
+                  size="small"
+                  value={fecha1}
+                  placeholder="Desde"
+                  sx={{ width: "90%", fontFamily: "MontserratRegular" }}
+                  disableUnderline
+                  onChange={(v) => {
+                    setFecha1(v.target.value);
+                    findText(findTextStr, v.target.value, fecha2);
+                  }}
+                />
+              </Box>
+              <Typography
+                sx={{ fontFamily: "MontserratRegular", ml: 1, mr: 1 }}
               >
-                Todos
-              </MenuItem>
-
-              {/* {instituciones?.map((item) => {
-                  return (
-                    <MenuItem value={item.NombreInstitucion} key={item.Id}>
-                      {item.NombreInstitucion}
-                    </MenuItem>
-                  );
-                })} */}
-            </Select>
-          </FormControl>
+                Hasta
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "40%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: 1,
+                  borderRadius: 2,
+                  borderColor: "#616161",
+                }}
+              >
+                <Input
+                  type="date"
+                  size="small"
+                  value={fecha2}
+                  placeholder="Desde"
+                  sx={{ width: "90%", fontFamily: "MontserratRegular" }}
+                  disableUnderline
+                  onChange={(v) => {
+                    setFecha2(v.target.value);
+                    findText(findTextStr, fecha1, v.target.value);
+                  }}
+                />
+              </Box>
+            </Box>
+          </Box>
         </Box>
 
         <Box
@@ -284,7 +318,7 @@ export const TablaDocs = () => {
                 sx={{
                   width: "100%",
                   display: "grid",
-                  gridTemplateColumns: "repeat(8, 1fr)",
+                  gridTemplateColumns: "repeat(6, 1fr)",
                   justifyContent: "space-evenly",
                   alignItems: "center",
                 }}
@@ -307,17 +341,7 @@ export const TablaDocs = () => {
                   }}
                   align="center"
                 >
-                  NO. DE SERIE
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    borderBottom: 0,
-                    fontSize: "0.8vw",
-                  }}
-                  align="center"
-                >
-                  SISTEMA
+                  NOMBRE DEL ARCHIVO
                 </TableCell>
                 <TableCell
                   sx={{
@@ -337,28 +361,20 @@ export const TablaDocs = () => {
                   }}
                   align="center"
                 >
-                  FIRMANTE
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    borderBottom: 0,
-                    fontSize: "0.8vw",
-                  }}
-                  align="center"
-                >
-                  RFC
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    borderBottom: 0,
-                    fontSize: "0.8vw",
-                  }}
-                  align="center"
-                >
                   FECHA DE FIRMADO
                 </TableCell>
+
+                <TableCell
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    borderBottom: 0,
+                    fontSize: "0.8vw",
+                  }}
+                  align="center"
+                >
+                  SISTEMA
+                </TableCell>
+
                 <TableCell
                   sx={{
                     fontFamily: "MontserratBold",
@@ -401,7 +417,7 @@ export const TablaDocs = () => {
                         sx={{
                           width: "100%",
                           display: "grid",
-                          gridTemplateColumns: "repeat(8, 1fr)",
+                          gridTemplateColumns: "repeat(6, 1fr)",
                           justifyContent: "space-evenly",
                         }}
                       >
@@ -417,70 +433,6 @@ export const TablaDocs = () => {
                         >
                           {row.NumeroOficio}
                         </TableCell>
-
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: "0.7vw",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                          align="center"
-                        >
-                          <IconButton>
-                            <VisibilityIcon
-                              onClick={() => {
-                                setOpenModalVerResumenFT(true);
-                              }}
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "lightBlue",
-                                  },
-                                  width: "1.2vw",
-                                  height: "1.2vw",
-                                },
-                              ]}
-                            />
-                            <Box>
-                              <Dialog
-                                fullWidth
-                                maxWidth="xs"
-                                open={openModalVerResumenFT}
-                                onClose={() => setOpenModalVerResumenFT(false)}
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <DialogTitle>
-                                  NO. DE SERIE
-                                  <IconButton
-                                    onClick={() =>
-                                      setOpenModalVerResumenFT(false)
-                                    }
-                                    sx={{
-                                      position: "absolute",
-                                      right: 8,
-                                      top: 8,
-                                      color: "black",
-                                    }}
-                                  >
-                                    <CloseIcon />
-                                  </IconButton>
-                                </DialogTitle>
-                                <DialogContent>
-                                  <Typography>
-                                    {row.SerialCertificado}
-                                  </Typography>
-                                </DialogContent>
-                              </Dialog>
-                            </Box>
-                          </IconButton>
-                        </TableCell>
-
                         <TableCell
                           sx={{
                             fontFamily: "MontserratRegular",
@@ -488,10 +440,11 @@ export const TablaDocs = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
+                            overflow:'hidden'
                           }}
                           align="center"
                         >
-                          {row.Sistema}
+                          {row.nombre_archivo}
                         </TableCell>
                         <TableCell
                           sx={{
@@ -505,7 +458,6 @@ export const TablaDocs = () => {
                         >
                           {row.Asunto}
                         </TableCell>
-
                         <TableCell
                           sx={{
                             fontFamily: "MontserratRegular",
@@ -516,7 +468,7 @@ export const TablaDocs = () => {
                           }}
                           align="center"
                         >
-                          {row.Nombre}
+                          {row.FechaFirma.split(" ")[0]}
                         </TableCell>
 
                         <TableCell
@@ -529,20 +481,7 @@ export const TablaDocs = () => {
                           }}
                           align="center"
                         >
-                          {row.Rfc}
-                        </TableCell>
-
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: "0.8vw",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                          align="center"
-                        >
-                          {row.FechaFirma}
+                          {row.Sistema}
                         </TableCell>
 
                         <TableCell
@@ -561,11 +500,12 @@ export const TablaDocs = () => {
                               }
                             >
                               <span>
-                                <IconButton>
+                                <IconButton
+                                  onClick={() => {
+                                    setOpenModalDescargar(true);
+                                  }}
+                                >
                                   <DownloadIcon
-                                    onClick={() => {
-                                      setOpenModalDescargar(true);
-                                    }}
                                     sx={[
                                       {
                                         "&:hover": {
@@ -741,4 +681,5 @@ export interface IIDocsFirmados {
   Rfc: string;
   FechaFirma: string;
   Id: string;
+  nombre_archivo: string;
 }

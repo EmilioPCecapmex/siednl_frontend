@@ -134,7 +134,7 @@ export const Credenciales = ({
           }, 1500);
           setTimeout(() => {
             validado(true);
-          }, 2000);
+          }, 2500);
         }
         
       })

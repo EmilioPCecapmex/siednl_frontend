@@ -11,6 +11,7 @@ export const Firma = ({
   asunto,
   id,
   url,
+  date
 }: {
   show: boolean;
   nombreDoc: string;
@@ -18,12 +19,9 @@ export const Firma = ({
   asunto: string;
   id: string;
   url: string;
+  date: string;
 }) => {
-  const qr = `http://localhost:3001/documentos/?Id=${id}`;
-
-  let today = new Date();
-  let date = today.toLocaleDateString();
-  let hour = today.toTimeString();
+  const qr = `http://10.200.4.199:3000/validador?Id=${id}`;
 
   function downLoadDoc() {
     const link = document.createElement("a");
@@ -39,17 +37,27 @@ export const Firma = ({
       position="absolute"
       sx={{
         width: "25%",
-        height: "30%",
+        height: "50%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
       }}
     >
+      <Typography
+        sx={{
+          fontSize: "0.9vw",
+          fontFamily: "MontserratBold",
+          textAlign: "center",
+        }}
+      >
+        SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL ESTADO DE NUEVO LEÓN
+      </Typography>
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          height: "30vh",
+          gridTemplateColumns: "1fr",
           border: "2px solid black",
           boxShadow: 10,
         }}
@@ -67,94 +75,77 @@ export const Firma = ({
         >
           <Typography
             sx={{
-              fontFamily: "MontserratBold",
+              fontSize: "0.7vw",
+              fontFamily: "MontserratMedium",
             }}
           >
-            FIRMA ELECTRÓNICA SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL
-            ESTADO
+            <strong> FIRMADO DIGITALMENTE POR: </strong>
+            {nombre || ""}
           </Typography>
 
           <Typography
             sx={{
-              fontFamily: "MontserratBold",
+              fontSize: "0.7vw",
+              fontFamily: "MontserratMedium",
             }}
           >
-            ID: {id}
+            <strong> ASUNTO: </strong>
+            {asunto || ""}
+          </Typography>
+
+          <Typography
+            sx={{
+              fontSize: "0.7vw",
+              fontFamily: "MontserratMedium",
+            }}
+          >
+            <strong> FECHA DE FIRMADO: </strong>
+            {date}
+          </Typography>
+
+          <Typography
+            sx={{
+              fontSize: "0.7vw",
+              fontFamily: "MontserratMedium",
+            }}
+          >
+            <strong> ID DEL DOCUMENTO FIRMADO: </strong>
+            {id}
           </Typography>
         </Box>
 
-        <Box sx={{ m: 2 }}>
+        <Box
+          sx={{
+            ml: 2,
+            mr: 4,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <QRCode
             value={qr}
-            size={256}
+            size={150}
             bgColor="#fff"
             fgColor="#000"
             level="H"
           />
         </Box>
 
-        <Box sx={{ gridColumn: "1/3", border: "2px solid black", textAlign:'center'}}>
-            <Link
-              onClick={() => window.open(`../documentos/?Id=${id}`, "blank")}
-              sx={{ cursor: "pointer", fontFamily:'MontserratBold' }}
-
-            >
-              Valida la firma aquí
-            </Link>
-        </Box>
         <Box
           sx={{
             gridColumn: "1/3",
             border: "2px solid black",
+            textAlign: "center",
             display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Typography
-            sx={{
-              width: "4.5vw",
-              fontSize: "100%",
-              fontFamily: "MontserratBold",
-              textTransform: "uppercase",
-              mr: 2,
-            }}
-          >
-            {nombre || ""}
-          </Typography>
-
           <Box
             sx={{
-              width: "15vw",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "70%",
-                fontFamily: "MontserratBold",
-              }}
-            >
-              Digitally signed by {nombre || ""}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "70%",
-                fontFamily: "MontserratBold",
-              }}
-            >
-              Date: {date + " " + hour}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "70%",
-                fontFamily: "MontserratBold",
-              }}
-            >
-              Reason: {asunto || ""}
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              width: "20%",
+              width: "50%",
+              height: "50%",
               backgroundColor: "#b0d9ff",
               color: "black",
               "&:hover": { backgroundColor: "#54adff", color: "white" },
@@ -162,6 +153,8 @@ export const Firma = ({
               display: "flex",
               textAlign: "center",
               alignItems: "center",
+              justifyContent: "center",
+              m: 1,
             }}
             onClick={() => {
               downLoadDoc();
@@ -174,6 +167,32 @@ export const Firma = ({
               }}
             >
               DESCARGAR DOCUMENTO FIRMADO
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              width: "30%",
+              height: "50%",
+              backgroundColor: "#b0d9ff",
+              color: "black",
+              "&:hover": { backgroundColor: "#54adff", color: "white" },
+              cursor: "pointer",
+              display: "flex",
+              textAlign: "center",
+              alignItems: "center",
+              justifyContent: "center",
+              m: 1,
+            }}
+          >
+            <Typography
+              onClick={() => window.open(`http://10.200.4.199:3001/tabla`, "blank")}
+              sx={{
+                cursor: "pointer",
+                fontSize: "80%",
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              VER MIS DOCUMENTOS FIRMADOS
             </Typography>
           </Box>
         </Box>

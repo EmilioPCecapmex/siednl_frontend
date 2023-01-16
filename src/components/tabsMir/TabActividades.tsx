@@ -31,6 +31,8 @@ export const TabActividades = ({
   actividadesMir,
   mirEdit,
   componentesTextos,
+  setActividadesM,
+  setCompAct,
 }: {
   show: boolean;
   componentes: number[];
@@ -39,15 +41,41 @@ export const TabActividades = ({
   actividadesMir: Array<IActividadesMir>;
   mirEdit?: IMIREdit;
   componentesTextos: Array<IComponente>;
+  setActividadesM: Function;
+  setCompAct: Function;
 }) => {
-  // business logic-------------------------------------------------------------------------------
-  const [actividades, setActividades] = React.useState([1, 2]);
+  useEffect(() => {
+    let act: number[] = [];
+    let comp: string[] = [];
+    let ambos: any = [];
+    let i = 1;
+    let j = 1;
 
+    componentes.map((x: any) => {
+      comp.push("C" + j);
+      actividadesMir.map((a: any) => {
+        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+          act.push(i);
+          i++;
+        }
+      });
+      ambos.push({ actividades: act, componente: "C" + j });
+      act = [];
+      i = 1;
+      j++;
+    });
+
+    setCompAct(ambos);
+  }, [componentes]);
+
+  const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
     {
       componentes: componentes.map((x) => actividades),
     },
   ]);
+
+  let aument_number1 = -1;
 
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
@@ -56,7 +84,7 @@ export const TabActividades = ({
           return {
             actividades: x.map((c, index2) => {
               return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                actividad: "A" + (index2 + 1) + "C" + aument_number1,
                 resumen: "",
                 indicador: "",
                 formula: "",
@@ -75,6 +103,7 @@ export const TabActividades = ({
     if (componentes.length > cValor[0].componentes.length) {
       let restantes = componentes.length - cValor[0].componentes.length;
       let prevState = [...cValor];
+
       for (let index = 1; index <= restantes; index++) {
         prevState[0].componentes.push({
           actividades: [
@@ -108,7 +137,6 @@ export const TabActividades = ({
       for (let index = 1; index <= restantes; index++) {
         prevState[0].componentes.pop();
         setCValor(prevState);
-
         asignarCValor(prevState);
       }
       setComponenteSelect(0);
@@ -120,30 +148,33 @@ export const TabActividades = ({
     asignarCValor(cValor);
   }, [cValor]);
 
+  const [s, setS] = useState(0)
+
   useEffect(() => {
-    if (compAct.length > 0) {
-      loadActividadesMir();
-    }
-  }, [compAct, componentes]);
+      if (compAct.length > 0 && s === 0) {
+        loadActividadesMir();
+        setS(1)
+      }
+  }, [show]);
 
   let aument_number = -1;
+  let aumentComps = -1;
 
   const loadActividadesMir = () => {
-
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct.map((x, index) => {
+          aumentComps++;
           return {
-            actividades: x.actividades.map((c, index2) => {
+            actividades: x.actividades?.map((c, index2) => {
               aument_number++;
-
               return {
                 actividad:
                   actividadesMir[index2]?.actividad ||
                   "A" +
-                    (cValor[0].componentes[index].actividades.length + 1) +
+                    (cValor[0].componentes[index]?.actividades?.length + 1) +
                     "C" +
-                    (index + 1),
+                    aumentComps,
                 resumen: actividadesMir[aument_number]?.resumen || "",
                 indicador: actividadesMir[aument_number]?.indicador || "",
                 formula: actividadesMir[aument_number]?.formula || "",
@@ -160,29 +191,31 @@ export const TabActividades = ({
     actividadesMir.map((x) => {
       let act = x.actividad?.split("")[1];
       let comp = x.actividad?.split("")[3];
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].actividad = x?.actividad;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].resumen = x?.resumen;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].indicador = x?.indicador;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].formula = x?.formula;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].frecuencia = x?.frecuencia;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].medios = x?.medios;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].supuestos = x?.supuestos;
+      if (parseInt(comp) - 1 <= componentes.length) {
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].actividad = x?.actividad;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].resumen = x?.resumen;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].indicador = x?.indicador;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].formula = x?.formula;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].frecuencia = x?.frecuencia;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].medios = x?.medios;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].supuestos = x?.supuestos;
+      }
     });
+
     setCValor(y);
   };
 
@@ -194,12 +227,14 @@ export const TabActividades = ({
       let a = [...actividades];
       a.push(actividades.length + 1);
       setActividades(a);
+      setActividadesM(a);
       let xArray = [...componenteActividad];
       xArray[0]["componentes"][index] = [
         ...actividades,
         actividades.length + 1,
       ];
       setComponenteActividad(xArray);
+
       if (cValor[0].componentes[index].actividades.length < 6) {
         let prevState = [...cValor];
         prevState[0].componentes[index].actividades.push({
@@ -230,10 +265,13 @@ export const TabActividades = ({
       let a = actividades;
       a.pop();
       setActividades(a);
+      setActividadesM(a);
       let prevState = [...cValor];
       prevState[0].componentes[componenteSelect].actividades.pop();
       setCValor(prevState);
       asignarCValor(prevState);
+      console.log(prevState);
+      
     }
   };
 

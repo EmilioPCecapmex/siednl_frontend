@@ -8,7 +8,7 @@ import {
   IEncabezadoEdit,
   IFinEdit,
   IPropositoEdit,
-} from "./TabResumen2";
+} from "./TabResumen";
 
 export interface IMIR {
   encabezado: IEncabezado;

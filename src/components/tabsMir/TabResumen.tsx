@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
-import { IEncabezado, ILineasDeAccion } from "./TabEncabezado";
+import { IEncabezado } from "./TabEncabezado";
 import { IComponente } from "./IComponente";
 import { IActividadesMir, ICValor } from "./ICValor";
 import { IFin, IProposito } from "./TabFinProposito";
@@ -9,11 +9,8 @@ import { IMIR } from "./IMIR";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
-import { ActividadesInstitucionales } from "../../screens/actividadesInstitucionales/ActividadesInstitucionales";
-import { getValue } from "@mui/system";
-import { createDecipheriv } from "crypto";
 
-export function TabResumen2({
+export function TabResumen({
   show,
   encabezado,
   fin,
@@ -42,10 +39,6 @@ export function TabResumen2({
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
   };
-
-useEffect(() => {
-  
-  },[show])
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -91,7 +84,9 @@ useEffect(() => {
   };
 
   const createMIR = (estado: string) => {
-   axios
+    console.log(MIR);
+
+    axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
@@ -242,7 +237,7 @@ useEffect(() => {
   //   editEncabezado.tema,
   // ]);
 
-   const [disablebutton2, setDisablebutton2] = useState(false);
+  const [disablebutton2, setDisablebutton2] = useState(false);
   // useEffect(() => {
   //   setDisablebutton2(
   //     editFin.formula &&
@@ -265,8 +260,7 @@ useEffect(() => {
 
   // //  let ARRAY =[editActividades];
 
-
-   const [disablebutton3, setDisablebutton3] = useState(false);
+  const [disablebutton3, setDisablebutton3] = useState(false);
   // useEffect(() => {
   //   setDisablebutton3(
   //     editProposito.formula &&
@@ -285,11 +279,11 @@ useEffect(() => {
   //   editProposito.supuestos,
   // ]);
 
-  const [disablebuttoncomponentes, setDisablebuttoncomponentes] = useState(false);
-  const [disablebuttonactividades, setDisablebuttonactividades] = useState(false);
+  const [disablebuttoncomponentes, setDisablebuttoncomponentes] =
+    useState(false);
+  const [disablebuttonactividades, setDisablebuttonactividades] =
+    useState(false);
   useEffect(() => {
-
-      
     let arrayEncabezado = Object.entries(editEncabezado);
     let arrayFin = Object.entries(editFin);
     let arrayProposito = Object.entries(editProposito);
@@ -323,39 +317,28 @@ useEffect(() => {
       return x;
     });
 
-
     let respEncabezado = arrayEncabezado.every((item) => item[1] === true);
     let respFin = arrayFin.every((item) => item[1] === true);
     let respProposito = arrayProposito.every((item) => item[1] === true);
     let respuestaComponentes = arrayComponentes.every((item) => item === true);
     let respuestaActividades = arrayActividad.every((item) => item === true);
-    
-    setDisablebutton(
-      respEncabezado
-    )
-    
-    setDisablebutton2(
-      respFin
-    )
 
-    setDisablebutton3(
-      respProposito
-    )  
+    setDisablebutton(respEncabezado);
 
-    setDisablebuttoncomponentes(
-      respuestaComponentes
-    )
+    setDisablebutton2(respFin);
 
-    setDisablebuttonactividades(
-      respuestaActividades
-      
-    )
-    
-  }, [editEncabezado, editFin, editProposito, editComponentes, editActividades]);
+    setDisablebutton3(respProposito);
 
-//  useEffect(() =>
-//  setDisablebutton_all 
-//  )
+    setDisablebuttoncomponentes(respuestaComponentes);
+
+    setDisablebuttonactividades(respuestaActividades);
+  }, [
+    editEncabezado,
+    editFin,
+    editProposito,
+    editComponentes,
+    editActividades,
+  ]);
 
   return (
     <Box
@@ -625,7 +608,6 @@ useEffect(() => {
                 borderColor: "#cfcfcf",
               }}
             >
-              
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
                   value={!editEncabezado.objetivo}
@@ -666,7 +648,6 @@ useEffect(() => {
                 borderColor: "#cfcfcf",
               }}
             >
-              
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
                   value={!editEncabezado.estrategia}
@@ -842,7 +823,6 @@ useEffect(() => {
               borderColor: "#cfcfcf",
             }}
           >
-            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.indicador}
@@ -875,7 +855,6 @@ useEffect(() => {
               borderColor: "#cfcfcf",
             }}
           >
-            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.formula}
@@ -908,7 +887,6 @@ useEffect(() => {
               borderColor: "#cfcfcf",
             }}
           >
-            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.frecuencia}
@@ -941,7 +919,6 @@ useEffect(() => {
               borderColor: "#cfcfcf",
             }}
           >
-            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.medios}
@@ -974,7 +951,6 @@ useEffect(() => {
               borderColor: "#cfcfcf",
             }}
           >
-            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editFin.supuestos}
@@ -1053,7 +1029,6 @@ useEffect(() => {
               borderColor: "#cfcfcf",
             }}
           >
-            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editProposito.indicador}
@@ -1089,7 +1064,6 @@ useEffect(() => {
               borderColor: "#cfcfcf",
             }}
           >
-            
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editProposito.formula}
@@ -1495,7 +1469,7 @@ useEffect(() => {
                       textTransform: "uppercase",
                     }}
                   >
-                    Componente {indexComponentes + 1} - Actividad
+                    Componente {indexComponentes + 1} - Actividad{" "}
                     {indexActividades + 1}
                   </Typography>
                   <Box
@@ -1761,11 +1735,14 @@ useEffect(() => {
 
         <Button
           /////////////////////////////////////////////// Aqui estoy /////////////////////////////////////
-          
-          disabled={
-          disablebutton && disablebutton2 && disablebutton3 && disablebuttoncomponentes && disablebuttonactividades
-          }
 
+          disabled={
+            disablebutton &&
+            disablebutton2 &&
+            disablebutton3 &&
+            disablebuttoncomponentes &&
+            disablebuttonactividades
+          }
           color="warning"
           variant="outlined"
           onClick={() => setOpenModalSolicitarModif(true)}
@@ -1837,7 +1814,7 @@ useEffect(() => {
   );
 }
 
-export default TabResumen2;
+export default TabResumen;
 
 export interface IEncabezadoEdit {
   ejercicioFiscal: boolean;

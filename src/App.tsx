@@ -1,7 +1,8 @@
-import React, { useLayoutEffect, useEffect } from "react";
+import { useLayoutEffect} from "react";
 
 import "./App.css";
 import "./Fonts.css";
+
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./screens/home/Home";
 import { Settings } from "./screens/config/Settings";
@@ -16,18 +17,14 @@ import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { Firmado } from "./components/firmado electrónico/screens/firmado/Firmado";
-import { Documentos } from "./components/firmado electrónico/screens/documentos/Documentos";
 import { TablaDocs } from "./components/firmado electrónico/screens/tabla de documentos/tablaDocs";
-import axios from "axios";
+import { Documentos } from "./components/firmado electrónico/screens/documentos/Documentos";
 
 function App() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const jt = params.get("jwt") || null;
   const IdApp = params.get("IdApp");
-
-  
-  
 
   useLayoutEffect(() => {
     if (jt !== null) {
@@ -42,11 +39,10 @@ function App() {
         }
       });
     } else {
-
       continueSession().then((r) => {
         if ((r as boolean) === false) {
           window.location.assign("http://10.200.4.106/");
-        }else{
+        } else {
           navigate("../home");
         }
       });

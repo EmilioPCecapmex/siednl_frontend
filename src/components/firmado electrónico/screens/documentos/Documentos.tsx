@@ -6,6 +6,8 @@ export const Documentos = () => {
   const params = new URLSearchParams(window.location.search);
   const Id = params.get("Id") || '';
 
+  
+
   return (
     <Box
       sx={{
@@ -18,7 +20,7 @@ export const Documentos = () => {
         bgcolor: "lightGrey",
       }}
     >
-      <Validador id={Id}></Validador>
+      <Validador id={Id || ''}></Validador>
 
     </Box>
   );

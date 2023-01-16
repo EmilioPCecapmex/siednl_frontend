@@ -1,4 +1,4 @@
-import { IActividadesMirEdit, IComponenteMirEdit, IFinEdit, IPropositoEdit } from "../tabsMir/TabResumen2";
+import { IActividadesMirEdit, IComponenteMirEdit, IFinEdit, IPropositoEdit } from "../tabsMir/TabResumen";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IActividadesMA, IComponenteMA } from "./Interfaces";
 

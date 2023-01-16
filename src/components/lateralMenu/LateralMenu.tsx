@@ -524,7 +524,7 @@ export const LateralMenu = ({
                   <TaskIcon />
                 </Box>
 
-                <Typography sx={st.firstItemsStyle}>Firma Digital</Typography>
+                <Typography sx={st.firstItemsStyle}>Firma Electrónica</Typography>
                 {openDocs ? <ExpandLess /> : <ExpandMore />}
                 <Box
                   visibility={selection === 1 ? "visible" : "hidden"}
