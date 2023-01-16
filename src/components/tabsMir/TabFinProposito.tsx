@@ -465,6 +465,7 @@ export function TabFinProposito({
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", ""),
+                      formula:""
                   });
                 }}
                 value={fin.indicador}
@@ -680,7 +681,9 @@ export function TabFinProposito({
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", ""),
+                      formula:""
                   });
+                  
                 }}
                 value={proposito.indicador}
               />

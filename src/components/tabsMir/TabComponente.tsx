@@ -354,10 +354,12 @@ export const TabComponente = ({
                 .replaceAll('"', "")
                 .replaceAll("'", "")
                 .replaceAll("\n", "");
+                prevLocal[componentSelect - 1].formula = "";
               prev[componentSelect - 1].indicador = c.target.value
                 .replaceAll('"', "")
                 .replaceAll("'", "")
                 .replaceAll("\n", "");
+              prev[componentSelect - 1].formula = "";
               setComponenteValor(prevLocal);
             }}
             value={componenteValor[componentSelect - 1]?.indicador}

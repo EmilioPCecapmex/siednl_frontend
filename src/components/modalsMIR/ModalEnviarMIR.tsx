@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-
+import { sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
 export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
@@ -33,6 +33,8 @@ export default function ModalEnviarMIR({
   let err = 0;
 
   const [newComent, setNewComent] = React.useState(false);
+
+  const enviarMensaje = "Se ha creado una nueva";
 
   const comentMir = (id: string) => {
     axios
@@ -111,9 +113,7 @@ export default function ModalEnviarMIR({
     }
     if (JSON.parse(MIR)?.encabezado.beneficiario === "") {
       err = 1;
-      errores.push(
-        "<strong> BENEFICIARIO</strong> NO SELECCIONADO."
-      );
+      errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
     }
     if (
       JSON.parse(MIR)?.fin.resumen === undefined ||
@@ -167,9 +167,7 @@ export default function ModalEnviarMIR({
       /^[\s]*$/.test(JSON.parse(MIR)?.fin.medios)
     ) {
       err = 1;
-      errores.push(
-        "<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN."
-      );
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.fin.supuestos === undefined ||
@@ -202,9 +200,7 @@ export default function ModalEnviarMIR({
       /^[\s]*$/.test(JSON.parse(MIR)?.proposito.resumen)
     ) {
       err = 1;
-      errores.push(
-        "<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN."
-      );
+      errores.push("<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.proposito.indicador === undefined ||
@@ -234,9 +230,7 @@ export default function ModalEnviarMIR({
       /^[\s]*$/.test(JSON.parse(MIR)?.proposito.medios_verificacion)
     ) {
       err = 1;
-      errores.push(
-        "<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN."
-      );
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.proposito.supuestos === undefined ||
@@ -276,18 +270,14 @@ export default function ModalEnviarMIR({
         componente.resumen === null
       ) {
         err = 1;
-        errores.push(
-          `<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`);
       }
       if (
         componente.indicador === undefined ||
         /^[\s]*$/.test(componente.indicador)
       ) {
         err = 1;
-        errores.push(
-          `<strong> INDICADOR </strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> INDICADOR </strong> SIN INFORMACIÓN.`);
       }
       if (
         componente.formula === undefined ||
@@ -300,9 +290,7 @@ export default function ModalEnviarMIR({
       }
       if (componente.frecuencia === undefined || componente.frecuencia === "") {
         err = 1;
-        errores.push(
-          `<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`);
       }
       if (
         componente.medios === undefined ||
@@ -318,9 +306,7 @@ export default function ModalEnviarMIR({
         /^[\s]*$/.test(componente.supuestos)
       ) {
         err = 1;
-        errores.push(
-          `<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`);
       } else {
         return true;
       }
@@ -355,9 +341,7 @@ export default function ModalEnviarMIR({
         /^[\s]*$/.test(actividad.resumen) ||
         actividad.resumen === null
       ) {
-        errores.push(
-          `<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`);
         err = 1;
       }
       if (
@@ -365,23 +349,17 @@ export default function ModalEnviarMIR({
         /^[\s]*$/.test(actividad.indicador)
       ) {
         err = 1;
-        errores.push(
-          `<strong> INDICADOR </strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> INDICADOR </strong> SIN INFORMACIÓN.`);
       }
       if (
         actividad.formula === undefined ||
         /^[\s]*$/.test(actividad.formula)
       ) {
-        errores.push(
-          `<strong> FÓRMULA</strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> FÓRMULA</strong> SIN INFORMACIÓN.`);
         err = 1;
       }
       if (actividad.frecuencia === undefined || actividad.frecuencia === "") {
-        errores.push(
-          `<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`);
         err = 1;
       }
       if (actividad.medios === undefined || /^[\s]*$/.test(actividad.medios)) {
@@ -394,9 +372,7 @@ export default function ModalEnviarMIR({
         actividad.supuestos === undefined ||
         /^[\s]*$/.test(actividad.supuestos)
       ) {
-        errores.push(
-          `<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`
-        );
+        errores.push(`<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`);
         err = 1;
       }
     });
@@ -439,6 +415,7 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
+          sendMailCustomMessage(user.IdUsuario,enviarMensaje, "MA",);
         });
         showResume();
       })
@@ -481,6 +458,8 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
+          //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
+          sendMailCustomMessage(user.IdUsuario,enviarMensaje, "MIR");
         });
 
         if (estado === "Autorizada") {
@@ -538,8 +517,10 @@ export default function ModalEnviarMIR({
   }, [open]);
 
   const enviarNotificacion = (v: string) => {
+    console.log("servicio de notificacion que se a creado una mir", v);
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
+
       {
         IdUsuarioDestino: v,
         Titulo: "MIR",

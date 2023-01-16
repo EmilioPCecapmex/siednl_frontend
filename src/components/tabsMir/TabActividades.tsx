@@ -648,6 +648,9 @@ export const TabActividades = ({
                 .replaceAll('"', "")
                 .replaceAll("'", "")
                 .replaceAll("\n", "");
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].formula = "";
               setCValor(y);
             }}
             value={

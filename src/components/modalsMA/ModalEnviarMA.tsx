@@ -10,6 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
 
 export let errores: string[] = [];
 
@@ -527,10 +528,12 @@ export default function ModalEnviarMA({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
+          sendMailCustomMessage(user.IdUsuario,"prueba","MA")
         });
 
         if (estado === "Autorizada") {
           CrearFichaTecnica();
+          
         }
 
         Toast.fire({
@@ -552,9 +555,10 @@ export default function ModalEnviarMA({
   };
 
   const CrearFichaTecnica = () => {
+   
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        "http://10.200.4.46:8000/api/create-FichaTecnica",
         {
           FichaTecnica: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -572,10 +576,14 @@ export default function ModalEnviarMA({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
+          sendMailCustomMessage(user.IdUsuario, "Se ha creado una nueva", "FT");
         });
         showResume();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        err = 1
+        errores.push(err)
+      });
   };
 
   const getUsuariosXInstitucion = () => {
@@ -587,11 +595,11 @@ export default function ModalEnviarMA({
 
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        "http://10.200.4.46:8000" + "/api/usuarioXInstitucion",
         {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),
-            institucion: inst,
+            Institucion: inst,
           },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -606,6 +614,8 @@ export default function ModalEnviarMA({
   };
 
   useEffect(() => {
+    console.log("IdUsuario: "+localStorage.getItem("IdUsuario"));
+    console.log("Institución: "+JSON.parse(MIR)?.encabezado.institucion);
     if (open) {
       getUsuariosXInstitucion();
     }
