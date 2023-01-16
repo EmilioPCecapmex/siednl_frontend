@@ -517,7 +517,6 @@ export default function ModalEnviarMIR({
   }, [open]);
 
   const enviarNotificacion = (v: string) => {
-    console.log("servicio de notificacion que se a creado una mir", v);
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
 

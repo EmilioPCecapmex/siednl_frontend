@@ -558,7 +558,7 @@ export default function ModalEnviarMA({
    
     axios
       .post(
-        "http://10.200.4.46:8000/api/create-FichaTecnica",
+        "http://10.200.4.199:8000/api/create-FichaTecnica",
         {
           FichaTecnica: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -578,9 +578,11 @@ export default function ModalEnviarMA({
           enviarNotificacion(user.IdUsuario);
           sendMailCustomMessage(user.IdUsuario, "Se ha creado una nueva", "FT");
         });
+        
         showResume();
       })
       .catch((err) => {
+        
         err = 1
         errores.push(err)
       });
@@ -595,7 +597,7 @@ export default function ModalEnviarMA({
 
     axios
       .get(
-        "http://10.200.4.46:8000" + "/api/usuarioXInstitucion",
+        "http://10.200.4.199:8000" + "/api/usuarioXInstitucion",
         {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),
@@ -614,8 +616,6 @@ export default function ModalEnviarMA({
   };
 
   useEffect(() => {
-    console.log("IdUsuario: "+localStorage.getItem("IdUsuario"));
-    console.log("Institución: "+JSON.parse(MIR)?.encabezado.institucion);
     if (open) {
       getUsuariosXInstitucion();
     }

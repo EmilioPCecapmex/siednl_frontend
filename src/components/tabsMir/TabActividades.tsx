@@ -270,7 +270,6 @@ export const TabActividades = ({
       prevState[0].componentes[componenteSelect].actividades.pop();
       setCValor(prevState);
       asignarCValor(prevState);
-      console.log(prevState);
       
     }
   };

@@ -25,11 +25,21 @@ export function TabEncabezado({
 }) {
   const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
 
-  const [programaSER, setProgramaSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.programaSER || '');
-  const [objetivoSER, setObjetivoSER] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.objetivoSER || '');
-  const [objetivoODSSel, setObjetivoDSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.ObjetivoODS || '');
-  const [metaODSSel, setMetaODSSel] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.metaODS || '');
-  const [unidadDeMedida, setUnidadDeMedida] = useState(FT === '' ? '' : JSON.parse(FT).encabezado.unidadDeMedida || '');
+  const [programaSER, setProgramaSER] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.programaSER || ""
+  );
+  const [objetivoSER, setObjetivoSER] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.objetivoSER || ""
+  );
+  const [objetivoODSSel, setObjetivoDSSel] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.ObjetivoODS || ""
+  );
+  const [metaODSSel, setMetaODSSel] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.metaODS || ""
+  );
+  const [unidadDeMedida, setUnidadDeMedida] = useState(
+    FT === "" ? "" : JSON.parse(FT).encabezado.unidadDeMedida || ""
+  );
 
   const [disabledMetas, setDisabledMetas] = useState(true);
 
@@ -106,10 +116,9 @@ export function TabEncabezado({
         objetivoSER: objetivoSER,
         metaODS: metaODSSel,
         objetivoODS: objetivoODSSel,
-        unidadDeMedida: unidadDeMedida,
       },
     ]);
-  }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel,unidadDeMedida]);
+  }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel]);
 
   return (
     <Box
@@ -382,25 +391,6 @@ export function TabEncabezado({
           </Box>
         </Box>
       </Box>
-      <TextField
-        onChange={(a) => setUnidadDeMedida(a.target.value)}
-        value={unidadDeMedida}
-        rows={4}
-        multiline
-        sx={{mt:"2vh", width: "50%", boxShadow: 2 }}
-        variant={"filled"}
-        label="UNIDAD DE MEDIDA"
-        InputLabelProps={{
-          style: {
-            fontFamily: "MontserratMedium",
-          },
-        }}
-        InputProps={{
-          style: {
-            fontFamily: "MontserratRegular",
-          },
-        }}
-      ></TextField>
     </Box>
   );
 }
