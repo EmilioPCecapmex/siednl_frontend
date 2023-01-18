@@ -35,6 +35,8 @@ export default function ModalEnviarMA({
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [newComent, setNewComent] = React.useState(false);
 
+   const enviarMensaje = "Se ha creado una nueva";
+
   const comentMA = (id: string) => {
     axios
       .post(
@@ -528,7 +530,7 @@ export default function ModalEnviarMA({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
-          sendMailCustomMessage(user.IdUsuario,"prueba","MA")
+          sendMailCustomMessage(user.IdUsuario,enviarMensaje,"MA")
         });
 
         if (estado === "Autorizada") {

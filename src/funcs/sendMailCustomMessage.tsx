@@ -4,7 +4,7 @@ export const sendMailCustomMessage = (v: string,mensaje: string, documentType: s
   axios.post(
     "http://10.200.4.46:8000/api/send-email",
     {
-      subject: `Avances con la ${documentType}`,
+      subject: `  Avances con la ${documentType}`,
       message: `${mensaje} ${documentType}`,
       //"d4b35a67-5eb9-11ed-a880-040300000000" gonzzo
       IdDestinatario: v,

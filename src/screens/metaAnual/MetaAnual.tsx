@@ -27,7 +27,7 @@ import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { IInstituciones } from "../../components/appsDialog/AppsDialog";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
-
+import Swal from "sweetalert2";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -68,7 +68,8 @@ export const MetaAnual = () => {
   const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
 
-  const [metaAnualDownloadDetails, setMetaAnualDownloadDetails] = useState<IDownloadMA>()
+  const [metaAnualDownloadDetails, setMetaAnualDownloadDetails] =
+    useState<IDownloadMA>();
 
   const [ma, setMa] = useState<Array<IIMa>>([]);
   const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
@@ -94,21 +95,67 @@ export const MetaAnual = () => {
       });
   };
 
-  
-  const getMetaAnualDownload = (IdMa: string) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const getMetaAnualDownload = (
+    MIR: string,
+    MetaAnual: string,
+    inst: string,
+    Programa: string,
+    FechaCreacion: string,
+    
+  ) => {
+    //JSON.parse(),
+    const fullMA = [JSON.parse(MIR), JSON.parse(MetaAnual)];
+
+    console.log("META ANUAN COMPLETA", fullMA);
     axios
-      .get("http://10.200.4.192:8000/api/descarga-ma", {
-        params: {
-          IdMetaAnual: IdMa,
-        },
+      .post("http://192.168.137.152:7001/api/fill_ma", fullMA, {
+        responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
-        if (r.status === 200) {
-          setMetaAnualDownloadDetails(r.data.data);
-        }
+        Toast.fire({
+          icon: "success",
+          title: "La descarga comenzara en un momento.",
+        });
+        const href = URL.createObjectURL(r.data);
+
+        // create "a" HTML element with href to file & click
+        const link = document.createElement("a");
+        link.href = href;
+        link.setAttribute(
+          "download",
+          "MA_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
+        ); //or any other extension
+        document.body.appendChild(link);
+        console.log(link);
+
+        link.click();
+
+        // clean up "a" element & remove ObjectURL
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+      })
+      .catch((err) => {
+        console.log(err);
+
+        Toast.fire({
+          icon: "error",
+          title: "Error al intentar descargar el documento.",
+        });
       });
   };
 
@@ -169,6 +216,7 @@ export const MetaAnual = () => {
       .then((r) => {
         setMa(r.data.data);
         setMaFiltered(r.data.data);
+        console.log(r.data.data);
       });
   };
 
@@ -702,6 +750,7 @@ export const MetaAnual = () => {
                                           Institucion: row.Institucion,
                                           Programa: row.Programa,
                                           MIR: row.MIR,
+                                          //meta anual completa
                                           MetaAnual: row.MetaAnual,
                                           Estado: row.Estado,
                                           CreadoPor: row.CreadoPor,
@@ -709,7 +758,7 @@ export const MetaAnual = () => {
                                         },
                                       ]);
                                       setShowResume(false);
-                                      setActionNumber(1)
+                                      setActionNumber(1);
                                     }}
                                   >
                                     <AddCircleOutlineIcon
@@ -730,9 +779,15 @@ export const MetaAnual = () => {
                               <Tooltip title="DESCARGAR">
                                 <span>
                                   <IconButton
-                                  onClick={() => {
-                getMetaAnualDownload(row.IdMa);
-                                  }}
+                                    onClick={() => {
+                                      getMetaAnualDownload(
+                                        row.MIR,
+                                        row.MetaAnual,
+                                        row.Programa,
+                                        row.FechaCreacion,
+                                        row.Institucion
+                                      );
+                                    }}
                                     disabled={
                                       row.Estado === "Autorizada" ? false : true
                                     }
@@ -814,9 +869,9 @@ export interface IIMa {
 }
 
 export interface IDownloadMA {
-  MaId:       string;
-  MetaAnual:  string;
-  MirId:      string;
-  MIR:        string;
+  MaId: string;
+  MetaAnual: string;
+  MirId: string;
+  MIR: string;
   MaCompleta: string;
 }
