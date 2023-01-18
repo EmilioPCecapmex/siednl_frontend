@@ -25,11 +25,12 @@ import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import moment from "moment";
 import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
 import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
+import Swal from "sweetalert2";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -75,6 +76,9 @@ export const FichaTecnica = () => {
   const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
 
+  const [fichaAnualDownloadDetails, setFichaAnualDownloadDetails] =
+    useState<IDownloadFT>();
+
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
   const [FTShow, setFTShow] = useState<Array<IIFT>>([]);
@@ -100,10 +104,78 @@ export const FichaTecnica = () => {
       });
   };
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  /////////////////////////////////////////
+  const getFichaTecnicaDownload = (
+    MIR: string,
+    MetaAnual: string,
+    FT: string,
+    inst: string,
+    Programa: string,
+    FechaCreacion: string,
+    
+  ) => {
+    
+   
+    const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
+    
+  
+    axios
+      .post("http://192.168.137.152:7001/api/fill_ft", fullft, {
+        responseType: "blob",
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        Toast.fire({
+          icon: "success",
+          title: "La descarga comenzara en un momento.",
+        });
+        const href = URL.createObjectURL(r.data);
+
+        // create "a" HTML element with href to file & click
+        const link = document.createElement("a");
+        link.href = href;
+        link.setAttribute(
+          "download",
+          "FT_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
+        ); //or any other extension
+        document.body.appendChild(link);
+        console.log(link);
+
+        link.click();
+
+        // clean up "a" element & remove ObjectURL
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+      })
+      .catch((err) => {
+        console.log(err);
+
+        Toast.fire({
+          icon: "error",
+          title: "Error al intentar descargar el documento.",
+        });
+      });
+  };
+
+  ///////////////////////////////////////////////////
   useEffect(() => {
     getInstituciones();
   }, []);
-
+  ///////////
   // Filtrado por caracter
   const findText = (v: string, est: string, inst: string) => {
     if (v !== "" || est !== "0" || inst !== "0") {
@@ -697,15 +769,15 @@ export const FichaTecnica = () => {
                                           Programa: row.Programa,
                                           MIR: row.MIR,
                                           MetaAnual: row.MetaAnual,
-                                          Conac:row.Conac,
-                                          Consecutivo:row.Consecutivo,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
                                         },
                                       ]);
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}
                                   >
-                                    <AddCircleOutlineIcon/>
+                                    <AddCircleOutlineIcon />
                                   </IconButton>
                                 </span>
                               </Tooltip>
@@ -730,23 +802,24 @@ export const FichaTecnica = () => {
                                           Programa: row.Programa,
                                           MIR: row.MIR,
                                           MetaAnual: row.MetaAnual,
-                                          Conac:row.Conac,
-                                          Consecutivo:row.Consecutivo,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
                                         },
                                       ]);
                                       setOpenModalVerResumenFT(true);
                                     }}
                                   >
-                                    <VisibilityIcon 
-                                     sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "lightBlue",
+                                    <VisibilityIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "lightBlue",
+                                          },
+                                          width: "1.2vw",
+                                          height: "1.2vw",
                                         },
-                                        width: "1.2vw",
-                                        height: "1.2vw",
-                                      },
-                                    ]}/>
+                                      ]}
+                                    />
                                   </IconButton>
                                 </span>
                               </Tooltip>
@@ -756,6 +829,18 @@ export const FichaTecnica = () => {
                               <Tooltip title="DESCARGAR">
                                 <span>
                                   <IconButton
+                                  onClick={() => {
+                                    getFichaTecnicaDownload(
+                                      row.MIR,
+                                      row.MetaAnual,
+                                      row.FichaT,
+                                      row.Programa,
+                                      row.FechaCreacion,
+                                      row.Institucion
+                                    );
+                                  }}
+
+
                                     disabled={
                                       row.Estado === "Autorizada" ? false : true
                                     }
@@ -800,13 +885,13 @@ export const FichaTecnica = () => {
             </Box>
           </Box>
           <ModalVerResumenFT
-          open={openModalVerResumenFT}
-          handleClose={handleCloseVerResumenFT}
-          MIR={FTShow[0]?.MIR}
-          MA={FTShow[0]?.MetaAnual}
-          FT={FTShow[0]?.FichaT}
-          Conac={FTShow[0]?.Conac}  
-          Consecutivo={FTShow[0]?.Consecutivo}                          
+            open={openModalVerResumenFT}
+            handleClose={handleCloseVerResumenFT}
+            MIR={FTShow[0]?.MIR}
+            MA={FTShow[0]?.MetaAnual}
+            FT={FTShow[0]?.FichaT}
+            Conac={FTShow[0]?.Conac}
+            Consecutivo={FTShow[0]?.Consecutivo}
           />
         </Box>
       ) : (
@@ -847,6 +932,15 @@ export interface IIFT {
   Programa: string;
   MIR: string;
   MetaAnual: string;
-  Conac:string;
-  Consecutivo:string;
+  Conac: string;
+  Consecutivo: string;
+}
+
+export interface IDownloadFT {
+  MaId: string;
+  MetaAnual: string;
+  MirId: string;
+  MIR: string;
+  MaCompleta: string;
+  FT: string;
 }
