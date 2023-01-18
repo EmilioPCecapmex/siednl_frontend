@@ -127,10 +127,10 @@ export const FichaTecnica = () => {
     
   ) => {
     
-    console.log("Ficha Tecnica descarga" );
+   
     const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
     
-    console.log("Ficha Tecnica Completa", fullft);
+  
     axios
       .post("http://192.168.137.152:7001/api/fill_ft", fullft, {
         responseType: "blob",
