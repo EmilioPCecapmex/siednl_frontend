@@ -26,7 +26,7 @@ export const Documento = ({
   setUrl,
   Rfc,
   noSerie,
-  setDate
+  setDate,
 }: {
   show: boolean;
   setNombreDoc: Function;
@@ -73,6 +73,8 @@ export const Documento = ({
 
   const [usuarios, setUsuarios] = useState<Array<IUsuariosFIEL>>([]);
 
+  const [ccpCorreos, setCcpCorreos] = useState("");
+
   const [disableFirmar, setDisableValidar] = useState(false);
 
   useEffect(() => {
@@ -107,6 +109,54 @@ export const Documento = ({
   useEffect(() => {
     getUsuariosXApp();
   }, []);
+
+  const [data, setData] = useState([{ nombre: "", id: "", url: "" }]);
+
+  useEffect(() => {
+    setData([
+      {
+        nombre: localStorage.getItem("NombreUsuario") || "",
+        id: id,
+        url: `http://10.200.4.199:3000/validador?Id=${id}`,
+      },
+    ]);
+  }, []);
+
+  const servicioCorreo = () => {
+    let a: string[] = [];
+
+    usuarios.map((x) => {
+      a.push(x.CorreoElectronico);
+    });
+
+    if (ccpCorreos !== "") {
+      JSON.parse(ccpCorreos).map((y: any) => {
+        a.push(y?.correo);
+      });
+    }
+
+    let dataArray = [
+      {
+        referencia: "007",
+        to: a,
+        subject: "correo de prueba",
+        data: JSON.stringify(data[0]),
+      },
+    ];
+
+    axios
+      .post("http://10.200.4.105:8001/api/serviciocorreo", dataArray[0], {
+        responseType: "blob", // important
+        headers: {
+          ContentType: "application/x-www-form-urlencoded",
+        },
+      })
+      .then((response) => {
+        console.log("correo enviado");
+      })
+      .catch((err) => {
+      });
+  };
 
   const [openModalCcp, setOpenCcp] = useState(false);
 
@@ -217,10 +267,12 @@ export const Documento = ({
         let date = today.toLocaleDateString();
         let hour = today.toTimeString();
 
-        setDate(date + " " + hour)
+        setDate(date + " " + hour);
         setUrl(window.URL.createObjectURL(new Blob([response.data])));
 
         setCheckFile(true);
+
+        servicioCorreo();
 
         // saveDocument();
         setTimeout(() => {
@@ -251,7 +303,6 @@ export const Documento = ({
         });
       });
   };
-
 
   useEffect(() => {
     if (
@@ -291,6 +342,7 @@ export const Documento = ({
         handleClose={handleCloseCcp}
         setTexto={setTexto}
         fncSetCcp={fncSetCcp}
+        setCcpCorreos={setCcpCorreos}
       ></DialogCcp>
 
       <Box>

@@ -100,7 +100,6 @@ export const DialogSolicitudes = ({
 
     useEffect(() => {
         getSolicitudes()
-        console.log(detalleSolicitud[0]);
     }, [])
 
 

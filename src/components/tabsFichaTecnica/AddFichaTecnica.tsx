@@ -323,8 +323,8 @@ export default function AddFichaTecnica({
             componenteValor={valoresComponenteFT}
             cValor={cValorFT}
             IdMir={IdMir}
-            IdFT={IdMA}
-            IdMA={IdFT}
+            IdFT={IdFT}
+            IdMA={IdMA}
             showResume={showResume}
             MIR={MIR}
           ></TabResumenFT>

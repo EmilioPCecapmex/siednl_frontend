@@ -44,29 +44,33 @@ export const TabActividades = ({
   setActividadesM: Function;
   setCompAct: Function;
 }) => {
-  useEffect(() => {
-    let act: number[] = [];
-    let comp: string[] = [];
-    let ambos: any = [];
-    let i = 1;
-    let j = 1;
 
-    componentes.map((x: any) => {
-      comp.push("C" + j);
-      actividadesMir.map((a: any) => {
-        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-          act.push(i);
-          i++;
-        }
-      });
-      ambos.push({ actividades: act, componente: "C" + j });
-      act = [];
-      i = 1;
-      j++;
-    });
+  
+  // useEffect(() => {
+  //   let act: number[] = [];
+  //   let comp: string[] = [];
+  //   let ambos: any = [];
+  //   let i = 1;
+  //   let j = 1;
 
-    setCompAct(ambos);
-  }, [componentes]);
+
+  //   componentes.map((x: any) => {
+  //     comp.push("C" + j);
+  //     actividadesMir.map((a: any) => {
+        
+  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+  //         act.push(i);
+  //         i++;
+  //       }
+  //     });
+  //     ambos.push({ actividades: act, componente: "C" + j });
+  //     act = [];
+  //     i = 1;
+  //     j++;
+  //   });
+
+  //   setCompAct(ambos);
+  // }, [componentes]);
 
   const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
@@ -81,6 +85,7 @@ export const TabActividades = ({
     componenteActividad.map((item) => {
       return {
         componentes: item.componentes.map((x, index) => {
+          aument_number1++;
           return {
             actividades: x.map((c, index2) => {
               return {
@@ -142,8 +147,7 @@ export const TabActividades = ({
       setComponenteSelect(0);
     }
   }, [compAct, componentes]);
-
-  //ESTO ESTABA COMENTADO 125-127
+  
   useEffect(() => {
     asignarCValor(cValor);
   }, [cValor]);
@@ -155,7 +159,7 @@ export const TabActividades = ({
         loadActividadesMir();
         setS(1)
       }
-  }, [show]);
+  }, [ cValor]);
 
   let aument_number = -1;
   let aumentComps = -1;
@@ -276,6 +280,8 @@ export const TabActividades = ({
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
+
+  
 
   const [open, setOpen] = useState(1);
 

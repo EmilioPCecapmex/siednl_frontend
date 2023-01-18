@@ -342,9 +342,6 @@ export default function ModalEditarSolicitud({
   useEffect(() => {
     getInstituciones();
     getUserType();
-    console.log(idSolicitud);
-    
-
   }, []);
 
   return (

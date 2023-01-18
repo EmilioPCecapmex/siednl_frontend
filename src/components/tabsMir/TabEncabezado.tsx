@@ -75,7 +75,9 @@ export function TabEncabezado({
   const [loadActividades, setLoadActividades] = useState<Array<number>>([1, 2]);
   const [loadActividadValor, setLoadActividadValor] = useState<
     Array<ICompActividad>
-  >([]);
+  >([
+    
+  ]);
 
   /////////////////////////////////////////////////
   useEffect(() => {
@@ -121,6 +123,7 @@ export function TabEncabezado({
         i = 1;
         j++;
       });
+
 
       compAct(ambos);
       setLoadComponenteValor(jsonMir.componentes);
@@ -665,7 +668,6 @@ export function TabEncabezado({
           setLoadingFile(false);
           getIdBeneficiario(response.data.encabezado[0].beneficiario);
         }, 1500);
-
         compAct(response.data.componenteActividad);
 
         setLoadFin([
@@ -692,8 +694,10 @@ export function TabEncabezado({
         ]);
 
         setLoadComponenteValor(response.data.componentes);
-        setLoadActividadValor(response.data.componenteActividad);
-        setLoadActividades(response.data.actividades);
+
+        setLoadActividadValor(response.data.actividades);
+        setLoadActividades(response.data.componenteActividad);
+
         actividadesMir(response.data.actividades);
         setTimeout(() => {
           setLoadComponentesFinish(true);

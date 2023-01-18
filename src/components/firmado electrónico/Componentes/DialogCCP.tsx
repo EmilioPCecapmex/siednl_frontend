@@ -14,11 +14,13 @@ export function DialogCcp({
   handleClose,
   setTexto,
   fncSetCcp,
+  setCcpCorreos
 }: {
   open: boolean;
   handleClose: Function;
   setTexto: Function;
   fncSetCcp: Function;
+  setCcpCorreos: Function;
 }) {
   const [cc, setCc] = useState<Array<ICCP>>([
     {
@@ -82,6 +84,7 @@ export function DialogCcp({
 
     setTexto(txt);
     fncSetCcp(cc);
+    setCcpCorreos(JSON.stringify(cc));
   };
 
   const [error, setError] = useState(false);

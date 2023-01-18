@@ -80,21 +80,11 @@ export default function FullModalMir({
 
   // ACTIVIDADES
   const [noActividades, setNoActividades] = React.useState([1, 2]);
+
   const [valoresActividades, setValoresActividades] = useState<
     Array<IActividadesMir>
-  >(
-    noActividades.map((x, index) => {
-      return {
-        actividad: "",
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    })
-  );
+  >([]);
+
   const [componenteActividad, setComponenteActividad] = useState([
     {
       componentes: noComponentes.map((x) => noActividades),
@@ -124,8 +114,6 @@ export default function FullModalMir({
       };
     })
   );
-
-  useEffect(() => {}, [valoresActividades]);
 
   //----------------------------------------------------------------------------------------------
   return (

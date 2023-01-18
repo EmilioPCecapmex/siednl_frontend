@@ -140,6 +140,7 @@ export const TabComponente = ({
           medios: "",
           supuestos: "",
         });
+
         setComponenteValor(prevState);
         valoresComponenteFnc(prevState);
       }
@@ -354,7 +355,7 @@ export const TabComponente = ({
                 .replaceAll('"', "")
                 .replaceAll("'", "")
                 .replaceAll("\n", "");
-                prevLocal[componentSelect - 1].formula = "";
+              prevLocal[componentSelect - 1].formula = "";
               prev[componentSelect - 1].indicador = c.target.value
                 .replaceAll('"', "")
                 .replaceAll("'", "")

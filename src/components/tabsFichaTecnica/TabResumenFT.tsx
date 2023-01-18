@@ -121,6 +121,13 @@ export function TabResumenFT({
   });
 
   const creaFT = (estado: string) => {
+
+    console.log(FT);
+    console.log(IdMir);
+    console.log(IdMA);
+    console.log(IdFT);
+    console.log(estado);
+    
     axios
       .post(
         "http://10.200.4.199:8000/api/create-FichaTecnica",
