@@ -175,27 +175,29 @@ export default function ModalEditarSolicitud({
       });
   }
 
-  const solicitarModificacion = () => {
+  const modificarSolicitud = () => {
     axios
-      .post(
-        "http://10.200.4.200:5000/api/create-solicitud",
+      .put(
+        "http://10.200.4.200:5000/api/modify-Solicitud",
 
         {
-          Nombre: names,
-          APaterno: firstName,
-          AMaterno: secondName,
-          NombreUsuario: username,
-          Email: email,
-          Curp: curp,
-          RFC: rfc,
-          Celular: cellphone,
-          Telefono: telephone,
-          Extencion: ext,
-          DatosAdicionales: JSON.stringify({Rol: datosAdicionales.Rol ,IdRol: datosAdicionales.IdRol , Cargo: datosAdicionales.Cargo , IdInstitucion: datosAdicionales.IdInstitucion}),
-          TipoSolicitud: "MODIFICACION",
-          CreadoPor: localStorage.getItem("IdCentral"),
-          IdApp: localStorage.getItem("IdApp"),
-        },
+          IdSolicitud:idSolicitud,
+          Nombre :names,
+          APaterno :firstName,
+          AMaterno :secondName,
+          Usuario :username,
+          Email :email,
+          CURP :curp,
+          RFC :rfc,
+          Telefono:telephone,
+          Extencion :ext,
+          Celular :cellphone,
+          DatosAdicionales :JSON.stringify({Rol: datosAdicionales.Rol ,IdRol: datosAdicionales.IdRol , Cargo: datosAdicionales.Cargo , IdInstitucion: datosAdicionales.IdInstitucion}),
+          Estatus :"0",
+          IdApp : localStorage.getItem("IdApp"),
+          IdUsuarioSolicitante :localStorage.getItem("IdCentral"),
+     }
+        ,
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -205,7 +207,6 @@ export default function ModalEditarSolicitud({
       .then((r) => {
          
         if (r.status === 200) {
-          // siednlSignUp(r.data.data[0][0].IdSolicitud);
           if(comentario!="")
             createComentarios(r.data.data[0][0].IdSolicitud);
            
@@ -335,7 +336,7 @@ export default function ModalEditarSolicitud({
         type: "error",
       });
     } else {
-      solicitarModificacion();
+      modificarSolicitud();
     }
   };
 
