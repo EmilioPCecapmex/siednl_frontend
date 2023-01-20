@@ -203,7 +203,7 @@ export const MIR = () => {
   ) => {
     axios
       .post(
-       "http://192.168.137.152:7001/api/fill_mir",
+       "http://10.200.4.46:7001/api/fill_mir",
         JSON.parse(mir),
         {
           responseType: "blob",
