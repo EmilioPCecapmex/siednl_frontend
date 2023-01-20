@@ -44,8 +44,8 @@ export const TabActividades = ({
   setActividadesM: Function;
   setCompAct: Function;
 }) => {
-
   
+
   // useEffect(() => {
   //   let act: number[] = [];
   //   let comp: string[] = [];
@@ -53,11 +53,10 @@ export const TabActividades = ({
   //   let i = 1;
   //   let j = 1;
 
-
   //   componentes.map((x: any) => {
   //     comp.push("C" + j);
   //     actividadesMir.map((a: any) => {
-        
+
   //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
   //         act.push(i);
   //         i++;
@@ -147,19 +146,20 @@ export const TabActividades = ({
       setComponenteSelect(0);
     }
   }, [compAct, componentes]);
-  
+
   useEffect(() => {
     asignarCValor(cValor);
   }, [cValor]);
 
-  const [s, setS] = useState(0)
+  const [s, setS] = useState(0);
 
   useEffect(() => {
-      if (compAct.length > 0 && s === 0) {
-        loadActividadesMir();
-        setS(1)
-      }
-  }, [ cValor]);
+    
+    if (compAct.length > 0 && s === 0) {
+      loadActividadesMir();
+      setS(1);
+    }
+  }, [cValor, compAct]);
 
   let aument_number = -1;
   let aumentComps = -1;
@@ -168,6 +168,7 @@ export const TabActividades = ({
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct.map((x, index) => {
+          
           aumentComps++;
           return {
             actividades: x.actividades?.map((c, index2) => {
@@ -274,14 +275,11 @@ export const TabActividades = ({
       prevState[0].componentes[componenteSelect].actividades.pop();
       setCValor(prevState);
       asignarCValor(prevState);
-      
     }
   };
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
-
-  
 
   const [open, setOpen] = useState(1);
 
@@ -653,9 +651,9 @@ export const TabActividades = ({
                 .replaceAll('"', "")
                 .replaceAll("'", "")
                 .replaceAll("\n", "");
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].formula = "";
+              y[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ].formula = "";
               setCValor(y);
             }}
             value={

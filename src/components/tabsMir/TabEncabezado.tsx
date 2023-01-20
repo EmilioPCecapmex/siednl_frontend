@@ -715,6 +715,7 @@ export function TabEncabezado({
     getEjes();
     getBeneficiarios();
   }, []);
+  
 
   useEffect(() => {
     setEncabezado([
