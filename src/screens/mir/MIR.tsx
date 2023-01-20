@@ -167,9 +167,11 @@ export const MIR = () => {
       })
       .then((r) => {
         
+        
         setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
+        
       });
   };
 
@@ -201,7 +203,7 @@ export const MIR = () => {
   ) => {
     axios
       .post(
-       "http://192.168.137.152:7001/api/fill_mir",
+       "http://10.200.4.46:7001/api/fill_mir",
         JSON.parse(mir),
         {
           responseType: "blob",
@@ -226,6 +228,7 @@ export const MIR = () => {
           "MIR_" + anio + "_" + inst + "_" + prog + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
+        
         
         link.click();
 

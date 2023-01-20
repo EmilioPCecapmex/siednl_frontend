@@ -444,7 +444,10 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].lineaBase = c.target.value;
+                  valueFin[0].lineaBase = c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                   setValueFin([...valueFin]);
                 }}
                 value={valueFin[0]?.lineaBase || ""}
@@ -643,8 +646,8 @@ export function TabFinPropositoMA({
                     options={catalogoUnidadResponsable}
                     getOptionLabel={(option) => option.Unidad}
                     value={{
-                      Id: catalogoUnidadResponsable[0].Id || '',
-                      Unidad: valueFin[0].unidadResponsable || '',
+                      Id: catalogoUnidadResponsable[0].Id || "",
+                      Unidad: valueFin[0].unidadResponsable || "",
                     }}
                     renderOption={(props, option) => {
                       return (
@@ -713,7 +716,10 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].descIndicador = c.target.value;
+                  valueFin[0].descIndicador = c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                   setValueFin([...valueFin]);
                 }}
                 value={valueFin[0]?.descIndicador || ""}
@@ -751,7 +757,10 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].descNumerador = c.target.value;
+                  valueFin[0].descNumerador = c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                   setValueFin([...valueFin]);
                 }}
                 value={valueFin[0]?.descNumerador || ""}
@@ -779,7 +788,10 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onChange={(c) => {
-                  valueFin[0].descDenominador = c.target.value;
+                  valueFin[0].descDenominador = c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                   setValueFin([...valueFin]);
                 }}
                 value={valueFin[0]?.descDenominador || ""}
@@ -874,7 +886,10 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].lineaBase = c.target.value;
+                  valueProposito[0].lineaBase = c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                   setValueProposito([...valueProposito]);
                 }}
                 value={valueProposito[0]?.lineaBase || ""}
@@ -1150,7 +1165,10 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].descIndicador = c.target.value;
+                  valueProposito[0].descIndicador = c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                   setValueProposito([...valueProposito]);
                 }}
                 value={valueProposito[0]?.descIndicador || ""}
@@ -1188,7 +1206,10 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].descNumerador = c.target.value;
+                  valueProposito[0].descNumerador = c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                   setValueProposito([...valueProposito]);
                 }}
                 value={valueProposito[0]?.descNumerador || ""}
@@ -1216,7 +1237,10 @@ export function TabFinPropositoMA({
                   },
                 }}
                 onChange={(c) => {
-                  valueProposito[0].descDenominador = c.target.value;
+                  valueProposito[0].descDenominador = c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                   setValueProposito([...valueProposito]);
                 }}
                 value={valueProposito[0]?.descDenominador || ""}

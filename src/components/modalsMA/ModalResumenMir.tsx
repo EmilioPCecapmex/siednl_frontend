@@ -71,8 +71,12 @@ export function TabResumenMIR({
 
     Componentes.map((x: any) => {
       comp.push("C" + j);
+      
+      
       actividades.map((a: any) => {
         if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+        
+          
           act.push(i);
           i++;
         }
@@ -166,7 +170,7 @@ export function TabResumenMIR({
           mb: 2,
         }}
       >
-        Resumen MIR
+        Resumen MA
       </DialogTitle>
 
       <DialogContent
@@ -467,7 +471,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Resumen Narrativo:
+                    Resumen Narrativo: 
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -929,7 +933,9 @@ export function TabResumenMIR({
                             sx={{ fontFamily: "MontserratLight", width: "80%" }}
                           >
                             {
-                              actividades[indexActividades].resumen
+                              cValor[0].componentes[indexComponentes].actividades[
+                                indexActividades
+                              ].resumen?.toUpperCase()
                             }
                           </Typography>
                         </Box>

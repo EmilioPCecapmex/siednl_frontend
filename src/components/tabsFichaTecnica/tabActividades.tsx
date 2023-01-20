@@ -605,7 +605,10 @@ export const TabActividadesFT = ({
               let y = [...aValorFT];
               y[0].componentes[componenteSelect].actividades[
                 actividadSelect
-              ].unidadDeMedida = c.target.value;
+              ].unidadDeMedida = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
               setAValorFT(y);
             }}
             value={

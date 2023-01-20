@@ -212,71 +212,10 @@ export function TabResumen({
   >([]);
 
   const [disablebutton, setDisablebutton] = useState(false);
-  // useEffect(() => {
-  //   setDisablebutton(
-  //     editEncabezado.beneficiario &&
-  //       editEncabezado.eje &&
-  //       editEncabezado.ejercicioFiscal &&
-  //       editEncabezado.estrategia &&
-  //       editEncabezado.institucion &&
-  //       editEncabezado.lineas_de_accion &&
-  //       editEncabezado.nombre_del_programa &&
-  //       editEncabezado.objetivo &&
-  //       editEncabezado.tema
-  //   );
-  // }, [
-  //   editEncabezado.beneficiario,
-  //   editEncabezado.eje,
-  //   editEncabezado.ejercicioFiscal,
-  //   editEncabezado.estrategia,
-  //   editEncabezado.institucion,
-  //   editEncabezado.lineas_de_accion,
-  //   editEncabezado.nombre_del_programa,
-  //   editEncabezado.objetivo,
-  //   editEncabezado.tema,
-  // ]);
 
   const [disablebutton2, setDisablebutton2] = useState(false);
-  // useEffect(() => {
-  //   setDisablebutton2(
-  //     editFin.formula &&
-  //       editFin.frecuencia &&
-  //       editFin.indicador &&
-  //       editFin.medios &&
-  //       editFin.resumen &&
-  //       editFin.supuestos
-  //   );
-  // }, [
-  //   editFin.formula,
-  //   editFin.frecuencia,
-  //   editFin.indicador,
-  //   editFin.medios,
-  //   editFin,
-  //   editFin.supuestos,
-  // ]);
-
-  // // const validador = (aEdit:any) => aEdit === true
-
-  // //  let ARRAY =[editActividades];
 
   const [disablebutton3, setDisablebutton3] = useState(false);
-  // useEffect(() => {
-  //   setDisablebutton3(
-  //     editProposito.formula &&
-  //       editProposito.frecuencia &&
-  //       editProposito.indicador &&
-  //       editProposito.medios_verificacion &&
-  //       editProposito.resumen &&
-  //       editProposito.supuestos
-  //   );
-  // }, [
-  //   editProposito.formula,
-  //   editProposito.frecuencia,
-  //   editProposito.indicador,
-  //   editProposito.medios_verificacion,
-  //   editProposito.resumen,
-  //   editProposito.supuestos,
-  // ]);
 
   const [disablebuttoncomponentes, setDisablebuttoncomponentes] =
     useState(false);

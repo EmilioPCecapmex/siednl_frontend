@@ -119,6 +119,7 @@ export const MetaAnual = () => {
     //JSON.parse(),
     const fullMA = [JSON.parse(MIR), JSON.parse(MetaAnual)];
 
+  
     axios
       .post("http://192.168.137.152:7001/api/fill_ma", fullMA, {
         responseType: "blob",
@@ -141,6 +142,7 @@ export const MetaAnual = () => {
           "MA_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
+        
 
         link.click();
 
@@ -149,6 +151,7 @@ export const MetaAnual = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
+        
 
         Toast.fire({
           icon: "error",
@@ -214,6 +217,7 @@ export const MetaAnual = () => {
       .then((r) => {
         setMa(r.data.data);
         setMaFiltered(r.data.data);
+        
       });
   };
 

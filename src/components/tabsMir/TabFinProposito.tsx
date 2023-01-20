@@ -26,8 +26,10 @@ export function TabFinProposito({
   show: boolean;
   resumenFin: Function;
   resumenProposito: Function;
+
   cargaFin: Array<IFin>;
   cargaProposito: Array<IProposito>;
+  
   mirEdit?: IMIREdit;
 }) {
   const [tabFin, setTabFin] = useState([
