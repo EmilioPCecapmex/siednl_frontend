@@ -87,42 +87,42 @@ export const CompFichaTecnica = ({
     const ArrayVar1 = jsonMir.componentes[index].formula
       .replaceAll("(", "")
       .split("-");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const PromedioVar1 = (index: number) => {
     const ArrayVar1 = jsonMir.componentes[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const PorcentajeVar1 = (index: number) => {
     const ArrayVar1 = jsonMir.componentes[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const TasaVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.componentes[index].formula
       .replaceAll("(", "")
       .split("-");
-    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
   };
 
   const PromedioVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.componentes[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[1].replaceAll(")", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "");
   };
 
   const PorcentajeVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.componentes[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
   };
 
   const CalculosPorComponente = (index: number, color: string) => {
@@ -318,7 +318,7 @@ export const CompFichaTecnica = ({
                     textAlign: "justify",
                   }}
                 >
-                  {jsonMir.componentes[index].resumen.toUpperCase()}
+                  {jsonMir.componentes[index].resumen}
                 </Typography>
               </Box>
             </Box>
@@ -339,7 +339,7 @@ export const CompFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMir.componentes[index].indicador.toUpperCase()}
+                  {jsonMir.componentes[index].indicador}
                 </Typography>
               </Box>
             </Box>
@@ -349,7 +349,7 @@ export const CompFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMA.componentes[index].descIndicador.toUpperCase()}
+                  {jsonMA.componentes[index].descIndicador}
                 </Typography>
               </Box>
             </Box>
@@ -361,7 +361,7 @@ export const CompFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMA.componentes[index].unidadResponsable.toUpperCase()}
+                  {jsonMA.componentes[index].unidadResponsable}
                 </Typography>
               </Box>
             </Box>
@@ -371,7 +371,7 @@ export const CompFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMir.componentes[index].formula.toUpperCase()}
+                  {jsonMir.componentes[index].formula}
                 </Typography>
               </Box>
             </Box>
@@ -497,32 +497,32 @@ export const CompFichaTecnica = ({
                   }}
                 >
                   {jsonMir.componentes[index].indicador
-                    .toUpperCase()
+                    
                     .includes("PORCENTAJE") ||
-                  jsonMir.componentes[index].indicador.toUpperCase() ===
+                  jsonMir.componentes[index].indicador ===
                     "PORCENTAJE" ? (
                     <Typography sx={sxResultSmallBoxes}>PORCENTAJE</Typography>
                   ) : jsonMir.componentes[index].indicador
-                      .toUpperCase()
+                      
                       .includes("TASA") ||
-                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                    jsonMir.componentes[index].indicador ===
                       "TASA" ? (
                     <Typography sx={sxResultSmallBoxes}>TASA</Typography>
                   ) : jsonMir.componentes[index].indicador
-                      .toUpperCase()
+                      
                       .includes("PROMEDIO") ||
-                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                    jsonMir.componentes[index].indicador ===
                       "PROMEDIO" ? (
                     <Typography sx={sxResultSmallBoxes}>PROMEDIO</Typography>
                   ) : jsonMir.componentes[index].indicador
-                      .toUpperCase()
+                      
                       .includes("INDICE") ||
-                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                    jsonMir.componentes[index].indicador ===
                       "INDICE" ||
                     jsonMir.componentes[index].indicador
-                      .toUpperCase()
+                      
                       .includes("ÍNDICE") ||
-                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                    jsonMir.componentes[index].indicador ===
                       "ÍNDICE" ? (
                     <Typography sx={sxResultSmallBoxes}>ÍNDICE</Typography>
                   ) : (
@@ -565,7 +565,7 @@ export const CompFichaTecnica = ({
                   }}
                 >
                   <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.componentes[index].unidadDeMedida.toUpperCase()}
+                    {jsonFT.componentes[index].unidadDeMedida}
                   </Typography>
                 </Box>
               </Box>
@@ -640,7 +640,7 @@ export const CompFichaTecnica = ({
                   }}
                 >
                   <Typography sx={sxResultSmallBoxes}>
-                    {jsonMA.componentes[index].sentidoDelIndicador.toUpperCase()}
+                    {jsonMA.componentes[index].sentidoDelIndicador}
                   </Typography>
                 </Box>
               </Box>
@@ -964,32 +964,32 @@ export const CompFichaTecnica = ({
                     }}
                   >
                     {jsonMir.componentes[index].indicador
-                      .toUpperCase()
+                      
                       .includes("TASA") ||
-                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                    jsonMir.componentes[index].indicador ===
                       "TASA"
                       ? TasaVar1(index)
                       : jsonMir.componentes[index].indicador
-                          .toUpperCase()
+                          
                           .includes("PROMEDIO") ||
-                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                        jsonMir.componentes[index].indicador ===
                           "PROMEDIO"
                       ? PromedioVar1(index)
                       : jsonMir.componentes[index].indicador
-                          .toUpperCase()
+                          
                           .includes("PORCENTAJE") ||
-                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                        jsonMir.componentes[index].indicador ===
                           "PORCENTAJE"
                       ? PorcentajeVar1(index)
                       : jsonMir.componentes[index].indicador
-                          .toUpperCase()
+                          
                           .includes("INDICE") ||
-                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                        jsonMir.componentes[index].indicador ===
                           "INDICE" ||
                         jsonMir.componentes[index].indicador
-                          .toUpperCase()
+                          
                           .includes("ÍNDICE") ||
-                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                        jsonMir.componentes[index].indicador ===
                           "ÍNDICE"
                       ? jsonMir.componentes[index].formula
                       : ""}
@@ -1019,32 +1019,32 @@ export const CompFichaTecnica = ({
                     }}
                   >
                     {jsonMir.componentes[index].indicador
-                      .toUpperCase()
+                      
                       .includes("TASA") ||
-                    jsonMir.componentes[index].indicador.toUpperCase() ===
+                    jsonMir.componentes[index].indicador ===
                       "TASA"
                       ? TasaVar2(index)
                       : jsonMir.componentes[index].indicador
-                          .toUpperCase()
+                          
                           .includes("PROMEDIO") ||
-                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                        jsonMir.componentes[index].indicador ===
                           "PROMEDIO"
                       ? PromedioVar2(index)
                       : jsonMir.componentes[index].indicador
-                          .toUpperCase()
+                          
                           .includes("PORCENTAJE") ||
-                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                        jsonMir.componentes[index].indicador ===
                           "PORCENTAJE"
                       ? PorcentajeVar2(index)
                       : jsonMir.componentes[index].indicador
-                          .toUpperCase()
+                          
                           .includes("INDICE") ||
-                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                        jsonMir.componentes[index].indicador ===
                           "INDICE" ||
                         jsonMir.componentes[index].indicador
-                          .toUpperCase()
+                          
                           .includes("ÍNDICE") ||
-                        jsonMir.componentes[index].indicador.toUpperCase() ===
+                        jsonMir.componentes[index].indicador ===
                           "ÍNDICE"
                       ? jsonMir.componentes[index].formula
                       : ""}
@@ -1094,7 +1094,7 @@ export const CompFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMA.componentes[index].descNumerador.toUpperCase()}
+                    {jsonMA.componentes[index].descNumerador}
                   </Typography>
                 </Box>
                 <Box
@@ -1118,7 +1118,7 @@ export const CompFichaTecnica = ({
                       backgroundColor: "white",
                     }}
                   >
-                    {jsonMA.componentes[index].descDenominador.toUpperCase()}
+                    {jsonMA.componentes[index].descDenominador}
                   </Typography>
                 </Box>
               </Box>
@@ -1168,7 +1168,7 @@ export const CompFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMir.componentes[index].medios.toUpperCase()}
+                    {jsonMir.componentes[index].medios}
                   </Typography>
                 </Box>
                 <Box
@@ -1193,7 +1193,7 @@ export const CompFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMir.componentes[index].medios.toUpperCase()}
+                    {jsonMir.componentes[index].medios}
                   </Typography>
                 </Box>
               </Box>
@@ -1240,7 +1240,7 @@ export const CompFichaTecnica = ({
                      minHeight: "5vh",
                      backgroundColor: "white",
                      textAlign: "justify",
-                  }}>{jsonFT.encabezado.unidadDeMedida.toUpperCase()}</Typography>
+                  }}>{jsonFT.encabezado.unidadDeMedida}</Typography>
                 </Box>
                 <Box
                   sx={{
@@ -1265,7 +1265,7 @@ export const CompFichaTecnica = ({
                    textAlign: "justify",
                  }}
                  >
-                  {jsonFT.encabezado.unidadDeMedida.toUpperCase()}</Typography>
+                  {jsonFT.encabezado.unidadDeMedida}</Typography>
                 </Box>
               </Box>
               <Box
@@ -1375,7 +1375,7 @@ export const CompFichaTecnica = ({
                     textAlign: "justify",
                   }}
                 >
-                  {jsonMir.componentes[index].supuestos.toUpperCase()}
+                  {jsonMir.componentes[index].supuestos}
                 </Typography>
               </Box>
             </Box>

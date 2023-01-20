@@ -57,6 +57,7 @@ export const MetaAnual = () => {
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
+  
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -118,7 +119,6 @@ export const MetaAnual = () => {
     //JSON.parse(),
     const fullMA = [JSON.parse(MIR), JSON.parse(MetaAnual)];
 
-    console.log("META ANUAN COMPLETA", fullMA);
     axios
       .post("http://192.168.137.152:7001/api/fill_ma", fullMA, {
         responseType: "blob",
@@ -141,7 +141,6 @@ export const MetaAnual = () => {
           "MA_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
-        console.log(link);
 
         link.click();
 
@@ -150,7 +149,6 @@ export const MetaAnual = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-        console.log(err);
 
         Toast.fire({
           icon: "error",
@@ -216,7 +214,6 @@ export const MetaAnual = () => {
       .then((r) => {
         setMa(r.data.data);
         setMaFiltered(r.data.data);
-        console.log(r.data.data);
       });
   };
 

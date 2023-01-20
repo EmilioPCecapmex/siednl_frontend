@@ -153,7 +153,6 @@ export const FichaTecnica = () => {
           "FT_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
-        console.log(link);
 
         link.click();
 
@@ -162,7 +161,6 @@ export const FichaTecnica = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-        console.log(err);
 
         Toast.fire({
           icon: "error",

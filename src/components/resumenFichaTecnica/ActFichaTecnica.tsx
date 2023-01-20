@@ -88,42 +88,42 @@ export const ActFichaTecnica = ({
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("-");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const PromedioVar1 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const PorcentajeVar1 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const TasaVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("-");
-    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
   };
 
   const PromedioVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[1].replaceAll(")", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "");
   };
 
   const PorcentajeVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
   };
 
   const CalculosPorComponente = (index: number, color: string) => {
@@ -318,7 +318,7 @@ export const ActFichaTecnica = ({
                     textAlign: "justify",
                   }}
                 >
-                  {jsonMir.actividades[index].resumen.toUpperCase()}
+                  {jsonMir.actividades[index].resumen}
                 </Typography>
               </Box>
             </Box>
@@ -339,7 +339,7 @@ export const ActFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMir.actividades[index].indicador.toUpperCase()}
+                  {jsonMir.actividades[index].indicador}
                 </Typography>
               </Box>
             </Box>
@@ -349,7 +349,7 @@ export const ActFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMA.actividades[index].descIndicador.toUpperCase()}
+                  {jsonMA.actividades[index].descIndicador}
                 </Typography>
               </Box>
             </Box>
@@ -361,7 +361,7 @@ export const ActFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMA.actividades[index].unidadResponsable.toUpperCase()}
+                  {jsonMA.actividades[index].unidadResponsable}
                 </Typography>
               </Box>
             </Box>
@@ -371,7 +371,7 @@ export const ActFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMir.actividades[index].formula.toUpperCase()}
+                  {jsonMir.actividades[index].formula}
                 </Typography>
               </Box>
             </Box>
@@ -497,32 +497,32 @@ export const ActFichaTecnica = ({
                   }}
                 >
                   {jsonMir.actividades[index].indicador
-                    .toUpperCase()
+                    
                     .includes("PORCENTAJE") ||
-                  jsonMir.actividades[index].indicador.toUpperCase() ===
+                  jsonMir.actividades[index].indicador ===
                     "PORCENTAJE" ? (
                     <Typography sx={sxResultSmallBoxes}>PORCENTAJE</Typography>
                   ) : jsonMir.actividades[index].indicador
-                      .toUpperCase()
+                      
                       .includes("TASA") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
+                    jsonMir.actividades[index].indicador ===
                       "TASA" ? (
                     <Typography sx={sxResultSmallBoxes}>TASA</Typography>
                   ) : jsonMir.actividades[index].indicador
-                      .toUpperCase()
+                      
                       .includes("PROMEDIO") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
+                    jsonMir.actividades[index].indicador ===
                       "PROMEDIO" ? (
                     <Typography sx={sxResultSmallBoxes}>PROMEDIO</Typography>
                   ) : jsonMir.actividades[index].indicador
-                      .toUpperCase()
+                      
                       .includes("INDICE") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
+                    jsonMir.actividades[index].indicador ===
                       "INDICE" ||
                     jsonMir.actividades[index].indicador
-                      .toUpperCase()
+                      
                       .includes("ÍNDICE") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
+                    jsonMir.actividades[index].indicador ===
                       "ÍNDICE" ? (
                     <Typography sx={sxResultSmallBoxes}>ÍNDICE</Typography>
                   ) : (
@@ -565,7 +565,7 @@ export const ActFichaTecnica = ({
                   }}
                 >
                   <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].unidadDeMedida.toUpperCase()}
+                    {jsonFT.actividades[index].unidadDeMedida}
                   </Typography>
                 </Box>
               </Box>
@@ -640,7 +640,7 @@ export const ActFichaTecnica = ({
                   }}
                 >
                   <Typography sx={sxResultSmallBoxes}>
-                    {jsonMA.actividades[index].sentidoDelIndicador.toUpperCase()}
+                    {jsonMA.actividades[index].sentidoDelIndicador}
                   </Typography>
                 </Box>
               </Box>
@@ -964,32 +964,32 @@ export const ActFichaTecnica = ({
                     }}
                   >
                     {jsonMir.actividades[index].indicador
-                      .toUpperCase()
+                      
                       .includes("TASA") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
+                    jsonMir.actividades[index].indicador ===
                       "TASA"
                       ? TasaVar1(index)
                       : jsonMir.actividades[index].indicador
-                          .toUpperCase()
+                          
                           .includes("PROMEDIO") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                        jsonMir.actividades[index].indicador ===
                           "PROMEDIO"
                       ? PromedioVar1(index)
                       : jsonMir.actividades[index].indicador
-                          .toUpperCase()
+                          
                           .includes("PORCENTAJE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                        jsonMir.actividades[index].indicador ===
                           "PORCENTAJE"
                       ? PorcentajeVar1(index)
                       : jsonMir.actividades[index].indicador
-                          .toUpperCase()
+                          
                           .includes("INDICE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                        jsonMir.actividades[index].indicador ===
                           "INDICE" ||
                         jsonMir.actividades[index].indicador
-                          .toUpperCase()
+                          
                           .includes("ÍNDICE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                        jsonMir.actividades[index].indicador ===
                           "ÍNDICE"
                       ? jsonMir.actividades[index].formula
                       : ""}
@@ -1019,32 +1019,32 @@ export const ActFichaTecnica = ({
                     }}
                   >
                     {jsonMir.actividades[index].indicador
-                      .toUpperCase()
+                      
                       .includes("TASA") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
+                    jsonMir.actividades[index].indicador ===
                       "TASA"
                       ? TasaVar2(index)
                       : jsonMir.actividades[index].indicador
-                          .toUpperCase()
+                          
                           .includes("PROMEDIO") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                        jsonMir.actividades[index].indicador ===
                           "PROMEDIO"
                       ? PromedioVar2(index)
                       : jsonMir.actividades[index].indicador
-                          .toUpperCase()
+                          
                           .includes("PORCENTAJE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                        jsonMir.actividades[index].indicador ===
                           "PORCENTAJE"
                       ? PorcentajeVar2(index)
                       : jsonMir.actividades[index].indicador
-                          .toUpperCase()
+                          
                           .includes("INDICE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                        jsonMir.actividades[index].indicador ===
                           "INDICE" ||
                         jsonMir.actividades[index].indicador
-                          .toUpperCase()
+                          
                           .includes("ÍNDICE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                        jsonMir.actividades[index].indicador ===
                           "ÍNDICE"
                       ? jsonMir.actividades[index].formula
                       : ""}
@@ -1094,7 +1094,7 @@ export const ActFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMA.actividades[index].descNumerador.toUpperCase()}
+                    {jsonMA.actividades[index].descNumerador}
                   </Typography>
                 </Box>
                 <Box
@@ -1118,7 +1118,7 @@ export const ActFichaTecnica = ({
                       backgroundColor: "white",
                     }}
                   >
-                    {jsonMA.actividades[index].descDenominador.toUpperCase()}
+                    {jsonMA.actividades[index].descDenominador}
                   </Typography>
                 </Box>
               </Box>
@@ -1168,7 +1168,7 @@ export const ActFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMir.actividades[index].medios.toUpperCase()}
+                    {jsonMir.actividades[index].medios}
                   </Typography>
                 </Box>
                 <Box
@@ -1193,7 +1193,7 @@ export const ActFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMir.actividades[index].medios.toUpperCase()}
+                    {jsonMir.actividades[index].medios}
                   </Typography>
                 </Box>
               </Box>
@@ -1240,7 +1240,7 @@ export const ActFichaTecnica = ({
                      minHeight: "5vh",
                      backgroundColor: "white",
                      textAlign: "justify",
-                  }}>{jsonFT.encabezado.unidadDeMedida.toUpperCase()}</Typography>
+                  }}>{jsonFT.encabezado.unidadDeMedida}</Typography>
                 </Box>
                 <Box
                   sx={{
@@ -1265,7 +1265,7 @@ export const ActFichaTecnica = ({
                    textAlign: "justify",
                  }}
                  >
-                  {jsonFT.encabezado.unidadDeMedida.toUpperCase()}</Typography>
+                  {jsonFT.encabezado.unidadDeMedida}</Typography>
                 </Box>
               </Box>
               <Box
@@ -1302,7 +1302,7 @@ export const ActFichaTecnica = ({
                 >
                   <Typography sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
                 >
-                    {jsonMA.actividades[index].valorNumerador.toUpperCase()}
+                    {jsonMA.actividades[index].valorNumerador}
                   </Typography>
                 </Box>
                 <Box
@@ -1318,7 +1318,7 @@ export const ActFichaTecnica = ({
                 >
                   <Typography sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
                 >
-                    {jsonMA.actividades[index].valorDenominador.toUpperCase()}
+                    {jsonMA.actividades[index].valorDenominador}
                   </Typography>
                 </Box>
               </Box>
@@ -1375,7 +1375,7 @@ export const ActFichaTecnica = ({
                     textAlign: "justify",
                   }}
                 >
-                  {jsonMir.actividades[index].supuestos.toUpperCase()}
+                  {jsonMir.actividades[index].supuestos}
                 </Typography>
               </Box>
             </Box>

@@ -558,8 +558,6 @@ export default function ModalEnviarMA({
 
   const CrearFichaTecnica = () => {
 
-    console.log(IdMIR);
-    console.log(IdMA);
    
     axios
       .post(

@@ -7,29 +7,15 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Tooltip,
-  IconButton,
   TablePagination,
   Input,
-  FormControl,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
   Typography,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
 } from "@mui/material";
 import axios from "axios";
-import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import { LateralMenu } from "../../../lateralMenu/LateralMenu";
 import { Header } from "../../../header/Header";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import CloseIcon from "@mui/icons-material/Close";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { DialogDescarga } from "../../Componentes/Documentos/Descarga";
 
 export const TablaDocs = () => {
   const [page, setPage] = useState(0);
@@ -51,9 +37,6 @@ export const TablaDocs = () => {
   const [findTextStr, setFindTextStr] = useState("");
   const [fecha1, setFecha1] = useState("");
   const [fecha2, setFecha2] = useState("");
-
-  const [phrase, setPhrase] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const [docs, setDocs] = useState<Array<IIDocsFirmados>>([]);
 
@@ -120,38 +103,6 @@ export const TablaDocs = () => {
   useEffect(() => {
     getDocs();
   }, []);
-
-  const [openModalDescargar, setOpenModalDescargar] = useState(false);
-
-  const getPdf = (id: string, password: string, rfc: string, fecha: string) => {
-    let dataArray = new FormData();
-    dataArray.append("id", id);
-    dataArray.append("phrase", password);
-
-    axios
-      .post("http://10.210.0.27/api/getfpdf", dataArray, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        responseType: "arraybuffer",
-      })
-      .then((r) => {
-        const a = window.URL || window.webkitURL;
-
-        const url = a.createObjectURL(
-          new Blob([r.data], { type: "application/pdf" })
-        );
-
-        let link = document.createElement("a");
-
-        link.setAttribute("download", `${rfc}-${fecha}.pdf`);
-        link.setAttribute("href", url);
-        document.body.appendChild(link);
-        link.click();
-      })
-      .catch((err) => {});
-  };
 
   return (
     <Box
@@ -440,7 +391,7 @@ export const TablaDocs = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            overflow:'hidden'
+                            overflow: "hidden",
                           }}
                           align="center"
                         >
@@ -493,161 +444,11 @@ export const TablaDocs = () => {
                             justifyContent: "center",
                           }}
                         >
-                          <Box sx={{ display: "flex" }}>
-                            <Tooltip
-                              title={
-                                openModalDescargar ? "" : "DESCARGAR DOCUMENTO"
-                              }
-                            >
-                              <span>
-                                <IconButton
-                                  onClick={() => {
-                                    setOpenModalDescargar(true);
-                                  }}
-                                >
-                                  <DownloadIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "orange",
-                                        },
-                                        width: "1.2vw",
-                                        height: "1.2vw",
-                                      },
-                                    ]}
-                                  />
-                                  <Dialog
-                                    fullWidth
-                                    maxWidth={"lg"}
-                                    open={openModalDescargar}
-                                    onClose={() => {
-                                      setOpenModalDescargar(false);
-                                      setPhrase("");
-                                    }}
-                                    sx={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <DialogTitle>
-                                      Phrase
-                                      <IconButton
-                                        onClick={() => {
-                                          setOpenModalDescargar(false);
-                                          setPhrase("");
-                                        }}
-                                        sx={{
-                                          position: "absolute",
-                                          right: 8,
-                                          top: 8,
-                                          color: "black",
-                                        }}
-                                      >
-                                        <CloseIcon />
-                                      </IconButton>
-                                    </DialogTitle>
-                                    <DialogContent>
-                                      <FormControl
-                                        sx={{
-                                          width: "15vw",
-                                          height: "20%",
-                                          mt: 2,
-                                        }}
-                                        variant="outlined"
-                                        size="small"
-                                      >
-                                        <InputLabel
-                                          sx={{
-                                            fontSize: {
-                                              xs: "33%",
-                                              sm: "60%",
-                                              md: "70%",
-                                              lg: "70%",
-                                              xl: "90%",
-                                            },
-                                            fontFamily: "MontserratMedium",
-                                          }}
-                                        >
-                                          CONTRASEÑA DE LA CLAVE PRIVADA
-                                        </InputLabel>
-                                        <OutlinedInput
-                                          label="CONTRASEÑA DE LA CLAVE PRIVADA"
-                                          type={
-                                            showPassword ? "text" : "password"
-                                          }
-                                          sx={{
-                                            fontFamily: "MontserratSemiBold",
-                                            fontSize: {
-                                              xs: "60%",
-                                              sm: "80%",
-                                              md: "80%",
-                                              lg: "80%",
-                                              xl: "100%",
-                                            },
-                                          }}
-                                          endAdornment={
-                                            <InputAdornment position="end">
-                                              <IconButton
-                                                onClick={() =>
-                                                  setShowPassword(!showPassword)
-                                                }
-                                                edge="end"
-                                              >
-                                                {showPassword ? (
-                                                  <VisibilityOff
-                                                    sx={{
-                                                      fontSize: {
-                                                        xs: "50%",
-                                                        sm: "80%",
-                                                        md: "70%",
-                                                        lg: "80%",
-                                                        xl: "100%",
-                                                      },
-                                                    }}
-                                                  />
-                                                ) : (
-                                                  <VisibilityIcon
-                                                    sx={{
-                                                      fontSize: {
-                                                        xs: "50%",
-                                                        sm: "80%",
-                                                        md: "70%",
-                                                        lg: "80%",
-                                                        xl: "100%",
-                                                      },
-                                                    }}
-                                                  />
-                                                )}
-                                              </IconButton>
-                                            </InputAdornment>
-                                          }
-                                          value={phrase || ""}
-                                          onChange={(v) => {
-                                            setPhrase(v.target.value);
-                                          }}
-                                        />
-                                      </FormControl>
-                                    </DialogContent>
-                                    <DialogActions>
-                                      <Button
-                                        onClick={() => {
-                                          getPdf(
-                                            row.Id,
-                                            phrase,
-                                            row.Rfc,
-                                            row.FechaFirma
-                                          );
-                                        }}
-                                      >
-                                        Aceptar
-                                      </Button>
-                                    </DialogActions>
-                                  </Dialog>
-                                </IconButton>
-                              </span>
-                            </Tooltip>
-                          </Box>
+                          <DialogDescarga
+                            Id={row.IdPathDoc}
+                            Rfc={row.Rfc}
+                            FechaFirma={row.FechaFirma}
+                          ></DialogDescarga>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -680,6 +481,7 @@ export interface IIDocsFirmados {
   Nombre: string;
   Rfc: string;
   FechaFirma: string;
-  Id: string;
+  IdFirma: string;
+  IdPathDoc: string;
   nombre_archivo: string;
 }

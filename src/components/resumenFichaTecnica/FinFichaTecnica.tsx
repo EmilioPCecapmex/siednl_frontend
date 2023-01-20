@@ -147,6 +147,9 @@ export const FinFechaTecnica = ({
     "META SEXENAL",
   ];
 
+  
+  
+
   const jsonMir = JSON.parse(MIR);
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
@@ -355,7 +358,7 @@ export const FinFechaTecnica = ({
               textAlign: "justify",
             }}
           >
-            {jsonMir.fin.resumen.toUpperCase()}
+            {jsonMir.fin.resumen}
           </Typography>
         </Box>
       </Box>
@@ -368,7 +371,7 @@ export const FinFechaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMir.fin.indicador.toUpperCase()}
+            {jsonMir.fin.indicador}
           </Typography>
         </Box>
       </Box>
@@ -380,7 +383,7 @@ export const FinFechaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMA.fin.descIndicador.toUpperCase()}
+            {jsonMA.fin.descIndicador}
           </Typography>
         </Box>
       </Box>
@@ -392,7 +395,7 @@ export const FinFechaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMA.fin.unidadResponsable.toUpperCase()}
+            {jsonMA.fin.unidadResponsable}
           </Typography>
         </Box>
       </Box>
@@ -404,7 +407,7 @@ export const FinFechaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMir.fin.formula.toUpperCase()}
+            {jsonMir.fin.formula}
           </Typography>
         </Box>
       </Box>
@@ -573,7 +576,7 @@ export const FinFechaTecnica = ({
             }}
           >
             <Typography sx={sxResultSmallBoxes}>
-              {jsonFT.fin.unidadDeMedida.toUpperCase()}
+              {jsonFT.fin.unidadDeMedida}
             </Typography>
           </Box>
         </Box>
@@ -650,7 +653,7 @@ export const FinFechaTecnica = ({
             }}
           >
             <Typography sx={sxResultSmallBoxes}>
-              {jsonMA.fin.sentidoDelIndicador.toUpperCase()}
+              {jsonMA.fin.sentidoDelIndicador}
             </Typography>
           </Box>
         </Box>
@@ -964,7 +967,7 @@ export const FinFechaTecnica = ({
                 backgroundColor: "white",
               }}
             >
-              {variable1.toUpperCase()}
+              {variable1}
             </Typography>
           </Box>
           <Box
@@ -989,7 +992,7 @@ export const FinFechaTecnica = ({
                 backgroundColor: "white",
               }}
             >
-              {variable2.toUpperCase()}
+              {variable2}
             </Typography>
           </Box>
         </Box>
@@ -1038,7 +1041,7 @@ export const FinFechaTecnica = ({
                 textAlign: 'justify',
               }}
             >
-              {jsonMA.fin.descNumerador.toUpperCase()}
+              {jsonMA.fin.descNumerador}
             </Typography>
           </Box>
           <Box
@@ -1062,7 +1065,7 @@ export const FinFechaTecnica = ({
                 backgroundColor: "white",
               }}
             >
-              {jsonMA.fin.descDenominador.toUpperCase()}
+              {jsonMA.fin.descDenominador}
             </Typography>
           </Box>
         </Box>
@@ -1112,7 +1115,7 @@ export const FinFechaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonMir.fin.medios.toUpperCase()}
+              {jsonMir.fin.medios}
             </Typography>
           </Box>
           <Box
@@ -1137,7 +1140,7 @@ export const FinFechaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonMir.fin.medios.toUpperCase()}
+              {jsonMir.fin.medios}
             </Typography>
           </Box>
         </Box>
@@ -1185,10 +1188,10 @@ export const FinFechaTecnica = ({
                 minHeight: "5vh",
                 backgroundColor: "white",
                 textAlign: "justify",
-                //al final ponerle a estos 2 .toUpperCase() como no existe se rompe el programa
+                //al final ponerle a estos 2  como no existe se rompe el programa
               }}
             >
-              {jsonFT.encabezado.unidadDeMedida.toUpperCase()}
+              {jsonFT.encabezado.unidadDeMedida}
             </Typography>
           </Box>
           <Box
@@ -1214,7 +1217,7 @@ export const FinFechaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonFT.encabezado.unidadDeMedida.toUpperCase()}
+              {jsonFT.encabezado.unidadDeMedida}
             </Typography>
           </Box>
         </Box>
@@ -1255,7 +1258,7 @@ export const FinFechaTecnica = ({
             <Typography
               sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
             >
-              {jsonMA.fin.valorNumerador.toUpperCase()}
+              {jsonMA.fin.valorNumerador}
             </Typography>
           </Box>
           <Box
@@ -1272,7 +1275,7 @@ export const FinFechaTecnica = ({
             <Typography
               sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
             >
-              {jsonMA.fin.valorDenominador.toUpperCase()}
+              {jsonMA.fin.valorDenominador}
             </Typography>
           </Box>
         </Box>
@@ -1328,7 +1331,7 @@ export const FinFechaTecnica = ({
               textAlign: "justify",
             }}
           >
-            {jsonMir.fin.supuestos.toUpperCase()}
+            {jsonMir.fin.supuestos}
           </Typography>
         </Box>
       </Box>
