@@ -4,11 +4,7 @@ export interface IFinMA {
     valorNumerador: string;
     valorDenominador: string;
     sentidoDelIndicador: string;
-    
     unidadResponsable: string;
-
-    
-
     descIndicador: string;
     descNumerador: string;
     descDenominador: string;
@@ -20,11 +16,7 @@ export interface IPropositoMA {
     valorNumerador: string;
     valorDenominador: string;
     sentidoDelIndicador: string;
-
     unidadResponsable: string;
-
-    
-
     descIndicador: string;
     descNumerador: string;
     descDenominador: string;

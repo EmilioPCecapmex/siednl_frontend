@@ -288,13 +288,13 @@ export default function ModalEditarSolicitud({
     } else if (curp === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa el CURP.",
         type: "error",
       });
     } else if (rfc === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa el RFC.",
         type: "error",
       });
     } else if (telephone === "") {
@@ -312,7 +312,7 @@ export default function ModalEditarSolicitud({
     } else if (ext === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa laa extencion.",
         type: "error",
       });
     }else if (username!=dataUser.NombreUsuario ) {

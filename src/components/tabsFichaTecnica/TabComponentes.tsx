@@ -426,7 +426,10 @@ export const TabComponenteFT = ({
             value={componentesValues[componentSelect - 1]?.unidadDeMedida || ""}
             onChange={(c) => {
               componentesValues[componentSelect - 1].unidadDeMedida =
-                c.target.value;
+                c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
               setComponentesValues([...componentesValues]);
             }}
           />

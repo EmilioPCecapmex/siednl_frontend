@@ -250,7 +250,7 @@ export const TabComponenteMA = ({
 
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
-      Id: '',
+      Id: "",
       Unidad: "",
     },
   ]);
@@ -520,7 +520,10 @@ export const TabComponenteMA = ({
               }}
               onChange={(c) => {
                 componentesValues[componentSelect - 1].lineaBase =
-                  c.target.value;
+                  c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                 setComponentesValues([...componentesValues]);
               }}
               value={componentesValues[componentSelect - 1]?.lineaBase || ""}
@@ -960,7 +963,7 @@ export const TabComponenteMA = ({
                 <Autocomplete
                   disabled={false}
                   options={catalogoUnidadResponsable}
-                  getOptionLabel={(option) => option.Unidad || ''}
+                  getOptionLabel={(option) => option.Unidad || ""}
                   value={{
                     Id: catalogoUnidadResponsable[0].Id,
                     Unidad:
@@ -1027,7 +1030,10 @@ export const TabComponenteMA = ({
               }
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descIndicador =
-                  c.target.value;
+                  c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                 setComponentesValues([...componentesValues]);
               }}
               InputLabelProps={{
@@ -1068,7 +1074,10 @@ export const TabComponenteMA = ({
               }
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descNumerador =
-                  c.target.value;
+                  c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                 setComponentesValues([...componentesValues]);
               }}
               InputLabelProps={{
@@ -1099,7 +1108,10 @@ export const TabComponenteMA = ({
               }
               onChange={(c) => {
                 componentesValues[componentSelect - 1].descDenominador =
-                  c.target.value;
+                  c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
                 setComponentesValues([...componentesValues]);
               }}
               InputLabelProps={{

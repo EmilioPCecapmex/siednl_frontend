@@ -101,6 +101,10 @@ export default function ModalCrearUsuario({
     setSecondName("");
     setTelephone("");
     setCellphone("");
+    setCURP("");
+    setRFC("");
+    setComentario("");
+    setExt("");
 
     let limpiarDatosAdicionales=datosAdicionales;
     limpiarDatosAdicionales.institution="0"
@@ -253,7 +257,7 @@ export default function ModalCrearUsuario({
               icon: "success",
               title: "¡Registro exitoso!",
             });
-          
+            cleanForm();
           handleClose();
         }
       })
@@ -374,13 +378,13 @@ export default function ModalCrearUsuario({
     } else if (curp === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa el CURP.",
         type: "error",
       });
     } else if (rfc === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa el RFC .",
         type: "error",
       });
     } else if (telephone === "") {
@@ -398,7 +402,7 @@ export default function ModalCrearUsuario({
     } else if (ext === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa la extencion.",
         type: "error",
       });
     } else {
@@ -745,9 +749,11 @@ export default function ModalCrearUsuario({
               color="primary"
               onClick={() => {
                 checkForm();
+               
               }}
             >
               Registrar
+              
             </Button>
           </Box>
         </Box>

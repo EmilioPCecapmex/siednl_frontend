@@ -39,7 +39,7 @@ export interface IDetalleSolicitud {
         CreadoPor:         string;
         Estatus:           number;
         DatosAdicionales:  string;
-        NombreApp:      string;
+        NombreApp:         string;
         NombreSolicitante: string;
 }
 

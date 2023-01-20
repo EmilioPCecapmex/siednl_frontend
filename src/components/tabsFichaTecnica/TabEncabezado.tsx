@@ -32,7 +32,7 @@ export function TabEncabezado({
     FT === "" ? "" : JSON.parse(FT).encabezado.objetivoSER || ""
   );
   const [objetivoODSSel, setObjetivoDSSel] = useState(
-    FT === "" ? "" : JSON.parse(FT).encabezado.ObjetivoODS || ""
+    FT === "" ? "" : JSON.parse(FT).encabezado.objetivoODS || ""
   );
   const [metaODSSel, setMetaODSSel] = useState(
     FT === "" ? "" : JSON.parse(FT).encabezado.metaODS || ""
@@ -228,7 +228,10 @@ export function TabEncabezado({
         >
           <TextField
             onChange={(a) => setProgramaSER(a.target.value)}
-            value={programaSER}
+            value={programaSER
+              .replaceAll('"', "")
+              .replaceAll("'", "")
+              .replaceAll("\n", "")}
             rows={8}
             multiline
             sx={{ width: "90%", boxShadow: 2 }}
@@ -248,7 +251,10 @@ export function TabEncabezado({
 
           <TextField
             onChange={(v) => setObjetivoSER(v.target.value)}
-            value={objetivoSER}
+            value={objetivoSER
+              .replaceAll('"', "")
+              .replaceAll("'", "")
+              .replaceAll("\n", "")}
             rows={8}
             multiline
             sx={{ width: "90%", boxShadow: 2 }}

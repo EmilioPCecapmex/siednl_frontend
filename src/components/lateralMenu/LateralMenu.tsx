@@ -378,7 +378,11 @@ export const LateralMenu = ({
             : localStorage.getItem("Rol")}
         </Typography>
       </Box>
-      <Typography sx={st.institucionStyle}>INSTITUCIONES ASIGNADAS</Typography>
+      <Typography sx={
+        st.institucionStyle
+        
+        }
+        >INSTITUCIONES ASIGNADAS</Typography>
 
       <Box sx={st.selectInstitucionBox}>
         {renderInfo ? (

@@ -336,7 +336,7 @@ export const TabActividadesMA = ({
 
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
-      Id: '',
+      Id: "",
       Unidad: "",
     },
   ]);
@@ -667,7 +667,10 @@ export const TabActividadesMA = ({
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].lineaBase = c.target.value;
+                ].lineaBase = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setAValorMA(y);
               }}
             />
@@ -1010,7 +1013,7 @@ export const TabActividadesMA = ({
                 <Autocomplete
                   disabled={false}
                   options={catalogoUnidadResponsable}
-                  getOptionLabel={(option) => option.Unidad || ''}
+                  getOptionLabel={(option) => option.Unidad || ""}
                   value={{
                     Id: catalogoUnidadResponsable[0].Id,
                     Unidad:
@@ -1084,7 +1087,10 @@ export const TabActividadesMA = ({
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descIndicador = c.target.value;
+                ].descIndicador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setAValorMA(y);
               }}
               InputLabelProps={{
@@ -1129,7 +1135,10 @@ export const TabActividadesMA = ({
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descNumerador = c.target.value;
+                ].descNumerador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setAValorMA(y);
               }}
               InputLabelProps={{
@@ -1164,7 +1173,10 @@ export const TabActividadesMA = ({
                 let y = [...aValorMA];
                 y[0].componentes[componenteSelect].actividades[
                   actividadSelect
-                ].descDenominador = c.target.value;
+                ].descDenominador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setAValorMA(y);
               }}
               InputLabelProps={{

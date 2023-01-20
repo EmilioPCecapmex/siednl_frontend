@@ -644,7 +644,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post(process.env.REACT_APP_APPLICATION_MID + "/upload", dataArray, {
+      .post("http://192.168.137.152:7000/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },

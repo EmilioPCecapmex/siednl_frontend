@@ -166,12 +166,12 @@ export const MIR = () => {
         },
       })
       .then((r) => {
-        console.log("r: ",r);
+        
         
         setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
-        console.log("r.data.data: ",r.data.data);
+        
       });
   };
 
@@ -228,7 +228,7 @@ export const MIR = () => {
           "MIR_" + anio + "_" + inst + "_" + prog + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
-        console.log((link));
+        
         
         link.click();
 
