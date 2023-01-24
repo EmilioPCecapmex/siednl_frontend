@@ -42,12 +42,18 @@ export const lstXl = {
     fontSize: ".7vw",
     fontStyle: "oblique",
   },
+  /////////////////////////////////////////////
   institucionStyle: {
     fontFamily: "MontserratMedium",
+    alignItems: "center",
+    display: "flex",
+    textAlign: "center",
     fontSize: ".5vw",
+    justifyContent: "center",
     ml: 1,
     mt: 3,
   },
+  ///////////////////////////////////////////
   selectInstitucionBox: {
     width: "90%",
     height: "4vh",
@@ -139,6 +145,10 @@ export const lstLg = {
   institucionStyle: {
     fontFamily: "MontserratMedium",
     fontSize: "1vw",
+    alignItems: "center",
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
     ml: 1,
     mt: 3,
   },
@@ -233,6 +243,10 @@ export const lstMd = {
   institucionStyle: {
     fontFamily: "MontserratMedium",
     fontSize: ".9vw",
+    textAlign: "center",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     ml: 1,
     mt: 3,
   },
@@ -326,12 +340,18 @@ export const lstSm = {
     fontSize: "2vw",
     fontStyle: "oblique",
   },
+  ///////////////////////////////////////////////
   institucionStyle: {
     fontFamily: "MontserratMedium",
     fontSize: "1.5vw",
+    alignItems: "center",
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
     ml: 1,
     mt: 3,
   },
+///////////////////////////////////////////////
   selectInstitucionBox: {
     width: "90%",
     height: "4vh",

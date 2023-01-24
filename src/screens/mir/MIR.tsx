@@ -203,7 +203,8 @@ export const MIR = () => {
   ) => {
     axios
       .post(
-       "http://192.168.137.152:7001/api/fill_mir",
+        
+        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
         JSON.parse(mir),
         {
           responseType: "blob",
@@ -229,12 +230,14 @@ export const MIR = () => {
         ); //or any other extension
         document.body.appendChild(link);
         
+        console.log(mir)
         
         link.click();
 
         // clean up "a" element & remove ObjectURL
         document.body.removeChild(link);
         URL.revokeObjectURL(href);
+        
       })
       .catch((err) => {
         Toast.fire({
@@ -293,8 +296,9 @@ export const MIR = () => {
             flexWrap: "wrap",
           }}
         >
+          {/*Tutorial box////////////////////////////////////////////////////////////////////////////////////////////////*/}
           <TutorialBox initialState={8} endState={13} />
-
+           {/*Tutorial box////////////////////////////////////////////////////////////////////////////////////////////////*/}
           <Box
             sx={{
               mt: "3vh",
@@ -482,6 +486,8 @@ export const MIR = () => {
                     Estado: "",
                     FechaCreacion: "",
                     CreadoPor: "",
+                    Conac:"",
+                    Consecutivo:"",
                   },
                 ]);
                 handleClickOpen();
@@ -866,6 +872,8 @@ export const MIR = () => {
                                           Estado: row.Estado,
                                           FechaCreacion: row.FechaCreacion,
                                           CreadoPor: row.CreadoPor,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
                                         },
                                       ]);
                                       setShowResume(false);
@@ -943,4 +951,6 @@ export interface IIMir {
   Estado: string;
   FechaCreacion: string;
   CreadoPor: string;
+  Conac: string;
+  Consecutivo:String;
 }
