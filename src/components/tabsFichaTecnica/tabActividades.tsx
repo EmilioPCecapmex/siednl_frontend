@@ -224,14 +224,6 @@ export const TabActividadesFT = ({
           alignItems: "center",
         }}
       >
-        <InfoOutlinedIcon
-          onClick={() => {
-            showMirFnc(true);
-            setTxtShowFnc("Actividades");
-          }}
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-        ></InfoOutlinedIcon>
         <Typography
           sx={{
             mr: "1vw",

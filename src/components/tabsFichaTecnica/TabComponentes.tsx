@@ -90,14 +90,6 @@ export const TabComponenteFT = ({
           alignItems: "center",
         }}
       >
-        <InfoOutlinedIcon
-          onClick={() => {
-            showMirFnc(true);
-            showFnc("Componentes");
-          }}
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-        ></InfoOutlinedIcon>
         <Typography
           sx={{
             mr: "1vw",

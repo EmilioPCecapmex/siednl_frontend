@@ -148,8 +148,10 @@ export const ResumenFichaTecnica = ({
   //RECORRE EL ARREGLO PARA DARLE DISEÑO headerTextsValue
   for (let i = 0; i < headerTextsValue.length; i++) {
     headerTypography.push(
-      <Box key={Math.random()} >
-        <Typography sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}>
+      <Box key={i}>
+        <Typography
+          sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+        >
           {headerTextsValue[i]}
         </Typography>
       </Box>
@@ -159,7 +161,7 @@ export const ResumenFichaTecnica = ({
   //RECORRE EL ARREGLO PARA DARLE DISEÑO
   for (let i = 0; i < clasificacionProgramaticaValue.length; i++) {
     conacAndProgramDesign.push(
-      <Box key={Math.random()} sx={{ width: "15vw", height: "10vh", ml: 1 }}>
+      <Box key={i} sx={{ width: "15vw", height: "10vh", ml: 1 }}>
         <Box
           sx={{
             width: "15vw",
@@ -172,8 +174,9 @@ export const ResumenFichaTecnica = ({
             borderColor: "#D9D9D9",
           }}
         >
-          <Typography sx={{ fontSize: ".8rem",
-    fontFamily: "MontserratRegular", }}>
+          <Typography
+            sx={{ fontSize: ".8rem", fontFamily: "MontserratRegular" }}
+          >
             {clasificacionProgramaticaValue[i]}
           </Typography>
         </Box>
@@ -187,8 +190,9 @@ export const ResumenFichaTecnica = ({
             border: 1,
           }}
         >
-          <Typography sx={{ fontSize: ".8rem",
-    fontFamily: "MontserratRegular", }}>
+          <Typography
+            sx={{ fontSize: ".8rem", fontFamily: "MontserratRegular" }}
+          >
             {clasificacionProgramaticaValues[i]}
           </Typography>
         </Box>
@@ -199,7 +203,7 @@ export const ResumenFichaTecnica = ({
   //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG1
   for (let i = 0; i < titleColumnsNormalPag1Value.length; i++) {
     generalTitlesDesign1.push(
-      <Box key={Math.random()} sx={sxTitleDesignPage1}>
+      <Box key={i} sx={sxTitleDesignPage1}>
         <Typography
           sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
         >
@@ -212,7 +216,7 @@ export const ResumenFichaTecnica = ({
   //RECORRE EL ARREGLO DE LOS TITULOS Y LES DA DISEÑO PAG2
   for (let i = 0; i < titleColumnsNormalPag2Value.length; i++) {
     generalTitlesDesign2.push(
-      <Box key={Math.random()} sx={sxTitleDesignPage1}>
+      <Box key={i} sx={sxTitleDesignPage1}>
         <Typography
           sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
         >
@@ -229,7 +233,7 @@ export const ResumenFichaTecnica = ({
       i === 0 ? (
         <>
           {generalTitlesDesign1[0]}
-          <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
+          <Box key={i} sx={sxSpaceBetweenTitleResult}>
             {/*ROW*/}
             <Box sx={sxTitleColumn}>
               <Typography sx={sxTitleStyle}>
@@ -238,9 +242,7 @@ export const ResumenFichaTecnica = ({
             </Box>
             {/*ROW*/}
             <Box sx={sxResultSize}>
-              <Typography
-                sx={sxResultContentDesign}
-              >
+              <Typography sx={sxResultContentDesign}>
                 {jsonMir.encabezado.nombre_del_programa.toUpperCase()}
               </Typography>
             </Box>
@@ -294,6 +296,7 @@ export const ResumenFichaTecnica = ({
             </Box>
             {/*COLUMN*/}
             <Box
+              key={Math.random()}
               sx={{
                 width: "22vw",
                 height: "3vh",
@@ -304,8 +307,7 @@ export const ResumenFichaTecnica = ({
               }}
             >
               <Typography
-                sx={{ fontSize: ".8rem",
-                fontFamily: "MontserratRegular", }}
+                sx={{ fontSize: ".8rem", fontFamily: "MontserratRegular" }}
               >
                 {clasificacionProgramaticaValues[0] +
                   clasificacionProgramaticaValues[1]}
@@ -314,6 +316,7 @@ export const ResumenFichaTecnica = ({
           </Box>
           {/*ROW*/}
           <Box
+            key={Math.random()}
             sx={{
               width: "40vw",
               height: "10vh",
@@ -329,17 +332,13 @@ export const ResumenFichaTecnica = ({
         <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
           {/*ROW*/}
           <Box sx={sxTitleColumn}>
-            <Typography
-              sx={sxTitleStyle}
-            >
+            <Typography sx={sxTitleStyle}>
               {subTitleColumnsNormalPag1Value[i]}
             </Typography>
           </Box>
           {/*ROW*/}
           <Box sx={sxResultSize}>
-            <Typography
-              sx={sxResultContentDesign}
-            >
+            <Typography sx={sxResultContentDesign}>
               {jsonMir.encabezado.institucion.toUpperCase()}
             </Typography>
           </Box>
@@ -350,65 +349,49 @@ export const ResumenFichaTecnica = ({
           <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
             {/*ROW*/}
             <Box sx={sxTitleColumn}>
-              <Typography
-                sx={sxTitleStyle}
-              >
+              <Typography sx={sxTitleStyle}>
                 {subTitleColumnsNormalPag1Value[i]}
               </Typography>
             </Box>
             {/*ROW*/}
-            <Box
-              sx={sxResultSize}
-            >
-              <Typography
-                sx={sxResultContentDesign}
-              >
+            <Box sx={sxResultSize}>
+              <Typography sx={sxResultContentDesign}>
                 {jsonMir.encabezado.eje.toUpperCase()}
               </Typography>
             </Box>
           </Box>
-          </>
+        </>
       ) : i === 11 ? (
-       <>
+        <>
           {generalTitlesDesign1[2]}
           <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
             {/*ROW*/}
             <Box sx={sxTitleColumn}>
-              <Typography
-                sx={sxTitleStyle}
-              >
+              <Typography key={Math.random()} sx={sxTitleStyle}>
                 {subTitleColumnsNormalPag1Value[i]}
               </Typography>
             </Box>
             {/*ROW*/}
             <Box sx={sxResultSize}>
-              <Typography
-                sx={sxResultContentDesign}
-              >
+              <Typography sx={sxResultContentDesign}>
                 {jsonFT.encabezado.objetivoODS.toUpperCase()}
               </Typography>
             </Box>
           </Box>
-          </>
+        </>
       ) : i === subTitleColumnsNormalPag1Value.length - 1 ? (
-        <Box key={Math.random()}>
-          <Box sx={sxSpaceBetweenTitleResult}>
-            {/*ROW*/}
-            <Box sx={sxTitleColumn}>
-              <Typography
-                sx={sxTitleStyle}
-              >
-                {subTitleColumnsNormalPag1Value[i]}
-              </Typography>
-            </Box>
-            {/*ROW*/}
-            <Box sx={sxResultSize}>
-              <Typography
-                sx={sxResultContentDesign}
-              >
-                {jsonFT.encabezado.metaODS.toUpperCase()}
-              </Typography>
-            </Box>
+        <Box key={Math.random()} sx={sxSpaceBetweenTitleResult}>
+          {/*ROW*/}
+          <Box sx={sxTitleColumn}>
+            <Typography key={Math.random()} sx={sxTitleStyle}>
+              {subTitleColumnsNormalPag1Value[i]}
+            </Typography>
+          </Box>
+          {/*ROW*/}
+          <Box sx={sxResultSize}>
+            <Typography sx={sxResultContentDesign}>
+              {jsonFT.encabezado.metaODS.toUpperCase()}
+            </Typography>
           </Box>
         </Box>
       ) : (
@@ -435,6 +418,7 @@ export const ResumenFichaTecnica = ({
             }}
           >
             <Typography
+              key={Math.random()}
               sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
             >
               {subTitleColumnsNormalPag1Value[i]}
@@ -442,6 +426,7 @@ export const ResumenFichaTecnica = ({
           </Box>
           {/*ROW*/}
           <Box
+            key={Math.random()}
             sx={{
               width: "38vw",
               justifyContent: "center",
@@ -449,6 +434,7 @@ export const ResumenFichaTecnica = ({
             }}
           >
             <Typography
+              key={Math.random()}
               sx={{
                 border: 1,
                 width: "38vw",
@@ -490,7 +476,7 @@ export const ResumenFichaTecnica = ({
       position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
+        width: "60vw",
         height: "90%",
         alignItems: "center",
         justifyContent: "center",
@@ -500,7 +486,7 @@ export const ResumenFichaTecnica = ({
     >
       <Box
         sx={{
-          width: "90%",
+          width: "95%",
           border: 0.1,
           borderColor: "#909090",
           height: "100%",
@@ -525,16 +511,16 @@ export const ResumenFichaTecnica = ({
             height: "20vh",
             display: "flex",
             justifyContent: "start",
-            alignItems: 'center'
+            alignItems: "center",
           }}
         >
           <Box
             sx={{
               width: "20%",
               height: "100%",
-              display: 'flex', 
-              alignItems:'center',
-              justifyContent: 'center'
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <img
@@ -560,7 +546,31 @@ export const ResumenFichaTecnica = ({
                 flexDirection: "column",
               }}
             >
-              {headerTypography}
+              <Typography
+                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+              >
+                GOBIERNO DEL ESTADO DE NUEVO LEÓN
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+              >
+                SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL ESTADO
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+              >
+                PRESUPUESTO BASADO EN RESULTADOS
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+              >
+                FICHA TECNICA DE INDICADORES 2022
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+              >
+                PROGRAMAS PRESUPUESTARIOS
+              </Typography>
             </Box>
           </Box>
         </Box>

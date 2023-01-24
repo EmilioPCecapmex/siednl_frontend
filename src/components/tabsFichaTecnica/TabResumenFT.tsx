@@ -122,11 +122,6 @@ export function TabResumenFT({
 
   const creaFT = (estado: string) => {
 
-    console.log(FT);
-    console.log(IdMir);
-    console.log(IdMA);
-    console.log(IdFT);
-    console.log(estado);
     
     axios
       .post(

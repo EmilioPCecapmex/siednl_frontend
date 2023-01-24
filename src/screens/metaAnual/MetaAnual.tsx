@@ -57,6 +57,7 @@ export const MetaAnual = () => {
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
+  
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {

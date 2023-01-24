@@ -152,7 +152,6 @@ export const Documento = ({
         },
       })
       .then((response) => {
-        console.log("correo enviado");
       })
       .catch((err) => {
       });

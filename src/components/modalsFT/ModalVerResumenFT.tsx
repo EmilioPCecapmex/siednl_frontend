@@ -52,13 +52,14 @@ export default function ModalVerResumenFT({
       <DialogContent
        sx={{
         display: "flex",
-        width: "75vw",
+        width: "60vw",
         height: "85vh",
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
         backgroundColor: "#fff",
+        p:0
       }}
     >
         <ResumenFichaTecnica 

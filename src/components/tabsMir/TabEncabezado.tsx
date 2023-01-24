@@ -679,7 +679,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://192.168.137.152:7000/upload", dataArray, {
+      .post("http://10.200.4.46:7000/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
