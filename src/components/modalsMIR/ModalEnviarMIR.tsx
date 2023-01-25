@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
+import { sendMail, sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
 export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
@@ -415,7 +415,9 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
-          sendMailCustomMessage(user.IdUsuario,enviarMensaje, "MA",);
+          sendMail(user.CorreoElectronico,enviarMensaje, "MA",);
+          console.log(user.CorreoElectronico);
+          
         });
         showResume();
       })
@@ -459,7 +461,8 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
-          sendMailCustomMessage(user.IdUsuario,enviarMensaje, "MIR");
+          sendMail(user.CorreoElectronico,enviarMensaje, "MIR");
+          
         });
 
         if (estado === "Autorizada") {
@@ -506,6 +509,8 @@ export default function ModalEnviarMIR({
       .then((r) => {
         if (r.status === 200) {
           setUserXInst(r.data.data);
+         
+          
         }
       });
   };
@@ -674,4 +679,5 @@ export interface IIUserXInst {
   NombreInstitucion: string;
   Nombre: string;
   ApellidoPaterno: string;
+  CorreoElectronico: string;
 }
