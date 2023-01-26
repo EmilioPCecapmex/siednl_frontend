@@ -1,9 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import QRCode from "react-qr-code";
 
-import Link from "@mui/material/Link";
-import { useNavigate } from "react-router-dom";
-
 export const Firma = ({
   show,
   nombreDoc,
@@ -11,7 +8,7 @@ export const Firma = ({
   asunto,
   id,
   url,
-  date
+  date,
 }: {
   show: boolean;
   nombreDoc: string;
@@ -185,7 +182,9 @@ export const Firma = ({
             }}
           >
             <Typography
-              onClick={() => window.open(`http://10.200.4.199:3001/tabla`, "blank")}
+              onClick={() =>
+                window.open(`http://10.200.4.199:3001/tabla`, "blank")
+              }
               sx={{
                 cursor: "pointer",
                 fontSize: "80%",

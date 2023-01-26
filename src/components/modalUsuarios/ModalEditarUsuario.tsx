@@ -33,8 +33,6 @@ export default function ModalEditarUsuario({
   handleClose: Function;
   dataUser: DataUsuariosTiCentral;
 }) {
-
-
   const [username, setUsername] = useState(dataUser.NombreUsuario);
   const [email, setEmail] = useState(dataUser.CorreoElectronico);
   const [names, setNames] = useState(dataUser.Nombre);
@@ -52,15 +50,14 @@ export default function ModalEditarUsuario({
   const [ext, setExt] = useState(dataUser.Ext);
   const [comentario, setComentario] = useState("");
 
-  // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
-  ]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IInstituciones>
+  >([]);
 
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
   ]);
-
 
   const Toast = Swal.mixin({
     toast: true,
@@ -129,14 +126,14 @@ export default function ModalEditarUsuario({
       });
   };
 
-  const createComentarios = (idSolicitud:string) => {
+  const createComentarios = (idSolicitud: string) => {
     axios
       .post(
         "http://10.200.4.105:5000/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
-          Comentario: comentario
+          Comentario: comentario,
         },
         {
           headers: {
@@ -146,8 +143,6 @@ export default function ModalEditarUsuario({
       )
       .then((r) => {
         if (r.status === 201) {
-
-
           Toast.fire({
             icon: "success",
             title: "¡Registro exitoso!",
@@ -165,7 +160,7 @@ export default function ModalEditarUsuario({
           });
         }
       });
-  }
+  };
 
   const solicitarModificacion = () => {
     axios
@@ -183,7 +178,12 @@ export default function ModalEditarUsuario({
           Celular: cellphone,
           Telefono: telephone,
           Extencion: ext,
-          DatosAdicionales: JSON.stringify({Rol: dataUser.Rol ,IdRol: dataUser.IdRol , Cargo: dataUser.Cargo , IdInstitucion:dataUser.IdInstitucion}),
+          DatosAdicionales: JSON.stringify({
+            Rol: dataUser.Rol,
+            IdRol: dataUser.IdRol,
+            Cargo: dataUser.Cargo,
+            IdInstitucion: dataUser.IdInstitucion,
+          }),
           TipoSolicitud: "MODIFICACION",
           CreadoPor: localStorage.getItem("IdCentral"),
           IdApp: localStorage.getItem("IdApp"),
@@ -195,17 +195,16 @@ export default function ModalEditarUsuario({
         }
       )
       .then((r) => {
-         
         if (r.status === 200) {
           // siednlSignUp(r.data.data[0][0].IdSolicitud);
-          if(comentario!="")
+          if (comentario != "")
             createComentarios(r.data.data[0][0].IdSolicitud);
-           
-            Toast.fire({
-              icon: "success",
-              title: r.data.data[0][0].Mensaje,
-            });
-          
+
+          Toast.fire({
+            icon: "success",
+            title: r.data.data[0][0].Mensaje,
+          });
+
           handleClose();
         }
       })
@@ -219,8 +218,6 @@ export default function ModalEditarUsuario({
         }
       });
   };
-
-
 
   // const siednlSignUp = (idUsrCentral: string) => {
   //   axios
@@ -250,8 +247,6 @@ export default function ModalEditarUsuario({
   //       }
   //     });
   // };
-
-
 
   // useEffect(() => {
   //   if (idSolicitud != "") {
@@ -351,21 +346,31 @@ export default function ModalEditarUsuario({
         text: "Ingresa un correo electrónico.",
         type: "error",
       });
-    }else if (username!=dataUser.NombreUsuario ) {
+    } else if (username != dataUser.NombreUsuario) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar nombre de usuario ",
         type: "error",
       });
-    }else if (email!=dataUser.CorreoElectronico ) {
+    } else if (email != dataUser.CorreoElectronico) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar el correo electrónico ",
         type: "error",
       });
-    }else if (names===dataUser.Nombre && firstName===dataUser.ApellidoPaterno && secondName===dataUser.ApellidoMaterno && institution===dataUser.IdInstitucion 
-      && rol===dataUser.Cargo && userType===dataUser.IdRol && curp ===dataUser.Curp && rfc===dataUser.Rfc && telephone===dataUser.Telefono 
-      && ext===dataUser.Ext && cellphone===dataUser.Celular) {
+    } else if (
+      names === dataUser.Nombre &&
+      firstName === dataUser.ApellidoPaterno &&
+      secondName === dataUser.ApellidoMaterno &&
+      institution === dataUser.IdInstitucion &&
+      rol === dataUser.Cargo &&
+      userType === dataUser.IdRol &&
+      curp === dataUser.Curp &&
+      rfc === dataUser.Rfc &&
+      telephone === dataUser.Telefono &&
+      ext === dataUser.Ext &&
+      cellphone === dataUser.Celular
+    ) {
       setErrorsForm({
         visible: true,
         text: "No se detectaron modificaciones ",
@@ -379,7 +384,6 @@ export default function ModalEditarUsuario({
   useEffect(() => {
     getInstituciones();
     getUserType();
-
   }, []);
 
   return (
@@ -416,13 +420,12 @@ export default function ModalEditarUsuario({
             mt: "3vh",
           }}
         >
-          
           <TextField
             label="Usuario"
             helperText={"Este campo no se puede editar."}
             variant="outlined"
             value={username}
-            inputProps={{ maxLength: 30, }}
+            inputProps={{ maxLength: 30 }}
             InputProps={{
               readOnly: true,
             }}
@@ -432,8 +435,6 @@ export default function ModalEditarUsuario({
             }}
             onChange={(v) => setUsername(v.target.value)}
           />
-
-
 
           <TextField
             label="Correo Electrónico"
@@ -610,8 +611,6 @@ export default function ModalEditarUsuario({
               mr: "2vw",
             }}
           />
-
-
         </Box>
 
         <Box
@@ -642,7 +641,6 @@ export default function ModalEditarUsuario({
             type="tel"
             sx={{
               width: "40%",
-
             }}
             value={cellphone}
             onChange={(x) => setCellphone(x.target.value)}
@@ -670,7 +668,6 @@ export default function ModalEditarUsuario({
             mt: "3vh",
           }}
         >
-
           <TextField
             label="Comentarios "
             variant="outlined"
@@ -679,16 +676,14 @@ export default function ModalEditarUsuario({
             rows={3}
             sx={{
               width: "95%",
-              mr: "2vw", ml: "2vw",
+              mr: "2vw",
+              ml: "2vw",
             }}
             type="tel"
             value={comentario}
             onChange={(x) => setComentario(x.target.value)}
           />
         </Box>
-
-
-
 
         <Box
           sx={{
@@ -711,7 +706,9 @@ export default function ModalEditarUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
-              onClick={() => { handleClose() }}
+              onClick={() => {
+                handleClose();
+              }}
             >
               Cancelar
             </Button>

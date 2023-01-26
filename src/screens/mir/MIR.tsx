@@ -35,7 +35,7 @@ import { IInstituciones } from "../../components/appsDialog/AppsDialog";
 export let resumeDefaultMIR = true;
 
 export let setResumeDefaultMIR = () => {
-  resumeDefaultMIR=!resumeDefaultMIR;
+  resumeDefaultMIR = !resumeDefaultMIR;
 };
 
 export const MIR = () => {
@@ -87,8 +87,8 @@ export const MIR = () => {
   const [actionNumber, setActionNumber] = useState(0);
 
   const onChangeActionNumberValue = () => {
-    setActionNumber(1)
-  }
+    setActionNumber(1);
+  };
 
   // Realiza el cambio de pagina
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -151,9 +151,6 @@ export const MIR = () => {
     }
   };
 
-
-
-
   const getMIRs = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
@@ -166,12 +163,9 @@ export const MIR = () => {
         },
       })
       .then((r) => {
-        
-        
         setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
         setMirs(r.data.data);
         setMirsFiltered(r.data.data);
-        
       });
   };
 
@@ -194,7 +188,7 @@ export const MIR = () => {
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
   };
-///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
   const downloadMIR = (
     anio: string,
     inst: string,
@@ -203,7 +197,7 @@ export const MIR = () => {
   ) => {
     axios
       .post(
-       "http://10.200.4.46:7001/api/fill_mir",
+        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
         JSON.parse(mir),
         {
           responseType: "blob",
@@ -218,8 +212,7 @@ export const MIR = () => {
           title: "La descarga comenzara en un momento.",
         });
         const href = URL.createObjectURL(r.data);
-        
-        
+
         // create "a" HTML element with href to file & click
         const link = document.createElement("a");
         link.href = href;
@@ -228,8 +221,7 @@ export const MIR = () => {
           "MIR_" + anio + "_" + inst + "_" + prog + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
-        
-        
+
         link.click();
 
         // clean up "a" element & remove ObjectURL
@@ -243,7 +235,7 @@ export const MIR = () => {
         });
       });
   };
-///////////////////////////////////////
+  ///////////////////////////////////////
   const colorMir = (v: string, mEdit: string) => {
     if (mEdit !== undefined) {
       let isModification = mEdit;
@@ -272,7 +264,7 @@ export const MIR = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={2} actionNumber={actionNumber}/>
+      <LateralMenu selection={2} actionNumber={actionNumber} />
       <Header
         details={{
           name1: "Inicio",
@@ -587,7 +579,7 @@ export const MIR = () => {
                 </TableRow>
               </TableHead>
             </Table>
-            
+
             <Box
               sx={{
                 width: "100%",
@@ -774,7 +766,6 @@ export const MIR = () => {
                                     disabled={
                                       row.Estado === "Autorizada" ? false : true
                                     }
-                                    
                                     onClick={() =>
                                       downloadMIR(
                                         row.AnioFiscal,
@@ -909,7 +900,7 @@ export const MIR = () => {
             </Box>
           </Box>
         </Box>
-      ) : ( 
+      ) : (
         <Box
           sx={{
             display: "flex",
@@ -925,7 +916,6 @@ export const MIR = () => {
             showResume={returnMain}
             IdMir={mirEdit[0]?.ID || ""}
           />
-          
         </Box>
       )}
     </Box>

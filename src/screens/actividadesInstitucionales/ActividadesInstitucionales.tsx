@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Autocomplete,
@@ -28,7 +28,6 @@ export let setResumeDefaultAI = () => {
 };
 
 export const ActividadesInstitucionales = () => {
-
   const [showResume, setShowResume] = useState(true);
 
   const returnMain = () => {
@@ -52,7 +51,7 @@ export const ActividadesInstitucionales = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={5} actionNumber={0}/>
+      <LateralMenu selection={5} actionNumber={0} />
       <Header
         details={{
           name1: "Inicio",

@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
-
 import { Credenciales } from "../../Componentes/Firmado/Credenciales";
 import { Documento } from "../../Componentes/Firmado/Documento";
 import { Firma } from "../../Componentes/Firmado/Firma";
@@ -49,8 +48,6 @@ export const Firmado = () => {
     setCcp(values);
   };
 
-  // const [rfc, setRfc] = useState("");
-
   const postCcp = () => {
     ccp.map((value) => {
       axios
@@ -79,7 +76,7 @@ export const Firmado = () => {
   const [id, setId] = useState("");
   const [url, setUrl] = useState("");
   const [nombreDoc, setNombreDoc] = useState("");
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
 
   const [noSerie, setNoSerie] = useState("");
 
@@ -189,7 +186,7 @@ export const Firmado = () => {
           <Credenciales
             show={activeStep === 0 ? true : false}
             validado={setValido1}
-            setRFC={setRfc} //"GOTJ971127BF8"
+            setRFC={setRfc}
             setNombre={setNombre}
             setPassword={setPassword}
             setKFile={setKeyFile}
@@ -220,7 +217,7 @@ export const Firmado = () => {
             asunto={reason}
             id={id}
             url={url}
-            date = {date}
+            date={date}
           ></Firma>
 
           <Box sx={{ display: "flex", flexDirection: "row" }}>

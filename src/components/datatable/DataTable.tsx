@@ -57,8 +57,8 @@ export const DataTable = ({
         },
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-        }
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
       })
       .then((response) => {
         setUsuarios(response.data.data);
@@ -86,7 +86,6 @@ export const DataTable = ({
     getUsuarios();
   }, [actualizacion]);
 
-
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
   };
@@ -105,40 +104,32 @@ export const DataTable = ({
 
   const [openModalEditarUsuario, setOpenModalEditarUsuario] = useState(false);
 
-
-
   const handleCloseModalEditarUsuario = () => {
     setOpenModalEditarUsuario(false);
   };
 
-
-  const [datosUsuario, setDatosUsuario] = useState<DataUsuariosTiCentral>(
-    {
-      Id: "",
-      IdUsuarioTiCentral: "",
-      Nombre: "",
-      ApellidoPaterno: "",
-      ApellidoMaterno: "",
-      CorreoElectronico: "",
-      NombreUsuario: "",
-      Cargo: "",
-      Telefono: "",
-      Ext: "",
-      Curp: "",
-      Rfc: "",
-      Celular: "",
-      IdRol: "",
-      Rol: "",
-      IdInstitucion: "",
-      NombreInstitucion: "",
-      CreadoPor: "",
-      ModificadoPor: "",
-    }
-  );
-  useEffect(() => {
-
-
-  }, [datosUsuario])
+  const [datosUsuario, setDatosUsuario] = useState<DataUsuariosTiCentral>({
+    Id: "",
+    IdUsuarioTiCentral: "",
+    Nombre: "",
+    ApellidoPaterno: "",
+    ApellidoMaterno: "",
+    CorreoElectronico: "",
+    NombreUsuario: "",
+    Cargo: "",
+    Telefono: "",
+    Ext: "",
+    Curp: "",
+    Rfc: "",
+    Celular: "",
+    IdRol: "",
+    Rol: "",
+    IdInstitucion: "",
+    NombreInstitucion: "",
+    CreadoPor: "",
+    ModificadoPor: "",
+  });
+  useEffect(() => {}, [datosUsuario]);
   return (
     <Box
       sx={{
@@ -282,15 +273,16 @@ export const DataTable = ({
 
                       <Tooltip title="Editar">
                         <span>
-
                           <IconButton
-                            disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+                            disabled={
+                              localStorage.getItem("Rol") === "Capturador"
+                                ? true
+                                : false
+                            }
                             onClick={() => {
                               setDatosUsuario(row);
                               setOpenModalEditarUsuario(true);
-
-                            }
-                            }
+                            }}
                           >
                             <EditIcon
                               sx={[
@@ -303,7 +295,6 @@ export const DataTable = ({
                             />
                           </IconButton>
                         </span>
-
                       </Tooltip>
                     </Box>
                   </TableCell>
@@ -324,7 +315,6 @@ export const DataTable = ({
 
       {openModalEditarUsuario ? (
         <ModalEditarUsuario
-          // actualizado={actualizaContador}
           title="Editar Usuario"
           open={openModalEditarUsuario}
           handleClose={handleCloseModalEditarUsuario}

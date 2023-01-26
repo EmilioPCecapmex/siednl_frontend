@@ -9,11 +9,9 @@ import {
   Autocomplete,
   FormControl,
 } from "@mui/material";
-import { IAccion1 } from "./IAccion1";
 
 export function TabAccion2({ show }: { show: boolean }) {
   const [componentSelect, setComponentSelect] = useState(1);
-  const [accion1, setAccion1] = useState<IAccion1>();
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
@@ -96,7 +94,7 @@ export function TabAccion2({ show }: { show: boolean }) {
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Datos del Indicador
+                Datos del Indicador
               </Typography>
             </ListItemButton>
             <Divider />
@@ -117,137 +115,148 @@ export function TabAccion2({ show }: { show: boolean }) {
         >
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 1 ? (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
               <Box
                 sx={{
-                  width: "100%",
-                  height: "100%",
+                  width: "90%",
                   display: "flex",
+                  justifyContent: "flex-end",
                   alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "column",
                 }}
               >
-                <Box
-                  sx={{
-                    width: "90%",
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "center",
-                  }}
+                <Typography
+                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
                 >
-                  <Typography
-                    sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
-                  >
-                    Acción 2
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    height: "45%",
-                    width: "90%",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <TextField
-                    multiline
-                    rows={6}
-                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
-                    variant="filled"
-                    sx={{ width: "45%", boxShadow: 2 }}
-                    label={"Descripción"}
-                    
-                  />
-                  <TextField
-                    multiline
-                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
-                    rows={6}
-                    variant="filled"
-                    sx={{ width: "45%", boxShadow: 2 }}
-                    label={"Nombre del Indicador"}
-                  />
-                </Box>
-
-                <Box
-                  sx={{
-                    height: "45%",
-                    width: "90%",
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr 1fr",
-                    alignItems: "center",
-                  }}
-                >
-
-                  {periodo.map((x, y) => {
-                    return (
-                      <TextField
-                        key={y}
-                        multiline
-                        rows={1}
-                        InputLabelProps={{style: {fontFamily: 'MontserratSemiBold', fontSize: '.7vw'}}}
-                        InputProps={{style: {fontFamily: 'MontserratRegular'}}}
-                        variant="standard"
-                        sx={{ width: "80%", gridColumn: y === 6 ? 2 : 0 }}
-                        label={
-                          y === 0
-                            ? `Linea Base ${periodo[y]} `
-                            : y === 6
-                            ? `Meta Sexenal ${periodo[y]} `
-                            : ` Meta ${periodo[y]} `
-                        }
-                      />
-                    );
-                  })}
-                </Box>
+                  Acción 2
+                </Typography>
               </Box>
+              <Box
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <TextField
+                  multiline
+                  rows={6}
+                  InputLabelProps={{
+                    style: { fontFamily: "MontserratSemiBold" },
+                  }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  variant="filled"
+                  sx={{ width: "45%", boxShadow: 2 }}
+                  label={"Descripción"}
+                />
+                <TextField
+                  multiline
+                  InputLabelProps={{
+                    style: { fontFamily: "MontserratSemiBold" },
+                  }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  rows={6}
+                  variant="filled"
+                  sx={{ width: "45%", boxShadow: 2 }}
+                  label={"Nombre del Indicador"}
+                />
+              </Box>
+
+              <Box
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr",
+                  alignItems: "center",
+                }}
+              >
+                {periodo.map((x, y) => {
+                  return (
+                    <TextField
+                      key={y}
+                      multiline
+                      rows={1}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratSemiBold",
+                          fontSize: ".7vw",
+                        },
+                      }}
+                      InputProps={{
+                        style: { fontFamily: "MontserratRegular" },
+                      }}
+                      variant="standard"
+                      sx={{ width: "80%", gridColumn: y === 6 ? 2 : 0 }}
+                      label={
+                        y === 0
+                          ? `Linea Base ${periodo[y]} `
+                          : y === 6
+                          ? `Meta Sexenal ${periodo[y]} `
+                          : ` Meta ${periodo[y]} `
+                      }
+                    />
+                  );
+                })}
+              </Box>
+            </Box>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
           {componentSelect === 2 ? (
-             <Box
-             sx={{
-               width: "100%",
-               height: "100%",
-               display: "flex",
-               alignItems: "center",
-               justifyContent: "center",
-               flexDirection: "column",
-             }}
-           >
-             <Box
-               sx={{
-                 width: "90%",
-                 display: "flex",
-                 justifyContent: "flex-end",
-                 alignItems: "center",
-               }}
-             >
-               <Typography
-                 sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
-               >
-              Acción 2 - Datos del Indicador
-               </Typography>
-             </Box>
-             <Box
-               sx={{
-                 height: "20%",
-                 width: "90%",
-                 display: "flex",
-                 justifyContent: "space-evenly",
-                 alignItems: "center",
-               }}
-             >
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                >
+                  Acción 2 - Datos del Indicador
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  height: "20%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
                 <TextField
                   multiline
                   rows={3}
                   variant="filled"
-                  InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  InputLabelProps={{
+                    style: { fontFamily: "MontserratSemiBold" },
+                  }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   sx={{ width: "40%", boxShadow: 2 }}
                   label={"Fórmula de Cálculo"}
                 />
@@ -255,13 +264,13 @@ export function TabAccion2({ show }: { show: boolean }) {
               <Box
                 sx={{
                   height: "25%",
-                  width: '95%',
+                  width: "95%",
                   display: "flex",
                   justifyContent: "space-evenly",
                   alignItems: "center",
                 }}
               >
-               <FormControl sx={{ gridRow: "1", width: "18%" }}>
+                <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
                     options={top100Films()}
                     size="small"
@@ -475,8 +484,10 @@ export function TabAccion2({ show }: { show: boolean }) {
                     multiline
                     rows={4}
                     variant="filled"
-                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    InputLabelProps={{
+                      style: { fontFamily: "MontserratSemiBold" },
+                    }}
+                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                     sx={{ width: "35%", boxShadow: 2 }}
                     label={"Numerador"}
                   />
@@ -486,8 +497,10 @@ export function TabAccion2({ show }: { show: boolean }) {
                     variant="filled"
                     sx={{ width: "20%", boxShadow: 2 }}
                     label={"Unidad de Medida"}
-                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    InputLabelProps={{
+                      style: { fontFamily: "MontserratSemiBold" },
+                    }}
+                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   />
                   <TextField
                     multiline
@@ -495,8 +508,10 @@ export function TabAccion2({ show }: { show: boolean }) {
                     variant="filled"
                     sx={{ width: "35%", boxShadow: 2 }}
                     label={"Medio de Verificación / Fuente de Información"}
-                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    InputLabelProps={{
+                      style: { fontFamily: "MontserratSemiBold" },
+                    }}
+                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   />
                 </Box>
                 <Box
@@ -514,8 +529,10 @@ export function TabAccion2({ show }: { show: boolean }) {
                     variant="filled"
                     sx={{ width: "35%", boxShadow: 2 }}
                     label={"Denominador"}
-                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    InputLabelProps={{
+                      style: { fontFamily: "MontserratSemiBold" },
+                    }}
+                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   />
                   <TextField
                     multiline
@@ -523,15 +540,19 @@ export function TabAccion2({ show }: { show: boolean }) {
                     variant="filled"
                     sx={{ width: "20%", boxShadow: 2 }}
                     label={"Unidad de Medida"}
-                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    InputLabelProps={{
+                      style: { fontFamily: "MontserratSemiBold" },
+                    }}
+                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   />
                   <TextField
                     multiline
                     rows={4}
                     variant="filled"
-                    InputLabelProps={{style: {fontFamily: 'MontserratSemiBold'}}}
-                    InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                    InputLabelProps={{
+                      style: { fontFamily: "MontserratSemiBold" },
+                    }}
+                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                     sx={{ width: "35%", boxShadow: 2 }}
                     label={"Medio de Verificación / Fuente de Información"}
                   />
@@ -550,11 +571,10 @@ export function TabAccion2({ show }: { show: boolean }) {
 export default TabAccion2;
 
 const top100Films = () => [
-    "Lorem ipsum dolor",
-    "Sit amet consectetur",
-    "Itaque facere ut voluptatum",
-    "Ullam voluptatem accusantium",
-  ];
-  
+  "Lorem ipsum dolor",
+  "Sit amet consectetur",
+  "Itaque facere ut voluptatum",
+  "Ullam voluptatem accusantium",
+];
 
 const periodo = [2021, 2022, 2023, 2024, 2025, 2026, 2027];

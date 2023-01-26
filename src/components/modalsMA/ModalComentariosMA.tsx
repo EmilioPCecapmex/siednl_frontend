@@ -1,6 +1,5 @@
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import axios from "axios";
 import { Typography } from "@mui/material";
@@ -131,7 +130,6 @@ export const ComentDialogMA = ({
   };
 
   const comentMa = () => {
-    
     axios
       .post(
         "http://10.200.4.105:8000/api/coment-mir",
@@ -139,7 +137,7 @@ export const ComentDialogMA = ({
           IdMir: id,
           Coment: coment,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA:'MA'
+          MIR_MA: "MA",
         },
         {
           headers: {
@@ -164,8 +162,6 @@ export const ComentDialogMA = ({
         });
       })
       .catch((err) => {
-        
-        
         Toast.fire({
           icon: "error",
           title: "Se produjo un error",
@@ -317,7 +313,8 @@ export const ComentDialogMA = ({
                 }}
                 sx={{ width: "30vw" }}
                 placeholder="Agregar comentario"
-                onChange={(v) => {setComent(v.target.value)
+                onChange={(v) => {
+                  setComent(v.target.value);
                 }}
               ></TextField>
             </Box>

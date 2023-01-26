@@ -39,18 +39,6 @@ export function TabIdentificacion({ show }: { show: boolean }) {
   const [anioFiscal, setAnioFiscal] = useState("2022");
   const [institution, setInstitution] = useState("");
 
-  const [identificacionActInst, setidentificacionActInst] =
-    useState<IIdentificacionActInst>({
-      nombreActividadInstitucional: "",
-      clasificacionProgramatica: "",
-      institucion: "",
-      temaPED: "",
-      objetivoPED: "",
-      conac: "",
-      tipoBenefeciario: "",
-      programa: "",
-    });
-
   const [alineacionPlaneacion, setAlineacionPlaneacion] =
     useState<IAlineacionPlaneacion>({
       temaPED: "",
@@ -669,7 +657,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   alignItems: "center",
                 }}
               >
-               <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
                     options={top100Films()}
                     size="small"
@@ -795,7 +783,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   alignItems: "center",
                 }}
               >
-               <FormControl sx={{ gridRow: "1", width: "40%" }}>
+                <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
                     options={top100Films()}
                     size="small"
@@ -872,7 +860,6 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-
               </Box>
             </Box>
           ) : null}
@@ -881,30 +868,30 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 3 ? (
-           <Box
-           sx={{
-             width: "100%",
-             height: "100%",
-             display: "flex",
-             alignItems: "center",
-             justifyContent: "center",
-             flexDirection: "column",
-           }}
-         >
-           <Box
-             sx={{
-               width: "90%",
-               display: "flex",
-               justifyContent: "flex-end",
-               alignItems: "center",
-             }}
-           >
-             <Typography
-               sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
-             >
-               Objetivos
-             </Typography>
-           </Box>
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                >
+                  Objetivos
+                </Typography>
+              </Box>
               <Box
                 sx={{
                   height: "45%",
@@ -919,8 +906,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   rows={6}
                   variant="filled"
                   sx={{ width: "80%", boxShadow: 2 }}
-                  InputLabelProps={{style: {fontFamily: 'MontserratBold'}}}
-                  InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   label={"Objetivo General"}
                   value={objetivosActividadInstitucional.objetivoGeneral}
                   onChange={(c) => {
@@ -934,7 +921,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               <Box
                 sx={{
                   height: "45%",
-                  width: '90%',
+                  width: "90%",
                   display: "flex",
                   justifyContent: "space-evenly",
                   alignItems: "center",
@@ -946,8 +933,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   variant="filled"
                   sx={{ width: "40%", boxShadow: 2 }}
                   label={"Objetivo Especifico 1"}
-                  InputLabelProps={{style: {fontFamily: 'MontserratBold'}}}
-                  InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   value={objetivosActividadInstitucional.objetivoEspecifico1}
                   onChange={(c) => {
                     setobjetivosActividadInstitucional({
@@ -957,15 +944,15 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   }}
                 />
 
-<TextField
+                <TextField
                   multiline
                   rows={6}
                   variant="filled"
                   sx={{ width: "40%", boxShadow: 2 }}
                   label={"Objetivo Especifico 2"}
                   value={objetivosActividadInstitucional.objetivoEspecifico2}
-                  InputLabelProps={{style: {fontFamily: 'MontserratBold'}}}
-                  InputProps={{style: {fontFamily: 'MontserratRegular'}}}
+                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   onChange={(c) => {
                     setobjetivosActividadInstitucional({
                       ...objetivosActividadInstitucional,

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   TextField,
@@ -75,9 +75,7 @@ export function TabEncabezado({
   const [loadActividades, setLoadActividades] = useState<Array<number>>([1, 2]);
   const [loadActividadValor, setLoadActividadValor] = useState<
     Array<ICompActividad>
-  >([
-    
-  ]);
+  >([]);
 
   /////////////////////////////////////////////////
   useEffect(() => {
@@ -123,7 +121,6 @@ export function TabEncabezado({
         i = 1;
         j++;
       });
-
 
       compAct(ambos);
       setLoadComponenteValor(jsonMir.componentes);
@@ -230,9 +227,10 @@ export function TabEncabezado({
     getLineasDeAccion(Id);
     setDisabledLineasDeAccion(false);
   }
-  function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
-    setLineaDeAccion(LDA);
-  }
+  // function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
+  //   setLineaDeAccion([]);
+  //   setLineaDeAccion(LDA);
+  // }
 
   function enCambioBeneficiario(Id: string, Ben: string) {
     setBeneficiario(Ben);
@@ -515,21 +513,21 @@ export function TabEncabezado({
       })
       .catch((err) => {});
   };
-  const getIdPrograma = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Programas",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setPrograma(r.data.data[0].Programa);
-      });
-  };
+  // const getIdPrograma = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+  //       params: {
+  //         Col: "Programas",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setPrograma(r.data.data[0].Programa);
+  //     });
+  // };
   const getIdEje = (Description: string) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
@@ -644,7 +642,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://10.200.4.46:7000/upload", dataArray, {
+      .post("http://192.168.137.152:7000/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -694,10 +692,8 @@ export function TabEncabezado({
         ]);
 
         setLoadComponenteValor(response.data.componentes);
-
         setLoadActividadValor(response.data.actividades);
         setLoadActividades(response.data.componenteActividad);
-
         actividadesMir(response.data.actividades);
         setTimeout(() => {
           setLoadComponentesFinish(true);
@@ -715,7 +711,6 @@ export function TabEncabezado({
     getEjes();
     getBeneficiarios();
   }, []);
-  
 
   useEffect(() => {
     setEncabezado([

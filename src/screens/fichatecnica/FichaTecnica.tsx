@@ -76,9 +76,6 @@ export const FichaTecnica = () => {
   const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
 
-  const [fichaAnualDownloadDetails, setFichaAnualDownloadDetails] =
-    useState<IDownloadFT>();
-
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
   const [FTShow, setFTShow] = useState<Array<IIFT>>([]);
@@ -123,16 +120,12 @@ export const FichaTecnica = () => {
     FT: string,
     inst: string,
     Programa: string,
-    FechaCreacion: string,
-    
+    FechaCreacion: string
   ) => {
-    
-   
     const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
-    
-  
+
     axios
-      .post("http://192.168.137.152:7001/api/fill_ft", fullft, {
+      .post(process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ft", fullft, {
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -153,20 +146,15 @@ export const FichaTecnica = () => {
           "FT_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
-        
 
         link.click();
 
         // clean up "a" element & remove ObjectURL
 
-
-        
         document.body.removeChild(link);
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-        
-
         Toast.fire({
           icon: "error",
           title: "Error al intentar descargar el documento.",
@@ -242,10 +230,6 @@ export const FichaTecnica = () => {
   useEffect(() => {
     getFT();
   }, []);
-
-  const handleClickOpen = () => {
-    setShowResume(false);
-  };
 
   const [actualizacion, setActualizacion] = useState(0);
 
@@ -832,18 +816,16 @@ export const FichaTecnica = () => {
                               <Tooltip title="DESCARGAR">
                                 <span>
                                   <IconButton
-                                  onClick={() => {
-                                    getFichaTecnicaDownload(
-                                      row.MIR,
-                                      row.MetaAnual,
-                                      row.FichaT,
-                                      row.Programa,
-                                      row.FechaCreacion,
-                                      row.Institucion
-                                    );
-                                  }}
-
-
+                                    onClick={() => {
+                                      getFichaTecnicaDownload(
+                                        row.MIR,
+                                        row.MetaAnual,
+                                        row.FichaT,
+                                        row.Programa,
+                                        row.FechaCreacion,
+                                        row.Institucion
+                                      );
+                                    }}
                                     disabled={
                                       row.Estado === "Autorizada" ? false : true
                                     }

@@ -1175,9 +1175,9 @@ export function TabFinPropositoFT({
               value={proposito[0].unidadDeMedida}
               onChange={(c) => {
                 proposito[0].unidadDeMedida = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
                 setProposito({
                   ...proposito,
                 });

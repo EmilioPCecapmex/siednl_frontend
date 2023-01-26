@@ -1,5 +1,5 @@
 import { IComponente } from "./IComponente";
-import { IActividadesMir, ICValor } from "./ICValor";
+import { IActividadesMir } from "./ICValor";
 import { IEncabezado } from "./TabEncabezado";
 import { IFin, IProposito } from "./TabFinProposito";
 import {

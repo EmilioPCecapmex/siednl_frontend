@@ -1,12 +1,10 @@
-import { Box, Divider, TextField, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import logo from "../../assets/logos/logo_tesoreriah1.png";
 import { FinFechaTecnica } from "./FinFichaTecnica";
 import { PropositoFichaTecnica } from "./PropositoFichaTecnica";
 import { CompFichaTecnica } from "./CompFichaTecnica";
 import { ActFichaTecnica } from "./ActFichaTecnica";
 import { useEffect, useState } from "react";
-import { IIMir } from "../../screens/mir/MIR";
-import axios from "axios";
 import { IComponente } from "../tabsMir/IComponente";
 
 export const ResumenFichaTecnica = ({

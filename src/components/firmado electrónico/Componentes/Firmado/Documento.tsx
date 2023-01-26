@@ -249,6 +249,7 @@ export const Documento = ({
     dataArray.append("name", nombre);
     dataArray.append("id", id);
     dataArray.append("asunto", asunto);
+    dataArray.append("documento_name", nombreArchivo);
 
     axios({
       url: "http://10.200.4.111:90/firma",

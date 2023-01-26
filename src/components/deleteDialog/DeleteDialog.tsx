@@ -50,32 +50,6 @@ export const DeleteDialog = ({
     setOpen(false);
   };
 
-  // const deleteUsuario = () => {
-  //   axios
-  //     .delete( "http://10.200.4.200/api/deleteUser", {
-  //       data: {
-  //         IdUsuarioTiCentral: id,
-  //         ModificadoPor: localStorage.getItem("IdUsuario"),
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       actualizado();
-  //       Toast.fire({
-  //         icon: "success",
-  //         title: "Usuario eliminado con éxito.",
-  //       });
-  //     })
-  //     .catch((err) =>
-  //       Toast.fire({
-  //         icon: "error",
-  //         title: "Permisos denegados.",
-  //       })
-  //     );
-  // };
-
   const [idSolicitud, setIdSolicitud] = React.useState("");
 
   const deleteUsuario = () => {

@@ -69,13 +69,13 @@ export const FinFechaTecnica = ({
   const sxTitleSmallBoxes = {
     fontSize: ".9vw",
     fontFamily: "MontserratSemiBold",
-    textAlign: 'center'
+    textAlign: "center",
   };
 
   const sxResultSmallBoxes = {
     fontSize: ".8rem",
     fontFamily: "MontserratRegular",
-    textAlign: 'center',
+    textAlign: "center",
   };
 
   //ARRAYS DEFAULT VALUES
@@ -147,9 +147,6 @@ export const FinFechaTecnica = ({
     "META SEXENAL",
   ];
 
-  
-  
-
   const jsonMir = JSON.parse(MIR);
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
@@ -179,7 +176,9 @@ export const FinFechaTecnica = ({
   for (let i = 0; i < headerTextsValue.length; i++) {
     headerTypography.push(
       <Box key={i}>
-        <Typography sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}>
+        <Typography
+          sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+        >
           {headerTextsValue[i]}
         </Typography>
       </Box>
@@ -414,7 +413,7 @@ export const FinFechaTecnica = ({
       <Box
         sx={{
           width: "62vw",
-          height: '100%',
+          height: "100%",
           display: "flex",
           flexDirection: "row",
           ml: "3.4vw",
@@ -437,10 +436,8 @@ export const FinFechaTecnica = ({
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "#D9D9D9",
-
             }}
           >
-
             <Typography sx={sxTitleSmallBoxes}>
               {subTitleColumnsRowIndicatorDataPag2Value[0]}
             </Typography>
@@ -448,14 +445,13 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "11vw",
-              height: '100%',
+              height: "100%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              
             }}
           >
             <Typography sx={sxResultSmallBoxes}>
@@ -489,7 +485,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "7vw",
-              height: '100%',
+              height: "100%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -508,7 +504,6 @@ export const FinFechaTecnica = ({
             width: "11vw",
             display: "flex",
             flexDirection: "column",
-            
           }}
         >
           <Box
@@ -925,7 +920,7 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "11vw",
-            height: '40vh',
+            height: "40vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -948,7 +943,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -962,7 +957,7 @@ export const FinFechaTecnica = ({
                 width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
-                textAlign: 'justify',
+                textAlign: "justify",
                 fontFamily: "MontserratRegular",
                 backgroundColor: "white",
               }}
@@ -973,7 +968,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -987,7 +982,7 @@ export const FinFechaTecnica = ({
                 width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
-                textAlign: 'justify',
+                textAlign: "justify",
                 fontFamily: "MontserratRegular",
                 backgroundColor: "white",
               }}
@@ -1022,7 +1017,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1038,7 +1033,7 @@ export const FinFechaTecnica = ({
                 fontFamily: "MontserratRegular",
                 minHeight: "5vh",
                 backgroundColor: "white",
-                textAlign: 'justify',
+                textAlign: "justify",
               }}
             >
               {jsonMA.fin.descNumerador}
@@ -1047,7 +1042,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1061,7 +1056,7 @@ export const FinFechaTecnica = ({
                 width: "90%",
                 fontSize: ".7rem",
                 fontFamily: "MontserratRegular",
-                textAlign: 'justify',
+                textAlign: "justify",
                 backgroundColor: "white",
               }}
             >
@@ -1072,7 +1067,7 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "18vw",
-            height: '40vh',
+            height: "40vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -1096,7 +1091,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 1,
               borderRight: 0,
@@ -1121,7 +1116,7 @@ export const FinFechaTecnica = ({
           <Box
             sx={{
               width: "100%",
-              height: '40%',
+              height: "40%",
               border: 1,
               borderTop: 0,
               borderRight: 0,
@@ -1147,7 +1142,7 @@ export const FinFechaTecnica = ({
         <Box
           sx={{
             width: "11vw",
-            height: '40vh',
+            height: "40vh",
             display: "flex",
             flexDirection: "column",
           }}
@@ -1382,7 +1377,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography sx={sxResultSmallBoxes}>{jsonMA.fin.lineaBase}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonMA.fin.lineaBase}
+            </Typography>
           </Box>
         </Box>
 
@@ -1421,7 +1418,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography sx={sxResultSmallBoxes}>{jsonMA.fin.metaAnual}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {jsonMA.fin.metaAnual}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -1648,7 +1647,9 @@ export const FinFechaTecnica = ({
               alignItems: "center",
             }}
           >
-            <Typography sx={sxResultSmallBoxes}>{"" /*meta sexenal*/}</Typography>
+            <Typography sx={sxResultSmallBoxes}>
+              {"" /*meta sexenal*/}
+            </Typography>
           </Box>
         </Box>
       </Box>
@@ -1699,9 +1700,13 @@ export const FinFechaTecnica = ({
               backgroundColor: "red",
             }}
           >
-            <Typography sx={sxTitleSmallBoxes}>{`V.I. < ${yString}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>
+              {`V.I. < ${yString}`}{" "}
+            </Typography>
             <Typography sx={sxTitleSmallBoxes}>{"Ó"} </Typography>
-            <Typography sx={sxTitleSmallBoxes}>{`${zString} < V.I.`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>
+              {`${zString} < V.I.`}{" "}
+            </Typography>
           </Box>
         </Box>
 
@@ -1740,9 +1745,13 @@ export const FinFechaTecnica = ({
               backgroundColor: "yellow",
             }}
           >
-            <Typography sx={sxTitleSmallBoxes}>{`${z1String} <= V.I. < ${zString}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>
+              {`${z1String} <= V.I. < ${zString}`}{" "}
+            </Typography>
             <Typography sx={sxTitleSmallBoxes}>{"Ó"} </Typography>
-            <Typography sx={sxTitleSmallBoxes}>{`${yString} < V.I. <= ${y1String}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>
+              {`${yString} < V.I. <= ${y1String}`}{" "}
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -1779,7 +1788,9 @@ export const FinFechaTecnica = ({
               backgroundColor: "#4fb830",
             }}
           >
-            <Typography sx={sxTitleSmallBoxes}>{`${y1String} <= V.I. <= ${z1String}`} </Typography>
+            <Typography sx={sxTitleSmallBoxes}>
+              {`${y1String} <= V.I. <= ${z1String}`}{" "}
+            </Typography>
           </Box>
         </Box>
       </Box>

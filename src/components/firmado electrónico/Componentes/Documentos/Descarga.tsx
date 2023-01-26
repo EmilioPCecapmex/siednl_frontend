@@ -12,7 +12,6 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  TextField,
   Tooltip,
 } from "@mui/material";
 import axios from "axios";
@@ -50,13 +49,11 @@ export const DialogDescarga = ({
         },
       })
       .then((r) => {
-        console.log(r);
         setSendToken(r.data);
         setLoading(false);
         setEnviado(true);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setEnviado(false);
       });

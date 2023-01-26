@@ -4,7 +4,7 @@ export const lstXl = {
     height: "100vh",
     flexDirection: "column",
     boxShadow: 5,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff",
   },
   imgBox: {
     paddingTop: "3vh",
@@ -70,7 +70,8 @@ export const lstXl = {
   menuListBox: {
     width: "100%",
     height: "47vh",
-
+    overflowY: "auto",
+    overflowX: "hidden",
   },
   selectedBox: {
     width: ".5vw",
@@ -87,9 +88,17 @@ export const lstXl = {
     mt: "1vh",
   },
   iconMenuList: { color: "#15212f", width: "2vw" },
-  firstItemsStyle: { fontFamily: "MontserratLight", fontSize: ".9vw", ml: '1vw' },
+  firstItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: ".9vw",
+    ml: "1vw",
+  },
   subMenuItemsText: { fontFamily: "MontserratLight", fontSize: ".9vw" },
-  bottomItemsStyle: { fontFamily: "MontserratLight", fontSize: ".9vw", ml: '1vw' },
+  bottomItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: ".9vw",
+    ml: "1vw",
+  },
 };
 
 export const lstLg = {
@@ -164,7 +173,8 @@ export const lstLg = {
   menuListBox: {
     width: "100%",
     height: "33vh",
-
+    overflowY: "auto",
+    overflowX: "hidden",
   },
   selectedBox: {
     width: ".5vw",
@@ -181,9 +191,17 @@ export const lstLg = {
     mt: "1vh",
   },
   iconMenuList: { color: "#15212f", width: "3vw" },
-  firstItemsStyle: { fontFamily: "MontserratLight", fontSize: "1.4vw", ml: '1vw' },
+  firstItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: "1.4vw",
+    ml: "1vw",
+  },
   subMenuItemsText: { fontFamily: "MontserratLight", fontSize: "1.2vw" },
-  bottomItemsStyle: { fontFamily: "MontserratLight", fontSize: "1.4vw", ml: '1vw' },
+  bottomItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: "1.4vw",
+    ml: "1vw",
+  },
 };
 
 export const lstMd = {
@@ -243,7 +261,6 @@ export const lstMd = {
     display: "flex",
     alignItems: "center",
     ml: 2,
-
   },
   selectInstitucionStyle: {
     width: "100%",
@@ -259,15 +276,15 @@ export const lstMd = {
   menuListBox: {
     width: "100%",
     height: "40vh",
-
+    overflowY: "auto",
+    overflowX: "hidden",
   },
   selectedBox: {
     width: ".5vw",
     backgroundColor: "#c4a57b",
     height: "3vh",
     position: "absolute",
-    right: -1
-    ,
+    right: -1,
   },
   subMenuItemStyle: { pl: 4 },
 
@@ -277,9 +294,17 @@ export const lstMd = {
     mt: "1vh",
   },
   iconMenuList: { color: "#15212f", width: "3vw" },
-  firstItemsStyle: { fontFamily: "MontserratLight", fontSize: "1.3vw", ml: '1vw' },
+  firstItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: "1.3vw",
+    ml: "1vw",
+  },
   subMenuItemsText: { fontFamily: "MontserratLight", fontSize: "1.1vw" },
-  bottomItemsStyle: { fontFamily: "MontserratLight", fontSize: "1.3vw", ml: '1vw' },
+  bottomItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: "1.3vw",
+    ml: "1vw",
+  },
 };
 
 export const lstSm = {
@@ -339,7 +364,6 @@ export const lstSm = {
     display: "flex",
     alignItems: "center",
     ml: 2,
-
   },
   selectInstitucionStyle: {
     width: "100%",
@@ -355,15 +379,15 @@ export const lstSm = {
   menuListBox: {
     width: "100%",
     height: "40vh",
-
+    overflowY: "auto",
+    overflowX: "hidden",
   },
   selectedBox: {
     width: ".5vw",
     backgroundColor: "#c4a57b",
     height: "3vh",
     position: "absolute",
-    right: -1
-    ,
+    right: -1,
   },
   subMenuItemStyle: { pl: 4 },
 
@@ -373,8 +397,19 @@ export const lstSm = {
     mt: "1vh",
   },
   iconMenuList: { color: "#15212f", width: "3vw" },
-  firstItemsStyle: { fontFamily: "MontserratLight", fontSize: "2vw", ml: '2vw' },
-  subMenuItemsText: { fontFamily: "MontserratLight", fontSize: "1.8vw", ml: '2vw' },
-  bottomItemsStyle: { fontFamily: "MontserratLight", fontSize: "2vw", ml: '2vw' },
+  firstItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: "2vw",
+    ml: "2vw",
+  },
+  subMenuItemsText: {
+    fontFamily: "MontserratLight",
+    fontSize: "1.8vw",
+    ml: "2vw",
+  },
+  bottomItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: "2vw",
+    ml: "2vw",
+  },
 };
-

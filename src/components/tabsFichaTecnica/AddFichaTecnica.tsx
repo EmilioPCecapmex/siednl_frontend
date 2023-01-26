@@ -328,8 +328,6 @@ export default function AddFichaTecnica({
             showResume={showResume}
             MIR={MIR}
           ></TabResumenFT>
-
-          
         </Box>
 
         <Box
