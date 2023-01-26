@@ -31,6 +31,7 @@ import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
 import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
 import Swal from "sweetalert2";
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -125,7 +126,7 @@ export const FichaTecnica = () => {
     const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
 
     axios
-      .post(process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ft", fullft, {
+      .post(process.env.REACT_APP_APPLICATION_FILL  + "/api/fill_ft", fullft, {
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -289,7 +290,10 @@ export const FichaTecnica = () => {
             mt: "8vh",
             flexWrap: "wrap",
           }}
+
+          
         >
+          <TutorialBox initialState={45} endState={49} />
           <Box
             sx={{
               mt: "3vh",

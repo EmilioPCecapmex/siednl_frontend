@@ -27,6 +27,9 @@ export interface IEncabezado {
   estrategia: string;
   lineas_de_accion: Array<{ Id: string; LineaDeAccion: string }>;
   beneficiario: string;
+  conac: string;
+  consecutivo: string;
+
 }
 
 export function TabEncabezado({
@@ -91,6 +94,9 @@ export function TabEncabezado({
       getIdTematica(jsonMir.encabezado.tema);
       getIdObjetivo(jsonMir.encabezado.objetivo);
       getIdEstrategia(jsonMir.encabezado.estrategia);
+      getProgramaPresupuestario(jsonMir.encabezado.conac);
+      getProgramaPresupuestario(jsonMir.encabezado.consecutivo);
+      
 
       setTimeout(() => {
         jsonMir.encabezado.lineas_de_accion.map(
@@ -109,7 +115,7 @@ export function TabEncabezado({
       let j = 1;
 
       jsonMir.componentes.map((x: any) => {
-        comp.push("C" + j);
+        comp.push("C" + i);
         jsonMir.actividades.map((a: any) => {
           if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
             act.push(i);
@@ -291,7 +297,10 @@ export function TabEncabezado({
     []
   );
   const [beneficiario, setBeneficiario] = useState("");
-
+ //////////////////////////////////////////////////////////////////////////////////////////////////
+  const [conac, setConac] = useState("");
+  const [consecutivo, setConsecutivo] = useState("");
+///////////////////////////////////////////////////////////////////////////////////////////////////
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
     { Id: "0", AnioFiscal: "" },
@@ -630,7 +639,33 @@ export function TabEncabezado({
         setBeneficiario(r.data.data[0].Beneficiario);
       });
   };
+///////////////////////////////////////////////////////////////////////////
+  const getProgramaPresupuestario = (Description: string) => {
+    axios
+    .get("localhost:8000/api/programaPresupuestarioConsulta",{
+      
+      
+      params:{
+        NombrePrograma: programa,
+        
+        Descripcion: Description,
+      },
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      console.log(Description);
 
+      console.log("soy r:",r);
+      console.log("soy r.data",r.data);
+      console.log("soy r.data.data[0]:",r.data.data[0]);
+      setConac(r.data.data[0]?.conac)
+      setConsecutivo(r.data.data[0]?.consecutivo)
+
+    });
+  };
+/////////////////////////////////////////////////////////////////////////
   //Cuando se da click en cargar archivo
   const submitForm = (event: any) => {
     setDisabledButton(true);
@@ -655,6 +690,10 @@ export function TabEncabezado({
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
+        getProgramaPresupuestario(response.data.encabezado[0].conac)
+        getProgramaPresupuestario(response.data.encabezado[0].consecutivo)
+        console.log("soy response.data:",response.data);
+        console.log("soy response.data.encabezado",response.data.encabezado[0]);
         setTimeout(() => {
           response.data.encabezado[0]?.lineas_de_accion
             ?.split(".\n")
@@ -724,6 +763,8 @@ export function TabEncabezado({
         estrategia: estrategia,
         lineas_de_accion: lineaDeAccion,
         beneficiario: beneficiario,
+        conac: conac,
+        consecutivo: consecutivo,
       },
     ]);
   }, [
@@ -736,6 +777,8 @@ export function TabEncabezado({
     estrategia,
     lineaDeAccion,
     beneficiario,
+    conac,
+    consecutivo,
   ]);
 
   useEffect(() => {
@@ -967,10 +1010,12 @@ export function TabEncabezado({
           disabled={
             mirEdit?.encabezado.nombre_del_programa || disabledProgramas
           }
+          
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma || ""}
           value={{ Id: catalogoProgramas[0].Id, NombrePrograma: programa }}
+          
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>

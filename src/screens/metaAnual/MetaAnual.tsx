@@ -116,7 +116,7 @@ export const MetaAnual = () => {
     const fullMA = [JSON.parse(MIR), JSON.parse(MetaAnual)];
 
     axios
-      .post(process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ma", fullMA, {
+      .post(process.env.REACT_APP_APPLICATION_FILL  + "/api/fill_ma", fullMA, {
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",

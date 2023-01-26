@@ -10,6 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { sendMail } from "../../funcs/sendMailCustomMessage";
 
 export let errores: string[] = [];
 
@@ -35,7 +36,7 @@ export default function ModalEnviarFT({
   const [comment, setComment] = useState("");
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [newComent, setNewComent] = React.useState(false);
-
+  const enviarMensaje = "Se ha creado una nueva";
   const comentFT = () => {
     axios
       .post(
@@ -390,6 +391,8 @@ export default function ModalEnviarFT({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
+          sendMail(user.CorreoElectronico,enviarMensaje, "FT");
+
         });
 
         Toast.fire({
@@ -600,4 +603,5 @@ export interface IIUserXInst {
   NombrelineaBase: string;
   Nombre: string;
   ApellidoPaterno: string;
+  CorreoElectronico: string;
 }

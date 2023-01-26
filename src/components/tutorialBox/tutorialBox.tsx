@@ -572,6 +572,144 @@ export const TutorialBox = ({
           "Cuentas con diversas opciones para almacenar la Meta Anual como borrador, solicitar modificaciones o enviar para autorización."
         );
         break;
+      case 45:
+        setTop("6vh");
+        setRight("");
+        setLeft("14vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(true);
+
+        setMessage(
+          "En la sección de FT (Ficha Tecnica) podras crear nuevas solicitudes y verificar el estado de las Fichas Tecnicas anteriores."
+        );
+        break;
+      case 46:
+        setTop("25vh");
+        setRight("");
+        setLeft("37vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Filtra los registros ligados a tu usuario y/o institución."
+        );
+        break;
+
+      case 47:
+        setTop("36vh");
+        setRight("42vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+
+        setMessage(
+          "Existen 3 estados base de la Ficha Tecnica. En Captura, En Revisión y Autorizada."
+        );
+        break;
+      case 48:
+        setTop("36vh");
+        setRight("12vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(true);
+
+        setMessage(
+          "Además, tendras posibilidad de agregar, modificar tus registros, eliminarlos y añadir comentarios a tus Metas Anuales."
+        );
+        break;
+      case 49:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(false);
+        setBottomArrow(true);
+        setMessage(
+          "En la seccion encabezado solo tiene que llenar sus aparados."
+        );
+        break;
+      case 50:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Ficha Tecnica."
+        );
+        break;
+      case 51:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Ficha Tecnica."
+        );
+        break;
+        case 52:
+        setTop("40vh");
+        setRight("");
+        setLeft("30vw");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Navega entre las diferentes opciones del menú de opciones de la Ficha Tecnica."
+        );
+        break;
+         case 53:
+        setTop("13vh");
+        setRight("27vw");
+        setLeft("");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage(
+          "En esta pestaña encontraras el desglose de la información que se ha capturado para la Ficha Tecnica en curso."
+        );
+        break;
+      case 54:
+        setTop("28.3vh");
+        setRight("");
+        setLeft("12.5vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(false);
+        setMessage(
+          "Como usuario autorizador puedes solicitar una modificación a la información de la Ficha Tecnica. Al seleccionar un campo este se habilitara para edición al usuario seleccionado."
+        );
+        break;
+      case 55:
+        setTop("77vh");
+        setRight("0vw");
+        setLeft("");
+        setTopArrow(false);
+        setLeftArrow(true);
+        setBottomArrow(true);
+        setMessage(
+          "Cuentas con diversas opciones para almacenar la Ficha Tecnica como borrador, solicitar modificaciones o enviar para autorización."
+        );
+        break;
+      case 56:
+        setTop("6vh");
+        setRight("");
+        setLeft("14vw");
+        setTopArrow(true);
+        setLeftArrow(false);
+        setBottomArrow(true);
+
+        setMessage(
+          "Hola."
+        );
+        break;
       //SECCIÓN FINAL
       default:
         break;
