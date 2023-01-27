@@ -85,10 +85,11 @@ export const ModifyDialogCatalogos = ({
   );
 
   const ModifyPorCatalogo = () => {
-     if (tabla === "ProgramasPresupuestarios") {
+    if (tabla === "ProgramasPresupuestarios") {
       axios
         .put(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+          process.env.REACT_APP_APPLICATION_BACK +
+            "/api/programaPresupuestario",
           {
             IdProgramaPresupuestario: id,
             NuevoProgramaPresupuestario: nuevaDescripcion,
@@ -108,14 +109,12 @@ export const ModifyDialogCatalogos = ({
             icon: "success",
             title: "!Elemento modificado con éxito!",
           });
-
         })
         .catch((err) =>
-
-        Toast.fire({
-          icon: "error",
-          title: "Permisos denegados",
-        })
+          Toast.fire({
+            icon: "error",
+            title: "Permisos denegados",
+          })
         );
     } else {
       axios
@@ -135,76 +134,76 @@ export const ModifyDialogCatalogos = ({
         )
         .then((r) => {
           actualizado();
-          
+
           handleClose();
           Toast.fire({
             icon: "success",
             title: "!Elemento modificado con éxito!",
           });
-
         })
         .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: "Permisos denegados",
-        })
+          Toast.fire({
+            icon: "error",
+            title: "Permisos denegados",
+          })
         );
     }
   };
 
   const ModifyPorCatalogoFechas = () => {
-
     axios
-      .put(process.env.REACT_APP_APPLICATION_BACK + "/api/fechaDeCaptura",  {
-        IdFechaDeCaptura:id,
-        NuevoDescripcion:nuevaDescripcion,
-        NuevoFechaDeCaptura:fechaCaptura,
-        ModificadoPor: localStorage.getItem("IdUsuario"),
+      .put(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/fechaDeCaptura",
+        {
+          IdFechaDeCaptura: id,
+          NuevoDescripcion: nuevaDescripcion,
+          NuevoFechaDeCaptura: fechaCaptura,
+          ModificadoPor: localStorage.getItem("IdUsuario"),
         },
-        {headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        }},
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
       )
       .then((r) => {
-
         actualizado();
         handleClose();
-
       })
-      .catch((err) => 
-      Toast.fire({
-        icon: "error",
-        title: "Permisos denegados",
-      })
-      
-      )
+      .catch((err) =>
+        Toast.fire({
+          icon: "error",
+          title: "Permisos denegados",
+        })
+      );
   };
 
   const ModifyPorCatalogoProgramasP = () => {
-
     axios
-      .put(process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",  {
-        IdProgramaPresupuestario:id,
-        NuevoProgramaPresupuestario:nuevaDescripcion,
-        IdInstitucion:institution,
-        ModificadoPor: localStorage.getItem("IdUsuario"),
+      .put(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+        {
+          IdProgramaPresupuestario: id,
+          NuevoProgramaPresupuestario: nuevaDescripcion,
+          IdInstitucion: institution,
+          ModificadoPor: localStorage.getItem("IdUsuario"),
         },
-        {headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        }},
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
       )
       .then((r) => {
-
         actualizado();
         handleClose();
-
       })
-      .catch((err) => 
-      Toast.fire({
-        icon: "error",
-        title: "Permisos denegados",
-      })
-      )
+      .catch((err) =>
+        Toast.fire({
+          icon: "error",
+          title: "Permisos denegados",
+        })
+      );
   };
   const [institution, setInstitution] = useState("0");
 
@@ -216,8 +215,8 @@ export const ModifyDialogCatalogos = ({
         },
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-        }
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
       })
       .then((r) => {
         setCatalogoInstituciones(r.data.data);
@@ -249,29 +248,56 @@ export const ModifyDialogCatalogos = ({
           </IconButton>
         </Tooltip>
         <Dialog open={open} onClose={handleClose} fullWidth>
-        <Box sx={{width: '100%', height: '5vh', alignItems: 'center', display: 'flex', justifyContent: 'center', flexDirection: 'column', borderBottom: .5, borderColor: '#ccc', boxShadow: 1}}>
-          <Typography sx={{fontFamily: 'MontserratSemiBold', width: '90%', fontSize: '1vw', textAlign: 'center'}}>Editar Elemento</Typography>
-          </Box>
-          <DialogContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          <TextField
-            multiline={descripcion.length < 20 ? false : true}
-            sx={descripcion.length < 20 ? {width: '60%'} : {width: '80%'}}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratLight",
-              },
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
             }}
-            rows={3}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Editar Elemento
+            </Typography>
+          </Box>
+          <DialogContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline={descripcion.length < 20 ? false : true}
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
+              rows={3}
               id="outlined-basic"
               value={nuevaDescripcion || descripcion}
               variant="outlined"
               onChange={(v) => setnuevaDescripcion(v.target.value)}
             />
 
-
-            <InputLabel >Institución</InputLabel>
+            <InputLabel>Institución</InputLabel>
             <Select
-              sx={descripcion.length < 20 ? {width: '60%'} : {width: '80%'}}
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
               value={institution}
               label="Institución"
               onChange={(x) => setInstitution(x.target.value)}
@@ -289,15 +315,26 @@ export const ModifyDialogCatalogos = ({
             </Select>
           </DialogContent>
 
-          <DialogActions sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
-            <Button color='error' onClick={handleClose}>
-              <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
-              Cancelar
-              </Typography></Button>
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="error" onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
 
             <Button onClick={ModifyPorCatalogoProgramasP} autoFocus>
-            <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
-            De Acuerdo
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
               </Typography>
             </Button>
           </DialogActions>
@@ -305,12 +342,12 @@ export const ModifyDialogCatalogos = ({
       </Box>
     );
   } else if (tabla === "FechasDeCaptura") {
-    return(
-      <Box sx={{display:"flex"}}>
+    return (
+      <Box sx={{ display: "flex" }}>
         <Tooltip title="Editar">
-          <IconButton onClick={handleClickOpen} >
+          <IconButton onClick={handleClickOpen}>
             <EditIcon
-               sx={[
+              sx={[
                 {
                   "&:hover": {
                     color: "blue",
@@ -321,13 +358,45 @@ export const ModifyDialogCatalogos = ({
           </IconButton>
         </Tooltip>
         <Dialog open={open} onClose={handleClose} fullWidth>
-        <Box sx={{width: '100%', height: '5vh', alignItems: 'center', display: 'flex', justifyContent: 'center', flexDirection: 'column', borderBottom: .5, borderColor: '#ccc', boxShadow: 1}}>
-          <Typography sx={{fontFamily: 'MontserratSemiBold', width: '90%', fontSize: '1vw', textAlign: 'center'}}>Editar Elemento</Typography>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Editar Elemento
+            </Typography>
           </Box>
-  
-          <DialogContent sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}}>
-              <TextField  label={"Descripcion"} variant="outlined" onChange={(v)=>setnuevaDescripcion(v.target.value)} sx={{mt:"2vh"}} />
-              <TextField
+
+          <DialogContent
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <TextField
+              label={"Descripcion"}
+              variant="outlined"
+              onChange={(v) => setnuevaDescripcion(v.target.value)}
+              sx={{ mt: "2vh" }}
+            />
+            <TextField
               variant="outlined"
               onChange={(x) => setFechaCaptura(x.target.value)}
               multiline={descripcion.length < 20 ? false : true}
@@ -348,21 +417,33 @@ export const ModifyDialogCatalogos = ({
               rows={3}
             />
           </DialogContent>
-  
-          <DialogActions sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
-          <Button color='error' onClick={handleClose}>
-              <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
-              Cancelar
-              </Typography></Button>
+
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="error" onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
 
             <Button onClick={ModifyPorCatalogoFechas} autoFocus>
-             <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
-            De Acuerdo
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
               </Typography>
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>);
+      </Box>
+    );
   } else if (tabla === "PEDs") {
     return (
       <Box>
@@ -379,7 +460,7 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={handleClose}>
-            <Button color='error'>Cancelar</Button>
+            <Button color="error">Cancelar</Button>
 
             <Button onClick={ModifyPorCatalogo} autoFocus>
               De Acuerdo
@@ -405,20 +486,47 @@ export const ModifyDialogCatalogos = ({
           </IconButton>
         </Tooltip>
         <Dialog open={open} onClose={handleClose} fullWidth>
-          <Box sx={{width: '100%', height: '5vh', alignItems: 'center', display: 'flex', justifyContent: 'center', flexDirection: 'column', borderBottom: .5, borderColor: '#ccc', boxShadow: 1}}>
-          <Typography sx={{fontFamily: 'MontserratSemiBold', width: '90%', fontSize: '1vw', textAlign: 'center'}}>Editar Elemento</Typography>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Editar Elemento
+            </Typography>
           </Box>
 
-          <DialogContent sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-            <TextField
-            multiline={descripcion.length < 20 ? false : true}
-            sx={descripcion.length < 20 ? {width: '60%'} : {width: '80%'}}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratLight",
-              },
+          <DialogContent
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
-            rows={5}
+          >
+            <TextField
+              multiline={descripcion.length < 20 ? false : true}
+              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
+              rows={5}
               id="outlined-basic"
               value={nuevaDescripcion || descripcion}
               variant="outlined"
@@ -426,15 +534,26 @@ export const ModifyDialogCatalogos = ({
             />
           </DialogContent>
 
-          <DialogActions sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
-            <Button color='error' onClick={handleClose}>
-              <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
-              Cancelar
-              </Typography></Button>
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="error" onClick={handleClose}>
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
 
             <Button onClick={ModifyPorCatalogo} autoFocus>
-            <Typography sx={{fontFamily: 'MontserratMedium', fontSize: '.7vw'}}>
-            De Acuerdo
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
               </Typography>
             </Button>
           </DialogActions>

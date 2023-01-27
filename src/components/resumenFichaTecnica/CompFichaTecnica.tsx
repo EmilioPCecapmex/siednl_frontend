@@ -1,6 +1,5 @@
 import logo from "../../assets/logos/logo_tesoreriah1.png";
-import { Box, Button, Divider, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Divider, Typography } from "@mui/material";
 import { IComponente } from "../tabsMir/IComponente";
 
 export const CompFichaTecnica = ({
@@ -147,7 +146,11 @@ export const CompFichaTecnica = ({
     let z1String = z1.toFixed(2);
 
     if (color === "VERDE") {
-      return <Typography sx={sxTitleSmallBoxes}>{`${y1String} <= V.I. <= ${z1String}`}</Typography>;
+      return (
+        <Typography
+          sx={sxTitleSmallBoxes}
+        >{`${y1String} <= V.I. <= ${z1String}`}</Typography>
+      );
     }
 
     if (color === "ROJO") {
@@ -163,9 +166,13 @@ export const CompFichaTecnica = ({
     if (color === "AMARILLO") {
       return (
         <>
-          <Typography sx={sxTitleSmallBoxes} >{`${z1String} <= V.I. < ${zString}`} </Typography>
-          <Typography sx={sxTitleSmallBoxes} >{"Ó"} </Typography>
-          <Typography sx={sxTitleSmallBoxes} >{`${yString} < V.I. <= ${y1String}`} </Typography>
+          <Typography sx={sxTitleSmallBoxes}>
+            {`${z1String} <= V.I. < ${zString}`}{" "}
+          </Typography>
+          <Typography sx={sxTitleSmallBoxes}>{"Ó"} </Typography>
+          <Typography sx={sxTitleSmallBoxes}>
+            {`${yString} < V.I. <= ${y1String}`}{" "}
+          </Typography>
         </>
       );
     }
@@ -496,34 +503,21 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  {jsonMir.componentes[index].indicador
-                    
-                    .includes("PORCENTAJE") ||
-                  jsonMir.componentes[index].indicador ===
-                    "PORCENTAJE" ? (
+                  {jsonMir.componentes[index].indicador.includes(
+                    "PORCENTAJE"
+                  ) || jsonMir.componentes[index].indicador === "PORCENTAJE" ? (
                     <Typography sx={sxResultSmallBoxes}>PORCENTAJE</Typography>
-                  ) : jsonMir.componentes[index].indicador
-                      
-                      .includes("TASA") ||
-                    jsonMir.componentes[index].indicador ===
-                      "TASA" ? (
+                  ) : jsonMir.componentes[index].indicador.includes("TASA") ||
+                    jsonMir.componentes[index].indicador === "TASA" ? (
                     <Typography sx={sxResultSmallBoxes}>TASA</Typography>
-                  ) : jsonMir.componentes[index].indicador
-                      
-                      .includes("PROMEDIO") ||
-                    jsonMir.componentes[index].indicador ===
-                      "PROMEDIO" ? (
+                  ) : jsonMir.componentes[index].indicador.includes(
+                      "PROMEDIO"
+                    ) || jsonMir.componentes[index].indicador === "PROMEDIO" ? (
                     <Typography sx={sxResultSmallBoxes}>PROMEDIO</Typography>
-                  ) : jsonMir.componentes[index].indicador
-                      
-                      .includes("INDICE") ||
-                    jsonMir.componentes[index].indicador ===
-                      "INDICE" ||
-                    jsonMir.componentes[index].indicador
-                      
-                      .includes("ÍNDICE") ||
-                    jsonMir.componentes[index].indicador ===
-                      "ÍNDICE" ? (
+                  ) : jsonMir.componentes[index].indicador.includes("INDICE") ||
+                    jsonMir.componentes[index].indicador === "INDICE" ||
+                    jsonMir.componentes[index].indicador.includes("ÍNDICE") ||
+                    jsonMir.componentes[index].indicador === "ÍNDICE" ? (
                     <Typography sx={sxResultSmallBoxes}>ÍNDICE</Typography>
                   ) : (
                     <Typography sx={sxResultSmallBoxes}>NINGUNA</Typography>
@@ -963,34 +957,26 @@ export const CompFichaTecnica = ({
                       backgroundColor: "white",
                     }}
                   >
-                    {jsonMir.componentes[index].indicador
-                      
-                      .includes("TASA") ||
-                    jsonMir.componentes[index].indicador ===
-                      "TASA"
+                    {jsonMir.componentes[index].indicador.includes("TASA") ||
+                    jsonMir.componentes[index].indicador === "TASA"
                       ? TasaVar1(index)
-                      : jsonMir.componentes[index].indicador
-                          
-                          .includes("PROMEDIO") ||
-                        jsonMir.componentes[index].indicador ===
+                      : jsonMir.componentes[index].indicador.includes(
                           "PROMEDIO"
+                        ) || jsonMir.componentes[index].indicador === "PROMEDIO"
                       ? PromedioVar1(index)
-                      : jsonMir.componentes[index].indicador
-                          
-                          .includes("PORCENTAJE") ||
-                        jsonMir.componentes[index].indicador ===
+                      : jsonMir.componentes[index].indicador.includes(
                           "PORCENTAJE"
+                        ) ||
+                        jsonMir.componentes[index].indicador === "PORCENTAJE"
                       ? PorcentajeVar1(index)
-                      : jsonMir.componentes[index].indicador
-                          
-                          .includes("INDICE") ||
-                        jsonMir.componentes[index].indicador ===
-                          "INDICE" ||
-                        jsonMir.componentes[index].indicador
-                          
-                          .includes("ÍNDICE") ||
-                        jsonMir.componentes[index].indicador ===
+                      : jsonMir.componentes[index].indicador.includes(
+                          "INDICE"
+                        ) ||
+                        jsonMir.componentes[index].indicador === "INDICE" ||
+                        jsonMir.componentes[index].indicador.includes(
                           "ÍNDICE"
+                        ) ||
+                        jsonMir.componentes[index].indicador === "ÍNDICE"
                       ? jsonMir.componentes[index].formula
                       : ""}
                   </Typography>
@@ -1018,34 +1004,26 @@ export const CompFichaTecnica = ({
                       backgroundColor: "white",
                     }}
                   >
-                    {jsonMir.componentes[index].indicador
-                      
-                      .includes("TASA") ||
-                    jsonMir.componentes[index].indicador ===
-                      "TASA"
+                    {jsonMir.componentes[index].indicador.includes("TASA") ||
+                    jsonMir.componentes[index].indicador === "TASA"
                       ? TasaVar2(index)
-                      : jsonMir.componentes[index].indicador
-                          
-                          .includes("PROMEDIO") ||
-                        jsonMir.componentes[index].indicador ===
+                      : jsonMir.componentes[index].indicador.includes(
                           "PROMEDIO"
+                        ) || jsonMir.componentes[index].indicador === "PROMEDIO"
                       ? PromedioVar2(index)
-                      : jsonMir.componentes[index].indicador
-                          
-                          .includes("PORCENTAJE") ||
-                        jsonMir.componentes[index].indicador ===
+                      : jsonMir.componentes[index].indicador.includes(
                           "PORCENTAJE"
+                        ) ||
+                        jsonMir.componentes[index].indicador === "PORCENTAJE"
                       ? PorcentajeVar2(index)
-                      : jsonMir.componentes[index].indicador
-                          
-                          .includes("INDICE") ||
-                        jsonMir.componentes[index].indicador ===
-                          "INDICE" ||
-                        jsonMir.componentes[index].indicador
-                          
-                          .includes("ÍNDICE") ||
-                        jsonMir.componentes[index].indicador ===
+                      : jsonMir.componentes[index].indicador.includes(
+                          "INDICE"
+                        ) ||
+                        jsonMir.componentes[index].indicador === "INDICE" ||
+                        jsonMir.componentes[index].indicador.includes(
                           "ÍNDICE"
+                        ) ||
+                        jsonMir.componentes[index].indicador === "ÍNDICE"
                       ? jsonMir.componentes[index].formula
                       : ""}
                   </Typography>
@@ -1208,7 +1186,7 @@ export const CompFichaTecnica = ({
                 <Box
                   sx={{
                     width: "100%",
-              height: "20%",
+                    height: "20%",
                     border: 1,
                     display: "flex",
                     justifyContent: "center",
@@ -1232,15 +1210,19 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={{
-                     width: "90%",
-                     display: "flex",
-                     fontSize: ".7rem",
-                     fontFamily: "MontserratRegular",
-                     minHeight: "5vh",
-                     backgroundColor: "white",
-                     textAlign: "justify",
-                  }}>{jsonFT.encabezado.unidadDeMedida}</Typography>
+                  <Typography
+                    sx={{
+                      width: "90%",
+                      display: "flex",
+                      fontSize: ".7rem",
+                      fontFamily: "MontserratRegular",
+                      minHeight: "5vh",
+                      backgroundColor: "white",
+                      textAlign: "justify",
+                    }}
+                  >
+                    {jsonFT.encabezado.unidadDeMedida}
+                  </Typography>
                 </Box>
                 <Box
                   sx={{
@@ -1255,17 +1237,18 @@ export const CompFichaTecnica = ({
                   }}
                 >
                   <Typography
-                  sx={{
-                    width: "90%",
-                   display: "flex",
-                   fontSize: ".7rem",
-                   fontFamily: "MontserratRegular",
-                   minHeight: "5vh",
-                   backgroundColor: "white",
-                   textAlign: "justify",
-                 }}
-                 >
-                  {jsonFT.encabezado.unidadDeMedida}</Typography>
+                    sx={{
+                      width: "90%",
+                      display: "flex",
+                      fontSize: ".7rem",
+                      fontFamily: "MontserratRegular",
+                      minHeight: "5vh",
+                      backgroundColor: "white",
+                      textAlign: "justify",
+                    }}
+                  >
+                    {jsonFT.encabezado.unidadDeMedida}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1300,8 +1283,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
-                >
+                  <Typography
+                    sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                  >
                     {jsonMA.componentes[index].valorNumerador}
                   </Typography>
                 </Box>
@@ -1316,8 +1300,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
-                >
+                  <Typography
+                    sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                  >
                     {jsonMA.componentes[index].valorDenominador}
                   </Typography>
                 </Box>
@@ -1356,10 +1341,10 @@ export const CompFichaTecnica = ({
               <Box
                 sx={{
                   width: "62vw",
-            height: "10vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+                  height: "10vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <Typography
@@ -1434,7 +1419,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{jsonMA.componentes[index].lineaBase}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {jsonMA.componentes[index].lineaBase}
+                  </Typography>
                 </Box>
               </Box>
 
@@ -1471,7 +1458,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{jsonMA.componentes[index].metaAnual}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {jsonMA.componentes[index].metaAnual}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1507,7 +1496,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2023*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2023*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1543,7 +1534,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2024*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2024*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1579,7 +1572,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2025*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2025*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1615,7 +1610,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2026*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2026*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1651,7 +1648,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2027*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2027*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1686,7 +1685,9 @@ export const CompFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"" /*meta sexenal*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"" /*meta sexenal*/}
+                  </Typography>
                 </Box>
               </Box>
             </Box>
@@ -1839,10 +1840,12 @@ export const CompFichaTecnica = ({
               }}
             >
               {/*PÁGINA*/}
-              <Typography sx={sxTitleSmallBoxes}>Página {paginacion}</Typography>
+              <Typography sx={sxTitleSmallBoxes}>
+                Página {paginacion}
+              </Typography>
             </Box>
             <Divider sx={{ height: "1vh", backgroundColor: "rgba(0,0,0,5)" }} />
-            </>
+          </>
         );
       })}
     </>

@@ -1255,7 +1255,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   return (
                     <Box key={item.id} sx={{}}>
                       {item.tipo === "Catalogos" ? (
-                        <AccordionDetails sx={{padding:0}}>
+                        <AccordionDetails sx={{ padding: 0 }}>
                           <ListItemButton
                             key={item.id}
                             dense
@@ -1278,12 +1278,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               {item.Desc}
                             </Typography>
                           </ListItemButton>
-                          <Divider/>
+                          <Divider />
                         </AccordionDetails>
                       ) : (
                         ""
                       )}
-                      
                     </Box>
                   );
                 })}
@@ -1294,16 +1293,15 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 expanded={expanded === "panel2"}
                 onChange={handleChange("panel2")}
                 sx={{
-                  position: 'unset',
-                  border: 'none',
-                  boxShadow: 'none',
+                  position: "unset",
+                  border: "none",
+                  boxShadow: "none",
                   maxWidth: 720,
-                  margin: '12 0',
-                  '&:before': {
-                      display: 'none',
-                      border: 'none'
+                  margin: "12 0",
+                  "&:before": {
+                    display: "none",
+                    border: "none",
                   },
-                  
                 }}
               >
                 <AccordionSummary
@@ -1311,15 +1309,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   id="panel2d-header"
                   sx={{
                     content: {
-                      flexGrow: 0
+                      flexGrow: 0,
                     },
                     backgroundColor: colorRelaciones,
                     "&:hover": {
                       backgroundColor: "#cbcbcb",
                     },
-                    
                   }}
-                  
                 >
                   <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Relaciones
@@ -1330,13 +1326,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   return (
                     <Box key={item.id} sx={{}}>
                       {item.tipo === "Relaciones" ? (
-                        <AccordionDetails sx={{padding:0}}>
+                        <AccordionDetails sx={{ padding: 0 }}>
                           <ListItemButton
                             key={item.id}
-                            
                             sx={{
-                              
-                              
                               "&.Mui-selected ": {
                                 backgroundColor: "#c4a57b",
                               },
@@ -1355,13 +1348,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               {item.Desc}
                             </Typography>
                           </ListItemButton>
-                          <Divider/>
+                          <Divider />
                         </AccordionDetails>
                       ) : (
                         ""
                       )}
-
-                     
                     </Box>
                   );
                 })}
@@ -1569,64 +1560,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                         <TableCell colSpan={6} />
                       </TableRow>
                     )}
-                    {/* {DataDescripctionFiltered.map((item) => {
-                      return (
-                        <StyledTableRow key={item.Id}>
-                          <TableCell
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              height: "auto",
-                              fontFamily: "MontserratMedium",
-                            }}
-                          >
-                            {item.Desc}
-                            <Stack
-                              sx={{
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <ModifyDialogCatalogos
-                                descripcion={item.Desc}
-                                id={item.Id}
-                                tabla={item.Tabla}
-                                actualizado={actualizaContador}
-                              />
-
-                              <DeleteDialogCatalogos
-                                deleteText={item.Desc}
-                                id={item.Id}
-                                tabla={item.Tabla}
-                                actualizado={actualizaContador}
-                              />
-                            </Stack>
-                          </TableCell>
-                          {/* <IconButton
-                            title="Agregar"
-                            sx={{
-                              width: 50,
-                              height: 50,
-                              backgroundColor: "#c4a57b",
-                              position: "absolute",
-                              ":hover": {
-                                backgroundColor: "#ffdcac",
-                              },
-                              right: "30vh",
-                              bottom: "17vh",
-                            }}
-                          >
-                            <AddDialogCatalogo
-                              catalogo={item.Tabla}
-                              tabla={item.Tabla}
-                              actualizado={actualizaContador}
-                            />
-                          </IconButton> */}
-                    {/* </StyledTableRow> */}
-                    {/* );
-                    })} */}
                   </TableBody>
                 </Table>
               </TableContainer>

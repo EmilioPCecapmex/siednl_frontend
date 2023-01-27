@@ -57,7 +57,7 @@ export const MetaAnual = () => {
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-  
+
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -68,9 +68,6 @@ export const MetaAnual = () => {
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
-
-  const [metaAnualDownloadDetails, setMetaAnualDownloadDetails] =
-    useState<IDownloadMA>();
 
   const [ma, setMa] = useState<Array<IIMa>>([]);
   const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
@@ -113,13 +110,11 @@ export const MetaAnual = () => {
     MetaAnual: string,
     inst: string,
     Programa: string,
-    FechaCreacion: string,
-    
+    FechaCreacion: string
   ) => {
     //JSON.parse(),
     const fullMA = [JSON.parse(MIR), JSON.parse(MetaAnual)];
 
-  
     axios
       .post(process.env.REACT_APP_APPLICATION_FILL  + "/api/fill_ma", fullMA, {
         responseType: "blob",
@@ -142,7 +137,6 @@ export const MetaAnual = () => {
           "MA_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
-        
 
         link.click();
 
@@ -151,8 +145,6 @@ export const MetaAnual = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-        
-
         Toast.fire({
           icon: "error",
           title: "Error al intentar descargar el documento.",
@@ -217,7 +209,6 @@ export const MetaAnual = () => {
       .then((r) => {
         setMa(r.data.data);
         setMaFiltered(r.data.data);
-        
       });
   };
 

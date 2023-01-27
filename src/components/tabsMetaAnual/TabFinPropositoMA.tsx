@@ -35,7 +35,15 @@ export function TabFinPropositoMA({
   MA: string;
   MIR: string;
 }) {
-  let jsonMA = MA === "" ? "" : JSON.parse(MA);
+  let jsonMA =
+    MA === ""
+      ? ""
+      : JSON.parse(MA).length > 1
+      ? JSON.parse(MA)[0]
+      : JSON.parse(MA);
+
+  let MAEdit =
+    MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
   const [valueFin, setValueFin] = useState<Array<IFinMA>>([
     {
@@ -380,7 +388,9 @@ export function TabFinPropositoMA({
               }}
             >
               <TextField
-                disabled
+                disabled={
+                  MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -410,6 +420,9 @@ export function TabFinPropositoMA({
                 }
               />
               <TextField
+                disabled={
+                  MAEdit?.fin?.lineaBase && valueFin[0].lineaBase !== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -455,6 +468,10 @@ export function TabFinPropositoMA({
               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
                 <TextField
+                  disabled={
+                    MAEdit?.fin?.valorNumerador &&
+                    valueFin[0].valorNumerador !== ""
+                  }
                   sx={{ width: "18%", boxShadow: 2 }}
                   variant={"filled"}
                   label={
@@ -480,6 +497,10 @@ export function TabFinPropositoMA({
               ) : (
                 <Box sx={{ width: "45%" }}>
                   <TextField
+                    disabled={
+                      MAEdit?.fin?.valorNumerador &&
+                      valueFin[0].valorNumerador !== ""
+                    }
                     sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
                     variant={"filled"}
                     label={
@@ -506,6 +527,10 @@ export function TabFinPropositoMA({
                     value={valueFin[0]?.valorNumerador || ""}
                   />
                   <TextField
+                    disabled={
+                      MAEdit?.fin?.valorDenominador &&
+                      valueFin[0].valorDenominador !== ""
+                    }
                     sx={{ width: "45%", boxShadow: 2 }}
                     variant={"filled"}
                     label={
@@ -535,6 +560,10 @@ export function TabFinPropositoMA({
               )}
 
               <FormControl
+                disabled={
+                  MAEdit?.fin?.sentidoDelIndicador &&
+                  valueFin[0].sentidoDelIndicador !== ""
+                }
                 sx={{
                   width: "15%",
                   height: "80%",
@@ -642,7 +671,10 @@ export function TabFinPropositoMA({
               >
                 <FormControl sx={{ width: "25vw" }}>
                   <Autocomplete
-                    disabled={false}
+                    disabled={
+                      MAEdit?.fin?.unidadResponsable &&
+                      valueFin[0].unidadResponsable !== ""
+                    }
                     options={catalogoUnidadResponsable}
                     getOptionLabel={(option) => option.Unidad}
                     value={{
@@ -694,6 +726,9 @@ export function TabFinPropositoMA({
               </Box>
 
               <TextField
+                disabled={
+                  MAEdit?.fin?.descIndicador && valueFin[0].descIndicador !== ""
+                }
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -735,6 +770,9 @@ export function TabFinPropositoMA({
               }}
             >
               <TextField
+                disabled={
+                  MAEdit?.fin?.descNumerador && valueFin[0].descNumerador !== ""
+                }
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -766,6 +804,10 @@ export function TabFinPropositoMA({
                 value={valueFin[0]?.descNumerador || ""}
               />
               <TextField
+                disabled={
+                  MAEdit?.fin?.descDenominador &&
+                  valueFin[0].descDenominador !== ""
+                }
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -852,6 +894,9 @@ export function TabFinPropositoMA({
                 }
               />
               <TextField
+                disabled={
+                  MAEdit?.fin?.lineaBase && valueFin[0].lineaBase !== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -902,6 +947,10 @@ export function TabFinPropositoMA({
                 .proposito.indicador.toLowerCase()
                 .includes("índice") ? (
                 <TextField
+                  disabled={
+                    MAEdit?.fin?.valorNumerador &&
+                    valueFin[0].valorNumerador !== ""
+                  }
                   sx={{ width: "18%", boxShadow: 2 }}
                   variant={"filled"}
                   label={
@@ -927,6 +976,10 @@ export function TabFinPropositoMA({
               ) : (
                 <Box sx={{ width: "45%" }}>
                   <TextField
+                    disabled={
+                      MAEdit?.fin?.valorNumerador &&
+                      valueFin[0].valorNumerador !== ""
+                    }
                     sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
                     variant={"filled"}
                     label={
@@ -953,6 +1006,10 @@ export function TabFinPropositoMA({
                     value={valueProposito[0]?.valorNumerador || ""}
                   />
                   <TextField
+                    disabled={
+                      MAEdit?.fin?.valorDenominador &&
+                      valueFin[0].valorDenominador !== ""
+                    }
                     sx={{ width: "45%", boxShadow: 2 }}
                     variant={"filled"}
                     label={
@@ -982,6 +1039,10 @@ export function TabFinPropositoMA({
               )}
 
               <FormControl
+                disabled={
+                  MAEdit?.fin?.sentidoDelIndicador &&
+                  valueFin[0].sentidoDelIndicador !== ""
+                }
                 sx={{
                   width: "15%",
                   height: "80%",
@@ -1089,7 +1150,13 @@ export function TabFinPropositoMA({
                   backgroundColor: "#f0f0f0",
                 }}
               >
-                <FormControl sx={{ width: "25vw" }}>
+                <FormControl
+                  disabled={
+                    MAEdit?.fin?.unidadResponsable &&
+                    valueFin[0].unidadResponsable !== ""
+                  }
+                  sx={{ width: "25vw" }}
+                >
                   <Autocomplete
                     disabled={false}
                     options={catalogoUnidadResponsable}
@@ -1143,6 +1210,9 @@ export function TabFinPropositoMA({
               </Box>
 
               <TextField
+                disabled={
+                  MAEdit?.fin?.descIndicador && valueFin[0].descIndicador !== ""
+                }
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -1184,6 +1254,9 @@ export function TabFinPropositoMA({
               }}
             >
               <TextField
+                disabled={
+                  MAEdit?.fin?.descNumerador && valueFin[0].descNumerador !== ""
+                }
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}
@@ -1215,6 +1288,10 @@ export function TabFinPropositoMA({
                 value={valueProposito[0]?.descNumerador || ""}
               />
               <TextField
+                disabled={
+                  MAEdit?.fin?.descDenominador &&
+                  valueFin[0].descDenominador !== ""
+                }
                 rows={5}
                 multiline
                 sx={{ width: "40%", boxShadow: 2 }}

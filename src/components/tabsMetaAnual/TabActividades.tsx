@@ -42,16 +42,24 @@ export const TabActividadesMA = ({
   MIR: string;
 }) => {
   // business logic-------------------------------------------------------------------------------
-  const [componenteActividad, setComponenteActividad] = useState([
+  const componenteActividad = [
     {
       componentes: componentes.map((x) => compAct),
     },
-  ]);
+  ];
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-  let jsonMA = MA === "" ? "" : JSON.parse(MA);
+  let jsonMA =
+    MA === ""
+      ? ""
+      : JSON.parse(MA).length > 1
+      ? JSON.parse(MA)[0]
+      : JSON.parse(MA);
+
+  let MAEdit =
+    MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
   const [aValorMA, setAValorMA] = useState(
     componenteActividad.map((item) => {
@@ -543,7 +551,14 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              disabled
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[actividadSelect - 1]?.metaAnual
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metaAnual !== ""
+              }
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -601,6 +616,14 @@ export const TabActividadesMA = ({
               }
             />
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[actividadSelect - 1]?.lineaBase
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.lineaBase !== ""
+              }
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -682,6 +705,14 @@ export const TabActividadesMA = ({
               .actividades[actividadSelect].indicador.toUpperCase()
               .includes("ÍNDICE") ? (
               <TextField
+                disabled={
+                  (MAEdit !== ""
+                    ? MAEdit?.actividades[actividadSelect - 1]?.valorNumerador
+                    : false) &&
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.valorNumerador !== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -711,6 +742,14 @@ export const TabActividadesMA = ({
             ) : (
               <Box sx={{ width: "45%" }}>
                 <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.actividades[actividadSelect - 1]?.valorNumerador
+                      : false) &&
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.valorNumerador !== ""
+                  }
                   sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
                   variant={"filled"}
                   label={
@@ -738,6 +777,15 @@ export const TabActividadesMA = ({
                   }
                 />
                 <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.actividades[actividadSelect - 1]
+                          ?.valorDenominador
+                      : false) &&
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.valorDenominador !== ""
+                  }
                   sx={{ width: "45%", boxShadow: 2 }}
                   variant={"filled"}
                   label={
@@ -768,6 +816,15 @@ export const TabActividadesMA = ({
             )}
 
             <FormControl
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[actividadSelect - 1]
+                      ?.sentidoDelIndicador
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.sentidoDelIndicador !== ""
+              }
               sx={{
                 width: "15%",
                 height: "80%",
@@ -1011,7 +1068,15 @@ export const TabActividadesMA = ({
             >
               <FormControl sx={{ width: "25vw" }}>
                 <Autocomplete
-                  disabled={false}
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.actividades[actividadSelect - 1]
+                          ?.unidadResponsable
+                      : false) &&
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.unidadResponsable !== ""
+                  }
                   options={catalogoUnidadResponsable}
                   getOptionLabel={(option) => option.Unidad || ""}
                   value={{
@@ -1067,6 +1132,14 @@ export const TabActividadesMA = ({
               </FormControl>{" "}
             </Box>
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[actividadSelect - 1]?.descIndicador
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.descIndicador !== ""
+              }
               rows={5}
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
@@ -1115,6 +1188,14 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[actividadSelect - 1]?.descNumerador
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.descNumerador !== ""
+              }
               rows={5}
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
@@ -1153,6 +1234,14 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[actividadSelect - 1]?.descDenominador
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.descDenominador !== ""
+              }
               rows={5}
               multiline
               sx={{ width: "40%", boxShadow: 2 }}

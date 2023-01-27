@@ -82,7 +82,7 @@ export const AddDialogCatalogo = ({
   );
   const [institution, setInstitution] = React.useState("0");
   const [unidad, setUnidad] = React.useState("0");
- 
+
   const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([
     { Id: "", NombreInstitucion: "" },
   ]);
@@ -99,7 +99,6 @@ export const AddDialogCatalogo = ({
     getInstituciones();
     getProgramas();
     getUnidadesAdministrativas();
-
   }, []);
 
   const getInstituciones = () => {
@@ -109,11 +108,9 @@ export const AddDialogCatalogo = ({
           Authorization: localStorage.getItem("jwtToken") || "",
         },
         params: {
-
           IdUsuario: localStorage.getItem("IdUsuario"),
 
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
         },
       })
       .then((r) => {
@@ -123,11 +120,14 @@ export const AddDialogCatalogo = ({
 
   const getUnidadesAdministrativas = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         setCatalogoUnidades(r.data.data);
       });
@@ -135,17 +135,18 @@ export const AddDialogCatalogo = ({
 
   const getProgramas = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         setCatalogoProgramas(r.data.data);
       });
   };
-
-
 
   const CreatePorCatalogo = () => {
     axios
@@ -215,12 +216,12 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoInstitucionUnidadAdmin = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-institucionUnidad",
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/create-institucionUnidad",
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdInstitucion: institution,
           IdUnidad: unidad,
-          
         },
         {
           headers: {
@@ -248,12 +249,12 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-programaInstitucion",
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/create-programaInstitucion",
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdPrograma: programa,
           IdInstitucion: institution,
-          
         },
         {
           headers: {
@@ -281,7 +282,8 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogoProgramap = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/create-programaPresupuestario",
         {
           NombrePrograma: descripcion,
           IdInstitucion: institution,
@@ -312,10 +314,12 @@ export const AddDialogCatalogo = ({
     return (
       <Box sx={{ display: "flex" }}>
         <IconButton onClick={handleClickOpen}>
-          <AddIcon sx={{
+          <AddIcon
+            sx={{
               width: 50,
               height: 50,
-            }}/>
+            }}
+          />
         </IconButton>
         <Dialog fullWidth open={open} onClose={handleClose}>
           <Box
@@ -420,10 +424,12 @@ export const AddDialogCatalogo = ({
     return (
       <Box sx={{ display: "flex" }}>
         <IconButton onClick={handleClickOpen}>
-          <AddIcon sx={{
+          <AddIcon
+            sx={{
               width: 50,
               height: 50,
-            }}/>
+            }}
+          />
         </IconButton>
         <Dialog fullWidth open={open} onClose={handleClose}>
           <Box
@@ -470,10 +476,11 @@ export const AddDialogCatalogo = ({
               <Select
                 value={programa}
                 label="Institución institucionales"
-                onChange={(x) => {setPrograma(x.target.value);}}
+                onChange={(x) => {
+                  setPrograma(x.target.value);
+                }}
                 sx={{
                   fontFamily: "MontserratRegular",
-
                 }}
               >
                 <MenuItem
@@ -491,7 +498,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular", }}
+                      sx={{ fontFamily: "MontserratRegular" }}
                     >
                       {item.NombrePrograma}
                     </MenuItem>
@@ -499,7 +506,6 @@ export const AddDialogCatalogo = ({
                 })}
               </Select>
             </FormControl>
-
 
             <FormControl
               sx={{
@@ -516,7 +522,6 @@ export const AddDialogCatalogo = ({
                 onChange={(x) => setInstitution(x.target.value)}
                 sx={{
                   fontFamily: "MontserratRegular",
-
                 }}
               >
                 <MenuItem
@@ -534,7 +539,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular", }}
+                      sx={{ fontFamily: "MontserratRegular" }}
                     >
                       {item.NombreInstitucion}
                     </MenuItem>
@@ -542,8 +547,6 @@ export const AddDialogCatalogo = ({
                 })}
               </Select>
             </FormControl>
-
-
           </DialogContent>
 
           <DialogActions
@@ -576,10 +579,12 @@ export const AddDialogCatalogo = ({
     return (
       <Box sx={{ display: "flex" }}>
         <IconButton onClick={handleClickOpen}>
-          <AddIcon sx={{
+          <AddIcon
+            sx={{
               width: 50,
               height: 50,
-            }}/>
+            }}
+          />
         </IconButton>
         <Dialog fullWidth open={open} onClose={handleClose}>
           <Box
@@ -626,10 +631,11 @@ export const AddDialogCatalogo = ({
               <Select
                 value={unidad}
                 label="Unidades Administrativas"
-                onChange={(x) => {setUnidad(x.target.value);}}
+                onChange={(x) => {
+                  setUnidad(x.target.value);
+                }}
                 sx={{
                   fontFamily: "MontserratRegular",
-
                 }}
               >
                 <MenuItem
@@ -647,7 +653,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular", }}
+                      sx={{ fontFamily: "MontserratRegular" }}
                     >
                       {item.Unidad}
                     </MenuItem>
@@ -655,7 +661,6 @@ export const AddDialogCatalogo = ({
                 })}
               </Select>
             </FormControl>
-
 
             <FormControl
               sx={{
@@ -672,7 +677,6 @@ export const AddDialogCatalogo = ({
                 onChange={(x) => setInstitution(x.target.value)}
                 sx={{
                   fontFamily: "MontserratRegular",
-
                 }}
               >
                 <MenuItem
@@ -690,7 +694,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular", }}
+                      sx={{ fontFamily: "MontserratRegular" }}
                     >
                       {item.NombreInstitucion}
                     </MenuItem>
@@ -698,8 +702,6 @@ export const AddDialogCatalogo = ({
                 })}
               </Select>
             </FormControl>
-
-
           </DialogContent>
 
           <DialogActions
@@ -761,10 +763,12 @@ export const AddDialogCatalogo = ({
       <Box sx={{ display: "flex" }}>
         <Tooltip title="Editar">
           <IconButton onClick={handleClickOpen}>
-            <AddIcon sx={{
-              width: 50,
-              height: 50,
-            }}/>
+            <AddIcon
+              sx={{
+                width: 50,
+                height: 50,
+              }}
+            />
           </IconButton>
         </Tooltip>
         <Dialog fullWidth open={open} onClose={handleClose}>
@@ -836,7 +840,8 @@ export const AddDialogCatalogo = ({
                 label="Institución"
                 onChange={(x) => setInstitution(x.target.value)}
                 style={{
-                  marginTop: 1, fontFamily: "MontserratLight",
+                  marginTop: 1,
+                  fontFamily: "MontserratLight",
                 }}
                 rows={3}
                 multiline={descripcion.length < 20 ? false : true}
@@ -879,13 +884,13 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-
             <Button onClick={CreatePorCatalogoProgramap} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
                 De Acuerdo
-              </Typography>            </Button>
+              </Typography>
+            </Button>
           </DialogActions>
         </Dialog>
       </Box>

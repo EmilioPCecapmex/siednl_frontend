@@ -343,16 +343,16 @@ export const PropositoFichaTecnica = ({
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                DATOS DEL INDICADOR:
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          DATOS DEL INDICADOR:
+        </Typography>
+      </Box>
       <Box sx={sxSpaceBetweenTitleResult}>
         <Box sx={sxTitleColumn}>
           <Typography sx={sxTitleStyle}>
@@ -645,16 +645,16 @@ export const PropositoFichaTecnica = ({
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                CARACTERÍSTICAS DEL INDICADOR
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          CARACTERÍSTICAS DEL INDICADOR
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "62vw",
@@ -908,16 +908,16 @@ export const PropositoFichaTecnica = ({
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                DATOS DE LAS VARIABLES
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          DATOS DE LAS VARIABLES
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "62vw",
@@ -1341,16 +1341,16 @@ export const PropositoFichaTecnica = ({
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                METAS
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          METAS
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "62vw",
@@ -1674,16 +1674,16 @@ export const PropositoFichaTecnica = ({
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                PARÁMETROS DE SEMAFORIZACIÓN
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          PARÁMETROS DE SEMAFORIZACIÓN
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "62vw",

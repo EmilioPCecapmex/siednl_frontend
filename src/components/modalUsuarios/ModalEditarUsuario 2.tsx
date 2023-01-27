@@ -41,8 +41,9 @@ export default function ModalEditarUsuario({
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
-  ]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IInstituciones>
+  >([]);
 
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
@@ -82,8 +83,8 @@ export default function ModalEditarUsuario({
         },
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-        }
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
       })
       .then((r) => {
         setCatalogoInstituciones(r.data.data);
@@ -389,7 +390,7 @@ export default function ModalEditarUsuario({
             mt: "3vh",
           }}
         >
-           <FormControl
+          <FormControl
             sx={{
               width: "30%",
               ml: "2vw",
@@ -435,7 +436,6 @@ export default function ModalEditarUsuario({
               })}
             </Select>
           </FormControl>
-         
 
           <TextField
             label="Cargo"
@@ -456,7 +456,7 @@ export default function ModalEditarUsuario({
               },
             }}
           />
-           <FormControl
+          <FormControl
             sx={{
               width: "30%",
               mr: "2vw",
@@ -496,7 +496,6 @@ export default function ModalEditarUsuario({
               })}
             </Select>
           </FormControl>
-         
         </Box>
 
         <Box

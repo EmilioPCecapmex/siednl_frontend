@@ -44,35 +44,36 @@ export const AppsDialog = ({
   };
 
   const verifica = () => {
-
-    if(instSel.length <= 0){
+    if (instSel.length <= 0) {
       Toast.fire({
         icon: "error",
         title: "Debes seleccionar al menos una institución.",
       });
-    }else{
-      agregaVinculo()
+    } else {
+      agregaVinculo();
     }
-  }
+  };
 
   const agregaVinculo = () => {
     axios
-      .post(process.env.REACT_APP_APPLICATION_BACK + "/api/vincular-usuarioInsitucion",
-       {
+      .post(
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/vincular-usuarioInsitucion",
+        {
           IdUsuario: id,
           IdInstitucion: instSel.map((item) => {
-            return {IdInstitucion: item.Id}
+            return { IdInstitucion: item.Id };
           }),
           CreadoPor: localStorage.getItem("IdUsuario"),
         },
-       { 
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
         }
-      }
       )
       .then((r) => {
-        if(r.status === 200){
+        if (r.status === 200) {
           handleClose();
           Toast.fire({
             icon: "success",
@@ -80,7 +81,6 @@ export const AppsDialog = ({
           });
           actualizado();
         }
-       
       })
       .catch((err) =>
         Toast.fire({
@@ -115,8 +115,8 @@ export const AppsDialog = ({
         },
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-        }
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
       })
       .then((r) => {
         if (r.status === 200) {
@@ -126,10 +126,9 @@ export const AppsDialog = ({
   };
 
   useLayoutEffect(() => {
-    if(open){
+    if (open) {
       getInstitucionesX();
       getInstituciones();
-
     }
   }, [open]);
 
@@ -137,21 +136,23 @@ export const AppsDialog = ({
     <Box>
       <Tooltip title="Instituciones">
         <span>
-
-        <IconButton onClick={handleClickOpen}             disabled={localStorage.getItem("Rol") === "Capturador" ? true: false}
->
-          <AppRegistrationIcon
-            sx={[
-              {
-                "&:hover": {
-                  color: "red",
+          <IconButton
+            onClick={handleClickOpen}
+            disabled={
+              localStorage.getItem("Rol") === "Capturador" ? true : false
+            }
+          >
+            <AppRegistrationIcon
+              sx={[
+                {
+                  "&:hover": {
+                    color: "red",
+                  },
                 },
-              },
-            ]}
-          />
-        </IconButton>
+              ]}
+            />
+          </IconButton>
         </span>
-
       </Tooltip>
       <Dialog open={open} onClose={handleClose} fullWidth>
         <Box
@@ -213,10 +214,10 @@ export const AppsDialog = ({
             )}
             onChange={(event, value) => setInstSel(value)}
             isOptionEqualToValue={(option, value) => {
-              if (value.Id === "" || value.Id === option.Id){
-                return true
-              }else{
-                return false
+              if (value.Id === "" || value.Id === option.Id) {
+                return true;
+              } else {
+                return false;
               }
             }}
           />

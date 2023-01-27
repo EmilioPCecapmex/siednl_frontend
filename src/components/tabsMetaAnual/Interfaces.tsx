@@ -59,4 +59,5 @@ export interface ICValorMA {
       descDenominador: string;
     }[];
   }[];
-}[];
+}
+[];

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -32,11 +32,8 @@ export default function ModalVincularUsuario({
   const [names, setNames] = useState("");
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
-  // const [institution, setInstitution] = useState("0");
-  // const [rol, setRol] = useState("");
-  // const [userType, setUserType] = useState("0");
-  const [telephone, setTelephone] = useState("");
-  const [cellphone, setCellphone] = useState("");
+  // const [telephone, setTelephone] = useState("");
+  // const [cellphone, setCellphone] = useState("");
 
   const [dataUser, setDataUser] = useState<IdataUser>(
     {
@@ -61,7 +58,7 @@ export default function ModalVincularUsuario({
       userType: "0"
     }
   );
-  const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
+  // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
     { Id: "", NombreInstitucion: "" },
@@ -110,8 +107,8 @@ export default function ModalVincularUsuario({
     setDatosAdicionales({ ...datosAdicionales, institution: "0" });
     setDatosAdicionales({ ...datosAdicionales, rol: "0" });
     setDatosAdicionales({ ...datosAdicionales, userType: "0" });
-    setTelephone("");
-    setCellphone("");
+    // setTelephone("");
+    // setCellphone("");
   };
 
   const getInstituciones = () => {
@@ -166,7 +163,7 @@ export default function ModalVincularUsuario({
             type: "success",
           });
           getUserDetails(r.data.data.Id);
-          setIdUsuarioCentral(r.data.data.Id);
+          // setIdUsuarioCentral(r.data.data.Id);
           setFullView(true);
         } else {
           setErrorsForm({

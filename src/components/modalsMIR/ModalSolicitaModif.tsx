@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 
 export let errores: string[] = [];
-
 
 export default function ModalSolicitaModif({
   open,
@@ -34,7 +33,6 @@ export default function ModalSolicitaModif({
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
-  // const [instSelected, setInstSelected] = useState("");
   let err = 0;
 
   const [comment, setComment] = useState("");
@@ -47,7 +45,7 @@ export default function ModalSolicitaModif({
           IdMir: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA:'MIR'
+          MIR_MA: "MIR",
         },
         {
           headers: {
@@ -78,7 +76,6 @@ export default function ModalSolicitaModif({
       errores.push("<strong>Encabezado:</strong> año fiscal no seleccionado.");
     }
     if (JSON.parse(MIR)?.encabezado.institucion === "") {
-
       err = 1;
       errores.push("<strong>Encabezado:</strong> institución no seleccionada.");
     }
@@ -358,7 +355,6 @@ export default function ModalSolicitaModif({
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
-          
           MIR: MIREdit === undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
           Estado: estado,
           CreadoPor:
@@ -384,7 +380,10 @@ export default function ModalSolicitaModif({
         }
         Toast.fire({
           icon: "success",
-          title: localStorage.getItem("Rol") === 'Verificador' ? 'MIR enviada a capturador': 'MIR enviada a revisión',
+          title:
+            localStorage.getItem("Rol") === "Verificador"
+              ? "MIR enviada a capturador"
+              : "MIR enviada a revisión",
         });
 
         enviarNotificacion();
@@ -401,17 +400,19 @@ export default function ModalSolicitaModif({
 
   const getUsuariosXInstitucion = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Institucion: JSON.parse(MIR)?.encabezado.institucion,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        {
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            Institucion: JSON.parse(MIR)?.encabezado.institucion,
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
-        
         if (r.status === 200) {
           setUserXInst(r.data.data);
         }
@@ -487,8 +488,16 @@ export default function ModalSolicitaModif({
             justifyContent: "space-evenly",
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium", textAlign:'center' }}>
-            {MIR === undefined ? 'Selecciona una institución en el encabezado para asignar un usuario' : JSON.parse(MIR)?.encabezado?.institucion !== '' ? `Selecciona un usuario de ${JSON.parse(MIR)?.encabezado?.institucion} para solicitar la modificación` : 'Selecciona una institución en el encabezado para asignar un usuario'}
+          <Typography
+            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+          >
+            {MIR === undefined
+              ? "Selecciona una institución en el encabezado para asignar un usuario"
+              : JSON.parse(MIR)?.encabezado?.institucion !== ""
+              ? `Selecciona un usuario de ${
+                  JSON.parse(MIR)?.encabezado?.institucion
+                } para solicitar la modificación`
+              : "Selecciona una institución en el encabezado para asignar un usuario"}
           </Typography>
           <FormControl
             sx={{
@@ -518,7 +527,8 @@ export default function ModalSolicitaModif({
               {userXInst.map((item) => {
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Nombre} {item.ApellidoPaterno} {item.ApellidoMaterno} - {item.NombreUsuario}
+                    {item.Nombre} {item.ApellidoPaterno} {item.ApellidoMaterno}{" "}
+                    - {item.NombreUsuario}
                   </MenuItem>
                 );
               })}

@@ -37,10 +37,8 @@ export default function ModalSolicitaModif({
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
-  const [instSelected, setInstSelected] = useState("");
 
   const [comment, setComment] = useState("");
-  // De momento no para ficha tecnica hasta que este coment-FT
   const comentMA = (id: string) => {
     axios
       .post(
@@ -303,8 +301,11 @@ export default function ModalSolicitaModif({
         );
       }
       if (
-        componente.valorDenominador === undefined ||
-        /^[\s]*$/.test(componente.valorDenominador)
+        JSON.parse(MIR)
+          .fin.indicador.toLowerCase()
+          .includes("indice" || "índice") &&
+        (componente.valorDenominador === undefined ||
+          /^[\s]*$/.test(componente.valorDenominador))
       ) {
         err = 1;
         errores.push(
@@ -508,8 +509,8 @@ export default function ModalSolicitaModif({
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
-          // MetaAnual: MAEdit === undefined ? MA : "[" + MA + "," + MAEdit + "]",
-          MetaAnual: MA,
+          MetaAnual: MAEdit === undefined ? MA : "[" + MA + "," + MAEdit + "]",
+          // MetaAnual: MA,
           CreadoPor:
             userSelected !== "0"
               ? userSelected
@@ -572,7 +573,7 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MIR)?.encabezado?.institucion);
+      // setInstSelected(JSON.parse(MIR)?.encabezado?.institucion);
     }
   }, [open]);
   ///////////////////////////////////////////////////////////////////////////////////

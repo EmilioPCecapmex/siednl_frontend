@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../assets/logos/logo.svg";
 
@@ -11,7 +11,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import LocationCityOutlinedIcon from "@mui/icons-material/LocationCityOutlined";
 import Box from "@mui/material/Box";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -27,6 +26,7 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  DialogContent,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../funcs/validation";
@@ -35,10 +35,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
 import { setResumeDefaultMIR } from "../../screens/mir/MIR";
-import { setResumeDefaultAI } from "../../screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
 import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
 import TaskIcon from "@mui/icons-material/Task";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import FormControl from "@mui/material/FormControl/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 export const LateralMenu = ({
   selection,
@@ -66,7 +69,6 @@ export const LateralMenu = ({
   const navigate = useNavigate();
   const [openProgramas, setOpenProgramas] = useState(true);
   const [openDocs, setOpenDocs] = useState(false);
-  
 
   const handleClickProgramas = () => {
     setOpenProgramas(!openProgramas);
@@ -78,12 +80,12 @@ export const LateralMenu = ({
     setOpenProgramas(false);
   };
 
-  const exitAlert = (urlNavigate:string) => {
-    if(selection === 2 || selection === 3 || selection === 4){
-      if(actionNumber === 1){
+  const exitAlert = (urlNavigate: string) => {
+    if (selection === 2 || selection === 3 || selection === 4) {
+      if (actionNumber === 1) {
         Swal.fire({
           title: "Pregunta",
-          text:`¿Estas seguro de que quieres salir perderás tú progreso actual?`,
+          text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
           icon: "question",
           showCancelButton: true,
           confirmButtonColor: "#000E4E",
@@ -97,16 +99,13 @@ export const LateralMenu = ({
           } else {
           }
         });
-      }
-      else{
+      } else {
         navigate(urlNavigate);
       }
-      }
-      else{
-        navigate(urlNavigate);
-      }
-      
-  }
+    } else {
+      navigate(urlNavigate);
+    }
+  };
 
   function stringToColor(string: string) {
     let hash = 0;
@@ -148,6 +147,9 @@ export const LateralMenu = ({
   const handleClosePasswordChange = () => {
     setOpenPasswordChange(false);
   };
+
+  const [chUser, setChUser] = useState(localStorage.getItem("Rol"));
+  const [chUserB, setChUserB] = useState(false);
 
   const ChangePasswordModal = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -378,11 +380,7 @@ export const LateralMenu = ({
             : localStorage.getItem("Rol")}
         </Typography>
       </Box>
-      <Typography sx={
-        st.institucionStyle
-        
-        }
-        >INSTITUCIONES ASIGNADAS</Typography>
+      <Typography sx={st.institucionStyle}>INSTITUCIONES ASIGNADAS</Typography>
 
       <Box sx={st.selectInstitucionBox}>
         {renderInfo ? (
@@ -528,7 +526,9 @@ export const LateralMenu = ({
                   <TaskIcon />
                 </Box>
 
-                <Typography sx={st.firstItemsStyle}>Firma Electrónica</Typography>
+                <Typography sx={st.firstItemsStyle}>
+                  Firma Electrónica
+                </Typography>
                 {openDocs ? <ExpandLess /> : <ExpandMore />}
                 <Box
                   visibility={selection === 1 ? "visible" : "hidden"}
@@ -570,6 +570,115 @@ export const LateralMenu = ({
                   </ListItemButton>
                 </List>
               </Collapse>
+
+              {/* Cambiar tipo de usuario                                                                                */}
+              {localStorage.getItem("IdUsuario") ===
+              "a7933377-32ba-11ed-aed0-040300000000" ? (
+                <Button
+                  onClick={() => {
+                    setChUserB(true);
+                  }}
+                >
+                  Cambiar tipo de usuario
+                </Button>
+              ) : null}
+
+              <Dialog
+                open={chUserB}
+                onClose={() => {
+                  setChUserB(false);
+                }}
+              >
+                <DialogContent>
+                  <FormControl
+                    sx={{
+                      width: "100%",
+                      height: "80%",
+                      backgroundColor: "#f0f0f0",
+                      boxShadow: 2,
+                      fontFamily: "MontserratMedium",
+                      justifyContent: "space-evenly",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <FormLabel
+                      sx={{
+                        fontFamily: "MontserratBold",
+                        fontSize: "0.6vw",
+                      }}
+                    >
+                      Rol
+                    </FormLabel>
+                    <FormControlLabel
+                      value={"Administrador"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: "0.6vw",
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          Administrador
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={chUser === "Administrador"}
+                          onChange={(c) => {
+                            setChUser("Administrador");
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"Verificador"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: "0.6vw",
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          Verificador
+                        </Typography>
+                      }
+                      control={
+                        <Radio
+                          checked={chUser === "Verificador"}
+                          onChange={(c) => {
+                            setChUser("Verificador");
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"Capturador"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: "0.6vw",
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          Capturador
+                        </Typography>
+                      }
+                      control={
+                        <Radio
+                          checked={chUser === "Capturador"}
+                          onChange={(c) => {
+                            setChUser("Capturador");
+                          }}
+                        />
+                      }
+                    />
+                  </FormControl>
+                </DialogContent>
+              </Dialog>
+              {/* '                                                                      ' */}
             </Box>
           )}
         </List>

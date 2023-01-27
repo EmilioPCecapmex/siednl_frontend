@@ -37,9 +37,6 @@ export function TabEncabezado({
   const [metaODSSel, setMetaODSSel] = useState(
     FT === "" ? "" : JSON.parse(FT).encabezado.metaODS || ""
   );
-  const [unidadDeMedida, setUnidadDeMedida] = useState(
-    FT === "" ? "" : JSON.parse(FT).encabezado.unidadDeMedida || ""
-  );
 
   const [disabledMetas, setDisabledMetas] = useState(true);
 
@@ -143,14 +140,6 @@ export function TabEncabezado({
           alignItems: "center",
         }}
       >
-        {/* <InfoOutlinedIcon
-          onClick={() => {
-            showMirFnc(true);
-            showFnc("Componentes");
-          }}
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-        ></InfoOutlinedIcon> */}
         <Typography
           sx={{
             mr: "1vw",

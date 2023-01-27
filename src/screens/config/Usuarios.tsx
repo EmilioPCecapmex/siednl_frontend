@@ -1,38 +1,32 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import {
-  Button,
-  Typography,
-  Input,
-} from "@mui/material";
+import { Button, Typography, Input } from "@mui/material";
 import { Header } from "../../components/header/Header";
 import SearchIcon from "@mui/icons-material/Search";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DataTable from "../../components/datatable/DataTable";
 import ModalCrearUsuario from "../../components/modalUsuarios/ModalCrearUsuario";
-import AddLinkIcon from '@mui/icons-material/AddLink';
+import AddLinkIcon from "@mui/icons-material/AddLink";
 import ModalVincularUsuario from "../../components/modalUsuarios/ModalVincularUsuario";
 import { useNavigate } from "react-router-dom";
-import SendIcon from '@mui/icons-material/Send';
-import ScheduleSendIcon from '@mui/icons-material/ScheduleSend';
+import SendIcon from "@mui/icons-material/Send";
+import ScheduleSendIcon from "@mui/icons-material/ScheduleSend";
 import DialogSolicitudes from "../../components/solicitudes/DialogSolicitudes";
 
 export const Usuarios = () => {
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (localStorage.getItem("Rol") === "Capturador") {
-      navigate("../home")
+      navigate("../home");
     }
-  }, [])
+  }, []);
 
   const [openModalUsuarios, setOpenModalUsuarios] = useState(false);
-  const [openModalVincularUsuario, setOpenModalVincularUsuario] = useState(false);
+  const [openModalVincularUsuario, setOpenModalVincularUsuario] =
+    useState(false);
 
-  const [actualizarDatos, setActualizarDatos] = useState(0)
-
+  const [actualizarDatos, setActualizarDatos] = useState(0);
 
   const handleCloseModalUsuarios = () => {
     setOpenModalUsuarios(false);
@@ -48,7 +42,6 @@ export const Usuarios = () => {
   const dataFilter = (text: string) => {
     setUsersFiltered(text);
   };
-
 
   //variables y funciones Solicitudes Pendeintes
   const [openDialogSolicitudesP, setOpenDialogSolicitudesP] = useState(false);
@@ -66,11 +59,11 @@ export const Usuarios = () => {
         width: "100vw",
         height: "100vh",
         display: "grid",
-        gridTemplateColumns: '1fr 13fr',
+        gridTemplateColumns: "1fr 13fr",
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={6} actionNumber={0}/>
+      <LateralMenu selection={6} actionNumber={0} />
       <Header
         details={{
           name1: "Inicio",
@@ -101,9 +94,10 @@ export const Usuarios = () => {
           open={openModalVincularUsuario}
           handleClose={handleCloseModalVincularUsuario}
         />
-        <DialogSolicitudes 
-        open={openDialogSolicitudesP} 
-        handleClose={handleCloseSolicitudesP}/>
+        <DialogSolicitudes
+          open={openDialogSolicitudesP}
+          handleClose={handleCloseSolicitudesP}
+        />
 
         <Box
           sx={{
@@ -139,7 +133,9 @@ export const Usuarios = () => {
           <Box>
             <Button
               variant="contained"
-              disabled={localStorage.getItem("Rol") !== "Administrador" ? true : false}
+              disabled={
+                localStorage.getItem("Rol") !== "Administrador" ? true : false
+              }
               sx={{
                 mr: 3,
                 backgroundColor: "#15212F",
@@ -159,7 +155,9 @@ export const Usuarios = () => {
 
             <Button
               variant="contained"
-              disabled={localStorage.getItem("Rol") !== "Administrador" ? true : false}
+              disabled={
+                localStorage.getItem("Rol") !== "Administrador" ? true : false
+              }
               sx={{
                 mr: 3,
                 backgroundColor: "#15212F",
@@ -178,7 +176,9 @@ export const Usuarios = () => {
             </Button>
             <Button
               variant="contained"
-              disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+              disabled={
+                localStorage.getItem("Rol") === "Capturador" ? true : false
+              }
               sx={{
                 mr: 3,
                 backgroundColor: "#c4a55a",
@@ -196,7 +196,6 @@ export const Usuarios = () => {
               </Typography>
             </Button>
           </Box>
-
         </Box>
 
         {/* ----- */}
@@ -210,7 +209,10 @@ export const Usuarios = () => {
             alignItems: "center",
           }}
         >
-          <DataTable textFind={usersFiltered} actualizar={actualizarDatos}></DataTable>
+          <DataTable
+            textFind={usersFiltered}
+            actualizar={actualizarDatos}
+          ></DataTable>
         </Box>
       </Box>
     </Box>

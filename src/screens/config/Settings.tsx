@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
@@ -38,7 +38,6 @@ export const Settings = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-
       <LateralMenu selection={6} actionNumber={0} settingsCard={resetView} />
       <Header
         details={{
@@ -52,23 +51,17 @@ export const Settings = () => {
 
       <Box>
         {showCards ? (
-
           <>
-          
-        <SettingsCard showConfig={showConfig} />
-        <TutorialBox initialState={17} endState={19} />
-
+            <SettingsCard showConfig={showConfig} />
+            <TutorialBox initialState={17} endState={19} />
           </>
-
-
         ) : null}
 
         {!showCards ? (
-        <>
-        <Catalogos defSelected={optionSelected} />
-        <TutorialBox initialState={19} endState={23} />
-
-        </>
+          <>
+            <Catalogos defSelected={optionSelected} />
+            <TutorialBox initialState={19} endState={23} />
+          </>
         ) : null}
       </Box>
     </Box>

@@ -31,8 +31,6 @@ export default function ModalCrearUsuario({
   open: boolean;
   handleClose: Function;
 }) {
-
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [names, setNames] = useState("");
@@ -41,31 +39,24 @@ export default function ModalCrearUsuario({
   const [curp, setCURP] = useState("");
   const [rfc, setRFC] = useState("");
 
-  const [datosAdicionales,setDatosAdicionales]= useState<IDatosAdicionales>(
-    { institution: "0",
-      rol:"",
-      userType:"0"}
-  );
-  
-
-  // const [institution, setInstitution] = useState("0");
-  // const [rol, setRol] = useState("");
-  // const [userType, setUserType] = useState("0");
+  const [datosAdicionales, setDatosAdicionales] = useState<IDatosAdicionales>({
+    institution: "0",
+    rol: "",
+    userType: "0",
+  });
 
   const [telephone, setTelephone] = useState("");
   const [cellphone, setCellphone] = useState("");
   const [ext, setExt] = useState("");
   const [comentario, setComentario] = useState("");
 
-  // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
-
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
-  ]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IInstituciones>
+  >([]);
 
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
   ]);
-
 
   const Toast = Swal.mixin({
     toast: true,
@@ -106,10 +97,10 @@ export default function ModalCrearUsuario({
     setComentario("");
     setExt("");
 
-    let limpiarDatosAdicionales=datosAdicionales;
-    limpiarDatosAdicionales.institution="0"
-    limpiarDatosAdicionales.rol=""
-    limpiarDatosAdicionales.userType="0"
+    let limpiarDatosAdicionales = datosAdicionales;
+    limpiarDatosAdicionales.institution = "0";
+    limpiarDatosAdicionales.rol = "";
+    limpiarDatosAdicionales.userType = "0";
 
     setDatosAdicionales(limpiarDatosAdicionales);
   };
@@ -142,14 +133,14 @@ export default function ModalCrearUsuario({
       });
   };
 
-  const createComentarios = (idSolicitud:string) => {
+  const createComentarios = (idSolicitud: string) => {
     axios
       .post(
         "http://10.200.4.105:5000/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
-          Comentario: comentario
+          Comentario: comentario,
         },
         {
           headers: {
@@ -159,8 +150,6 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 201) {
-
-
           Toast.fire({
             icon: "success",
             title: "¡Registro exitoso!",
@@ -178,46 +167,7 @@ export default function ModalCrearUsuario({
           });
         }
       });
-  }
-
-  // const createSolicitud = () => {
-  //   axios
-  //     .post(
-  //       "http://10.200.4.105:5000/api/create-solicitud",
-  //       {
-  //         IdUsuario: idUsuarioCentral,
-  //         DatosAdicionales: "Tipo de usuario: " + userType + ", Cargo: " + rol + ", Institución: " + institution,
-  //         TipoSolicitud: "Alta",
-  //         CreadoPor: localStorage.getItem("IdCentral"),
-  //         IdApp: localStorage.getItem("IdApp"),
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-
-  //       if ( r.data.data[0][0].Respuesta== 201) {
-
-  //         setIdSolicitud(r.data.data[0][0].IdSolicitud)
-  //         Toast.fire({
-  //             icon: "success",
-  //             title: "¡Registro exitoso!",
-  //           });
-  //       }
-  //     })
-  //     .catch((r) => {
-  //       if (r.data.data[0][0].Respuesta == 409) {
-  //         setErrorsForm({
-  //           visible: true,
-  //           text: r.response.data.msg,
-  //           type: "error",
-  //         });
-  //       }
-  //     });
-  // }
+  };
 
   const signUp = () => {
     axios
@@ -238,7 +188,6 @@ export default function ModalCrearUsuario({
           TipoSolicitud: "ALTA",
           CreadoPor: localStorage.getItem("IdCentral"),
           IdApp: localStorage.getItem("IdApp"),
-
         },
         {
           headers: {
@@ -247,17 +196,15 @@ export default function ModalCrearUsuario({
         }
       )
       .then((r) => {
-        
         if (r.status === 200) {
-          // siednlSignUp(r.data.data[0][0].IdSolicitud);
-          if(comentario!="")
+          if (comentario != "")
             createComentarios(r.data.data[0][0].IdSolicitud);
-           
-            Toast.fire({
-              icon: "success",
-              title: "¡Registro exitoso!",
-            });
-            cleanForm();
+
+          Toast.fire({
+            icon: "success",
+            title: "¡Registro exitoso!",
+          });
+          cleanForm();
           handleClose();
         }
       })
@@ -272,55 +219,7 @@ export default function ModalCrearUsuario({
       });
   };
 
-
-
-  // const siednlSignUp = (idUsrCentral: string) => {
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
-  //       {
-  //         IdUsuarioCentral: idUsrCentral,
-  //         IdInstitucion: institution,
-  //         Cargo: rol,
-  //         Telefono: telephone,
-  //         Celular: cellphone,
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-  //         IdRol: userType,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         Toast.fire({
-  //           icon: "success",
-  //           title: "¡Registro exitoso!",
-  //         });
-  //       }
-  //     });
-  // };
-
-
-
-  // useEffect(() => {
-  //   if (idSolicitud != "") {
-  //     createComentarios();
-  //   }
-
-  // }, [idSolicitud]);
-
-  // useEffect(() => {
-  //   if(idUsuarioCentral!=""){
-  //     createSolicitud();
-  //   }
-  // }, [idUsuarioCentral]);
-
   const checkForm = () => {
-
-
     setErrorsForm({
       visible: false,
       text: "",
@@ -413,7 +312,6 @@ export default function ModalCrearUsuario({
   useEffect(() => {
     getInstituciones();
     getUserType();
-
   }, []);
 
   return (
@@ -461,8 +359,6 @@ export default function ModalCrearUsuario({
             }}
             onChange={(v) => setUsername(v.target.value)}
           />
-
-
 
           <TextField
             label="Correo Electrónico"
@@ -541,7 +437,10 @@ export default function ModalCrearUsuario({
               onChange={(x) => {
                 // let auxiliar=datosAdicionales;
                 // auxiliar.userType=;
-                setDatosAdicionales({...datosAdicionales, userType:x.target.value});
+                setDatosAdicionales({
+                  ...datosAdicionales,
+                  userType: x.target.value,
+                });
               }}
             >
               <MenuItem value={"0"} key={0} disabled>
@@ -575,8 +474,7 @@ export default function ModalCrearUsuario({
             inputProps={{ maxLength: 25 }}
             value={datosAdicionales.rol}
             onChange={(x) => {
-              
-              setDatosAdicionales({...datosAdicionales,rol:x.target.value});
+              setDatosAdicionales({ ...datosAdicionales, rol: x.target.value });
             }}
             sx={{
               width: "30%",
@@ -591,11 +489,17 @@ export default function ModalCrearUsuario({
           >
             <InputLabel>Institución</InputLabel>
             <Select
-              disabled={datosAdicionales.userType === "Administrador" ? true : false}
+              disabled={
+                datosAdicionales.userType === "Administrador" ? true : false
+              }
               value={datosAdicionales.institution}
               label="Institución"
               onChange={(x) => {
-                setDatosAdicionales({...datosAdicionales,institution:x.target.value})}}
+                setDatosAdicionales({
+                  ...datosAdicionales,
+                  institution: x.target.value,
+                });
+              }}
             >
               <MenuItem value={"0"} key={0} disabled>
                 Selecciona
@@ -641,8 +545,6 @@ export default function ModalCrearUsuario({
               mr: "2vw",
             }}
           />
-
-
         </Box>
 
         <Box
@@ -673,7 +575,6 @@ export default function ModalCrearUsuario({
             type="tel"
             sx={{
               width: "40%",
-
             }}
             value={cellphone}
             onChange={(x) => setCellphone(x.target.value)}
@@ -701,7 +602,6 @@ export default function ModalCrearUsuario({
             mt: "3vh",
           }}
         >
-
           <TextField
             label="Comentarios "
             variant="outlined"
@@ -710,7 +610,8 @@ export default function ModalCrearUsuario({
             rows={3}
             sx={{
               width: "95%",
-              mr: "2vw", ml: "2vw",
+              mr: "2vw",
+              ml: "2vw",
             }}
             type="tel"
             value={comentario}
@@ -739,7 +640,9 @@ export default function ModalCrearUsuario({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
-              onClick={() => { handleClose() }}
+              onClick={() => {
+                handleClose();
+              }}
             >
               Cancelar
             </Button>
@@ -749,11 +652,9 @@ export default function ModalCrearUsuario({
               color="primary"
               onClick={() => {
                 checkForm();
-               
               }}
             >
               Registrar
-              
             </Button>
           </Box>
         </Box>

@@ -29,7 +29,7 @@ export function TabFinProposito({
 
   cargaFin: Array<IFin>;
   cargaProposito: Array<IProposito>;
-  
+
   mirEdit?: IMIREdit;
 }) {
   const [tabFin, setTabFin] = useState([
@@ -467,7 +467,7 @@ export function TabFinProposito({
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", ""),
-                      formula:""
+                    formula: "",
                   });
                 }}
                 value={fin.indicador}
@@ -683,9 +683,8 @@ export function TabFinProposito({
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", ""),
-                      formula:""
+                    formula: "",
                   });
-                  
                 }}
                 value={proposito.indicador}
               />

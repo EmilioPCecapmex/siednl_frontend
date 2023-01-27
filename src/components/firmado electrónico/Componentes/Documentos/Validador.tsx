@@ -1,10 +1,6 @@
 import { Box, TextField, Typography, Button } from "@mui/material";
 
-export const Validador = ({
-  id,
-}: {
-  id: string;
-}) => {
+export const Validador = ({ id }: { id: string }) => {
   return (
     <Box
       sx={{
@@ -66,7 +62,7 @@ export const Validador = ({
               </Typography>
             }
             sx={{ width: "100%" }}
-            value={id || ''}
+            value={id || ""}
           ></TextField>
           <TextField
             disabled
@@ -211,7 +207,6 @@ export const Validador = ({
               >
                 Valor
               </Typography>
-              
             }
             sx={{ width: "99%" }}
           ></TextField>
@@ -242,11 +237,9 @@ export const Validador = ({
               >
                 Valor
               </Typography>
-              
             }
             sx={{ width: "99%" }}
           ></TextField>
-          
         </Box>
         <Box
           sx={{

@@ -11,7 +11,6 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -37,7 +36,7 @@ export const TabActividadesFT = ({
 }) => {
   // business logic-------------------------------------------------------------------------------
 
-  const [componenteActividad, setComponenteActividad] = useState([
+  const componenteActividad = ([
     {
       componentes: componentes.map((x) => compAct),
     },

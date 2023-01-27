@@ -41,7 +41,15 @@ export const TabComponenteMA = ({
     Array<IComponenteMA>
   >([]);
 
-  let jsonMA = MA === "" ? "" : JSON.parse(MA);
+  let jsonMA =
+    MA === ""
+      ? ""
+      : JSON.parse(MA).length > 1
+      ? JSON.parse(MA)[0]
+      : JSON.parse(MA);
+
+  let MAEdit =
+    MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
   useEffect(() => {
     let comp: IComponenteMA[] = [];
@@ -423,7 +431,12 @@ export const TabComponenteMA = ({
             }}
           >
             <TextField
-              disabled
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].metaAnual
+                  : false) &&
+                componentesValues[componentSelect - 1]?.metaAnual !== ""
+              }
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -475,6 +488,12 @@ export const TabComponenteMA = ({
               }
             />
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].lineaBase
+                  : false) &&
+                componentesValues[componentSelect - 1]?.lineaBase !== ""
+              }
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -536,6 +555,12 @@ export const TabComponenteMA = ({
               .componentes[componentSelect - 1].indicador.toLowerCase()
               .includes("índice") ? (
               <TextField
+                disabled={
+                  (MAEdit !== ""
+                    ? MAEdit?.componentes[componentSelect - 1].valorNumerador
+                    : false) &&
+                  componentesValues[componentSelect - 1]?.valorNumerador !== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -563,6 +588,13 @@ export const TabComponenteMA = ({
             ) : (
               <Box sx={{ width: "45%" }}>
                 <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1].valorNumerador
+                      : false) &&
+                    componentesValues[componentSelect - 1]?.valorNumerador !==
+                      ""
+                  }
                   sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
                   variant={"filled"}
                   label={
@@ -588,6 +620,14 @@ export const TabComponenteMA = ({
                   }
                 />
                 <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .valorDenominador
+                      : false) &&
+                    componentesValues[componentSelect - 1]?.valorDenominador !==
+                      ""
+                  }
                   sx={{ width: "45%", boxShadow: 2 }}
                   variant={"filled"}
                   label={
@@ -616,6 +656,13 @@ export const TabComponenteMA = ({
               </Box>
             )}
             <FormControl
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].sentidoDelIndicador
+                  : false) &&
+                componentesValues[componentSelect - 1]?.sentidoDelIndicador !==
+                  ""
+              }
               sx={{
                 width: "15%",
                 height: "80%",
@@ -961,7 +1008,14 @@ export const TabComponenteMA = ({
             >
               <FormControl sx={{ width: "25vw" }}>
                 <Autocomplete
-                  disabled={false}
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .unidadResponsable
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.unidadResponsable !== ""
+                  }
                   options={catalogoUnidadResponsable}
                   getOptionLabel={(option) => option.Unidad || ""}
                   value={{
@@ -1014,6 +1068,12 @@ export const TabComponenteMA = ({
             </Box>
 
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].descIndicador
+                  : false) &&
+                componentesValues[componentSelect - 1]?.descIndicador !== ""
+              }
               rows={5}
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
@@ -1058,6 +1118,12 @@ export const TabComponenteMA = ({
             }}
           >
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].descNumerador
+                  : false) &&
+                componentesValues[componentSelect - 1]?.descNumerador !== ""
+              }
               rows={5}
               multiline
               sx={{ width: "40%", boxShadow: 2 }}
@@ -1092,6 +1158,12 @@ export const TabComponenteMA = ({
               }}
             />
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].descDenominador
+                  : false) &&
+                componentesValues[componentSelect - 1]?.descDenominador !== ""
+              }
               rows={5}
               multiline
               sx={{ width: "40%", boxShadow: 2 }}

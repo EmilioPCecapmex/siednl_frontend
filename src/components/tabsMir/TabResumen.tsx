@@ -34,18 +34,6 @@ export function TabResumen({
   mirEdit?: IEncabezadoEdit;
 }) {
   const [MIR, setMIR] = useState<IMIR>();
-  
-
-  const [openModalEnviar, setOpenModalEnviar] = useState(false);
-  const handleCloseEnviar = () => {
-    setOpenModalEnviar(false);
-  };
-
-  const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
-
-  const handleCloseModif = () => {
-    setOpenModalSolicitarModif(false);
-  };
 
   let asignarMIR = (
     encabezadoM: Array<IEncabezado>,
@@ -61,6 +49,17 @@ export function TabResumen({
       componentes: componentesM,
       actividades: actividadesM,
     });
+  };
+
+  const [openModalEnviar, setOpenModalEnviar] = useState(false);
+  const handleCloseEnviar = () => {
+    setOpenModalEnviar(false);
+  };
+
+  const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
+
+  const handleCloseModif = () => {
+    setOpenModalSolicitarModif(false);
   };
 
   const checkMir = (v: string) => {
@@ -219,8 +218,10 @@ export function TabResumen({
 
   const [disablebuttoncomponentes, setDisablebuttoncomponentes] =
     useState(false);
+
   const [disablebuttonactividades, setDisablebuttonactividades] =
     useState(false);
+
   useEffect(() => {
     let arrayEncabezado = Object.entries(editEncabezado);
     let arrayFin = Object.entries(editFin);

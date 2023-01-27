@@ -1,19 +1,8 @@
-import React, { useState } from "react";
-import {
-  Badge,
-  IconButton,
-  Typography,
-  Box,
-  Breadcrumbs,
-  Link,
-} from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/NotificationsNone";
-import FullscreenIcon from "@mui/icons-material/Fullscreen";
-import InfoIcon from "@mui/icons-material/Info";
+import { useState } from "react";
+import { Typography, Box, Breadcrumbs, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { TimerCounter } from "../timer/TimerCounter";
 import NotificationsPanel from "../notifications/NotificationsPanel";
-import { TutorialBox } from "../tutorialBox/tutorialBox";
 
 interface BreadcrumbsDetails {
   name1: string;
@@ -25,12 +14,6 @@ interface BreadcrumbsDetails {
 
 export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
   const navigate = useNavigate();
-
-  const [helpBoxes, setHelpBoxes] = useState(false);
-
-  const onClickHelp = () => {
-    setHelpBoxes(!helpBoxes);
-  };
 
   return (
     <Box
@@ -114,11 +97,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           <TimerCounter />
         </Box>
         <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
-        <Box sx={{ mr: ".5vw", width: "2vw" }}>
-          {/* <IconButton onClick={() => onClickHelp()}>
-            <InfoIcon fontSize="medium"/>
-          </IconButton> */}
-        </Box>
+        <Box sx={{ mr: ".5vw", width: "2vw" }}></Box>
       </Box>
     </Box>
   );

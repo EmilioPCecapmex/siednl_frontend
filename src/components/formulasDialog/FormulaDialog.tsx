@@ -2,16 +2,13 @@ import {
   Dialog,
   Box,
   DialogContent,
-  DialogContentText,
-  DialogActions,
   Button,
   Typography,
   TextField,
   Alert,
-  IconButton,
   Snackbar,
 } from "@mui/material";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 export const FormulaDialog = ({
   open,

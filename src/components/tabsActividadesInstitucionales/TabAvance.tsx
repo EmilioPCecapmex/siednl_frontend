@@ -1,15 +1,4 @@
-import { useState } from "react";
-import {
-  TextField,
-  Box,
-  Typography,
-  List,
-  Divider,
-  ListItemButton,
-  Autocomplete,
-  FormControl,
-} from "@mui/material";
-import { IAccion1 } from "./IAccion1";
+import { Box } from "@mui/material";
 
 export function TabAvance({ show }: { show: boolean }) {
   return (
@@ -33,14 +22,9 @@ export function TabAvance({ show }: { show: boolean }) {
           height: "100%",
           display: "flex",
         }}
-      >
-        
-
-       
-      </Box>
+      ></Box>
     </Box>
   );
 }
 
 export default TabAvance;
-

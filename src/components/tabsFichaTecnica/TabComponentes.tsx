@@ -8,7 +8,6 @@ import {
   ListItemButton,
   FormControl,
 } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -419,9 +418,9 @@ export const TabComponenteFT = ({
             onChange={(c) => {
               componentesValues[componentSelect - 1].unidadDeMedida =
                 c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
               setComponentesValues([...componentesValues]);
             }}
           />

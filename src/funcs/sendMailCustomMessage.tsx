@@ -12,7 +12,6 @@ export const sendMailCustomMessage = (
     {
       subject: `  Avances con la ${documentType}`,
       message: `${mensaje} ${documentType}`,
-      //"d4b35a67-5eb9-11ed-a880-040300000000" gonzzo
       IdDestinatario: v,
       IdRemitente: localStorage.getItem("IdUsuario"),
     },

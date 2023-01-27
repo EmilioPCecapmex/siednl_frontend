@@ -50,7 +50,7 @@ export interface IPropositoFT {
 export interface IComponentesFT {
   componentes: string;
   tipoDeIndicador: string;
-   dimension: string;
+  dimension: string;
   unidadDeMedida: string;
   claridad: string;
   relevancia: string;
@@ -58,7 +58,6 @@ export interface IComponentesFT {
   monitoreable: string;
   adecuado: string;
   aporte_marginal: string;
- 
 }
 
 export interface IActividadesFT {

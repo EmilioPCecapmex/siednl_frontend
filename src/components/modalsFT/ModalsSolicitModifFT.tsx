@@ -26,7 +26,7 @@ export default function ModalSolicitaModif({
   IdMa,
   IdMIR,
   showResume,
-  MAEdit,
+  FTEdit,
 }: {
   open: boolean;
   handleClose: Function;
@@ -36,11 +36,10 @@ export default function ModalSolicitaModif({
   IdFT: string;
   IdMa: string;
   IdMIR: string;
-  MAEdit: string;
+  FTEdit: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
-  const [instSelected, setInstSelected] = useState("");
 
   const [comentario, setComentario] = useState("");
 
@@ -110,8 +109,11 @@ export default function ModalSolicitaModif({
       );
     }
 
-    if (JSON.parse(FT)?.encabezado.unidadDeMedida === null || JSON.parse(FT)?.encabezado.unidadDeMedida === undefined
-    || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida) ) {
+    if (
+      JSON.parse(FT)?.encabezado.unidadDeMedida === null ||
+      JSON.parse(FT)?.encabezado.unidadDeMedida === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida)
+    ) {
       err = 1;
       errores.push(
         "Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
@@ -510,7 +512,6 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     if (open) {
       getUsuariosXInstitucion();
-      setInstSelected(JSON.parse(MIR)?.encabezado?.institucion);
     }
   }, [open]);
 
