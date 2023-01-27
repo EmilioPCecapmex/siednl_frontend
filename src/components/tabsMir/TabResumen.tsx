@@ -35,6 +35,12 @@ export function TabResumen({
 }) {
   const [MIR, setMIR] = useState<IMIR>();
 
+  useEffect(() => {
+    console.log(MIR);
+  }, [show])
+  
+
+  
   let asignarMIR = (
     encabezadoM: Array<IEncabezado>,
     finM: Array<IFin>,

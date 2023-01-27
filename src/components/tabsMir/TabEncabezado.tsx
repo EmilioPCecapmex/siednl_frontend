@@ -655,11 +655,6 @@ export function TabEncabezado({
       },
     })
     .then((r) => {
-      console.log(Description);
-
-      console.log("soy r:",r);
-      console.log("soy r.data",r.data);
-      console.log("soy r.data.data[0]:",r.data.data[0]);
       setConac(r.data.data[0]?.conac)
       setConsecutivo(r.data.data[0]?.consecutivo)
 
@@ -677,7 +672,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://192.168.137.152:7000/upload", dataArray, {
+      .post("http://10.200.4.105:9090/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -692,8 +687,6 @@ export function TabEncabezado({
         getIdEstrategia(response.data.encabezado[0].estrategia);
         getProgramaPresupuestario(response.data.encabezado[0].conac)
         getProgramaPresupuestario(response.data.encabezado[0].consecutivo)
-        console.log("soy response.data:",response.data);
-        console.log("soy response.data.encabezado",response.data.encabezado[0]);
         setTimeout(() => {
           response.data.encabezado[0]?.lineas_de_accion
             ?.split(".\n")

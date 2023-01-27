@@ -531,7 +531,6 @@ export default function ModalEnviarMA({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico,enviarMensaje,"MA")
-          console.log(user.CorreoElectronico);
         });
 
         if (estado === "Autorizada") {
@@ -581,7 +580,6 @@ export default function ModalEnviarMA({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
-          console.log(user.CorreoElectronico);
         });
         
         showResume();

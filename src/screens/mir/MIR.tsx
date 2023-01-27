@@ -197,7 +197,7 @@ export const MIR = () => {
   ) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_FILL + "api/fill_mir",
+        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
         JSON.parse(mir),
         {
           responseType: "blob",

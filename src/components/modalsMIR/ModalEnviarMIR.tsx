@@ -416,7 +416,6 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico,enviarMensaje, "MA",);
-          console.log(user.CorreoElectronico);
           
         });
         showResume();

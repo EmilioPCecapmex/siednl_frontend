@@ -148,8 +148,7 @@ export const LateralMenu = ({
     setOpenPasswordChange(false);
   };
 
-  const [chUser, setChUser] = useState(localStorage.getItem("Rol"));
-  const [chUserB, setChUserB] = useState(false);
+ 
 
   const ChangePasswordModal = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -572,112 +571,7 @@ export const LateralMenu = ({
               </Collapse>
 
               {/* Cambiar tipo de usuario                                                                                */}
-              {localStorage.getItem("IdUsuario") ===
-              "a7933377-32ba-11ed-aed0-040300000000" ? (
-                <Button
-                  onClick={() => {
-                    setChUserB(true);
-                  }}
-                >
-                  Cambiar tipo de usuario
-                </Button>
-              ) : null}
-
-              <Dialog
-                open={chUserB}
-                onClose={() => {
-                  setChUserB(false);
-                }}
-              >
-                <DialogContent>
-                  <FormControl
-                    sx={{
-                      width: "100%",
-                      height: "80%",
-                      backgroundColor: "#f0f0f0",
-                      boxShadow: 2,
-                      fontFamily: "MontserratMedium",
-                      justifyContent: "space-evenly",
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <FormLabel
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        fontSize: "0.6vw",
-                      }}
-                    >
-                      Rol
-                    </FormLabel>
-                    <FormControlLabel
-                      value={"Administrador"}
-                      label={
-                        <Typography
-                          sx={{
-                            fontSize: "0.6vw",
-                            fontFamily: "MontserratMedium",
-                          }}
-                        >
-                          Administrador
-                        </Typography>
-                      }
-                      sx={{
-                        fontFamily: "MontserratMedium",
-                      }}
-                      control={
-                        <Radio
-                          checked={chUser === "Administrador"}
-                          onChange={(c) => {
-                            setChUser("Administrador");
-                          }}
-                        />
-                      }
-                    />
-                    <FormControlLabel
-                      value={"Verificador"}
-                      label={
-                        <Typography
-                          sx={{
-                            fontSize: "0.6vw",
-                            fontFamily: "MontserratMedium",
-                          }}
-                        >
-                          Verificador
-                        </Typography>
-                      }
-                      control={
-                        <Radio
-                          checked={chUser === "Verificador"}
-                          onChange={(c) => {
-                            setChUser("Verificador");
-                          }}
-                        />
-                      }
-                    />
-                    <FormControlLabel
-                      value={"Capturador"}
-                      label={
-                        <Typography
-                          sx={{
-                            fontSize: "0.6vw",
-                            fontFamily: "MontserratMedium",
-                          }}
-                        >
-                          Capturador
-                        </Typography>
-                      }
-                      control={
-                        <Radio
-                          checked={chUser === "Capturador"}
-                          onChange={(c) => {
-                            setChUser("Capturador");
-                          }}
-                        />
-                      }
-                    />
-                  </FormControl>
-                </DialogContent>
-              </Dialog>
+              
               {/* '                                                                      ' */}
             </Box>
           )}

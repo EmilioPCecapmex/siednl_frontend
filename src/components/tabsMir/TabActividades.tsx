@@ -51,7 +51,7 @@ export const TabActividades = ({
     },
   ]);
 
-  let aument_number1 = -1;
+  let aument_number1 = 0;
 
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
@@ -77,6 +77,7 @@ export const TabActividades = ({
   );
 
   useEffect(() => {
+    
     if (componentes.length > cValor[0].componentes.length) {
       let restantes = componentes.length - cValor[0].componentes.length;
       let prevState = [...cValor];
@@ -132,11 +133,12 @@ export const TabActividades = ({
       setS(1);
     }
   }, [actividadesMir]);
+  
 
-  let aument_number = -1;
-  let aumentComps = 0;
 
   const loadActividadesMir = () => {
+  let aument_number = -1;
+  let aumentComps = 0;
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct?.map((x, index) => {
