@@ -39,8 +39,6 @@ export const sendMail = (v: string, mensaje: string, documentType: string) => {
   dataArray.append("to[1]",v)
   //dataArray.append("to",localStorage.getItem("IdUsuario") || "" )
 
-  console.log("soy el objeto",objeto);
-  console.log("soy v", v);
   
   axios
     .post(
@@ -54,7 +52,7 @@ export const sendMail = (v: string, mensaje: string, documentType: string) => {
 
     )
     .catch((err) => {
-      console.log(err);
+      
     });
     
     
