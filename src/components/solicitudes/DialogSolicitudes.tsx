@@ -460,7 +460,9 @@ export const DialogSolicitudes = ({
                                                     <Box sx={{ display: "flex", width: "40%", justifyContent: "flex-start" }}>
                                                         {solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "MODIFICACION" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 3
                                                         ?
-                                                                <Button variant="contained" color="info" onClick={() => {  setOpenDialogModificar(true)}}>MODIFICAR</Button>
+                                                                <Button variant="contained" color="info" onClick={() => {  
+                                                                 setOpenDialogModificar(true);
+                                                                }}>MODIFICAR</Button>
                                                           : null}
                                                     </Box>
                                                     
