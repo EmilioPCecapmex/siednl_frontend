@@ -227,10 +227,27 @@ export default function AddMetaAnual({
             onChange={handleChange}
             textColor="inherit"
             sx={{
+              backgroundColor: "#e0e0e0",
               borderRadius: "10px 10px 0 0",
               boxShadow: 20,
             }}
           >
+            <IconButton
+              sx={{
+                backgroundColor: "#e0e0e0",
+              }}
+              onClick={() => {
+                cambiarTab("atras");
+              }}
+            >
+              <ArrowCircleLeftIcon
+                sx={{
+                  color: "#c4a57b",
+                  width: "1.5vw",
+                  height: "1.5vw",
+                }}
+              />
+            </IconButton>
             <Tab
               label="Fin / Propósito"
               value={20}
@@ -271,6 +288,23 @@ export default function AddMetaAnual({
                 backgroundColor: "#ccc",
               }}
             />
+
+            <IconButton
+              sx={{
+                backgroundColor: "#e0e0e0",
+              }}
+              onClick={() => {
+                cambiarTab("adelante");
+              }}
+            >
+              <ArrowCircleRightIcon
+                sx={{
+                  color: "#c4a57b",
+                  width: "1.5vw",
+                  height: "1.5vw",
+                }}
+              />
+            </IconButton>
           </Tabs>
         </Box>
 
@@ -331,43 +365,6 @@ export default function AddMetaAnual({
             MIR={MIR}
             noComponentes={noComponentes}
           ></TabResumenMIR>
-        </Box>
-
-        <Box
-          sx={{
-            width: "30%",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <IconButton
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          >
-            <ArrowCircleLeftIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
-
-          <IconButton
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          >
-            <ArrowCircleRightIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
         </Box>
       </Box>
     </Box>

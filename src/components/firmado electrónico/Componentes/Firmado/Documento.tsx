@@ -100,6 +100,7 @@ export const Documento = ({
         },
       })
       .then((r) => {
+        
         if (r.status === 200) {
           setCatalogoUsuarios(r.data.data);
         }
@@ -392,19 +393,34 @@ export const Documento = ({
         label={
           <Typography
             sx={{
-              fontSize: "100%",
-              fontFamily: "MontserratBold",
+              fontSize: {
+                xs: "85%",
+                sm: "85%",
+                md: "85%",
+                lg: "75%",
+                xl: "95%",
+              },
+              fontFamily: "MontserratMedium",
             }}
           >
             NO. DE OFICIO *
           </Typography>
         }
-        sx={{ width: "100%" }}
+        sx={{ width: "100%",
+        fontSize: {
+          xs: "85%",
+          sm: "85%",
+          md: "85%",
+          lg: "75%",
+          xl: "95%",
+        },
+          mt:1,
+        fontFamily: "MontserratMedium", }}
         value={noOficio}
         onChange={(v) => {
           setNoOficio(v.target.value);
         }}
-        FormHelperTextProps={{ style: { fontFamily: "MontserratBold" } }}
+        FormHelperTextProps={{ style: { fontFamily: "MontserratBold", } }}
         helperText={/^[\s]*$/.test(noOficio) ? "Campo requerido" : null}
         InputProps={{
           endAdornment: (
@@ -421,14 +437,21 @@ export const Documento = ({
         label={
           <Typography
             sx={{
-              fontSize: "100%",
-              fontFamily: "MontserratBold",
+              fontSize: {
+                xs: "85%",
+                sm: "85%",
+                md: "85%",
+                lg: "75%",
+                xl: "95%",
+              },
+              fontFamily: "MontserratMedium",
             }}
           >
             ASUNTO *
           </Typography>
         }
-        sx={{ width: "100%" }}
+        sx={{ width: "100%",
+        mt:1, }}
         value={asunto}
         onChange={(v) => {
           setAsunto(v.target.value);
@@ -441,6 +464,7 @@ export const Documento = ({
       <FormControl
         sx={{
           width: "100%",
+          mt:1,
         }}
       >
         <Stack spacing={3}>
@@ -510,14 +534,21 @@ export const Documento = ({
         label={
           <Typography
             sx={{
-              fontSize: "100%",
-              fontFamily: "MontserratBold",
+              fontSize: {
+                xs: "85%",
+                sm: "85%",
+                md: "85%",
+                lg: "75%",
+                xl: "95%",
+              },
+              fontFamily: "MontserratMedium",
             }}
           >
             CCP
           </Typography>
         }
-        sx={{ width: "100%" }}
+        sx={{ width: "100%",
+        mt:1, }}
         value={ccp}
         onClick={() => {
           if (disableFirmar) {

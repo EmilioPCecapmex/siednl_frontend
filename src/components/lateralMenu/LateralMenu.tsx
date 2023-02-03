@@ -26,7 +26,6 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
-  DialogContent,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../funcs/validation";
@@ -38,10 +37,10 @@ import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
 import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
 import TaskIcon from "@mui/icons-material/Task";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
-import FormControl from "@mui/material/FormControl/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Radio from "@mui/material/Radio";
+// import FormControl from "@mui/material/FormControl/FormControl";
+// import FormLabel from "@mui/material/FormLabel";
 
 export const LateralMenu = ({
   selection,

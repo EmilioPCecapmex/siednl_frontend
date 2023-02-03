@@ -128,11 +128,11 @@ export const TabActividades = ({
   const [s, setS] = useState(0);
 
   useEffect(() => {
-    if (compAct.length > 0) {
+    if (compAct.length > 0 && s === 0) {
       loadActividadesMir();
       setS(1);
     }
-  }, [actividadesMir]);
+  }, [show]);
   
 
 

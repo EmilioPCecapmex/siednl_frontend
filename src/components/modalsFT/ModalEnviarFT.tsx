@@ -40,7 +40,7 @@ export default function ModalEnviarFT({
   const comentFT = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: IdMIR,
           Coment: comment,
@@ -373,7 +373,7 @@ export default function ModalEnviarFT({
   const crearFichaTecnica = (estado: string) => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor: localStorage.getItem("IdUsuario"),

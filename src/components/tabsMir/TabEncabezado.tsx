@@ -672,7 +672,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post("http://10.200.4.105:9090/upload", dataArray, {
+      .post(process.env.REACT_APP_APPLICATION_MIR + "/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -1279,7 +1279,6 @@ export function TabEncabezado({
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
             multiple
-            id="tags-standard"
             limitTags={4}
             options={replica}
             size="small"

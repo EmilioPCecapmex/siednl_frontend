@@ -141,7 +141,7 @@ export default function ModalVincularUsuario({
 
   const verifyUser = () => {
     axios
-      .post("http://10.200.4.164:5000/api/user-exist",
+      .post(process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/user-exist",
         {
           NombreUsuario: username,
           CorreoElectronico: email.toLowerCase(),
@@ -192,7 +192,7 @@ export default function ModalVincularUsuario({
   const getUserDetails = (idCentral: string,) => {
     axios
       .post(
-        "http://10.200.4.164:5000/api/user-detail",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/user-detail",
         {
           IdUsuario: idCentral,
         },
@@ -232,7 +232,7 @@ export default function ModalVincularUsuario({
   const signUp = () => {
     axios
       .post(
-        "http://10.200.4.164:5000/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/create-solicitud",
         {
           Nombre: dataUser.Nombre,
           APaterno: dataUser.ApellidoPaterno,

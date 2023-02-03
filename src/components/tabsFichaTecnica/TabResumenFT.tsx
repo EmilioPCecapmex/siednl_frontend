@@ -125,7 +125,7 @@ export function TabResumenFT({
     
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-FichaTecnica",
         {
           FichaTecnica: JSON.stringify(FT),
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -141,6 +141,8 @@ export function TabResumenFT({
         }
       )
       .then((r) => {
+        console.log(r);
+        
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
@@ -148,6 +150,8 @@ export function TabResumenFT({
         showResume();
       })
       .catch((err) => {
+        console.log(err);
+        
         Toast.fire({
           icon: "error",
           title: err.response.data.result.error,

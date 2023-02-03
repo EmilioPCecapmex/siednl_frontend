@@ -18,6 +18,8 @@ import { Header } from "../../../header/Header";
 import { DialogDescarga } from "../../Componentes/Documentos/Descarga";
 
 export const TablaDocs = () => {
+
+  const IdCentral = localStorage.getItem("IdCentral");
   const [page, setPage] = useState(0);
 
   const renglonesPagina = 7;
@@ -88,7 +90,7 @@ export const TablaDocs = () => {
 
   const getDocs = () => {
     axios
-      .post("http://10.210.0.27/api/alldocs", {
+      .post(process.env.REACT_APP_APPLICATION_FIEL + "/api/alldocs", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -372,84 +374,97 @@ export const TablaDocs = () => {
                           justifyContent: "space-evenly",
                         }}
                       >
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: "0.8vw",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                          align="center"
-                        >
-                          {row.NumeroOficio}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: "0.8vw",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            overflow: "hidden",
-                          }}
-                          align="center"
-                        >
-                          {row.nombre_archivo}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: "0.8vw",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                          align="center"
-                        >
-                          {row.Asunto}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: "0.8vw",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                          align="center"
-                        >
-                          {row.FechaFirma.split(" ")[0]}
-                        </TableCell>
+                        {row.IdUsuario === IdCentral ? (
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: "0.8vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              overflow:"hidden"
+                            }}
+                            align="center"
+                          >
+                            {row.NumeroOficio}
+                          </TableCell>
+                        ) : null}
 
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: "0.8vw",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                          align="center"
-                        >
-                          {row.Sistema}
-                        </TableCell>
-
-                        <TableCell
-                          align="center"
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <DialogDescarga
-                            Id={row.IdPathDoc}
-                            Rfc={row.Rfc}
-                            FechaFirma={row.FechaFirma}
-                          ></DialogDescarga>
-                        </TableCell>
+                        {row.IdUsuario === IdCentral ? (
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: "0.8vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              overflow: "hidden",
+                            }}
+                            align="center"
+                          >
+                            {row.nombre_archivo}
+                          </TableCell>
+                        ) : null}
+                        {row.IdUsuario === IdCentral ? (
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: "0.8vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              overflow:"hidden"
+                            }}
+                            align="center"
+                          >
+                            {row.Asunto}
+                          </TableCell>
+                        ) : null}
+                        {row.IdUsuario === IdCentral ? (
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: "0.8vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.FechaFirma.split(" ")[0]}
+                          </TableCell>
+                        ) : null}
+                        {row.IdUsuario === IdCentral ? (
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: "0.8vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.Sistema}
+                          </TableCell>
+                        ) : null}
+                        {row.IdUsuario === IdCentral ? (
+                          <TableCell
+                            align="center"
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <DialogDescarga
+                              Id={row.IdPathDoc}
+                              Rfc={row.Rfc}
+                              FechaFirma={row.FechaFirma}
+                            ></DialogDescarga>
+                          </TableCell>
+                        ) : null}
                       </TableRow>
                     ))}
                 </TableBody>
@@ -474,6 +489,7 @@ export const TablaDocs = () => {
 };
 
 export interface IIDocsFirmados {
+  IdUsuario: string;
   NumeroOficio: string;
   SerialCertificado: string;
   Sistema: string;

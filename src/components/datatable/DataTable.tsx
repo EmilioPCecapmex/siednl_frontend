@@ -50,7 +50,7 @@ export const DataTable = ({
   // Consumo de API
   const getUsuarios = () => {
     axios
-      .get("http://10.200.4.164:5000/api/usuarios", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
           "Content-Type": "application/json",

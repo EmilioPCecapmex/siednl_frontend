@@ -221,43 +221,48 @@ export const Firmado = () => {
           ></Firma>
 
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{
-                mr: 1,
-                fontSize: {
-                  xs: "60%",
-                  sm: "60%",
-                  md: "60%",
-                  lg: "60%",
-                  xl: "100%",
-                },
-              }}
-            >
-              Atrás
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
+            {activeStep === 0 ? null : (
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{
+                  mr: 1,
+                  fontSize: {
+                    xs: "60%",
+                    sm: "60%",
+                    md: "60%",
+                    lg: "60%",
+                    xl: "100%",
+                  },
+                }}
+              >
+                Atrás
+              </Button>
+            )}
+            <Box />
 
-            <Button
-              onClick={handleNext}
-              disabled={
-                (activeStep === 0 && !valido1) || (activeStep === 1 && !valido2)
-              }
-              sx={{
-                mr: 1,
-                fontSize: {
-                  xs: "60%",
-                  sm: "60%",
-                  md: "60%",
-                  lg: "60%",
-                  xl: "100%",
-                },
-              }}
-            >
-              {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
-            </Button>
+            {activeStep === steps.length - 1 ? null : (
+              <Button
+                onClick={handleNext}
+                disabled={
+                  (activeStep === 0 && !valido1) ||
+                  (activeStep === 1 && !valido2)
+                }
+                sx={{
+                  mr: 1,
+                  fontSize: {
+                    xs: "60%",
+                    sm: "60%",
+                    md: "60%",
+                    lg: "60%",
+                    xl: "100%",
+                  },
+                }}
+              >
+                {"Siguiente"}
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>

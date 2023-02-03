@@ -76,7 +76,7 @@ export const DialogSolicitudes = ({
 
   const getSolicitudes = () => {
     axios
-      .get("http://10.200.4.164:5000/api/solicitudes-app", {
+      .get(process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/solicitudes-app", {
         params: {
           IdUsuario: localStorage.getItem("IdCentral"),
           IdApp: localStorage.getItem("IdApp"),
@@ -95,7 +95,7 @@ export const DialogSolicitudes = ({
 
   const getDetalleSolicitud = () => {
     axios
-      .get("http://10.200.4.164:5000/api/detalleSol", {
+      .get(process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/detalleSol", {
         params: {
           IdUsuario: localStorage.getItem("IdCentral"),
           IdSolicitud: solicitudSeleccionada,

@@ -265,7 +265,7 @@ export const TabComponenteMA = ({
 
   const getUnidades = () => {
     axios
-      .get("http://10.200.4.105:8000/api/listadoUnidadesInst", {
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listadoUnidadesInst", {
         params: {
           Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
         },

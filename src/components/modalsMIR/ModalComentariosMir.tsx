@@ -98,7 +98,7 @@ export const ComentDialogMir = ({
 
   const getComents = () => {
     axios
-      .get("http://10.200.4.105:8000/api/coment-mir", {
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/coment-mir", {
         params: {
           IdMir: id,
         },
@@ -134,7 +134,7 @@ export const ComentDialogMir = ({
   const comentMir = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/coment-mir",
         {
           IdMir: id,
           Coment: coment,

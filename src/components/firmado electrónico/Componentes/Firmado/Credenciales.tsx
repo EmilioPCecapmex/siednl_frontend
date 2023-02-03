@@ -273,11 +273,11 @@ export const Credenciales = ({
             <Typography
               sx={{
                 fontSize: {
-                  xs: "90%",
-                  sm: "90%",
-                  md: "90%",
-                  lg: "80%",
-                  xl: "100%",
+                  xs: "85%",
+                  sm: "85%",
+                  md: "85%",
+                  lg: "75%",
+                  xl: "95%",
                 },
                 fontFamily: "MontserratMedium",
               }}
@@ -293,7 +293,22 @@ export const Credenciales = ({
           size="small"
           multiline
           maxRows={2}
-          label={<Typography sx={fontTextfield}>NÚMERO DE SERIE</Typography>}
+          label={
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "85%",
+                  sm: "85%",
+                  md: "85%",
+                  lg: "75%",
+                  xl: "95%",
+                },
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              NÚMERO DE SERIE
+            </Typography>
+          }
           InputLabelProps={{
             sx: {
               fontTextfield,
@@ -346,14 +361,14 @@ export const Credenciales = ({
       <Box sx={{ mb: 2, height: "20%" }}>
         <Typography
           sx={{
-            fontFamily: "MontserratBold",
             fontSize: {
-              xs: "50%",
-              sm: "60%",
-              md: "60%",
-              lg: "60%",
-              xl: "100%",
+              xs: "85%",
+              sm: "85%",
+              md: "85%",
+              lg: "75%",
+              xl: "95%",
             },
+            fontFamily: "MontserratMedium",
           }}
         >
           CERTIFICADO (cer)
@@ -367,14 +382,14 @@ export const Credenciales = ({
                 : "2px dotted black",
             backgroundColor:
               disableValidar && rfc !== "" ? "#efefef" : "lightGrey",
-            fontFamily: "MontserratMedium",
             fontSize: {
-              xs: "40%",
-              sm: "60%",
-              md: "60%",
-              lg: "60%",
-              xl: "100%",
+              xs: "85%",
+              sm: "85%",
+              md: "85%",
+              lg: "75%",
+              xl: "95%",
             },
+            fontFamily: "MontserratMedium",
             width: "30.5%",
             height: "2.5%",
           }}
@@ -401,14 +416,14 @@ export const Credenciales = ({
       <Box sx={{ mb: 2, height: "20%" }}>
         <Typography
           sx={{
-            fontFamily: "MontserratBold",
             fontSize: {
-              xs: "50%",
-              sm: "60%",
-              md: "60%",
-              lg: "60%",
-              xl: "100%",
+              xs: "85%",
+              sm: "85%",
+              md: "85%",
+              lg: "75%",
+              xl: "95%",
             },
+            fontFamily: "MontserratMedium",
           }}
         >
           CLAVE PRIVADA (key)
@@ -422,14 +437,14 @@ export const Credenciales = ({
                 : "2px dotted black",
             backgroundColor:
               disableValidar && rfc !== "" ? "#efefef" : "lightGrey",
-            fontFamily: "MontserratMedium",
             fontSize: {
-              xs: "40%",
-              sm: "60%",
-              md: "60%",
-              lg: "60%",
-              xl: "100%",
+              xs: "85%",
+              sm: "85%",
+              md: "85%",
+              lg: "75%",
+              xl: "95%",
             },
+            fontFamily: "MontserratMedium",
             cursor: "pointer",
             width: "30.5%",
             height: "2.5%",
@@ -463,11 +478,11 @@ export const Credenciales = ({
         <InputLabel
           sx={{
             fontSize: {
-              xs: "43%",
-              sm: "70%",
-              md: "80%",
-              lg: "80%",
-              xl: "100%",
+              xs: "85%",
+              sm: "85%",
+              md: "85%",
+              lg: "75%",
+              xl: "95%",
             },
             fontFamily: "MontserratMedium",
           }}
@@ -478,14 +493,14 @@ export const Credenciales = ({
           label="CONTRASEÑA DE LA CLAVE PRIVADA"
           type={showPassword ? "text" : "password"}
           sx={{
-            fontFamily: "MontserratSemiBold",
             fontSize: {
-              xs: "60%",
-              sm: "80%",
-              md: "80%",
-              lg: "80%",
-              xl: "100%",
+              xs: "85%",
+              sm: "85%",
+              md: "85%",
+              lg: "75%",
+              xl: "95%",
             },
+            fontFamily: "MontserratMedium",
           }}
           endAdornment={
             <InputAdornment position="end">

@@ -433,7 +433,7 @@ export const MIR = () => {
                   disabled
                   selected
                 >
-                  Filtro por institución de la MIR
+                  Filtro por institución
                 </MenuItem>
 
                 <MenuItem

@@ -122,7 +122,7 @@ export default function FullModalMir({
         display: "flex",
         justifyContent: "space-evenly",
         width: "100%",
-        height: "92%",
+        height: "95%",
         mt: "8vh",
       }}
     >
@@ -142,17 +142,32 @@ export default function FullModalMir({
           alignItems: "center",
         }}
       >
-        <Box>
           <Tabs
             value={value}
             onChange={handleChange}
             textColor="inherit"
             sx={{
-              backgroundColor: "#fff",
+              backgroundColor: "#e0e0e0",
               borderRadius: "10px 10px 0 0",
               boxShadow: 20,
             }}
           >
+            <IconButton
+              sx={{
+                backgroundColor: "#e0e0e0",
+              }}
+              onClick={() => {
+                cambiarTab("atras");
+              }}
+            >
+              <ArrowCircleLeftIcon
+                sx={{
+                  color: "#c4a57b",
+                  width: "1.5vw",
+                  height: "1.5vw",
+                }}
+              />
+            </IconButton>
             <Tab
               label="Encabezado"
               value={10}
@@ -202,8 +217,24 @@ export default function FullModalMir({
                 backgroundColor: "#ccc",
               }}
             />
+
+            <IconButton
+              sx={{
+                backgroundColor: "#e0e0e0",
+              }}
+              onClick={() => {
+                cambiarTab("adelante");
+              }}
+            >
+              <ArrowCircleRightIcon
+                sx={{
+                  color: "#c4a57b",
+                  width: "1.5vw",
+                  height: "1.5vw",
+                }}
+              />
+            </IconButton>
           </Tabs>
-        </Box>
 
         <Box
           sx={{
@@ -269,42 +300,6 @@ export default function FullModalMir({
             setActividadesM={() => {}}
             setCompAct={setCompAct}
           ></TabActividades>
-        </Box>
-        <Box
-          sx={{
-            width: "30%",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <IconButton
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          >
-            <ArrowCircleLeftIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
-
-          <IconButton
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          >
-            <ArrowCircleRightIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
         </Box>
       </Box>
     </Box>

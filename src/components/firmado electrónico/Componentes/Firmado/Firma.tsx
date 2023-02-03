@@ -114,7 +114,7 @@ export const Firma = ({
         <Box
           sx={{
             ml: 2,
-            mr: 4,
+            mr: 2,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -122,7 +122,7 @@ export const Firma = ({
         >
           <QRCode
             value={qr}
-            size={150}
+            size={100}
             bgColor="#fff"
             fgColor="#000"
             level="H"
@@ -159,14 +159,14 @@ export const Firma = ({
           >
             <Typography
               sx={{
-                fontSize: "90%",
+                fontSize: "70%",
                 fontFamily: "MontserratMedium",
               }}
             >
               DESCARGAR DOCUMENTO FIRMADO
             </Typography>
           </Box>
-          <Box
+          {/* <Box
             sx={{
               width: "30%",
               height: "50%",
@@ -193,7 +193,7 @@ export const Firma = ({
             >
               VER MIS DOCUMENTOS FIRMADOS
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </Box>

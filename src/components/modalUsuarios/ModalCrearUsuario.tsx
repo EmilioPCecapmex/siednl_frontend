@@ -136,7 +136,7 @@ export default function ModalCrearUsuario({
   const createComentarios = (idSolicitud: string) => {
     axios
       .post(
-        "http://10.200.4.164:5000/api/create-comentario",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -172,7 +172,7 @@ export default function ModalCrearUsuario({
   const signUp = () => {
     axios
       .post(
-        "http://10.200.4.164:5000/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/create-solicitud",
         {
           Nombre: names,
           APaterno: firstName,

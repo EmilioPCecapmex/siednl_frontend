@@ -55,7 +55,7 @@ export const DeleteDialog = ({
   const deleteUsuario = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
         {
           Nombre: dataUser.Nombre,
           APaterno: dataUser.ApellidoPaterno,
@@ -99,7 +99,7 @@ export const DeleteDialog = ({
   const createComentarios = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-comentario",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,

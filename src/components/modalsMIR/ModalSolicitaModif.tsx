@@ -40,7 +40,7 @@ export default function ModalSolicitaModif({
   const comentMir = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,

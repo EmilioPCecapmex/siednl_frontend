@@ -58,7 +58,7 @@ export default function AddFichaTecnica({
     if (option === "adelante") {
       if (value < 50) setValue(value + 10);
     } else {
-      if (value > 20) setValue(value - 10);
+      if (value > 10) setValue(value - 10);
     }
   };
 
@@ -224,10 +224,27 @@ export default function AddFichaTecnica({
             onChange={handleChange}
             textColor="inherit"
             sx={{
+              backgroundColor: "#e0e0e0",
               borderRadius: "10px 10px 0 0",
               boxShadow: 20,
             }}
           >
+            <IconButton
+              sx={{
+                backgroundColor: "#e0e0e0",
+              }}
+              onClick={() => {
+                cambiarTab("atras");
+              }}
+            >
+              <ArrowCircleLeftIcon
+                sx={{
+                  color: "#c4a57b",
+                  width: "1.5vw",
+                  height: "1.5vw",
+                }}
+              />
+            </IconButton>
             <Tab
               label="Encabezado"
               value={10}
@@ -278,6 +295,23 @@ export default function AddFichaTecnica({
                 backgroundColor: "#ccc",
               }}
             />
+
+            <IconButton
+              sx={{
+                backgroundColor: "#e0e0e0",
+              }}
+              onClick={() => {
+                cambiarTab("adelante");
+              }}
+            >
+              <ArrowCircleRightIcon
+                sx={{
+                  color: "#c4a57b",
+                  width: "1.5vw",
+                  height: "1.5vw",
+                }}
+              />
+            </IconButton>
           </Tabs>
         </Box>
 
@@ -334,44 +368,6 @@ export default function AddFichaTecnica({
             showResume={showResume}
             MIR={MIR}
           ></TabResumenFT>
-        </Box>
-
-        <Box
-          sx={{
-            width: "30%",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <IconButton
-            disabled={value === 10 ? true : false}
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          >
-            <ArrowCircleLeftIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
-
-          <IconButton
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          >
-            <ArrowCircleRightIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
         </Box>
       </Box>
     </Box>

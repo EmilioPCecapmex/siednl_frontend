@@ -1,14 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
-import { json } from "stream/consumers";
 
 export const sendMailCustomMessage = (
   v: string,
   mensaje: string,
   documentType: string
+
 ) => {
+
   axios.post(
-    "http://10.200.4.199:8000/api/send-email",
+    process.env.REACT_APP_APPLICATION_MIR + "/api/send-email",
     {
       subject: `  Avances con la ${documentType}`,
       message: `${mensaje} ${documentType}`,
@@ -41,7 +41,7 @@ export const sendMail = (v: string, mensaje: string, documentType: string) => {
   
   axios
     .post(
-      "http://10.200.4.105:8001/api/serviciocorreo",dataArray,
+      process.env.REACT_APP_APPLICATION_CORREO + "/api/serviciocorreo",dataArray,
     
       {
         headers: {

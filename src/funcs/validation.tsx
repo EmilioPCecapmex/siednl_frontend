@@ -85,7 +85,7 @@ export const getUserDetails = (idCentral: string) => {
 
 const getDataSolicitud = (idSolicitud: string) => {
   axios
-    .get("http://10.200.4.200:5000/api/datosAdicionalesSolicitud", {
+    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/datosAdicionalesSolicitud", {
       params: {
         IdUsuario: idSolicitud,
         IdApp: IdApp,
@@ -117,7 +117,7 @@ const siednlSignUp = (
 ) => {
   axios
     .post(
-      "http://10.200.4.200:8000/api/user-add",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
       {
         IdUsuarioCentral: idUsrCentral,
         IdInstitucion: datosAdicionales.institution,

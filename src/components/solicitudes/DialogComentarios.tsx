@@ -29,7 +29,7 @@ export const DialogComentarios = ({
   const getComentarios = () => {
     axios({
       method: "get",
-      url: "http://10.200.4.200:5000/api/comentarios-solicitudes",
+      url: process.env.REACT_APP_APPLICATION_LOGIN + "/api/comentarios-solicitudes",
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("jwtToken") || "",

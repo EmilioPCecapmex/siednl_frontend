@@ -40,7 +40,7 @@ export default function ModalEnviarMA({
   const comentMA = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -513,7 +513,7 @@ export default function ModalEnviarMA({
   const creaMA = (estado: string) => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-MetaAnual",
         {
           MetaAnual: MA,
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -561,7 +561,7 @@ export default function ModalEnviarMA({
    
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-FichaTecnica",
         {
           FichaTecnica: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -600,7 +600,7 @@ export default function ModalEnviarMA({
 
     axios
       .get(
-        "http://10.200.4.199:8000" + "/api/usuarioXInstitucion",
+        process.env.REACT_APP_APPLICATION_LOGIN + "" + "/api/usuarioXInstitucion",
         {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),
