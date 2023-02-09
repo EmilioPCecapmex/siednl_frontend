@@ -1,15 +1,13 @@
 import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Card, CardContent, IconButton, Tooltip, Button, Typography, TextField, FormGroup, FormControlLabel, Switch, List, ListItemButton, ListItemText, Divider, FormControl, InputLabel, Select, MenuItem, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, FormLabel, RadioGroup, Radio, } from "@mui/material";
+import { Box, IconButton, Button, Typography, TextField, List, ListItemButton, ListItemText, Divider, FormControl, InputLabel, Select, MenuItem, Dialog, } from "@mui/material";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { IDetalleSolicitud, ISolicitud } from "./ISolicitud";
-import { IApps } from "./IApps";
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import CommentIcon from '@mui/icons-material/Comment';
-import { parse } from "node:path/win32";
 import { DialogComentarios } from "./DialogComentarios";
 import ModalEditarSolicitud from "../modalUsuarios/ModalEditarSolicitud";
 
@@ -103,7 +101,6 @@ export const DialogSolicitudes = ({
     }, [])
 
 
-    const navigate = useNavigate();
     //registro seleccionado
     const [selectedIndex, setSelectedIndex] = useState(-2);
     //filtrado port aplicacion
@@ -139,6 +136,7 @@ export const DialogSolicitudes = ({
         if (selectedIndex >= 0)
             getDetalleSolicitud()
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedIndex])
 
 
@@ -252,10 +250,7 @@ export const DialogSolicitudes = ({
                                             <ListItemButton
                                                 key={x}
                                                 onClick={() => {
-                                                    {
                                                         itemSelected(x, item.Id)
-
-                                                    }
                                                 }}
                                                 sx={{
                                                     pl: 2,
@@ -337,7 +332,7 @@ export const DialogSolicitudes = ({
                         </Box>
                     </Box>
 
-                    {solicitudes.length != 0 ?
+                    {solicitudes.length !== 0 ?
                         <Box sx={{ width: "70%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                             <Box sx={{ width: "95%", height: "95%", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid #b3afaf", borderRadius: "15px", boxShadow: "15" }}>
 
@@ -458,7 +453,7 @@ export const DialogSolicitudes = ({
 
 
                                                     <Box sx={{ display: "flex", width: "40%", justifyContent: "flex-start" }}>
-                                                        {solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "MODIFICACION" && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 3
+                                                        {(solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "MODIFICACION"||solicitudesFiltered[selectedIndex]?.tipoSoli.toUpperCase() === "ALTA")  && parseInt(solicitudesFiltered[selectedIndex]?.Estatus) === 3
                                                         ?
                                                                 <Button variant="contained" color="info" onClick={() => {  
                                                                  setOpenDialogModificar(true);
