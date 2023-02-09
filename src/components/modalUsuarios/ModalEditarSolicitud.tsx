@@ -42,20 +42,20 @@ export default function ModalEditarSolicitud({
 }) {
 
 
-  const [username, setUsername] = useState(dataUser.NombreUsuario);
-  const [email, setEmail] = useState(dataUser.CorreoElectronico);
-  const [names, setNames] = useState(dataUser.Nombre);
-  const [firstName, setFirstName] = useState(dataUser.ApellidoPaterno);
-  const [secondName, setSecondName] = useState(dataUser.ApellidoMaterno);
-  const [curp, setCURP] = useState(dataUser.Curp);
-  const [rfc, setRFC] = useState(dataUser.Rfc);
+  const [username, setUsername] = useState(dataUser?.NombreUsuario);
+  const [email, setEmail] = useState(dataUser?.CorreoElectronico);
+  const [names, setNames] = useState(dataUser?.Nombre);
+  const [firstName, setFirstName] = useState(dataUser?.ApellidoPaterno);
+  const [secondName, setSecondName] = useState(dataUser?.ApellidoMaterno);
+  const [curp, setCURP] = useState(dataUser?.Curp);
+  const [rfc, setRFC] = useState(dataUser?.Rfc);
 
-  const [telephone, setTelephone] = useState(dataUser.Telefono);
-  const [cellphone, setCellphone] = useState(dataUser.Celular);
-  const [ext, setExt] = useState(dataUser.Ext);
+  const [telephone, setTelephone] = useState(dataUser?.Telefono);
+  const [cellphone, setCellphone] = useState(dataUser?.Celular);
+  const [ext, setExt] = useState(dataUser?.Ext);
   const [comentario, setComentario] = useState("");
 
- const [datosAdicionales,setDatosAdicionales]=useState<IDatosAdicionales>(JSON.parse(dataUser.DatosAdicionales))
+ const [datosAdicionales,setDatosAdicionales]=useState<IDatosAdicionales>(JSON.parse(dataUser?.DatosAdicionales))
 
   const [institution, setInstitution] = useState(datosAdicionales.IdInstitucion);
   const [rol, setRol] = useState(datosAdicionales.Cargo);
@@ -315,21 +315,21 @@ export default function ModalEditarSolicitud({
         text: "Ingresa un correo electrónico.",
         type: "error",
       });
-    }else if (username!=dataUser.NombreUsuario ) {
+    }else if (username!=dataUser?.NombreUsuario ) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar nombre de usuario ",
         type: "error",
       });
-    }else if (email!=dataUser.CorreoElectronico ) {
+    }else if (email!=dataUser?.CorreoElectronico ) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar el correo electrónico ",
         type: "error",
       });
-    }else if (names===dataUser.Nombre && firstName===dataUser.ApellidoPaterno && secondName===dataUser.ApellidoMaterno && institution===datosAdicionales.IdInstitucion 
-      && rol===datosAdicionales.Cargo && userType===datosAdicionales.IdRol && curp ===dataUser.Curp && rfc===dataUser.Rfc && telephone===dataUser.Telefono 
-      && ext===dataUser.Ext && cellphone===dataUser.Celular) {
+    }else if (names===dataUser?.Nombre && firstName===dataUser?.ApellidoPaterno && secondName===dataUser?.ApellidoMaterno && institution===datosAdicionales.IdInstitucion 
+      && rol===datosAdicionales.Cargo && userType===datosAdicionales.IdRol && curp ===dataUser?.Curp && rfc===dataUser?.Rfc && telephone===dataUser?.Telefono 
+      && ext===dataUser?.Ext && cellphone===dataUser?.Celular) {
       setErrorsForm({
         visible: true,
         text: "No se detectaron modificaciones ",
