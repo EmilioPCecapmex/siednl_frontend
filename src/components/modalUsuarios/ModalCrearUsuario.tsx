@@ -35,6 +35,7 @@ export default function ModalCrearUsuario({
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [puesto, setPuesto] = useState("");
   const [names, setNames] = useState("");
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
@@ -225,6 +226,7 @@ export default function ModalCrearUsuario({
           AMaterno: secondName,
           NombreUsuario: username,
           Email: email,
+          Puesto:puesto,
           Curp: curp,
           RFC: rfc,
           Celular: cellphone,
@@ -335,7 +337,13 @@ export default function ModalCrearUsuario({
         text: "Ingresa un correo electrónico.",
         type: "error",
       });
-    } else if (names === "") {
+    } else if (puesto === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa puesto del usuario.",
+        type: "error",
+      });
+    }else if (names === "") {
       setErrorsForm({
         visible: true,
         text: "Ingresa nombre del usuario.",
@@ -621,7 +629,7 @@ export default function ModalCrearUsuario({
             value={curp}
             onChange={(x) => setCURP(x.target.value)}
             sx={{
-              width: "40%",
+              width: "30%",
               ml: "2vw",
             }}
           />
@@ -633,7 +641,19 @@ export default function ModalCrearUsuario({
             value={rfc}
             onChange={(x) => setRFC(x.target.value)}
             sx={{
-              width: "40%",
+              width: "30%",
+            }}
+          />
+
+          <TextField
+            label="Puesto"
+            variant="outlined"
+            inputProps={{ maxLength: 13 }}
+            value={puesto}
+            onChange={(x) => setPuesto(x.target.value)}
+            sx={{
+              width: "30%",
+              
               mr: "2vw",
             }}
           />
