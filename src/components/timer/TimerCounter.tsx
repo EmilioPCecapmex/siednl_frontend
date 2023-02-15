@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { continueSession, logout } from "../../funcs/validation";
 
@@ -31,10 +31,14 @@ export const TimerCounter = () => {
   }, [Math.floor(rest / 60 / 1000) < 2]);
 
   useEffect(() => {
-    if (Math.floor(rest / 60 / 1000) <= 5 && Math.floor(rest / 60 / 1000) > 2   && rest > 0) {
-      renewSession()
+    if (
+      Math.floor(rest / 60 / 1000) <= 5 &&
+      Math.floor(rest / 60 / 1000) > 2 &&
+      rest > 0
+    ) {
+      renewSession();
     }
-    },[])
+  }, []);
 
   const renewSession = () => {
     axios

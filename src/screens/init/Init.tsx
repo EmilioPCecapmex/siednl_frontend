@@ -1,18 +1,7 @@
 import { Box } from "@mui/material";
-import CircularProgress from '@mui/material/CircularProgress';
-import { useNavigate } from "react-router-dom";
-
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const Init = () => {
-  const navigate = useNavigate();
-
-  
-  // setTimeout(() => {
-  //   navigate('../home')
-
-  // },2000);
-
-
   return (
     <Box
       sx={{

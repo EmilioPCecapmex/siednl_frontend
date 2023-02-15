@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   TextField,
@@ -27,6 +27,9 @@ export interface IEncabezado {
   estrategia: string;
   lineas_de_accion: Array<{ Id: string; LineaDeAccion: string }>;
   beneficiario: string;
+  conac: string;
+  consecutivo: string;
+
 }
 
 export function TabEncabezado({
@@ -75,9 +78,7 @@ export function TabEncabezado({
   const [loadActividades, setLoadActividades] = useState<Array<number>>([1, 2]);
   const [loadActividadValor, setLoadActividadValor] = useState<
     Array<ICompActividad>
-  >([
-    
-  ]);
+  >([]);
 
   /////////////////////////////////////////////////
   useEffect(() => {
@@ -93,6 +94,9 @@ export function TabEncabezado({
       getIdTematica(jsonMir.encabezado.tema);
       getIdObjetivo(jsonMir.encabezado.objetivo);
       getIdEstrategia(jsonMir.encabezado.estrategia);
+      getProgramaPresupuestario(jsonMir.encabezado.conac);
+      getProgramaPresupuestario(jsonMir.encabezado.consecutivo);
+      
 
       setTimeout(() => {
         jsonMir.encabezado.lineas_de_accion.map(
@@ -111,7 +115,7 @@ export function TabEncabezado({
       let j = 1;
 
       jsonMir.componentes.map((x: any) => {
-        comp.push("C" + j);
+        comp.push("C" + i);
         jsonMir.actividades.map((a: any) => {
           if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
             act.push(i);
@@ -123,7 +127,6 @@ export function TabEncabezado({
         i = 1;
         j++;
       });
-
 
       compAct(ambos);
       setLoadComponenteValor(jsonMir.componentes);
@@ -230,9 +233,10 @@ export function TabEncabezado({
     getLineasDeAccion(Id);
     setDisabledLineasDeAccion(false);
   }
-  function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
-    setLineaDeAccion(LDA);
-  }
+  // function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
+  //   setLineaDeAccion([]);
+  //   setLineaDeAccion(LDA);
+  // }
 
   function enCambioBeneficiario(Id: string, Ben: string) {
     setBeneficiario(Ben);
@@ -293,7 +297,10 @@ export function TabEncabezado({
     []
   );
   const [beneficiario, setBeneficiario] = useState("");
-
+ //////////////////////////////////////////////////////////////////////////////////////////////////
+  const [conac, setConac] = useState("");
+  const [consecutivo, setConsecutivo] = useState("");
+///////////////////////////////////////////////////////////////////////////////////////////////////
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
     { Id: "0", AnioFiscal: "" },
@@ -515,21 +522,21 @@ export function TabEncabezado({
       })
       .catch((err) => {});
   };
-  const getIdPrograma = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Programas",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setPrograma(r.data.data[0].Programa);
-      });
-  };
+  // const getIdPrograma = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+  //       params: {
+  //         Col: "Programas",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setPrograma(r.data.data[0].Programa);
+  //     });
+  // };
   const getIdEje = (Description: string) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
@@ -632,7 +639,28 @@ export function TabEncabezado({
         setBeneficiario(r.data.data[0].Beneficiario);
       });
   };
+///////////////////////////////////////////////////////////////////////////
+  const getProgramaPresupuestario = (Description: string) => {
+    axios
+    .get("localhost:8000/api/programaPresupuestarioConsulta",{
+      
+      
+      params:{
+        NombrePrograma: programa,
+        
+        Descripcion: Description,
+      },
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      setConac(r.data.data[0]?.conac)
+      setConsecutivo(r.data.data[0]?.consecutivo)
 
+    });
+  };
+/////////////////////////////////////////////////////////////////////////
   //Cuando se da click en cargar archivo
   const submitForm = (event: any) => {
     setDisabledButton(true);
@@ -644,7 +672,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post(process.env.REACT_APP_APPLICATION_MID + "/upload", dataArray, {
+      .post("http://10.200.4.105:9090/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -657,6 +685,8 @@ export function TabEncabezado({
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
+        getProgramaPresupuestario(response.data.encabezado[0].conac)
+        getProgramaPresupuestario(response.data.encabezado[0].consecutivo)
         setTimeout(() => {
           response.data.encabezado[0]?.lineas_de_accion
             ?.split(".\n")
@@ -694,10 +724,8 @@ export function TabEncabezado({
         ]);
 
         setLoadComponenteValor(response.data.componentes);
-
         setLoadActividadValor(response.data.actividades);
         setLoadActividades(response.data.componenteActividad);
-
         actividadesMir(response.data.actividades);
         setTimeout(() => {
           setLoadComponentesFinish(true);
@@ -728,6 +756,8 @@ export function TabEncabezado({
         estrategia: estrategia,
         lineas_de_accion: lineaDeAccion,
         beneficiario: beneficiario,
+        conac: conac,
+        consecutivo: consecutivo,
       },
     ]);
   }, [
@@ -740,6 +770,8 @@ export function TabEncabezado({
     estrategia,
     lineaDeAccion,
     beneficiario,
+    conac,
+    consecutivo,
   ]);
 
   useEffect(() => {
@@ -971,10 +1003,12 @@ export function TabEncabezado({
           disabled={
             mirEdit?.encabezado.nombre_del_programa || disabledProgramas
           }
+          
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma || ""}
           value={{ Id: catalogoProgramas[0].Id, NombrePrograma: programa }}
+          
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>

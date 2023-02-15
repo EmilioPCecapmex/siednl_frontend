@@ -338,21 +338,21 @@ export const PropositoFichaTecnica = ({
               textAlign: "justify",
             }}
           >
-            {jsonMir.proposito.resumen.toUpperCase()}
+            {jsonMir.proposito.resumen}
           </Typography>
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                DATOS DEL INDICADOR:
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          DATOS DEL INDICADOR:
+        </Typography>
+      </Box>
       <Box sx={sxSpaceBetweenTitleResult}>
         <Box sx={sxTitleColumn}>
           <Typography sx={sxTitleStyle}>
@@ -361,7 +361,7 @@ export const PropositoFichaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMir.proposito.indicador.toUpperCase()}
+            {jsonMir.proposito.indicador}
           </Typography>
         </Box>
       </Box>
@@ -373,7 +373,7 @@ export const PropositoFichaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMA.proposito.descIndicador.toUpperCase()}
+            {jsonMA.proposito.descIndicador}
           </Typography>
         </Box>
       </Box>
@@ -385,7 +385,7 @@ export const PropositoFichaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMA.proposito.unidadResponsable.toUpperCase()}
+            {jsonMA.proposito.unidadResponsable}
           </Typography>
         </Box>
       </Box>
@@ -397,7 +397,7 @@ export const PropositoFichaTecnica = ({
         </Box>
         <Box sx={sxResultSize}>
           <Typography sx={sxResultContentDesign}>
-            {jsonMir.proposito.formula.toUpperCase()}
+            {jsonMir.proposito.formula}
           </Typography>
         </Box>
       </Box>
@@ -562,7 +562,7 @@ export const PropositoFichaTecnica = ({
             }}
           >
             <Typography sx={sxResultSmallBoxes}>
-              {jsonFT.proposito.unidadDeMedida.toUpperCase()}
+              {jsonFT.proposito.unidadDeMedida}
             </Typography>
           </Box>
         </Box>
@@ -639,22 +639,22 @@ export const PropositoFichaTecnica = ({
             }}
           >
             <Typography sx={sxResultSmallBoxes}>
-              {jsonMA.proposito.sentidoDelIndicador.toUpperCase()}
+              {jsonMA.proposito.sentidoDelIndicador}
             </Typography>
           </Box>
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                CARACTERÍSTICAS DEL INDICADOR
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          CARACTERÍSTICAS DEL INDICADOR
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "62vw",
@@ -908,16 +908,16 @@ export const PropositoFichaTecnica = ({
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                DATOS DE LAS VARIABLES
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          DATOS DE LAS VARIABLES
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "62vw",
@@ -973,7 +973,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "white",
               }}
             >
-              {variable1.toUpperCase()}
+              {variable1}
             </Typography>
           </Box>
           <Box
@@ -998,7 +998,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "white",
               }}
             >
-              {variable2.toUpperCase()}
+              {variable2}
             </Typography>
           </Box>
         </Box>
@@ -1047,7 +1047,7 @@ export const PropositoFichaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonMA.proposito.descNumerador.toUpperCase()}
+              {jsonMA.proposito.descNumerador}
             </Typography>
           </Box>
           <Box
@@ -1071,7 +1071,7 @@ export const PropositoFichaTecnica = ({
                 backgroundColor: "white",
               }}
             >
-              {jsonMA.proposito.descDenominador.toUpperCase()}
+              {jsonMA.proposito.descDenominador}
             </Typography>
           </Box>
         </Box>
@@ -1121,7 +1121,7 @@ export const PropositoFichaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonMir.proposito.medios_verificacion.toUpperCase()}
+              {jsonMir.proposito.medios_verificacion}
             </Typography>
           </Box>
           <Box
@@ -1146,7 +1146,7 @@ export const PropositoFichaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonMir.proposito.medios_verificacion.toUpperCase()}
+              {jsonMir.proposito.medios_verificacion}
             </Typography>
           </Box>
         </Box>
@@ -1194,10 +1194,10 @@ export const PropositoFichaTecnica = ({
                 minHeight: "5vh",
                 backgroundColor: "white",
                 textAlign: "justify",
-                //al final ponerle a estos 2 .toUpperCase() como no existe se rompe el programa
+                //al final ponerle a estos 2  como no existe se rompe el programa
               }}
             >
-              {jsonFT.encabezado.unidadDeMedida.toUpperCase()}
+              {jsonFT.encabezado.unidadDeMedida}
             </Typography>
           </Box>
           <Box
@@ -1223,7 +1223,7 @@ export const PropositoFichaTecnica = ({
                 textAlign: "justify",
               }}
             >
-              {jsonFT.encabezado.unidadDeMedida.toUpperCase()}
+              {jsonFT.encabezado.unidadDeMedida}
             </Typography>
           </Box>
         </Box>
@@ -1264,7 +1264,7 @@ export const PropositoFichaTecnica = ({
             <Typography
               sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
             >
-              {jsonMA.proposito.valorNumerador.toUpperCase()}
+              {jsonMA.proposito.valorNumerador}
             </Typography>
           </Box>
           <Box
@@ -1281,7 +1281,7 @@ export const PropositoFichaTecnica = ({
             <Typography
               sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
             >
-              {jsonMA.proposito.valorDenominador.toUpperCase()}
+              {jsonMA.proposito.valorDenominador}
             </Typography>
           </Box>
         </Box>
@@ -1336,21 +1336,21 @@ export const PropositoFichaTecnica = ({
               textAlign: "justify",
             }}
           >
-            {jsonMir.proposito.supuestos.toUpperCase()}
+            {jsonMir.proposito.supuestos}
           </Typography>
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                METAS
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          METAS
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "62vw",
@@ -1674,16 +1674,16 @@ export const PropositoFichaTecnica = ({
         </Box>
       </Box>
       <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                PARÁMETROS DE SEMAFORIZACIÓN
-              </Typography>
-            </Box>
+        <Typography
+          sx={{
+            ml: 1,
+            fontFamily: "MontserratBold",
+            textAlign: "center",
+          }}
+        >
+          PARÁMETROS DE SEMAFORIZACIÓN
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "62vw",

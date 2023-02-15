@@ -34,19 +34,13 @@ export function TabResumen({
   mirEdit?: IEncabezadoEdit;
 }) {
   const [MIR, setMIR] = useState<IMIR>();
+
+  useEffect(() => {
+    console.log(MIR);
+  }, [show])
   
 
-  const [openModalEnviar, setOpenModalEnviar] = useState(false);
-  const handleCloseEnviar = () => {
-    setOpenModalEnviar(false);
-  };
-
-  const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
-
-  const handleCloseModif = () => {
-    setOpenModalSolicitarModif(false);
-  };
-
+  
   let asignarMIR = (
     encabezadoM: Array<IEncabezado>,
     finM: Array<IFin>,
@@ -61,6 +55,17 @@ export function TabResumen({
       componentes: componentesM,
       actividades: actividadesM,
     });
+  };
+
+  const [openModalEnviar, setOpenModalEnviar] = useState(false);
+  const handleCloseEnviar = () => {
+    setOpenModalEnviar(false);
+  };
+
+  const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
+
+  const handleCloseModif = () => {
+    setOpenModalSolicitarModif(false);
   };
 
   const checkMir = (v: string) => {
@@ -212,76 +217,17 @@ export function TabResumen({
   >([]);
 
   const [disablebutton, setDisablebutton] = useState(false);
-  // useEffect(() => {
-  //   setDisablebutton(
-  //     editEncabezado.beneficiario &&
-  //       editEncabezado.eje &&
-  //       editEncabezado.ejercicioFiscal &&
-  //       editEncabezado.estrategia &&
-  //       editEncabezado.institucion &&
-  //       editEncabezado.lineas_de_accion &&
-  //       editEncabezado.nombre_del_programa &&
-  //       editEncabezado.objetivo &&
-  //       editEncabezado.tema
-  //   );
-  // }, [
-  //   editEncabezado.beneficiario,
-  //   editEncabezado.eje,
-  //   editEncabezado.ejercicioFiscal,
-  //   editEncabezado.estrategia,
-  //   editEncabezado.institucion,
-  //   editEncabezado.lineas_de_accion,
-  //   editEncabezado.nombre_del_programa,
-  //   editEncabezado.objetivo,
-  //   editEncabezado.tema,
-  // ]);
 
   const [disablebutton2, setDisablebutton2] = useState(false);
-  // useEffect(() => {
-  //   setDisablebutton2(
-  //     editFin.formula &&
-  //       editFin.frecuencia &&
-  //       editFin.indicador &&
-  //       editFin.medios &&
-  //       editFin.resumen &&
-  //       editFin.supuestos
-  //   );
-  // }, [
-  //   editFin.formula,
-  //   editFin.frecuencia,
-  //   editFin.indicador,
-  //   editFin.medios,
-  //   editFin,
-  //   editFin.supuestos,
-  // ]);
-
-  // // const validador = (aEdit:any) => aEdit === true
-
-  // //  let ARRAY =[editActividades];
 
   const [disablebutton3, setDisablebutton3] = useState(false);
-  // useEffect(() => {
-  //   setDisablebutton3(
-  //     editProposito.formula &&
-  //       editProposito.frecuencia &&
-  //       editProposito.indicador &&
-  //       editProposito.medios_verificacion &&
-  //       editProposito.resumen &&
-  //       editProposito.supuestos
-  //   );
-  // }, [
-  //   editProposito.formula,
-  //   editProposito.frecuencia,
-  //   editProposito.indicador,
-  //   editProposito.medios_verificacion,
-  //   editProposito.resumen,
-  //   editProposito.supuestos,
-  // ]);
 
   const [disablebuttoncomponentes, setDisablebuttoncomponentes] =
     useState(false);
+
   const [disablebuttonactividades, setDisablebuttonactividades] =
     useState(false);
+
   useEffect(() => {
     let arrayEncabezado = Object.entries(editEncabezado);
     let arrayFin = Object.entries(editFin);

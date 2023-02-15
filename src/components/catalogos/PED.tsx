@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 
-export const PED = ({handleClose} : {handleClose : Function}) => {
+export const PED = ({ handleClose }: { handleClose: Function }) => {
   const [eje, setEje] = useState("0");
   const [tematica, setTematica] = useState("0");
   const [objetivo, setObjetivo] = useState("0");
@@ -50,7 +50,6 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
       ObjetivoPEENL: "",
     },
   ]);
-
 
   const getEje = () => {
     axios
@@ -174,16 +173,14 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
         }
       )
       .then((r) => {
-        
-        if(r.status === 200){
+        if (r.status === 200) {
           setErrorsForm({
             visible: true,
             text: "!PED creado con éxito!",
             type: "success",
           });
-          handleClose()
+          handleClose();
         }
-        
       })
       .catch((err) => {
         setErrorsForm({
@@ -312,8 +309,6 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
     }
   };
 
-
-
   return (
     <Box
       sx={{
@@ -346,7 +341,6 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
           renderInput={(params) => <TextField {...params} label="Eje" />}
           onChange={(event, value) => setEje(value?.Id as string)}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
-
         />
 
         <Autocomplete
@@ -357,7 +351,6 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
           renderInput={(params) => <TextField {...params} label="Tematica" />}
           onChange={(event, value) => setTematica(value?.Id as string)}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
-
         />
 
         <Autocomplete
@@ -368,7 +361,6 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
           renderInput={(params) => <TextField {...params} label="Objetivo" />}
           onChange={(event, value) => setObjetivo(value?.Id as string)}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
-
         />
 
         <Autocomplete
@@ -379,7 +371,6 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
           renderInput={(params) => <TextField {...params} label="Estrategia" />}
           onChange={(event, value) => setEstrategia(value?.Id as string)}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
-
         />
 
         <Autocomplete
@@ -419,20 +410,18 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
 
- 
-        
-<Autocomplete
+        <Autocomplete
           multiple
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
           options={catalogoEjesPND}
           getOptionLabel={(option) => option.EjePND}
-          renderInput={(params) => <TextField {...params} label="Eje PND" />}        
+          renderInput={(params) => <TextField {...params} label="Eje PND" />}
           onChange={(event, value) => setEjesPND(value)}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
 
-<Autocomplete
+        <Autocomplete
           multiple
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
@@ -440,12 +429,10 @@ export const PED = ({handleClose} : {handleClose : Function}) => {
           getOptionLabel={(option) => option.ObjetivoPEENL}
           renderInput={(params) => (
             <TextField {...params} label="Objetivo PEENL" />
-          )}          
+          )}
           onChange={(event, value) => setObjetivosPEENL(value)}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
-
-        
       </Box>
       <Box sx={{ mt: "3vh", mb: "2vh", textAlign: "end" }}>
         <DialogActions>

@@ -22,12 +22,12 @@ export interface IInstituciones {
   NombreInstitucion: string;
 }
 
- interface IDatosAdicionales{
-  IdInstitucion:string;
-  Cargo:string;
-  IdRol:string;
+interface IDatosAdicionales {
+  IdInstitucion: string;
+  Cargo: string;
+  IdRol: string;
   Rol: string;
-  }
+}
 
 export default function ModalEditarSolicitud({
   open,
@@ -38,7 +38,7 @@ export default function ModalEditarSolicitud({
   open: boolean;
   handleClose: Function;
   dataUser: IDetalleSolicitud;
-  idSolicitud:string;
+  idSolicitud: string;
 }) {
 
 
@@ -57,18 +57,19 @@ export default function ModalEditarSolicitud({
 
  const [datosAdicionales,setDatosAdicionales]=useState<IDatosAdicionales>(JSON.parse(dataUser?.DatosAdicionales))
 
-  const [institution, setInstitution] = useState(datosAdicionales.IdInstitucion);
+  const [institution, setInstitution] = useState(
+    datosAdicionales.IdInstitucion
+  );
   const [rol, setRol] = useState(datosAdicionales.Cargo);
   const [userType, setUserType] = useState(datosAdicionales.IdRol);
-  // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<IInstituciones>>([
-  ]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IInstituciones>
+  >([]);
 
   const [userTypeCatalogue, setUserTypeCatalogue] = useState([
     { Id: "", Rol: "" },
   ]);
-
 
   const Toast = Swal.mixin({
     toast: true,
@@ -137,14 +138,14 @@ export default function ModalEditarSolicitud({
       });
   };
 
-  const createComentarios = (idSolicitud:string) => {
+  const createComentarios = (idSolicitud: string) => {
     axios
       .post(
         "http://10.200.4.105:5000/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
-          Comentario: comentario
+          Comentario: comentario,
         },
         {
           headers: {
@@ -154,8 +155,6 @@ export default function ModalEditarSolicitud({
       )
       .then((r) => {
         if (r.status === 201) {
-
-
           Toast.fire({
             icon: "success",
             title: "¡Registro exitoso!",
@@ -173,7 +172,7 @@ export default function ModalEditarSolicitud({
           });
         }
       });
-  }
+  };
 
   const modificarSolicitud = () => {
     axios
@@ -181,23 +180,27 @@ export default function ModalEditarSolicitud({
         "http://10.200.4.200:5000/api/modify-Solicitud",
 
         {
-          IdSolicitud:idSolicitud,
-          Nombre :names,
-          APaterno :firstName,
-          AMaterno :secondName,
-          Usuario :username,
-          Email :email,
-          CURP :curp,
-          RFC :rfc,
-          Telefono:telephone,
-          Extencion :ext,
-          Celular :cellphone,
-          DatosAdicionales :JSON.stringify({Rol: datosAdicionales.Rol ,IdRol: datosAdicionales.IdRol , Cargo: datosAdicionales.Cargo , IdInstitucion: datosAdicionales.IdInstitucion}),
-          Estatus :"0",
-          IdApp : localStorage.getItem("IdApp"),
-          IdUsuarioSolicitante :localStorage.getItem("IdCentral"),
-     }
-        ,
+          IdSolicitud: idSolicitud,
+          Nombre: names,
+          APaterno: firstName,
+          AMaterno: secondName,
+          Usuario: username,
+          Email: email,
+          CURP: curp,
+          RFC: rfc,
+          Telefono: telephone,
+          Extencion: ext,
+          Celular: cellphone,
+          DatosAdicionales: JSON.stringify({
+            Rol: datosAdicionales.Rol,
+            IdRol: datosAdicionales.IdRol,
+            Cargo: datosAdicionales.Cargo,
+            IdInstitucion: datosAdicionales.IdInstitucion,
+          }),
+          Estatus: "0",
+          IdApp: localStorage.getItem("IdApp"),
+          IdUsuarioSolicitante: localStorage.getItem("IdCentral"),
+        },
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -205,16 +208,15 @@ export default function ModalEditarSolicitud({
         }
       )
       .then((r) => {
-         
         if (r.status === 200) {
-          if(comentario!="")
+          if (comentario != "")
             createComentarios(r.data.data[0][0].IdSolicitud);
-           
-            Toast.fire({
-              icon: "success",
-              title: r.data.data[0][0].Mensaje,
-            });
-          
+
+          Toast.fire({
+            icon: "success",
+            title: r.data.data[0][0].Mensaje,
+          });
+
           handleClose();
         }
       })
@@ -228,7 +230,6 @@ export default function ModalEditarSolicitud({
         }
       });
   };
-
 
   const checkForm = () => {
     setErrorsForm({
@@ -288,13 +289,13 @@ export default function ModalEditarSolicitud({
     } else if (curp === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa el CURP.",
         type: "error",
       });
     } else if (rfc === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa el RFC.",
         type: "error",
       });
     } else if (telephone === "") {
@@ -312,7 +313,7 @@ export default function ModalEditarSolicitud({
     } else if (ext === "") {
       setErrorsForm({
         visible: true,
-        text: "Ingresa un correo electrónico.",
+        text: "Ingresa laa extencion.",
         type: "error",
       });
     }else if (username!=dataUser?.NombreUsuario ) {
@@ -348,7 +349,7 @@ export default function ModalEditarSolicitud({
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-       EDITAR SOLICITUD
+        EDITAR SOLICITUD
       </DialogTitle>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -379,13 +380,12 @@ export default function ModalEditarSolicitud({
             mt: "3vh",
           }}
         >
-          
           <TextField
             label="Usuario"
             helperText={"Este campo no se puede editar."}
             variant="outlined"
             value={username}
-            inputProps={{ maxLength: 30, }}
+            inputProps={{ maxLength: 30 }}
             InputProps={{
               readOnly: true,
             }}
@@ -395,8 +395,6 @@ export default function ModalEditarSolicitud({
             }}
             onChange={(v) => setUsername(v.target.value)}
           />
-
-
 
           <TextField
             label="Correo Electrónico"
@@ -573,8 +571,6 @@ export default function ModalEditarSolicitud({
               mr: "2vw",
             }}
           />
-
-
         </Box>
 
         <Box
@@ -605,7 +601,6 @@ export default function ModalEditarSolicitud({
             type="tel"
             sx={{
               width: "40%",
-
             }}
             value={cellphone}
             onChange={(x) => setCellphone(x.target.value)}
@@ -633,7 +628,6 @@ export default function ModalEditarSolicitud({
             mt: "3vh",
           }}
         >
-
           <TextField
             label="Comentarios "
             variant="outlined"
@@ -642,16 +636,14 @@ export default function ModalEditarSolicitud({
             rows={3}
             sx={{
               width: "95%",
-              mr: "2vw", ml: "2vw",
+              mr: "2vw",
+              ml: "2vw",
             }}
             type="tel"
             value={comentario}
             onChange={(x) => setComentario(x.target.value)}
           />
         </Box>
-
-
-
 
         <Box
           sx={{
@@ -674,7 +666,9 @@ export default function ModalEditarSolicitud({
               sx={{ display: "flex", width: "10vw" }}
               variant="contained"
               color="error"
-              onClick={() => { handleClose() }}
+              onClick={() => {
+                handleClose();
+              }}
             >
               Cancelar
             </Button>

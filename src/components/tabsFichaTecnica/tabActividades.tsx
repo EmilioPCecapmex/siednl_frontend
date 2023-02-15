@@ -11,7 +11,6 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -37,7 +36,7 @@ export const TabActividadesFT = ({
 }) => {
   // business logic-------------------------------------------------------------------------------
 
-  const [componenteActividad, setComponenteActividad] = useState([
+  const componenteActividad = ([
     {
       componentes: componentes.map((x) => compAct),
     },
@@ -224,14 +223,6 @@ export const TabActividadesFT = ({
           alignItems: "center",
         }}
       >
-        <InfoOutlinedIcon
-          onClick={() => {
-            showMirFnc(true);
-            setTxtShowFnc("Actividades");
-          }}
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-        ></InfoOutlinedIcon>
         <Typography
           sx={{
             mr: "1vw",
@@ -613,7 +604,10 @@ export const TabActividadesFT = ({
               let y = [...aValorFT];
               y[0].componentes[componenteSelect].actividades[
                 actividadSelect
-              ].unidadDeMedida = c.target.value;
+              ].unidadDeMedida = c.target.value
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "");
               setAValorFT(y);
             }}
             value={

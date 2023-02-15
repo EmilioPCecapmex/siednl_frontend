@@ -1,12 +1,12 @@
 export interface IComponente {
   componentes: string;
-    resumen: string;
-    indicador: string;
-    formula: string;
-    frecuencia: string;
-    medios: string;
-    supuestos: string;
-  }
+  resumen: string;
+  indicador: string;
+  formula: string;
+  frecuencia: string;
+  medios: string;
+  supuestos: string;
+}
 
 export interface IComponenteMA {
   componentes: string;
@@ -20,7 +20,7 @@ export interface IComponenteMA {
   descIndicador: string;
   descNumerador: string;
   descDenominador: string;
-  }
+}
 
 export interface IFrecuencias {
   semestre1: string;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -32,11 +32,8 @@ export default function ModalVincularUsuario({
   const [names, setNames] = useState("");
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
-  // const [institution, setInstitution] = useState("0");
-  // const [rol, setRol] = useState("");
-  // const [userType, setUserType] = useState("0");
-  const [telephone, setTelephone] = useState("");
-  const [cellphone, setCellphone] = useState("");
+  // const [telephone, setTelephone] = useState("");
+  // const [cellphone, setCellphone] = useState("");
 
   const [dataUser, setDataUser] = useState<IdataUser>(
     {
@@ -61,7 +58,7 @@ export default function ModalVincularUsuario({
       userType: "0"
     }
   );
-  const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
+  // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
     { Id: "", NombreInstitucion: "" },
@@ -110,8 +107,8 @@ export default function ModalVincularUsuario({
     setDatosAdicionales({ ...datosAdicionales, institution: "0" });
     setDatosAdicionales({ ...datosAdicionales, rol: "0" });
     setDatosAdicionales({ ...datosAdicionales, userType: "0" });
-    setTelephone("");
-    setCellphone("");
+    // setTelephone("");
+    // setCellphone("");
   };
 
   const getInstituciones = () => {
@@ -144,8 +141,7 @@ export default function ModalVincularUsuario({
 
   const verifyUser = () => {
     axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/user-exist",
+      .post("http://10.200.4.164:5000/api/user-exist",
         {
           NombreUsuario: username,
           CorreoElectronico: email.toLowerCase(),
@@ -166,7 +162,7 @@ export default function ModalVincularUsuario({
             type: "success",
           });
           getUserDetails(r.data.data.Id);
-          setIdUsuarioCentral(r.data.data.Id);
+          // setIdUsuarioCentral(r.data.data.Id);
           setFullView(true);
         } else {
           setErrorsForm({
@@ -196,7 +192,7 @@ export default function ModalVincularUsuario({
   const getUserDetails = (idCentral: string,) => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/user-detail",
+        "http://10.200.4.164:5000/api/user-detail",
         {
           IdUsuario: idCentral,
         },
@@ -236,7 +232,7 @@ export default function ModalVincularUsuario({
   const signUp = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-solicitud",
+        "http://10.200.4.164:5000/api/create-solicitud",
         {
           Nombre: dataUser.Nombre,
           APaterno: dataUser.ApellidoPaterno,
@@ -282,34 +278,6 @@ export default function ModalVincularUsuario({
       });
   };
 
-  // const siednlSignUp = (idUsrCentral: string) => {
-  //   axios
-  //     .post(
-  //       "http://10.200.4.200:8000/api/user-add",
-  //       {
-  //         IdUsuarioCentral: idUsrCentral,
-  //         IdInstitucion: institution,
-  //         Cargo: rol,
-  //         IdRol: userType,
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         closeModal();
-  //         Toast.fire({
-  //           icon: "success",
-  //           title: "Registro exitoso.",
-  //         });
-  //       }
-  //     });
-  // };
 
   const checkForm = () => {
     setErrorsForm({

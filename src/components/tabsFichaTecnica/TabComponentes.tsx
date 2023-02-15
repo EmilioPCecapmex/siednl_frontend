@@ -8,7 +8,6 @@ import {
   ListItemButton,
   FormControl,
 } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -90,14 +89,6 @@ export const TabComponenteFT = ({
           alignItems: "center",
         }}
       >
-        <InfoOutlinedIcon
-          onClick={() => {
-            showMirFnc(true);
-            showFnc("Componentes");
-          }}
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-        ></InfoOutlinedIcon>
         <Typography
           sx={{
             mr: "1vw",
@@ -426,7 +417,10 @@ export const TabComponenteFT = ({
             value={componentesValues[componentSelect - 1]?.unidadDeMedida || ""}
             onChange={(c) => {
               componentesValues[componentSelect - 1].unidadDeMedida =
-                c.target.value;
+                c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
               setComponentesValues([...componentesValues]);
             }}
           />

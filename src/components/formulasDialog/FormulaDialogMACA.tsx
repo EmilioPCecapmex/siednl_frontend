@@ -191,14 +191,12 @@ export const FormulaDialogMACA = ({
         }
       }
     } else {
-      if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice") 
+      if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice")
         if (/^[\s]*$/.test(descA) || /^[\s]*$/.test(descB)) {
           setEmptyTxt(true);
         } else {
           textoSet(
-            parseFloat(descA).toFixed(2) +
-              "," +
-              parseFloat(descB).toFixed(2)
+            parseFloat(descA).toFixed(2) + "," + parseFloat(descB).toFixed(2)
           );
           limpiaVar();
           close();
@@ -340,12 +338,11 @@ export const FormulaDialogMACA = ({
                 alignItems: "center",
               }}
             >
-              
               <Typography>Trimestre 1</Typography>
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "80%", mb: 2  }}
+                sx={{ width: "80%", mb: 2 }}
                 value={descA}
                 error={
                   parseFloat(descA) < 0 ||
@@ -384,7 +381,7 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "80%", mb: 2  }}
+                sx={{ width: "80%", mb: 2 }}
                 value={descB}
                 error={
                   parseFloat(descB) < 0 ||
@@ -423,7 +420,7 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "80%", mb: 2  }}
+                sx={{ width: "80%", mb: 2 }}
                 value={descC}
                 error={
                   parseFloat(descC) < 0 ||
@@ -804,11 +801,11 @@ export const FormulaDialogMACA = ({
                 alignItems: "center",
               }}
             >
-            <Typography>Semestre 1</Typography>
+              <Typography>Semestre 1</Typography>
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "95%", mb:2 }}
+                sx={{ width: "95%", mb: 2 }}
                 value={descA}
                 error={
                   parseFloat(descA) < 0 ||

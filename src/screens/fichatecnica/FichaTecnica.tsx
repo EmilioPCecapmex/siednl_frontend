@@ -31,6 +31,7 @@ import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
 import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
 import Swal from "sweetalert2";
+import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -76,9 +77,6 @@ export const FichaTecnica = () => {
   const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
 
-  const [fichaAnualDownloadDetails, setFichaAnualDownloadDetails] =
-    useState<IDownloadFT>();
-
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
   const [FTShow, setFTShow] = useState<Array<IIFT>>([]);
@@ -123,16 +121,12 @@ export const FichaTecnica = () => {
     FT: string,
     inst: string,
     Programa: string,
-    FechaCreacion: string,
-    
+    FechaCreacion: string
   ) => {
-    
-   
     const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
-    
-  
+
     axios
-      .post("http://192.168.137.152:7001/api/fill_ft", fullft, {
+      .post(process.env.REACT_APP_APPLICATION_FILL  + "/api/fill_ft", fullft, {
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -153,17 +147,15 @@ export const FichaTecnica = () => {
           "FT_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
         ); //or any other extension
         document.body.appendChild(link);
-        console.log(link);
 
         link.click();
 
         // clean up "a" element & remove ObjectURL
+
         document.body.removeChild(link);
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-        console.log(err);
-
         Toast.fire({
           icon: "error",
           title: "Error al intentar descargar el documento.",
@@ -240,10 +232,6 @@ export const FichaTecnica = () => {
     getFT();
   }, []);
 
-  const handleClickOpen = () => {
-    setShowResume(false);
-  };
-
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
@@ -302,7 +290,10 @@ export const FichaTecnica = () => {
             mt: "8vh",
             flexWrap: "wrap",
           }}
+
+          
         >
+          <TutorialBox initialState={45} endState={49} />
           <Box
             sx={{
               mt: "3vh",
@@ -829,18 +820,16 @@ export const FichaTecnica = () => {
                               <Tooltip title="DESCARGAR">
                                 <span>
                                   <IconButton
-                                  onClick={() => {
-                                    getFichaTecnicaDownload(
-                                      row.MIR,
-                                      row.MetaAnual,
-                                      row.FichaT,
-                                      row.Programa,
-                                      row.FechaCreacion,
-                                      row.Institucion
-                                    );
-                                  }}
-
-
+                                    onClick={() => {
+                                      getFichaTecnicaDownload(
+                                        row.MIR,
+                                        row.MetaAnual,
+                                        row.FichaT,
+                                        row.Programa,
+                                        row.FechaCreacion,
+                                        row.Institucion
+                                      );
+                                    }}
                                     disabled={
                                       row.Estado === "Autorizada" ? false : true
                                     }

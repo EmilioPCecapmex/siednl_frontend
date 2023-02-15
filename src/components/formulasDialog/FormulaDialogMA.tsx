@@ -8,7 +8,7 @@ import {
   Alert,
   Snackbar,
 } from "@mui/material";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export const FormulaDialogMA = ({
   open,
@@ -149,7 +149,7 @@ export const FormulaDialogMA = ({
         <Box
           sx={{
             width: "100%",
-            height:'7vh',
+            height: "7vh",
             display: "flex",
             justifyContent: "center",
           }}
@@ -198,7 +198,7 @@ export const FormulaDialogMA = ({
               }}
             />
           ) : (
-            <Box sx={{display:'flex', justifyContent:'center'}}>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
               <TextField
                 type={"number"}
                 label={
@@ -235,7 +235,7 @@ export const FormulaDialogMA = ({
                   <Typography sx={{ fontFamily: "MontserratBold" }}>
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
-                } 
+                }
                 sx={{ width: "45%" }}
                 InputLabelProps={{
                   style: {

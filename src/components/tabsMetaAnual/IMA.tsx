@@ -1,4 +1,3 @@
-import { IActividadesMirEdit, IComponenteMirEdit, IFinEdit, IPropositoEdit } from "../tabsMir/TabResumen";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IActividadesMA, IComponenteMA } from "./Interfaces";
 
@@ -11,4 +10,3 @@ export interface IMA {
 
   actividades: Array<IActividadesMA>;
 }
-

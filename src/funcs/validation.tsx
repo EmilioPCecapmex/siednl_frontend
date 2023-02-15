@@ -4,7 +4,6 @@ import { IDatosAdicionales } from "../components/modalUsuarios/InterfazUsuario";
 const params = new URLSearchParams(window.location.search);
 const IdApp = params.get("IdApp");
 
-
 export const sessionValid = () => {
   const jt = params.get("jwt") || "";
   const rft = params.get("rf") || "";
@@ -27,7 +26,7 @@ export const sessionValid = () => {
         localStorage.setItem("refreshToken", rft);
         localStorage.setItem("validation", "true");
         localStorage.setItem("IdCentral", r.data.data.IdUsuario);
-        
+
         return getUserDetails(r.data.data.IdUsuario);
       }
     })
@@ -38,7 +37,6 @@ export const sessionValid = () => {
       }
     });
 };
-
 
 export const getUserDetails = (idCentral: string) => {
   return axios
@@ -90,7 +88,7 @@ const getDataSolicitud = (idSolicitud: string) => {
     .get("http://10.200.4.200:5000/api/datosAdicionalesSolicitud", {
       params: {
         IdUsuario: idSolicitud,
-        IdApp: IdApp
+        IdApp: IdApp,
       },
       headers: {
         "Content-Type": "application/json",
@@ -107,8 +105,8 @@ const getDataSolicitud = (idSolicitud: string) => {
       }
     })
     .catch((error) => {
-        localStorage.clear();
-        return false;
+      localStorage.clear();
+      return false;
     });
 };
 

@@ -50,15 +50,15 @@ export const DataTable = ({
   // Consumo de API
   const getUsuarios = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
+      .get("http://10.200.4.164:5000/api/usuarios", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
           "Content-Type": "application/json",
         },
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion")
-        }
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
       })
       .then((response) => {
         setUsuarios(response.data.data);
@@ -86,7 +86,6 @@ export const DataTable = ({
     getUsuarios();
   }, [actualizacion]);
 
-
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
   };
@@ -104,8 +103,6 @@ export const DataTable = ({
   };
 
   const [openModalEditarUsuario, setOpenModalEditarUsuario] = useState(false);
-
-
 
   const handleCloseModalEditarUsuario = () => {
     setOpenModalEditarUsuario(false);
@@ -283,15 +280,16 @@ export const DataTable = ({
 
                       <Tooltip title="Editar">
                         <span>
-
                           <IconButton
-                            disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
+                            disabled={
+                              localStorage.getItem("Rol") === "Capturador"
+                                ? true
+                                : false
+                            }
                             onClick={() => {
                               setDatosUsuario(row);
                               setOpenModalEditarUsuario(true);
-
-                            }
-                            }
+                            }}
                           >
                             <EditIcon
                               sx={[
@@ -304,7 +302,6 @@ export const DataTable = ({
                             />
                           </IconButton>
                         </span>
-
                       </Tooltip>
                     </Box>
                   </TableCell>
@@ -325,7 +322,6 @@ export const DataTable = ({
 
       {openModalEditarUsuario ? (
         <ModalEditarUsuario
-          // actualizado={actualizaContador}
           title="Editar Usuario"
           open={openModalEditarUsuario}
           handleClose={handleCloseModalEditarUsuario}

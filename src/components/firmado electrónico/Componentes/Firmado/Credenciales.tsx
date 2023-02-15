@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -18,7 +18,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import CircularProgress from "@mui/material/CircularProgress";
-// import ReCAPTCHA from "react-google-recaptcha";
 
 export const Credenciales = ({
   show,
@@ -136,7 +135,6 @@ export const Credenciales = ({
             validado(true);
           }, 2500);
         }
-        
       })
       .catch((err) => {
         setRfcCer("error");
@@ -203,9 +201,6 @@ export const Credenciales = ({
       };
     }
   }, [contrasena]);
-
-  // function onChange(value: any) {
-  // }
 
   return (
     <Box

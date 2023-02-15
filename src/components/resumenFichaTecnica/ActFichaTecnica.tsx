@@ -88,42 +88,42 @@ export const ActFichaTecnica = ({
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("-");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const PromedioVar1 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const PorcentajeVar1 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[0].toUpperCase();
+    return ArrayVar1[0];
   };
 
   const TasaVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("-");
-    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
   };
 
   const PromedioVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[1].replaceAll(")", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "");
   };
 
   const PorcentajeVar2 = (index: number) => {
     const ArrayVar1 = jsonMir.actividades[index].formula
       .replaceAll("(", "")
       .split("/");
-    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "").toUpperCase();
+    return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
   };
 
   const CalculosPorComponente = (index: number, color: string) => {
@@ -148,7 +148,11 @@ export const ActFichaTecnica = ({
     let z1String = z1.toFixed(2);
 
     if (color === "VERDE") {
-      return <Typography sx={sxTitleSmallBoxes}>{`${y1String} <= V.I. <= ${z1String}`}</Typography>;
+      return (
+        <Typography
+          sx={sxTitleSmallBoxes}
+        >{`${y1String} <= V.I. <= ${z1String}`}</Typography>
+      );
     }
 
     if (color === "ROJO") {
@@ -164,20 +168,24 @@ export const ActFichaTecnica = ({
     if (color === "AMARILLO") {
       return (
         <>
-          <Typography sx={sxTitleSmallBoxes} >{`${z1String} <= V.I. < ${zString}`} </Typography>
-          <Typography sx={sxTitleSmallBoxes} >{"Ó"} </Typography>
-          <Typography sx={sxTitleSmallBoxes} >{`${yString} < V.I. <= ${y1String}`} </Typography>
+          <Typography sx={sxTitleSmallBoxes}>
+            {`${z1String} <= V.I. < ${zString}`}{" "}
+          </Typography>
+          <Typography sx={sxTitleSmallBoxes}>{"Ó"} </Typography>
+          <Typography sx={sxTitleSmallBoxes}>
+            {`${yString} < V.I. <= ${y1String}`}{" "}
+          </Typography>
         </>
       );
     }
   };
-  
+
   let paginas = NoPaginas;
-  
+
   return (
     <>
       {jsonMir.actividades.map((a: IActividades, index: number) => {
-        paginas=paginas+1;
+        paginas = paginas + 1;
         return (
           <>
             <Box
@@ -318,7 +326,7 @@ export const ActFichaTecnica = ({
                     textAlign: "justify",
                   }}
                 >
-                  {jsonMir.actividades[index].resumen.toUpperCase()}
+                  {jsonMir.actividades[index].resumen}
                 </Typography>
               </Box>
             </Box>
@@ -339,7 +347,7 @@ export const ActFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMir.actividades[index].indicador.toUpperCase()}
+                  {jsonMir.actividades[index].indicador}
                 </Typography>
               </Box>
             </Box>
@@ -349,7 +357,7 @@ export const ActFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMA.actividades[index].descIndicador.toUpperCase()}
+                  {jsonMA.actividades[index].descIndicador}
                 </Typography>
               </Box>
             </Box>
@@ -361,7 +369,7 @@ export const ActFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMA.actividades[index].unidadResponsable.toUpperCase()}
+                  {jsonMA.actividades[index].unidadResponsable}
                 </Typography>
               </Box>
             </Box>
@@ -371,7 +379,7 @@ export const ActFichaTecnica = ({
               </Box>
               <Box sx={sxResultSize}>
                 <Typography sx={sxResultContentDesign}>
-                  {jsonMir.actividades[index].formula.toUpperCase()}
+                  {jsonMir.actividades[index].formula}
                 </Typography>
               </Box>
             </Box>
@@ -496,34 +504,21 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  {jsonMir.actividades[index].indicador
-                    .toUpperCase()
-                    .includes("PORCENTAJE") ||
-                  jsonMir.actividades[index].indicador.toUpperCase() ===
-                    "PORCENTAJE" ? (
+                  {jsonMir.actividades[index].indicador.includes(
+                    "PORCENTAJE"
+                  ) || jsonMir.actividades[index].indicador === "PORCENTAJE" ? (
                     <Typography sx={sxResultSmallBoxes}>PORCENTAJE</Typography>
-                  ) : jsonMir.actividades[index].indicador
-                      .toUpperCase()
-                      .includes("TASA") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
-                      "TASA" ? (
+                  ) : jsonMir.actividades[index].indicador.includes("TASA") ||
+                    jsonMir.actividades[index].indicador === "TASA" ? (
                     <Typography sx={sxResultSmallBoxes}>TASA</Typography>
-                  ) : jsonMir.actividades[index].indicador
-                      .toUpperCase()
-                      .includes("PROMEDIO") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
-                      "PROMEDIO" ? (
+                  ) : jsonMir.actividades[index].indicador.includes(
+                      "PROMEDIO"
+                    ) || jsonMir.actividades[index].indicador === "PROMEDIO" ? (
                     <Typography sx={sxResultSmallBoxes}>PROMEDIO</Typography>
-                  ) : jsonMir.actividades[index].indicador
-                      .toUpperCase()
-                      .includes("INDICE") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
-                      "INDICE" ||
-                    jsonMir.actividades[index].indicador
-                      .toUpperCase()
-                      .includes("ÍNDICE") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
-                      "ÍNDICE" ? (
+                  ) : jsonMir.actividades[index].indicador.includes("INDICE") ||
+                    jsonMir.actividades[index].indicador === "INDICE" ||
+                    jsonMir.actividades[index].indicador.includes("ÍNDICE") ||
+                    jsonMir.actividades[index].indicador === "ÍNDICE" ? (
                     <Typography sx={sxResultSmallBoxes}>ÍNDICE</Typography>
                   ) : (
                     <Typography sx={sxResultSmallBoxes}>NINGUNA</Typography>
@@ -565,7 +560,7 @@ export const ActFichaTecnica = ({
                   }}
                 >
                   <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].unidadDeMedida.toUpperCase()}
+                    {jsonFT.actividades[index].unidadDeMedida}
                   </Typography>
                 </Box>
               </Box>
@@ -640,7 +635,7 @@ export const ActFichaTecnica = ({
                   }}
                 >
                   <Typography sx={sxResultSmallBoxes}>
-                    {jsonMA.actividades[index].sentidoDelIndicador.toUpperCase()}
+                    {jsonMA.actividades[index].sentidoDelIndicador}
                   </Typography>
                 </Box>
               </Box>
@@ -963,34 +958,26 @@ export const ActFichaTecnica = ({
                       backgroundColor: "white",
                     }}
                   >
-                    {jsonMir.actividades[index].indicador
-                      .toUpperCase()
-                      .includes("TASA") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
-                      "TASA"
+                    {jsonMir.actividades[index].indicador.includes("TASA") ||
+                    jsonMir.actividades[index].indicador === "TASA"
                       ? TasaVar1(index)
-                      : jsonMir.actividades[index].indicador
-                          .toUpperCase()
-                          .includes("PROMEDIO") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                      : jsonMir.actividades[index].indicador.includes(
                           "PROMEDIO"
+                        ) || jsonMir.actividades[index].indicador === "PROMEDIO"
                       ? PromedioVar1(index)
-                      : jsonMir.actividades[index].indicador
-                          .toUpperCase()
-                          .includes("PORCENTAJE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                      : jsonMir.actividades[index].indicador.includes(
                           "PORCENTAJE"
+                        ) ||
+                        jsonMir.actividades[index].indicador === "PORCENTAJE"
                       ? PorcentajeVar1(index)
-                      : jsonMir.actividades[index].indicador
-                          .toUpperCase()
-                          .includes("INDICE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
-                          "INDICE" ||
-                        jsonMir.actividades[index].indicador
-                          .toUpperCase()
-                          .includes("ÍNDICE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                      : jsonMir.actividades[index].indicador.includes(
+                          "INDICE"
+                        ) ||
+                        jsonMir.actividades[index].indicador === "INDICE" ||
+                        jsonMir.actividades[index].indicador.includes(
                           "ÍNDICE"
+                        ) ||
+                        jsonMir.actividades[index].indicador === "ÍNDICE"
                       ? jsonMir.actividades[index].formula
                       : ""}
                   </Typography>
@@ -1018,34 +1005,26 @@ export const ActFichaTecnica = ({
                       backgroundColor: "white",
                     }}
                   >
-                    {jsonMir.actividades[index].indicador
-                      .toUpperCase()
-                      .includes("TASA") ||
-                    jsonMir.actividades[index].indicador.toUpperCase() ===
-                      "TASA"
+                    {jsonMir.actividades[index].indicador.includes("TASA") ||
+                    jsonMir.actividades[index].indicador === "TASA"
                       ? TasaVar2(index)
-                      : jsonMir.actividades[index].indicador
-                          .toUpperCase()
-                          .includes("PROMEDIO") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                      : jsonMir.actividades[index].indicador.includes(
                           "PROMEDIO"
+                        ) || jsonMir.actividades[index].indicador === "PROMEDIO"
                       ? PromedioVar2(index)
-                      : jsonMir.actividades[index].indicador
-                          .toUpperCase()
-                          .includes("PORCENTAJE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                      : jsonMir.actividades[index].indicador.includes(
                           "PORCENTAJE"
+                        ) ||
+                        jsonMir.actividades[index].indicador === "PORCENTAJE"
                       ? PorcentajeVar2(index)
-                      : jsonMir.actividades[index].indicador
-                          .toUpperCase()
-                          .includes("INDICE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
-                          "INDICE" ||
-                        jsonMir.actividades[index].indicador
-                          .toUpperCase()
-                          .includes("ÍNDICE") ||
-                        jsonMir.actividades[index].indicador.toUpperCase() ===
+                      : jsonMir.actividades[index].indicador.includes(
+                          "INDICE"
+                        ) ||
+                        jsonMir.actividades[index].indicador === "INDICE" ||
+                        jsonMir.actividades[index].indicador.includes(
                           "ÍNDICE"
+                        ) ||
+                        jsonMir.actividades[index].indicador === "ÍNDICE"
                       ? jsonMir.actividades[index].formula
                       : ""}
                   </Typography>
@@ -1094,7 +1073,7 @@ export const ActFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMA.actividades[index].descNumerador.toUpperCase()}
+                    {jsonMA.actividades[index].descNumerador}
                   </Typography>
                 </Box>
                 <Box
@@ -1118,7 +1097,7 @@ export const ActFichaTecnica = ({
                       backgroundColor: "white",
                     }}
                   >
-                    {jsonMA.actividades[index].descDenominador.toUpperCase()}
+                    {jsonMA.actividades[index].descDenominador}
                   </Typography>
                 </Box>
               </Box>
@@ -1168,7 +1147,7 @@ export const ActFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMir.actividades[index].medios.toUpperCase()}
+                    {jsonMir.actividades[index].medios}
                   </Typography>
                 </Box>
                 <Box
@@ -1193,7 +1172,7 @@ export const ActFichaTecnica = ({
                       textAlign: "justify",
                     }}
                   >
-                    {jsonMir.actividades[index].medios.toUpperCase()}
+                    {jsonMir.actividades[index].medios}
                   </Typography>
                 </Box>
               </Box>
@@ -1208,7 +1187,7 @@ export const ActFichaTecnica = ({
                 <Box
                   sx={{
                     width: "100%",
-              height: "20%",
+                    height: "20%",
                     border: 1,
                     display: "flex",
                     justifyContent: "center",
@@ -1232,15 +1211,19 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={{
-                     width: "90%",
-                     display: "flex",
-                     fontSize: ".7rem",
-                     fontFamily: "MontserratRegular",
-                     minHeight: "5vh",
-                     backgroundColor: "white",
-                     textAlign: "justify",
-                  }}>{jsonFT.encabezado.unidadDeMedida.toUpperCase()}</Typography>
+                  <Typography
+                    sx={{
+                      width: "90%",
+                      display: "flex",
+                      fontSize: ".7rem",
+                      fontFamily: "MontserratRegular",
+                      minHeight: "5vh",
+                      backgroundColor: "white",
+                      textAlign: "justify",
+                    }}
+                  >
+                    {jsonFT.encabezado.unidadDeMedida}
+                  </Typography>
                 </Box>
                 <Box
                   sx={{
@@ -1255,17 +1238,18 @@ export const ActFichaTecnica = ({
                   }}
                 >
                   <Typography
-                  sx={{
-                    width: "90%",
-                   display: "flex",
-                   fontSize: ".7rem",
-                   fontFamily: "MontserratRegular",
-                   minHeight: "5vh",
-                   backgroundColor: "white",
-                   textAlign: "justify",
-                 }}
-                 >
-                  {jsonFT.encabezado.unidadDeMedida.toUpperCase()}</Typography>
+                    sx={{
+                      width: "90%",
+                      display: "flex",
+                      fontSize: ".7rem",
+                      fontFamily: "MontserratRegular",
+                      minHeight: "5vh",
+                      backgroundColor: "white",
+                      textAlign: "justify",
+                    }}
+                  >
+                    {jsonFT.encabezado.unidadDeMedida}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1300,9 +1284,10 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
-                >
-                    {jsonMA.actividades[index].valorNumerador.toUpperCase()}
+                  <Typography
+                    sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                  >
+                    {jsonMA.actividades[index].valorNumerador}
                   </Typography>
                 </Box>
                 <Box
@@ -1316,9 +1301,10 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
-                >
-                    {jsonMA.actividades[index].valorDenominador.toUpperCase()}
+                  <Typography
+                    sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                  >
+                    {jsonMA.actividades[index].valorDenominador}
                   </Typography>
                 </Box>
               </Box>
@@ -1356,10 +1342,10 @@ export const ActFichaTecnica = ({
               <Box
                 sx={{
                   width: "62vw",
-            height: "10vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+                  height: "10vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <Typography
@@ -1375,7 +1361,7 @@ export const ActFichaTecnica = ({
                     textAlign: "justify",
                   }}
                 >
-                  {jsonMir.actividades[index].supuestos.toUpperCase()}
+                  {jsonMir.actividades[index].supuestos}
                 </Typography>
               </Box>
             </Box>
@@ -1434,7 +1420,9 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{jsonMA.actividades[index].lineaBase}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {jsonMA.actividades[index].lineaBase}
+                  </Typography>
                 </Box>
               </Box>
 
@@ -1471,7 +1459,9 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{jsonMA.actividades[index].metaAnual}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {jsonMA.actividades[index].metaAnual}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1507,7 +1497,9 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2023*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2023*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1543,7 +1535,9 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2024*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2024*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1579,7 +1573,9 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2025*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2025*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1615,7 +1611,9 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2026*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2026*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1651,7 +1649,9 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"-" /*meta 2027*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"-" /*meta 2027*/}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -1686,7 +1686,9 @@ export const ActFichaTecnica = ({
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>{"" /*meta sexenal*/}</Typography>
+                  <Typography sx={sxResultSmallBoxes}>
+                    {"" /*meta sexenal*/}
+                  </Typography>
                 </Box>
               </Box>
             </Box>
@@ -1842,7 +1844,7 @@ export const ActFichaTecnica = ({
               <Typography sx={sxTitleSmallBoxes}>Página {paginas}</Typography>
             </Box>
             <Divider sx={{ height: "1vh", backgroundColor: "rgba(0,0,0,5)" }} />
-            </>
+          </>
         );
       })}
     </>

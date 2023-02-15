@@ -17,6 +17,7 @@ import {
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
 import { TabFinPropositoFT } from "./tabFinProposito";
+import { TutorialBox } from "../tutorialBox/tutorialBox";
 
 export default function AddFichaTecnica({
   MIR,
@@ -202,6 +203,11 @@ export default function AddFichaTecnica({
         mt: "8vh",
       }}
     >
+      {value === 10 ? <TutorialBox initialState={49} endState={50} /> : null}
+      {value === 20 ? <TutorialBox initialState={50} endState={51} /> : null}
+      {value === 30 ? <TutorialBox initialState={51} endState={52} /> : null}
+      {value === 40 ? <TutorialBox initialState={52} endState={53} /> : null}
+      {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null}
       <Box
         sx={{
           width: "75vw",
@@ -328,8 +334,6 @@ export default function AddFichaTecnica({
             showResume={showResume}
             MIR={MIR}
           ></TabResumenFT>
-
-          
         </Box>
 
         <Box

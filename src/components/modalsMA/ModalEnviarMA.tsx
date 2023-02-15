@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
+import { sendMail, sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
 
 export let errores: string[] = [];
 
@@ -530,7 +530,7 @@ export default function ModalEnviarMA({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
-          sendMailCustomMessage(user.IdUsuario,enviarMensaje,"MA")
+          sendMail(user.CorreoElectronico,enviarMensaje,"MA")
         });
 
         if (estado === "Autorizada") {
@@ -558,8 +558,6 @@ export default function ModalEnviarMA({
 
   const CrearFichaTecnica = () => {
 
-    console.log(IdMIR);
-    console.log(IdMA);
    
     axios
       .post(
@@ -581,7 +579,7 @@ export default function ModalEnviarMA({
       .then((r) => {
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
-          sendMailCustomMessage(user.IdUsuario, "Se ha creado una nueva", "FT");
+          sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
         });
         
         showResume();
@@ -783,4 +781,5 @@ export interface IIUserXInst {
   NombrelineaBase: string;
   Nombre: string;
   ApellidoPaterno: string;
+  CorreoElectronico: string;
 }

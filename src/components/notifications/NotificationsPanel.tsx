@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import NotificationsIcon from "@mui/icons-material/NotificationsNone";
 import CheckIcon from "@mui/icons-material/Check";
 
@@ -10,8 +9,6 @@ import {
   Divider,
   ListItem,
   Badge,
-  ListItemIcon,
-  ListItemText,
   Typography,
   IconButton,
   ToggleButton,
@@ -21,8 +18,6 @@ import axios from "axios";
 import { INotificacion } from "./NotificacionesInterfaz";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import zIndex from "@mui/material/styles/zIndex";
-import { TutorialBox } from "../tutorialBox/tutorialBox";
 
 export default function NotificationsPanel() {
   const navigate = useNavigate();
@@ -51,9 +46,10 @@ export default function NotificationsPanel() {
             setSinNotificaciones(false);
           }
         }
-      }).catch((e) => {
-        return null
       })
+      .catch((e) => {
+        return null;
+      });
   };
 
   const eliminaNotificacion = (v: string) => {
@@ -257,14 +253,8 @@ export default function NotificationsPanel() {
     </Box>
   );
 
-
-
-
   return (
     <React.Fragment key={"right"}>
-      
-      
-
       <IconButton onClick={() => handleOpenNotifPanel()}>
         <Badge
           badgeContent={sinNotificaciones ? notificaciones?.length : 0}

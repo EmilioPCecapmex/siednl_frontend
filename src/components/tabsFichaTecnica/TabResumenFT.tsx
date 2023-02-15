@@ -122,11 +122,6 @@ export function TabResumenFT({
 
   const creaFT = (estado: string) => {
 
-    console.log(FT);
-    console.log(IdMir);
-    console.log(IdMA);
-    console.log(IdFT);
-    console.log(estado);
     
     axios
       .post(
@@ -1648,7 +1643,7 @@ export function TabResumenFT({
            IdMa ={IdMA}
            IdMIR={IdMir}
 
-           MAEdit={
+           FTEdit={
              localStorage.getItem("Rol") !== "Administrador"
               ? ""
                : JSON.stringify({

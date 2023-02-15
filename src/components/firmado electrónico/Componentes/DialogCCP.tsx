@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
@@ -14,7 +14,7 @@ export function DialogCcp({
   handleClose,
   setTexto,
   fncSetCcp,
-  setCcpCorreos
+  setCcpCorreos,
 }: {
   open: boolean;
   handleClose: Function;

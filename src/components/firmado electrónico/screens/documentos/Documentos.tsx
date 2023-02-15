@@ -2,11 +2,8 @@ import { Box } from "@mui/material";
 import { Validador } from "../../Componentes/Documentos/Validador";
 
 export const Documentos = () => {
-
   const params = new URLSearchParams(window.location.search);
-  const Id = params.get("Id") || '';
-
-  
+  const Id = params.get("Id") || "";
 
   return (
     <Box
@@ -16,12 +13,11 @@ export const Documentos = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent:'center',
+        justifyContent: "center",
         bgcolor: "lightGrey",
       }}
     >
-      <Validador id={Id || ''}></Validador>
-
+      <Validador id={Id || ""}></Validador>
     </Box>
   );
 };

@@ -47,6 +47,50 @@ export function TabResumenMA({
     });
   };
 
+  const [openModalEnviar, setOpenModalEnviar] = useState(false);
+
+  const handleCloseEnviar = () => {
+    setOpenModalEnviar(false);
+  };
+
+  const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
+
+  const handleCloseModif = () => {
+    setOpenModalSolicitarModif(false);
+  };
+
+  const creaMA = (estado: string) => {
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        {
+          MetaAnual: JSON.stringify(MA),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdMir: IdMir,
+          Estado: estado,
+          Id: IdMA,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        Toast.fire({
+          icon: "success",
+          title: r.data.data.message,
+        });
+        showResume();
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        });
+      });
+  };
+
   useEffect(() => {
     let arr: any[] = [];
     cValor[0].componentes.map((a) => {
@@ -111,18 +155,6 @@ export function TabResumenMA({
     asignarMA(fin, proposito, componenteValor, arr);
   }, [componenteValor, proposito, fin, cValor, show]);
 
-  const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
-
-  const handleCloseModif = () => {
-    setOpenModalSolicitarModif(false);
-  };
-
-  const [openModalEnviar, setOpenModalEnviar] = useState(false);
-
-  const handleCloseEnviar = () => {
-    setOpenModalEnviar(false);
-  };
-
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -134,38 +166,6 @@ export function TabResumenMA({
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
-  const creaMA = (estado: string) => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
-        {
-          MetaAnual: JSON.stringify(MA),
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          IdMir: IdMir,
-          Estado: estado,
-          Id: IdMA,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
-        showResume();
-      })
-      .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
-      });
-  };
 
   const [editFin, setEditFin] = useState<IFinEditMA>({
     metaAnual: true,
@@ -198,6 +198,70 @@ export function TabResumenMA({
   const [editActividades, setEditActividades] = useState<
     Array<IActividadesEditMA>
   >([]);
+
+  const [disablebutton2, setDisablebutton2] = useState(false);
+
+  const [disablebutton3, setDisablebutton3] = useState(false);
+
+  const [disablebuttoncomponentes, setDisablebuttoncomponentes] =
+    useState(false);
+
+  const [disablebuttonactividades, setDisablebuttonactividades] =
+    useState(false);
+
+  useEffect(() => {
+    let arrayFin = Object.entries(editFin);
+    let arrayProposito = Object.entries(editProposito);
+
+    let arrayComponentes = editComponentes.map((item) => {
+      let a = [
+        item.metaAnual,
+        item.lineaBase,
+        item.valorNumerador,
+        item.valorDenominador,
+        item.metasPorFrecuencia,
+        item.sentidoDelIndicador,
+        item.unidadResponsable,
+        item.descIndicador,
+        item.descNumerador,
+        item.descDenominador,
+      ];
+
+      let x = a.every((value) => value === true);
+      return x;
+    });
+
+    let arrayActividad = editActividades.map((item) => {
+      let a = [
+        item.metaAnual,
+        item.lineaBase,
+        item.valorNumerador,
+        item.valorDenominador,
+        item.metasPorFrecuencia,
+        item.sentidoDelIndicador,
+        item.unidadResponsable,
+        item.descIndicador,
+        item.descNumerador,
+        item.descDenominador,
+      ];
+
+      let x = a.every((value) => value === true);
+      return x;
+    });
+
+    let respFin = arrayFin.every((item) => item[1] === true);
+    let respProposito = arrayProposito.every((item) => item[1] === true);
+    let respuestaComponentes = arrayComponentes.every((item) => item === true);
+    let respuestaActividades = arrayActividad.every((item) => item === true);
+
+    setDisablebutton2(respFin);
+
+    setDisablebutton3(respProposito);
+
+    setDisablebuttoncomponentes(respuestaComponentes);
+
+    setDisablebuttonactividades(respuestaActividades);
+  }, [editFin, editProposito, editComponentes, editActividades]);
 
   return (
     <Box

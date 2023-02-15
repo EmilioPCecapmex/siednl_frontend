@@ -7,4 +7,3 @@ export interface IComponente {
   medios: string;
   supuestos: string;
 }
-

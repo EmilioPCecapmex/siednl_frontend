@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {TabFinPropositoMA } from "./TabFinPropositoMA";
+import { TabFinPropositoMA } from "./TabFinPropositoMA";
 import { Box, IconButton } from "@mui/material";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
@@ -112,11 +112,11 @@ export default function AddMetaAnual({
 
   // ACTIVIDADES ------------------ No me sirve para FichaTecnica
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  const [componenteActividad, setComponenteActividad] = useState([
+  const componenteActividad = [
     {
       componentes: noComponentes.map((x) => [1, 2]),
     },
-  ]);
+  ];
 
   const [cValorMA, setCValorMA] = useState(
     componenteActividad.map((item) => {

@@ -12,7 +12,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import moment from 'moment'
+import moment from "moment";
 
 export const DialogComentarios = ({
   open,
@@ -24,7 +24,7 @@ export const DialogComentarios = ({
   solicitud: string;
 }) => {
   const [comentarios, setComentarios] = useState<Array<IComentarios>>([]);
-  const [renderComments, setRenderComments] = useState(false);
+  // const [renderComments, setRenderComments] = useState(false);
 
   const getComentarios = () => {
     axios({
@@ -41,7 +41,7 @@ export const DialogComentarios = ({
     })
       .then(function (response) {
         setComentarios(response.data.data);
-        setRenderComments(true);
+        // setRenderComments(true);
       })
       .catch(function (error) {
         Swal.fire({
@@ -56,14 +56,13 @@ export const DialogComentarios = ({
     if (open) {
       getComentarios();
     } else {
-      setRenderComments(false);
+      // setRenderComments(false);
     }
   }, [open]);
 
   return (
     <Dialog open={open} onClose={() => close()} fullWidth={true} maxWidth="md">
       <Box sx={{ width: "100%", height: "40vh" }}>
-        
         <TableContainer>
           <Table>
             <TableHead sx={{ width: "100%" }}>
@@ -85,7 +84,7 @@ export const DialogComentarios = ({
                 </TableCell>
               </TableRow>
             </TableHead>
-         
+
             <TableBody>
               {comentarios?.map((row) => {
                 return (
@@ -103,8 +102,8 @@ export const DialogComentarios = ({
                     <TableCell align="center" sx={{ width: "33%" }}>
                       <Typography sx={{ fontFamily: "MontserratRegular" }}>
                         {moment(row.FechaDeCreacion, moment.ISO_8601)
-                                    .format("DD/MM/YYYY HH:mm:SS")
-                                    .toString()}
+                          .format("DD/MM/YYYY HH:mm:SS")
+                          .toString()}
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -114,10 +113,20 @@ export const DialogComentarios = ({
           </Table>
         </TableContainer>
         {comentarios.length === 0 ? (
-<Box sx={{width: '100%', height: '80%', display:'flex', alignItems: 'center', justifyContent: 'center'}}>
-    <Typography sx={{fontFamily: 'MontserratRegular'}}>Sin Comentarios</Typography>
-</Box>
-            ): null}
+          <Box
+            sx={{
+              width: "100%",
+              height: "80%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography sx={{ fontFamily: "MontserratRegular" }}>
+              Sin Comentarios
+            </Typography>
+          </Box>
+        ) : null}
       </Box>
     </Dialog>
   );

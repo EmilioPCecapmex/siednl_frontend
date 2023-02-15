@@ -44,34 +44,6 @@ export const TabActividades = ({
   setActividadesM: Function;
   setCompAct: Function;
 }) => {
-
-  
-  // useEffect(() => {
-  //   let act: number[] = [];
-  //   let comp: string[] = [];
-  //   let ambos: any = [];
-  //   let i = 1;
-  //   let j = 1;
-
-
-  //   componentes.map((x: any) => {
-  //     comp.push("C" + j);
-  //     actividadesMir.map((a: any) => {
-        
-  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-  //         act.push(i);
-  //         i++;
-  //       }
-  //     });
-  //     ambos.push({ actividades: act, componente: "C" + j });
-  //     act = [];
-  //     i = 1;
-  //     j++;
-  //   });
-
-  //   setCompAct(ambos);
-  // }, [componentes]);
-
   const [actividades, setActividades] = React.useState([1, 2]);
   const [componenteActividad, setComponenteActividad] = useState([
     {
@@ -79,7 +51,7 @@ export const TabActividades = ({
     },
   ]);
 
-  let aument_number1 = -1;
+  let aument_number1 = 0;
 
   const [cValor, setCValor] = useState(
     componenteActividad.map((item) => {
@@ -105,6 +77,7 @@ export const TabActividades = ({
   );
 
   useEffect(() => {
+    
     if (componentes.length > cValor[0].componentes.length) {
       let restantes = componentes.length - cValor[0].componentes.length;
       let prevState = [...cValor];
@@ -147,27 +120,28 @@ export const TabActividades = ({
       setComponenteSelect(0);
     }
   }, [compAct, componentes]);
-  
+
   useEffect(() => {
     asignarCValor(cValor);
   }, [cValor]);
 
-  const [s, setS] = useState(0)
+  const [s, setS] = useState(0);
 
   useEffect(() => {
-      if (compAct.length > 0 && s === 0) {
-        loadActividadesMir();
-        setS(1)
-      }
-  }, [ cValor]);
+    if (compAct.length > 0) {
+      loadActividadesMir();
+      setS(1);
+    }
+  }, [actividadesMir]);
+  
 
-  let aument_number = -1;
-  let aumentComps = -1;
 
   const loadActividadesMir = () => {
+  let aument_number = -1;
+  let aumentComps = 0;
     let y = componenteActividad.map((item) => {
       return {
-        componentes: compAct.map((x, index) => {
+        componentes: compAct?.map((x, index) => {
           aumentComps++;
           return {
             actividades: x.actividades?.map((c, index2) => {
@@ -224,7 +198,7 @@ export const TabActividades = ({
   };
 
   const agregarAFnc = (index: number) => {
-    let act = cValor[0].componentes[componenteSelect].actividades;
+    let act = cValor[0].componentes[componenteSelect]?.actividades;
     let v = act.length;
 
     if (v < 7) {
@@ -261,7 +235,7 @@ export const TabActividades = ({
   };
 
   const eliminarAFnc = () => {
-    let act = cValor[0].componentes[componenteSelect].actividades;
+    let act = cValor[0].componentes[componenteSelect]?.actividades;
     let v = act.length - 1;
 
     if (v < 2) {
@@ -274,14 +248,11 @@ export const TabActividades = ({
       prevState[0].componentes[componenteSelect].actividades.pop();
       setCValor(prevState);
       asignarCValor(prevState);
-      
     }
   };
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
-
-  
 
   const [open, setOpen] = useState(1);
 
@@ -298,7 +269,7 @@ export const TabActividades = ({
 
   const handleClickOpen = () => {
     setPrevTextFormula(
-      cValor[0].componentes[componenteSelect].actividades[actividadSelect]
+      cValor[0].componentes[componenteSelect]?.actividades[actividadSelect]
         .formula
     );
     setOpenFormulaDialog(true);
@@ -316,7 +287,7 @@ export const TabActividades = ({
 
   const evalueTxtIndicador = () => {
     const cIndicador =
-      cValor[0].componentes[componenteSelect].actividades[
+      cValor[0].componentes[componenteSelect]?.actividades[
         actividadSelect
       ].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
@@ -423,10 +394,10 @@ export const TabActividades = ({
 
             if (
               actividadSelect + 1 ===
-              cValor[0].componentes[componenteSelect].actividades.length - 1
+              cValor[0].componentes[componenteSelect]?.actividades.length - 1
             ) {
               setActividadSelect(
-                cValor[0].componentes[componenteSelect].actividades.length - 1
+                cValor[0].componentes[componenteSelect]?.actividades.length - 1
               );
             }
           }}
@@ -441,7 +412,7 @@ export const TabActividades = ({
           onClick={() => {
             eliminarAFnc();
             setActividadSelect(
-              cValor[0].componentes[componenteSelect].actividades.length - 1
+              cValor[0].componentes[componenteSelect]?.actividades.length - 1
             );
           }}
           sx={{ mr: "1vw" }}
@@ -517,7 +488,7 @@ export const TabActividades = ({
                 </ListItemButton>
                 <Collapse in={open === item} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    {cValor[0].componentes[componenteSelect].actividades.map(
+                    {cValor[0].componentes[componenteSelect]?.actividades?.map(
                       (value, x) => {
                         return (
                           <ListItemButton
@@ -610,7 +581,7 @@ export const TabActividades = ({
               setCValor(y);
             }}
             value={
-              cValor[0].componentes[componenteSelect].actividades[
+              cValor[0].componentes[componenteSelect]?.actividades[
                 actividadSelect
               ]?.resumen
             }
@@ -653,13 +624,13 @@ export const TabActividades = ({
                 .replaceAll('"', "")
                 .replaceAll("'", "")
                 .replaceAll("\n", "");
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].formula = "";
+              y[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ].formula = "";
               setCValor(y);
             }}
             value={
-              cValor[0].componentes[componenteSelect].actividades[
+              cValor[0].componentes[componenteSelect]?.actividades[
                 actividadSelect
               ]?.indicador
             }
@@ -684,7 +655,7 @@ export const TabActividades = ({
             label={"FÓRMULA"}
             onClick={() => evalueTxtIndicador()}
             value={
-              cValor[0].componentes[componenteSelect].actividades[
+              cValor[0].componentes[componenteSelect]?.actividades[
                 actividadSelect
               ]?.formula
             }
@@ -714,7 +685,7 @@ export const TabActividades = ({
                     fontFamily: "MontserratMedium",
                   }}
                   checked={
-                    cValor[0].componentes[componenteSelect].actividades[
+                    cValor[0].componentes[componenteSelect]?.actividades[
                       actividadSelect
                     ]?.frecuencia === "TRIMESTRAL"
                   }
@@ -761,7 +732,7 @@ export const TabActividades = ({
               setCValor(y);
             }}
             value={
-              cValor[0].componentes[componenteSelect].actividades[
+              cValor[0].componentes[componenteSelect]?.actividades[
                 actividadSelect
               ]?.medios
             }
@@ -784,7 +755,7 @@ export const TabActividades = ({
               },
             }}
             value={
-              cValor[0].componentes[componenteSelect].actividades[
+              cValor[0].componentes[componenteSelect]?.actividades[
                 actividadSelect
               ]?.supuestos
             }
