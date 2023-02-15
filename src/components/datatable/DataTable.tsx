@@ -120,6 +120,7 @@ export const DataTable = ({
       ApellidoPaterno: "",
       ApellidoMaterno: "",
       CorreoElectronico: "",
+      Puesto:"",
       NombreUsuario: "",
       Cargo: "",
       Telefono: "",

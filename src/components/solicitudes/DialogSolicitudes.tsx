@@ -39,6 +39,7 @@ export const DialogSolicitudes = ({
         ApellidoMaterno:   "",
         NombreUsuario:     "",
         CorreoElectronico: "",
+        Puesto:            "",
         Curp:              "",
         Rfc:               "",
         Telefono:          "",
@@ -59,7 +60,7 @@ export const DialogSolicitudes = ({
 
     const getSolicitudes = () => {
         axios
-            .get("http://10.200.4.200:5000/api/solicitudes-app", {
+            .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/solicitudes-app", {
                 params: {
                     IdUsuario: localStorage.getItem("IdCentral"),
                     IdApp: localStorage.getItem("IdApp"),
@@ -78,7 +79,7 @@ export const DialogSolicitudes = ({
 
     const getDetalleSolicitud = () => {
         axios
-            .get("http://10.200.4.200:5000/api/detalleSol", {
+            .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/detalleSol", {
                 params: {
                     IdUsuario: localStorage.getItem("IdCentral"),
                     IdSolicitud: solicitudSeleccionada,
@@ -346,7 +347,7 @@ export const DialogSolicitudes = ({
                                         </Box> :
                                         <Box sx={{ width: "98%", height: "95%", display: "flex", alignItems: "flex-start", justifyContent: "center", flexDirection: "column", bgcolor: "#fff", borderRadius: "15px" }}>
                                             <Box sx={{ width: "98%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-                                                <Box sx={{ width: "100%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
+                                                <Box sx={{ width: "90%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <TextField
                                                         label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>Aplicación</Typography>}
                                                         InputLabelProps={{}}
@@ -373,7 +374,7 @@ export const DialogSolicitudes = ({
                                                     </Box>
 
                                                 </Box>
-                                                <Box sx={{ width: "100%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
+                                                <Box sx={{ width: "90%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <TextField
                                                         label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>NOMBRE(S)</Typography>}
                                                         InputProps={{ readOnly: true, }}
@@ -393,11 +394,11 @@ export const DialogSolicitudes = ({
                                                         value={detalleSolicitud[0]?.ApellidoMaterno || ''}
                                                         variant="standard" />
                                                 </Box>
-                                                <Box sx={{ width: "100%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
+                                                <Box sx={{ width: "90%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <TextField
                                                         label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>USUARIO</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "25%" }}
+                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "20%" }}
                                                         value={detalleSolicitud[0]?.NombreUsuario || ''}
                                                         variant="standard" />
                                                     <TextField
@@ -409,11 +410,17 @@ export const DialogSolicitudes = ({
                                                     <TextField
                                                         label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>CELULAR</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "25%" }}
+                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "20%" }}
                                                         value={detalleSolicitud[0]?.Celular || ''}
                                                         variant="standard" />
+                                                    <TextField
+                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>Puesto</Typography>}
+                                                        InputProps={{ readOnly: true, }}
+                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "15%" }}
+                                                        value={detalleSolicitud[0]?.Puesto || ''}
+                                                        variant="standard" />
                                                 </Box>
-                                                <Box sx={{ width: "100%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
+                                                <Box sx={{ width: "90%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <TextField
                                                         label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>CURP</Typography>}
                                                         InputProps={{ readOnly: true, }}
