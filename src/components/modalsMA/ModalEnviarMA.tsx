@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail, sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
+import { sendMail} from "../../funcs/sendMailCustomMessage";
 
 export let errores: string[] = [];
 
@@ -380,6 +380,7 @@ export default function ModalEnviarMA({
   };
 
   const checkActividades = (v: string) => {
+    // eslint-disable-next-line array-callback-return
     JSON.parse(MA)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.metaAnual === undefined ||
@@ -528,6 +529,7 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
+        // eslint-disable-next-line array-callback-return
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico,enviarMensaje,"MA")
@@ -577,6 +579,7 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
+        // eslint-disable-next-line array-callback-return
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
@@ -591,8 +594,9 @@ export default function ModalEnviarMA({
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    let inst = JSON.parse(MIR)?.encabezado.institucion;
+  useEffect(() => {
+    if (open) {
+      let inst = JSON.parse(MIR)?.encabezado.institucion;
 
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
@@ -600,6 +604,7 @@ export default function ModalEnviarMA({
 
     axios
       .get(
+        // eslint-disable-next-line no-useless-concat
         process.env.REACT_APP_APPLICATION_LOGIN + "" + "/api/usuarioXInstitucion",
         {
           params: {
@@ -616,13 +621,8 @@ export default function ModalEnviarMA({
           setUserXInst(r.data.data);
         }
       });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const enviarNotificacion = (v: string) => {
     axios.post(

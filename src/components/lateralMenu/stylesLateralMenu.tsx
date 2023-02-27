@@ -7,7 +7,7 @@ export const lstXl = {
     backgroundColor: "#fff",
   },
   imgBox: {
-    paddingTop: "3vh",
+    paddingTop: "1vh",
     width: "100%",
     height: "6vh",
   },
@@ -30,10 +30,7 @@ export const lstXl = {
     boxShadow: 4,
   },
   userInfoBox: {
-    width: "100%",
-    height: "2vh",
     textAlign: "center",
-    font: "MontserratBold",
     fontSize: ".8vw",
     fontFamily: "MontserratBold",
   },
@@ -45,9 +42,7 @@ export const lstXl = {
   /////////////////////////////////////////////
   institucionStyle: {
     fontFamily: "MontserratMedium",
-    alignItems: "center",
     display: "flex",
-    textAlign: "center",
     fontSize: ".5vw",
     justifyContent: "center",
     ml: 1,
@@ -109,14 +104,14 @@ export const lstXl = {
 
 export const lstLg = {
   parentBox: {
-    width: "20vw",
+    width: "17vw",
     height: "100vh ",
     backgroundColor: "#fff",
     flexDirection: "column",
     boxShadow: 5,
   },
   imgBox: {
-    paddingTop: "3vh",
+    paddingTop: "2vh",
     width: "100%",
     height: "6vh",
   },
@@ -134,21 +129,18 @@ export const lstLg = {
   avatarStyle: {
     width: 70,
     height: 70,
-    fontSize: "1.5vw",
+    fontSize: "2vw",
     fontFamily: "MontserratMedium",
     boxShadow: 4,
   },
   userInfoBox: {
-    width: "100%",
-    height: "2vh",
     textAlign: "center",
-    font: "MontserratBold",
-    fontSize: "1.5vw",
+    fontSize: "1vw",
     fontFamily: "MontserratBold",
   },
   rolStyle: {
     fontFamily: "MontserratMedium",
-    fontSize: "1vw",
+    fontSize: ".9vw",
     fontStyle: "oblique",
   },
   institucionStyle: {
@@ -223,7 +215,7 @@ export const lstMd = {
     boxShadow: 5,
   },
   imgBox: {
-    paddingTop: "3vh",
+    paddingTop: "1vh",
     width: "100%",
     height: "6vh",
   },
@@ -241,21 +233,18 @@ export const lstMd = {
   avatarStyle: {
     width: 80,
     height: 80,
-    fontSize: "1.5vw",
+    fontSize: "3vw",
     fontFamily: "MontserratMedium",
     boxShadow: 4,
   },
   userInfoBox: {
-    width: "100%",
-    height: "2vh",
     textAlign: "center",
-    font: "MontserratBold",
-    fontSize: "1.5vw",
+    fontSize: "1.3vw",
     fontFamily: "MontserratBold",
   },
   rolStyle: {
     fontFamily: "MontserratMedium",
-    fontSize: "1vw",
+    fontSize: "1.15vw",
     fontStyle: "oblique",
   },
   institucionStyle: {
@@ -323,14 +312,14 @@ export const lstMd = {
 
 export const lstSm = {
   parentBox: {
-    width: "50vw",
+    width: "30vw",
     height: "100vh",
     backgroundColor: "#fff",
     flexDirection: "column",
     boxShadow: 5,
   },
   imgBox: {
-    paddingTop: "3vh",
+    paddingTop: "1vh",
     width: "100%",
     height: "6vh",
   },
@@ -348,16 +337,123 @@ export const lstSm = {
   avatarStyle: {
     width: 60,
     height: 60,
-    fontSize: "1.5vw",
+    fontSize: "3.5vw",
     fontFamily: "MontserratMedium",
     boxShadow: 4,
   },
   userInfoBox: {
-    width: "100%",
-    height: "2vh",
     textAlign: "center",
-    font: "MontserratBold",
-    fontSize: "2.5vw",
+    fontSize: "2vw",
+    fontFamily: "MontserratBold",
+  },
+  rolStyle: {
+    fontFamily: "MontserratMedium",
+    fontSize: "1.7vw",
+    fontStyle: "oblique",
+  },
+  ///////////////////////////////////////////////
+  institucionStyle: {
+    fontFamily: "MontserratMedium",
+    fontSize: "1.5vw",
+    alignItems: "center",
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
+    ml: 1,
+    mt: 3,
+  },
+///////////////////////////////////////////////
+  selectInstitucionBox: {
+    width: "90%",
+    height: "4vh",
+    justifyContent: "center",
+    display: "flex",
+    alignItems: "center",
+    ml: 2,
+  },
+  selectInstitucionStyle: {
+    width: "100%",
+    textAlign: "center",
+    fontFamily: "MontserratMedium",
+    fontSize: "2vw",
+  },
+  dividerBox: {
+    backgroundColor: "#ccc",
+    width: "100%",
+    height: "0.1vh",
+  },
+  menuListBox: {
+    width: "100%",
+    height: "40vh",
+    overflowY: "auto",
+    overflowX: "hidden",
+  },
+  selectedBox: {
+    width: ".5vw",
+    backgroundColor: "#c4a57b",
+    height: "3vh",
+    position: "absolute",
+    right: -1,
+  },
+  subMenuItemStyle: { pl: 4 },
+
+  bottomMenuBox: {
+    width: "100%",
+    height: "10vh",
+    mt: "1vh",
+  },
+  iconMenuList: { color: "#15212f", width: "3vw" },
+  firstItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: "2vw",
+    ml: "2vw",
+  },
+  subMenuItemsText: {
+    fontFamily: "MontserratLight",
+    fontSize: "1.8vw",
+    ml: "2vw",
+  },
+  bottomItemsStyle: {
+    fontFamily: "MontserratLight",
+    fontSize: "2vw",
+    ml: "2vw",
+  },
+};
+
+export const lstXs = {
+  parentBox: {
+    width: "35vw",
+    height: "100vh",
+    backgroundColor: "#fff",
+    flexDirection: "column",
+    boxShadow: 5,
+  },
+  imgBox: {
+    paddingTop: "1vh",
+    width: "100%",
+    height: "6vh",
+  },
+  imgSize: {
+    width: "100%",
+    height: "70%",
+  },
+  avatarBox: {
+    width: "100%",
+    height: "14vh",
+    justifyContent: "center",
+    display: "flex",
+    alignItems: "center",
+  },
+  avatarStyle: {
+    width: 60,
+    height: 60,
+    fontSize: "5.5vw",
+    fontFamily: "MontserratMedium",
+    boxShadow: 4,
+  },
+  userInfoBox: {
+    textAlign: "center",
+    fontSize: "3vw",
     fontFamily: "MontserratBold",
   },
   rolStyle: {

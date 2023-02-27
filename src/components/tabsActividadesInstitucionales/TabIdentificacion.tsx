@@ -4,13 +4,11 @@ import {
   Box,
   Typography,
   Autocomplete,
-  CircularProgress,
   List,
   FormControl,
   Divider,
   ListItemButton,
 } from "@mui/material";
-import { IIdentificacionActInst } from "./IIdentificacionActInst";
 import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
 import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
 import axios from "axios";

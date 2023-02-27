@@ -349,6 +349,7 @@ export default function ModalSolicitaModif({
   };
 
   const checkActividades = (v: string) => {
+    // eslint-disable-next-line array-callback-return
     JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.tipoDeIndicador === undefined ||
@@ -488,8 +489,10 @@ export default function ModalSolicitaModif({
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    axios
+
+  useEffect(() => {
+    if (open) {
+      axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
         {
@@ -507,13 +510,8 @@ export default function ModalSolicitaModif({
           setUserXInst(r.data.data);
         }
       });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const Toast = Swal.mixin({
     toast: false,

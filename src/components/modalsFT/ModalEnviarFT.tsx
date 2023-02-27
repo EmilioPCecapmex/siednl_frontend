@@ -291,6 +291,7 @@ export default function ModalEnviarFT({
   };
 
   const checkActividades = (v: string) => {
+    // eslint-disable-next-line array-callback-return
     JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
       if (actividad.tipoDeIndicador === "") {
         errores.push(
@@ -389,6 +390,7 @@ export default function ModalEnviarFT({
         }
       )
       .then((r) => {
+        // eslint-disable-next-line array-callback-return
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico,enviarMensaje, "FT");
@@ -413,8 +415,9 @@ export default function ModalEnviarFT({
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    let inst = JSON.parse(MIR)?.encabezado.institucion;
+  useEffect(() => {
+    if (open) {
+      let inst = JSON.parse(MIR)?.encabezado.institucion;
 
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
@@ -438,13 +441,8 @@ export default function ModalEnviarFT({
           setUserXInst(r.data.data);
         }
       });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const enviarNotificacion = (v: string) => {
     axios.post(

@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -10,7 +11,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail, sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
+import { sendMail} from "../../funcs/sendMailCustomMessage";
 export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
@@ -29,7 +30,7 @@ export default function ModalEnviarMIR({
   const [comment, setComment] = useState("");
 
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
-  const [userSelected, setUserSelected] = useState("0");
+  const [userSelected] = useState("0"); //, setUserSelected
   let err = 0;
 
   const [newComent, setNewComent] = React.useState(false);
@@ -476,7 +477,7 @@ export default function ModalEnviarMIR({
               : "¡MIR enviada con éxito!",
         });
 
-        if (comment != "") {
+        if (comment !== "") {
           comentMir(r.data.data.ID);
         }
         showResume();
@@ -487,8 +488,10 @@ export default function ModalEnviarMIR({
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    let inst = JSON.parse(MIR)?.encabezado.institucion;
+
+  useEffect(() => {
+    if (open) {
+      let inst = JSON.parse(MIR)?.encabezado.institucion;
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
     }
@@ -512,13 +515,8 @@ export default function ModalEnviarMIR({
           
         }
       });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const enviarNotificacion = (v: string) => {
     axios.post(

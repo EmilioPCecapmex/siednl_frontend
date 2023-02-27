@@ -7,7 +7,7 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  TextField,
+  // TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -28,7 +28,6 @@ export const Credenciales = ({
   setKFile,
   setCFile,
   setNoSerie,
-  noSerie,
 }: {
   show: boolean;
   validado: Function;
@@ -38,24 +37,23 @@ export const Credenciales = ({
   setKFile: Function;
   setCFile: Function;
   setNoSerie: Function;
-  noSerie: string;
 }) => {
-  const fontTextfield = {
-    fontFamily: "MontserratSemiBold",
-    fontSize: {
-      xs: "80%",
-      sm: "80%",
-      md: "80%",
-      lg: "80%",
-      xl: "100%",
-    },
-  };
+  // const fontTextfield = {
+  //   fontFamily: "MontserratSemiBold",
+  //   fontSize: {
+  //     xs: "80%",
+  //     sm: "80%",
+  //     md: "80%",
+  //     lg: "80%",
+  //     xl: "100%",
+  //   },
+  // };
 
   const [rfc, setRfc] = useState("");
 
-  const getRfc = () => {
+  useEffect(() => {
     axios
-      .get("http://10.200.4.105:8500/api/rfc", {
+      .get(process.env.REACT_APP_APPLICATION_FIRMA + "/api/rfc", {
         params: {
           IdUsuario: localStorage.getItem("IdCentral"),
         },
@@ -69,11 +67,7 @@ export const Credenciales = ({
           setRFC(r.data.data.Rfc.toUpperCase());
         }
       });
-  };
-
-  useEffect(() => {
-    getRfc();
-  }, []);
+  }, [setRFC]);
 
   const [rfcCer, setRfcCer] = useState("");
   const [contrasena, setContrasena] = useState("");
@@ -109,7 +103,7 @@ export const Credenciales = ({
     dataArray.append("rfc", rfc);
 
     axios
-      .post("http://10.200.4.105:8500/api/check", dataArray, {
+      .post(process.env.REACT_APP_APPLICATION_FIRMA + "/api/check", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -200,173 +194,102 @@ export const Credenciales = ({
         document.removeEventListener("keydown", listener);
       };
     }
-  }, [contrasena]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cerFile, contrasena, disableValidar, keyFile]);
 
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
       sx={{
-        width: { xs: "90%", sm: "90%", md: "90%", lg: "80%", xl: "80%" },
+        width: "90%",
         height: "inherit",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-evenly",
+        display: "grid",
+        gridTemplateRows: "repeat(4, 1fr)",
+        alignItems: "center",
       }}
     >
-      <Box
-        sx={{
-          height: "50%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-        }}
+      <FormControl
+        disabled={disableValidar}
+        sx={{ width: "100%" }}
+        variant="outlined"
+        size="small"
       >
-        <TextField
-          disabled
-          InputLabelProps={{
-            sx: {
-              fontTextfield,
+        <InputLabel
+          sx={{
+            fontSize: {
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
             },
+            fontFamily: "MontserratSemiBold",
           }}
-          InputProps={
-            rfcCer === ""
-              ? {
-                  sx: fontTextfield,
-                }
-              : {
-                  endAdornment:
-                    disableValidar && rfc !== "" ? (
-                      <Tooltip title={"RFC correcto"}>
-                        <CheckCircleOutlineIcon
-                          sx={{
-                            fontSize: {
-                              xs: "70%",
-                              sm: "80%",
-                              md: "70%",
-                              lg: "80%",
-                              xl: "100%",
-                            },
-                            color: "green",
-                          }}
-                        ></CheckCircleOutlineIcon>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title={"Archivo .cer no compatible con el RFC"}>
-                        <ErrorOutlineIcon
-                          sx={{
-                            fontSize: {
-                              xs: "70%",
-                              sm: "80%",
-                              md: "70%",
-                              lg: "80%",
-                              xl: "100%",
-                            },
-                            color: "red",
-                          }}
-                        ></ErrorOutlineIcon>
-                      </Tooltip>
-                    ),
-                }
-          }
-          size="small"
-          label={
-            <Typography
-              sx={{
-                fontSize: {
-                  xs: "85%",
-                  sm: "85%",
-                  md: "85%",
-                  lg: "75%",
-                  xl: "95%",
-                },
-                fontFamily: "MontserratMedium",
-              }}
-            >
-              RFC
-            </Typography>
+        >
+          RFC DEL FIRMANTE
+        </InputLabel>
+        <OutlinedInput
+          label="RFC DEL FIRMANTE"
+          sx={{
+            fontSize: {
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
+            },
+            fontFamily: "MontserratSemiBold",
+          }}
+          endAdornment={
+            disableValidar && rfc !== "" && rfcCer !== "" ? (
+              <Tooltip title={"RFC correcto"}>
+                <CheckCircleOutlineIcon
+                  sx={{
+                    fontSize: {
+                      xs: "70%",
+                      sm: "80%",
+                      md: "70%",
+                      lg: "80%",
+                      xl: "100%",
+                    },
+                    color: "green",
+                  }}
+                ></CheckCircleOutlineIcon>
+              </Tooltip>
+            ) : (
+              <Tooltip title={"Archivo .cer no compatible con el RFC"}>
+                <ErrorOutlineIcon
+                  sx={{
+                    fontSize: {
+                      xs: "70%",
+                      sm: "80%",
+                      md: "70%",
+                      lg: "80%",
+                      xl: "100%",
+                    },
+                    color: "red",
+                  }}
+                ></ErrorOutlineIcon>
+              </Tooltip>
+            )
           }
           value={rfc || ""}
-        ></TextField>
-
-        <TextField
-          disabled
-          size="small"
-          multiline
-          maxRows={2}
-          label={
-            <Typography
-              sx={{
-                fontSize: {
-                  xs: "85%",
-                  sm: "85%",
-                  md: "85%",
-                  lg: "75%",
-                  xl: "95%",
-                },
-                fontFamily: "MontserratMedium",
-              }}
-            >
-              NÚMERO DE SERIE
-            </Typography>
-          }
-          InputLabelProps={{
-            sx: {
-              fontTextfield,
-            },
+          onChange={(v) => {
+            setRfc(v.target.value.toUpperCase());
+            setRFC(v.target.value.toUpperCase());
           }}
-          InputProps={
-            /^[\s]*$/.test(rfcCer)
-              ? {
-                  sx: fontTextfield,
-                }
-              : {
-                  endAdornment:
-                    disableValidar && noSerie !== "" ? (
-                      <Tooltip title={"Número de serie correcto"}>
-                        <CheckCircleOutlineIcon
-                          sx={{
-                            fontSize: {
-                              xs: "70%",
-                              sm: "80%",
-                              md: "70%",
-                              lg: "80%",
-                              xl: "100%",
-                            },
-                            color: "green",
-                          }}
-                        ></CheckCircleOutlineIcon>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title={"Archivo .cer no compatible con el RFC"}>
-                        <ErrorOutlineIcon
-                          sx={{
-                            fontSize: {
-                              xs: "70%",
-                              sm: "80%",
-                              md: "70%",
-                              lg: "80%",
-                              xl: "100%",
-                            },
-                            color: "red",
-                          }}
-                        ></ErrorOutlineIcon>
-                      </Tooltip>
-                    ),
-                }
-          }
-          value={noSerie || ""}
-        ></TextField>
-      </Box>
+        />
+      </FormControl>
 
-      <Box sx={{ mb: 2, height: "20%" }}>
+      <Box sx={{ height: "100%" }}>
         <Typography
           sx={{
             fontSize: {
-              xs: "85%",
-              sm: "85%",
-              md: "85%",
-              lg: "75%",
-              xl: "95%",
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
             },
             fontFamily: "MontserratMedium",
           }}
@@ -383,14 +306,20 @@ export const Credenciales = ({
             backgroundColor:
               disableValidar && rfc !== "" ? "#efefef" : "lightGrey",
             fontSize: {
-              xs: "85%",
-              sm: "85%",
-              md: "85%",
-              lg: "75%",
-              xl: "95%",
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
             },
             fontFamily: "MontserratMedium",
-            width: "30.5%",
+            width: {
+              xs: "64%",
+              sm: "44.3%",
+              md: "46.5%",
+              lg: "39.7%",
+              xl: "35%",
+            },
             height: "2.5%",
           }}
         >
@@ -403,7 +332,7 @@ export const Credenciales = ({
           style={{
             opacity: 0,
             width: "100%",
-            height: "2vh",
+            height: "2.5vh",
             cursor: "pointer",
           }}
           onChange={(v) => {
@@ -413,15 +342,15 @@ export const Credenciales = ({
         ></input>
       </Box>
 
-      <Box sx={{ mb: 2, height: "20%" }}>
+      <Box sx={{ height: "100%" }}>
         <Typography
           sx={{
             fontSize: {
-              xs: "85%",
-              sm: "85%",
-              md: "85%",
-              lg: "75%",
-              xl: "95%",
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
             },
             fontFamily: "MontserratMedium",
           }}
@@ -438,15 +367,21 @@ export const Credenciales = ({
             backgroundColor:
               disableValidar && rfc !== "" ? "#efefef" : "lightGrey",
             fontSize: {
-              xs: "85%",
-              sm: "85%",
-              md: "85%",
-              lg: "75%",
-              xl: "95%",
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
             },
             fontFamily: "MontserratMedium",
             cursor: "pointer",
-            width: "30.5%",
+            width: {
+              xs: "64%",
+              sm: "44.3%",
+              md: "46.5%",
+              lg: "39.7%",
+              xl: "35%",
+            },
             height: "2.5%",
           }}
         >
@@ -459,7 +394,7 @@ export const Credenciales = ({
           style={{
             opacity: 0,
             width: "100%",
-            height: "2vh",
+            height: "2.5vh",
             cursor: "pointer",
           }}
           onChange={(v) => {
@@ -471,20 +406,20 @@ export const Credenciales = ({
 
       <FormControl
         disabled={disableValidar}
-        sx={{ width: "100%", height: "20%" }}
+        sx={{ width: "100%", height: "100%" }}
         variant="outlined"
         size="small"
       >
         <InputLabel
           sx={{
             fontSize: {
-              xs: "85%",
-              sm: "85%",
-              md: "85%",
-              lg: "75%",
-              xl: "95%",
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
             },
-            fontFamily: "MontserratMedium",
+            fontFamily: "MontserratSemiBold",
           }}
         >
           CONTRASEÑA DE LA CLAVE PRIVADA
@@ -494,13 +429,13 @@ export const Credenciales = ({
           type={showPassword ? "text" : "password"}
           sx={{
             fontSize: {
-              xs: "85%",
-              sm: "85%",
-              md: "85%",
-              lg: "75%",
-              xl: "95%",
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
             },
-            fontFamily: "MontserratMedium",
+            fontFamily: "MontserratSemiBold",
           }}
           endAdornment={
             <InputAdornment position="end">

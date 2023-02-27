@@ -197,7 +197,7 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 200) {
-          if (comentario != "")
+          if (comentario !== "")
             createComentarios(r.data.data[0][0].IdSolicitud);
 
           Toast.fire({

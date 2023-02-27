@@ -134,7 +134,7 @@ export const ActFichaTecnica = ({
     let z = metaAnualNumero + x;
 
     //let xString = x.toFixed(2);
-    let xString = x.toFixed(2);
+    //let xString = x.toFixed(2);
     let yString = y.toFixed(2);
     let zString = z.toFixed(2);
 
@@ -143,7 +143,7 @@ export const ActFichaTecnica = ({
     let y1 = metaAnualNumero - x1;
     let z1 = metaAnualNumero + x1;
 
-    let x1String = x1.toFixed(2);
+    //let x1String = x1.toFixed(2);
     let y1String = y1.toFixed(2);
     let z1String = z1.toFixed(2);
 

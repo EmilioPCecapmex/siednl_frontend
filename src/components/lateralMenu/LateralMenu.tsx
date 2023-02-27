@@ -32,7 +32,7 @@ import { logout } from "../../funcs/validation";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
+import { lstLg, lstMd, lstSm, lstXl, lstXs } from "./stylesLateralMenu";
 import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
 import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
@@ -51,6 +51,7 @@ export const LateralMenu = ({
   actionNumber: number;
   settingsCard?: Function;
 }) => {
+  
   const theme = useTheme();
   let st = lstXl;
 
@@ -58,13 +59,14 @@ export const LateralMenu = ({
   const isLg = useMediaQuery(theme.breakpoints.up("lg"));
   const isMd = useMediaQuery(theme.breakpoints.up("md"));
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
-  // const isXs = useMediaQuery(theme.breakpoints.up("xs"));
+  const isXs = useMediaQuery(theme.breakpoints.up("xs"));
 
   if (isXl) st = lstXl;
   else if (isLg) st = lstLg;
   else if (isMd) st = lstMd;
   else if (isSm) st = lstSm;
-  // else if (isXs) st = lstXs;
+  else if (isXs) st = lstXs;
+
   const navigate = useNavigate();
   const [openProgramas, setOpenProgramas] = useState(true);
   const [openDocs, setOpenDocs] = useState(false);

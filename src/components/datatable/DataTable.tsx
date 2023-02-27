@@ -66,8 +66,7 @@ export const DataTable = ({
       });
   };
 
-  // Filtrado por caracter
-  const findText = () => {
+  useEffect(() => {
     if (textFind !== "") {
       setUsersFiltered(
         usuarios.filter((x) => x.Nombre.toLowerCase().includes(textFind))
@@ -75,11 +74,7 @@ export const DataTable = ({
     } else {
       setUsersFiltered(usuarios);
     }
-  };
-
-  useEffect(() => {
-    findText();
-  }, [textFind]);
+  }, [textFind, usuarios]);
 
   const [actualizacion, setActualizacion] = useState(0);
   useEffect(() => {

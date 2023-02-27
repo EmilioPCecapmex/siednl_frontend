@@ -116,7 +116,7 @@ export const FormulaDialog = ({
       setDescB("");
     }
     setEmptyTxt(false);
-  }, [open]);
+  }, [open, prevText]);
 
   return (
     <Dialog open={open} fullWidth>

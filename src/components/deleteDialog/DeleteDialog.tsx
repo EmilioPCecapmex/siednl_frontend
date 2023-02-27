@@ -79,7 +79,7 @@ export const DeleteDialog = ({
         }
       )
       .then((r) => {
-        if (r.data.data[0][0].Respuesta == 201) {
+        if (r.data.data[0][0].Respuesta === 201) {
           if (comentario.length > 10) {
             setIdSolicitud(r.data.data[0][0].IdSolicitud);
           }
@@ -91,47 +91,43 @@ export const DeleteDialog = ({
         }
       })
       .catch((r) => {
-        if (r.data.data[0][0].Respuesta == 409) {
-        }
-      });
-  };
-
-  const createComentarios = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
-        {
-          CreadoPor: localStorage.getItem("IdCentral"),
-          IdSolicitud: idSolicitud,
-          Comentario: comentario,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 201) {
-          Toast.fire({
-            icon: "success",
-            title: "Solicitud Creada!",
-          });
-
-          handleClose();
-        }
-      })
-      .catch((r) => {
-        if (r.response.status === 409) {
+        if (r.data.data[0][0].Respuesta === 409) {
         }
       });
   };
 
   React.useEffect(() => {
-    if (idSolicitud != "") {
-      createComentarios();
+    if (idSolicitud !== "") {
+      axios
+        .post(
+          process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
+          {
+            CreadoPor: localStorage.getItem("IdCentral"),
+            IdSolicitud: idSolicitud,
+            Comentario: comentario,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 201) {
+            Toast.fire({
+              icon: "success",
+              title: "Solicitud Creada!",
+            });
+
+            handleClose();
+          }
+        })
+        .catch((r) => {
+          if (r.response.status === 409) {
+          }
+        });
     }
-  }, [idSolicitud]);
+  }, [Toast, comentario, idSolicitud]);
 
   return (
     <Box>

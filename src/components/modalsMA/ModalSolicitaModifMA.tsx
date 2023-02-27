@@ -377,6 +377,7 @@ export default function ModalSolicitaModif({
   };
   ///////////////////////////////////////////////////////////////////
   const checkActividades = (v: string) => {
+    // eslint-disable-next-line array-callback-return
     JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
       if (
         actividad.metaAnual === undefined ||
@@ -548,9 +549,10 @@ export default function ModalSolicitaModif({
         });
       });
   };
-  ////////////////////////////////////////////////////////////////////////
-  const getUsuariosXInstitucion = () => {
-    axios
+
+  useEffect(() => {
+    if (open) {
+      axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
         {
@@ -568,14 +570,8 @@ export default function ModalSolicitaModif({
           setUserXInst(r.data.data);
         }
       });
-  };
-  ///////////////////////////////////////////////////////////////////////
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
-      // setInstSelected(JSON.parse(MIR)?.encabezado?.institucion);
     }
-  }, [open]);
+  }, [MIR, open]);
   ///////////////////////////////////////////////////////////////////////////////////
   const Toast = Swal.mixin({
     toast: false,

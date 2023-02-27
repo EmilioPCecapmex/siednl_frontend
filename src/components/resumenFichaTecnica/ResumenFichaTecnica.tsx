@@ -460,7 +460,9 @@ export const ResumenFichaTecnica = ({
 
   //PARA SACAR EL ÚLTIMO NÚMERO DE PÁGINA DE LOS COMPONENTES
   useEffect(() => {
+    // eslint-disable-next-line array-callback-return
     jsonMir.componentes.map((a: IComponente, index: number) => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       paginacion = paginacion + 1;
       paginaciones.push(paginacion);
     });

@@ -197,7 +197,7 @@ export default function ModalEditarUsuario({
       .then((r) => {
         if (r.status === 200) {
           // siednlSignUp(r.data.data[0][0].IdSolicitud);
-          if (comentario != "")
+          if (comentario !== "")
             createComentarios(r.data.data[0][0].IdSolicitud);
 
           Toast.fire({
@@ -346,13 +346,13 @@ export default function ModalEditarUsuario({
         text: "Ingresa un correo electrónico.",
         type: "error",
       });
-    } else if (username != dataUser.NombreUsuario) {
+    } else if (username !== dataUser.NombreUsuario) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar nombre de usuario ",
         type: "error",
       });
-    } else if (email != dataUser.CorreoElectronico) {
+    } else if (email !== dataUser.CorreoElectronico) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar el correo electrónico ",

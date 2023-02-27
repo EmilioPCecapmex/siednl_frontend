@@ -1,16 +1,27 @@
-import { Box, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
-import Stack from "@mui/material/Stack";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+// import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Tooltip from "@mui/material/Tooltip";
-import { DialogCcp } from "../DialogCCP";
+import { DialogCcp, ICCP } from "./DialogCCP";
 import Button from "@mui/material/Button";
 import Swal from "sweetalert2";
 import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const Documento = ({
   show,
@@ -43,6 +54,64 @@ export const Documento = ({
   noSerie: string;
   setDate: Function;
 }) => {
+  const fontSize1 = {
+    xs: "60%",
+    sm: "70%",
+    md: "80%",
+    lg: "80%",
+    xl: "100%",
+  };
+
+  // const fontSize2 = {
+  //   fontSize: {
+  //     xs: "50%",
+  //     sm: "70%",
+  //     md: "80%",
+  //     lg: "80%",
+  //     xl: "100%",
+  //   },
+  // };
+
+  // const fontSize3 = {
+  //   fontSize: {
+  //     xs: "70%",
+  //     sm: "70%",
+  //     md: "80%",
+  //     lg: "70%",
+  //     xl: "100%",
+  //   },
+  // };
+
+  // const fontSize4 = {
+  //   fontSize: {
+  //     xs: "50%",
+  //     sm: "70%",
+  //     md: "70%",
+  //     lg: "80%",
+  //     xl: "100%",
+  //   },
+  // };
+
+  // const fontSize5 = {
+  //   fontSize: {
+  //     xs: "70%",
+  //     sm: "70%",
+  //     md: "80%",
+  //     lg: "80%",
+  //     xl: "100%",
+  //   },
+  // };
+
+  const fontSize6 = {
+    fontSize: {
+      xs: "60%",
+      sm: "60%",
+      md: "60%",
+      lg: "60%",
+      xl: "100%",
+    },
+  };
+
   const fecha = new Date();
   const anio = fecha.getFullYear();
 
@@ -61,20 +130,26 @@ export const Documento = ({
   const fechaActual = `${anio}-${mesActual}-${hoy}`;
 
   const [noOficio, setNoOficio] = useState("");
+
+  const [fechaOficio, setFechaOficio] = useState(fechaActual);
   const [asunto, setAsunto] = useState("");
   const [ccp, setCcp] = useState("");
 
   const [file, setFile] = useState("");
   const [nombreArchivo, setNombreArchivo] = useState("");
 
-  const [catalogoUsuarios, setCatalogoUsuarios] = useState<
+  const [catalogoDestinatarios, setCatalogoDestinatarios] = useState<
     Array<IUsuariosFIEL>
   >([]);
 
+  const [catalogoTipoDoc] = useState<Array<ITipoDoc>>([
+    //, setCatalogoTipoDoc
+    { Id: "1", Tipo: "OFICIO" },
+  ]);
+
   const [usuarios, setUsuarios] = useState<Array<IUsuariosFIEL>>([]);
-
+  const [tipoDoc, setTipoDoc] = useState("");
   const [ccpCorreos, setCcpCorreos] = useState("");
-
   const [disableFirmar, setDisableValidar] = useState(false);
 
   useEffect(() => {
@@ -91,7 +166,7 @@ export const Documento = ({
 
   const getUsuariosXApp = () => {
     axios
-      .get("http://10.200.4.105:8500/api/users-app", {
+      .get(process.env.REACT_APP_APPLICATION_FIRMA + "/api/users-app", {
         params: {
           IdApp: "ffcc48cb-3087-11ed-aed0-040300000000",
         },
@@ -100,9 +175,8 @@ export const Documento = ({
         },
       })
       .then((r) => {
-        
         if (r.status === 200) {
-          setCatalogoUsuarios(r.data.data);
+          setCatalogoDestinatarios(r.data.data);
         }
       });
   };
@@ -121,18 +195,20 @@ export const Documento = ({
         url: `http://10.200.4.199:3000/validador?Id=${id}`,
       },
     ]);
-  }, []);
+  }, [id]);
 
   const servicioCorreo = () => {
     let a: string[] = [];
 
     usuarios.map((x) => {
       a.push(x.CorreoElectronico);
+      return a;
     });
 
     if (ccpCorreos !== "") {
       JSON.parse(ccpCorreos).map((y: any) => {
         a.push(y?.correo);
+        return a;
       });
     }
 
@@ -140,22 +216,26 @@ export const Documento = ({
       {
         referencia: "007",
         to: a,
-        subject: "correo de prueba",
+        subject: `Documento Firmado por ${localStorage.getItem(
+          "NombreUsuario"
+        )}`,
         data: JSON.stringify(data[0]),
       },
     ];
 
     axios
-      .post("http://10.200.4.105:8001/api/serviciocorreo", dataArray[0], {
-        responseType: "blob", // important
-        headers: {
-          ContentType: "application/x-www-form-urlencoded",
-        },
-      })
-      .then((response) => {
-      })
-      .catch((err) => {
-      });
+      .post(
+        process.env.REACT_APP_APPLICATION_CORREO + "/api/serviciocorreo",
+        dataArray[0],
+        {
+          responseType: "blob", // important
+          headers: {
+            ContentType: "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((response) => {})
+      .catch((err) => {});
   };
 
   const [openModalCcp, setOpenCcp] = useState(false);
@@ -178,7 +258,7 @@ export const Documento = ({
     ) {
       validado(false);
     }
-  }, [noOficio, asunto, show]);
+  }, [noOficio, asunto, show, checkFile, validado]);
 
   const Toast = Swal.mixin({
     toast: false,
@@ -193,6 +273,8 @@ export const Documento = ({
   });
 
   const [loading, setLoading] = useState(false);
+
+  const [resumen, setResumen] = useState(false);
 
   const sendFiel = () => {
     let dataArray = new FormData();
@@ -211,12 +293,16 @@ export const Documento = ({
     dataArray.append("IdFirma", id);
 
     axios
-      .post("http://10.210.0.27/api/sendfiel", dataArray, {
-        responseType: "blob", // important
-        headers: {
-          ContentType: "application/x-pkcs12",
-        },
-      })
+      .post(
+        process.env.REACT_APP_APPLICATION_FIEL + "/api/sendfiel",
+        dataArray,
+        {
+          responseType: "blob", // important
+          headers: {
+            ContentType: "application/x-pkcs12",
+          },
+        }
+      )
       .then((response) => {
         firmaDoc(response.data);
         setCheckFile(true);
@@ -253,7 +339,7 @@ export const Documento = ({
     dataArray.append("documento_name", nombreArchivo);
 
     axios({
-      url: "http://10.200.4.111:90/firma",
+      url: process.env.REACT_APP_APPLICATION_FIRMADOC + "/firma",
       method: "post",
       responseType: "blob",
       headers: {
@@ -274,6 +360,19 @@ export const Documento = ({
         setCheckFile(true);
 
         servicioCorreo();
+
+        Toast.fire({
+          icon: "success",
+          html: `
+        <div sx="height:10%;">
+          <h3>Error:</h3>
+          <div sx="text-align: center; margin-left: 10px; color: red; height: 50px;">
+            <small>
+              <strong>El documento se ha firmado correctamente</strong>
+            </small>
+          </div>
+        </div>`,
+        });
 
         // saveDocument();
         setTimeout(() => {
@@ -324,18 +423,39 @@ export const Documento = ({
         document.removeEventListener("keydown", listener);
       };
     }
-  }, [file, noOficio, asunto]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file, noOficio, asunto, disableFirmar]);
+
+  const [cc, setCc] = useState<Array<ICCP>>([
+    {
+      nombre: "",
+      puesto: "",
+      correo: "",
+    },
+  ]);
 
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
-        width: "25%",
+        width: {
+          xs: "64%",
+          sm: "44.3%",
+          md: "46.5%",
+          lg: "39.7%",
+          xl: "35%",
+        },
         height: "40%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-evenly",
+        display: "grid",
+        gridTemplateRows: {
+          xs: "repeat(11, 1fr)",
+          sm: "repeat(11, 1fr)",
+          md: "repeat(10, 1fr)",
+          lg: "repeat(11, 1fr)",
+          xl: "repeat(10, 1fr)",
+        },
+        alignItems: "center",
       }}
     >
       <DialogCcp
@@ -344,19 +464,62 @@ export const Documento = ({
         setTexto={setTexto}
         fncSetCcp={fncSetCcp}
         setCcpCorreos={setCcpCorreos}
+        setCCp={setCc}
       ></DialogCcp>
 
-      <Box>
+      <FormControl
+        disabled
+        sx={{ width: "100%" }}
+        variant="outlined"
+        size="small"
+      >
+        <InputLabel
+          sx={{
+            fontSize: fontSize1,
+            fontFamily: "MontserratSemiBold",
+          }}
+        >
+          RFC DEL FIRMANTE
+        </InputLabel>
+        <OutlinedInput
+          label="RFC DEL FIRMANTE"
+          sx={{
+            fontSize: fontSize1,
+            fontFamily: "MontserratSemiBold",
+          }}
+          value={Rfc || ""}
+        />
+      </FormControl>
+
+      <FormControl
+        disabled
+        sx={{ width: "100%" }}
+        variant="outlined"
+        size="small"
+      >
+        <InputLabel
+          sx={{
+            fontSize: fontSize1,
+            fontFamily: "MontserratSemiBold",
+          }}
+        >
+          SERIAL
+        </InputLabel>
+        <OutlinedInput
+          label="SERIAL"
+          sx={{
+            fontSize: fontSize1,
+            fontFamily: "MontserratSemiBold",
+          }}
+          value={noSerie || ""}
+        />
+      </FormControl>
+
+      <Box sx={{ height: "100%" }}>
         <Typography
           sx={{
-            fontFamily: "MontserratBold",
-            fontSize: {
-              xs: "50%",
-              sm: "60%",
-              md: "60%",
-              lg: "60%",
-              xl: "100%",
-            },
+            fontSize: fontSize1,
+            fontFamily: "MontserratMedium",
           }}
         >
           DOCUMENTO
@@ -364,11 +527,19 @@ export const Documento = ({
         <Typography
           position={"absolute"}
           sx={{
-            border: "2px dotted black",
-            backgroundColor: "#dfdfdf",
+            border: disableFirmar ? "2px dotted lightGrey" : "2px dotted black",
+            backgroundColor: disableFirmar ? "#efefef" : "lightGrey",
+            fontSize: {
+              xs: "60%",
+              sm: "70%",
+              md: "80%",
+              lg: "80%",
+              xl: "100%",
+            },
             fontFamily: "MontserratMedium",
-            fontSize: ".7vw",
-            width: "24.8vw",
+            cursor: "pointer",
+            width: "99.5%",
+            height: "5%",
           }}
         >
           {nombreArchivo || "Arrastre o de click para seleccionar archivo PDF"}
@@ -387,188 +558,596 @@ export const Documento = ({
         ></input>
       </Box>
 
-      <TextField
-        disabled={disableFirmar && !/^[\s]*$/.test(noOficio) ? true : false}
-        size="small"
-        label={
-          <Typography
-            sx={{
-              fontSize: {
-                xs: "85%",
-                sm: "85%",
-                md: "85%",
-                lg: "75%",
-                xl: "95%",
-              },
-              fontFamily: "MontserratMedium",
-            }}
-          >
-            NO. DE OFICIO *
-          </Typography>
-        }
-        sx={{ width: "100%",
-        fontSize: {
-          xs: "85%",
-          sm: "85%",
-          md: "85%",
-          lg: "75%",
-          xl: "95%",
-        },
-          mt:1,
-        fontFamily: "MontserratMedium", }}
-        value={noOficio}
-        onChange={(v) => {
-          setNoOficio(v.target.value);
-        }}
-        FormHelperTextProps={{ style: { fontFamily: "MontserratBold", } }}
-        helperText={/^[\s]*$/.test(noOficio) ? "Campo requerido" : null}
-        InputProps={{
-          endAdornment: (
-            <Tooltip title="Número de identificación personal del documento">
-              <InfoOutlinedIcon sx={{ cursor: "default" }}></InfoOutlinedIcon>
-            </Tooltip>
-          ),
-        }}
-      ></TextField>
-
-      <TextField
-        disabled={disableFirmar && !/^[\s]*$/.test(asunto) ? true : false}
-        size="small"
-        label={
-          <Typography
-            sx={{
-              fontSize: {
-                xs: "85%",
-                sm: "85%",
-                md: "85%",
-                lg: "75%",
-                xl: "95%",
-              },
-              fontFamily: "MontserratMedium",
-            }}
-          >
-            ASUNTO *
-          </Typography>
-        }
-        sx={{ width: "100%",
-        mt:1, }}
-        value={asunto}
-        onChange={(v) => {
-          setAsunto(v.target.value);
-          setReason(v.target.value);
-        }}
-        FormHelperTextProps={{ style: { fontFamily: "MontserratBold" } }}
-        helperText={/^[\s]*$/.test(asunto) ? "Campo requerido" : null}
-      ></TextField>
-
-      <FormControl
+      <Box
         sx={{
-          width: "100%",
-          mt:1,
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "3fr 2fr 2fr",
+            sm: "2fr 1fr 1fr",
+            md: "2fr 1fr 1fr",
+            lg: "2fr 1fr 1fr",
+            xl: "2fr 1fr 1fr",
+          },
+          gridRow: {
+            xs: "4/6",
+            sm: "4/6",
+            md: "4/6",
+            lg: "4/6",
+            xl: "4",
+          },
+          height: "60%",
         }}
       >
-        <Stack spacing={3}>
+        <FormControl
+          disabled={disableFirmar && !/^[\s]*$/.test(noOficio) ? true : false}
+          sx={{ width: "100%" }}
+          variant="outlined"
+          size="small"
+        >
+          <InputLabel
+            sx={{
+              fontSize: fontSize1,
+              fontFamily: "MontserratSemiBold",
+            }}
+          >
+            REFERENCIA DEL DOCUMENTO*
+          </InputLabel>
+          <OutlinedInput
+            label="REFERENCIA DEL DOCUMENTO*"
+            sx={{
+              fontSize: fontSize1,
+              fontFamily: "MontserratSemiBold",
+            }}
+            value={noOficio}
+            onChange={(v) => {
+              setNoOficio(v.target.value);
+            }}
+          />
+        </FormControl>
+
+        <FormControl
+          disabled={disableFirmar && !/^[\s]*$/.test(noOficio) ? true : false}
+        >
           <Autocomplete
             disabled={disableFirmar}
-            multiple
-            disableCloseOnSelect
-            limitTags={3}
-            options={catalogoUsuarios}
+            options={catalogoTipoDoc}
             size="small"
-            getOptionLabel={(option) => option.Nombre}
-            value={usuarios}
+            getOptionLabel={(option) => option.Tipo}
+            value={{ Id: catalogoTipoDoc[0].Id, Tipo: tipoDoc }}
             renderOption={(props, option) => {
               return (
                 <li {...props} key={option.Id}>
-                  <p
-                    style={{
+                  <Typography
+                    sx={{
                       fontFamily: "MontserratRegular",
-                      fontSize: ".7vw",
+                      fontSize: fontSize1,
                     }}
                   >
-                    {option.Nombre.toUpperCase()}
-                  </p>
+                    {option.Tipo.toUpperCase()}
+                  </Typography>
                 </li>
               );
             }}
-            onInputChange={() => setUsuarios([])}
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={"DESTINATARIO(S)"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: fontSize1,
+                      fontFamily: "MontserratSemiBold",
+                    }}
+                  >
+                    TIPO DE DOCUMENTO
+                  </Typography>
+                }
                 variant="outlined"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratBold",
-                    fontSize: "100%",
-                  },
-                }}
                 sx={{
                   "& .MuiAutocomplete-input": {
-                    fontFamily: "MontserratRegular",
-                    textTransform: "uppercase",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratSemiBold",
                   },
                 }}
               />
             )}
-            onChange={(event, value) => {
-              value.map((value2, index) => {
-                // if (
-                //   /^[\s]*$/.test(value2.Id) &&
-                //   /^[\s]*$/.test(value2.Nombre)
-                // ) {
-                setUsuarios(value);
-                // }
-              });
-            }}
             isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            onChange={(event, value) => {
+              setTipoDoc(value?.Tipo || "");
+            }}
           />
-        </Stack>
-      </FormControl>
+        </FormControl>
 
-      <TextField
-        disabled={disableFirmar}
-        size="small"
-        multiline
-        maxRows={2}
-        label={
-          <Typography
+        <FormControl
+          disabled={disableFirmar && !/^[\s]*$/.test(noOficio) ? true : false}
+          sx={{ width: "100%" }}
+          variant="outlined"
+          size="small"
+        >
+          <InputLabel
             sx={{
-              fontSize: {
-                xs: "85%",
-                sm: "85%",
-                md: "85%",
-                lg: "75%",
-                xl: "95%",
-              },
-              fontFamily: "MontserratMedium",
+              fontSize: fontSize1,
+              fontFamily: "MontserratSemiBold",
             }}
           >
-            CCP
-          </Typography>
-        }
-        sx={{ width: "100%",
-        mt:1, }}
-        value={ccp}
-        onClick={() => {
-          if (disableFirmar) {
-          } else {
-            setOpenCcp(true);
-          }
+            FECHA DEL DOCUMENTO*
+          </InputLabel>
+          <OutlinedInput
+            label="FECHA DEL DOCUMENTO*"
+            type="date"
+            sx={{
+              fontSize: fontSize1,
+              fontFamily: "MontserratSemiBold",
+            }}
+            value={fechaOficio || ""}
+            onChange={(v) => {
+              setFechaOficio(v.target.value);
+            }}
+          />
+        </FormControl>
+      </Box>
+
+      <FormControl
+        disabled={disableFirmar && !/^[\s]*$/.test(noOficio) ? true : false}
+        sx={{ width: "100%" }}
+        variant="outlined"
+        size="small"
+      >
+        <InputLabel
+          sx={{
+            fontSize: fontSize1,
+            fontFamily: "MontserratSemiBold",
+          }}
+        >
+          ASUNTO*
+        </InputLabel>
+        <OutlinedInput
+          label="ASUNTO*"
+          sx={{
+            fontSize: fontSize1,
+            fontFamily: "MontserratSemiBold",
+          }}
+          value={asunto}
+          onChange={(v) => {
+            setAsunto(v.target.value);
+            setReason(v.target.value);
+          }}
+        />
+      </FormControl>
+
+      <FormControl
+        sx={{
+          maxHeight: "100%",
         }}
-        onChange={(v) => {
-          setCcp(v.target.value);
+      >
+        <Autocomplete
+          disabled={disableFirmar}
+          multiple
+          disableCloseOnSelect
+          options={catalogoDestinatarios}
+          size="small"
+          sx={{
+            overflowY: "scroll",
+            height: "100%",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            },
+            pt: 1,
+          }}
+          getOptionLabel={(option) => option.Nombre}
+          value={usuarios}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.Id}>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratRegular",
+                    fontSize: fontSize1,
+                  }}
+                >
+                  {option.Nombre.toUpperCase()}
+                </Typography>
+              </li>
+            );
+          }}
+          onInputChange={() => setUsuarios([])}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={
+                <Typography
+                  sx={{
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratSemiBold",
+                  }}
+                >
+                  AUTORIDAD O DEPENDENCIA
+                </Typography>
+              }
+              variant="outlined"
+              sx={{
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
+                  textTransform: "uppercase",
+                },
+              }}
+            />
+          )}
+          onChange={(event, value) => {
+            value.map((value2, index) => {
+              setUsuarios(value);
+              return null;
+            });
+          }}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
+        />
+      </FormControl>
+
+      <FormControl
+        sx={{
+          maxHeight: "100%",
+          gridRow: {
+            xs: "8/10",
+            sm: "8/10",
+            md: "8/10",
+            lg: "8/10",
+            xl: "7/9",
+          },
         }}
-        InputProps={{
-          endAdornment: (
-            <Tooltip title='"Con Copia Para"'>
-              <InfoOutlinedIcon sx={{ cursor: "default" }}></InfoOutlinedIcon>
-            </Tooltip>
-          ),
-        }}
-      ></TextField>
+      >
+        <Autocomplete
+          disabled={disableFirmar}
+          multiple
+          disableCloseOnSelect
+          options={catalogoDestinatarios}
+          size="small"
+          sx={{
+            overflowY: "scroll",
+            height: "100%",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            },
+            pt: 1,
+          }}
+          getOptionLabel={(option) => option.Nombre}
+          value={usuarios}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.Id}>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratRegular",
+                    fontSize: fontSize1,
+                  }}
+                >
+                  {option.Nombre.toUpperCase()}
+                </Typography>
+              </li>
+            );
+          }}
+          onInputChange={() => setUsuarios([])}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={
+                <Typography
+                  sx={{
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratSemiBold",
+                  }}
+                >
+                  DESTINATARIO(S)
+                </Typography>
+              }
+              variant="outlined"
+              sx={{
+                "& .MuiAutocomplete-input": {
+                  fontFamily: "MontserratRegular",
+                  textTransform: "uppercase",
+                },
+              }}
+            />
+          )}
+          onChange={(event, value) => {
+            value.map((value2, index) => {
+              setUsuarios(value);
+              return null;
+            });
+          }}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
+        />
+      </FormControl>
+
+      <FormControl
+        disabled={disableFirmar && !/^[\s]*$/.test(ccp) ? true : false}
+        sx={{ width: "100%" }}
+        variant="outlined"
+        size="small"
+      >
+        <InputLabel
+          sx={{
+            fontSize: fontSize1,
+            fontFamily: "MontserratSemiBold",
+          }}
+        >
+          CCP
+        </InputLabel>
+        <OutlinedInput
+          label="CCP"
+          sx={{
+            fontSize: fontSize1,
+            fontFamily: "MontserratSemiBold",
+          }}
+          value={ccp}
+          onClick={() => {
+            if (disableFirmar) {
+            } else {
+              setOpenCcp(true);
+            }
+          }}
+        />
+      </FormControl>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Dialog
+          maxWidth={"lg"}
+          open={resumen}
+          onClose={() => setResumen(false)}
+        >
+          <DialogTitle
+            sx={{
+              width: {
+                xs: "19rem",
+                sm: "40rem",
+                md: "50rem",
+                lg: "50rem",
+                xl: "70rem",
+              },
+              borderBottom: "2px solid black",
+            }}
+          >
+            CONFIRMAR DATOS
+            {
+              <Tooltip
+                title="Cancelar"
+                sx={{ position: "absolute", right: 8, cursor: "pointer" }}
+                onClick={() => {
+                  setResumen(false);
+                }}
+              >
+                <CloseIcon></CloseIcon>
+              </Tooltip>
+            }
+          </DialogTitle>
+
+          <DialogContent
+            sx={{
+              overflowY: "scroll",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
+            }}
+          >
+            <Divider
+              sx={{
+                fontSize: fontSize1,
+                fontFamily: "MontserratBold",
+                mt: 2,
+              }}
+            >
+              DATOS DEL FIRMANTE
+            </Divider>
+            <Typography
+              sx={{
+                borderBottom: "1px solid lightGrey",
+                fontSize: fontSize1,
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              RFC: {Rfc}
+            </Typography>
+            <Typography
+              sx={{
+                borderBottom: "1px solid lightGrey",
+                fontSize: fontSize1,
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              SERIAL: {noSerie}
+            </Typography>
+
+            <Divider
+              sx={{
+                fontSize: fontSize1,
+                fontFamily: "MontserratBold",
+                mt: 2,
+              }}
+            >
+              DATOS DEL DOCUMENTO A FIRMAR
+            </Divider>
+            <Typography
+              sx={{
+                borderBottom: "1px solid lightGrey",
+                fontSize: fontSize1,
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              REFERENCIA DEL DOCUMENTO: {noOficio}
+            </Typography>
+            <Typography
+              sx={{
+                borderBottom: "1px solid lightGrey",
+                fontSize: fontSize1,
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              TIPO DE DOCUMENTO: {tipoDoc}
+            </Typography>
+            <Typography
+              sx={{
+                borderBottom: "1px solid lightGrey",
+                fontSize: fontSize1,
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              FECHA DEL DOCUMENTO:
+            </Typography>
+            <Typography
+              sx={{
+                borderBottom: "1px solid lightGrey",
+                fontSize: fontSize1,
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              ASUNTO: {asunto}
+            </Typography>
+
+            <Divider
+              sx={{
+                fontSize: fontSize1,
+                fontFamily: "MontserratBold",
+                mt: 2,
+              }}
+            >
+              DESTINATARIOS
+            </Divider>
+            {usuarios.map((usuario: IUsuariosFIEL, index: number) => (
+              <Box key={index}>
+                <Typography
+                  sx={{
+                    borderBottom: "1px solid lightGrey",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  DESTINATARIO {index + 1}: {usuario.Nombre}
+                </Typography>
+                <Typography
+                  sx={{
+                    borderBottom: "1px solid lightGrey",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  AUTORIDAD:
+                </Typography>
+                <Typography
+                  sx={{
+                    borderBottom: "1px solid lightGrey",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  PUESTO:
+                </Typography>
+                <Typography
+                  sx={{
+                    borderBottom: "1px solid grey",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratMedium",
+                    mb: 2,
+                  }}
+                >
+                  CORREO ELECTRÓNICO: {usuario.CorreoElectronico}
+                </Typography>
+              </Box>
+            ))}
+
+            <Divider
+              sx={{
+                fontSize: fontSize1,
+                fontFamily: "MontserratBold",
+                mt: 2,
+              }}
+            >
+              CCP
+            </Divider>
+            {cc?.map((cc: ICCP, index: number) => (
+              <Box key={index}>
+                <Typography
+                  sx={{
+                    borderBottom: "1px solid lightGrey",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  USUARIO {index + 1}: {cc.nombre}
+                </Typography>
+                <Typography
+                  sx={{
+                    borderBottom: "1px solid lightGrey",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  AUTORIDAD:
+                </Typography>
+                <Typography
+                  sx={{
+                    borderBottom: "1px solid lightGrey",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  PUESTO: {cc.puesto}
+                </Typography>
+                <Typography
+                  sx={{
+                    borderBottom: "1px solid grey",
+                    fontSize: fontSize1,
+                    fontFamily: "MontserratMedium",
+                    mb: 2,
+                  }}
+                >
+                  CORREO ELECTRÓNICO: {cc.correo}
+                </Typography>
+              </Box>
+            ))}
+          </DialogContent>
+
+          <DialogActions sx={{ borderTop: "2px solid black" }}>
+            <Button
+              color="error"
+              onClick={() => {
+                setResumen(false);
+              }}
+              sx={{
+                fontSize: fontSize1,
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              color="success"
+              onClick={() => {
+                setLoading(true);
+                sendFiel();
+                setResumen(false);
+              }}
+              sx={{
+                fontSize: fontSize1,
+                fontFamily: "MontserratMedium",
+              }}
+            >
+              Confirmar
+            </Button>
+          </DialogActions>
+        </Dialog>
         {loading ? (
           <CircularProgress></CircularProgress>
         ) : !/^[\s]*$/.test(noOficio) &&
@@ -578,12 +1157,12 @@ export const Documento = ({
           <CheckCircleOutlineIcon color="success"></CheckCircleOutlineIcon>
         ) : (
           <Button
-            disabled={
-              /^[\s]*$/.test(noOficio) ||
-              /^[\s]*$/.test(asunto) ||
-              /^[\s]*$/.test(nombreArchivo) ||
-              disableFirmar
-            }
+            // disabled={
+            //   /^[\s]*$/.test(noOficio) ||
+            //   /^[\s]*$/.test(asunto) ||
+            //   /^[\s]*$/.test(nombreArchivo) ||
+            //   disableFirmar
+            // }
             sx={{
               backgroundColor: "lightGrey",
               height: "3vh",
@@ -591,17 +1170,10 @@ export const Documento = ({
               "&&:hover": {
                 backgroundColor: "lightGrey",
               },
-              fontSize: {
-                xs: "60%",
-                sm: "60%",
-                md: "60%",
-                lg: "60%",
-                xl: "100%",
-              },
+              fontSize: fontSize6,
             }}
             onClick={() => {
-              setLoading(true);
-              sendFiel();
+              setResumen(true);
             }}
           >
             Firmar
@@ -617,4 +1189,9 @@ export interface IUsuariosFIEL {
   Nombre: string;
   NombreUsuario: string;
   CorreoElectronico: string;
+}
+
+export interface ITipoDoc {
+  Id: string;
+  Tipo: string;
 }

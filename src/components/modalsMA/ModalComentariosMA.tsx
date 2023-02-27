@@ -95,20 +95,6 @@ export const ComentDialogMA = ({
     }
   }, [open]);
 
-  const getComents = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/coment-mir", {
-        params: {
-          IdMir: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setComents(r.data.data);
-      });
-  };
 
   const [coment, setComent] = React.useState("");
 
@@ -147,6 +133,7 @@ export const ComentDialogMA = ({
       )
       .then((r) => {
         if (estado !== "En Captura") {
+          // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
             enviarNotificacion(user.IdUsuario);
           });
@@ -170,8 +157,19 @@ export const ComentDialogMA = ({
   };
 
   React.useEffect(() => {
-    getComents();
-  }, [actualizado]);
+    axios
+    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/coment-mir", {
+      params: {
+        IdMir: id,
+      },
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      setComents(r.data.data);
+    });
+  }, [actualizado, id]);
 
   return (
     <Box>

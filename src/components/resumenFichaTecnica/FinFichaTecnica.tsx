@@ -150,7 +150,7 @@ export const FinFechaTecnica = ({
   const jsonMir = JSON.parse(MIR);
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
-  const [tipoFormula, setTipoFormula] = useState(
+  const [tipoFormula] = useState(//, setTipoFormula
     jsonMir.fin.indicador.includes("PORCENTAJE") ||
       jsonMir.fin.indicador === "PORCENTAJE"
       ? "PORCENTAJE"
@@ -219,7 +219,7 @@ export const FinFechaTecnica = ({
   let y = metaAnualNumero - x;
   let z = metaAnualNumero + x;
 
-  let xString = x.toFixed(2).toString();
+  //let xString = x.toFixed(2).toString();
   let yString = y.toFixed(2).toString();
   let zString = z.toFixed(2).toString();
 
@@ -228,7 +228,7 @@ export const FinFechaTecnica = ({
   let y1 = metaAnualNumero - x1;
   let z1 = metaAnualNumero + x1;
 
-  let x1String = x1.toFixed(2).toString();
+  //let x1String = x1.toFixed(2).toString();
   let y1String = y1.toFixed(2).toString();
   let z1String = z1.toFixed(2).toString();
 
@@ -266,7 +266,7 @@ export const FinFechaTecnica = ({
       setVariable1(jsonMir.fin.formula);
       setVariable2("");
     }
-  }, []);
+  }, [jsonMir, tipoFormula]);
 
   return (
     <>

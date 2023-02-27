@@ -75,59 +75,6 @@ export default function ModalEditarUsuario({
     );
   };
 
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-        },
-      })
-      .then((r) => {
-        setCatalogoInstituciones(r.data.data);
-      });
-  };
-
-  const getUsuario = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuario", {
-        params: {
-          IdUsuario: IdUsuario,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        const user = r.data.data;
-        setUsername(user.NombreUsuario);
-        setEmail(user.CorreoElectronico);
-        setNames(user.Nombre);
-        setFirstName(user.ApellidoPaterno);
-        setSecondName(user.ApellidoMaterno);
-        setInstitution(user.IdInstitucion);
-        setRol(user.Cargo);
-        setUserType(user.IdRol);
-        setTelephone(user.Telefono);
-        setCellphone(user.Celular);
-      });
-  };
-
-  const getUserType = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setUserTypeCatalogue(r.data.data);
-      });
-  };
-
   const userModify = (idUsrCentral: string) => {
     axios
       .post(
@@ -229,10 +176,53 @@ export default function ModalEditarUsuario({
   };
 
   useEffect(() => {
-    getInstituciones();
-    getUserType();
-    getUsuario();
-  }, []);
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+      });
+
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuario", {
+        params: {
+          IdUsuario: IdUsuario,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        const user = r.data.data;
+        setUsername(user.NombreUsuario);
+        setEmail(user.CorreoElectronico);
+        setNames(user.Nombre);
+        setFirstName(user.ApellidoPaterno);
+        setSecondName(user.ApellidoMaterno);
+        setInstitution(user.IdInstitucion);
+        setRol(user.Cargo);
+        setUserType(user.IdRol);
+        setTelephone(user.Telefono);
+        setCellphone(user.Celular);
+      });
+
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setUserTypeCatalogue(r.data.data);
+      });
+  }, [IdUsuario]);
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>

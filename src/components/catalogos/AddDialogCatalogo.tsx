@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -58,6 +59,7 @@ export const AddDialogCatalogo = ({
   let dateS = "";
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     today = new Date();
     year = today.getFullYear();
     month = today.getMonth();

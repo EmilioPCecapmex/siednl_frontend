@@ -209,7 +209,7 @@ export default function ModalEditarSolicitud({
       )
       .then((r) => {
         if (r.status === 200) {
-          if (comentario != "")
+          if (comentario !== "")
             createComentarios(r.data.data[0][0].IdSolicitud);
 
           Toast.fire({
@@ -316,13 +316,13 @@ export default function ModalEditarSolicitud({
         text: "Ingresa laa extencion.",
         type: "error",
       });
-    } else if (username != dataUser.NombreUsuario) {
+    } else if (username !== dataUser.NombreUsuario) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar nombre de usuario ",
         type: "error",
       });
-    } else if (email != dataUser.CorreoElectronico) {
+    } else if (email !== dataUser.CorreoElectronico) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar el correo electrónico ",

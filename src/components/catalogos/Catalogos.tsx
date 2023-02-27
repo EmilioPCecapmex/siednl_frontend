@@ -1,3 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-eval */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import {
   ListItemButton,
@@ -16,10 +20,8 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary, {
-  AccordionSummaryProps,
-} from "@mui/material/AccordionSummary";
-import Accordion, { AccordionProps } from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Accordion from "@mui/material/Accordion";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -38,14 +40,18 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     let tableOption = configOptions.find((item) => item.Desc === defSelected);
     setTablaActual(tableOption?.Tabla as string);
 
+    // eslint-disable-next-line array-callback-return
     configOptions.map((item) => {
       if (item.Desc === selected) {
+        // eslint-disable-next-line no-eval
         eval(item.fnc);
       }
     });
 
+    // eslint-disable-next-line array-callback-return
     configOptions.map((item) => {
       if (item.Desc === defaultSelection) {
+        // eslint-disable-next-line no-eval
         eval(item.fnc);
       }
     });
@@ -1109,7 +1115,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState<
     Array<IDatosTabla>
   >([]);
-  const findText = () => {
+
+  useEffect(() => {
     if (descripctionFiltered !== "") {
       setDataDescripctionFiltered(
         datosTabla.filter((x) =>
@@ -1119,11 +1126,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     } else {
       setDataDescripctionFiltered(datosTabla);
     }
-  };
-
-  useEffect(() => {
-    findText();
-  }, [descripctionFiltered]);
+  }, [datosTabla, descripctionFiltered]);
 
   const [actualizacion, setActualizacion] = useState(0);
 
@@ -1133,7 +1136,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         eval(item.fnc);
       }
     });
-  }, [actualizacion]);
+  }, [actualizacion, configOptions, defaultSelection]);
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
