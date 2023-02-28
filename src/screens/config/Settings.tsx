@@ -30,16 +30,24 @@ export const Settings = () => {
 
   return (
     <Box
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "grid",
-        gridTemplateColumns: "1fr 13fr",
-        backgroundColor: "#F2F2F2",
-      }}
+    sx={{
+      width: "100vw",
+      height: "100vh",
+      display: "grid",
+      backgroundColor: "#F2F2F2",
+      gridTemplateAreas: `
+                        'aside header'
+                        'aside main'
+                       `,
+      alignItems: "start",
+    }}
     >
-      <LateralMenu selection={6} actionNumber={0} settingsCard={resetView} />
-      <Header
+      <Box gridArea={'aside'}>
+        <LateralMenu selection={6} actionNumber={0} settingsCard={resetView} />
+      </Box>
+
+      <Box gridArea={'header'} sx={{ height: "8vh" }}>
+        <Header
         details={{
           name1: "Inicio",
           path1: "../home",
@@ -48,8 +56,10 @@ export const Settings = () => {
           name3: "",
         }}
       />
+      </Box>
+      
 
-      <Box>
+      <Box gridArea={'main'}>
         {showCards ? (
           <>
             <SettingsCard showConfig={showConfig} />
