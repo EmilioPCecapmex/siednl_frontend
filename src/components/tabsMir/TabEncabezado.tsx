@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+
 import React, { useEffect, useState } from "react";
 import {
   FormControl,
@@ -74,7 +76,6 @@ export function TabEncabezado({
     Array<IComponente>
   >([]);
 
-  const [loadComponentesFinish, setLoadComponentesFinish] = useState(false);
   const [loadActividades, setLoadActividades] = useState<Array<number>>([1, 2]);
   const [loadActividadValor, setLoadActividadValor] = useState<
     Array<ICompActividad>
@@ -147,9 +148,9 @@ export function TabEncabezado({
             index + 1,
           ]);
       });
-      setLoadComponentesFinish(true);
     }
-  }, [MIR]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [MIR, anioFiscalEdit, compAct]);
   ////////////////////////////////////////
   //envio de valores a MIR
   useEffect(() => {
@@ -160,7 +161,8 @@ export function TabEncabezado({
     setComponenteActividad(loadActividadValor);
 
     actividadesMir(loadActividadValor);
-  }, [loadComponentesFinish]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ loadActividadValor, loadActividades, loadComponenteValor, loadComponentes]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -205,7 +207,7 @@ export function TabEncabezado({
     setObjetivo("");
     setDisabledEstrategias(true);
     setEstrategia("");
-    setDisabledLineasDeAccion(true);
+    // setDisabledLineasDeAccion(true);
     setLineaDeAccion([]);
     getTematicas(Id);
     setDisabledTematicas(false);
@@ -215,14 +217,14 @@ export function TabEncabezado({
     setObjetivo("");
     setDisabledEstrategias(true);
     setEstrategia("");
-    setDisabledLineasDeAccion(true);
+    // setDisabledLineasDeAccion(true);
     getObjetivos(Id);
     setDisabledObjetivos(false);
   }
   function enCambioObjetivo(Id: string, Objetivo: string) {
     setObjetivo(Objetivo);
     setEstrategia("");
-    setDisabledLineasDeAccion(true);
+    // setDisabledLineasDeAccion(true);
     setLineaDeAccion([]);
     getEstrategias(Id);
     setDisabledEstrategias(false);
@@ -231,7 +233,7 @@ export function TabEncabezado({
     setEstrategia(Estrategia);
     setLineaDeAccion([]);
     getLineasDeAccion(Id);
-    setDisabledLineasDeAccion(false);
+    // setDisabledLineasDeAccion(false);
   }
   // function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
   //   setLineaDeAccion([]);
@@ -249,12 +251,9 @@ export function TabEncabezado({
     if (event.target.value !== "") {
       setNombreArchivo(event.target.value.split("\\")[2]);
     }
-
-    {
       nombreArchivo == null || uploadFile == null
         ? setDisabledButton(true)
         : setDisabledButton(false);
-    }
   }
 
   const resultado = () => {
@@ -280,7 +279,7 @@ export function TabEncabezado({
   const [disabledTematicas, setDisabledTematicas] = useState(true);
   const [disabledObjetivos, setDisabledObjetivos] = useState(true);
   const [disabledEstrategias, setDisabledEstrategias] = useState(true);
-  const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
+  // const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
 
   const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
@@ -330,23 +329,7 @@ export function TabEncabezado({
 
   const replica = catalogoLineasDeAccion;
 
-  //Alerta de archivo incorrecto
-  const AlertDisplay = () => {
-    setDisabledButton(true);
-    setLoadingFile(false);
-    return (
-      <Alert
-        sx={{ borderRadius: 5, width: "80%", alignItems: "center", mt: 2 }}
-        severity="error"
-        onClose={() => {
-          setShowAlert(false);
-          setNombreArchivo("Arrastre o de click aquí para seleccionar archivo");
-        }}
-      >
-        {errorMsg}
-      </Alert>
-    );
-  };
+
   const [uploadFile, setUploadFile] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -490,7 +473,7 @@ export function TabEncabezado({
         setCatalogoLineasDeAccion(r.data.data);
       })
       .catch((err) => {
-        setDisabledLineasDeAccion(true);
+        // setDisabledLineasDeAccion(true);
       });
   };
   const getBeneficiarios = () => {
@@ -618,7 +601,7 @@ export function TabEncabezado({
       .then((r) => {
         if (r.data.data.length !== 0) {
           lineaDeAccion.push(r.data.data[0]);
-          setDisabledLineasDeAccion(false);
+          // setDisabledLineasDeAccion(false);
         }
       })
       .catch((err) => {});
@@ -678,6 +661,8 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
+        console.log(response.data);
+        
         getIdInstitucion(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         setPrograma(response.data.encabezado[0].nombre_del_programa);
@@ -727,13 +712,12 @@ export function TabEncabezado({
         setLoadActividadValor(response.data.actividades);
         setLoadActividades(response.data.componenteActividad);
         actividadesMir(response.data.actividades);
-        setTimeout(() => {
-          setLoadComponentesFinish(true);
-        }, 2000);
       })
       .catch((error) => {
         setErrorMsg(error.response.data || "Formato de archivo incorrecto");
         setShowAlert(true);
+        setDisabledButton(true);
+        setLoadingFile(false);
       });
   };
 
@@ -776,11 +760,13 @@ export function TabEncabezado({
 
   useEffect(() => {
     resumenEncabezado(encabezado);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encabezado]);
 
   useEffect(() => {
     cargaFin(loadFin);
     cargaProposito(loadProposito);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadFin, loadProposito]);
 
   const [loadingFile, setLoadingFile] = useState(false);
@@ -896,7 +882,16 @@ export function TabEncabezado({
         }}
       >
         {showAlert ? (
-          <AlertDisplay />
+          <Alert
+          sx={{ borderRadius: 5, width: "80%", alignItems: "center", mt: 2 }}
+          severity="error"
+          onClose={() => {
+            setShowAlert(false);
+            setNombreArchivo("Arrastre o de click aquí para seleccionar archivo");
+          }}
+        >
+          {errorMsg}
+        </Alert>
         ) : (
           <Typography
             sx={{

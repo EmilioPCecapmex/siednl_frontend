@@ -229,22 +229,18 @@ export default function AddFichaTecnica({
               boxShadow: 20,
             }}
           >
-            <IconButton
+            <Tab
+              label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
               sx={{
-                backgroundColor: "#e0e0e0",
+                borderRight: "5px solid #b3afaf",
+                color: "#af8c55",
+                fontFamily: "MontserratSemiBold",
+                backgroundColor: "#ccc",
               }}
               onClick={() => {
                 cambiarTab("atras");
               }}
-            >
-              <ArrowCircleLeftIcon
-                sx={{
-                  color: "#c4a57b",
-                  width: "1.5vw",
-                  height: "1.5vw",
-                }}
-              />
-            </IconButton>
+            />
             <Tab
               label="Encabezado"
               value={10}
@@ -295,23 +291,17 @@ export default function AddFichaTecnica({
                 backgroundColor: "#ccc",
               }}
             />
-
-            <IconButton
+            <Tab
+              label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
               sx={{
-                backgroundColor: "#e0e0e0",
+                borderRight: "5px solid #b3afaf",
+                color: "#af8c55",
+                backgroundColor: "#ccc",
               }}
               onClick={() => {
                 cambiarTab("adelante");
               }}
-            >
-              <ArrowCircleRightIcon
-                sx={{
-                  color: "#c4a57b",
-                  width: "1.5vw",
-                  height: "1.5vw",
-                }}
-              />
-            </IconButton>
+            />
           </Tabs>
         </Box>
 

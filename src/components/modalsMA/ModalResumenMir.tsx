@@ -83,7 +83,7 @@ export function TabResumenMIR({
     });
 
     setCompAct(ambos);
-  }, [Componentes, actividades]);
+  }, []);
 
   useEffect(() => {
     if (compAct.length > 0) {
@@ -136,7 +136,7 @@ export function TabResumenMIR({
   
       setCValor(y);
     }
-  }, [actividades, compAct, componenteActividad]);
+  }, []);
 
 
   useEffect(() => {
@@ -145,7 +145,6 @@ export function TabResumenMIR({
 
   return (
     <Dialog
-      fullWidth
       maxWidth="xl"
       open={open}
       sx={{ height: "100%" }}

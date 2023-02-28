@@ -34,12 +34,6 @@ export function TabResumen({
   mirEdit?: IEncabezadoEdit;
 }) {
   const [MIR, setMIR] = useState<IMIR>();
-
-  useEffect(() => {
-    console.log(MIR);
-  }, [show])
-  
-
   
   let asignarMIR = (
     encabezadoM: Array<IEncabezado>,

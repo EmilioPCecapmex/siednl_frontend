@@ -61,7 +61,7 @@ export const TabComponente = ({
         };
       })
     );
-  }, [noComponentes, show]);
+  }, [noComponentes, show, valoresComponente]);
 
   const [componentSelect, setComponentSelect] = useState(1);
 
@@ -122,6 +122,8 @@ export const TabComponente = ({
       }
     }
   };
+
+  
 
   const agregarFnc = () => {
     let v = noComponentes.length + 1;

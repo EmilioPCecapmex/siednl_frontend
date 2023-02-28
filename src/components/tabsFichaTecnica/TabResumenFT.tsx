@@ -141,8 +141,6 @@ export function TabResumenFT({
         }
       )
       .then((r) => {
-        console.log(r);
-        
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
@@ -150,8 +148,6 @@ export function TabResumenFT({
         showResume();
       })
       .catch((err) => {
-        console.log(err);
-        
         Toast.fire({
           icon: "error",
           title: err.response.data.result.error,

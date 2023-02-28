@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
 import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
 import { IComponente } from "./IComponente";
@@ -25,9 +25,9 @@ export default function FullModalMir({
 }) {
   const [value, setValue] = React.useState(10);
 
-  const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event: any, newValue: number) => {
+  //   setValue(newValue);
+  // };
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
@@ -46,6 +46,9 @@ export default function FullModalMir({
   const [fin, setFin] = useState<Array<IFin>>([]);
   const [proposito, setProposito] = useState<Array<IProposito>>([]);
 
+  
+  
+
   // COMPONENTES
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
   const [valoresComponente, setValoresComponente] = useState<
@@ -63,6 +66,8 @@ export default function FullModalMir({
       };
     })
   );
+  
+
   useEffect(() => {
     let array = noComponentes.map((x, index) => {
       return {
@@ -76,6 +81,7 @@ export default function FullModalMir({
       };
     });
     setValoresComponente(array);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ACTIVIDADES
@@ -121,9 +127,6 @@ export default function FullModalMir({
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
-        width: "100%",
-        height: "95%",
-        mt: "8vh",
       }}
     >
       {value === 10 ? <TutorialBox initialState={22} endState={27} /> : null}
@@ -134,7 +137,7 @@ export default function FullModalMir({
 
       <Box
         sx={{
-          width: "75vw",
+          width: "60%",
           height: "90vh",
           borderRadius: 5,
           display: "flex",
@@ -142,99 +145,85 @@ export default function FullModalMir({
           alignItems: "center",
         }}
       >
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="inherit"
+        <Tabs
+          value={value}
+          textColor="inherit"
+          sx={{
+            backgroundColor: "#e0e0e0",
+            borderRadius: "10px 10px 0 0",
+            boxShadow: 20,
+          }}
+        >
+          <Tab
+            label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
             sx={{
-              backgroundColor: "#e0e0e0",
-              borderRadius: "10px 10px 0 0",
-              boxShadow: 20,
+              borderRight: "5px solid #b3afaf",
+              color: "#af8c55",
+              fontFamily: "MontserratSemiBold",
+              backgroundColor: "#ccc",
             }}
-          >
-            <IconButton
-              sx={{
-                backgroundColor: "#e0e0e0",
-              }}
-              onClick={() => {
-                cambiarTab("atras");
-              }}
-            >
-              <ArrowCircleLeftIcon
-                sx={{
-                  color: "#c4a57b",
-                  width: "1.5vw",
-                  height: "1.5vw",
-                }}
-              />
-            </IconButton>
-            <Tab
-              label="Encabezado"
-              value={10}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Fin / Propósito"
-              value={20}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Componentes"
-              value={30}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Actividades"
-              value={40}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Resumen"
-              value={50}
-              sx={{
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
+            onClick={() => {
+              cambiarTab("atras");
+            }}
+          />
+          <Tab
+            label="Encabezado"
+            value={10}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Fin / Propósito"
+            value={20}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Componentes"
+            value={30}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Actividades"
+            value={40}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Resumen"
+            value={50}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
 
-            <IconButton
-              sx={{
-                backgroundColor: "#e0e0e0",
-              }}
-              onClick={() => {
-                cambiarTab("adelante");
-              }}
-            >
-              <ArrowCircleRightIcon
-                sx={{
-                  color: "#c4a57b",
-                  width: "1.5vw",
-                  height: "1.5vw",
-                }}
-              />
-            </IconButton>
-          </Tabs>
+          <Tab
+            label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "#af8c55",
+              backgroundColor: "#ccc",
+            }}
+            onClick={() => {
+              cambiarTab("adelante");
+            }}
+          />
+        </Tabs>
 
         <Box
           sx={{

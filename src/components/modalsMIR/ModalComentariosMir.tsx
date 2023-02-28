@@ -119,7 +119,7 @@ export const ComentDialogMir = ({
   const comentMir = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: coment,
@@ -160,7 +160,7 @@ export const ComentDialogMir = ({
 
   React.useEffect(() => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/coment-mir", {
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
       params: {
         IdMir: id,
       },

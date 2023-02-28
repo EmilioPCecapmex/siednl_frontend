@@ -12,36 +12,35 @@ export const Home = () => {
         width: "100vw",
         height: "100vh",
         display: "grid",
-        gridTemplateColumns: "1fr 10fr",
         backgroundColor: "#F2F2F2",
+        gridTemplateAreas: `
+                          'aside header'
+                          'aside main'
+                         `,
+        alignItems: "start",
       }}
     >
       <TutorialBox initialState={0} endState={8} />
       <WelcomeBox />
 
-      <LateralMenu selection={0} actionNumber={0} />
-      <Header
-        details={{
-          name1: "Inicio",
-          path1: "/",
-          name2: "",
-          path2: "#",
-          name3: "",
-        }}
-      />
+      <Box gridArea={"aside"}>
+        <LateralMenu selection={0} actionNumber={0} />
+      </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        <Box>
-          <img src={escudo} alt="Escudo" style={{ width: "20vw" }} />
-        </Box>
+      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+        <Header
+          details={{
+            name1: "Inicio",
+            path1: "/",
+            name2: "",
+            path2: "#",
+            name3: "",
+          }}
+        />
+      </Box>
+
+      <Box sx={{ display: "flex", justifyContent: "center" }} gridArea={"main"} >
+        <img src={escudo} alt="Escudo" style={{ width: "25vw" }} />
       </Box>
     </Box>
   );
