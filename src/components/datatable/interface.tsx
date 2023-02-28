@@ -7,6 +7,7 @@
     ApellidoPaterno:   string;
     ApellidoMaterno:   string;
     CorreoElectronico: string;
+    Puesto:            string;
     NombreUsuario:     string;
     Cargo:             string;
     Telefono:          string;

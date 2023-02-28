@@ -168,6 +168,6 @@ export const continueSession = () => {
 };
 
 export const logout = () => {
-  // localStorage.clear();
-  window.location.assign("http://10.200.4.106/");
+  localStorage.clear();
+  window.location.assign("http://localhost:3000");
 };

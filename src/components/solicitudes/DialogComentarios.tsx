@@ -26,6 +26,32 @@ export const DialogComentarios = ({
   const [comentarios, setComentarios] = useState<Array<IComentarios>>([]);
   // const [renderComments, setRenderComments] = useState(false);
 
+  const getComentarios = () => {
+    axios({
+      method: "get",
+      url: process.env.REACT_APP_APPLICATION_LOGIN + "/api/comentarios-solicitudes",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+      params: {
+        IdUsuario: localStorage.getItem("IdCentral"),
+        IdSolicitud: solicitud,
+      },
+    })
+      .then(function (response) {
+        setComentarios(response.data.data);
+        // setRenderComments(true);
+      })
+      .catch(function (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Mensaje",
+          text: "(" + error.response.status + ") " + error.response.data.msg,
+        });
+      });
+  };
+
   useEffect(() => {
     if (open) {
       axios({

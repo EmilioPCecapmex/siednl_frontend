@@ -53,15 +53,17 @@ export const DeleteDialog = ({
   const [idSolicitud, setIdSolicitud] = React.useState("");
 
   const deleteUsuario = () => {
+    console.log(dataUser.Puesto);
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-solicitud",
         {
           Nombre: dataUser.Nombre,
           APaterno: dataUser.ApellidoPaterno,
           AMaterno: dataUser.ApellidoMaterno,
           NombreUsuario: dataUser.NombreUsuario,
           Email: dataUser.CorreoElectronico,
+          Puesto: dataUser.Puesto,
           Curp: dataUser.Curp,
           RFC: dataUser.Rfc.toUpperCase(),
           Celular: dataUser.Celular,
@@ -89,9 +91,46 @@ export const DeleteDialog = ({
             title: "Solicitud Creada!",
           });
         }
+        else{
+          Toast.fire({
+            icon: "error",
+            title: "Error al crear Solicitud!",
+          });
+        }
       })
       .catch((r) => {
         if (r.data.data[0][0].Respuesta === 409) {
+        }
+      });
+  };
+
+  const createComentarios = () => {
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-comentario",
+        {
+          CreadoPor: localStorage.getItem("IdCentral"),
+          IdSolicitud: idSolicitud,
+          Comentario: comentario,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 201) {
+          Toast.fire({
+            icon: "success",
+            title: "Solicitud Creada!",
+          });
+
+          handleClose();
+        }
+      })
+      .catch((r) => {
+        if (r.response.status === 409) {
         }
       });
   };

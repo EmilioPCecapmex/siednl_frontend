@@ -103,28 +103,35 @@ export const DataTable = ({
     setOpenModalEditarUsuario(false);
   };
 
-  const [datosUsuario, setDatosUsuario] = useState<DataUsuariosTiCentral>({
-    Id: "",
-    IdUsuarioTiCentral: "",
-    Nombre: "",
-    ApellidoPaterno: "",
-    ApellidoMaterno: "",
-    CorreoElectronico: "",
-    NombreUsuario: "",
-    Cargo: "",
-    Telefono: "",
-    Ext: "",
-    Curp: "",
-    Rfc: "",
-    Celular: "",
-    IdRol: "",
-    Rol: "",
-    IdInstitucion: "",
-    NombreInstitucion: "",
-    CreadoPor: "",
-    ModificadoPor: "",
-  });
-  useEffect(() => {}, [datosUsuario]);
+
+  const [datosUsuario, setDatosUsuario] = useState<DataUsuariosTiCentral>(
+    {
+      Id: "",
+      IdUsuarioTiCentral: "",
+      Nombre: "",
+      ApellidoPaterno: "",
+      ApellidoMaterno: "",
+      CorreoElectronico: "",
+      Puesto:"",
+      NombreUsuario: "",
+      Cargo: "",
+      Telefono: "",
+      Ext: "",
+      Curp: "",
+      Rfc: "",
+      Celular: "",
+      IdRol: "",
+      Rol: "",
+      IdInstitucion: "",
+      NombreInstitucion: "",
+      CreadoPor: "",
+      ModificadoPor: "",
+    }
+  );
+  useEffect(() => {
+
+
+  }, [datosUsuario])
   return (
     <Box
       sx={{
