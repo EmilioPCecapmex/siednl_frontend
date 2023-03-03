@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useEffect, useState } from "react";
 import { Box, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
@@ -1394,9 +1395,7 @@ export function TabResumen({
           </Typography>
 
           {cValor[0]?.componentes.map((item, indexComponentes) => {
-            let i = 0;
             return item.actividades.map((value, indexActividades) => {
-              i++;
               return (
                 <Box key={indexActividades}>
                   <Typography
@@ -1673,14 +1672,12 @@ export function TabResumen({
         </Button>
 
         <Button
-          /////////////////////////////////////////////// Aqui estoy /////////////////////////////////////
-
           disabled={
-            disablebutton &&
+            (disablebutton &&
             disablebutton2 &&
             disablebutton3 &&
             disablebuttoncomponentes &&
-            disablebuttonactividades
+            disablebuttonactividades) && localStorage.getItem("Rol") !== "Verificador"
           }
           color="warning"
           variant="outlined"

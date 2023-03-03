@@ -377,7 +377,7 @@ export default function ModalSolicitaModif({
       )
       .then((r) => {
         if (comment !== "") {
-          comentMir(r.data.data.ID);
+          comentMir(IdMir);
         }
         Toast.fire({
           icon: "success",

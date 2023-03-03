@@ -39,6 +39,7 @@ export const Notification = () => {
     if (localStorage.getItem("Rol") !== "Administrador") {
       navigate("../home");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [usuarios, setUsuarios] = useState<Array<IUsuarios>>();
@@ -256,54 +257,72 @@ export const Notification = () => {
         width: "100vw",
         height: "100vh",
         display: "grid",
-        gridTemplateColumns: "1fr 10fr",
         backgroundColor: "#F2F2F2",
+        gridTemplateAreas: `
+                          'aside header'
+                          'aside main'
+                         `,
       }}
     >
-      <TutorialBox initialState={13} endState={17} />
+      <Box gridArea={"aside"} >
+        <LateralMenu selection={7} actionNumber={0} />
+        <TutorialBox initialState={13} endState={17} />
+      </Box>
 
-      <LateralMenu selection={7} actionNumber={0} />
-      <Header
-        details={{
-          name1: "Notificaciones",
-          path1: "../notifications",
-          name2: "",
-          path2: "#",
-          name3: "",
-        }}
-      />
+      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+        <Header
+          details={{
+            name1: "Notificaciones",
+            path1: "../notifications",
+            name2: "",
+            path2: "#",
+            name3: "",
+          }}
+        />
+      </Box>
 
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
+          display: "grid",
           width: "100%",
-          height: "100%",
+          height: "92vh",
           flexDirection: "column",
+          alignItems: "center",
+          justifyItems: "center",
+          gridTemplateAreas: `
+                            'send hist'
+                           `,
         }}
+        gridArea={"main"}
       >
         <Box
           sx={{
-            width: "30%",
-            height: "15vh",
+            width: "90%",
+            height: "70%",
             backgroundColor: "#fff",
             display: "flex",
             borderRadius: 10,
-            boxShadow: 5,
+            boxShadow: 20,
             alignItems: "center",
+            flexDirection: "column",
             justifyContent: "space-evenly",
-            ml: "5vw",
           }}
+          gridArea={"send"}
         >
+          <Typography>Enviar notificación</Typography>
+
           <FormControl>
-            <InputLabel id="UsuarioLabel" sx={{ fontFamily: "MontserratBold" }}>
+            <InputLabel
+              id="UsuarioLabel"
+              sx={{ fontFamily: "MontserratSemiBold"}}
+            >
               Usuario
             </InputLabel>
             <Select
               labelId="UsuarioLabel"
               error={errorForm.type === "user" ? errorForm.visible : false}
               label="Usuario"
-              sx={{ width: "20vw" }}
+              sx={{ width: "22vw" }}
               onChange={(v) => setUsuarioSeleccionado(v.target.value as string)}
               value={usuarioSeleccionado || ""}
             >
@@ -332,326 +351,294 @@ export const Notification = () => {
               {errorForm.type === "user" ? errorForm.text : null}
             </FormHelperText>
           </FormControl>
+          <TextField
+            label="Titulo"
+            sx={{ width: "70%" }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+            onChange={(v) => setTitulo(v.target.value)}
+            value={titulo}
+            error={errorForm.type === "titulo" ? errorForm.visible : false}
+            helperText={errorForm.type === "titulo" ? errorForm.text : null}
+          />
+
+          <TextField
+            multiline
+            rows={7}
+            InputLabelProps={{
+              style: {
+                fontFamily: "MontserratSemiBold",
+              },
+            }}
+            label="Mensaje"
+            value={mensaje}
+            onChange={(v) => setMensaje(v.target.value)}
+            sx={{ width: "70%" }}
+            error={errorForm.type === "mensaje" ? errorForm.visible : false}
+            helperText={errorForm.type === "mensaje" ? errorForm.text : null}
+            InputProps={{
+              style: {
+                fontFamily: "MontserratMedium",
+              },
+            }}
+          />
+          <FormGroup
+            sx={{ width: "70%", display: "flex", alignItems: "center" }}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkedEmail}
+                  onChange={(v) => setCheckedEmail(v.target.checked)}
+                />
+              }
+              label={
+                <Typography
+                  sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                >
+                  Enviar notificación por email
+                </Typography>
+              }
+            />
+          </FormGroup>
+
+          <Button
+            variant="contained"
+            color="inherit"
+            sx={{ mt: "2vh", ml: "60%" }}
+            onClick={() => revisaForm()}
+          >
+            <Typography
+              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+            >
+              Enviar
+            </Typography>
+          </Button>
         </Box>
-        <Box sx={{ display: "flex", height: "60%", width: "100%" }}>
-          <Box
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            borderBottom: 1,
+            borderColor: "#D7D7D7",
+            height: "70vh",
+            width: "35vw",
+            alignItems: "center",
+            bgcolor: "#fff",
+            boxShadow:20,
+            borderRadius:10
+          }}
+          gridArea={"hist"}
+        >
+          <Typography
             sx={{
-              mt: "5vh",
-              width: "30%",
-              height: "100%",
-              backgroundColor: "#fff",
-              display: "flex",
-              borderRadius: 10,
-              boxShadow: 5,
-              alignItems: "center",
-              flexDirection: "column",
-              ml: "5vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: ".8vw",
+              width: "100%",
+              color: "#616161",
+              textAlign: "center",
             }}
           >
-            <TextField
-              label="Titulo"
-              sx={{ width: "70%", mt: "10vh" }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratBold",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              onChange={(v) => setTitulo(v.target.value)}
-              value={titulo}
-              error={errorForm.type === "titulo" ? errorForm.visible : false}
-              helperText={errorForm.type === "titulo" ? errorForm.text : null}
-            />
+            HISTORIAL DE NOTIFICACIONES ENVIADAS
+          </Typography>
 
-            <TextField
-              multiline
-              rows={7}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratBold",
-                },
-              }}
-              label="Mensaje"
-              value={mensaje}
-              onChange={(v) => setMensaje(v.target.value)}
-              sx={{ width: "70%", mt: "10vh" }}
-              error={errorForm.type === "mensaje" ? errorForm.visible : false}
-              helperText={errorForm.type === "mensaje" ? errorForm.text : null}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-            />
-            <FormGroup
-              sx={{ width: "70%", display: "flex", alignItems: "center" }}
-            >
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checkedEmail}
-                    onChange={(v) => setCheckedEmail(v.target.checked)}
-                  />
-                }
-                label={
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-                  >
-                    Enviar notificación por email
-                  </Typography>
-                }
-              />
-            </FormGroup>
-
-            <Button
-              variant="contained"
-              color="inherit"
-              sx={{ mt: "2vh", ml: "60%" }}
-              onClick={() => revisaForm()}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-              >
-                Enviar
-              </Typography>
-            </Button>
-          </Box>
-          <Box
-            sx={{
-              mt: "5vh",
-              width: "50%",
-              height: "100%",
-              backgroundColor: "#fff",
-              display: "flex",
-              borderRadius: 10,
-              boxShadow: 5,
-              alignItems: "center",
-              flexDirection: "column",
-              ml: "5vw",
-            }}
-          >
-            <Box
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Input
+              disableUnderline
               sx={{
-                display: "flex",
-                borderBottom: 1,
-                borderColor: "#D7D7D7",
-                height: "6vh",
-                width: "100%",
-                alignItems: "center",
+                width: "15vw",
+                border: 1,
+                borderRadius: 5,
+                borderColor: "#ccc",
+                fontFamily: "MontserratLight",
+                fontSize: ".7vw",
+                m:1
+              }}
+              onChange={(x) => filterN(x.target.value)}
+            />
+            <SearchIcon sx={{ mr: "1vw", color: "#616161" }} />
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "#E8E8E8",
+              height: "3vh",
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: ".7vw",
+                width: "20%",
+                textAlign: "center",
               }}
             >
-              <Typography
-                sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: ".8vw",
-                  width: "100%",
-                  color: "#616161",
-                  ml: "2vw",
-                }}
-              >
-                HISTORIAL DE NOTIFICACIONES ENVIADAS
-              </Typography>
-
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Input
-                  disableUnderline
-                  sx={{
-                    width: "10vw",
-                    border: 1,
-                    borderRadius: 5,
-                    borderColor: "#ccc",
-                    fontFamily: "MontserratLight",
-                    fontSize: ".7vw",
-                  }}
-                  onChange={(x) => filterN(x.target.value)}
-                />
-                <SearchIcon sx={{ mr: "1vw", color: "#616161" }} />
-              </Box>
-            </Box>
-
-            <Box sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  backgroundColor: "#E8E8E8",
-                  height: "3vh",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: ".7vw",
-                    width: "20%",
-                    textAlign: "center",
-                  }}
-                >
-                  Usuario
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: ".7vw",
-                    width: "20%",
-                    textAlign: "center",
-                  }}
-                >
-                  Fecha Envío
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: ".7vw",
-                    width: "20%",
-                    textAlign: "center",
-                  }}
-                >
-                  Estatus
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: ".7vw",
-                    width: "20%",
-                    textAlign: "center",
-                  }}
-                >
-                  Título
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: ".7vw",
-                    width: "20%",
-                    textAlign: "center",
-                  }}
-                >
-                  Mensaje
-                </Typography>
-              </Box>
-              <TableContainer
-                component={Paper}
-                sx={{
-                  width: "100%",
-                  height: "85%",
-                  "&::-webkit-scrollbar": {
-                    width: ".3vw",
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "rgba(0,0,0,.5)",
-                    outline: "1px solid slategrey",
-                    borderRadius: 10,
-                  },
-                }}
-              >
-                <Table>
-                  <TableBody>
-                    {(rowsPerPage > 0
-                      ? notifFilter.slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
-                        )
-                      : notifFilter
-                    ).map((row) => (
-                      <TableRow key={row.Id || 0}>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratLight",
-                            width: "20%",
-                            textAlign: "center",
-                          }}
-                          component="th"
-                          scope="row"
-                        >
-                          {row.NombreUsuarioDestino}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratLight",
-                            width: "20%",
-                            textAlign: "center",
-                          }}
-                          component="th"
-                          scope="row"
-                        >
-                          {row.FechaCreacion?.toString()
-                            .replace("T", " ")
-                            .replace(".000Z", "")}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratLight",
-                            width: "20%",
-                            textAlign: "center",
-                          }}
-                          component="th"
-                          scope="row"
-                        >
-                          {row.Deleted
-                            ? "Leído"
-                            : row.Deleted === 0
-                            ? "No Leído"
-                            : "Sin historial"}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratLight",
-                            width: "20%",
-                            textAlign: "center",
-                          }}
-                          component="th"
-                          scope="row"
-                        >
-                          {row.Titulo}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "MontserratLight",
-                            width: "20%",
-                            textAlign: "center",
-                          }}
-                          component="th"
-                          scope="row"
-                        >
-                          {row.Mensaje}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                    {emptyRows > 0 && (
-                      <TableRow style={{ height: 53 * emptyRows }}>
-                        <TableCell colSpan={6} />
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <TablePagination
-                  rowsPerPageOptions={[7]}
-                  colSpan={3}
-                  count={notifFilter.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  component="div"
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                  sx={{ borderBottom: 0 }}
-                />
-              </Box>
-            </Box>
+              Usuario
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: ".7vw",
+                width: "20%",
+                textAlign: "center",
+              }}
+            >
+              Fecha Envío
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: ".7vw",
+                width: "20%",
+                textAlign: "center",
+              }}
+            >
+              Estatus
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: ".7vw",
+                width: "15%",
+                textAlign: "center",
+              }}
+            >
+              Título
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: ".7vw",
+                width: "25%",
+                textAlign: "center",
+              }}
+            >
+              Mensaje
+            </Typography>
           </Box>
+          <TableContainer
+            component={Paper}
+            sx={{
+              width: "100%",
+              height: "85%",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
+            }}
+          >
+            <Table>
+              <TableBody>
+                {(rowsPerPage > 0
+                  ? notifFilter.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                  : notifFilter
+                ).map((row) => (
+                  <TableRow key={row.Id || 0}>
+                    <TableCell
+                      sx={{
+                        fontFamily: "MontserratLight",
+                        width: "20%",
+                        textAlign: "center",
+                      }}
+                      component="th"
+                      scope="row"
+                    >
+                      {row.NombreUsuarioDestino}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontFamily: "MontserratLight",
+                        width: "20%",
+                        textAlign: "center",
+                      }}
+                      component="th"
+                      scope="row"
+                    >
+                      {row.FechaCreacion?.toString()
+                        .replace("T", " ")
+                        .replace(".000Z", "")}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontFamily: "MontserratLight",
+                        width: "20%",
+                        textAlign: "center",
+                      }}
+                      component="th"
+                      scope="row"
+                    >
+                      {row.Deleted
+                        ? "Leído"
+                        : row.Deleted === 0
+                        ? "No Leído"
+                        : "Sin historial"}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontFamily: "MontserratLight",
+                        width: "15%",
+                        textAlign: "center",
+                      }}
+                      component="th"
+                      scope="row"
+                    >
+                      {row.Titulo}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontFamily: "MontserratLight",
+                        width: "25%",
+                        textAlign: "center",
+                      }}
+                      component="th"
+                      scope="row"
+                    >
+                      {row.Mensaje}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[7]}
+            colSpan={3}
+            count={notifFilter.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            component="div"
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            ActionsComponent={TablePaginationActions}
+            sx={{
+              width: "100%",
+              bgcolor: "#fff",
+              overflow: "hidden",
+              borderRadius:10
+            }}
+          />
         </Box>
       </Box>
     </Box>

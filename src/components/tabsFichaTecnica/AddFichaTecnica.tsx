@@ -198,9 +198,6 @@ export default function AddFichaTecnica({
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
-        width: "100%",
-        height: "92%",
-        mt: "8vh",
       }}
     >
       {value === 10 ? <TutorialBox initialState={49} endState={50} /> : null}

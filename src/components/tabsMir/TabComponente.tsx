@@ -47,6 +47,8 @@ export const TabComponente = ({
     })
   );
 
+  
+
   useEffect(() => {
     setComponenteValor(
       noComponentes.map((x, index) => {
@@ -275,7 +277,7 @@ export const TabComponente = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize:'0.9rem' }}>
                     COMPONENTE {item}
                   </Typography>
                 </ListItemButton>

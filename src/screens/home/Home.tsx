@@ -20,9 +20,6 @@ export const Home = () => {
         alignItems: "start",
       }}
     >
-      <TutorialBox initialState={0} endState={8} />
-      <WelcomeBox />
-
       <Box gridArea={"aside"}>
         <LateralMenu selection={0} actionNumber={0} />
       </Box>
@@ -39,7 +36,9 @@ export const Home = () => {
         />
       </Box>
 
-      <Box sx={{ display: "flex", justifyContent: "center" }} gridArea={"main"} >
+      <Box sx={{ display: "flex", justifyContent: "center" }} gridArea={"main"}>
+        <TutorialBox initialState={0} endState={8} />
+        <WelcomeBox />
         <img src={escudo} alt="Escudo" style={{ width: "25vw" }} />
       </Box>
     </Box>

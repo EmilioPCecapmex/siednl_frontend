@@ -1190,7 +1190,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         justifyContent: "center",
         width: "100%",
         height: "92vh",
-        mt: "8vh",
       }}
     >
       <Box

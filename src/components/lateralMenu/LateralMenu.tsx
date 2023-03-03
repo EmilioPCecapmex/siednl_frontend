@@ -518,64 +518,6 @@ export const LateralMenu = ({
               />
             </ListItemButton>
           )}
-
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
-            <Box>
-              <ListItemButton onClick={handleClickDocs}>
-                <Box sx={st.iconMenuList}>
-                  <TaskIcon />
-                </Box>
-
-                <Typography sx={st.firstItemsStyle}>
-                  Firma Electrónica
-                </Typography>
-                {openDocs ? <ExpandLess /> : <ExpandMore />}
-                <Box
-                  visibility={selection === 1 ? "visible" : "hidden"}
-                  sx={st.selectedBox}
-                />
-              </ListItemButton>
-              <Collapse in={openDocs} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <ListItemButton
-                    onClick={() => navigate("../firmado")}
-                    sx={{ ml: 2 }}
-                  >
-                    <Box sx={st.iconMenuList}>
-                      <KeyboardDoubleArrowRightIcon />
-                    </Box>
-                    <Typography sx={st.subMenuItemsText}>
-                      Firmado de Documentos
-                    </Typography>
-                    <Box
-                      visibility={selection === 8 ? "visible" : "hidden"}
-                      sx={st.selectedBox}
-                    />
-                  </ListItemButton>
-
-                  <ListItemButton
-                    onClick={() => navigate("../tabla")}
-                    sx={{ ml: 2 }}
-                  >
-                    <Box sx={st.iconMenuList}>
-                      <KeyboardDoubleArrowRightIcon />
-                    </Box>
-                    <Typography sx={st.subMenuItemsText}>
-                      Documentos Firmados
-                    </Typography>
-                    <Box
-                      visibility={selection === 9 ? "visible" : "hidden"}
-                      sx={st.selectedBox}
-                    />
-                  </ListItemButton>
-                </List>
-              </Collapse>
-
-              {/* Cambiar tipo de usuario                                                                                */}
-              
-              {/* '                                                                      ' */}
-            </Box>
-          )}
         </List>
       </Box>
 

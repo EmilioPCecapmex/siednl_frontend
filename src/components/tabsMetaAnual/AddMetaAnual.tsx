@@ -28,6 +28,8 @@ export default function AddMetaAnual({
   IdMir: string;
   IdMA: string;
 }) {
+
+  
   const [value, setValue] = React.useState(20);
 
   const [showMir, setShowMir] = React.useState(false);

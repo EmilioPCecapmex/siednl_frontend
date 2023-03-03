@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import {
   Box,
@@ -77,7 +79,6 @@ export const TabActividades = ({
   );
 
   useEffect(() => {
-    
     if (componentes.length > cValor[0].componentes.length) {
       let restantes = componentes.length - cValor[0].componentes.length;
       let prevState = [...cValor];
@@ -86,19 +87,19 @@ export const TabActividades = ({
         prevState[0].componentes.push({
           actividades: [
             {
-              actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
+              actividad: "A1C" + (prevState[0].componentes.length + 1),
               resumen: "",
               indicador: "",
-              frecuencia: "",
+              frecuencia: "TRIMESTRAL",
               formula: "",
               medios: "",
               supuestos: "",
             },
             {
-              actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
+              actividad: "A2C" + (prevState[0].componentes.length + 1),
               resumen: "",
               indicador: "",
-              frecuencia: "",
+              frecuencia: "TRIMESTRAL",
               formula: "",
               medios: "",
               supuestos: "",
@@ -133,12 +134,10 @@ export const TabActividades = ({
       setS(1);
     }
   }, [show]);
-  
-
 
   const loadActividadesMir = () => {
-  let aument_number = -1;
-  let aumentComps = 0;
+    let aument_number = -1;
+    let aumentComps = 0;
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct?.map((x, index) => {
@@ -223,7 +222,7 @@ export const TabActividades = ({
             (index + 1),
           resumen: "",
           indicador: "",
-          frecuencia: "",
+          frecuencia: "TRIMESTRAL",
           formula: "",
           medios: "",
           supuestos: "",
@@ -480,7 +479,7 @@ export const TabActividades = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize:'0.9rem' }}>
                     COMPONENTE {item}
                   </Typography>
 

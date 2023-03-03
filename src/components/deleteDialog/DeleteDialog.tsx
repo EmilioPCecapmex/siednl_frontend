@@ -53,7 +53,6 @@ export const DeleteDialog = ({
   const [idSolicitud, setIdSolicitud] = React.useState("");
 
   const deleteUsuario = () => {
-    console.log(dataUser.Puesto);
     axios
       .post(
         process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-solicitud",

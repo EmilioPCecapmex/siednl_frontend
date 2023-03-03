@@ -211,9 +211,8 @@ export default function ModalEditarSolicitud({
         }
       )
       .then((r) => {
-        console.log(r)
         if (r.data.result.Respuesta ==="201") {
-          if (comentario != "")
+          if (comentario !== "")
             {createComentarios(idSolicitud);}
 
           Toast.fire({

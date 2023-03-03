@@ -14,6 +14,7 @@ export const Settings = () => {
     if (localStorage.getItem("Rol") !== "Administrador") {
       navigate("../home");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [showCards, setShowCards] = useState(true);
@@ -42,7 +43,7 @@ export const Settings = () => {
       alignItems: "start",
     }}
     >
-      <Box gridArea={'aside'}>
+      <Box gridArea={'aside'} sx={{mr: showCards ? 8 : 0}}>
         <LateralMenu selection={6} actionNumber={0} settingsCard={resetView} />
       </Box>
 

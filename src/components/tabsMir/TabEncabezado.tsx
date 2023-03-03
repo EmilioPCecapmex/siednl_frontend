@@ -81,7 +81,6 @@ export function TabEncabezado({
     Array<ICompActividad>
   >([]);
 
-  /////////////////////////////////////////////////
   useEffect(() => {
     if (MIR !== "") {
       const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR);
@@ -135,6 +134,7 @@ export function TabEncabezado({
       setLoadingFile(false);
 
       jsonMir.componentes?.map((value: any, index: number) => {
+        
         if (index > 1 && index < 6)
           setLoadComponentes((loadComponentes) => [
             ...loadComponentes,
@@ -142,16 +142,19 @@ export function TabEncabezado({
           ]);
       });
       jsonMir.actividades?.map((value: any, index: number) => {
-        if (index > 1 && index < 36)
+        if (index > 1 && index < 36 )
           setLoadActividades((loadActividades) => [
             ...loadActividades,
             index + 1,
           ]);
       });
+    
     }
+    
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR, anioFiscalEdit, compAct]);
-  ////////////////////////////////////////
+  
   //envio de valores a MIR
   useEffect(() => {
     asignarComponente(loadComponentes);
@@ -162,7 +165,7 @@ export function TabEncabezado({
 
     actividadesMir(loadActividadValor);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ loadActividadValor, loadActividades, loadComponenteValor, loadComponentes]);
+  }, [ loadActividades, loadComponentes]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -179,7 +182,7 @@ export function TabEncabezado({
   //saca la cantidad de componentes
   useEffect(() => {
     loadComponenteValor.map((value, index) => {
-      if (index > 1 && index < 6)
+      if (index > 1 && index < 6 && loadComponentes.length < 6)
         setLoadComponentes((loadComponentes) => [
           ...loadComponentes,
           index + 1,
@@ -207,7 +210,7 @@ export function TabEncabezado({
     setObjetivo("");
     setDisabledEstrategias(true);
     setEstrategia("");
-    // setDisabledLineasDeAccion(true);
+    setDisabledLineasDeAccion(true);
     setLineaDeAccion([]);
     getTematicas(Id);
     setDisabledTematicas(false);
@@ -217,14 +220,14 @@ export function TabEncabezado({
     setObjetivo("");
     setDisabledEstrategias(true);
     setEstrategia("");
-    // setDisabledLineasDeAccion(true);
+    setDisabledLineasDeAccion(true);
     getObjetivos(Id);
     setDisabledObjetivos(false);
   }
   function enCambioObjetivo(Id: string, Objetivo: string) {
     setObjetivo(Objetivo);
     setEstrategia("");
-    // setDisabledLineasDeAccion(true);
+    setDisabledLineasDeAccion(true);
     setLineaDeAccion([]);
     getEstrategias(Id);
     setDisabledEstrategias(false);
@@ -233,7 +236,7 @@ export function TabEncabezado({
     setEstrategia(Estrategia);
     setLineaDeAccion([]);
     getLineasDeAccion(Id);
-    // setDisabledLineasDeAccion(false);
+    setDisabledLineasDeAccion(false);
   }
   // function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
   //   setLineaDeAccion([]);
@@ -279,7 +282,7 @@ export function TabEncabezado({
   const [disabledTematicas, setDisabledTematicas] = useState(true);
   const [disabledObjetivos, setDisabledObjetivos] = useState(true);
   const [disabledEstrategias, setDisabledEstrategias] = useState(true);
-  // const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
+  const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
 
   const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
@@ -473,7 +476,7 @@ export function TabEncabezado({
         setCatalogoLineasDeAccion(r.data.data);
       })
       .catch((err) => {
-        // setDisabledLineasDeAccion(true);
+        setDisabledLineasDeAccion(true);
       });
   };
   const getBeneficiarios = () => {
@@ -601,7 +604,7 @@ export function TabEncabezado({
       .then((r) => {
         if (r.data.data.length !== 0) {
           lineaDeAccion.push(r.data.data[0]);
-          // setDisabledLineasDeAccion(false);
+          setDisabledLineasDeAccion(false);
         }
       })
       .catch((err) => {});
@@ -661,7 +664,6 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
-        console.log(response.data);
         
         getIdInstitucion(response.data.encabezado[0].institucion);
         // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
@@ -1273,6 +1275,10 @@ export function TabEncabezado({
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
+          disabled={
+            (mirEdit?.encabezado.lineas_de_accion && lineaDeAccion[0]?.LineaDeAccion === "") ||
+            disabledLineasDeAccion
+          }
             multiple
             limitTags={4}
             options={replica}

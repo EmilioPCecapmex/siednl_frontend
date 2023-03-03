@@ -154,28 +154,28 @@ export const DataTable = ({
         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontFamily: "MontserratBold" }}>
+              <TableCell sx={{ fontFamily: "MontserratBold"}} align="center" >
                 Nombre
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="left">
+              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
                 Correo Electrónico
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="left">
+              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
                 Usuario
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="left">
+              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
                 Cargo
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="left">
+              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
                 Teléfono
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="left">
+              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
                 Celular
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="left">
+              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
                 Institución
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="left">
+              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
                 Tipo de Usuario
               </TableCell>
               <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
@@ -194,7 +194,7 @@ export const DataTable = ({
                   >
                     <Box
                       sx={{
-                        width: "6vw",
+                        width: "9vw",
                         height: "1vh",
                         justifyContent: "left",
                         display: "flex",
@@ -220,7 +220,7 @@ export const DataTable = ({
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }} 
                   >
                     {row.CorreoElectronico}
                   </TableCell>

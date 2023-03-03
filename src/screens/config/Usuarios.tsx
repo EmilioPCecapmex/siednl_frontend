@@ -20,6 +20,7 @@ export const Usuarios = () => {
     if (localStorage.getItem("Rol") === "Capturador") {
       navigate("../home");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [openModalUsuarios, setOpenModalUsuarios] = useState(false);
@@ -56,15 +57,23 @@ export const Usuarios = () => {
   return (
     <Box
       sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "grid",
-        gridTemplateColumns: "1fr 13fr",
-        backgroundColor: "#F2F2F2",
-      }}
+      width: "100vw",
+      height: "100vh",
+      display: "grid",
+      backgroundColor: "#F2F2F2",
+      gridTemplateAreas: `
+                        'aside header'
+                        'aside main'
+                       `,
+      alignItems: "start",
+    }}
     >
-      <LateralMenu selection={6} actionNumber={0} />
-      <Header
+      <Box gridArea={'aside'} >
+        <LateralMenu selection={6} actionNumber={0} />
+      </Box>
+      
+      <Box gridArea={'header'} sx={{ height: "8vh" }}>
+        <Header
         details={{
           name1: "Inicio",
           path1: "../home",
@@ -73,15 +82,18 @@ export const Usuarios = () => {
           name3: "Usuarios",
         }}
       />
+      </Box>
+      
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
-          width: "100%",
-          height: "92%",
-          mt: "8vh",
-          flexWrap: "wrap",
+          flexDirection:'column',
+          justifyContent: "space-evenly",
+          width: "77vw",
+          height: "92vh",
+          alignItems:'center'
         }}
+        gridArea={'main'}
       >
         <ModalCrearUsuario
           title="Crear Solicitud Nuevo Usuario"
@@ -101,7 +113,6 @@ export const Usuarios = () => {
 
         <Box
           sx={{
-            mt: "3vh",
             width: "70vw",
             height: "10vh",
             backgroundColor: "#fff",

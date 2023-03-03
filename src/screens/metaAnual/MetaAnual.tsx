@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
@@ -258,7 +259,7 @@ export const MetaAnual = () => {
                            `,
       }}
     >
-      <Box gridArea={"aside"}>
+      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
         <LateralMenu selection={3} actionNumber={actionNumber} />
       </Box>
 

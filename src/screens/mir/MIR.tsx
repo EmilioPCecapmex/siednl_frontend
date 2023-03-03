@@ -265,9 +265,10 @@ export const MIR = () => {
                           'aside header'
                           'aside main'
                          `,
+          alignItems: "end",
       }}
     >
-      <Box gridArea={"aside"}>
+      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
         <LateralMenu selection={2} actionNumber={actionNumber} />
       </Box>
 
@@ -855,6 +856,7 @@ export const MIR = () => {
                                         : true
                                     }
                                     onClick={() => {
+                                      
                                       setMirEdit([
                                         {
                                           ID: row.ID,

@@ -514,7 +514,7 @@ export default function ModalEnviarMA({
   const creaMA = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: MA,
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -563,7 +563,7 @@ export default function ModalEnviarMA({
    
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
           FichaTecnica: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -605,7 +605,7 @@ export default function ModalEnviarMA({
     axios
       .get(
         // eslint-disable-next-line no-useless-concat
-        process.env.REACT_APP_APPLICATION_LOGIN + "" + "/api/usuarioXInstitucion",
+        process.env.REACT_APP_APPLICATION_BACK+ "/api/usuarioXInstitucion",
         {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),

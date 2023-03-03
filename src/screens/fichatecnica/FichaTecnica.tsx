@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import {
   IInstituciones,
@@ -274,7 +275,7 @@ export const FichaTecnica = () => {
                            `,
       }}
     >
-      <Box gridArea={"aside"}>
+      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
         <LateralMenu selection={4} actionNumber={actionNumber} />
       </Box>
 
@@ -895,11 +896,12 @@ export const FichaTecnica = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
-            width: "85%",
-            height: "92%",
-            flexWrap: "wrap",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
           }}
+          gridArea={"main"}
         >
           <AddFichaTecnica
             MIR={FTEdit[0].MIR}

@@ -447,7 +447,7 @@ export default function ModalSolicitaModif({
     }
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor:

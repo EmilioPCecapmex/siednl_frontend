@@ -16,9 +16,6 @@ import { Notification } from "./screens/notification/Notifications";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
-import { Firmado } from "./components/firmado electrónico/screens/firmado/Firmado";
-import { TablaDocs } from "./components/firmado electrónico/screens/tabla de documentos/tablaDocs";
-import { Documentos } from "./components/firmado electrónico/screens/documentos/Documentos";
 
 function App() {
   const navigate = useNavigate();
@@ -67,9 +64,6 @@ function App() {
         <Route path="metaAnual" element={<MetaAnual />} />
         <Route path="notifications" element={<Notification />} />
 
-        <Route path="firmado" element={<Firmado />} />
-        <Route path="documentos" element={<Documentos />} />
-        <Route path="tabla" element={<TablaDocs />} />
       </Routes>
     </>
   );

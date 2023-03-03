@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Button, Typography, Box, IconButton } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
@@ -146,7 +147,6 @@ export const TutorialBox = ({
         setMessage(
           "En la sección de MIR (Matriz Indicadora de Resultados) podras crear nuevas solicitudes y verificar el estado de MIRs anteriores."
         );
-
         break;
 
       case 9:
@@ -728,8 +728,8 @@ export const TutorialBox = ({
       <Box
         sx={{
           position: "absolute",
-          right: "3.7vw",
-          top: "2.1vh",
+          right: "5.5vw",
+          top: "2.5vh",
           zIndex: 2,
         }}
       >
