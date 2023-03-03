@@ -1,5 +1,4 @@
-FROM node:16.18.1-alpine
-ENV NODE_ENV development
+FROM node:16.16.0-alpine
 # Add a work directory
 WORKDIR /app
 # Cache and Install dependencies
