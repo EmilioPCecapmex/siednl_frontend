@@ -6,7 +6,6 @@ services:
     image: front-qa
     build:
       context: .
-      target: qa
     environment:
       REACT_APP_APPLICATION_BACK: "10.200.4.164:3000"
       REACT_APP_APPLICATION_MID: "http://10.200.4.105:7000"
