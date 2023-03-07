@@ -31,7 +31,6 @@ export interface IEncabezado {
   beneficiario: string;
   conac: string;
   consecutivo: string;
-
 }
 
 export function TabEncabezado({
@@ -88,15 +87,12 @@ export function TabEncabezado({
       setAnioFiscal(anioFiscalEdit);
       setLoadFin([jsonMir.fin]);
       setLoadProposito([jsonMir.proposito]);
-      setPrograma(jsonMir.encabezado.nombre_del_programa);
       getIdInstitucion(jsonMir.encabezado.institucion);
+      getIdPrograma(jsonMir.encabezado.nombre_del_programa);
       getIdEje(jsonMir.encabezado.eje);
       getIdTematica(jsonMir.encabezado.tema);
       getIdObjetivo(jsonMir.encabezado.objetivo);
       getIdEstrategia(jsonMir.encabezado.estrategia);
-      getProgramaPresupuestario(jsonMir.encabezado.conac);
-      getProgramaPresupuestario(jsonMir.encabezado.consecutivo);
-      
 
       setTimeout(() => {
         jsonMir.encabezado.lineas_de_accion.map(
@@ -134,7 +130,6 @@ export function TabEncabezado({
       setLoadingFile(false);
 
       jsonMir.componentes?.map((value: any, index: number) => {
-        
         if (index > 1 && index < 6)
           setLoadComponentes((loadComponentes) => [
             ...loadComponentes,
@@ -142,19 +137,17 @@ export function TabEncabezado({
           ]);
       });
       jsonMir.actividades?.map((value: any, index: number) => {
-        if (index > 1 && index < 36 )
+        if (index > 1 && index < 36)
           setLoadActividades((loadActividades) => [
             ...loadActividades,
             index + 1,
           ]);
       });
-    
     }
-    
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR, anioFiscalEdit, compAct]);
-  
+
   //envio de valores a MIR
   useEffect(() => {
     asignarComponente(loadComponentes);
@@ -164,8 +157,8 @@ export function TabEncabezado({
     setComponenteActividad(loadActividadValor);
 
     actividadesMir(loadActividadValor);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ loadActividades, loadComponentes]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadActividades, loadComponentes]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -188,6 +181,7 @@ export function TabEncabezado({
           index + 1,
         ]);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadComponenteValor]);
 
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
@@ -197,11 +191,19 @@ export function TabEncabezado({
   function enCambioInstitucion(Id: string, Inst: string) {
     setInstitution(Inst);
     setPrograma("");
-    getProgramas(Id);
+    setConac("");
+    setConsecutivo("");
+    if (Id !== "") {
+      getProgramas(Id);
+    }
     setDisabledProgramas(false);
   }
   function enCambioPrograma(Id: string, Prog: string) {
-    setPrograma(Prog);
+    setConac("");
+    setConsecutivo("");
+    if (Prog !== "") {
+      getIdPrograma(Prog);
+    }
   }
   function enCambioEje(Id: string, Eje: string) {
     setEje(Eje);
@@ -254,9 +256,9 @@ export function TabEncabezado({
     if (event.target.value !== "") {
       setNombreArchivo(event.target.value.split("\\")[2]);
     }
-      nombreArchivo == null || uploadFile == null
-        ? setDisabledButton(true)
-        : setDisabledButton(false);
+    nombreArchivo == null || uploadFile == null
+      ? setDisabledButton(true)
+      : setDisabledButton(false);
   }
 
   const resultado = () => {
@@ -299,10 +301,10 @@ export function TabEncabezado({
     []
   );
   const [beneficiario, setBeneficiario] = useState("");
- //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
   const [conac, setConac] = useState("");
   const [consecutivo, setConsecutivo] = useState("");
-///////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
     { Id: "0", AnioFiscal: "" },
@@ -311,7 +313,7 @@ export function TabEncabezado({
     { Id: "0", NombreInstitucion: "" },
   ]);
   const [catalogoProgramas, setCatalogoProgramas] = useState([
-    { Id: "0", NombrePrograma: "" },
+    { Id: "0", NombrePrograma: "", Conac: "", Consecutivo: "" },
   ]);
   const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "0", Eje: "" }]);
   const [catalogoTematicas, setCatalogoTematicas] = useState([
@@ -331,7 +333,6 @@ export function TabEncabezado({
   ]);
 
   const replica = catalogoLineasDeAccion;
-
 
   const [uploadFile, setUploadFile] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -508,21 +509,25 @@ export function TabEncabezado({
       })
       .catch((err) => {});
   };
-  // const getIdPrograma = (Description: string) => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-  //       params: {
-  //         Col: "Programas",
-  //         Descripcion: Description,
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setPrograma(r.data.data[0].Programa);
-  //     });
-  // };
+  const getIdPrograma = (Description: string) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+        params: {
+          Col: "Programas",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        console.log(r.data.data);
+
+        setPrograma(r.data.data[0].NombrePrograma);
+        setConac(r.data.data[0].Conac);
+        setConsecutivo(r.data.data[0].Consecutivo);
+      });
+  };
   const getIdEje = (Description: string) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
@@ -625,28 +630,6 @@ export function TabEncabezado({
         setBeneficiario(r.data.data[0].Beneficiario);
       });
   };
-///////////////////////////////////////////////////////////////////////////
-  const getProgramaPresupuestario = (Description: string) => {
-    axios
-    .get("localhost:8000/api/programaPresupuestarioConsulta",{
-      
-      
-      params:{
-        NombrePrograma: programa,
-        
-        Descripcion: Description,
-      },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      setConac(r.data.data[0]?.conac)
-      setConsecutivo(r.data.data[0]?.consecutivo)
-
-    });
-  };
-/////////////////////////////////////////////////////////////////////////
   //Cuando se da click en cargar archivo
   const submitForm = (event: any) => {
     setDisabledButton(true);
@@ -664,16 +647,12 @@ export function TabEncabezado({
         },
       })
       .then((response) => {
-        
         getIdInstitucion(response.data.encabezado[0].institucion);
-        // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
-        setPrograma(response.data.encabezado[0].nombre_del_programa);
+        getIdPrograma(response.data.encabezado[0].nombre_del_programa);
         getIdEje(response.data.encabezado[0].eje);
         getIdTematica(response.data.encabezado[0].tema);
         getIdObjetivo(response.data.encabezado[0].objetivo);
         getIdEstrategia(response.data.encabezado[0].estrategia);
-        getProgramaPresupuestario(response.data.encabezado[0].conac)
-        getProgramaPresupuestario(response.data.encabezado[0].consecutivo)
         setTimeout(() => {
           response.data.encabezado[0]?.lineas_de_accion
             ?.split(".\n")
@@ -762,13 +741,13 @@ export function TabEncabezado({
 
   useEffect(() => {
     resumenEncabezado(encabezado);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encabezado]);
 
   useEffect(() => {
     cargaFin(loadFin);
     cargaProposito(loadProposito);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadFin, loadProposito]);
 
   const [loadingFile, setLoadingFile] = useState(false);
@@ -810,7 +789,7 @@ export function TabEncabezado({
         </Button>
       </Box>
 
-      <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
+      <FormControl sx={{ gridRow: "1", width: "20vw" }}>
         <Autocomplete
           disabled={mirEdit?.encabezado.ejercicioFiscal}
           disablePortal
@@ -885,15 +864,17 @@ export function TabEncabezado({
       >
         {showAlert ? (
           <Alert
-          sx={{ borderRadius: 5, width: "80%", alignItems: "center", mt: 2 }}
-          severity="error"
-          onClose={() => {
-            setShowAlert(false);
-            setNombreArchivo("Arrastre o de click aquí para seleccionar archivo");
-          }}
-        >
-          {errorMsg}
-        </Alert>
+            sx={{ borderRadius: 5, width: "80%", alignItems: "center", mt: 2 }}
+            severity="error"
+            onClose={() => {
+              setShowAlert(false);
+              setNombreArchivo(
+                "Arrastre o de click aquí para seleccionar archivo"
+              );
+            }}
+          >
+            {errorMsg}
+          </Alert>
         ) : (
           <Typography
             sx={{
@@ -944,7 +925,7 @@ export function TabEncabezado({
         </Box>
       </Box>
 
-      <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+      <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={mirEdit?.encabezado.institucion}
           disablePortal
@@ -995,17 +976,20 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+      <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
             mirEdit?.encabezado.nombre_del_programa || disabledProgramas
           }
-          
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma || ""}
-          value={{ Id: catalogoProgramas[0].Id, NombrePrograma: programa }}
-          
+          value={{
+            Id: catalogoProgramas[0].Id,
+            NombrePrograma: programa,
+            Conac: conac,
+            Consecutivo: consecutivo,
+          }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
@@ -1035,17 +1019,34 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>
+          onChange={(event, value) => {
             enCambioPrograma(
               value?.Id as string,
               (value?.NombrePrograma as string) || ""
-            )
-          }
+            );
+          }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
-      <FormControl required sx={{ width: "20vw", mt: "6vh" }}>
+      <Box>
+        <TextField
+          disabled
+          size="small"
+          label={'CONAC:'}
+          value={conac}
+          sx={{width:'25%'}}
+        />
+        <TextField
+          disabled
+          size="small"
+          label={"CLASIFICACIÓN PROGRAMÁTICA:"}
+          value={consecutivo}
+          sx={{width:'70%'}}
+        />
+      </Box>
+
+      <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disablePortal
           disabled={mirEdit?.encabezado.eje}
@@ -1095,7 +1096,7 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+      <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
             (mirEdit?.encabezado.tema && tematica !== "") || disabledTematicas
@@ -1155,7 +1156,7 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+      <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
             (mirEdit?.encabezado.objetivo && objetivo !== "") ||
@@ -1210,7 +1211,7 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+      <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
             (mirEdit?.encabezado.estrategia && estrategia !== "") ||
@@ -1264,21 +1265,15 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl
-        required
-        sx={{
-          gridColumnStart: "1",
-          gridColumnEnd: "3",
-          width: "35vw",
-        }}
-      >
+      <FormControl required>
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
-          disabled={
-            (mirEdit?.encabezado.lineas_de_accion && lineaDeAccion[0]?.LineaDeAccion === "") ||
-            disabledLineasDeAccion
-          }
+            disabled={
+              (mirEdit?.encabezado.lineas_de_accion &&
+                lineaDeAccion[0]?.LineaDeAccion === "") ||
+              disabledLineasDeAccion
+            }
             multiple
             limitTags={4}
             options={replica}
