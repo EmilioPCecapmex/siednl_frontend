@@ -5,6 +5,16 @@ export const lstXl = {
     flexDirection: "column",
     boxShadow: 5,
     backgroundColor: "#fff",
+    overflowY: "scroll",
+    overflowX: "hidden",
+    "&::-webkit-scrollbar": {
+      width: ".1vw",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.5)",
+      outline: "1px solid slategrey",
+      borderRadius: 10,
+    },
   },
   imgBox: {
     paddingTop: "1vh",
@@ -109,6 +119,16 @@ export const lstLg = {
     backgroundColor: "#fff",
     flexDirection: "column",
     boxShadow: 5,
+    overflowY: "scroll",
+    overflowX: "hidden",
+    "&::-webkit-scrollbar": {
+      width: ".1vw",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.5)",
+      outline: "1px solid slategrey",
+      borderRadius: 10,
+    },
   },
   imgBox: {
     paddingTop: "2vh",
@@ -213,6 +233,16 @@ export const lstMd = {
     backgroundColor: "#fff",
     flexDirection: "column",
     boxShadow: 5,
+    overflowY: "scroll",
+    overflowX: "hidden",
+    "&::-webkit-scrollbar": {
+      width: ".1vw",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.5)",
+      outline: "1px solid slategrey",
+      borderRadius: 10,
+    },
   },
   imgBox: {
     paddingTop: "1vh",
@@ -317,6 +347,16 @@ export const lstSm = {
     backgroundColor: "#fff",
     flexDirection: "column",
     boxShadow: 5,
+    overflowY: "scroll",
+    overflowX: "hidden",
+    "&::-webkit-scrollbar": {
+      width: ".1vw",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.5)",
+      outline: "1px solid slategrey",
+      borderRadius: 10,
+    },
   },
   imgBox: {
     paddingTop: "1vh",
@@ -362,7 +402,7 @@ export const lstSm = {
     ml: 1,
     mt: 3,
   },
-///////////////////////////////////////////////
+  ///////////////////////////////////////////////
   selectInstitucionBox: {
     width: "90%",
     height: "4vh",
@@ -427,6 +467,16 @@ export const lstXs = {
     backgroundColor: "#fff",
     flexDirection: "column",
     boxShadow: 5,
+    overflowY: "scroll",
+    overflowX: "hidden",
+    "&::-webkit-scrollbar": {
+      width: ".1vw",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.5)",
+      outline: "1px solid slategrey",
+      borderRadius: 10,
+    },
   },
   imgBox: {
     paddingTop: "1vh",
@@ -472,7 +522,7 @@ export const lstXs = {
     ml: 1,
     mt: 3,
   },
-///////////////////////////////////////////////
+  ///////////////////////////////////////////////
   selectInstitucionBox: {
     width: "90%",
     height: "4vh",

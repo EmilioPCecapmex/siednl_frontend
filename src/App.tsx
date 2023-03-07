@@ -27,7 +27,7 @@ function App() {
     if (jt !== null) {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign("http://10.200.4.106/");
+          window.location.assign("http://10.200.4.165/");
         } else if ((r as boolean) === true) {
           setTimeout(() => {
             localStorage.setItem("IdApp", IdApp as string);
@@ -38,7 +38,7 @@ function App() {
     } else {
       continueSession().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign("http://10.200.4.106/");
+          window.location.assign("http://10.200.4.165/");
         } else {
           navigate("../home");
         }

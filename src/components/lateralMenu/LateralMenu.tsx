@@ -26,6 +26,7 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../funcs/validation";
@@ -189,7 +190,7 @@ export const LateralMenu = ({
 
       axios
         .put(
-          process.env.REACT_APP_APPLICATION_LOGIN + "/api/change-password",
+          process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/change-password",
           {
             ContrasenaNueva: newPassword,
             IdUsuario: localStorage.getItem("IdCentral"),
@@ -521,7 +522,7 @@ export const LateralMenu = ({
         </List>
       </Box>
 
-      <Box sx={st.dividerBox} />
+      <Divider></Divider>
       <Box sx={st.bottomMenuBox}>
         <List>
           {localStorage.getItem("Rol") !== "Administrador" ? null : (

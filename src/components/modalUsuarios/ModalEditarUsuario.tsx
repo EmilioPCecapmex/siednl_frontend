@@ -131,7 +131,7 @@ export default function ModalEditarUsuario({
   const createComentarios = (idSolicitud: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-comentario",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN +"/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -167,7 +167,7 @@ export default function ModalEditarUsuario({
   const solicitarModificacion = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN +"/api/create-solicitud",
 
         {
           Nombre: names,

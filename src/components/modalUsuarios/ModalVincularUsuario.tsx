@@ -192,7 +192,7 @@ export default function ModalVincularUsuario({
   const getUserDetails = (idCentral: string,) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/user-detail",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/user-detail",
         {
           IdUsuario: idCentral,
         },
@@ -232,7 +232,7 @@ export default function ModalVincularUsuario({
   const signUp = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/create-solicitud",
         {
           Nombre: dataUser.Nombre,
           APaterno: dataUser.ApellidoPaterno,

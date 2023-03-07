@@ -55,7 +55,7 @@ export const DeleteDialog = ({
   const deleteUsuario = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN +"/api/create-solicitud",
         {
           Nombre: dataUser.Nombre,
           APaterno: dataUser.ApellidoPaterno,
@@ -106,7 +106,7 @@ export const DeleteDialog = ({
   const createComentarios = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-comentario",
+        process.env.REACT_APP_APPLICATION_QA_LOGIN +"/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -138,7 +138,7 @@ export const DeleteDialog = ({
     if (idSolicitud !== "") {
       axios
         .post(
-          process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
+          process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/create-comentario",
           {
             CreadoPor: localStorage.getItem("IdCentral"),
             IdSolicitud: idSolicitud,
