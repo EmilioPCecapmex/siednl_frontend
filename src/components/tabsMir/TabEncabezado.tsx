@@ -456,6 +456,7 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
+        
         setCatalogoEstrategias(r.data.data);
       })
       .catch((err) => {
@@ -521,7 +522,6 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
-        console.log(r.data.data);
 
         setPrograma(r.data.data[0].NombrePrograma);
         setConac(r.data.data[0].Conac);
@@ -591,6 +591,7 @@ export function TabEncabezado({
         },
       })
       .then((r) => {
+        
         setEstrategia(r.data.data[0]?.Estrategia);
         getLineasDeAccion(r.data.data[0]?.Id);
       });

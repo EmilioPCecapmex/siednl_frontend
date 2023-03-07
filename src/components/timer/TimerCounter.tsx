@@ -43,7 +43,7 @@ export const TimerCounter = () => {
   const renewSession = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/refresh-token",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/refresh-token",
         {
           refreshToken: localStorage.getItem("refreshToken"),
         },
