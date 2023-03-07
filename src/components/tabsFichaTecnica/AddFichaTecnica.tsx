@@ -207,7 +207,7 @@ export default function AddFichaTecnica({
       {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null}
       <Box
         sx={{
-          width: "75vw",
+          width: "auto",
           height: "90vh",
           borderRadius: 5,
           display: "flex",

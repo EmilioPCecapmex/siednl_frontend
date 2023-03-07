@@ -137,7 +137,7 @@ export default function FullModalMir({
 
       <Box
         sx={{
-          width: "60%",
+          width: "auto",
           height: "90vh",
           borderRadius: 5,
           display: "flex",

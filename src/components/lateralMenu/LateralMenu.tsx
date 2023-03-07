@@ -190,7 +190,7 @@ export const LateralMenu = ({
 
       axios
         .put(
-          process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/change-password",
+          process.env.REACT_APP_APPLICATION_LOGIN + "/api/change-password",
           {
             ContrasenaNueva: newPassword,
             IdUsuario: localStorage.getItem("IdCentral"),

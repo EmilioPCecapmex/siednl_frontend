@@ -10,7 +10,7 @@ export const sessionValid = () => {
 
   return axios
     .post(
-      process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/verify",
+      process.env.REACT_APP_APPLICATION_LOGIN + "/api/verify",
       {},
       {
         headers: {
@@ -85,7 +85,7 @@ export const getUserDetails = (idCentral: string) => {
 
 const getDataSolicitud = (idSolicitud: string) => {
   axios
-    .get(process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/datosAdicionalesSolicitud", {
+    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/datosAdicionalesSolicitud", {
       params: {
         IdUsuario: idSolicitud,
         IdApp: IdApp,
@@ -137,7 +137,7 @@ const siednlSignUp = (
 export const continueSession = () => {
   return axios
     .post(
-      process.env.REACT_APP_APPLICATION_QA_LOGIN + "/api/verify",
+      process.env.REACT_APP_APPLICATION_LOGIN + "/api/verify",
       {},
       {
         headers: {
@@ -169,5 +169,5 @@ export const continueSession = () => {
 
 export const logout = () => {
   localStorage.clear();
-  window.location.assign("http://localhost:3000");
+  window.location.assign("http://10.200.4.165/");
 };
