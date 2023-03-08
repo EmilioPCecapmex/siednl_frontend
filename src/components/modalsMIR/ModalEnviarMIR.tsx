@@ -396,14 +396,14 @@ export default function ModalEnviarMIR({
     }
   };
 
-  const CrearMetaAnual = () => {
+  const CrearMetaAnual = (idMir: string) => {
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
-          IdMir: IdMir,
+          IdMir: idMir,
           Estado: "En Captura",
           Id: "",
         },
@@ -466,7 +466,7 @@ export default function ModalEnviarMIR({
         });
 
         if (estado === "Autorizada") {
-          CrearMetaAnual();
+          CrearMetaAnual(r.data.data.ID);
         }
 
         Toast.fire({
@@ -483,8 +483,21 @@ export default function ModalEnviarMIR({
         showResume();
       })
       .catch((err) => {
-        err = 1;
         errores.push(err.response.data.result.error);
+        err = 1;
+        Toast.fire({
+          icon: "error",
+          html: `
+          <div style="height:50%;">
+          <h3>SE HAN ENCONTRADO LOS SIGUIENTES ERRORES:</h3>
+          <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
+        <small>
+        <strong>
+        </strong>${errores.join("<br><strong></strong>")}
+        </small>
+        </div>
+        </div>`,
+        });
       });
   };
 
