@@ -25,10 +25,6 @@ export default function FullModalMir({
 }) {
   const [value, setValue] = React.useState(10);
 
-  // const handleChange = (event: any, newValue: number) => {
-  //   setValue(newValue);
-  // };
-
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
       if (value < 50) setValue(value + 10);
@@ -45,9 +41,6 @@ export default function FullModalMir({
   //FIN / PROPOSITO
   const [fin, setFin] = useState<Array<IFin>>([]);
   const [proposito, setProposito] = useState<Array<IProposito>>([]);
-
-  
-  
 
   // COMPONENTES
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
@@ -67,7 +60,6 @@ export default function FullModalMir({
     })
   );
   
-
   useEffect(() => {
     let array = noComponentes.map((x, index) => {
       return {
@@ -121,7 +113,6 @@ export default function FullModalMir({
     })
   );
 
-  //----------------------------------------------------------------------------------------------
   return (
     <Box
       sx={{

@@ -27,7 +27,7 @@ function App() {
     if (jt !== null) {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign("http://10.200.4.165/");
+          window.location.assign(process.env.REACT_APP_APPLICATION_FRONT_LOGIN || '');
         } else if ((r as boolean) === true) {
           setTimeout(() => {
             localStorage.setItem("IdApp", IdApp as string);
@@ -38,9 +38,9 @@ function App() {
     } else {
       continueSession().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign("http://10.200.4.165/");
+          window.location.assign(process.env.REACT_APP_APPLICATION_FRONT_LOGIN || '');
         } else {
-          navigate("../home");
+          // navigate("../home");
         }
       });
     }
@@ -51,6 +51,7 @@ function App() {
     <>
       <Routes>
         <Route index element={<Init />} />
+        <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="settings" element={<Settings />} />
         <Route path="users" element={<Usuarios />} />

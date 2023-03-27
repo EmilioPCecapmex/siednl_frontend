@@ -169,5 +169,5 @@ export const continueSession = () => {
 
 export const logout = () => {
   localStorage.clear();
-  window.location.assign("http://10.200.4.165/");
+  window.location.assign("http://10.200.4.106/");
 };
