@@ -3,14 +3,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";
 import TabEncabezado, { IEncabezado } from "./TabEncabezado";
-import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
-import { IComponente } from "./IComponente";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import { TabResumen } from "./TabResumen";
-import { TabComponente } from "./TabComponente";
-import { TabActividades } from "./TabActividades";
+import { IMIR } from "./IMIR";
+import TabResumen from "./TabResumen";
 
 export default function FullModalMir({
   MIR,
@@ -25,6 +22,8 @@ export default function FullModalMir({
 }) {
   const [value, setValue] = React.useState(10);
 
+  let mir: IMIR = MIR !== "" ? JSON.parse(MIR) : {};
+
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
       if (value < 50) setValue(value + 10);
@@ -33,85 +32,14 @@ export default function FullModalMir({
     }
   };
 
+  const [MIRPADRE, setMIRPADRE] = useState<IMIR>(mir);
+
   //ENCABEZADO
-  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
-  const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
-  const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([]);
+  const [encabezado, setEncabezado] = useState<IEncabezado>(mir.encabezado);
 
-  //FIN / PROPOSITO
-  const [fin, setFin] = useState<Array<IFin>>([]);
-  const [proposito, setProposito] = useState<Array<IProposito>>([]);
-
-  // COMPONENTES
-  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
-  const [valoresComponente, setValoresComponente] = useState<
-    Array<IComponente>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    })
-  );
-  
   useEffect(() => {
-    let array = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    });
-    setValoresComponente(array);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // ACTIVIDADES
-  const [noActividades, setNoActividades] = React.useState([1, 2]);
-
-  const [valoresActividades, setValoresActividades] = useState<
-    Array<IActividadesMir>
-  >([]);
-
-  const [componenteActividad, setComponenteActividad] = useState([
-    {
-      componentes: noComponentes.map((x) => noActividades),
-    },
-  ]);
-
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-
-  const [cValor, setCValor] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
-          return {
-            actividades: x.actividades.map((c, index2) => {
-              return {
-                actividad: "",
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
+    setMIRPADRE((MIRPADRE) => ({ ...MIRPADRE, ...{ encabezado: encabezado } }));
+  }, [encabezado]);
 
   return (
     <Box
@@ -160,6 +88,9 @@ export default function FullModalMir({
           <Tab
             label="Encabezado"
             value={10}
+            onClick={() => {
+              setValue(10);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",
@@ -169,6 +100,9 @@ export default function FullModalMir({
           <Tab
             label="Fin / Propósito"
             value={20}
+            onClick={() => {
+              setValue(20);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",
@@ -178,6 +112,9 @@ export default function FullModalMir({
           <Tab
             label="Componentes"
             value={30}
+            onClick={() => {
+              setValue(30);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",
@@ -187,6 +124,9 @@ export default function FullModalMir({
           <Tab
             label="Actividades"
             value={40}
+            onClick={() => {
+              setValue(40);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",
@@ -196,6 +136,9 @@ export default function FullModalMir({
           <Tab
             label="Resumen"
             value={50}
+            onClick={() => {
+              setValue(50);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",
@@ -223,53 +166,45 @@ export default function FullModalMir({
           }}
         >
           <TabEncabezado
-            anioFiscalEdit={anioFiscalEdit}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            actividadesMir={setValoresActividades}
-            compAct={setCompAct}
             show={value === 10 ? true : false}
-            resumenEncabezado={setEncabezado}
-            cargaFin={setCargaFin}
-            cargaProposito={setCargaProposito}
-            asignarComponente={setNoComponentes}
-            asignarActividad={setNoActividades}
-            asignarComponenteValor={setValoresComponente}
-            setComponenteActividad={setComponenteActividad}
-            MIR={MIR}
+            MIR={MIRPADRE}
+            setMIR={setMIRPADRE}
+            setEncabezado={setEncabezado}
           ></TabEncabezado>
 
-          <TabFinProposito
+          {/* <TabFinProposito
             show={value === 20 ? true : false}
             resumenFin={setFin}
             resumenProposito={setProposito}
             cargaFin={cargaFin}
             cargaProposito={cargaProposito}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabFinProposito>
+          ></TabFinProposito> */}
 
           <TabResumen
             showResume={showResume}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
+            // mirEdit={MIR ? JSON.parse(MIR)[1] : null}
             show={value === 50 ? true : false}
-            componentes={noComponentes}
-            componenteValor={valoresComponente}
-            cValor={cValor}
-            encabezado={encabezado}
-            fin={fin}
-            proposito={proposito}
-            IdMir={IdMir}
+            MIRPADRE={MIRPADRE}
+            // componentes={noComponentes}
+            // componenteValor={valoresComponente}
+            // cValor={cValor}
+            // encabezado={encabezado}
+            // fin={fin}
+            // proposito={proposito}
+            // IdMir={IdMir}
           ></TabResumen>
 
-          <TabComponente
+          {/* <TabComponente
             show={value === 30 ? true : false}
             noComponentesFnc={setNoComponentes}
             valoresComponenteFnc={setValoresComponente}
             noComponentes={noComponentes}
             valoresComponente={valoresComponente}
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabComponente>
+          ></TabComponente> */}
 
-          <TabActividades
+          {/* <TabActividades
             actividadesMir={valoresActividades}
             componentesTextos={valoresComponente}
             compAct={compAct}
@@ -279,7 +214,7 @@ export default function FullModalMir({
             mirEdit={MIR ? JSON.parse(MIR)[1] : null}
             setActividadesM={() => {}}
             setCompAct={setCompAct}
-          ></TabActividades>
+          ></TabActividades> */}
         </Box>
       </Box>
     </Box>
