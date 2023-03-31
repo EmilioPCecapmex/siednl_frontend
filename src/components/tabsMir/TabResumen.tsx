@@ -12,7 +12,7 @@ import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
 
 export function TabResumen({
-  show,
+  // show,
   MIRPADRE,
   // fin,
   // proposito,
@@ -23,7 +23,7 @@ export function TabResumen({
 }: // IdMir,
 // mirEdit,
 {
-  show: boolean;
+  // show: boolean;
   MIRPADRE: IMIR;
   // fin: Array<IFin>;
   // proposito: Array<IProposito>;
@@ -52,6 +52,14 @@ export function TabResumen({
     });
   };
 
+
+  useEffect(() => {
+    console.log('resumen');
+    
+    console.log(MIRPADRE);
+    
+  }, [])
+  
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
@@ -282,7 +290,7 @@ export function TabResumen({
 
   return (
     <Box
-      visibility={show ? "visible" : "hidden"}
+      // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
         display: "flex",

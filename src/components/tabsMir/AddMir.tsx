@@ -8,6 +8,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IMIR } from "./IMIR";
 import TabResumen from "./TabResumen";
+import TabFinProposito from "./TabFinProposito";
 
 export default function FullModalMir({
   MIR,
@@ -169,22 +170,18 @@ export default function FullModalMir({
             show={value === 10 ? true : false}
             MIR={MIRPADRE}
             setMIR={setMIRPADRE}
-            setEncabezado={setEncabezado}
           ></TabEncabezado>
 
-          {/* <TabFinProposito
-            show={value === 20 ? true : false}
-            resumenFin={setFin}
-            resumenProposito={setProposito}
-            cargaFin={cargaFin}
-            cargaProposito={cargaProposito}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabFinProposito> */}
+          {value===20 && <TabFinProposito
+            // show={value === 20 ? true : false}
+            MIR={MIRPADRE}
+            setMIR={setMIRPADRE}
+          />  }
 
-          <TabResumen
+          {value===50 && <TabResumen
             showResume={showResume}
             // mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            show={value === 50 ? true : false}
+            // show={value === 50 ? true : false}
             MIRPADRE={MIRPADRE}
             // componentes={noComponentes}
             // componenteValor={valoresComponente}
@@ -193,7 +190,7 @@ export default function FullModalMir({
             // fin={fin}
             // proposito={proposito}
             // IdMir={IdMir}
-          ></TabResumen>
+          />}
 
           {/* <TabComponente
             show={value === 30 ? true : false}

@@ -34,12 +34,12 @@ export function TabEncabezado({
   show,
   MIR,
   setMIR,
-  setEncabezado,
+  
 }: {
   show: boolean;
   MIR: IMIR;
   setMIR: Function;
-  setEncabezado: Function;
+  
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
@@ -143,10 +143,6 @@ export function TabEncabezado({
   const [disabledEstrategias, setDisabledEstrategias] = useState(true);
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
-
-  useEffect(() => {
-    console.log(MIR);
-  }, [MIR]);
 
   //Values
   const [anioFiscal, setAnioFiscal] = useState(
@@ -516,17 +512,20 @@ export function TabEncabezado({
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
-      .then((response) => {
-        console.log(response.data);
+      .then(({data}) => {
+        console.log(data);
 
-        getIdInstitucion(response.data.encabezado[0].institucion);
-        getIdPrograma(response.data.encabezado[0].nombre_del_programa);
-        getIdEje(response.data.encabezado[0].eje);
-        getIdTematica(response.data.encabezado[0].tema);
-        getIdObjetivo(response.data.encabezado[0].objetivo);
-        getIdEstrategia(response.data.encabezado[0].estrategia);
+       setMIR((MIR:IMIR)=>({...MIR,...{fin:data.fin[0]},...{proposito:data.propositos[0]}}))
+    
+        
+        getIdInstitucion(data.encabezado[0].institucion);
+        getIdPrograma(data.encabezado[0].nombre_del_programa);
+        getIdEje(data.encabezado[0].eje);
+        getIdTematica(data.encabezado[0].tema);
+        getIdObjetivo(data.encabezado[0].objetivo);
+        getIdEstrategia(data.encabezado[0].estrategia);
         setTimeout(() => {
-          response.data.encabezado[0]?.lineas_de_accion
+          data.encabezado[0]?.lineas_de_accion
             ?.split(".\n")
             .map((value: string) => {
               if (value !== "") {
@@ -534,7 +533,7 @@ export function TabEncabezado({
               }
             });
           setLoadingFile(false);
-          getIdBeneficiario(response.data.encabezado[0].beneficiario);
+          getIdBeneficiario(data.encabezado[0].beneficiario);
         }, 1500);
       })
       .catch((error) => {
@@ -553,7 +552,9 @@ export function TabEncabezado({
   }, []);
 
   useEffect(() => {
-    setEncabezado({
+
+    
+    setMIR((MIR:IMIR)=>({...MIR,...{encabezado: {
       ejercicioFiscal: anioFiscal,
       institucion: institution,
       nombre_del_programa: programa,
@@ -565,7 +566,9 @@ export function TabEncabezado({
       beneficiario: beneficiario,
       conac: conac,
       consecutivo: consecutivo,
-    });
+    }}}))
+
+   ;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     anioFiscal,

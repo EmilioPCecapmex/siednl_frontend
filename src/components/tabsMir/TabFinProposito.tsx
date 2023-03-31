@@ -10,65 +10,49 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIREdit } from "./IMIR";
+import { IMIR, IMIREdit } from "./IMIR";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 
 export function TabFinProposito({
-  show,
-  resumenFin,
-  resumenProposito,
-  cargaFin,
-  cargaProposito,
-  mirEdit,
+  // show,
+  MIR,
+  setMIR,
 }: {
-  show: boolean;
-  resumenFin: Function;
-  resumenProposito: Function;
-  cargaFin: Array<IFin>;
-  cargaProposito: Array<IProposito>;
-  mirEdit?: IMIREdit;
+  // show: boolean;
+  MIR: IMIR;
+  setMIR: Function;
+
 }) {
-  const [tabFin, setTabFin] = useState([
-    {
-      resumen: "",
-      indicador: "",
-      formula: "",
-      frecuencia: "",
-      medios: "",
-      supuestos: "",
-    },
-  ]);
-
-  const [tabProposito, setTabProposito] = useState([
-    {
-      resumen: "",
-      indicador: "",
-      formula: "",
-      frecuencia: "ANUAL",
-      medios_verificacion: "",
-      supuestos: "",
-    },
-  ]);
-
-  const [fin, setFin] = useState({
-    resumen: "",
-    indicador: "",
-    formula: "",
-    frecuencia: "",
-    medios: "",
-    supuestos: "",
+  useEffect(() => {
+    console.log(MIR);
+    
+  }, [MIR])
+  
+  const [fin, setFin] = useState<IFin>({
+    resumen: MIR.fin?.resumen ||'',
+    indicador:MIR.fin?.indicador ||'',
+    formula: MIR.fin?.formula ||'',
+    frecuencia: MIR.fin?.frecuencia ||'',
+    medios: MIR.fin?.medios ||'',
+    supuestos: MIR.fin?.supuestos ||'',
   });
 
-  const [proposito, setProposito] = useState({
-    resumen: "",
-    indicador: "",
-    formula: "",
-    frecuencia: "ANUAL",
-    medios_verificacion: "",
-    supuestos: "",
+  const [proposito, setProposito] = useState<IProposito>({
+    resumen: MIR.proposito?.resumen ||'',
+    indicador: MIR.proposito?.indicador ||'',
+    formula: MIR.proposito?.formula ||'',
+    frecuencia:'ANUAL',
+    medios_verificacion : MIR.proposito?.medios_verificacion ||'',
+    supuestos: MIR.proposito?.supuestos ||'',
   });
+  useEffect(() => {
+    console.log(fin);
+    
+  }, [fin])
+  
+  
 
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
@@ -153,54 +137,27 @@ export function TabFinProposito({
   };
 
   useEffect(() => {
-    setTabFin([
-      {
-        resumen: fin.resumen,
-        indicador: fin.indicador,
-        formula: fin.formula,
-        frecuencia: fin.frecuencia,
-        medios: fin.medios,
-        supuestos: fin.supuestos,
-      },
-    ]);
-    setTabProposito([
-      {
+    setMIR((MIR:IMIR)=>({...MIR,...{fin:{
+
+      resumen: fin.resumen,
+      indicador: fin.indicador,
+      formula: fin.formula,
+      frecuencia: fin.frecuencia,
+      medios: fin.medios,
+      supuestos: fin.supuestos,
+
+    }},...{proposito:{
         resumen: proposito.resumen,
         indicador: proposito.indicador,
         formula: proposito.formula,
         frecuencia: proposito.frecuencia,
         medios_verificacion: proposito.medios_verificacion,
         supuestos: proposito.supuestos,
-      },
-    ]);
+      }}}))
+
+
   }, [fin, proposito]);
 
-  useEffect(() => {
-    setFin({
-      resumen: cargaFin[0]?.resumen,
-      indicador: cargaFin[0]?.indicador,
-      formula: cargaFin[0]?.formula,
-      frecuencia: cargaFin[0]?.frecuencia,
-      medios: cargaFin[0]?.medios,
-      supuestos: cargaFin[0]?.supuestos,
-    });
-
-    setTimeout(() => {
-      setProposito({
-        resumen: cargaProposito[0]?.resumen,
-        indicador: cargaProposito[0]?.indicador,
-        formula: cargaProposito[0]?.formula,
-        frecuencia: "ANUAL",
-        medios_verificacion: cargaProposito[0]?.medios_verificacion,
-        supuestos: cargaProposito[0]?.supuestos,
-      });
-    }, 1000);
-  }, [cargaFin, cargaProposito]);
-
-  useEffect(() => {
-    resumenFin(tabFin);
-    resumenProposito(tabProposito);
-  }, [tabFin, tabProposito]);
 
   const getFrecuencias = () => {
     axios
@@ -262,7 +219,7 @@ export function TabFinProposito({
 
   return (
     <Box
-      visibility={show ? "visible" : "hidden"}
+      // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
         display: "flex",
@@ -405,7 +362,7 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
                 rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -433,7 +390,7 @@ export function TabFinProposito({
                 value={fin.resumen}
               />
               <TextField
-                disabled={mirEdit?.fin.indicador && fin.indicador !== ""}
+                // disabled={mirEdit?.fin.indicador && fin.indicador !== ""}
                 rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -471,7 +428,7 @@ export function TabFinProposito({
                 value={fin.indicador}
               />
               <TextField
-                disabled={mirEdit?.fin.formula && fin.formula !== ""}
+                // disabled={mirEdit?.fin.formula && fin.formula !== ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -543,7 +500,7 @@ export function TabFinProposito({
               </FormControl>
 
               <TextField
-                disabled={mirEdit?.fin.medios && fin.medios !== ""}
+                // disabled={mirEdit?.fin.medios && fin.medios !== ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -560,18 +517,12 @@ export function TabFinProposito({
                   },
                 }}
                 onChange={(c) => {
-                  setFin({
-                    ...fin,
-                    medios: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
+                  setFin((fin)=>({...fin,...{medios:c.target.value.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")}}))
                 }}
                 value={fin.medios}
               />
               <TextField
-                disabled={mirEdit?.fin.supuestos && fin.supuestos !== ""}
+                // disabled={mirEdit?.fin.supuestos && fin.supuestos !== ""}
                 rows={8}
                 multiline
                 variant="filled"
@@ -614,9 +565,9 @@ export function TabFinProposito({
               }}
             >
               <TextField
-                disabled={
-                  mirEdit?.proposito.resumen && proposito.resumen !== ""
-                }
+                // disabled={
+                //   mirEdit?.proposito.resumen && proposito.resumen !== ""
+                // }
                 rows={8}
                 multiline
                 variant="filled"
@@ -645,9 +596,9 @@ export function TabFinProposito({
               />
 
               <TextField
-                disabled={
-                  mirEdit?.proposito.indicador && proposito.indicador !== ""
-                }
+                // disabled={
+                //   mirEdit?.proposito.indicador && proposito.indicador !== ""
+                // }
                 rows={8}
                 multiline
                 sx={{ width: "90%", boxShadow: 2 }}
@@ -687,9 +638,9 @@ export function TabFinProposito({
                 value={proposito.indicador}
               />
               <TextField
-                disabled={
-                  mirEdit?.proposito.formula && proposito.formula !== ""
-                }
+                // disabled={
+                //   mirEdit?.proposito.formula && proposito.formula !== ""
+                // }
                 rows={8}
                 multiline
                 variant="filled"
@@ -743,10 +694,10 @@ export function TabFinProposito({
               </FormControl>
 
               <TextField
-                disabled={
-                  mirEdit?.proposito.medios_verificacion &&
-                  proposito.medios_verificacion !== ""
-                }
+                // disabled={
+                //   mirEdit?.proposito.medios_verificacion &&
+                //   proposito.medios_verificacion !== ""
+                // }
                 rows={8}
                 multiline
                 variant="filled"
@@ -774,9 +725,9 @@ export function TabFinProposito({
                 value={proposito.medios_verificacion}
               />
               <TextField
-                disabled={
-                  mirEdit?.proposito.supuestos && proposito.supuestos !== ""
-                }
+                // disabled={
+                //   mirEdit?.proposito.supuestos && proposito.supuestos !== ""
+                // }
                 rows={8}
                 multiline
                 variant="filled"
