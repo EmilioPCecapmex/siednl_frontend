@@ -19,7 +19,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
 import { IActividadesMir, IComponenteActividad } from "./AddMir";
-import { IMIREdit } from "./IMIR";
+import { IMIR, IMIREdit } from "./IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -27,237 +27,26 @@ import FormLabel from "@mui/material/FormLabel";
 //funcion main
 export const TabActividades = ({
   show,
-  componentes,
-  asignarCValor,
-  compAct,
-  actividadesMir,
-  mirEdit,
-  componentesTextos,
-  setActividadesM,
-  setCompAct,
+  noActividades,
+  addActividad,
+  removeActividad,
+  MIR,
+  setMIR,
+  noComponentes,
 }: {
   show: boolean;
-  componentes: number[];
-  asignarCValor: Function;
-  compAct: Array<IComponenteActividad>;
-  actividadesMir: Array<IActividadesMir>;
-  mirEdit?: IMIREdit;
-  componentesTextos: Array<IComponente>;
-  setActividadesM: Function;
-  setCompAct: Function;
+  noActividades: Array<number[]>;
+  addActividad: Function;
+  removeActividad: Function;
+  MIR: IMIR;
+  setMIR: Function;
+  noComponentes: number[];
 }) => {
-  const [actividades, setActividades] = React.useState([1, 2]);
-  const [componenteActividad, setComponenteActividad] = useState([
-    {
-      componentes: componentes.map((x) => actividades),
-    },
-  ]);
-
-  let aument_number1 = 0;
-
-  const [cValor, setCValor] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          aument_number1++;
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + aument_number1,
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "TRIMESTRAL",
-                medios: "",
-                supuestos: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  useEffect(() => {
-    if (componentes.length > cValor[0].componentes.length) {
-      let restantes = componentes.length - cValor[0].componentes.length;
-      let prevState = [...cValor];
-
-      for (let index = 1; index <= restantes; index++) {
-        prevState[0].componentes.push({
-          actividades: [
-            {
-              actividad: "A1C" + (prevState[0].componentes.length + 1),
-              resumen: "",
-              indicador: "",
-              frecuencia: "TRIMESTRAL",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-            {
-              actividad: "A2C" + (prevState[0].componentes.length + 1),
-              resumen: "",
-              indicador: "",
-              frecuencia: "TRIMESTRAL",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-          ],
-        });
-        setCValor(prevState);
-        asignarCValor(prevState);
-      }
-    } else if (componentes.length < cValor[0].componentes.length) {
-      let prevState = [...cValor];
-      let restantes = cValor[0].componentes.length - componentes.length;
-
-      for (let index = 1; index <= restantes; index++) {
-        prevState[0].componentes.pop();
-        setCValor(prevState);
-        asignarCValor(prevState);
-      }
-      setComponenteSelect(0);
-    }
-  }, [compAct, componentes]);
-
-  useEffect(() => {
-    asignarCValor(cValor);
-  }, [cValor]);
-
-  const [s, setS] = useState(0);
-
-  useEffect(() => {
-    if (compAct.length > 0 && s === 0) {
-      loadActividadesMir();
-      setS(1);
-    }
-  }, [show]);
-
-  const loadActividadesMir = () => {
-    let aument_number = -1;
-    let aumentComps = 0;
-    let y = componenteActividad.map((item) => {
-      return {
-        componentes: compAct?.map((x, index) => {
-          aumentComps++;
-          return {
-            actividades: x.actividades?.map((c, index2) => {
-              aument_number++;
-              return {
-                actividad:
-                  actividadesMir[index2]?.actividad ||
-                  "A" +
-                    (cValor[0].componentes[index]?.actividades?.length + 1) +
-                    "C" +
-                    aumentComps,
-                resumen: actividadesMir[aument_number]?.resumen || "",
-                indicador: actividadesMir[aument_number]?.indicador || "",
-                formula: actividadesMir[aument_number]?.formula || "",
-                frecuencia: "TRIMESTRAL",
-                medios: actividadesMir[aument_number]?.medios || "",
-                supuestos: actividadesMir[aument_number]?.supuestos || "",
-              };
-            }),
-          };
-        }),
-      };
-    });
-
-    actividadesMir.map((x) => {
-      let act = x.actividad?.split("")[1];
-      let comp = x.actividad?.split("")[3];
-      if (parseInt(comp) - 1 <= componentes.length) {
-        y[0].componentes[parseInt(comp) - 1].actividades[
-          parseInt(act) - 1
-        ].actividad = x?.actividad;
-        y[0].componentes[parseInt(comp) - 1].actividades[
-          parseInt(act) - 1
-        ].resumen = x?.resumen;
-        y[0].componentes[parseInt(comp) - 1].actividades[
-          parseInt(act) - 1
-        ].indicador = x?.indicador;
-        y[0].componentes[parseInt(comp) - 1].actividades[
-          parseInt(act) - 1
-        ].formula = x?.formula;
-        y[0].componentes[parseInt(comp) - 1].actividades[
-          parseInt(act) - 1
-        ].frecuencia = x?.frecuencia;
-        y[0].componentes[parseInt(comp) - 1].actividades[
-          parseInt(act) - 1
-        ].medios = x?.medios;
-        y[0].componentes[parseInt(comp) - 1].actividades[
-          parseInt(act) - 1
-        ].supuestos = x?.supuestos;
-      }
-    });
-
-    setCValor(y);
-  };
-
-  const agregarAFnc = (index: number) => {
-    let act = cValor[0].componentes[componenteSelect]?.actividades;
-    let v = act.length;
-
-    if (v < 7) {
-      let a = [...actividades];
-      a.push(actividades.length + 1);
-      setActividades(a);
-      setActividadesM(a);
-      let xArray = [...componenteActividad];
-      xArray[0]["componentes"][index] = [
-        ...actividades,
-        actividades.length + 1,
-      ];
-      setComponenteActividad(xArray);
-
-      if (cValor[0].componentes[index].actividades.length < 6) {
-        let prevState = [...cValor];
-        prevState[0].componentes[index].actividades.push({
-          actividad:
-            "A" +
-            (cValor[0].componentes[index].actividades.length + 1) +
-            "C" +
-            (index + 1),
-          resumen: "",
-          indicador: "",
-          frecuencia: "TRIMESTRAL",
-          formula: "",
-          medios: "",
-          supuestos: "",
-        });
-        setCValor(prevState);
-        asignarCValor(prevState);
-      }
-    }
-  };
-
-  const eliminarAFnc = () => {
-    let act = cValor[0].componentes[componenteSelect]?.actividades;
-    let v = act.length - 1;
-
-    if (v < 2) {
-    } else {
-      let a = actividades;
-      a.pop();
-      setActividades(a);
-      setActividadesM(a);
-      let prevState = [...cValor];
-      prevState[0].componentes[componenteSelect].actividades.pop();
-      setCValor(prevState);
-      asignarCValor(prevState);
-    }
-  };
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-  const [open, setOpen] = useState(1);
-
-  const handleClickComponente = (index: number) => {
-    setOpen(index);
-  };
+  const [open, setOpen] = useState(0);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [prevTextFormula, setPrevTextFormula] = useState("");
@@ -266,85 +55,102 @@ export const TabActividades = ({
   const [errorIndicadorComponente, setErrorIndicadorComponente] = useState(-1);
   const [errorIndicadorActividad, setErrorIndicadorActividad] = useState(-1);
 
-  const handleClickOpen = () => {
-    setPrevTextFormula(
-      cValor[0].componentes[componenteSelect]?.actividades[actividadSelect]
-        .formula
-    );
-    setOpenFormulaDialog(true);
-  };
+  // const handleClickOpen = () => {
+  //   setPrevTextFormula(
+  //     cValor[0].componentes[componenteSelect]?.actividades[actividadSelect]
+  //       .formula
+  //   );
+  //   setOpenFormulaDialog(true);
+  // };
 
-  const handleClose = () => {
-    setOpenFormulaDialog(false);
-  };
+  // const handleClose = () => {
+  //   setOpenFormulaDialog(false);
+  // };
 
-  const changeFormula = (txt: string) => {
-    cValor[0].componentes[componenteSelect].actividades[
-      actividadSelect
-    ].formula = txt;
-  };
+  // const changeFormula = (txt: string) => {
+  //   cValor[0].componentes[componenteSelect].actividades[
+  //     actividadSelect
+  //   ].formula = txt;
+  // };
 
-  const evalueTxtIndicador = () => {
-    const cIndicador =
-      cValor[0].componentes[componenteSelect]?.actividades[
-        actividadSelect
-      ].indicador?.toLowerCase();
-    if (cIndicador !== undefined) {
-      if (cIndicador.includes("porcentaje")) {
-        setTipoFormula("Porcentaje");
-        setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
-        handleClickOpen();
-        setErrorIndicadorComponente(-1);
-        setErrorIndicadorActividad(-1);
-      } else if (cIndicador.includes("tasa")) {
-        setTipoFormula("Tasa");
-        setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
-        handleClickOpen();
-        setErrorIndicadorComponente(-1);
-        setErrorIndicadorActividad(-1);
-      } else if (cIndicador.includes("indice" || "índice")) {
-        setTipoFormula("Índice");
-        setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
-        handleClickOpen();
-        setErrorIndicadorComponente(-1);
-        setErrorIndicadorActividad(-1);
-      } else if (cIndicador.includes("promedio")) {
-        setTipoFormula("Promedio");
-        setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
-        handleClickOpen();
-        setErrorIndicadorComponente(-1);
-        setErrorIndicadorActividad(-1);
-      } else {
-        setErrorIndicadorComponente(componenteSelect);
-        setErrorIndicadorActividad(actividadSelect);
-        let y = [...cValor];
-        y[0].componentes[componenteSelect].actividades[
-          actividadSelect
-        ].indicador = "";
-        setCValor(y);
-      }
-    }
-  };
+  // const evalueTxtIndicador = () => {
+  //   const cIndicador =
+  //     cValor[0].componentes[componenteSelect]?.actividades[
+  //       actividadSelect
+  //     ].indicador?.toLowerCase();
+  //   if (cIndicador !== undefined) {
+  //     if (cIndicador.includes("porcentaje")) {
+  //       setTipoFormula("Porcentaje");
+  //       setElementoFormula(
+  //         "C" +
+  //           (componenteSelect + 1).toString() +
+  //           "A" +
+  //           (actividadSelect + 1).toString()
+  //       );
+  //       handleClickOpen();
+  //       setErrorIndicadorComponente(-1);
+  //       setErrorIndicadorActividad(-1);
+  //     } else if (cIndicador.includes("tasa")) {
+  //       setTipoFormula("Tasa");
+  //       setElementoFormula(
+  //         "C" +
+  //           (componenteSelect + 1).toString() +
+  //           "A" +
+  //           (actividadSelect + 1).toString()
+  //       );
+  //       handleClickOpen();
+  //       setErrorIndicadorComponente(-1);
+  //       setErrorIndicadorActividad(-1);
+  //     } else if (cIndicador.includes("indice" || "índice")) {
+  //       setTipoFormula("Índice");
+  //       setElementoFormula(
+  //         "C" +
+  //           (componenteSelect + 1).toString() +
+  //           "A" +
+  //           (actividadSelect + 1).toString()
+  //       );
+  //       handleClickOpen();
+  //       setErrorIndicadorComponente(-1);
+  //       setErrorIndicadorActividad(-1);
+  //     } else if (cIndicador.includes("promedio")) {
+  //       setTipoFormula("Promedio");
+  //       setElementoFormula(
+  //         "C" +
+  //           (componenteSelect + 1).toString() +
+  //           "A" +
+  //           (actividadSelect + 1).toString()
+  //       );
+  //       handleClickOpen();
+  //       setErrorIndicadorComponente(-1);
+  //       setErrorIndicadorActividad(-1);
+  //     } else {
+  //       setErrorIndicadorComponente(componenteSelect);
+  //       setErrorIndicadorActividad(actividadSelect);
+  //       let y = [...cValor];
+  //       y[0].componentes[componenteSelect].actividades[
+  //         actividadSelect
+  //       ].indicador = "";
+  //       setCValor(y);
+  //     }
+  //   }
+  // };
+
+  const [actividades, setActividades] = useState<Array<IActividadesMir>>(
+    MIR.actividades
+  );
+
+  useEffect(() => {
+    setActividades(MIR.actividades);
+  }, [MIR]);
+
+  useEffect(() => {
+    setMIR((MIR: IMIR) => ({
+      ...MIR,
+      ...{
+        actividades: actividades,
+      },
+    }));
+  }, [actividades]);
 
   return (
     <Box
@@ -360,14 +166,14 @@ export const TabActividades = ({
         backgroundColor: "#fff",
       }}
     >
-      <FormulaDialog
+      {/* <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
         textoSet={changeFormula}
         prevText={prevTextFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
-      />
+      /> */}
 
       <Box
         sx={{
@@ -389,35 +195,38 @@ export const TabActividades = ({
         </Typography>
         <IconButton
           onClick={() => {
-            agregarAFnc(componenteSelect);
-
-            if (
-              actividadSelect + 1 ===
-              cValor[0].componentes[componenteSelect]?.actividades.length - 1
-            ) {
-              setActividadSelect(
-                cValor[0].componentes[componenteSelect]?.actividades.length - 1
-              );
-            }
+            addActividad(componenteSelect);
           }}
-          disabled={
-            mirEdit === undefined ? false : mirEdit === null ? false : true
-          }
+          // onClick={() => {
+          //   agregarAFnc(componenteSelect);
+
+          //   if (
+          //     actividadSelect + 1 ===
+          //     cValor[0].componentes[componenteSelect]?.actividades.length - 1
+          //   ) {
+          //     setActividadSelect(
+          //       cValor[0].componentes[componenteSelect]?.actividades.length - 1
+          //     );
+          //   }
+          // }}
+          // disabled={
+          //   mirEdit === undefined ? false : mirEdit === null ? false : true
+          // }
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
         <IconButton
-          onClick={() => {
-            eliminarAFnc();
-            setActividadSelect(
-              cValor[0].componentes[componenteSelect]?.actividades.length - 1
-            );
-          }}
-          sx={{ mr: "1vw" }}
-          disabled={
-            mirEdit === undefined ? false : mirEdit === null ? false : true
-          }
+        // onClick={() => {
+        //   eliminarAFnc();
+        //   setActividadSelect(
+        //     cValor[0].componentes[componenteSelect]?.actividades.length - 1
+        //   );
+        // }}
+        // sx={{ mr: "1vw" }}
+        // disabled={
+        //   mirEdit === undefined ? false : mirEdit === null ? false : true
+        // }
         >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
@@ -449,7 +258,7 @@ export const TabActividades = ({
             },
           }}
         >
-          {componentes.map((item, index) => {
+          {noComponentes.map((item, index) => {
             return (
               <Box
                 key={index}
@@ -462,11 +271,11 @@ export const TabActividades = ({
                 <Divider />
 
                 <ListItemButton
-                  selected={item === componenteSelect + 1 ? true : false}
-                  key={item}
+                  selected={index === componenteSelect ? true : false}
+                  key={index}
                   onClick={() => {
-                    setComponenteSelect(item - 1);
-                    handleClickComponente(item);
+                    setComponenteSelect(index);
+                    setOpen(index);
                     setActividadSelect(0);
                   }}
                   sx={{
@@ -479,40 +288,45 @@ export const TabActividades = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize:'0.9rem' }}>
-                    COMPONENTE {item}
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.9rem" }}
+                  >
+                    COMPONENTE {index + 1 }
                   </Typography>
 
-                  {open === item ? <ExpandLess /> : <ExpandMore />}
+                  {open === index ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
-                <Collapse in={open === item} timeout="auto" unmountOnExit>
+                <Collapse in={open === index} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    {cValor[0].componentes[componenteSelect]?.actividades?.map(
+                    {/* {cValor[0].componentes[componenteSelect]?.actividades?.map(
                       (value, x) => {
-                        return (
-                          <ListItemButton
-                            selected={x === actividadSelect ? true : false}
-                            key={x}
-                            onClick={() => {
-                              setActividadSelect(x);
-                            }}
-                            sx={{
-                              pl: 4,
-                              "&.Mui-selected ": {
-                                backgroundColor: "#efd8b9",
-                              },
-                              "&.Mui-selected:hover": {
-                                backgroundColor: "#cbcbcb",
-                              },
-                            }}
-                          >
-                            <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                              Actividad {x + 1}
-                            </Typography>
-                          </ListItemButton>
-                        );
+                        return ( */}
+                    {noActividades[componenteSelect].map((value, index) => (
+                      <ListItemButton
+                        selected={index === actividadSelect ? true : false}
+                        key={index}
+                        onClick={() => {
+                          setActividadSelect(index);
+                        }}
+                        sx={{
+                          pl: 4,
+                          "&.Mui-selected ": {
+                            backgroundColor: "#efd8b9",
+                          },
+                          "&.Mui-selected:hover": {
+                            backgroundColor: "#cbcbcb",
+                          },
+                        }}
+                      >
+                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                          Actividad {value}
+                        </Typography>
+                      </ListItemButton>
+                    ))}
+
+                    {/* );
                       }
-                    )}
+                    )} */}
                   </List>
                 </Collapse>
 
@@ -548,12 +362,12 @@ export const TabActividades = ({
                 textAlign: "center",
               }}
             >
-              {componentesTextos[componenteSelect]?.resumen}
+              {MIR.componentes[componenteSelect]?.resumen}
             </Typography>
           </Box>
 
           <TextField
-            disabled={mirEdit?.actividades[componenteSelect].resumen}
+            // disabled={mirEdit?.actividades[componenteSelect].resumen}
             rows={8}
             multiline
             sx={{ width: "90%", boxShadow: 2 }}
@@ -569,24 +383,24 @@ export const TabActividades = ({
                 fontFamily: "MontserratRegular",
               },
             }}
-            onChange={(c) => {
-              let y = [...cValor];
-              y[0].componentes[componenteSelect].actividades[
-                actividadSelect
-              ].resumen = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              setCValor(y);
-            }}
-            value={
-              cValor[0].componentes[componenteSelect]?.actividades[
-                actividadSelect
-              ]?.resumen
-            }
+            // onChange={(c) => {
+            //   let y = [...cValor];
+            //   y[0].componentes[componenteSelect].actividades[
+            //     actividadSelect
+            //   ].resumen = c.target.value
+            //     .replaceAll('"', "")
+            //     .replaceAll("'", "")
+            //     .replaceAll("\n", "");
+            //   setCValor(y);
+            // }}
+            // value={
+            //   cValor[0].componentes[componenteSelect]?.actividades[
+            //     actividadSelect
+            //   ]?.resumen
+            // }
           />
           <TextField
-            disabled={mirEdit?.actividades[componenteSelect].indicador}
+            // disabled={mirEdit?.actividades[componenteSelect].indicador}
             rows={8}
             multiline
             sx={{ width: "90%", boxShadow: 2 }}
@@ -602,7 +416,7 @@ export const TabActividades = ({
               },
             }}
             label={"INDICADOR"}
-            onBlur={() => evalueTxtIndicador()}
+            // onBlur={() => evalueTxtIndicador()}
             error={
               errorIndicadorComponente === componenteSelect &&
               errorIndicadorActividad === actividadSelect
@@ -615,27 +429,27 @@ export const TabActividades = ({
                 ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
                 : null
             }
-            onChange={(c) => {
-              let y = [...cValor];
-              y[0].componentes[componenteSelect].actividades[
-                actividadSelect
-              ].indicador = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              y[0].componentes[componenteSelect].actividades[
-                actividadSelect
-              ].formula = "";
-              setCValor(y);
-            }}
-            value={
-              cValor[0].componentes[componenteSelect]?.actividades[
-                actividadSelect
-              ]?.indicador
-            }
+            // onChange={(c) => {
+            //   let y = [...cValor];
+            //   y[0].componentes[componenteSelect].actividades[
+            //     actividadSelect
+            //   ].indicador = c.target.value
+            //     .replaceAll('"', "")
+            //     .replaceAll("'", "")
+            //     .replaceAll("\n", "");
+            //   y[0].componentes[componenteSelect].actividades[
+            //     actividadSelect
+            //   ].formula = "";
+            //   setCValor(y);
+            // }}
+            // value={
+            //   cValor[0].componentes[componenteSelect]?.actividades[
+            //     actividadSelect
+            //   ]?.indicador
+            // }
           />
           <TextField
-            disabled={mirEdit?.actividades[componenteSelect].formula}
+            // disabled={mirEdit?.actividades[componenteSelect].formula}
             rows={8}
             multiline
             variant="filled"
@@ -652,12 +466,12 @@ export const TabActividades = ({
             }}
             sx={{ width: "90%", boxShadow: 2 }}
             label={"FÓRMULA"}
-            onClick={() => evalueTxtIndicador()}
-            value={
-              cValor[0].componentes[componenteSelect]?.actividades[
-                actividadSelect
-              ]?.formula
-            }
+            // onClick={() => evalueTxtIndicador()}
+            // value={
+            //   cValor[0].componentes[componenteSelect]?.actividades[
+            //     actividadSelect
+            //   ]?.formula
+            // }
           />
 
           <FormControl
@@ -683,28 +497,28 @@ export const TabActividades = ({
                   sx={{
                     fontFamily: "MontserratMedium",
                   }}
-                  checked={
-                    cValor[0].componentes[componenteSelect]?.actividades[
-                      actividadSelect
-                    ]?.frecuencia === "TRIMESTRAL"
-                  }
-                  onChange={(c) => {
-                    let y = [...cValor];
-                    y[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].frecuencia = c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "");
-                    setCValor(y);
-                  }}
+                  // checked={
+                  //   cValor[0].componentes[componenteSelect]?.actividades[
+                  //     actividadSelect
+                  //   ]?.frecuencia === "TRIMESTRAL"
+                  // }
+                  // onChange={(c) => {
+                  //   let y = [...cValor];
+                  //   y[0].componentes[componenteSelect].actividades[
+                  //     actividadSelect
+                  //   ].frecuencia = c.target.value
+                  //     .replaceAll('"', "")
+                  //     .replaceAll("'", "")
+                  //     .replaceAll("\n", "");
+                  //   setCValor(y);
+                  // }}
                 />
               }
             />
           </FormControl>
 
           <TextField
-            disabled={mirEdit?.actividades[componenteSelect].medios}
+            // disabled={mirEdit?.actividades[componenteSelect].medios}
             rows={8}
             multiline
             variant="filled"
@@ -720,24 +534,24 @@ export const TabActividades = ({
                 fontFamily: "MontserratRegular",
               },
             }}
-            onChange={(c) => {
-              let y = [...cValor];
-              y[0].componentes[componenteSelect].actividades[
-                actividadSelect
-              ].medios = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              setCValor(y);
-            }}
-            value={
-              cValor[0].componentes[componenteSelect]?.actividades[
-                actividadSelect
-              ]?.medios
-            }
+            // onChange={(c) => {
+            //   let y = [...cValor];
+            //   y[0].componentes[componenteSelect].actividades[
+            //     actividadSelect
+            //   ].medios = c.target.value
+            //     .replaceAll('"', "")
+            //     .replaceAll("'", "")
+            //     .replaceAll("\n", "");
+            //   setCValor(y);
+            // }}
+            // value={
+            //   cValor[0].componentes[componenteSelect]?.actividades[
+            //     actividadSelect
+            //   ]?.medios
+            // }
           />
           <TextField
-            disabled={mirEdit?.actividades[componenteSelect].supuestos}
+            // disabled={mirEdit?.actividades[componenteSelect].supuestos}
             rows={8}
             multiline
             variant="filled"
@@ -753,21 +567,21 @@ export const TabActividades = ({
                 fontFamily: "MontserratRegular",
               },
             }}
-            value={
-              cValor[0].componentes[componenteSelect]?.actividades[
-                actividadSelect
-              ]?.supuestos
-            }
-            onChange={(c) => {
-              let y = [...cValor];
-              y[0].componentes[componenteSelect].actividades[
-                actividadSelect
-              ].supuestos = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              setCValor(y);
-            }}
+            // value={
+            //   cValor[0].componentes[componenteSelect]?.actividades[
+            //     actividadSelect
+            //   ]?.supuestos
+            // }
+            // onChange={(c) => {
+            //   let y = [...cValor];
+            //   y[0].componentes[componenteSelect].actividades[
+            //     actividadSelect
+            //   ].supuestos = c.target.value
+            //     .replaceAll('"', "")
+            //     .replaceAll("'", "")
+            //     .replaceAll("\n", "");
+            //   setCValor(y);
+            // }}
           />
         </Box>
       </Box>

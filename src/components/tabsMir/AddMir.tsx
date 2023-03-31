@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";
-import TabEncabezado, { IEncabezado } from "./TabEncabezado";
+import TabEncabezado from "./TabEncabezado";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IMIR } from "./IMIR";
 import TabResumen from "./TabResumen";
 import TabFinProposito from "./TabFinProposito";
+import { TabComponente } from "./TabComponente";
+import { TabActividades } from "./TabActividades";
 
 export default function FullModalMir({
   MIR,
@@ -23,7 +25,59 @@ export default function FullModalMir({
 }) {
   const [value, setValue] = React.useState(10);
 
-  let mir: IMIR = MIR !== "" ? JSON.parse(MIR) : {};
+  const [noComponentes, setNocomponentes] = useState([1, 2]);
+  const [noActividades, setNoActividades] = useState(
+    noComponentes.map((v, index) => {
+      return [1, 2];
+    })
+  );
+
+  let mir: IMIR =
+    MIR !== ""
+      ? JSON.parse(MIR)
+      : {
+          encabezado: {
+            ejercicioFiscal: "",
+            institucion: "",
+            nombre_del_programa: "",
+            eje: "",
+            tema: "",
+            objetivo: "",
+            estrategia: "",
+            lineas_de_accion: [],
+            beneficiario: "",
+            conac: "",
+            consecutivo: "",
+          },
+          fin: {
+            resumen: "",
+            indicador: "",
+            formula: "",
+            frecuencia: "",
+            medios: "",
+            supuestos: "",
+          },
+          proposito: {
+            resumen: "",
+            indicador: "",
+            formula: "",
+            frecuencia: "",
+            medios: "",
+            supuestos: "",
+          },
+          componentes: noComponentes.map((x, index) => {
+            return {
+              componentes: "C" + (index + 1),
+              resumen: "",
+              indicador: "",
+              frecuencia: "",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            };
+          }),
+          actividades: [1, 2],
+        };
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
@@ -35,12 +89,112 @@ export default function FullModalMir({
 
   const [MIRPADRE, setMIRPADRE] = useState<IMIR>(mir);
 
-  //ENCABEZADO
-  const [encabezado, setEncabezado] = useState<IEncabezado>(mir.encabezado);
-
   useEffect(() => {
-    setMIRPADRE((MIRPADRE) => ({ ...MIRPADRE, ...{ encabezado: encabezado } }));
-  }, [encabezado]);
+    console.log(noActividades);
+    
+    console.log(MIRPADRE);
+
+    let arr: Array<number> = [];
+    MIRPADRE.componentes?.map((x, index) => {
+      return arr.push(index + 1);
+    });
+
+    setNocomponentes(arr);
+  }, [MIR, MIRPADRE]);
+
+  const addComponente = () => {
+    let arr: Array<number> = noComponentes;
+    arr.push(noComponentes.length + 1);
+    setNocomponentes(arr);
+    setMIRPADRE((MIRPADRE: IMIR) => ({
+      ...MIRPADRE,
+      ...{
+        componentes: arr.map((x, index) => {
+          return {
+            componentes: MIRPADRE.componentes[index]?.componentes || "",
+            resumen: MIRPADRE.componentes[index]?.resumen || "",
+            indicador: MIRPADRE.componentes[index]?.indicador || "",
+            frecuencia: MIRPADRE.componentes[index]?.frecuencia || "",
+            formula: MIRPADRE.componentes[index]?.formula || "",
+            medios: MIRPADRE.componentes[index]?.medios || "",
+            supuestos: MIRPADRE.componentes[index]?.supuestos || "",
+          };
+        }),
+      },
+    }));
+  };
+
+  const removeComponente = () => {
+    let arr: Array<number> = noComponentes;
+    if (noComponentes.length > 2) {
+      arr.pop();
+    }
+    setNocomponentes(arr);
+    setMIRPADRE((MIRPADRE: IMIR) => ({
+      ...MIRPADRE,
+      ...{
+        componentes: arr.map((x, index) => {
+          return {
+            componentes: MIRPADRE.componentes[index].componentes,
+            resumen: MIRPADRE.componentes[index].resumen,
+            indicador: MIRPADRE.componentes[index].indicador,
+            frecuencia: MIRPADRE.componentes[index].frecuencia,
+            formula: MIRPADRE.componentes[index].formula,
+            medios: MIRPADRE.componentes[index].medios,
+            supuestos: MIRPADRE.componentes[index].supuestos,
+          };
+        }),
+      },
+    }));
+  };
+
+  const addActividad = (componenteSelect: number) => {
+    
+    let arr: Array<number[]> = noActividades;
+    arr[componenteSelect].push(noActividades[componenteSelect].length + 1);
+    console.log(arr);
+    setNoActividades(arr);
+    setMIRPADRE((MIRPADRE: IMIR) => ({
+      ...MIRPADRE,
+      ...{
+        actividades: arr[componenteSelect].map((x, index) => {
+          return {
+            actividad: MIRPADRE.actividades[index]?.actividad || "",
+            resumen: MIRPADRE.actividades[index]?.resumen || "",
+            indicador: MIRPADRE.actividades[index]?.indicador || "",
+            frecuencia: MIRPADRE.actividades[index]?.frecuencia || "",
+            formula: MIRPADRE.actividades[index]?.formula || "",
+            medios: MIRPADRE.actividades[index]?.medios || "",
+            supuestos: MIRPADRE.actividades[index]?.supuestos || "",
+          };
+        }),
+      },
+    }));
+  };
+
+  const removeActividad = () => {
+    // let arr: Array<number> = noComponentes;
+    // if (noComponentes.length > 2) {
+    //   arr.pop();
+    // }
+    // setNocomponentes(arr);
+    // setMIRPADRE((MIRPADRE: IMIR) => ({
+    //   ...MIRPADRE,
+    //   ...{
+    //     componentes: arr.map((x, index) => {
+    //       return {
+    //         componentes: MIRPADRE.componentes[index].componentes,
+    //         resumen: MIRPADRE.componentes[index].resumen,
+    //         indicador: MIRPADRE.componentes[index].indicador,
+    //         frecuencia: MIRPADRE.componentes[index].frecuencia,
+    //         formula: MIRPADRE.componentes[index].formula,
+    //         medios: MIRPADRE.componentes[index].medios,
+    //         supuestos: MIRPADRE.componentes[index].supuestos,
+    //       };
+    //     }),
+    //   },
+    // }));
+  };
 
   return (
     <Box
@@ -172,46 +326,52 @@ export default function FullModalMir({
             setMIR={setMIRPADRE}
           ></TabEncabezado>
 
-          {value===20 && <TabFinProposito
-            // show={value === 20 ? true : false}
+          {value === 20 && (
+            <TabFinProposito
+              // show={value === 20 ? true : false}
+              MIR={MIRPADRE}
+              setMIR={setMIRPADRE}
+            />
+          )}
+
+          {value === 50 && (
+            <TabResumen
+              showResume={showResume}
+              // mirEdit={MIR ? JSON.parse(MIR)[1] : null}
+              // show={value === 50 ? true : false}
+              MIRPADRE={MIRPADRE}
+              // componentes={noComponentes}
+              // componenteValor={valoresComponente}
+              // cValor={cValor}
+              // encabezado={encabezado}
+              // fin={fin}
+              // proposito={proposito}
+              // IdMir={IdMir}
+            />
+          )}
+
+          <TabComponente
+            show={value === 30 ? true : false}
+            // noComponentesFnc={setNoComponentes}
+            // valoresComponenteFnc={setValoresComponente}
+            noComponentes={noComponentes}
+            addComponente={addComponente}
+            removeComponente={removeComponente}
             MIR={MIRPADRE}
             setMIR={setMIRPADRE}
-          />  }
-
-          {value===50 && <TabResumen
-            showResume={showResume}
+            // valoresComponente={valoresComponente}
             // mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            // show={value === 50 ? true : false}
-            MIRPADRE={MIRPADRE}
-            // componentes={noComponentes}
-            // componenteValor={valoresComponente}
-            // cValor={cValor}
-            // encabezado={encabezado}
-            // fin={fin}
-            // proposito={proposito}
-            // IdMir={IdMir}
-          />}
+          ></TabComponente>
 
-          {/* <TabComponente
-            show={value === 30 ? true : false}
-            noComponentesFnc={setNoComponentes}
-            valoresComponenteFnc={setValoresComponente}
-            noComponentes={noComponentes}
-            valoresComponente={valoresComponente}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabComponente> */}
-
-          {/* <TabActividades
-            actividadesMir={valoresActividades}
-            componentesTextos={valoresComponente}
-            compAct={compAct}
+          <TabActividades
             show={value === 40 ? true : false}
-            componentes={noComponentes}
-            asignarCValor={setCValor}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            setActividadesM={() => {}}
-            setCompAct={setCompAct}
-          ></TabActividades> */}
+            noActividades={noActividades}
+            addActividad={addActividad}
+            removeActividad={removeActividad}
+            MIR={MIRPADRE}
+            setMIR={setMIRPADRE}
+            noComponentes={noComponentes}
+          ></TabActividades>
         </Box>
       </Box>
     </Box>

@@ -52,14 +52,6 @@ export function TabResumen({
     });
   };
 
-
-  useEffect(() => {
-    console.log('resumen');
-    
-    console.log(MIRPADRE);
-    
-  }, [])
-  
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
@@ -166,7 +158,7 @@ export function TabResumen({
 
     //   setEditActividades(aEdit);
 
-    setMIR(MIRPADRE)
+    setMIR(MIRPADRE);
   }, [MIRPADRE]);
 
   const Toast = Swal.mixin({
@@ -1154,7 +1146,7 @@ export function TabResumen({
             Componentes
           </Typography>
 
-          {/* {componentes.map((index) => {
+          {MIRPADRE.componentes.map((v, index) => {
             return (
               <Box key={index}>
                 <Typography
@@ -1166,7 +1158,7 @@ export function TabResumen({
                     textTransform: "uppercase",
                   }}
                 >
-                  Componente {index}
+                  Componente {index + 1}
                 </Typography>
                 <Box
                   sx={{
@@ -1201,7 +1193,7 @@ export function TabResumen({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.resumen}
+                    {v?.resumen}
                   </Typography>
                 </Box>
                 <Box
@@ -1238,7 +1230,7 @@ export function TabResumen({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.indicador}
+                    {v?.indicador}
                   </Typography>
                 </Box>
                 <Box
@@ -1275,7 +1267,7 @@ export function TabResumen({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.formula}
+                    {v?.formula}
                   </Typography>
                 </Box>
                 <Box
@@ -1312,7 +1304,7 @@ export function TabResumen({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.frecuencia}
+                    {v?.frecuencia}
                   </Typography>
                 </Box>
                 <Box
@@ -1349,7 +1341,7 @@ export function TabResumen({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.medios}
+                    {v?.medios}
                   </Typography>
                 </Box>
                 <Box
@@ -1386,12 +1378,12 @@ export function TabResumen({
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
                   >
-                    {componenteValor[index - 1]?.supuestos}
+                    {v?.supuestos}
                   </Typography>
                 </Box>
               </Box>
             );
-          })} */}
+          })}
 
           <Typography
             sx={{

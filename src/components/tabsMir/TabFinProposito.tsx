@@ -25,10 +25,6 @@ export function TabFinProposito({
   setMIR: Function;
 
 }) {
-  useEffect(() => {
-    console.log(MIR);
-    
-  }, [MIR])
   
   const [fin, setFin] = useState<IFin>({
     resumen: MIR.fin?.resumen ||'',
@@ -47,10 +43,6 @@ export function TabFinProposito({
     medios_verificacion : MIR.proposito?.medios_verificacion ||'',
     supuestos: MIR.proposito?.supuestos ||'',
   });
-  useEffect(() => {
-    console.log(fin);
-    
-  }, [fin])
   
   
 
@@ -452,7 +444,7 @@ export function TabFinProposito({
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "50%",
+                  height: "44%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -664,7 +656,7 @@ export function TabFinProposito({
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "50%",
+                  height: "44%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",

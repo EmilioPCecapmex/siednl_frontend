@@ -34,12 +34,10 @@ export function TabEncabezado({
   show,
   MIR,
   setMIR,
-  
 }: {
   show: boolean;
   MIR: IMIR;
   setMIR: Function;
-  
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
@@ -512,12 +510,15 @@ export function TabEncabezado({
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
-      .then(({data}) => {
-        console.log(data);
+      .then(({ data }) => {
+        setMIR((MIR: IMIR) => ({
+          ...MIR,
+          ...{ fin: data.fin[0] },
+          ...{ proposito: data.propositos[0] },
+          ...{ componentes: data.componentes },
+          ...{ actividades: data.actividades },
+        }));
 
-       setMIR((MIR:IMIR)=>({...MIR,...{fin:data.fin[0]},...{proposito:data.propositos[0]}}))
-    
-        
         getIdInstitucion(data.encabezado[0].institucion);
         getIdPrograma(data.encabezado[0].nombre_del_programa);
         getIdEje(data.encabezado[0].eje);
@@ -552,23 +553,24 @@ export function TabEncabezado({
   }, []);
 
   useEffect(() => {
-
-    
-    setMIR((MIR:IMIR)=>({...MIR,...{encabezado: {
-      ejercicioFiscal: anioFiscal,
-      institucion: institution,
-      nombre_del_programa: programa,
-      eje: eje,
-      tema: tematica,
-      objetivo: objetivo,
-      estrategia: estrategia,
-      lineas_de_accion: lineaDeAccion,
-      beneficiario: beneficiario,
-      conac: conac,
-      consecutivo: consecutivo,
-    }}}))
-
-   ;
+    setMIR((MIR: IMIR) => ({
+      ...MIR,
+      ...{
+        encabezado: {
+          ejercicioFiscal: anioFiscal,
+          institucion: institution,
+          nombre_del_programa: programa,
+          eje: eje,
+          tema: tematica,
+          objetivo: objetivo,
+          estrategia: estrategia,
+          lineas_de_accion: lineaDeAccion,
+          beneficiario: beneficiario,
+          conac: conac,
+          consecutivo: consecutivo,
+        },
+      },
+    }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     anioFiscal,
