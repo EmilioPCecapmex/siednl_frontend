@@ -26,7 +26,7 @@ import FormLabel from "@mui/material/FormLabel";
 
 //funcion main
 export const TabActividades = ({
-  show,
+  // show,
   noActividades,
   addActividad,
   removeActividad,
@@ -34,7 +34,7 @@ export const TabActividades = ({
   setMIR,
   noComponentes,
 }: {
-  show: boolean;
+  // show: boolean;
   noActividades: Array<number[]>;
   addActividad: Function;
   removeActividad: Function;
@@ -154,7 +154,7 @@ export const TabActividades = ({
 
   return (
     <Box
-      visibility={show ? "visible" : "hidden"}
+      // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
         display: "flex",

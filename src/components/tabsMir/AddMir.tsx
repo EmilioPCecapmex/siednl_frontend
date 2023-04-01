@@ -32,6 +32,21 @@ export default function FullModalMir({
     })
   );
 
+  useEffect(() => {
+    let noAct=noActividades;
+    let x=noActividades.length;
+
+    setNoActividades( noComponentes.map((v, index) => {
+      if(index<x){
+        return noAct[index]
+      }else{
+        return [1, 2];
+      }
+      
+    }))
+  }, [noComponentes])
+  
+
   let mir: IMIR =
     MIR !== ""
       ? JSON.parse(MIR)
@@ -122,6 +137,8 @@ export default function FullModalMir({
         }),
       },
     }));
+
+
   };
 
   const removeComponente = () => {
@@ -363,15 +380,15 @@ export default function FullModalMir({
             // mirEdit={MIR ? JSON.parse(MIR)[1] : null}
           ></TabComponente>
 
-          <TabActividades
-            show={value === 40 ? true : false}
+         {value === 40 && <TabActividades
+            
             noActividades={noActividades}
             addActividad={addActividad}
             removeActividad={removeActividad}
             MIR={MIRPADRE}
             setMIR={setMIRPADRE}
             noComponentes={noComponentes}
-          ></TabActividades>
+          ></TabActividades>}
         </Box>
       </Box>
     </Box>
