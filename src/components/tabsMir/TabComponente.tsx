@@ -19,14 +19,14 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 
 export const TabComponente = ({
-  show,
+  // show,
   noComponentes,
   addComponente,
   removeComponente,
   MIR,
   setMIR,
 }: {
-  show: boolean;
+  // show: boolean;
   noComponentes: number[];
   addComponente: Function;
   removeComponente: Function;
@@ -108,7 +108,7 @@ export const TabComponente = ({
 
   return (
     <Box
-      visibility={show ? "visible" : "hidden"}
+      // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
         display: "flex",
@@ -160,7 +160,7 @@ export const TabComponente = ({
             removeComponente();
             setComponentSelect(MIR.componentes.length - 1);
           }}
-          disabled={MIR.componentes.length === 2}
+          disabled={MIR.componentes.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
@@ -345,8 +345,7 @@ export const TabComponente = ({
               control={
                 <Radio
                   checked={
-                    componentes[componentSelect - 1]?.frecuencia ===
-                    "SEMESTRAL"
+                    componentes[componentSelect - 1]?.frecuencia === "SEMESTRAL"
                   }
                   onChange={(c) => {
                     let prevLocal = [...componentes];

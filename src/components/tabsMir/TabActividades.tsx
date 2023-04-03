@@ -42,7 +42,6 @@ export const TabActividades = ({
   setMIR: Function;
   noComponentes: number[];
 }) => {
-
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
@@ -197,36 +196,16 @@ export const TabActividades = ({
           onClick={() => {
             addActividad(componenteSelect);
           }}
-          // onClick={() => {
-          //   agregarAFnc(componenteSelect);
-
-          //   if (
-          //     actividadSelect + 1 ===
-          //     cValor[0].componentes[componenteSelect]?.actividades.length - 1
-          //   ) {
-          //     setActividadSelect(
-          //       cValor[0].componentes[componenteSelect]?.actividades.length - 1
-          //     );
-          //   }
-          // }}
-          // disabled={
-          //   mirEdit === undefined ? false : mirEdit === null ? false : true
-          // }
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
         <IconButton
-        // onClick={() => {
-        //   eliminarAFnc();
-        //   setActividadSelect(
-        //     cValor[0].componentes[componenteSelect]?.actividades.length - 1
-        //   );
-        // }}
-        // sx={{ mr: "1vw" }}
-        // disabled={
-        //   mirEdit === undefined ? false : mirEdit === null ? false : true
-        // }
+          onClick={() => {
+            removeActividad(componenteSelect);
+            // setActividadSelect(actividades[componenteSelect].length - 1);
+          }}
+          // disabled={MIR.actividades.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
@@ -246,8 +225,10 @@ export const TabActividades = ({
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            justifyContent:
+              MIR.componentes.length > 9 ? "flex-start" : "center",
             borderColor: "#BCBCBC",
+            overflow: "scroll",
             "&::-webkit-scrollbar": {
               width: ".3vw",
             },
@@ -291,16 +272,13 @@ export const TabActividades = ({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", fontSize: "0.9rem" }}
                   >
-                    COMPONENTE {index + 1 }
+                    COMPONENTE {index + 1}
                   </Typography>
 
                   {open === index ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={open === index} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    {/* {cValor[0].componentes[componenteSelect]?.actividades?.map(
-                      (value, x) => {
-                        return ( */}
                     {noActividades[componenteSelect].map((value, index) => (
                       <ListItemButton
                         selected={index === actividadSelect ? true : false}
@@ -323,10 +301,6 @@ export const TabActividades = ({
                         </Typography>
                       </ListItemButton>
                     ))}
-
-                    {/* );
-                      }
-                    )} */}
                   </List>
                 </Collapse>
 

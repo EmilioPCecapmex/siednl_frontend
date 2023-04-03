@@ -12,45 +12,30 @@ import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
 
 export function TabResumen({
-  // show,
   MIRPADRE,
-  // fin,
-  // proposito,
-  // componentes,
-  // componenteValor,
-  // cValor,
   showResume,
-}: // IdMir,
-// mirEdit,
+}: 
 {
-  // show: boolean;
   MIRPADRE: IMIR;
-  // fin: Array<IFin>;
-  // proposito: Array<IProposito>;
-  // componentes: number[];
-  // componenteValor: Array<IComponente>;
-  // cValor: Array<ICValor>;
   showResume: Function;
-  // IdMir: string;
-  // mirEdit?: IEncabezadoEdit;
 }) {
   const [MIR, setMIR] = useState<IMIR>();
 
-  let asignarMIR = (
-    encabezadoM: IEncabezado,
-    finM: IFin,
-    propositoM: IProposito,
-    componentesM: Array<IComponente>,
-    actividadesM: Array<IActividadesMir>
-  ) => {
-    setMIR({
-      encabezado: encabezadoM,
-      fin: finM,
-      proposito: propositoM,
-      componentes: componentesM,
-      actividades: actividadesM,
-    });
-  };
+  // let asignarMIR = (
+  //   encabezadoM: IEncabezado,
+  //   finM: IFin,
+  //   propositoM: IProposito,
+  //   componentesM: Array<IComponente>,
+  //   actividadesM: Array<IActividadesMir>
+  // ) => {
+  //   setMIR({
+  //     encabezado: encabezadoM,
+  //     fin: finM,
+  //     proposito: propositoM,
+  //     componentes: componentesM,
+  //     actividades: actividadesM,
+  //   });
+  // };
 
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
   const handleCloseEnviar = () => {

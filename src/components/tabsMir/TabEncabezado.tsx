@@ -511,12 +511,14 @@ export function TabEncabezado({
         },
       })
       .then(({ data }) => {
+        
         setMIR((MIR: IMIR) => ({
           ...MIR,
           ...{ fin: data.fin[0] },
           ...{ proposito: data.propositos[0] },
           ...{ componentes: data.componentes },
           ...{ actividades: data.actividades },
+          ...{ componenteActividad: data.componenteActividad },
         }));
 
         getIdInstitucion(data.encabezado[0].institucion);
