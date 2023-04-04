@@ -23,6 +23,7 @@ import { IMIR, IMIREdit } from "./IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import { log } from "console";
 
 //funcion main
 export const TabActividades = ({
@@ -144,20 +145,32 @@ export const TabActividades = ({
 
 
   useEffect(() => {
-    console.log(MIR.actividades);
-    console.log(MIR.componenteActividad);
+    // console.log('actividades');
+
+    // console.log(MIR.actividades);
+    // console.log('componenteActividad');
+
+    // console.log(MIR.componenteActividad);
 
 
-      let n: any[] = [];
-    MIR.componenteActividad.map((v, index)=>{
-      v.actividades.map((x, index2) => {
-        n[index] = (x)
+    let indexActividades = 0;
+    let n: Array<Array<IActividadesMir>> = [];
+
+    MIR.componenteActividad.map((v, index) => {
+      // console.log('componente: '+ (index+1));
+      let aux: Array<IActividadesMir> = [];
+      v.actividades.map((x) => {
+        aux.push(MIR.actividades[indexActividades])
+        indexActividades++;
       })
+      n[index] = aux;
+      console.log('imprimiendo n');
+
       console.log(n);
-      
+
     })
 
-    
+
 
     setActividades(MIR.actividades);
   }, [MIR]);
@@ -225,7 +238,7 @@ export const TabActividades = ({
             removeActividad(componenteSelect);
             // setActividadSelect(actividades[componenteSelect].length - 1);
           }}
-          // disabled={MIR.actividades.length <= 2}
+        // disabled={MIR.actividades.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
@@ -377,21 +390,21 @@ export const TabActividades = ({
                 fontFamily: "MontserratRegular",
               },
             }}
-            // onChange={(c) => {
-            //   let y = [...cValor];
-            //   y[0].componentes[componenteSelect].actividades[
-            //     actividadSelect
-            //   ].resumen = c.target.value
-            //     .replaceAll('"', "")
-            //     .replaceAll("'", "")
-            //     .replaceAll("\n", "");
-            //   setCValor(y);
-            // }}
-            // value={
-            //   cValor[0].componentes[componenteSelect]?.actividades[
-            //     actividadSelect
-            //   ]?.resumen
-            // }
+          // onChange={(c) => {
+          //   let y = [...cValor];
+          //   y[0].componentes[componenteSelect].actividades[
+          //     actividadSelect
+          //   ].resumen = c.target.value
+          //     .replaceAll('"', "")
+          //     .replaceAll("'", "")
+          //     .replaceAll("\n", "");
+          //   setCValor(y);
+          // }}
+          // value={
+          //   cValor[0].componentes[componenteSelect]?.actividades[
+          //     actividadSelect
+          //   ]?.resumen
+          // }
           />
           <TextField
             // disabled={mirEdit?.actividades[componenteSelect].indicador}
@@ -413,34 +426,34 @@ export const TabActividades = ({
             // onBlur={() => evalueTxtIndicador()}
             error={
               errorIndicadorComponente === componenteSelect &&
-              errorIndicadorActividad === actividadSelect
+                errorIndicadorActividad === actividadSelect
                 ? true
                 : false
             }
             helperText={
               errorIndicadorComponente === componenteSelect &&
-              errorIndicadorActividad === actividadSelect
+                errorIndicadorActividad === actividadSelect
                 ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
                 : null
             }
-            // onChange={(c) => {
-            //   let y = [...cValor];
-            //   y[0].componentes[componenteSelect].actividades[
-            //     actividadSelect
-            //   ].indicador = c.target.value
-            //     .replaceAll('"', "")
-            //     .replaceAll("'", "")
-            //     .replaceAll("\n", "");
-            //   y[0].componentes[componenteSelect].actividades[
-            //     actividadSelect
-            //   ].formula = "";
-            //   setCValor(y);
-            // }}
-            // value={
-            //   cValor[0].componentes[componenteSelect]?.actividades[
-            //     actividadSelect
-            //   ]?.indicador
-            // }
+          // onChange={(c) => {
+          //   let y = [...cValor];
+          //   y[0].componentes[componenteSelect].actividades[
+          //     actividadSelect
+          //   ].indicador = c.target.value
+          //     .replaceAll('"', "")
+          //     .replaceAll("'", "")
+          //     .replaceAll("\n", "");
+          //   y[0].componentes[componenteSelect].actividades[
+          //     actividadSelect
+          //   ].formula = "";
+          //   setCValor(y);
+          // }}
+          // value={
+          //   cValor[0].componentes[componenteSelect]?.actividades[
+          //     actividadSelect
+          //   ]?.indicador
+          // }
           />
           <TextField
             // disabled={mirEdit?.actividades[componenteSelect].formula}
@@ -460,12 +473,12 @@ export const TabActividades = ({
             }}
             sx={{ width: "90%", boxShadow: 2 }}
             label={"FÓRMULA"}
-            // onClick={() => evalueTxtIndicador()}
-            // value={
-            //   cValor[0].componentes[componenteSelect]?.actividades[
-            //     actividadSelect
-            //   ]?.formula
-            // }
+          // onClick={() => evalueTxtIndicador()}
+          // value={
+          //   cValor[0].componentes[componenteSelect]?.actividades[
+          //     actividadSelect
+          //   ]?.formula
+          // }
           />
 
           <FormControl
@@ -491,21 +504,21 @@ export const TabActividades = ({
                   sx={{
                     fontFamily: "MontserratMedium",
                   }}
-                  // checked={
-                  //   cValor[0].componentes[componenteSelect]?.actividades[
-                  //     actividadSelect
-                  //   ]?.frecuencia === "TRIMESTRAL"
-                  // }
-                  // onChange={(c) => {
-                  //   let y = [...cValor];
-                  //   y[0].componentes[componenteSelect].actividades[
-                  //     actividadSelect
-                  //   ].frecuencia = c.target.value
-                  //     .replaceAll('"', "")
-                  //     .replaceAll("'", "")
-                  //     .replaceAll("\n", "");
-                  //   setCValor(y);
-                  // }}
+                // checked={
+                //   cValor[0].componentes[componenteSelect]?.actividades[
+                //     actividadSelect
+                //   ]?.frecuencia === "TRIMESTRAL"
+                // }
+                // onChange={(c) => {
+                //   let y = [...cValor];
+                //   y[0].componentes[componenteSelect].actividades[
+                //     actividadSelect
+                //   ].frecuencia = c.target.value
+                //     .replaceAll('"', "")
+                //     .replaceAll("'", "")
+                //     .replaceAll("\n", "");
+                //   setCValor(y);
+                // }}
                 />
               }
             />
@@ -528,21 +541,21 @@ export const TabActividades = ({
                 fontFamily: "MontserratRegular",
               },
             }}
-            // onChange={(c) => {
-            //   let y = [...cValor];
-            //   y[0].componentes[componenteSelect].actividades[
-            //     actividadSelect
-            //   ].medios = c.target.value
-            //     .replaceAll('"', "")
-            //     .replaceAll("'", "")
-            //     .replaceAll("\n", "");
-            //   setCValor(y);
-            // }}
-            // value={
-            //   cValor[0].componentes[componenteSelect]?.actividades[
-            //     actividadSelect
-            //   ]?.medios
-            // }
+          // onChange={(c) => {
+          //   let y = [...cValor];
+          //   y[0].componentes[componenteSelect].actividades[
+          //     actividadSelect
+          //   ].medios = c.target.value
+          //     .replaceAll('"', "")
+          //     .replaceAll("'", "")
+          //     .replaceAll("\n", "");
+          //   setCValor(y);
+          // }}
+          // value={
+          //   cValor[0].componentes[componenteSelect]?.actividades[
+          //     actividadSelect
+          //   ]?.medios
+          // }
           />
           <TextField
             // disabled={mirEdit?.actividades[componenteSelect].supuestos}
@@ -561,21 +574,21 @@ export const TabActividades = ({
                 fontFamily: "MontserratRegular",
               },
             }}
-            // value={
-            //   cValor[0].componentes[componenteSelect]?.actividades[
-            //     actividadSelect
-            //   ]?.supuestos
-            // }
-            // onChange={(c) => {
-            //   let y = [...cValor];
-            //   y[0].componentes[componenteSelect].actividades[
-            //     actividadSelect
-            //   ].supuestos = c.target.value
-            //     .replaceAll('"', "")
-            //     .replaceAll("'", "")
-            //     .replaceAll("\n", "");
-            //   setCValor(y);
-            // }}
+          // value={
+          //   cValor[0].componentes[componenteSelect]?.actividades[
+          //     actividadSelect
+          //   ]?.supuestos
+          // }
+          // onChange={(c) => {
+          //   let y = [...cValor];
+          //   y[0].componentes[componenteSelect].actividades[
+          //     actividadSelect
+          //   ].supuestos = c.target.value
+          //     .replaceAll('"', "")
+          //     .replaceAll("'", "")
+          //     .replaceAll("\n", "");
+          //   setCValor(y);
+          // }}
           />
         </Box>
       </Box>
