@@ -138,7 +138,27 @@ export const TabActividades = ({
     MIR.actividades
   );
 
+  const [valoresComponenteActividad, setValoresComponenteActividad] = useState(
+    []
+  );
+
+
   useEffect(() => {
+    console.log(MIR.actividades);
+    console.log(MIR.componenteActividad);
+
+
+      let n: any[] = [];
+    MIR.componenteActividad.map((v, index)=>{
+      v.actividades.map((x, index2) => {
+        n[index] = (x)
+      })
+      console.log(n);
+      
+    })
+
+    
+
     setActividades(MIR.actividades);
   }, [MIR]);
 

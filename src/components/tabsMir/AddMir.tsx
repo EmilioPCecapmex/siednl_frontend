@@ -38,19 +38,9 @@ export default function FullModalMir({
 
     setNoActividades(
       MIRPADRE.componenteActividad.map((v, index) => {
-        // if (index < x) {
-        //   console.log(index);
-        // console.log(x);
-
         return v.actividades;
-        // } else {
-        //   return [1, 2];
-        // }
       })
     );
-
-    // console.log('noActividades');
-    // console.log(noActividades);
   }, [noComponentes]);
 
   let mir: IMIR =
@@ -143,8 +133,6 @@ export default function FullModalMir({
 
     setNoComponentes(arr);
 
-    // console.log('MIRPADRE');
-    // console.log(MIRPADRE);
   }, [MIR, MIRPADRE]);
 
   useEffect(() => {
@@ -266,8 +254,6 @@ export default function FullModalMir({
 
   const removeActividad = (componenteSelect: number) => {
     let arr: Array<number[]> = noActividades;
-    console.log(noActividades);
-    console.log(componenteSelect);
     
     if (noActividades[componenteSelect].length > 2) {
       arr[componenteSelect].pop();
