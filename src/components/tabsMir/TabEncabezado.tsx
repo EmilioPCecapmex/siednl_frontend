@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { IMIR, IMIREdit } from "./IMIR";
+import { IMIR } from "./IMIR";
 import Stack from "@mui/material/Stack";
 
 export interface IEncabezado {
@@ -511,7 +511,6 @@ export function TabEncabezado({
         },
       })
       .then(({ data }) => {
-        
         setMIR((MIR: IMIR) => ({
           ...MIR,
           ...{ fin: data.fin[0] },
@@ -816,9 +815,10 @@ export function TabEncabezado({
 
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
-          // disabled={
-          //   mirEdit?.encabezado.nombre_del_programa || disabledProgramas
-          // }
+          disabled={
+            // mirEdit?.encabezado.nombre_del_programa || 
+            disabledProgramas
+          }
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma || ""}
@@ -936,9 +936,13 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
-          // disabled={
-          //   (mirEdit?.encabezado.tema && tematica !== "") || disabledTematicas
-          // }
+          disabled={
+            // (mirEdit?.encabezado.tema && 
+            tematica !== ""
+            // ) 
+            || 
+            disabledTematicas
+          }
           options={catalogoTematicas}
           size="small"
           getOptionLabel={(option) => option.Tematica || ""}
@@ -996,10 +1000,13 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
-          // disabled={
-          //   (mirEdit?.encabezado.objetivo && objetivo !== "") ||
-          //   disabledObjetivos
-          // }
+          disabled={
+            // (mirEdit?.encabezado.objetivo && 
+            objetivo !== ""
+            // ) 
+            ||
+            disabledObjetivos
+          }
           options={catalogoObjetivos}
           getOptionLabel={(option) => option.Objetivo || ""}
           value={{
@@ -1051,10 +1058,13 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
-          // disabled={
-          //   (mirEdit?.encabezado.estrategia && estrategia !== "") ||
-          //   disabledEstrategias
-          // }
+          disabled={
+            // (mirEdit?.encabezado.estrategia && 
+            estrategia !== ""
+            // ) 
+            ||
+            disabledEstrategias
+          }
           options={catalogoEstrategias}
           size="small"
           getOptionLabel={(option) => option.Estrategia || ""}
@@ -1107,11 +1117,14 @@ export function TabEncabezado({
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
-            // disabled={
-            //   (mirEdit?.encabezado.lineas_de_accion &&
-            //     lineaDeAccion[0]?.LineaDeAccion === "") ||
-            //   disabledLineasDeAccion
-            // }
+            disabled={
+              // (mirEdit?.encabezado.lineas_de_accion &&
+                lineaDeAccion[0]?.LineaDeAccion 
+              === ""
+              // ) 
+              ||
+              disabledLineasDeAccion
+            }
             multiple
             limitTags={4}
             options={replica}

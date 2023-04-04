@@ -32,17 +32,6 @@ export default function FullModalMir({
     })
   );
 
-  useEffect(() => {
-    let noAct = noActividades;
-    let x = noActividades.length;
-
-    setNoActividades(
-      MIRPADRE.componenteActividad.map((v, index) => {
-        return v.actividades;
-      })
-    );
-  }, [noComponentes]);
-
   let mir: IMIR =
     MIR !== ""
       ? JSON.parse(MIR)
@@ -72,7 +61,7 @@ export default function FullModalMir({
             resumen: "",
             indicador: "",
             formula: "",
-            frecuencia: "",
+            frecuencia: "ANUAL",
             medios: "",
             supuestos: "",
           },
@@ -92,7 +81,7 @@ export default function FullModalMir({
               actividad: "A1C1",
               resumen: "",
               indicador: "",
-              frecuencia: "",
+              frecuencia: "TRIMESTRAL",
               formula: "",
               medios: "",
               supuestos: "",
@@ -101,7 +90,25 @@ export default function FullModalMir({
               actividad: "A2C1",
               resumen: "",
               indicador: "",
-              frecuencia: "",
+              frecuencia: "TRIMESTRAL",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            },
+            {
+              actividad: "A1C2",
+              resumen: "",
+              indicador: "",
+              frecuencia: "TRIMESTRAL",
+              formula: "",
+              medios: "",
+              supuestos: "",
+            },
+            {
+              actividad: "A2C2",
+              resumen: "",
+              indicador: "",
+              frecuencia: "TRIMESTRAL",
               formula: "",
               medios: "",
               supuestos: "",
@@ -133,29 +140,35 @@ export default function FullModalMir({
 
     setNoComponentes(arr);
 
+    let arr2: Array<Array<number>> = [];
+    MIRPADRE.componenteActividad.map((v, index) => {
+      return arr2.push(v.actividades);
+    });
+
+    setNoActividades(arr2);
   }, [MIR, MIRPADRE]);
 
   useEffect(() => {
-    let arr2: Array<IActividadesMir> = [];
+    let arr3: Array<IActividadesMir> = [];
     noComponentes.map((v, index) => {
-      arr2.push(
+      return arr3.push(
         {
           actividad: `A1C${index + 1}`,
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
+          resumen: MIRPADRE.actividades[index]?.resumen || "",
+          indicador: MIRPADRE.actividades[index]?.resumen || "",
+          frecuencia: "TRIMESTRAL",
+          formula: MIRPADRE.actividades[index]?.resumen || "",
+          medios: MIRPADRE.actividades[index]?.resumen || "",
+          supuestos: MIRPADRE.actividades[index]?.resumen || "",
         },
         {
           actividad: `A2C${index + 1}`,
-          resumen: "",
-          indicador: "",
-          frecuencia: "",
-          formula: "",
-          medios: "",
-          supuestos: "",
+          resumen: MIRPADRE.actividades[index]?.resumen || "",
+          indicador: MIRPADRE.actividades[index]?.resumen || "",
+          frecuencia: "TRIMESTRAL",
+          formula: MIRPADRE.actividades[index]?.resumen || "",
+          medios: MIRPADRE.actividades[index]?.resumen || "",
+          supuestos: MIRPADRE.actividades[index]?.resumen || "",
         }
       );
     });
@@ -163,10 +176,11 @@ export default function FullModalMir({
     setMIRPADRE((MIRPADRE: IMIR) => ({
       ...MIRPADRE,
       ...{
-        actividades: arr2,
+        actividades: arr3,
       },
     }));
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [MIRPADRE.componentes]);
 
   const addComponente = () => {
     let arr: Array<number> = noComponentes;
@@ -177,7 +191,7 @@ export default function FullModalMir({
       ...{
         componentes: arr.map((x, index) => {
           return {
-            componentes: MIRPADRE.componentes[index]?.componentes || "",
+            componentes: `C${index + 1}`,
             resumen: MIRPADRE.componentes[index]?.resumen || "",
             indicador: MIRPADRE.componentes[index]?.indicador || "",
             frecuencia: MIRPADRE.componentes[index]?.frecuencia || "",
@@ -234,6 +248,7 @@ export default function FullModalMir({
     let arr: Array<number[]> = noActividades;
     arr[componenteSelect].push(noActividades[componenteSelect].length + 1);
     setNoActividades(arr);
+
     setMIRPADRE((MIRPADRE: IMIR) => ({
       ...MIRPADRE,
       ...{
@@ -242,7 +257,7 @@ export default function FullModalMir({
             actividad: `A${index + 1}C${componenteSelect + 1}`,
             resumen: MIRPADRE.actividades[index]?.resumen || "",
             indicador: MIRPADRE.actividades[index]?.indicador || "",
-            frecuencia: MIRPADRE.actividades[index]?.frecuencia || "",
+            frecuencia: "TRIMESTRAL",
             formula: MIRPADRE.actividades[index]?.formula || "",
             medios: MIRPADRE.actividades[index]?.medios || "",
             supuestos: MIRPADRE.actividades[index]?.supuestos || "",
@@ -254,7 +269,7 @@ export default function FullModalMir({
 
   const removeActividad = (componenteSelect: number) => {
     let arr: Array<number[]> = noActividades;
-    
+
     if (noActividades[componenteSelect].length > 2) {
       arr[componenteSelect].pop();
     }
@@ -267,7 +282,7 @@ export default function FullModalMir({
             actividad: `A${index + 1}C${componenteSelect + 1}`,
             resumen: MIRPADRE.actividades[index]?.resumen || "",
             indicador: MIRPADRE.actividades[index]?.indicador || "",
-            frecuencia: MIRPADRE.actividades[index]?.frecuencia || "",
+            frecuencia: "TRIMESTRAL",
             formula: MIRPADRE.actividades[index]?.formula || "",
             medios: MIRPADRE.actividades[index]?.medios || "",
             supuestos: MIRPADRE.actividades[index]?.supuestos || "",
@@ -412,7 +427,7 @@ export default function FullModalMir({
           )}
 
           {value === 50 && (
-            <TabResumen showResume={showResume} MIRPADRE={MIRPADRE} />
+            <TabResumen showResume={showResume} MIRPADRE={MIRPADRE} idMir={IdMir} />
           )}
 
           {value === 30 && (
@@ -425,16 +440,17 @@ export default function FullModalMir({
             ></TabComponente>
           )}
 
-          {value === 40 && (
-            <TabActividades
-              noActividades={noActividades}
-              addActividad={addActividad}
-              removeActividad={removeActividad}
-              MIR={MIRPADRE}
-              setMIR={setMIRPADRE}
-              noComponentes={noComponentes}
-            ></TabActividades>
-          )}
+          {/* {value === 40 && ( */}
+          <TabActividades
+            show={value === 40 ? true : false}
+            noActividades={noActividades}
+            addActividad={addActividad}
+            removeActividad={removeActividad}
+            MIR={MIRPADRE}
+            setMIR={setMIRPADRE}
+            noComponentes={noComponentes}
+          ></TabActividades>
+          {/* )} */}
         </Box>
       </Box>
     </Box>
