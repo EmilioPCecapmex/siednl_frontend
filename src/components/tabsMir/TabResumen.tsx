@@ -69,12 +69,12 @@ export function TabResumen({
   ]);
 
   useEffect(() => {
-    console.log(idMir);
+    // console.log(idMir);
     
     let n: Array<Array<IActividadesMir>> = [];
-
+    let indexActividades = 0;
     MIRPADRE.componenteActividad.map((v, index) => {
-      let indexActividades = 0;
+      
       let aux: Array<IActividadesMir> = [];
       v.actividades.map((x) => {
         aux.push(MIRPADRE.actividades[indexActividades]);

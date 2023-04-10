@@ -24,7 +24,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 //funcion main
 export const TabActividades = ({
-  show,
+
   noActividades,
   addActividad,
   removeActividad,
@@ -32,7 +32,7 @@ export const TabActividades = ({
   setMIR,
   noComponentes,
 }: {
-  show: boolean;
+
   noActividades: Array<number[]>;
   addActividad: Function;
   removeActividad: Function;
@@ -77,9 +77,9 @@ export const TabActividades = ({
         setTipoFormula("Porcentaje");
         setElementoFormula(
           "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
+          (componenteSelect + 1).toString() +
+          "A" +
+          (actividadSelect + 1).toString()
         );
         handleClickOpen();
         setErrorIndicadorComponente(-1);
@@ -88,9 +88,9 @@ export const TabActividades = ({
         setTipoFormula("Tasa");
         setElementoFormula(
           "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
+          (componenteSelect + 1).toString() +
+          "A" +
+          (actividadSelect + 1).toString()
         );
         handleClickOpen();
         setErrorIndicadorComponente(-1);
@@ -99,9 +99,9 @@ export const TabActividades = ({
         setTipoFormula("Índice");
         setElementoFormula(
           "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
+          (componenteSelect + 1).toString() +
+          "A" +
+          (actividadSelect + 1).toString()
         );
         handleClickOpen();
         setErrorIndicadorComponente(-1);
@@ -110,9 +110,9 @@ export const TabActividades = ({
         setTipoFormula("Promedio");
         setElementoFormula(
           "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
+          (componenteSelect + 1).toString() +
+          "A" +
+          (actividadSelect + 1).toString()
         );
         handleClickOpen();
         setErrorIndicadorComponente(-1);
@@ -180,19 +180,19 @@ export const TabActividades = ({
 
     let n: Array<Array<IActividadesMir>> = [];
 
+    let indexActividades = 0;
     MIR.componenteActividad.map((v, index) => {
-      let indexActividades = 0;
       let aux: Array<IActividadesMir> = [];
+
       v.actividades.map((x) => {
         aux.push(MIR.actividades[indexActividades]);
         indexActividades++;
       });
+      n.push();
       n[index] = aux;
     });
     setValoresComponenteActividad(n);
-
-    
-  }, [MIR, noComponentes]);
+  }, []);
 
   useEffect(() => {
     let arr: Array<IActividadesMir> = [];
@@ -208,19 +208,25 @@ export const TabActividades = ({
         actividades: arr,
       },
     }));
-  }, []);
+  }, [valoresComponenteActividad]);
 
-  useEffect(() => {
-    console.log(MIR);
-    console.log(noComponentes);
-    console.log(noActividades);
-    // console.log(actividades);
-    console.log(valoresComponenteActividad);
-  }, []);
+  // useEffect(() => {
+  //   console.log(MIR);
+  //   console.log(noComponentes);
+  //   console.log(noActividades);
+  //   // console.log(actividades);
+  //   console.log(valoresComponenteActividad);
+
+  //   // setMIR((MIR: IMIR) => ({
+  //   //   ...MIR,
+  //   //   ...{
+  //   //     actividades: valoresComponenteActividad,
+  //   //   },
+  //   // }));
+  // }, [valoresComponenteActividad]);
 
   return (
     <Box
-      visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
         display: "flex",
@@ -273,7 +279,7 @@ export const TabActividades = ({
             removeActividad(componenteSelect);
             setActividadSelect(noActividades[componenteSelect].length - 1);
           }}
-          // disabled={MIR.actividades.length <= 2}
+        // disabled={MIR.actividades.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
@@ -458,13 +464,13 @@ export const TabActividades = ({
             // onBlur={() => evalueTxtIndicador()}
             error={
               errorIndicadorComponente === componenteSelect &&
-              errorIndicadorActividad === actividadSelect
+                errorIndicadorActividad === actividadSelect
                 ? true
                 : false
             }
             helperText={
               errorIndicadorComponente === componenteSelect &&
-              errorIndicadorActividad === actividadSelect
+                errorIndicadorActividad === actividadSelect
                 ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
                 : null
             }

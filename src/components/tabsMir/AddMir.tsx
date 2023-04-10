@@ -148,48 +148,101 @@ export default function FullModalMir({
     setNoActividades(arr2);
   }, [MIR, MIRPADRE]);
 
-  useEffect(() => {
-    let arr3: Array<IActividadesMir> = [];
-    noComponentes.map((v, index) => {
-      return arr3.push(
-        {
-          actividad: `A1C${index + 1}`,
-          resumen: MIRPADRE.actividades[index]?.resumen || "",
-          indicador: MIRPADRE.actividades[index]?.resumen || "",
-          frecuencia: "TRIMESTRAL",
-          formula: MIRPADRE.actividades[index]?.resumen || "",
-          medios: MIRPADRE.actividades[index]?.resumen || "",
-          supuestos: MIRPADRE.actividades[index]?.resumen || "",
-        },
-        {
-          actividad: `A2C${index + 1}`,
-          resumen: MIRPADRE.actividades[index]?.resumen || "",
-          indicador: MIRPADRE.actividades[index]?.resumen || "",
-          frecuencia: "TRIMESTRAL",
-          formula: MIRPADRE.actividades[index]?.resumen || "",
-          medios: MIRPADRE.actividades[index]?.resumen || "",
-          supuestos: MIRPADRE.actividades[index]?.resumen || "",
-        }
-      );
-    });
+  // useEffect(() => {
+  //   let arr3: Array<IActividadesMir> = [];
+  //   noComponentes.map((v, index) => {
+  //     return arr3.push(
+  //       {
+  //         actividad: `A1C${index + 1}`,
+  //         resumen: MIRPADRE.actividades[index]?.resumen || "",
+  //         indicador: MIRPADRE.actividades[index]?.resumen || "",
+  //         frecuencia: "TRIMESTRAL",
+  //         formula: MIRPADRE.actividades[index]?.resumen || "",
+  //         medios: MIRPADRE.actividades[index]?.resumen || "",
+  //         supuestos: MIRPADRE.actividades[index]?.resumen || "",
+  //       },
+  //       {
+  //         actividad: `A2C${index + 1}`,
+  //         resumen: MIRPADRE.actividades[index]?.resumen || "",
+  //         indicador: MIRPADRE.actividades[index]?.resumen || "",
+  //         frecuencia: "TRIMESTRAL",
+  //         formula: MIRPADRE.actividades[index]?.resumen || "",
+  //         medios: MIRPADRE.actividades[index]?.resumen || "",
+  //         supuestos: MIRPADRE.actividades[index]?.resumen || "",
+  //       }
+  //     );
+  //   });
 
-    setMIRPADRE((MIRPADRE: IMIR) => ({
-      ...MIRPADRE,
-      ...{
-        actividades: arr3,
-      },
-    }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [MIRPADRE.componentes]);
+  //   setMIRPADRE((MIRPADRE: IMIR) => ({
+  //     ...MIRPADRE,
+  //     ...{
+  //       actividades: arr3,
+  //     },
+  //   }));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [MIRPADRE.componentes]);
+
+  // useEffect(() => {
+  //   // console.log('actividades');
+
+  //   // console.log(MIR.actividades);
+  //   // console.log('componenteActividad');
+
+  //   // console.log(MIR.componenteActividad);
+
+
+  //   let indexActividades = 0;
+  //   let n: Array<Array<IActividadesMir>> = [];
+
+  //   MIR.componenteActividad.map((v, index) => {
+  //     // console.log('componente: '+ (index+1));
+  //     let aux: Array<IActividadesMir> = [];
+  //     v.actividades.map((x) => {
+  //       aux.push(MIR.actividades[indexActividades])
+  //       indexActividades++;
+  //     })
+  //     n[index] = aux;
+  //     console.log('imprimiendo n');
+
+  //     console.log(n);
+
+  //   })
+
+
+
+  //   setActividades(MIR.actividades);
+  // }, [MIR]);
 
   const addComponente = () => {
+    let arrCompAct=MIRPADRE.componenteActividad;
     let arr: Array<number> = noComponentes;
     arr.push(noComponentes.length + 1);
     setNoComponentes(arr);
+
+    let x=arr.length-1;
+    let auxAct=MIRPADRE.actividades;
+
+    auxAct.push({actividad: `A1C${x}`,
+    resumen:  "",
+    indicador:"",
+    frecuencia: "TRIMESTRAL",
+    formula: "",
+    medios: "",
+    supuestos:"",})
+    auxAct.push({actividad: `A2C${x}`,
+    resumen:  "",
+    indicador:"",
+    frecuencia: "TRIMESTRAL",
+    formula: "",
+    medios: "",
+    supuestos:"",})
+    
+
     setMIRPADRE((MIRPADRE: IMIR) => ({
       ...MIRPADRE,
       ...{
         componentes: arr.map((x, index) => {
+          
           return {
             componentes: `C${index + 1}`,
             resumen: MIRPADRE.componentes[index]?.resumen || "",
@@ -202,14 +255,24 @@ export default function FullModalMir({
         }),
       },
       ...{
-        componenteActividad: noComponentes.map((x, index) => {
-          return {
+        componenteActividad: arr.map((x, index2) => {
+          if(index2<arr.length-1){
+            return arrCompAct[index2];
+          }
+          else{
+            return {
             actividades: [1, 2],
-            componente: `C${index + 1}`,
+            componente: `C${index2 + 1}`,
           };
+          }
+          
         }),
-      },
+      },...{actividades:auxAct}
     }));
+
+  
+    console.log('act', MIRPADRE.actividades);
+    console.log('com', MIRPADRE.componenteActividad);
   };
 
   const removeComponente = () => {
@@ -313,6 +376,7 @@ export default function FullModalMir({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+        
         }}
       >
         <Tabs
@@ -441,15 +505,14 @@ export default function FullModalMir({
           )}
 
           {/* {value === 40 && ( */}
-          <TabActividades
-            show={value === 40 ? true : false}
+        { value === 40 &&<TabActividades
             noActividades={noActividades}
             addActividad={addActividad}
             removeActividad={removeActividad}
             MIR={MIRPADRE}
             setMIR={setMIRPADRE}
             noComponentes={noComponentes}
-          ></TabActividades>
+          ></TabActividades>}
           {/* )} */}
         </Box>
       </Box>
