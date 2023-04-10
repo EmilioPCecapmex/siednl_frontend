@@ -176,6 +176,10 @@ export const TabActividades = ({
     ],
   ]);
 
+  
+  
+  const [addA, setAddA] = useState(false);
+
   useEffect(() => {
 
     let n: Array<Array<IActividadesMir>> = [];
@@ -186,13 +190,17 @@ export const TabActividades = ({
 
       v.actividades.map((x) => {
         aux.push(MIR.actividades[indexActividades]);
+        console.log('MA',MIR.actividades[indexActividades]);
         indexActividades++;
+        
       });
-      n.push();
-      n[index] = aux;
+      n.push(aux);
+      // n[index] = ;
     });
     setValoresComponenteActividad(n);
-  }, []);
+    console.log('efect',n);
+    
+  }, [addA]);
 
   useEffect(() => {
     let arr: Array<IActividadesMir> = [];
@@ -210,20 +218,7 @@ export const TabActividades = ({
     }));
   }, [valoresComponenteActividad]);
 
-  // useEffect(() => {
-  //   console.log(MIR);
-  //   console.log(noComponentes);
-  //   console.log(noActividades);
-  //   // console.log(actividades);
-  //   console.log(valoresComponenteActividad);
 
-  //   // setMIR((MIR: IMIR) => ({
-  //   //   ...MIR,
-  //   //   ...{
-  //   //     actividades: valoresComponenteActividad,
-  //   //   },
-  //   // }));
-  // }, [valoresComponenteActividad]);
 
   return (
     <Box
@@ -269,6 +264,7 @@ export const TabActividades = ({
           onClick={() => {
             addActividad(componenteSelect);
             setActividadSelect(noActividades[componenteSelect].length - 1);
+            setAddA(!addA)
           }}
         >
           <AddCircleIcon fontSize="large" />
@@ -278,6 +274,7 @@ export const TabActividades = ({
           onClick={() => {
             removeActividad(componenteSelect);
             setActividadSelect(noActividades[componenteSelect].length - 1);
+            setAddA(!addA)
           }}
         // disabled={MIR.actividades.length <= 2}
         >
@@ -438,6 +435,10 @@ export const TabActividades = ({
                 .replaceAll("'", "")
                 .replaceAll("\n", "");
               setValoresComponenteActividad(y);
+              console.log(y);
+              console.log(componenteSelect);
+              console.log(actividadSelect);
+              
             }}
             value={
               valoresComponenteActividad[componenteSelect][actividadSelect]

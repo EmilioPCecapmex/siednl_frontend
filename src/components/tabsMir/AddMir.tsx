@@ -36,91 +36,91 @@ export default function FullModalMir({
     MIR !== ""
       ? JSON.parse(MIR)
       : {
-          encabezado: {
-            ejercicioFiscal: "",
-            institucion: "",
-            nombre_del_programa: "",
-            eje: "",
-            tema: "",
-            objetivo: "",
-            estrategia: "",
-            lineas_de_accion: [],
-            beneficiario: "",
-            conac: "",
-            consecutivo: "",
-          },
-          fin: {
+        encabezado: {
+          ejercicioFiscal: "",
+          institucion: "",
+          nombre_del_programa: "",
+          eje: "",
+          tema: "",
+          objetivo: "",
+          estrategia: "",
+          lineas_de_accion: [],
+          beneficiario: "",
+          conac: "",
+          consecutivo: "",
+        },
+        fin: {
+          resumen: "",
+          indicador: "",
+          formula: "",
+          frecuencia: "",
+          medios: "",
+          supuestos: "",
+        },
+        proposito: {
+          resumen: "",
+          indicador: "",
+          formula: "",
+          frecuencia: "ANUAL",
+          medios: "",
+          supuestos: "",
+        },
+        componentes: noComponentes.map((x, index) => {
+          return {
+            componentes: "C" + (index + 1),
             resumen: "",
             indicador: "",
-            formula: "",
             frecuencia: "",
+            formula: "",
             medios: "",
             supuestos: "",
-          },
-          proposito: {
+          };
+        }),
+        actividades: [
+          {
+            actividad: "A1C1",
             resumen: "",
             indicador: "",
+            frecuencia: "TRIMESTRAL",
             formula: "",
-            frecuencia: "ANUAL",
             medios: "",
             supuestos: "",
           },
-          componentes: noComponentes.map((x, index) => {
-            return {
-              componentes: "C" + (index + 1),
-              resumen: "",
-              indicador: "",
-              frecuencia: "",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            };
-          }),
-          actividades: [
-            {
-              actividad: "A1C1",
-              resumen: "",
-              indicador: "",
-              frecuencia: "TRIMESTRAL",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-            {
-              actividad: "A2C1",
-              resumen: "",
-              indicador: "",
-              frecuencia: "TRIMESTRAL",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-            {
-              actividad: "A1C2",
-              resumen: "",
-              indicador: "",
-              frecuencia: "TRIMESTRAL",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-            {
-              actividad: "A2C2",
-              resumen: "",
-              indicador: "",
-              frecuencia: "TRIMESTRAL",
-              formula: "",
-              medios: "",
-              supuestos: "",
-            },
-          ],
-          componenteActividad: noComponentes.map((x, index) => {
-            return {
-              actividades: noActividades[index],
-              componente: `C${index + 1}`,
-            };
-          }),
-        };
+          {
+            actividad: "A2C1",
+            resumen: "",
+            indicador: "",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          },
+          {
+            actividad: "A1C2",
+            resumen: "",
+            indicador: "",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          },
+          {
+            actividad: "A2C2",
+            resumen: "",
+            indicador: "",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          },
+        ],
+        componenteActividad: noComponentes.map((x, index) => {
+          return {
+            actividades: noActividades[index],
+            componente: `C${index + 1}`,
+          };
+        }),
+      };
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
@@ -148,101 +148,41 @@ export default function FullModalMir({
     setNoActividades(arr2);
   }, [MIR, MIRPADRE]);
 
-  // useEffect(() => {
-  //   let arr3: Array<IActividadesMir> = [];
-  //   noComponentes.map((v, index) => {
-  //     return arr3.push(
-  //       {
-  //         actividad: `A1C${index + 1}`,
-  //         resumen: MIRPADRE.actividades[index]?.resumen || "",
-  //         indicador: MIRPADRE.actividades[index]?.resumen || "",
-  //         frecuencia: "TRIMESTRAL",
-  //         formula: MIRPADRE.actividades[index]?.resumen || "",
-  //         medios: MIRPADRE.actividades[index]?.resumen || "",
-  //         supuestos: MIRPADRE.actividades[index]?.resumen || "",
-  //       },
-  //       {
-  //         actividad: `A2C${index + 1}`,
-  //         resumen: MIRPADRE.actividades[index]?.resumen || "",
-  //         indicador: MIRPADRE.actividades[index]?.resumen || "",
-  //         frecuencia: "TRIMESTRAL",
-  //         formula: MIRPADRE.actividades[index]?.resumen || "",
-  //         medios: MIRPADRE.actividades[index]?.resumen || "",
-  //         supuestos: MIRPADRE.actividades[index]?.resumen || "",
-  //       }
-  //     );
-  //   });
-
-  //   setMIRPADRE((MIRPADRE: IMIR) => ({
-  //     ...MIRPADRE,
-  //     ...{
-  //       actividades: arr3,
-  //     },
-  //   }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [MIRPADRE.componentes]);
-
-  // useEffect(() => {
-  //   // console.log('actividades');
-
-  //   // console.log(MIR.actividades);
-  //   // console.log('componenteActividad');
-
-  //   // console.log(MIR.componenteActividad);
-
-
-  //   let indexActividades = 0;
-  //   let n: Array<Array<IActividadesMir>> = [];
-
-  //   MIR.componenteActividad.map((v, index) => {
-  //     // console.log('componente: '+ (index+1));
-  //     let aux: Array<IActividadesMir> = [];
-  //     v.actividades.map((x) => {
-  //       aux.push(MIR.actividades[indexActividades])
-  //       indexActividades++;
-  //     })
-  //     n[index] = aux;
-  //     console.log('imprimiendo n');
-
-  //     console.log(n);
-
-  //   })
-
-
-
-  //   setActividades(MIR.actividades);
-  // }, [MIR]);
 
   const addComponente = () => {
-    let arrCompAct=MIRPADRE.componenteActividad;
+    let arrCompAct = MIRPADRE.componenteActividad;
     let arr: Array<number> = noComponentes;
     arr.push(noComponentes.length + 1);
     setNoComponentes(arr);
 
-    let x=arr.length-1;
-    let auxAct=MIRPADRE.actividades;
+    let x = arr.length - 1;
+    let auxAct = MIRPADRE.actividades;
 
-    auxAct.push({actividad: `A1C${x}`,
-    resumen:  "",
-    indicador:"",
-    frecuencia: "TRIMESTRAL",
-    formula: "",
-    medios: "",
-    supuestos:"",})
-    auxAct.push({actividad: `A2C${x}`,
-    resumen:  "",
-    indicador:"",
-    frecuencia: "TRIMESTRAL",
-    formula: "",
-    medios: "",
-    supuestos:"",})
-    
+    auxAct.push({
+      actividad: `A1C${x}`,
+      resumen: "",
+      indicador: "",
+      frecuencia: "TRIMESTRAL",
+      formula: "",
+      medios: "",
+      supuestos: "",
+    })
+    auxAct.push({
+      actividad: `A2C${x}`,
+      resumen: "",
+      indicador: "",
+      frecuencia: "TRIMESTRAL",
+      formula: "",
+      medios: "",
+      supuestos: "",
+    })
+
 
     setMIRPADRE((MIRPADRE: IMIR) => ({
       ...MIRPADRE,
       ...{
         componentes: arr.map((x, index) => {
-          
+
           return {
             componentes: `C${index + 1}`,
             resumen: MIRPADRE.componentes[index]?.resumen || "",
@@ -256,21 +196,21 @@ export default function FullModalMir({
       },
       ...{
         componenteActividad: arr.map((x, index2) => {
-          if(index2<arr.length-1){
+          if (index2 < arr.length - 1) {
             return arrCompAct[index2];
           }
-          else{
+          else {
             return {
-            actividades: [1, 2],
-            componente: `C${index2 + 1}`,
-          };
+              actividades: [1, 2],
+              componente: `C${index2 + 1}`,
+            };
           }
-          
+
         }),
-      },...{actividades:auxAct}
+      }, ...{ actividades: auxAct }
     }));
 
-  
+
     console.log('act', MIRPADRE.actividades);
     console.log('com', MIRPADRE.componenteActividad);
   };
@@ -310,24 +250,51 @@ export default function FullModalMir({
   const addActividad = (componenteSelect: number) => {
     let arr: Array<number[]> = noActividades;
     arr[componenteSelect].push(noActividades[componenteSelect].length + 1);
+
+    console.log('arr', arr);
+
     setNoActividades(arr);
+
+    let auxAct: Array<IActividadesMir> = []
+    let countAct=0
+    arr.map((item, index) => {
+      item.map((position, index2) => {
+        if(index===componenteSelect && index2===arr[componenteSelect].length-1)
+        {
+          auxAct.push({
+            actividad: `A${index2 + 1}C${index + 1}`,
+            resumen: "",
+            indicador:"",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios:"",
+            supuestos: "",})
+        }
+        else
+        {
+          auxAct.push({
+          actividad: `A${index2 + 1}C${index + 1}`,
+          resumen: MIRPADRE.actividades[countAct]?.resumen || "",
+          indicador: MIRPADRE.actividades[countAct]?.indicador || "",
+          frecuencia: "TRIMESTRAL",
+          formula: MIRPADRE.actividades[countAct]?.formula || "",
+          medios: MIRPADRE.actividades[countAct]?.medios || "",
+          supuestos: MIRPADRE.actividades[countAct]?.supuestos || "",
+        })
+        countAct++;
+        }
+        
+      })
+    })
+    console.log(auxAct);
+
 
     setMIRPADRE((MIRPADRE: IMIR) => ({
       ...MIRPADRE,
-      ...{
-        actividades: arr[componenteSelect].map((x, index) => {
-          return {
-            actividad: `A${index + 1}C${componenteSelect + 1}`,
-            resumen: MIRPADRE.actividades[index]?.resumen || "",
-            indicador: MIRPADRE.actividades[index]?.indicador || "",
-            frecuencia: "TRIMESTRAL",
-            formula: MIRPADRE.actividades[index]?.formula || "",
-            medios: MIRPADRE.actividades[index]?.medios || "",
-            supuestos: MIRPADRE.actividades[index]?.supuestos || "",
-          };
-        }),
-      },
+      ...{actividades: auxAct},
     }));
+    console.log('actividades', auxAct);
+
   };
 
   const removeActividad = (componenteSelect: number) => {
@@ -376,7 +343,7 @@ export default function FullModalMir({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        
+
         }}
       >
         <Tabs
@@ -505,7 +472,7 @@ export default function FullModalMir({
           )}
 
           {/* {value === 40 && ( */}
-        { value === 40 &&<TabActividades
+          {value === 40 && <TabActividades
             noActividades={noActividades}
             addActividad={addActividad}
             removeActividad={removeActividad}
