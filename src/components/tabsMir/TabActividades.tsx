@@ -190,7 +190,6 @@ export const TabActividades = ({
 
       v.actividades.map((x) => {
         aux.push(MIR.actividades[indexActividades]);
-        console.log('MA',MIR.actividades[indexActividades]);
         indexActividades++;
         
       });
@@ -198,7 +197,6 @@ export const TabActividades = ({
       // n[index] = ;
     });
     setValoresComponenteActividad(n);
-    console.log('efect',n);
     
   }, [addA]);
 
@@ -435,9 +433,6 @@ export const TabActividades = ({
                 .replaceAll("'", "")
                 .replaceAll("\n", "");
               setValoresComponenteActividad(y);
-              console.log(y);
-              console.log(componenteSelect);
-              console.log(actividadSelect);
               
             }}
             value={

@@ -69,7 +69,6 @@ export function TabResumen({
   ]);
 
   useEffect(() => {
-    // console.log(idMir);
     
     let n: Array<Array<IActividadesMir>> = [];
     let indexActividades = 0;
