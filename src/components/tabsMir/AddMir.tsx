@@ -48,6 +48,7 @@ export default function FullModalMir({
           beneficiario: "",
           conac: "",
           consecutivo: "",
+          anticorrupcion:'NO',
         },
         fin: {
           resumen: "",

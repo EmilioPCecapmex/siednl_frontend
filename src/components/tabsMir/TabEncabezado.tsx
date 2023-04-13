@@ -10,6 +10,8 @@ import {
   Button,
   Autocomplete,
   CircularProgress,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -28,6 +30,7 @@ export interface IEncabezado {
   beneficiario: string;
   conac: string;
   consecutivo: string;
+  anticorrupcion: string
 }
 
 export function TabEncabezado({
@@ -169,6 +172,7 @@ export function TabEncabezado({
   const [consecutivo, setConsecutivo] = useState(
     MIR.encabezado?.consecutivo || ""
   );
+  const [anticorrupcion, setAnticorrupcion] = React.useState(MIR.encabezado?.anticorrupcion || 'NO');
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
@@ -519,7 +523,7 @@ export function TabEncabezado({
           ...{ actividades: data.actividades },
           ...{ componenteActividad: data.componenteActividad },
         }));
-
+        setAnticorrupcion(data.encabezado[0].anticorrupcion)
         getIdInstitucion(data.encabezado[0].institucion);
         getIdPrograma(data.encabezado[0].nombre_del_programa);
         getIdEje(data.encabezado[0].eje);
@@ -547,6 +551,8 @@ export function TabEncabezado({
   };
 
   useEffect(() => {
+    console.log(MIR);
+    
     getAniosFiscales();
     getInstituciones();
     getEjes();
@@ -569,6 +575,7 @@ export function TabEncabezado({
           beneficiario: beneficiario,
           conac: conac,
           consecutivo: consecutivo,
+          anticorrupcion: anticorrupcion,
         },
       },
     }));
@@ -585,6 +592,7 @@ export function TabEncabezado({
     beneficiario,
     conac,
     consecutivo,
+    anticorrupcion
   ]);
 
   const [loadingFile, setLoadingFile] = useState(false);
@@ -816,7 +824,7 @@ export function TabEncabezado({
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            // mirEdit?.encabezado.nombre_del_programa || 
+            // mirEdit?.encabezado.nombre_del_programa ||
             disabledProgramas
           }
           options={catalogoProgramas}
@@ -867,7 +875,20 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <Box>
+      <Box sx={{display:"flex", flexWrap:'wrap'}}>
+        <FormControlLabel
+          label="ANTICORRUPCIÓN"
+          control={
+            <Checkbox
+              checked={anticorrupcion === "SI"}
+              onChange={() => {
+                anticorrupcion === "NO"
+                  ? setAnticorrupcion("SI")
+                  : setAnticorrupcion("NO");
+              }}
+            />
+          }
+        />
         <TextField
           disabled
           size="small"
@@ -937,10 +958,9 @@ export function TabEncabezado({
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            // (mirEdit?.encabezado.tema && 
-            tematica !== ""
-            // ) 
-            || 
+            // (mirEdit?.encabezado.tema &&
+            tematica !== "" ||
+            // )
             disabledTematicas
           }
           options={catalogoTematicas}
@@ -1001,10 +1021,9 @@ export function TabEncabezado({
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            // (mirEdit?.encabezado.objetivo && 
-            objetivo !== ""
-            // ) 
-            ||
+            // (mirEdit?.encabezado.objetivo &&
+            objetivo !== "" ||
+            // )
             disabledObjetivos
           }
           options={catalogoObjetivos}
@@ -1059,10 +1078,9 @@ export function TabEncabezado({
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            // (mirEdit?.encabezado.estrategia && 
-            estrategia !== ""
-            // ) 
-            ||
+            // (mirEdit?.encabezado.estrategia &&
+            estrategia !== "" ||
+            // )
             disabledEstrategias
           }
           options={catalogoEstrategias}
@@ -1119,10 +1137,8 @@ export function TabEncabezado({
           <Autocomplete
             disabled={
               // (mirEdit?.encabezado.lineas_de_accion &&
-                lineaDeAccion[0]?.LineaDeAccion 
-              === ""
-              // ) 
-              ||
+              lineaDeAccion[0]?.LineaDeAccion === "" ||
+              // )
               disabledLineasDeAccion
             }
             multiple

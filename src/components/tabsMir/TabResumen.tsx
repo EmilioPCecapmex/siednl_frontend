@@ -2,16 +2,10 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
-import { IEncabezado } from "./TabEncabezado";
-import { IComponente } from "./IComponente";
-import { IActividadesMir, ICValor } from "./ICValor";
-import { IFin, IProposito } from "./TabFinProposito";
+import { IActividadesMir } from "./ICValor";
 import { IMIR } from "./IMIR";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
-import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
-import { IComponenteActividad } from "./AddMir";
-
 export function TabResumen({
   MIRPADRE,
   showResume,
