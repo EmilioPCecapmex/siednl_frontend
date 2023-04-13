@@ -562,7 +562,7 @@ export default function ModalEnviarMIR({
   });
 
   return (
-    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
+    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose(false)}>
       <DialogTitle
         sx={{
           fontFamily: "MontserratBold",
@@ -636,7 +636,7 @@ export default function ModalEnviarMIR({
               sx={{ display: "flex", width: "9vw" }}
               variant="contained"
               color="error"
-              onClick={() => handleClose()}
+              onClick={() => handleClose(false)}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
                 Cancelar
@@ -667,7 +667,7 @@ export default function ModalEnviarMIR({
                     ? "En Autorización"
                     : "Autorizada"
                 );
-                handleClose();
+                handleClose(false);
                 setNewComent(false);
               }}
             >

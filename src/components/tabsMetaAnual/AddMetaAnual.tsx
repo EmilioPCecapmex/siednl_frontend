@@ -240,6 +240,9 @@ export default function AddMetaAnual({
           <Tab
             label="Fin / Propósito"
             value={20}
+            onClick={() => {
+              setValue(20);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",
@@ -249,6 +252,9 @@ export default function AddMetaAnual({
           <Tab
             label="Componentes"
             value={30}
+            onClick={() => {
+              setValue(30);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",
@@ -258,6 +264,9 @@ export default function AddMetaAnual({
           <Tab
             label="Actividades"
             value={40}
+            onClick={() => {
+              setValue(40);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",
@@ -267,6 +276,9 @@ export default function AddMetaAnual({
           <Tab
             label="Resumen"
             value={50}
+            onClick={() => {
+              setValue(50);
+            }}
             sx={{
               borderRight: "5px solid #b3afaf",
               color: "black",

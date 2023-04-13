@@ -21,7 +21,7 @@ export function TabResumen({
   showResume: Function;
   idMir: string;
 }) {
-  const [MIR, setMIR] = useState<IMIR>();
+  const [MIR, setMIR] = useState<IMIR>(MIRPADRE);
 
   const [valoresComponenteActividad, setValoresComponenteActividad] = useState<
     Array<Array<IActividadesMir>>
@@ -85,9 +85,6 @@ export function TabResumen({
   }, []);
 
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
-  const handleCloseEnviar = () => {
-    setOpenModalEnviar(false);
-  };
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -1694,13 +1691,13 @@ export function TabResumen({
           }
         ></ModalSolicitaModif> */}
 
-        {/* <ModalEnviarMIR
+        <ModalEnviarMIR
           showResume={showResume}
           open={openModalEnviar}
-          handleClose={handleCloseEnviar}
+          handleClose={setOpenModalEnviar}
           MIR={JSON.stringify(MIR)}
-          IdMir={IdMir}
-        ></ModalEnviarMIR> */}
+          IdMir={idMir}
+        ></ModalEnviarMIR>
       </Box>
     </Box>
   );
