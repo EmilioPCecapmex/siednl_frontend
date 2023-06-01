@@ -45,7 +45,7 @@ export default function ModalSolicitaModif({
 
   const comentFT = () => {
     axios.post(
-      "http://10.200.4.105:8000/api/coment-mir",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
       {
         IdMir: IdMIR,
         Coment: comentario,
@@ -349,6 +349,7 @@ export default function ModalSolicitaModif({
   };
 
   const checkActividades = (v: string) => {
+    // eslint-disable-next-line array-callback-return
     JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.tipoDeIndicador === undefined ||
@@ -446,7 +447,7 @@ export default function ModalSolicitaModif({
     }
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor:
@@ -488,8 +489,10 @@ export default function ModalSolicitaModif({
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    axios
+
+  useEffect(() => {
+    if (open) {
+      axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
         {
@@ -507,13 +510,8 @@ export default function ModalSolicitaModif({
           setUserXInst(r.data.data);
         }
       });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const Toast = Swal.mixin({
     toast: false,

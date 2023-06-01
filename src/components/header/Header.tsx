@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { Typography, Box, Breadcrumbs, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { TimerCounter } from "../timer/TimerCounter";
@@ -20,18 +20,14 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
       sx={{
         display: "flex",
         width: "80vw",
-        height: "8vh",
+        height: "100%",
         justifyContent: "space-between",
         alignItems: "center",
-        left: "19vw",
-        position: "absolute",
       }}
     >
       <Box
         sx={{
-          ml: "2vw",
           width: "30vw",
-          height: "4vh",
         }}
       >
         <Breadcrumbs

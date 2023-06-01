@@ -40,7 +40,7 @@ export default function ModalEnviarFT({
   const comentFT = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: IdMIR,
           Coment: comment,
@@ -291,6 +291,7 @@ export default function ModalEnviarFT({
   };
 
   const checkActividades = (v: string) => {
+    // eslint-disable-next-line array-callback-return
     JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
       if (actividad.tipoDeIndicador === "") {
         errores.push(
@@ -373,7 +374,7 @@ export default function ModalEnviarFT({
   const crearFichaTecnica = (estado: string) => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
           FichaTecnica: FT,
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -389,6 +390,7 @@ export default function ModalEnviarFT({
         }
       )
       .then((r) => {
+        // eslint-disable-next-line array-callback-return
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico,enviarMensaje, "FT");
@@ -413,8 +415,9 @@ export default function ModalEnviarFT({
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    let inst = JSON.parse(MIR)?.encabezado.institucion;
+  useEffect(() => {
+    if (open) {
+      let inst = JSON.parse(MIR)?.encabezado.institucion;
 
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
@@ -438,13 +441,8 @@ export default function ModalEnviarFT({
           setUserXInst(r.data.data);
         }
       });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const enviarNotificacion = (v: string) => {
     axios.post(

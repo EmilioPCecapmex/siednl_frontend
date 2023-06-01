@@ -12,7 +12,7 @@ export interface ICValor {
     }[];
   }[];
 }
-[];
+
 
 export interface IActividadesMir {
   actividad: string;

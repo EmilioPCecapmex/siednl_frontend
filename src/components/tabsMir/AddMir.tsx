@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box, IconButton } from "@mui/material";
-import TabEncabezado, { IEncabezado } from "./TabEncabezado";
-import TabFinProposito, { IFin, IProposito } from "./TabFinProposito";
-import { IComponente } from "./IComponente";
+import { Box } from "@mui/material";
+import TabEncabezado from "./TabEncabezado";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import { TabResumen } from "./TabResumen";
+import { IMIR } from "./IMIR";
+import TabResumen from "./TabResumen";
+import TabFinProposito from "./TabFinProposito";
 import { TabComponente } from "./TabComponente";
 import { TabActividades } from "./TabActividades";
 
@@ -25,9 +25,103 @@ export default function FullModalMir({
 }) {
   const [value, setValue] = React.useState(10);
 
-  const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
-  };
+  const [noComponentes, setNoComponentes] = useState([1, 2]);
+  const [noActividades, setNoActividades] = useState(
+    noComponentes.map((v, index) => {
+      return [1, 2];
+    })
+  );
+
+  let mir: IMIR =
+    MIR !== ""
+      ? JSON.parse(MIR)
+      : {
+        encabezado: {
+          ejercicioFiscal: "",
+          institucion: "",
+          nombre_del_programa: "",
+          eje: "",
+          tema: "",
+          objetivo: "",
+          estrategia: "",
+          lineas_de_accion: [],
+          beneficiario: "",
+          conac: "",
+          consecutivo: "",
+          anticorrupcion:'NO',
+        },
+        fin: {
+          resumen: "",
+          indicador: "",
+          formula: "",
+          frecuencia: "",
+          medios: "",
+          supuestos: "",
+        },
+        proposito: {
+          resumen: "",
+          indicador: "",
+          formula: "",
+          frecuencia: "ANUAL",
+          medios: "",
+          supuestos: "",
+        },
+        componentes: noComponentes.map((x, index) => {
+          return {
+            componentes: "C" + (index + 1),
+            resumen: "",
+            indicador: "",
+            frecuencia: "",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          };
+        }),
+        actividades: [
+          {
+            actividad: "A1C1",
+            resumen: "",
+            indicador: "",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          },
+          {
+            actividad: "A2C1",
+            resumen: "",
+            indicador: "",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          },
+          {
+            actividad: "A1C2",
+            resumen: "",
+            indicador: "",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          },
+          {
+            actividad: "A2C2",
+            resumen: "",
+            indicador: "",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          },
+        ],
+        componenteActividad: noComponentes.map((x, index) => {
+          return {
+            actividades: noActividades[index],
+            componente: `C${index + 1}`,
+          };
+        }),
+      };
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
@@ -37,93 +131,209 @@ export default function FullModalMir({
     }
   };
 
-  //ENCABEZADO
-  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
-  const [cargaFin, setCargaFin] = useState<Array<IFin>>([]);
-  const [cargaProposito, setCargaProposito] = useState<Array<IProposito>>([]);
+  const [MIRPADRE, setMIRPADRE] = useState<IMIR>(mir);
 
-  //FIN / PROPOSITO
-  const [fin, setFin] = useState<Array<IFin>>([]);
-  const [proposito, setProposito] = useState<Array<IProposito>>([]);
-
-  // COMPONENTES
-  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
-  const [valoresComponente, setValoresComponente] = useState<
-    Array<IComponente>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
-    })
-  );
   useEffect(() => {
-    let array = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        resumen: "",
-        indicador: "",
-        frecuencia: "",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      };
+    let arr: Array<number> = [];
+    MIRPADRE.componentes?.map((x, index) => {
+      return arr.push(index + 1);
     });
-    setValoresComponente(array);
-  }, []);
 
-  // ACTIVIDADES
-  const [noActividades, setNoActividades] = React.useState([1, 2]);
+    setNoComponentes(arr);
 
-  const [valoresActividades, setValoresActividades] = useState<
-    Array<IActividadesMir>
-  >([]);
+    let arr2: Array<Array<number>> = [];
+    MIRPADRE.componenteActividad.map((v, index) => {
+      return arr2.push(v.actividades);
+    });
 
-  const [componenteActividad, setComponenteActividad] = useState([
-    {
-      componentes: noComponentes.map((x) => noActividades),
-    },
-  ]);
+    setNoActividades(arr2);
+  }, [MIR, MIRPADRE]);
 
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
-  const [cValor, setCValor] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
+  const addComponente = () => {
+    let arrCompAct = MIRPADRE.componenteActividad;
+    let arr: Array<number> = noComponentes;
+    arr.push(noComponentes.length + 1);
+    setNoComponentes(arr);
+
+    let x = arr.length - 1;
+    let auxAct = MIRPADRE.actividades;
+
+    auxAct.push({
+      actividad: `A1C${x}`,
+      resumen: "",
+      indicador: "",
+      frecuencia: "TRIMESTRAL",
+      formula: "",
+      medios: "",
+      supuestos: "",
+    })
+    auxAct.push({
+      actividad: `A2C${x}`,
+      resumen: "",
+      indicador: "",
+      frecuencia: "TRIMESTRAL",
+      formula: "",
+      medios: "",
+      supuestos: "",
+    })
+
+
+    setMIRPADRE((MIRPADRE: IMIR) => ({
+      ...MIRPADRE,
+      ...{
+        componentes: arr.map((x, index) => {
+
           return {
-            actividades: x.actividades.map((c, index2) => {
-              return {
-                actividad: "",
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
-              };
-            }),
+            componentes: `C${index + 1}`,
+            resumen: MIRPADRE.componentes[index]?.resumen || "",
+            indicador: MIRPADRE.componentes[index]?.indicador || "",
+            frecuencia: MIRPADRE.componentes[index]?.frecuencia || "",
+            formula: MIRPADRE.componentes[index]?.formula || "",
+            medios: MIRPADRE.componentes[index]?.medios || "",
+            supuestos: MIRPADRE.componentes[index]?.supuestos || "",
           };
         }),
-      };
-    })
-  );
+      },
+      ...{
+        componenteActividad: arr.map((x, index2) => {
+          if (index2 < arr.length - 1) {
+            return arrCompAct[index2];
+          }
+          else {
+            return {
+              actividades: [1, 2],
+              componente: `C${index2 + 1}`,
+            };
+          }
 
-  //----------------------------------------------------------------------------------------------
+        }),
+      }, ...{ actividades: auxAct }
+    }));
+
+  };
+
+
+  const removeComponente = () => {
+    let arrCompAct = MIRPADRE.componenteActividad;
+    let arr: Array<number> = noComponentes;
+    if (noComponentes.length > 2) {
+      arr.pop();
+    }
+    setNoComponentes(arr);
+    setMIRPADRE((MIRPADRE: IMIR) => ({
+      ...MIRPADRE,
+      ...{
+        componentes: arr.map((x, index) => {
+          return {
+            componentes: MIRPADRE.componentes[index].componentes,
+            resumen: MIRPADRE.componentes[index].resumen,
+            indicador: MIRPADRE.componentes[index].indicador,
+            frecuencia: MIRPADRE.componentes[index].frecuencia,
+            formula: MIRPADRE.componentes[index].formula,
+            medios: MIRPADRE.componentes[index].medios,
+            supuestos: MIRPADRE.componentes[index].supuestos,
+          };
+        }),
+      },
+      ...{
+        componenteActividad: noComponentes.map((x, index) => {
+          return arrCompAct[index];
+        }),
+      },
+    }));
+  };
+
+  const addActividad = (componenteSelect: number) => {
+    let arr: Array<number[]> = noActividades;
+    arr[componenteSelect].push(noActividades[componenteSelect].length + 1);
+
+
+    setNoActividades(arr);
+
+    let auxAct: Array<IActividadesMir> = []
+    let countAct = 0
+    arr.map((item, index) => {
+      item.map((position, index2) => {
+        if (index === componenteSelect && index2 === arr[componenteSelect].length - 1) {
+          auxAct.push({
+            actividad: `A${index2 + 1}C${index + 1}`,
+            resumen: "",
+            indicador: "",
+            frecuencia: "TRIMESTRAL",
+            formula: "",
+            medios: "",
+            supuestos: "",
+          })
+        }
+        else {
+          auxAct.push({
+            actividad: `A${index2 + 1}C${index + 1}`,
+            resumen: MIRPADRE.actividades[countAct]?.resumen || "",
+            indicador: MIRPADRE.actividades[countAct]?.indicador || "",
+            frecuencia: "TRIMESTRAL",
+            formula: MIRPADRE.actividades[countAct]?.formula || "",
+            medios: MIRPADRE.actividades[countAct]?.medios || "",
+            supuestos: MIRPADRE.actividades[countAct]?.supuestos || "",
+          })
+          countAct++;
+        }
+
+      })
+    })
+
+
+    setMIRPADRE((MIRPADRE: IMIR) => ({
+      ...MIRPADRE,
+      ...{ actividades: auxAct },
+    }));
+
+  };
+
+  const removeActividad = (componenteSelect: number) => {
+    let arr: Array<number[]> = noActividades;
+
+    let auxAct: Array<IActividadesMir> = []
+    let countAct = 0;
+    arr.map((item, index) => {
+      item.map((position, index2) => {
+
+        if (index === componenteSelect && index2 === arr[componenteSelect].length - 1) {
+        } else {
+          auxAct.push({
+            actividad: `A${index2 + 1}C${index + 1}`,
+            resumen: MIRPADRE.actividades[countAct]?.resumen || "",
+            indicador: MIRPADRE.actividades[countAct]?.indicador || "",
+            frecuencia: "TRIMESTRAL",
+            formula: MIRPADRE.actividades[countAct]?.formula || "",
+            medios: MIRPADRE.actividades[countAct]?.medios || "",
+            supuestos: MIRPADRE.actividades[countAct]?.supuestos || "",
+          })
+
+        }
+        countAct++;
+      })
+    })
+
+
+    setMIRPADRE((MIRPADRE: IMIR) => ({
+      ...MIRPADRE,
+      ...{ actividades: auxAct },
+    }));
+
+    if (noActividades[componenteSelect].length > 2) {
+      arr[componenteSelect].pop();
+    }
+    setNoActividades(arr);
+
+    
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
-        width: "100%",
-        height: "92%",
-        mt: "8vh",
       }}
     >
       {value === 10 ? <TutorialBox initialState={22} endState={27} /> : null}
@@ -134,76 +344,109 @@ export default function FullModalMir({
 
       <Box
         sx={{
-          width: "75vw",
+          width: "auto",
           height: "90vh",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+
         }}
       >
-        <Box>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="inherit"
+        <Tabs
+          value={value}
+          textColor="inherit"
+          sx={{
+            backgroundColor: "#e0e0e0",
+            borderRadius: "10px 10px 0 0",
+            boxShadow: 20,
+          }}
+        >
+          <Tab
+            label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
             sx={{
-              backgroundColor: "#fff",
-              borderRadius: "10px 10px 0 0",
-              boxShadow: 20,
+              borderRight: "5px solid #b3afaf",
+              color: "#af8c55",
+              fontFamily: "MontserratSemiBold",
+              backgroundColor: "#ccc",
             }}
-          >
-            <Tab
-              label="Encabezado"
-              value={10}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Fin / Propósito"
-              value={20}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Componentes"
-              value={30}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Actividades"
-              value={40}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Resumen"
-              value={50}
-              sx={{
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-          </Tabs>
-        </Box>
+            onClick={() => {
+              cambiarTab("atras");
+            }}
+          />
+          <Tab
+            label="Encabezado"
+            value={10}
+            onClick={() => {
+              setValue(10);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Fin / Propósito"
+            value={20}
+            onClick={() => {
+              setValue(20);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Componentes"
+            value={30}
+            onClick={() => {
+              setValue(30);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Actividades"
+            value={40}
+            onClick={() => {
+              setValue(40);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Resumen"
+            value={50}
+            onClick={() => {
+              setValue(50);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+
+          <Tab
+            label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "#af8c55",
+              backgroundColor: "#ccc",
+            }}
+            onClick={() => {
+              cambiarTab("adelante");
+            }}
+          />
+        </Tabs>
 
         <Box
           sx={{
@@ -212,99 +455,39 @@ export default function FullModalMir({
           }}
         >
           <TabEncabezado
-            anioFiscalEdit={anioFiscalEdit}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            actividadesMir={setValoresActividades}
-            compAct={setCompAct}
             show={value === 10 ? true : false}
-            resumenEncabezado={setEncabezado}
-            cargaFin={setCargaFin}
-            cargaProposito={setCargaProposito}
-            asignarComponente={setNoComponentes}
-            asignarActividad={setNoActividades}
-            asignarComponenteValor={setValoresComponente}
-            setComponenteActividad={setComponenteActividad}
-            MIR={MIR}
+            MIR={MIRPADRE}
+            setMIR={setMIRPADRE}
           ></TabEncabezado>
 
-          <TabFinProposito
-            show={value === 20 ? true : false}
-            resumenFin={setFin}
-            resumenProposito={setProposito}
-            cargaFin={cargaFin}
-            cargaProposito={cargaProposito}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabFinProposito>
+          {value === 20 && (
+            <TabFinProposito MIR={MIRPADRE} setMIR={setMIRPADRE} />
+          )}
 
-          <TabResumen
-            showResume={showResume}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            show={value === 50 ? true : false}
-            componentes={noComponentes}
-            componenteValor={valoresComponente}
-            cValor={cValor}
-            encabezado={encabezado}
-            fin={fin}
-            proposito={proposito}
-            IdMir={IdMir}
-          ></TabResumen>
+          {value === 50 && (
+            <TabResumen showResume={showResume} MIRPADRE={MIRPADRE} idMir={IdMir} />
+          )}
 
-          <TabComponente
-            show={value === 30 ? true : false}
-            noComponentesFnc={setNoComponentes}
-            valoresComponenteFnc={setValoresComponente}
+          {value === 30 && (
+            <TabComponente
+              noComponentes={noComponentes}
+              addComponente={addComponente}
+              removeComponente={removeComponente}
+              MIR={MIRPADRE}
+              setMIR={setMIRPADRE}
+            ></TabComponente>
+          )}
+
+          {/* {value === 40 && ( */}
+          {value === 40 && <TabActividades
+            noActividades={noActividades}
+            addActividad={addActividad}
+            removeActividad={removeActividad}
+            MIR={MIRPADRE}
+            setMIR={setMIRPADRE}
             noComponentes={noComponentes}
-            valoresComponente={valoresComponente}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-          ></TabComponente>
-
-          <TabActividades
-            actividadesMir={valoresActividades}
-            componentesTextos={valoresComponente}
-            compAct={compAct}
-            show={value === 40 ? true : false}
-            componentes={noComponentes}
-            asignarCValor={setCValor}
-            mirEdit={MIR ? JSON.parse(MIR)[1] : null}
-            setActividadesM={() => {}}
-            setCompAct={setCompAct}
-          ></TabActividades>
-        </Box>
-        <Box
-          sx={{
-            width: "30%",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <IconButton
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          >
-            <ArrowCircleLeftIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
-
-          <IconButton
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          >
-            <ArrowCircleRightIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
+          ></TabActividades>}
+          {/* )} */}
         </Box>
       </Box>
     </Box>

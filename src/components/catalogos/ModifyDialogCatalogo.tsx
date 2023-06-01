@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";

@@ -58,7 +58,7 @@ export default function AddFichaTecnica({
     if (option === "adelante") {
       if (value < 50) setValue(value + 10);
     } else {
-      if (value > 20) setValue(value - 10);
+      if (value > 10) setValue(value - 10);
     }
   };
 
@@ -198,9 +198,6 @@ export default function AddFichaTecnica({
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
-        width: "100%",
-        height: "92%",
-        mt: "8vh",
       }}
     >
       {value === 10 ? <TutorialBox initialState={49} endState={50} /> : null}
@@ -210,7 +207,7 @@ export default function AddFichaTecnica({
       {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null}
       <Box
         sx={{
-          width: "75vw",
+          width: "auto",
           height: "90vh",
           borderRadius: 5,
           display: "flex",
@@ -224,13 +221,29 @@ export default function AddFichaTecnica({
             onChange={handleChange}
             textColor="inherit"
             sx={{
+              backgroundColor: "#e0e0e0",
               borderRadius: "10px 10px 0 0",
               boxShadow: 20,
             }}
           >
             <Tab
+              label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "#af8c55",
+                fontFamily: "MontserratSemiBold",
+                backgroundColor: "#ccc",
+              }}
+              onClick={() => {
+                cambiarTab("atras");
+              }}
+            />
+            <Tab
               label="Encabezado"
               value={10}
+              onClick={() => {
+                setValue(10);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -241,6 +254,9 @@ export default function AddFichaTecnica({
             <Tab
               label="Fin / Propósito"
               value={20}
+              onClick={() => {
+                setValue(20);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -251,6 +267,9 @@ export default function AddFichaTecnica({
             <Tab
               label="Componentes"
               value={30}
+              onClick={() => {
+                setValue(30);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -261,6 +280,9 @@ export default function AddFichaTecnica({
             <Tab
               label="Actividades"
               value={40}
+              onClick={() => {
+                setValue(40);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -271,11 +293,25 @@ export default function AddFichaTecnica({
             <Tab
               label="Resumen"
               value={50}
+              onClick={() => {
+                setValue(50);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
                 fontFamily: "MontserratBold",
                 backgroundColor: "#ccc",
+              }}
+            />
+            <Tab
+              label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "#af8c55",
+                backgroundColor: "#ccc",
+              }}
+              onClick={() => {
+                cambiarTab("adelante");
               }}
             />
           </Tabs>
@@ -334,44 +370,6 @@ export default function AddFichaTecnica({
             showResume={showResume}
             MIR={MIR}
           ></TabResumenFT>
-        </Box>
-
-        <Box
-          sx={{
-            width: "30%",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <IconButton
-            disabled={value === 10 ? true : false}
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          >
-            <ArrowCircleLeftIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
-
-          <IconButton
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          >
-            <ArrowCircleRightIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
         </Box>
       </Box>
     </Box>

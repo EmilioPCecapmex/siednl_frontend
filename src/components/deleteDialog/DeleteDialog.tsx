@@ -55,13 +55,14 @@ export const DeleteDialog = ({
   const deleteUsuario = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-solicitud",
         {
           Nombre: dataUser.Nombre,
           APaterno: dataUser.ApellidoPaterno,
           AMaterno: dataUser.ApellidoMaterno,
           NombreUsuario: dataUser.NombreUsuario,
           Email: dataUser.CorreoElectronico,
+          Puesto: dataUser.Puesto,
           Curp: dataUser.Curp,
           RFC: dataUser.Rfc.toUpperCase(),
           Celular: dataUser.Celular,
@@ -79,7 +80,7 @@ export const DeleteDialog = ({
         }
       )
       .then((r) => {
-        if (r.data.data[0][0].Respuesta == 201) {
+        if (r.data.data[0][0].Respuesta === 201) {
           if (comentario.length > 10) {
             setIdSolicitud(r.data.data[0][0].IdSolicitud);
           }
@@ -89,9 +90,15 @@ export const DeleteDialog = ({
             title: "Solicitud Creada!",
           });
         }
+        else{
+          Toast.fire({
+            icon: "error",
+            title: "Error al crear Solicitud!",
+          });
+        }
       })
       .catch((r) => {
-        if (r.data.data[0][0].Respuesta == 409) {
+        if (r.data.data[0][0].Respuesta === 409) {
         }
       });
   };
@@ -99,7 +106,7 @@ export const DeleteDialog = ({
   const createComentarios = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-comentario",
+        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -128,10 +135,37 @@ export const DeleteDialog = ({
   };
 
   React.useEffect(() => {
-    if (idSolicitud != "") {
-      createComentarios();
+    if (idSolicitud !== "") {
+      axios
+        .post(
+          process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
+          {
+            CreadoPor: localStorage.getItem("IdCentral"),
+            IdSolicitud: idSolicitud,
+            Comentario: comentario,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 201) {
+            Toast.fire({
+              icon: "success",
+              title: "Solicitud Creada!",
+            });
+
+            handleClose();
+          }
+        })
+        .catch((r) => {
+          if (r.response.status === 409) {
+          }
+        });
     }
-  }, [idSolicitud]);
+  }, [Toast, comentario, idSolicitud]);
 
   return (
     <Box>

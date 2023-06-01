@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
 import { useEffect, useState } from "react";
 import {
   FormControl,
@@ -68,7 +70,7 @@ export function TabEncabezado({
   const getObjetivos = (id: Array<number>) => {
     id.map((value, index) => {
       axios
-        .get("http://10.200.4.199:8000/api/ped-columns", {
+        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
           params: {
             Col: "ObjetivosDs",
             Id: value,
@@ -87,7 +89,7 @@ export function TabEncabezado({
 
   const getMetas = (Id: string) => {
     axios
-      .get("http://10.200.4.199:8000/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
         params: {
           Col: "MetasODS",
           Id: Id,

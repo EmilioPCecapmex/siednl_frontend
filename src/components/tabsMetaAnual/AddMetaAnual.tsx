@@ -1,19 +1,20 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { TabFinPropositoMA } from "./TabFinPropositoMA";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import TabResumenMIR from "../modalsMA/ModalResumenMir";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -27,6 +28,8 @@ export default function AddMetaAnual({
   IdMir: string;
   IdMA: string;
 }) {
+
+  
   const [value, setValue] = React.useState(20);
 
   const [showMir, setShowMir] = React.useState(false);
@@ -39,10 +42,6 @@ export default function AddMetaAnual({
 
   const showFnc = (st: string) => {
     setShowSt(st);
-  };
-
-  const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
   };
 
   const cambiarTab = (option: string) => {
@@ -82,6 +81,7 @@ export default function AddMetaAnual({
       if (index > 1 && index < 6)
         setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // COMPONENTES ------------------ No me sirve para FichaTecnica
@@ -110,7 +110,7 @@ export default function AddMetaAnual({
     setValoresComponenteMA(state);
   };
 
-  // ACTIVIDADES ------------------ No me sirve para FichaTecnica
+  // ACTIVIDADES
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
   const componenteActividad = [
     {
@@ -181,12 +181,11 @@ export default function AddMetaAnual({
       };
     });
     setValoresComponenteMA(arrayMA);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
-
-  // ------------------ No me sirve para FichaTecnica ---------------------------
 
   const resumenFinMa = (arr: Array<IFinMA>) => {
     setValueFin(arr);
@@ -194,16 +193,12 @@ export default function AddMetaAnual({
   const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
     setValueProposito(arr);
   };
-  // ------------------ No me sirve para FichaTecnica ---------------------------
 
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
-        width: "100%",
-        height: "92%",
-        mt: "8vh",
       }}
     >
       {value === 10 ? <TutorialBox initialState={35} endState={39} /> : null}
@@ -213,7 +208,7 @@ export default function AddMetaAnual({
       {value === 50 ? <TutorialBox initialState={42} endState={45} /> : null}
       <Box
         sx={{
-          width: "75vw",
+          width: "60%",
           height: "90vh",
           borderRadius: 5,
           display: "flex",
@@ -221,58 +216,87 @@ export default function AddMetaAnual({
           alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="inherit"
+        <Tabs
+          value={value}
+          textColor="inherit"
+          sx={{
+            backgroundColor: "#e0e0e0",
+            borderRadius: "10px 10px 0 0",
+            boxShadow: 20,
+          }}
+        >
+          <Tab
+            label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
             sx={{
-              borderRadius: "10px 10px 0 0",
-              boxShadow: 20,
+              borderRight: "5px solid #b3afaf",
+              color: "#af8c55",
+              fontFamily: "MontserratSemiBold",
+              backgroundColor: "#ccc",
             }}
-          >
-            <Tab
-              label="Fin / Propósito"
-              value={20}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Componentes"
-              value={30}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Actividades"
-              value={40}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Resumen"
-              value={50}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-          </Tabs>
-        </Box>
+            onClick={() => {
+              cambiarTab("atras");
+            }}
+          />
+          <Tab
+            label="Fin / Propósito"
+            value={20}
+            onClick={() => {
+              setValue(20);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Componentes"
+            value={30}
+            onClick={() => {
+              setValue(30);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Actividades"
+            value={40}
+            onClick={() => {
+              setValue(40);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Resumen"
+            value={50}
+            onClick={() => {
+              setValue(50);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "#af8c55",
+              backgroundColor: "#ccc",
+            }}
+            onClick={() => {
+              cambiarTab("adelante");
+            }}
+          />
+        </Tabs>
 
         <Box
           sx={{
@@ -331,43 +355,6 @@ export default function AddMetaAnual({
             MIR={MIR}
             noComponentes={noComponentes}
           ></TabResumenMIR>
-        </Box>
-
-        <Box
-          sx={{
-            width: "30%",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <IconButton
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          >
-            <ArrowCircleLeftIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
-
-          <IconButton
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          >
-            <ArrowCircleRightIcon
-              sx={{
-                color: "#c4a57b",
-                width: "3vw",
-                height: "3vw",
-              }}
-            />
-          </IconButton>
         </Box>
       </Box>
     </Box>

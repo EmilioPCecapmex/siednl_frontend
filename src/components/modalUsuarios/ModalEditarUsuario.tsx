@@ -35,6 +35,7 @@ export default function ModalEditarUsuario({
 }) {
   const [username, setUsername] = useState(dataUser.NombreUsuario);
   const [email, setEmail] = useState(dataUser.CorreoElectronico);
+  const [puesto, setPuesto] = useState(dataUser.Puesto);
   const [names, setNames] = useState(dataUser.Nombre);
   const [firstName, setFirstName] = useState(dataUser.ApellidoPaterno);
   const [secondName, setSecondName] = useState(dataUser.ApellidoMaterno);
@@ -88,6 +89,7 @@ export default function ModalEditarUsuario({
   const cleanForm = () => {
     setUsername("");
     setEmail("");
+    setPuesto("");
     setNames("");
     setFirstName("");
     setSecondName("");
@@ -129,7 +131,7 @@ export default function ModalEditarUsuario({
   const createComentarios = (idSolicitud: string) => {
     axios
       .post(
-        "http://10.200.4.105:5000/api/create-comentario",
+        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -165,7 +167,7 @@ export default function ModalEditarUsuario({
   const solicitarModificacion = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-solicitud",
 
         {
           Nombre: names,
@@ -173,6 +175,7 @@ export default function ModalEditarUsuario({
           AMaterno: secondName,
           NombreUsuario: username,
           Email: email,
+          Puesto: rol,
           Curp: curp,
           RFC: rfc,
           Celular: cellphone,
@@ -197,7 +200,7 @@ export default function ModalEditarUsuario({
       .then((r) => {
         if (r.status === 200) {
           // siednlSignUp(r.data.data[0][0].IdSolicitud);
-          if (comentario != "")
+          if (comentario !== "")
             createComentarios(r.data.data[0][0].IdSolicitud);
 
           Toast.fire({
@@ -219,47 +222,6 @@ export default function ModalEditarUsuario({
       });
   };
 
-  // const siednlSignUp = (idUsrCentral: string) => {
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
-  //       {
-  //         IdUsuarioCentral: idUsrCentral,
-  //         IdInstitucion: institution,
-  //         Cargo: rol,
-  //         Telefono: telephone,
-  //         Celular: cellphone,
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-  //         IdRol: userType,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         Toast.fire({
-  //           icon: "success",
-  //           title: "¡Registro exitoso!",
-  //         });
-  //       }
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   if (idSolicitud != "") {
-  //     createComentarios();
-  //   }
-
-  // }, [idSolicitud]);
-
-  // useEffect(() => {
-  //   if(idUsuarioCentral!=""){
-  //     createSolicitud();
-  //   }
-  // }, [idUsuarioCentral]);
 
   const checkForm = () => {
     setErrorsForm({
@@ -346,13 +308,13 @@ export default function ModalEditarUsuario({
         text: "Ingresa un correo electrónico.",
         type: "error",
       });
-    } else if (username != dataUser.NombreUsuario) {
+    } else if (username !== dataUser.NombreUsuario) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar nombre de usuario ",
         type: "error",
       });
-    } else if (email != dataUser.CorreoElectronico) {
+    } else if (email !== dataUser.CorreoElectronico) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar el correo electrónico ",
@@ -447,7 +409,7 @@ export default function ModalEditarUsuario({
             }}
             onChange={(v) => setEmail(v.target.value)}
             value={email}
-            sx={{
+            sx={{ 
               width: "62%",
               mr: "2vw",
             }}

@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail, sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
+import { sendMail} from "../../funcs/sendMailCustomMessage";
 
 export let errores: string[] = [];
 
@@ -40,7 +40,7 @@ export default function ModalEnviarMA({
   const comentMA = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -380,6 +380,7 @@ export default function ModalEnviarMA({
   };
 
   const checkActividades = (v: string) => {
+    // eslint-disable-next-line array-callback-return
     JSON.parse(MA)?.actividades.map((actividad: any, index: number) => {
       if (
         actividad.metaAnual === undefined ||
@@ -513,7 +514,7 @@ export default function ModalEnviarMA({
   const creaMA = (estado: string) => {
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: MA,
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -528,10 +529,10 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
+        // eslint-disable-next-line array-callback-return
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico,enviarMensaje,"MA")
-          console.log(user.CorreoElectronico);
         });
 
         if (estado === "Autorizada") {
@@ -562,7 +563,7 @@ export default function ModalEnviarMA({
    
     axios
       .post(
-        "http://10.200.4.199:8000/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
           FichaTecnica: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -578,10 +579,10 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
+        // eslint-disable-next-line array-callback-return
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
-          console.log(user.CorreoElectronico);
         });
         
         showResume();
@@ -593,8 +594,9 @@ export default function ModalEnviarMA({
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    let inst = JSON.parse(MIR)?.encabezado.institucion;
+  useEffect(() => {
+    if (open) {
+      let inst = JSON.parse(MIR)?.encabezado.institucion;
 
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
@@ -602,7 +604,8 @@ export default function ModalEnviarMA({
 
     axios
       .get(
-        "http://10.200.4.199:8000" + "/api/usuarioXInstitucion",
+        // eslint-disable-next-line no-useless-concat
+        process.env.REACT_APP_APPLICATION_BACK+ "/api/usuarioXInstitucion",
         {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),
@@ -618,13 +621,8 @@ export default function ModalEnviarMA({
           setUserXInst(r.data.data);
         }
       });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const enviarNotificacion = (v: string) => {
     axios.post(

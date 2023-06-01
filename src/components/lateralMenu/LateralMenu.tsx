@@ -26,22 +26,22 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
-  DialogContent,
+  Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../funcs/validation";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { lstLg, lstMd, lstSm, lstXl } from "./stylesLateralMenu";
+import { lstLg, lstMd, lstSm, lstXl, lstXs } from "./stylesLateralMenu";
 import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
 import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
 import TaskIcon from "@mui/icons-material/Task";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
-import FormControl from "@mui/material/FormControl/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Radio from "@mui/material/Radio";
+// import FormControl from "@mui/material/FormControl/FormControl";
+// import FormLabel from "@mui/material/FormLabel";
 
 export const LateralMenu = ({
   selection,
@@ -52,6 +52,7 @@ export const LateralMenu = ({
   actionNumber: number;
   settingsCard?: Function;
 }) => {
+  
   const theme = useTheme();
   let st = lstXl;
 
@@ -59,13 +60,14 @@ export const LateralMenu = ({
   const isLg = useMediaQuery(theme.breakpoints.up("lg"));
   const isMd = useMediaQuery(theme.breakpoints.up("md"));
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
-  // const isXs = useMediaQuery(theme.breakpoints.up("xs"));
+  const isXs = useMediaQuery(theme.breakpoints.up("xs"));
 
   if (isXl) st = lstXl;
   else if (isLg) st = lstLg;
   else if (isMd) st = lstMd;
   else if (isSm) st = lstSm;
-  // else if (isXs) st = lstXs;
+  else if (isXs) st = lstXs;
+
   const navigate = useNavigate();
   const [openProgramas, setOpenProgramas] = useState(true);
   const [openDocs, setOpenDocs] = useState(false);
@@ -148,8 +150,7 @@ export const LateralMenu = ({
     setOpenPasswordChange(false);
   };
 
-  const [chUser, setChUser] = useState(localStorage.getItem("Rol"));
-  const [chUserB, setChUserB] = useState(false);
+ 
 
   const ChangePasswordModal = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -518,173 +519,10 @@ export const LateralMenu = ({
               />
             </ListItemButton>
           )}
-
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
-            <Box>
-              <ListItemButton onClick={handleClickDocs}>
-                <Box sx={st.iconMenuList}>
-                  <TaskIcon />
-                </Box>
-
-                <Typography sx={st.firstItemsStyle}>
-                  Firma Electrónica
-                </Typography>
-                {openDocs ? <ExpandLess /> : <ExpandMore />}
-                <Box
-                  visibility={selection === 1 ? "visible" : "hidden"}
-                  sx={st.selectedBox}
-                />
-              </ListItemButton>
-              <Collapse in={openDocs} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <ListItemButton
-                    onClick={() => navigate("../firmado")}
-                    sx={{ ml: 2 }}
-                  >
-                    <Box sx={st.iconMenuList}>
-                      <KeyboardDoubleArrowRightIcon />
-                    </Box>
-                    <Typography sx={st.subMenuItemsText}>
-                      Firmado de Documentos
-                    </Typography>
-                    <Box
-                      visibility={selection === 8 ? "visible" : "hidden"}
-                      sx={st.selectedBox}
-                    />
-                  </ListItemButton>
-
-                  <ListItemButton
-                    onClick={() => navigate("../tabla")}
-                    sx={{ ml: 2 }}
-                  >
-                    <Box sx={st.iconMenuList}>
-                      <KeyboardDoubleArrowRightIcon />
-                    </Box>
-                    <Typography sx={st.subMenuItemsText}>
-                      Documentos Firmados
-                    </Typography>
-                    <Box
-                      visibility={selection === 9 ? "visible" : "hidden"}
-                      sx={st.selectedBox}
-                    />
-                  </ListItemButton>
-                </List>
-              </Collapse>
-
-              {/* Cambiar tipo de usuario                                                                                */}
-              {localStorage.getItem("IdUsuario") ===
-              "a7933377-32ba-11ed-aed0-040300000000" ? (
-                <Button
-                  onClick={() => {
-                    setChUserB(true);
-                  }}
-                >
-                  Cambiar tipo de usuario
-                </Button>
-              ) : null}
-
-              <Dialog
-                open={chUserB}
-                onClose={() => {
-                  setChUserB(false);
-                }}
-              >
-                <DialogContent>
-                  <FormControl
-                    sx={{
-                      width: "100%",
-                      height: "80%",
-                      backgroundColor: "#f0f0f0",
-                      boxShadow: 2,
-                      fontFamily: "MontserratMedium",
-                      justifyContent: "space-evenly",
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <FormLabel
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        fontSize: "0.6vw",
-                      }}
-                    >
-                      Rol
-                    </FormLabel>
-                    <FormControlLabel
-                      value={"Administrador"}
-                      label={
-                        <Typography
-                          sx={{
-                            fontSize: "0.6vw",
-                            fontFamily: "MontserratMedium",
-                          }}
-                        >
-                          Administrador
-                        </Typography>
-                      }
-                      sx={{
-                        fontFamily: "MontserratMedium",
-                      }}
-                      control={
-                        <Radio
-                          checked={chUser === "Administrador"}
-                          onChange={(c) => {
-                            setChUser("Administrador");
-                          }}
-                        />
-                      }
-                    />
-                    <FormControlLabel
-                      value={"Verificador"}
-                      label={
-                        <Typography
-                          sx={{
-                            fontSize: "0.6vw",
-                            fontFamily: "MontserratMedium",
-                          }}
-                        >
-                          Verificador
-                        </Typography>
-                      }
-                      control={
-                        <Radio
-                          checked={chUser === "Verificador"}
-                          onChange={(c) => {
-                            setChUser("Verificador");
-                          }}
-                        />
-                      }
-                    />
-                    <FormControlLabel
-                      value={"Capturador"}
-                      label={
-                        <Typography
-                          sx={{
-                            fontSize: "0.6vw",
-                            fontFamily: "MontserratMedium",
-                          }}
-                        >
-                          Capturador
-                        </Typography>
-                      }
-                      control={
-                        <Radio
-                          checked={chUser === "Capturador"}
-                          onChange={(c) => {
-                            setChUser("Capturador");
-                          }}
-                        />
-                      }
-                    />
-                  </FormControl>
-                </DialogContent>
-              </Dialog>
-              {/* '                                                                      ' */}
-            </Box>
-          )}
         </List>
       </Box>
 
-      <Box sx={st.dividerBox} />
+      <Divider></Divider>
       <Box sx={st.bottomMenuBox}>
         <List>
           {localStorage.getItem("Rol") !== "Administrador" ? null : (

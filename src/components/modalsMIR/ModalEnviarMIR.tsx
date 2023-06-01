@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -10,7 +11,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail, sendMailCustomMessage } from "../../funcs/sendMailCustomMessage";
+import { sendMail} from "../../funcs/sendMailCustomMessage";
 export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
@@ -29,7 +30,7 @@ export default function ModalEnviarMIR({
   const [comment, setComment] = useState("");
 
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
-  const [userSelected, setUserSelected] = useState("0");
+  const [userSelected] = useState("0"); //, setUserSelected
   let err = 0;
 
   const [newComent, setNewComent] = React.useState(false);
@@ -39,7 +40,7 @@ export default function ModalEnviarMIR({
   const comentMir = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -395,14 +396,14 @@ export default function ModalEnviarMIR({
     }
   };
 
-  const CrearMetaAnual = () => {
+  const CrearMetaAnual = (idMir: string) => {
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
-          IdMir: IdMir,
+          IdMir: idMir,
           Estado: "En Captura",
           Id: "",
         },
@@ -416,7 +417,6 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario);
           sendMail(user.CorreoElectronico,enviarMensaje, "MA",);
-          console.log(user.CorreoElectronico);
           
         });
         showResume();
@@ -466,7 +466,7 @@ export default function ModalEnviarMIR({
         });
 
         if (estado === "Autorizada") {
-          CrearMetaAnual();
+          CrearMetaAnual(r.data.data.ID);
         }
 
         Toast.fire({
@@ -477,19 +477,34 @@ export default function ModalEnviarMIR({
               : "¡MIR enviada con éxito!",
         });
 
-        if (comment != "") {
+        if (comment !== "") {
           comentMir(r.data.data.ID);
         }
         showResume();
       })
       .catch((err) => {
-        err = 1;
         errores.push(err.response.data.result.error);
+        err = 1;
+        Toast.fire({
+          icon: "error",
+          html: `
+          <div style="height:50%;">
+          <h3>SE HAN ENCONTRADO LOS SIGUIENTES ERRORES:</h3>
+          <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
+        <small>
+        <strong>
+        </strong>${errores.join("<br><strong></strong>")}
+        </small>
+        </div>
+        </div>`,
+        });
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    let inst = JSON.parse(MIR)?.encabezado.institucion;
+
+  useEffect(() => {
+    if (open) {
+      let inst = JSON.parse(MIR)?.encabezado.institucion;
     if (localStorage.getItem("Rol") === "Verificador") {
       inst = "admin";
     }
@@ -513,13 +528,8 @@ export default function ModalEnviarMIR({
           
         }
       });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const enviarNotificacion = (v: string) => {
     axios.post(
@@ -552,7 +562,7 @@ export default function ModalEnviarMIR({
   });
 
   return (
-    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
+    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose(false)}>
       <DialogTitle
         sx={{
           fontFamily: "MontserratBold",
@@ -626,7 +636,7 @@ export default function ModalEnviarMIR({
               sx={{ display: "flex", width: "9vw" }}
               variant="contained"
               color="error"
-              onClick={() => handleClose()}
+              onClick={() => handleClose(false)}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
                 Cancelar
@@ -657,7 +667,7 @@ export default function ModalEnviarMIR({
                     ? "En Autorización"
                     : "Autorizada"
                 );
-                handleClose();
+                handleClose(false);
                 setNewComent(false);
               }}
             >

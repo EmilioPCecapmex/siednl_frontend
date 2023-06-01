@@ -1,5 +1,5 @@
+/* eslint-disable array-callback-return */
 import { useEffect, useState } from "react";
-import { ICValor } from "../tabsMir/ICValor";
 import {
   Box,
   Dialog,
@@ -32,7 +32,7 @@ export function TabResumenMIR({
 
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
-  const [componenteActividad, setComponenteActividad] = useState([
+  const [componenteActividad] = useState([ //, setComponenteActividad
     {
       componentes: noComponentes.map((x) => [1, 2]),
     },
@@ -87,60 +87,57 @@ export function TabResumenMIR({
 
   useEffect(() => {
     if (compAct.length > 0) {
-      loadActividadesMir();
+      let y = componenteActividad.map((item) => {
+        return {
+          componentes: compAct.map((x, index) => {
+            return {
+              actividades: x.actividades.map((c, index2) => {
+                return {
+                  actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                  resumen: "",
+                  indicador: "",
+                  formula: "",
+                  frecuencia: "",
+                  medios: "",
+                  supuestos: "",
+                };
+              }),
+            };
+          }),
+        };
+      });
+  
+      actividades.map((x: any) => {
+        let act = x.actividad?.split("A")[1]?.split("C")[0];
+        let comp = x.actividad?.split("C")[1].substring(0, 1);
+  
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].actividad = x.actividad;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].resumen = x?.resumen;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].indicador = x?.indicador;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].formula = x?.formula;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].frecuencia = x?.frecuencia;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].medios = x?.medios;
+        y[0].componentes[parseInt(comp) - 1].actividades[
+          parseInt(act) - 1
+        ].supuestos = x?.supuestos;
+      });
+  
+      setCValor(y);
     }
-  }, [compAct]);
+  }, []);
 
-  const loadActividadesMir = () => {
-    let y = componenteActividad.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
-          return {
-            actividades: x.actividades.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                resumen: "",
-                indicador: "",
-                formula: "",
-                frecuencia: "",
-                medios: "",
-                supuestos: "",
-              };
-            }),
-          };
-        }),
-      };
-    });
-
-    actividades.map((x: any) => {
-      let act = x.actividad?.split("A")[1]?.split("C")[0];
-      let comp = x.actividad?.split("C")[1].substring(0, 1);
-
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].actividad = x.actividad;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].resumen = x?.resumen;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].indicador = x?.indicador;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].formula = x?.formula;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].frecuencia = x?.frecuencia;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].medios = x?.medios;
-      y[0].componentes[parseInt(comp) - 1].actividades[
-        parseInt(act) - 1
-      ].supuestos = x?.supuestos;
-    });
-
-    setCValor(y);
-  };
 
   useEffect(() => {
     setOpen(show);
@@ -148,7 +145,6 @@ export function TabResumenMIR({
 
   return (
     <Dialog
-      fullWidth
       maxWidth="xl"
       open={open}
       sx={{ height: "100%" }}

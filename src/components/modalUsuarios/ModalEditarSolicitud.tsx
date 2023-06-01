@@ -40,22 +40,23 @@ export default function ModalEditarSolicitud({
   dataUser: IDetalleSolicitud;
   idSolicitud: string;
 }) {
-  const [username, setUsername] = useState(dataUser.NombreUsuario);
-  const [email, setEmail] = useState(dataUser.CorreoElectronico);
-  const [names, setNames] = useState(dataUser.Nombre);
-  const [firstName, setFirstName] = useState(dataUser.ApellidoPaterno);
-  const [secondName, setSecondName] = useState(dataUser.ApellidoMaterno);
-  const [curp, setCURP] = useState(dataUser.Curp);
-  const [rfc, setRFC] = useState(dataUser.Rfc);
 
-  const [telephone, setTelephone] = useState(dataUser.Telefono);
-  const [cellphone, setCellphone] = useState(dataUser.Celular);
-  const [ext, setExt] = useState(dataUser.Ext);
+
+  const [username, setUsername] = useState(dataUser?.NombreUsuario);
+  const [email, setEmail] = useState(dataUser?.CorreoElectronico);
+  const [puesto, setPuesto] = useState(dataUser?.Puesto);
+  const [names, setNames] = useState(dataUser?.Nombre);
+  const [firstName, setFirstName] = useState(dataUser?.ApellidoPaterno);
+  const [secondName, setSecondName] = useState(dataUser?.ApellidoMaterno);
+  const [curp, setCURP] = useState(dataUser?.Curp);
+  const [rfc, setRFC] = useState(dataUser?.Rfc);
+
+  const [telephone, setTelephone] = useState(dataUser?.Telefono);
+  const [cellphone, setCellphone] = useState(dataUser?.Celular);
+  const [ext, setExt] = useState(dataUser?.Ext);
   const [comentario, setComentario] = useState("");
 
-  const datosAdicionales: IDatosAdicionales = JSON.parse(
-    dataUser.DatosAdicionales
-  );
+ const [datosAdicionales,setDatosAdicionales]=useState<IDatosAdicionales>(JSON.parse(dataUser?.DatosAdicionales))
 
   const [institution, setInstitution] = useState(
     datosAdicionales.IdInstitucion
@@ -100,6 +101,7 @@ export default function ModalEditarSolicitud({
   const cleanForm = () => {
     setUsername("");
     setEmail("");
+    setPuesto("");
     setNames("");
     setFirstName("");
     setSecondName("");
@@ -141,7 +143,7 @@ export default function ModalEditarSolicitud({
   const createComentarios = (idSolicitud: string) => {
     axios
       .post(
-        "http://10.200.4.105:5000/api/create-comentario",
+        process.env.REACT_APP_APPLICATION_LOGIN +"/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -167,7 +169,7 @@ export default function ModalEditarSolicitud({
         if (r.response.status === 409) {
           setErrorsForm({
             visible: true,
-            text: r.response.data.msg,
+            text: "error al guardar el comentario",
             type: "error",
           });
         }
@@ -177,7 +179,7 @@ export default function ModalEditarSolicitud({
   const modificarSolicitud = () => {
     axios
       .put(
-        "http://10.200.4.200:5000/api/modify-Solicitud",
+        process.env.REACT_APP_APPLICATION_LOGIN +"/api/modify-Solicitud",
 
         {
           IdSolicitud: idSolicitud,
@@ -186,6 +188,7 @@ export default function ModalEditarSolicitud({
           AMaterno: secondName,
           Usuario: username,
           Email: email,
+          Puesto:puesto,
           CURP: curp,
           RFC: rfc,
           Telefono: telephone,
@@ -208,13 +211,13 @@ export default function ModalEditarSolicitud({
         }
       )
       .then((r) => {
-        if (r.status === 200) {
-          if (comentario != "")
-            createComentarios(r.data.data[0][0].IdSolicitud);
+        if (r.data.result.Respuesta ==="201") {
+          if (comentario !== "")
+            {createComentarios(idSolicitud);}
 
           Toast.fire({
             icon: "success",
-            title: r.data.data[0][0].Mensaje,
+            title: r.data.result.Mensaje,
           });
 
           handleClose();
@@ -224,7 +227,7 @@ export default function ModalEditarSolicitud({
         if (r.response.status === 409) {
           setErrorsForm({
             visible: true,
-            text: r.response.data.msg,
+           text: r.data.result.Mensaje,
             type: "error",
           });
         }
@@ -248,6 +251,12 @@ export default function ModalEditarSolicitud({
       setErrorsForm({
         visible: true,
         text: "Ingresa un correo electrónico.",
+        type: "error",
+      });
+    } else if (puesto === "") {
+      setErrorsForm({
+        visible: true,
+        text: "Ingresa el puesto.",
         type: "error",
       });
     } else if (names === "") {
@@ -316,31 +325,21 @@ export default function ModalEditarSolicitud({
         text: "Ingresa laa extencion.",
         type: "error",
       });
-    } else if (username != dataUser.NombreUsuario) {
+    }else if (username!=dataUser?.NombreUsuario ) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar nombre de usuario ",
         type: "error",
       });
-    } else if (email != dataUser.CorreoElectronico) {
+    }else if (email!=dataUser?.CorreoElectronico ) {
       setErrorsForm({
         visible: true,
         text: "No se puede modificar el correo electrónico ",
         type: "error",
       });
-    } else if (
-      names === dataUser.Nombre &&
-      firstName === dataUser.ApellidoPaterno &&
-      secondName === dataUser.ApellidoMaterno &&
-      institution === datosAdicionales.IdInstitucion &&
-      rol === datosAdicionales.Cargo &&
-      userType === datosAdicionales.IdRol &&
-      curp === dataUser.Curp &&
-      rfc === dataUser.Rfc &&
-      telephone === dataUser.Telefono &&
-      ext === dataUser.Ext &&
-      cellphone === dataUser.Celular
-    ) {
+    }else if (names===dataUser?.Nombre && firstName===dataUser?.ApellidoPaterno && secondName===dataUser?.ApellidoMaterno && puesto===dataUser?.Puesto && institution===datosAdicionales.IdInstitucion 
+      && rol===datosAdicionales.Cargo && userType===datosAdicionales.IdRol && curp ===dataUser?.Curp && rfc===dataUser?.Rfc && telephone===dataUser?.Telefono 
+      && ext===dataUser?.Ext && cellphone===dataUser?.Celular) {
       setErrorsForm({
         visible: true,
         text: "No se detectaron modificaciones ",
@@ -348,6 +347,7 @@ export default function ModalEditarSolicitud({
       });
     } else {
       modificarSolicitud();
+
     }
   };
 
@@ -558,6 +558,17 @@ export default function ModalEditarSolicitud({
             mt: "3vh",
           }}
         >
+           <TextField
+            label="Puesto"
+            variant="outlined"
+            inputProps={{ maxLength: 255}}
+            value={puesto}
+            onChange={(x) => setPuesto(x.target.value)}
+            sx={{
+              width: "30%",
+              ml: "2vw",
+            }}
+          />
           <TextField
             label="CURP"
             variant="outlined"
@@ -565,8 +576,7 @@ export default function ModalEditarSolicitud({
             value={curp}
             onChange={(x) => setCURP(x.target.value)}
             sx={{
-              width: "40%",
-              ml: "2vw",
+              width: "30%",
             }}
           />
 
@@ -577,7 +587,7 @@ export default function ModalEditarSolicitud({
             value={rfc}
             onChange={(x) => setRFC(x.target.value)}
             sx={{
-              width: "40%",
+              width: "30%",
               mr: "2vw",
             }}
           />

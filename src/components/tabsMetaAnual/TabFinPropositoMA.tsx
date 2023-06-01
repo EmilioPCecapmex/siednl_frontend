@@ -35,6 +35,8 @@ export function TabFinPropositoMA({
   MA: string;
   MIR: string;
 }) {
+  
+  
   let jsonMA =
     MA === ""
       ? ""
@@ -192,7 +194,7 @@ export function TabFinPropositoMA({
 
   const getUnidades = () => {
     axios
-      .get("http://10.200.4.105:8000/api/listadoUnidadesInst", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst", {
         params: {
           Institucion: JSON.parse(MIR).encabezado.institucion,
         },

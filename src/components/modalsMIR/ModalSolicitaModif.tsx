@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -40,7 +41,7 @@ export default function ModalSolicitaModif({
   const comentMir = (id: string) => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -376,7 +377,7 @@ export default function ModalSolicitaModif({
       )
       .then((r) => {
         if (comment !== "") {
-          comentMir(r.data.data.ID);
+          comentMir(IdMir);
         }
         Toast.fire({
           icon: "success",
@@ -398,33 +399,28 @@ export default function ModalSolicitaModif({
       });
   };
 
-  const getUsuariosXInstitucion = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            Institucion: JSON.parse(MIR)?.encabezado.institucion,
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
-  };
-
   useEffect(() => {
     if (open) {
-      getUsuariosXInstitucion();
-      // setInstSelected(JSON.parse(MIR)?.encabezado.institucion);
+      axios
+        .get(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+          {
+            params: {
+              IdUsuario: localStorage.getItem("IdUsuario"),
+              Institucion: JSON.parse(MIR)?.encabezado.institucion,
+            },
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
     }
-  }, [open]);
+  }, [MIR, open]);
 
   const Toast = Swal.mixin({
     toast: false,

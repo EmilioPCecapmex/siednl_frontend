@@ -48,8 +48,7 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
-        height: "92%",
-        mt: "8vh",
+        height: "92vh",
       }}
     >
       <Box

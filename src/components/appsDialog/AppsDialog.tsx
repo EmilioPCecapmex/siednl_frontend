@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -90,46 +90,43 @@ export const AppsDialog = ({
       );
   };
 
-  const getInstitucionesX = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-        params: {
-          IdUsuario: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          setInstSel(r.data.data);
-        }
-      });
-  };
-
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          setInstituciones(r.data.data);
-        }
-      });
-  };
-
   useLayoutEffect(() => {
     if (open) {
-      getInstitucionesX();
-      getInstituciones();
+      axios
+        .get(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion",
+          {
+            params: {
+              IdUsuario: id,
+            },
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 200) {
+            setInstSel(r.data.data);
+          }
+        });
+        
+      axios
+        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+          params: {
+            IdUsuario: localStorage.getItem("IdUsuario"),
+            IdInstitucion: localStorage.getItem("IdInstitucion"),
+          },
+        })
+        .then((r) => {
+          if (r.status === 200) {
+            setInstituciones(r.data.data);
+          }
+        });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   return (

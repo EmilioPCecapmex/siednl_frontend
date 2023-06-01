@@ -73,7 +73,7 @@ export const MIR = () => {
   useEffect(() => {
     setShowResume(true);
     getMIRs();
-  }, [resumeDefaultMIR]);
+  }, []);
 
   const returnMain = () => {
     setShowResume(true);
@@ -226,7 +226,6 @@ export const MIR = () => {
         // clean up "a" element & remove ObjectURL
         document.body.removeChild(link);
         URL.revokeObjectURL(href);
-        
       })
       .catch((err) => {
         Toast.fire({
@@ -260,48 +259,57 @@ export const MIR = () => {
       sx={{
         width: "100vw",
         height: "100vh",
-        display: "flex",
+        display: "grid",
         backgroundColor: "#F2F2F2",
+        gridTemplateAreas: `
+                          'aside header'
+                          'aside main'
+                         `,
+          alignItems: "end",
       }}
     >
-      <LateralMenu selection={2} actionNumber={actionNumber} />
-      <Header
-        details={{
-          name1: "Inicio",
-          path1: "../home",
-          name2: "MIR",
-          path2: "../mir",
-          name3: "",
-        }}
-      />
+      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
+        <LateralMenu selection={2} actionNumber={actionNumber} />
+      </Box>
+
+      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+        <Header
+          details={{
+            name1: "Inicio",
+            path1: "../home",
+            name2: "MIR",
+            path2: "../mir",
+            name3: "",
+          }}
+        />
+      </Box>
+
       {showResume ? (
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
-            width: "85%",
-            height: "92%",
-            mt: "8vh",
-            flexWrap: "wrap",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
           }}
+          gridArea={"main"}
         >
-          {/*Tutorial box////////////////////////////////////////////////////////////////////////////////////////////////*/}
-          <TutorialBox initialState={8} endState={13} />
-           {/*Tutorial box////////////////////////////////////////////////////////////////////////////////////////////////*/}
           <Box
             sx={{
-              mt: "3vh",
               width: "60%",
               height: "15vh",
               backgroundColor: "#fff",
               borderRadius: 5,
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateRows: "repeat(2, 1fr)",
               boxShadow: 5,
               alignItems: "center",
               justifyItems: "center",
             }}
           >
+            <TutorialBox initialState={8} endState={13} />
             <Box
               sx={{
                 display: "flex",
@@ -433,7 +441,7 @@ export const MIR = () => {
                   disabled
                   selected
                 >
-                  Filtro por institución de la MIR
+                  Filtro por institución
                 </MenuItem>
 
                 <MenuItem
@@ -475,8 +483,8 @@ export const MIR = () => {
                     Estado: "",
                     FechaCreacion: "",
                     CreadoPor: "",
-                    Conac:"",
-                    Consecutivo:"",
+                    Conac: "",
+                    Consecutivo: "",
                   },
                 ]);
                 handleClickOpen();
@@ -848,6 +856,7 @@ export const MIR = () => {
                                         : true
                                     }
                                     onClick={() => {
+                                      
                                       setMirEdit([
                                         {
                                           ID: row.ID,
@@ -909,11 +918,12 @@ export const MIR = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
-            width: "85%",
-            height: "92%",
-            flexWrap: "wrap",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
           }}
+          gridArea={"main"}
         >
           <FullModalMir
             anioFiscalEdit={anioFiscalEdit}
@@ -939,5 +949,5 @@ export interface IIMir {
   FechaCreacion: string;
   CreadoPor: string;
   Conac: string;
-  Consecutivo:String;
+  Consecutivo: String;
 }

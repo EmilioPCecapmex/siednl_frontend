@@ -96,21 +96,6 @@ export const ComentDialogMir = ({
     }
   }, [open]);
 
-  const getComents = () => {
-    axios
-      .get("http://10.200.4.105:8000/api/coment-mir", {
-        params: {
-          IdMir: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        
-        setComents(r.data.data);
-      });
-  };
 
   const [coment, setComent] = React.useState("");
 
@@ -134,7 +119,7 @@ export const ComentDialogMir = ({
   const comentMir = () => {
     axios
       .post(
-        "http://10.200.4.105:8000/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
         {
           IdMir: id,
           Coment: coment,
@@ -149,6 +134,7 @@ export const ComentDialogMir = ({
       )
       .then((r) => {
         if (estado !== "En Captura") {
+          // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
             enviarNotificacion(user.IdUsuario);
           });
@@ -173,8 +159,20 @@ export const ComentDialogMir = ({
   };
 
   React.useEffect(() => {
-    getComents();
-  }, [actualizado]);
+    axios
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+      params: {
+        IdMir: id,
+      },
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      
+      setComents(r.data.data);
+    });
+  }, [actualizado, id]);
 
   return (
     <Box>

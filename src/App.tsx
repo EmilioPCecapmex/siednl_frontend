@@ -16,9 +16,6 @@ import { Notification } from "./screens/notification/Notifications";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
-import { Firmado } from "./components/firmado electrónico/screens/firmado/Firmado";
-import { TablaDocs } from "./components/firmado electrónico/screens/tabla de documentos/tablaDocs";
-import { Documentos } from "./components/firmado electrónico/screens/documentos/Documentos";
 
 function App() {
   const navigate = useNavigate();
@@ -30,7 +27,7 @@ function App() {
     if (jt !== null) {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign("http://10.200.4.106/");
+          window.location.assign(process.env.REACT_APP_APPLICATION_FRONT_LOGIN || '');
         } else if ((r as boolean) === true) {
           setTimeout(() => {
             localStorage.setItem("IdApp", IdApp as string);
@@ -41,18 +38,20 @@ function App() {
     } else {
       continueSession().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign("http://10.200.4.106/");
+          window.location.assign(process.env.REACT_APP_APPLICATION_FRONT_LOGIN || '');
         } else {
-          navigate("../home");
+          // navigate("../home");
         }
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <Routes>
         <Route index element={<Init />} />
+        <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="settings" element={<Settings />} />
         <Route path="users" element={<Usuarios />} />
@@ -66,9 +65,6 @@ function App() {
         <Route path="metaAnual" element={<MetaAnual />} />
         <Route path="notifications" element={<Notification />} />
 
-        <Route path="firmado" element={<Firmado />} />
-        <Route path="documentos" element={<Documentos />} />
-        <Route path="tabla" element={<TablaDocs />} />
       </Routes>
     </>
   );

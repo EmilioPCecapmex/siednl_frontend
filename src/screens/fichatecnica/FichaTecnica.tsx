@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import {
   IInstituciones,
@@ -126,7 +127,7 @@ export const FichaTecnica = () => {
     const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
 
     axios
-      .post(process.env.REACT_APP_APPLICATION_FILL  + "/api/fill_ft", fullft, {
+      .post(process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ft", fullft, {
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -268,48 +269,56 @@ export const FichaTecnica = () => {
       sx={{
         width: "100vw",
         height: "100vh",
-        display: "flex",
+        display: "grid",
         backgroundColor: "#F2F2F2",
+        gridTemplateAreas: `
+                            'aside header'
+                            'aside main'
+                           `,
       }}
     >
-      <LateralMenu selection={4} actionNumber={actionNumber} />
-      <Header
-        details={{
-          name1: "Inicio",
-          path1: "../home",
-          name2: "Ficha Técnica",
-          path2: "../fichatecnica",
-          name3: "",
-        }}
-      />
+      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
+        <LateralMenu selection={4} actionNumber={actionNumber} />
+      </Box>
+
+      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+        <Header
+          details={{
+            name1: "Inicio",
+            path1: "../home",
+            name2: "Ficha Técnica",
+            path2: "../fichatecnica",
+            name3: "",
+          }}
+        />
+      </Box>
+
       {showResume ? (
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
-            width: "85%",
-            height: "92%",
-            mt: "8vh",
-            flexWrap: "wrap",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
           }}
-
-          
+          gridArea={"main"}
         >
-          <TutorialBox initialState={45} endState={49} />
           <Box
             sx={{
-              mt: "3vh",
               width: "60%",
               height: "15vh",
               backgroundColor: "#fff",
               borderRadius: 5,
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateRows: "repeat(2, 1fr)",
               boxShadow: 5,
               alignItems: "center",
               justifyItems: "center",
             }}
           >
+          <TutorialBox initialState={45} endState={49} />
             <Box
               sx={{
                 display: "flex",
@@ -732,21 +741,21 @@ export const FichaTecnica = () => {
                               <Tooltip title="REGISTRAR FICHA TÉCNICA">
                                 <span>
                                   <IconButton
-                                    // disabled={
-                                    //   row.Estado === "En Captura" &&
-                                    //   localStorage.getItem("Rol") ===
-                                    //     "Capturador"
-                                    //     ? false
-                                    //     : row.Estado === "En Revisión" &&
-                                    //       localStorage.getItem("Rol") ===
-                                    //         "Verificador"
-                                    //     ? false
-                                    //     : row.Estado === "En Autorización" &&
-                                    //       localStorage.getItem("Rol") ===
-                                    //         "Administrador"
-                                    //     ? false
-                                    //     : true
-                                    // }
+                                    disabled={
+                                      row.Estado === "En Captura" &&
+                                      localStorage.getItem("Rol") ===
+                                        "Capturador"
+                                        ? false
+                                        : row.Estado === "En Revisión" &&
+                                          localStorage.getItem("Rol") ===
+                                            "Verificador"
+                                        ? false
+                                        : row.Estado === "En Autorización" &&
+                                          localStorage.getItem("Rol") ===
+                                            "Administrador"
+                                        ? false
+                                        : true
+                                    }
                                     onClick={() => {
                                       setFTEdit([
                                         {
@@ -889,11 +898,12 @@ export const FichaTecnica = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
-            width: "85%",
-            height: "92%",
-            flexWrap: "wrap",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
           }}
+          gridArea={"main"}
         >
           <AddFichaTecnica
             MIR={FTEdit[0].MIR}

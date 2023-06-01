@@ -136,7 +136,7 @@ export default function ModalCrearUsuario({
   const createComentarios = (idSolicitud: string) => {
     axios
       .post(
-        "http://10.200.4.105:5000/api/create-comentario",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-comentario",
         {
           CreadoPor: localStorage.getItem("IdCentral"),
           IdSolicitud: idSolicitud,
@@ -172,13 +172,14 @@ export default function ModalCrearUsuario({
   const signUp = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
         {
           Nombre: names,
           APaterno: firstName,
           AMaterno: secondName,
           NombreUsuario: username,
           Email: email,
+          Puesto:datosAdicionales.rol,
           Curp: curp,
           RFC: rfc,
           Celular: cellphone,
@@ -197,7 +198,7 @@ export default function ModalCrearUsuario({
       )
       .then((r) => {
         if (r.status === 200) {
-          if (comentario != "")
+          if (comentario !== "")
             createComentarios(r.data.data[0][0].IdSolicitud);
 
           Toast.fire({
@@ -369,7 +370,7 @@ export default function ModalCrearUsuario({
             onChange={(v) => setEmail(v.target.value)}
             value={email}
             sx={{
-              width: "62%",
+              width: "60%",
               mr: "2vw",
             }}
           />
@@ -530,7 +531,7 @@ export default function ModalCrearUsuario({
             value={curp}
             onChange={(x) => setCURP(x.target.value)}
             sx={{
-              width: "40%",
+              width: "45%",
               ml: "2vw",
             }}
           />
@@ -542,10 +543,10 @@ export default function ModalCrearUsuario({
             value={rfc}
             onChange={(x) => setRFC(x.target.value)}
             sx={{
-              width: "40%",
-              mr: "2vw",
+              width: "45%",mr: "2vw",
             }}
           />
+
         </Box>
 
         <Box

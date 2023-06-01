@@ -141,8 +141,7 @@ export default function ModalVincularUsuario({
 
   const verifyUser = () => {
     axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/user-exist",
+      .post(process.env.REACT_APP_APPLICATION_BACK+ "/api/user-exist",
         {
           NombreUsuario: username,
           CorreoElectronico: email.toLowerCase(),
@@ -193,7 +192,7 @@ export default function ModalVincularUsuario({
   const getUserDetails = (idCentral: string,) => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/user-detail",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/user-detail",
         {
           IdUsuario: idCentral,
         },
@@ -233,13 +232,14 @@ export default function ModalVincularUsuario({
   const signUp = () => {
     axios
       .post(
-        "http://10.200.4.200:5000/api/create-solicitud",
+        process.env.REACT_APP_APPLICATION_LOGIN + "/api/create-solicitud",
         {
           Nombre: dataUser.Nombre,
           APaterno: dataUser.ApellidoPaterno,
           AMaterno: dataUser.ApellidoMaterno,
           NombreUsuario: dataUser.NombreUsuario,
           Email: dataUser.CorreoElectronico,
+          Puesto:datosAdicionales.rol,
           Curp: dataUser.Curp,
           RFC: dataUser.Rfc,
           Celular: dataUser.Celular,
@@ -279,34 +279,6 @@ export default function ModalVincularUsuario({
       });
   };
 
-  // const siednlSignUp = (idUsrCentral: string) => {
-  //   axios
-  //     .post(
-  //       "http://10.200.4.200:8000/api/user-add",
-  //       {
-  //         IdUsuarioCentral: idUsrCentral,
-  //         IdInstitucion: institution,
-  //         Cargo: rol,
-  //         IdRol: userType,
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         closeModal();
-  //         Toast.fire({
-  //           icon: "success",
-  //           title: "Registro exitoso.",
-  //         });
-  //       }
-  //     });
-  // };
 
   const checkForm = () => {
     setErrorsForm({
