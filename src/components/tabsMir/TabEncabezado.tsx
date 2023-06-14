@@ -13,10 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { IFin, IProposito } from "./TabFinProposito";
-import { IComponente } from "./IComponente";
-import { ICompActividad } from "./ICompActividad";
-import { IMIREdit } from "./IMIR";
+import { IMIR } from "./IMIR";
 import Stack from "@mui/material/Stack";
 
 export interface IEncabezado {
@@ -31,141 +28,20 @@ export interface IEncabezado {
   beneficiario: string;
   conac: string;
   consecutivo: string;
-
 }
 
 export function TabEncabezado({
   show,
-  resumenEncabezado,
-  cargaFin,
-  cargaProposito,
   MIR,
-  asignarComponente,
-  asignarActividad,
-  asignarComponenteValor,
-  setComponenteActividad,
-  compAct,
-  actividadesMir,
-  anioFiscalEdit,
-  mirEdit,
+  setMIR,
 }: {
   show: boolean;
-  resumenEncabezado: Function;
-  cargaFin: Function;
-  cargaProposito: Function;
-  MIR: string;
-  asignarComponente: Function;
-  asignarComponenteValor: Function;
-  compAct: Function;
-  actividadesMir: Function;
-  anioFiscalEdit: string;
-  mirEdit?: IMIREdit;
-  asignarActividad: Function;
-  setComponenteActividad: Function;
+  MIR: IMIR;
+  setMIR: Function;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   );
-  const [docExtencion, setDocExt] = useState("");
-
-  const [encabezado, setEncabezado] = useState<Array<IEncabezado>>([]);
-  const [loadFin, setLoadFin] = useState<Array<IFin>>([]);
-
-  const [loadComponentes, setLoadComponentes] = useState<Array<number>>([1, 2]);
-  const [loadComponenteValor, setLoadComponenteValor] = useState<
-    Array<IComponente>
-  >([]);
-
-  const [loadActividades, setLoadActividades] = useState<Array<number>>([1, 2]);
-  const [loadActividadValor, setLoadActividadValor] = useState<
-    Array<ICompActividad>
-  >([]);
-
-  useEffect(() => {
-    if (MIR !== "") {
-      const jsonMir = JSON.parse(MIR)[0] || JSON.parse(MIR);
-
-      setAnioFiscal(anioFiscalEdit);
-      setLoadFin([jsonMir.fin]);
-      setLoadProposito([jsonMir.proposito]);
-      setPrograma(jsonMir.encabezado.nombre_del_programa);
-      getIdInstitucion(jsonMir.encabezado.institucion);
-      getIdEje(jsonMir.encabezado.eje);
-      getIdTematica(jsonMir.encabezado.tema);
-      getIdObjetivo(jsonMir.encabezado.objetivo);
-      getIdEstrategia(jsonMir.encabezado.estrategia);
-      getProgramaPresupuestario(jsonMir.encabezado.conac);
-      getProgramaPresupuestario(jsonMir.encabezado.consecutivo);
-      
-
-      setTimeout(() => {
-        jsonMir.encabezado.lineas_de_accion.map(
-          (value: { Id: string; LineaDeAccion: string }) => {
-            getIdLineaDeAccion(value.LineaDeAccion);
-          }
-        );
-        setLoadingFile(false);
-        getIdBeneficiario(jsonMir.encabezado.beneficiario);
-      }, 1500);
-
-      let act: number[] = [];
-      let comp: string[] = [];
-      let ambos: any = [];
-      let i = 1;
-      let j = 1;
-
-      jsonMir.componentes.map((x: any) => {
-        comp.push("C" + i);
-        jsonMir.actividades.map((a: any) => {
-          if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-            act.push(i);
-            i++;
-          }
-        });
-        ambos.push({ actividades: act, componente: "C" + j });
-        act = [];
-        i = 1;
-        j++;
-      });
-
-      compAct(ambos);
-      setLoadComponenteValor(jsonMir.componentes);
-      setLoadActividadValor(jsonMir.actividades);
-      setLoadingFile(false);
-
-      jsonMir.componentes?.map((value: any, index: number) => {
-        
-        if (index > 1 && index < 6)
-          setLoadComponentes((loadComponentes) => [
-            ...loadComponentes,
-            index + 1,
-          ]);
-      });
-      jsonMir.actividades?.map((value: any, index: number) => {
-        if (index > 1 && index < 36 )
-          setLoadActividades((loadActividades) => [
-            ...loadActividades,
-            index + 1,
-          ]);
-      });
-    
-    }
-    
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [MIR, anioFiscalEdit, compAct]);
-  
-  //envio de valores a MIR
-  useEffect(() => {
-    asignarComponente(loadComponentes);
-    asignarComponenteValor(loadComponenteValor);
-
-    asignarActividad(loadActividades);
-    setComponenteActividad(loadActividadValor);
-
-    actividadesMir(loadActividadValor);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ loadActividades, loadComponentes]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -179,17 +55,6 @@ export function TabEncabezado({
     },
   });
 
-  //saca la cantidad de componentes
-  useEffect(() => {
-    loadComponenteValor.map((value, index) => {
-      if (index > 1 && index < 6 && loadComponentes.length < 6)
-        setLoadComponentes((loadComponentes) => [
-          ...loadComponentes,
-          index + 1,
-        ]);
-    });
-  }, [loadComponenteValor]);
-
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
   function enCambioAnio(Id: string, Anio: string) {
     setAnioFiscal(Anio);
@@ -197,11 +62,19 @@ export function TabEncabezado({
   function enCambioInstitucion(Id: string, Inst: string) {
     setInstitution(Inst);
     setPrograma("");
-    getProgramas(Id);
+    setConac("");
+    setConsecutivo("");
+    if (Id !== "") {
+      getProgramas(Id);
+    }
     setDisabledProgramas(false);
   }
   function enCambioPrograma(Id: string, Prog: string) {
-    setPrograma(Prog);
+    setConac("");
+    setConsecutivo("");
+    if (Prog !== "") {
+      getIdPrograma(Prog);
+    }
   }
   function enCambioEje(Id: string, Eje: string) {
     setEje(Eje);
@@ -254,26 +127,10 @@ export function TabEncabezado({
     if (event.target.value !== "") {
       setNombreArchivo(event.target.value.split("\\")[2]);
     }
-      nombreArchivo == null || uploadFile == null
-        ? setDisabledButton(true)
-        : setDisabledButton(false);
+    nombreArchivo == null || uploadFile == null
+      ? setDisabledButton(true)
+      : setDisabledButton(false);
   }
-
-  const resultado = () => {
-    setDisabledButton(true);
-    setNombreArchivo("ARRASTRE O DE CLICK AQUI PARA CARGAR MIR");
-  };
-
-  useEffect(() => {
-    if (nombreArchivo !== "") {
-      let a = nombreArchivo.split(".");
-      setDocExt(a[a.length - 1]);
-    }
-  }, [nombreArchivo]);
-
-  useEffect(() => {
-    docExtencion === "xlsx" ? setDisabledButton(false) : resultado();
-  }, [docExtencion]);
 
   var y = new Date().getFullYear();
 
@@ -285,24 +142,34 @@ export function TabEncabezado({
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
 
-  const [loadProposito, setLoadProposito] = useState<Array<IProposito>>([]);
   //Values
-  const [anioFiscal, setAnioFiscal] = useState(y.toString());
-  const [institution, setInstitution] = useState("");
-  const [programa, setPrograma] = useState("");
-  const [eje, setEje] = useState("");
-  const [tematica, setTematica] = useState("");
-  const [objetivo, setObjetivo] = useState("");
-  const [estrategia, setEstrategia] = useState("");
+  const [anioFiscal, setAnioFiscal] = useState(
+    MIR.encabezado?.ejercicioFiscal || y.toString()
+  );
+  const [institution, setInstitution] = useState(
+    MIR.encabezado?.institucion || ""
+  );
+  const [programa, setPrograma] = useState(
+    MIR.encabezado?.nombre_del_programa || ""
+  );
+  const [eje, setEje] = useState(MIR.encabezado?.eje || "");
+  const [tematica, setTematica] = useState(MIR.encabezado?.tema || "");
+  const [objetivo, setObjetivo] = useState(MIR.encabezado?.objetivo || "");
+  const [estrategia, setEstrategia] = useState(
+    MIR.encabezado?.estrategia || ""
+  );
 
   const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
-    []
+    MIR.encabezado?.lineas_de_accion || []
   );
-  const [beneficiario, setBeneficiario] = useState("");
- //////////////////////////////////////////////////////////////////////////////////////////////////
-  const [conac, setConac] = useState("");
-  const [consecutivo, setConsecutivo] = useState("");
-///////////////////////////////////////////////////////////////////////////////////////////////////
+  const [beneficiario, setBeneficiario] = useState(
+    MIR.encabezado?.beneficiario || ""
+  );
+  const [conac, setConac] = useState(MIR.encabezado?.conac || "");
+  const [consecutivo, setConsecutivo] = useState(
+    MIR.encabezado?.consecutivo || ""
+  );
+
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
     { Id: "0", AnioFiscal: "" },
@@ -311,7 +178,7 @@ export function TabEncabezado({
     { Id: "0", NombreInstitucion: "" },
   ]);
   const [catalogoProgramas, setCatalogoProgramas] = useState([
-    { Id: "0", NombrePrograma: "" },
+    { Id: "0", NombrePrograma: "", Conac: "", Consecutivo: "" },
   ]);
   const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "0", Eje: "" }]);
   const [catalogoTematicas, setCatalogoTematicas] = useState([
@@ -332,10 +199,10 @@ export function TabEncabezado({
 
   const replica = catalogoLineasDeAccion;
 
-
   const [uploadFile, setUploadFile] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+
   const onClearLineasDeAccion = () => {
     setLineaDeAccion([]);
   };
@@ -508,21 +375,23 @@ export function TabEncabezado({
       })
       .catch((err) => {});
   };
-  // const getIdPrograma = (Description: string) => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-  //       params: {
-  //         Col: "Programas",
-  //         Descripcion: Description,
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setPrograma(r.data.data[0].Programa);
-  //     });
-  // };
+  const getIdPrograma = (Description: string) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+        params: {
+          Col: "Programas",
+          Descripcion: Description,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setPrograma(r.data.data[0].NombrePrograma);
+        setConac(r.data.data[0].Conac);
+        setConsecutivo(r.data.data[0].Consecutivo);
+      });
+  };
   const getIdEje = (Description: string) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
@@ -625,28 +494,6 @@ export function TabEncabezado({
         setBeneficiario(r.data.data[0].Beneficiario);
       });
   };
-///////////////////////////////////////////////////////////////////////////
-  const getProgramaPresupuestario = (Description: string) => {
-    axios
-    .get("localhost:8000/api/programaPresupuestarioConsulta",{
-      
-      
-      params:{
-        NombrePrograma: programa,
-        
-        Descripcion: Description,
-      },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      setConac(r.data.data[0]?.conac)
-      setConsecutivo(r.data.data[0]?.consecutivo)
-
-    });
-  };
-/////////////////////////////////////////////////////////////////////////
   //Cuando se da click en cargar archivo
   const submitForm = (event: any) => {
     setDisabledButton(true);
@@ -663,19 +510,24 @@ export function TabEncabezado({
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
-      .then((response) => {
-        
-        getIdInstitucion(response.data.encabezado[0].institucion);
-        // getIdPrograma(response.data.encabezado[0].nombre_del_programa);
-        setPrograma(response.data.encabezado[0].nombre_del_programa);
-        getIdEje(response.data.encabezado[0].eje);
-        getIdTematica(response.data.encabezado[0].tema);
-        getIdObjetivo(response.data.encabezado[0].objetivo);
-        getIdEstrategia(response.data.encabezado[0].estrategia);
-        getProgramaPresupuestario(response.data.encabezado[0].conac)
-        getProgramaPresupuestario(response.data.encabezado[0].consecutivo)
+      .then(({ data }) => {
+        setMIR((MIR: IMIR) => ({
+          ...MIR,
+          ...{ fin: data.fin[0] },
+          ...{ proposito: data.propositos[0] },
+          ...{ componentes: data.componentes },
+          ...{ actividades: data.actividades },
+          ...{ componenteActividad: data.componenteActividad },
+        }));
+
+        getIdInstitucion(data.encabezado[0].institucion);
+        getIdPrograma(data.encabezado[0].nombre_del_programa);
+        getIdEje(data.encabezado[0].eje);
+        getIdTematica(data.encabezado[0].tema);
+        getIdObjetivo(data.encabezado[0].objetivo);
+        getIdEstrategia(data.encabezado[0].estrategia);
         setTimeout(() => {
-          response.data.encabezado[0]?.lineas_de_accion
+          data.encabezado[0]?.lineas_de_accion
             ?.split(".\n")
             .map((value: string) => {
               if (value !== "") {
@@ -683,37 +535,8 @@ export function TabEncabezado({
               }
             });
           setLoadingFile(false);
-          getIdBeneficiario(response.data.encabezado[0].beneficiario);
+          getIdBeneficiario(data.encabezado[0].beneficiario);
         }, 1500);
-        compAct(response.data.componenteActividad);
-
-        setLoadFin([
-          {
-            resumen: response.data.fin[0].resumen,
-            indicador: response.data.fin[0].indicador,
-            formula: response.data.fin[0].formula,
-            frecuencia: response.data.fin[0].frecuencia,
-            medios: response.data.fin[0].medios,
-            supuestos: response.data.fin[0].supuestos,
-          },
-        ]);
-
-        setLoadProposito([
-          {
-            resumen: response.data.propositos[0].resumen,
-            indicador: response.data.propositos[0].indicador,
-            formula: response.data.propositos[0].formula,
-            frecuencia: response.data.propositos[0].frecuencia,
-            medios_verificacion:
-              response.data.propositos[0].medios_verificacion,
-            supuestos: response.data.propositos[0].supuestos,
-          },
-        ]);
-
-        setLoadComponenteValor(response.data.componentes);
-        setLoadActividadValor(response.data.actividades);
-        setLoadActividades(response.data.componenteActividad);
-        actividadesMir(response.data.actividades);
       })
       .catch((error) => {
         setErrorMsg(error.response.data || "Formato de archivo incorrecto");
@@ -731,21 +554,25 @@ export function TabEncabezado({
   }, []);
 
   useEffect(() => {
-    setEncabezado([
-      {
-        ejercicioFiscal: anioFiscal,
-        institucion: institution,
-        nombre_del_programa: programa,
-        eje: eje,
-        tema: tematica,
-        objetivo: objetivo,
-        estrategia: estrategia,
-        lineas_de_accion: lineaDeAccion,
-        beneficiario: beneficiario,
-        conac: conac,
-        consecutivo: consecutivo,
+    setMIR((MIR: IMIR) => ({
+      ...MIR,
+      ...{
+        encabezado: {
+          ejercicioFiscal: anioFiscal,
+          institucion: institution,
+          nombre_del_programa: programa,
+          eje: eje,
+          tema: tematica,
+          objetivo: objetivo,
+          estrategia: estrategia,
+          lineas_de_accion: lineaDeAccion,
+          beneficiario: beneficiario,
+          conac: conac,
+          consecutivo: consecutivo,
+        },
       },
-    ]);
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     anioFiscal,
     institution,
@@ -759,17 +586,6 @@ export function TabEncabezado({
     conac,
     consecutivo,
   ]);
-
-  useEffect(() => {
-    resumenEncabezado(encabezado);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [encabezado]);
-
-  useEffect(() => {
-    cargaFin(loadFin);
-    cargaProposito(loadProposito);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadFin, loadProposito]);
 
   const [loadingFile, setLoadingFile] = useState(false);
 
@@ -810,9 +626,9 @@ export function TabEncabezado({
         </Button>
       </Box>
 
-      <FormControl sx={{ gridRow: "1", width: "20vw", mt: "6vh" }}>
+      <FormControl sx={{ gridRow: "1", width: "20vw" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.ejercicioFiscal}
+          // disabled={mirEdit?.encabezado.ejercicioFiscal}
           disablePortal
           size="small"
           options={catalogoAniosFiscales}
@@ -885,15 +701,17 @@ export function TabEncabezado({
       >
         {showAlert ? (
           <Alert
-          sx={{ borderRadius: 5, width: "80%", alignItems: "center", mt: 2 }}
-          severity="error"
-          onClose={() => {
-            setShowAlert(false);
-            setNombreArchivo("Arrastre o de click aquí para seleccionar archivo");
-          }}
-        >
-          {errorMsg}
-        </Alert>
+            sx={{ borderRadius: 5, width: "80%", alignItems: "center", mt: 2 }}
+            severity="error"
+            onClose={() => {
+              setShowAlert(false);
+              setNombreArchivo(
+                "Arrastre o de click aquí para seleccionar archivo"
+              );
+            }}
+          >
+            {errorMsg}
+          </Alert>
         ) : (
           <Typography
             sx={{
@@ -944,9 +762,9 @@ export function TabEncabezado({
         </Box>
       </Box>
 
-      <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+      <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.institucion}
+          // disabled={mirEdit?.encabezado.institucion}
           disablePortal
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion || ""}
@@ -995,17 +813,21 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl sx={{ width: "20vw", mt: "6vh" }}>
+      <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            mirEdit?.encabezado.nombre_del_programa || disabledProgramas
+            // mirEdit?.encabezado.nombre_del_programa || 
+            disabledProgramas
           }
-          
           options={catalogoProgramas}
           size="small"
           getOptionLabel={(option) => option.NombrePrograma || ""}
-          value={{ Id: catalogoProgramas[0].Id, NombrePrograma: programa }}
-          
+          value={{
+            Id: catalogoProgramas[0].Id,
+            NombrePrograma: programa,
+            Conac: conac,
+            Consecutivo: consecutivo,
+          }}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
@@ -1035,20 +857,37 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>
+          onChange={(event, value) => {
             enCambioPrograma(
               value?.Id as string,
               (value?.NombrePrograma as string) || ""
-            )
-          }
+            );
+          }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
-      <FormControl required sx={{ width: "20vw", mt: "6vh" }}>
+      <Box>
+        <TextField
+          disabled
+          size="small"
+          label={"CONAC:"}
+          value={conac}
+          sx={{ width: "25%" }}
+        />
+        <TextField
+          disabled
+          size="small"
+          label={"CLASIFICACIÓN PROGRAMÁTICA:"}
+          value={consecutivo}
+          sx={{ width: "70%" }}
+        />
+      </Box>
+
+      <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disablePortal
-          disabled={mirEdit?.encabezado.eje}
+          // disabled={mirEdit?.encabezado.eje}
           size="small"
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje || ""}
@@ -1095,10 +934,14 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+      <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            (mirEdit?.encabezado.tema && tematica !== "") || disabledTematicas
+            // (mirEdit?.encabezado.tema && 
+            tematica !== ""
+            // ) 
+            || 
+            disabledTematicas
           }
           options={catalogoTematicas}
           size="small"
@@ -1155,10 +998,13 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+      <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            (mirEdit?.encabezado.objetivo && objetivo !== "") ||
+            // (mirEdit?.encabezado.objetivo && 
+            objetivo !== ""
+            // ) 
+            ||
             disabledObjetivos
           }
           options={catalogoObjetivos}
@@ -1210,10 +1056,13 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl required sx={{ width: "20vw", mt: "4vh" }}>
+      <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            (mirEdit?.encabezado.estrategia && estrategia !== "") ||
+            // (mirEdit?.encabezado.estrategia && 
+            estrategia !== ""
+            // ) 
+            ||
             disabledEstrategias
           }
           options={catalogoEstrategias}
@@ -1264,21 +1113,18 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <FormControl
-        required
-        sx={{
-          gridColumnStart: "1",
-          gridColumnEnd: "3",
-          width: "35vw",
-        }}
-      >
+      <FormControl required>
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
-          disabled={
-            (mirEdit?.encabezado.lineas_de_accion && lineaDeAccion[0]?.LineaDeAccion === "") ||
-            disabledLineasDeAccion
-          }
+            disabled={
+              // (mirEdit?.encabezado.lineas_de_accion &&
+                lineaDeAccion[0]?.LineaDeAccion 
+              === ""
+              // ) 
+              ||
+              disabledLineasDeAccion
+            }
             multiple
             limitTags={4}
             options={replica}
@@ -1347,7 +1193,7 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.beneficiario}
+          // disabled={mirEdit?.encabezado.beneficiario}
           disablePortal
           size="small"
           options={catalogoBeneficiarios}

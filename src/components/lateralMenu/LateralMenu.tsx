@@ -26,6 +26,7 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../funcs/validation";
@@ -521,7 +522,7 @@ export const LateralMenu = ({
         </List>
       </Box>
 
-      <Box sx={st.dividerBox} />
+      <Divider></Divider>
       <Box sx={st.bottomMenuBox}>
         <List>
           {localStorage.getItem("Rol") !== "Administrador" ? null : (

@@ -207,7 +207,7 @@ export default function AddFichaTecnica({
       {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null}
       <Box
         sx={{
-          width: "75vw",
+          width: "auto",
           height: "90vh",
           borderRadius: 5,
           display: "flex",
@@ -241,6 +241,9 @@ export default function AddFichaTecnica({
             <Tab
               label="Encabezado"
               value={10}
+              onClick={() => {
+                setValue(10);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -251,6 +254,9 @@ export default function AddFichaTecnica({
             <Tab
               label="Fin / Propósito"
               value={20}
+              onClick={() => {
+                setValue(20);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -261,6 +267,9 @@ export default function AddFichaTecnica({
             <Tab
               label="Componentes"
               value={30}
+              onClick={() => {
+                setValue(30);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -271,6 +280,9 @@ export default function AddFichaTecnica({
             <Tab
               label="Actividades"
               value={40}
+              onClick={() => {
+                setValue(40);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",
@@ -281,6 +293,9 @@ export default function AddFichaTecnica({
             <Tab
               label="Resumen"
               value={50}
+              onClick={() => {
+                setValue(50);
+              }}
               sx={{
                 borderRight: "5px solid #b3afaf",
                 color: "black",

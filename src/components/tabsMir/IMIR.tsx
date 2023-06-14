@@ -1,3 +1,4 @@
+import { IComponenteActividad } from "./AddMir";
 import { IComponente } from "./IComponente";
 import { IActividadesMir } from "./ICValor";
 import { IEncabezado } from "./TabEncabezado";
@@ -20,6 +21,8 @@ export interface IMIR {
   componentes: Array<IComponente>;
 
   actividades: Array<IActividadesMir>;
+
+  componenteActividad: Array<IComponenteActividad>
 }
 
 export interface IMIREdit {

@@ -239,6 +239,7 @@ export default function ModalVincularUsuario({
           AMaterno: dataUser.ApellidoMaterno,
           NombreUsuario: dataUser.NombreUsuario,
           Email: dataUser.CorreoElectronico,
+          Puesto:datosAdicionales.rol,
           Curp: dataUser.Curp,
           RFC: dataUser.Rfc,
           Celular: dataUser.Celular,

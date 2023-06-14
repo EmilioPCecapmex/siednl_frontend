@@ -106,7 +106,9 @@ export const TimerCounter = () => {
       {rest > 0
         ? Math.floor(rest / 1000 / 60).toString() +
           ":" +
-          Math.floor((rest / 1000) % 60).toString()
+          (Math.floor((rest / 1000) % 60) < 10
+            ? "0" + Math.floor((rest / 1000) % 60).toString()
+            : Math.floor((rest / 1000) % 60))
         : "0:0"}
     </Box>
   );
