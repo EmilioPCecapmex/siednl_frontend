@@ -6,7 +6,7 @@ import { CompFichaTecnica } from "./CompFichaTecnica";
 import { ActFichaTecnica } from "./ActFichaTecnica";
 import { useEffect, useState } from "react";
 import { IComponente } from "../tabsMir/IComponente";
-
+import { queries } from "../../queries";
 export const ResumenFichaTecnica = ({
   MIR,
   MA,

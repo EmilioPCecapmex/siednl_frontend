@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { sendMail} from "../../funcs/sendMailCustomMessage";
+import { queries } from "../../queries";
 
 export let errores: string[] = [];
 
@@ -695,7 +696,7 @@ export default function ModalEnviarMA({
           </Typography>
         </Box>
 
-        {newComent ? (
+       
           <Box sx={{ width: "30vw" }}>
             <TextField
               multiline
@@ -705,8 +706,7 @@ export default function ModalEnviarMA({
               onChange={(v) => setComment(v.target.value)}
             ></TextField>
           </Box>
-        ) : null}
-
+        
         <Box
           sx={{
             display: "flex",
@@ -720,14 +720,13 @@ export default function ModalEnviarMA({
               display: "flex",
               alignItems: "flex-end",
               justifyContent: "space-between",
-              width: "30vw",
+              width: "20vw",
               mt: "4vh",
             }}
           >
             <Button
-              sx={{ display: "flex", width: "9vw" }}
-              variant="contained"
-              color="error"
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -735,7 +734,7 @@ export default function ModalEnviarMA({
               </Typography>
             </Button>
 
-            <Button
+            {/* <Button
               sx={{ display: "flex", width: "11vw" }}
               variant="contained"
               color="info"
@@ -745,12 +744,11 @@ export default function ModalEnviarMA({
               }}
             >
               {newComent ? "Cancelar comentario" : "Nuevo comentario"}
-            </Button>
+            </Button> */}
 
             <Button
-              sx={{ display: "flex", width: "9vw" }}
-              variant="contained"
-              color="primary"
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              
               onClick={() => {
                 checkMA(
                   localStorage.getItem("Rol") === "Capturador"

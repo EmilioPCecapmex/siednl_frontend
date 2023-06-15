@@ -703,11 +703,13 @@ export const MetaAnual = () => {
                               ? "SIN ASIGNAR"
                               : row.CreadoPor.toUpperCase()}
                           </TableCell>
+
+
                           <TableCell
                             align="center"
                             sx={{
                               display: "flex",
-                              flexDirection: "column",
+                              //flexDirection: "column",
                               alignItems: "center",
                               justifyContent: "center",
                             }}
@@ -809,13 +811,17 @@ export const MetaAnual = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
+                              
                               <ComentDialogMA
                                 estado={row.Estado}
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
                               />
+
                             </Box>
                           </TableCell>
+
+
                         </TableRow>
                       ))}
                   </TableBody>

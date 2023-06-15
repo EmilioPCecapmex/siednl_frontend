@@ -28,7 +28,7 @@ export const Home = () => {
         <Header
           details={{
             name1: "Inicio",
-            path1: "/",
+            path1: "",
             name2: "",
             path2: "#",
             name3: "",

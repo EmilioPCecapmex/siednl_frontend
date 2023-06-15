@@ -31,6 +31,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { useNavigate } from "react-router-dom";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
+import { queries } from "../../queries";
 
 export const Notification = () => {
   const navigate = useNavigate();
@@ -411,9 +412,8 @@ export const Notification = () => {
           </FormGroup>
 
           <Button
-            variant="contained"
-            color="inherit"
-            sx={{ mt: "2vh", ml: "60%" }}
+            
+            sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() => revisaForm()}
           >
             <Typography

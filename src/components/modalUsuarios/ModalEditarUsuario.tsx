@@ -16,6 +16,7 @@ import {
   AlertColor,
 } from "@mui/material";
 import DataUsuariosTiCentral from "../datatable/interface";
+import { queries } from "../../queries";
 
 export interface IInstituciones {
   Id: string;
@@ -665,9 +666,8 @@ export default function ModalEditarUsuario({
             }}
           >
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="error"
+               sx={queries.buttonCancelarSolicitudInscripcion}
+              
               onClick={() => {
                 handleClose();
               }}
@@ -676,9 +676,8 @@ export default function ModalEditarUsuario({
             </Button>
 
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="primary"
+               sx={queries.buttonContinuarSolicitudInscripcion}
+             
               onClick={() => {
                 checkForm();
               }}

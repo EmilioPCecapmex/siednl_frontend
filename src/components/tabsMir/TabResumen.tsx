@@ -6,6 +6,7 @@ import { IActividadesMir } from "./ICValor";
 import { IMIR } from "./IMIR";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
+import { queries } from "../../queries";
 export function TabResumen({
   MIRPADRE,
   showResume,
@@ -267,6 +268,22 @@ export function TabResumen({
     editComponentes,
     editActividades,
   ]);
+
+  const isCapturador = localStorage.getItem("Rol") === "Capturador";
+
+  const buttonStyles = {
+    ...queries.buttonContinuarSolicitudInscripcion,
+    ...(isCapturador && {
+      "&.Mui-disabled": {
+        backgroundColor: "rgba(175, 140, 85, 0.6)",
+        color: "white",
+        "&:hover": {
+          backgroundColor: "rgba(175, 140, 85, 0.6)",
+        },
+      },
+    }),
+  };
+
 
   return (
     <Box
@@ -1611,7 +1628,7 @@ export function TabResumen({
           mt: 2,
         }}
       >
-        <Button color="error" variant="outlined" onClick={() => showResume()}>
+        <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => showResume()}>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
@@ -1626,8 +1643,7 @@ export function TabResumen({
             disablebuttonactividades &&
             localStorage.getItem("Rol") !== "Verificador"
           }
-          color="warning"
-          variant="outlined"
+          sx={buttonStyles}
           onClick={() => setOpenModalSolicitarModif(true)}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -1636,8 +1652,8 @@ export function TabResumen({
         </Button>
 
         <Button
-          color="success"
-          variant="outlined"
+          
+          sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() =>
             checkMir(
               localStorage.getItem("Rol") === "Capturador"
@@ -1655,8 +1671,7 @@ export function TabResumen({
         </Button>
 
         <Button
-          color="primary"
-          variant="outlined"
+          sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() => setOpenModalEnviar(true)}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>

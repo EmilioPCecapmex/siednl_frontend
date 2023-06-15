@@ -16,7 +16,7 @@ import {
   AlertColor,
 } from "@mui/material";
 import { IDatosAdicionales } from "./InterfazUsuario";
-
+import { queries } from "../../queries";
 export interface IInstituciones {
   Id: string;
   NombreInstitucion: string;
@@ -639,9 +639,8 @@ export default function ModalCrearUsuario({
             }}
           >
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="error"
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              
               onClick={() => {
                 handleClose();
               }}
@@ -649,9 +648,8 @@ export default function ModalCrearUsuario({
               Cancelar
             </Button>
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="primary"
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              
               onClick={() => {
                 checkForm();
               }}

@@ -746,7 +746,7 @@ export const MIR = () => {
                             align="center"
                             sx={{
                               display: "flex",
-                              flexDirection: "column",
+                             // flexDirection: "column",
                               alignItems: "center",
                               justifyContent: "center",
                             }}

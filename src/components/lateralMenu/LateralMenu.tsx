@@ -16,6 +16,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import GroupIcon from "@mui/icons-material/Group";
+import { queries } from "../../queries";
 import {
   Dialog,
   TextField,
@@ -236,6 +237,14 @@ export const LateralMenu = ({
         maxWidth={"sm"}
       >
         <Box
+        // display= "flex"
+        // alignItems= "center"
+        // justifyContent= "center"
+        // borderBottom= "1"
+        // height= "5vh"
+        // boxShadow= "1"
+        // borderColor= "#ccc"
+        
           sx={{
             display: "flex",
             alignItems: "center",
@@ -296,7 +305,7 @@ export const LateralMenu = ({
             }}
           >
             <Button
-              color="error"
+              sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClosePasswordChange()}
               variant="outlined"
             >
@@ -307,7 +316,7 @@ export const LateralMenu = ({
               </Typography>
             </Button>
 
-            <Button variant="outlined" onClick={() => cambiarContrasena()}>
+            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={() => cambiarContrasena()}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
