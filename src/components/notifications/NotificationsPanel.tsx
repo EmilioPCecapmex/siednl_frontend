@@ -157,11 +157,12 @@ export default function NotificationsPanel() {
                   >
                     {index.Titulo}
                   </Typography>
+                  ///////////////////////////////////////////////////
                   <Button
                     variant="text"
                     onClick={() => {
                       eliminaNotificacion(index.Id);
-                      navigate("../MIR?id=");
+                      navigate("../MIR");
                     }}
                   >
                     <Typography
