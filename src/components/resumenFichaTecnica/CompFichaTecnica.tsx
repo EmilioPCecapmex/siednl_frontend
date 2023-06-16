@@ -616,6 +616,7 @@ export const CompFichaTecnica = ({
                     justifyContent: "center",
                     alignItems: "center",
                     backgroundColor: "#D9D9D9",
+                    boxShadow: 6,
                   }}
                 >
                   <Typography sx={sxTitleSmallBoxes}>

@@ -244,6 +244,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     disablePortal
                     size="small"
                     options={catalogoAniosFiscales}
@@ -304,6 +308,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     disablePortal
                     size="small"
                     options={top100Films()}
@@ -351,6 +359,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     disablePortal
                     options={catalogoInstituciones}
                     getOptionLabel={(option) => option.NombreInstitucion}
@@ -415,6 +427,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -454,6 +470,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -492,6 +512,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -540,6 +564,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -578,6 +606,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -657,6 +689,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -696,6 +732,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -735,6 +775,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -783,6 +827,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -822,6 +870,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {

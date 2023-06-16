@@ -88,6 +88,10 @@ export const ActividadesInstitucionales = () => {
           >
             <Box sx={{ width: "20vw", height: "5vh" }}>
               <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                 disablePortal
                 size="small"
                 options={top100Films()}
@@ -122,6 +126,10 @@ export const ActividadesInstitucionales = () => {
             </Box>
             <Box sx={{ width: "20vw", height: "5vh" }}>
               <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                 disablePortal
                 size="small"
                 options={top100Films()}
@@ -156,6 +164,10 @@ export const ActividadesInstitucionales = () => {
             </Box>
             <Box sx={{ width: "20vw", height: "5vh" }}>
               <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                 disablePortal
                 size="small"
                 options={top100Films()}

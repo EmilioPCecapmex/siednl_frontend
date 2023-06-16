@@ -7,6 +7,7 @@ import {
   TextField,
   FormControl,
   Autocomplete,
+  Tooltip,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
@@ -351,15 +352,18 @@ export const TabActividadesMA = ({
 
   const getUnidades = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst", {
-        params: {
-          Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
-        },
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
+        {
+          params: {
+            Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
+          },
 
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
 
       .then((r) => {
         setCatalogoUnidadResponsable(r.data.data);
@@ -413,14 +417,16 @@ export const TabActividadesMA = ({
           alignItems: "center",
         }}
       >
-        <InfoOutlinedIcon
-          onClick={() => {
-            showMirFnc(true);
-            setTxtShowFnc("Actividades");
-          }}
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-        ></InfoOutlinedIcon>
+        <Tooltip title="RESUMEN ACTIVIDADES">
+          <InfoOutlinedIcon
+            onClick={() => {
+              showMirFnc(true);
+              setTxtShowFnc("Actividades");
+            }}
+            fontSize="large"
+            sx={{ cursor: "pointer" }}
+          ></InfoOutlinedIcon>
+        </Tooltip>
         <Typography
           sx={{
             mr: "1vw",
@@ -829,7 +835,7 @@ export const TabActividadesMA = ({
                 width: "15%",
                 height: "80%",
                 backgroundColor: "#f0f0f0",
-                boxShadow: 2,
+                boxShadow: 6,
                 fontFamily: "MontserratMedium",
                 justifyContent: "space-evenly",
                 alignItems: "flex-start",
@@ -1068,6 +1074,10 @@ export const TabActividadesMA = ({
             >
               <FormControl sx={{ width: "25vw" }}>
                 <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                   disabled={
                     (MAEdit !== ""
                       ? MAEdit?.actividades[actividadSelect - 1]

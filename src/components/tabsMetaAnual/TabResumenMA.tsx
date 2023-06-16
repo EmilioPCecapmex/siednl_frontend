@@ -7,7 +7,7 @@ import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IMA } from "./IMA";
 import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
-
+import { queries } from "../../queries";
 export function TabResumenMA({
   show,
   fin,
@@ -262,6 +262,22 @@ export function TabResumenMA({
 
     setDisablebuttonactividades(respuestaActividades);
   }, [editFin, editProposito, editComponentes, editActividades]);
+
+  const isCapturador = localStorage.getItem("Rol") === "Capturador";
+
+  const buttonStyles = {
+    ...queries.buttonContinuarSolicitudInscripcion,
+    ...(isCapturador && {
+      "&.Mui-disabled": {
+        backgroundColor: "rgba(175, 140, 85, 0.6)",
+        color: "white",
+        "&:hover": {
+          backgroundColor: "rgba(175, 140, 85, 0.6)",
+        },
+      },
+    }),
+  };
+
 
   return (
     <Box
@@ -2035,15 +2051,14 @@ export function TabResumenMA({
           mt: 2,
         }}
       >
-        <Button color="error" variant="outlined" onClick={() => showResume()}>
+        <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => showResume()}>
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
         </Button>
         <Button
-          disabled={localStorage.getItem("Rol") === "Capturador" ? true : false}
-          color="warning"
-          variant="outlined"
+          disabled={isCapturador ? true : false}
+          sx={buttonStyles}
           onClick={() => setOpenModalSolicitarModif(true)}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2052,8 +2067,7 @@ export function TabResumenMA({
         </Button>
 
         <Button
-          color="success"
-          variant="outlined"
+          sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() =>
             creaMA(
               localStorage.getItem("Rol") === "Capturador"
@@ -2070,8 +2084,7 @@ export function TabResumenMA({
         </Button>
 
         <Button
-          color="primary"
-          variant="outlined"
+          sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() => setOpenModalEnviar(true)}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>

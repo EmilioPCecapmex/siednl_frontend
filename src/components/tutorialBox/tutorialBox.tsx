@@ -2,6 +2,8 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Button, Typography, Box, IconButton } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { queries } from "../../queries";
 
 export const TutorialBox = ({
   initialState,
@@ -734,7 +736,7 @@ export const TutorialBox = ({
         }}
       >
         <IconButton onClick={() => setShow(!show)}>
-          <InfoIcon fontSize="medium" />
+          <InfoOutlinedIcon fontSize="medium" />
         </IconButton>
       </Box>
       <Box
@@ -768,6 +770,7 @@ export const TutorialBox = ({
             justifyContent={topArrow ? "flex-end" : "flex-start"}
             width={topArrow ? "100%" : "6%"}
             alignItems={bottomArrow ? "flex-end" : "flex-start"}
+            display =  "flex" 
             sx={{ display: "flex" }}
           >
             {leftArrow ? (
@@ -838,7 +841,7 @@ export const TutorialBox = ({
 
             <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
               {tutorialPosition === initialState ? null : (
-                <Button color="error" onClick={() => backButton()}>
+                <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => backButton()}>
                   <Typography
                     sx={{ fontFamily: "MontserratSemiBold", fontSize: ".6vw" }}
                   >
@@ -848,7 +851,10 @@ export const TutorialBox = ({
               )}
 
               <Button
-                color="primary"
+                  sx={{
+                    ...queries.buttonContinuarSolicitudInscripcion,
+                    marginLeft: "1rem", // Espacio entre los botones
+                  }}
                 onClick={() => setTutorialPosition(tutorialPosition + 1)}
               >
                 <Typography

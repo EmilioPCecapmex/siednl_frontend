@@ -18,6 +18,7 @@ import axios from "axios";
 import { INotificacion } from "./NotificacionesInterfaz";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { queries } from "../../queries";
 
 export default function NotificationsPanel() {
   const navigate = useNavigate();
@@ -226,6 +227,7 @@ export default function NotificationsPanel() {
                     backgroundColor: "#ccc",
                     mt: "1vh",
                     boxShadow: 0.1,
+                    
                   }}
                 />
               </Box>
@@ -247,7 +249,15 @@ export default function NotificationsPanel() {
 
       <Divider />
 
-      <Button onClick={() => handleCloseNotifPanel()} color="error">
+      <Button
+        sx={{
+          ...queries.buttonCancelarSolicitudInscripcion,
+        
+      
+        }}
+        onClick={() => handleCloseNotifPanel()}
+        color="error"
+      >
         Cerrar
       </Button>
     </Box>

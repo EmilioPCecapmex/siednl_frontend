@@ -334,6 +334,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         )}
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
           options={catalogoEjes}
@@ -344,6 +348,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         />
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
           options={catalogoTematicas}
@@ -354,6 +362,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         />
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
           options={catalogoObjetivos}
@@ -364,6 +376,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         />
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
           options={catalogoEstrategias}
@@ -374,6 +390,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         />
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           multiple
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
@@ -387,6 +407,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         />
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           multiple
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
@@ -400,6 +424,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         />
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           multiple
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
@@ -411,6 +439,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         />
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           multiple
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}
@@ -422,6 +454,10 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
         />
 
         <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
           multiple
           disablePortal
           sx={{ m: "1vh 1vh 0 1vh" }}

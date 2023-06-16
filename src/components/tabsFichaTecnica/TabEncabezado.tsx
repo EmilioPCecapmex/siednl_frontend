@@ -278,6 +278,10 @@ export function TabEncabezado({
           >
             <FormControl sx={{ width: "30vw" }}>
               <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                 options={catalogoObjetivosDS}
                 getOptionLabel={(option) => option.ObjetivoDS}
                 value={{
@@ -340,6 +344,10 @@ export function TabEncabezado({
           >
             <FormControl sx={{ width: "30vw" }}>
               <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                 disabled={disabledMetas || objetivoODSSel === ""}
                 options={catalogoMetasODS}
                 getOptionLabel={(option) => option.MetaODS}

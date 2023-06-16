@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { sendMail} from "../../funcs/sendMailCustomMessage";
+import { queries } from "../../queries";
 export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
@@ -603,7 +604,7 @@ export default function ModalEnviarMIR({
           </Typography>
         </Box>
 
-        {newComent ? (
+        
           <Box sx={{ width: "30vw" }}>
             <TextField
               multiline
@@ -613,7 +614,7 @@ export default function ModalEnviarMIR({
               onChange={(v) => setComment(v.target.value)}
             ></TextField>
           </Box>
-        ) : null}
+        
 
         <Box
           sx={{
@@ -626,16 +627,14 @@ export default function ModalEnviarMIR({
           <Box
             sx={{
               display: "flex",
-              alignItems: "flex-end",
+              alignItems: "flex-ce",
               justifyContent: "space-between",
-              width: "30vw",
+              width: "20vw",
               mt: "4vh",
             }}
           >
             <Button
-              sx={{ display: "flex", width: "9vw" }}
-              variant="contained"
-              color="error"
+              sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClose(false)}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -643,7 +642,7 @@ export default function ModalEnviarMIR({
               </Typography>
             </Button>
 
-            <Button
+            {/* <Button
               sx={{ display: "flex", width: "11vw" }}
               variant="contained"
               color="info"
@@ -653,12 +652,10 @@ export default function ModalEnviarMIR({
               }}
             >
               {newComent ? "Cancelar comentario" : "Nuevo comentario"}
-            </Button>
+            </Button> */}
 
             <Button
-              sx={{ display: "flex", width: "9vw" }}
-              variant="contained"
-              color="primary"
+              sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
