@@ -52,7 +52,6 @@ export const LateralMenu = ({
   actionNumber: number;
   settingsCard?: Function;
 }) => {
-  
   const theme = useTheme();
   let st = lstXl;
 
@@ -83,30 +82,30 @@ export const LateralMenu = ({
   };
 
   const exitAlert = (urlNavigate: string) => {
-    if (selection === 2 || selection === 3 || selection === 4) {
-      if (actionNumber === 1) {
-        Swal.fire({
-          title: "Pregunta",
-          text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonColor: "#000E4E",
-          cancelButtonColor: "#A40000",
-          confirmButtonText: "Si",
-          cancelButtonText: "No",
-          allowOutsideClick: false,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate(urlNavigate);
-          } else {
-          }
-        });
-      } else {
-        navigate(urlNavigate);
-      }
-    } else {
-      navigate(urlNavigate);
-    }
+    // if (selection === 2 || selection === 3 || selection === 4) {
+    //   if (actionNumber === 1) {
+    //     Swal.fire({
+    //       title: "Pregunta",
+    //       text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
+    //       icon: "question",
+    //       showCancelButton: true,
+    //       confirmButtonColor: "#000E4E",
+    //       cancelButtonColor: "#A40000",
+    //       confirmButtonText: "Si",
+    //       cancelButtonText: "No",
+    //       allowOutsideClick: false,
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         navigate(urlNavigate);
+    //       } else {
+    //       }
+    //     });
+    //   } else {
+    //     navigate(urlNavigate);
+    //   }
+    // } else {
+    navigate(urlNavigate);
+    // }
   };
 
   function stringToColor(string: string) {
@@ -149,8 +148,6 @@ export const LateralMenu = ({
   const handleClosePasswordChange = () => {
     setOpenPasswordChange(false);
   };
-
- 
 
   const ChangePasswordModal = () => {
     const [newPassword, setNewPassword] = useState("");

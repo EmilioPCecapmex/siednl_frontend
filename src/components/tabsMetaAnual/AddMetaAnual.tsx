@@ -28,8 +28,6 @@ export default function AddMetaAnual({
   IdMir: string;
   IdMA: string;
 }) {
-
-  
   const [value, setValue] = React.useState(20);
 
   const [showMir, setShowMir] = React.useState(false);
@@ -201,11 +199,11 @@ export default function AddMetaAnual({
         justifyContent: "space-evenly",
       }}
     >
-      {value === 10 ? <TutorialBox initialState={35} endState={39} /> : null}
+      {/* {value === 10 ? <TutorialBox initialState={35} endState={39} /> : null}
       {value === 20 ? <TutorialBox initialState={39} endState={40} /> : null}
       {value === 30 ? <TutorialBox initialState={40} endState={41} /> : null}
       {value === 40 ? <TutorialBox initialState={41} endState={42} /> : null}
-      {value === 50 ? <TutorialBox initialState={42} endState={45} /> : null}
+      {value === 50 ? <TutorialBox initialState={42} endState={45} /> : null} */}
       <Box
         sx={{
           width: "60%",

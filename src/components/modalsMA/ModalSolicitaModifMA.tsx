@@ -426,8 +426,11 @@ export default function ModalSolicitaModif({
         err = 1;
       }
       if (
-        actividad.valorDenominador === undefined ||
-        /^[\s]*$/.test(actividad.valorDenominador)
+        !JSON.parse(MIR)
+          .actividades[index].indicador.toLowerCase()
+          .includes("indice" || "índice") &&
+        (actividad.valorDenominador === undefined ||
+          /^[\s]*$/.test(actividad.valorDenominador))
       ) {
         errores.push(
           `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
@@ -510,7 +513,10 @@ export default function ModalSolicitaModif({
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
-          MetaAnual: MAEdit === undefined ? MA : "[" + MA + "," + MAEdit + "]",
+          MetaAnual:
+            MAEdit === undefined || MAEdit === ""
+              ? MA
+              : "[" + MA + "," + MAEdit + "]",
           // MetaAnual: MA,
           CreadoPor:
             userSelected !== "0"
@@ -553,23 +559,23 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     if (open) {
       axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            Institucion: JSON.parse(MIR)?.encabezado?.institucion,
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
+        .get(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+          {
+            params: {
+              IdUsuario: localStorage.getItem("IdUsuario"),
+              Institucion: JSON.parse(MIR)?.encabezado?.institucion,
+            },
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
     }
   }, [MIR, open]);
   ///////////////////////////////////////////////////////////////////////////////////

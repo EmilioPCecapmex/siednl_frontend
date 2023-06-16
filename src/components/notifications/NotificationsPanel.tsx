@@ -160,7 +160,7 @@ export default function NotificationsPanel() {
                     variant="text"
                     onClick={() => {
                       eliminaNotificacion(index.Id);
-                      navigate("../MIR");
+                      navigate("../MIR?id=");
                     }}
                   >
                     <Typography

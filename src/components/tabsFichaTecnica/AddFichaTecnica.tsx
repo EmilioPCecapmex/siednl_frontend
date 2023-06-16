@@ -200,11 +200,11 @@ export default function AddFichaTecnica({
         justifyContent: "space-evenly",
       }}
     >
-      {value === 10 ? <TutorialBox initialState={49} endState={50} /> : null}
+      {/* {value === 10 ? <TutorialBox initialState={49} endState={50} /> : null}
       {value === 20 ? <TutorialBox initialState={50} endState={51} /> : null}
       {value === 30 ? <TutorialBox initialState={51} endState={52} /> : null}
       {value === 40 ? <TutorialBox initialState={52} endState={53} /> : null}
-      {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null}
+      {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null} */}
       <Box
         sx={{
           width: "auto",

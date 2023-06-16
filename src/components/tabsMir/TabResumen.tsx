@@ -1,21 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { useEffect, useState } from "react";
-import { Box, Typography, Button, Checkbox } from "@mui/material";
+import { Box, Button, Checkbox, Typography } from "@mui/material";
 import axios from "axios";
-import { IEncabezado } from "./TabEncabezado";
-import { IComponente } from "./IComponente";
-import { IActividadesMir, ICValor } from "./ICValor";
-import { IFin, IProposito } from "./TabFinProposito";
-import { IMIR } from "./IMIR";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
-import { IComponenteActividad } from "./AddMir";
+import { IActividadesMir } from "./ICValor";
+import { IMIR } from "./IMIR";
 
 export function TabResumen({
   MIRPADRE,
   showResume,
-  idMir
+  idMir,
 }: {
   MIRPADRE: IMIR;
   showResume: Function;
@@ -69,11 +66,9 @@ export function TabResumen({
   ]);
 
   useEffect(() => {
-    
     let n: Array<Array<IActividadesMir>> = [];
     let indexActividades = 0;
     MIRPADRE.componenteActividad.map((v, index) => {
-      
       let aux: Array<IActividadesMir> = [];
       v.actividades.map((x) => {
         aux.push(MIRPADRE.actividades[indexActividades]);
@@ -87,10 +82,6 @@ export function TabResumen({
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
-
-  const handleCloseModif = () => {
-    setOpenModalSolicitarModif(false);
-  };
 
   const checkMir = (v: string) => {
     if (MIR?.encabezado.ejercicioFiscal === "") {
@@ -177,6 +168,8 @@ export function TabResumen({
     estrategia: true,
     lineas_de_accion: true,
     beneficiario: true,
+    conac: true,
+    consecutivo: true,
   });
 
   const [editFin, setEditFin] = useState<IFinEdit>({
@@ -333,11 +326,11 @@ export function TabResumen({
             >
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
-                  value={!editEncabezado.ejercicioFiscal}
+                  value={editEncabezado.ejercicioFiscal}
                   onChange={(v) => {
                     setEditEncabezado({
                       ...editEncabezado,
-                      ejercicioFiscal: !v.target.checked,
+                      ejercicioFiscal: v.target.checked,
                     });
                   }}
                 />
@@ -372,11 +365,11 @@ export function TabResumen({
 
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
-                  value={!editEncabezado.institucion}
+                  value={editEncabezado.institucion}
                   onChange={(v) => {
                     setEditEncabezado({
                       ...editEncabezado,
-                      institucion: !v.target.checked,
+                      institucion: v.target.checked,
                     });
                   }}
                 />
@@ -416,11 +409,11 @@ export function TabResumen({
             >
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
-                  value={!editEncabezado.nombre_del_programa}
+                  value={editEncabezado.nombre_del_programa}
                   onChange={(v) => {
                     setEditEncabezado({
                       ...editEncabezado,
-                      nombre_del_programa: !v.target.checked,
+                      nombre_del_programa: v.target.checked,
                     });
                   }}
                 />
@@ -452,11 +445,11 @@ export function TabResumen({
             >
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
-                  value={!editEncabezado.eje}
+                  value={editEncabezado.eje}
                   onChange={(v) => {
                     setEditEncabezado({
                       ...editEncabezado,
-                      eje: !v.target.checked,
+                      eje: v.target.checked,
                     });
                   }}
                 />
@@ -490,11 +483,11 @@ export function TabResumen({
             >
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
-                  value={!editEncabezado.tema}
+                  value={editEncabezado.tema}
                   onChange={(v) => {
                     setEditEncabezado({
                       ...editEncabezado,
-                      tema: !v.target.checked,
+                      tema: v.target.checked,
                     });
                   }}
                 />
@@ -533,11 +526,11 @@ export function TabResumen({
             >
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
-                  value={!editEncabezado.objetivo}
+                  value={editEncabezado.objetivo}
                   onChange={(v) => {
                     setEditEncabezado({
                       ...editEncabezado,
-                      objetivo: !v.target.checked,
+                      objetivo: v.target.checked,
                     });
                   }}
                 />
@@ -570,11 +563,11 @@ export function TabResumen({
             >
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
-                  value={!editEncabezado.estrategia}
+                  value={editEncabezado.estrategia}
                   onChange={(v) => {
                     setEditEncabezado({
                       ...editEncabezado,
-                      estrategia: !v.target.checked,
+                      estrategia: v.target.checked,
                     });
                   }}
                 />
@@ -606,11 +599,11 @@ export function TabResumen({
             >
               {localStorage.getItem("Rol") !== "Administrador" ? null : (
                 <Checkbox
-                  value={!editEncabezado.beneficiario}
+                  value={editEncabezado.beneficiario}
                   onChange={(v) => {
                     setEditEncabezado({
                       ...editEncabezado,
-                      beneficiario: !v.target.checked,
+                      beneficiario: v.target.checked,
                     });
                   }}
                 />
@@ -643,11 +636,11 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editEncabezado.lineas_de_accion}
+                value={editEncabezado.lineas_de_accion}
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    lineas_de_accion: !v.target.checked,
+                    lineas_de_accion: v.target.checked,
                   });
                 }}
               />
@@ -706,9 +699,9 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.resumen}
+                value={editFin.resumen}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, resumen: !v.target.checked });
+                  setEditFin({ ...editFin, resumen: v.target.checked });
                 }}
               />
             )}
@@ -738,9 +731,9 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.indicador}
+                value={editFin.indicador}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, indicador: !v.target.checked });
+                  setEditFin({ ...editFin, indicador: v.target.checked });
                 }}
               />
             )}
@@ -770,9 +763,9 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.formula}
+                value={editFin.formula}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, formula: !v.target.checked });
+                  setEditFin({ ...editFin, formula: v.target.checked });
                 }}
               />
             )}
@@ -802,9 +795,9 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.frecuencia}
+                value={editFin.frecuencia}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, frecuencia: !v.target.checked });
+                  setEditFin({ ...editFin, frecuencia: v.target.checked });
                 }}
               />
             )}
@@ -834,9 +827,9 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.medios}
+                value={editFin.medios}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, medios: !v.target.checked });
+                  setEditFin({ ...editFin, medios: v.target.checked });
                 }}
               />
             )}
@@ -866,9 +859,9 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editFin.supuestos}
+                value={editFin.supuestos}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, supuestos: !v.target.checked });
+                  setEditFin({ ...editFin, supuestos: v.target.checked });
                 }}
               />
             )}
@@ -909,11 +902,11 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.resumen}
+                value={editProposito.resumen}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    resumen: !v.target.checked,
+                    resumen: v.target.checked,
                   });
                 }}
               />
@@ -945,11 +938,11 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.indicador}
+                value={editProposito.indicador}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    indicador: !v.target.checked,
+                    indicador: v.target.checked,
                   });
                 }}
               />
@@ -980,11 +973,11 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.formula}
+                value={editProposito.formula}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    formula: !v.target.checked,
+                    formula: v.target.checked,
                   });
                 }}
               />
@@ -1015,11 +1008,11 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.frecuencia}
+                value={editProposito.frecuencia}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    frecuencia: !v.target.checked,
+                    frecuencia: v.target.checked,
                   });
                 }}
               />
@@ -1050,11 +1043,11 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.medios_verificacion}
+                value={editProposito.medios_verificacion}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    medios_verificacion: !v.target.checked,
+                    medios_verificacion: v.target.checked,
                   });
                 }}
               />
@@ -1085,11 +1078,11 @@ export function TabResumen({
           >
             {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
-                value={!editProposito.supuestos}
+                value={editProposito.supuestos}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    supuestos: !v.target.checked,
+                    supuestos: v.target.checked,
                   });
                 }}
               />
@@ -1145,10 +1138,10 @@ export function TabResumen({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[index - 1]?.resumen}
+                      value={editComponentes[index - 1]?.resumen}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].resumen = !v.target.checked;
+                        past[index - 1].resumen = v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1181,10 +1174,10 @@ export function TabResumen({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[index - 1]?.indicador}
+                      value={editComponentes[index - 1]?.indicador}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].indicador = !v.target.checked;
+                        past[index - 1].indicador = v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1218,10 +1211,10 @@ export function TabResumen({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[index - 1]?.formula}
+                      value={editComponentes[index - 1]?.formula}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].formula = !v.target.checked;
+                        past[index - 1].formula = v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1255,10 +1248,10 @@ export function TabResumen({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[index - 1]?.frecuencia}
+                      value={editComponentes[index - 1]?.frecuencia}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].frecuencia = !v.target.checked;
+                        past[index - 1].frecuencia = v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1292,10 +1285,10 @@ export function TabResumen({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[index - 1]?.medios}
+                      value={editComponentes[index - 1]?.medios}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].medios = !v.target.checked;
+                        past[index - 1].medios = v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1329,10 +1322,10 @@ export function TabResumen({
                 >
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Checkbox
-                      value={!editComponentes[index - 1]?.supuestos}
+                      value={editComponentes[index - 1]?.supuestos}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].supuestos = !v.target.checked;
+                        past[index - 1].supuestos = v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1398,7 +1391,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.resumen}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].resumen = !v.target.checked;
+                          past[index - 1].resumen = v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -1434,7 +1427,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.indicador}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].indicador = !v.target.checked;
+                          past[index - 1].indicador = v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -1471,7 +1464,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.formula}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].formula = !v.target.checked;
+                          past[index - 1].formula = v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -1508,7 +1501,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.frecuencia}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].frecuencia = !v.target.checked;
+                          past[index - 1].frecuencia = v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -1545,7 +1538,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.medios}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].medios = !v.target.checked;
+                          past[index - 1].medios = v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -1582,7 +1575,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.supuestos}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].supuestos = !v.target.checked;
+                          past[index - 1].supuestos = v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -1672,24 +1665,25 @@ export function TabResumen({
           </Typography>
         </Button>
 
-        {/* <ModalSolicitaModif
+        <ModalSolicitaModif
           open={openModalSolicitarModif}
-          IdMir={IdMir}
+          IdMir={idMir}
           showResume={showResume}
-          handleClose={handleCloseModif}
+          handleClose={setOpenModalSolicitarModif}
           MIR={JSON.stringify(MIR)}
           MIREdit={
-            localStorage.getItem("Rol") !== "Administrador"
-              ? JSON.stringify(mirEdit)
-              : JSON.stringify({
-                  encabezado: editEncabezado,
-                  fin: editFin,
-                  proposito: editProposito,
-                  componentes: editComponentes,
-                  actividades: editActividades,
-                })
+            // localStorage.getItem("Rol") !== "Administrador"
+            //   ? JSON.stringify(mirEdit)
+            //   :
+            JSON.stringify({
+              encabezado: editEncabezado,
+              fin: editFin,
+              proposito: editProposito,
+              componentes: editComponentes,
+              actividades: editActividades,
+            })
           }
-        ></ModalSolicitaModif> */}
+        ></ModalSolicitaModif>
 
         <ModalEnviarMIR
           showResume={showResume}
@@ -1715,6 +1709,8 @@ export interface IEncabezadoEdit {
   estrategia: boolean;
   lineas_de_accion: boolean;
   beneficiario: boolean;
+  conac: boolean;
+  consecutivo: boolean;
 }
 
 export interface IFinEdit {

@@ -14,7 +14,7 @@ export const Settings = () => {
     if (localStorage.getItem("Rol") !== "Administrador") {
       navigate("../home");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [showCards, setShowCards] = useState(true);
@@ -31,47 +31,46 @@ export const Settings = () => {
 
   return (
     <Box
-    sx={{
-      width: "100vw",
-      height: "100vh",
-      display: "grid",
-      backgroundColor: "#F2F2F2",
-      gridTemplateAreas: `
+      sx={{
+        width: "100vw",
+        height: "100vh",
+        display: "grid",
+        backgroundColor: "#F2F2F2",
+        gridTemplateAreas: `
                         'aside header'
                         'aside main'
                        `,
-      alignItems: "start",
-    }}
+        alignItems: "start",
+      }}
     >
-      <Box gridArea={'aside'} sx={{mr: showCards ? 8 : 0}}>
+      <Box gridArea={"aside"} sx={{ mr: showCards ? 8 : 0 }}>
         <LateralMenu selection={6} actionNumber={0} settingsCard={resetView} />
       </Box>
 
-      <Box gridArea={'header'} sx={{ height: "8vh" }}>
+      <Box gridArea={"header"} sx={{ height: "8vh" }}>
         <Header
-        details={{
-          name1: "Inicio",
-          path1: "../home",
-          name2: "Configuración",
-          path2: "../settings",
-          name3: "",
-        }}
-      />
+          details={{
+            name1: "Inicio",
+            path1: "../home",
+            name2: "Configuración",
+            path2: "../settings",
+            name3: "",
+          }}
+        />
       </Box>
-      
 
-      <Box gridArea={'main'}>
+      <Box gridArea={"main"}>
         {showCards ? (
           <>
             <SettingsCard showConfig={showConfig} />
-            <TutorialBox initialState={17} endState={19} />
+            {/* <TutorialBox initialState={17} endState={19} /> */}
           </>
         ) : null}
 
         {!showCards ? (
           <>
             <Catalogos defSelected={optionSelected} />
-            <TutorialBox initialState={19} endState={23} />
+            {/* <TutorialBox initialState={19} endState={23} /> */}
           </>
         ) : null}
       </Box>

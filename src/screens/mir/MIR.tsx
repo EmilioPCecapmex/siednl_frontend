@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
@@ -39,6 +40,9 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -114,42 +118,89 @@ export const MIR = () => {
   // Filtrado por caracter
 
   const findText = (v: string, est: string, inst: string) => {
-    if (v !== "" || est !== "0" || inst !== "0") {
+    if (
+      v !== "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
       setMirsFiltered(
         mirs.filter(
           (x) =>
-            x.AnioFiscal.includes(findTextStr) ||
-            x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.Programa.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.FechaCreacion.toLowerCase().includes(findTextStr.toLowerCase())
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
         )
       );
-
-      if (est !== "0" && inst !== "0") {
-        setMirsFiltered(
-          mirs.filter(
-            (x) =>
-              x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-              x.Institucion.toLowerCase().includes(inst.toLowerCase())
-          )
-        );
-      } else if (est !== "0") {
-        setMirsFiltered(
-          mirs.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
-        );
-      } else if (inst !== "0") {
-        setMirsFiltered(
-          mirs.filter((x) =>
+    } else if (
+      v !== "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+        )
+      );
+    } else if (
+      v !== "" &&
+      (est === "0" || est === "Todos") &&
+      (inst === "0" || inst === "Todos")
+    ) {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            x.AnioFiscal.includes(v) ||
+            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+            x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+            x.CreadoPor.toLowerCase().includes(v.toLowerCase())
+        )
+      );
+    } else if (
+      v === "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
             x.Institucion.toLowerCase().includes(inst.toLowerCase())
-          )
-        );
-      } else {
-        setMirsFiltered(mirs);
-      }
+        )
+      );
+    } else if (
+      v === "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+        )
+      );
     } else {
       setMirsFiltered(mirs);
     }
   };
+
+  useEffect(() => {
+    findText(findTextStr, findSelectStr, findInstStr);
+  }, [findTextStr, findInstStr, findSelectStr]);
 
   const getMIRs = () => {
     axios
@@ -178,6 +229,11 @@ export const MIR = () => {
     setShowResume(false);
     onChangeActionNumberValue();
   };
+
+  useEffect(() => {
+    let id = urlParams.get("id");
+    setMirsFiltered(mirs.filter((x) => x.ID.toLowerCase().includes(id || "")));
+  }, [mirs]);
 
   const [actualizacion, setActualizacion] = useState(0);
 
@@ -265,10 +321,10 @@ export const MIR = () => {
                           'aside header'
                           'aside main'
                          `,
-          alignItems: "end",
+        alignItems: "end",
       }}
     >
-      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
+      <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
         <LateralMenu selection={2} actionNumber={actionNumber} />
       </Box>
 
@@ -309,7 +365,7 @@ export const MIR = () => {
               justifyItems: "center",
             }}
           >
-            <TutorialBox initialState={8} endState={13} />
+            {/* <TutorialBox initialState={8} endState={13} /> */}
             <Box
               sx={{
                 display: "flex",
@@ -329,10 +385,9 @@ export const MIR = () => {
                 disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
-                  findText(v.target.value, findSelectStr, "");
+                  // findText(v.target.value, findSelectStr, "");
                 }}
               />
-              <SearchIcon />
             </Box>
 
             <FormControl
@@ -354,13 +409,13 @@ export const MIR = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value === "Todos"
-                    ? findText(
-                        findTextStr,
-                        "0",
-                        findInstStr === "Todos" ? "0" : findInstStr
-                      )
-                    : findText(findTextStr, v.target.value, findInstStr);
+                  // v.target.value === "Todos"
+                  //   ? findText(
+                  //       findTextStr,
+                  //       "0",
+                  //       findInstStr === "Todos" ? "0" : findInstStr
+                  //     )
+                  //   : findText(findTextStr, v.target.value, findInstStr);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -425,13 +480,13 @@ export const MIR = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value === "Todos"
-                    ? findText(
-                        findTextStr,
-                        findSelectStr === "Todos" ? "0" : findSelectStr,
-                        "0"
-                      )
-                    : findText(findTextStr, findSelectStr, v.target.value);
+                  // v.target.value === "Todos"
+                  //   ? findText(
+                  //       findTextStr,
+                  //       findSelectStr === "Todos" ? "0" : findSelectStr,
+                  //       "0"
+                  //     )
+                  //   : findText(findTextStr, findSelectStr, v.target.value);
                   setFindInstStr(v.target.value);
                 }}
               >
@@ -856,7 +911,6 @@ export const MIR = () => {
                                         : true
                                     }
                                     onClick={() => {
-                                      
                                       setMirEdit([
                                         {
                                           ID: row.ID,

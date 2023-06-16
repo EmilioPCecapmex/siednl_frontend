@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { IMIR } from "./IMIR";
+import { IMIR, IMIREdit } from "./IMIR";
 import Stack from "@mui/material/Stack";
 
 export interface IEncabezado {
@@ -34,10 +34,12 @@ export function TabEncabezado({
   show,
   MIR,
   setMIR,
+  mirEdit,
 }: {
   show: boolean;
   MIR: IMIR;
   setMIR: Function;
+  mirEdit: IMIREdit;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
@@ -158,7 +160,6 @@ export function TabEncabezado({
   const [estrategia, setEstrategia] = useState(
     MIR.encabezado?.estrategia || ""
   );
-
   const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
     MIR.encabezado?.lineas_de_accion || []
   );
@@ -558,17 +559,17 @@ export function TabEncabezado({
       ...MIR,
       ...{
         encabezado: {
-          ejercicioFiscal: anioFiscal,
-          institucion: institution,
-          nombre_del_programa: programa,
-          eje: eje,
-          tema: tematica,
-          objetivo: objetivo,
-          estrategia: estrategia,
+          ejercicioFiscal: anioFiscal.toUpperCase(),
+          institucion: institution.toUpperCase(),
+          nombre_del_programa: programa.toUpperCase(),
+          eje: eje.toUpperCase(),
+          tema: tematica.toUpperCase(),
+          objetivo: objetivo.toUpperCase(),
+          estrategia: estrategia.toUpperCase(),
           lineas_de_accion: lineaDeAccion,
-          beneficiario: beneficiario,
-          conac: conac,
-          consecutivo: consecutivo,
+          beneficiario: beneficiario.toUpperCase(),
+          conac: conac.toUpperCase(),
+          consecutivo: consecutivo.toUpperCase(),
         },
       },
     }));
@@ -628,7 +629,7 @@ export function TabEncabezado({
 
       <FormControl sx={{ gridRow: "1", width: "20vw" }}>
         <Autocomplete
-          // disabled={mirEdit?.encabezado.ejercicioFiscal}
+          disabled={mirEdit?.encabezado.ejercicioFiscal}
           disablePortal
           size="small"
           options={catalogoAniosFiscales}
@@ -764,7 +765,7 @@ export function TabEncabezado({
 
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
-          // disabled={mirEdit?.encabezado.institucion}
+          disabled={mirEdit?.encabezado.institucion}
           disablePortal
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.NombreInstitucion || ""}
@@ -816,8 +817,7 @@ export function TabEncabezado({
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            // mirEdit?.encabezado.nombre_del_programa || 
-            disabledProgramas
+            mirEdit?.encabezado.nombre_del_programa || disabledProgramas
           }
           options={catalogoProgramas}
           size="small"
@@ -887,7 +887,7 @@ export function TabEncabezado({
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disablePortal
-          // disabled={mirEdit?.encabezado.eje}
+          disabled={mirEdit?.encabezado.eje}
           size="small"
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje || ""}
@@ -937,11 +937,7 @@ export function TabEncabezado({
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            // (mirEdit?.encabezado.tema && 
-            tematica !== ""
-            // ) 
-            || 
-            disabledTematicas
+            (mirEdit?.encabezado.tema && tematica !== "") || disabledTematicas
           }
           options={catalogoTematicas}
           size="small"
@@ -1001,10 +997,7 @@ export function TabEncabezado({
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            // (mirEdit?.encabezado.objetivo && 
-            objetivo !== ""
-            // ) 
-            ||
+            (mirEdit?.encabezado.objetivo && objetivo !== "") ||
             disabledObjetivos
           }
           options={catalogoObjetivos}
@@ -1059,10 +1052,7 @@ export function TabEncabezado({
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
           disabled={
-            // (mirEdit?.encabezado.estrategia && 
-            estrategia !== ""
-            // ) 
-            ||
+            (mirEdit?.encabezado.estrategia && estrategia !== "") ||
             disabledEstrategias
           }
           options={catalogoEstrategias}
@@ -1118,11 +1108,8 @@ export function TabEncabezado({
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
             disabled={
-              // (mirEdit?.encabezado.lineas_de_accion &&
-                lineaDeAccion[0]?.LineaDeAccion 
-              === ""
-              // ) 
-              ||
+              (mirEdit?.encabezado.lineas_de_accion &&
+                lineaDeAccion[0]?.LineaDeAccion === "") ||
               disabledLineasDeAccion
             }
             multiple
@@ -1193,7 +1180,7 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
-          // disabled={mirEdit?.encabezado.beneficiario}
+          disabled={mirEdit?.encabezado.beneficiario}
           disablePortal
           size="small"
           options={catalogoBeneficiarios}

@@ -1,34 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import { Header } from "../../components/header/Header";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DownloadIcon from "@mui/icons-material/Download";
 import {
   Box,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Tooltip,
-  IconButton,
-  TablePagination,
-  Input,
-  Select,
   FormControl,
+  IconButton,
+  Input,
   MenuItem,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import DownloadIcon from "@mui/icons-material/Download";
-import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
-import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { IInstituciones } from "../../components/appsDialog/AppsDialog";
-import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import { Header } from "../../components/header/Header";
+import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
+import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
+import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
+
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -159,42 +158,89 @@ export const MetaAnual = () => {
 
   // Filtrado por caracter
   const findText = (v: string, est: string, inst: string) => {
-    if (v !== "" || est !== "0" || inst !== "0") {
+    if (
+      v !== "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
       setMaFiltered(
         ma.filter(
           (x) =>
-            x.AnioFiscal.includes(findTextStr) ||
-            x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.Programa.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.FechaCreacion.toLowerCase().includes(findTextStr.toLowerCase())
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
         )
       );
-
-      if (est !== "0" && inst !== "0") {
-        setMaFiltered(
-          ma.filter(
-            (x) =>
-              x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-              x.Institucion.toLowerCase().includes(inst.toLowerCase())
-          )
-        );
-      } else if (est !== "0") {
-        setMaFiltered(
-          ma.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
-        );
-      } else if (inst !== "0") {
-        setMaFiltered(
-          ma.filter((x) =>
+    } else if (
+      v !== "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setMaFiltered(
+        ma.filter(
+          (x) =>
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+        )
+      );
+    } else if (
+      v !== "" &&
+      (est === "0" || est === "Todos") &&
+      (inst === "0" || inst === "Todos")
+    ) {
+      setMaFiltered(
+        ma.filter(
+          (x) =>
+            x.AnioFiscal.includes(v) ||
+            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+            x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+            x.CreadoPor.toLowerCase().includes(v.toLowerCase())
+        )
+      );
+    } else if (
+      v === "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
+      setMaFiltered(
+        ma.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
             x.Institucion.toLowerCase().includes(inst.toLowerCase())
-          )
-        );
-      } else {
-        setMaFiltered(ma);
-      }
+        )
+      );
+    } else if (
+      v === "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setMaFiltered(
+        ma.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+        )
+      );
     } else {
       setMaFiltered(ma);
     }
   };
+
+  useEffect(() => {
+    findText(findTextStr, findSelectStr, findInstStr);
+  }, [findTextStr, findInstStr, findSelectStr]);
 
   const getMA = () => {
     axios
@@ -259,7 +305,7 @@ export const MetaAnual = () => {
                            `,
       }}
     >
-      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
+      <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
         <LateralMenu selection={3} actionNumber={actionNumber} />
       </Box>
 
@@ -300,7 +346,7 @@ export const MetaAnual = () => {
               justifyItems: "center",
             }}
           >
-            <TutorialBox initialState={35} endState={39} />
+            {/* <TutorialBox initialState={35} endState={39} /> */}
             <Box
               sx={{
                 display: "flex",
@@ -320,10 +366,9 @@ export const MetaAnual = () => {
                 disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
-                  findText(v.target.value, findSelectStr, "");
                 }}
               />
-              <SearchIcon />
+              {/* <SearchIcon /> */}
             </Box>
 
             <FormControl
@@ -345,13 +390,6 @@ export const MetaAnual = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value === "Todos"
-                    ? findText(
-                        findTextStr,
-                        "0",
-                        findInstStr === "Todos" ? "0" : findInstStr
-                      )
-                    : findText(findTextStr, v.target.value, findInstStr);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -416,13 +454,6 @@ export const MetaAnual = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value === "Todos"
-                    ? findText(
-                        findTextStr,
-                        findSelectStr === "Todos" ? "0" : findSelectStr,
-                        "0"
-                      )
-                    : findText(findTextStr, findSelectStr, v.target.value);
                   setFindInstStr(v.target.value);
                 }}
               >

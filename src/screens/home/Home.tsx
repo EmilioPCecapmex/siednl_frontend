@@ -28,7 +28,7 @@ export const Home = () => {
         <Header
           details={{
             name1: "Inicio",
-            path1: "/",
+            path1: "../home",
             name2: "",
             path2: "#",
             name3: "",
@@ -37,7 +37,7 @@ export const Home = () => {
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center" }} gridArea={"main"}>
-        <TutorialBox initialState={0} endState={8} />
+        {/* <TutorialBox initialState={0} endState={8} /> */}
         <WelcomeBox />
         <img src={escudo} alt="Escudo" style={{ width: "25vw" }} />
       </Box>

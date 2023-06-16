@@ -16,6 +16,16 @@ import { Notification } from "./screens/notification/Notifications";
 import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
+import { createTheme } from "@mui/material/styles";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
+export const appTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#AF8C55",
+    },
+  },
+});
 
 function App() {
   const navigate = useNavigate();
@@ -27,7 +37,9 @@ function App() {
     if (jt !== null) {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign(process.env.REACT_APP_APPLICATION_FRONT_LOGIN || '');
+          window.location.assign(
+            process.env.REACT_APP_APPLICATION_FRONT_LOGIN || ""
+          );
         } else if ((r as boolean) === true) {
           setTimeout(() => {
             localStorage.setItem("IdApp", IdApp as string);
@@ -38,35 +50,38 @@ function App() {
     } else {
       continueSession().then((r) => {
         if ((r as boolean) === false) {
-          window.location.assign(process.env.REACT_APP_APPLICATION_FRONT_LOGIN || '');
+          window.location.assign(
+            process.env.REACT_APP_APPLICATION_FRONT_LOGIN || ""
+          );
         } else {
           // navigate("../home");
         }
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <>
-      <Routes>
-        <Route index element={<Init />} />
-        <Route path="/" element={<Home />} />
-        <Route path="home" element={<Home />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="users" element={<Usuarios />} />
-        <Route path="*" element={<E404 />} />
-        <Route path="fichaTecnica" element={<FichaTecnica />} />
-        <Route
-          path="Institutionalactivities"
-          element={<ActividadesInstitucionales />}
-        />
-        <Route path="mir" element={<MIR />} />
-        <Route path="metaAnual" element={<MetaAnual />} />
-        <Route path="notifications" element={<Notification />} />
-
-      </Routes>
-    </>
+    <ThemeProvider theme={appTheme}>
+      <CssBaseline enableColorScheme>
+        <Routes>
+          <Route index element={<Init />} />
+          <Route path="/" element={<Home />} />
+          <Route path="home" element={<Home />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="users" element={<Usuarios />} />
+          <Route path="*" element={<E404 />} />
+          <Route path="fichaTecnica" element={<FichaTecnica />} />
+          <Route
+            path="Institutionalactivities"
+            element={<ActividadesInstitucionales />}
+          />
+          <Route path="mir" element={<MIR />} />
+          <Route path="metaAnual" element={<MetaAnual />} />
+          <Route path="notifications" element={<Notification />} />
+        </Routes>
+      </CssBaseline>
+    </ThemeProvider>
   );
 }
 
