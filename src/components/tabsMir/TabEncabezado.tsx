@@ -10,6 +10,8 @@ import {
   Button,
   Autocomplete,
   CircularProgress,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -28,6 +30,7 @@ export interface IEncabezado {
   beneficiario: string;
   conac: string;
   consecutivo: string;
+  anticorrupcion: string;
 }
 
 export function TabEncabezado({
@@ -169,6 +172,9 @@ export function TabEncabezado({
   const [conac, setConac] = useState(MIR.encabezado?.conac || "");
   const [consecutivo, setConsecutivo] = useState(
     MIR.encabezado?.consecutivo || ""
+  );
+  const [anticorrupcion, setAnticorrupcion] = React.useState(
+    MIR.encabezado?.anticorrupcion || "NO"
   );
 
   //Catalogos
@@ -520,7 +526,7 @@ export function TabEncabezado({
           ...{ actividades: data.actividades },
           ...{ componenteActividad: data.componenteActividad },
         }));
-
+        setAnticorrupcion(data.encabezado[0].anticorrupcion);
         getIdInstitucion(data.encabezado[0].institucion);
         getIdPrograma(data.encabezado[0].nombre_del_programa);
         getIdEje(data.encabezado[0].eje);
@@ -548,6 +554,8 @@ export function TabEncabezado({
   };
 
   useEffect(() => {
+    console.log(MIR);
+
     getAniosFiscales();
     getInstituciones();
     getEjes();
@@ -570,6 +578,7 @@ export function TabEncabezado({
           beneficiario: beneficiario.toUpperCase(),
           conac: conac.toUpperCase(),
           consecutivo: consecutivo.toUpperCase(),
+          anticorrupcion: anticorrupcion.toUpperCase(),
         },
       },
     }));
@@ -586,6 +595,7 @@ export function TabEncabezado({
     beneficiario,
     conac,
     consecutivo,
+    anticorrupcion,
   ]);
 
   const [loadingFile, setLoadingFile] = useState(false);
@@ -867,7 +877,20 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <Box>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+        <FormControlLabel
+          label="ANTICORRUPCIÓN"
+          control={
+            <Checkbox
+              checked={anticorrupcion === "SI"}
+              onChange={() => {
+                anticorrupcion === "NO"
+                  ? setAnticorrupcion("SI")
+                  : setAnticorrupcion("NO");
+              }}
+            />
+          }
+        />
         <TextField
           disabled
           size="small"

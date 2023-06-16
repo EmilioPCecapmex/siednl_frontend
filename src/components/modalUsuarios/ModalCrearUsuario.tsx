@@ -205,6 +205,7 @@ export default function ModalCrearUsuario({
             icon: "success",
             title: "¡Registro exitoso!",
           });
+          
           cleanForm();
           handleClose();
         }
