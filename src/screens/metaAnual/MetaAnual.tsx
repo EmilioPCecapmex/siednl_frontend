@@ -34,6 +34,10 @@ export let setResumeDefaultMA = () => {
 };
 
 export const MetaAnual = () => {
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
   useEffect(() => {
     setShowResume(true);
     getMA();
@@ -104,6 +108,14 @@ export const MetaAnual = () => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
+
+  useEffect(() => {
+    
+    
+    let id = urlParams.get("Id");
+    setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+
+  }, [ma]);
 
   const getMetaAnualDownload = (
     MIR: string,
@@ -259,9 +271,9 @@ export const MetaAnual = () => {
       });
   };
 
-  useEffect(() => {
-    getMA();
-  }, []);
+  // useEffect(() => {
+  //   getMA();
+  // }, []);
 
   const [actualizacion, setActualizacion] = useState(0);
 
