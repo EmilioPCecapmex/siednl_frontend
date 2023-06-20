@@ -82,7 +82,7 @@ export const FichaTecnica = () => {
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
   const [FTShow, setFTShow] = useState<Array<IIFT>>([]);
 
-  const [ftFiltered, setftFiltered] = useState<Array<IIFT>>([]);
+  const [ftFiltered, setFtFiltered] = useState<Array<IIFT>>([]);
 
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
 
@@ -102,6 +102,9 @@ export const FichaTecnica = () => {
         }
       });
   };
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -157,6 +160,8 @@ export const FichaTecnica = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
+        console.log(err);
+        
         Toast.fire({
           icon: "error",
           title: "Error al intentar descargar el documento.",
@@ -171,42 +176,89 @@ export const FichaTecnica = () => {
   ///////////
   // Filtrado por caracter
   const findText = (v: string, est: string, inst: string) => {
-    if (v !== "" || est !== "0" || inst !== "0") {
-      setftFiltered(
+    if (
+      v !== "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
+      setFtFiltered(
         ft.filter(
           (x) =>
-            x.AnioFiscal.includes(findTextStr) ||
-            x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.Programa.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.FechaCreacion.toLowerCase().includes(findTextStr.toLowerCase())
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
         )
       );
-
-      if (est !== "0" && inst !== "0") {
-        setftFiltered(
-          ft.filter(
-            (x) =>
-              x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-              x.Institucion.toLowerCase().includes(inst.toLowerCase())
-          )
-        );
-      } else if (est !== "0") {
-        setftFiltered(
-          ft.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
-        );
-      } else if (inst !== "0") {
-        setftFiltered(
-          ft.filter((x) =>
+    } else if (
+      v !== "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setFtFiltered(
+        ft.filter(
+          (x) =>
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+        )
+      );
+    } else if (
+      v !== "" &&
+      (est === "0" || est === "Todos") &&
+      (inst === "0" || inst === "Todos")
+    ) {
+      setFtFiltered(
+        ft.filter(
+          (x) =>
+            x.AnioFiscal.includes(v) ||
+            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+            x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+            x.CreadoPor.toLowerCase().includes(v.toLowerCase())
+        )
+      );
+    } else if (
+      v === "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
+      setFtFiltered(
+        ft.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
             x.Institucion.toLowerCase().includes(inst.toLowerCase())
-          )
-        );
-      } else {
-        setftFiltered(ft);
-      }
+        )
+      );
+    } else if (
+      v === "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setFtFiltered(
+        ft.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+        )
+      );
     } else {
-      setftFiltered(ft);
+      setFtFiltered(ft);
     }
   };
+
+  useEffect(() => {
+    findText(findTextStr, findSelectStr, findInstStr);
+  }, [findTextStr, findInstStr, findSelectStr]);
 
   const getFT = () => {
     axios
@@ -224,7 +276,7 @@ export const FichaTecnica = () => {
       )
       .then((r) => {
         setft(r.data.data);
-        setftFiltered(r.data.data);
+        setFtFiltered(r.data.data);
       })
       .catch((err) => {});
   };
@@ -234,6 +286,13 @@ export const FichaTecnica = () => {
   }, []);
 
   const [actualizacion, setActualizacion] = useState(0);
+
+  useEffect(() => {
+    console.log("ft: ",ft);
+    
+    let id = urlParams.get("Id");
+    setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
+  }, [ft]);
 
   useEffect(() => {
     getFT();
@@ -275,7 +334,7 @@ export const FichaTecnica = () => {
                            `,
       }}
     >
-      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
+      <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
         <LateralMenu selection={4} actionNumber={actionNumber} />
       </Box>
 
@@ -316,7 +375,7 @@ export const FichaTecnica = () => {
               justifyItems: "center",
             }}
           >
-          <TutorialBox initialState={45} endState={49} />
+            {/* <TutorialBox initialState={45} endState={49} /> */}
             <Box
               sx={{
                 display: "flex",
@@ -336,7 +395,6 @@ export const FichaTecnica = () => {
                 disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
-                  findText(v.target.value, findSelectStr, "");
                 }}
               />
               <SearchIcon />
@@ -356,18 +414,11 @@ export const FichaTecnica = () => {
               <Select
                 size="small"
                 variant="standard"
-                value={findInstStr}
+                value={findSelectStr}
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value === "Todos"
-                    ? findText(
-                        findTextStr,
-                        findInstStr === "Todos" ? "0" : findInstStr,
-                        "0"
-                      )
-                    : findText(findTextStr, v.target.value, findInstStr);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -432,13 +483,6 @@ export const FichaTecnica = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value === "Todos"
-                    ? findText(
-                        findTextStr,
-                        findSelectStr === "Todos" ? "0" : findSelectStr,
-                        "0"
-                      )
-                    : findText(findTextStr, findSelectStr, v.target.value);
                   setFindInstStr(v.target.value);
                 }}
               >
@@ -723,7 +767,7 @@ export const FichaTecnica = () => {
                             align="center"
                             sx={{
                               display: "flex",
-                              flexDirection: "column",
+                              //flexDirection: "column",
                               alignItems: "center",
                               justifyContent: "center",
                             }}

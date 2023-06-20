@@ -8,6 +8,7 @@ import {
   Divider,
   FormControl,
   Autocomplete,
+  Tooltip,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { IFinMA } from "./IFin";
@@ -17,6 +18,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import axios from "axios";
+import { queries } from "../../queries";
 
 export function TabFinPropositoMA({
   show,
@@ -35,8 +37,6 @@ export function TabFinPropositoMA({
   MA: string;
   MIR: string;
 }) {
-  
-  
   let jsonMA =
     MA === ""
       ? ""
@@ -194,15 +194,18 @@ export function TabFinPropositoMA({
 
   const getUnidades = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst", {
-        params: {
-          Institucion: JSON.parse(MIR).encabezado.institucion,
-        },
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
+        {
+          params: {
+            Institucion: JSON.parse(MIR).encabezado.institucion,
+          },
 
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
 
       .then((r) => {
         setCatalogounidadResponsable(r.data.data);
@@ -219,6 +222,7 @@ export function TabFinPropositoMA({
     <Box
       visibility={show ? "visible" : "hidden"}
       position="absolute"
+      
       sx={{
         display: "flex",
         width: "75vw",
@@ -247,14 +251,16 @@ export function TabFinPropositoMA({
             alignItems: "center",
           }}
         >
-          <InfoOutlinedIcon
-            onClick={() => {
-              showMirFnc(true);
-              showFin ? setTxtShowFnc("Fin") : setTxtShowFnc("Proposito");
-            }}
-            fontSize="large"
-            sx={{ cursor: "pointer" }}
-          ></InfoOutlinedIcon>
+          <Tooltip title="RESUMEN FIN Y PROPOSITO">
+            <InfoOutlinedIcon
+              onClick={() => {
+                showMirFnc(true);
+                showFin ? setTxtShowFnc("Fin") : setTxtShowFnc("Proposito");
+              }}
+              fontSize="large"
+              sx={{ cursor: "pointer" }}
+            ></InfoOutlinedIcon>
+          </Tooltip>
           <Typography
             sx={{
               mr: "1vw",
@@ -570,7 +576,7 @@ export function TabFinPropositoMA({
                   width: "15%",
                   height: "80%",
                   backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
+                  boxShadow: 6,
                   fontFamily: "MontserratMedium",
                   justifyContent: "space-evenly",
                   alignItems: "flex-start",
@@ -580,6 +586,7 @@ export function TabFinPropositoMA({
                   sx={{
                     fontFamily: "MontserratBold",
                     fontSize: "0.6vw",
+                    
                   }}
                 >
                   SENTIDO DEL INDICADOR
@@ -673,6 +680,10 @@ export function TabFinPropositoMA({
               >
                 <FormControl sx={{ width: "25vw" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     disabled={
                       MAEdit?.fin?.unidadResponsable &&
                       valueFin[0].unidadResponsable !== ""
@@ -1049,7 +1060,7 @@ export function TabFinPropositoMA({
                   width: "15%",
                   height: "80%",
                   backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
+                  boxShadow: 6,
                   fontFamily: "MontserratMedium",
                   justifyContent: "space-evenly",
                   alignItems: "flex-start",
@@ -1160,6 +1171,10 @@ export function TabFinPropositoMA({
                   sx={{ width: "25vw" }}
                 >
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     disabled={false}
                     options={catalogoUnidadResponsable}
                     getOptionLabel={(option) => option.Unidad}

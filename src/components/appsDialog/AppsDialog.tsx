@@ -8,6 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import { Box, Autocomplete, TextField, Typography } from "@mui/material";
 import Swal from "sweetalert2";
+import { queries } from "../../queries";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 export const AppsDialog = ({
@@ -178,6 +179,10 @@ export const AppsDialog = ({
           }}
         >
           <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
             multiple
             sx={{ width: "95%" }}
             options={instituciones}
@@ -227,7 +232,7 @@ export const AppsDialog = ({
             justifyContent: "center",
           }}
         >
-          <Button color="error" onClick={handleClose}>
+          <Button sx={queries.buttonCancelarSolicitudInscripcion} color="error" onClick={handleClose}>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
             >
@@ -235,7 +240,7 @@ export const AppsDialog = ({
             </Typography>
           </Button>
 
-          <Button onClick={verifica} autoFocus>
+          <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={verifica} autoFocus>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
             >

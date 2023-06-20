@@ -18,6 +18,7 @@ import axios from "axios";
 import { INotificacion } from "./NotificacionesInterfaz";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { queries } from "../../queries";
 
 export default function NotificationsPanel() {
   const navigate = useNavigate();
@@ -41,6 +42,8 @@ export default function NotificationsPanel() {
       .then((r) => {
         if (r.status === 200) {
           if (r.data.data.length >= 1) {
+            console.log("notificacion, r.data: ",r.data);
+            
             setNotificaciones(r.data.data);
           } else {
             setSinNotificaciones(false);
@@ -156,11 +159,26 @@ export default function NotificationsPanel() {
                   >
                     {index.Titulo}
                   </Typography>
+                  
                   <Button
                     variant="text"
                     onClick={() => {
+                      console.log("index.IdDocumento: ",index.IdDocumento);
+                      console.log("index: ",index);
                       eliminaNotificacion(index.Id);
-                      navigate("../MIR");
+                      if(index.Titulo==="MIR"){
+                        console.log("index.IdDocumento: ",index.IdDocumento);
+                        navigate("../MIR"+"?Id="+index.IdDocumento);
+                      }
+                      if(index.Titulo==="MA"){
+                        console.log("index.IdDocumento: ",index.IdDocumento);
+                        navigate("../metaAnual"+"?Id="+index.IdDocumento);
+                      }
+                      if(index.Titulo==="FT"){
+                        console.log("index.IdDocumento: ",index.IdDocumento);
+                        navigate("../fichaTecnica"+"?Id="+index.IdDocumento);
+                      }
+                      
                     }}
                   >
                     <Typography
@@ -226,6 +244,7 @@ export default function NotificationsPanel() {
                     backgroundColor: "#ccc",
                     mt: "1vh",
                     boxShadow: 0.1,
+                    
                   }}
                 />
               </Box>
@@ -247,7 +266,15 @@ export default function NotificationsPanel() {
 
       <Divider />
 
-      <Button onClick={() => handleCloseNotifPanel()} color="error">
+      <Button
+        sx={{
+          ...queries.buttonCancelarSolicitudInscripcion,
+        
+      
+        }}
+        onClick={() => handleCloseNotifPanel()}
+        color="error"
+      >
         Cerrar
       </Button>
     </Box>

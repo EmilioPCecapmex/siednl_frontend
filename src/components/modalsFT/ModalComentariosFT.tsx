@@ -20,6 +20,7 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
+import { queries } from "../../queries";
 
 export const ComentDialogFT = ({
   estado,
@@ -170,6 +171,10 @@ export const ComentDialogFT = ({
     });
   }, [actualizado, id]);
 
+  const isComentEmpty = () => {
+    return !/^\s*$/.test(coment);
+  };
+
   return (
     <Box>
       <Tooltip title="COMENTARIOS">
@@ -298,7 +303,7 @@ export const ComentDialogFT = ({
               </Table>
             </TableContainer>
           </Box>
-          {newComent ? (
+         
             <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
               <TextField
                 multiline
@@ -309,13 +314,13 @@ export const ComentDialogFT = ({
                   },
                 }}
                 sx={{ width: "30vw" }}
-                placeholder="Agregar comentario"
+                placeholder="Añada un comentario para poder Agregar"
                 onChange={(v) => {
                   setComent(v.target.value);
                 }}
               ></TextField>
             </Box>
-          ) : null}
+         
           <Box
             sx={{
               display: "flex",
@@ -334,7 +339,7 @@ export const ComentDialogFT = ({
               }}
             >
               <Button
-                sx={{ display: "flex", width: "10vw" }}
+               sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
                 color="error"
                 onClick={handleClose}
@@ -346,18 +351,20 @@ export const ComentDialogFT = ({
                 </Typography>{" "}
               </Button>
               <Button
-                sx={{ display: "flex", width: "10vw" }}
+                sx={queries.buttonContinuarSolicitudInscripcion }
                 variant="contained"
-                disabled={estado === "Autorizada" ? true : false}
+                disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"
                 onClick={() => {
-                  newComent ? comentFt() : setNewComent(true);
+                  if (isComentEmpty()) {
+                    comentFt();
+                  }
                 }}
               >
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
                 >
-                  {newComent ? "Agregar" : "Añadir"}
+                  { "Agregar" }
                 </Typography>
               </Button>
             </Box>

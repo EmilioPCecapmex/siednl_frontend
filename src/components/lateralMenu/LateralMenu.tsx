@@ -16,6 +16,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import GroupIcon from "@mui/icons-material/Group";
+import { queries } from "../../queries";
 import {
   Dialog,
   TextField,
@@ -52,7 +53,6 @@ export const LateralMenu = ({
   actionNumber: number;
   settingsCard?: Function;
 }) => {
-  
   const theme = useTheme();
   let st = lstXl;
 
@@ -83,30 +83,30 @@ export const LateralMenu = ({
   };
 
   const exitAlert = (urlNavigate: string) => {
-    if (selection === 2 || selection === 3 || selection === 4) {
-      if (actionNumber === 1) {
-        Swal.fire({
-          title: "Pregunta",
-          text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonColor: "#000E4E",
-          cancelButtonColor: "#A40000",
-          confirmButtonText: "Si",
-          cancelButtonText: "No",
-          allowOutsideClick: false,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate(urlNavigate);
-          } else {
-          }
-        });
-      } else {
-        navigate(urlNavigate);
-      }
-    } else {
-      navigate(urlNavigate);
-    }
+    // if (selection === 2 || selection === 3 || selection === 4) {
+    //   if (actionNumber === 1) {
+    //     Swal.fire({
+    //       title: "Pregunta",
+    //       text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
+    //       icon: "question",
+    //       showCancelButton: true,
+    //       confirmButtonColor: "#000E4E",
+    //       cancelButtonColor: "#A40000",
+    //       confirmButtonText: "Si",
+    //       cancelButtonText: "No",
+    //       allowOutsideClick: false,
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         navigate(urlNavigate);
+    //       } else {
+    //       }
+    //     });
+    //   } else {
+    //     navigate(urlNavigate);
+    //   }
+    // } else {
+    navigate(urlNavigate);
+    // }
   };
 
   function stringToColor(string: string) {
@@ -149,8 +149,6 @@ export const LateralMenu = ({
   const handleClosePasswordChange = () => {
     setOpenPasswordChange(false);
   };
-
- 
 
   const ChangePasswordModal = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -236,6 +234,14 @@ export const LateralMenu = ({
         maxWidth={"sm"}
       >
         <Box
+        // display= "flex"
+        // alignItems= "center"
+        // justifyContent= "center"
+        // borderBottom= "1"
+        // height= "5vh"
+        // boxShadow= "1"
+        // borderColor= "#ccc"
+        
           sx={{
             display: "flex",
             alignItems: "center",
@@ -296,7 +302,7 @@ export const LateralMenu = ({
             }}
           >
             <Button
-              color="error"
+              sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClosePasswordChange()}
               variant="outlined"
             >
@@ -307,7 +313,7 @@ export const LateralMenu = ({
               </Typography>
             </Button>
 
-            <Button variant="outlined" onClick={() => cambiarContrasena()}>
+            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={() => cambiarContrasena()}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >

@@ -85,16 +85,20 @@ export const getUserDetails = (idCentral: string) => {
 
 const getDataSolicitud = (idSolicitud: string) => {
   axios
-    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/datosAdicionalesSolicitud", {
-      params: {
-        IdUsuario: idSolicitud,
-        IdApp: IdApp,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
+    .get(
+      process.env.REACT_APP_APPLICATION_LOGIN +
+        "/api/datosAdicionalesSolicitud",
+      {
+        params: {
+          IdUsuario: idSolicitud,
+          IdApp: IdApp,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
     .then((r) => {
       if (r.status === 200) {
         let objetoDatosAdicionales = JSON.parse(
@@ -169,5 +173,5 @@ export const continueSession = () => {
 
 export const logout = () => {
   localStorage.clear();
-  window.location.assign("http://10.200.4.106/");
+  window.location.assign(`${process.env.REACT_APP_APPLICATION_FRONT_LOGIN}`);
 };

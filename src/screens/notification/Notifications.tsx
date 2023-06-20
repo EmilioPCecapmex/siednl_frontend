@@ -31,6 +31,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { useNavigate } from "react-router-dom";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
+import { queries } from "../../queries";
 
 export const Notification = () => {
   const navigate = useNavigate();
@@ -264,9 +265,9 @@ export const Notification = () => {
                          `,
       }}
     >
-      <Box gridArea={"aside"} >
+      <Box gridArea={"aside"}>
         <LateralMenu selection={7} actionNumber={0} />
-        <TutorialBox initialState={13} endState={17} />
+        {/* <TutorialBox initialState={13} endState={17} /> */}
       </Box>
 
       <Box gridArea={"header"} sx={{ height: "8vh" }}>
@@ -314,7 +315,7 @@ export const Notification = () => {
           <FormControl>
             <InputLabel
               id="UsuarioLabel"
-              sx={{ fontFamily: "MontserratSemiBold"}}
+              sx={{ fontFamily: "MontserratSemiBold" }}
             >
               Usuario
             </InputLabel>
@@ -411,9 +412,8 @@ export const Notification = () => {
           </FormGroup>
 
           <Button
-            variant="contained"
-            color="inherit"
-            sx={{ mt: "2vh", ml: "60%" }}
+            
+            sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() => revisaForm()}
           >
             <Typography
@@ -433,8 +433,8 @@ export const Notification = () => {
             width: "35vw",
             alignItems: "center",
             bgcolor: "#fff",
-            boxShadow:20,
-            borderRadius:10
+            boxShadow: 20,
+            borderRadius: 10,
           }}
           gridArea={"hist"}
         >
@@ -460,7 +460,7 @@ export const Notification = () => {
                 borderColor: "#ccc",
                 fontFamily: "MontserratLight",
                 fontSize: ".7vw",
-                m:1
+                m: 1,
               }}
               onChange={(x) => filterN(x.target.value)}
             />
@@ -636,7 +636,7 @@ export const Notification = () => {
               width: "100%",
               bgcolor: "#fff",
               overflow: "hidden",
-              borderRadius:10
+              borderRadius: 10,
             }}
           />
         </Box>

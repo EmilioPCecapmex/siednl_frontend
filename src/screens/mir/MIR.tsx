@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import { Header } from "../../components/header/Header";
+/* eslint-disable react-hooks/exhaustive-deps */
+import DownloadIcon from "@mui/icons-material/Download";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Tooltip,
-  IconButton,
   Button,
-  TablePagination,
-  Input,
-  Select,
   FormControl,
+  IconButton,
+  Input,
   MenuItem,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import EditIcon from "@mui/icons-material/Edit";
-import DownloadIcon from "@mui/icons-material/Download";
+import React, { useEffect, useState } from "react";
+import { Header } from "../../components/header/Header";
+import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 
-import FullModalMir from "../../components/tabsMir/AddMir";
-import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
-import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import Swal from "sweetalert2";
-import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
+import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
+import FullModalMir from "../../components/tabsMir/AddMir";
 
 export let resumeDefaultMIR = true;
 
@@ -39,6 +38,9 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -105,51 +107,95 @@ export const MIR = () => {
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
-
-  const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
-  //
+  const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
-
   const findText = (v: string, est: string, inst: string) => {
-    if (v !== "" || est !== "0" || inst !== "0") {
+    if (
+      v !== "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
       setMirsFiltered(
         mirs.filter(
           (x) =>
-            x.AnioFiscal.includes(findTextStr) ||
-            x.Institucion.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.Programa.toLowerCase().includes(findTextStr.toLowerCase()) ||
-            x.FechaCreacion.toLowerCase().includes(findTextStr.toLowerCase())
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
         )
       );
-
-      if (est !== "0" && inst !== "0") {
-        setMirsFiltered(
-          mirs.filter(
-            (x) =>
-              x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-              x.Institucion.toLowerCase().includes(inst.toLowerCase())
-          )
-        );
-      } else if (est !== "0") {
-        setMirsFiltered(
-          mirs.filter((x) => x.Estado.toLowerCase().includes(est.toLowerCase()))
-        );
-      } else if (inst !== "0") {
-        setMirsFiltered(
-          mirs.filter((x) =>
+    } else if (
+      v !== "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+        )
+      );
+    } else if (
+      v !== "" &&
+      (est === "0" || est === "Todos") &&
+      (inst === "0" || inst === "Todos")
+    ) {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            x.AnioFiscal.includes(v) ||
+            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+            x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+            x.CreadoPor.toLowerCase().includes(v.toLowerCase())
+        )
+      );
+    } else if (
+      v === "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
             x.Institucion.toLowerCase().includes(inst.toLowerCase())
-          )
-        );
-      } else {
-        setMirsFiltered(mirs);
-      }
+        )
+      );
+    } else if (
+      v === "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setMirsFiltered(
+        mirs.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+        )
+      );
     } else {
       setMirsFiltered(mirs);
     }
   };
+
+  useEffect(() => {
+    findText(findTextStr, findSelectStr, findInstStr);
+  }, [findTextStr, findInstStr, findSelectStr]);
 
   const getMIRs = () => {
     axios
@@ -178,6 +224,11 @@ export const MIR = () => {
     setShowResume(false);
     onChangeActionNumberValue();
   };
+
+  useEffect(() => {
+    let id = urlParams.get("Id");
+    setMirsFiltered(mirs.filter((x) => x.ID.toLowerCase().includes(id || "")));
+  }, [mirs]);
 
   const [actualizacion, setActualizacion] = useState(0);
 
@@ -265,10 +316,10 @@ export const MIR = () => {
                           'aside header'
                           'aside main'
                          `,
-          alignItems: "end",
+        alignItems: "end",
       }}
     >
-      <Box gridArea={"aside"} sx={{mr: showResume ? 8 : 0}}>
+      <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
         <LateralMenu selection={2} actionNumber={actionNumber} />
       </Box>
 
@@ -309,7 +360,7 @@ export const MIR = () => {
               justifyItems: "center",
             }}
           >
-            <TutorialBox initialState={8} endState={13} />
+            {/* <TutorialBox initialState={8} endState={13} /> */}
             <Box
               sx={{
                 display: "flex",
@@ -329,10 +380,9 @@ export const MIR = () => {
                 disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
-                  findText(v.target.value, findSelectStr, "");
+                  // findText(v.target.value, findSelectStr, "");
                 }}
               />
-              <SearchIcon />
             </Box>
 
             <FormControl
@@ -354,13 +404,13 @@ export const MIR = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value === "Todos"
-                    ? findText(
-                        findTextStr,
-                        "0",
-                        findInstStr === "Todos" ? "0" : findInstStr
-                      )
-                    : findText(findTextStr, v.target.value, findInstStr);
+                  // v.target.value === "Todos"
+                  //   ? findText(
+                  //       findTextStr,
+                  //       "0",
+                  //       findInstStr === "Todos" ? "0" : findInstStr
+                  //     )
+                  //   : findText(findTextStr, v.target.value, findInstStr);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -425,13 +475,13 @@ export const MIR = () => {
                 fullWidth
                 disableUnderline
                 onChange={(v) => {
-                  v.target.value === "Todos"
-                    ? findText(
-                        findTextStr,
-                        findSelectStr === "Todos" ? "0" : findSelectStr,
-                        "0"
-                      )
-                    : findText(findTextStr, findSelectStr, v.target.value);
+                  // v.target.value === "Todos"
+                  //   ? findText(
+                  //       findTextStr,
+                  //       findSelectStr === "Todos" ? "0" : findSelectStr,
+                  //       "0"
+                  //     )
+                  //   : findText(findTextStr, findSelectStr, v.target.value);
                   setFindInstStr(v.target.value);
                 }}
               >
@@ -746,7 +796,7 @@ export const MIR = () => {
                             align="center"
                             sx={{
                               display: "flex",
-                              flexDirection: "column",
+                              // flexDirection: "column",
                               alignItems: "center",
                               justifyContent: "center",
                             }}
@@ -856,7 +906,6 @@ export const MIR = () => {
                                         : true
                                     }
                                     onClick={() => {
-                                      
                                       setMirEdit([
                                         {
                                           ID: row.ID,

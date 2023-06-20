@@ -15,7 +15,7 @@ import { Typography, FormControl } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-
+import { queries } from "../../queries";
 import { PED } from "./PED";
 
 export const AddDialogCatalogo = ({
@@ -970,7 +970,7 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button color="error" onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -978,7 +978,7 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button onClick={CreatePorCatalogo} autoFocus>
+            <Button  sx={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogo} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >

@@ -19,6 +19,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { queries } from "../../queries";
 
 export const ModifyDialogCatalogos = ({
   id,
@@ -542,7 +543,7 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button color="error" onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -550,7 +551,7 @@ export const ModifyDialogCatalogos = ({
               </Typography>
             </Button>
 
-            <Button onClick={ModifyPorCatalogo} autoFocus>
+            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogo} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >

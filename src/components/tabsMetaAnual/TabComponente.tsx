@@ -8,6 +8,7 @@ import {
   ListItemButton,
   FormControl,
   Autocomplete,
+  Tooltip,
 } from "@mui/material";
 import { IComponenteMA } from "./Interfaces";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -327,6 +328,7 @@ export const TabComponenteMA = ({
           alignItems: "center",
         }}
       >
+<Tooltip title="RESUMEN COMPONENTE">
         <InfoOutlinedIcon
           onClick={() => {
             showMirFnc(true);
@@ -335,6 +337,7 @@ export const TabComponenteMA = ({
           fontSize="large"
           sx={{ cursor: "pointer" }}
         ></InfoOutlinedIcon>
+</Tooltip>
         <Typography
           sx={{
             mr: "1vw",
@@ -667,7 +670,7 @@ export const TabComponenteMA = ({
                 width: "15%",
                 height: "80%",
                 backgroundColor: "#f0f0f0",
-                boxShadow: 2,
+                boxShadow: 6,
                 fontFamily: "MontserratMedium",
                 justifyContent: "space-evenly",
                 alignItems: "flex-start",
@@ -1008,6 +1011,10 @@ export const TabComponenteMA = ({
             >
               <FormControl sx={{ width: "25vw" }}>
                 <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                   disabled={
                     (MAEdit !== ""
                       ? MAEdit?.componentes[componentSelect - 1]

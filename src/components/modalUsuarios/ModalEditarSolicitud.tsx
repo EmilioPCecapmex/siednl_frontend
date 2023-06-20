@@ -16,7 +16,7 @@ import {
   AlertColor,
 } from "@mui/material";
 import { IDetalleSolicitud } from "../solicitudes/ISolicitud";
-
+import { queries } from "../../queries";
 export interface IInstituciones {
   Id: string;
   NombreInstitucion: string;
@@ -683,9 +683,8 @@ export default function ModalEditarSolicitud({
             }}
           >
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="error"
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              
               onClick={() => {
                 handleClose();
               }}
@@ -694,9 +693,7 @@ export default function ModalEditarSolicitud({
             </Button>
 
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="primary"
+              sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
                 checkForm();
               }}

@@ -372,6 +372,7 @@ export default function ModalEnviarFT({
   };
 
   const crearFichaTecnica = (estado: string) => {
+    console.log("Entre en enviarNotificacions ");
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
@@ -390,11 +391,12 @@ export default function ModalEnviarFT({
         }
       )
       .then((r) => {
-        // eslint-disable-next-line array-callback-return
+        console.log("ModalEnviaFT r.data.Id: ", r.data.data.Id);
+        console.log("IdFT: ", IdFT);
+        console.log("ModalEnviaFT r.data.data: ", r.data.data);
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario);
-          sendMail(user.CorreoElectronico,enviarMensaje, "FT");
-
+          enviarNotificacion(user.IdUsuario, IdFT, "FT", "Ficha Tecnica");
+          sendMail(user.CorreoElectronico, enviarMensaje, "FT");
         });
 
         Toast.fire({
@@ -419,38 +421,46 @@ export default function ModalEnviarFT({
     if (open) {
       let inst = JSON.parse(MIR)?.encabezado.institucion;
 
-    if (localStorage.getItem("Rol") === "Verificador") {
-      inst = "admin";
-    }
-
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            institucion: inst,
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
+      if (localStorage.getItem("Rol") === "Verificador") {
+        inst = "admin";
+      }
+      ////////////////////////Esto esta fallando
+      axios
+        .get(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+          {
+            params: {
+              IdUsuario: localStorage.getItem("IdUsuario"),
+              institucion: inst,
+            },
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (v: string) => {
+  const enviarNotificacion = (
+    IdUsuarioDestino: string,
+    IdDoc = "",
+    tipoDoc = "",
+    Nombre = ""
+  ) => {
+    console.log("IdDoc: ", IdDoc);
+    console.log("IdUsuarioDestino: ", IdUsuarioDestino);
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
-        IdUsuarioDestino: v,
-        Titulo: "FT",
-        Mensaje: "Se ha creado una nueva Ficha Técnica",
+        IdUsuarioDestino: IdUsuarioDestino,
+        Titulo: tipoDoc,
+        Mensaje: enviarMensaje + " " + Nombre,
+        IdDocumento: IdDoc,
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
       {

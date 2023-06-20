@@ -21,6 +21,8 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "./ModalEnviarMIR";
+import { queries } from "../../queries";
+
 
 export const ComentDialogMir = ({
   estado,
@@ -174,6 +176,10 @@ export const ComentDialogMir = ({
     });
   }, [actualizado, id]);
 
+  const isComentEmpty = () => {
+    return !/^\s*$/.test(coment);
+  };
+
   return (
     <Box>
       <Tooltip title="COMENTARIOS">
@@ -302,7 +308,7 @@ export const ComentDialogMir = ({
               </Table>
             </TableContainer>
           </Box>
-          {newComent ? (
+         
             <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
               <TextField
                 multiline
@@ -313,11 +319,11 @@ export const ComentDialogMir = ({
                   },
                 }}
                 sx={{ width: "30vw" }}
-                placeholder="Agregar comentario"
+                placeholder="Añada un comentario para poder Agregar"
                 onChange={(v) => setComent(v.target.value)}
               ></TextField>
             </Box>
-          ) : null}
+        
           <Box
             sx={{
               display: "flex",
@@ -336,9 +342,9 @@ export const ComentDialogMir = ({
               }}
             >
               <Button
-                sx={{ display: "flex", width: "10vw" }}
+                sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
-                color="error"
+             
                 onClick={handleClose}
               >
                 <Typography
@@ -348,18 +354,20 @@ export const ComentDialogMir = ({
                 </Typography>{" "}
               </Button>
               <Button
-                sx={{ display: "flex", width: "10vw" }}
+                 sx={queries.buttonContinuarSolicitudInscripcion}
                 variant="contained"
-                disabled={estado === "Autorizada" ? true : false}
+                disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"
                 onClick={() => {
-                  newComent ? comentMir() : setNewComent(true);
+                  if (isComentEmpty()) {
+                    comentMir();
+                  }
                 }}
               >
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
                 >
-                  {newComent ? "Agregar" : "Añadir"}
+                  {"Agregar"}
                 </Typography>
               </Button>
             </Box>

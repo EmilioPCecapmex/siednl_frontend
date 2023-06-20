@@ -272,6 +272,10 @@ export function TabAccion1({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -310,6 +314,10 @@ export function TabAccion1({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -348,6 +356,10 @@ export function TabAccion1({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -386,6 +398,10 @@ export function TabAccion1({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -424,6 +440,10 @@ export function TabAccion1({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {

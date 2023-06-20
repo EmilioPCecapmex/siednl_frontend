@@ -10,10 +10,12 @@ import {
   Button,
   Autocomplete,
   CircularProgress,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { IMIR } from "./IMIR";
+import { IMIR, IMIREdit } from "./IMIR";
 import Stack from "@mui/material/Stack";
 
 export interface IEncabezado {
@@ -28,16 +30,19 @@ export interface IEncabezado {
   beneficiario: string;
   conac: string;
   consecutivo: string;
+  anticorrupcion: string;
 }
 
 export function TabEncabezado({
   show,
   MIR,
   setMIR,
+  mirEdit,
 }: {
   show: boolean;
   MIR: IMIR;
   setMIR: Function;
+  mirEdit: IMIREdit;
 }) {
   const [nombreArchivo, setNombreArchivo] = useState(
     "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
@@ -158,7 +163,6 @@ export function TabEncabezado({
   const [estrategia, setEstrategia] = useState(
     MIR.encabezado?.estrategia || ""
   );
-
   const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
     MIR.encabezado?.lineas_de_accion || []
   );
@@ -168,6 +172,9 @@ export function TabEncabezado({
   const [conac, setConac] = useState(MIR.encabezado?.conac || "");
   const [consecutivo, setConsecutivo] = useState(
     MIR.encabezado?.consecutivo || ""
+  );
+  const [anticorrupcion, setAnticorrupcion] = React.useState(
+    MIR.encabezado?.anticorrupcion || "NO"
   );
 
   //Catalogos
@@ -519,7 +526,7 @@ export function TabEncabezado({
           ...{ actividades: data.actividades },
           ...{ componenteActividad: data.componenteActividad },
         }));
-
+        setAnticorrupcion(data.encabezado[0].anticorrupcion);
         getIdInstitucion(data.encabezado[0].institucion);
         getIdPrograma(data.encabezado[0].nombre_del_programa);
         getIdEje(data.encabezado[0].eje);
@@ -547,6 +554,8 @@ export function TabEncabezado({
   };
 
   useEffect(() => {
+    console.log(MIR);
+
     getAniosFiscales();
     getInstituciones();
     getEjes();
@@ -558,17 +567,18 @@ export function TabEncabezado({
       ...MIR,
       ...{
         encabezado: {
-          ejercicioFiscal: anioFiscal,
-          institucion: institution,
-          nombre_del_programa: programa,
-          eje: eje,
-          tema: tematica,
-          objetivo: objetivo,
-          estrategia: estrategia,
+          ejercicioFiscal: anioFiscal.toUpperCase(),
+          institucion: institution.toUpperCase(),
+          nombre_del_programa: programa.toUpperCase(),
+          eje: eje.toUpperCase(),
+          tema: tematica.toUpperCase(),
+          objetivo: objetivo.toUpperCase(),
+          estrategia: estrategia.toUpperCase(),
           lineas_de_accion: lineaDeAccion,
-          beneficiario: beneficiario,
-          conac: conac,
-          consecutivo: consecutivo,
+          beneficiario: beneficiario.toUpperCase(),
+          conac: conac.toUpperCase(),
+          consecutivo: consecutivo.toUpperCase(),
+          anticorrupcion: anticorrupcion,
         },
       },
     }));
@@ -585,6 +595,7 @@ export function TabEncabezado({
     beneficiario,
     conac,
     consecutivo,
+    anticorrupcion,
   ]);
 
   const [loadingFile, setLoadingFile] = useState(false);
@@ -628,6 +639,11 @@ export function TabEncabezado({
 
       <FormControl sx={{ gridRow: "1", width: "20vw" }}>
         <Autocomplete
+          disabled={mirEdit?.encabezado.ejercicioFiscal}
+          clearText="Borrar"
+          noOptionsText="Sin opciones"
+          closeText="Cerrar"
+          openText="Abrir"
           // disabled={mirEdit?.encabezado.ejercicioFiscal}
           disablePortal
           size="small"
@@ -764,6 +780,11 @@ export function TabEncabezado({
 
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
+          disabled={mirEdit?.encabezado.institucion}
+          clearText="Borrar"
+          noOptionsText="Sin opciones"
+          closeText="Cerrar"
+          openText="Abrir"
           // disabled={mirEdit?.encabezado.institucion}
           disablePortal
           options={catalogoInstituciones}
@@ -815,9 +836,12 @@ export function TabEncabezado({
 
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
+          clearText="Borrar"
+          noOptionsText="Sin opciones"
+          closeText="Cerrar"
+          openText="Abrir"
           disabled={
-            // mirEdit?.encabezado.nombre_del_programa || 
-            disabledProgramas
+            mirEdit?.encabezado.nombre_del_programa || disabledProgramas
           }
           options={catalogoProgramas}
           size="small"
@@ -867,7 +891,20 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <Box>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+        <FormControlLabel
+          label="ANTICORRUPCIÓN"
+          control={
+            <Checkbox
+              checked={anticorrupcion === "SI"}
+              onChange={() => {
+                anticorrupcion === "NO"
+                  ? setAnticorrupcion("SI")
+                  : setAnticorrupcion("NO");
+              }}
+            />
+          }
+        />
         <TextField
           disabled
           size="small"
@@ -886,8 +923,12 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
+          clearText="Borrar"
+          noOptionsText="Sin opciones"
+          closeText="Cerrar"
+          openText="Abrir"
           disablePortal
-          // disabled={mirEdit?.encabezado.eje}
+          disabled={mirEdit?.encabezado.eje}
           size="small"
           options={catalogoEjes}
           getOptionLabel={(option) => option.Eje || ""}
@@ -936,12 +977,12 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
+          clearText="Borrar"
+          noOptionsText="Sin opciones"
+          closeText="Cerrar"
+          openText="Abrir"
           disabled={
-            // (mirEdit?.encabezado.tema && 
-            tematica !== ""
-            // ) 
-            || 
-            disabledTematicas
+            (mirEdit?.encabezado.tema && tematica !== "") || disabledTematicas
           }
           options={catalogoTematicas}
           size="small"
@@ -1000,11 +1041,12 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
+          clearText="Borrar"
+          noOptionsText="Sin opciones"
+          closeText="Cerrar"
+          openText="Abrir"
           disabled={
-            // (mirEdit?.encabezado.objetivo && 
-            objetivo !== ""
-            // ) 
-            ||
+            (mirEdit?.encabezado.objetivo && objetivo !== "") ||
             disabledObjetivos
           }
           options={catalogoObjetivos}
@@ -1058,11 +1100,12 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
+          clearText="Borrar"
+          noOptionsText="Sin opciones"
+          closeText="Cerrar"
+          openText="Abrir"
           disabled={
-            // (mirEdit?.encabezado.estrategia && 
-            estrategia !== ""
-            // ) 
-            ||
+            (mirEdit?.encabezado.estrategia && estrategia !== "") ||
             disabledEstrategias
           }
           options={catalogoEstrategias}
@@ -1117,12 +1160,13 @@ export function TabEncabezado({
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 500 }}>
           <Autocomplete
+            clearText="Borrar"
+            noOptionsText="Sin opciones"
+            closeText="Cerrar"
+            openText="Abrir"
             disabled={
-              // (mirEdit?.encabezado.lineas_de_accion &&
-                lineaDeAccion[0]?.LineaDeAccion 
-              === ""
-              // ) 
-              ||
+              (mirEdit?.encabezado.lineas_de_accion &&
+                lineaDeAccion[0]?.LineaDeAccion === "") ||
               disabledLineasDeAccion
             }
             multiple
@@ -1193,6 +1237,11 @@ export function TabEncabezado({
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
+          disabled={mirEdit?.encabezado.beneficiario}
+          clearText="Borrar"
+          noOptionsText="Sin opciones"
+          closeText="Cerrar"
+          openText="Abrir"
           // disabled={mirEdit?.encabezado.beneficiario}
           disablePortal
           size="small"

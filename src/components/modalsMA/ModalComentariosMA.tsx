@@ -20,6 +20,7 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
+import { queries } from "../../queries";
 
 export const ComentDialogMA = ({
   estado,
@@ -95,7 +96,6 @@ export const ComentDialogMA = ({
     }
   }, [open]);
 
-
   const [coment, setComent] = React.useState("");
 
   const enviarNotificacion = (v: string) => {
@@ -158,18 +158,22 @@ export const ComentDialogMA = ({
 
   React.useEffect(() => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
-      params: {
-        IdMir: id,
-      },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      setComents(r.data.data);
-    });
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+        params: {
+          IdMir: id,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setComents(r.data.data);
+      });
   }, [actualizado, id]);
+
+  const isComentEmpty = () => {
+    return !/^\s*$/.test(coment);
+  };
 
   return (
     <Box>
@@ -299,24 +303,24 @@ export const ComentDialogMA = ({
               </Table>
             </TableContainer>
           </Box>
-          {newComent ? (
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-              <TextField
-                multiline
-                rows={3}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "30vw" }}
-                placeholder="Agregar comentario"
-                onChange={(v) => {
-                  setComent(v.target.value);
-                }}
-              ></TextField>
-            </Box>
-          ) : null}
+
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+            <TextField
+              multiline
+              rows={3}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              sx={{ width: "30vw" }}
+              placeholder="Añada un comentario para poder Agregar"
+              onChange={(v) => {
+                setComent(v.target.value);
+              }}
+            ></TextField>
+          </Box>
+
           <Box
             sx={{
               display: "flex",
@@ -335,9 +339,9 @@ export const ComentDialogMA = ({
               }}
             >
               <Button
-                sx={{ display: "flex", width: "10vw" }}
+                sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
-                color="error"
+               
                 onClick={handleClose}
               >
                 <Typography
@@ -346,19 +350,22 @@ export const ComentDialogMA = ({
                   Cancelar
                 </Typography>{" "}
               </Button>
+
               <Button
-                sx={{ display: "flex", width: "10vw" }}
+                sx={queries.buttonContinuarSolicitudInscripcion}
                 variant="contained"
-                disabled={estado === "Autorizada" ? true : false}
-                color="info"
+                disabled={estado === "Autorizada" && isComentEmpty()}
+                //color="info"
                 onClick={() => {
-                  newComent ? comentMa() : setNewComent(true);
+                  if (isComentEmpty()) {
+                    comentMa();
+                  }
                 }}
               >
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
                 >
-                  {newComent ? "Agregar" : "Añadir"}
+                  {"Agregar"}
                 </Typography>
               </Button>
             </Box>

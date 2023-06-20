@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { sendMail} from "../../funcs/sendMailCustomMessage";
+import { queries } from "../../queries";
 
 export let errores: string[] = [];
 
@@ -530,21 +531,18 @@ export default function ModalEnviarMA({
       )
       .then((r) => {
         // eslint-disable-next-line array-callback-return
+        //console.log("IdMA: r.data.data ",r.data.data);
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario);
+          enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
           sendMail(user.CorreoElectronico,enviarMensaje,"MA")
         });
-
         if (estado === "Autorizada") {
-          CrearFichaTecnica();
-          
+          CrearFichaTecnica();  
         }
-
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
-
         if (comment !== "") {
           comentMA(IdMIR);
         }
@@ -560,6 +558,7 @@ export default function ModalEnviarMA({
 
   const CrearFichaTecnica = () => {
 
+   console.log("Entre a crearFichaTecnica donde esta enviar notificacions");
    
     axios
       .post(
@@ -579,9 +578,14 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
-        // eslint-disable-next-line array-callback-return
+        console.log("IdFt: ",r.data.data.Id);
+        console.log("IdFt: ",r.data.data);
+        console.log("IdFt: ",r.data.IdFT);
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario);
+          
+          console.log("user.IdUsuario: ",user.IdUsuario);
+
+          enviarNotificacion(user.IdUsuario,r.data.data.Id, "FT", "Ficha Tecnica");
           sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
         });
         
@@ -624,13 +628,20 @@ export default function ModalEnviarMA({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (v: string) => {
+  const enviarNotificacion = (v: string, IdDoc="",tipoDoc ="", Nombre ="") => {
+    
+    
+    console.log("IdDoc: ",IdDoc);
+    console.log("tipoDoc: ",tipoDoc);
+    console.log("Nombre: ",Nombre);
+   
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: v,
-        Titulo: "MA",
-        Mensaje: "Se ha creado una nueva Meta anual",
+        Titulo: tipoDoc,
+        Mensaje:  enviarMensaje + " "+ Nombre,
+        IdDocumento: IdDoc,
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
       {
@@ -695,7 +706,7 @@ export default function ModalEnviarMA({
           </Typography>
         </Box>
 
-        {newComent ? (
+       
           <Box sx={{ width: "30vw" }}>
             <TextField
               multiline
@@ -705,8 +716,7 @@ export default function ModalEnviarMA({
               onChange={(v) => setComment(v.target.value)}
             ></TextField>
           </Box>
-        ) : null}
-
+        
         <Box
           sx={{
             display: "flex",
@@ -720,14 +730,13 @@ export default function ModalEnviarMA({
               display: "flex",
               alignItems: "flex-end",
               justifyContent: "space-between",
-              width: "30vw",
+              width: "20vw",
               mt: "4vh",
             }}
           >
             <Button
-              sx={{ display: "flex", width: "9vw" }}
-              variant="contained"
-              color="error"
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -735,7 +744,7 @@ export default function ModalEnviarMA({
               </Typography>
             </Button>
 
-            <Button
+            {/* <Button
               sx={{ display: "flex", width: "11vw" }}
               variant="contained"
               color="info"
@@ -745,12 +754,11 @@ export default function ModalEnviarMA({
               }}
             >
               {newComent ? "Cancelar comentario" : "Nuevo comentario"}
-            </Button>
+            </Button> */}
 
             <Button
-              sx={{ display: "flex", width: "9vw" }}
-              variant="contained"
-              color="primary"
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              
               onClick={() => {
                 checkMA(
                   localStorage.getItem("Rol") === "Capturador"
