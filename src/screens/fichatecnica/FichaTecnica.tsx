@@ -103,6 +103,9 @@ export const FichaTecnica = () => {
       });
   };
 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -283,6 +286,13 @@ export const FichaTecnica = () => {
   }, []);
 
   const [actualizacion, setActualizacion] = useState(0);
+
+  useEffect(() => {
+    console.log("ft: ",ft);
+    
+    let id = urlParams.get("Id");
+    setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
+  }, [ft]);
 
   useEffect(() => {
     getFT();

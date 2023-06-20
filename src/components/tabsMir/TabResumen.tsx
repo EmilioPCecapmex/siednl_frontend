@@ -269,18 +269,29 @@ export function TabResumen({
   ]);
 
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
+  const isAutorizador = localStorage.getItem("Rol") === "Administrador";
 
   const buttonStyles = {
     ...queries.buttonContinuarSolicitudInscripcion,
+
     ...(isCapturador && {
       "&.Mui-disabled": {
-        backgroundColor: "rgba(175, 140, 85, 0.6)",
+        //backgroundColor: "rgba(175, 140, 85, 0.6)",
         color: "white",
         "&:hover": {
           backgroundColor: "rgba(175, 140, 85, 0.6)",
         },
       },
     }),
+    ...(isAutorizador && {
+      "&.Mui-disabled": {
+        //backgroundColor: "rgba(175, 140, 85, 0.6)",
+        color: "white",
+        "&:hover": {
+          backgroundColor: "rgba(175, 140, 85, 0.6)",
+        },
+      },
+    })
   };
 
   return (

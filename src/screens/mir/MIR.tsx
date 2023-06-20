@@ -231,7 +231,7 @@ export const MIR = () => {
   };
 
   useEffect(() => {
-    let id = urlParams.get("id");
+    let id = urlParams.get("Id");
     setMirsFiltered(mirs.filter((x) => x.ID.toLowerCase().includes(id || "")));
   }, [mirs]);
 

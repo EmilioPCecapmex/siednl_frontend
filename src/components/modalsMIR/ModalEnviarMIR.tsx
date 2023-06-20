@@ -415,8 +415,10 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
+        console.log("r.data.Id: ",r.data.data.Id);
+        
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario);
+          enviarNotificacion(user.IdUsuario, r.data.data.Id);
           sendMail(user.CorreoElectronico,enviarMensaje, "MA",);
           
         });
@@ -460,9 +462,12 @@ export default function ModalEnviarMIR({
       )
       .then((r) => {
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario);
+          
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
+          console.log("IdMir: ",r.data.data.ID);
           sendMail(user.CorreoElectronico,enviarMensaje, "MIR");
+          enviarNotificacion(user.IdUsuario,r.data.data.ID);
+          
           
         });
 
@@ -479,7 +484,7 @@ export default function ModalEnviarMIR({
         });
 
         if (comment !== "") {
-          comentMir(r.data.data.ID);
+          comentMir(r.data.data.ID)
         }
         showResume();
       })
@@ -532,14 +537,18 @@ export default function ModalEnviarMIR({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (v: string) => {
+  const enviarNotificacion = (IdUsuarioDestino: string ,IdDoc="") => {
+    console.log("IdDoc: ",IdDoc);
+    console.log("IdUsuarioDestino: ",IdUsuarioDestino);
+    
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
 
       {
-        IdUsuarioDestino: v,
+        IdUsuarioDestino: IdUsuarioDestino,
         Titulo: "MIR",
         Mensaje: "Se ha creado una nueva MIR",
+        IdDocumento: IdDoc,
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
       {
