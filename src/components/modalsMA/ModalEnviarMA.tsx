@@ -670,7 +670,7 @@ export default function ModalEnviarMA({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "2vh",
+          height: "6vh",
           mb: 2,
         }}
       >

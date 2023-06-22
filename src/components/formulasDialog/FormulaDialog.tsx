@@ -9,6 +9,7 @@ import {
   Snackbar,
 } from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
+import { queries } from "../../queries";
 
 export const FormulaDialog = ({
   open,
@@ -237,12 +238,12 @@ export const FormulaDialog = ({
       <Box
         sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" }}
       >
-        <Button onClick={() => close()} color="error">
+        <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => close()} >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
         </Button>
-        <Button onClick={() => checkValues()} color="success">
+        <Button  sx={queries.buttonContinuarSolicitudInscripcion} onClick={() => checkValues()} >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Agregar
           </Typography>

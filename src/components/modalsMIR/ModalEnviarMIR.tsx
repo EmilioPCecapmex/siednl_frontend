@@ -577,7 +577,7 @@ export default function ModalEnviarMIR({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "2vh",
+          height: "6vh",
           mb: 2,
         }}
       >

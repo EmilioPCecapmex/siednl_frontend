@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { sendMail } from "../../funcs/sendMailCustomMessage";
-
+import { queries } from "../../queries";
 export let errores: string[] = [];
 
 export default function ModalEnviarFT({
@@ -489,7 +489,7 @@ export default function ModalEnviarFT({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "2vh",
+          height: "6vh",
           mb: 2,
         }}
       >
@@ -525,7 +525,7 @@ export default function ModalEnviarFT({
           </Typography>
         </Box>
 
-        {newComent ? (
+    
           <Box sx={{ width: "30vw" }}>
             <TextField
               multiline
@@ -535,7 +535,7 @@ export default function ModalEnviarFT({
               onChange={(v) => setComment(v.target.value)}
             ></TextField>
           </Box>
-        ) : null}
+       
 
         <Box
           sx={{
@@ -555,9 +555,8 @@ export default function ModalEnviarFT({
             }}
           >
             <Button
-              sx={{ display: "flex", width: "9vw" }}
-              variant="contained"
-              color="error"
+              sx={ queries.buttonCancelarSolicitudInscripcion}
+          
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -565,22 +564,12 @@ export default function ModalEnviarFT({
               </Typography>
             </Button>
 
-            <Button
-              sx={{ display: "flex", width: "11vw" }}
-              variant="contained"
-              color="info"
-              onClick={() => {
-                newComent ? setComment("") : setNewComent(!newComent);
-                newComent ? setNewComent(!newComent) : setNewComent(!newComent);
-              }}
-            >
-              {newComent ? "Cancelar comentario" : "Nuevo comentario"}
-            </Button>
+       
 
             <Button
-              sx={{ display: "flex", width: "9vw" }}
+              sx={queries.buttonContinuarSolicitudInscripcion}
               variant="contained"
-              color="primary"
+              
               onClick={() => {
                 checkFT(
                   localStorage.getItem("Rol") === "Capturador"
