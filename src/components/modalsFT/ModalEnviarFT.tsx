@@ -421,9 +421,7 @@ export default function ModalEnviarFT({
     if (open) {
       let inst = JSON.parse(MIR)?.encabezado.institucion;
 
-      if (localStorage.getItem("Rol") === "Verificador") {
-        inst = "admin";
-      }
+     
       ////////////////////////Esto esta fallando
       axios
         .get(
@@ -431,7 +429,7 @@ export default function ModalEnviarFT({
           {
             params: {
               IdUsuario: localStorage.getItem("IdUsuario"),
-              institucion: inst,
+              Institucion: inst,
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
@@ -452,8 +450,7 @@ export default function ModalEnviarFT({
     tipoDoc = "",
     Nombre = ""
   ) => {
-    console.log("IdDoc: ", IdDoc);
-    console.log("IdUsuarioDestino: ", IdUsuarioDestino);
+    
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
