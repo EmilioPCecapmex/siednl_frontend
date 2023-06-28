@@ -1,37 +1,35 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import { Header } from "../../components/header/Header";
+import DownloadIcon from "@mui/icons-material/Download";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Tooltip,
-  IconButton,
   Button,
-  TablePagination,
-  Input,
-  Select,
   FormControl,
+  IconButton,
+  Input,
   MenuItem,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import EditIcon from "@mui/icons-material/Edit";
-import DownloadIcon from "@mui/icons-material/Download";
+import React, { useEffect, useState } from "react";
+import { Header } from "../../components/header/Header";
+import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 
-import FullModalMir from "../../components/tabsMir/AddMir";
-import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
-import SearchIcon from "@mui/icons-material/Search";
 import moment from "moment";
-import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import Swal from "sweetalert2";
-import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
 import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
+import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
+import FullModalMir from "../../components/tabsMir/AddMir";
 
 export let resumeDefaultMIR = true;
 
@@ -109,14 +107,11 @@ export const MIR = () => {
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("0");
   const [findSelectStr, setFindSelectStr] = useState("0");
-
-  const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
-  //
+  const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
-
   const findText = (v: string, est: string, inst: string) => {
     if (
       v !== "" &&
@@ -801,7 +796,7 @@ export const MIR = () => {
                             align="center"
                             sx={{
                               display: "flex",
-                             // flexDirection: "column",
+                              // flexDirection: "column",
                               alignItems: "center",
                               justifyContent: "center",
                             }}

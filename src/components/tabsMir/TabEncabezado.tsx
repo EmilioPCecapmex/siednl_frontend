@@ -578,7 +578,7 @@ export function TabEncabezado({
           beneficiario: beneficiario.toUpperCase(),
           conac: conac.toUpperCase(),
           consecutivo: consecutivo.toUpperCase(),
-          anticorrupcion: anticorrupcion.toUpperCase(),
+          anticorrupcion: anticorrupcion,
         },
       },
     }));
