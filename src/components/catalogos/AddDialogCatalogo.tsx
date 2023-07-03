@@ -403,7 +403,7 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button color="error" onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -411,7 +411,7 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button onClick={CreatePorCatalogoFechas} autoFocus>
+            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogoFechas} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -558,7 +558,7 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button color="error" onClick={handleClose}>
+            <Button sx ={queries.buttonCancelarSolicitudInscripcion} color="error" onClick={handleClose}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -566,7 +566,7 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button onClick={CreatePorCatalogoProgramaInstitucion} autoFocus>
+            <Button sx ={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogoProgramaInstitucion} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -713,7 +713,7 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button color="error" onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -721,7 +721,7 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button onClick={CreatePorCatalogoInstitucionUnidadAdmin} autoFocus>
+            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogoInstitucionUnidadAdmin} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -878,7 +878,7 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button color="error" onClick={handleClose}>
+            <Button sx ={queries.buttonCancelarSolicitudInscripcion} color="error" onClick={handleClose}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -886,7 +886,7 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button onClick={CreatePorCatalogoProgramap} autoFocus>
+            <Button sx ={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogoProgramap} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -919,6 +919,8 @@ export const AddDialogCatalogo = ({
               flexDirection: "column",
               borderBottom: 0.5,
               borderColor: "#ccc",
+              
+              
               boxShadow: 1,
             }}
           >
@@ -945,8 +947,8 @@ export const AddDialogCatalogo = ({
             <TextField
               label={"Descripción"}
               variant="outlined"
-              multiline={descripcion.length < 20 ? false : true}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              multiline={descripcion.length < 200 ? false : true}
+              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
               onChange={(v) => setDescripcion(v.target.value)}
               style={{ marginTop: 1 }}
               rows={3}
