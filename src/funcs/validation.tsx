@@ -139,9 +139,11 @@ const siednlSignUp = (
 };
 
 export const continueSession = () => {
+  console.log(localStorage.getItem("jwtToken"))
   return axios
     .post(
       process.env.REACT_APP_APPLICATION_LOGIN + "/api/verify",
+      
       {},
       {
         headers: {
