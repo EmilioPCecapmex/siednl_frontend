@@ -488,7 +488,7 @@ export const ModifyDialogCatalogos = ({
           </IconButton>
         </Tooltip>
         <Dialog open={open} onClose={handleClose} fullWidth>
-          ///////////////////////////////
+        
           <Box
             sx={{
               width: "100%",

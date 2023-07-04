@@ -49,7 +49,7 @@ export const lstXl = {
     fontSize: ".7vw",
     fontStyle: "oblique",
   },
-  /////////////////////////////////////////////
+  
   institucionStyle: {
     fontFamily: "MontserratMedium",
     display: "flex",
