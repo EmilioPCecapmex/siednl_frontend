@@ -2,8 +2,8 @@ version: "3"
 
 services:
   front-siednl:
-    container_name: front-qa
-    image: front-qa
+    container_name: front-siednl
+    image: front-siednl
     build:
       context: .
     environment:
