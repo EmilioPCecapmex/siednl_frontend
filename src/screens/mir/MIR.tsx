@@ -287,13 +287,13 @@ export const MIR = () => {
   };
   ///////////////////////////////////////
   const colorMir = (v: string, mEdit: string) => {
-    if (mEdit !== undefined) {
-      let isModification = mEdit;
-      isModification = JSON.parse(mEdit);
-      if (isModification[1]) {
-        return "#cccc00";
-      }
-    }
+    // if (mEdit !== undefined) {
+    //   let isModification = mEdit;
+    //   isModification = JSON.parse(mEdit);
+    //   if (isModification[1]) {
+    //     return "#cccc00";
+    //   }
+    // }
     if (v === "En Captura") {
       return "#b3e6b3";
     } else if (v === "En Revisión") {
