@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { Box, Typography } from "@mui/material";
 import Swal from "sweetalert2";
-
+import { queries } from "../../queries";
 export const DeleteDialogCatalogos = ({
   deleteText,
   id,
@@ -182,7 +182,7 @@ export const DeleteDialogCatalogos = ({
             justifyContent: "center",
           }}
         >
-          <Button onClick={handleClose}>
+          <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
@@ -190,7 +190,7 @@ export const DeleteDialogCatalogos = ({
             </Typography>
           </Button>
 
-          <Button onClick={deletePorCatalogo} color="error" autoFocus>
+          <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={deletePorCatalogo} color="error" autoFocus>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >

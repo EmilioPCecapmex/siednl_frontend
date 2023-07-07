@@ -436,13 +436,19 @@ export default function ModalEnviarMIR({
   const createMIR = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
+      
     }
     if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
+      
+    }else{
+      
     }
     axios
       .post(
+        
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
+        
         {
           MIR: MIR,
           Estado: estado,
@@ -468,6 +474,7 @@ export default function ModalEnviarMIR({
           
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
           console.log("IdMir: ",r.data.data.ID);
+          console.log("estado: ",estado)
           console.log("create MIR r.data.data: ",r.data.data);
           console.log("user: ",user);
           sendMail(user.CorreoElectronico,enviarMensaje, "MIR");

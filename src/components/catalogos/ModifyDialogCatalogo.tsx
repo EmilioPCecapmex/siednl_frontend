@@ -283,8 +283,8 @@ export const ModifyDialogCatalogos = ({
             }}
           >
             <TextField
-              multiline={descripcion.length < 20 ? false : true}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              multiline={descripcion.length < 200 ? false : true}
+              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
               InputProps={{
                 style: {
                   fontFamily: "MontserratLight",
@@ -299,7 +299,7 @@ export const ModifyDialogCatalogos = ({
 
             <InputLabel>Institución</InputLabel>
             <Select
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
               value={institution}
               label="Institución"
               onChange={(x) => setInstitution(x.target.value)}
@@ -324,7 +324,7 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button color="error" onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -332,7 +332,7 @@ export const ModifyDialogCatalogos = ({
               </Typography>
             </Button>
 
-            <Button onClick={ModifyPorCatalogoProgramasP} autoFocus>
+            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogoProgramasP} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -401,9 +401,9 @@ export const ModifyDialogCatalogos = ({
             <TextField
               variant="outlined"
               onChange={(x) => setFechaCaptura(x.target.value)}
-              multiline={descripcion.length < 20 ? false : true}
+              multiline={descripcion.length < 200 ? false : true}
               defaultValue={fechaCaptura}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
               style={{ marginTop: "2vh" }}
               type="date"
               InputProps={{
@@ -427,7 +427,7 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button color="error" onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -435,7 +435,7 @@ export const ModifyDialogCatalogos = ({
               </Typography>
             </Button>
 
-            <Button onClick={ModifyPorCatalogoFechas} autoFocus>
+            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogoFechas} autoFocus>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -462,9 +462,9 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={handleClose}>
-            <Button color="error">Cancelar</Button>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} >Cancelar</Button>
 
-            <Button onClick={ModifyPorCatalogo} autoFocus>
+            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogo} autoFocus>
               De Acuerdo
             </Button>
           </DialogActions>
@@ -488,6 +488,7 @@ export const ModifyDialogCatalogos = ({
           </IconButton>
         </Tooltip>
         <Dialog open={open} onClose={handleClose} fullWidth>
+        
           <Box
             sx={{
               width: "100%",
@@ -498,6 +499,7 @@ export const ModifyDialogCatalogos = ({
               flexDirection: "column",
               borderBottom: 0.5,
               borderColor: "#ccc",
+              //background: "Blue",
               boxShadow: 1,
             }}
           >
@@ -521,8 +523,8 @@ export const ModifyDialogCatalogos = ({
             }}
           >
             <TextField
-              multiline={descripcion.length < 20 ? false : true}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              multiline={descripcion.length < 200 ? false : true}
+              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
               InputProps={{
                 style: {
                   fontFamily: "MontserratLight",
@@ -532,7 +534,15 @@ export const ModifyDialogCatalogos = ({
               id="outlined-basic"
               value={nuevaDescripcion || descripcion}
               variant="outlined"
-              onChange={(v) => setnuevaDescripcion(v.target.value)}
+              onChange={(v) => {
+                // if (!v.target.value || !nuevaDescripcion || !descripcion) {
+                //   // Valores vacíos o nulos, muestra un mensaje de error o realiza la acción necesaria
+                //   console.error('Por favor, ingresa una descripción válida.');
+                //   return;
+                // }
+              
+                setnuevaDescripcion(v.target.value);
+              }}
             />
           </DialogContent>
 
