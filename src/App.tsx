@@ -32,8 +32,9 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const jt = params.get("jwt") || null;
   const IdApp = params.get("IdApp");
-
+  
   useLayoutEffect(() => {
+<<<<<<< HEAD
     if (jt !== null) {
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
@@ -51,14 +52,35 @@ function App() {
       continueSession().then((r) => {
         console.log("r "+r);
         if ((r as boolean) === false) {
+=======
+    // if (jt !== null) {
+      
+    //   sessionValid().then((r) => {
+    //     if ((r as boolean) === false) {
+>>>>>>> b7008dc92fb72c168ceb078a319f6bcccf5c6dc0
           window.location.assign(
             process.env.REACT_APP_APPLICATION_FRONT_LOGIN || ""
           );
-        } else {
-          // navigate("../home");
-        }
-      });
-    }
+          
+    //     } else if ((r as boolean) === true) {
+    //       setTimeout(() => {
+    //         localStorage.setItem("IdApp", IdApp as string);
+    //         navigate("../home");
+    //       }, 2000);
+    //     }
+    //   });
+    // } else {
+    //   console.log('a')
+    //   continueSession().then((r) => {
+    //     if ((r as boolean) === false) {
+    //       window.location.assign(
+    //         process.env.REACT_APP_APPLICATION_FRONT_LOGIN || ""
+    //       );
+    //     } else {
+    //       // navigate("../home");
+    //     }
+    //   });
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
