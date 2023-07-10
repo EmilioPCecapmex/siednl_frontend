@@ -1,27 +1,11 @@
 import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  Input,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Tooltip,
-  Typography,
   Grid,
 } from "@mui/material";
 
-export const TabComponenteRf = ({ show }: { show: boolean }) => {
+export const TabComponenteRf = () => {
   return (
     <Grid
-    visibility={show ? "visible" : "hidden"}
+    
       position="absolute"
       sx={{
         display: "flex",

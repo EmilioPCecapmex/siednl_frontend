@@ -1,30 +1,15 @@
 import {
-  Box,
   Button,
-  FormControl,
-  IconButton,
-  Input,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Tooltip,
-  Typography,
   Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/Header";
-import CapturaRaffi from "../../components/tabsRaffi/AddRaffi";
+import CapturaRaffi from "../../components/tabsRaffi/CapturaRaffi";
 
 export const Raffi = () => {
-  const navigate = useNavigate();
+ 
   const [actionNumber, setActionNumber] = useState(0);
 
   const [opentabs, setOpenTabs] = useState(false);
