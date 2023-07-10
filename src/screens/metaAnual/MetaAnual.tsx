@@ -318,7 +318,7 @@ export const MetaAnual = () => {
       }}
     >
       <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
-        <LateralMenu selection={3} actionNumber={actionNumber} />
+        <LateralMenu selection={"Meta Anual"} actionNumber={actionNumber} />
       </Box>
 
       <Box gridArea={"header"} sx={{ height: "8vh" }}>

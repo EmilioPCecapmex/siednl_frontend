@@ -266,7 +266,7 @@ export const Notification = () => {
       }}
     >
       <Box gridArea={"aside"}>
-        <LateralMenu selection={7} actionNumber={0} />
+        <LateralMenu selection={"Notificaciones"} actionNumber={0} />
         {/* <TutorialBox initialState={13} endState={17} /> */}
       </Box>
 

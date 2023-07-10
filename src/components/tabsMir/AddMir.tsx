@@ -418,6 +418,9 @@ export default function FullModalMir({
       {value === 40 ? <TutorialBox initialState={33} endState={35} /> : null}
       {value === 50 ? <TutorialBox initialState={30} endState={33} /> : null} */}
 
+
+
+
       <Box
         sx={{
           width: "auto",
@@ -571,6 +574,8 @@ export default function FullModalMir({
           )}
           {/* )} */}
         </Box>
+
+        
       </Box>
     </Box>
   );

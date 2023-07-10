@@ -7,7 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { Box, Typography, Tooltip } from "@mui/material";
 import Swal from "sweetalert2";
-
+import { queries } from "../../queries";
 export const DeleteDialogMIR = ({
   disab,
   id,
@@ -117,7 +117,7 @@ export const DeleteDialogMIR = ({
             justifyContent: "center",
           }}
         >
-          <Button onClick={handleClose}>
+          <Button  sx ={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
@@ -130,7 +130,7 @@ export const DeleteDialogMIR = ({
               deleteMIR();
               handleClose();
             }}
-            color="error"
+            sx ={queries.buttonContinuarSolicitudInscripcion}
             autoFocus
           >
             <Typography

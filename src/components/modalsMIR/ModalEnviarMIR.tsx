@@ -415,10 +415,13 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        console.log("r.data.Id: ",r.data.data.Id);
+        console.log("Create MA r.data.Id: ",r.data.data);
+        console.log("r: ",r);
         
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario, r.data.data.Id);
+          console.log('userInst',userXInst);
+          
+          enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
           sendMail(user.CorreoElectronico,enviarMensaje, "MA",);
           
         });
@@ -433,13 +436,19 @@ export default function ModalEnviarMIR({
   const createMIR = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
+      
     }
     if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
+      
+    }else{
+      
     }
     axios
       .post(
+        
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
+        
         {
           MIR: MIR,
           Estado: estado,
@@ -465,8 +474,11 @@ export default function ModalEnviarMIR({
           
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
           console.log("IdMir: ",r.data.data.ID);
+          console.log("estado: ",estado)
+          console.log("create MIR r.data.data: ",r.data.data);
+          console.log("user: ",user);
           sendMail(user.CorreoElectronico,enviarMensaje, "MIR");
-          enviarNotificacion(user.IdUsuario,r.data.data.ID);
+          enviarNotificacion(user.IdUsuario,r.data.data.ID, "MIR");
           
           
         });
@@ -511,10 +523,14 @@ export default function ModalEnviarMIR({
   useEffect(() => {
     if (open) {
       let inst = JSON.parse(MIR)?.encabezado.institucion;
-    if (localStorage.getItem("Rol") === "Verificador") {
-      inst = "admin";
-    }
+      //inst = "admin";
+    //  if (localStorage.getItem("Rol") === "Verificador") {
+    //    inst = "admin";
+    //  }
     axios
+
+
+    /////listado
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
         {
@@ -528,7 +544,10 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
+        console.log('r',r);
+        
         if (r.status === 200) {
+          
           setUserXInst(r.data.data);
          
           
@@ -537,17 +556,17 @@ export default function ModalEnviarMIR({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (IdUsuarioDestino: string ,IdDoc="") => {
+  const enviarNotificacion = (IdUsuarioDestino: string ,IdDoc="", Nombre="") => {
     console.log("IdDoc: ",IdDoc);
     console.log("IdUsuarioDestino: ",IdUsuarioDestino);
-    
+    console.log("Nombre: ",Nombre);
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
 
       {
         IdUsuarioDestino: IdUsuarioDestino,
-        Titulo: "MIR",
-        Mensaje: "Se ha creado una nueva MIR",
+        Titulo: Nombre,
+        Mensaje: enviarMensaje + " "+ Nombre,
         IdDocumento: IdDoc,
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
@@ -577,7 +596,7 @@ export default function ModalEnviarMIR({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "2vh",
+          height: "6vh",
           mb: 2,
         }}
       >

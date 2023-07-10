@@ -287,13 +287,13 @@ export const MIR = () => {
   };
   ///////////////////////////////////////
   const colorMir = (v: string, mEdit: string) => {
-    if (mEdit !== undefined) {
-      let isModification = mEdit;
-      isModification = JSON.parse(mEdit);
-      if (isModification[1]) {
-        return "#cccc00";
-      }
-    }
+    // if (mEdit !== undefined) {
+    //   let isModification = mEdit;
+    //   isModification = JSON.parse(mEdit);
+    //   if (isModification[1]) {
+    //     return "#cccc00";
+    //   }
+    // }
     if (v === "En Captura") {
       return "#b3e6b3";
     } else if (v === "En Revisión") {
@@ -320,10 +320,10 @@ export const MIR = () => {
       }}
     >
       <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
-        <LateralMenu selection={2} actionNumber={actionNumber} />
+        <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Box>
 
-      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+      <Box gridArea={"header"} sx={{ height: "8vh"}}>
         <Header
           details={{
             name1: "Inicio",

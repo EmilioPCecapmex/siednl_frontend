@@ -18,7 +18,7 @@ import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { createTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-
+import { Raffi } from "./screens/raffi/Raffi";
 export const appTheme = createTheme({
   palette: {
     primary: {
@@ -79,6 +79,7 @@ function App() {
           />
           <Route path="mir" element={<MIR />} />
           <Route path="metaAnual" element={<MetaAnual />} />
+          <Route path="raffi" element={<Raffi />} />
           <Route path="notifications" element={<Notification />} />
         </Routes>
       </CssBaseline>

@@ -44,7 +44,7 @@ export const Settings = () => {
       }}
     >
       <Box gridArea={"aside"} sx={{ mr: showCards ? 8 : 0 }}>
-        <LateralMenu selection={6} actionNumber={0} settingsCard={resetView} />
+        <LateralMenu selection={"Configuración"} actionNumber={0} settingsCard={resetView} />
       </Box>
 
       <Box gridArea={"header"} sx={{ height: "8vh" }}>

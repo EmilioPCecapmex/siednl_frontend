@@ -532,7 +532,11 @@ export default function ModalEnviarMA({
       .then((r) => {
         // eslint-disable-next-line array-callback-return
         //console.log("IdMA: r.data.data ",r.data.data);
+        
+        
         userXInst.map((user) => {
+          
+          
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
           sendMail(user.CorreoElectronico,enviarMensaje,"MA")
         });
@@ -602,9 +606,9 @@ export default function ModalEnviarMA({
     if (open) {
       let inst = JSON.parse(MIR)?.encabezado.institucion;
 
-    if (localStorage.getItem("Rol") === "Verificador") {
-      inst = "admin";
-    }
+    // if (localStorage.getItem("Rol") === "Verificador") {
+    //   inst = "admin";
+    // }
 
     axios
       .get(
@@ -628,9 +632,9 @@ export default function ModalEnviarMA({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (v: string, IdDoc="",tipoDoc ="", Nombre ="") => {
+  const enviarNotificacion = (IdUsuarioDestino: string, IdDoc="",tipoDoc ="", Nombre ="") => {
     
-    
+    console.log("IdUsuarioDestino: ",IdUsuarioDestino);
     console.log("IdDoc: ",IdDoc);
     console.log("tipoDoc: ",tipoDoc);
     console.log("Nombre: ",Nombre);
@@ -638,7 +642,7 @@ export default function ModalEnviarMA({
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
-        IdUsuarioDestino: v,
+        IdUsuarioDestino: IdUsuarioDestino,
         Titulo: tipoDoc,
         Mensaje:  enviarMensaje + " "+ Nombre,
         IdDocumento: IdDoc,
@@ -670,7 +674,7 @@ export default function ModalEnviarMA({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "2vh",
+          height: "6vh",
           mb: 2,
         }}
       >

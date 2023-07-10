@@ -49,7 +49,7 @@ export const LateralMenu = ({
   actionNumber,
   settingsCard,
 }: {
-  selection: number;
+  selection: string;
   actionNumber: number;
   settingsCard?: Function;
 }) => {
@@ -234,14 +234,14 @@ export const LateralMenu = ({
         maxWidth={"sm"}
       >
         <Box
-        // display= "flex"
-        // alignItems= "center"
-        // justifyContent= "center"
-        // borderBottom= "1"
-        // height= "5vh"
-        // boxShadow= "1"
-        // borderColor= "#ccc"
-        
+          // display= "flex"
+          // alignItems= "center"
+          // justifyContent= "center"
+          // borderBottom= "1"
+          // height= "5vh"
+          // boxShadow= "1"
+          // borderColor= "#ccc"
+
           sx={{
             display: "flex",
             alignItems: "center",
@@ -313,7 +313,10 @@ export const LateralMenu = ({
               </Typography>
             </Button>
 
-            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={() => cambiarContrasena()}>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={() => cambiarContrasena()}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -420,9 +423,9 @@ export const LateralMenu = ({
             <Box sx={st.iconMenuList}>
               <HomeOutlinedIcon />
             </Box>
-            <Typography sx={st.firstItemsStyle}>Inicio</Typography>
+            <Typography sx={st.firstItemsStyle}>Inicioo</Typography>
             <Box
-              visibility={selection === 0 ? "visible" : "hidden"}
+              visibility={selection === "Inicio" ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
           </ListItemButton>
@@ -437,7 +440,9 @@ export const LateralMenu = ({
             </Typography>
             {openProgramas ? <ExpandLess /> : <ExpandMore />}
             <Box
-              visibility={selection === 1 ? "visible" : "hidden"}
+              visibility={
+                selection === "Programas Presupuestarios" ? "visible" : "hidden"
+              }
               sx={st.selectedBox}
             />
           </ListItemButton>
@@ -455,7 +460,7 @@ export const LateralMenu = ({
                 </Box>
                 <Typography sx={st.subMenuItemsText}>MIR</Typography>
                 <Box
-                  visibility={selection === 2 ? "visible" : "hidden"}
+                  visibility={selection === "MIR" ? "visible" : "hidden"}
                   sx={st.selectedBox}
                 />
               </ListItemButton>
@@ -472,7 +477,7 @@ export const LateralMenu = ({
                 </Box>
                 <Typography sx={st.subMenuItemsText}>Meta Anual</Typography>
                 <Box
-                  visibility={selection === 3 ? "visible" : "hidden"}
+                  visibility={selection === "Meta Anual" ? "visible" : "hidden"}
                   sx={st.selectedBox}
                 />
               </ListItemButton>
@@ -489,7 +494,9 @@ export const LateralMenu = ({
                 </Box>
                 <Typography sx={st.subMenuItemsText}>Ficha Técnica</Typography>
                 <Box
-                  visibility={selection === 4 ? "visible" : "hidden"}
+                  visibility={
+                    selection === "Ficha Técnica" ? "visible" : "hidden"
+                  }
                   sx={st.selectedBox}
                 />
               </ListItemButton>
@@ -513,6 +520,24 @@ export const LateralMenu = ({
             />
           </ListItemButton> */}
 
+          <ListItemButton
+            onClick={() => {
+              //setResumeDefaultFT();
+              //exitAlert("../fichaTecnica");
+              navigate("../raffi");
+            }}
+            sx={st.subMenuItemStyle}
+          >
+            <Box sx={st.iconMenuList}>
+              <KeyboardDoubleArrowRightIcon />
+            </Box>
+            <Typography sx={st.subMenuItemsText}>Raffi</Typography>
+            <Box
+              visibility={selection === "Raffi" ? "visible" : "hidden"}
+              sx={st.selectedBox}
+            />
+          </ListItemButton>
+
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <ListItemButton onClick={() => exitAlert("../notifications")}>
               <Box sx={st.iconMenuList}>
@@ -520,7 +545,9 @@ export const LateralMenu = ({
               </Box>
               <Typography sx={st.firstItemsStyle}>Notificaciones</Typography>
               <Box
-                visibility={selection === 7 ? "visible" : "hidden"}
+                visibility={
+                  selection === "Notificaciones" ? "visible" : "hidden"
+                }
                 sx={st.selectedBox}
               />
             </ListItemButton>
@@ -539,7 +566,9 @@ export const LateralMenu = ({
               <Typography sx={st.bottomItemsStyle}>Configuración</Typography>
 
               <Box
-                visibility={selection === 6 ? "visible" : "hidden"}
+                visibility={
+                  selection === "Configuración" ? "visible" : "hidden"
+                }
                 sx={st.selectedBox}
               />
             </ListItemButton>
@@ -553,7 +582,7 @@ export const LateralMenu = ({
               <Typography sx={st.bottomItemsStyle}>Usuarios</Typography>
 
               <Box
-                visibility={selection === 6 ? "visible" : "hidden"}
+                visibility={selection === "Usuarios" ? "visible" : "hidden"}
                 sx={st.selectedBox}
               />
             </ListItemButton>

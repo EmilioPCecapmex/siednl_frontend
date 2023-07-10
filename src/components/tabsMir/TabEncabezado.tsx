@@ -512,7 +512,7 @@ export function TabEncabezado({
     dataArray.append("file", uploadFile);
 
     axios
-      .post(process.env.REACT_APP_APPLICATION_MIR + "/upload", dataArray, {
+      .post(process.env.REACT_APP_APPLICATION_MID + "/upload", dataArray, {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -576,8 +576,8 @@ export function TabEncabezado({
           estrategia: estrategia.toUpperCase(),
           lineas_de_accion: lineaDeAccion,
           beneficiario: beneficiario.toUpperCase(),
-          conac: conac.toUpperCase(),
-          consecutivo: consecutivo.toUpperCase(),
+          conac: conac,
+          consecutivo: consecutivo,
           anticorrupcion: anticorrupcion,
         },
       },

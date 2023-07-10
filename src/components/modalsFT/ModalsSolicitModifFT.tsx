@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
-
+import { queries } from "../../queries";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -186,7 +186,7 @@ export default function ModalSolicitaModif({
       err = 1;
       errores.push("<strong>Fin</strong>: Aporte marginal sin información");
     }
-    /////////////////////////////////////////////////////////////////////////////
+
     if (JSON.parse(FT)?.proposito === null) {
       err = 1;
       errores.push("Sección <strong>proposito</strong> incompleta.");
@@ -624,9 +624,7 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="error"
+              sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -635,9 +633,7 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="primary"
+              sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
