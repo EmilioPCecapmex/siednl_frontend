@@ -148,7 +148,7 @@ export const ComentDialogMir = ({
         actualizado();
         Toast.fire({
           icon: "success",
-          title: "Comentario añadido",
+          title: "Comentario añadidoa",
         });
       })
       .catch((err) => {
