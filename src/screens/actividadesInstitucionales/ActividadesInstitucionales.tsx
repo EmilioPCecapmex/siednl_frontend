@@ -51,7 +51,7 @@ export const ActividadesInstitucionales = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <LateralMenu selection={5} actionNumber={0} />
+      <LateralMenu selection={"Actividades Institucionales"} actionNumber={0} />
       <Header
         details={{
           name1: "Inicio",

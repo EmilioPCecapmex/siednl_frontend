@@ -186,7 +186,7 @@ export default function ModalSolicitaModif({
       err = 1;
       errores.push("<strong>Fin</strong>: Aporte marginal sin información");
     }
-    /////////////////////////////////////////////////////////////////////////////
+
     if (JSON.parse(FT)?.proposito === null) {
       err = 1;
       errores.push("Sección <strong>proposito</strong> incompleta.");

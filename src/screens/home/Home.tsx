@@ -21,7 +21,7 @@ export const Home = () => {
       }}
     >
       <Box gridArea={"aside"}>
-        <LateralMenu selection={0} actionNumber={0} />
+        <LateralMenu selection={"Inicio"} actionNumber={0} />
       </Box>
 
       <Box gridArea={"header"} sx={{ height: "8vh" }}>

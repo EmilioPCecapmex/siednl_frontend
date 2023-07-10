@@ -320,10 +320,10 @@ export const MIR = () => {
       }}
     >
       <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
-        <LateralMenu selection={2} actionNumber={actionNumber} />
+        <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Box>
 
-      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+      <Box gridArea={"header"} sx={{ height: "8vh"}}>
         <Header
           details={{
             name1: "Inicio",

@@ -71,7 +71,7 @@ export const Usuarios = () => {
     }}
     >
       <Box gridArea={'aside'} >
-        <LateralMenu selection={6} actionNumber={0} />
+        <LateralMenu selection={"Usuarios"} actionNumber={0} />
       </Box>
       
       <Box gridArea={'header'} sx={{ height: "8vh" }}>
