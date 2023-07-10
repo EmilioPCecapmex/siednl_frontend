@@ -420,7 +420,7 @@ export const LateralMenu = ({
             <Box sx={st.iconMenuList}>
               <HomeOutlinedIcon />
             </Box>
-            <Typography sx={st.firstItemsStyle}>Inicio</Typography>
+            <Typography sx={st.firstItemsStyle}>Inicioo</Typography>
             <Box
               visibility={selection === 0 ? "visible" : "hidden"}
               sx={st.selectedBox}
