@@ -354,7 +354,7 @@ export const Raffi = () => {
 
 
       {/*  */}
-      <Grid gridArea={"header"} sx={{ height: "8vh" }}>
+      {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
         <Header
           details={{
             name1: "Inicio",
@@ -364,7 +364,7 @@ export const Raffi = () => {
             name3: "",
           }}
         />
-      </Grid>
+      </Grid> */}
 
       {/* {showResume ? ( */}
         <Grid
