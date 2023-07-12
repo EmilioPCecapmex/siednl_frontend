@@ -353,6 +353,46 @@ export const Raffi = () => {
 
 
 
+      
+
+
+
+        
+      <Grid item sx={{ backgroundColor: "#F2F2F2", flexGrow: 1 }}>
+
+        <Grid sx={{ width: "80%", height: "8vh", marginLeft: "4vw" }}>
+          <Header
+            details={{
+              name1: "Inicio",
+              path1: "../home",
+              name2: "Raffi",
+              path2: "../raffi",
+              name3: "",
+            }}
+          />
+
+        </Grid>
+
+        <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
+            {!opentabs && (
+              <Grid>
+                <Button
+                  onClick={() => {
+                    setOpenTabs(true);
+                  }}
+                >
+                  Ir a tabs
+                </Button>
+              </Grid>
+            )}
+            {opentabs && <CapturaRaffi />}
+          </Grid>
+
+      </Grid>
+
+
+
+
       {/*  */}
       {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
         <Header
@@ -367,7 +407,7 @@ export const Raffi = () => {
       </Grid> */}
 
       {/* {showResume ? ( */}
-        <Grid
+      <Grid
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -550,38 +590,14 @@ export const Raffi = () => {
 
 
 
-        
-      <Grid item sx={{ backgroundColor: "#F2F2F2", flexGrow: 1 }}>
 
-        <Grid sx={{ width: "80%", height: "8vh", marginLeft: "4vw" }}>
-          <Header
-            details={{
-              name1: "Inicio",
-              path1: "../home",
-              name2: "Raffi",
-              path2: "../raffi",
-              name3: "",
-            }}
-          />
 
-        </Grid>
 
-        <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
-            {!opentabs && (
-              <Grid>
-                <Button
-                  onClick={() => {
-                    setOpenTabs(true);
-                  }}
-                >
-                  Ir a tabs
-                </Button>
-              </Grid>
-            )}
-            {opentabs && <CapturaRaffi />}
-          </Grid>
 
-      </Grid>
+
+
+
+
     </Grid>
     </Grid>
   );
