@@ -393,15 +393,15 @@ export const Raffi = () => {
           >
             {/* <TutorialGrid initialState={45} endState={49} /> */}
             <Grid
-              sx={{
-                display: "flex",
-                width: "70%",
-                alignItems: "center",
-                justifyContent: "center",
-                border: 1,
-                borderRadius: 2,
-                borderColor: "#616161",
-              }}
+              // sx={{
+              //   display: "flex",
+              //   width: "70%",
+              //   alignItems: "center",
+              //   justifyContent: "center",
+              //   border: 1,
+              //   borderRadius: 2,
+              //   borderColor: "#616161",
+              // }}
             >
               <Input
                 size="small"
@@ -530,16 +530,16 @@ export const Raffi = () => {
           </Grid>
 
           <Grid
-            sx={{
-              width: "80%",
-              height: "65vh",
-              backgroundColor: "#ffff",
-              borderRadius: 5,
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-              GridShadow: 5,
-            }}
+            // sx={{
+            //   width: "80%",
+            //   height: "65vh",
+            //   backgroundColor: "#ffff",
+            //   borderRadius: 5,
+            //   display: "flex",
+            //   alignItems: "center",
+            //   flexDirection: "column",
+            //   GridShadow: 5,
+            // }}
           >
             
           </Grid>
