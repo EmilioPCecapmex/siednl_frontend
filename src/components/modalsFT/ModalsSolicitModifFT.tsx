@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
+import { log } from "console";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -587,6 +588,8 @@ export default function ModalSolicitaModif({
               </MenuItem>
 
               {userXInst.map((item) => {
+                console.log("userXInst: ",userXInst);
+                
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
                     {item.Nombre}

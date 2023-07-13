@@ -77,6 +77,8 @@ export function TabResumenMA({
         }
       )
       .then((r) => {
+        console.log("Hola soy la respuesta");
+        console.log("r: ",r);
         Toast.fire({
           icon: "success",
           title: r.data.data.message,

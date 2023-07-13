@@ -64,6 +64,12 @@ export default function ModalEnviarMA({
 
   let err = 0;
 
+  // useEffect(  () =>{
+  //   console.log("MIR: ",MIR);
+  //   console.log("MA: ",MA);
+    
+  // })
+
   const checkMA = (v: string) => {
     errores = [];
     if (JSON.parse(MA)?.fin === null) {
@@ -85,29 +91,25 @@ export default function ModalEnviarMA({
       errores.push("<strong>Fin</strong>: Línea base sin información.");
     }
     if (
-      JSON.parse(MA)?.fin.valorNumerador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador)
+      JSON.parse(MA)?.fin.valorNumerador === undefined ||  /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador)
     ) {
       err = 1;
       errores.push(
         "<strong>Fin</strong>: Valor del numerador sin información."
       );
     }
-    if (
-      !JSON.parse(MIR)
-        .fin.indicador.toLowerCase()
-        .includes("indice" || "índice") &&
-      (JSON.parse(MA)?.fin.valorDenominador === undefined ||
-        /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
+    if ( !JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice" || "índice" || "INDICE" || "ÍNDICE" || "Índice" || "Indice") && (JSON.parse(MA)?.fin.valorDenominador === undefined || /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
     ) {
+      
+      
       err = 1;
+      
       errores.push(
         "<strong>Fin</strong>: Valor del denominador sin información."
       );
     }
     if (
-      JSON.parse(MA)?.fin.sentidoDelIndicador === undefined ||
-      JSON.parse(MA)?.fin.sentidoDelIndicador === ""
+      JSON.parse(MA)?.fin.sentidoDelIndicador === undefined || JSON.parse(MA)?.fin.sentidoDelIndicador === ""
     ) {
       err = 1;
       errores.push(
@@ -530,6 +532,7 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
+        console.log("Hola soy la respuesta");
         // eslint-disable-next-line array-callback-return
         //console.log("IdMA: r.data.data ",r.data.data);
         
