@@ -103,9 +103,16 @@ export default function ModalSolicitaModif({
       err = 1;
       errores.push("<strong>Fin</strong>: Valor del numerador sin información");
     }
-    
-    if ( !JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice" || "índice" || "INDICE" || "ÍNDICE" || "Índice" || "Indice") && (JSON.parse(MA)?.fin.valorDenominador === undefined || /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
-      ) {
+
+    if (
+      !JSON.parse(MIR)
+        .fin.indicador.toLowerCase()
+        .includes(
+          "indice" || "índice" || "INDICE" || "ÍNDICE" || "Índice" || "Indice"
+        ) &&
+      (JSON.parse(MA)?.fin.valorDenominador === undefined ||
+        /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
+    ) {
       err = 1;
       errores.push(
         "<strong>Fin</strong>: Valor del denominador sin información"
@@ -506,7 +513,7 @@ export default function ModalSolicitaModif({
   };
   ///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
-    console.log("IdMIR: ",IdMIR);
+    console.log("IdMIR: ", IdMIR);
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
     } else if (estado === "En Autorización" && userSelected !== "0") {
@@ -529,7 +536,7 @@ export default function ModalSolicitaModif({
           Estado: estado,
           Id: IdMA,
         },
-        
+
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -537,12 +544,10 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
+        console.log("IdMIR: ", IdMIR);
+        console.log("r: ", r);
 
-        console.log("IdMIR: ",IdMIR);
-        console.log("r: ",r);
-        
         if (comment !== "") {
-          
           comentMA(IdMIR);
         }
         Toast.fire({
@@ -566,22 +571,25 @@ export default function ModalSolicitaModif({
   };
 
   useEffect(() => {
-    let tipousuario = ""
+    let tipousuario = "";
 
-    // if(localStorage.getItem("Rol") === "Verificador")
-    // tipousuario = "Verificador"
-    // if(localStorage.getItem("Rol") === "Capturador")
-    // tipousuario = "Capturador"
+    if (localStorage.getItem("Rol") === "Verificador")
+      tipousuario = "Capturador";
+    if (localStorage.getItem("Rol") === "Capturador")
+      tipousuario = "Verificador";
+    if (localStorage.getItem("Rol") === "Administrador")
+      tipousuario = "VERIFICADOR_CAPTURADOR";
+
+    
 
     if (open) {
-      
-      
       axios
         .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeUsuarioXInstitucion",
+          process.env.REACT_APP_APPLICATION_BACK +
+            "/api/tipoDeUsuarioXInstitucion",
           {
             params: {
-              TipoUsuario: localStorage.getItem("Rol"),
+              TipoUsuario: tipousuario,
               Institucion: JSON.parse(MIR)?.encabezado?.institucion,
             },
             headers: {
@@ -591,8 +599,8 @@ export default function ModalSolicitaModif({
         )
         .then((r) => {
           if (r.status === 200) {
-            console.log("UserXInst: ",r.data.data);
-            
+            console.log("UserXInst: ", r.data.data);
+
             setUserXInst(r.data.data);
           }
         });
@@ -684,10 +692,9 @@ export default function ModalSolicitaModif({
               value={userSelected}
               onChange={(v) => (
                 setUserSelected(v.target.value),
-                console.log("userSelected",userSelected),
-                console.log("v.target.value",v.target.value)
-                
-                )}
+                console.log("userSelected", userSelected),
+                console.log("v.target.value", v.target.value)
+              )}
               disableUnderline
             >
               <MenuItem value={"0"} disabled>
