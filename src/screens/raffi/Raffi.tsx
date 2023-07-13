@@ -373,27 +373,13 @@ export const Raffi = () => {
 
         </Grid>
 
-        <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
-            {!opentabs && (
-              <Grid>
-                <Button
-                  onClick={() => {
-                    setOpenTabs(true);
-                  }}
-                >
-                  Ir a tabs
-                </Button>
-              </Grid>
-            )}
-            {opentabs && <CapturaRaffi />}
-          </Grid>
-
-      </Grid>
 
 
 
 
-      {/*  */}
+
+
+        {/* inicia tabla  */}
       {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
         <Header
           details={{
@@ -586,6 +572,40 @@ export const Raffi = () => {
         
 
         {/* TERMINA */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
+            {!opentabs && (
+              <Grid>
+                <Button
+                  onClick={() => {
+                    setOpenTabs(true);
+                  }}
+                >
+                  Ir a tabs
+                </Button>
+              </Grid>
+            )}
+            {opentabs && <CapturaRaffi />}
+          </Grid>
+
+      </Grid>
+
+
+
+
+      
 
 
 
