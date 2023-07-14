@@ -388,7 +388,7 @@ export const Raffi = () => {
         {/* INICIA PANEL CON FILTRO  */}
     
 
-        {/* {showResume ? ( */}
+        {showResume ? (
         <Grid 
           sx={{
             display: "flex",
@@ -988,8 +988,21 @@ export const Raffi = () => {
 
         </Grid>
 
-
-      </Grid>
+) : (
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-evenly",
+      alignItems: "center",
+      height: "92vh",
+    }}
+    gridArea={"main"}
+  >
+    <CapturaRaffi/>
+  </Box>
+)}
+</Grid>
     </Grid>
   );
 };
