@@ -349,7 +349,7 @@ export const Raffi = () => {
 
 
   return (
-    <Grid container display="flex">
+    <Grid container display="flex" wrap="nowrap">
       <Grid item height={"100vh"}>
         <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
@@ -573,7 +573,7 @@ export const Raffi = () => {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
-              boxShadow: 5,
+              boxShadow: 5
             }}
           >
             <Table>
@@ -837,7 +837,7 @@ export const Raffi = () => {
                                 flexDirection: "row",
                               }}
                             >
-                              <Tooltip title="REGISTRAR FICHA TÉCNICA">
+                              <Tooltip title="REGISTRAR RAFFI">
                                 <span>
                                   <IconButton
                                     disabled={
@@ -882,7 +882,7 @@ export const Raffi = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                              <Tooltip title="VER FICHA TÉCNICA">
+                              <Tooltip title="VER RAFFI">
                                 <span>
                                   <IconButton
                                     disabled={
