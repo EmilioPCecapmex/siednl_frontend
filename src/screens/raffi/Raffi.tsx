@@ -470,7 +470,7 @@ export const Raffi = () => {
                   disabled
                   selected
                 >
-                  Filtro por estado de la Ficha Técnica
+                  Filtro por estado de la RAFFI
                 </MenuItem>
                 <MenuItem
                   value={"Todos"}
