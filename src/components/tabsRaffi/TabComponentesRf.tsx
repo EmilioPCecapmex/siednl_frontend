@@ -1,6 +1,40 @@
 import {
   Grid,
 } from "@mui/material";
+import './CapturaRaffi.css';
+
+const GridTable = () => {
+  return (
+    <div className="grid-container">
+      <table>
+        <thead>
+          <tr>
+            <th>I</th>
+            <th>II</th>
+            <th>III</th>
+            <th>IV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default GridTable;
 
 export const TabComponenteRf = () => {
   return (
@@ -17,7 +51,8 @@ export const TabComponenteRf = () => {
         backgroundColor: "#fff",
       }}
     >
-      Hola dios
+      <GridTable />
     </Grid>
   );
 };
+

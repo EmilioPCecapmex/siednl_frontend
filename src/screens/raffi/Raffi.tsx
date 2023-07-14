@@ -840,21 +840,21 @@ export const Raffi = () => {
                               <Tooltip title="REGISTRAR RAFFI">
                                 <span>
                                   <IconButton
-                                    disabled={
-                                      row.Estado === "En Captura" &&
-                                        localStorage.getItem("Rol") ===
-                                        "Capturador"
-                                        ? false
-                                        : row.Estado === "En Revisión" &&
-                                          localStorage.getItem("Rol") ===
-                                          "Verificador"
-                                          ? false
-                                          : row.Estado === "En Autorización" &&
-                                            localStorage.getItem("Rol") ===
-                                            "Administrador"
-                                            ? false
-                                            : true
-                                    }
+                                    // disabled={
+                                    //   row.Estado === "En Captura" &&
+                                    //     localStorage.getItem("Rol") ===
+                                    //     "Capturador"
+                                    //     ? false
+                                    //     : row.Estado === "En Revisión" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //       "Verificador"
+                                    //       ? false
+                                    //       : row.Estado === "En Autorización" &&
+                                    //         localStorage.getItem("Rol") ===
+                                    //         "Administrador"
+                                    //         ? false
+                                    //         : true
+                                    // }
                                     onClick={() => {
                                       setFTEdit([
                                         {
@@ -885,9 +885,9 @@ export const Raffi = () => {
                               <Tooltip title="VER RAFFI">
                                 <span>
                                   <IconButton
-                                    disabled={
-                                      row.Estado === "Autorizada" ? false : true
-                                    }
+                                    // disabled={
+                                    //   row.Estado === "Autorizada" ? false : true
+                                    // }
                                     onClick={() => {
                                       setFTShow([
                                         {
@@ -986,7 +986,7 @@ export const Raffi = () => {
           {/* TERMINA PANEL CON TARJETAS DE RAFFIS */}
 
           
-          <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
+          {/* <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
             {!opentabs && (
               <Grid>
                 <Button
@@ -999,12 +999,12 @@ export const Raffi = () => {
               </Grid>
             )}
             {opentabs && <CapturaRaffi />}
-          </Grid>
+          </Grid> */}
 
         </Grid>
 
 ) : (
-  <Box
+  <Grid
     sx={{
       display: "flex",
       flexDirection: "column",
@@ -1015,7 +1015,7 @@ export const Raffi = () => {
     gridArea={"main"}
   >
     <CapturaRaffi/>
-  </Box>
+  </Grid>
 )}
 </Grid>
     </Grid>
