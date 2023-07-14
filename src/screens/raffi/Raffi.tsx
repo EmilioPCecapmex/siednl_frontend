@@ -19,9 +19,15 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { 
-  IInstituciones,LateralMenu } from "../../components/lateralMenu/LateralMenu";
+import moment from "moment";
+import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import {
+  IInstituciones, LateralMenu
+} from "../../components/lateralMenu/LateralMenu";
 import SearchIcon from "@mui/icons-material/Search";
+import DownloadIcon from "@mui/icons-material/Download";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/Header";
 import Swal from "sweetalert2";
@@ -54,7 +60,7 @@ export interface IDownloadFT {
 }
 
 export const Raffi = () => {
- 
+
   // const [actionNumber, setActionNumber] = useState(0);
 
   const [opentabs, setOpenTabs] = useState(false);
@@ -181,7 +187,7 @@ export const Raffi = () => {
       })
       .catch((err) => {
         console.log(err);
-        
+
         Toast.fire({
           icon: "error",
           title: "Error al intentar descargar el documento.",
@@ -298,7 +304,7 @@ export const Raffi = () => {
         setft(r.data.data);
         setFtFiltered(r.data.data);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   useEffect(() => {
@@ -308,8 +314,8 @@ export const Raffi = () => {
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
-    console.log("ft: ",ft);
-    
+    console.log("ft: ", ft);
+
     let id = urlParams.get("Id");
     setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
   }, [ft]);
@@ -345,19 +351,19 @@ export const Raffi = () => {
   return (
     <Grid container display="flex">
       <Grid item height={"100vh"}>
-          <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
+        <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
-      
 
 
 
 
 
-      
 
 
 
-        
+
+
+
       <Grid item sx={{ backgroundColor: "#F2F2F2", flexGrow: 1 }}>
 
         <Grid sx={{ width: "80%", height: "8vh", marginLeft: "4vw" }}>
@@ -379,21 +385,11 @@ export const Raffi = () => {
 
 
 
-        {/* inicia tabla  */}
-      {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
-        <Header
-          details={{
-            name1: "Inicio",
-            path1: "../home",
-            name2: "Ficha Técnica",
-            path2: "../fichatecnica",
-            name3: "",
-          }}
-        />
-      </Grid> */}
+        {/* INICIA PANEL CON FILTRO  */}
+    
 
-      {/* {showResume ? ( */}
-      <Grid
+        {/* {showResume ? ( */}
+        <Grid 
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -419,15 +415,15 @@ export const Raffi = () => {
           >
             {/* <TutorialGrid initialState={45} endState={49} /> */}
             <Grid
-              // sx={{
-              //   display: "flex",
-              //   width: "70%",
-              //   alignItems: "center",
-              //   justifyContent: "center",
-              //   border: 1,
-              //   borderRadius: 2,
-              //   borderColor: "#616161",
-              // }}
+            // sx={{
+            //   display: "flex",
+            //   width: "70%",
+            //   alignItems: "center",
+            //   justifyContent: "center",
+            //   border: 1,
+            //   borderRadius: 2,
+            //   borderColor: "#616161",
+            // }}
             >
               <Input
                 size="small"
@@ -470,7 +466,7 @@ export const Raffi = () => {
                   disabled
                   selected
                 >
-                  Filtro por estado de la Ficha Técnica
+                  Filtro por estado de la RAFFI
                 </MenuItem>
                 <MenuItem
                   value={"Todos"}
@@ -555,70 +551,445 @@ export const Raffi = () => {
             </FormControl>
           </Grid>
 
-          <Grid
-            // sx={{
-            //   width: "80%",
-            //   height: "65vh",
-            //   backgroundColor: "#ffff",
-            //   borderRadius: 5,
-            //   display: "flex",
-            //   alignItems: "center",
-            //   flexDirection: "column",
-            //   GridShadow: 5,
-            // }}
+          
+
+
+          {/* TERMINA PANEL CON FILTROS*/}
+
+
+
+
+
+
+
+
+
+          <Grid item 
+            sx={{
+              width: "80%",
+              height: "65vh",
+              backgroundColor: "#ffff",
+              borderRadius: 5,
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              boxShadow: 5,
+            }}
           >
-            
-          </Grid>
-        
-
-        {/* TERMINA */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
-            {!opentabs && (
-              <Grid>
-                <Button
-                  onClick={() => {
-                    setOpenTabs(true);
+            <Table>
+              <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
                 >
-                  Ir a tabs
-                </Button>
-              </Grid>
-            )}
-            {opentabs && <CapturaRaffi />}
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    EJERCICIO FISCAL
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    INSTITUCIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    NOMBRE DEL PROGRAMA
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    ESTADO
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    FECHA DE CREACIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    CREADO POR
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    OPCIONES
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
+
+
+
+
+
+            {/* INICIA PANEL CON TARJETAS DE RAFFIS */}
+            <Grid
+              sx={{
+                width: "100%",
+                height: "65vh",
+                overflow: "hidden",
+                overflowY: "unset",
+                "&::-webkit-scrollbar": {
+                  width: ".3vw",
+                  mt: 1,
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "rgba(0,0,0,.5)",
+                  outline: "1px solid slategrey",
+                  borderRadius: 1,
+                },
+              }}
+            >
+              <TableContainer>
+                <Table>
+                  <TableBody>
+                    {ftFiltered
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row, index) => (
+                        <TableRow
+                          key={index}
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(7,1fr)",
+                          }}
+                        >
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.AnioFiscal}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.Institucion.toUpperCase()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.Programa.toUpperCase()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            <Grid
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                height: "5vh",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Grid
+                                sx={{
+                                  width: ".5vw",
+                                  height: "1vh",
+                                  borderRadius: 100,
+                                  backgroundColor: colorMir(
+                                    row.Estado,
+                                    row.MIR
+                                  ),
+                                }}
+                              />
+                              <Typography
+                                sx={{
+                                  width: "60%",
+                                  fontFamily: "MontserratRegular",
+                                  color: "#616161",
+                                  fontSize: ".7vw",
+                                  ml: "10%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                {row.Estado === "En Captura" &&
+                                  localStorage.getItem("Rol") === "Capturador"
+                                  ? "ESPERANDO CAPTURA"
+                                  : row.Estado === "En Revisión" &&
+                                    localStorage.getItem("Rol") ===
+                                    "Verificador"
+                                    ? "ESPERANDO REVISIÓN"
+                                    : row.Estado === "En Autorización" &&
+                                      localStorage.getItem("Rol") ===
+                                      "Administrador"
+                                      ? "ESPERANDO AUTORIZACIÓN"
+                                      : row.Estado.toUpperCase()}
+                              </Typography>
+                            </Grid>
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {moment(row.FechaCreacion, moment.ISO_8601)
+                              .format("DD/MM/YYYY HH:mm:SS")
+                              .toString()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            align="center"
+                          >
+                            {row.Estado === "En Captura"
+                              ? "SIN ASIGNAR"
+                              : row.CreadoPor.toUpperCase()}
+                          </TableCell>
+
+                          <TableCell
+                            align="center"
+                            sx={{
+                              display: "flex",
+                              //flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Grid
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Tooltip title="REGISTRAR FICHA TÉCNICA">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "En Captura" &&
+                                        localStorage.getItem("Rol") ===
+                                        "Capturador"
+                                        ? false
+                                        : row.Estado === "En Revisión" &&
+                                          localStorage.getItem("Rol") ===
+                                          "Verificador"
+                                          ? false
+                                          : row.Estado === "En Autorización" &&
+                                            localStorage.getItem("Rol") ===
+                                            "Administrador"
+                                            ? false
+                                            : true
+                                    }
+                                    onClick={() => {
+                                      setFTEdit([
+                                        {
+                                          IdFt: row.IdFt,
+                                          IdMir: row.IdMir,
+                                          IdMa: row.IdMa,
+                                          FichaT: row.FichaT,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Institucion: row.Institucion,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                        },
+                                      ]);
+                                      setShowResume(false);
+                                      setActionNumber(1);
+                                    }}
+                                  >
+                                    <AddCircleOutlineIcon />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                              <Tooltip title="VER FICHA TÉCNICA">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                    onClick={() => {
+                                      setFTShow([
+                                        {
+                                          IdFt: row.IdFt,
+                                          IdMir: row.IdMir,
+                                          IdMa: row.IdMa,
+                                          FichaT: row.FichaT,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Institucion: row.Institucion,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                        },
+                                      ]);
+                                      setOpenModalVerResumenFT(true);
+                                    }}
+                                  >
+                                    <VisibilityIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "lightBlue",
+                                          },
+                                          width: "1.2vw",
+                                          height: "1.2vw",
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                            </Grid>
+
+                            <Grid sx={{ display: "flex" }}>
+                              <Tooltip title="DESCARGAR">
+                                <span>
+                                  <IconButton
+                                    onClick={() => {
+                                      getFichaTecnicaDownload(
+                                        row.MIR,
+                                        row.MetaAnual,
+                                        row.FichaT,
+                                        row.Programa,
+                                        row.FechaCreacion,
+                                        row.Institucion
+                                      );
+                                    }}
+                                    disabled={
+                                      row.Estado === "Autorizada" ? false : true
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "orange",
+                                          },
+                                          width: "1.2vw",
+                                          height: "1.2vw",
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                              <ComentDialogFT
+                                estado={row.Estado}
+                                id={row.IdMir}
+                                actualizado={actualizaContador}
+                              />
+                            </Grid>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+            <Grid sx={{ width: "100%" }}>
+              <TablePagination
+                rowsPerPageOptions={[renglonesPagina]}
+                component="div"
+                count={ft.length}
+                rowsPerPage={renglonesPagina}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Grid>
           </Grid>
+          {/* TERMINA PANEL CON TARJETAS DE RAFFIS */}
+
+
+        </Grid>
+
 
       </Grid>
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-    </Grid>
     </Grid>
   );
 };
