@@ -985,6 +985,21 @@ export const Raffi = () => {
           </Grid>
           {/* TERMINA PANEL CON TARJETAS DE RAFFIS */}
 
+          
+          <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
+            {!opentabs && (
+              <Grid>
+                <Button
+                  onClick={() => {
+                    setOpenTabs(true);
+                  }}
+                >
+                  Ir a tabs
+                </Button>
+              </Grid>
+            )}
+            {opentabs && <CapturaRaffi />}
+          </Grid>
 
         </Grid>
 
