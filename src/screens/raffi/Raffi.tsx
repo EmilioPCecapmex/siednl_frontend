@@ -93,7 +93,7 @@ export const Raffi = () => {
         xs={6}
         sx={{ backgroundColor: "#F2F2F2" }}
       >
-        <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
+        <Grid  sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
             details={{
               name1: "Inicio",
@@ -104,10 +104,13 @@ export const Raffi = () => {
             }}
           />
         </Grid>
+
         <Grid
           container
           item
-          lg={8}
+          xl={8}
+          lg={7}
+          md={6}
           height="15vh"
           direction="row"
           sx={{
@@ -118,23 +121,24 @@ export const Raffi = () => {
           }}
         >
           <Grid
+            xl={12}
             lg={12}
+            md={12}
             container
             direction="row"
             justifyContent="space-around"
             alignItems="center"
           >
-            <Grid item lg={5}>
+            <Grid item xl={5} lg={4} md={3}>
               <TextField
                 size="small"
                 variant="outlined"
                 fullWidth
                 label="Busqueda"
-                
               />
             </Grid>
 
-            <Grid item lg={5}>
+            <Grid item xl={5} lg={4} md={3}>
               <FormControl fullWidth>
                 <InputLabel>Filtro por estado de la Raffi</InputLabel>
                 <Select
@@ -155,20 +159,16 @@ export const Raffi = () => {
             </Grid>
           </Grid>
 
-
-
-          
           <Grid
+            xl={12}
             lg={12}
+            md={12}
             container
             direction="row"
             justifyContent="space-around"
             alignItems="center"
           >
-            
-
-
-            <Grid item lg={5}>
+            <Grid item xl={5} lg={4} md={3}>
               <FormControl fullWidth>
                 <InputLabel>Filtro por estado de la Raffi</InputLabel>
                 <Select
@@ -188,23 +188,30 @@ export const Raffi = () => {
               </FormControl>
             </Grid>
 
-            <Grid item lg={5}>
-              <Button fullWidth sx={queries.buttonContinuarSolicitudInscripcion}>
+            <Grid item xl={5} lg={4} md={3}>
+              <Button
+                fullWidth
+                sx={queries.buttonContinuarSolicitudInscripcion}
+              >
                 Buscar
               </Button>
             </Grid>
           </Grid>
-
         </Grid>
+
         <Grid
           container
           item
           lg={10}
+          md={9}
           height="65vh"
           direction="row"
           sx={{ backgroundColor: "#FFFF", borderRadius: 5 }}
         >
-          <TableContainer  sx={{
+          <TableContainer
+            component={Grid}
+            sx={{
+              flex: 1,
               maxHeight: "100%",
               borderRadius: 5,
               overflow: "auto",
@@ -217,9 +224,10 @@ export const Raffi = () => {
                 outline: "1px solid slategrey",
                 borderRadius: 1,
               },
-            }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
+            }}
+          >
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
                 <TableRow>
                   {heads.map((head, index) => (
                     <TableCell align="center" key={index}>
@@ -227,13 +235,10 @@ export const Raffi = () => {
                     </TableCell>
                   ))}
                 </TableRow>
-                </TableHead>
-                <TableBody>
-
-                </TableBody>
-              </Table>
+              </TableHead>
+              <TableBody></TableBody>
+            </Table>
           </TableContainer>
-
         </Grid>
       </Grid>
     </Grid>
