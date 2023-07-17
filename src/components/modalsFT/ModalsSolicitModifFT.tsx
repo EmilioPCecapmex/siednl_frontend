@@ -492,13 +492,23 @@ export default function ModalSolicitaModif({
 
 
   useEffect(() => {
+
+    let tipousuario = "";
+
+    if (localStorage.getItem("Rol") === "Capturador")
+    tipousuario = "Verificador";
+    console.log(tipousuario);
+  if (localStorage.getItem("Rol") === "Verificador")
+    tipousuario = "Verificador";
+  if (localStorage.getItem("Rol") === "Administrador")
+    tipousuario = "VERIFICADOR_CAPTURADOR";
     if (open) {
       axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeUsuarioXInstitucion",
         {
           params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
+            TipoUsuario: tipousuario,
             Institucion: JSON.parse(MIR)?.encabezado?.institucion,
           },
           headers: {

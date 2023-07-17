@@ -13,7 +13,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-
+import { queries } from "../../queries";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -573,9 +573,10 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     let tipousuario = "";
 
-    if (localStorage.getItem("Rol") === "Verificador")
-      tipousuario = "Capturador";
     if (localStorage.getItem("Rol") === "Capturador")
+      tipousuario = "Verificador";
+      console.log(tipousuario);
+    if (localStorage.getItem("Rol") === "Verificador")
       tipousuario = "Verificador";
     if (localStorage.getItem("Rol") === "Administrador")
       tipousuario = "VERIFICADOR_CAPTURADOR";
@@ -744,7 +745,7 @@ export default function ModalSolicitaModif({
               color="error"
               onClick={() => handleClose()}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{  fontFamily: "MontserratMedium" }}>
                 Cancelar
               </Typography>
             </Button>
