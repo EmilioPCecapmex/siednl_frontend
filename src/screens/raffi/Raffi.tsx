@@ -23,6 +23,8 @@ import moment from "moment";
 import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import PaidIcon from '@mui/icons-material/Paid';
 import {
   IInstituciones, LateralMenu
 } from "../../components/lateralMenu/LateralMenu";
@@ -837,7 +839,7 @@ export const Raffi = () => {
                                 flexDirection: "row",
                               }}
                             >
-                              <Tooltip title="REGISTRAR RAFFI">
+                              <Tooltip title="AVANCE FÍSICO">
                                 <span>
                                   <IconButton
                                     // disabled={
@@ -878,11 +880,11 @@ export const Raffi = () => {
                                       setActionNumber(1);
                                     }}
                                   >
-                                    <AddCircleOutlineIcon />
+                                    <PendingActionsIcon />
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                              <Tooltip title="VER RAFFI">
+                              <Tooltip title="AVANCE FINANCIERO">
                                 <span>
                                   <IconButton
                                     // disabled={
@@ -910,7 +912,7 @@ export const Raffi = () => {
                                       setOpenModalVerResumenFT(true);
                                     }}
                                   >
-                                    <VisibilityIcon
+                                    <PaidIcon
                                       sx={[
                                         {
                                           "&:hover": {
@@ -1014,7 +1016,7 @@ export const Raffi = () => {
     }}
     gridArea={"main"}
   >
-    <CapturaRaffi/>
+    <CapturaRaffi MIR={""} MA={""} showResume={returnMain} IdMir={""} IdMA={""}/>
   </Grid>
 )}
 </Grid>
