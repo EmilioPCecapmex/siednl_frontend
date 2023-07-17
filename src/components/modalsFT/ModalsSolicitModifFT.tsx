@@ -495,12 +495,13 @@ export default function ModalSolicitaModif({
 
     let tipousuario = "";
 
-    if (localStorage.getItem("Rol") === "Verificador")
-      tipousuario = "Capturador";
     if (localStorage.getItem("Rol") === "Capturador")
-      tipousuario = "Verificador";
-    if (localStorage.getItem("Rol") === "Administrador")
-      tipousuario = "VERIFICADOR_CAPTURADOR";
+    tipousuario = "Verificador";
+    console.log(tipousuario);
+  if (localStorage.getItem("Rol") === "Verificador")
+    tipousuario = "Verificador";
+  if (localStorage.getItem("Rol") === "Administrador")
+    tipousuario = "VERIFICADOR_CAPTURADOR";
     if (open) {
       axios
       .get(
