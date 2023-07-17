@@ -446,6 +446,8 @@ export const LateralMenu = ({
               sx={st.selectedBox}
             />
           </ListItemButton>
+
+          
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItemButton
@@ -500,6 +502,24 @@ export const LateralMenu = ({
                   sx={st.selectedBox}
                 />
               </ListItemButton>
+
+              <ListItemButton
+            onClick={() => {
+              //setResumeDefaultFT();
+              //exitAlert("../fichaTecnica");
+              navigate("../raffi");
+            }}
+            sx={st.subMenuItemStyle}
+          >
+            <Box sx={st.iconMenuList}>
+              <KeyboardDoubleArrowRightIcon />
+            </Box>
+            <Typography sx={st.subMenuItemsText}>Raffi</Typography>
+            <Box
+              visibility={selection === "Raffi" ? "visible" : "hidden"}
+              sx={st.selectedBox}
+            />
+          </ListItemButton>
             </List>
           </Collapse>
           {/* <ListItemButton
@@ -520,23 +540,7 @@ export const LateralMenu = ({
             />
           </ListItemButton> */}
 
-          <ListItemButton
-            onClick={() => {
-              //setResumeDefaultFT();
-              //exitAlert("../fichaTecnica");
-              navigate("../raffi");
-            }}
-            sx={st.subMenuItemStyle}
-          >
-            <Box sx={st.iconMenuList}>
-              <KeyboardDoubleArrowRightIcon />
-            </Box>
-            <Typography sx={st.subMenuItemsText}>Raffi</Typography>
-            <Box
-              visibility={selection === "Raffi" ? "visible" : "hidden"}
-              sx={st.selectedBox}
-            />
-          </ListItemButton>
+          
 
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <ListItemButton onClick={() => exitAlert("../notifications")}>
