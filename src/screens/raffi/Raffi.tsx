@@ -1016,7 +1016,7 @@ export const Raffi = () => {
     }}
     gridArea={"main"}
   >
-    <CapturaRaffi MIR={""} MA={""} showResume={returnMain} IdMir={""} IdMA={""}/>
+    <CapturaRaffi/>
   </Grid>
 )}
 </Grid>
