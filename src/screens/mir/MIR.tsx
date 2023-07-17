@@ -360,7 +360,7 @@ export const MIR = () => {
               justifyItems: "center",
             }}
           >
-            {/* <TutorialBox initialState={8} endState={13} /> */}
+            
             <Box
               sx={{
                 display: "flex",
@@ -962,6 +962,7 @@ export const MIR = () => {
               />
             </Box>
           </Box>
+          
         </Box>
       ) : (
         <Box
