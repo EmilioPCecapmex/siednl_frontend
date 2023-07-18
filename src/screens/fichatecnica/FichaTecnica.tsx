@@ -21,6 +21,8 @@ import {
   FormControl,
   MenuItem,
   Typography,
+  InputLabel,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -33,10 +35,20 @@ import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
 import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
 import Swal from "sweetalert2";
 import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
+import { queries } from "../../queries";
+import { SelectChangeEvent } from "@mui/material/Select";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
 };
+
+const estados = [
+  "Todos",
+  "En Captura",
+  "Esperando Revisión",
+  "Esperando autorización",
+  "Autorizada",
+];
 
 export const FichaTecnica = () => {
   useEffect(() => {
@@ -161,7 +173,7 @@ export const FichaTecnica = () => {
       })
       .catch((err) => {
         console.log(err);
-        
+
         Toast.fire({
           icon: "error",
           title: "Error al intentar descargar el documento.",
@@ -288,8 +300,8 @@ export const FichaTecnica = () => {
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
-    console.log("ft: ",ft);
-    
+    console.log("ft: ", ft);
+
     let id = urlParams.get("Id");
     setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
   }, [ft]);
@@ -319,6 +331,16 @@ export const FichaTecnica = () => {
     } else if (v === "Autorizada") {
       return "#0000ff";
     }
+  };
+  const [estadosR, SetEstadosR] = useState<string[]>([]);
+  const handleChange = (event: SelectChangeEvent<typeof estadosR>) => {
+    const {
+      target: { value },
+    } = event;
+    SetEstadosR(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
   };
 
   return (
@@ -382,22 +404,21 @@ export const FichaTecnica = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
-              <Input
+              <TextField
                 size="small"
                 value={findTextStr}
-                placeholder="Búsqueda"
-                sx={{ width: "90%", fontFamily: "MontserratRegular" }}
-                disableUnderline
+                label="Busqueda"
+                sx={{ width: "100%", fontFamily: "MontserratRegular" }}
+                variant="outlined"
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
                 }}
               />
-              <SearchIcon />
             </Box>
 
             <FormControl
@@ -406,61 +427,25 @@ export const FichaTecnica = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
+              <InputLabel sx={queries.text}>Filtro por Estado</InputLabel>
               <Select
                 size="small"
-                variant="standard"
-                value={findSelectStr}
-                sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
-                disableUnderline
-                onChange={(v) => {
-                  setFindSelectStr(v.target.value);
-                }}
+                variant="outlined"
+                label="Filtro por estado de la Raffi"
+                value={estadosR}
+                onChange={handleChange}
               >
-                <MenuItem
-                  value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  disabled
-                  selected
-                >
-                  Filtro por estado de la Ficha Técnica
-                </MenuItem>
-                <MenuItem
-                  value={"Todos"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Todos
-                </MenuItem>
-
-                <MenuItem
-                  value={"En Captura"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  En Captura
-                </MenuItem>
-                <MenuItem
-                  value={"En Revisión"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando Revisión
-                </MenuItem>
-                <MenuItem
-                  value={"En Autorización"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando autorización
-                </MenuItem>
-                <MenuItem
-                  value={"Autorizada"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Autorizada
-                </MenuItem>
+                {estados.map((estado) => (
+                  <MenuItem key={estado} value={estado}>
+                    {estado}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
 
@@ -470,31 +455,31 @@ export const FichaTecnica = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
+              <InputLabel sx={queries.text}>Filtro por institución</InputLabel>
               <Select
                 size="small"
-                variant="standard"
-                value={findInstStr}
-                sx={{ fontFamily: "MontserratRegular" }}
+                variant="outlined"
+                //value={findInstStr}
+                //sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
+                label="Filtro por institución"
                 disableUnderline
                 onChange={(v) => {
-                  setFindInstStr(v.target.value);
+                  // v.target.value === "Todos"
+                  //   ? findText(
+                  //       findTextStr,
+                  //       findSelectStr === "Todos" ? "0" : findSelectStr,
+                  //       "0"
+                  //     )
+                  //   : findText(findTextStr, findSelectStr, v.target.value);
+                  // setFindInstStr(v.target.value);
                 }}
               >
-                <MenuItem
-                  value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  disabled
-                  selected
-                >
-                  Filtro por institución
-                </MenuItem>
-
                 <MenuItem
                   value={"Todos"}
                   sx={{ fontFamily: "MontserratRegular" }}

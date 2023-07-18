@@ -18,24 +18,33 @@ import {
   TableRow,
   Tooltip,
   Typography,
+  InputLabel,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-
+import { queries } from "../../queries";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { IInstituciones } from "../../components/appsDialog/AppsDialog";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
-
+import { SelectChangeEvent } from "@mui/material/Select";
 export let resumeDefaultMIR = true;
 
 export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
+const estados = [
+  "Todos",
+  "En Captura",
+  "Esperando Revisión",
+  "Esperando autorización",
+  "Autorizada",
+];
 
 export const MIR = () => {
   const queryString = window.location.search;
@@ -304,6 +313,16 @@ export const MIR = () => {
       return "#0000ff";
     }
   };
+  const [estadosR, SetEstadosR] = useState<string[]>([]);
+  const handleChange = (event: SelectChangeEvent<typeof estadosR>) => {
+    const {
+      target: { value },
+    } = event;
+    SetEstadosR(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
 
   return (
     <Box
@@ -367,17 +386,17 @@ export const MIR = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
-              <Input
+              <TextField
                 size="small"
                 value={findTextStr}
                 placeholder="Búsqueda"
-                sx={{ width: "90%", fontFamily: "MontserratRegular" }}
-                disableUnderline
+                sx={{ width: "100%", fontFamily: "MontserratRegular" }}
+                //disableUnderline
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
                   // findText(v.target.value, findSelectStr, "");
@@ -391,18 +410,22 @@ export const MIR = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
+              <InputLabel sx={queries.text}>
+              Filtro por estado de la MIR
+                    </InputLabel>
               <Select
                 size="small"
-                variant="standard"
+                variant="outlined"
                 value={findSelectStr}
+                label="Filtro por estado de la MIR"
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
-                disableUnderline
+                
                 onChange={(v) => {
                   // v.target.value === "Todos"
                   //   ? findText(
@@ -422,37 +445,12 @@ export const MIR = () => {
                 >
                   Filtro por estado de la MIR
                 </MenuItem>
-                <MenuItem
-                  value={"Todos"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Todos
-                </MenuItem>
+                {estados.map((estado) => (
+                  <MenuItem key={estado} value={estado}>
+                    {estado}
+                  </MenuItem>
+                ))}
 
-                <MenuItem
-                  value={"En captura"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  En captura
-                </MenuItem>
-                <MenuItem
-                  value={"En Revisión"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando revisión
-                </MenuItem>
-                <MenuItem
-                  value={"En Autorización"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando autorización
-                </MenuItem>
-                <MenuItem
-                  value={"Autorizada"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Autorizada
-                </MenuItem>
               </Select>
             </FormControl>
 
@@ -462,14 +460,14 @@ export const MIR = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
               <Select
                 size="small"
-                variant="standard"
+                variant="outlined"
                 value={findInstStr}
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth

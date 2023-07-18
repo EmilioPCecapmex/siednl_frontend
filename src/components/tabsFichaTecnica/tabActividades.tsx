@@ -291,7 +291,7 @@ export const TabActividadesFT = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.9rem" }}
                   >
                     COMPONENTE {item}
                   </Typography>
