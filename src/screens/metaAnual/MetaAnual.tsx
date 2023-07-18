@@ -17,6 +17,8 @@ import {
   TableRow,
   Tooltip,
   Typography,
+  InputLabel,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
@@ -27,14 +29,20 @@ import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
-
+import { SelectChangeEvent } from "@mui/material/Select";
+import { queries } from "../../queries";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
 };
-
+const estados = [
+  "Todos",
+  "En Captura",
+  "Esperando Revisión",
+  "Esperando autorización",
+  "Autorizada",
+];
 export const MetaAnual = () => {
-
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
 
@@ -110,11 +118,8 @@ export const MetaAnual = () => {
   });
 
   useEffect(() => {
-    
-    
     let id = urlParams.get("Id");
     setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
-
   }, [ma]);
 
   const getMetaAnualDownload = (
@@ -303,7 +308,16 @@ export const MetaAnual = () => {
       return "#0000ff";
     }
   };
-
+  const [estadosR, SetEstadosR] = useState<string[]>([]);
+  const handleChange = (event: SelectChangeEvent<typeof estadosR>) => {
+    const {
+      target: { value },
+    } = event;
+    SetEstadosR(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
   return (
     <Box
       sx={{
@@ -365,17 +379,17 @@ export const MetaAnual = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
-              <Input
+              <TextField
                 size="small"
                 value={findTextStr}
-                placeholder="Búsqueda"
-                sx={{ width: "90%", fontFamily: "MontserratRegular" }}
-                disableUnderline
+                label="Busqueda"
+                sx={{ width: "100%", fontFamily: "MontserratRegular" }}
+                variant="outlined"
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
                 }}
@@ -389,19 +403,26 @@ export const MetaAnual = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
+              <InputLabel sx={queries.text}>Filtro por Estado</InputLabel>
               <Select
                 size="small"
-                variant="standard"
-                value={findSelectStr}
-                sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
-                disableUnderline
+                variant="outlined"
+                label="Filtro por estado de la Raffi"
+                value={findSelectStr}
                 onChange={(v) => {
+                  // v.target.value === "Todos"
+                  //   ? findText(
+                  //       findTextStr,
+                  //       "0",
+                  //       findInstStr === "Todos" ? "0" : findInstStr
+                  //     )
+                  //   : findText(findTextStr, v.target.value, findInstStr);
                   setFindSelectStr(v.target.value);
                 }}
               >
@@ -411,39 +432,13 @@ export const MetaAnual = () => {
                   disabled
                   selected
                 >
-                  Filtro por estado de la Meta Anual
+                  Filtro por estado de la MIR
                 </MenuItem>
-                <MenuItem
-                  value={"Todos"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Todos
-                </MenuItem>
-
-                <MenuItem
-                  value={"En Captura"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  En Captura
-                </MenuItem>
-                <MenuItem
-                  value={"En Revisión"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando Revisión
-                </MenuItem>
-                <MenuItem
-                  value={"En Autorización"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando autorización
-                </MenuItem>
-                <MenuItem
-                  value={"Autorizada"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Autorizada
-                </MenuItem>
+                {estados.map((estado) => (
+                  <MenuItem key={estado} value={estado}>
+                    {estado}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
 
@@ -453,31 +448,24 @@ export const MetaAnual = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
+              <InputLabel sx={queries.text}>Filtro por institución</InputLabel>
               <Select
                 size="small"
-                variant="standard"
-                value={findInstStr}
-                sx={{ fontFamily: "MontserratRegular" }}
+                variant="outlined"
                 fullWidth
-                disableUnderline
+                label="Filtro por institución"
+                // value={findInstStr}
+                // sx={{ fontFamily: "MontserratRegular" }}
+
                 onChange={(v) => {
-                  setFindInstStr(v.target.value);
+                  //setFindInstStr(v.target.value);
                 }}
               >
-                <MenuItem
-                  value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  disabled
-                  selected
-                >
-                  Filtro por institución
-                </MenuItem>
-
                 <MenuItem
                   value={"Todos"}
                   sx={{ fontFamily: "MontserratRegular" }}
@@ -747,7 +735,6 @@ export const MetaAnual = () => {
                               : row.CreadoPor.toUpperCase()}
                           </TableCell>
 
-
                           <TableCell
                             align="center"
                             sx={{
@@ -854,17 +841,14 @@ export const MetaAnual = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                              
+
                               <ComentDialogMA
                                 estado={row.Estado}
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
                               />
-
                             </Box>
                           </TableCell>
-
-
                         </TableRow>
                       ))}
                   </TableBody>
