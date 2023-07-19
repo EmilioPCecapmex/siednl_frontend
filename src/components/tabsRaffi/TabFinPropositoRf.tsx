@@ -2,41 +2,106 @@ import {
     Grid,
   } from "@mui/material";
   import './CapturaRaffi.css';
+  import React from 'react';
+import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
   
-  const GridTable = () => {
-    return (
-      <div className="grid-container">
-        <table>
-          <thead>
-            <tr>
-              <th>I</th>
-              <th>II</th>
-              <th>III</th>
-              <th>IV</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>100</td>
-              <td>100</td>
-              <td>100</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>100</td>
-              <td>100</td>
-              <td>100</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
+const TablePage = () => {
+  const data = {
+    columns: [
+      {
+        label: '#',
+        field: 'id',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading0',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading1',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading2',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading3',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading4',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading5',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading6',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading7',
+        sort: 'asc'
+      },
+      {
+        label: 'Heading',
+        field: 'heading8',
+        sort: 'asc'
+      }
+    ],
+    rows: [
+      {
+        'id': 1,
+        'heading0': 'Cell',
+        'heading1': 'Cell',
+        'heading2': 'Cell',
+        'heading3': 'Cell',
+        'heading4': 'Cell',
+        'heading5': 'Cell',
+        'heading6': 'Cell',
+        'heading7': 'Cell',
+        'heading8': 'Cell'
+      },
+      {
+        'id': 2,
+        'heading0': 'Cell',
+        'heading1': 'Cell',
+        'heading2': 'Cell',
+        'heading3': 'Cell',
+        'heading4': 'Cell',
+        'heading5': 'Cell',
+        'heading6': 'Cell',
+        'heading7': 'Cell',
+        'heading8': 'Cell'
+      },
+      {
+        'id': 3,
+        'heading0': 'Cell',
+        'heading1': 'Cell',
+        'heading2': 'Cell',
+        'heading3': 'Cell',
+        'heading4': 'Cell',
+        'heading5': 'Cell',
+        'heading6': 'Cell',
+        'heading7': 'Cell',
+        'heading8': 'Cell'
+      }
+    ]
   };
+
   
-  export default GridTable;
-  
-  export const TabComponenteRf = () => {
+
+
     return (
       <Grid
       
@@ -51,9 +116,12 @@ import {
           backgroundColor: "#fff",
         }}
       >
-        <GridTable />
+        <MDBTable responsive>
+      <MDBTableHead columns={data.columns} />
+      <MDBTableBody rows={data.rows} />
+    </MDBTable>
       </Grid>
     );
-  };
   
+};
   
