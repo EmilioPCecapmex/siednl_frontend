@@ -3,7 +3,7 @@ import {
   } from "@mui/material";
   import './CapturaRaffi.css';
   import React from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+
   
 const TablePage = () => {
   const data = {
@@ -116,10 +116,7 @@ const TablePage = () => {
           backgroundColor: "#fff",
         }}
       >
-        <MDBTable responsive>
-      <MDBTableHead columns={data.columns} />
-      <MDBTableBody rows={data.rows} />
-    </MDBTable>
+   
       </Grid>
     );
   
