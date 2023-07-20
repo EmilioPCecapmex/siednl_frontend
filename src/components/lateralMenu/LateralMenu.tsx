@@ -520,7 +520,7 @@ export const LateralMenu = ({
             />
           </ListItemButton> */}
 
-          <ListItemButton
+          {/* <ListItemButton
             onClick={() => {
               //setResumeDefaultFT();
               //exitAlert("../fichaTecnica");
@@ -536,7 +536,7 @@ export const LateralMenu = ({
               visibility={selection === "Raffi" ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
-          </ListItemButton>
+          </ListItemButton> */}
 
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <ListItemButton onClick={() => exitAlert("../notifications")}>
