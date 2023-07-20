@@ -78,7 +78,7 @@ function App() {
           />
           <Route path="mir" element={<MIR />} />
           <Route path="metaAnual" element={<MetaAnual />} />
-          <Route path="raffi" element={<Raffi />} />
+          {/* <Route path="raffi" element={<Raffi />} /> */}
           <Route path="notifications" element={<Notification />} />
         </Routes>
       </CssBaseline>
