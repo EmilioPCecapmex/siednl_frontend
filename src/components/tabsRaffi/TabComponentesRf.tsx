@@ -1,8 +1,5 @@
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import {Grid, TextField, ListItemButton, Typography} from '@mui/material';
-import './CapturaRaffi.css';
+import {Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled} from '@mui/material';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,14 +12,15 @@ const Item = styled(Paper)(({ theme }) => ({
 const GridTablePer = () => {
   return (
     <div className="grid-container" style={{backgroundColor:"lightgray",boxShadow:"1px 2px 2px",textAlign:"center",width:"100%"}}>
-      <table>
-        <thead>
+      <table style={{width:"100%",textAlign:"center"}}>
+        <thead style={{width:"100%",textAlign:"center"}}>
           <tr>
             <th style={{textAlign:"center"}}>TRIMESTRAL</th>
             </tr>
             </thead></table>
             </div>);
 }
+
 const GridTable = () => {
   return (
     <div className="grid-container" style={{width:"100%"}}>
@@ -56,11 +54,11 @@ const GridTable = () => {
 
 const GridTableMetasTitulo = () => {
   return (
-    <div className="grid-container" style={{backgroundColor:"lightgray",boxShadow:"1px 2px 2px",textAlign:"center",width:"100%"}}>
-      <table>
-        <thead>
+    <div style={{backgroundColor:"lightgray",boxShadow:"1px 2px 2px",textAlign:"center",width:"100%"}}>
+      <table style={{width:"100%",textAlign:"center"}}>
+        <thead style={{width:"100%",textAlign:"center"}}>
           <tr>
-            <th>METAS</th>
+            <th style={{width:"100%",textAlign:"center"}}>METAS</th>
             </tr>
             </thead></table>
             </div>);
@@ -73,10 +71,10 @@ const GridTableMetas = () => {
        
         <tbody>
           
-          <tr>
-            <td style={{width:"25%"}}>100</td>
-            <td style={{width:"25%"}}>100</td>
-            <td style={{width:"25%"}}>100</td>
+          <tr style={{borderColor:"black"}}>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6",borderColor:"black"}}>100</td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>100</td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>100</td>
             <td style={{width:"25%"}}> <TextField
          
          
@@ -127,9 +125,94 @@ export const TabComponenteRf = () => {
       <Grid item container>
         {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
         <Grid item xs={2}>
-          <Item>
+          
+        <List
+          sx={{
+            width: "10vw",
+            height: "65vh",
+            borderRight: "solid",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            borderColor: "#BCBCBC",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            },
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Divider />
+            <ListItemButton
+              // selected={showFin}
+              // onClick={() => {
+              //   setShowFin(true);
+              //   setShowProposito(false);
+              // }}
+              sx={{
+                height: "7vh",
+                "&.Mui-selected ": {
+                  backgroundColor: "#c4a57b",
+                },
+                "&.Mui-selected:hover": {
+                  backgroundColor: "#cbcbcb",
+                },
+              }}
+            >
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+              >
+                COMPONENTE 1
+              </Typography>
+            </ListItemButton>
+            <Divider />
+          </Box>
 
-          </Item>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <ListItemButton
+              // selected={showProposito}
+              // onClick={() => {
+              //   setShowProposito(true);
+              //   setShowFin(false);
+              // }}
+              sx={{
+                height: "7vh",
+                "&.Mui-selected ": {
+                  backgroundColor: "#c4a57b",
+                },
+                "&.Mui-selected:hover": {
+                  backgroundColor: "#cbcbcb",
+                },
+              }}
+            >
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+              >
+                COMPONENTE 2
+              </Typography>
+            </ListItemButton>
+            <Divider />
+          </Box>
+        </List>
+
+
+
         </Grid>
         {/* RESTO DE CONTENEDOR EN DONDE SE MOSTRARÁ LA TABLE */}
         <Grid item container xs={10} spacing={4}>
