@@ -45,8 +45,8 @@ export let setResumeDefaultFT = () => {
 const estados = [
   "Todos",
   "En Captura",
-  "Esperando Revisión",
-  "Esperando autorización",
+  "En Revisión",
+  "En Autorización",
   "Autorizada",
 ];
 
@@ -87,8 +87,8 @@ export const FichaTecnica = () => {
   };
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("0");
-  const [findSelectStr, setFindSelectStr] = useState("0");
+  const [findInstStr, setFindInstStr] = useState("Todos");
+  const [findSelectStr, setFindSelectStr] = useState("Todos");
 
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
@@ -432,14 +432,25 @@ export const FichaTecnica = () => {
                 borderColor: "#616161",
               }}
             >
-              <InputLabel sx={queries.text}>Filtro por Estado</InputLabel>
+              <InputLabel sx={queries.text}>Filtro por Estado de la FT</InputLabel>
               <Select
                 size="small"
+                sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
                 variant="outlined"
-                label="Filtro por estado de la Raffi"
-                value={estadosR}
-                onChange={handleChange}
+                value={findSelectStr}
+                label="Filtro por Estado de la FT"
+                
+                onChange={(v) => {
+                  // v.target.value === "Todos"
+                  //   ? findText(
+                  //       findTextStr,
+                  //       "0",
+                  //       findInstStr === "Todos" ? "0" : findInstStr
+                  //     )
+                  //   : findText(findTextStr, v.target.value, findInstStr);
+                  setFindSelectStr(v.target.value);
+                }}
               >
                 {estados.map((estado) => (
                   <MenuItem key={estado} value={estado}>
@@ -464,8 +475,8 @@ export const FichaTecnica = () => {
               <Select
                 size="small"
                 variant="outlined"
-                //value={findInstStr}
-                //sx={{ fontFamily: "MontserratRegular" }}
+                value={findInstStr}
+                sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
                 label="Filtro por institución"
                 disableUnderline
@@ -477,7 +488,7 @@ export const FichaTecnica = () => {
                   //       "0"
                   //     )
                   //   : findText(findTextStr, findSelectStr, v.target.value);
-                  // setFindInstStr(v.target.value);
+                   setFindInstStr(v.target.value);
                 }}
               >
                 <MenuItem

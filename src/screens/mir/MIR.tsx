@@ -41,8 +41,8 @@ export let setResumeDefaultMIR = () => {
 const estados = [
   "Todos",
   "En Captura",
-  "Esperando Revisión",
-  "Esperando autorización",
+  "En Revisión",
+  "En Autorización",
   "Autorizada",
 ];
 
@@ -114,8 +114,8 @@ export const MIR = () => {
 
   const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("0");
-  const [findSelectStr, setFindSelectStr] = useState("0");
+  const [findInstStr, setFindInstStr] = useState("Todos");
+  const [findSelectStr, setFindSelectStr] = useState("Todos");
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
@@ -314,15 +314,15 @@ export const MIR = () => {
     }
   };
   const [estadosR, SetEstadosR] = useState<string[]>([]);
-  const handleChange = (event: SelectChangeEvent<typeof estadosR>) => {
-    const {
-      target: { value },
-    } = event;
-    SetEstadosR(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  // const handleChange = (event: SelectChangeEvent<typeof estadosR>) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   SetEstadosR(
+  //     // On autofill we get a stringified value.
+  //     typeof value === "string" ? value.split(",") : value
+  //   );
+  // };
 
   return (
     <Box
@@ -380,7 +380,18 @@ export const MIR = () => {
             }}
           >
             
-            <Box
+            {/* <Box
+              sx={{
+                display: "flex",
+                width: "70%",
+                alignItems: "center",
+                justifyContent: "center",
+                //border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
+              }}
+            > */}
+              <FormControl
               sx={{
                 display: "flex",
                 width: "70%",
@@ -391,10 +402,14 @@ export const MIR = () => {
                 borderColor: "#616161",
               }}
             >
+              {/* <InputLabel sx={queries.text}>
+              Búsqueda
+                    </InputLabel> */}
               <TextField
                 size="small"
                 value={findTextStr}
-                placeholder="Búsqueda"
+                //placeholder="Búsqueda"
+                label="Búsqueda"
                 sx={{ width: "100%", fontFamily: "MontserratRegular" }}
                 //disableUnderline
                 onChange={(v) => {
@@ -402,7 +417,11 @@ export const MIR = () => {
                   // findText(v.target.value, findSelectStr, "");
                 }}
               />
-            </Box>
+
+            </FormControl>
+              
+
+            {/* </Box> */}
 
             <FormControl
               sx={{
@@ -422,7 +441,7 @@ export const MIR = () => {
                 size="small"
                 variant="outlined"
                 value={findSelectStr}
-                label="Filtro por estado de la MIR"
+                label="Filtro por Estado de la MIR"
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
                 
@@ -437,14 +456,7 @@ export const MIR = () => {
                   setFindSelectStr(v.target.value);
                 }}
               >
-                <MenuItem
-                  value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  disabled
-                  selected
-                >
-                  Filtro por estado de la MIR
-                </MenuItem>
+                
                 {estados.map((estado) => (
                   <MenuItem key={estado} value={estado}>
                     {estado}
@@ -465,13 +477,17 @@ export const MIR = () => {
                 borderColor: "#616161",
               }}
             >
+              <InputLabel sx={queries.text}>
+              Filtro por institucion
+                    </InputLabel>
               <Select
                 size="small"
                 variant="outlined"
+                label ="Filtro por institucion"
                 value={findInstStr}
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
-                disableUnderline
+           
                 onChange={(v) => {
                   // v.target.value === "Todos"
                   //   ? findText(
@@ -483,14 +499,14 @@ export const MIR = () => {
                   setFindInstStr(v.target.value);
                 }}
               >
-                <MenuItem
+                {/* <MenuItem
                   value={"0"}
                   sx={{ fontFamily: "MontserratRegular" }}
                   disabled
                   selected
                 >
                   Filtro por institución
-                </MenuItem>
+                </MenuItem> */}
 
                 <MenuItem
                   value={"Todos"}

@@ -18,7 +18,7 @@ import {
     Grid,
   } from "@mui/material";
   
-  export const TabActividadRf = () => {
+  export const TabFinPropositoRF = () => {
     return (
       <>
       <Grid
@@ -31,9 +31,8 @@ import {
         
       }}
     >
-      Actividades
+      FinProposito
     </Grid>
       </>
     );
   };
-  

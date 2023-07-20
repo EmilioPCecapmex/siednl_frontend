@@ -1,20 +1,19 @@
-import {
-  Tabs,
-  Tab,
-  Grid,
-} from "@mui/material";
+import { Tabs, Tab, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { TabComponenteRf } from "./TabComponentesRf";
 import { TabActividadRf } from "./TabsActividadesRf";
+import { TabFinPropositoRF } from "./TabFinPropositoRf";
+import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
+import { TabResumenRF } from "./TabResumenRF";
 
 export default function CapturaRaffi() {
   const [value, setValue] = useState(10);
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
-      if (value < 30) setValue(value + 10);
+      if (value < 50) setValue(value + 10);
     } else {
       if (value > 10) setValue(value - 10);
     }
@@ -61,7 +60,7 @@ export default function CapturaRaffi() {
             }}
           />
           <Tab
-            label="Componentes"
+            label="Avance Financiero"
             value={10}
             onClick={() => {
               setValue(10);
@@ -73,7 +72,7 @@ export default function CapturaRaffi() {
             }}
           />
           <Tab
-            label="Actividades"
+            label="Fin/Proposito"
             value={20}
             onClick={() => {
               setValue(20);
@@ -85,10 +84,34 @@ export default function CapturaRaffi() {
             }}
           />
           <Tab
-            label="Resumen"
+            label="Componentes"
             value={30}
             onClick={() => {
               setValue(30);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Actividades"
+            value={40}
+            onClick={() => {
+              setValue(40);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Resumen"
+            value={50}
+            onClick={() => {
+              setValue(50);
             }}
             sx={{
               borderRight: "5px solid #b3afaf",
@@ -111,14 +134,26 @@ export default function CapturaRaffi() {
 
         <Grid
           item
+            
           sx={{
+            display: "flex",
             width: "75vw",
-            height: "77vh",
+            height: "75vh",
+            boxShadow: 10,
+            borderRadius: 5,
+            flexDirection: "column",
+            backgroundColor: "#fff",
           }}
         >
-          {value === 10 && <TabComponenteRf />}
+          {value === 10 && <TabAvanceFinanciero />}
 
-          {value === 20 && <TabActividadRf />}
+          {value === 20 && <TabFinPropositoRF />}
+
+          {value === 30 && <TabComponenteRf />}
+
+          {value === 40 && <TabActividadRf />}
+
+          {value === 50 && <TabResumenRF />}
         </Grid>
       </Grid>
     </Grid>

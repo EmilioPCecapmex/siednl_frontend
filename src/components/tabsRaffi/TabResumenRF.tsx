@@ -1,10 +1,10 @@
 import {
-  Grid,
-} from "@mui/material";
-
-export const TabComponenteRf = () => {
-  return (
-    <>
+    Grid,
+  } from "@mui/material";
+  
+  export const TabResumenRF = () => {
+    return (
+      <>
       <Grid
       
         
@@ -15,8 +15,9 @@ export const TabComponenteRf = () => {
         
       }}
     >
-      Componentes
+      Resumen
     </Grid>
       </>
-  );
-};
+      
+    );
+  };

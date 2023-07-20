@@ -38,8 +38,8 @@ export let setResumeDefaultMA = () => {
 const estados = [
   "Todos",
   "En Captura",
-  "Esperando Revisión",
-  "Esperando autorización",
+  "En Revisión",
+  "En Autorización",
   "Autorizada",
 ];
 export const MetaAnual = () => {
@@ -78,8 +78,8 @@ export const MetaAnual = () => {
   };
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("0");
-  const [findSelectStr, setFindSelectStr] = useState("0");
+  const [findInstStr, setFindInstStr] = useState("Todos");
+  const [findSelectStr, setFindSelectStr] = useState("Todos");
 
   const [ma, setMa] = useState<Array<IIMa>>([]);
   const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
@@ -408,12 +408,13 @@ export const MetaAnual = () => {
                 borderColor: "#616161",
               }}
             >
-              <InputLabel sx={queries.text}>Filtro por Estado</InputLabel>
+              <InputLabel sx={queries.text}>Filtro por Estado de la MA</InputLabel>
               <Select
                 size="small"
                 fullWidth
                 variant="outlined"
-                label="Filtro por estado de la Raffi"
+                label="Filtro por estado de la MA"
+                sx={{ fontFamily: "MontserratRegular" }}
                 value={findSelectStr}
                 onChange={(v) => {
                   // v.target.value === "Todos"
@@ -426,14 +427,7 @@ export const MetaAnual = () => {
                   setFindSelectStr(v.target.value);
                 }}
               >
-                <MenuItem
-                  value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  disabled
-                  selected
-                >
-                  Filtro por estado de la MIR
-                </MenuItem>
+            
                 {estados.map((estado) => (
                   <MenuItem key={estado} value={estado}>
                     {estado}
@@ -459,11 +453,12 @@ export const MetaAnual = () => {
                 variant="outlined"
                 fullWidth
                 label="Filtro por institución"
-                // value={findInstStr}
+                sx={{ fontFamily: "MontserratRegular" }}
+                value={findInstStr}
                 // sx={{ fontFamily: "MontserratRegular" }}
 
                 onChange={(v) => {
-                  //setFindInstStr(v.target.value);
+                  setFindInstStr(v.target.value);
                 }}
               >
                 <MenuItem
