@@ -109,20 +109,7 @@ export default GridTable;
 
 export const TabComponenteRf = () => {
   return (
-    <Grid
-      container
-      position="absolute"
-      sx={{
-        display: "flex",
-        width: "75vw",
-        height: "75vh",
-        boxShadow: 10,
-        borderRadius: 5,
-        flexDirection: "column",
-        backgroundColor: "#fff",
-      }}
-    >
-      <Grid item container>
+    <>
         {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
         <Grid item xs={2}>
           
@@ -211,16 +198,13 @@ export const TabComponenteRf = () => {
           </Box>
         </List>
 
-
-
         </Grid>
+
+
         {/* RESTO DE CONTENEDOR EN DONDE SE MOSTRARÁ LA TABLE */}
-        <Grid item container xs={10} spacing={4}>
+        <Grid container item  xs={10}>
         
-          <Grid item container>
-            <Grid item xs={8}></Grid>
-            <Grid item xs={4}>
-            
+          <Grid container item xs={12} sx={{display:"flex",justifyContent:"flex-end"}}>
             <Typography
               sx={{
                 mr: "1vw",
@@ -230,29 +214,16 @@ export const TabComponenteRf = () => {
             >
                     COMPONENTE 
                   </Typography>
-                
-            </Grid>
           </Grid>
-          <Grid item container>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={8}>
-              <Typography
-                sx={{
-                  mr: "1vw",
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: "1.0vw",
-                  fontStyle: "bold"
-                }}
-              >
-                SERVICIOS DE ALBERGUE O ESTANCIA TEMPORAL BRINDADOS
-              </Typography>
-              </Grid>
-            <Grid item xs={2}></Grid>
+
+          <Grid container item xs={10} sx={{display:"flex",justifyContent:"center"}}>
+              <TextField fullWidth variant='standard' value="SERVICIOS DE ALBERGUE O ESTANCIA TEMPORAL BRINDADOS" label='INSTITUCION'></TextField>
           </Grid>
-          <Grid item container >
-            <Grid item xs={3}> 
+
+          <Grid container item xs={12} sx={{display:"flex",justifyContent:"space-around"}}>
+            <Grid item xs={3} > 
             <TextField
-         
+              fullWidth
               sx={{boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -275,11 +246,11 @@ export const TabComponenteRf = () => {
           
             />
             </Grid>
-            <Grid item xs={3}></Grid>
+            
             <Grid item xs={3}>
 
             <TextField
-         
+         fullWidth
               sx={{boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -302,45 +273,30 @@ export const TabComponenteRf = () => {
           
             />
             </Grid>
-            <Grid item xs={3}></Grid>
+            
           </Grid>
-          <Grid container item>
-              <Grid item xs={2}></Grid>
-              <Grid item xs={6}>
-              <GridTablePer />
-              </Grid>
-              <Grid item xs={4}></Grid>
+
+
+          <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
+              <Grid item xs={6}><GridTablePer /></Grid>
           </Grid>
-          <Grid container item>
-              
-          <Grid item xs={2}></Grid>
-              <Grid item xs={6}>
-              <GridTable />
-              </Grid>
-              <Grid item xs={4}></Grid>
-          
+
+
+          <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
+              <Grid item xs={6}><GridTable /></Grid>
           </Grid>
-          <Grid container item>
-              
-          <Grid item xs={2}></Grid>
-              <Grid item xs={6}>
-              <GridTableMetasTitulo />
-              </Grid>
-              <Grid item xs={4}></Grid>
-          
+
+
+          <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
+              <Grid item xs={6}><GridTableMetasTitulo /></Grid>
           </Grid>
-          <Grid container item>
-              
-          <Grid item xs={2}></Grid>
-              <Grid item xs={6}>
-              <GridTableMetas />
-              </Grid>
-              <Grid item xs={4}></Grid>
-          
+
+
+          <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
+              <Grid item xs={6}><GridTableMetas /></Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Grid>
+        </>
   );
 };
 
