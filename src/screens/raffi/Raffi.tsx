@@ -34,6 +34,7 @@ import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/Header";
 import Swal from "sweetalert2";
 import CapturaRaffi from "../../components/tabsRaffi/CapturaRaffi";
+
 export let resumeDefaultFT = true;
 export interface IIFT {
   IdFt: string;
@@ -66,7 +67,8 @@ export const Raffi = () => {
   // const [actionNumber, setActionNumber] = useState(0);
 
   const [opentabs, setOpenTabs] = useState(false);
-
+  const [ma, setMa] = useState<Array<IIMa>>([]);
+  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
   useEffect(() => {
     setShowResume(true);
     getFT();
@@ -1016,10 +1018,26 @@ export const Raffi = () => {
     }}
     gridArea={"main"}
   >
-    <CapturaRaffi/>
+    <CapturaRaffi MIR={maEdit[0]?.MIR || ""}
+            MA={maEdit[0]?.MetaAnual || ""}
+            showResume={returnMain}
+            IdMir={maEdit[0]?.IdMir || ""}
+            IdMA={maEdit[0]?.IdMa || ""}/>
   </Grid>
 )}
 </Grid>
     </Grid>
   );
 };
+export interface IIMa {
+  IdMa: string;
+  IdMir: string;
+  AnioFiscal: string;
+  Institucion: string;
+  Programa: string;
+  MIR: string;
+  MetaAnual: string;
+  Estado: string;
+  CreadoPor: string;
+  FechaCreacion: string;
+}

@@ -8,8 +8,21 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { TabComponenteRf } from "./TabComponentesRf";
 import { TabActividadRf } from "./TabsActividadesRf";
+import { IComponenteMA, ICValorMA } from "./Interfaces";
 
-export default function CapturaRaffi() {
+export default function CapturaRaffi({
+  MIR,
+  MA,
+  showResume,
+  IdMir,
+  IdMA,
+}: {
+  MIR: string;
+  MA: string;
+  showResume: Function;
+  IdMir: string;
+  IdMA: string;
+}) {
   const [value, setValue] = useState(10);
 
   const cambiarTab = (option: string) => {
@@ -18,6 +31,31 @@ export default function CapturaRaffi() {
     } else {
       if (value > 10) setValue(value - 10);
     }
+  };
+
+  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+
+  const [valoresComponenteMA, setValoresComponenteMA] = useState<
+    Array<IComponenteMA>
+  >(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        metaAnual: "",
+        lineaBase: "",
+        metasPorFrecuencia: [],
+        valorNumerador: "",
+        valorDenominador: "",
+        sentidoDelIndicador: "",
+        unidadResponsable: "",
+        descIndicador: "",
+        descNumerador: "",
+        descDenominador: "",
+      };
+    })
+  );
+  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
+    setValoresComponenteMA(state);
   };
 
   return (
@@ -122,7 +160,12 @@ export default function CapturaRaffi() {
             backgroundColor: "#fff",
           }}
         >
-          {value === 10 && <TabComponenteRf />}
+          {value === 10 && <TabComponenteRf 
+            
+            valoresComponenteMAFnc={valoresComponenteMAFnc}
+            noComponentes={noComponentes}
+            MA={MA}
+            MIR={MIR} />}
 
           {value === 20 && <TabActividadRf />}
         </Grid>

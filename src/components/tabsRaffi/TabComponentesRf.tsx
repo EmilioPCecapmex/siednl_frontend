@@ -1,5 +1,6 @@
 import {Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled} from '@mui/material';
-
+import { useEffect, useState } from "react";
+import { IComponenteMA } from "./Interfaces";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -107,9 +108,103 @@ const GridTableMetas = () => {
 
 export default GridTable;
 
-export const TabComponenteRf = () => {
+export const TabComponenteRf = ({
+  MIR,
+  MA,
+  noComponentes,
+  valoresComponenteMAFnc,
+}: {
+  MA: string;
+  MIR: string;
+  noComponentes: number[];
+  valoresComponenteMAFnc: Function;
+}) => {
+
+
+  const [componentSelect, setComponentSelect] = useState(1);
+
+  const [componentesValues, setComponentesValues] = useState<
+    Array<IComponenteMA>
+  >([]);
+
+  let jsonMA =
+    MA === ""
+      ? ""
+      : JSON.parse(MA).length > 1
+      ? JSON.parse(MA)[0]
+      : JSON.parse(MA);
+
+      
+  useEffect(() => {
+    let comp: IComponenteMA[] = [];
+
+    noComponentes.map((x, index) => {
+      return comp.push({
+        componentes: "C" + (index + 1),
+        metaAnual: MA === "" ? "" : jsonMA?.componentes[index]?.metaAnual || "",
+        lineaBase: MA === "" ? "" : jsonMA?.componentes[index]?.lineaBase || "",
+        metasPorFrecuencia: [
+          {
+            semestre1:
+              MA === ""
+                ? ""
+                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+                    ?.semestre1 || "",
+            semestre2:
+              MA === ""
+                ? ""
+                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+                    ?.semestre2 || "",
+            trimestre1:
+              MA === ""
+                ? ""
+                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+                    ?.trimestre1 || "",
+            trimestre2:
+              MA === ""
+                ? ""
+                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+                    ?.trimestre2 || "",
+            trimestre3:
+              MA === ""
+                ? ""
+                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+                    ?.trimestre3 || "",
+            trimestre4:
+              MA === ""
+                ? ""
+                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+                    ?.trimestre4 || "",
+          },
+        ],
+
+        valorNumerador:
+          MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || "",
+        valorDenominador:
+          MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || "",
+        sentidoDelIndicador:
+          MA === ""
+            ? ""
+            : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
+
+        unidadResponsable:
+          MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
+
+        descIndicador:
+          MA === "" ? "" : jsonMA?.componentes[index]?.descIndicador || "",
+        descNumerador:
+          MA === "" ? "" : jsonMA?.componentes[index]?.descNumerador || "",
+        descDenominador:
+          MA === "" ? "" : jsonMA?.componentes[index]?.descDenominador || "",
+      });
+    });
+
+    setComponentesValues(comp);
+  }, [noComponentes]);
+
   return (
     <>
+    
         {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
         <Grid item xs={2}>
           
@@ -132,6 +227,7 @@ export const TabComponenteRf = () => {
             },
           }}
         >
+          
           <Box
             sx={{
               display: "flex",
@@ -160,7 +256,10 @@ export const TabComponenteRf = () => {
                 sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
               >
                 COMPONENTE 1
+                
               </Typography>
+              
+              
             </ListItemButton>
             <Divider />
           </Box>
@@ -299,4 +398,7 @@ export const TabComponenteRf = () => {
         </>
   );
 };
+
+
+
 
