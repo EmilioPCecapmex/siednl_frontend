@@ -10,6 +10,9 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const dateSem = [new Date("2023-06-30"),new Date("2023-12-31")]
+const dateTrim = [new Date("2023-03-31"),new Date("2023-06-30"),new Date("2023-09-30"),new Date("2023-12-31")]
+
 const GridTablePer = ({
   periodo
 }: {
@@ -28,7 +31,17 @@ const GridTablePer = ({
 
 
 
-const GridTable = () => {
+const GridTableTrim = ({
+  d1,
+  d2,
+  d3,
+  d4
+}: {
+  d1:string,
+  d2:string,
+  d3:string,
+  d4:string
+}) => {
   return (
     <div className="grid-container" style={{width:"100%"}}>
       <table style={{width:"100%"}}>
@@ -42,10 +55,10 @@ const GridTable = () => {
         </thead>
         <tbody style={{width:"100%",textAlign:"center"}}>
           <tr>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
+            <td>{d1}</td>
+            <td>{d2}</td>
+            <td>{d3}</td>
+            <td>{d4}</td>
           </tr>
           {/* <tr>
             <td>100</td>
@@ -59,6 +72,40 @@ const GridTable = () => {
   );
 };
 
+const GridTableSem = ({
+  d1,
+  d2
+}: {
+  d1:string,
+  d2:string
+}) => {
+  return (
+    <div className="grid-container" style={{width:"100%"}}>
+      <table style={{width:"100%"}}>
+        <thead style={{backgroundColor:"lightgray",boxShadow:"1px 2px 2px",textAlign:"center"}}>
+          <tr>
+            <th>I</th>
+            <th>II</th>
+          </tr>
+        </thead>
+        <tbody style={{width:"100%",textAlign:"center"}}>
+          <tr>
+            <td>{d1}</td>
+            <td>{d2}</td>
+          </tr>
+          {/* <tr>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td><input></input></td>
+          </tr> */}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+
 const GridTableMetasTitulo = () => {
   return (
     <div style={{backgroundColor:"lightgray",boxShadow:"1px 2px 2px",textAlign:"center",width:"100%"}}>
@@ -70,7 +117,53 @@ const GridTableMetasTitulo = () => {
             </thead></table>
             </div>);
 }
-const GridTableMetas = () => {
+const GridTableMetasSem = () => {
+  return (
+    
+    <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
+      <table style={{width:"100%"}}>
+       
+        <tbody>
+          
+          <tr style={{borderColor:"black"}}>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+              {new Date()<=dateSem[0]
+              ?"DATO I"}
+            </td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>100</td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>100</td>
+            <td style={{width:"25%"}}> <TextField
+         
+         
+         variant={"filled"}
+         label={
+           <Typography
+             sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+           >
+             DATO IV
+           </Typography>
+         }
+         InputLabelProps={{
+           style: {
+             fontFamily: "MontserratMedium",
+           },
+         }}
+         InputProps={{
+           style: {
+             fontFamily: "MontserratRegular",
+           },
+         }}
+     
+       /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+
+const GridTableMetasTrim = () => {
   return (
     
     <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
@@ -111,8 +204,7 @@ const GridTableMetas = () => {
     </div>
   );
 };
-
-export default GridTable;
+// export default GridTable;
 
 export const TabComponenteRf = ({
   MIR,
@@ -148,7 +240,7 @@ export const TabComponenteRf = ({
     noComponentes.map((x, index) => {
       return comp.push({
         componentes: "C" + (index + 1),
-        // frecuencia: MA === "" ? "" : jsonMA?.componentes.frecuencia || "",
+        // frecuencia: MA === "" ? "" : jsonMA?.componentes[index]?.frecuencia || "",
         metaAnual: MA === "" ? "" : jsonMA?.componentes[index]?.metaAnual || "",
         lineaBase: MA === "" ? "" : jsonMA?.componentes[index]?.lineaBase || "",
         metasPorFrecuencia: [
@@ -359,12 +451,25 @@ export const TabComponenteRf = ({
 
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
-              <Grid item xs={6}><GridTablePer{"a"} /></Grid>
+              <Grid item xs={6}><GridTablePer 
+              periodo={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
+              ? "TRIMESTRE"
+              : "SEMESTRE"} /></Grid>
           </Grid>
 
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
-              <Grid item xs={6}><GridTable /></Grid>
+              <Grid item xs={6}>
+                {componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
+              ? <GridTableTrim 
+                  d1={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1}
+                  d2={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2}
+                  d3={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3}
+                  d4={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4}/>
+              : <GridTableSem 
+                  d1={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1}
+                  d2={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2}/>}
+                </Grid>
           </Grid>
 
 
