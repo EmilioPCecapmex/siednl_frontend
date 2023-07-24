@@ -117,7 +117,13 @@ const GridTableMetasTitulo = () => {
             </thead></table>
             </div>);
 }
-const GridTableMetasSem = () => {
+const GridTableMetasSem = ({
+  d1,
+  d2
+}: {
+  d1:string,
+  d2:string
+}) => {
   return (
     
     <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
@@ -127,34 +133,60 @@ const GridTableMetasSem = () => {
           
           <tr style={{borderColor:"black"}}>
             <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
-              {new Date()<=dateSem[0]
-              ?"DATO I"}
+
+              <TextField
+                disabled={new Date()>dateSem[0]}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DATO I
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={new Date()<=dateSem[0]
+                  ?d1
+                  :""}
+              />
+              
             </td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>100</td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>100</td>
-            <td style={{width:"25%"}}> <TextField
-         
-         
-         variant={"filled"}
-         label={
-           <Typography
-             sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-           >
-             DATO IV
-           </Typography>
-         }
-         InputLabelProps={{
-           style: {
-             fontFamily: "MontserratMedium",
-           },
-         }}
-         InputProps={{
-           style: {
-             fontFamily: "MontserratRegular",
-           },
-         }}
-     
-       /></td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <TextField
+                disabled={new Date()>dateSem[1]}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DATO II
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={new Date()<=dateSem[1]
+                  ?d2
+                  :""}
+              />
+            </td>
+            
           </tr>
         </tbody>
       </table>
@@ -163,7 +195,17 @@ const GridTableMetasSem = () => {
 };
 
 
-const GridTableMetasTrim = () => {
+const GridTableMetasTrim = ({
+  d1,
+  d2,
+  d3,
+  d4
+}: {
+  d1:string,
+  d2:string,
+  d3:string,
+  d4:string
+}) => {
   return (
     
     <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
@@ -172,32 +214,114 @@ const GridTableMetasTrim = () => {
         <tbody>
           
           <tr style={{borderColor:"black"}}>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6",borderColor:"black"}}>100</td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>100</td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>100</td>
-            <td style={{width:"25%"}}> <TextField
-         
-         
-         variant={"filled"}
-         label={
-           <Typography
-             sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-           >
-             DATO IV
-           </Typography>
-         }
-         InputLabelProps={{
-           style: {
-             fontFamily: "MontserratMedium",
-           },
-         }}
-         InputProps={{
-           style: {
-             fontFamily: "MontserratRegular",
-           },
-         }}
-     
-       /></td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+
+              <TextField
+                disabled={new Date()>dateTrim[0]}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DATO I
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={new Date()<=dateTrim[0]
+                  ?d1
+                  :""}
+              />
+              
+            </td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <TextField
+                disabled={new Date()>dateTrim[1]}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DATO II
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={new Date()<=dateTrim[1]
+                  ?d2
+                  :""}
+              />
+            </td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+
+              <TextField
+                disabled={new Date()>dateTrim[2]}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DATO III
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={new Date()<=dateTrim[2]
+                  ?d3
+                  :""}
+              />
+              
+            </td>
+            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <TextField
+                disabled={new Date()>dateTrim[3]}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  >
+                    DATO IV
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                value={new Date()<=dateTrim[3]
+                  ?d4
+                  :""}
+              />
+            </td>
           </tr>
         </tbody>
       </table>
@@ -479,7 +603,19 @@ export const TabComponenteRf = ({
 
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
-              <Grid item xs={6}><GridTableMetas /></Grid>
+              <Grid item xs={6}>
+              {componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
+              ? <GridTableMetasTrim 
+                  d1={"404"}
+                  d2={"404"}
+                  d3={"404"}
+                  d4={"404"}/>
+              : <GridTableMetasSem 
+                  d1={"404"}
+                  d2={"404"}/>}
+                
+                
+               </Grid>
           </Grid>
         </Grid>
         </>
