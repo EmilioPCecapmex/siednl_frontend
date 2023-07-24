@@ -490,6 +490,7 @@ export const Raffi = () => {
                   sx={{ fontFamily: "MontserratRegular" }}
                 >
                   Esperando Revisión
+                  
                 </MenuItem>
                 <MenuItem
                   value={"En Autorización"}
@@ -1018,6 +1019,7 @@ export const Raffi = () => {
     }}
     gridArea={"main"}
   >
+    
     <CapturaRaffi MIR={maEdit[0]?.MIR || ""}
             MA={maEdit[0]?.MetaAnual || ""}
             showResume={returnMain}
