@@ -148,7 +148,7 @@ export const TabComponenteRf = ({
     noComponentes.map((x, index) => {
       return comp.push({
         componentes: "C" + (index + 1),
-        frecuencia: MA === "" ? "" : jsonMA?.componentes.frecuencia || "",
+        // frecuencia: MA === "" ? "" : jsonMA?.componentes.frecuencia || "",
         metaAnual: MA === "" ? "" : jsonMA?.componentes[index]?.metaAnual || "",
         lineaBase: MA === "" ? "" : jsonMA?.componentes[index]?.lineaBase || "",
         metasPorFrecuencia: [
@@ -359,7 +359,7 @@ export const TabComponenteRf = ({
 
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
-              <Grid item xs={6}><GridTablePer{} /></Grid>
+              <Grid item xs={6}><GridTablePer{"a"} /></Grid>
           </Grid>
 
 

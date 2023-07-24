@@ -894,7 +894,7 @@ export const Raffi = () => {
                                     //   row.Estado === "Autorizada" ? false : true
                                     // }
                                     onClick={() => {
-                                      setFTShow([
+                                      setFTEdit([
                                         {
                                           IdFt: row.IdFt,
                                           IdMir: row.IdMir,
@@ -1020,11 +1020,11 @@ export const Raffi = () => {
     gridArea={"main"}
   >
     
-    <CapturaRaffi MIR={maEdit[0]?.MIR || ""}
-            MA={maEdit[0]?.MetaAnual || ""}
+    <CapturaRaffi MIR={FTEdit[0]?.MIR || ""}
+            MA={FTEdit[0]?.MetaAnual || ""}
             showResume={returnMain}
-            IdMir={maEdit[0]?.IdMir || ""}
-            IdMA={maEdit[0]?.IdMa || ""}/>
+            IdMir={FTEdit[0]?.IdMir || ""}
+            IdMA={FTEdit[0]?.IdMa || ""}/>
   </Grid>
 )}
 </Grid>
