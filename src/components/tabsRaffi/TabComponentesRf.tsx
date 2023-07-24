@@ -10,17 +10,23 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const GridTablePer = () => {
+const GridTablePer = ({
+  periodo
+}: {
+  periodo:string
+}) => {
   return (
     <div className="grid-container" style={{backgroundColor:"lightgray",boxShadow:"1px 2px 2px",textAlign:"center",width:"100%"}}>
       <table style={{width:"100%",textAlign:"center"}}>
         <thead style={{width:"100%",textAlign:"center"}}>
           <tr>
-            <th style={{textAlign:"center"}}>TRIMESTRAL</th>
+            <th style={{textAlign:"center"}}>{periodo}</th>
             </tr>
             </thead></table>
             </div>);
 }
+
+
 
 const GridTable = () => {
   return (
@@ -120,9 +126,10 @@ export const TabComponenteRf = ({
   valoresComponenteMAFnc: Function;
 }) => {
 
-
+  let encabezado = JSON.parse(MIR).encabezado;
   const [componentSelect, setComponentSelect] = useState(1);
 
+  
   const [componentesValues, setComponentesValues] = useState<
     Array<IComponenteMA>
   >([]);
@@ -141,6 +148,7 @@ export const TabComponenteRf = ({
     noComponentes.map((x, index) => {
       return comp.push({
         componentes: "C" + (index + 1),
+        frecuencia: MA === "" ? "" : jsonMA?.componentes.frecuencia || "",
         metaAnual: MA === "" ? "" : jsonMA?.componentes[index]?.metaAnual || "",
         lineaBase: MA === "" ? "" : jsonMA?.componentes[index]?.lineaBase || "",
         metasPorFrecuencia: [
@@ -227,74 +235,45 @@ export const TabComponenteRf = ({
             },
           }}
         >
-          
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <Divider />
-            <ListItemButton
-              // selected={showFin}
-              // onClick={() => {
-              //   setShowFin(true);
-              //   setShowProposito(false);
-              // }}
-              sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+          {noComponentes.map((item) => {
+            return (
+              <Box
+                key={item}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
               >
-                COMPONENTE 1
-                
-              </Typography>
-              
-              
-            </ListItemButton>
-            <Divider />
-          </Box>
+                <Divider />
+                <ListItemButton
+                  selected={item === componentSelect ? true : false}
+                  key={item}
+                  onClick={() => {
+                    setComponentSelect(item);
+                  }}
+                  sx={{
+                    height: "7vh",
+                    "&.Mui-selected ": {
+                      backgroundColor: "#c4a57b",
+                    },
+                    "&.Mui-selected:hover": {
+                      backgroundColor: "#cbcbcb",
+                    },
+                  }}
+                >
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                  >
+                    COMPONENTE {item}
+                  </Typography>
+                </ListItemButton>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <ListItemButton
-              // selected={showProposito}
-              // onClick={() => {
-              //   setShowProposito(true);
-              //   setShowFin(false);
-              // }}
-              sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
-              >
-                COMPONENTE 2
-              </Typography>
-            </ListItemButton>
-            <Divider />
-          </Box>
+                <Divider />
+              </Box>
+            );
+          })}
+          
         </List>
 
         </Grid>
@@ -311,12 +290,15 @@ export const TabComponenteRf = ({
                 fontSize: "1.5vw",
               }}
             >
-                    COMPONENTE 
+                    COMPONENTE {componentSelect}
                   </Typography>
           </Grid>
 
           <Grid container item xs={10} sx={{display:"flex",justifyContent:"center"}}>
-              <TextField fullWidth variant='standard' value="SERVICIOS DE ALBERGUE O ESTANCIA TEMPORAL BRINDADOS" label='INSTITUCION'></TextField>
+              <TextField fullWidth variant='standard' value={encabezado?.nombre_del_programa === "Selecciona"
+                    ? ""
+                    : encabezado?.nombre_del_programa}
+               label='INSTITUCION'></TextField>
           </Grid>
 
           <Grid container item xs={12} sx={{display:"flex",justifyContent:"space-around"}}>
@@ -342,7 +324,7 @@ export const TabComponenteRf = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-          
+          value={componentesValues[componentSelect - 1]?.metaAnual || ""}
             />
             </Grid>
             
@@ -369,7 +351,7 @@ export const TabComponenteRf = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-          
+          value={componentesValues[componentSelect - 1]?.lineaBase || ""}
             />
             </Grid>
             
@@ -377,7 +359,7 @@ export const TabComponenteRf = ({
 
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
-              <Grid item xs={6}><GridTablePer /></Grid>
+              <Grid item xs={6}><GridTablePer{} /></Grid>
           </Grid>
 
 
