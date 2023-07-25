@@ -1,6 +1,8 @@
 import {Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled} from '@mui/material';
 import { useEffect, useState } from "react";
 import { IComponenteMA } from "./Interfaces";
+import { ClassNames } from '@emotion/react';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -12,6 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const dateSem = [new Date("2023-06-30"),new Date("2023-12-31")]
 const dateTrim = [new Date("2023-03-31"),new Date("2023-06-30"),new Date("2023-09-30"),new Date("2023-12-31")]
+
 
 const GridTablePer = ({
   periodo
@@ -119,11 +122,16 @@ const GridTableMetasTitulo = () => {
 }
 const GridTableMetasSem = ({
   d1,
-  d2
+  d2,
+  r1,
+  r2
 }: {
   d1:string,
-  d2:string
+  d2:string,
+  r1:string,
+  r2:string
 }) => {
+
   return (
     
     <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
@@ -132,9 +140,18 @@ const GridTableMetasSem = ({
         <tbody>
           
           <tr style={{borderColor:"black"}}>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <td style={{width:"25%"}}>
 
               <TextField
+                sx={{
+                  backgroundColor: (d1==""
+                  ?""
+                  :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
+                  ? "#CEE9B6"
+                  : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
+                  ? "#FFDE6A"
+                  : "#EF6969")
+                }}
                 disabled={new Date()>dateSem[0]}
                 variant={"filled"}
                 label={
@@ -155,13 +172,22 @@ const GridTableMetasSem = ({
                   },
                 }}
                 value={new Date()<=dateSem[0]
-                  ?d1
-                  :""}
+                  ?""
+                  :d1}
               />
               
             </td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <td style={{width:"25%"}}>
             <TextField
+              sx={{
+                backgroundColor: (d2==""
+                ?""
+                :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
+                ? "#CEE9B6"
+                : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
+                ? "#FFDE6A"
+                : "#EF6969")
+              }}
                 disabled={new Date()>dateSem[1]}
                 variant={"filled"}
                 label={
@@ -182,8 +208,8 @@ const GridTableMetasSem = ({
                   },
                 }}
                 value={new Date()<=dateSem[1]
-                  ?d2
-                  :""}
+                  ?""
+                  :d2}
               />
             </td>
             
@@ -199,12 +225,20 @@ const GridTableMetasTrim = ({
   d1,
   d2,
   d3,
-  d4
+  d4,
+  r1,
+  r2,
+  r3,
+  r4
 }: {
   d1:string,
   d2:string,
   d3:string,
-  d4:string
+  d4:string,
+  r1:string,
+  r2:string,
+  r3:string,
+  r4:string
 }) => {
   return (
     
@@ -214,9 +248,18 @@ const GridTableMetasTrim = ({
         <tbody>
           
           <tr style={{borderColor:"black"}}>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <td style={{width:"25%"}}>
 
               <TextField
+              sx={{
+                backgroundColor: (d1==""
+                ?""
+                :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
+                ? "#CEE9B6"
+                : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
+                ? "#FFDE6A"
+                : "#EF6969")
+              }}
                 disabled={new Date()>dateTrim[0]}
                 variant={"filled"}
                 label={
@@ -237,13 +280,22 @@ const GridTableMetasTrim = ({
                   },
                 }}
                 value={new Date()<=dateTrim[0]
-                  ?d1
-                  :""}
+                  ?""
+                  :d1}
               />
               
             </td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <td style={{width:"25%"}}>
             <TextField
+            sx={{
+              backgroundColor: (d2==""
+              ?""
+              :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
+              ? "#CEE9B6"
+              : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
+              ? "#FFDE6A"
+              : "#EF6969")
+            }}
                 disabled={new Date()>dateTrim[1]}
                 variant={"filled"}
                 label={
@@ -264,13 +316,22 @@ const GridTableMetasTrim = ({
                   },
                 }}
                 value={new Date()<=dateTrim[1]
-                  ?d2
-                  :""}
+                  ?""
+                  :d2}
               />
             </td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <td style={{width:"25%"}}>
 
               <TextField
+              sx={{
+                backgroundColor: (d3==""
+                ?""
+                :(parseInt(r3)-parseInt(d3))/parseInt(d3)<.05
+                ? "#CEE9B6"
+                : (parseInt(r3)-parseInt(d3))/parseInt(d3)<.1
+                ? "#FFDE6A"
+                : "#EF6969")
+              }}
                 disabled={new Date()>dateTrim[2]}
                 variant={"filled"}
                 label={
@@ -291,13 +352,22 @@ const GridTableMetasTrim = ({
                   },
                 }}
                 value={new Date()<=dateTrim[2]
-                  ?d3
-                  :""}
+                  ?""
+                  :d3}
               />
               
             </td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
+            <td style={{width:"25%"}}>
             <TextField
+            sx={{
+              backgroundColor: (d4==""
+              ?""
+              :(parseInt(r4)-parseInt(d4))/parseInt(d4)<.05
+              ? "#CEE9B6"
+              : (parseInt(r4)-parseInt(d4))/parseInt(d4)<.1
+              ? "#FFDE6A"
+              : "#EF6969")
+            }}
                 disabled={new Date()>dateTrim[3]}
                 variant={"filled"}
                 label={
@@ -318,8 +388,8 @@ const GridTableMetasTrim = ({
                   },
                 }}
                 value={new Date()<=dateTrim[3]
-                  ?d4
-                  :""}
+                  ?""
+                  :d4}
               />
             </td>
           </tr>
@@ -609,10 +679,16 @@ export const TabComponenteRf = ({
                   d1={"404"}
                   d2={"404"}
                   d3={"404"}
-                  d4={"404"}/>
+                  d4={"404"}
+                  r1={"404"}
+                  r2={"404"}
+                  r3={"404"}
+                  r4={"404"}/>
               : <GridTableMetasSem 
-                  d1={"404"}
-                  d2={"404"}/>}
+                  d1={"380"}
+                  d2={""}
+                  r1={"404"}
+                  r2={"404"}/>}
                 
                 
                </Grid>
