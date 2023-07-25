@@ -7,8 +7,24 @@ import { TabActividadRf } from "./TabsActividadesRf";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
 import { TabResumenRF } from "./TabResumenRF";
-
-export default function CapturaRaffi() {
+import { IAvanceFinancieroRF } from "../../screens/raffi/interfacesRaffi";
+export default function CapturaRaffi({
+  MIR,
+  MA,
+  RF,
+  opentabs,
+  IdMir,
+  IdMA,
+  IdRf,
+}:{
+  MIR: string;
+  MA: string;
+  RF: string;
+  opentabs: Function;
+  IdMir: string;
+  IdMA: string;
+  IdRf: string;
+}) {
   const [value, setValue] = useState(10);
 
   const cambiarTab = (option: string) => {
@@ -17,6 +33,20 @@ export default function CapturaRaffi() {
     } else {
       if (value > 10) setValue(value - 10);
     }
+  };
+
+  //Avance Financiero
+  const [showStAF, setShowStAF] = React.useState("");
+  const setTxtShowRAFFIAF = (st: string) => {
+    setShowStAF(st);
+  };
+
+  const [ValueAvanceFinanciero, setAvanceFinanciero] = useState<Array<IAvanceFinancieroRF>>(
+    []
+  );
+
+  const resumenAvanceFinancieroRf =(st: Array<IAvanceFinancieroRF>) =>{
+    setAvanceFinanciero(st);
   };
 
   return (
@@ -145,7 +175,12 @@ export default function CapturaRaffi() {
             backgroundColor: "#fff",
           }}
         >
-          {value === 10 && <TabAvanceFinanciero />}
+          {value === 10 && <TabAvanceFinanciero 
+          resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
+          MIR={MIR}
+          MA={MA}
+          RF={RF}
+          />}
 
           {value === 20 && <TabFinPropositoRF />}
 

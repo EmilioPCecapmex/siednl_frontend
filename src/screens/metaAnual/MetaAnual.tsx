@@ -19,6 +19,8 @@ import {
   Typography,
   InputLabel,
   TextField,
+  Paper,
+  InputBase,
 } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
@@ -31,6 +33,7 @@ import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { queries } from "../../queries";
+import SearchIcon from "@mui/icons-material/Search";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -48,13 +51,13 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     setShowResume(true);
-    getMA();
+    //getMA();
   }, [ResumeDefaultMA]);
 
   const returnMain = () => {
     setShowResume(true);
     setActionNumber(1);
-    getMA();
+    //getMA();
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -82,13 +85,13 @@ export const MetaAnual = () => {
   const [findSelectStr, setFindSelectStr] = useState("Todos");
 
   const [ma, setMa] = useState<Array<IIMa>>([]);
-  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
-
+  const [maEdit,  setMaEdit] = useState<Array<IIMa>>([]);
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
+  const [maxFiltered, setMaxFiltered] = useState<Array<IIMa>>([]);
 
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
 
-  const getInstituciones = () => {
+  const getInstituciones = (setstate: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
@@ -100,10 +103,22 @@ export const MetaAnual = () => {
       })
       .then((r) => {
         if (r.status === 200) {
-          setInstituciones(r.data.data);
+          setstate(r.data.data);
         }
       });
   };
+
+  useEffect(() => {
+    getMA(setMa);
+  }, []);
+
+  useEffect(() => {
+    setMaFiltered(ma);
+  }, [ma]);
+
+  useEffect(() => {
+    setMaxFiltered(maFiltered);
+  }, [maFiltered]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -170,7 +185,7 @@ export const MetaAnual = () => {
   };
 
   useEffect(() => {
-    getInstituciones();
+    getInstituciones(setInstituciones);
   }, []);
 
   // Filtrado por caracter
@@ -259,7 +274,7 @@ export const MetaAnual = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
-  const getMA = () => {
+  const getMA = (setstate: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-MetaAnual", {
         params: {
@@ -271,8 +286,8 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
-        setMa(r.data.data);
-        setMaFiltered(r.data.data);
+        setstate(r.data.data);
+        //setMaFiltered(r.data.data);
       });
   };
 
@@ -282,9 +297,9 @@ export const MetaAnual = () => {
 
   const [actualizacion, setActualizacion] = useState(0);
 
-  useEffect(() => {
-    getMA();
-  }, [actualizacion]);
+  // useEffect(() => {
+  //   getMA();
+  // }, [actualizacion]);
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -308,16 +323,59 @@ export const MetaAnual = () => {
       return "#0000ff";
     }
   };
+
   const [estadosR, SetEstadosR] = useState<string[]>([]);
-  const handleChange = (event: SelectChangeEvent<typeof estadosR>) => {
-    const {
-      target: { value },
-    } = event;
-    SetEstadosR(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+
+  const filtrarDatos = () => {
+    // eslint-disable-next-line array-callback-return
+    console.log("Entra");
+    let Arrayfiltro: IIMa[];
+    Arrayfiltro = [];
+
+    if (maxFiltered.length !== 0) {
+      Arrayfiltro = maxFiltered;
+    } else {
+      Arrayfiltro = maxFiltered;
+    }
+
+    let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
+      console.log("entre");
+      console.log(elemento);
+      console.log(findTextStr);
+      console.log(maxFiltered);
+
+      if (
+        elemento.AnioFiscal.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Institucion.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Programa.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Estado.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.FechaCreacion.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.CreadoPor.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase())
+      ) {
+        console.log(elemento);
+        return elemento;
+      }
+    });
+
+    setMaFiltered(ResultadoBusqueda);
   };
+
+  const handleChange = (dato: string) => {
+    setFindTextStr(dato);
+  };
+
   return (
     <Box
       sx={{
@@ -361,30 +419,22 @@ export const MetaAnual = () => {
           <Box
             sx={{
               width: "60%",
-              height: "15vh",
+              height: "16vh",
               backgroundColor: "#fff",
               borderRadius: 5,
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gridTemplateRows: "repeat(2, 1fr)",
+              display: "flex",
+              //gridTemplateColumns: "repeat(2, 1fr)",
+              flexDirection: "column",
               boxShadow: 5,
-              alignItems: "center",
-              justifyItems: "center",
+              justifyContent:"space-evenly",
+              alignItems: "center"
+              //flexDirection: "row",
+              
             }}
           >
             {/* <TutorialBox initialState={35} endState={39} /> */}
-            <Box
-              sx={{
-                display: "flex",
-                width: "70%",
-                alignItems: "center",
-                justifyContent: "center",
-                //border: 1,
-                borderRadius: 2,
-                borderColor: "#616161",
-              }}
-            >
-              <TextField
+            
+              {/* <TextField
                 size="small"
                 value={findTextStr}
                 label="Busqueda"
@@ -393,91 +443,144 @@ export const MetaAnual = () => {
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
                 }}
-              />
-              {/* <SearchIcon /> */}
+              /> */}
+              <Paper
+                component="form"
+                sx={{
+                  alignItems: "center",
+                  justifyItems: "center",
+                  display: "flex",
+                  width: "90%",
+                  height:"6vh"
+                }}
+              >
+                <InputBase
+                  sx={{ ml: 1, flex: 1 }}
+                  placeholder="Buscar"
+                  value={findTextStr}
+                  onChange={(e) => {
+                    handleChange(e.target.value);
+                  }}
+                  onKeyPress={(ev) => {
+                    if (ev.key === "Enter") {
+                      filtrarDatos();
+                      ev.preventDefault();
+                      return false;
+                    }
+                  }}
+                />
+                <IconButton
+                  type="button"
+                  sx={{ p: "10px" }}
+                  aria-label="search"
+                  onClick={() => filtrarDatos()}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </Paper>
+            
+
+            <Box
+              sx={{
+                display: "flex",
+                //gridTemplateColumns: "repeat(2, 1fr)",
+                //alignItems:"center",
+                justifyItems: "space-evenly",
+                gap: 2,
+                width: "90%",
+              }}
+            >
+              <FormControl
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  // alignItems: "center",
+                  // justifyContent: "center",
+
+                   borderRadius: 2,
+                   borderColor: "#616161",
+                   
+                }}
+              >
+                <InputLabel sx={queries.text}>
+                  Filtro por Estado de la MA
+                </InputLabel>
+                <Select
+                  size="small"
+                  fullWidth
+                  variant="outlined"
+                  label="Filtro por estado de la MA"
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  value={findSelectStr}
+                  onChange={(v) => {
+                    // v.target.value === "Todos"
+                    //   ? findText(
+                    //       findTextStr,
+                    //       "0",
+                    //       findInstStr === "Todos" ? "0" : findInstStr
+                    //     )
+                    //   : findText(findTextStr, v.target.value, findInstStr);
+                    setFindSelectStr(v.target.value);
+                  }}
+                >
+                  {estados.map((estado) => (
+                    <MenuItem key={estado} value={estado}>
+                      {estado}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  // alignItems: "center",
+                  // justifyContent: "center",
+                  // //border: 1,
+                   borderRadius: 2,
+                   borderColor: "#616161",
+                   
+                }}
+              >
+                <InputLabel sx={queries.text}>
+                  Filtro por institución
+                </InputLabel>
+                <Select
+                  size="small"
+                  variant="outlined"
+                  fullWidth
+                  label="Filtro por institución"
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  value={findInstStr}
+                  // sx={{ fontFamily: "MontserratRegular" }}
+
+                  onChange={(v) => {
+                    setFindInstStr(v.target.value);
+                  }}
+                >
+                  <MenuItem
+                    value={"Todos"}
+                    sx={{ fontFamily: "MontserratRegular" }}
+                  >
+                    Todos
+                  </MenuItem>
+
+                  {instituciones?.map((item) => {
+                    return (
+                      <MenuItem value={item.NombreInstitucion} key={item.Id}>
+                        {item.NombreInstitucion}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
             </Box>
 
-            <FormControl
-              sx={{
-                display: "flex",
-                width: "70%",
-                alignItems: "center",
-                justifyContent: "center",
-
-                borderRadius: 2,
-                borderColor: "#616161",
-              }}
-            >
-              <InputLabel sx={queries.text}>Filtro por Estado de la MA</InputLabel>
-              <Select
-                size="small"
-                fullWidth
-                variant="outlined"
-                label="Filtro por estado de la MA"
-                sx={{ fontFamily: "MontserratRegular" }}
-                value={findSelectStr}
-                onChange={(v) => {
-                  // v.target.value === "Todos"
-                  //   ? findText(
-                  //       findTextStr,
-                  //       "0",
-                  //       findInstStr === "Todos" ? "0" : findInstStr
-                  //     )
-                  //   : findText(findTextStr, v.target.value, findInstStr);
-                  setFindSelectStr(v.target.value);
-                }}
-              >
-            
-                {estados.map((estado) => (
-                  <MenuItem key={estado} value={estado}>
-                    {estado}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl
-              sx={{
-                display: "flex",
-                width: "70%",
-                alignItems: "center",
-                justifyContent: "center",
-                //border: 1,
-                borderRadius: 2,
-                borderColor: "#616161",
-              }}
-            >
-              <InputLabel sx={queries.text}>Filtro por institución</InputLabel>
-              <Select
-                size="small"
-                variant="outlined"
-                fullWidth
-                label="Filtro por institución"
-                sx={{ fontFamily: "MontserratRegular" }}
-                value={findInstStr}
-                // sx={{ fontFamily: "MontserratRegular" }}
-
-                onChange={(v) => {
-                  setFindInstStr(v.target.value);
-                }}
-              >
-                <MenuItem
-                  value={"Todos"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Todos
-                </MenuItem>
-
-                {instituciones?.map((item) => {
-                  return (
-                    <MenuItem value={item.NombreInstitucion} key={item.Id}>
-                      {item.NombreInstitucion}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
           </Box>
+
+
+
 
           <Box
             sx={{

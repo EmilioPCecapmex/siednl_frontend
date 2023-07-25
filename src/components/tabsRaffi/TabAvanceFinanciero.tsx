@@ -10,9 +10,150 @@ import {
   Checkbox,
 } from "@mui/material";
 import { queries } from "../../queries";
-export const TabAvanceFinanciero = () => {
-  const seteado = "PROTECCIÓN AL INFANTE Y DESARROLLO INTEGLRAS DE LA FAMILIA";
-  const valorprueba = "100000000";
+import { IIMir } from "../../screens/mir/MIR";
+import { useEffect, useState } from "react";
+import { IMIR } from "../tabsMir/IMIR";
+import { IAvanceFinancieroRF } from "../../screens/raffi/interfacesRaffi";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import validator from "validator";
+export function TabAvanceFinanciero({
+  resumenAvanceFinancieroRf,
+  MIR,
+  MA,
+  RF,
+}: {
+  resumenAvanceFinancieroRf: Function;
+  MIR: string;
+  MA: string;
+  RF: string;
+}) {
+  const jsonMir: IMIR = JSON.parse(MIR);
+
+  const [avanceFinanciero, setAvanceFinanciero] = useState<IAvanceFinancieroRF>(
+    {
+      NombrePrograma: jsonMir.encabezado.nombre_del_programa,
+      ValorProgramaPresupuestario: "0",
+      Calculo: "DEVENGADO/MODIFICADO",
+      Monto: {
+        mt1: "",
+        mt2: "",
+        mt3: "",
+        mt4: "",
+        mtotal: "",
+      },
+      Porcentaje: {
+        pt1: "",
+        pt2: "",
+        pt3: "",
+        pt4: "",
+        ptotal: "",
+      },
+    }
+  );
+
+  useEffect(() => {
+    console.log("avanceFinanciero: ", avanceFinanciero.Calculo);
+    console.log(
+      "avanceFinanciero: ",
+      avanceFinanciero.ValorProgramaPresupuestario
+    );
+  }, [avanceFinanciero.Calculo, avanceFinanciero.ValorProgramaPresupuestario]);
+
+  function sumarNumerosStrings(accum: number, numerosStrings: string): number {
+    const numero = parseFloat(numerosStrings); // Puedes usar parseInt() si solo quieres números enteros
+    if (!isNaN(numero)) {
+      accum += numero;
+    }
+
+    return accum;
+  }
+
+  const sumatoria = () => {
+    let Total: number = 0;
+
+    Total = sumarNumerosStrings(Total, avanceFinanciero.Monto.mt1);
+    Total = sumarNumerosStrings(Total, avanceFinanciero.Monto.mt2);
+    Total = sumarNumerosStrings(Total, avanceFinanciero.Monto.mt3);
+    Total = sumarNumerosStrings(Total, avanceFinanciero.Monto.mt4);
+    avanceFinanciero.Monto.mtotal =Total.toString()
+    return Total;
+  };
+
+  // const [calculo, setCalculo] = useState(
+  //   RF === "" ? "" : JSON.parse(RF).avanceFinanciero.Calculo || ""
+  // );
+
+  useEffect(() => {
+    resumenAvanceFinancieroRf(avanceFinanciero);
+  }, [resumenAvanceFinancieroRf]);
+
+  useEffect(()=>{
+    avanceFinanciero.Porcentaje.pt1 =(isNaN(
+      (parseInt(avanceFinanciero.Monto.mt1) * 100) /
+        parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+    )
+      ? ""
+      : (
+          (parseInt(avanceFinanciero.Monto.mt1) * 100) /
+          parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+        ).toString())
+        
+
+      console.log(avanceFinanciero);
+  },[]);
+
+  useEffect(()=>{
+    avanceFinanciero.Porcentaje.pt2 =(isNaN(
+      (parseInt(avanceFinanciero.Monto.mt2) * 100) /
+        parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+    )
+      ? ""
+      : (
+          (parseInt(avanceFinanciero.Monto.mt2) * 100) /
+          parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+        ).toString())
+        
+
+      console.log(avanceFinanciero);
+  },[]);
+
+  useEffect(()=>{
+    avanceFinanciero.Porcentaje.pt3 =(isNaN(
+      (parseInt(avanceFinanciero.Monto.mt3) * 100) /
+        parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+    )
+      ? ""
+      : (
+          (parseInt(avanceFinanciero.Monto.mt3) * 100) /
+          parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+        ).toString())
+        
+
+      console.log(avanceFinanciero);
+  },[]);
+
+  useEffect(()=>{
+    avanceFinanciero.Porcentaje.pt4 =(isNaN(
+      (parseInt(avanceFinanciero.Monto.mt4) * 100) /
+        parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+    )
+      ? ""
+      : (
+          (parseInt(avanceFinanciero.Monto.mt4) * 100) /
+          parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+        ).toString())
+        
+
+      console.log(avanceFinanciero);
+      avanceFinanciero.Porcentaje.ptotal = (parseInt(avanceFinanciero.Porcentaje.pt1) + parseInt(avanceFinanciero.Porcentaje.pt2) + parseInt(avanceFinanciero.Porcentaje.pt3) +  parseInt(avanceFinanciero.Porcentaje.pt4)).toString()
+  },[]);
+
+  // useEffect(() => {
+  //   setAvanceFinanciero(
+
+  //   );
+  // }, [jsonMir.encabezado.nombre_del_programa, valorPPresupuestario, calculo]);
+
   return (
     <>
       <Grid
@@ -31,7 +172,7 @@ export const TabAvanceFinanciero = () => {
             fullWidth
             sx={queries.medium_text}
             variant="standard"
-            value={seteado}
+            value={jsonMir.encabezado.nombre_del_programa}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratMedium",
@@ -62,7 +203,25 @@ export const TabAvanceFinanciero = () => {
             <TextField
               fullWidth
               size="small"
-              value={"$" + valorprueba}
+              placeholder="0"
+              onChange={(a) => {
+                setAvanceFinanciero({
+                  ...avanceFinanciero,
+                  ValorProgramaPresupuestario: a.target.value,
+                });
+              }}
+              value={
+                // "$" +
+                parseInt(avanceFinanciero.ValorProgramaPresupuestario) <= 0
+                  ? ""
+                  : avanceFinanciero.ValorProgramaPresupuestario.replaceAll(
+                      '"',
+                      ""
+                    )
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                      .replace(/\D/g, "")
+              }
               label="Valor del programa Presupuestario"
               sx={queries.medium_text}
               InputLabelProps={{
@@ -71,10 +230,11 @@ export const TabAvanceFinanciero = () => {
                 },
               }}
               InputProps={{
-                readOnly: true,
+                //readOnly: true,
                 style: {
                   fontFamily: "MontserratMedium",
                 },
+                startAdornment: <AttachMoneyIcon />,
               }}
             />
           </Grid>
@@ -124,7 +284,22 @@ export const TabAvanceFinanciero = () => {
                   sx={{
                     fontFamily: "MontserratMedium",
                   }}
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      checked={
+                        avanceFinanciero.Calculo === "DEVENGADO/MODIFICADO"
+                      }
+                      onChange={(a) => {
+                        setAvanceFinanciero({
+                          ...avanceFinanciero,
+                          Calculo: a.target.value,
+                        });
+
+                        console.log(avanceFinanciero);
+                        console.log();
+                      }}
+                    />
+                  }
                 />
 
                 <FormControlLabel
@@ -142,7 +317,22 @@ export const TabAvanceFinanciero = () => {
                   sx={{
                     fontFamily: "MontserratMedium",
                   }}
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      checked={
+                        avanceFinanciero.Calculo === "EJERCIDO/MODIFICADO"
+                      }
+                      onChange={(a) => {
+                        setAvanceFinanciero({
+                          ...avanceFinanciero,
+                          Calculo: a.target.value,
+                        });
+
+                        console.log(avanceFinanciero);
+                        console.log();
+                      }}
+                    />
+                  }
                 />
 
                 <FormControlLabel
@@ -160,7 +350,22 @@ export const TabAvanceFinanciero = () => {
                   sx={{
                     fontFamily: "MontserratMedium",
                   }}
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      checked={
+                        avanceFinanciero.Calculo === "MODIFICADO/AUTORIZADO"
+                      }
+                      onChange={(a) => {
+                        setAvanceFinanciero({
+                          ...avanceFinanciero,
+                          Calculo: a.target.value,
+                        });
+
+                        console.log(avanceFinanciero);
+                        console.log();
+                      }}
+                    />
+                  }
                 />
               </Grid>
             </FormControl>
@@ -188,6 +393,26 @@ export const TabAvanceFinanciero = () => {
                 fullWidth
                 size="small"
                 label="Monto Trimestre 1"
+                onChange={(a) => {
+                  setAvanceFinanciero({
+                    ...avanceFinanciero,
+                    Monto: {
+                      ...avanceFinanciero.Monto,
+                      mt1: a.target.value,
+                    },
+                  });
+                  console.log(avanceFinanciero);
+                }}
+                value={
+                  // "$" +
+                  parseInt(avanceFinanciero.Monto.mt1) <= 0
+                    ? ""
+                    : avanceFinanciero.Monto.mt1
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .replace(/\D/g, "")
+                }
                 sx={queries.medium_text}
                 InputLabelProps={{
                   style: {
@@ -195,7 +420,6 @@ export const TabAvanceFinanciero = () => {
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -207,6 +431,26 @@ export const TabAvanceFinanciero = () => {
                 fullWidth
                 size="small"
                 label="Monto Trimestre 2"
+                onChange={(a) => {
+                  setAvanceFinanciero({
+                    ...avanceFinanciero,
+                    Monto: {
+                      ...avanceFinanciero.Monto,
+                      mt2: a.target.value,
+                    },
+                  });
+                  console.log(avanceFinanciero);
+                }}
+                value={
+                  // "$" +
+                  parseInt(avanceFinanciero.Monto.mt2) <= 0
+                    ? ""
+                    : avanceFinanciero.Monto.mt2
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .replace(/\D/g, "")
+                }
                 sx={queries.medium_text}
                 InputLabelProps={{
                   style: {
@@ -214,7 +458,6 @@ export const TabAvanceFinanciero = () => {
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -226,6 +469,26 @@ export const TabAvanceFinanciero = () => {
                 fullWidth
                 size="small"
                 label="Monto Trimestre 3"
+                onChange={(a) => {
+                  setAvanceFinanciero({
+                    ...avanceFinanciero,
+                    Monto: {
+                      ...avanceFinanciero.Monto,
+                      mt3: a.target.value,
+                    },
+                  });
+                  console.log(avanceFinanciero);
+                }}
+                value={
+                  // "$" +
+                  parseInt(avanceFinanciero.Monto.mt3) <= 0
+                    ? ""
+                    : avanceFinanciero.Monto.mt3
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .replace(/\D/g, "")
+                }
                 sx={queries.medium_text}
                 InputLabelProps={{
                   style: {
@@ -233,7 +496,6 @@ export const TabAvanceFinanciero = () => {
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -245,6 +507,26 @@ export const TabAvanceFinanciero = () => {
                 fullWidth
                 size="small"
                 label="Monto Trimestre 4"
+                onChange={(a) => {
+                  setAvanceFinanciero({
+                    ...avanceFinanciero,
+                    Monto: {
+                      ...avanceFinanciero.Monto,
+                      mt4: a.target.value,
+                    },
+                  });
+                  console.log(avanceFinanciero);
+                }}
+                value={
+                  // "$" +
+                  parseInt(avanceFinanciero.Monto.mt4) <= 0
+                    ? ""
+                    : avanceFinanciero.Monto.mt4
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .replace(/\D/g, "")
+                }
                 sx={queries.medium_text}
                 InputLabelProps={{
                   style: {
@@ -252,7 +534,6 @@ export const TabAvanceFinanciero = () => {
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -265,7 +546,9 @@ export const TabAvanceFinanciero = () => {
                 fullWidth
                 size="small"
                 label="Total"
+                //placeholder="0"
                 sx={queries.medium_text}
+                value={sumatoria()}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -302,13 +585,25 @@ export const TabAvanceFinanciero = () => {
                 size="small"
                 label="Porcentaje Trimestre 1"
                 sx={queries.medium_text}
+                value={
+                  //avanceFinanciero.Porcentaje.pt1 =
+                  isNaN(
+                    (parseInt(avanceFinanciero.Monto.mt1) * 100) /
+                      parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+                  )
+                    ? ""
+                    : (
+                        (parseInt(avanceFinanciero.Monto.mt1) * 100) /
+                        parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+                      ).toString()
+                }
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
+                  //readOnly: true,
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -320,6 +615,18 @@ export const TabAvanceFinanciero = () => {
                 fullWidth
                 size="small"
                 label="Porcentaje Trimestre 2"
+                value={
+                  //avanceFinanciero.Porcentaje.pt1 =
+                  isNaN(
+                    (parseInt(avanceFinanciero.Monto.mt2) * 100) /
+                      parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+                  )
+                    ? ""
+                    : (
+                        (parseInt(avanceFinanciero.Monto.mt2) * 100) /
+                        parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+                      ).toString()
+                }
                 sx={queries.medium_text}
                 InputLabelProps={{
                   style: {
@@ -327,7 +634,7 @@ export const TabAvanceFinanciero = () => {
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
+                  
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -339,6 +646,18 @@ export const TabAvanceFinanciero = () => {
                 fullWidth
                 size="small"
                 label="Porcentaje Trimestre 3"
+                value={
+                  //avanceFinanciero.Porcentaje.pt1 =
+                  isNaN(
+                    (parseInt(avanceFinanciero.Monto.mt3) * 100) /
+                      parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+                  )
+                    ? ""
+                    : (
+                        (parseInt(avanceFinanciero.Monto.mt3) * 100) /
+                        parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+                      ).toString()
+                }
                 sx={queries.medium_text}
                 InputLabelProps={{
                   style: {
@@ -346,7 +665,7 @@ export const TabAvanceFinanciero = () => {
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
+                  
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -358,6 +677,18 @@ export const TabAvanceFinanciero = () => {
                 fullWidth
                 size="small"
                 label="Porcentaje Trimestre 4"
+                value={
+                  //avanceFinanciero.Porcentaje.pt1 =
+                  isNaN(
+                    (parseInt(avanceFinanciero.Monto.mt4) * 100) /
+                      parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+                  )
+                    ? ""
+                    : (
+                        (parseInt(avanceFinanciero.Monto.mt4) * 100) /
+                        parseInt(avanceFinanciero.ValorProgramaPresupuestario)
+                      ).toString()
+                }
                 sx={queries.medium_text}
                 InputLabelProps={{
                   style: {
@@ -365,7 +696,7 @@ export const TabAvanceFinanciero = () => {
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
+                  
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -378,13 +709,19 @@ export const TabAvanceFinanciero = () => {
                 size="small"
                 label="Total"
                 sx={queries.medium_text}
+                value ={ 
+                  isNaN
+
+                  (parseInt(avanceFinanciero.Porcentaje.pt1) + parseInt(avanceFinanciero.Porcentaje.pt2) + parseInt(avanceFinanciero.Porcentaje.pt3) +  parseInt(avanceFinanciero.Porcentaje.pt4) ) ? ""
+                  : (parseInt(avanceFinanciero.Porcentaje.pt1) + parseInt(avanceFinanciero.Porcentaje.pt2) + parseInt(avanceFinanciero.Porcentaje.pt3) +  parseInt(avanceFinanciero.Porcentaje.pt4)).toString() 
+                }
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
+                  
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -396,4 +733,4 @@ export const TabAvanceFinanciero = () => {
       </Grid>
     </>
   );
-};
+}
