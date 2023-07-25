@@ -34,6 +34,43 @@ export default function CapturaRaffi({
     }
   };
 
+
+
+
+
+
+  const jsonMir = JSON.parse(MIR);
+
+  useEffect(() => {
+    let act: number[] = [];
+    let comp: string[] = [];
+    let ambos: any = [];
+    let i = 1;
+    let j = 1;
+
+    jsonMir.componentes.map((x: any) => {
+      comp.push("C" + j);
+      jsonMir.actividades.map((a: any) => {
+        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+          act.push(i);
+          i++;
+        }
+      });
+      ambos.push({ actividades: act, componente: "C" + j });
+      act = [];
+      i = 1;
+      j++;
+    });
+
+    setCompAct(ambos);
+
+    jsonMir.componentes.map((value: any, index: number) => {
+      if (index > 1 && index < 6)
+        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
   const [valoresComponenteMA, setValoresComponenteMA] = useState<
@@ -57,6 +94,49 @@ export default function CapturaRaffi({
   );
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     setValoresComponenteMA(state);
+  };
+
+  const componenteActividad = [
+    {
+      componentes: noComponentes.map((x) => [1, 2]),
+    },
+  ];
+
+  const [cValorMA, setCValorMA] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                metaAnual: "",
+                lineaBase: "",
+                metasPorFrecuencia: [
+                  {
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
+                valorNumerador: "",
+                valorDenominador: "",
+                sentidoDelIndicador: "",
+                unidadResponsable: "",
+                descIndicador: "",
+                descNumerador: "",
+                descDenominador: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
+  const asignarCValorMA = (state: Array<ICValorMA>) => {
+    setCValorMA(state);
   };
 
   return (
@@ -172,6 +252,7 @@ export default function CapturaRaffi({
 
           valoresComponenteMAFnc={valoresComponenteMAFnc}
           componentes={noComponentes}
+          asignarCValor={asignarCValorMA}
           MA={MA}
           MIR={MIR} 
           compAct={compAct}/>}

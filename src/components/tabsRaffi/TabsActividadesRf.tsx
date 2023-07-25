@@ -337,12 +337,14 @@ export const TabActividadRf = ({
   MIR,
   MA,
   componentes,
+  asignarCValor,
   compAct,
   valoresComponenteMAFnc,
 }: {
   MA: string;
   MIR: string;
   componentes: number[];
+  asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
   valoresComponenteMAFnc: Function;
 }) => {
@@ -366,12 +368,10 @@ export const TabActividadRf = ({
 
   
   let encabezado = JSON.parse(MIR).encabezado;
-  const [componentSelect, setComponentSelect] = useState(1);
+  
 
   
-  const [componentesValues, setComponentesValues] = useState<
-    Array<IComponenteMA>
-  >([]);
+
 
   let jsonMA =
     MA === ""
@@ -503,7 +503,9 @@ export const TabActividadRf = ({
     setAValorMA(y);
   };
 
-
+  useEffect(() => {
+    asignarCValor(aValorMA);
+  }, [aValorMA]);
   return (
     <>
     
@@ -529,10 +531,10 @@ export const TabActividadRf = ({
             },
           }}
         >
-          {componentes.map((item) => {
+          {componentes.map((item, index) => {
             return (
               <Box
-                key={item}
+                key={index}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -541,10 +543,12 @@ export const TabActividadRf = ({
               >
                 <Divider />
                 <ListItemButton
-                  selected={item === componentSelect ? true : false}
+                  selected={item === componenteSelect + 1 ? true : false}
                   key={item}
                   onClick={() => {
-                    setComponentSelect(item);
+                    setComponenteSelect(item - 1);
+                    handleClickComponente(item);
+                    setActividadSelect(0);
                   }}
                   sx={{
                     height: "7vh",
@@ -561,7 +565,9 @@ export const TabActividadRf = ({
                   >
                     COMPONENTE {item}
                   </Typography>
+                
                   {open === item ? <ExpandLess /> : <ExpandMore />}
+                
                 </ListItemButton>
                 <Collapse in={open === item} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
@@ -615,7 +621,7 @@ export const TabActividadRf = ({
                 fontSize: "1.5vw",
               }}
             >
-                    COMPONENTE {componentSelect}
+                    COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
                   </Typography>
           </Grid>
 
@@ -649,7 +655,11 @@ export const TabActividadRf = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-          value={componentesValues[componentSelect - 1]?.metaAnual || ""}
+          value={
+            aValorMA[0].componentes[componenteSelect].actividades[
+              actividadSelect
+            ]?.metaAnual || ""
+          }
             />
             </Grid>
             
@@ -676,7 +686,11 @@ export const TabActividadRf = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-          value={componentesValues[componentSelect - 1]?.lineaBase || ""}
+          value={
+            aValorMA[0].componentes[componenteSelect].actividades[
+              actividadSelect
+            ]?.lineaBase || ""
+          }
             />
             </Grid>
             
@@ -685,23 +699,35 @@ export const TabActividadRf = ({
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}><GridTablePer 
-              periodo={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
-              ? "TRIMESTRE"
-              : "SEMESTRE"} /></Grid>
+              periodo="TRIMESTRE" /></Grid>
           </Grid>
 
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}>
-                {componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
-              ? <GridTableTrim 
-                  d1={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1}
-                  d2={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2}
-                  d3={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3}
-                  d4={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4}/>
-              : <GridTableSem 
-                  d1={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1}
-                  d2={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2}/>}
+                <GridTableTrim 
+                  // d1={componentesValues[componenteSelect - 1]?.metasPorFrecuencia[0]?.trimestre1}
+                  d1={
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.metasPorFrecuencia[0]?.trimestre1 || ""
+                  }
+                  d2={
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.metasPorFrecuencia[0]?.trimestre2 || ""
+                  }
+                  d3={
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.metasPorFrecuencia[0]?.trimestre3 || ""
+                  }
+                  d4={
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.metasPorFrecuencia[0]?.trimestre4 || ""
+                  }/>
+           
                 </Grid>
           </Grid>
 
@@ -713,19 +739,16 @@ export const TabActividadRf = ({
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}>
-              {componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
-              ? <GridTableMetasTrim 
+               <GridTableMetasTrim 
                   d1={"404"}
                   d2={"404"}
                   d3={"404"}
                   d4={"404"}/>
-              : <GridTableMetasSem 
-                  d1={"404"}
-                  d2={"404"}/>}
+             
                 
                 
                </Grid>
-          </Grid>
+          </Grid> 
         </Grid>
         </>
   );
