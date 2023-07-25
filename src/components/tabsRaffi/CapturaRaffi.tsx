@@ -9,6 +9,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { TabComponenteRf } from "./TabComponentesRf";
 import { TabActividadRf } from "./TabsActividadesRf";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
+import { IComponenteActividad } from "../tabsMir/AddMir";
 
 export default function CapturaRaffi({
   MIR,
@@ -24,7 +25,7 @@ export default function CapturaRaffi({
   IdMA: string;
 }) {
   const [value, setValue] = useState(10);
-
+  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
       if (value < 30) setValue(value + 10);
@@ -167,7 +168,15 @@ export default function CapturaRaffi({
             MA={MA}
             MIR={MIR} />}
 
-          {value === 20 && <TabActividadRf />}
+          {value === 20 && <TabActividadRf 
+
+          valoresComponenteMAFnc={valoresComponenteMAFnc}
+          componentes={noComponentes}
+          MA={MA}
+          MIR={MIR} 
+          compAct={compAct}/>}
+          
+          
         </Grid>
       </Grid>
     </Grid>
