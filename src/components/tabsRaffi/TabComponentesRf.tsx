@@ -1,4 +1,5 @@
-import {Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled} from '@mui/material';
+import { Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled,Tooltip } from '@mui/material';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useEffect, useState } from "react";
 import { IComponenteMA } from "./Interfaces";
 import { ClassNames } from '@emotion/react';
@@ -407,11 +408,15 @@ export const TabComponenteRf = ({
   MA,
   noComponentes,
   valoresComponenteMAFnc,
+  showMirFnc,
+  setTxtShowFnc
 }: {
   MA: string;
   MIR: string;
   noComponentes: number[];
   valoresComponenteMAFnc: Function;
+  showMirFnc: Function;
+  setTxtShowFnc: Function;
 }) => {
 
   let encabezado = JSON.parse(MIR).encabezado;
@@ -571,6 +576,16 @@ export const TabComponenteRf = ({
         <Grid container item  xs={10}>
         
           <Grid container item xs={12} sx={{display:"flex",justifyContent:"flex-end"}}>
+          <Tooltip title="RESUMEN COMPONENTE">
+        <InfoOutlinedIcon
+          onClick={() => {
+            showMirFnc(true);
+            setTxtShowFnc("Componentes");
+          }}
+          fontSize="large"
+          sx={{ cursor: "pointer" }}
+        ></InfoOutlinedIcon>
+</Tooltip>
             <Typography
               sx={{
                 mr: "1vw",

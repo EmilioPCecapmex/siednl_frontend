@@ -87,7 +87,7 @@ export default function ModalSolicitaModif({
       /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Meta anual sin información");
+      errores.push("<strong>Fin</strong>: RAFFI sin información");
     }
     if (
       JSON.parse(MA)?.fin.lineaBase === undefined ||
@@ -166,7 +166,7 @@ export default function ModalSolicitaModif({
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Proposito</strong>: Meta Anual sin información");
+      errores.push("<strong>Proposito</strong>: RAFFI sin información");
     }
     if (
       JSON.parse(MA)?.proposito.lineaBase === undefined ||
@@ -253,7 +253,7 @@ export default function ModalSolicitaModif({
         errores.push(
           `<strong> Componente ${
             index + 1
-          } </strong>: Meta anual sin información.`
+          } </strong>: RAFFI sin información.`
         );
       }
 
@@ -384,7 +384,7 @@ export default function ModalSolicitaModif({
         /^[\s]*$/.test(actividad.metaAnual)
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+          `<strong> Actividad ${actividad.actividad} </strong>: RAFFI sin información.`
         );
         err = 1;
       }
@@ -540,8 +540,8 @@ export default function ModalSolicitaModif({
           icon: "success",
           title:
             localStorage.getItem("Rol") === "Verificador"
-              ? "Meta anual enviada a capturador para corrección"
-              : "Meta anual enviada a revisión",
+              ? "RAFFI enviada a capturador para corrección"
+              : "RAFFI enviada a revisión",
         });
 
         enviarNotificacion();
@@ -596,7 +596,7 @@ export default function ModalSolicitaModif({
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: userSelected,
-        Titulo: "Meta Anual",
+        Titulo: "RAFFI",
         Mensaje: "Se le ha solicitado una modificación.",
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },

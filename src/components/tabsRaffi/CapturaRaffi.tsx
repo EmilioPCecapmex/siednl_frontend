@@ -10,6 +10,7 @@ import { TabComponenteRf } from "./TabComponentesRf";
 import { TabActividadRf } from "./TabsActividadesRf";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/AddMir";
+import TabResumenMIR from "../modalsRF/ModalResumenMir";
 
 export default function CapturaRaffi({
   MIR,
@@ -35,8 +36,14 @@ export default function CapturaRaffi({
   };
 
 
-
-
+  const [showMir, setShowMir] = React.useState(false);
+  const [showSt, setShowSt] = React.useState("");
+  const showMirFnc = (state: boolean) => {
+    setShowMir(state);
+  };
+  const showFnc = (st: string) => {
+    setShowSt(st);
+  };
 
 
   const jsonMir = JSON.parse(MIR);
@@ -246,7 +253,9 @@ export default function CapturaRaffi({
             valoresComponenteMAFnc={valoresComponenteMAFnc}
             noComponentes={noComponentes}
             MA={MA}
-            MIR={MIR} />}
+            MIR={MIR}
+            setTxtShowFnc={showFnc}
+            showMirFnc={showMirFnc} />}
 
           {value === 20 && <TabActividadRf 
 
@@ -260,6 +269,14 @@ export default function CapturaRaffi({
           
         </Grid>
       </Grid>
+      <TabResumenMIR
+            show={showMir}
+            showMirFnc={showMirFnc}
+            showSt={showSt}
+            MIR={MIR}
+            noComponentes={noComponentes}
+          ></TabResumenMIR>
     </Grid>
+    
   );
 }

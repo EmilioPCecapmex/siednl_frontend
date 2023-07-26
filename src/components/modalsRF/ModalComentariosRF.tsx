@@ -103,7 +103,7 @@ export const ComentDialogMA = ({
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: v,
-        Titulo: "Nuevo comentario Meta Anual",
+        Titulo: "Nuevo comentario RAFFI",
         Mensaje: coment,
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
