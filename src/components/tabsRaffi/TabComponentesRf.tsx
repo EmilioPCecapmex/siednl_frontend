@@ -159,6 +159,7 @@ const GridTableMetasSem = ({
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                   >
                     DATO I
+                    
                   </Typography>
                 }
                 InputLabelProps={{
@@ -267,6 +268,7 @@ const GridTableMetasTrim = ({
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                   >
                     DATO I
+                    
                   </Typography>
                 }
                 InputLabelProps={{
