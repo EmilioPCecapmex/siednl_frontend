@@ -51,6 +51,7 @@ export interface IIFT {
   MetaAnual: string;
   Conac: string;
   Consecutivo: string;
+  RF: string;
 }
 
 export interface IDownloadFT {
@@ -877,6 +878,7 @@ export const Raffi = () => {
                                           MetaAnual: row.MetaAnual,
                                           Conac: row.Conac,
                                           Consecutivo: row.Consecutivo,
+                                          RF: row.RF,
                                         },
                                       ]);
                                       setShowResume(false);
@@ -910,6 +912,7 @@ export const Raffi = () => {
                                           MetaAnual: row.MetaAnual,
                                           Conac: row.Conac,
                                           Consecutivo: row.Consecutivo,
+                                          RF: row.RF,
                                         },
                                       ]);
                                       setOpenModalVerResumenFT(true);
@@ -1024,7 +1027,8 @@ export const Raffi = () => {
             MA={FTEdit[0]?.MetaAnual || ""}
             showResume={returnMain}
             IdMir={FTEdit[0]?.IdMir || ""}
-            IdMA={FTEdit[0]?.IdMa || ""}/>
+            IdMA={FTEdit[0]?.IdMa || ""}
+            RF={FTEdit[0]?.RF || ""}/>
   </Grid>
 )}
 </Grid>

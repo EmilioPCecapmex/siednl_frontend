@@ -1,7 +1,8 @@
-import {Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled, Collapse} from '@mui/material';
+import {Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled, Collapse, Tooltip} from '@mui/material';
 import { useEffect, useState } from "react";
 import { IComponenteMA } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/AddMir";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
@@ -340,6 +341,8 @@ export const TabActividadRf = ({
   asignarCValor,
   compAct,
   valoresComponenteMAFnc,
+  showMirFnc,
+  setTxtShowFnc
 }: {
   MA: string;
   MIR: string;
@@ -347,6 +350,8 @@ export const TabActividadRf = ({
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
   valoresComponenteMAFnc: Function;
+  showMirFnc: Function;
+  setTxtShowFnc: Function;
 }) => {
 
 
@@ -614,6 +619,16 @@ export const TabActividadRf = ({
         <Grid container item  xs={10}>
         
           <Grid container item xs={12} sx={{display:"flex",justifyContent:"flex-end"}}>
+          <Tooltip title="RESUMEN ACTIVIDAD">
+            <InfoOutlinedIcon
+              onClick={() => {
+                showMirFnc(true);
+                setTxtShowFnc("Actividades");
+              }}
+              fontSize="large"
+              sx={{ cursor: "pointer" }}
+            ></InfoOutlinedIcon>
+          </Tooltip>
             <Typography
               sx={{
                 mr: "1vw",

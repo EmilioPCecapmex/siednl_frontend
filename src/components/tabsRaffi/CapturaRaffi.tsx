@@ -15,12 +15,14 @@ import TabResumenMIR from "../modalsRF/ModalResumenMir";
 export default function CapturaRaffi({
   MIR,
   MA,
+  RF,
   showResume,
   IdMir,
   IdMA,
 }: {
   MIR: string;
   MA: string;
+  RF: string;
   showResume: Function;
   IdMir: string;
   IdMA: string;
@@ -254,6 +256,7 @@ export default function CapturaRaffi({
             noComponentes={noComponentes}
             MA={MA}
             MIR={MIR}
+            RF={RF}
             setTxtShowFnc={showFnc}
             showMirFnc={showMirFnc} />}
 
@@ -264,7 +267,9 @@ export default function CapturaRaffi({
           asignarCValor={asignarCValorMA}
           MA={MA}
           MIR={MIR} 
-          compAct={compAct}/>}
+          compAct={compAct}
+          setTxtShowFnc={showFnc}
+            showMirFnc={showMirFnc} />}
           
           
         </Grid>
