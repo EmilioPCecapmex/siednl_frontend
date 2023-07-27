@@ -8,7 +8,7 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { TabComponenteRf } from "./TabComponentesRf";
 import { TabActividadRf } from "./TabsActividadesRf";
-import { IComponenteMA, ICValorMA } from "./Interfaces";
+import { IComponenteMA, ICValorMA, IComponenteRF } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import TabResumenMIR from "../modalsRF/ModalResumenMir";
 
@@ -103,6 +103,24 @@ export default function CapturaRaffi({
   );
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     setValoresComponenteMA(state);
+  };
+
+  const [valoresComponenteRF, setValoresComponenteRF] = useState<
+    Array<IComponenteRF>
+  >(
+    noComponentes.map((x, index) => {
+      return {
+        semestre1:"",
+        semestre2:"",
+        trimestre1:"",
+        trimestre2:"",
+        trimestre3:"",
+        trimestre4:""
+      };
+    })
+  );
+  const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
+    setValoresComponenteRF(state);
   };
 
   const componenteActividad = [
@@ -252,7 +270,7 @@ export default function CapturaRaffi({
         >
           {value === 10 && <TabComponenteRf 
             
-            valoresComponenteMAFnc={valoresComponenteMAFnc}
+            valoresComponenteMAFnc={valoresComponenteRFFnc}
             noComponentes={noComponentes}
             MA={MA}
             MIR={MIR}

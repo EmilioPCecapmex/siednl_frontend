@@ -499,6 +499,10 @@ export const TabComponenteRf = ({
 
 
   useEffect(() => {
+    valoresComponenteMAFnc(componentesValues);
+  }, [componentesValues]);
+
+  useEffect(() => {
     let comp: IComponenteMA[] = [];
 
     noComponentes.map((x, index) => {
