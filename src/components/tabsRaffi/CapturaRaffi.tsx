@@ -80,6 +80,8 @@ export default function CapturaRaffi({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+  
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
   const [valoresComponenteMA, setValoresComponenteMA] = useState<
@@ -110,6 +112,7 @@ export default function CapturaRaffi({
   >(
     noComponentes.map((x, index) => {
       return {
+        componentes: "C" + (index + 1),
         semestre1:"",
         semestre2:"",
         trimestre1:"",

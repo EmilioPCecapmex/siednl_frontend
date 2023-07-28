@@ -62,6 +62,7 @@ export interface ICValorMA {
 }
 
 export interface IComponenteRF {
+  componentes: string;
   semestre1: string;
   semestre2: string;
   trimestre1: string;

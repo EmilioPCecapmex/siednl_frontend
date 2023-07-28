@@ -111,7 +111,23 @@ const GridTableSem = ({
   );
 };
 
-
+const Logmensaje = ({
+  d1,
+ 
+}: {
+  d1:string,
+ 
+}) => {
+  console.log(d1);
+  return (
+    
+    
+    <div>
+     
+    </div>
+  
+  );
+};
 const GridTableMetasTitulo = () => {
   return (
     <div style={{backgroundColor:"lightgray",boxShadow:"1px 2px 2px",textAlign:"center",width:"100%"}}>
@@ -457,7 +473,7 @@ export const TabComponenteRf = ({
 
     noComponentes.map((x, index) => {
       return comp.push({
-        
+        componentes: "C" + (index + 1),
             semestre1:
               RF === ""
                 ? ""
@@ -758,7 +774,9 @@ export const TabComponenteRf = ({
               <Grid item xs={6}><GridTableMetasTitulo /></Grid>
           </Grid>
 
-
+          <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
+              <Grid item xs={6}><Logmensaje d1={RF}/></Grid>
+          </Grid>
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}>
                
@@ -999,6 +1017,7 @@ export const TabComponenteRf = ({
                             sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                           >
                             DATO II
+                            {componentesValuesRF[componentSelect - 1]?.semestre2 || ""}
                           </Typography>
                         }
                         onChange={(c) => {
