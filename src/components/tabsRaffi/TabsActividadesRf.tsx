@@ -64,50 +64,13 @@ const GridTableTrim = ({
             <td>{d3}</td>
             <td>{d4}</td>
           </tr>
-          {/* <tr>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td><input></input></td>
-          </tr> */}
         </tbody>
       </table>
     </div>
   );
 };
 
-const GridTableSem = ({
-  d1,
-  d2
-}: {
-  d1:string,
-  d2:string
-}) => {
-  return (
-    <div className="grid-container" style={{width:"100%"}}>
-      <table style={{width:"100%"}}>
-        <thead style={{backgroundColor:"lightgray",boxShadow:"1px 2px 2px",textAlign:"center"}}>
-          <tr>
-            <th>I</th>
-            <th>II</th>
-          </tr>
-        </thead>
-        <tbody style={{width:"100%",textAlign:"center"}}>
-          <tr>
-            <td>{d1}</td>
-            <td>{d2}</td>
-          </tr>
-          {/* <tr>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td><input></input></td>
-          </tr> */}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+
 
 
 const GridTableMetasTitulo = () => {
@@ -121,82 +84,6 @@ const GridTableMetasTitulo = () => {
             </thead></table>
             </div>);
 }
-const GridTableMetasSem = ({
-  d1,
-  d2
-}: {
-  d1:string,
-  d2:string
-}) => {
-  return (
-    
-    <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
-      <table style={{width:"100%"}}>
-       
-        <tbody>
-          
-          <tr style={{borderColor:"black"}}>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
-
-              <TextField
-                disabled={new Date()>dateSem[0]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO I
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date()<=dateSem[0]
-                  ?d1
-                  :""}
-              />
-              
-            </td>
-            <td style={{width:"25%",backgroundColor:"#CEE9B6"}}>
-            <TextField
-                disabled={new Date()>dateSem[1]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO II
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date()<=dateSem[1]
-                  ?d2
-                  :""}
-              />
-            </td>
-            
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
 
 
 const GridTableMetasTrim = ({
@@ -337,6 +224,7 @@ const GridTableMetasTrim = ({
 export const TabActividadRf = ({
   MIR,
   MA,
+  RF,
   componentes,
   asignarCValor,
   compAct,
@@ -346,6 +234,7 @@ export const TabActividadRf = ({
 }: {
   MA: string;
   MIR: string;
+  RF: string;
   componentes: number[];
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
@@ -360,6 +249,10 @@ export const TabActividadRf = ({
       componentes: componentes.map((x) => compAct),
     },
   ];
+
+  const [componentesValuesRF, setComponentesValuesRF] = useState<
+    Array<IComponenteActividad>
+  >([]);
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
@@ -385,9 +278,17 @@ export const TabActividadRf = ({
       ? JSON.parse(MA)[0]
       : JSON.parse(MA);
 
+      let jsonRF=
+      MA === ""
+          ? ""
+          : JSON.parse(MA).length > 1
+          ? JSON.parse(MA)[0]
+          : JSON.parse(MA);
+
       useEffect(() => {
         if (compAct.length > 0) {
           loadActividadesMA();
+          loadActividadesRF();
         }
       }, [compAct]);
 
@@ -507,6 +408,123 @@ export const TabActividadRf = ({
 
     setAValorMA(y);
   };
+
+
+  const [aValorRF, setAValorRF] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                metaAnual: "",
+                lineaBase: "",
+                metasPorFrecuencia: [
+                  {
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
+                valorNumerador: "",
+                valorDenominador: "",
+                sentidoDelIndicador: "",
+                unidadResponsable: "",
+                descIndicador: "",
+                descNumerador: "",
+                descDenominador: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
+  const loadActividadesRF = () => {
+    let y = componenteActividad.map((item) => {
+      return {
+        componentes: compAct.map((x, index) => {
+          return {
+            actividades: x.actividades.map((c, index2) => {
+              aument_number++;
+
+              return {
+                actividad: "A" + (index2 + 1) + "C" + (index + 1),
+                metaAnual:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.metaAnual || "",
+                lineaBase:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.lineaBase || "",
+                metasPorFrecuencia: [
+                  {
+                    trimestre1:
+                      MA === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre1 || "",
+                    trimestre2:
+                      MA === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre2 || "",
+                    trimestre3:
+                      MA === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre3 || "",
+                    trimestre4:
+                      MA === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre4 || "",
+                  },
+                ],
+                valorNumerador:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.valorNumerador || "",
+                valorDenominador:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.valorDenominador || "",
+                sentidoDelIndicador:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.sentidoDelIndicador ||
+                      "",
+                unidadResponsable:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.unidadResponsable ||
+                      "",
+                descIndicador:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.descIndicador || "",
+                descNumerador:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.descNumerador || "",
+                descDenominador:
+                  MA === ""
+                    ? ""
+                    : jsonRF.actividades[aument_number]?.descDenominador || "",
+              };
+            }),
+          };
+        }),
+      };
+    });
+
+    setAValorRF(y);
+  };
+
 
   useEffect(() => {
     asignarCValor(aValorMA);
@@ -754,13 +772,345 @@ export const TabActividadRf = ({
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}>
-               <GridTableMetasTrim 
+               {/* <GridTableMetasTrim 
                   d1={"404"}
                   d2={"404"}
                   d3={"404"}
-                  d4={"404"}/>
+                  d4={"404"}/> */}
              
-                
+             <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
+                  <table style={{width:"100%"}}>
+                   
+                    <tbody>
+                      
+                      <tr style={{borderColor:"black"}}>
+                        <td style={{width:"25%"}}>
+            
+                          <TextField
+                          // sx={{
+                          //   backgroundColor: (d1==""
+                          //   ?""
+                          //   :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
+                          //   ? "#CEE9B6"
+                          //   : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
+                          //   ? "#FFDE6A"
+                          //   : "#EF6969")
+                          // }}
+                            disabled={new Date()>dateTrim[0]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                              >
+                                DATO I
+                                
+                              </Typography>
+                            }
+                            
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onChange={(c) => {
+                              // componentesValues[componentSelect - 1].descNumerador =
+                              //   c.target.value
+                              //     .replaceAll('"', "")
+                              //     .replaceAll("'", "")
+                              //     .replaceAll("\n", "");
+                              // setComponentesValues([...componentesValues]);
+                            }}
+                            error={
+                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                                actividadSelect
+                              ]?.metasPorFrecuencia[0]?.trimestre1) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    aValorRF[0].componentes[componenteSelect].actividades[
+                                      actividadSelect
+                                    ]?.metasPorFrecuencia[0]?.trimestre1
+                                  )
+                                )) &&
+                                aValorRF[0].componentes[componenteSelect].actividades[
+                                  actividadSelect
+                                ]?.metasPorFrecuencia[0]?.trimestre1 !== ""
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                                actividadSelect
+                              ]?.metasPorFrecuencia[0]?.trimestre1) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    aValorRF[0].componentes[componenteSelect].actividades[
+                                      actividadSelect
+                                    ]?.metasPorFrecuencia[0]?.trimestre1
+                                  )
+                                )) &&
+                                aValorRF[0].componentes[componenteSelect].actividades[
+                                  actividadSelect
+                                ]?.metasPorFrecuencia[0]?.trimestre1 !== ""
+                                ? "Introducir valor mayor que 0."
+                                : null
+                            }
+                            value={aValorRF[0].componentes[componenteSelect].actividades[
+                              actividadSelect
+                            ]?.metasPorFrecuencia[0]?.trimestre1 || ""}
+                          />
+                          
+                        </td>
+                        <td style={{width:"25%"}}>
+                        <TextField
+                        // sx={{
+                        //   backgroundColor: (d2==""
+                        //   ?""
+                        //   :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
+                        //   ? "#CEE9B6"
+                        //   : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
+                        //   ? "#FFDE6A"
+                        //   : "#EF6969")
+                        // }}
+                            disabled={new Date()>dateTrim[1]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                              >
+                                DATO II
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onChange={(c) => {
+                              // componentesValues[componentSelect - 1].descNumerador =
+                              //   c.target.value
+                              //     .replaceAll('"', "")
+                              //     .replaceAll("'", "")
+                              //     .replaceAll("\n", "");
+                              // setComponentesValues([...componentesValues]);
+                            }}
+                            error={
+                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                                actividadSelect
+                              ]?.metasPorFrecuencia[0]?.trimestre2) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    aValorRF[0].componentes[componenteSelect].actividades[
+                                      actividadSelect
+                                    ]?.metasPorFrecuencia[0]?.trimestre2
+                                  )
+                                )) &&
+                                aValorRF[0].componentes[componenteSelect].actividades[
+                                  actividadSelect
+                                ]?.metasPorFrecuencia[0]?.trimestre2 !== ""
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                                actividadSelect
+                              ]?.metasPorFrecuencia[0]?.trimestre2) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    aValorRF[0].componentes[componenteSelect].actividades[
+                                      actividadSelect
+                                    ]?.metasPorFrecuencia[0]?.trimestre2
+                                  )
+                                )) &&
+                                aValorRF[0].componentes[componenteSelect].actividades[
+                                  actividadSelect
+                                ]?.metasPorFrecuencia[0]?.trimestre2 !== ""
+                                ? "Introducir valor mayor que 0."
+                                : null
+                            }
+                            value={aValorRF[0].componentes[componenteSelect].actividades[
+                              actividadSelect
+                            ]?.metasPorFrecuencia[0]?.trimestre2 || ""}
+                          />
+                        </td>
+                        <td style={{width:"25%"}}>
+            
+                          <TextField
+                          // sx={{
+                          //   backgroundColor: (d3==""
+                          //   ?""
+                          //   :(parseInt(r3)-parseInt(d3))/parseInt(d3)<.05
+                          //   ? "#CEE9B6"
+                          //   : (parseInt(r3)-parseInt(d3))/parseInt(d3)<.1
+                          //   ? "#FFDE6A"
+                          //   : "#EF6969")
+                          // }}
+                            disabled={new Date()>dateTrim[2]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                              >
+                                DATO III
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onChange={(c) => {
+                              // componentesValues[componentSelect - 1].descNumerador =
+                              //   c.target.value
+                              //     .replaceAll('"', "")
+                              //     .replaceAll("'", "")
+                              //     .replaceAll("\n", "");
+                              // setComponentesValues([...componentesValues]);
+                            }}
+                            error={
+                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                                actividadSelect
+                              ]?.metasPorFrecuencia[0]?.trimestre3) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    aValorRF[0].componentes[componenteSelect].actividades[
+                                      actividadSelect
+                                    ]?.metasPorFrecuencia[0]?.trimestre3
+                                  )
+                                )) &&
+                                aValorRF[0].componentes[componenteSelect].actividades[
+                                  actividadSelect
+                                ]?.metasPorFrecuencia[0]?.trimestre3 !== ""
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                                actividadSelect
+                              ]?.metasPorFrecuencia[0]?.trimestre3) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    aValorRF[0].componentes[componenteSelect].actividades[
+                                      actividadSelect
+                                    ]?.metasPorFrecuencia[0]?.trimestre3
+                                  )
+                                )) &&
+                                aValorRF[0].componentes[componenteSelect].actividades[
+                                  actividadSelect
+                                ]?.metasPorFrecuencia[0]?.trimestre3 !== ""
+                                ? "Introducir valor mayor que 0."
+                                : null
+                            }
+                            
+                            value={aValorRF[0].componentes[componenteSelect].actividades[
+                              actividadSelect
+                            ]?.metasPorFrecuencia[0]?.trimestre3 || ""}
+                          />
+                          
+                        </td>
+                        <td style={{width:"25%"}}>
+                        <TextField
+                        // sx={{
+                        //   backgroundColor: (d4==""
+                        //   ?""
+                        //   :(parseInt(r4)-parseInt(d4))/parseInt(d4)<.05
+                        //   ? "#CEE9B6"
+                        //   : (parseInt(r4)-parseInt(d4))/parseInt(d4)<.1
+                        //   ? "#FFDE6A"
+                        //   : "#EF6969")
+                        // }}
+                            disabled={new Date()>dateTrim[3]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                              >
+                                DATO IV
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            // onChange={(c) => {
+                            //   componentesValuesRF[componentSelect - 1].trimestre4 =
+                            //     c.target.value
+                            //       .replaceAll('"', "")
+                            //       .replaceAll("'", "")
+                            //       .replaceAll("\n", "");
+                            //   setAValorRF([...componentesValuesRF]);
+                            // }}
+                            error={
+                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                                actividadSelect
+                              ]?.metasPorFrecuencia[0]?.trimestre4) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    aValorRF[0].componentes[componenteSelect].actividades[
+                                      actividadSelect
+                                    ]?.metasPorFrecuencia[0]?.trimestre4
+                                  )
+                                )) &&
+                                aValorRF[0].componentes[componenteSelect].actividades[
+                                  actividadSelect
+                                ]?.metasPorFrecuencia[0]?.trimestre4 !== ""
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                                actividadSelect
+                              ]?.metasPorFrecuencia[0]?.trimestre4) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    aValorRF[0].componentes[componenteSelect].actividades[
+                                      actividadSelect
+                                    ]?.metasPorFrecuencia[0]?.trimestre4
+                                  )
+                                )) &&
+                                aValorRF[0].componentes[componenteSelect].actividades[
+                                  actividadSelect
+                                ]?.metasPorFrecuencia[0]?.trimestre4 !== ""
+                                ? "Introducir valor mayor que 0."
+                                : null
+                            }
+                            value={aValorRF[0].componentes[componenteSelect].actividades[
+                              actividadSelect
+                            ]?.metasPorFrecuencia[0]?.trimestre4 || ""}
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
                 
                </Grid>
           </Grid> 

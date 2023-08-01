@@ -139,288 +139,8 @@ const GridTableMetasTitulo = () => {
             </thead></table>
             </div>);
 }
-const GridTableMetasSem = ({
-  d1,
-  d2,
-  r1,
-  r2
-}: {
-  d1:string,
-  d2:string,
-  r1:string,
-  r2:string
-}) => {
-
-  return (
-    
-    <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
-      <table style={{width:"100%"}}>
-       
-        <tbody>
-          
-          <tr style={{borderColor:"black"}}>
-            <td style={{width:"25%"}}>
-
-              <TextField
-                sx={{
-                  backgroundColor: (d1==""
-                  ?""
-                  :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
-                  ? "#CEE9B6"
-                  : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
-                  ? "#FFDE6A"
-                  : "#EF6969")
-                }}
-                disabled={new Date()>dateSem[0]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO I
-                    
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date()<=dateSem[0]
-                  ?""
-                  :d1}
-              />
-              
-            </td>
-            <td style={{width:"25%"}}>
-            <TextField
-              sx={{
-                backgroundColor: (d2==""
-                ?""
-                :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
-                ? "#CEE9B6"
-                : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
-                ? "#FFDE6A"
-                : "#EF6969")
-              }}
-                disabled={new Date()>dateSem[1]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO II
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date()<=dateSem[1]
-                  ?""
-                  :d2}
-              />
-            </td>
-            
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
 
 
-const GridTableMetasTrim = ({
-  d1,
-  d2,
-  d3,
-  d4,
-  r1,
-  r2,
-  r3,
-  r4,
-}: {
-  d1:string,
-  d2:string,
-  d3:string,
-  d4:string,
-  r1:string,
-  r2:string,
-  r3:string,
-  r4:string
-}) => {
-  return (
-    
-    <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
-      <table style={{width:"100%"}}>
-       
-        <tbody>
-          
-          <tr style={{borderColor:"black"}}>
-            <td style={{width:"25%"}}>
-
-              <TextField
-              sx={{
-                backgroundColor: (d1==""
-                ?""
-                :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
-                ? "#CEE9B6"
-                : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
-                ? "#FFDE6A"
-                : "#EF6969")
-              }}
-                disabled={new Date()>dateTrim[0]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO I
-                    
-                  </Typography>
-                }
-                
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date()<=dateTrim[0]
-                  ?""
-                  :d1}
-              />
-              
-            </td>
-            <td style={{width:"25%"}}>
-            <TextField
-            sx={{
-              backgroundColor: (d2==""
-              ?""
-              :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
-              ? "#CEE9B6"
-              : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
-              ? "#FFDE6A"
-              : "#EF6969")
-            }}
-                disabled={new Date()>dateTrim[1]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO II
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date()<=dateTrim[1]
-                  ?""
-                  :d2}
-              />
-            </td>
-            <td style={{width:"25%"}}>
-
-              <TextField
-              sx={{
-                backgroundColor: (d3==""
-                ?""
-                :(parseInt(r3)-parseInt(d3))/parseInt(d3)<.05
-                ? "#CEE9B6"
-                : (parseInt(r3)-parseInt(d3))/parseInt(d3)<.1
-                ? "#FFDE6A"
-                : "#EF6969")
-              }}
-                disabled={new Date()>dateTrim[2]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO III
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date()<=dateTrim[2]
-                  ?""
-                  :d3}
-              />
-              
-            </td>
-            <td style={{width:"25%"}}>
-            <TextField
-            sx={{
-              backgroundColor: (d4==""
-              ?""
-              :(parseInt(r4)-parseInt(d4))/parseInt(d4)<.05
-              ? "#CEE9B6"
-              : (parseInt(r4)-parseInt(d4))/parseInt(d4)<.1
-              ? "#FFDE6A"
-              : "#EF6969")
-            }}
-                disabled={new Date()>dateTrim[3]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO IV
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date()<=dateTrim[3]
-                  ?""
-                  :d4}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
-// export default GridTable;
 
 export const TabComponenteRf = ({
   MIR,
@@ -442,8 +162,6 @@ export const TabComponenteRf = ({
 
   let encabezado = JSON.parse(MIR).encabezado;
   const [componentSelect, setComponentSelect] = useState(1);
-
-  
 
   const [componentesValues, setComponentesValues] = useState<
     Array<IComponenteMA>
@@ -684,9 +402,9 @@ export const TabComponenteRf = ({
           </Grid>
 
           <Grid container item xs={10} sx={{display:"flex",justifyContent:"center"}}>
-              <TextField fullWidth variant='standard' value={encabezado?.nombre_del_programa === "Selecciona"
+              <TextField fullWidth variant='standard' value={encabezado?.institucion === "Selecciona"
                     ? ""
-                    : encabezado?.nombre_del_programa}
+                    : encabezado?.institucion}
                label='INSTITUCION'></TextField>
           </Grid>
 
@@ -792,15 +510,15 @@ export const TabComponenteRf = ({
                         <td style={{width:"25%"}}>
             
                           <TextField
-                          sx={{
-                            backgroundColor: (d1==""
-                            ?""
-                            :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
-                            ? "#CEE9B6"
-                            : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
-                            ? "#FFDE6A"
-                            : "#EF6969")
-                          }}
+                          // sx={{
+                          //   backgroundColor: (d1==""
+                          //   ?""
+                          //   :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
+                          //   ? "#CEE9B6"
+                          //   : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
+                          //   ? "#FFDE6A"
+                          //   : "#EF6969")
+                          // }}
                             disabled={new Date()>dateTrim[0]}
                             variant={"filled"}
                             label={
@@ -811,14 +529,7 @@ export const TabComponenteRf = ({
                                 
                               </Typography>
                             }
-                            onChange={(c) => {
-                              componentesValues[componentSelect - 1].descNumerador =
-                                c.target.value
-                                  .replaceAll('"', "")
-                                  .replaceAll("'", "")
-                                  .replaceAll("\n", "");
-                              setComponentesValues([...componentesValues]);
-                            }}
+                            
                             InputLabelProps={{
                               style: {
                                 fontFamily: "MontserratMedium",
@@ -829,23 +540,53 @@ export const TabComponenteRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            value={new Date()<=dateTrim[0]
-                              ?""
-                              :componentesValues[componentSelect - 1]?.descNumerador || ""}
+                            onChange={(c) => {
+                              componentesValuesRF[componentSelect - 1].trimestre1 =
+                                c.target.value
+                                  .replaceAll('"', "")
+                                  .replaceAll("'", "")
+                                  .replaceAll("\n", "");
+                              setComponentesValuesRF([...componentesValuesRF]);
+                            }}
+                            error={
+                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre1) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    componentesValuesRF[componentSelect - 1]?.trimestre1
+                                  )
+                                )) &&
+                              componentesValuesRF[componentSelect - 1]?.trimestre1 !== ""
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre1) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    componentesValuesRF[componentSelect - 1]?.trimestre1
+                                  )
+                                )) &&
+                              componentesValuesRF[componentSelect - 1]?.trimestre1 !== ""
+                                ? "Introducir valor mayor que 0."
+                                : null
+                            }
+                            value={componentesValuesRF[componentSelect - 1]?.trimestre1 || ""}
                           />
                           
                         </td>
                         <td style={{width:"25%"}}>
                         <TextField
-                        sx={{
-                          backgroundColor: (d2==""
-                          ?""
-                          :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
-                          ? "#CEE9B6"
-                          : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
-                          ? "#FFDE6A"
-                          : "#EF6969")
-                        }}
+                        // sx={{
+                        //   backgroundColor: (d2==""
+                        //   ?""
+                        //   :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
+                        //   ? "#CEE9B6"
+                        //   : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
+                        //   ? "#FFDE6A"
+                        //   : "#EF6969")
+                        // }}
                             disabled={new Date()>dateTrim[1]}
                             variant={"filled"}
                             label={
@@ -865,23 +606,53 @@ export const TabComponenteRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            value={new Date()<=dateTrim[1]
-                              ?""
-                              :d2}
+                            onChange={(c) => {
+                              componentesValuesRF[componentSelect - 1].trimestre2 =
+                                c.target.value
+                                  .replaceAll('"', "")
+                                  .replaceAll("'", "")
+                                  .replaceAll("\n", "");
+                              setComponentesValuesRF([...componentesValuesRF]);
+                            }}
+                            error={
+                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre2) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    componentesValuesRF[componentSelect - 1]?.trimestre2
+                                  )
+                                )) &&
+                              componentesValuesRF[componentSelect - 1]?.trimestre2 !== ""
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre2) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    componentesValuesRF[componentSelect - 1]?.trimestre2
+                                  )
+                                )) &&
+                              componentesValuesRF[componentSelect - 1]?.trimestre2 !== ""
+                                ? "Introducir valor mayor que 0."
+                                : null
+                            }
+                            value={componentesValuesRF[componentSelect - 1]?.trimestre2 || ""}
                           />
                         </td>
                         <td style={{width:"25%"}}>
             
                           <TextField
-                          sx={{
-                            backgroundColor: (d3==""
-                            ?""
-                            :(parseInt(r3)-parseInt(d3))/parseInt(d3)<.05
-                            ? "#CEE9B6"
-                            : (parseInt(r3)-parseInt(d3))/parseInt(d3)<.1
-                            ? "#FFDE6A"
-                            : "#EF6969")
-                          }}
+                          // sx={{
+                          //   backgroundColor: (d3==""
+                          //   ?""
+                          //   :(parseInt(r3)-parseInt(d3))/parseInt(d3)<.05
+                          //   ? "#CEE9B6"
+                          //   : (parseInt(r3)-parseInt(d3))/parseInt(d3)<.1
+                          //   ? "#FFDE6A"
+                          //   : "#EF6969")
+                          // }}
                             disabled={new Date()>dateTrim[2]}
                             variant={"filled"}
                             label={
@@ -901,23 +672,53 @@ export const TabComponenteRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            value={new Date()<=dateTrim[2]
-                              ?""
-                              :d3}
+                            onChange={(c) => {
+                              componentesValuesRF[componentSelect - 1].trimestre3 =
+                                c.target.value
+                                  .replaceAll('"', "")
+                                  .replaceAll("'", "")
+                                  .replaceAll("\n", "");
+                              setComponentesValuesRF([...componentesValuesRF]);
+                            }}
+                            error={
+                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre3) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    componentesValuesRF[componentSelect - 1]?.trimestre3
+                                  )
+                                )) &&
+                              componentesValuesRF[componentSelect - 1]?.trimestre3 !== ""
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre3) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    componentesValuesRF[componentSelect - 1]?.trimestre3
+                                  )
+                                )) &&
+                              componentesValuesRF[componentSelect - 1]?.trimestre3 !== ""
+                                ? "Introducir valor mayor que 0."
+                                : null
+                            }
+                            value={componentesValuesRF[componentSelect - 1]?.trimestre3 || ""}
                           />
                           
                         </td>
                         <td style={{width:"25%"}}>
                         <TextField
-                        sx={{
-                          backgroundColor: (d4==""
-                          ?""
-                          :(parseInt(r4)-parseInt(d4))/parseInt(d4)<.05
-                          ? "#CEE9B6"
-                          : (parseInt(r4)-parseInt(d4))/parseInt(d4)<.1
-                          ? "#FFDE6A"
-                          : "#EF6969")
-                        }}
+                        // sx={{
+                        //   backgroundColor: (d4==""
+                        //   ?""
+                        //   :(parseInt(r4)-parseInt(d4))/parseInt(d4)<.05
+                        //   ? "#CEE9B6"
+                        //   : (parseInt(r4)-parseInt(d4))/parseInt(d4)<.1
+                        //   ? "#FFDE6A"
+                        //   : "#EF6969")
+                        // }}
                             disabled={new Date()>dateTrim[3]}
                             variant={"filled"}
                             label={
@@ -937,9 +738,39 @@ export const TabComponenteRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            value={new Date()<=dateTrim[3]
-                              ?""
-                              :d4}
+                            onChange={(c) => {
+                              componentesValuesRF[componentSelect - 1].trimestre4 =
+                                c.target.value
+                                  .replaceAll('"', "")
+                                  .replaceAll("'", "")
+                                  .replaceAll("\n", "");
+                              setComponentesValuesRF([...componentesValuesRF]);
+                            }}
+                            error={
+                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre4) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    componentesValuesRF[componentSelect - 1]?.trimestre4
+                                  )
+                                )) &&
+                              componentesValuesRF[componentSelect - 1]?.trimestre4 !== ""
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre4) <
+                                0 ||
+                                isNaN(
+                                  parseFloat(
+                                    componentesValuesRF[componentSelect - 1]?.trimestre4
+                                  )
+                                )) &&
+                              componentesValuesRF[componentSelect - 1]?.trimestre4 !== ""
+                                ? "Introducir valor mayor que 0."
+                                : null
+                            }
+                            value={componentesValuesRF[componentSelect - 1]?.trimestre4 || ""}
                           />
                         </td>
                       </tr>
@@ -956,15 +787,15 @@ export const TabComponenteRf = ({
                     <td style={{width:"25%"}}>
         
                       <TextField
-                        sx={{
-                          backgroundColor: (d1==""
-                          ?""
-                          :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
-                          ? "#CEE9B6"
-                          : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
-                          ? "#FFDE6A"
-                          : "#EF6969")
-                        }}
+                        // sx={{
+                        //   backgroundColor: (d1==""
+                        //   ?""
+                        //   :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
+                        //   ? "#CEE9B6"
+                        //   : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
+                        //   ? "#FFDE6A"
+                        //   : "#EF6969")
+                        // }}
                         disabled={new Date()>dateSem[0]}
                         variant={"filled"}
                         label={
@@ -986,30 +817,52 @@ export const TabComponenteRf = ({
                           },
                         }}
                         onChange={(c) => {
-                          componentesValues[componentSelect - 1].descNumerador =
+                          componentesValuesRF[componentSelect - 1].semestre1 =
                             c.target.value
                               .replaceAll('"', "")
                               .replaceAll("'", "")
                               .replaceAll("\n", "");
-                          setComponentesValues([...componentesValues]);
+                          setComponentesValuesRF([...componentesValuesRF]);
                         }}
-                        value={new Date()<=dateSem[0]
-                          ?""
-                          :componentesValues[componentSelect - 1]?.descNumerador || ""}
+                        error={
+                          (parseFloat(componentesValuesRF[componentSelect - 1]?.semestre1) <
+                            0 ||
+                            isNaN(
+                              parseFloat(
+                                componentesValuesRF[componentSelect - 1]?.semestre1
+                              )
+                            )) &&
+                          componentesValuesRF[componentSelect - 1]?.semestre1 !== ""
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          (parseFloat(componentesValuesRF[componentSelect - 1]?.semestre1) <
+                            0 ||
+                            isNaN(
+                              parseFloat(
+                                componentesValuesRF[componentSelect - 1]?.semestre1
+                              )
+                            )) &&
+                          componentesValuesRF[componentSelect - 1]?.semestre1 !== ""
+                            ? "Introducir valor mayor que 0."
+                            : null
+                        }
+                        value={componentesValuesRF[componentSelect - 1]?.semestre1 || ""}
                       />
                       
                     </td>
                     <td style={{width:"25%"}}>
                     <TextField
-                      sx={{
-                        backgroundColor: (d2==""
-                        ?""
-                        :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
-                        ? "#CEE9B6"
-                        : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
-                        ? "#FFDE6A"
-                        : "#EF6969")
-                      }}
+                      // sx={{
+                      //   backgroundColor: (d2==""
+                      //   ?""
+                      //   :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
+                      //   ? "#CEE9B6"
+                      //   : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
+                      //   ? "#FFDE6A"
+                      //   : "#EF6969")
+                      // }}
                         disabled={new Date()>dateSem[1]}
                         variant={"filled"}
                         label={
@@ -1017,7 +870,6 @@ export const TabComponenteRf = ({
                             sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
                           >
                             DATO II
-                            {componentesValuesRF[componentSelect - 1]?.semestre2 || ""}
                           </Typography>
                         }
                         onChange={(c) => {
@@ -1038,6 +890,30 @@ export const TabComponenteRf = ({
                             fontFamily: "MontserratRegular",
                           },
                         }}
+                        error={
+                          (parseFloat(componentesValuesRF[componentSelect - 1]?.semestre2) <
+                            0 ||
+                            isNaN(
+                              parseFloat(
+                                componentesValuesRF[componentSelect - 1]?.semestre2
+                              )
+                            )) &&
+                          componentesValuesRF[componentSelect - 1]?.semestre2 !== ""
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          (parseFloat(componentesValuesRF[componentSelect - 1]?.semestre2) <
+                            0 ||
+                            isNaN(
+                              parseFloat(
+                                componentesValuesRF[componentSelect - 1]?.semestre2
+                              )
+                            )) &&
+                          componentesValuesRF[componentSelect - 1]?.semestre2 !== ""
+                            ? "Introducir valor mayor que 0."
+                            : null
+                        }
                         value={componentesValuesRF[componentSelect - 1]?.semestre2 || ""}
                       />
                     </td>

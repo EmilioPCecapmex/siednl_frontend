@@ -288,6 +288,7 @@ export default function CapturaRaffi({
           asignarCValor={asignarCValorMA}
           MA={MA}
           MIR={MIR} 
+          RF={RF}
           compAct={compAct}
           setTxtShowFnc={showFnc}
             showMirFnc={showMirFnc} />}
