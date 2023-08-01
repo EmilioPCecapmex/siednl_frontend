@@ -45,6 +45,19 @@ export const queries = {
       fontSize: "1.5ch",
     },
   },
+   italic_text: {
+    fontSize: "2ch",
+    fontFamily: "MontserratRegular",
+    fontStyle: "oblique",
+    "@media (max-width: 600px)": {
+      // XS (extra small) screen
+      fontSize: "1rem",
+    },
+    "@media (min-width: 601px) and (max-width: 900px)": {
+      // SM (small) screen
+      fontSize: "1.5ch",
+    },
+  },
   medium_text: {
     fontSize: "2ch",
     fontFamily: "MontserratMedium",
@@ -69,18 +82,6 @@ export const queries = {
       fontSize: "1.5ch",
     },
   },
-  italic_text: {
-    fontSize: "2ch",
-    fontFamily: "MontserratRegular",
-    fontStyle: "oblique",
-    "@media (max-width: 600px)": {
-      // XS (extra small) screen
-      fontSize: "1rem",
-    },
-    "@media (min-width: 601px) and (max-width: 900px)": {
-      // SM (small) screen
-      fontSize: "1.5ch",
-    },
-  },
+ 
 
 }

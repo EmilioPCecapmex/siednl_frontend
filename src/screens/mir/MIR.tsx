@@ -18,24 +18,36 @@ import {
   TableRow,
   Tooltip,
   Typography,
+  InputLabel,
+  TextField,
+  InputBase,
+  Paper,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-
+import { queries } from "../../queries";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { IInstituciones } from "../../components/appsDialog/AppsDialog";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
-
+import { SelectChangeEvent } from "@mui/material/Select";
+import SearchIcon from "@mui/icons-material/Search";
 export let resumeDefaultMIR = true;
 
 export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
+const estados = [
+  "Todos",
+  "En Captura",
+  "En Revisión",
+  "En Autorización",
+  "Autorizada",
+];
 
 export const MIR = () => {
   const queryString = window.location.search;
@@ -53,9 +65,28 @@ export const MIR = () => {
     },
   });
 
+  const getMIRs = (setState: Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdInstitucion: localStorage.getItem("IdInstitucion"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
+        
+        setState(r.data.data);
+        
+      });
+  };
+
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
 
-  const getInstituciones = () => {
+  const getInstituciones = (setstate: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
@@ -67,19 +98,19 @@ export const MIR = () => {
       })
       .then((r) => {
         if (r.status === 200) {
-          setInstituciones(r.data.data);
+          setstate(r.data.data);
         }
       });
   };
 
   useEffect(() => {
     setShowResume(true);
-    getMIRs();
+    //getMIRs(setMirs);
   }, []);
 
   const returnMain = () => {
     setShowResume(true);
-    getMIRs();
+    //getMIRs(setMirs);
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -104,14 +135,31 @@ export const MIR = () => {
   };
 
   const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
-  const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("0");
-  const [findSelectStr, setFindSelectStr] = useState("0");
-  const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
+  const [findTextStr, setFindTextStr] = useState("");
+  const [findInstStr, setFindInstStr] = useState("Todos");
+  const [findSelectStr, setFindSelectStr] = useState("Todos");
+
+  const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
+  
   const [mirs, setMirs] = useState<Array<IIMir>>([]);
   const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
+  const [mirxFiltered, setMirxFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
+
+   useEffect(() => {
+     getMIRs(setMirs);
+   }, []);
+
+  useEffect(() => {
+    setMirsFiltered(mirs);
+  }, [mirs]);
+
+  useEffect(() => {
+    setMirxFiltered(mirsFiltered);
+  }, [mirsFiltered]);
+
+
   const findText = (v: string, est: string, inst: string) => {
     if (
       v !== "" &&
@@ -197,27 +245,15 @@ export const MIR = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
-  const getMIRs = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-        setMirs(r.data.data);
-        setMirsFiltered(r.data.data);
-      });
+  const handleChange = (dato: string) => {
+    setFindTextStr(dato);
   };
 
+ 
+
   useEffect(() => {
-    getMIRs();
-    getInstituciones();
+    //getMIRs(setMirs);
+    getInstituciones(setInstituciones);
   }, []);
 
   const handleClickOpen = () => {
@@ -232,9 +268,9 @@ export const MIR = () => {
 
   const [actualizacion, setActualizacion] = useState(0);
 
-  useEffect(() => {
-    getMIRs();
-  }, [actualizacion]);
+   useEffect(() => {
+     getMIRs(setMirs);
+   }, [actualizacion]);
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -304,6 +340,62 @@ export const MIR = () => {
       return "#0000ff";
     }
   };
+ 
+  
+
+  const filtrarDatos = () => {
+    // eslint-disable-next-line array-callback-return
+    console.log("Entra");
+    let Arrayfiltro: IIMir[];
+    Arrayfiltro = [];
+
+    if (mirxFiltered.length !== 0) {
+      Arrayfiltro = mirxFiltered;
+    } else {
+      Arrayfiltro = mirxFiltered;
+    }
+
+    let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
+      console.log("entre");
+      console.log(elemento);
+      console.log(findTextStr);
+      console.log(mirxFiltered);
+
+      if (
+        elemento.AnioFiscal.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Institucion.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Programa.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Estado.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.FechaCreacion.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.CreadoPor.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase())
+      ) {
+        console.log(elemento);
+        return elemento;
+      }
+    });
+
+    setMirsFiltered(ResultadoBusqueda);
+  };
+
+  
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    findTextStr.length !== 0 ? setMirsFiltered(mirsFiltered) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [findTextStr]);
 
   return (
     <Box
@@ -360,30 +452,53 @@ export const MIR = () => {
               justifyItems: "center",
             }}
           >
-            {/* <TutorialBox initialState={8} endState={13} /> */}
-            <Box
+            
+            {/* <Box
               sx={{
                 display: "flex",
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
-            >
-              <Input
-                size="small"
-                value={findTextStr}
-                placeholder="Búsqueda"
-                sx={{ width: "90%", fontFamily: "MontserratRegular" }}
-                disableUnderline
-                onChange={(v) => {
-                  setFindTextStr(v.target.value);
-                  // findText(v.target.value, findSelectStr, "");
-                }}
-              />
-            </Box>
+            > */}
+            
+            <Paper
+                    component="form"
+                    sx={{
+                      display: "flex",
+                      width: "70%",
+                    }}
+                  >
+                    <InputBase
+                      sx={{ ml: 1, flex: 1 }}
+                      placeholder="Buscar"
+                      value={findTextStr}
+                      onChange={(e) => {
+                        handleChange(e.target.value);
+                      }}
+                      onKeyPress={(ev) => {
+                        if (ev.key === "Enter") {
+                          filtrarDatos();
+                          ev.preventDefault();
+                          return false;
+                        }
+                      }}
+                    />
+                    <IconButton
+                      type="button"
+                      sx={{ p: "10px" }}
+                      aria-label="search"
+                      onClick={() => filtrarDatos()}
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  </Paper>
+              
+
+            {/* </Box> */}
 
             <FormControl
               sx={{
@@ -391,18 +506,22 @@ export const MIR = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
+              <InputLabel sx={queries.text}>
+              Filtro por estado de la MIR
+                    </InputLabel>
               <Select
                 size="small"
-                variant="standard"
+                variant="outlined"
                 value={findSelectStr}
+                label="Filtro por Estado de la MIR"
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
-                disableUnderline
+                
                 onChange={(v) => {
                   // v.target.value === "Todos"
                   //   ? findText(
@@ -414,45 +533,13 @@ export const MIR = () => {
                   setFindSelectStr(v.target.value);
                 }}
               >
-                <MenuItem
-                  value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  disabled
-                  selected
-                >
-                  Filtro por estado de la MIR
-                </MenuItem>
-                <MenuItem
-                  value={"Todos"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Todos
-                </MenuItem>
+                
+                {estados.map((estado) => (
+                  <MenuItem key={estado} value={estado}>
+                    {estado}
+                  </MenuItem>
+                ))}
 
-                <MenuItem
-                  value={"En captura"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  En captura
-                </MenuItem>
-                <MenuItem
-                  value={"En Revisión"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando revisión
-                </MenuItem>
-                <MenuItem
-                  value={"En Autorización"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando autorización
-                </MenuItem>
-                <MenuItem
-                  value={"Autorizada"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Autorizada
-                </MenuItem>
               </Select>
             </FormControl>
 
@@ -462,18 +549,22 @@ export const MIR = () => {
                 width: "70%",
                 alignItems: "center",
                 justifyContent: "center",
-                border: 1,
+                //border: 1,
                 borderRadius: 2,
                 borderColor: "#616161",
               }}
             >
+              <InputLabel sx={queries.text}>
+              Filtro por institucion
+                    </InputLabel>
               <Select
                 size="small"
-                variant="standard"
+                variant="outlined"
+                label ="Filtro por institucion"
                 value={findInstStr}
                 sx={{ fontFamily: "MontserratRegular" }}
                 fullWidth
-                disableUnderline
+           
                 onChange={(v) => {
                   // v.target.value === "Todos"
                   //   ? findText(
@@ -485,14 +576,14 @@ export const MIR = () => {
                   setFindInstStr(v.target.value);
                 }}
               >
-                <MenuItem
+                {/* <MenuItem
                   value={"0"}
                   sx={{ fontFamily: "MontserratRegular" }}
                   disabled
                   selected
                 >
                   Filtro por institución
-                </MenuItem>
+                </MenuItem> */}
 
                 <MenuItem
                   value={"Todos"}
@@ -761,11 +852,12 @@ export const MIR = () => {
                                   : row.Estado === "En Autorización" &&
                                     localStorage.getItem("Rol") ===
                                       "Administrador"
-                                  ? "Esperando autorización"
+                                  ? "En Autorización"
                                   : row.Estado}
                               </Typography>
                             </Box>
                           </TableCell>
+
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
@@ -780,6 +872,7 @@ export const MIR = () => {
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
                           </TableCell>
+
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
@@ -792,6 +885,7 @@ export const MIR = () => {
                           >
                             {row.CreadoPor.toUpperCase()}
                           </TableCell>
+                          
                           <TableCell
                             align="center"
                             sx={{
@@ -962,6 +1056,7 @@ export const MIR = () => {
               />
             </Box>
           </Box>
+          
         </Box>
       ) : (
         <Box

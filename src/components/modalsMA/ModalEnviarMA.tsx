@@ -530,13 +530,7 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
-        // eslint-disable-next-line array-callback-return
-        //console.log("IdMA: r.data.data ",r.data.data);
-        
-        
         userXInst.map((user) => {
-          
-          
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
           sendMail(user.CorreoElectronico,enviarMensaje,"MA")
         });

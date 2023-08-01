@@ -13,7 +13,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-
+import { queries } from "../../queries";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -103,9 +103,15 @@ export default function ModalSolicitaModif({
       err = 1;
       errores.push("<strong>Fin</strong>: Valor del numerador sin información");
     }
+
     if (
-      JSON.parse(MA)?.fin.valorDenominador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador)
+      !JSON.parse(MIR)
+        .fin.indicador.toLowerCase()
+        .includes(
+          "indice" || "índice" || "INDICE" || "ÍNDICE" || "Índice" || "Indice"
+        ) &&
+      (JSON.parse(MA)?.fin.valorDenominador === undefined ||
+        /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
     ) {
       err = 1;
       errores.push(
@@ -185,8 +191,11 @@ export default function ModalSolicitaModif({
       );
     }
     if (
-      JSON.parse(MA)?.proposito.valorDenominador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador)
+      !JSON.parse(MIR)
+        .proposito.indicador.toLowerCase()
+        .includes("indice" || "índice") &&
+      (JSON.parse(MA)?.proposito.valorDenominador === undefined ||
+        /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador))
     ) {
       err = 1;
       errores.push(
@@ -302,8 +311,8 @@ export default function ModalSolicitaModif({
       }
       if (
         JSON.parse(MIR)
-          .fin.indicador.toLowerCase()
-          .includes("indice" || "índice") &&
+          .componentes[index].indicador.toLowerCase()
+          .includes("índice" || "indice") &&
         (componente.valorDenominador === undefined ||
           /^[\s]*$/.test(componente.valorDenominador))
       ) {
@@ -504,6 +513,7 @@ export default function ModalSolicitaModif({
   };
   ///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
+    console.log("IdMIR: ", IdMIR);
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
     } else if (estado === "En Autorización" && userSelected !== "0") {
@@ -526,6 +536,7 @@ export default function ModalSolicitaModif({
           Estado: estado,
           Id: IdMA,
         },
+
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -533,6 +544,9 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
+        console.log("IdMIR: ", IdMIR);
+        console.log("r: ", r);
+
         if (comment !== "") {
           comentMA(IdMIR);
         }
@@ -557,13 +571,26 @@ export default function ModalSolicitaModif({
   };
 
   useEffect(() => {
+    let tipousuario = "";
+
+    if (localStorage.getItem("Rol") === "Capturador")
+      tipousuario = "Verificador";
+      console.log(tipousuario);
+    if (localStorage.getItem("Rol") === "Verificador")
+      tipousuario = "Verificador";
+    if (localStorage.getItem("Rol") === "Administrador")
+      tipousuario = "VERIFICADOR_CAPTURADOR";
+
+    
+
     if (open) {
       axios
         .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+          process.env.REACT_APP_APPLICATION_BACK +
+            "/api/tipoDeUsuarioXInstitucion",
           {
             params: {
-              IdUsuario: localStorage.getItem("IdUsuario"),
+              TipoUsuario: tipousuario,
               Institucion: JSON.parse(MIR)?.encabezado?.institucion,
             },
             headers: {
@@ -573,6 +600,8 @@ export default function ModalSolicitaModif({
         )
         .then((r) => {
           if (r.status === 200) {
+            console.log("UserXInst: ", r.data.data);
+
             setUserXInst(r.data.data);
           }
         });
@@ -662,7 +691,11 @@ export default function ModalSolicitaModif({
               sx={{ fontFamily: "MontserratRegular" }}
               fullWidth
               value={userSelected}
-              onChange={(v) => setUserSelected(v.target.value)}
+              onChange={(v) => (
+                setUserSelected(v.target.value),
+                console.log("userSelected", userSelected),
+                console.log("v.target.value", v.target.value)
+              )}
               disableUnderline
             >
               <MenuItem value={"0"} disabled>
@@ -712,7 +745,7 @@ export default function ModalSolicitaModif({
               color="error"
               onClick={() => handleClose()}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{  fontFamily: "MontserratMedium" }}>
                 Cancelar
               </Typography>
             </Button>

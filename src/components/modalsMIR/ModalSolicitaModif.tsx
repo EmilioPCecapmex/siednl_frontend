@@ -14,7 +14,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-
+import { queries } from "../../queries";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -400,13 +400,24 @@ export default function ModalSolicitaModif({
   };
 
   useEffect(() => {
+    let tipousuario = "";
+
+    if (localStorage.getItem("Rol") === "Capturador")
+      tipousuario = "Verificador";
+      console.log(tipousuario);
+    if (localStorage.getItem("Rol") === "Verificador")
+      tipousuario = "Verificador";
+    if (localStorage.getItem("Rol") === "Administrador")
+      tipousuario = "VERIFICADOR_CAPTURADOR";
+
     if (open) {
       axios
         .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+          process.env.REACT_APP_APPLICATION_BACK + 
+          "/api/tipoDeUsuarioXInstitucion",
           {
             params: {
-              IdUsuario: localStorage.getItem("IdUsuario"),
+              TipoUsuario: tipousuario,
               Institucion: JSON.parse(MIR)?.encabezado.institucion,
             },
             headers: {
@@ -416,6 +427,7 @@ export default function ModalSolicitaModif({
         )
         .then((r) => {
           if (r.status === 200) {
+            console.log("UserXInst: ", r.data.data);
             setUserXInst(r.data.data);
           }
         });
@@ -559,7 +571,7 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ display: "flex", width: "10vw" }}
+              sx={queries.buttonCancelarSolicitudInscripcion}
               variant="contained"
               color="error"
               onClick={() => handleClose()}
@@ -570,7 +582,7 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
-              sx={{ display: "flex", width: "10vw" }}
+              sx={queries.buttonContinuarSolicitudInscripcion}
               variant="contained"
               color="primary"
               onClick={() => {

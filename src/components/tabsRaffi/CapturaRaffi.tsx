@@ -1,8 +1,4 @@
-import {
-  Tabs,
-  Tab,
-  Grid,
-} from "@mui/material";
+import { Tabs, Tab, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
@@ -11,7 +7,10 @@ import { TabActividadRf } from "./TabsActividadesRf";
 import { IComponenteMA, ICValorMA, IComponenteRF } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import TabResumenMIR from "../modalsRF/ModalResumenMir";
-
+import { TabFinPropositoRF } from "./TabFinPropositoRf";
+import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
+import { TabResumenRF } from "./TabResumenRF";
+import { IAvanceFinancieroRF } from "../../screens/raffi/interfacesRaffi";
 export default function CapturaRaffi({
   MIR,
   MA,
@@ -26,147 +25,31 @@ export default function CapturaRaffi({
   showResume: Function;
   IdMir: string;
   IdMA: string;
+}{
+  MIR,
+  MA,
+  RF,
+  opentabs,
+  IdMir,
+  IdMA,
+  IdRf,
+}:{
+  MIR: string;
+  MA: string;
+  RF: string;
+  opentabs: Function;
+  IdMir: string;
+  IdMA: string;
+  IdRf: string;
 }) {
   const [value, setValue] = useState(10);
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
-      if (value < 30) setValue(value + 10);
+      if (value < 50) setValue(value + 10);
     } else {
       if (value > 10) setValue(value - 10);
     }
-  };
-
-
-  const [showMir, setShowMir] = React.useState(false);
-  const [showSt, setShowSt] = React.useState("");
-  const showMirFnc = (state: boolean) => {
-    setShowMir(state);
-  };
-  const showFnc = (st: string) => {
-    setShowSt(st);
-  };
-
-
-  const jsonMir = JSON.parse(MIR);
-
-  useEffect(() => {
-    let act: number[] = [];
-    let comp: string[] = [];
-    let ambos: any = [];
-    let i = 1;
-    let j = 1;
-
-    jsonMir.componentes.map((x: any) => {
-      comp.push("C" + j);
-      jsonMir.actividades.map((a: any) => {
-        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-          act.push(i);
-          i++;
-        }
-      });
-      ambos.push({ actividades: act, componente: "C" + j });
-      act = [];
-      i = 1;
-      j++;
-    });
-
-    setCompAct(ambos);
-
-    jsonMir.componentes.map((value: any, index: number) => {
-      if (index > 1 && index < 6)
-        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-
-  
-  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
-
-  const [valoresComponenteMA, setValoresComponenteMA] = useState<
-    Array<IComponenteMA>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
-    })
-  );
-  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-    setValoresComponenteMA(state);
-  };
-
-  const [valoresComponenteRF, setValoresComponenteRF] = useState<
-    Array<IComponenteRF>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        semestre1:"",
-        semestre2:"",
-        trimestre1:"",
-        trimestre2:"",
-        trimestre3:"",
-        trimestre4:""
-      };
-    })
-  );
-  const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
-    setValoresComponenteRF(state);
-  };
-
-  const componenteActividad = [
-    {
-      componentes: noComponentes.map((x) => [1, 2]),
-    },
-  ];
-
-  const [cValorMA, setCValorMA] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "",
-                metaAnual: "",
-                lineaBase: "",
-                metasPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  const asignarCValorMA = (state: Array<ICValorMA>) => {
-    setCValorMA(state);
   };
 
   return (
@@ -210,7 +93,7 @@ export default function CapturaRaffi({
             }}
           />
           <Tab
-            label="Componentes"
+            label="Avance Financiero"
             value={10}
             onClick={() => {
               setValue(10);
@@ -222,7 +105,7 @@ export default function CapturaRaffi({
             }}
           />
           <Tab
-            label="Actividades"
+            label="Fin/Proposito"
             value={20}
             onClick={() => {
               setValue(20);
@@ -234,10 +117,34 @@ export default function CapturaRaffi({
             }}
           />
           <Tab
-            label="Resumen"
+            label="Componentes"
             value={30}
             onClick={() => {
               setValue(30);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Actividades"
+            value={40}
+            onClick={() => {
+              setValue(40);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+            }}
+          />
+          <Tab
+            label="Resumen"
+            value={50}
+            onClick={() => {
+              setValue(50);
             }}
             sx={{
               borderRight: "5px solid #b3afaf",
@@ -261,6 +168,7 @@ export default function CapturaRaffi({
         <Grid
           container
           item
+            
           sx={{
             display: "flex",
             width: "75vw",

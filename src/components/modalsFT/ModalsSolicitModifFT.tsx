@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
+import { log } from "console";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -491,13 +492,23 @@ export default function ModalSolicitaModif({
 
 
   useEffect(() => {
+
+    let tipousuario = "";
+
+    if (localStorage.getItem("Rol") === "Capturador")
+    tipousuario = "Verificador";
+    console.log(tipousuario);
+  if (localStorage.getItem("Rol") === "Verificador")
+    tipousuario = "Verificador";
+  if (localStorage.getItem("Rol") === "Administrador")
+    tipousuario = "VERIFICADOR_CAPTURADOR";
     if (open) {
       axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeUsuarioXInstitucion",
         {
           params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
+            TipoUsuario: tipousuario,
             Institucion: JSON.parse(MIR)?.encabezado?.institucion,
           },
           headers: {
@@ -587,6 +598,8 @@ export default function ModalSolicitaModif({
               </MenuItem>
 
               {userXInst.map((item) => {
+                console.log("userXInst: ",userXInst);
+                
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
                     {item.Nombre}
