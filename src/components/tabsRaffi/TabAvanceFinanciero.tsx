@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { IMIR } from "../tabsMir/IMIR";
 import { IAvanceFinancieroRF } from "../../screens/raffi/interfacesRaffi";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import validator from "validator";
+// import validator from "validator";
 export function TabAvanceFinanciero({
   resumenAvanceFinancieroRf,
   MIR,

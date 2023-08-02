@@ -7,25 +7,12 @@ import { TabActividadRf } from "./TabsActividadesRf";
 import { IComponenteMA, ICValorMA, IComponenteRF } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import TabResumenMIR from "../modalsRF/ModalResumenMir";
-import { TabFinPropositoRF } from "./TabFinPropositoRf";
+ import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
 import { TabResumenRF } from "./TabResumenRF";
 import { IAvanceFinancieroRF } from "../../screens/raffi/interfacesRaffi";
 export default function CapturaRaffi({
-  MIR,
-  MA,
-  RF,
-  showResume,
-  IdMir,
-  IdMA,
-}: {
-  MIR: string;
-  MA: string;
-  RF: string;
-  showResume: Function;
-  IdMir: string;
-  IdMA: string;
-}{
+
   MIR,
   MA,
   RF,
@@ -42,6 +29,14 @@ export default function CapturaRaffi({
   IdMA: string;
   IdRf: string;
 }) {
+
+
+
+
+
+
+
+
   const [value, setValue] = useState(10);
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
   const cambiarTab = (option: string) => {
@@ -51,6 +46,161 @@ export default function CapturaRaffi({
       if (value > 10) setValue(value - 10);
     }
   };
+
+
+  const [showMir, setShowMir] = React.useState(false);
+  const [showSt, setShowSt] = React.useState("");
+  const showMirFnc = (state: boolean) => {
+    setShowMir(state);
+  };
+  const showFnc = (st: string) => {
+    setShowSt(st);
+  };
+
+
+  const jsonMir = JSON.parse(MIR);
+
+  useEffect(() => {
+    let act: number[] = [];
+    let comp: string[] = [];
+    let ambos: any = [];
+    let i = 1;
+    let j = 1;
+
+    jsonMir.componentes.map((x: any) => {
+      comp.push("C" + j);
+      jsonMir.actividades.map((a: any) => {
+        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+          act.push(i);
+          i++;
+        }
+      });
+      ambos.push({ actividades: act, componente: "C" + j });
+      act = [];
+      i = 1;
+      j++;
+    });
+
+    setCompAct(ambos);
+
+    jsonMir.componentes.map((value: any, index: number) => {
+      if (index > 1 && index < 6)
+        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+  
+  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+
+  const [valoresComponenteMA, setValoresComponenteMA] = useState<
+    Array<IComponenteMA>
+  >(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        metaAnual: "",
+        lineaBase: "",
+        metasPorFrecuencia: [],
+        valorNumerador: "",
+        valorDenominador: "",
+        sentidoDelIndicador: "",
+        unidadResponsable: "",
+        descIndicador: "",
+        descNumerador: "",
+        descDenominador: "",
+      };
+    })
+  );
+  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
+    setValoresComponenteMA(state);
+  };
+
+  const [valoresComponenteRF, setValoresComponenteRF] = useState<
+    Array<IComponenteRF>
+  >(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        semestre1:"",
+        semestre2:"",
+        trimestre1:"",
+        trimestre2:"",
+        trimestre3:"",
+        trimestre4:""
+      };
+    })
+  );
+  const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
+    setValoresComponenteRF(state);
+  };
+
+  const componenteActividad = [
+    {
+      componentes: noComponentes.map((x) => [1, 2]),
+    },
+  ];
+
+  const [cValorMA, setCValorMA] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                metaAnual: "",
+                lineaBase: "",
+                metasPorFrecuencia: [
+                  {
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
+                valorNumerador: "",
+                valorDenominador: "",
+                sentidoDelIndicador: "",
+                unidadResponsable: "",
+                descIndicador: "",
+                descNumerador: "",
+                descDenominador: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
+  const asignarCValorMA = (state: Array<ICValorMA>) => {
+    setCValorMA(state);
+  };
+
+
+
+ //Avance Financiero
+ const [showStAF, setShowStAF] = React.useState("");
+ const setTxtShowRAFFIAF = (st: string) => {
+   setShowStAF(st);
+ };
+
+ const [ValueAvanceFinanciero, setAvanceFinanciero] = useState<Array<IAvanceFinancieroRF>>(
+   []
+ );
+
+ const resumenAvanceFinancieroRf =(st: Array<IAvanceFinancieroRF>) =>{
+   setAvanceFinanciero(st);
+ };
+
+
+
+
+
+
+
 
   return (
     <Grid
@@ -179,7 +329,19 @@ export default function CapturaRaffi({
             backgroundColor: "#fff",
           }}
         >
-          {value === 10 && <TabComponenteRf 
+
+          {value === 10 && <TabAvanceFinanciero 
+          resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
+          MIR={MIR}
+          MA={MA}
+          RF={RF}
+          />}
+
+          {value === 20 && <TabFinPropositoRF 
+          setTxtShowFnc={showFnc}
+          showMirFnc={showMirFnc} />}
+
+          {value === 30 && <TabComponenteRf 
             
             valoresComponenteMAFnc={valoresComponenteRFFnc}
             noComponentes={noComponentes}
@@ -189,7 +351,7 @@ export default function CapturaRaffi({
             setTxtShowFnc={showFnc}
             showMirFnc={showMirFnc} />}
 
-          {value === 20 && <TabActividadRf 
+          {value === 40 && <TabActividadRf 
 
           valoresComponenteMAFnc={valoresComponenteMAFnc}
           componentes={noComponentes}
@@ -201,7 +363,7 @@ export default function CapturaRaffi({
           setTxtShowFnc={showFnc}
             showMirFnc={showMirFnc} />}
           
-          
+          {value === 50 && <TabResumenRF />}
         </Grid>
       </Grid>
       <TabResumenMIR

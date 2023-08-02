@@ -1,21 +1,6 @@
 import {
   Button,
   Grid,
-  Box,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Tooltip,
-  IconButton,
-  TablePagination,
-  Input,
-  Select,
-  FormControl,
-  MenuItem,
-  Typography
   Typography,
   TextField,
   InputLabel,
@@ -34,54 +19,13 @@ import {
   Paper,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import moment from "moment";
-import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import PendingActionsIcon from '@mui/icons-material/PendingActions';
-import PaidIcon from '@mui/icons-material/Paid';
-import {
-  IInstituciones, LateralMenu
-} from "../../components/lateralMenu/LateralMenu";
-import SearchIcon from "@mui/icons-material/Search";
-import DownloadIcon from "@mui/icons-material/Download";
 import {
   LateralMenu,
   IInstituciones,
 } from "../../components/lateralMenu/LateralMenu";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/Header";
-import Swal from "sweetalert2";
 import CapturaRaffi from "../../components/tabsRaffi/CapturaRaffi";
-
-export let resumeDefaultFT = true;
-export interface IIFT {
-  IdFt: string;
-  IdMir: string;
-  IdMa: string;
-  FichaT: string;
-  Estado: string;
-  CreadoPor: string;
-  FechaCreacion: string;
-  AnioFiscal: string;
-  Institucion: string;
-  Programa: string;
-  MIR: string;
-  MetaAnual: string;
-  Conac: string;
-  Consecutivo: string;
-  RF: string;
-}
-
-export interface IDownloadFT {
-  MaId: string;
-  MetaAnual: string;
-  MirId: string;
-  MIR: string;
-  MaCompleta: string;
-  FT: string;
-}
 import { SelectChangeEvent } from "@mui/material/Select";
 import { queries } from "../../queries";
 import { listaRaffi } from "../../services/raffi_services/raffi_endpoints";
@@ -149,34 +93,6 @@ const heads: readonly Head[] = [
 ];
 
 export const Raffi = () => {
-
-  // const [actionNumber, setActionNumber] = useState(0);
-
-  const [opentabs, setOpenTabs] = useState(false);
-  const [ma, setMa] = useState<Array<IIMa>>([]);
-  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
-  useEffect(() => {
-    setShowResume(true);
-    getFT();
-  }, [resumeDefaultFT]);
-
-  const returnMain = () => {
-    setShowResume(true);
-    getFT();
-  };
-
-  const [openModalVerResumenFT, setOpenModalVerResumenFT] = useState(false);
-
-  const handleCloseVerResumenFT = () => {
-    setOpenModalVerResumenFT(false);
-  };
-
-  const [showResume, setShowResume] = useState(true);
-  const [page, setPage] = useState(0);
-
-  const renglonesPagina = 7;
-  const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
-
   const [actionNumber, setActionNumber] = useState(0);
   const [showResume, setShowResume] = useState(true);
 
@@ -369,264 +285,6 @@ export const Raffi = () => {
     setRfxFiltered(ResultadoBusqueda);
   };
 
-  // Realiza el cambio de pagina
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 5));
-    setPage(0);
-  };
-
-  const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("0");
-  const [findSelectStr, setFindSelectStr] = useState("0");
-
-  const [ft, setft] = useState<Array<IIFT>>([]);
-  const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
-  const [FTShow, setFTShow] = useState<Array<IIFT>>([]);
-
-  const [ftFiltered, setFtFiltered] = useState<Array<IIFT>>([]);
-
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
-
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          setInstituciones(r.data.data);
-        }
-      });
-  };
-
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-
-  /////////////////////////////////////////
-  const getFichaTecnicaDownload = (
-    MIR: string,
-    MetaAnual: string,
-    FT: string,
-    inst: string,
-    Programa: string,
-    FechaCreacion: string
-  ) => {
-    const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
-
-    axios
-      .post(process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ft", fullft, {
-        responseType: "blob",
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: "La descarga comenzara en un momento.",
-        });
-        const href = URL.createObjectURL(r.data);
-
-        // create "a" HTML element with href to file & click
-        const link = document.createElement("a");
-        link.href = href;
-        link.setAttribute(
-          "download",
-          "FT_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
-        ); //or any other extension
-        document.body.appendChild(link);
-
-        link.click();
-
-        // clean up "a" element & remove ObjectURL
-
-        document.body.removeChild(link);
-        URL.revokeObjectURL(href);
-      })
-      .catch((err) => {
-        console.log(err);
-
-        Toast.fire({
-          icon: "error",
-          title: "Error al intentar descargar el documento.",
-        });
-      });
-  };
-
-  ///////////////////////////////////////////////////
-  useEffect(() => {
-    getInstituciones();
-  }, []);
-  ///////////
-  // Filtrado por caracter
-  const findText = (v: string, est: string, inst: string) => {
-    if (
-      v !== "" &&
-      est !== "0" &&
-      est !== "Todos" &&
-      inst !== "0" &&
-      inst !== "Todos"
-    ) {
-      setFtFiltered(
-        ft.filter(
-          (x) =>
-            (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
-              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
-              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
-              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
-            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
-        )
-      );
-    } else if (
-      v !== "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
-    ) {
-      setFtFiltered(
-        ft.filter(
-          (x) =>
-            (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
-              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
-              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
-              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
-            (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
-        )
-      );
-    } else if (
-      v !== "" &&
-      (est === "0" || est === "Todos") &&
-      (inst === "0" || inst === "Todos")
-    ) {
-      setFtFiltered(
-        ft.filter(
-          (x) =>
-            x.AnioFiscal.includes(v) ||
-            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
-            x.Programa.toLowerCase().includes(v.toLowerCase()) ||
-            x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
-            x.CreadoPor.toLowerCase().includes(v.toLowerCase())
-        )
-      );
-    } else if (
-      v === "" &&
-      est !== "0" &&
-      est !== "Todos" &&
-      inst !== "0" &&
-      inst !== "Todos"
-    ) {
-      setFtFiltered(
-        ft.filter(
-          (x) =>
-            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
-        )
-      );
-    } else if (
-      v === "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
-    ) {
-      setFtFiltered(
-        ft.filter(
-          (x) =>
-            x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
-        )
-      );
-    } else {
-      setFtFiltered(ft);
-    }
-  };
-
-  useEffect(() => {
-    findText(findTextStr, findSelectStr, findInstStr);
-  }, [findTextStr, findInstStr, findSelectStr]);
-
-  const getFT = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-Ficha-tecnica",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            IdInstitucion: localStorage.getItem("IdInstitucion"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        setft(r.data.data);
-        setFtFiltered(r.data.data);
-      })
-      .catch((err) => { });
-  };
-
-  useEffect(() => {
-    getFT();
-  }, []);
-
-  const [actualizacion, setActualizacion] = useState(0);
-
-  useEffect(() => {
-    console.log("ft: ", ft);
-
-    let id = urlParams.get("Id");
-    setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
-  }, [ft]);
-
-  useEffect(() => {
-    getFT();
-  }, [actualizacion]);
-
-  const actualizaContador = () => {
-    setActualizacion(actualizacion + 1);
-  };
-
-  const colorMir = (v: string, mEdit: string) => {
-    if (mEdit !== undefined) {
-      let isModification = mEdit;
-      isModification = JSON.parse(mEdit);
-      if (isModification[1]) {
-        return "#cccc00";
-      }
-    }
-    if (v === "En Captura") {
-      return "#b3e6b3";
-    } else if (v === "En Revisión") {
-      return "#e6e6ff";
-    } else if (v === "En Autorización") {
-      return "#b3b3ff";
-    } else if (v === "Autorizada") {
-      return "#0000ff";
-    }
-  };
-
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     findTextStr.length !== 0 ? setRfFiltered(rfFiltered) : null;
@@ -639,19 +297,18 @@ export const Raffi = () => {
         <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
 
-
-
-
-
-
-
-
-
-
-
-      <Grid item sx={{ backgroundColor: "#F2F2F2", flexGrow: 1 }}>
-
-        <Grid sx={{ width: "80%", height: "8vh", marginLeft: "4vw" }}>
+      <Grid item
+        justifyContent={"center"}
+        display={"flex"}
+        container
+        xl={10.2}
+        lg={9.9}
+        md={9.4}
+        sm={7.5}
+        xs={6}
+        sx={{ backgroundColor: "#F2F2F2" }}
+      >
+        <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
             details={{
               name1: "Inicio",
@@ -685,6 +342,7 @@ export const Raffi = () => {
                 xl={12}
                 lg={12}
                 md={12}
+                item
                 container
                 direction="row"
                 justifyContent="space-around"
@@ -744,6 +402,7 @@ export const Raffi = () => {
               </Grid>
 
               <Grid
+              item
                 xl={12}
                 lg={12}
                 md={12}
@@ -795,26 +454,6 @@ export const Raffi = () => {
                   </FormControl>
                 </Grid>
 
-) : (
-  <Grid
-    sx={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-evenly",
-      alignItems: "center",
-      height: "92vh",
-    }}
-    gridArea={"main"}
-  >
-    
-    <CapturaRaffi MIR={FTEdit[0]?.MIR || ""}
-            MA={FTEdit[0]?.MetaAnual || ""}
-            showResume={returnMain}
-            IdMir={FTEdit[0]?.IdMir || ""}
-            IdMA={FTEdit[0]?.IdMa || ""}
-            RF={FTEdit[0]?.RF || ""}/>
-  </Grid>
-)}
                 <Grid item xl={5} lg={4} md={3}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
@@ -916,7 +555,8 @@ export const Raffi = () => {
                               component="th"
                               scope="row"
                             >
-                              {row.Institucion.toUpperCase()}
+                              {row.Institucion}
+                              {/* {row.Institucion.toUpperCase()} */}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -928,7 +568,8 @@ export const Raffi = () => {
                               component="th"
                               scope="row"
                             >
-                              {row.Programa.toUpperCase()}
+                              {row.Programa}
+                              {/* {row.Programa.toUpperCase()} */}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -976,7 +617,8 @@ export const Raffi = () => {
                               component="th"
                               scope="row"
                             >
-                              {row.CreadoPor.toUpperCase()}
+                              {row.CreadoPor}
+                              {/* {row.CreadoPor.toUpperCase()} */}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -1089,22 +731,11 @@ export const Raffi = () => {
             IdRf={rfEdit?.IdRf || ""}
           />
         )}
-</Grid>
+      </Grid>
     </Grid>
   );
 };
-export interface IIMa {
-  IdMa: string;
-  IdMir: string;
-  AnioFiscal: string;
-  Institucion: string;
-  Programa: string;
-  MIR: string;
-  MetaAnual: string;
-  Estado: string;
-  CreadoPor: string;
-  FechaCreacion: string;
-}
+
 export interface IRaffi {
   IdRf: string;
   IdMir: string;
