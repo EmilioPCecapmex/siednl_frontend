@@ -418,7 +418,7 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() => handleClickOpen()}
+                onClick={() => MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== "" ? "" : handleClickOpen()}
                 value={valueFin[0]?.metaAnual || ""}
                 error={parseFloat(valueFin[0]?.metaAnual) < 0 ? true : false}
                 helperText={
@@ -499,7 +499,7 @@ export function TabFinPropositoMA({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  onClick={() => handleClickOpen()}
+                  onClick={() => MAEdit?.fin?.valorNumerador && valueFin[0].valorNumerador !== "" ? "" : handleClickOpen()}
                   value={valueFin[0]?.valorNumerador || ""}
                 />
               ) : (
@@ -531,7 +531,7 @@ export function TabFinPropositoMA({
                         fontFamily: "MontserratRegular",
                       },
                     }}
-                    onClick={() => handleClickOpen()}
+                    onClick={() => MAEdit?.fin?.valorNumerador && valueFin[0].valorNumerador !== "" ? "" : handleClickOpen()}
                     value={valueFin[0]?.valorNumerador || ""}
                   />
                   <TextField
@@ -561,7 +561,7 @@ export function TabFinPropositoMA({
                         fontFamily: "MontserratRegular",
                       },
                     }}
-                    onClick={() => handleClickOpen()}
+                    onClick={() => MAEdit?.fin?.valorDenominador && valueFin[0].valorDenominador !== "" ? "" : handleClickOpen()}
                     value={valueFin[0]?.valorDenominador || ""}
                   />
                 </Box>
@@ -680,10 +680,10 @@ export function TabFinPropositoMA({
               >
                 <FormControl sx={{ width: "25vw" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                  clearText="Borrar"
+                  noOptionsText="Sin opciones"
+                  closeText="Cerrar"
+                  openText="Abrir"
                     disabled={
                       MAEdit?.fin?.unidadResponsable &&
                       valueFin[0].unidadResponsable !== ""
@@ -875,7 +875,9 @@ export function TabFinPropositoMA({
               }}
             >
               <TextField
-                disabled
+                disabled={
+                  MAEdit?.proposito?.metaAnual && valueProposito[0].metaAnual !== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -895,7 +897,7 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() => handleClickOpen()}
+                onClick={() => MAEdit?.proposito?.metaAnual && valueProposito[0].metaAnual !== "" ? "" : handleClickOpen()}
                 value={valueProposito[0]?.metaAnual || ""}
                 error={
                   parseFloat(valueProposito[0]?.metaAnual) < 0 ? true : false
@@ -908,7 +910,7 @@ export function TabFinPropositoMA({
               />
               <TextField
                 disabled={
-                  MAEdit?.fin?.lineaBase && valueFin[0].lineaBase !== ""
+                  MAEdit?.proposito?.lineaBase && valueProposito[0].lineaBase !== ""
                 }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
@@ -961,8 +963,8 @@ export function TabFinPropositoMA({
                 .includes("índice") ? (
                 <TextField
                   disabled={
-                    MAEdit?.fin?.valorNumerador &&
-                    valueFin[0].valorNumerador !== ""
+                    MAEdit?.proposito?.valorNumerador &&
+                    valueProposito[0].valorNumerador !== ""
                   }
                   sx={{ width: "18%", boxShadow: 2 }}
                   variant={"filled"}
@@ -983,15 +985,15 @@ export function TabFinPropositoMA({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  onClick={() => handleClickOpen()}
+                  onClick={() => MAEdit?.proposito?.valorNumerador && valueProposito[0].valorNumerador !== "" ? "" : handleClickOpen()}
                   value={valueProposito[0]?.valorNumerador || ""}
                 />
               ) : (
                 <Box sx={{ width: "45%" }}>
                   <TextField
                     disabled={
-                      MAEdit?.fin?.valorNumerador &&
-                      valueFin[0].valorNumerador !== ""
+                      MAEdit?.proposito?.valorNumerador &&
+                      valueProposito[0].valorNumerador !== ""
                     }
                     sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
                     variant={"filled"}
@@ -1015,13 +1017,13 @@ export function TabFinPropositoMA({
                         fontFamily: "MontserratRegular",
                       },
                     }}
-                    onClick={() => handleClickOpen()}
+                    onClick={() => MAEdit?.proposito?.valorNumerador && valueProposito[0].valorNumerador !== "" ? "" : handleClickOpen()}
                     value={valueProposito[0]?.valorNumerador || ""}
                   />
                   <TextField
                     disabled={
-                      MAEdit?.fin?.valorDenominador &&
-                      valueFin[0].valorDenominador !== ""
+                      MAEdit?.proposito?.valorDenominador &&
+                      valueProposito[0].valorDenominador !== ""
                     }
                     sx={{ width: "45%", boxShadow: 2 }}
                     variant={"filled"}
@@ -1045,7 +1047,7 @@ export function TabFinPropositoMA({
                         fontFamily: "MontserratRegular",
                       },
                     }}
-                    onClick={() => handleClickOpen()}
+                    onClick={() => MAEdit?.proposito?.valorDenominador && valueProposito[0].valorDenominador !== "" ? "" : handleClickOpen()}
                     value={valueProposito[0]?.valorDenominador || ""}
                   />
                 </Box>
@@ -1053,8 +1055,8 @@ export function TabFinPropositoMA({
 
               <FormControl
                 disabled={
-                  MAEdit?.fin?.sentidoDelIndicador &&
-                  valueFin[0].sentidoDelIndicador !== ""
+                  MAEdit?.proposito?.sentidoDelIndicador &&
+                  valueProposito[0].sentidoDelIndicador !== ""
                 }
                 sx={{
                   width: "15%",
@@ -1165,8 +1167,8 @@ export function TabFinPropositoMA({
               >
                 <FormControl
                   disabled={
-                    MAEdit?.fin?.unidadResponsable &&
-                    valueFin[0].unidadResponsable !== ""
+                    MAEdit?.proposito?.unidadResponsable &&
+                    valueProposito[0].unidadResponsable !== ""
                   }
                   sx={{ width: "25vw" }}
                 >
@@ -1175,7 +1177,10 @@ export function TabFinPropositoMA({
             noOptionsText="Sin opciones"
             closeText="Cerrar"
             openText="Abrir"
-                    disabled={false}
+            disabled={
+              MAEdit?.proposito?.unidadResponsable &&
+              valueProposito[0].unidadResponsable !== ""
+            }
                     options={catalogoUnidadResponsable}
                     getOptionLabel={(option) => option.Unidad}
                     value={{
@@ -1228,7 +1233,7 @@ export function TabFinPropositoMA({
 
               <TextField
                 disabled={
-                  MAEdit?.fin?.descIndicador && valueFin[0].descIndicador !== ""
+                  MAEdit?.proposito?.descIndicador && valueProposito[0].descIndicador !== ""
                 }
                 rows={5}
                 multiline
@@ -1272,7 +1277,7 @@ export function TabFinPropositoMA({
             >
               <TextField
                 disabled={
-                  MAEdit?.fin?.descNumerador && valueFin[0].descNumerador !== ""
+                  MAEdit?.proposito?.descNumerador && valueProposito[0].descNumerador !== ""
                 }
                 rows={5}
                 multiline
@@ -1306,8 +1311,8 @@ export function TabFinPropositoMA({
               />
               <TextField
                 disabled={
-                  MAEdit?.fin?.descDenominador &&
-                  valueFin[0].descDenominador !== ""
+                  MAEdit?.proposito?.descDenominador &&
+                  valueProposito[0].descDenominador !== ""
                 }
                 rows={5}
                 multiline

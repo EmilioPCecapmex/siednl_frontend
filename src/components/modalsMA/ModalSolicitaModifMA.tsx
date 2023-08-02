@@ -597,10 +597,13 @@ export default function ModalSolicitaModif({
               Authorization: localStorage.getItem("jwtToken") || "",
             },
           }
+          
         )
+        
         .then((r) => {
+          console.log("a");
           if (r.status === 200) {
-            console.log("UserXInst: ", r.data.data);
+           
 
             setUserXInst(r.data.data);
           }

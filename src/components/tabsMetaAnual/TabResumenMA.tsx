@@ -280,6 +280,14 @@ export function TabResumenMA({
     }),
   };
 
+  function mapeaindice(c=0,a=0){
+    let x=0;
+    //Componente 1
+    (c==0&&a==0)?x=0:(c==0&&a==1)?x=1:
+    (c==1&&a==0)?x=2:x=3;
+    
+    return x;
+   }
 
   return (
     <Box
@@ -1596,13 +1604,13 @@ export function TabResumenMA({
                         "Administrador" ? null : (
                           <Checkbox
                             value={
-                              !editActividades[indexComponentes]
+                              !editActividades[mapeaindice(indexComponentes,indexActividades)]
                                 ?.metasPorFrecuencia[0].trimestre1
                             }
                             onChange={(v) => {
                               let past = [...editActividades];
                               past[
-                                indexComponentes
+                                mapeaindice(indexComponentes,indexActividades)
                               ].metasPorFrecuencia[0].trimestre1 =
                                 !v.target.checked;
                               setEditActividades(past);
@@ -1636,13 +1644,13 @@ export function TabResumenMA({
                         "Administrador" ? null : (
                           <Checkbox
                             value={
-                              !editActividades[indexComponentes]
+                              !editActividades[mapeaindice(indexComponentes,indexActividades)]
                                 ?.metasPorFrecuencia[0].trimestre2
                             }
                             onChange={(v) => {
                               let past = [...editActividades];
                               past[
-                                indexComponentes
+                                mapeaindice(indexComponentes,indexActividades)
                               ].metasPorFrecuencia[0].trimestre2 =
                                 !v.target.checked;
                               setEditActividades(past);
@@ -1676,13 +1684,13 @@ export function TabResumenMA({
                         "Administrador" ? null : (
                           <Checkbox
                             value={
-                              !editActividades[indexComponentes]
+                              !editActividades[mapeaindice(indexComponentes,indexActividades)]
                                 ?.metasPorFrecuencia[0].trimestre3
                             }
                             onChange={(v) => {
                               let past = [...editActividades];
                               past[
-                                indexComponentes
+                                mapeaindice(indexComponentes,indexActividades)
                               ].metasPorFrecuencia[0].trimestre3 =
                                 !v.target.checked;
                               setEditActividades(past);
@@ -1716,13 +1724,13 @@ export function TabResumenMA({
                         "Administrador" ? null : (
                           <Checkbox
                             value={
-                              !editActividades[indexComponentes]
+                              !editActividades[mapeaindice(indexComponentes,indexActividades)]
                                 ?.metasPorFrecuencia[0].trimestre4
                             }
                             onChange={(v) => {
                               let past = [...editActividades];
                               past[
-                                indexComponentes
+                                mapeaindice(indexComponentes,indexActividades)
                               ].metasPorFrecuencia[0].trimestre4 =
                                 !v.target.checked;
                               setEditActividades(past);
