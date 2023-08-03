@@ -29,6 +29,7 @@ import { IFinRF, IPropositoRF } from "../../screens/raffi/interfacesRaffi";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 import { useEffect, useState } from "react";
 import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
+
 export function TabFinPropositoRF({
   resumenPropositoRF,
   resumenFinRF,
