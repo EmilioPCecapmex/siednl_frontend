@@ -524,7 +524,7 @@ export const LateralMenu = ({
             />
           </ListItemButton> */}
 
-         <ListItemButton
+         {/* <ListItemButton
             onClick={() => {
               //setResumeDefaultAI();
               exitAlert("../Institutionalactivities")
@@ -542,9 +542,9 @@ export const LateralMenu = ({
               visibility={selection === "Actividades Institucionales" ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
-          </ListItemButton> 
+          </ListItemButton>  */}
           
-          <ListItemButton
+          {/* <ListItemButton
             onClick={() => {
               //setResumeDefaultAI();
               navigate("../programaAnualEvaluacion");
@@ -563,7 +563,7 @@ export const LateralMenu = ({
               visibility={selection === "Programa Anual de Evaluacion" ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
-          </ListItemButton> 
+          </ListItemButton>  */}
 
 
 
