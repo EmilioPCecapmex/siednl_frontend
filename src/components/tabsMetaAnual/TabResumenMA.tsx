@@ -289,7 +289,7 @@ export function TabResumenMA({
     return x;
    }
 
-   const isAdminOrVerifier = localStorage.getItem("Rol")  === "Administrador" ||localStorage.getItem("Rol") === "Verificador";
+   
 
   return (
     <Box
