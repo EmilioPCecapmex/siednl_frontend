@@ -1110,33 +1110,70 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setDescripctionFiltered(text);
   };
 
-  const [datosTabla, setDatosTabla] = React.useState<Array<IDatosTabla>>([]);
+  const [datosTabla, setDatosTabla] = useState<Array<IDatosTabla>>([]);
 
   const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState<
     Array<IDatosTabla>
   >([]);
 
   useEffect(() => {
-    if (descripctionFiltered !== "") {
-      setDataDescripctionFiltered(
-        datosTabla.filter((x) =>
-          x.Desc.toLowerCase().includes(descripctionFiltered)
-        )
-      );
+    setDataDescripctionFiltered(datosTabla);
+    console.log(datosTabla);
+    
+  }, [datosTabla]);
+
+  useEffect(() => {
+    setDataDescripctionFiltered(datosTabla);
+    console.log(datosTabla);
+    
+  }, [descripctionFiltered]);
+  
+
+  const filtrarDatos = () => {
+    console.log("Entra");
+    let Arrayfiltro: IDatosTabla[];
+    Arrayfiltro = [];
+
+    if (descripctionFiltered.length !== 0) {
+      Arrayfiltro = DataDescripctionFiltered;
     } else {
-      setDataDescripctionFiltered(datosTabla);
+      Arrayfiltro = DataDescripctionFiltered;
     }
-  }, [datosTabla, descripctionFiltered]);
+
+    let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
+      console.log("entre");
+      console.log(elemento);
+      console.log(DataDescripctionFiltered);
+      if (elemento.Desc.toString().toLocaleLowerCase().includes(descripctionFiltered.toLocaleLowerCase())) {
+        return elemento;
+      }
+    });
+    setDataDescripctionFiltered(ResultadoBusqueda);
+  };
 
   const [actualizacion, setActualizacion] = useState(0);
 
-  useEffect(() => {
-    configOptions.map((item) => {
-      if (item.Desc === defaultSelection) {
-        eval(item.fnc);
-      }
-    });
-  }, [actualizacion, configOptions, defaultSelection]);
+  // useEffect(() => {
+  //   if (descripctionFiltered !== "") {
+  //     setDataDescripctionFiltered(
+  //       datosTabla.filter((x) =>
+  //         x.Desc.toLowerCase().includes(descripctionFiltered)
+  //       )
+  //     );
+  //   } else {
+  //     setDataDescripctionFiltered(datosTabla);
+  //   }
+  // }, [datosTabla, descripctionFiltered]);
+
+ 
+
+  // useEffect(() => {
+  //   configOptions.map((item) => {
+  //     if (item.Desc === defaultSelection) {
+  //       eval(item.fnc);
+  //     }
+  //   });
+  // }, [actualizacion, configOptions, defaultSelection]);
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -1183,6 +1220,16 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       }
     };
 
+  const handleChangeFilter = (dato: string) => {
+    setDescripctionFiltered(dato);
+  };
+
+   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+     DataDescripctionFiltered.length !== 0 ? setDatosTabla(datosTabla) : null;
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [DataDescripctionFiltered]);
+
   return (
     <Box
       sx={{
@@ -1194,7 +1241,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     >
       <Box
         sx={{
-          width: "70%",
+          width: "80%",
           height: "80%",
           backgroundColor: "#ffffff",
           borderRadius: 5,
@@ -1271,6 +1318,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                             }}
                             selected={selected === item.Desc ? true : false}
                             onClick={() => {
+                              console.log("valor selected: ", selected);
+
                               eval(item.fnc);
                               setTablaActual(item.Tabla);
                               setDefaultSelection(item.Desc);
@@ -1384,7 +1433,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               <Typography
                 sx={{
                   fontFamily: "MontserratSemiBold",
-                  fontSize: "1.5vw",
+                  fontSize: "1.2vw",
                   textAlign: "center",
                 }}
               >
@@ -1445,7 +1494,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       fontFamily: "MontserratLight",
                       borderRadius: 100,
                     }}
-                    onChange={(v) => dataFilter(v.target.value)}
+                    onChange={(v) => handleChangeFilter(v.target.value)}
+                    onKeyPress={(ev) => {
+                      if (ev.key === "Enter") {
+                        filtrarDatos();
+                        ev.preventDefault();
+                        return false;
+                      }
+                    }}
                   />
                   <SearchIcon sx={{ color: "action.active", mr: 1 }} />
                 </Box>
@@ -1479,7 +1535,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 }}
               >
                 <Table
-                  sx={{ minWidth: 500 }}
+                  sx={{ maxWidth: 600 }}
                   aria-label="custom pagination table"
                 >
                   <TableBody>
@@ -1503,7 +1559,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                   : null
                               }
                               scope="row"
-                              width="90%"
+                              width="100%"
                               onClick={() => {
                                 setRowColorB(row.Id);
                                 setColorB("#E7E7E7");
@@ -1527,7 +1583,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                   : null
                               }
                               scope="row"
-                              width="90%"
+                              width="100%"
                               onClick={() => {
                                 setRowColorB(row.Id);
                                 setColorB("#E7E7E7");
@@ -1610,6 +1666,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 <AddDialogCatalogo
                   catalogo={tablaActual}
                   tabla={tablaActual}
+                  select={selected}
                   actualizado={actualizaContador}
                 />
               </Box>

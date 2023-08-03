@@ -423,7 +423,7 @@ export const LateralMenu = ({
             <Box sx={st.iconMenuList}>
               <HomeOutlinedIcon />
             </Box>
-            <Typography sx={st.firstItemsStyle}>Inicioo</Typography>
+            <Typography sx={st.firstItemsStyle}>Inicio</Typography>
             <Box
               visibility={selection === "Inicio" ? "visible" : "hidden"}
               sx={st.selectedBox}
@@ -446,8 +446,13 @@ export const LateralMenu = ({
               sx={st.selectedBox}
             />
           </ListItemButton>
+
+          
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
+
+
+
               <ListItemButton
                 onClick={() => {
                   setResumeDefaultMIR();
@@ -500,25 +505,6 @@ export const LateralMenu = ({
                   sx={st.selectedBox}
                 />
               </ListItemButton>
-            </List>
-          </Collapse>
-          {/* <ListItemButton
-            onClick={() => {
-              setResumeDefaultAI();
-              exitAlert("../Institutionalactivities")
-            }}
-          >
-            <Box sx={st.iconMenuList}>
-              <LocationCityOutlinedIcon />
-            </Box>
-            <Typography sx={st.firstItemsStyle}>
-              Actividades Institucionales
-            </Typography>
-            <Box
-              visibility={selection === 5 ? "visible" : "hidden"}
-              sx={st.selectedBox}
-            />
-          </ListItemButton> */}
 
           {/* <ListItemButton
             onClick={() => {
@@ -537,6 +523,55 @@ export const LateralMenu = ({
               sx={st.selectedBox}
             />
           </ListItemButton> */}
+
+         <ListItemButton
+            onClick={() => {
+              //setResumeDefaultAI();
+              exitAlert("../Institutionalactivities")
+            }}
+          >
+            <Box sx={st.iconMenuList}>
+
+              <KeyboardDoubleArrowRightIcon /> 
+
+            </Box>
+            <Typography sx={st.firstItemsStyle}>
+              Actividades Institucionales
+            </Typography>
+            <Box
+              visibility={selection === "Actividades Institucionales" ? "visible" : "hidden"}
+              sx={st.selectedBox}
+            />
+          </ListItemButton> 
+          
+          <ListItemButton
+            onClick={() => {
+              //setResumeDefaultAI();
+              navigate("../programaAnualEvaluacion");
+              
+            }}
+          >
+            <Box sx={st.iconMenuList}>
+
+              <KeyboardDoubleArrowRightIcon /> 
+
+            </Box>
+            <Typography sx={st.firstItemsStyle}>
+            Programa Anual de Evaluacion
+            </Typography>
+            <Box
+              visibility={selection === "Programa Anual de Evaluacion" ? "visible" : "hidden"}
+              sx={st.selectedBox}
+            />
+          </ListItemButton> 
+
+
+
+            </List>
+          </Collapse>
+          
+
+          
 
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <ListItemButton onClick={() => exitAlert("../notifications")}>

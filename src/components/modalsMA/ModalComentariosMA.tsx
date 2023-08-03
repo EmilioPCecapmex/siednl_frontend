@@ -280,7 +280,9 @@ export const ComentDialogMA = ({
                             {moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
+                            
                           </TableCell>
+                          
                         </TableRow>
                       ) : null
                     )

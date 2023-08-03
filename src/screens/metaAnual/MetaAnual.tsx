@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+  /* eslint-disable react-hooks/exhaustive-deps */
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DownloadIcon from "@mui/icons-material/Download";
 import {
@@ -17,6 +17,12 @@ import {
   TableRow,
   Tooltip,
   Typography,
+  InputLabel,
+  TextField,
+  Paper,
+  InputBase,
+  Grid,
+  TableSortLabel,
 } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
@@ -27,26 +33,33 @@ import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
-
+import { SelectChangeEvent } from "@mui/material/Select";
+import { queries } from "../../queries";
+import SearchIcon from "@mui/icons-material/Search";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
 };
-
+const estados = [
+  "Todos",
+  "En Captura",
+  "En Revisión",
+  "En Autorización",
+  "Autorizada",
+];
 export const MetaAnual = () => {
-
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
 
   useEffect(() => {
     setShowResume(true);
-    getMA();
+    //getMA();
   }, [ResumeDefaultMA]);
 
   const returnMain = () => {
     setShowResume(true);
     setActionNumber(1);
-    getMA();
+    //getMA();
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -70,17 +83,17 @@ export const MetaAnual = () => {
   };
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("0");
-  const [findSelectStr, setFindSelectStr] = useState("0");
+  const [findInstStr, setFindInstStr] = useState("Todos");
+  const [findSelectStr, setFindSelectStr] = useState("Todos");
 
   const [ma, setMa] = useState<Array<IIMa>>([]);
-  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
-
+  const [maEdit,  setMaEdit] = useState<Array<IIMa>>([]);
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
+  const [maxFiltered, setMaxFiltered] = useState<Array<IIMa>>([]);
 
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
 
-  const getInstituciones = () => {
+  const getInstituciones = (setstate: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
@@ -92,10 +105,22 @@ export const MetaAnual = () => {
       })
       .then((r) => {
         if (r.status === 200) {
-          setInstituciones(r.data.data);
+          setstate(r.data.data);
         }
       });
   };
+
+  useEffect(() => {
+    getMA(setMa);
+  }, []);
+
+  useEffect(() => {
+    setMaFiltered(ma);
+  }, [ma]);
+
+  useEffect(() => {
+    setMaxFiltered(maFiltered);
+  }, [maFiltered]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -110,11 +135,8 @@ export const MetaAnual = () => {
   });
 
   useEffect(() => {
-    
-    
     let id = urlParams.get("Id");
     setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
-
   }, [ma]);
 
   const getMetaAnualDownload = (
@@ -165,7 +187,7 @@ export const MetaAnual = () => {
   };
 
   useEffect(() => {
-    getInstituciones();
+    getInstituciones(setInstituciones);
   }, []);
 
   // Filtrado por caracter
@@ -254,7 +276,7 @@ export const MetaAnual = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
-  const getMA = () => {
+  const getMA = (setstate: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-MetaAnual", {
         params: {
@@ -266,8 +288,8 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
-        setMa(r.data.data);
-        setMaFiltered(r.data.data);
+        setstate(r.data.data);
+        //setMaFiltered(r.data.data);
       });
   };
 
@@ -277,9 +299,9 @@ export const MetaAnual = () => {
 
   const [actualizacion, setActualizacion] = useState(0);
 
-  useEffect(() => {
-    getMA();
-  }, [actualizacion]);
+  // useEffect(() => {
+  //   getMA();
+  // }, [actualizacion]);
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -302,6 +324,58 @@ export const MetaAnual = () => {
     } else if (v === "Autorizada") {
       return "#0000ff";
     }
+  };
+
+  const [estadosR, SetEstadosR] = useState<string[]>([]);
+
+  const filtrarDatos = () => {
+    // eslint-disable-next-line array-callback-return
+    console.log("Entra");
+    let Arrayfiltro: IIMa[];
+    Arrayfiltro = [];
+
+    if (maxFiltered.length !== 0) {
+      Arrayfiltro = maxFiltered;
+    } else {
+      Arrayfiltro = maxFiltered;
+    }
+
+    let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
+      console.log("entre");
+      console.log(elemento);
+      console.log(findTextStr);
+      console.log(maxFiltered);
+
+      if (
+        elemento.AnioFiscal.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Institucion.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Programa.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Estado.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.FechaCreacion.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.CreadoPor.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase())
+      ) {
+        console.log(elemento);
+        return elemento;
+      }
+    });
+
+    setMaFiltered(ResultadoBusqueda);
+  };
+
+  const handleChange = (dato: string) => {
+    setFindTextStr(dato);
   };
 
   return (
@@ -347,154 +421,168 @@ export const MetaAnual = () => {
           <Box
             sx={{
               width: "60%",
-              height: "15vh",
+              height: "16vh",
               backgroundColor: "#fff",
               borderRadius: 5,
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gridTemplateRows: "repeat(2, 1fr)",
+              display: "flex",
+              //gridTemplateColumns: "repeat(2, 1fr)",
+              flexDirection: "column",
               boxShadow: 5,
-              alignItems: "center",
-              justifyItems: "center",
+              justifyContent:"space-evenly",
+              alignItems: "center"
+              //flexDirection: "row",
+              
             }}
           >
             {/* <TutorialBox initialState={35} endState={39} /> */}
-            <Box
-              sx={{
-                display: "flex",
-                width: "70%",
-                alignItems: "center",
-                justifyContent: "center",
-                border: 1,
-                borderRadius: 2,
-                borderColor: "#616161",
-              }}
-            >
-              <Input
+            
+              {/* <TextField
                 size="small"
                 value={findTextStr}
-                placeholder="Búsqueda"
-                sx={{ width: "90%", fontFamily: "MontserratRegular" }}
-                disableUnderline
+                label="Busqueda"
+                sx={{ width: "100%", fontFamily: "MontserratRegular" }}
+                variant="outlined"
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
                 }}
-              />
-              {/* <SearchIcon /> */}
+              /> */}
+              <Paper
+                component="form"
+                sx={{
+                  alignItems: "center",
+                  justifyItems: "center",
+                  display: "flex",
+                  width: "90%",
+                  height:"6vh"
+                }}
+              >
+                <InputBase
+                  sx={{ ml: 1, flex: 1 }}
+                  placeholder="Buscar"
+                  value={findTextStr}
+                  onChange={(e) => {
+                    handleChange(e.target.value);
+                  }}
+                  onKeyPress={(ev) => {
+                    if (ev.key === "Enter") {
+                      filtrarDatos();
+                      ev.preventDefault();
+                      return false;
+                    }
+                  }}
+                />
+                <IconButton
+                  type="button"
+                  sx={{ p: "10px" }}
+                  aria-label="search"
+                  onClick={() => filtrarDatos()}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </Paper>
+            
+
+            <Box
+              sx={{
+                display: "flex",
+                //gridTemplateColumns: "repeat(2, 1fr)",
+                //alignItems:"center",
+                justifyItems: "space-evenly",
+                gap: 2,
+                width: "90%",
+              }}
+            >
+              <FormControl
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  // alignItems: "center",
+                  // justifyContent: "center",
+
+                   borderRadius: 2,
+                   borderColor: "#616161",
+                   
+                }}
+              >
+                <InputLabel sx={queries.text}>
+                  Filtro por Estado de la MA
+                </InputLabel>
+                <Select
+                  size="small"
+                  fullWidth
+                  variant="outlined"
+                  label="Filtro por estado de la MA"
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  value={findSelectStr}
+                  onChange={(v) => {
+                    // v.target.value === "Todos"
+                    //   ? findText(
+                    //       findTextStr,
+                    //       "0",
+                    //       findInstStr === "Todos" ? "0" : findInstStr
+                    //     )
+                    //   : findText(findTextStr, v.target.value, findInstStr);
+                    setFindSelectStr(v.target.value);
+                  }}
+                >
+                  {estados.map((estado) => (
+                    <MenuItem key={estado} value={estado}>
+                      {estado}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  // alignItems: "center",
+                  // justifyContent: "center",
+                  // //border: 1,
+                   borderRadius: 2,
+                   borderColor: "#616161",
+                   
+                }}
+              >
+                <InputLabel sx={queries.text}>
+                  Filtro por institución
+                </InputLabel>
+                <Select
+                  size="small"
+                  variant="outlined"
+                  fullWidth
+                  label="Filtro por institución"
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  value={findInstStr}
+                  // sx={{ fontFamily: "MontserratRegular" }}
+
+                  onChange={(v) => {
+                    setFindInstStr(v.target.value);
+                  }}
+                >
+                  <MenuItem
+                    value={"Todos"}
+                    sx={{ fontFamily: "MontserratRegular" }}
+                  >
+                    Todos
+                  </MenuItem>
+
+                  {instituciones?.map((item) => {
+                    return (
+                      <MenuItem value={item.NombreInstitucion} key={item.Id}>
+                        {item.NombreInstitucion}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
             </Box>
 
-            <FormControl
-              sx={{
-                display: "flex",
-                width: "70%",
-                alignItems: "center",
-                justifyContent: "center",
-                border: 1,
-                borderRadius: 2,
-                borderColor: "#616161",
-              }}
-            >
-              <Select
-                size="small"
-                variant="standard"
-                value={findSelectStr}
-                sx={{ fontFamily: "MontserratRegular" }}
-                fullWidth
-                disableUnderline
-                onChange={(v) => {
-                  setFindSelectStr(v.target.value);
-                }}
-              >
-                <MenuItem
-                  value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  disabled
-                  selected
-                >
-                  Filtro por estado de la Meta Anual
-                </MenuItem>
-                <MenuItem
-                  value={"Todos"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Todos
-                </MenuItem>
-
-                <MenuItem
-                  value={"En Captura"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  En Captura
-                </MenuItem>
-                <MenuItem
-                  value={"En Revisión"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando Revisión
-                </MenuItem>
-                <MenuItem
-                  value={"En Autorización"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Esperando autorización
-                </MenuItem>
-                <MenuItem
-                  value={"Autorizada"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Autorizada
-                </MenuItem>
-              </Select>
-            </FormControl>
-
-            <FormControl
-              sx={{
-                display: "flex",
-                width: "70%",
-                alignItems: "center",
-                justifyContent: "center",
-                border: 1,
-                borderRadius: 2,
-                borderColor: "#616161",
-              }}
-            >
-              <Select
-                size="small"
-                variant="standard"
-                value={findInstStr}
-                sx={{ fontFamily: "MontserratRegular" }}
-                fullWidth
-                disableUnderline
-                onChange={(v) => {
-                  setFindInstStr(v.target.value);
-                }}
-              >
-                <MenuItem
-                  value={"0"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  disabled
-                  selected
-                >
-                  Filtro por institución
-                </MenuItem>
-
-                <MenuItem
-                  value={"Todos"}
-                  sx={{ fontFamily: "MontserratRegular" }}
-                >
-                  Todos
-                </MenuItem>
-
-                {instituciones?.map((item) => {
-                  return (
-                    <MenuItem value={item.NombreInstitucion} key={item.Id}>
-                      {item.NombreInstitucion}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
           </Box>
+
+
+
 
           <Box
             sx={{
@@ -747,7 +835,6 @@ export const MetaAnual = () => {
                               : row.CreadoPor.toUpperCase()}
                           </TableCell>
 
-
                           <TableCell
                             align="center"
                             sx={{
@@ -854,17 +941,14 @@ export const MetaAnual = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                              
+
                               <ComentDialogMA
                                 estado={row.Estado}
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
                               />
-
                             </Box>
                           </TableCell>
-
-
                         </TableRow>
                       ))}
                   </TableBody>

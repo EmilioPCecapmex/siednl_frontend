@@ -376,6 +376,19 @@ export const TabActividadesMA = ({
     getUnidades();
   }, []);
 
+  //Se crea funcion para encontrar indice, funciona hasta para 3 componentes y hasta para 3 actividades por componente
+  //Se realiza de está manera por formato de JSON
+ function mapeaindice(c=0,a=0){
+  let x=0;
+  //Componente 1
+  (c==0&&a==0)?x=0:(c==0&&a==1)?x=1:
+  (c==1&&a==0)?x=2:x=3;
+  
+  return x;
+ }
+  
+
+
   //return main
   return (
     <Box
@@ -525,6 +538,7 @@ export const TabActividadesMA = ({
                             }}
                           >
                             ACTIVIDAD {x + 1}
+                            
                           </ListItemButton>
                         );
                       }
@@ -559,7 +573,7 @@ export const TabActividadesMA = ({
             <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.actividades[actividadSelect - 1]?.metaAnual
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metaAnual
                   : false) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -584,7 +598,15 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              onClick={() => handleClickOpen()}
+              onClick={() => 
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metaAnual
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metaAnual !== "" ? "" :
+                handleClickOpen()
+              }
               value={
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -624,7 +646,7 @@ export const TabActividadesMA = ({
             <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.actividades[actividadSelect - 1]?.lineaBase
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.lineaBase
                   : false) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -711,14 +733,14 @@ export const TabActividadesMA = ({
               .actividades[actividadSelect].indicador.toUpperCase()
               .includes("ÍNDICE") ? (
               <TextField
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[actividadSelect - 1]?.valorNumerador
-                    : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.valorNumerador !== ""
-                }
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.valorNumerador
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.valorNumerador !== ""
+              }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -738,7 +760,15 @@ export const TabActividadesMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() => handleClickOpen()}
+                onClick={() => 
+                  (MAEdit !== ""
+                    ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.valorNumerador
+                    : false) &&
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.valorNumerador !== "" ? "" :
+                  handleClickOpen()
+                }
                 value={
                   aValorMA[0].componentes[componenteSelect].actividades[
                     actividadSelect
@@ -750,7 +780,7 @@ export const TabActividadesMA = ({
                 <TextField
                   disabled={
                     (MAEdit !== ""
-                      ? MAEdit?.actividades[actividadSelect - 1]?.valorNumerador
+                      ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.valorNumerador
                       : false) &&
                     aValorMA[0].componentes[componenteSelect].actividades[
                       actividadSelect
@@ -775,7 +805,15 @@ export const TabActividadesMA = ({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  onClick={() => handleClickOpen()}
+                  onClick={() => 
+                    (MAEdit !== ""
+                      ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.valorNumerador
+                      : false) &&
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.valorNumerador !== "" ? "" :
+                    handleClickOpen()
+                  }
                   value={
                     aValorMA[0].componentes[componenteSelect].actividades[
                       actividadSelect
@@ -785,8 +823,7 @@ export const TabActividadesMA = ({
                 <TextField
                   disabled={
                     (MAEdit !== ""
-                      ? MAEdit?.actividades[actividadSelect - 1]
-                          ?.valorDenominador
+                      ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.valorDenominador
                       : false) &&
                     aValorMA[0].componentes[componenteSelect].actividades[
                       actividadSelect
@@ -811,7 +848,15 @@ export const TabActividadesMA = ({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  onClick={() => handleClickOpen()}
+                  onClick={() => 
+                    (MAEdit !== ""
+                      ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.valorDenominador
+                      : false) &&
+                    aValorMA[0].componentes[componenteSelect].actividades[
+                      actividadSelect
+                    ]?.valorDenominador !== "" ? "" :
+                    handleClickOpen()
+                  }
                   value={
                     aValorMA[0].componentes[componenteSelect].actividades[
                       actividadSelect
@@ -824,8 +869,7 @@ export const TabActividadesMA = ({
             <FormControl
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.actividades[actividadSelect - 1]
-                      ?.sentidoDelIndicador
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.sentidoDelIndicador
                   : false) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -943,9 +987,24 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
+              disabled={
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metasPorFrecuencia[0].trimestre1
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metasPorFrecuencia[0].trimestre1 !== ""
+              }
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              onClick={() => handleClickOpen2()}
+              onClick={() => 
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metasPorFrecuencia[0].trimestre1
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metasPorFrecuencia[0].trimestre1 !== "" ? "" : handleClickOpen2()
+              }
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -970,9 +1029,24 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
+            disabled={
+              (MAEdit !== ""
+                ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metasPorFrecuencia[0].trimestre2
+                : false) &&
+              aValorMA[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.metasPorFrecuencia[0].trimestre2 !== ""
+            }
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              onClick={() => handleClickOpen2()}
+              onClick={() => 
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metasPorFrecuencia[0].trimestre2
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metasPorFrecuencia[0].trimestre2 !== "" ? "" : handleClickOpen2()
+              }
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -997,9 +1071,24 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
+            disabled={
+              (MAEdit !== ""
+                ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metasPorFrecuencia[0].trimestre3
+                : false) &&
+              aValorMA[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.metasPorFrecuencia[0].trimestre3 !== ""
+            }
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              onClick={() => handleClickOpen2()}
+              onClick={() => 
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metasPorFrecuencia[0].trimestre3
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metasPorFrecuencia[0].trimestre3 !== "" ? "" : handleClickOpen2()
+              }
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -1024,9 +1113,24 @@ export const TabActividadesMA = ({
               }}
             />
             <TextField
+            disabled={
+              (MAEdit !== ""
+                ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metasPorFrecuencia[0].trimestre4
+                : false) &&
+              aValorMA[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.metasPorFrecuencia[0].trimestre4 !== ""
+            }
               sx={{ width: "18%", boxShadow: 2 }}
               variant={"filled"}
-              onClick={() => handleClickOpen2()}
+              onClick={() => 
+                (MAEdit !== ""
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.metasPorFrecuencia[0].trimestre4
+                  : false) &&
+                aValorMA[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metasPorFrecuencia[0].trimestre4 !== "" ? "" : handleClickOpen2()
+              }
               label={
                 <Typography
                   sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -1078,15 +1182,14 @@ export const TabActividadesMA = ({
             noOptionsText="Sin opciones"
             closeText="Cerrar"
             openText="Abrir"
-                  disabled={
-                    (MAEdit !== ""
-                      ? MAEdit?.actividades[actividadSelect - 1]
-                          ?.unidadResponsable
-                      : false) &&
-                    aValorMA[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ]?.unidadResponsable !== ""
-                  }
+            disabled={
+              (MAEdit !== ""
+                ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.unidadResponsable
+                : false) &&
+              aValorMA[0].componentes[componenteSelect].actividades[
+                actividadSelect
+              ]?.unidadResponsable !== ""
+            }
                   options={catalogoUnidadResponsable}
                   getOptionLabel={(option) => option.Unidad || ""}
                   value={{
@@ -1144,7 +1247,7 @@ export const TabActividadesMA = ({
             <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.actividades[actividadSelect - 1]?.descIndicador
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.descIndicador
                   : false) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -1200,7 +1303,7 @@ export const TabActividadesMA = ({
             <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.actividades[actividadSelect - 1]?.descNumerador
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.descNumerador
                   : false) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect
@@ -1246,7 +1349,7 @@ export const TabActividadesMA = ({
             <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.actividades[actividadSelect - 1]?.descDenominador
+                  ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.descDenominador
                   : false) &&
                 aValorMA[0].componentes[componenteSelect].actividades[
                   actividadSelect

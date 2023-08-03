@@ -17,14 +17,12 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
-
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
-import { IIUserXInst } from "./ModalEnviarMIR";
+import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
 
-
-export const ComentDialogMir = ({
+export const ComentDialogMA = ({
   estado,
   id,
   actualizado,
@@ -98,7 +96,6 @@ export const ComentDialogMir = ({
     }
   }, [open]);
 
-
   const [coment, setComent] = React.useState("");
 
   const enviarNotificacion = (v: string) => {
@@ -106,7 +103,7 @@ export const ComentDialogMir = ({
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: v,
-        Titulo: "Nuevo comentario MIR",
+        Titulo: "Nuevo comentario RAFFI",
         Mensaje: coment,
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
@@ -118,7 +115,7 @@ export const ComentDialogMir = ({
     );
   };
 
-  const comentMir = () => {
+  const comentMa = () => {
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
@@ -126,7 +123,7 @@ export const ComentDialogMir = ({
           IdMir: id,
           Coment: coment,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA:'MIR'
+          MIR_MA: "MA",
         },
         {
           headers: {
@@ -141,18 +138,17 @@ export const ComentDialogMir = ({
             enviarNotificacion(user.IdUsuario);
           });
         }
-        //AlertBox need return a variable equal to 1 here.
+
         setNewComent(false);
         setComent("");
         handleClose();
         actualizado();
         Toast.fire({
           icon: "success",
-          title: "Comentario añadidoa",
+          title: "Comentario añadido",
         });
       })
       .catch((err) => {
-        
         Toast.fire({
           icon: "error",
           title: "Se produjo un error",
@@ -162,18 +158,17 @@ export const ComentDialogMir = ({
 
   React.useEffect(() => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
-      params: {
-        IdMir: id,
-      },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      
-      setComents(r.data.data);
-    });
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+        params: {
+          IdMir: id,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setComents(r.data.data);
+      });
   }, [actualizado, id]);
 
   const isComentEmpty = () => {
@@ -255,7 +250,7 @@ export const ComentDialogMir = ({
                 <TableBody>
                   {coments.length >= 1 && !coments[0]?.error ? (
                     coments.map((row, index) =>
-                      row.MIR_MA === "MIR" ? (
+                      row.MIR_MA === "MA" ? (
                         <TableRow key={index}>
                           <TableCell
                             sx={{
@@ -285,7 +280,9 @@ export const ComentDialogMir = ({
                             {moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
+                            
                           </TableCell>
+                          
                         </TableRow>
                       ) : null
                     )
@@ -308,22 +305,24 @@ export const ComentDialogMir = ({
               </Table>
             </TableContainer>
           </Box>
-         
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-              <TextField
-                multiline
-                rows={3}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "30vw" }}
-                placeholder="Añada un comentario para poder Agregar"
-                onChange={(v) => setComent(v.target.value)}
-              ></TextField>
-            </Box>
-        
+
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+            <TextField
+              multiline
+              rows={3}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              sx={{ width: "30vw" }}
+              placeholder="Añada un comentario para poder Agregar"
+              onChange={(v) => {
+                setComent(v.target.value);
+              }}
+            ></TextField>
+          </Box>
+
           <Box
             sx={{
               display: "flex",
@@ -344,7 +343,7 @@ export const ComentDialogMir = ({
               <Button
                 sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
-             
+               
                 onClick={handleClose}
               >
                 <Typography
@@ -353,14 +352,15 @@ export const ComentDialogMir = ({
                   Cancelar
                 </Typography>{" "}
               </Button>
+
               <Button
-                 sx={queries.buttonContinuarSolicitudInscripcion}
+                sx={queries.buttonContinuarSolicitudInscripcion}
                 variant="contained"
                 disabled={estado === "Autorizada" && isComentEmpty()}
-                color="info"
+                //color="info"
                 onClick={() => {
                   if (isComentEmpty()) {
-                    comentMir();
+                    comentMa();
                   }
                 }}
               >
@@ -378,4 +378,4 @@ export const ComentDialogMir = ({
   );
 };
 
-export default ComentDialogMir;
+export default ComentDialogMA;

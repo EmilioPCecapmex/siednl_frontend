@@ -174,6 +174,11 @@ export const TabComponenteMA = ({
   };
 
   const handleClickOpen2 = () => {
+    setFrecuencia(
+      JSON.parse(MIR).componentes[
+        componentSelect - 1
+      ].frecuencia?.toLowerCase()
+    );
     setTipoFormula(
       JSON.parse(MIR)
         .componentes[componentSelect - 1].indicador.toUpperCase()
@@ -459,7 +464,11 @@ export const TabComponenteMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              onClick={() => handleClickOpen()}
+              onClick={() => (MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].metaAnual
+                : false) &&
+                componentesValues[componentSelect - 1]?.metaAnual !== ""
+                ? "" : handleClickOpen()}
               value={componentesValues[componentSelect - 1]?.metaAnual || ""}
               error={
                 parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
@@ -583,7 +592,11 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() => handleClickOpen()}
+                onClick={() => (MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].valorNumerador
+                : false) &&
+                componentesValues[componentSelect - 1]?.valorNumerador!== ""
+                ? "" : handleClickOpen()}
                 value={
                   componentesValues[componentSelect - 1]?.valorNumerador || ""
                 }
@@ -617,7 +630,11 @@ export const TabComponenteMA = ({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  onClick={() => handleClickOpen()}
+                  onClick={() => (MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].valorNumerador
+                : false) &&
+                componentesValues[componentSelect - 1]?.valorNumerador !== ""
+                ? "" : handleClickOpen()}
                   value={
                     componentesValues[componentSelect - 1]?.valorNumerador || ""
                   }
@@ -650,7 +667,11 @@ export const TabComponenteMA = ({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  onClick={() => handleClickOpen()}
+                  onClick={() => (MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].valorDenominador
+                : false) &&
+                componentesValues[componentSelect - 1]?.valorDenominador !== ""
+                ? "" : handleClickOpen()}
                   value={
                     componentesValues[componentSelect - 1]?.valorDenominador ||
                     ""
@@ -776,16 +797,20 @@ export const TabComponenteMA = ({
               }}
             >
               <TextField
+                disabled={(MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre1
+                : false) &&
+                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1!== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() => {
-                  setFrecuencia(
-                    JSON.parse(MIR).componentes[
-                      componentSelect - 1
-                    ].frecuencia?.toLowerCase()
-                  );
-                  handleClickOpen2();
-                }}
+                onClick={() => 
+                  (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre1
+                  : false) &&
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1!== ""
+                  ? "" : handleClickOpen2()
+                }
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -810,16 +835,20 @@ export const TabComponenteMA = ({
               />
 
               <TextField
+                disabled={(MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre2
+                : false) &&
+                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2!== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() => {
-                  setFrecuencia(
-                    JSON.parse(MIR).componentes[
-                      componentSelect - 1
-                    ].frecuencia?.toLowerCase()
-                  );
-                  handleClickOpen2();
-                }}
+                onClick={() => 
+                  (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre2
+                  : false) &&
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2!== ""
+                  ? "" : handleClickOpen2()
+                }
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -843,16 +872,20 @@ export const TabComponenteMA = ({
                 }}
               />
               <TextField
+                disabled={(MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre3
+                : false) &&
+                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3!== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() => {
-                  setFrecuencia(
-                    JSON.parse(MIR).componentes[
-                      componentSelect - 1
-                    ].frecuencia?.toLowerCase()
-                  );
-                  handleClickOpen2();
-                }}
+                onClick={() => 
+                  (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre3
+                  : false) &&
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3!== ""
+                  ? "" : handleClickOpen2()
+                }
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -876,16 +909,20 @@ export const TabComponenteMA = ({
                 }}
               />
               <TextField
+                disabled={(MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre4
+                : false) &&
+                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4!== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() => {
-                  setFrecuencia(
-                    JSON.parse(MIR).componentes[
-                      componentSelect - 1
-                    ].frecuencia?.toLowerCase()
-                  );
-                  handleClickOpen2();
-                }}
+                onClick={() => 
+                  (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre4
+                  : false) &&
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4!== ""
+                  ? "" : handleClickOpen2()
+                }
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -921,16 +958,20 @@ export const TabComponenteMA = ({
               }}
             >
               <TextField
+                disabled={(MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].semestre1
+                : false) &&
+                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1!== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() => {
-                  setFrecuencia(
-                    JSON.parse(MIR).componentes[
-                      componentSelect - 1
-                    ].frecuencia?.toLowerCase()
-                  );
-                  handleClickOpen2();
-                }}
+                onClick={() => 
+                  (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].semestre1
+                  : false) &&
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1!== ""
+                  ? "" : handleClickOpen2()
+                }
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
@@ -954,16 +995,20 @@ export const TabComponenteMA = ({
                 }}
               />
               <TextField
+                disabled={(MAEdit !== ""
+                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].semestre2
+                : false) &&
+                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2!== ""
+                }
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() => {
-                  setFrecuencia(
-                    JSON.parse(MIR).componentes[
-                      componentSelect - 1
-                    ].frecuencia?.toLowerCase()
-                  );
-                  handleClickOpen2();
-                }}
+                onClick={() => 
+                  (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].semestre2
+                  : false) &&
+                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2!== ""
+                  ? "" : handleClickOpen2()
+                }
                 label={
                   <Typography
                     sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
