@@ -19,7 +19,9 @@ export const sessionValid = () => {
         },
       }
     )
+    
     .then((r) => {
+      
       if (r.status === 200) {
         localStorage.setItem("sUntil", r.data.expDateTime);
         localStorage.setItem("jwtToken", jt);
@@ -139,9 +141,11 @@ const siednlSignUp = (
 };
 
 export const continueSession = () => {
+  console.log(localStorage.getItem("jwtToken"))
   return axios
     .post(
       process.env.REACT_APP_APPLICATION_LOGIN + "/api/verify",
+      
       {},
       {
         headers: {
@@ -152,6 +156,7 @@ export const continueSession = () => {
     )
     .then((r) => {
       if (r.status === 200) {
+        
         localStorage.setItem("sUntil", r.data.expDateTime);
         localStorage.setItem("validation", "true");
         if (r.data.data.IdUsuario) {
@@ -160,6 +165,7 @@ export const continueSession = () => {
         } else {
           getUserDetails(localStorage.getItem("IdCentral") as string);
         }
+        console.log("ab");
         return true;
       }
     })

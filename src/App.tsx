@@ -36,6 +36,7 @@ function App() {
 
   useLayoutEffect(() => {
     if (jt !== null) {
+
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
           window.location.assign(
@@ -50,6 +51,7 @@ function App() {
       });
     } else {
       continueSession().then((r) => {
+
         if ((r as boolean) === false) {
           window.location.assign(
             process.env.REACT_APP_APPLICATION_FRONT_LOGIN || ""

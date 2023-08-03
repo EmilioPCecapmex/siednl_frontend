@@ -298,11 +298,10 @@ export const Raffi = () => {
         <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
 
-      <Grid
+      <Grid item
         justifyContent={"center"}
         display={"flex"}
         container
-        item
         xl={10.2}
         lg={9.9}
         md={9.4}
@@ -344,6 +343,7 @@ export const Raffi = () => {
                 xl={12}
                 lg={12}
                 md={12}
+                item
                 container
                 direction="row"
                 justifyContent="space-around"
@@ -403,6 +403,7 @@ export const Raffi = () => {
               </Grid>
 
               <Grid
+              item
                 xl={12}
                 lg={12}
                 md={12}
@@ -560,7 +561,8 @@ export const Raffi = () => {
                               component="th"
                               scope="row"
                             >
-                              {row.Institucion.toUpperCase()}
+                              {row.Institucion}
+                              {/* {row.Institucion.toUpperCase()} */}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -572,7 +574,8 @@ export const Raffi = () => {
                               component="th"
                               scope="row"
                             >
-                              {row.Programa.toUpperCase()}
+                              {row.Programa}
+                              {/* {row.Programa.toUpperCase()} */}
                             </TableCell>
                             
                             <TableCell
@@ -621,7 +624,8 @@ export const Raffi = () => {
                               component="th"
                               scope="row"
                             >
-                              {row.CreadoPor.toUpperCase()}
+                              {row.CreadoPor}
+                              {/* {row.CreadoPor.toUpperCase()} */}
                             </TableCell>
                             <TableCell
                               sx={{

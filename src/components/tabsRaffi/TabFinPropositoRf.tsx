@@ -22,23 +22,27 @@ import {
   TextField,
   InputLabel,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { queries } from "../../queries";
 import { IMIR } from "../tabsMir/IMIR";
 import { IFinRF, IPropositoRF } from "../../screens/raffi/interfacesRaffi";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
-
+import { useEffect, useState } from "react";
 import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
 export function TabFinPropositoRF({
   resumenPropositoRF,
   resumenFinRF,
   MIR,
   RF,
+  showMirFnc,
+  setTxtShowFnc,
 }: {
   resumenPropositoRF: Function;
   resumenFinRF: Function;
   MIR: string;
   RF: string;
+  showMirFnc: Function
+  setTxtShowFnc: Function
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
 
@@ -174,6 +178,56 @@ export function TabFinPropositoRF({
           alignItems: "center",
         }}
       >
+
+
+
+<Grid container item sx={{display:"flex",justifyContent:"flex-end"}}>
+          <Tooltip title="RESUMEN COMPONENTE">
+            <InfoOutlinedIcon
+              onClick={() => {
+                showMirFnc(true);
+                setTxtShowFnc("Fin");
+              }}
+              fontSize="large"
+              sx={{ cursor: "pointer" }}
+            ></InfoOutlinedIcon>
+          </Tooltip>
+            <Typography
+              sx={{
+                mr: "1vw",
+                fontFamily: "MontserratSemiBold",
+                fontSize: "1.5vw",
+              }}
+            >
+                    FIN /
+                  </Typography>
+
+
+                  <Tooltip title="RESUMEN COMPONENTE">
+            <InfoOutlinedIcon
+              onClick={() => {
+                showMirFnc(true);
+                setTxtShowFnc("Proposito");
+              }}
+              fontSize="large"
+              sx={{ cursor: "pointer" }}
+            ></InfoOutlinedIcon>
+          </Tooltip>
+            <Typography
+              sx={{
+                mr: "1vw",
+                fontFamily: "MontserratSemiBold",
+                fontSize: "1.5vw",
+              }}
+            >
+                    PROPÓSITO
+                  </Typography>
+          </Grid>
+
+
+          
+
+
         <Grid
           item
           lg={5}

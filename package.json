@@ -59,8 +59,9 @@
     ]
   },
   "devDependencies": {
+    "@jest/globals": "^29.5.0",
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/uuid": "^9.0.0",
-    "@types/validator": "^13.7.17"
+    "ts-jest": "^29.1.0"
   }
 }

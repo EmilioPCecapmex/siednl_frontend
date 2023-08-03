@@ -13,7 +13,6 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { queries } from "../../queries";
 
 export let errores: string[] = [];
 
@@ -88,7 +87,7 @@ export default function ModalSolicitaModif({
       /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Meta anual sin información");
+      errores.push("<strong>Fin</strong>: RAFFI sin información");
     }
     if (
       JSON.parse(MA)?.fin.lineaBase === undefined ||
@@ -104,15 +103,9 @@ export default function ModalSolicitaModif({
       err = 1;
       errores.push("<strong>Fin</strong>: Valor del numerador sin información");
     }
-
     if (
-      !JSON.parse(MIR)
-        .fin.indicador.toLowerCase()
-        .includes(
-          "indice" || "índice" || "INDICE" || "ÍNDICE" || "Índice" || "Indice"
-        ) &&
-      (JSON.parse(MA)?.fin.valorDenominador === undefined ||
-        /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
+      JSON.parse(MA)?.fin.valorDenominador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador)
     ) {
       err = 1;
       errores.push(
@@ -173,7 +166,7 @@ export default function ModalSolicitaModif({
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Proposito</strong>: Meta Anual sin información");
+      errores.push("<strong>Proposito</strong>: RAFFI sin información");
     }
     if (
       JSON.parse(MA)?.proposito.lineaBase === undefined ||
@@ -192,11 +185,8 @@ export default function ModalSolicitaModif({
       );
     }
     if (
-      !JSON.parse(MIR)
-        .proposito.indicador.toLowerCase()
-        .includes("indice" || "índice") &&
-      (JSON.parse(MA)?.proposito.valorDenominador === undefined ||
-        /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador))
+      JSON.parse(MA)?.proposito.valorDenominador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador)
     ) {
       err = 1;
       errores.push(
@@ -263,7 +253,7 @@ export default function ModalSolicitaModif({
         errores.push(
           `<strong> Componente ${
             index + 1
-          } </strong>: Meta anual sin información.`
+          } </strong>: RAFFI sin información.`
         );
       }
 
@@ -312,8 +302,8 @@ export default function ModalSolicitaModif({
       }
       if (
         JSON.parse(MIR)
-          .componentes[index].indicador.toLowerCase()
-          .includes("índice" || "indice") &&
+          .fin.indicador.toLowerCase()
+          .includes("indice" || "índice") &&
         (componente.valorDenominador === undefined ||
           /^[\s]*$/.test(componente.valorDenominador))
       ) {
@@ -394,7 +384,7 @@ export default function ModalSolicitaModif({
         /^[\s]*$/.test(actividad.metaAnual)
       ) {
         errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+          `<strong> Actividad ${actividad.actividad} </strong>: RAFFI sin información.`
         );
         err = 1;
       }
@@ -514,7 +504,6 @@ export default function ModalSolicitaModif({
   };
   ///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
-    console.log("IdMIR: ", IdMIR);
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
     } else if (estado === "En Autorización" && userSelected !== "0") {
@@ -537,7 +526,6 @@ export default function ModalSolicitaModif({
           Estado: estado,
           Id: IdMA,
         },
-
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -545,9 +533,6 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
-        console.log("IdMIR: ", IdMIR);
-        console.log("r: ", r);
-
         if (comment !== "") {
           comentMA(IdMIR);
         }
@@ -555,8 +540,8 @@ export default function ModalSolicitaModif({
           icon: "success",
           title:
             localStorage.getItem("Rol") === "Verificador"
-              ? "Meta anual enviada a capturador para corrección"
-              : "Meta anual enviada a revisión",
+              ? "RAFFI enviada a capturador para corrección"
+              : "RAFFI enviada a revisión",
         });
 
         enviarNotificacion();
@@ -572,40 +557,22 @@ export default function ModalSolicitaModif({
   };
 
   useEffect(() => {
-    let tipousuario = "";
-
-    if (localStorage.getItem("Rol") === "Capturador")
-      tipousuario = "Verificador";
-      console.log(tipousuario);
-    if (localStorage.getItem("Rol") === "Verificador")
-      tipousuario = "Verificador";
-    if (localStorage.getItem("Rol") === "Administrador")
-      tipousuario = "VERIFICADOR_CAPTURADOR";
-
-    
-
     if (open) {
       axios
         .get(
-          process.env.REACT_APP_APPLICATION_BACK +
-            "/api/tipoDeUsuarioXInstitucion",
+          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
           {
             params: {
-              TipoUsuario: tipousuario,
+              IdUsuario: localStorage.getItem("IdUsuario"),
               Institucion: JSON.parse(MIR)?.encabezado?.institucion,
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
             },
           }
-          
         )
-        
         .then((r) => {
-          console.log("a");
           if (r.status === 200) {
-           
-
             setUserXInst(r.data.data);
           }
         });
@@ -629,7 +596,7 @@ export default function ModalSolicitaModif({
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: userSelected,
-        Titulo: "Meta Anual",
+        Titulo: "RAFFI",
         Mensaje: "Se le ha solicitado una modificación.",
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
@@ -695,11 +662,7 @@ export default function ModalSolicitaModif({
               sx={{ fontFamily: "MontserratRegular" }}
               fullWidth
               value={userSelected}
-              onChange={(v) => (
-                setUserSelected(v.target.value),
-                console.log("userSelected", userSelected),
-                console.log("v.target.value", v.target.value)
-              )}
+              onChange={(v) => setUserSelected(v.target.value)}
               disableUnderline
             >
               <MenuItem value={"0"} disabled>
@@ -744,20 +707,20 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ ...queries.buttonCancelarSolicitudInscripcion, display: "flex", width: "15vw" }}
+              sx={{ display: "flex", width: "10vw" }}
               variant="contained"
-              
+              color="error"
               onClick={() => handleClose()}
             >
-              <Typography >
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
                 Cancelar
               </Typography>
             </Button>
 
             <Button
-              sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "15vw"}}
-              //variant="contained"
-              
+              sx={{ display: "flex", width: "10vw" }}
+              variant="contained"
+              color="primary"
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -769,13 +732,10 @@ export default function ModalSolicitaModif({
                 handleClose();
               }}
             >
-              <Typography 
-              //sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "10vw"}}
-              >
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
                 {comment === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>
-
           </Box>
         </Box>
       </DialogContent>
