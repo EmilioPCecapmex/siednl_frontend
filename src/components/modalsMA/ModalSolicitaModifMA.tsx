@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { queries } from "../../queries";
+
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -740,20 +741,20 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ display: "flex", width: "10vw" }}
+              sx={{ ...queries.buttonCancelarSolicitudInscripcion, display: "flex", width: "15vw" }}
               variant="contained"
-              color="error"
+              
               onClick={() => handleClose()}
             >
-              <Typography sx={{  fontFamily: "MontserratMedium" }}>
+              <Typography >
                 Cancelar
               </Typography>
             </Button>
 
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="primary"
+              sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "15vw"}}
+              //variant="contained"
+              
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -765,10 +766,13 @@ export default function ModalSolicitaModif({
                 handleClose();
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography 
+              //sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "10vw"}}
+              >
                 {comment === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>
+
           </Box>
         </Box>
       </DialogContent>

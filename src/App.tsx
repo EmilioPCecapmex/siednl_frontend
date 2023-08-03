@@ -17,6 +17,7 @@ import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { createTheme } from "@mui/material/styles";
+import { ProgramaAnualEvaluacion } from "./screens/programaAnauldeEvaluacion/ProgramaAnualdeEvaluacion";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Raffi } from "./screens/raffi/Raffi";
 export const appTheme = createTheme({
@@ -76,9 +77,15 @@ function App() {
             path="Institutionalactivities"
             element={<ActividadesInstitucionales />}
           />
+         
           <Route path="mir" element={<MIR />} />
           <Route path="metaAnual" element={<MetaAnual />} />
           <Route path="raffi" element={<Raffi />} />
+          <Route
+            path="programaAnualEvaluacion"
+            element={< ProgramaAnualEvaluacion />}
+          />
+   
           <Route path="notifications" element={<Notification />} />
         </Routes>
       </CssBaseline>

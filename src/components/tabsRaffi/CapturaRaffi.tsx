@@ -7,7 +7,7 @@ import { TabActividadRf } from "./TabsActividadesRf";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
 import { TabResumenRF } from "./TabResumenRF";
-import { IAvanceFinancieroRF } from "../../screens/raffi/interfacesRaffi";
+import { IAvanceFinancieroRF, IPropositoRF, IFinRF } from "../../screens/raffi/interfacesRaffi";
 export default function CapturaRaffi({
   MIR,
   MA,
@@ -45,8 +45,22 @@ export default function CapturaRaffi({
     []
   );
 
+  const [ValueFin, setValueFin] = useState<Array<IFinRF>>(
+    []
+  );
+
+  const [ValueProposito, setValueProposito] = useState<Array<IPropositoRF>>([]);
+
   const resumenAvanceFinancieroRf =(st: Array<IAvanceFinancieroRF>) =>{
     setAvanceFinanciero(st);
+  };
+
+  const resumenFinRF = (st: Array<IFinRF>) => {
+    setValueFin(st);
+  };
+
+  const resumenPropositoRF = (st: Array<IPropositoRF>) => {
+    setValueProposito(st);
   };
 
   return (
@@ -182,7 +196,11 @@ export default function CapturaRaffi({
           RF={RF}
           />}
 
-          {value === 20 && <TabFinPropositoRF />}
+          {value === 20 && <TabFinPropositoRF
+          resumenFinRF ={resumenFinRF}
+          resumenPropositoRF={resumenPropositoRF}
+          MIR={MIR}
+          RF={RF} />}
 
           {value === 30 && <TabComponenteRf />}
 

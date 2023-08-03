@@ -293,6 +293,7 @@ export const Raffi = () => {
 
   return (
     <Grid container direction="row" height={"100vh"} width={"100vw"}>
+
       <Grid item height={"100vh"}>
         <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
@@ -484,6 +485,10 @@ export const Raffi = () => {
                   </FormControl>
                 </Grid>
               </Grid>
+
+
+
+
             </Grid>
             {/* TABLA */}
             <Grid
@@ -523,6 +528,7 @@ export const Raffi = () => {
                       ))}
                     </TableRow>
                   </TableHead>
+
                   <TableBody>
                     {rfxFiltered
                       .slice(
@@ -568,6 +574,7 @@ export const Raffi = () => {
                             >
                               {row.Programa.toUpperCase()}
                             </TableCell>
+                            
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
@@ -715,6 +722,7 @@ export const Raffi = () => {
                 </Table>
               </TableContainer>
             </Grid>
+
           </>
         ) : (
           <CapturaRaffi
@@ -728,6 +736,7 @@ export const Raffi = () => {
           />
         )}
       </Grid>
+
     </Grid>
   );
 };

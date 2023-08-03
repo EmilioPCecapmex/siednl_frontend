@@ -20,10 +20,12 @@ import { PED } from "./PED";
 
 export const AddDialogCatalogo = ({
   catalogo,
+  select,
   tabla,
   actualizado,
 }: {
   catalogo: string;
+  select: string;
   tabla: string;
   actualizado: Function;
 }) => {
@@ -312,6 +314,21 @@ export const AddDialogCatalogo = ({
       );
   };
 
+  const validarNumero = (dato: string, state: any) => {
+    console.log("Entre");
+    console.log("dato: ",dato);
+    console.log("state: ",state);
+    
+    if (/^[0-9]+$/.test(dato)) {
+      console.log("dato en el if : ",dato);
+      
+      return dato;
+    } else if (dato.length === 0) {
+      return "";
+    }
+    return state;
+  };
+
   if (tabla === "FechasDeCaptura") {
     return (
       <Box sx={{ display: "flex" }}>
@@ -403,7 +420,10 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              onClick={handleClose}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -411,7 +431,11 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogoFechas} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={CreatePorCatalogoFechas}
+              autoFocus
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -558,7 +582,11 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button sx ={queries.buttonCancelarSolicitudInscripcion} color="error" onClick={handleClose}>
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              color="error"
+              onClick={handleClose}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -566,7 +594,11 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button sx ={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogoProgramaInstitucion} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={CreatePorCatalogoProgramaInstitucion}
+              autoFocus
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -713,7 +745,10 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              onClick={handleClose}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -721,7 +756,11 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogoInstitucionUnidadAdmin} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={CreatePorCatalogoInstitucionUnidadAdmin}
+              autoFocus
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -878,7 +917,11 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button sx ={queries.buttonCancelarSolicitudInscripcion} color="error" onClick={handleClose}>
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              color="error"
+              onClick={handleClose}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -886,7 +929,11 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button sx ={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogoProgramap} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={CreatePorCatalogoProgramap}
+              autoFocus
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -919,8 +966,7 @@ export const AddDialogCatalogo = ({
               flexDirection: "column",
               borderBottom: 0.5,
               borderColor: "#ccc",
-              
-              
+
               boxShadow: 1,
             }}
           >
@@ -948,8 +994,24 @@ export const AddDialogCatalogo = ({
               label={"Descripción"}
               variant="outlined"
               multiline={descripcion.length < 200 ? false : true}
-              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
-              onChange={(v) => setDescripcion(v.target.value)}
+              sx={
+                descripcion.length < 200 ? { width: "60%" } : { width: "80%" }
+              }
+              value={descripcion}
+              onChange={(v) => {
+                let valor = v.target.value;
+
+                if (select === "Años Fiscales") {
+                  let numeroValido = validarNumero(valor, descripcion);
+                  setDescripcion(numeroValido);
+                } else {
+                  setDescripcion(valor);
+                }
+
+                console.log(v.target.value);
+                console.log(valor);
+                console.log(select);
+              }}
               style={{ marginTop: 1 }}
               rows={3}
               InputLabelProps={{
@@ -972,7 +1034,10 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              onClick={handleClose}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -980,7 +1045,11 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
 
-            <Button  sx={queries.buttonContinuarSolicitudInscripcion} onClick={CreatePorCatalogo} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={CreatePorCatalogo}
+              autoFocus
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >

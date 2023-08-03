@@ -19,14 +19,148 @@ import {
   FormControlLabel,
   Typography,
   Grid,
-  InputBase,
+  TextField,
   InputLabel,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { queries } from "../../queries";
+import { IMIR } from "../tabsMir/IMIR";
+import { IFinRF, IPropositoRF } from "../../screens/raffi/interfacesRaffi";
+import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 
-const fecha = ["2021", "2022", "2023", "2024", "2025", "2026", "2027"];
+import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
+export function TabFinPropositoRF({
+  resumenPropositoRF,
+  resumenFinRF,
+  MIR,
+  RF,
+}: {
+  resumenPropositoRF: Function;
+  resumenFinRF: Function;
+  MIR: string;
+  RF: string;
+}) {
+  const jsonMir: IMIR = JSON.parse(MIR);
 
-export const TabFinPropositoRF = () => {
+  const [fin, setFin] = useState<IFinRF>({
+    AñoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+    ValorAvanceFisico: "",
+  });
+
+  const [proposito, setProposito] = useState<IPropositoRF>({
+    AñoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+    ValorAvanceFisico: "",
+  });
+
+  const [propositoNumerodador, setPropositoNumerdaor] = useState(0);
+  const [pfinNumerodador, setFinNumerdaor] = useState(0);
+
+  const [propositoDenominador, setPropositoDenominador] = useState(0);
+  const [pfinDenominador, setFinDenominador] = useState(0);
+
+  // Estados para almacenar las palabras a buscar en los TextField
+  const [palabraABuscar1, setPalabraABuscar1] = useState(""); // Para Fin
+  const [palabraABuscar2, setPalabraABuscar2] = useState(""); //Para Propostio
+  const [unico, setUnico] = useState("");
+  const [apartado, SetApartado] = useState("");
+
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+
+  const handleClickOpen = () => {
+    setOpenFormulaDialog(true);
+  };
+  // Función para buscar la palabra
+  const palabra = (texto: string) => {
+    const palabrasABuscar: string[] = [
+      "PORCENTAJE",
+      "INDICE",
+      "PROMEDIO",
+      "TASA",
+    ];
+
+    for (const palabraABuscar of palabrasABuscar) {
+      if (texto.toLowerCase().includes(palabraABuscar.toLowerCase())) {
+        return palabraABuscar; // Devolver la palabra encontrada
+      }
+    }
+    return "No existo"; // Devolver "No existo" si ninguna palabra se encontró
+  };
+
+  // useEffect para ejecutar palabra() para ambas variables al cargar el componente
+  useEffect(() => {
+    const palabraEncontrada1 = palabra(jsonMir.fin.indicador); // Buscar palabra en el primer texto
+    const palabraEncontrada2 = palabra(jsonMir.proposito.indicador); // Buscar palabra en el segundo texto
+    setPalabraABuscar1(palabraEncontrada1); // Almacenar la palabra encontrada en el primer estado
+    setPalabraABuscar2(palabraEncontrada2); // Almacenar la palabra encontrada en el segundo estado
+  }, []);
+
+  console.log(jsonMir.proposito.indicador);
+
+  useEffect(() => {
+    resumenPropositoRF(proposito);
+  }, [resumenPropositoRF]);
+
+  useEffect(() => {
+    resumenFinRF(fin);
+  }, [resumenFinRF]);
+
+  const assignValue = (valor: string, elemento: string, tipo: string) => {
+    console.log("valor: ",valor);
+    console.log("elemento: ",elemento);
+    console.log("tipo: ",tipo);
+
+    switch (tipo) {
+      
+      
+      case "FIN":
+        switch (elemento) {
+          case "PORCENTAJE":
+            console.log("valor: ",valor);
+            setFin({ ...fin, ValorAvanceFisico: valor });
+            break;
+          case "INDICE":
+            console.log("valor: ",valor);
+            setFin({ ...fin, ValorAvanceFisico: valor });
+            break;
+          case "PROMEDIO":
+            console.log("valor: ",valor);
+            setFin({ ...fin, ValorAvanceFisico: valor });
+            break;
+          case "TASA":
+            console.log("valor: ",valor);
+            setFin({ ...fin, ValorAvanceFisico: valor });
+            break;
+        }
+
+        break;
+      case "PROPOSITO":
+        switch (elemento) {
+          case "PORCENTAJE":
+            console.log("valor: ",valor);
+            setProposito({ ...proposito, ValorAvanceFisico: valor });
+            break;
+          case "INDICE":
+            console.log("valor: ",valor);
+            setProposito({ ...proposito, ValorAvanceFisico: valor });
+            break;
+          case "PROMEDIO":
+            console.log("valor: ",valor);
+            
+            setProposito({ ...proposito, ValorAvanceFisico: valor });
+            break;
+          case "TASA":
+            console.log("valor: ",valor);
+            setProposito({ ...proposito, ValorAvanceFisico: valor });
+            break;
+        }
+        break;
+    }
+  };
+
   return (
     <>
       <Grid
@@ -37,7 +171,7 @@ export const TabFinPropositoRF = () => {
         sx={{
           height: "100%",
           justifyContent: "space-around",
-          //alignItems: "center",
+          alignItems: "center",
         }}
       >
         <Grid
@@ -47,199 +181,97 @@ export const TabFinPropositoRF = () => {
             justifyContent: "center",
             display: "flex",
             flexDirection: "column",
-            
           }}
         >
-         
-            <Typography sx={{ ...queries.bold_text, width: "100%", paddingBottom: "10px"  }}>
-              Fin
-            </Typography>
-          
+          <Typography sx={{ ...queries.bold_text, width: "100%" }}>
+            Fin
+          </Typography>
 
           <Grid
             item
             lg={12}
+            container
+            direction={"column"}
             sx={{
               //backgroundColor: "#f0f0f0",
               display: "flex",
               //flexDirection: "column",
-              //alignItems: "center",
+              alignItems: "center",
               justifyContent: "center",
-              //boxShadow: 2,
-              //border: "1px solid #ccc",
-              //height: "45vh",
-              
+              boxShadow: 2,
+              border: "1px solid #ccc",
+              height: "45vh",
             }}
           >
-            {/* <FormControl  >
-              <FormLabel
-              
-                sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
-                }}
-              >
-                Avance Fisico
-              </FormLabel>
-              <Grid
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyItems: "center",
-                }}
-              >
-                <FormControlLabel
-                  value={"2021"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2021
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-
-                <FormControlLabel
-                  value={"2022"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2022
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-
-                <FormControlLabel
-                  value={"2023"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2023
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2024"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2024
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2025"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2025
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2026"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2026
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2027"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2027
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-              </Grid>
-            </FormControl> */}
-            <FormControl fullWidth>
-              <InputLabel sx={queries.text}>Año del Avance Fisico</InputLabel>
-              <Select
-                size="small"
+            <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
+              <TextField
                 fullWidth
-                variant="outlined"
+                size="small"
                 label="Año del Avance Fisico"
-                sx={{ fontFamily: "MontserratRegular" }}
-                //value={findSelectStr}
-                onChange={(v) => {
-                  // v.target.value === "Todos"
-                  //   ? findText(
-                  //       findTextStr,
-                  //       "0",
-                  //       findInstStr === "Todos" ? "0" : findInstStr
-                  //     )
-                  //   : findText(findTextStr, v.target.value, findInstStr);
-                  // setFindSelectStr(v.target.value);
+                value={jsonMir.encabezado.ejercicioFiscal}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
                 }}
-              >
-                {fecha.map((fecha) => (
-                  <MenuItem key={fecha} value={fecha}>
-                    {fecha}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                InputProps={{
+                  //readOnly: true,
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
+              <TextField
+                fullWidth
+                size="small"
+                //label="Operacion"
+
+                value={palabraABuscar1}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  //readOnly: true,
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
+              <TextField
+                fullWidth
+                size="small"
+                label="Valor del Avance Fisico"
+                onClick={(a) => {
+                  SetApartado("FIN");
+                  setUnico(palabraABuscar1);
+                  console.log("fin.ValorAvanceFisico: ",fin.ValorAvanceFisico);
+                  handleClickOpen();
+                  
+                  
+                }}
+                value={fin.ValorAvanceFisico}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  //readOnly: true,
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+              />
+            </Grid>
           </Grid>
-          
         </Grid>
 
         <Grid
@@ -251,15 +283,15 @@ export const TabFinPropositoRF = () => {
             flexDirection: "column",
           }}
         >
-          <Grid item sx={{ justifyContent: "center", display: "flex" }}>
-            <Typography sx={{ ...queries.bold_text, width: "100%" }}>
-              Proposito
-            </Typography>
-          </Grid>
+          <Typography sx={{ ...queries.bold_text, width: "100%" }}>
+            Proposito
+          </Typography>
 
           <Grid
             item
             lg={12}
+            container
+            direction={"column"}
             sx={{
               //backgroundColor: "#f0f0f0",
               display: "flex",
@@ -267,152 +299,88 @@ export const TabFinPropositoRF = () => {
               alignItems: "center",
               justifyContent: "center",
               boxShadow: 2,
-              //border: "1px solid #ccc",
-              //height: "45vh",
+              border: "1px solid #ccc",
+              height: "45vh",
             }}
           >
-            {/* <FormControl>
-              <FormLabel
-                sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+            <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
+              <TextField
+                fullWidth
+                size="small"
+                label="Año del Avance Fisico"
+                value={jsonMir.encabezado.ejercicioFiscal}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
                 }}
-              >
-                Avance Fisico
-              </FormLabel>
-              <Grid
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyItems: "center",
+                InputProps={{
+                  readOnly: true,
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
                 }}
-              >
-                <FormControlLabel
-                  value={"2021"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2021
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
+              />
+            </Grid>
 
-                <FormControlLabel
-                  value={"2022"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2022
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
+            <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
+              <TextField
+                fullWidth
+                size="small"
+                //label="Operacion"
 
-                <FormControlLabel
-                  value={"2023"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2023
-                    </Typography>
-                  }
-                  sx={{
+                value={palabraABuscar2}
+                InputLabelProps={{
+                  style: {
                     fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2024"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2024
-                    </Typography>
-                  }
-                  sx={{
+                  },
+                }}
+                InputProps={{
+                  readOnly: true,
+                  style: {
                     fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2025"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2025
-                    </Typography>
-                  }
-                  sx={{
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
+              <TextField
+                fullWidth
+                size="small"
+                label="Valor del Avance Fisico"
+                onClick={(a) => {
+                  console.log("proposito.ValorAvanceFisico: ",proposito.ValorAvanceFisico);
+                  
+                  SetApartado("PROPOSITO");
+                  setUnico(palabraABuscar2);
+                  handleClickOpen();
+                }}
+               
+                value={proposito.ValorAvanceFisico}
+                InputLabelProps={{
+                  style: {
                     fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2026"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2026
-                    </Typography>
-                  }
-                  sx={{
+                  },
+                }}
+                InputProps={{
+                  //readOnly: true,
+                  style: {
                     fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2027"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2027
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-              </Grid>
-            </FormControl> */}
+                  },
+                }}
+              />
+            </Grid>
           </Grid>
         </Grid>
+        <DialogFinPropositoRaffi
+          open={openFormulaDialog}
+          close={handleClose}
+          elemento={unico}
+          tipo={apartado}
+          setValor={assignValue}
+        />
       </Grid>
     </>
   );
-};
+}

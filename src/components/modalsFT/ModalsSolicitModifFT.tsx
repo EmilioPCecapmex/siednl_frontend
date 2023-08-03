@@ -637,16 +637,16 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
+              sx={{ ...queries.buttonCancelarSolicitudInscripcion, display: "flex", width: "15vw" }}
               onClick={() => handleClose()}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography >
                 Cancelar
               </Typography>
             </Button>
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+              sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "15vw"}}
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -658,7 +658,7 @@ export default function ModalSolicitaModif({
                 handleClose();
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography >
                 {comentario === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>
