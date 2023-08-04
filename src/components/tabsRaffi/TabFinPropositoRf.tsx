@@ -28,23 +28,28 @@ import { queries } from "../../queries";
 const fecha = ["2021", "2022", "2023", "2024", "2025", "2026", "2027"];
 
 export const TabFinPropositoRF = ({
+  show,
   showMirFnc,
   setTxtShowFnc
 }: {
+  show:boolean;
   showMirFnc: Function;
   setTxtShowFnc: Function;
 }) => {
   return (
     <>
       <Grid
+        visibility={show ? "visible" : "hidden"}
         container
-        item
-        xl={12}
-        //direction={"row"}
+        position="absolute"
         sx={{
-          height: "100%",
-          justifyContent: "space-around",
-          //alignItems: "center",
+          display: "flex",
+          width: "75vw",
+          height: "77vh",
+          boxShadow: 10,
+          borderRadius: 5,
+          flexDirection: "column",
+          backgroundColor: "#fff",
         }}
       >
 
@@ -332,145 +337,7 @@ export const TabFinPropositoRF = ({
               //height: "45vh",
             }}
           >
-            {/* <FormControl>
-              <FormLabel
-                sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
-                }}
-              >
-                Avance Fisico
-              </FormLabel>
-              <Grid
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyItems: "center",
-                }}
-              >
-                <FormControlLabel
-                  value={"2021"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2021
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-
-                <FormControlLabel
-                  value={"2022"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2022
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-
-                <FormControlLabel
-                  value={"2023"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2023
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2024"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2024
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2025"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2025
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2026"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2026
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-                <FormControlLabel
-                  value={"2027"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: "0.7vw",
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      2027
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={<Radio />}
-                />
-              </Grid>
-            </FormControl> */}
+            
           </Grid>
         </Grid>
       </Grid>

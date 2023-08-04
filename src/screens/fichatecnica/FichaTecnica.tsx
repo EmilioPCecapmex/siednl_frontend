@@ -395,9 +395,9 @@ export const FichaTecnica = () => {
     setFtFiltered(ResultadoBusqueda);
   };
 
-  const handleChange = (dato: string) => {
-    setFindTextStr(dato);
-  };
+  // const handleChange = (dato: string) => {
+  //   setFindTextStr(dato);
+  // };
 
   
 
@@ -483,9 +483,9 @@ export const FichaTecnica = () => {
                   sx={{ ml: 1, flex: 1 }}
                   placeholder="Buscar"
                   value={findTextStr}
-                  onChange={(e) => {
-                    handleChange(e.target.value);
-                  }}
+                  // onChange={(e) => {
+                  //   handleChange(e.target.value);
+                  // }}
                   onKeyPress={(ev) => {
                     if (ev.key === "Enter") {
                       filtrarDatos();
@@ -1050,6 +1050,7 @@ export const FichaTecnica = () => {
             IdMA={FTEdit[0].IdMa}
             IdFT={FTEdit[0].IdFt}
           />
+          {/* {FTEdit[0].FichaT} */}
         </Box>
       )}
     </Box>

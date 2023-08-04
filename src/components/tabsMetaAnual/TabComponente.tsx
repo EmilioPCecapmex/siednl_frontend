@@ -115,7 +115,7 @@ export const TabComponenteMA = ({
           MA === "" ? "" : jsonMA?.componentes[index]?.descDenominador || "",
       });
     });
-
+    
     setComponentesValues(comp);
   }, [noComponentes]);
 

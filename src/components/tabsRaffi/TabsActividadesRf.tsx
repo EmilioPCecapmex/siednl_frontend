@@ -5,6 +5,7 @@ import { IComponenteActividad } from "../tabsMir/AddMir";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -222,6 +223,7 @@ const GridTableMetasTrim = ({
 // export default GridTable;
 
 export const TabActividadRf = ({
+  show,
   MIR,
   MA,
   RF,
@@ -232,6 +234,7 @@ export const TabActividadRf = ({
   showMirFnc,
   setTxtShowFnc
 }: {
+  show:boolean;
   MA: string;
   MIR: string;
   RF: string;
@@ -254,9 +257,40 @@ export const TabActividadRf = ({
     Array<IComponenteActividad>
   >([]);
 
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [tipoFormula, setTipoFormula] = useState("");
+  const [elementoFormula, setElementoFormula] = useState("");
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+
+
+  const changeFormula = (txt: string) => {
+    
+    // if (
+    //   JSON.parse(MIR)
+    //     .componentes[componentSelect - 1].indicador.toLowerCase()
+    //     .includes("indice") ||
+    //   JSON.parse(MIR)
+    //     .componentes[componentSelect - 1].indicador.toLowerCase()
+    //     .includes("índice")
+    // ) {
+    //   componentesValues[componentSelect - 1].numeradorPorFrecuencia[0].trimestre2 = txt;
+    //   componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 = txt;
+    // } else {
+    //   let frec = txt.split(",")[3];
+    //   console.log(componentesValues);
+    //   componentesValues[componentSelect - 1].numeradorPorFrecuencia[0][frec as keyof IFrecuencias] = txt.split(",")[0];
+    //   componentesValues[componentSelect - 1].denominadorPorFrecuencia[0][frec as keyof IFrecuencias] =
+    //     txt.split(",")[1];
+    //     componentesValues[componentSelect - 1].metasPorFrecuencia[0][frec as keyof IFrecuencias] = txt.split(",")[2];
+    // }
+
+    // setComponentesValues([...componentesValues]);
+  };
   const [open, setOpen] = useState(1);
 
   const handleClickComponente = (index: number) => {
@@ -531,7 +565,29 @@ export const TabActividadRf = ({
   }, [aValorMA]);
   return (
     <>
-    
+    <Grid
+        visibility={show ? "visible" : "hidden"}
+        container
+        position="absolute"
+        sx={{
+          display: "flex",
+          width: "75vw",
+          height: "77vh",
+          boxShadow: 10,
+          borderRadius: 5,
+          flexDirection: "column",
+          backgroundColor: "#fff",
+        }}
+      >
+        {/* <FormulaDialogRF
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        tipo={tipoFormula}
+        elemento={"Componente"}
+        dato={elementoFormula}
+        MIR={MIR}
+      /> */}
         {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
         <Grid item xs={2}>
           
@@ -787,16 +843,7 @@ export const TabActividadRf = ({
                         <td style={{width:"25%"}}>
             
                           <TextField
-                          // sx={{
-                          //   backgroundColor: (d1==""
-                          //   ?""
-                          //   :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
-                          //   ? "#CEE9B6"
-                          //   : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
-                          //   ? "#FFDE6A"
-                          //   : "#EF6969")
-                          // }}
-                            disabled={new Date()>dateTrim[0]}
+                            // disabled={new Date()>dateTrim[0]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -869,16 +916,8 @@ export const TabActividadRf = ({
                         </td>
                         <td style={{width:"25%"}}>
                         <TextField
-                        // sx={{
-                        //   backgroundColor: (d2==""
-                        //   ?""
-                        //   :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
-                        //   ? "#CEE9B6"
-                        //   : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
-                        //   ? "#FFDE6A"
-                        //   : "#EF6969")
-                        // }}
-                            disabled={new Date()>dateTrim[1]}
+
+                            // disabled={new Date()>dateTrim[1]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -949,16 +988,7 @@ export const TabActividadRf = ({
                         <td style={{width:"25%"}}>
             
                           <TextField
-                          // sx={{
-                          //   backgroundColor: (d3==""
-                          //   ?""
-                          //   :(parseInt(r3)-parseInt(d3))/parseInt(d3)<.05
-                          //   ? "#CEE9B6"
-                          //   : (parseInt(r3)-parseInt(d3))/parseInt(d3)<.1
-                          //   ? "#FFDE6A"
-                          //   : "#EF6969")
-                          // }}
-                            disabled={new Date()>dateTrim[2]}
+                            // disabled={new Date()>dateTrim[2]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -1030,16 +1060,7 @@ export const TabActividadRf = ({
                         </td>
                         <td style={{width:"25%"}}>
                         <TextField
-                        // sx={{
-                        //   backgroundColor: (d4==""
-                        //   ?""
-                        //   :(parseInt(r4)-parseInt(d4))/parseInt(d4)<.05
-                        //   ? "#CEE9B6"
-                        //   : (parseInt(r4)-parseInt(d4))/parseInt(d4)<.1
-                        //   ? "#FFDE6A"
-                        //   : "#EF6969")
-                        // }}
-                            disabled={new Date()>dateTrim[3]}
+                            // disabled={new Date()>dateTrim[3]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -1114,6 +1135,7 @@ export const TabActividadRf = ({
                 
                </Grid>
           </Grid> 
+        </Grid>
         </Grid>
         </>
   );

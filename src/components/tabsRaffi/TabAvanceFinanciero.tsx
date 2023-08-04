@@ -17,11 +17,13 @@ import { IAvanceFinancieroRF } from "../../screens/raffi/interfacesRaffi";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import validator from "validator";
 export function TabAvanceFinanciero({
+  show,
   resumenAvanceFinancieroRf,
   MIR,
   MA,
   RF,
 }: {
+  show : boolean;
   resumenAvanceFinancieroRf: Function;
   MIR: string;
   MA: string;
@@ -157,6 +159,7 @@ export function TabAvanceFinanciero({
   return (
     <>
       <Grid
+        visibility={show ? "visible" : "hidden"}
         container
         direction={"row"}
         sx={{

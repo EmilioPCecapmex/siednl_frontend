@@ -103,7 +103,7 @@ export const Raffi = () => {
   const [rf, setRf] = useState<Array<IRaffi>>([]);
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
-  const [rfEdit, setRtEdit] = useState<IRaffi>();
+  const [rfEdit, setRtEdit] = useState<Array<IRaffi>>([]);
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
 
   const [findTextStr, setFindTextStr] = useState("");
@@ -114,6 +114,7 @@ export const Raffi = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   useEffect(() => {
+    setShowResume(true);
     listaRaffi(setRf);
   }, []);
 
@@ -215,6 +216,9 @@ export const Raffi = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
+
+
+  
   useEffect(() => {
     getInstituciones(setInstituciones);
   }, []);
@@ -635,7 +639,8 @@ export const Raffi = () => {
                                   <IconButton
                                     type="button"
                                     onClick={() => {
-                                      setRtEdit({
+                                      setRtEdit([
+                                        {
                                         IdRf: row.IdRf,
                                         IdMir: row.IdMir,
                                         IdMa: row.IdMa,
@@ -652,7 +657,8 @@ export const Raffi = () => {
                                         Conac: row.Conac,
                                         Consecutivo: row.Consecutivo,
                                         Opciones: row.Opciones,
-                                      });
+                                      },
+                                    ]);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -682,7 +688,8 @@ export const Raffi = () => {
                                 // }
                                   type="button"
                                   onClick={() => {
-                                    setRtEdit({
+                                    setRtEdit([
+                                      {
                                       IdRf: row.IdRf,
                                       IdMir: row.IdMir,
                                       IdMa: row.IdMa,
@@ -699,7 +706,8 @@ export const Raffi = () => {
                                       Conac: row.Conac,
                                       Consecutivo: row.Consecutivo,
                                       Opciones: row.Opciones,
-                                    });
+                                    },
+                                  ]);
                                     setOpenTabs(false);
                                     setActionNumber(1); //Revisar esta funcionalidad
                                   }}
@@ -718,20 +726,35 @@ export const Raffi = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+            
             </Grid>
           </>
         ) : (
+          <Grid
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
+          }}
+          gridArea={"main"}
+        >
           <CapturaRaffi
-            MIR={rfEdit?.MIR || ""}
-            MA={rfEdit?.MetaAnual || ""}
-            RF={rfEdit?.RAFFI || ""}
+            MIR={rfEdit[0].MIR || ""}
+            MA={rfEdit[0].MetaAnual || ""}
+            RF={rfEdit[0].RAFFI || ""}
             opentabs={returnMain}
-            IdMir={rfEdit?.IdMir || ""}
-            IdMA={rfEdit?.IdMa || ""}
-            IdRf={rfEdit?.IdRf || ""}
+            IdMir={rfEdit[0].IdMir || ""}
+            IdMA={rfEdit[0].IdMa || ""}
+            IdRf={rfEdit[0].IdRf || ""}
+            showResume={returnMain}
           />
+          </Grid>
         )}
+        {/* {JSON.stringify(rfEdit[0].RAFFI)} */}
       </Grid>
+      
     </Grid>
   );
 };

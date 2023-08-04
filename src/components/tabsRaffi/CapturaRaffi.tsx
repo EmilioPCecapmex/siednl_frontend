@@ -20,6 +20,7 @@ export default function CapturaRaffi({
   IdMir,
   IdMA,
   IdRf,
+  showResume,
 }:{
   MIR: string;
   MA: string;
@@ -28,14 +29,8 @@ export default function CapturaRaffi({
   IdMir: string;
   IdMA: string;
   IdRf: string;
+  showResume: Function;
 }) {
-
-
-
-
-
-
-
 
   const [value, setValue] = useState(10);
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
@@ -47,6 +42,7 @@ export default function CapturaRaffi({
     }
   };
 
+  
 
   const [showMir, setShowMir] = React.useState(false);
   const [showSt, setShowSt] = React.useState("");
@@ -87,6 +83,17 @@ export default function CapturaRaffi({
       if (index > 1 && index < 6)
         setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
     });
+
+
+    let arrayRF = noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        metasPorFrecuencia: [],
+        numeradorPorFrecuencia: [],
+        denominadorPorFrecuencia: []
+      };
+    })
+    setValoresComponenteRF(arrayRF);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -94,45 +101,24 @@ export default function CapturaRaffi({
   
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  const [valoresComponenteMA, setValoresComponenteMA] = useState<
-    Array<IComponenteMA>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
-    })
-  );
-  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-    setValoresComponenteMA(state);
-  };
-
   const [valoresComponenteRF, setValoresComponenteRF] = useState<
     Array<IComponenteRF>
   >(
     noComponentes.map((x, index) => {
       return {
+        
         componentes: "C" + (index + 1),
-        semestre1:"",
-        semestre2:"",
-        trimestre1:"",
-        trimestre2:"",
-        trimestre3:"",
-        trimestre4:""
+        metasPorFrecuencia: [],
+        numeradorPorFrecuencia: [],
+        denominadorPorFrecuencia: []
       };
     })
   );
   const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
+    setValoresComponenteRF(state);
+  };
+
+  const asignarCValorRF = (state: Array<IComponenteRF>) => {
     setValoresComponenteRF(state);
   };
 
@@ -143,6 +129,41 @@ export default function CapturaRaffi({
   ];
 
   const [cValorMA, setCValorMA] = useState(
+    componenteActividad.map((item) => {
+      return {
+        componentes: item.componentes.map((x, index) => {
+          return {
+            actividades: x.map((c, index2) => {
+              return {
+                actividad: "",
+                metaAnual: "",
+                lineaBase: "",
+                metasPorFrecuencia: [
+                  {
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
+                valorNumerador: "",
+                valorDenominador: "",
+                sentidoDelIndicador: "",
+                unidadResponsable: "",
+                descIndicador: "",
+                descNumerador: "",
+                descDenominador: "",
+              };
+            }),
+          };
+        }),
+      };
+    })
+  );
+
+
+
+  const [cValorRF, setCValorRF] = useState(
     componenteActividad.map((item) => {
       return {
         componentes: item.componentes.map((x, index) => {
@@ -330,30 +351,32 @@ export default function CapturaRaffi({
           }}
         >
 
-          {value === 10 && <TabAvanceFinanciero 
+          <TabAvanceFinanciero 
+          show={value === 10 ? true : false}
           resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
           MIR={MIR}
           MA={MA}
           RF={RF}
-          />}
+          />
 
-          {value === 20 && <TabFinPropositoRF 
+          <TabFinPropositoRF 
+          show={value === 20 ? true : false}
           setTxtShowFnc={showFnc}
-          showMirFnc={showMirFnc} />}
+          showMirFnc={showMirFnc} />
 
-          {value === 30 && <TabComponenteRf 
-            
-            valoresComponenteMAFnc={valoresComponenteRFFnc}
+          <TabComponenteRf 
+            show={value === 30 ? true : false}
+            valoresComponenteRFFnc={valoresComponenteRFFnc}
             noComponentes={noComponentes}
             MA={MA}
             MIR={MIR}
             RF={RF}
             setTxtShowFnc={showFnc}
-            showMirFnc={showMirFnc} />}
+            showMirFnc={showMirFnc} />
 
-          {value === 40 && <TabActividadRf 
-
-          valoresComponenteMAFnc={valoresComponenteMAFnc}
+          <TabActividadRf 
+          show={value === 40 ? true : false}
+          valoresComponenteMAFnc={valoresComponenteRFFnc}
           componentes={noComponentes}
           asignarCValor={asignarCValorMA}
           MA={MA}
@@ -361,9 +384,21 @@ export default function CapturaRaffi({
           RF={RF}
           compAct={compAct}
           setTxtShowFnc={showFnc}
-            showMirFnc={showMirFnc} />}
+            showMirFnc={showMirFnc} />
           
-          {value === 50 && <TabResumenRF />}
+          <TabResumenRF
+          show={value === 50 ? true : false}
+          // encabezado={ValueEncabezado}
+          // fin={ValueFin}
+          // proposito={ValueProposito}
+          componentes={noComponentes}
+          componenteValor={valoresComponenteRF}
+          cValor={cValorRF}
+          IdMir={IdMir}
+          IdRF={IdRf}
+          IdMA={IdMA}
+          showResume={showResume}
+          MIR={MIR} />
         </Grid>
       </Grid>
       <TabResumenMIR
@@ -373,6 +408,7 @@ export default function CapturaRaffi({
             MIR={MIR}
             noComponentes={noComponentes}
           ></TabResumenMIR>
+          
     </Grid>
     
   );

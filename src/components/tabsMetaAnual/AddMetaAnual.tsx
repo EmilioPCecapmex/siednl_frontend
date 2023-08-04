@@ -105,7 +105,7 @@ export default function AddMetaAnual({
     })
   );
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-    setValoresComponenteMA(state);
+    // setValoresComponenteMA(state);
   };
 
   // ACTIVIDADES
@@ -354,7 +354,9 @@ export default function AddMetaAnual({
             noComponentes={noComponentes}
           ></TabResumenMIR>
         </Box>
+        
       </Box>
+     
     </Box>
   );
 }
