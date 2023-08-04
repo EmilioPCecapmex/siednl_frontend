@@ -401,7 +401,8 @@ export default function ModalSolicitaModif({
 
   useEffect(() => {
     let tipousuario = "";
-
+    console.log("Entre");
+    
     if (localStorage.getItem("Rol") === "Capturador")
       tipousuario = "Verificador";
       console.log(tipousuario);

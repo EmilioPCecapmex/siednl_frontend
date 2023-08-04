@@ -41,6 +41,8 @@ export const sessionValid = () => {
 };
 
 export const getUserDetails = (idCentral: string) => {
+  console.log(idCentral);
+  
   return axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuario", {
       params: {
