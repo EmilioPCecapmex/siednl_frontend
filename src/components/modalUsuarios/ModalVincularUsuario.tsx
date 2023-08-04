@@ -161,6 +161,8 @@ export default function ModalVincularUsuario({
             text: r.data.data.message,
             type: "success",
           });
+          console.log(r.data.data.Id);
+          
           getUserDetails(r.data.data.Id);
           // setIdUsuarioCentral(r.data.data.Id);
           setFullView(true);
@@ -190,6 +192,8 @@ export default function ModalVincularUsuario({
 
 
   const getUserDetails = (idCentral: string,) => {
+    console.log(idCentral)
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_LOGIN + "/api/user-detail",

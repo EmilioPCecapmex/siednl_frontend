@@ -605,7 +605,7 @@ export default function ModalSolicitaModif({
           console.log("a");
           if (r.status === 200) {
            
-
+            console.log("UserXInst: ", r.data.data);
             setUserXInst(r.data.data);
           }
         });
