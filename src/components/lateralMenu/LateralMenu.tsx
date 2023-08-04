@@ -365,7 +365,7 @@ export const LateralMenu = ({
         <Typography
           sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
         >
-          Sistema del Presupuesto Basado en Resultados
+          {/* Sistema del Presupuesto Basado en Resultados */}
         </Typography>
       </Box>
 
