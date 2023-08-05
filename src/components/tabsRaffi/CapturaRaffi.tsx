@@ -85,7 +85,7 @@ export default function CapturaRaffi({
         setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
 
 
 
@@ -364,8 +364,9 @@ export default function CapturaRaffi({
           RF={RF}
           />
 
-          {value === 20 && (
+          
             <TabFinPropositoRF
+            show={value === 20 ? true : false}
               resumenFinRF={resumenFinRF}
               resumenPropositoRF={resumenPropositoRF}
               MIR={MIR}
@@ -373,11 +374,12 @@ export default function CapturaRaffi({
               showMirFnc={showMirFnc}
               RF={RF}
             />
-          )}
+          
 
-          {value === 30 && (
+    
             <TabComponenteRf
-              valoresComponenteMAFnc={valoresComponenteRFFnc}
+            show={value === 30 ? true : false}
+              valoresComponenteRFFnc={valoresComponenteRFFnc}
               noComponentes={noComponentes}
               MA={MA}
               MIR={MIR}
@@ -385,7 +387,7 @@ export default function CapturaRaffi({
               setTxtShowFnc={showFnc}
               showMirFnc={showMirFnc}
             />
-          )}
+        
 
           <TabActividadRf 
           show={value === 40 ? true : false}

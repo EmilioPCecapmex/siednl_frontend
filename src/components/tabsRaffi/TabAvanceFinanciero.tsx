@@ -20,7 +20,7 @@ import {
   IVTrimestral,
 } from "../../screens/raffi/interfacesRaffi";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import validator from "validator";
+// import validator from "validator";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 
 const VTrimestral = {

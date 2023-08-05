@@ -105,7 +105,7 @@ export default function AddMetaAnual({
     })
   );
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-    // setValoresComponenteMA(state);
+    setValoresComponenteMA(state);
   };
 
   // ACTIVIDADES

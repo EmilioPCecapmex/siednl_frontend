@@ -1007,8 +1007,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1044,8 +1044,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1089,8 +1089,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1125,8 +1125,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1161,8 +1161,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1197,8 +1197,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1602,8 +1602,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editActividades[mapeaindice(indexComponentes,indexActividades)]
@@ -1642,8 +1642,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editActividades[mapeaindice(indexComponentes,indexActividades)]
@@ -1682,8 +1682,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editActividades[mapeaindice(indexComponentes,indexActividades)]
@@ -1722,8 +1722,8 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") ===
+                        "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editActividades[mapeaindice(indexComponentes,indexActividades)]
@@ -1821,8 +1821,8 @@ export function TabResumenMA({
                         borderColor: "#cfcfcf",
                       }}
                     >
-                      {localStorage.getItem("Rol") !==
-                      "Administrador" ? null : (
+                      {localStorage.getItem("Rol") ===
+                      "Capturador" ? null : (
                         <Checkbox
                           value={
                             !editActividades[indexComponentes]?.valorDenominador
