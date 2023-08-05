@@ -1,20 +1,44 @@
 export interface IAvanceFinancieroRF {
     NombrePrograma: string;
-    ValorProgramaPresupuestario: string;
-    Calculo: string;
-    Monto:{
-        mt1: string;
-        mt2: string;
-        mt3: string;
-        mt4: string;
-        mtotal: string;
+    valorProgramaPresupuestario: string;
+    
+    monto:{
+        devengadoModificado:IVTrimestral
+        modificadoAutorizado:IVTrimestral
+        ejercidoModificado:IVTrimestral
     }
-    Porcentaje:{
-        pt1: string;
-        pt2: string;
-        pt3: string;
-        pt4: string;
-        ptotal: string;
+    porcentaje:{
+        porcentajeDevengadoModificado:IVPTrimestral
+        procentajeModificadoAutorizado:IVPTrimestral
+        porcentajeEjercidoModificado:IVPTrimestral
     }
 
+}
+
+export interface IVTrimestral{
+    t1: string;
+    t2: string;
+    t3: string;
+    t4: string;
+    total: string;
+    cuentaPublica: string;
+}
+
+export interface IVPTrimestral{
+    pt1: string;
+    pt2: string;
+    pt3: string;
+    pt4: string;
+    ptotal: string;
+    porcentajeCuentaPublica: string;
+}
+
+export interface IFinRF {
+    AñoAvanceFisico: string;
+    ValorAvanceFisico: string;
+}
+
+export interface IPropositoRF {
+    AñoAvanceFisico: string;
+    ValorAvanceFisico: string;
 }

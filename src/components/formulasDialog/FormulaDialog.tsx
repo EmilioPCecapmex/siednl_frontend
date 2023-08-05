@@ -202,6 +202,9 @@ export const FormulaDialog = ({
               },
             }}
           />
+
+
+          
           {tipo === "Indice" || tipo === "Índice" ? (
             ""
           ) : (
@@ -235,7 +238,10 @@ export const FormulaDialog = ({
           )}{" "}
         </Box>
       </DialogContent>
+
+      
       <Box
+
         sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" }}
       >
         <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => close()} >

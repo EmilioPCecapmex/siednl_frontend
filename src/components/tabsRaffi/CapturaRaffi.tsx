@@ -7,12 +7,15 @@ import { TabActividadRf } from "./TabsActividadesRf";
 import { IComponenteMA, ICValorMA, IComponenteRF } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import TabResumenMIR from "../modalsRF/ModalResumenMir";
- import { TabFinPropositoRF } from "./TabFinPropositoRf";
+import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
 import { TabResumenRF } from "./TabResumenRF";
-import { IAvanceFinancieroRF } from "../../screens/raffi/interfacesRaffi";
+import {
+  IAvanceFinancieroRF,
+  IPropositoRF,
+  IFinRF,
+} from "../../screens/raffi/interfacesRaffi";
 export default function CapturaRaffi({
-
   MIR,
   MA,
   RF,
@@ -31,7 +34,6 @@ export default function CapturaRaffi({
   IdRf: string;
   showResume: Function;
 }) {
-
   const [value, setValue] = useState(10);
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
   const cambiarTab = (option: string) => {
@@ -52,7 +54,6 @@ export default function CapturaRaffi({
   const showFnc = (st: string) => {
     setShowSt(st);
   };
-
 
   const jsonMir = JSON.parse(MIR);
 
@@ -83,6 +84,9 @@ export default function CapturaRaffi({
       if (index > 1 && index < 6)
         setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
 
     let arrayRF = noComponentes.map((x, index) => {
@@ -97,8 +101,6 @@ export default function CapturaRaffi({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-  
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
   const [valoresComponenteRF, setValoresComponenteRF] = useState<
@@ -196,32 +198,36 @@ export default function CapturaRaffi({
     })
   );
 
+  const [ValueFin, setValueFin] = useState<Array<IFinRF>>([]);
+
+  const [ValueProposito, setValueProposito] = useState<Array<IPropositoRF>>([]);
+
+  const resumenAvanceFinancieroRf = (st: Array<IAvanceFinancieroRF>) => {
+    setAvanceFinanciero(st);
+  };
+
+  const resumenFinRF = (st: Array<IFinRF>) => {
+    setValueFin(st);
+  };
+
+  const resumenPropositoRF = (st: Array<IPropositoRF>) => {
+    setValueProposito(st);
+  };
   const asignarCValorMA = (state: Array<ICValorMA>) => {
     setCValorMA(state);
   };
 
+  //Avance Financiero
+  const [showStAF, setShowStAF] = React.useState("");
+  const setTxtShowRAFFIAF = (st: string) => {
+    setShowStAF(st);
+  };
 
+  const [ValueAvanceFinanciero, setAvanceFinanciero] = useState<
+    Array<IAvanceFinancieroRF>
+  >([]);
 
- //Avance Financiero
- const [showStAF, setShowStAF] = React.useState("");
- const setTxtShowRAFFIAF = (st: string) => {
-   setShowStAF(st);
- };
-
- const [ValueAvanceFinanciero, setAvanceFinanciero] = useState<Array<IAvanceFinancieroRF>>(
-   []
- );
-
- const resumenAvanceFinancieroRf =(st: Array<IAvanceFinancieroRF>) =>{
-   setAvanceFinanciero(st);
- };
-
-
-
-
-
-
-
+ 
 
   return (
     <Grid
@@ -339,7 +345,6 @@ export default function CapturaRaffi({
         <Grid
           container
           item
-            
           sx={{
             display: "flex",
             width: "75vw",
@@ -359,20 +364,28 @@ export default function CapturaRaffi({
           RF={RF}
           />
 
-          <TabFinPropositoRF 
-          show={value === 20 ? true : false}
-          setTxtShowFnc={showFnc}
-          showMirFnc={showMirFnc} />
+          {value === 20 && (
+            <TabFinPropositoRF
+              resumenFinRF={resumenFinRF}
+              resumenPropositoRF={resumenPropositoRF}
+              MIR={MIR}
+              setTxtShowFnc={showFnc}
+              showMirFnc={showMirFnc}
+              RF={RF}
+            />
+          )}
 
-          <TabComponenteRf 
-            show={value === 30 ? true : false}
-            valoresComponenteRFFnc={valoresComponenteRFFnc}
-            noComponentes={noComponentes}
-            MA={MA}
-            MIR={MIR}
-            RF={RF}
-            setTxtShowFnc={showFnc}
-            showMirFnc={showMirFnc} />
+          {value === 30 && (
+            <TabComponenteRf
+              valoresComponenteMAFnc={valoresComponenteRFFnc}
+              noComponentes={noComponentes}
+              MA={MA}
+              MIR={MIR}
+              RF={RF}
+              setTxtShowFnc={showFnc}
+              showMirFnc={showMirFnc}
+            />
+          )}
 
           <TabActividadRf 
           show={value === 40 ? true : false}
@@ -410,6 +423,5 @@ export default function CapturaRaffi({
           ></TabResumenMIR>
           
     </Grid>
-    
   );
 }

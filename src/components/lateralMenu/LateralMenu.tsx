@@ -450,6 +450,9 @@ export const LateralMenu = ({
           
           <Collapse in={openProgramas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
+
+
+
               <ListItemButton
                 onClick={() => {
                   setResumeDefaultMIR();
@@ -520,25 +523,53 @@ export const LateralMenu = ({
               sx={st.selectedBox}
             />
           </ListItemButton>
-            </List>
-          </Collapse>
-          {/* <ListItemButton
+
+         <ListItemButton
             onClick={() => {
-              setResumeDefaultAI();
+              //setResumeDefaultAI();
               exitAlert("../Institutionalactivities")
             }}
           >
             <Box sx={st.iconMenuList}>
-              <LocationCityOutlinedIcon />
+
+              <KeyboardDoubleArrowRightIcon /> 
+
             </Box>
             <Typography sx={st.firstItemsStyle}>
               Actividades Institucionales
             </Typography>
             <Box
-              visibility={selection === 5 ? "visible" : "hidden"}
+              visibility={selection === "Actividades Institucionales" ? "visible" : "hidden"}
               sx={st.selectedBox}
             />
-          </ListItemButton> */}
+          </ListItemButton> 
+          
+          <ListItemButton
+            onClick={() => {
+              //setResumeDefaultAI();
+              navigate("../programaAnualEvaluacion");
+              
+            }}
+          >
+            <Box sx={st.iconMenuList}>
+
+              <KeyboardDoubleArrowRightIcon /> 
+
+            </Box>
+            <Typography sx={st.firstItemsStyle}>
+            Programa Anual de Evaluacion
+            </Typography>
+            <Box
+              visibility={selection === "Programa Anual de Evaluacion" ? "visible" : "hidden"}
+              sx={st.selectedBox}
+            />
+          </ListItemButton> 
+
+
+
+            </List>
+          </Collapse>
+          
 
           
 
