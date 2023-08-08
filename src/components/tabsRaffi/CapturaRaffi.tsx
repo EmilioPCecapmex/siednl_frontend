@@ -4,7 +4,7 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { TabComponenteRf } from "./TabComponentesRf";
 import { TabActividadRf } from "./TabsActividadesRf";
-import { IComponenteMA, ICValorMA, IComponenteRF } from "./Interfaces";
+import { IComponenteMA, ICValorMA, IComponenteRF, ICValorRF } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import TabResumenMIR from "../modalsRF/ModalResumenMir";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
@@ -98,6 +98,8 @@ export default function CapturaRaffi({
       };
     })
     setValoresComponenteRF(arrayRF);
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -116,87 +118,135 @@ export default function CapturaRaffi({
       };
     })
   );
+
+  const [cValorRF, setValoresCValorRF] = useState<
+  Array<ICValorRF>
+>(
+  noComponentes.map((item) => {
+    return {
+      componentes: compAct.map((x, index) => {
+        return {
+          actividades: x.actividades.map((c: any, index2: number) => {
+
+            return {
+              actividad: "A" + (index2 + 1) + "C" + (index + 1),
+              metasPorFrecuencia: [
+                {
+                  trimestre1: "",
+                  trimestre2: "",
+                  trimestre3: "",
+                  trimestre4: "",
+                },
+              ],
+              numeradorPorFrecuencia: [
+                {
+                  trimestre1: "",
+                  trimestre2: "",
+                  trimestre3: "",
+                  trimestre4: "",
+                },
+              ],
+              denominadorPorFrecuencia: [
+                {
+                  trimestre1: "",
+                  trimestre2: "",
+                  trimestre3: "",
+                  trimestre4: "",
+                },
+              ],
+
+            };
+          }),
+        };
+      }),
+    };
+  })
+);
+
   const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
     setValoresComponenteRF(state);
   };
 
-  const asignarCValorRF = (state: Array<IComponenteRF>) => {
-    setValoresComponenteRF(state);
+  const asignarCValorRF = (state: Array<ICValorRF>) => {
+    setValoresCValorRF(state);
   };
 
-  const componenteActividad = [
-    {
-      componentes: noComponentes.map((x) => [1, 2]),
-    },
-  ];
 
-  const [cValorMA, setCValorMA] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "",
-                metaAnual: "",
-                lineaBase: "",
-                metasPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
+
+  // const [cValorMA, setCValorMA] = useState(
+  //   componenteActividad.map((item) => {
+  //     return {
+  //       componentes: item.componentes.map((x, index) => {
+  //         return {
+  //           actividades: x.map((c, index2) => {
+  //             return {
+  //               actividad: "",
+  //               metaAnual: "",
+  //               lineaBase: "",
+  //               metasPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //               valorNumerador: "",
+  //               valorDenominador: "",
+  //               sentidoDelIndicador: "",
+  //               unidadResponsable: "",
+  //               descIndicador: "",
+  //               descNumerador: "",
+  //               descDenominador: "",
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   })
+  // );
 
 
 
-  const [cValorRF, setCValorRF] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "",
-                metaAnual: "",
-                lineaBase: "",
-                metasPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
+  // const [cValorRF, setCValorRF] = useState(
+  //   componenteActividad.map((item) => {
+  //     return {
+  //       componentes: item.componentes.map((x, index) => {
+  //         return {
+  //           actividades: x.map((c, index2) => {
+  //             return {
+  //               actividad: "A" + (index2 + 1) + "C" + (index + 1),
+  //               metasPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //               numeradorPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //               denominadorPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   })
+  // );
 
   const [ValueFin, setValueFin] = useState<Array<IFinRF>>([]);
 
@@ -213,9 +263,9 @@ export default function CapturaRaffi({
   const resumenPropositoRF = (st: Array<IPropositoRF>) => {
     setValueProposito(st);
   };
-  const asignarCValorMA = (state: Array<ICValorMA>) => {
-    setCValorMA(state);
-  };
+  // const asignarCValorMA = (state: Array<ICValorMA>) => {
+  //   setCValorMA(state);
+  // };
 
   //Avance Financiero
   const [showStAF, setShowStAF] = React.useState("");
@@ -269,6 +319,7 @@ export default function CapturaRaffi({
               cambiarTab("atras");
             }}
           />
+          
           <Tab
             label="Avance Financiero"
             value={10}
@@ -391,9 +442,9 @@ export default function CapturaRaffi({
 
           <TabActividadRf 
           show={value === 40 ? true : false}
-          valoresComponenteMAFnc={valoresComponenteRFFnc}
+          valoresComponenteRFFnc={valoresComponenteRFFnc}
           componentes={noComponentes}
-          asignarCValor={asignarCValorMA}
+          asignarCValor={asignarCValorRF}
           MA={MA}
           MIR={MIR} 
           RF={RF}
@@ -413,7 +464,8 @@ export default function CapturaRaffi({
           IdRF={IdRf}
           IdMA={IdMA}
           showResume={showResume}
-          MIR={MIR} />
+          MIR={MIR}
+          MA={MA} />
         </Grid>
       </Grid>
       <TabResumenMIR

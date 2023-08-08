@@ -120,17 +120,29 @@ export interface ICValorRF {
   componentes: {
     actividades: {
       actividad: string;
-      metaAnual: string;
-      lineaBase: string;
       metasPorFrecuencia: Array<IFrecuenciasAct>;
-      valorNumerador: string;
-      valorDenominador: string;
-      sentidoDelIndicador: string;
-      unidadResponsable: string;
-      descIndicador: string;
-      descNumerador: string;
-      descDenominador: string;
+      numeradorPorFrecuencia: Array<IFrecuenciasAct>;
+      denominadorPorFrecuencia: Array<IFrecuenciasAct>;
     }[];
   }[];
 }
 [];
+
+// export interface ICValorRF {
+//   [x: string]: any;
+//   componentes: {
+//     actividades: {
+//       actividad: string;
+//       metaAnual: string;
+//       lineaBase: string;
+//       metasPorFrecuencia: Array<IFrecuenciasAct>;
+//       valorNumerador: string;
+//       valorDenominador: string;
+//       sentidoDelIndicador: string;
+//       unidadResponsable: string;
+//       descIndicador: string;
+//       descNumerador: string;
+//       descDenominador: string;
+//     }[];
+//   }[];
+// }
