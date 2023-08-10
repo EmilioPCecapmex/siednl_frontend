@@ -455,15 +455,16 @@ export default function CapturaRaffi({
           <TabResumenRF
           show={value === 50 ? true : false}
           // encabezado={ValueEncabezado}
-          // fin={ValueFin}
-          // proposito={ValueProposito}
+          fin={ValueFin}
+          proposito={ValueProposito} 
           componentes={noComponentes}
           componenteValor={valoresComponenteRF}
           cValor={cValorRF}
+          AFinanciero={ValueAvanceFinanciero}
           IdMir={IdMir}
           IdRF={IdRf}
           IdMA={IdMA}
-          showResume={showResume}
+          showResume={opentabs}
           MIR={MIR}
           MA={MA} />
         </Grid>

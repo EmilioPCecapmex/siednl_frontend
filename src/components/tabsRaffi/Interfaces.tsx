@@ -78,29 +78,29 @@ export interface IActividadesRF {
 
 }
 
-export interface IFinRF {
-  tipoDeIndicador: string;
-  claridad: string;
-  relevancia: string;
-  economia: string;
-  monitoreable: string;
-  adecuado: string;
-  aporte_marginal: string;
-  dimension: string;
-  unidadDeMedida: string;
-}
+// export interface IFinRF {
+//   tipoDeIndicador: string;
+//   claridad: string;
+//   relevancia: string;
+//   economia: string;
+//   monitoreable: string;
+//   adecuado: string;
+//   aporte_marginal: string;
+//   dimension: string;
+//   unidadDeMedida: string;
+// }
 
-export interface IPropositoRF {
-  tipoDeIndicador: string;
-  claridad: string;
-  relevancia: string;
-  economia: string;
-  monitoreable: string;
-  adecuado: string;
-  aporte_marginal: string;
-  dimension: string;
-  unidadDeMedida: string;
-}
+// export interface IPropositoRF {
+//   tipoDeIndicador: string;
+//   claridad: string;
+//   relevancia: string;
+//   economia: string;
+//   monitoreable: string;
+//   adecuado: string;
+//   aporte_marginal: string;
+//   dimension: string;
+//   unidadDeMedida: string;
+// }
 export interface IEncabezadoRF {
   programaSER: string;
   objetivoSER: string;
@@ -108,11 +108,8 @@ export interface IEncabezadoRF {
   metaODS: string;
 }
 export interface IRF {
-  encabezado: IEncabezadoRF;
-  fin: IFinRF;
-  proposito: IPropositoRF;
   componentes: Array<IComponenteRF>;
-  actividades: Array<IActividadesRF>;
+  actividades: Array<ICValorRF>;
 }
 
 export interface ICValorRF {

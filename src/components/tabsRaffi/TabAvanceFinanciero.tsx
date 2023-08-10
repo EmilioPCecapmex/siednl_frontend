@@ -1011,7 +1011,7 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  placeholder="SIN CAPTURAR"
+                  placeholder="SIN CAPTURAsR"
                   //label="porcentaje T1"
                   sx={queries.medium_text}
                   // selector === "DEVENGADO/MODIFICADO"

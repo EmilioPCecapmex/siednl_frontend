@@ -103,7 +103,7 @@ export const Raffi = () => {
   const [rf, setRf] = useState<Array<IRaffi>>([]);
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
-  const [rfEdit, setRtEdit] = useState<Array<IRaffi>>([]);
+  const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
 
   const [findTextStr, setFindTextStr] = useState("");
@@ -114,7 +114,7 @@ export const Raffi = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   useEffect(() => {
-    setShowResume(true);
+    setOpenTabs(true);
     listaRaffi(setRf);
   }, []);
 
@@ -127,8 +127,8 @@ export const Raffi = () => {
   }, [rfFiltered]);
 
   const returnMain = () => {
-    setShowResume(true);
-    listaRaffi(setRf);
+    setOpenTabs(true);
+    setActionNumber(1);
   };
 
   const findText = (v: string, est: string, inst: string) => {
@@ -301,7 +301,6 @@ export const Raffi = () => {
       <Grid item height={"100vh"}>
         <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
-
       <Grid item
         justifyContent={"center"}
         display={"flex"}
@@ -505,6 +504,7 @@ export const Raffi = () => {
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
+              
               <TableContainer sx={{ borderRadius: 5 }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
@@ -646,11 +646,11 @@ export const Raffi = () => {
                                   <IconButton
                                     type="button"
                                     onClick={() => {
-                                      setRtEdit([
+                                      setRfEdit([
                                         {
-                                        IdRf: row.IdRf,
+                                        IdRaffi: row.IdRaffi,
                                         IdMir: row.IdMir,
-                                        IdMa: row.IdMa,
+                                        IdMetaAnual: row.IdMetaAnual,
                                         RAFFI: row.RAFFI,
                                         Estado: row.Estado,
                                         CreadoPor: row.CreadoPor,
@@ -693,13 +693,14 @@ export const Raffi = () => {
                                 //     ? false
                                 //     : true
                                 // }
+                               
                                   type="button"
                                   onClick={() => {
-                                    setRtEdit([
+                                    setRfEdit([
                                       {
-                                      IdRf: row.IdRf,
+                                      IdRaffi: row.IdRaffi,
                                       IdMir: row.IdMir,
-                                      IdMa: row.IdMa,
+                                      IdMetaAnual: row.IdMetaAnual,
                                       RAFFI: row.RAFFI,
                                       Estado: row.Estado,
                                       CreadoPor: row.CreadoPor,
@@ -748,19 +749,21 @@ export const Raffi = () => {
           }}
           gridArea={"main"}
         >
+          
           <CapturaRaffi
             MIR={rfEdit[0].MIR || ""}
             MA={rfEdit[0].MetaAnual || ""}
             RF={rfEdit[0].RAFFI || ""}
             opentabs={returnMain}
             IdMir={rfEdit[0].IdMir || ""}
-            IdMA={rfEdit[0].IdMa || ""}
-            IdRf={rfEdit[0].IdRf || ""}
+            IdMA={rfEdit[0].IdMetaAnual || ""}
+            IdRf={rfEdit[0].IdRaffi || ""}
             showResume={returnMain}
           />
           </Grid>
         )}
-        {/* {JSON.stringify(rfEdit[0].RAFFI)} */}
+        {/* rdEdit: 
+        {JSON.stringify(rfEdit[0]?.MIR)} */}
       </Grid>
       
 
@@ -769,9 +772,9 @@ export const Raffi = () => {
 };
 
 export interface IRaffi {
-  IdRf: string;
+  IdRaffi: string;
   IdMir: string;
-  IdMa: string;
+  IdMetaAnual: string;
   RAFFI: string;
   Estado: string;
   CreadoPor: string;
