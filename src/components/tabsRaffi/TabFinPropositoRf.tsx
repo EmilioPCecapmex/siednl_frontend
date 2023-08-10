@@ -34,34 +34,35 @@ export function TabFinPropositoRF({
   resumenPropositoRF,
   resumenFinRF,
   MIR,
-  RF,
+  finRF,
+  propositoRF,
+  setFinRF,
+  setPropositoRF,
   showMirFnc,
   setTxtShowFnc,
 }: {
   resumenPropositoRF: Function;
   resumenFinRF: Function;
   MIR: string;
-  RF: string;
-  showMirFnc: Function
-  setTxtShowFnc: Function
+  finRF: IFinRF;
+  propositoRF: IPropositoRF;
+  setFinRF: Function;
+  setPropositoRF: Function;
+
+  showMirFnc: Function;
+  setTxtShowFnc: Function;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
 
   const [fin, setFin] = useState<IFinRF>({
-    AñoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
-    ValorAvanceFisico: "",
+    añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+    valorAvanceFisico: "",
   });
 
   const [proposito, setProposito] = useState<IPropositoRF>({
-    AñoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
-    ValorAvanceFisico: "",
+    añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+    valorAvanceFisico: "",
   });
-
-  const [propositoNumerodador, setPropositoNumerdaor] = useState(0);
-  const [pfinNumerodador, setFinNumerdaor] = useState(0);
-
-  const [propositoDenominador, setPropositoDenominador] = useState(0);
-  const [pfinDenominador, setFinDenominador] = useState(0);
 
   // Estados para almacenar las palabras a buscar en los TextField
   const [palabraABuscar1, setPalabraABuscar1] = useState(""); // Para Fin
@@ -113,31 +114,75 @@ export function TabFinPropositoRF({
     resumenFinRF(fin);
   }, [resumenFinRF]);
 
-  const assignValue = (valor: string, elemento: string, tipo: string) => {
-    console.log("valor: ",valor);
-    console.log("elemento: ",elemento);
-    console.log("tipo: ",tipo);
+  useEffect(() => {
+    let objectaux: IPropositoRF = {
+      añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+      valorAvanceFisico: "",
+    };
+    setPropositoRF(objectaux);
+    setProposito(objectaux);
+    console.log(objectaux);
+  }, []);
 
+  useEffect(() => {
+    console.log("propositoRF:", propositoRF);
+
+    if (
+      propositoRF.valorAvanceFisico !== "" &&
+      propositoRF.valorAvanceFisico !== null
+    ) {
+      setProposito(propositoRF);
+    }
+  }, []);
+
+  useEffect(() => {
+    setPropositoRF(proposito);
+  }, [proposito]);
+
+  useEffect(() => {
+    let objectaux: IFinRF = {
+      añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+      valorAvanceFisico: "",
+    };
+    setFinRF(objectaux);
+    setFin(objectaux);
+    console.log(objectaux);
+  }, []);
+
+  useEffect(() => {
+    console.log("propositoRF:", propositoRF);
+
+    if (
+      finRF.valorAvanceFisico !== "" &&
+      finRF.valorAvanceFisico !== null
+    ) {
+      setFin(finRF);
+    }
+  }, []);
+
+  useEffect(() => {
+    setFinRF(fin);
+  }, [fin]);
+
+  const assignValue = (valor: string, elemento: string, tipo: string) => {
     switch (tipo) {
-      
-      
       case "FIN":
         switch (elemento) {
           case "PORCENTAJE":
-            console.log("valor: ",valor);
-            setFin({ ...fin, ValorAvanceFisico: valor });
+            console.log("valor: ", valor);
+            setFin({ ...fin, valorAvanceFisico: valor });
             break;
           case "INDICE":
-            console.log("valor: ",valor);
-            setFin({ ...fin, ValorAvanceFisico: valor });
+            console.log("valor: ", valor);
+            setFin({ ...fin, valorAvanceFisico: valor });
             break;
           case "PROMEDIO":
-            console.log("valor: ",valor);
-            setFin({ ...fin, ValorAvanceFisico: valor });
+            console.log("valor: ", valor);
+            setFin({ ...fin, valorAvanceFisico: valor });
             break;
           case "TASA":
-            console.log("valor: ",valor);
-            setFin({ ...fin, ValorAvanceFisico: valor });
+            console.log("valor: ", valor);
+            setFin({ ...fin, valorAvanceFisico: valor });
             break;
         }
 
@@ -145,21 +190,21 @@ export function TabFinPropositoRF({
       case "PROPOSITO":
         switch (elemento) {
           case "PORCENTAJE":
-            console.log("valor: ",valor);
-            setProposito({ ...proposito, ValorAvanceFisico: valor });
+            console.log("valor: ", valor);
+            setProposito({ ...proposito, valorAvanceFisico: valor });
             break;
           case "INDICE":
-            console.log("valor: ",valor);
-            setProposito({ ...proposito, ValorAvanceFisico: valor });
+            console.log("valor: ", valor);
+            setProposito({ ...proposito, valorAvanceFisico: valor });
             break;
           case "PROMEDIO":
-            console.log("valor: ",valor);
-            
-            setProposito({ ...proposito, ValorAvanceFisico: valor });
+            console.log("valor: ", valor);
+
+            setProposito({ ...proposito, valorAvanceFisico: valor });
             break;
           case "TASA":
-            console.log("valor: ",valor);
-            setProposito({ ...proposito, ValorAvanceFisico: valor });
+            console.log("valor: ", valor);
+            setProposito({ ...proposito, valorAvanceFisico: valor });
             break;
         }
         break;
@@ -179,10 +224,11 @@ export function TabFinPropositoRF({
           alignItems: "center",
         }}
       >
-
-
-
-<Grid container item sx={{display:"flex",justifyContent:"flex-end"}}>
+        <Grid
+          container
+          item
+          sx={{ display: "flex", justifyContent: "flex-end" }}
+        >
           <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
               onClick={() => {
@@ -193,18 +239,17 @@ export function TabFinPropositoRF({
               sx={{ cursor: "pointer" }}
             ></InfoOutlinedIcon>
           </Tooltip>
-            <Typography
-              sx={{
-                mr: "1vw",
-                fontFamily: "MontserratSemiBold",
-                fontSize: "1.5vw",
-              }}
-            >
-                    FIN /
-                  </Typography>
+          <Typography
+            sx={{
+              mr: "1vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: "1.5vw",
+            }}
+          >
+            FIN /
+          </Typography>
 
-
-                  <Tooltip title="RESUMEN COMPONENTE">
+          <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
               onClick={() => {
                 showMirFnc(true);
@@ -214,20 +259,16 @@ export function TabFinPropositoRF({
               sx={{ cursor: "pointer" }}
             ></InfoOutlinedIcon>
           </Tooltip>
-            <Typography
-              sx={{
-                mr: "1vw",
-                fontFamily: "MontserratSemiBold",
-                fontSize: "1.5vw",
-              }}
-            >
-                    PROPÓSITO
-                  </Typography>
-          </Grid>
-
-
-          
-
+          <Typography
+            sx={{
+              mr: "1vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: "1.5vw",
+            }}
+          >
+            PROPÓSITO
+          </Typography>
+        </Grid>
 
         <Grid
           item
@@ -307,12 +348,13 @@ export function TabFinPropositoRF({
                 onClick={(a) => {
                   SetApartado("FIN");
                   setUnico(palabraABuscar1);
-                  console.log("fin.ValorAvanceFisico: ",fin.ValorAvanceFisico);
+                  console.log(
+                    "fin. valorAvanceFisico: ",
+                    fin.valorAvanceFisico
+                  );
                   handleClickOpen();
-                  
-                  
                 }}
-                value={fin.ValorAvanceFisico}
+                value={fin.valorAvanceFisico}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -405,14 +447,16 @@ export function TabFinPropositoRF({
                 size="small"
                 label="Valor del Avance Fisico"
                 onClick={(a) => {
-                  console.log("proposito.ValorAvanceFisico: ",proposito.ValorAvanceFisico);
-                  
+                  console.log(
+                    "proposito. valorAvanceFisico: ",
+                    proposito.valorAvanceFisico
+                  );
+
                   SetApartado("PROPOSITO");
                   setUnico(palabraABuscar2);
                   handleClickOpen();
                 }}
-               
-                value={proposito.ValorAvanceFisico}
+                value={proposito.valorAvanceFisico}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",

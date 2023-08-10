@@ -14,11 +14,39 @@ import {
   IAvanceFinancieroRF,
   IPropositoRF,
   IFinRF,
+  IRF,
 } from "../../screens/raffi/interfacesRaffi";
+import { VTrimestral, VPTrimestral } from "./TabAvanceFinanciero";
+
+const newRaffi = {
+  avanceFinanciero: {
+    nombrePrograma: "",
+    valorProgramaPresupuestario: "",
+    monto: {
+      devengadoModificado: VTrimestral,
+      modificadoAutorizado: VTrimestral,
+      ejercidoModificado: VTrimestral,
+    },
+    porcentaje: {
+      porcentajeDevengadoModificado: VPTrimestral,
+      procentajeModificadoAutorizado: VPTrimestral,
+      porcentajeEjercidoModificado: VPTrimestral,
+    },
+  },
+  fin: {
+    añoAvanceFisico: "",
+    valorAvanceFisico: "",
+  },
+  proposito: {
+    añoAvanceFisico: "",
+    valorAvanceFisico: "",
+  },
+};
 export default function CapturaRaffi({
   MIR,
   MA,
   RF,
+
   opentabs,
   IdMir,
   IdMA,
@@ -27,6 +55,7 @@ export default function CapturaRaffi({
   MIR: string;
   MA: string;
   RF: string;
+  
   opentabs: Function;
   IdMir: string;
   IdMA: string;
@@ -52,6 +81,17 @@ export default function CapturaRaffi({
   };
 
   const jsonMir = JSON.parse(MIR);
+
+  const [raffi, setRaffi] = useState<IRF>(newRaffi);
+
+  useEffect(() => {
+
+   if(RF !== "" && RF !== null){
+    setRaffi(JSON.parse(RF))
+   }
+  }, [])
+  
+
 
   useEffect(() => {
     let act: number[] = [];
@@ -85,46 +125,46 @@ export default function CapturaRaffi({
 
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  const [valoresComponenteMA, setValoresComponenteMA] = useState<
-    Array<IComponenteMA>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
-    })
-  );
+  // const [valoresComponenteMA, setValoresComponenteMA] = useState<
+  //   Array<IComponenteMA>
+  // >(
+  //   noComponentes.map((x, index) => {
+  //     return {
+  //       componentes: "C" + (index + 1),
+  //       metaAnual: "",
+  //       lineaBase: "",
+  //       metasPorFrecuencia: [],
+  //       valorNumerador: "",
+  //       valorDenominador: "",
+  //       sentidoDelIndicador: "",
+  //       unidadResponsable: "",
+  //       descIndicador: "",
+  //       descNumerador: "",
+  //       descDenominador: "",
+  //     };
+  //   })
+  // );
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-    setValoresComponenteMA(state);
+    // setValoresComponenteMA(state);
   };
 
-  const [valoresComponenteRF, setValoresComponenteRF] = useState<
-    Array<IComponenteRF>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        semestre1: "",
-        semestre2: "",
-        trimestre1: "",
-        trimestre2: "",
-        trimestre3: "",
-        trimestre4: "",
-      };
-    })
-  );
+  // const [valoresComponenteRF, setValoresComponenteRF] = useState<
+  //   Array<IComponenteRF>
+  // >(
+  //   noComponentes.map((x, index) => {
+  //     return {
+  //       componentes: "C" + (index + 1),
+  //       semestre1: "",
+  //       semestre2: "",
+  //       trimestre1: "",
+  //       trimestre2: "",
+  //       trimestre3: "",
+  //       trimestre4: "",
+  //     };
+  //   })
+  // );
   const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
-    setValoresComponenteRF(state);
+    // setValoresComponenteRF(state);
   };
 
   const componenteActividad = [
@@ -195,8 +235,10 @@ export default function CapturaRaffi({
     Array<IAvanceFinancieroRF>
   >([]);
 
- 
+  useEffect(()=>{
+console.log("raffi",raffi);
 
+  },[raffi])
   return (
     <Grid
       container
@@ -328,21 +370,26 @@ export default function CapturaRaffi({
               resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
               MIR={MIR}
               MA={MA}
-              RF={RF}
+              avanceFinancieroRF={raffi.avanceFinanciero}
+              setAvanceFinancieroRF={(valor:IAvanceFinancieroRF)=>{setRaffi({...raffi,avanceFinanciero:valor})}}
             />
           )}
 
-          {value === 20 && (
+           {value === 20 && (
             <TabFinPropositoRF
               resumenFinRF={resumenFinRF}
               resumenPropositoRF={resumenPropositoRF}
               MIR={MIR}
+              finRF={raffi.fin}
+              propositoRF={raffi.proposito}
+              setFinRF={(valor:IFinRF)=>{setRaffi({...raffi,fin:valor})}}
+              setPropositoRF={(valor:IPropositoRF)=>{setRaffi({...raffi,proposito:valor})}}
               setTxtShowFnc={showFnc}
               showMirFnc={showMirFnc}
-              RF={RF}
+             // RF={RF}
             />
           )}
-
+{/*
           {value === 30 && (
             <TabComponenteRf
               valoresComponenteMAFnc={valoresComponenteRFFnc}
@@ -367,7 +414,7 @@ export default function CapturaRaffi({
               setTxtShowFnc={showFnc}
               showMirFnc={showMirFnc}
             />
-          )}
+          )} */}
 
           {value === 50 && <TabResumenRF />}
         </Grid>
