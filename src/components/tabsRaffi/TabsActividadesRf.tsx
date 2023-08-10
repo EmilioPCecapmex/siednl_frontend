@@ -1,10 +1,11 @@
 import {Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled, Collapse, Tooltip} from '@mui/material';
 import { useEffect, useState } from "react";
-import { IComponenteMA } from "./Interfaces";
+import { IComponenteMA, ICValorRF, IFrecuenciasAct } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -222,23 +223,25 @@ const GridTableMetasTrim = ({
 // export default GridTable;
 
 export const TabActividadRf = ({
+  show,
   MIR,
   MA,
   RF,
   componentes,
   asignarCValor,
   compAct,
-  valoresComponenteMAFnc,
+  valoresComponenteRFFnc,
   showMirFnc,
   setTxtShowFnc
 }: {
+  show:boolean;
   MA: string;
   MIR: string;
   RF: string;
   componentes: number[];
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
-  valoresComponenteMAFnc: Function;
+  valoresComponenteRFFnc: Function;
   showMirFnc: Function;
   setTxtShowFnc: Function;
 }) => {
@@ -251,24 +254,104 @@ export const TabActividadRf = ({
   ];
 
   const [componentesValuesRF, setComponentesValuesRF] = useState<
-    Array<IComponenteActividad>
+    Array<ICValorRF>
   >([]);
 
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [tipoFormula, setTipoFormula] = useState("");
+  const [elementoFormula, setElementoFormula] = useState("");
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
+  const [errorIndicador, setErrorIndicador] = useState(-1);
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+  function mapeaindice(c=0,a=0){
+    let x=0;
+    //Componente 1
+    (c==0&&a==0)?x=0:(c==0&&a==1)?x=1:
+    (c==1&&a==0)?x=2:x=3;
+    
+    return x;
+   }
 
+  const changeFormula = (txt: string) => {
+
+    if (
+      JSON.parse(MIR)
+        .actividades[mapeaindice(componenteSelect,actividadSelect)].indicador.toLowerCase()
+        .includes("indice") ||
+      JSON.parse(MIR)
+      .actividades[mapeaindice(componenteSelect,actividadSelect)].indicador.toLowerCase()
+        .includes("índice")
+    ) {
+      aValorRF[0].componentes[componenteSelect].actividades[actividadSelect].numeradorPorFrecuencia[0].trimestre2 = txt;
+      aValorRF[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 = txt;
+    } else {
+      let frec = txt.split(",")[3];
+      aValorRF[0].componentes[componenteSelect].actividades[actividadSelect].numeradorPorFrecuencia[0][frec as keyof IFrecuenciasAct] = txt.split(",")[0];
+      aValorRF[0].componentes[componenteSelect].actividades[actividadSelect].denominadorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
+        txt.split(",")[1];
+        aValorRF[0].componentes[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0][frec as keyof IFrecuenciasAct] = txt.split(",")[2];
+    }
+
+    setAValorRF([...aValorRF]);
+  };
   const [open, setOpen] = useState(1);
 
   const handleClickComponente = (index: number) => {
     setOpen(index);
   };
 
+  const handleClickOpen = () => {
+    //setPrevTextFormula("Porcentaje");
+    setOpenFormulaDialog(true);
+  };
 
+  let jsonMIR =
+    MIR === ""
+      ? ""
+      : JSON.parse(MIR).length > 1
+      ? JSON.parse(MIR)[0]
+      : JSON.parse(MIR);
+
+
+  const evalueTxtIndicador = (dato:string) => {
+    const cIndicador = 
+    jsonMIR.componentes[componenteSelect].indicador?.toLowerCase();
+    if (cIndicador !== undefined) {
+      if (cIndicador.includes("porcentaje")) {
+        setTipoFormula("Porcentaje");
+        setElementoFormula(dato);
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("tasa")) {
+        setTipoFormula("Tasa");
+        setElementoFormula(dato);
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("indice" || "índice")) {
+        setTipoFormula("Índice");
+        setElementoFormula(dato);
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("promedio")) {
+        setTipoFormula("Promedio");
+        setElementoFormula(dato);
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else {
+        setErrorIndicador(componenteSelect);
+        let prevLocal = [...jsonRF.componentes];
+        prevLocal[componenteSelect].indicador = "";
+        setComponentesValuesRF(prevLocal);
+      }
+    }
+  };
   
   let encabezado = JSON.parse(MIR).encabezado;
   
 
-  
 
 
   let jsonMA =
@@ -327,12 +410,14 @@ export const TabActividadRf = ({
     })
   );
 
+  
+
   const loadActividadesMA = () => {
     let y = componenteActividad.map((item) => {
       return {
         componentes: compAct.map((x, index) => {
           return {
-            actividades: x.actividades.map((c, index2) => {
+            actividades: x.actividades.map((c: any, index2: number) => {
               aument_number++;
 
               return {
@@ -417,9 +502,6 @@ export const TabActividadRf = ({
           return {
             actividades: x.map((c, index2) => {
               return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                metaAnual: "",
-                lineaBase: "",
                 metasPorFrecuencia: [
                   {
                     trimestre1: "",
@@ -428,13 +510,23 @@ export const TabActividadRf = ({
                     trimestre4: "",
                   },
                 ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
+                numeradorPorFrecuencia: [
+                  {
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
+                denominadorPorFrecuencia: [
+                  {
+                    trimestre1: "",
+                    trimestre2: "",
+                    trimestre3: "",
+                    trimestre4: "",
+                  },
+                ],
+
               };
             }),
           };
@@ -448,73 +540,83 @@ export const TabActividadRf = ({
       return {
         componentes: compAct.map((x, index) => {
           return {
-            actividades: x.actividades.map((c, index2) => {
+            actividades: x.actividades.map((c: any, index2: number) => {
               aument_number++;
 
               return {
                 actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                metaAnual:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.metaAnual || "",
-                lineaBase:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.lineaBase || "",
                 metasPorFrecuencia: [
                   {
                     trimestre1:
-                      MA === ""
+                      RF === ""
                         ? ""
                         : jsonRF.actividades[aument_number]
                             ?.metasPorFrecuencia[0]?.trimestre1 || "",
                     trimestre2:
-                      MA === ""
+                      RF === ""
                         ? ""
                         : jsonRF.actividades[aument_number]
                             ?.metasPorFrecuencia[0]?.trimestre2 || "",
                     trimestre3:
-                      MA === ""
+                      RF === ""
                         ? ""
                         : jsonRF.actividades[aument_number]
                             ?.metasPorFrecuencia[0]?.trimestre3 || "",
                     trimestre4:
-                      MA === ""
+                      RF === ""
                         ? ""
                         : jsonRF.actividades[aument_number]
                             ?.metasPorFrecuencia[0]?.trimestre4 || "",
                   },
                 ],
-                valorNumerador:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.valorNumerador || "",
-                valorDenominador:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.valorDenominador || "",
-                sentidoDelIndicador:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.sentidoDelIndicador ||
-                      "",
-                unidadResponsable:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.unidadResponsable ||
-                      "",
-                descIndicador:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.descIndicador || "",
-                descNumerador:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.descNumerador || "",
-                descDenominador:
-                  MA === ""
-                    ? ""
-                    : jsonRF.actividades[aument_number]?.descDenominador || "",
+                numeradorPorFrecuencia: [
+                  {
+                    trimestre1:
+                      RF === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre1 || "",
+                    trimestre2:
+                      RF === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre2 || "",
+                    trimestre3:
+                      RF === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre3 || "",
+                    trimestre4:
+                      RF === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre4 || "",
+                  },
+                ],
+                denominadorPorFrecuencia: [
+                  {
+                    trimestre1:
+                      RF === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre1 || "",
+                    trimestre2:
+                      RF === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre2 || "",
+                    trimestre3:
+                      RF === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre3 || "",
+                    trimestre4:
+                      RF === ""
+                        ? ""
+                        : jsonRF.actividades[aument_number]
+                            ?.metasPorFrecuencia[0]?.trimestre4 || "",
+                  },
+                ],
               };
             }),
           };
@@ -527,11 +629,36 @@ export const TabActividadRf = ({
 
 
   useEffect(() => {
-    asignarCValor(aValorMA);
-  }, [aValorMA]);
+    asignarCValor(aValorRF);
+  }, [aValorRF]);
+
+ 
+
   return (
     <>
-    
+    <Grid
+        visibility={show ? "visible" : "hidden"}
+        container
+        position="absolute"
+        sx={{
+          display: "flex",
+          width: "75vw",
+          height: "77vh",
+          boxShadow: 10,
+          borderRadius: 5,
+          flexDirection: "column",
+          backgroundColor: "#fff",
+        }}
+      >
+        <FormulaDialogRF
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        tipo={tipoFormula}
+        elemento={"C" + (componenteSelect + 1).toString() + "A" + (actividadSelect + 1).toString()}
+        dato={elementoFormula}
+        MIR={MIR}
+      />
         {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
         <Grid item xs={2}>
           
@@ -659,7 +786,7 @@ export const TabActividadRf = ({
           </Grid>
 
           <Grid container item xs={10} sx={{display:"flex",justifyContent:"center"}}>
-              <TextField fullWidth variant='standard' value={encabezado?.nombre_del_programa === "Selecciona"
+              <TextField disabled={true} fullWidth variant='standard' value={encabezado?.nombre_del_programa === "Selecciona"
                     ? ""
                     : encabezado?.nombre_del_programa}
                label='INSTITUCION'></TextField>
@@ -668,6 +795,7 @@ export const TabActividadRf = ({
           <Grid container item xs={12} sx={{display:"flex",justifyContent:"space-around"}}>
             <Grid item xs={3} > 
             <TextField
+            disabled={true}
               fullWidth
               sx={{boxShadow: 2 }}
               variant={"filled"}
@@ -699,6 +827,7 @@ export const TabActividadRf = ({
             <Grid item xs={3}>
 
             <TextField
+            disabled={true}
          fullWidth
               sx={{boxShadow: 2 }}
               variant={"filled"}
@@ -739,7 +868,7 @@ export const TabActividadRf = ({
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}>
                 <GridTableTrim 
-                  // d1={componentesValues[componenteSelect - 1]?.metasPorFrecuencia[0]?.trimestre1}
+                  // d1={componentesValues[componenteSelect]?.metasPorFrecuencia[0]?.trimestre1}
                   d1={
                     aValorMA[0].componentes[componenteSelect].actividades[
                       actividadSelect
@@ -787,16 +916,7 @@ export const TabActividadRf = ({
                         <td style={{width:"25%"}}>
             
                           <TextField
-                          // sx={{
-                          //   backgroundColor: (d1==""
-                          //   ?""
-                          //   :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
-                          //   ? "#CEE9B6"
-                          //   : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
-                          //   ? "#FFDE6A"
-                          //   : "#EF6969")
-                          // }}
-                            disabled={new Date()>dateTrim[0]}
+                            // disabled={new Date()>dateTrim[0]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -817,50 +937,43 @@ export const TabActividadRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            onChange={(c) => {
-                              // componentesValues[componentSelect - 1].descNumerador =
-                              //   c.target.value
-                              //     .replaceAll('"', "")
-                              //     .replaceAll("'", "")
-                              //     .replaceAll("\n", "");
-                              // setComponentesValues([...componentesValues]);
-                            }}
-                            error={
-                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
-                                actividadSelect
-                              ]?.metasPorFrecuencia[0]?.trimestre1) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    aValorRF[0].componentes[componenteSelect].actividades[
-                                      actividadSelect
-                                    ]?.metasPorFrecuencia[0]?.trimestre1
-                                  )
-                                )) &&
-                                aValorRF[0].componentes[componenteSelect].actividades[
-                                  actividadSelect
-                                ]?.metasPorFrecuencia[0]?.trimestre1 !== ""
-                                ? true
-                                : false
-                            }
-                            helperText={
-                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
-                                actividadSelect
-                              ]?.metasPorFrecuencia[0]?.trimestre1) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    aValorRF[0].componentes[componenteSelect].actividades[
-                                      actividadSelect
-                                    ]?.metasPorFrecuencia[0]?.trimestre1
-                                  )
-                                )) &&
-                                aValorRF[0].componentes[componenteSelect].actividades[
-                                  actividadSelect
-                                ]?.metasPorFrecuencia[0]?.trimestre1 !== ""
-                                ? "Introducir valor mayor que 0."
-                                : null
-                            }
+                            onClick={() => evalueTxtIndicador("DATO I,trimestre1")}
+                            // error={
+                            //   (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                            //     actividadSelect
+                            //   ]?.metasPorFrecuencia[0]?.trimestre1) <
+                            //     0 ||
+                            //     isNaN(
+                            //       parseFloat(
+                            //         aValorRF[0].componentes[componenteSelect].actividades[
+                            //           actividadSelect
+                            //         ]?.metasPorFrecuencia[0]?.trimestre1
+                            //       )
+                            //     )) &&
+                            //     aValorRF[0].componentes[componenteSelect].actividades[
+                            //       actividadSelect
+                            //     ]?.metasPorFrecuencia[0]?.trimestre1 !== ""
+                            //     ? true
+                            //     : false
+                            // }
+                            // helperText={
+                            //   (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
+                            //     actividadSelect
+                            //   ]?.metasPorFrecuencia[0]?.trimestre1) <
+                            //     0 ||
+                            //     isNaN(
+                            //       parseFloat(
+                            //         aValorRF[0].componentes[componenteSelect].actividades[
+                            //           actividadSelect
+                            //         ]?.metasPorFrecuencia[0]?.trimestre1
+                            //       )
+                            //     )) &&
+                            //     aValorRF[0].componentes[componenteSelect].actividades[
+                            //       actividadSelect
+                            //     ]?.metasPorFrecuencia[0]?.trimestre1 !== ""
+                            //     ? "Introducir valor mayor que 0."
+                            //     : null
+                            // }
                             value={aValorRF[0].componentes[componenteSelect].actividades[
                               actividadSelect
                             ]?.metasPorFrecuencia[0]?.trimestre1 || ""}
@@ -869,16 +982,8 @@ export const TabActividadRf = ({
                         </td>
                         <td style={{width:"25%"}}>
                         <TextField
-                        // sx={{
-                        //   backgroundColor: (d2==""
-                        //   ?""
-                        //   :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
-                        //   ? "#CEE9B6"
-                        //   : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
-                        //   ? "#FFDE6A"
-                        //   : "#EF6969")
-                        // }}
-                            disabled={new Date()>dateTrim[1]}
+
+                            // disabled={new Date()>dateTrim[1]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -897,50 +1002,7 @@ export const TabActividadRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            onChange={(c) => {
-                              // componentesValues[componentSelect - 1].descNumerador =
-                              //   c.target.value
-                              //     .replaceAll('"', "")
-                              //     .replaceAll("'", "")
-                              //     .replaceAll("\n", "");
-                              // setComponentesValues([...componentesValues]);
-                            }}
-                            error={
-                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
-                                actividadSelect
-                              ]?.metasPorFrecuencia[0]?.trimestre2) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    aValorRF[0].componentes[componenteSelect].actividades[
-                                      actividadSelect
-                                    ]?.metasPorFrecuencia[0]?.trimestre2
-                                  )
-                                )) &&
-                                aValorRF[0].componentes[componenteSelect].actividades[
-                                  actividadSelect
-                                ]?.metasPorFrecuencia[0]?.trimestre2 !== ""
-                                ? true
-                                : false
-                            }
-                            helperText={
-                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
-                                actividadSelect
-                              ]?.metasPorFrecuencia[0]?.trimestre2) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    aValorRF[0].componentes[componenteSelect].actividades[
-                                      actividadSelect
-                                    ]?.metasPorFrecuencia[0]?.trimestre2
-                                  )
-                                )) &&
-                                aValorRF[0].componentes[componenteSelect].actividades[
-                                  actividadSelect
-                                ]?.metasPorFrecuencia[0]?.trimestre2 !== ""
-                                ? "Introducir valor mayor que 0."
-                                : null
-                            }
+                            onClick={() => evalueTxtIndicador("DATO II,trimestre2")}
                             value={aValorRF[0].componentes[componenteSelect].actividades[
                               actividadSelect
                             ]?.metasPorFrecuencia[0]?.trimestre2 || ""}
@@ -949,16 +1011,7 @@ export const TabActividadRf = ({
                         <td style={{width:"25%"}}>
             
                           <TextField
-                          // sx={{
-                          //   backgroundColor: (d3==""
-                          //   ?""
-                          //   :(parseInt(r3)-parseInt(d3))/parseInt(d3)<.05
-                          //   ? "#CEE9B6"
-                          //   : (parseInt(r3)-parseInt(d3))/parseInt(d3)<.1
-                          //   ? "#FFDE6A"
-                          //   : "#EF6969")
-                          // }}
-                            disabled={new Date()>dateTrim[2]}
+                            // disabled={new Date()>dateTrim[2]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -977,50 +1030,7 @@ export const TabActividadRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            onChange={(c) => {
-                              // componentesValues[componentSelect - 1].descNumerador =
-                              //   c.target.value
-                              //     .replaceAll('"', "")
-                              //     .replaceAll("'", "")
-                              //     .replaceAll("\n", "");
-                              // setComponentesValues([...componentesValues]);
-                            }}
-                            error={
-                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
-                                actividadSelect
-                              ]?.metasPorFrecuencia[0]?.trimestre3) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    aValorRF[0].componentes[componenteSelect].actividades[
-                                      actividadSelect
-                                    ]?.metasPorFrecuencia[0]?.trimestre3
-                                  )
-                                )) &&
-                                aValorRF[0].componentes[componenteSelect].actividades[
-                                  actividadSelect
-                                ]?.metasPorFrecuencia[0]?.trimestre3 !== ""
-                                ? true
-                                : false
-                            }
-                            helperText={
-                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
-                                actividadSelect
-                              ]?.metasPorFrecuencia[0]?.trimestre3) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    aValorRF[0].componentes[componenteSelect].actividades[
-                                      actividadSelect
-                                    ]?.metasPorFrecuencia[0]?.trimestre3
-                                  )
-                                )) &&
-                                aValorRF[0].componentes[componenteSelect].actividades[
-                                  actividadSelect
-                                ]?.metasPorFrecuencia[0]?.trimestre3 !== ""
-                                ? "Introducir valor mayor que 0."
-                                : null
-                            }
+                            onClick={() => evalueTxtIndicador("DATO III,trimestre3")}
                             
                             value={aValorRF[0].componentes[componenteSelect].actividades[
                               actividadSelect
@@ -1030,16 +1040,7 @@ export const TabActividadRf = ({
                         </td>
                         <td style={{width:"25%"}}>
                         <TextField
-                        // sx={{
-                        //   backgroundColor: (d4==""
-                        //   ?""
-                        //   :(parseInt(r4)-parseInt(d4))/parseInt(d4)<.05
-                        //   ? "#CEE9B6"
-                        //   : (parseInt(r4)-parseInt(d4))/parseInt(d4)<.1
-                        //   ? "#FFDE6A"
-                        //   : "#EF6969")
-                        // }}
-                            disabled={new Date()>dateTrim[3]}
+                            // disabled={new Date()>dateTrim[3]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -1058,50 +1059,7 @@ export const TabActividadRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            // onChange={(c) => {
-                            //   componentesValuesRF[componentSelect - 1].trimestre4 =
-                            //     c.target.value
-                            //       .replaceAll('"', "")
-                            //       .replaceAll("'", "")
-                            //       .replaceAll("\n", "");
-                            //   setAValorRF([...componentesValuesRF]);
-                            // }}
-                            error={
-                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
-                                actividadSelect
-                              ]?.metasPorFrecuencia[0]?.trimestre4) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    aValorRF[0].componentes[componenteSelect].actividades[
-                                      actividadSelect
-                                    ]?.metasPorFrecuencia[0]?.trimestre4
-                                  )
-                                )) &&
-                                aValorRF[0].componentes[componenteSelect].actividades[
-                                  actividadSelect
-                                ]?.metasPorFrecuencia[0]?.trimestre4 !== ""
-                                ? true
-                                : false
-                            }
-                            helperText={
-                              (parseFloat(aValorRF[0].componentes[componenteSelect].actividades[
-                                actividadSelect
-                              ]?.metasPorFrecuencia[0]?.trimestre4) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    aValorRF[0].componentes[componenteSelect].actividades[
-                                      actividadSelect
-                                    ]?.metasPorFrecuencia[0]?.trimestre4
-                                  )
-                                )) &&
-                                aValorRF[0].componentes[componenteSelect].actividades[
-                                  actividadSelect
-                                ]?.metasPorFrecuencia[0]?.trimestre4 !== ""
-                                ? "Introducir valor mayor que 0."
-                                : null
-                            }
+                            onClick={() => evalueTxtIndicador("DATO IV,trimestre4")}
                             value={aValorRF[0].componentes[componenteSelect].actividades[
                               actividadSelect
                             ]?.metasPorFrecuencia[0]?.trimestre4 || ""}
@@ -1114,6 +1072,7 @@ export const TabActividadRf = ({
                 
                </Grid>
           </Grid> 
+        </Grid>
         </Grid>
         </>
   );

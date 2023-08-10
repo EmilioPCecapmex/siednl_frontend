@@ -354,7 +354,9 @@ export default function AddMetaAnual({
             noComponentes={noComponentes}
           ></TabResumenMIR>
         </Box>
+        
       </Box>
+     
     </Box>
   );
 }

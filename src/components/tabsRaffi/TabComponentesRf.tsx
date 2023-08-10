@@ -1,23 +1,20 @@
 import { Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper, styled,Tooltip } from '@mui/material';
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useEffect, useState } from "react";
-import { IComponenteMA, IComponenteRF } from "./Interfaces";
+import { IComponenteMA, IComponenteRF, IFrecuencias } from "./Interfaces";
 import { IComponente } from "../tabsMetaAnual/IComponente";
 import { ClassNames } from '@emotion/react';
+import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
 
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 const dateSem = [new Date("2023-06-30"),new Date("2023-12-31")]
 const dateTrim = [new Date("2023-03-31"),new Date("2023-06-30"),new Date("2023-09-30"),new Date("2023-12-31")]
 
 const d1="",d2="",d3="",d4="",r1="",r2="",r3="",r4=""
+
+
+
 
 const GridTablePer = ({
   periodo
@@ -118,7 +115,7 @@ const Logmensaje = ({
   d1:string,
  
 }) => {
-  console.log(d1);
+
   return (
     
     
@@ -143,19 +140,21 @@ const GridTableMetasTitulo = () => {
 
 
 export const TabComponenteRf = ({
+  show,
   MIR,
   MA,
   RF,
   noComponentes,
-  valoresComponenteMAFnc,
+  valoresComponenteRFFnc,
   showMirFnc,
   setTxtShowFnc
 }: {
+  show: boolean;
   MA: string;
   MIR: string;
   RF: string;
   noComponentes: number[];
-  valoresComponenteMAFnc: Function;
+  valoresComponenteRFFnc: Function;
   showMirFnc: Function;
   setTxtShowFnc: Function;
 }) => {
@@ -163,11 +162,57 @@ export const TabComponenteRf = ({
   let encabezado = JSON.parse(MIR).encabezado;
   const [componentSelect, setComponentSelect] = useState(1);
 
-  const [componentesValues, setComponentesValues] = useState<
-    Array<IComponenteMA>
-  >([]);
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [prevTextFormula, setPrevTextFormula] = useState("");
+  const [tipoFormula, setTipoFormula] = useState("");
+  const [elementoFormula, setElementoFormula] = useState("");
+  const [errorIndicador, setErrorIndicador] = useState(-1);
+  const handleClickOpen = () => {
+    setPrevTextFormula("Porcentaje");
+    setOpenFormulaDialog(true);
+  };
 
-  const [componentesValuesRF, setComponentesValuesRF] = useState<
+  const evalueTxtIndicador = (dato:string) => {
+    const cIndicador = 
+    jsonMIR.componentes[componentSelect - 1].indicador?.toLowerCase();
+    if (cIndicador !== undefined) {
+      if (cIndicador.includes("porcentaje")) {
+        setTipoFormula("Porcentaje");
+        setElementoFormula(dato);
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("tasa")) {
+        setTipoFormula("Tasa");
+        setElementoFormula(dato);
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("indice" || "índice")) {
+        setTipoFormula("Índice");
+        setElementoFormula(dato);
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("promedio")) {
+        setTipoFormula("Promedio");
+        setElementoFormula(dato);
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else {
+        setErrorIndicador(componentSelect - 1);
+        let prevLocal = [...jsonRF.componentes];
+        prevLocal[componentSelect - 1].indicador = "";
+        setComponentesValues(prevLocal);
+      }
+    }
+  };
+
+
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+
+  
+  
+  const [componentesValues, setComponentesValues] = useState<
     Array<IComponenteRF>
   >([]);
 
@@ -178,12 +223,14 @@ export const TabComponenteRf = ({
       ? JSON.parse(MA)[0]
       : JSON.parse(MA);
 
-  let jsonRF=
-    RF === ""
-        ? ""
-        : JSON.parse(RF).length > 1
-        ? JSON.parse(RF)[0]
-        : JSON.parse(RF);
+      let jsonMIR =
+    MIR === ""
+      ? ""
+      : JSON.parse(MIR).length > 1
+      ? JSON.parse(MIR)[0]
+      : JSON.parse(MIR);
+
+      let jsonRF = RF === "" ? "" : JSON.parse(RF);
 
 
   useEffect(() => {
@@ -191,128 +238,101 @@ export const TabComponenteRf = ({
 
     noComponentes.map((x, index) => {
       return comp.push({
+        
         componentes: "C" + (index + 1),
-            semestre1:
-              RF === ""
-                ? ""
-                : jsonRF?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.semestre1 || "",
-            semestre2:
-              RF === ""
-                ? ""
-                : jsonRF?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.semestre2 || "",
-            trimestre1:
-              RF === ""
-                ? ""
-                : jsonRF?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre1 || "",
-            trimestre2:
-              RF === ""
-                ? ""
-                : jsonRF?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre2 || "",
-            trimestre3:
-              RF === ""
-                ? ""
-                : jsonRF?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre3 || "",
-            trimestre4:
-              RF === ""
-                ? ""
-                : jsonRF?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre4 || ""
+        metasPorFrecuencia: [{
+          semestre1:"",
+          semestre2:"",
+          trimestre1:"",
+          trimestre2:"",
+          trimestre3:"",
+          trimestre4:"",
+        }],
+        numeradorPorFrecuencia: [{
+          semestre1:"",
+          semestre2:"",
+          trimestre1:"",
+          trimestre2:"",
+          trimestre3:"",
+          trimestre4:"",
+        }],
+        denominadorPorFrecuencia:[{
+          semestre1:"",
+          semestre2:"",
+          trimestre1:"",
+          trimestre2:"",
+          trimestre3:"",
+          trimestre4:"",
+        }]
           
         
 
       });
     });
 
-    setComponentesValuesRF(comp);
+    setComponentesValues(comp);
+ 
   }, [noComponentes]);
 
 
   useEffect(() => {
-    valoresComponenteMAFnc(componentesValues);
+    valoresComponenteRFFnc(componentesValues);
   }, [componentesValues]);
 
-  useEffect(() => {
-    let comp: IComponenteMA[] = [];
+  const changeFormula = (txt: string) => {
+    
+    if (
+      JSON.parse(MIR)
+        .componentes[componentSelect - 1].indicador.toLowerCase()
+        .includes("indice") ||
+      JSON.parse(MIR)
+        .componentes[componentSelect - 1].indicador.toLowerCase()
+        .includes("índice")
+    ) {
+      componentesValues[componentSelect - 1].numeradorPorFrecuencia[0].trimestre2 = txt;
+      componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 = txt;
+    } else {
+      let frec = txt.split(",")[3];
+      console.log(componentesValues);
+      componentesValues[componentSelect - 1].numeradorPorFrecuencia[0][frec as keyof IFrecuencias] = txt.split(",")[0];
+      componentesValues[componentSelect - 1].denominadorPorFrecuencia[0][frec as keyof IFrecuencias] =
+        txt.split(",")[1];
+        componentesValues[componentSelect - 1].metasPorFrecuencia[0][frec as keyof IFrecuencias] = txt.split(",")[2];
+    }
 
-    noComponentes.map((x, index) => {
-      return comp.push({
-        componentes: "C" + (index + 1),
-        // frecuencia: MA === "" ? "" : jsonMA?.componentes[index]?.frecuencia || "",
-        metaAnual: MA === "" ? "" : jsonMA?.componentes[index]?.metaAnual || "",
-        lineaBase: MA === "" ? "" : jsonMA?.componentes[index]?.lineaBase || "",
-        metasPorFrecuencia: [
-          {
-            semestre1:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.semestre1 || "",
-            semestre2:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.semestre2 || "",
-            trimestre1:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre1 || "",
-            trimestre2:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre2 || "",
-            trimestre3:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre3 || "",
-            trimestre4:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre4 || "",
-          },
-        ],
-
-        valorNumerador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || "",
-        valorDenominador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || "",
-        sentidoDelIndicador:
-          MA === ""
-            ? ""
-            : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
-
-        unidadResponsable:
-          MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
-
-        descIndicador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.descIndicador || "",
-        descNumerador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.descNumerador || "",
-        descDenominador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.descDenominador || "",
-      });
-    });
-
-    setComponentesValues(comp);
-  }, [noComponentes]);
-
-
+    setComponentesValues([...componentesValues]);
+  };
 
 
   return (
     <>
-    
+    <Grid
+        visibility={show ? "visible" : "hidden"}
+        container
+        position="absolute"
+        sx={{
+          display: "flex",
+          width: "75vw",
+          height: "77vh",
+          boxShadow: 10,
+          borderRadius: 5,
+          flexDirection: "column",
+          backgroundColor: "#fff",
+        }}
+      >
+
+<FormulaDialogRF
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        tipo={tipoFormula}
+        elemento={"Componente " + componentSelect.toString()}
+        dato={elementoFormula}
+        MIR={MIR}
+      />
         {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
         <Grid item xs={2}>
-          
+      
         <List
           sx={{
             width: "10vw",
@@ -405,12 +425,14 @@ export const TabComponenteRf = ({
               <TextField fullWidth variant='standard' value={encabezado?.institucion === "Selecciona"
                     ? ""
                     : encabezado?.institucion}
+                    disabled={true}
                label='INSTITUCION'></TextField>
           </Grid>
 
           <Grid container item xs={12} sx={{display:"flex",justifyContent:"space-around"}}>
             <Grid item xs={3} > 
             <TextField
+              disabled={true}
               fullWidth
               sx={{boxShadow: 2 }}
               variant={"filled"}
@@ -431,7 +453,8 @@ export const TabComponenteRf = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-          value={componentesValues[componentSelect - 1]?.metaAnual || ""}
+          // value={componentesValues[componentSelect - 1]?.metaAnual || ""}
+          value={jsonMA?.componentes[componentSelect - 1]?.metaAnual || ""}
             />
             </Grid>
             
@@ -439,6 +462,7 @@ export const TabComponenteRf = ({
 
             <TextField
          fullWidth
+         disabled={true}
               sx={{boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -458,7 +482,8 @@ export const TabComponenteRf = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-          value={componentesValues[componentSelect - 1]?.lineaBase || ""}
+          // value={componentesValues[componentSelect - 1]?.lineaBase || ""}
+          value={jsonMA?.componentes[componentSelect - 1]?.lineaBase || ""}
             />
             </Grid>
             
@@ -467,23 +492,22 @@ export const TabComponenteRf = ({
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}><GridTablePer 
-              periodo={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
+              periodo={jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
               ? "TRIMESTRE"
               : "SEMESTRE"} /></Grid>
           </Grid>
 
-
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}>
-                {componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
+                {jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
               ? <GridTableTrim 
-                  d1={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1}
-                  d2={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2}
-                  d3={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3}
-                  d4={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4}/>
+                  d1={jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1}
+                  d2={jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2}
+                  d3={jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3}
+                  d4={jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4}/>
               : <GridTableSem 
-                  d1={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1}
-                  d2={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2}/>}
+                  d1={jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1}
+                  d2={jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2}/>}
                 </Grid>
           </Grid>
 
@@ -493,12 +517,12 @@ export const TabComponenteRf = ({
           </Grid>
 
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
-              <Grid item xs={6}><Logmensaje d1={RF}/></Grid>
+              <Grid item xs={6}></Grid>
           </Grid>
           <Grid container item sx={{display:"flex",justifyContent:"center"}} xs={12}>
               <Grid item xs={6}>
                
-              {componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
+              {jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1===""
               ? 
     
                 <div className="grid-container" style={{width:"100%",textAlign:"center"}}>
@@ -510,16 +534,7 @@ export const TabComponenteRf = ({
                         <td style={{width:"25%"}}>
             
                           <TextField
-                          // sx={{
-                          //   backgroundColor: (d1==""
-                          //   ?""
-                          //   :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
-                          //   ? "#CEE9B6"
-                          //   : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
-                          //   ? "#FFDE6A"
-                          //   : "#EF6969")
-                          // }}
-                            disabled={new Date()>dateTrim[0]}
+                            // disabled={new Date()>dateTrim[0]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -540,54 +555,14 @@ export const TabComponenteRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            onChange={(c) => {
-                              componentesValuesRF[componentSelect - 1].trimestre1 =
-                                c.target.value
-                                  .replaceAll('"', "")
-                                  .replaceAll("'", "")
-                                  .replaceAll("\n", "");
-                              setComponentesValuesRF([...componentesValuesRF]);
-                            }}
-                            error={
-                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre1) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    componentesValuesRF[componentSelect - 1]?.trimestre1
-                                  )
-                                )) &&
-                              componentesValuesRF[componentSelect - 1]?.trimestre1 !== ""
-                                ? true
-                                : false
-                            }
-                            helperText={
-                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre1) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    componentesValuesRF[componentSelect - 1]?.trimestre1
-                                  )
-                                )) &&
-                              componentesValuesRF[componentSelect - 1]?.trimestre1 !== ""
-                                ? "Introducir valor mayor que 0."
-                                : null
-                            }
-                            value={componentesValuesRF[componentSelect - 1]?.trimestre1 || ""}
+                            onClick={() => evalueTxtIndicador("DATO I,trimestre1")}
+                            value={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1 || ""}
                           />
                           
                         </td>
                         <td style={{width:"25%"}}>
                         <TextField
-                        // sx={{
-                        //   backgroundColor: (d2==""
-                        //   ?""
-                        //   :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
-                        //   ? "#CEE9B6"
-                        //   : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
-                        //   ? "#FFDE6A"
-                        //   : "#EF6969")
-                        // }}
-                            disabled={new Date()>dateTrim[1]}
+                            // disabled={new Date()>dateTrim[1]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -606,54 +581,14 @@ export const TabComponenteRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            onChange={(c) => {
-                              componentesValuesRF[componentSelect - 1].trimestre2 =
-                                c.target.value
-                                  .replaceAll('"', "")
-                                  .replaceAll("'", "")
-                                  .replaceAll("\n", "");
-                              setComponentesValuesRF([...componentesValuesRF]);
-                            }}
-                            error={
-                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre2) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    componentesValuesRF[componentSelect - 1]?.trimestre2
-                                  )
-                                )) &&
-                              componentesValuesRF[componentSelect - 1]?.trimestre2 !== ""
-                                ? true
-                                : false
-                            }
-                            helperText={
-                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre2) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    componentesValuesRF[componentSelect - 1]?.trimestre2
-                                  )
-                                )) &&
-                              componentesValuesRF[componentSelect - 1]?.trimestre2 !== ""
-                                ? "Introducir valor mayor que 0."
-                                : null
-                            }
-                            value={componentesValuesRF[componentSelect - 1]?.trimestre2 || ""}
+                            onClick={() => evalueTxtIndicador("DATO II,trimestre2")}
+                            value={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2 || ""}
                           />
                         </td>
                         <td style={{width:"25%"}}>
             
                           <TextField
-                          // sx={{
-                          //   backgroundColor: (d3==""
-                          //   ?""
-                          //   :(parseInt(r3)-parseInt(d3))/parseInt(d3)<.05
-                          //   ? "#CEE9B6"
-                          //   : (parseInt(r3)-parseInt(d3))/parseInt(d3)<.1
-                          //   ? "#FFDE6A"
-                          //   : "#EF6969")
-                          // }}
-                            disabled={new Date()>dateTrim[2]}
+                            // disabled={new Date()>dateTrim[2]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -672,54 +607,14 @@ export const TabComponenteRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            onChange={(c) => {
-                              componentesValuesRF[componentSelect - 1].trimestre3 =
-                                c.target.value
-                                  .replaceAll('"', "")
-                                  .replaceAll("'", "")
-                                  .replaceAll("\n", "");
-                              setComponentesValuesRF([...componentesValuesRF]);
-                            }}
-                            error={
-                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre3) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    componentesValuesRF[componentSelect - 1]?.trimestre3
-                                  )
-                                )) &&
-                              componentesValuesRF[componentSelect - 1]?.trimestre3 !== ""
-                                ? true
-                                : false
-                            }
-                            helperText={
-                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre3) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    componentesValuesRF[componentSelect - 1]?.trimestre3
-                                  )
-                                )) &&
-                              componentesValuesRF[componentSelect - 1]?.trimestre3 !== ""
-                                ? "Introducir valor mayor que 0."
-                                : null
-                            }
-                            value={componentesValuesRF[componentSelect - 1]?.trimestre3 || ""}
+                            onClick={() => evalueTxtIndicador("DATO III,trimestre3")}
+                            value={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3 || ""}
                           />
                           
                         </td>
                         <td style={{width:"25%"}}>
                         <TextField
-                        // sx={{
-                        //   backgroundColor: (d4==""
-                        //   ?""
-                        //   :(parseInt(r4)-parseInt(d4))/parseInt(d4)<.05
-                        //   ? "#CEE9B6"
-                        //   : (parseInt(r4)-parseInt(d4))/parseInt(d4)<.1
-                        //   ? "#FFDE6A"
-                        //   : "#EF6969")
-                        // }}
-                            disabled={new Date()>dateTrim[3]}
+                            // disabled={new Date()>dateTrim[3]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -738,39 +633,8 @@ export const TabComponenteRf = ({
                                 fontFamily: "MontserratRegular",
                               },
                             }}
-                            onChange={(c) => {
-                              componentesValuesRF[componentSelect - 1].trimestre4 =
-                                c.target.value
-                                  .replaceAll('"', "")
-                                  .replaceAll("'", "")
-                                  .replaceAll("\n", "");
-                              setComponentesValuesRF([...componentesValuesRF]);
-                            }}
-                            error={
-                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre4) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    componentesValuesRF[componentSelect - 1]?.trimestre4
-                                  )
-                                )) &&
-                              componentesValuesRF[componentSelect - 1]?.trimestre4 !== ""
-                                ? true
-                                : false
-                            }
-                            helperText={
-                              (parseFloat(componentesValuesRF[componentSelect - 1]?.trimestre4) <
-                                0 ||
-                                isNaN(
-                                  parseFloat(
-                                    componentesValuesRF[componentSelect - 1]?.trimestre4
-                                  )
-                                )) &&
-                              componentesValuesRF[componentSelect - 1]?.trimestre4 !== ""
-                                ? "Introducir valor mayor que 0."
-                                : null
-                            }
-                            value={componentesValuesRF[componentSelect - 1]?.trimestre4 || ""}
+                            onClick={() => evalueTxtIndicador("DATO IV,trimestre4")}
+                            value={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4 || ""}
                           />
                         </td>
                       </tr>
@@ -796,7 +660,7 @@ export const TabComponenteRf = ({
                         //   ? "#FFDE6A"
                         //   : "#EF6969")
                         // }}
-                        disabled={new Date()>dateSem[0]}
+                        //disabled={new Date()>dateSem[0]}
                         variant={"filled"}
                         label={
                           <Typography
@@ -816,53 +680,37 @@ export const TabComponenteRf = ({
                             fontFamily: "MontserratRegular",
                           },
                         }}
-                        onChange={(c) => {
-                          componentesValuesRF[componentSelect - 1].semestre1 =
-                            c.target.value
-                              .replaceAll('"', "")
-                              .replaceAll("'", "")
-                              .replaceAll("\n", "");
-                          setComponentesValuesRF([...componentesValuesRF]);
-                        }}
-                        error={
-                          (parseFloat(componentesValuesRF[componentSelect - 1]?.semestre1) <
-                            0 ||
-                            isNaN(
-                              parseFloat(
-                                componentesValuesRF[componentSelect - 1]?.semestre1
-                              )
-                            )) &&
-                          componentesValuesRF[componentSelect - 1]?.semestre1 !== ""
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          (parseFloat(componentesValuesRF[componentSelect - 1]?.semestre1) <
-                            0 ||
-                            isNaN(
-                              parseFloat(
-                                componentesValuesRF[componentSelect - 1]?.semestre1
-                              )
-                            )) &&
-                          componentesValuesRF[componentSelect - 1]?.semestre1 !== ""
-                            ? "Introducir valor mayor que 0."
-                            : null
-                        }
-                        value={componentesValuesRF[componentSelect - 1]?.semestre1 || ""}
+                        onClick={() => evalueTxtIndicador("DATO I,semestre1")}
+                        // error={
+                        //   (parseFloat(componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1) <
+                        //     0 ||
+                        //     isNaN(
+                        //       parseFloat(
+                        //         componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1
+                        //       )
+                        //     )) &&
+                        //   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1 !== ""
+                        //     ? true
+                        //     : false
+                        // }
+                        // helperText={
+                        //   (parseFloat(componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1) <
+                        //     0 ||
+                        //     isNaN(
+                        //       parseFloat(
+                        //         componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1
+                        //       )
+                        //     )) &&
+                        //   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1 !== ""
+                        //     ? "Introducir valor mayor que 0."
+                        //     : null
+                        // }
+                        value={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1 || ""}
                       />
                       
                     </td>
                     <td style={{width:"25%"}}>
                     <TextField
-                      // sx={{
-                      //   backgroundColor: (d2==""
-                      //   ?""
-                      //   :(parseInt(r2)-parseInt(d2))/parseInt(d2)<.05
-                      //   ? "#CEE9B6"
-                      //   : (parseInt(r2)-parseInt(d2))/parseInt(d2)<.1
-                      //   ? "#FFDE6A"
-                      //   : "#EF6969")
-                      // }}
                         disabled={new Date()>dateSem[1]}
                         variant={"filled"}
                         label={
@@ -872,14 +720,7 @@ export const TabComponenteRf = ({
                             DATO II
                           </Typography>
                         }
-                        onChange={(c) => {
-                          componentesValuesRF[componentSelect - 1].semestre2 =
-                            c.target.value
-                              .replaceAll('"', "")
-                              .replaceAll("'", "")
-                              .replaceAll("\n", "");
-                          setComponentesValuesRF([...componentesValuesRF]);
-                        }}
+                        onClick={() => evalueTxtIndicador("DATO II,semestre2")}
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratMedium",
@@ -890,31 +731,7 @@ export const TabComponenteRf = ({
                             fontFamily: "MontserratRegular",
                           },
                         }}
-                        error={
-                          (parseFloat(componentesValuesRF[componentSelect - 1]?.semestre2) <
-                            0 ||
-                            isNaN(
-                              parseFloat(
-                                componentesValuesRF[componentSelect - 1]?.semestre2
-                              )
-                            )) &&
-                          componentesValuesRF[componentSelect - 1]?.semestre2 !== ""
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          (parseFloat(componentesValuesRF[componentSelect - 1]?.semestre2) <
-                            0 ||
-                            isNaN(
-                              parseFloat(
-                                componentesValuesRF[componentSelect - 1]?.semestre2
-                              )
-                            )) &&
-                          componentesValuesRF[componentSelect - 1]?.semestre2 !== ""
-                            ? "Introducir valor mayor que 0."
-                            : null
-                        }
-                        value={componentesValuesRF[componentSelect - 1]?.semestre2 || ""}
+                        value={componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2 || ""}
                       />
                     </td>
                     
@@ -927,6 +744,9 @@ export const TabComponenteRf = ({
                 
                </Grid>
           </Grid>
+        </Grid>
+       
+        
         </Grid>
         </>
   );

@@ -21,7 +21,7 @@ import {
   IVTrimestral,
 } from "../../screens/raffi/interfacesRaffi";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import validator from "validator";
+// import validator from "validator";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 
 export const VTrimestral = {
@@ -57,12 +57,14 @@ export const VPTrimestral = {
   porcentajeCuentaPublica: "",
 };
 export function TabAvanceFinanciero({
+  show,
   resumenAvanceFinancieroRf,
   MIR,
   MA,
   avanceFinancieroRF,
   setAvanceFinancieroRF,
 }: {
+  show : boolean;
   resumenAvanceFinancieroRf: Function;
   MIR: string;
   MA: string;
@@ -374,6 +376,7 @@ export function TabAvanceFinanciero({
   return (
     <>
       <Grid
+        visibility={show ? "visible" : "hidden"}
         container
         direction={"row"}
         sx={{
@@ -949,6 +952,7 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="0"
+
                   //label="porcentaje T1"
                   sx={queries.medium_text}
                   value={

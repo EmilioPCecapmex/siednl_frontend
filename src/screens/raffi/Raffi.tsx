@@ -103,7 +103,7 @@ export const Raffi = () => {
   const [rf, setRf] = useState<Array<IRaffi>>([]);
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
-  const [rfEdit, setRtEdit] = useState<IRaffi>();
+  const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
 
   const [findTextStr, setFindTextStr] = useState("");
@@ -114,6 +114,7 @@ export const Raffi = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   useEffect(() => {
+    setOpenTabs(true);
     listaRaffi(setRf);
   }, []);
 
@@ -126,8 +127,8 @@ export const Raffi = () => {
   }, [rfFiltered]);
 
   const returnMain = () => {
-    setShowResume(true);
-    listaRaffi(setRf);
+    setOpenTabs(true);
+    setActionNumber(1);
   };
 
   const findText = (v: string, est: string, inst: string) => {
@@ -215,6 +216,9 @@ export const Raffi = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
+
+
+  
   useEffect(() => {
     getInstituciones(setInstituciones);
   }, []);
@@ -297,7 +301,6 @@ export const Raffi = () => {
       <Grid item height={"100vh"}>
         <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
-
       <Grid item
         justifyContent={"center"}
         display={"flex"}
@@ -501,6 +504,7 @@ export const Raffi = () => {
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
+              
               <TableContainer sx={{ borderRadius: 5 }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
@@ -642,10 +646,11 @@ export const Raffi = () => {
                                   <IconButton
                                     type="button"
                                     onClick={() => {
-                                      setRtEdit({
-                                        IdRf: row.IdRf,
+                                      setRfEdit([
+                                        {
+                                        IdRaffi: row.IdRaffi,
                                         IdMir: row.IdMir,
-                                        IdMa: row.IdMa,
+                                        IdMetaAnual: row.IdMetaAnual,
                                         RAFFI: row.RAFFI,
                                         Estado: row.Estado,
                                         CreadoPor: row.CreadoPor,
@@ -659,7 +664,8 @@ export const Raffi = () => {
                                         Conac: row.Conac,
                                         Consecutivo: row.Consecutivo,
                                         Opciones: row.Opciones,
-                                      });
+                                      },
+                                    ]);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -687,12 +693,14 @@ export const Raffi = () => {
                                 //     ? false
                                 //     : true
                                 // }
+                               
                                   type="button"
                                   onClick={() => {
-                                    setRtEdit({
-                                      IdRf: row.IdRf,
+                                    setRfEdit([
+                                      {
+                                      IdRaffi: row.IdRaffi,
                                       IdMir: row.IdMir,
-                                      IdMa: row.IdMa,
+                                      IdMetaAnual: row.IdMetaAnual,
                                       RAFFI: row.RAFFI,
                                       Estado: row.Estado,
                                       CreadoPor: row.CreadoPor,
@@ -706,7 +714,8 @@ export const Raffi = () => {
                                       Conac: row.Conac,
                                       Consecutivo: row.Consecutivo,
                                       Opciones: row.Opciones,
-                                    });
+                                    },
+                                  ]);
                                     setOpenTabs(false);
                                     setActionNumber(1); //Revisar esta funcionalidad
                                   }}
@@ -725,30 +734,47 @@ export const Raffi = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+            
             </Grid>
 
           </>
         ) : (
+          <Grid
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
+          }}
+          gridArea={"main"}
+        >
+          
           <CapturaRaffi
-            MIR={rfEdit?.MIR || ""}
-            MA={rfEdit?.MetaAnual || ""}
-            RF={rfEdit?.RAFFI || ""}
+            MIR={rfEdit[0].MIR || ""}
+            MA={rfEdit[0].MetaAnual || ""}
+            RF={rfEdit[0].RAFFI || ""}
             opentabs={returnMain}
-            IdMir={rfEdit?.IdMir || ""}
-            IdMA={rfEdit?.IdMa || ""}
-            IdRf={rfEdit?.IdRf || ""}
+            IdMir={rfEdit[0].IdMir || ""}
+            IdMA={rfEdit[0].IdMetaAnual || ""}
+            IdRf={rfEdit[0].IdRaffi || ""}
+            showResume={returnMain}
           />
+          </Grid>
         )}
+        {/* rdEdit: 
+        {JSON.stringify(rfEdit[0]?.MIR)} */}
       </Grid>
+      
 
     </Grid>
   );
 };
 
 export interface IRaffi {
-  IdRf: string;
+  IdRaffi: string;
   IdMir: string;
-  IdMa: string;
+  IdMetaAnual: string;
   RAFFI: string;
   Estado: string;
   CreadoPor: string;

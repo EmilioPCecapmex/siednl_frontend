@@ -31,6 +31,7 @@ import { useEffect, useState } from "react";
 import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
 
 export function TabFinPropositoRF({
+  show,
   resumenPropositoRF,
   resumenFinRF,
   MIR,
@@ -48,9 +49,10 @@ export function TabFinPropositoRF({
   propositoRF: IPropositoRF;
   setFinRF: Function;
   setPropositoRF: Function;
-
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  RF: string;
+  show:boolean;
+  showMirFnc: Function
+  setTxtShowFnc: Function
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
 
@@ -214,10 +216,9 @@ export function TabFinPropositoRF({
   return (
     <>
       <Grid
+        visibility={show ? "visible" : "hidden"}
         container
-        item
-        xl={12}
-        //direction={"row"}
+        position="absolute"
         sx={{
           height: "100%",
           justifyContent: "space-around",
