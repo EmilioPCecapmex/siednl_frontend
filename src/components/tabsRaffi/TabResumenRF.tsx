@@ -243,10 +243,10 @@ export const TabResumenRF = ({
                             </td>
                           </tr>
                           <tr>
-                            <td>{AFinanciero[0]?.monto.devengadoModificado.t1}</td>
-                            <td>{AFinanciero[0]?.monto.devengadoModificado.t2}</td>
-                            <td>{AFinanciero[0]?.monto.devengadoModificado.t3}</td>
-                            <td>{AFinanciero[0]?.monto.devengadoModificado.t4}</td>
+                            <td>{AFinanciero[0]?.monto.devengadoModificado.t1.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.devengadoModificado.t2.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.devengadoModificado.t3.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.devengadoModificado.t4.resultado}</td>
                             <td>{AFinanciero[0]?.monto.devengadoModificado.cuentaPublica}</td>
                           </tr>
                           <tr style={{ backgroundColor: "lightgray", boxShadow: "1px 2px 2px", textAlign: "center" }}>
@@ -305,10 +305,10 @@ export const TabResumenRF = ({
                             </td>
                           </tr>
                           <tr>
-                            <td>{AFinanciero[0]?.monto.modificadoAutorizado.t1}</td>
-                            <td>{AFinanciero[0]?.monto.modificadoAutorizado.t2}</td>
-                            <td>{AFinanciero[0]?.monto.modificadoAutorizado.t3}</td>
-                            <td>{AFinanciero[0]?.monto.modificadoAutorizado.t4}</td>
+                            <td>{AFinanciero[0]?.monto.modificadoAutorizado.t1.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.modificadoAutorizado.t2.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.modificadoAutorizado.t3.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.modificadoAutorizado.t4.resultado}</td>
                             <td>{AFinanciero[0]?.monto.modificadoAutorizado.cuentaPublica}</td>
                           </tr>
                           <tr style={{ backgroundColor: "lightgray", boxShadow: "1px 2px 2px", textAlign: "center" }}>
@@ -368,11 +368,10 @@ export const TabResumenRF = ({
                             </td>
                           </tr>
                           <tr>
-                            <td>{AFinanciero[0]?.monto.ejercidoModificado.t1}</td>
-                            <td>{AFinanciero[0]?.monto.ejercidoModificado.t2}</td>
-                            <td>{AFinanciero[0]?.monto.ejercidoModificado.t3}</td>
-                            <td>{AFinanciero[0]?.monto.ejercidoModificado.t4}</td>
-                            <td>{AFinanciero[0]?.monto.ejercidoModificado.cuentaPublica}</td>
+                            <td>{AFinanciero[0]?.monto.ejercidoModificado.t1.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.ejercidoModificado.t2.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.ejercidoModificado.t3.resultado}</td>
+                            <td>{AFinanciero[0]?.monto.ejercidoModificado.t4.resultado}</td>
                           </tr>
                           <tr style={{ backgroundColor: "lightgray", boxShadow: "1px 2px 2px", textAlign: "center" }}>
                             <td colSpan={5}>

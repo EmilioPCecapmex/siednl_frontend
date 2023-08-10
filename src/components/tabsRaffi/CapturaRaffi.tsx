@@ -242,7 +242,7 @@ export default function CapturaRaffi({
 );
 
   const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
-    // setValoresComponenteRF(state);
+    setValoresComponenteRF(state);
   };
 
   const asignarCValorRF = (state: Array<ICValorRF>) => {
@@ -543,7 +543,17 @@ console.log("raffi",raffi);
             />
           )} */}
 
-         
+<TabComponenteRf
+            show={value === 30 ? true : false}
+              valoresComponenteRFFnc={valoresComponenteRFFnc}
+              noComponentes={noComponentes}
+              MA={MA}
+              MIR={MIR}
+              RF={RF}
+              setTxtShowFnc={showFnc}
+              showMirFnc={showMirFnc}
+            />
+
           <TabActividadRf 
           show={value === 40 ? true : false}
           valoresComponenteRFFnc={valoresComponenteRFFnc}
