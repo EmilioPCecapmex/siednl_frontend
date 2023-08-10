@@ -57,14 +57,14 @@ export const VPTrimestral = {
   porcentajeCuentaPublica: "",
 };
 export function TabAvanceFinanciero({
-  show,
+  //show,
   resumenAvanceFinancieroRf,
   MIR,
   MA,
   avanceFinancieroRF,
   setAvanceFinancieroRF,
 }: {
-  show : boolean;
+ // show : boolean;
   resumenAvanceFinancieroRf: Function;
   MIR: string;
   MA: string;
@@ -376,7 +376,7 @@ export function TabAvanceFinanciero({
   return (
     <>
       <Grid
-        visibility={show ? "visible" : "hidden"}
+       // visibility={show ? "visible" : "hidden"}
         container
         direction={"row"}
         sx={{
