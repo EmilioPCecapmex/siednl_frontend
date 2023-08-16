@@ -174,7 +174,7 @@ export const ActividadesInstitucionales = () => {
                 justifyContent="space-around"
                 alignItems="center"
               >
-                <Grid item xl={5} lg={4} md={3} sm={2}>
+                <Grid item xl={5} lg={5} md={4} sm={4}>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -213,7 +213,7 @@ export const ActividadesInstitucionales = () => {
                   />
                 </Grid>
 
-                <Grid item xl={5} lg={4} md={3} sm={2}>
+                <Grid item xl={5} lg={5} md={4} sm={4}>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -262,7 +262,7 @@ export const ActividadesInstitucionales = () => {
                 justifyContent="space-around"
                 alignItems="center"
               >
-                <Grid item xl={5} lg={4} md={3} sm={2}>
+                <Grid item xl={5} lg={5} md={4} sm={4}>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -300,7 +300,7 @@ export const ActividadesInstitucionales = () => {
                     )}
                   />
                 </Grid>
-                <Grid item xl={5} lg={4} md={3} sm={2}>
+                <Grid item xl={5} lg={5} md={4} sm={4}>
                   <Button
                     sx={{
                       backgroundColor: "#c2a37b",

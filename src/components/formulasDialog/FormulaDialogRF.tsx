@@ -37,6 +37,10 @@ export const FormulaDialogRF = ({
   };
 
   const checkValues = () => {
+    console.log("Elemento: ",elemento);
+    console.log("dato: ",dato);
+    
+    
     if (tipo === "Indice" || tipo === "Índice") {
       if (/^[\s]*$/.test(descA)) {
         setEmptyTxt(true);

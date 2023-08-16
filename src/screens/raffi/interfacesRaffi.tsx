@@ -1,3 +1,5 @@
+import { IComponenteRF } from "../../components/tabsRaffi/Interfaces";
+
 export interface IAvanceFinancieroRF {
     nombrePrograma: string;
     valorProgramaPresupuestario: string;
@@ -49,6 +51,14 @@ export interface IVPTrimestral{
     porcentajeCuentaPublica: string;
 }
 
+export interface Iperiodo {
+    
+    periodo1: string;
+    periodo2: string;
+    periodo3: string;
+    periodo4: string;
+  }
+
 export interface IFinRF {
     añoAvanceFisico: string;
     valorAvanceFisico: string;
@@ -62,6 +72,7 @@ export interface IPropositoRF {
 export interface IRF{
     avanceFinanciero: IAvanceFinancieroRF,
     fin: IFinRF,
-    proposito: IPropositoRF
+    proposito: IPropositoRF,
+    componentes: IComponenteRF[], 
 
 }

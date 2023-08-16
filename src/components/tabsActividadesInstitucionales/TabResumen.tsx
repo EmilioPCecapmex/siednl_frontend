@@ -1,16 +1,8 @@
 import { Box, Typography, Button } from "@mui/material";
 
-export function TabResumen({
-  show,
-  showResume,
-}: {
-  show: boolean;
-  showResume: Function;
-}) {
+export function TabResumen({ showResume }: { showResume: Function }) {
   return (
     <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
       sx={{
         width: "75vw",
         height: "77vh",

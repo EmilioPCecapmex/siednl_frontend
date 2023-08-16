@@ -49,6 +49,7 @@ export function TabFinPropositoRF({
   propositoRF: IPropositoRF;
   setFinRF: Function;
   setPropositoRF: Function;
+
   RF: string;
   show:boolean;
   showMirFnc: Function
@@ -216,9 +217,9 @@ export function TabFinPropositoRF({
   return (
     <>
       <Grid
-        visibility={show ? "visible" : "hidden"}
+   
         container
-        position="absolute"
+        
         sx={{
           height: "100%",
           justifyContent: "space-around",
