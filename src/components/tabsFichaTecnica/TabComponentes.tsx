@@ -13,6 +13,8 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 
+
+
 export const TabComponenteFT = ({
   show,
   valoresComponenteFTFnc,

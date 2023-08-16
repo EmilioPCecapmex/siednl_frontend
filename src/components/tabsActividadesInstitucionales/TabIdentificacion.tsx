@@ -8,12 +8,13 @@ import {
   FormControl,
   Divider,
   ListItemButton,
+  Grid,
 } from "@mui/material";
 import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
 import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
 import axios from "axios";
 
-export function TabIdentificacion({ show }: { show: boolean }) {
+export function TabIdentificacion({  }: { }) {
   const [componentSelect, setComponentSelect] = useState(1);
 
   //catalogos
@@ -90,26 +91,29 @@ export function TabIdentificacion({ show }: { show: boolean }) {
   }, []);
 
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+    <Grid
+      container
+      direction={"row"}
+      
       sx={{
-        width: "75vw",
-        height: "77vh",
-        justifyContent: "center",
-        alignItems: "center",
-        justifyItems: "center",
+        width: "100%",
+        height: "100%",
+         justifyContent: "center",
+         alignItems: "center",
+         justifyItems: "center",
         backgroundColor: "#fff",
         boxShadow: 20,
         borderRadius: 5,
       }}
     >
-      <Box
+      <Grid
+        item
         sx={{
           width: "100%",
           height: "100%",
           display: "flex",
         }}
+        lg={12}
       >
         <List
           sx={{
@@ -130,7 +134,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
             },
           }}
         >
-          <Box
+          <Grid
             sx={{
               height: "15vh",
               display: "flex",
@@ -194,10 +198,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
             </ListItemButton>
 
             <Divider />
-          </Box>
+          </Grid>
         </List>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -206,10 +210,11 @@ export function TabIdentificacion({ show }: { show: boolean }) {
             alignItems: "center",
             justifyContent: "center",
           }}
+          lg={12}
         >
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 1 ? (
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "100%",
@@ -218,22 +223,24 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 justifyContent: "center",
                 flexDirection: "column",
               }}
+              
             >
-              <Box
+              <Grid
                 sx={{
                   width: "90%",
                   display: "flex",
                   justifyContent: "flex-end",
                   alignItems: "center",
                 }}
+                
               >
                 <Typography
                   sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
                 >
                   Identificación
                 </Typography>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "30%",
                   width: "90%",
@@ -244,10 +251,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     size="small"
                     options={catalogoAniosFiscales}
@@ -308,10 +315,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     size="small"
                     options={top100Films()}
@@ -359,10 +366,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     options={catalogoInstituciones}
                     getOptionLabel={(option) => option.NombreInstitucion}
@@ -414,9 +421,9 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     }
                   />
                 </FormControl>
-              </Box>
+              </Grid>
 
-              <Box
+              <Grid
                 sx={{
                   height: "30%",
                   width: "90%",
@@ -427,10 +434,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -470,10 +477,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -512,10 +519,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -552,8 +559,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "30%",
                   width: "90%",
@@ -564,10 +571,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -606,10 +613,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -646,15 +653,15 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
           {componentSelect === 2 ? (
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "100%",
@@ -664,7 +671,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   width: "90%",
                   display: "flex",
@@ -677,8 +684,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 >
                   Alineación
                 </Typography>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -689,10 +696,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -732,10 +739,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -775,10 +782,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -815,8 +822,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -827,10 +834,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -870,10 +877,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -910,15 +917,15 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 3 ? (
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "100%",
@@ -928,7 +935,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   width: "90%",
                   display: "flex",
@@ -941,8 +948,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 >
                   Objetivos
                 </Typography>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -967,8 +974,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     });
                   }}
                 />
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -1010,13 +1017,13 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     });
                   }}
                 />
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
           ) : null}
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
-        </Box>
-      </Box>
-    </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 

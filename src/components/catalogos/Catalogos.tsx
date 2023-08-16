@@ -1230,6 +1230,16 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [DataDescripctionFiltered]);
 
+    useEffect(() => {
+      
+      console.log("tablaActual: ",tablaActual);
+      console.log("selected: ",selected);
+      console.log("actualizaContador: ",actualizaContador);
+  
+      
+      
+    }, [])
+    
   return (
     <Box
       sx={{

@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
-import { Box, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
@@ -17,7 +17,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { queries } from "../../queries";
 import { PED } from "./PED";
-
+import { CapturarFechas } from "./AddFechaCapturaDialog";
 export const AddDialogCatalogo = ({
   catalogo,
   select,
@@ -316,12 +316,12 @@ export const AddDialogCatalogo = ({
 
   const validarNumero = (dato: string, state: any) => {
     console.log("Entre");
-    console.log("dato: ",dato);
-    console.log("state: ",state);
-    
+    console.log("dato: ", dato);
+    console.log("state: ", state);
+
     if (/^[0-9]+$/.test(dato)) {
-      console.log("dato en el if : ",dato);
-      
+      console.log("dato en el if : ", dato);
+
       return dato;
     } else if (dato.length === 0) {
       return "";
@@ -331,120 +331,146 @@ export const AddDialogCatalogo = ({
 
   if (tabla === "FechasDeCaptura") {
     return (
+
       <Box sx={{ display: "flex" }}>
-        <IconButton onClick={handleClickOpen}>
-          <AddIcon
-            sx={{
-              width: 50,
-              height: 50,
-            }}
-          />
-        </IconButton>
-        <Dialog fullWidth open={open} onClose={handleClose}>
-          <Box
-            sx={{
-              width: "100%",
-              height: "5vh",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              borderBottom: 0.5,
-              borderColor: "#ccc",
-              boxShadow: 1,
-            }}
-          >
-            <Typography
-              sx={{
-                fontFamily: "MontserratSemiBold",
-                width: "90%",
-                fontSize: "1vw",
-                textAlign: "center",
-              }}
-            >
-              Añadir Fecha de Captura
-            </Typography>
-          </Box>
-          <DialogContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TextField
-              multiline={descripcion.length < 20 ? false : true}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratLight",
-                },
-              }}
-              rows={3}
-              label={"Descripción"}
-              variant="outlined"
-              onChange={(v) => setDescripcion(v.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              onChange={(x) => setFechaCaptura(x.target.value)}
-              multiline={descripcion.length < 20 ? false : true}
-              defaultValue={fechaCaptura}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
-              style={{ marginTop: "2vh" }}
-              type="date"
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratLight",
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-            />
-          </DialogContent>
+      <IconButton onClick={handleClickOpen}>
+        <AddIcon
+          sx={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      </IconButton>
 
-          <DialogActions
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
-              onClick={handleClose}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-              >
-                Cancelar
-              </Typography>
-            </Button>
-
-            <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={CreatePorCatalogoFechas}
-              autoFocus
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-              >
-                De Acuerdo
-              </Typography>
-            </Button>
-          </DialogActions>
-        </Dialog>
+      
+      <CapturarFechas
+      actualizado={actualizado}
+      open={open}
+      close={handleClose}
+      //ClickOpen={handleClickOpen}
+      />
       </Box>
+      // <Grid sx={{ display: "flex" }}>
+      //   <IconButton onClick={handleClickOpen}>
+      //     <AddIcon
+      //       sx={{
+      //         width: 50,
+      //         height: 50,
+      //       }}
+      //     />
+      //   </IconButton>
+      //   <Dialog fullWidth open={open} onClose={handleClose}>
+      //     <Grid
+      //       sx={{
+      //         width: "100%",
+      //         height: "5vh",
+      //         alignItems: "center",
+      //         display: "flex",
+      //         justifyContent: "center",
+      //         flexDirection: "column",
+      //         borderBottom: 0.5,
+      //         borderColor: "#ccc",
+      //         boxShadow: 1,
+      //       }}
+      //     >
+      //       <Typography
+      //         sx={{
+      //           fontFamily: "MontserratSemiBold",
+      //           width: "90%",
+      //           fontSize: "1vw",
+      //           textAlign: "center",
+      //         }}
+      //       >
+      //         Añadir Fecha de Captura
+      //       </Typography>
+      //     </Grid>
+      //     <DialogContent
+      //       sx={{
+      //         display: "flex",
+      //         flexDirection: "column",
+      //         alignItems: "center",
+      //         justifyContent: "center",
+      //       }}
+      //     >
+      //       <TextField
+      //         multiline={descripcion.length < 20 ? false : true}
+      //         sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+      //         InputLabelProps={{
+      //           style: {
+      //             fontFamily: "MontserratRegular",
+      //           },
+      //         }}
+      //         InputProps={{
+      //           style: {
+      //             fontFamily: "MontserratLight",
+      //           },
+      //         }}
+      //         rows={3}
+      //         label={"Descripción"}
+      //         variant="outlined"
+      //         onChange={(v) => setDescripcion(v.target.value)}
+      //       />
+
+
+      //       <TextField
+      //         variant="outlined"
+      //         onChange={(x) => {
+      //           setFechaCaptura(x.target.value);
+      //           console.log(x);
+      //         }}
+      //         multiline={descripcion.length < 20 ? false : true}
+      //         defaultValue={fechaCaptura}
+      //         sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+      //         style={{ marginTop: "2vh" }}
+      //         type="date"
+      //         InputProps={{
+      //           style: {
+      //             fontFamily: "MontserratLight",
+      //           },
+      //         }}
+      //         InputLabelProps={{
+      //           style: {
+      //             fontFamily: "MontserratRegular",
+      //           },
+      //         }}
+      //         rows={3}
+      //       />
+      //     </DialogContent>
+
+      //     <DialogActions
+      //       sx={{
+      //         display: "flex",
+      //         alignItems: "center",
+      //         justifyContent: "center",
+      //       }}
+      //     >
+      //       <Button
+      //         sx={queries.buttonCancelarSolicitudInscripcion}
+      //         onClick={handleClose}
+      //       >
+      //         <Typography
+      //           sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+      //         >
+      //           Cancelar
+      //         </Typography>
+      //       </Button>
+
+      //       <Button
+      //         sx={queries.buttonContinuarSolicitudInscripcion}
+      //         onClick={CreatePorCatalogoFechas}
+      //         autoFocus
+      //       >
+      //         <Typography
+      //           sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+      //         >
+      //           De Acuerdo
+      //         </Typography>
+      //       </Button>
+      //     </DialogActions>
+      //   </Dialog>
+      // </Grid>
+
+
     );
   } else if (tabla === "ProgramasInstituciones") {
     return (
@@ -620,7 +646,8 @@ export const AddDialogCatalogo = ({
             }}
           />
         </IconButton>
-        <Dialog fullWidth open={open} onClose={handleClose}>
+        
+         <Dialog fullWidth open={open} onClose={handleClose}>
           <Box
             sx={{
               width: "100%",
@@ -768,7 +795,8 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
           </DialogActions>
-        </Dialog>
+        </Dialog>:
+        
       </Box>
     );
   } else if (tabla === "PEDs") {

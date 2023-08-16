@@ -56,6 +56,8 @@ export const VPTrimestral = {
   ptotal: "",
   porcentajeCuentaPublica: "",
 };
+
+
 export function TabAvanceFinanciero({
   //show,
   resumenAvanceFinancieroRf,
@@ -89,6 +91,7 @@ export function TabAvanceFinanciero({
 
   const [valorProgramaPresupuestario, setValorProgramaPresupuestario] =
     useState("0");
+    
   const [avanceFinanciero, setAvanceFinanciero] = useState<IAvanceFinancieroRF>(
     {
       nombrePrograma: jsonMir.encabezado.nombre_del_programa,
