@@ -14,9 +14,8 @@ export const createFechaDeCaptua = (
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-fechaDeCaptura",
       {
         Descripcion: Descripcion,
-        FechaDeCapturaFinal: Fecha2,
-        FechaDeCapturaInicia: Fecha1,
-        
+        FechaCapturaInicio: Fecha1,
+        FechaCapturaFinal: Fecha2,
         Modulo: Descripcion,
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
       },
