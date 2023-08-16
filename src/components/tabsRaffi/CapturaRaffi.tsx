@@ -235,7 +235,7 @@ export default function CapturaRaffi({
   );
 
   const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
-    // setValoresComponenteRF(state);
+    setValoresComponenteRF(state);
   };
 
   const asignarCValorRF = (state: Array<ICValorRF>) => {
