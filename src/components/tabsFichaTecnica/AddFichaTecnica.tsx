@@ -96,28 +96,28 @@ export default function AddFichaTecnica({
   ////////////////// Componentes //////////////////////////
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  // const [valoresComponenteFT, setValoresComponenteFT] = useState<
-  //   Array<IComponentesFT>
-  // >(
-  //   noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       tipoDeIndicador: "",
-  //       claridad: "",
-  //       relevancia: "",
-  //       economia: "",
-  //       monitoreable: "",
-  //       adecuado: "",
-  //       aporte_marginal: "",
-  //       dimension: "",
-  //       unidadDeMedida: "",
-  //     };
-  //   })
-  // );
+  const [valoresComponenteFT, setValoresComponenteFT] = useState<
+    Array<IComponentesFT>
+  >(
+    noComponentes.map((x, index) => {
+      return {
+        componentes: "C" + (index + 1),
+        tipoDeIndicador: "",
+        claridad: "",
+        relevancia: "",
+        economia: "",
+        monitoreable: "",
+        adecuado: "",
+        aporte_marginal: "",
+        dimension: "",
+        unidadDeMedida: "",
+      };
+    })
+  );
 
-  // const valoresComponenteFTFnc = (state: Array<IComponentesFT>) => {
-  //   setValoresComponenteFT(state);
-  // };
+  const valoresComponenteFTFnc = (state: Array<IComponentesFT>) => {
+    setValoresComponenteFT(state);
+  };
   ////////////////////Actividades/////////////////////////////////
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
   const [componenteActividad, setComponenteActividad] = useState([
@@ -356,7 +356,20 @@ export default function AddFichaTecnica({
             FT={FT}
           ></TabActividadesFT>
 
-         
+          <TabResumenFT
+            show={value === 50 ? true : false}
+            encabezado={ValueEncabezado}
+            fin={ValueFin}
+            proposito={ValueProposito}
+            componentes={noComponentes}
+            componenteValor={valoresComponenteFT}
+            cValor={cValorFT}
+            IdMir={IdMir}
+            IdFT={IdFT}
+            IdMA={IdMA}
+            showResume={showResume}
+            MIR={MIR}
+          ></TabResumenFT>
         </Box>
       </Box>
     </Box>
