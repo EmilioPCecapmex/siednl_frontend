@@ -5,8 +5,8 @@ import { alertaError, alertaExito } from "../alertas/Alertas";
 
 export const createFechaDeCaptua = (
   Descripcion: string,
-  Fecha1: any,
-  Fecha2: any
+  Fecha1: string,
+  Fecha2: string
 ) => {
   axios
 

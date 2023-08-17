@@ -326,6 +326,7 @@ export const MIR = () => {
   ) => {
     axios
       .post(
+       
         process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
         JSON.parse(mir),
         {

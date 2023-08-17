@@ -625,23 +625,35 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         },
       })
       .then((r) => {
+        console.log(r);
+
         if (r.status === 200) {
+          console.log("entre al if de getfechas", r.data.data);
+
           let update = r.data.data;
           update = update.map(
             (item: {
               Id: string;
-              FechaDeCaptura: string;
+              FechaCapturaInicio: string;
+              FechaCapturaFinal: string;
               Descripcion: string;
               Tabla: string;
             }) => {
               return {
                 Id: item.Id,
                 Desc:
-                  item.FechaDeCaptura + " / " + item.Descripcion.toUpperCase(),
+                  item.FechaCapturaInicio +
+                  " - " +
+                  item.FechaCapturaFinal +
+                  " / " +
+                  item.Descripcion.toUpperCase(),
                 Tabla: "FechasDeCaptura",
               };
             }
           );
+          console.log("update: ", update);
+          console.log("entre al if de getfechas2", r.data.data);
+
           setDatosTabla(update);
           setDataDescripctionFiltered(update);
         }
@@ -1119,15 +1131,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   useEffect(() => {
     setDataDescripctionFiltered(datosTabla);
     console.log(datosTabla);
-    
   }, [datosTabla]);
 
   useEffect(() => {
     setDataDescripctionFiltered(datosTabla);
     console.log(datosTabla);
-    
   }, [descripctionFiltered]);
-  
 
   const filtrarDatos = () => {
     console.log("Entra");
@@ -1144,7 +1153,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       console.log("entre");
       console.log(elemento);
       console.log(DataDescripctionFiltered);
-      if (elemento.Desc.toString().toLocaleLowerCase().includes(descripctionFiltered.toLocaleLowerCase())) {
+      if (
+        elemento.Desc.toString()
+          .toLocaleLowerCase()
+          .includes(descripctionFiltered.toLocaleLowerCase())
+      ) {
         return elemento;
       }
     });
@@ -1164,8 +1177,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   //     setDataDescripctionFiltered(datosTabla);
   //   }
   // }, [datosTabla, descripctionFiltered]);
-
- 
 
   // useEffect(() => {
   //   configOptions.map((item) => {
@@ -1224,22 +1235,19 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setDescripctionFiltered(dato);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-     DataDescripctionFiltered.length !== 0 ? setDatosTabla(datosTabla) : null;
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [DataDescripctionFiltered]);
+    DataDescripctionFiltered.length !== 0 ? setDatosTabla(datosTabla) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [DataDescripctionFiltered]);
 
-    useEffect(() => {
-      
-      console.log("tablaActual: ",tablaActual);
-      console.log("selected: ",selected);
-      console.log("actualizaContador: ",actualizaContador);
-  
-      
-      
-    }, [])
-    
+  useEffect(() => {
+    console.log("tablaActual: ", tablaActual);
+    console.log("selected: ", selected);
+    console.log("actualizaContador: ", actualizaContador);
+    getFechasDeCaptura();
+  }, []);
+
   return (
     <Box
       sx={{
