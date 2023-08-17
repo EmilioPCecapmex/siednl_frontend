@@ -52,6 +52,8 @@ export default function AddFichaTecnica({
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
+    console.log("hola");
+    
   };
 
   const cambiarTab = (option: string) => {
