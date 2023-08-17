@@ -158,7 +158,36 @@ export const MIR = () => {
     //getMIRs(setMirs);
   };
 
+
+  const validaFechaCaptura = () => {
+
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || ""
+            
+          },
+          params:{
+          
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "MIR",
+          }
+          
+        }
+      )
+      .then((r) => {
+        r.data.data.valida=="true"?setValidaFecha(true):setValidaFecha(false)
+      })
+      .catch((err) => {
+
+      });
+  };
+
   const [showResume, setShowResume] = useState(true);
+  const [validaFecha, setValidaFecha] = useState(true);
   const [page, setPage] = useState(0);
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
@@ -193,6 +222,7 @@ export const MIR = () => {
   // Filtrado por caracter
 
   useEffect(() => {
+    validaFechaCaptura();
     getMIRs(setMirs);
   }, []);
 
@@ -919,7 +949,7 @@ export const MIR = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "Autorizada" ? false : true
+                                      row.Estado === "Autorizada" && validaFecha ? false : true
                                     }
                                     onClick={() =>
                                       downloadMIR(
@@ -953,7 +983,7 @@ export const MIR = () => {
 
                               <DeleteDialogMIR
                                 disab={
-                                  row.Estado === "En Captura" &&
+                                  row.Estado === "En Captura" && validaFecha &&
                                   localStorage.getItem("Rol") === "Capturador"
                                     ? false
                                     : row.Estado === "En Revisión" &&
@@ -985,15 +1015,15 @@ export const MIR = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "En Captura" &&
+                                      row.Estado === "En Captura" && validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Capturador"
                                         ? false
-                                        : row.Estado === "En Revisión" &&
+                                        : row.Estado === "En Revisión" && validaFecha &&
                                           localStorage.getItem("Rol") ===
                                             "Verificador"
                                         ? false
-                                        : row.Estado === "En Autorización" &&
+                                        : row.Estado === "En Autorización" && validaFecha &&
                                           localStorage.getItem("Rol") ===
                                             "Administrador"
                                         ? false
@@ -1078,6 +1108,8 @@ export const MIR = () => {
           </Box>
         )}
       </Grid>
+      valida fecha:
+     
     </Grid>
   );
 };

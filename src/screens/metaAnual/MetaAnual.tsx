@@ -86,6 +86,7 @@ export const MetaAnual = () => {
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
 
+  const [validaFecha, setValidaFecha] = useState(false);
   const [ma, setMa] = useState<Array<IIMa>>([]);
   const [maEdit,  setMaEdit] = useState<Array<IIMa>>([]);
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
@@ -139,6 +140,38 @@ export const MetaAnual = () => {
     setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
   }, [ma]);
 
+
+
+
+
+  const validaFechaCaptura = () => {
+
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || ""
+            
+          },
+          params:{
+          
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "Meta_Anual",
+          }
+          
+        }
+      )
+      .then((r) => {
+        r.data.data.valida=="true"?setValidaFecha(true):setValidaFecha(false)
+      })
+      .catch((err) => {
+      });
+  };
+
+
+
   const getMetaAnualDownload = (
     MIR: string,
     MetaAnual: string,
@@ -187,6 +220,7 @@ export const MetaAnual = () => {
   };
 
   useEffect(() => {
+    validaFechaCaptura();
     getInstituciones(setInstituciones);
   }, []);
 
@@ -330,7 +364,7 @@ export const MetaAnual = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    console.log("Entra");
+    // console.log("Entra");
     let Arrayfiltro: IIMa[];
     Arrayfiltro = [];
 
@@ -341,10 +375,10 @@ export const MetaAnual = () => {
     }
 
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      console.log("entre");
-      console.log(elemento);
-      console.log(findTextStr);
-      console.log(maxFiltered);
+      // console.log("entre");
+      // console.log(elemento);
+      // console.log(findTextStr);
+      // console.log(maxFiltered);
 
       if (
         elemento.AnioFiscal.toString()
@@ -366,7 +400,7 @@ export const MetaAnual = () => {
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase())
       ) {
-        console.log(elemento);
+        // console.log(elemento);
         return elemento;
       }
     });
@@ -856,15 +890,15 @@ export const MetaAnual = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "En Captura" &&
+                                      row.Estado === "En Captura" && validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Capturador"
                                         ? false
-                                        : row.Estado === "En Revisión" &&
+                                        : row.Estado === "En Revisión" && validaFecha &&
                                           localStorage.getItem("Rol") ===
                                             "Verificador"
                                         ? false
-                                        : row.Estado === "En Autorización" &&
+                                        : row.Estado === "En Autorización" && validaFecha &&
                                           localStorage.getItem("Rol") ===
                                             "Administrador"
                                         ? false
@@ -924,7 +958,7 @@ export const MetaAnual = () => {
                                       );
                                     }}
                                     disabled={
-                                      row.Estado === "Autorizada" ? false : true
+                                      row.Estado === "Autorizada" && validaFecha ? false : true
                                     }
                                   >
                                     <DownloadIcon
