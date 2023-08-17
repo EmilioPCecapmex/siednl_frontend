@@ -172,7 +172,7 @@ export default function AddFichaTecnica({
         unidadDeMedida: "",
       };
     });
-    // setValoresComponenteFT(arrayFT);
+    setValoresComponenteFT(arrayFT);
   }, []);
 
   const [ValueEncabezado, setValueEncabezado] = useState<Array<IEncabezadoFT>>(
@@ -341,7 +341,7 @@ export default function AddFichaTecnica({
 
           <TabComponenteFT
             show={value === 30 ? true : false}
-            valoresComponenteFTFnc={setTxtShowFnc}
+            valoresComponenteFTFnc={valoresComponenteFTFnc}
             noComponentes={noComponentes}
             showFnc={setTxtShowFnc}
             showMirFnc={showMirFnc}
