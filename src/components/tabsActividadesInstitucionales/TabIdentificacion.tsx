@@ -14,7 +14,7 @@ import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
 import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
 import axios from "axios";
 
-export function TabIdentificacion({ show }: { show: boolean }) {
+export function TabIdentificacion({  }: {  }) {
   const [componentSelect, setComponentSelect] = useState(1);
 
   //catalogos
@@ -96,7 +96,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
   return (
     <Grid
-      visibility={show ? "visible" : "hidden"}
+     
       position="absolute"
       sx={{
         width: "75vw",
