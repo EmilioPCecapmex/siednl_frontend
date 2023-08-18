@@ -335,7 +335,7 @@ export const FichaTecnica = () => {
       }}
     >
       <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
-        <LateralMenu selection={4} actionNumber={actionNumber} />
+        <LateralMenu selection={"Ficha Técnica"} actionNumber={actionNumber} />
       </Box>
 
       <Box gridArea={"header"} sx={{ height: "8vh" }}>

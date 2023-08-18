@@ -439,7 +439,7 @@ export const MIR = () => {
 
   return (
     <Grid container justifyContent={"space-between"} >
-      <Grid item xl={12}
+      <Grid item xl={12 } height={"7vh"}
      // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
@@ -449,7 +449,7 @@ export const MIR = () => {
         justifyContent={"center"}
         display={"flex"}
         container
-        height={60}
+        height={"93vh"}
         alignItems={"center"}
         item
         xl={12}
@@ -457,7 +457,7 @@ export const MIR = () => {
         md={9.4}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "red" }}
+        sx={{ backgroundColor: "white", }}
       >
         {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
@@ -485,6 +485,7 @@ export const MIR = () => {
               height="15vh"
               direction="row"
               sx={{
+                boxShadow: 5,
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 justifyContent: "space-evenly",
