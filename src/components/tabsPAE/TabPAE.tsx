@@ -198,6 +198,62 @@ export const TabPAE = ({
       });
   };
 
+
+
+
+  const guardarDoc = (ruta:string,url:string) => {
+    let dataArray = new FormData();
+    dataArray.append("ROUTE", `${ruta}`);
+    dataArray.append("ADDROUTE", "true");
+    dataArray.append("FILE", url);
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/SaveFile",
+        dataArray,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then(({ data }) => {
+        state.savePathDocAut(
+          idRegistro,
+          data.RESPONSE.RUTA,
+          data.RESPONSE.NOMBREIDENTIFICADOR,
+          data.RESPONSE.NOMBREARCHIVO
+        );
+      })
+      .catch((e) => {});
+  };
+
+  const getDocumento = async (
+    ROUTE: string,
+    NOMBRE: string,
+    setState: Function
+  ) => {
+    await axios
+      .post(
+        process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
+        {
+          ROUTE: ROUTE,
+          NOMBRE: NOMBRE,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+            responseType: "blob",
+          },
+        }
+      )
+      .then(({ data }) => {
+        let file = data.RESPONSE.FILE;
+        setState(file);
+      })
+      .catch((r) => {});
+  };
+
+
   return (
     <>
       <Grid
