@@ -14,6 +14,8 @@ export const listaRaffi = (setState: Function) => {
     })
     .then((r) => {
       if (r.status === 200) {
+        console.log(r.data.data);
+        
         setState(r.data.data);
         //setStateFiltered(r.data.data)
       }

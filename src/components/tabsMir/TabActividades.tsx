@@ -220,7 +220,7 @@ export const TabActividades = ({
 
   return (
     <Box
-      position="absolute"
+     // position="absolute"
       sx={{
         display: "flex",
         width: "75vw",
@@ -356,6 +356,7 @@ export const TabActividades = ({
                           setActividadSelect(index);
                         }}
                         sx={{
+                          height: "3vh",
                           pl: 4,
                           "&.Mui-selected ": {
                             backgroundColor: "#efd8b9",
@@ -363,6 +364,7 @@ export const TabActividades = ({
                           "&.Mui-selected:hover": {
                             backgroundColor: "#cbcbcb",
                           },
+                          fontSize: "0.7vw",
                         }}
                       >
                         <Typography sx={{ fontFamily: "MontserratMedium" }}>
