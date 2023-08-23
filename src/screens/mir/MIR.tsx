@@ -656,6 +656,7 @@ export const MIR = () => {
 
                 <Grid item xl={3} lg={4} md={3} sm={2}>
                   <Button
+                  disabled={!validaFecha}
                     sx={{
                       backgroundColor: "#c2a37b",
                       width: "10vw",
@@ -1109,7 +1110,7 @@ export const MIR = () => {
         )}
       </Grid>
       valida fecha:
-     
+     {validaFecha}
     </Grid>
   );
 };
