@@ -158,34 +158,6 @@ export const MIR = () => {
     //getMIRs(setMirs);
   };
 
-
-  const validaFechaCaptura = () => {
-
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("jwtToken") || ""
-            
-          },
-          params:{
-          
-            Rol: localStorage.getItem("Rol"),
-            Modulo: "MIR",
-          }
-          
-        }
-      )
-      .then((r) => {
-        r.data.data.valida=="true"?setValidaFecha(true):setValidaFecha(false)
-      })
-      .catch((err) => {
-
-      });
-  };
-
   const [showResume, setShowResume] = useState(true);
   const [validaFecha, setValidaFecha] = useState(true);
   const [page, setPage] = useState(0);
@@ -222,7 +194,6 @@ export const MIR = () => {
   // Filtrado por caracter
 
   useEffect(() => {
-    validaFechaCaptura();
     getMIRs(setMirs);
   }, []);
 
@@ -468,8 +439,8 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container direction="row" height={"100vh"} width={"100vw"}>
-      <Grid item height={"100vh"} 
+    <Grid container justifyContent={"space-between"} >
+      <Grid item xl={12 } height={"7vh"}
      // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
@@ -479,15 +450,17 @@ export const MIR = () => {
         justifyContent={"center"}
         display={"flex"}
         container
+        height={"93vh"}
+        alignItems={"center"}
         item
-        xl={10.2}
-        lg={9.9}
+        xl={12}
+        lg={12}
         md={9.4}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "#F2F2F2" }}
+        sx={{ backgroundColor: "white", }}
       >
-        <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
+        {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
             details={{
               name1: "Inicio",
@@ -497,9 +470,11 @@ export const MIR = () => {
               name3: "",
             }}
           />
-        </Grid>
+        </Grid> */}
 
         {showResume ? (
+
+          // <Grid></Grid>
           <>
             {/* FILTROS */}
             <Grid
@@ -511,6 +486,7 @@ export const MIR = () => {
               height="15vh"
               direction="row"
               sx={{
+                boxShadow: 5,
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 justifyContent: "space-evenly",
@@ -524,6 +500,7 @@ export const MIR = () => {
                 lg={12}
                 md={12}
                 container
+                item
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
@@ -657,7 +634,6 @@ export const MIR = () => {
 
                 <Grid item xl={3} lg={4} md={3} sm={2}>
                   <Button
-                  disabled={!validaFecha}
                     sx={{
                       backgroundColor: "#c2a37b",
                       width: "10vw",
@@ -691,6 +667,7 @@ export const MIR = () => {
                   </Button>
                 </Grid>
               </Grid>
+              
             </Grid>
 
             {/* TABLA */}
@@ -1089,9 +1066,10 @@ export const MIR = () => {
                 /> 
               </Box>
             </Grid>
+
           </>
         ) : (
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -1107,11 +1085,10 @@ export const MIR = () => {
               showResume={returnMain}
               IdMir={mirEdit[0]?.ID || ""}
             />
-          </Box>
+          </Grid>
         )}
       </Grid>
-      valida fecha:
-     {validaFecha}
+
     </Grid>
   );
 };
