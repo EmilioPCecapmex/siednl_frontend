@@ -331,23 +331,13 @@ export const TabComponenteRf = ({
   };
 
   useEffect(() => {
-    console.log("componentesRF:", componentesRF);
-
-     if (
-       componentesRF[0].componentes[0] !== "" &&
-       componentesRF[0].componentes[0] !== null
-     ) {
+   
        setComponentesValues(componentesRF);
-      console.log("componentesRF:", componentesRF);
-     }
-
-  }, []);
-
-  useEffect(() => {
-    console.log("componentesRF:", componentesRF);
 
 
   }, []);
+
+
 
   return (
     <>

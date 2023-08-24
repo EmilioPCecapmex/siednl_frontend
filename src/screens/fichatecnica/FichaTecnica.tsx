@@ -119,6 +119,7 @@ export const FichaTecnica = () => {
 
   useEffect(() => {
     getFT(setft);
+    validaFechaCaptura();
   }, []);
 
   useEffect(() => {
@@ -310,6 +311,37 @@ export const FichaTecnica = () => {
   //   getFT();
   // }, []);
 
+
+
+  const validaFechaCaptura = () => {
+
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || ""
+            
+          },
+          params:{
+          
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "Ficha Tecnica",
+          }
+          
+        }
+      )
+      .then((r) => {
+        r.data.data.valida=="true"?setValidaFecha(true):setValidaFecha(false)
+      })
+      .catch((err) => {
+
+      });
+  };
+
+
+  const [validaFecha, setValidaFecha] = useState(true);
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
@@ -878,15 +910,15 @@ export const FichaTecnica = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "En Captura" &&
+                                      row.Estado === "En Captura" && validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Capturador"
                                         ? false
-                                        : row.Estado === "En Revisión" &&
+                                        : row.Estado === "En Revisión" && validaFecha &&
                                           localStorage.getItem("Rol") ===
                                             "Verificador"
                                         ? false
-                                        : row.Estado === "En Autorización" &&
+                                        : row.Estado === "En Autorización" && validaFecha &&
                                           localStorage.getItem("Rol") ===
                                             "Administrador"
                                         ? false
@@ -923,7 +955,7 @@ export const FichaTecnica = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "Autorizada" ? false : true
+                                      row.Estado === "Autorizada" && validaFecha ? false : true
                                     }
                                     onClick={() => {
                                       setFTShow([
@@ -978,7 +1010,7 @@ export const FichaTecnica = () => {
                                       );
                                     }}
                                     disabled={
-                                      row.Estado === "Autorizada" ? false : true
+                                      row.Estado === "Autorizada" && validaFecha ? false : true
                                     }
                                   >
                                     <DownloadIcon
