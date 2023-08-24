@@ -4,8 +4,8 @@ export function TabResumen({ showResume }: { showResume: Function }) {
   return (
     <Grid
       sx={{
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         display: "flex",
         flexDirection: "column",

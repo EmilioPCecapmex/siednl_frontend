@@ -44,36 +44,20 @@ export default function CapturaPAE() {
   }, []);
 
   return (
-    <Grid
-      container
-      sx={{
-        display: "flex",
-        justifyContent: "space-evenly",
-      }}
-    >
-      <Grid
-        item
-        sx={{
-          width: "auto",
-          height: "90vh",
-          borderRadius: 5,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        
+
         <Grid
           container
           item
           sx={{
             display: "flex",
-            width: "75vw",
-            height: "75vh",
+            width: "93vw",
+            height: "85vh",
             boxShadow: 10,
             borderRadius: 5,
             flexDirection: "column",
             backgroundColor: "#fff",
+            justifyContent: "center",
+          alignItems: "center",
           }}
         >
           
@@ -87,8 +71,7 @@ export default function CapturaPAE() {
           />
 
           
-        </Grid>
-      </Grid>
+ 
     </Grid>
   );
 }

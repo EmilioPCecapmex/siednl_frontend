@@ -260,18 +260,20 @@ export const TabPAE = ({
         container
         sx={{
           display: "flex",
-          width: "75vw",
-          height: "90vh",
+          width: "93vw",
+          height: "85vh",
           boxShadow: 10,
           borderRadius: 5,
           flexDirection: "column",
           backgroundColor: "#fff",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
 
 
 
-        <Grid item xs={2} sx={{ marginTop: "2%" }}>
+        <Grid item xs={2}>
           <List
             sx={{
               width: "10vw",
@@ -382,7 +384,7 @@ export const TabPAE = ({
           </List>
         </Grid>
 
-        <Grid container item xs={10} sx={{ marginTop: "2%" }}>
+        <Grid container item xs={10}>
           <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%" }}>
             {/* {JSON.stringify(registros[0]?.Nombre)} */}
             {/* {registros[0]} */}

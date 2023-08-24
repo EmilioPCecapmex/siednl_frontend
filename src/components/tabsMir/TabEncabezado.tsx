@@ -606,8 +606,8 @@ export function TabEncabezado({
       visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
-        width: "75vw",
-        height: "75vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",

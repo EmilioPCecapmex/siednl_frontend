@@ -6,8 +6,8 @@ export function TabAvance({  }: { }) {
       
       
       sx={{
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",

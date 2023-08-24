@@ -665,12 +665,14 @@ export const TabActividadRf = ({
         container
         sx={{
           display: "flex",
-          width: "75vw",
-          height: "77vh",
+          width: "93vw",
+          height: "82vh",
           boxShadow: 10,
           borderRadius: 5,
           flexDirection: "column",
           backgroundColor: "#fff",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <FormulaDialogRF
