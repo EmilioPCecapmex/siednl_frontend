@@ -46,17 +46,18 @@ export const ProgramaAnualEvaluacion = () => {
         />
       </Grid>
 
-      <Grid
-        justifyContent={"center"}
+      <Grid justifyContent={"center"}
         display={"flex"}
         container
+        height={"93vh"}
+        alignItems={"center"}
         item
-        xl={10.2}
-        lg={9.9}
-        md={9.4}
+        xl={12}
+        lg={12}
+        md={12}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "#F2F2F2" }}
+        sx={{ backgroundColor: "white", }}
       >
         {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
@@ -72,8 +73,16 @@ export const ProgramaAnualEvaluacion = () => {
         
 
       </Grid> */}
-      <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
-   
+      <Grid
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              height: "92vh",
+            }}
+            gridArea={"main"}
+          >
             <CapturaPAE />
           </Grid>
     </Grid>

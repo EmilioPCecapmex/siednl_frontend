@@ -55,7 +55,7 @@ export default function CapturaPAE() {
         item
         sx={{
           width: "auto",
-          height: "auto",
+          height: "90vh",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
@@ -64,10 +64,16 @@ export default function CapturaPAE() {
       >
         
         <Grid
+          container
           item
           sx={{
+            display: "flex",
             width: "75vw",
-            height: "77vh",
+            height: "75vh",
+            boxShadow: 10,
+            borderRadius: 5,
+            flexDirection: "column",
+            backgroundColor: "#fff",
           }}
         >
           

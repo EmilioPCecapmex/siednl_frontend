@@ -402,7 +402,7 @@ export const LateralMenu = ({
                     : selection === "Actividades Institucionales"
                     ? "Actividades Institucionales"
                     : selection === "Programa Anual de Evaluación"
-                    ? "Programa Anual de Evaluacion"
+                    ? "PAE"
                     : selection === "Notificaciones"
                     ? "Notificaciones"
                     : "",

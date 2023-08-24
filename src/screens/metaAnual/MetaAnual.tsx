@@ -920,7 +920,7 @@ export const MetaAnual = () => {
               </TableContainer>
 
               
-            </Grid>
+            
             <Box sx={{ width: "100%" }}>
               <TablePagination
                 rowsPerPageOptions={[renglonesPagina]}
@@ -932,6 +932,7 @@ export const MetaAnual = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </Box>
+            </Grid>
           </>
         ) : (
           <Grid
