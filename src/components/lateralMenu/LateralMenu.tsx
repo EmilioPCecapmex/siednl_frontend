@@ -405,6 +405,8 @@ export const LateralMenu = ({
                     ? "Programa Anual de Evaluacion"
                     : selection === "Notificaciones"
                     ? "Notificaciones"
+                    : selection === "Configuración"
+                    ? "Configuración"
                     : "",
                 path2: "",
                 name3: "",

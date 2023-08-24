@@ -298,6 +298,7 @@ export const Raffi = () => {
       <Grid item xl={12 } height={"7vh"}>
         <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
+      
       <Grid justifyContent={"center"}
         display={"flex"}
         container

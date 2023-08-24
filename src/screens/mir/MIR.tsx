@@ -445,7 +445,7 @@ export const MIR = () => {
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Grid>
-
+//boxShadow: 10,
       <Grid
         justifyContent={"center"}
         display={"flex"}
@@ -460,21 +460,10 @@ export const MIR = () => {
         xs={6}
         sx={{ backgroundColor: "white", }}
       >
-        {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
-          <Header
-            details={{
-              name1: "Inicio",
-              path1: "../home",
-              name2: "MIR",
-              path2: "../mir",
-              name3: "",
-            }}
-          />
-        </Grid> */}
 
         {showResume ? (
 
-          // <Grid></Grid>
+          
           <>
             {/* FILTROS */}
             <Grid
