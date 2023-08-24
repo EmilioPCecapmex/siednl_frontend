@@ -354,8 +354,8 @@ export const LateralMenu = ({
       .then((r) => {
         if (r.status === 200) {
           setInstituciones(r.data.data);
-          console.log("usuarioInsitucion: ",r.data.data);
-          
+          console.log("usuarioInsitucion: ", r.data.data);
+
           setRenderInfo(true);
         }
       });
@@ -385,20 +385,34 @@ export const LateralMenu = ({
               </IconButton>
             </Tooltip>
           </Grid>
-          {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
-          <Header
-            details={{
-              name1: "Inicio",
-              path1: "../home",
-              name2: "MIR",
-              path2: "../mir",
-              name3: "",
-            }}
-          />
-          
-        </Grid> */}
+          <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
+            <Header
+              details={{
+                name1: "Inicio",
+                path1: "../home",
+                name2:
+                  selection === "MIR"
+                    ? "MIR"
+                    : selection === "Meta Anual"
+                    ? "Meta Anual"
+                    : selection === "Ficha Técnica"
+                    ? "Ficha Tecnica"
+                    : selection === "Raffi"
+                    ? "Raffi"
+                    : selection === "Actividades Institucionales"
+                    ? "Actividades Institucionales"
+                    : selection === "Programa Anual de Evaluación"
+                    ? "Programa Anual de Evaluacion"
+                    : selection === "Notificaciones"
+                    ? "Notificaciones"
+                    : "",
+                path2: "",
+                name3: "",
+              }}
+            />
+          </Grid>
           <Grid
-           // mt={1.5}
+            // mt={1.5}
             display={"flex"}
             justifyContent={"flex-end"}
             width={85}

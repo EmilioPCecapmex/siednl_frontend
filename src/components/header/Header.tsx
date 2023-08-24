@@ -31,11 +31,11 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
       >
         <Breadcrumbs
           aria-label="breadcrumb"
-          sx={{ fontFamily: "MontserratBold", fontSize: "1.5vw" }}
+          sx={{ fontFamily: "MontserratBold", fontSize: "1.5vw", color: "white"}}
         >
           <Link
             underline="hover"
-            color="inherit"
+            color="white"
             onClick={() => navigate(details.path1)}
             sx={{ cursor: "pointer" }}
           >
@@ -45,7 +45,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           {details.name2 !== "" ? (
             <Link
               underline="hover"
-              color="inherit"
+              color="white"
               onClick={() => navigate(details.path2)}
               sx={{ cursor: "pointer" }}
             >
@@ -55,7 +55,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
 
           {details.name3 !== "" ? (
             <Typography
-              color="text.primary"
+              //color="text.primary"
               sx={{
                 fontFamily: "MontserratMedium",
                 fontSize: "1.5vw",
@@ -68,7 +68,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         </Breadcrumbs>
       </Box>
 
-      <Box
+      {/* <Box
         sx={{
           mr: "2vw",
           backgroundColor: "#fff",
@@ -93,7 +93,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         </Box>
         <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
         <Box sx={{ mr: ".5vw", width: "2vw" }}></Box>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

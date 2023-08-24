@@ -33,14 +33,15 @@ export const ProgramaAnualEvaluacion = () => {
 
 
   return (
-    <Grid container direction="row" height={"100vh"} width={"100vw"}>
+    <Grid container justifyContent={"space-between"}>
       <Grid
-        item
-        height={"100vh"}
+       item
+       xl={12}
+       height={"7vh"}
         //</Grid>sx={{ mr: showResume ? 5 : 0 }}
       >
         <LateralMenu
-          selection={"Actividades Institucionales"}
+          selection={"Programa Anual de Evaluación"}
           actionNumber={actionNumber}
         />
       </Grid>
@@ -57,7 +58,7 @@ export const ProgramaAnualEvaluacion = () => {
         xs={6}
         sx={{ backgroundColor: "#F2F2F2" }}
       >
-        <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
+        {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
             details={{
               name1: "Inicio",
@@ -68,12 +69,13 @@ export const ProgramaAnualEvaluacion = () => {
             }}
           />
 
-        <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
+        
+
+      </Grid> */}
+      <Grid item sx ={{display: "flex",  justifyContent: "center"}}>
    
             <CapturaPAE />
           </Grid>
-
-      </Grid>
     </Grid>
     </Grid>
   );

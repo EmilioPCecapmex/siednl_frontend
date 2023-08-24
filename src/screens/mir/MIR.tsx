@@ -455,7 +455,7 @@ export const MIR = () => {
         item
         xl={12}
         lg={12}
-        md={9.4}
+        md={12}
         sm={7.5}
         xs={6}
         sx={{ backgroundColor: "white", }}
@@ -624,7 +624,7 @@ export const MIR = () => {
                     <IconButton
                       type="button"
                       sx={{ p: "10px" }}
-                      aria-label="search"
+                      aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
                       <SearchIcon />
@@ -681,90 +681,7 @@ export const MIR = () => {
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
-              {/* <Table>
-                <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
-                  <TableRow
-                    sx={{
-                      width: "100%",
-                      display: "grid",
-                      gridTemplateColumns: "repeat(7, 1fr)",
-                      justifyContent: "space-evenly",
-                      alignItems: "center",
-                    }}
-                  >
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      EJERCICIO FISCAL
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      INSTITUCIÓN
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      NOMBRE DEL PROGRAMA
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      ESTADO
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      FECHA DE CREACIÓN
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      CREADO POR
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      OPCIONES
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-              </Table> */}
+             
 
               <TableContainer sx={{ borderRadius: 5, height: 450,
             overflow: "auto",
@@ -1087,6 +1004,7 @@ export const MIR = () => {
             />
           </Grid>
         )}
+        
       </Grid>
 
     </Grid>
