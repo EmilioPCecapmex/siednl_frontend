@@ -217,12 +217,12 @@ export const TabPAE = ({
         }
       )
       .then(({ data }) => {
-        state.savePathDocAut(
-          idRegistro,
-          data.RESPONSE.RUTA,
-          data.RESPONSE.NOMBREIDENTIFICADOR,
-          data.RESPONSE.NOMBREARCHIVO
-        );
+        // state.savePathDocAut(
+        //   idRegistro,
+        //   data.RESPONSE.RUTA,
+        //   data.RESPONSE.NOMBREIDENTIFICADOR,
+        //   data.RESPONSE.NOMBREARCHIVO
+        // );
       })
       .catch((e) => {});
   };
