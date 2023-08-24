@@ -293,23 +293,25 @@ export const Raffi = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container direction="row" height={"100vh"} width={"100vw"}>
+    <Grid justifyContent={"space-between"}>
 
-      <Grid item height={"100vh"}>
+      <Grid item xl={12 } height={"7vh"}>
         <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
       </Grid>
-      <Grid item
-        justifyContent={"center"}
+      <Grid justifyContent={"center"}
         display={"flex"}
         container
-        xl={10.2}
-        lg={9.9}
-        md={9.4}
+        height={"93vh"}
+        alignItems={"center"}
+        item
+        xl={12}
+        lg={12}
+        md={12}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "#F2F2F2" }}
+        sx={{ backgroundColor: "white", }}
       >
-        <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
+        {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
             details={{
               name1: "Inicio",
@@ -319,7 +321,7 @@ export const Raffi = () => {
               name3: "",
             }}
           />
-        </Grid>
+        </Grid> */}
 
         {opentabs ? (
           <>
@@ -337,6 +339,7 @@ export const Raffi = () => {
                 borderRadius: 5,
                 justifyContent: "space-evenly",
                 alignItems: "center",
+                boxShadow: 5
               }}
             >
               <Grid
@@ -381,7 +384,7 @@ export const Raffi = () => {
                     <IconButton
                       type="button"
                       sx={{ p: "10px" }}
-                      aria-label="search"
+                      aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
                       <SearchIcon />
