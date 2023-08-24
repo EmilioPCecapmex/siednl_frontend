@@ -216,13 +216,10 @@ export const Raffi = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
-
-
-  
   useEffect(() => {
     getInstituciones(setInstituciones);
   }, []);
-
+  
   const handleChange = (dato: string) => {
     setFindTextStr(dato);
   };

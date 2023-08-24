@@ -53,7 +53,6 @@ export default function CapturaRaffi({
   MIR,
   MA,
   RF,
-
   opentabs,
   IdMir,
   IdMA,
@@ -63,7 +62,6 @@ export default function CapturaRaffi({
   MIR: string;
   MA: string;
   RF: string;
-
   opentabs: Function;
   IdMir: string;
   IdMA: string;

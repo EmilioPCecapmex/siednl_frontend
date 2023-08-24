@@ -188,6 +188,7 @@ export function TabEncabezado({
     { Id: "0", NombrePrograma: "", Conac: "", Consecutivo: "" },
   ]);
   const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "0", Eje: "" }]);
+  
   const [catalogoTematicas, setCatalogoTematicas] = useState([
     { IdTematica: "0", Tematica: "" },
   ]);

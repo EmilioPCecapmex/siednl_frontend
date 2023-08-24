@@ -12,8 +12,12 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 export default function TabsActividadesInstitucionales({
   returnMain,
+
+  
 }: {
   returnMain: Function;
+
+  
 }) {
   const [value, setValue] = React.useState(10);
 
@@ -167,7 +171,7 @@ export default function TabsActividadesInstitucionales({
           }}
         >
           {/* tabs */}
-          {value === 10 && (<TabIdentificacion />)}
+          {value === 10 && (<TabIdentificacion  />)}
           {value === 20 && (<TabAccion1 />)}
           {value === 30 && (<TabAccion2 />)}
           {value === 40 && <TabAvance />}

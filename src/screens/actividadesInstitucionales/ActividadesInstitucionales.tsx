@@ -15,16 +15,27 @@ import {
   Tooltip,
   Grid,
   TableSortLabel,
+  Paper,
+  InputBase,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
 } from "@mui/material";
 import { Header } from "../../components/header/Header";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
+import { LateralMenu, IInstituciones, } from "../../components/lateralMenu/LateralMenu";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
+import moment from "moment";
+import SearchIcon from "@mui/icons-material/Search";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TabsActividadesInstitucionales from "../../components/tabsActividadesInstitucionales/TabsActividadesInstitucionales";
 import { IActividadesInstitucionales } from "./InterfacesActividadesInstitucionales";
-
+import { listaActividadInstitucional } from "../../services/actividadesinstitucionales_services/Actividadades_endpoints";
+import { getInstituciones } from "../../services/instituciones_services/instituciones";
+import { queries } from "../../queries";
 export let resumeDefaultAI = true;
 export let setResumeDefaultAI = () => {
   resumeDefaultAI = !resumeDefaultAI;
@@ -92,12 +103,10 @@ const heads: readonly Head[] = [
   },
 ];
 
-export const ActividadesInstitucionales = () => {
+export const ActividadesInstitucionales = ({}:{}) => {
   const [showResume, setShowResume] = useState(true);
 
-  const returnMain = () => {
-    setShowResume(true);
-  };
+  
 
   useEffect(() => {
     setShowResume(true);
@@ -108,13 +117,211 @@ export const ActividadesInstitucionales = () => {
   };
 
   const [actionNumber, setActionNumber] = useState(0);
+  const [opentabs, setOpenTabs] = useState(true);
+  const [ai, setAi] = useState<Array<IActividadesInstitucionales>>([]);
+  const [aiFiltered, setAiFiltered] = useState<Array<IActividadesInstitucionales>>([]);
+  const [aixFiltered, setAixFiltered] = useState<Array<IActividadesInstitucionales>>([]);
+  const [aiEdit, setAiEdit] = useState<Array<IActividadesInstitucionales>>([]);
+  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+
+  const [findTextStr, setFindTextStr] = useState("");
+  const [findInstStr, setFindInstStr] = useState("Todos");
+  const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const renglonesPagina = 7;
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
+
+  useEffect(() => {
+    setOpenTabs(true);
+    listaActividadInstitucional(setAi);
+  }, []);
+
+  useEffect(() => {
+    setAiFiltered(ai);
+    console.log("ai: ",ai);
+    
+  }, [ai]);
+
+  useEffect(() => {
+    setAixFiltered(aiFiltered);
+  }, [aiFiltered]);
+
+  
+const returnMain = () => {
+    setShowResume(true);
+
+    setOpenTabs(true);
+    setActionNumber(1);
+  };
+
+   const findText = (v: string, est: string, inst: string) => {
+    if (
+      v !== "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
+      setAiFiltered(
+        ai.filter(
+          (x) =>
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+        )
+      );
+    } else if (
+      v !== "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setAiFiltered(
+        ai.filter(
+          (x) =>
+            (x.AnioFiscal.includes(v) ||
+              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+              x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+              x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
+            (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+        )
+      );
+    } else if (
+      v !== "" &&
+      (est === "0" || est === "Todos") &&
+      (inst === "0" || inst === "Todos")
+    ) {
+      setAiFiltered(
+        ai.filter(
+          (x) =>
+            x.AnioFiscal.includes(v) ||
+            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Programa.toLowerCase().includes(v.toLowerCase()) ||
+            x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
+            x.CreadoPor.toLowerCase().includes(v.toLowerCase())
+        )
+      );
+    } else if (
+      v === "" &&
+      est !== "0" &&
+      est !== "Todos" &&
+      inst !== "0" &&
+      inst !== "Todos"
+    ) {
+      setAiFiltered(
+        ai.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) &&
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+        )
+      );
+    } else if (
+      v === "" &&
+      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+    ) {
+      setAiFiltered(
+        ai.filter(
+          (x) =>
+            x.Estado.toLowerCase().includes(est.toLowerCase()) ||
+            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+        )
+      );
+    } else {
+      setAiFiltered(ai);
+    }
+  };
+
+  useEffect(() => {
+    findText(findTextStr, findSelectStr, findInstStr);
+  }, [findTextStr, findInstStr, findSelectStr]);
+
+  const handleChange = (dato: string) => {
+    setFindTextStr(dato);
+  };
+
+  
+  useEffect(() => {
+    getInstituciones(setInstituciones);
+  }, []);
+
+  const filtrarDatos = () => {
+    // eslint-disable-next-line array-callback-return
+    console.log("Entra");
+    let Arrayfiltro: IActividadesInstitucionales[];
+    Arrayfiltro = [];
+
+    if (aixFiltered.length !== 0) {
+      Arrayfiltro = aixFiltered;
+    } else {
+      Arrayfiltro = aiFiltered;
+    }
+
+  function veropciones  (estado: string) {
+    if(estado === "En Captura"){
+      return true
+    }
+    if(estado === "En Revisión"){
+      return true
+    }
+    if(estado === "En Autorización"){
+      return true
+    }
+    if(estado === "Sin Asignar"){
+      return false
+    }
+    return true;
+  }
+
+    let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
+      console.log("entre");
+      console.log(elemento);
+      console.log(findTextStr);
+      console.log(aixFiltered);
+
+      if (
+        elemento.AnioFiscal.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Institucion.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Programa.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.Estado.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.FechaCreacion.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase()) ||
+        elemento.CreadoPor.toString()
+          .toLocaleLowerCase()
+          .includes(findTextStr.toLocaleLowerCase())
+      ) {
+        console.log(elemento);
+        return elemento;
+      }
+    });
+
+    setAixFiltered(ResultadoBusqueda);
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    findTextStr.length !== 0 ? setAiFiltered(aiFiltered) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [findTextStr]);
 
   return (
     <Grid container direction="row" height={"100vh"} width={"100vw"}>
       <Grid
         item
         height={"100vh"}
-        //</Grid>sx={{ mr: showResume ? 5 : 0 }}
+        
       >
         <LateralMenu
           selection={"Actividades Institucionales"}
@@ -165,159 +372,154 @@ export const ActividadesInstitucionales = () => {
                 alignItems: "center",
               }}
             >
-              <Grid
+                <Grid
                 xl={12}
                 lg={12}
                 md={12}
+                item
                 container
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
               >
-                <Grid item xl={5} lg={5} md={4} sm={4}>
-                  <Autocomplete
-                    clearText="Borrar"
-                    noOptionsText="Sin opciones"
-                    closeText="Cerrar"
-                    openText="Abrir"
-                    disablePortal
-                    size="small"
-                    options={top100Films()}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <div
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".8vw",
-                            }}
-                          >
-                            {option.label}
-                          </div>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Ejercicio Fiscal"
-                        placeholder="Ejercicio Fiscal"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xl={5} lg={5} md={4} sm={4}>
-                  <Autocomplete
-                    clearText="Borrar"
-                    noOptionsText="Sin opciones"
-                    closeText="Cerrar"
-                    openText="Abrir"
-                    disablePortal
-                    size="small"
-                    options={top100Films()}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <div
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".8vw",
-                            }}
-                          >
-                            {option.label}
-                          </div>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Nombre del Programa"
-                        placeholder="Nombre del Programa"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                </Grid>
-              </Grid>
-
-              <Grid
-                xl={12}
-                lg={12}
-                md={12}
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <Grid item xl={5} lg={5} md={4} sm={4}>
-                  <Autocomplete
-                    clearText="Borrar"
-                    noOptionsText="Sin opciones"
-                    closeText="Cerrar"
-                    openText="Abrir"
-                    disablePortal
-                    size="small"
-                    options={top100Films()}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <div
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".8vw",
-                            }}
-                          >
-                            {option.label}
-                          </div>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Instituciones"
-                        placeholder="Instituciones"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xl={5} lg={5} md={4} sm={4}>
-                  <Button
+                <Grid
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  item
+                  xl={11}
+                  lg={10}
+                  md={8}
+                >
+                  <Paper
+                    component="form"
                     sx={{
-                      backgroundColor: "#c2a37b",
-                      width: "10vw",
-                      height: "4vh",
-                      color: "black",
-                      fontFamily: "MontserratMedium",
-                      fontSize: "0.6vw",
-                    }}
-                    onClick={() => {
-                      handleClickOpenTabsActInst();
+                      display: "flex",
+                      width: "100%",
                     }}
                   >
-                    Añadir registro
+                    <InputBase
+                      sx={{ ml: 1, flex: 1 }}
+                      placeholder="Buscar"
+                      value={findTextStr}
+                      onChange={(e) => {
+                        handleChange(e.target.value);
+                      }}
+                      onKeyPress={(ev) => {
+                        if (ev.key === "Enter") {
+                          filtrarDatos();
+                          ev.preventDefault();
+                          return false;
+                        }
+                      }}
+                    />
+                    <IconButton
+                      type="button"
+                      sx={{ p: "10px" }}
+                      aria-label="search"
+                      onClick={() => filtrarDatos()}
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  </Paper>
+                </Grid>
+
+                {/* <Grid item xl={5} lg={4} md={3}>
+                  <Button
+                    fullWidth
+                    sx={queries.buttonContinuarSolicitudInscripcion}
+                    onClick={() => {
+                      setOpenTabs(false);
+                    }}
+                  >
+                    Buscar
                   </Button>
+                </Grid> */}
+              </Grid>
+
+              <Grid
+              item
+                xl={12}
+                lg={12}
+                md={12}
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <Grid item xl={5} lg={4} md={3} sm={2}>
+                  <FormControl fullWidth>
+                    <InputLabel sx={queries.text}>
+                      Filtro por institución
+                    </InputLabel>
+                    <Select
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      label="Filtro por institución"
+                      value={findInstStr}
+                      onChange={(v) => {
+                        // v.target.value === "Todos"
+                        //   ? findText(
+                        //       findTextStr,
+                        //       findSelectStr === "Todos" ? "0" : findSelectStr,
+                        //       "0"
+                        //     )
+                        //   : findText(findTextStr, findSelectStr, v.target.value);
+                        setFindInstStr(v.target.value);
+                      }}
+                    >
+                      <MenuItem
+                        value={"Todos"}
+                        sx={{ fontFamily: "MontserratRegular" }}
+                      >
+                        Todos
+                      </MenuItem>
+
+                      {instituciones?.map((item) => {
+                        return (
+                          <MenuItem
+                            value={item.NombreInstitucion}
+                            key={item.Id}
+                          >
+                            {item.NombreInstitucion}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xl={5} lg={4} md={3}>
+                  <FormControl fullWidth>
+                    <InputLabel sx={queries.text}>
+                      Filtro por estado de la Raffi
+                    </InputLabel>
+                    <Select
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      label="Filtro por estado de la Raffi"
+                      value={findSelectStr}
+                      onChange={(v) => {
+                        // v.target.value === "Todos"
+                        //   ? findText(
+                        //       findTextStr,
+                        //       "0",
+                        //       findInstStr === "Todos" ? "0" : findInstStr
+                        //     )
+                        //   : findText(findTextStr, v.target.value, findInstStr);
+                        setFindSelectStr(v.target.value);
+                      }}
+                    >
+                      {estados.map((estado) => (
+                        <MenuItem key={estado} value={estado}>
+                          {estado}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Grid>
               </Grid>
+
             </Grid>
 
             {/* TABLA */}
@@ -376,552 +578,241 @@ export const ActividadesInstitucionales = () => {
                   </TableHead>
 
                   <TableBody>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
-                        }}
-                        align="center"
-                      >
-                        {"AnioFiscal"}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
-                        }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {"Institucion"}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
-                        }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {"Programa"}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
-                        }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {"Eje"}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
-                        }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {"Tematica"}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
-                        }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {"Estado"}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
-                        }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {"20/10/2022"}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
-                        }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {"Usuario"}
-                      </TableCell>
+                    {aixFiltered
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row, index) => {
+                        return (
+                          <TableRow>
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.AnioFiscal}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.Institucion}
+                              {/* {row.Institucion.toUpperCase()} */}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.Programa}
+                              {/* {row.Programa.toUpperCase()} */}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.Eje}
+                              {/* {row.Programa.toUpperCase()} */}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.Tematica}
+                              {/* {row.Programa.toUpperCase()} */}
+                            </TableCell>
+                            
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.Estado === "En Captura" &&
+                              localStorage.getItem("Rol") === "Capturador"
+                                ? "Borrador"
+                                : row.Estado === "En Revisión" &&
+                                  localStorage.getItem("Rol") === "Verificador"
+                                ? "En Revisión"
+                                : row.Estado === "En Autorización" &&
+                                  localStorage.getItem("Rol") ===
+                                    "Administrador"
+                                ? "En Autorización"
+                                : row.Estado}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {moment(row.FechaCreacion, moment.ISO_8601)
+                                .format("DD/MM/YYYY HH:mm:SS")
+                                .toString()}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.CreadoPor}
+                              {/* {row.CreadoPor.toUpperCase()} */}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                flexDirection: "row",
+                                display: "grid",
+                                gridTemplateColumns: "repeat(4,1fr)",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {  row.Estado !=="Sin Asignar" && (
+                                  <Tooltip title="EDITAR">
+                                  <IconButton
+                                    type="button"
+                                    onClick={() => {
+                                      setAiEdit([
+                                        {
+                                        IdActividadInstitucional: row.IdActividadInstitucional,
+                                        IdMir: row.IdMir,
+                                        IdFichaTecnica: row.IdFichaTecnica,
+                                        AnioFiscal: row.AnioFiscal,
+                                        Institucion: row.Institucion,
+                                        Programa: row.Programa,
+                                        Eje: row.Eje,
+                                        Tematica: row.Tematica,
+                                        ActividadInstitucional: row.ActividadInstitucional,
+                                        MIR: row.MIR,
+                                        FichaTecnica: row.FichaTecnica,
+                                        Estado: row.Estado,
+                                        FechaCreacion: row.FechaCreacion,
+                                        ModificadoPor: row.ModificadoPor,
+                                        CreadoPor: row.CreadoPor,
+                                        Conac: row.Conac,
+                                        Consecutivo: row.Consecutivo,
+                                        Opciones: row.Opciones,
+                                       
+                                      },
+                                    ]);
+                                    setShowResume(false);
+                                      setActionNumber(1); //Revisar esta funcionalidad
+                                    }}
+                                  >
+                                    <EditIcon />
+                                    {row.Opciones}
+                                  </IconButton></Tooltip>) 
+                              }
 
-                      <TableCell
-                        sx={{
-                          flexDirection: "row",
-                          //display: "grid",
-                          gridTemplateColumns: "repeat(4,1fr)",
-                        }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        <Tooltip title="Eliminar">
-                          <IconButton>
-                            <DeleteIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "red",
-                                  },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title="Enviar">
-                          <IconButton>
-                            <SendIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "lightGreen",
-                                  },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title="Descargar">
-                          <IconButton>
-                            <DownloadIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "orange",
-                                  },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title="Editar">
-                          <IconButton>
-                            <EditIcon
-                              sx={[
-                                {
-                                  "&:hover": {
-                                    color: "blue",
-                                  },
-                                },
-                              ]}
-                            />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
-                    
-                    {/* ))} */}
+                              { 
+                                <Tooltip title="REGISTRAR ACTIVIDAD INSTITUCIONAL">
+                                <IconButton
+                                // disabled={
+                                //   row.Estado === "En Captura" &&
+                                //   localStorage.getItem("Rol") ===
+                                //     "Capturador"
+                                //     ? false
+                                //     : row.Estado === "En Revisión" &&
+                                //       localStorage.getItem("Rol") ===
+                                //         "Verificador"
+                                //     ? false
+                                //     : row.Estado === "En Autorización" &&
+                                //       localStorage.getItem("Rol") ===
+                                //         "Administrador"
+                                //     ? false
+                                //     : true
+                                // }
+                               
+                                  type="button"
+                                  onClick={() => {
+                                    setAiEdit([
+                                      {
+                                      IdActividadInstitucional: row.IdActividadInstitucional,
+                                      IdMir: row.IdMir,
+                                      IdFichaTecnica: row.IdFichaTecnica,
+                                      AnioFiscal: row.AnioFiscal,
+                                      Institucion: row.Institucion,
+                                      Programa: row.Programa,
+                                      Eje: row.Eje,
+                                      Tematica: row.Tematica,
+                                      ActividadInstitucional: row.ActividadInstitucional,
+                                      MIR: row.MIR,
+                                      FichaTecnica: row.FichaTecnica,
+                                      Estado: row.Estado,
+                                      FechaCreacion: row.FechaCreacion,
+                                      ModificadoPor: row.ModificadoPor,
+                                      CreadoPor: row.CreadoPor,
+                                      Conac: row.Conac,
+                                      Consecutivo: row.Consecutivo,
+                                      Opciones: row.Opciones,
+                                     
+                                    },
+                                  ]);
+                                    setShowResume(false);
+                                    setActionNumber(1); //Revisar esta funcionalidad
+                                  }}
+                                >
+                                  <AddCircleOutlineIcon />
+                                  {row.Opciones}
+                                </IconButton>
+                              </Tooltip>
+                              }
+                              
+                              
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                   </TableBody>
+
                 </Table>
               </TableContainer>
             </Grid>
 
-            {/* <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                height: "92%",
-                //mt: "8vh",
-                //flexWrap: "wrap",
-              }}
-              gridArea={"main"}
-            >
-              <Box
-                sx={{
-                  mt: "3vh",
-                  width: "60%",
-                  height: "15vh",
-                  backgroundColor: "#fff",
-                  borderRadius: 5,
-                  display: "grid",
-                  boxShadow: 5,
-                  gridTemplateColumns: "1fr 1fr",
-                  alignItems: "center",
-                  justifyItems: "center",
-                }}
-              >
-                <Box sx={{ width: "20vw", height: "5vh" }}>
-                  <Autocomplete
-                    clearText="Borrar"
-                    noOptionsText="Sin opciones"
-                    closeText="Cerrar"
-                    openText="Abrir"
-                    disablePortal
-                    size="small"
-                    options={top100Films()}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <div
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".8vw",
-                            }}
-                          >
-                            {option.label}
-                          </div>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Ejercicio Fiscal"
-                        placeholder="Ejercicio Fiscal"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                </Box>
-                <Box sx={{ width: "20vw", height: "5vh" }}>
-                  <Autocomplete
-                    clearText="Borrar"
-                    noOptionsText="Sin opciones"
-                    closeText="Cerrar"
-                    openText="Abrir"
-                    disablePortal
-                    size="small"
-                    options={top100Films()}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <div
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".8vw",
-                            }}
-                          >
-                            {option.label}
-                          </div>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Nombre del Programa"
-                        placeholder="Nombre del Programa"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                </Box>
-                <Box sx={{ width: "20vw", height: "5vh" }}>
-                  <Autocomplete
-                    clearText="Borrar"
-                    noOptionsText="Sin opciones"
-                    closeText="Cerrar"
-                    openText="Abrir"
-                    disablePortal
-                    size="small"
-                    options={top100Films()}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <div
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".8vw",
-                            }}
-                          >
-                            {option.label}
-                          </div>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Instituciones"
-                        placeholder="Instituciones"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                </Box>
-                <Button
-                  sx={{
-                    backgroundColor: "#c2a37b",
-                    width: "10vw",
-                    height: "4vh",
-                    color: "black",
-                    fontFamily: "MontserratMedium",
-                    fontSize: "0.6vw",
-                  }}
-                  onClick={() => {
-                    handleClickOpenTabsActInst();
-                  }}
-                >
-                  Añadir registro
-                </Button>
-              </Box>
-
-              <Box
-                sx={{
-                  width: "80%",
-                  height: "65vh",
-                  backgroundColor: "#ffff",
-                  borderRadius: 5,
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  boxShadow: 5,
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "65vh",
-                    overflow: "hidden",
-                    overflowY: "unset",
-                    "&::-webkit-scrollbar": {
-                      width: ".3vw",
-                      mt: 1,
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                      backgroundColor: "rgba(0,0,0,.5)",
-                      outline: "1px solid slategrey",
-                      borderRadius: 1,
-                    },
-                  }}
-                >
-                  <TableContainer sx={{ borderRadius: 5 }}>
-                    <Table>
-                      <TableHead sx={{ backgroundColor: "#edeaea" }}>
-                        <TableRow>
-                          <TableCell
-                            sx={{ fontFamily: "MontserratBold" }}
-                            align="center"
-                          >
-                            Ejercicio Fiscal
-                          </TableCell>
-                          <TableCell
-                            sx={{ fontFamily: "MontserratBold" }}
-                            align="center"
-                          >
-                            Institución
-                          </TableCell>
-                          <TableCell
-                            sx={{ fontFamily: "MontserratBold" }}
-                            align="center"
-                          >
-                            Nombre del Programa
-                          </TableCell>
-                          <TableCell
-                            sx={{ fontFamily: "MontserratBold" }}
-                            align="center"
-                          >
-                            Eje
-                          </TableCell>
-                          <TableCell
-                            sx={{ fontFamily: "MontserratBold" }}
-                            align="center"
-                          >
-                            Tema
-                          </TableCell>
-                          <TableCell
-                            sx={{ fontFamily: "MontserratBold" }}
-                            align="center"
-                          >
-                            Estado
-                          </TableCell>
-                          <TableCell
-                            sx={{ fontFamily: "MontserratBold" }}
-                            align="center"
-                          >
-                            Fecha Creación
-                          </TableCell>
-                          <TableCell
-                            sx={{ fontFamily: "MontserratBold" }}
-                            align="center"
-                          >
-                            Opciones
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-
-                      <TableBody>
-                        <TableRow>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                          >
-                            {"AnioFiscal"}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                          >
-                            {"Institucion"}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                          >
-                            {"Programa"}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                          >
-                            {"Eje"}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                          >
-                            {"Tematica"}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                          >
-                            {"20/10/2022"}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                          >
-                            {"Estado"}
-                          </TableCell>
-
-                          <TableCell align="center">
-                            <Box sx={{ display: "flex" }}>
-                              <Tooltip title="Eliminar">
-                                <IconButton>
-                                  <DeleteIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "red",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-
-                              <Tooltip title="Enviar">
-                                <IconButton>
-                                  <SendIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "lightGreen",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-                            </Box>
-
-                            <Box sx={{ display: "flex" }}>
-                              <Tooltip title="Descargar">
-                                <IconButton>
-                                  <DownloadIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "orange",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-
-                              <Tooltip title="Editar">
-                                <IconButton>
-                                  <EditIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "blue",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                        
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </Box>
-              </Box>
-            </Box> */}
+            
           </>
         ) : (
           <Grid
@@ -935,7 +826,7 @@ export const ActividadesInstitucionales = () => {
            // gridArea={"main"}
 
           >
-            <TabsActividadesInstitucionales returnMain={returnMain} />
+            <TabsActividadesInstitucionales returnMain={returnMain }  />
           </Grid>
         )}
       </Grid>
@@ -943,21 +834,4 @@ export const ActividadesInstitucionales = () => {
   );
 };
 
-const top100Films = () => [
-  {
-    label:
-      "CONTRIBUIR A INCREMENTAR LA TASA BRUTA DE COBERTURA EN EDUCACIÓN MEDIA SUPERIOR MEDIANTE LOS SERVICIOS QUE BRINDAN LAS INSTITUCIONES DE BACHILLERATO EN EL ESTADO",
-  },
-  {
-    label:
-      "LOS ALUMNOS ASISTEN Y DAN CONTINUIDAD A SUS ESTUDIOS EN EL COLEGIO; LOS PADRES DE FAMILIA O TUTORES PERMITEN QUE SUS HIJOS RECIBAN APOYO INTEGRAL POR PARTE DEL COLEGIO",
-  },
-  {
-    label:
-      "LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS",
-  },
-  {
-    label:
-      "LOS PROCESOS DE LICITACIÓN DE LA SECRETARÍA DE ADMINISTRACIÓN DEL GOBIERNO DEL ESTADO SE DAN EN TIEMPO Y FORMA Y NO SON DECLARADAS DESIERTAS Y LOS PROVEEDORES ENTREGAN LAS MATERIAS PRIMAS EN LAS FECHAS PROGRAMADAS Y EN LAS FORMAS INDICADAS",
-  },
-];
+

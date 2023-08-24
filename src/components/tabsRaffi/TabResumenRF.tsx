@@ -158,7 +158,7 @@ export const TabResumenRF = ({
     <>
       <Grid
         visibility={show ? "visible" : "hidden"}
-        position="absolute"
+       
         sx={{
           display: "flex",
           width: "75vw",
