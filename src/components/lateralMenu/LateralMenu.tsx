@@ -405,6 +405,8 @@ export const LateralMenu = ({
                     ? "PAE"
                     : selection === "Notificaciones"
                     ? "Notificaciones"
+                    : selection === "Configuración"
+                    ? "Configuración"
                     : "",
                 path2: "",
                 name3: "",

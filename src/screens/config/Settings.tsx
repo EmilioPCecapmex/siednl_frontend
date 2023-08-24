@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Header } from "../../components/header/Header";
 import { SettingsCard } from "../../components/settings/SettingsCard";
@@ -30,24 +30,16 @@ export const Settings = () => {
   };
 
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "grid",
-        backgroundColor: "#F2F2F2",
-        gridTemplateAreas: `
-                        'aside header'
-                        'aside main'
-                       `,
-        alignItems: "start",
-      }}
-    >
-      <Box gridArea={"aside"} sx={{ mr: showCards ? 8 : 0 }}>
-        <LateralMenu selection={"Configuración"} actionNumber={0} settingsCard={resetView} />
-      </Box>
+    <Grid justifyContent={"space-between"}>
+      <Grid item xl={12} height={"7vh"}>
+        <LateralMenu
+          selection={"Configuración"}
+          actionNumber={0}
+          settingsCard={resetView}
+        />
+      </Grid>
 
-      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+      {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
         <Header
           details={{
             name1: "Inicio",
@@ -57,9 +49,22 @@ export const Settings = () => {
             name3: "",
           }}
         />
-      </Box>
+      </Grid> */}
 
-      <Box gridArea={"main"}>
+      <Grid
+        justifyContent={"center"}
+        display={"flex"}
+        container
+        height={"93vh"}
+        alignItems={"center"}
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={7.5}
+        xs={6}
+        sx={{ backgroundColor: "white" }}
+      >
         {showCards ? (
           <>
             <SettingsCard showConfig={showConfig} />
@@ -73,7 +78,7 @@ export const Settings = () => {
             {/* <TutorialBox initialState={19} endState={23} /> */}
           </>
         ) : null}
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 };

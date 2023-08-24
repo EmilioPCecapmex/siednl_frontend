@@ -15,7 +15,7 @@ import {
   Table,
   TableBody,
   Input,
-  Box,
+  Grid,
   TablePagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -31,6 +31,41 @@ import AddDialogCatalogo from "./AddDialogCatalogo";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { CSVCatalogo } from "./CSVCatalogo";
+
+interface Head {
+  id: keyof IDatosTabla;
+  isNumeric: boolean;
+  label: string;
+}
+
+const heads: readonly Head[] = [
+  {
+    id: "Id",
+    isNumeric: true,
+    label: "Id",
+  },
+  {
+    id: "Desc",
+    isNumeric: true,
+    label: "Descripcion",
+  },
+  {
+    id: "fnc",
+    isNumeric: true,
+    label: "fnc",
+  },
+  {
+    id: "Tabla",
+    isNumeric: true,
+    label: "Tabla",
+  },
+  {
+    id: "selected",
+    isNumeric: true,
+    label: "selected",
+  },
+  
+];
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [defaultSelection, setDefaultSelection] = useState(defSelected);
@@ -1249,28 +1284,23 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-        height: "92vh",
-      }}
-    >
-      <Box
-        sx={{
-          width: "80%",
-          height: "80%",
-          backgroundColor: "#ffffff",
-          borderRadius: 5,
-          display: "flex",
-          alignItems: "center",
-          mt: "10vh",
-          boxShadow: 10,
-        }}
+    <Grid container justifyContent={"space-between"}>
+      <Grid
+        justifyContent={"center"}
+        display={"flex"}
+        container
+        height={"93vh"}
+        alignItems={"center"}
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={7.5}
+        xs={6}
+        sx={{ backgroundColor: "white" }}
       >
-        <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-          <Box
+        <Grid sx={{ width: "100%", height: "100%", display: "flex" }}>
+          <Grid
             sx={{
               width: "22%",
               display: "flex",
@@ -1320,7 +1350,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
                 {configOptions.map((item) => {
                   return (
-                    <Box key={item.id} sx={{}}>
+                    <Grid key={item.id} sx={{}}>
                       {item.tipo === "Catalogos" ? (
                         <AccordionDetails sx={{ padding: 0 }}>
                           <ListItemButton
@@ -1352,7 +1382,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       ) : (
                         ""
                       )}
-                    </Box>
+                    </Grid>
                   );
                 })}
               </Accordion>
@@ -1393,7 +1423,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
                 {configOptions.map((item) => {
                   return (
-                    <Box key={item.id} sx={{}}>
+                    <Grid key={item.id} sx={{}}>
                       {item.tipo === "Relaciones" ? (
                         <AccordionDetails sx={{ padding: 0 }}>
                           <ListItemButton
@@ -1422,14 +1452,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       ) : (
                         ""
                       )}
-                    </Box>
+                    </Grid>
                   );
                 })}
               </Accordion>
             </List>
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -1437,7 +1467,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               ml: "8%",
             }}
           >
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "10%",
@@ -1457,9 +1487,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               >
                 {catalogoActual.toLocaleUpperCase()}
               </Typography>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "80%",
@@ -1469,7 +1499,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   display: "flex",
                   backgroundColor: "#ccc",
@@ -1490,12 +1520,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 >
                   Descripción
                 </Typography>
-                <Box
+                <Grid
                   sx={{
                     alignItems: "center",
                     justifyContent: "center",
                     display: "flex",
-                    width: "40%",
+                    width: "60%",
                     backgroundColor: "#EBEBEB",
                     border: 1,
                     borderRadius: 10,
@@ -1522,7 +1552,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     }}
                   />
                   <SearchIcon sx={{ color: "action.active", mr: 1 }} />
-                </Box>
+                </Grid>
 
                 <Typography
                   sx={{
@@ -1533,12 +1563,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 >
                   Acciones
                 </Typography>
-              </Box>
+              </Grid>
               <TableContainer
                 component={Paper}
                 sx={{
                   width: "100%",
-                  height: "40vh",
+                  height: "60vh",
                   boxShadow: 10,
                   mt: 1,
                   "&::-webkit-scrollbar": {
@@ -1554,7 +1584,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               >
                 <Table
                   sx={{ maxWidth: 600 }}
-                  aria-label="custom pagination table"
+                  stickyHeader
+                  aria-label="sticky table"
                 >
                   <TableBody>
                     {(rowsPerPage > 0
@@ -1571,6 +1602,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                           <TableRow key={row.Id || Math.random()}>
                             <TableCell
                               component="th"
+                              align="center"
                               sx={
                                 row.Id === rowColorB
                                   ? { backgroundColor: colorB }
@@ -1607,7 +1639,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 setColorB("#E7E7E7");
                               }}
                             >
-                              <Box sx={{ display: "flex" }}>
+                              <Grid sx={{ display: "flex" }}>
                                 {selected === "Programas - Instituciones" ||
                                 selected ===
                                   "Instituciones - Unidades" ? null : (
@@ -1625,7 +1657,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                   tabla={row.Tabla}
                                   actualizado={actualizaContador}
                                 />
-                              </Box>
+                              </Grid>
                             </TableCell>
                           </TableRow>
                         );
@@ -1639,7 +1671,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Box
+              <Grid
                 sx={{
                   width: "100%",
                   display: "flex",
@@ -1662,8 +1694,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   onRowsPerPageChange={handleChangeRowsPerPage}
                   ActionsComponent={TablePaginationActions}
                 />
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 title="Agregar"
                 borderRadius={100}
                 sx={{
@@ -1687,8 +1719,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   select={selected}
                   actualizado={actualizaContador}
                 />
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 title="Exportar a excell"
                 borderRadius={100}
                 sx={{
@@ -1707,12 +1739,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 }}
               >
                 <CSVCatalogo tabla={tablaActual} datos={datosTabla} />
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
