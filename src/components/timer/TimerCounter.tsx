@@ -100,7 +100,7 @@ export const TimerCounter = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "#B70000",
+        color: "#fff",
       }}
     >
       {rest > 0

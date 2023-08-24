@@ -121,7 +121,7 @@ export default function NotificationsPanel() {
           justifyContent: "space-evenly",
           mt: "2vh",
           borderBottom: 1,
-          borderColor: "#616161",
+          borderColor: "#fff",
         }}
       >
         <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -282,12 +282,13 @@ export default function NotificationsPanel() {
 
   return (
     <React.Fragment key={"right"}>
-      <IconButton onClick={() => handleOpenNotifPanel()}>
+      <IconButton  color="inherit" onClick={() => handleOpenNotifPanel()}>
         <Badge
           badgeContent={sinNotificaciones ? notificaciones?.length : 0}
-          color="info"
+       
+          
         >
-          <NotificationsIcon color="action" />
+          <NotificationsIcon />
         </Badge>
       </IconButton>
 

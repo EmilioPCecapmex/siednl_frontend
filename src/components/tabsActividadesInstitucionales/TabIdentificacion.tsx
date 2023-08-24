@@ -105,7 +105,7 @@ export function TabIdentificacion({  }: {  }) {
         alignItems: "center",
         justifyItems: "center",
         backgroundColor: "#fff",
-        boxShadow: 20,
+        GridShadow: 20,
         borderRadius: 5,
       }}
     >
@@ -880,7 +880,7 @@ export function TabIdentificacion({  }: {  }) {
                 // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
                // rows={8}
                 multiline
-                //sx={{ width: "90%", boxShadow: 2 }}
+                //sx={{ width: "90%", GridShadow: 2 }}
                 variant={"standard"}
                 label={"Programa Sectorial"}
                 InputLabelProps={{
@@ -912,7 +912,7 @@ export function TabIdentificacion({  }: {  }) {
                 // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
                // rows={8}
                 multiline
-                //sx={{ width: "90%", boxShadow: 2 }}
+                //sx={{ width: "90%", GridShadow: 2 }}
                 variant={"standard"}
                 label={"Objetivo Programa Sectorial"}
                 InputLabelProps={{
@@ -954,7 +954,7 @@ export function TabIdentificacion({  }: {  }) {
                 // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
                // rows={8}
                 multiline
-                //sx={{ width: "90%", boxShadow: 2 }}
+                //sx={{ width: "90%", GridShadow: 2 }}
                 variant={"standard"}
                 label={"Meta 1"}
                 InputLabelProps={{
@@ -986,7 +986,7 @@ export function TabIdentificacion({  }: {  }) {
                 // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
                // rows={8}
                 multiline
-                //sx={{ width: "90%", boxShadow: 2 }}
+                //sx={{ width: "90%", GridShadow: 2 }}
                 variant={"standard"}
                 label={"Meta 2"}
                 InputLabelProps={{
@@ -1057,7 +1057,7 @@ export function TabIdentificacion({  }: {  }) {
                   multiline
                   rows={6}
                   variant="filled"
-                  sx={{ width: "80%", boxShadow: 2 }}
+                  sx={{ width: "80%", GridShadow: 2 }}
                   InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
                   InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   label={"Objetivo General"}
@@ -1083,7 +1083,7 @@ export function TabIdentificacion({  }: {  }) {
                   multiline
                   rows={6}
                   variant="filled"
-                  sx={{ width: "40%", boxShadow: 2 }}
+                  sx={{ width: "40%", GridShadow: 2 }}
                   label={"Objetivo Especifico 1"}
                   InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
                   InputProps={{ style: { fontFamily: "MontserratRegular" } }}
@@ -1100,7 +1100,7 @@ export function TabIdentificacion({  }: {  }) {
                   multiline
                   rows={6}
                   variant="filled"
-                  sx={{ width: "40%", boxShadow: 2 }}
+                  sx={{ width: "40%", GridShadow: 2 }}
                   label={"Objetivo Especifico 2"}
                   value={objetivosActividadInstitucional.objetivoEspecifico2}
                   InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}

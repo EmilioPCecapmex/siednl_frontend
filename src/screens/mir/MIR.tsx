@@ -155,35 +155,7 @@ export const MIR = () => {
 
   const returnMain = () => {
     setShowResume(true);
-    //getMIRs(setMirs);
-  };
-
-
-  const validaFechaCaptura = () => {
-
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("jwtToken") || ""
-            
-          },
-          params:{
-          
-            Rol: localStorage.getItem("Rol"),
-            Modulo: "MIR",
-          }
-          
-        }
-      )
-      .then((r) => {
-        r.data.data.valida=="true"?setValidaFecha(true):setValidaFecha(false)
-      })
-      .catch((err) => {
-
-      });
+    getMIRs();
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -220,20 +192,6 @@ export const MIR = () => {
   const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
   const [mirxFiltered, setMirxFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
-
-  useEffect(() => {
-    validaFechaCaptura();
-    getMIRs(setMirs);
-  }, []);
-
-  useEffect(() => {
-    setMirsFiltered(mirs);
-  }, [mirs]);
-
-  useEffect(() => {
-    setMirxFiltered(mirsFiltered);
-  }, [mirsFiltered]);
-
   const findText = (v: string, est: string, inst: string) => {
     if (
       v !== "" &&
@@ -468,88 +426,128 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container direction="row" height={"100vh"} width={"100vw"}>
-      <Grid item height={"100vh"} 
-     // sx={{ mr: showResume ? 8 : 0 }}
-      >
-        <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
-      </Grid>
+    <Box
+      sx={{
+        width: "100vw",
+        height: "100vh",
+        display: "grid",
+        backgroundColor: "#F2F2F2",
+        gridTemplateAreas: `
+                          'aside header'
+                          'aside main'
+                         `,
+        alignItems: "end",
+      }}
+    >
+      <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
+        <LateralMenu selection={2} actionNumber={actionNumber} />
+      </Box>
 
-      <Grid
-        justifyContent={"center"}
-        display={"flex"}
-        container
-        item
-        xl={10.2}
-        lg={9.9}
-        md={9.4}
-        sm={7.5}
-        xs={6}
-        sx={{ backgroundColor: "#F2F2F2" }}
-      >
-        <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
-          <Header
-            details={{
-              name1: "Inicio",
-              path1: "../home",
-              name2: "MIR",
-              path2: "../mir",
-              name3: "",
+      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+        <Header
+          details={{
+            name1: "Inicio",
+            path1: "../home",
+            name2: "MIR",
+            path2: "../mir",
+            name3: "",
+          }}
+        />
+      </Box>
+
+      {showResume ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
+          }}
+          gridArea={"main"}
+        >
+          <Box
+            sx={{
+              width: "60%",
+              height: "15vh",
+              backgroundColor: "#fff",
+              borderRadius: 5,
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateRows: "repeat(2, 1fr)",
+              boxShadow: 5,
+              alignItems: "center",
+              justifyItems: "center",
             }}
-          />
-        </Grid>
-
-        {showResume ? (
-          <>
-            {/* FILTROS */}
-            <Grid
-              container
-              item
-              xl={8}
-              lg={7}
-              md={6}
-              height="15vh"
-              direction="row"
+          >
+            {/* <TutorialBox initialState={8} endState={13} /> */}
+            <Box
               sx={{
-                backgroundColor: "#FFFF",
-                borderRadius: 5,
-                justifyContent: "space-evenly",
+                display: "flex",
+                width: "70%",
                 alignItems: "center",
+                justifyContent: "center",
+                border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
               }}
             >
+              <Input
+                size="small"
+                value={findTextStr}
+                placeholder="Búsqueda"
+                sx={{ width: "90%", fontFamily: "MontserratRegular" }}
+                disableUnderline
+                onChange={(v) => {
+                  setFindTextStr(v.target.value);
+                  // findText(v.target.value, findSelectStr, "");
+                }}
+              />
+            </Box>
 
-
-              <Grid
-                xl={12}
-                lg={12}
-                md={12}
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
+            <FormControl
+              sx={{
+                display: "flex",
+                width: "70%",
+                alignItems: "center",
+                justifyContent: "center",
+                border: 1,
+                borderRadius: 2,
+                borderColor: "#616161",
+              }}
+            >
+              <Select
+                size="small"
+                variant="standard"
+                value={findSelectStr}
+                sx={{ fontFamily: "MontserratRegular" }}
+                fullWidth
+                disableUnderline
+                onChange={(v) => {
+                  // v.target.value === "Todos"
+                  //   ? findText(
+                  //       findTextStr,
+                  //       "0",
+                  //       findInstStr === "Todos" ? "0" : findInstStr
+                  //     )
+                  //   : findText(findTextStr, v.target.value, findInstStr);
+                  setFindSelectStr(v.target.value);
+                }}
               >
-                <Grid item xl={5} lg={4} md={3} sm={2}>
-                  <FormControl fullWidth>
-                    <InputLabel sx={queries.text}>
-                      Filtro por institucion
-                    </InputLabel>
-                    <Select
-                      size="small"
-                      variant="outlined"
-                      label="Filtro por institucion"
-                      value={findInstStr}
-                      sx={{ fontFamily: "MontserratRegular" }}
-                      fullWidth
-                      onChange={(v) => {
-                        setFindInstStr(v.target.value);
-                      }}
-                    >
-                      <MenuItem
-                        value={"Todos"}
-                        sx={{ fontFamily: "MontserratRegular" }}
-                      >
-                        Todos
-                      </MenuItem>
+                <MenuItem
+                  value={"0"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  disabled
+                  selected
+                >
+                  Filtro por estado de la MIR
+                </MenuItem>
+                <MenuItem
+                  value={"Todos"}
+                  sx={{ fontFamily: "MontserratRegular" }}
+                >
+                  Todos
+                </MenuItem>
 
                       {instituciones?.map((item) => {
                         return (
@@ -655,139 +653,145 @@ export const MIR = () => {
                   </Paper>
                 </Grid>
 
-                <Grid item xl={3} lg={4} md={3} sm={2}>
-                  <Button
-                  disabled={!validaFecha}
-                    sx={{
-                      backgroundColor: "#c2a37b",
-                      width: "10vw",
-                      height: "3.3vh",
-                      color: "black",
-                      fontFamily: "MontserratMedium",
-                      fontSize: "0.6vw",
-                    }}
-                    onClick={() => {
-                      setMirEdit([
-                        {
-                          ID: "",
-                          AnioFiscal: "",
-                          Institucion: "",
-                          Programa: "",
-                          Eje: "",
-                          Tematica: "",
-                          MIR: "",
-                          Estado: "",
-                          FechaCreacion: "",
-                          CreadoPor: "",
-                          Conac: "",
-                          Consecutivo: "",
-                          Opciones: "",
-                        },
-                      ]);
-                      handleClickOpen();
-                    }}
-                  >
-                    Añadir registro
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
+                {instituciones?.map((item) => {
+                  return (
+                    <MenuItem value={item.NombreInstitucion} key={item.Id}>
+                      {item.NombreInstitucion}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
 
-            {/* TABLA */}
-
-            <Grid
-              container
-              item
-              lg={10}
-              md={9}
-              height="65vh"
-              direction="row"
-              sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
+            <Button
+              sx={{
+                backgroundColor: "#c2a37b",
+                width: "10vw",
+                height: "3.3vh",
+                color: "black",
+                fontFamily: "MontserratMedium",
+                fontSize: "0.6vw",
+              }}
+              onClick={() => {
+                setMirEdit([
+                  {
+                    ID: "",
+                    AnioFiscal: "",
+                    Institucion: "",
+                    Programa: "",
+                    Eje: "",
+                    Tematica: "",
+                    MIR: "",
+                    Estado: "",
+                    FechaCreacion: "",
+                    CreadoPor: "",
+                    Conac: "",
+                    Consecutivo: "",
+                  },
+                ]);
+                handleClickOpen();
+              }}
             >
-              {/* <Table>
-                <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
-                  <TableRow
+              Añadir registro
+            </Button>
+          </Box>
+
+          <Box
+            sx={{
+              width: "80%",
+              height: "65vh",
+              backgroundColor: "#ffff",
+              borderRadius: 5,
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              boxShadow: 5,
+            }}
+          >
+            <Table>
+              <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <TableCell
                     sx={{
-                      width: "100%",
-                      display: "grid",
-                      gridTemplateColumns: "repeat(7, 1fr)",
-                      justifyContent: "space-evenly",
-                      alignItems: "center",
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
                     }}
+                    align="center"
                   >
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      EJERCICIO FISCAL
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      INSTITUCIÓN
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      NOMBRE DEL PROGRAMA
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      ESTADO
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      FECHA DE CREACIÓN
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      CREADO POR
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      OPCIONES
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-              </Table> */}
+                    EJERCICIO FISCAL
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    INSTITUCIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    NOMBRE DEL PROGRAMA
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    ESTADO
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    FECHA DE CREACIÓN
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    CREADO POR
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      borderBottom: 0,
+                      fontSize: "0.8vw",
+                    }}
+                    align="center"
+                  >
+                    OPCIONES
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
 
               <TableContainer sx={{ borderRadius: 5, height: 450,
             overflow: "auto",
@@ -1076,43 +1080,40 @@ export const MIR = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-
-              <Box sx={{ width: "100%" }}>
-                 <TablePagination
-                  rowsPerPageOptions={[renglonesPagina]}
-                  component="div"
-                  count={mirs.length}
-                  rowsPerPage={renglonesPagina}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                /> 
-              </Box>
-            </Grid>
-          </>
-        ) : (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              height: "92vh",
-            }}
-            gridArea={"main"}
-          >
-            <FullModalMir
-              anioFiscalEdit={anioFiscalEdit}
-              MIR={mirEdit[0]?.MIR || ""}
-              showResume={returnMain}
-              IdMir={mirEdit[0]?.ID || ""}
-            />
+            </Box>
+            <Box sx={{ width: "100%" }}>
+              <TablePagination
+                rowsPerPageOptions={[renglonesPagina]}
+                component="div"
+                count={mirs.length}
+                rowsPerPage={renglonesPagina}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Box>
           </Box>
-        )}
-      </Grid>
-      valida fecha:
-     {validaFecha}
-    </Grid>
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
+          }}
+          gridArea={"main"}
+        >
+          <FullModalMir
+            anioFiscalEdit={anioFiscalEdit}
+            MIR={mirEdit[0]?.MIR || ""}
+            showResume={returnMain}
+            IdMir={mirEdit[0]?.ID || ""}
+          />
+        </Box>
+      )}
+    </Box>
   );
 };
 
