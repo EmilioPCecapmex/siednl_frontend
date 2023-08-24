@@ -19,7 +19,8 @@ export const Home = () => {
       //                    `,
       //   alignItems: "start",
       // }}
-      container direction="column"
+      container
+      direction="column"
     >
       <Grid>
         <LateralMenu selection={"Inicio"} actionNumber={0} />
@@ -37,7 +38,15 @@ export const Home = () => {
         />
       </Grid> */}
 
-      <Grid sx={{ display: "flex", justifyContent: "center" }} gridArea={"main"}>
+      <Grid
+        sx={{
+          height: "90vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+       
+      >
         {/* <TutorialBox initialState={0} endState={8} /> */}
         <WelcomeBox />
         <img src={escudo} alt="Escudo" style={{ width: "25vw" }} />

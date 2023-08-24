@@ -351,6 +351,8 @@ export const LateralMenu = ({
       .then((r) => {
         if (r.status === 200) {
           setInstituciones(r.data.data);
+          console.log("usuarioInsitucion: ",r.data.data);
+          
           setRenderInfo(true);
         }
       });
