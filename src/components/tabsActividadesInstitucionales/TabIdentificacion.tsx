@@ -105,7 +105,8 @@ export function TabIdentificacion({  }: {  }) {
         alignItems: "center",
         justifyItems: "center",
         backgroundColor: "#fff",
-        GridShadow: 20,
+        // GridShadow: 20,
+        boxShadow: 20,
         borderRadius: 5,
       }}
     >
