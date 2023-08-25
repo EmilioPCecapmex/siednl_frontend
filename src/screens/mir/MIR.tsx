@@ -445,7 +445,7 @@ export const MIR = () => {
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Grid>
-//boxShadow: 10,
+
       <Grid
         justifyContent={"center"}
         display={"flex"}

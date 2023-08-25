@@ -554,8 +554,10 @@ export const TabActividadesMA = ({
 
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
+            // display: "grid",
+            // gridTemplateColumns: "1fr 1fr 1fr",
+            display: "flex",
+            flexDirection: "column",
             width: "90%",
             alignItems: "center",
             justifyContent: "center",
