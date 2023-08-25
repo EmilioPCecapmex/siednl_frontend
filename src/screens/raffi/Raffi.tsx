@@ -38,6 +38,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
 import CommentIcon from "@mui/icons-material/Comment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import axios from "axios";
 
 const estados = [
   "Todos",
@@ -105,6 +106,7 @@ export const Raffi = () => {
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
   const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [validaFecha, setValidaFecha] = useState(false);
 
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
@@ -212,11 +214,36 @@ export const Raffi = () => {
     }
   };
 
+  const validaFechaCaptura = () => {
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+          params: {
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "Raffi",
+          },
+        }
+      )
+      .then((r) => {
+        r.data.data.valida == "true"
+          ? setValidaFecha(true)
+          : setValidaFecha(false);
+      })
+      .catch((err) => {});
+  };
+
+
   useEffect(() => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
   useEffect(() => {
+    validaFechaCaptura();
     getInstituciones(setInstituciones);
   }, []);
   
