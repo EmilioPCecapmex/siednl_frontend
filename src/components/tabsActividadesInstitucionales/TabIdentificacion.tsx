@@ -8,13 +8,12 @@ import {
   FormControl,
   Divider,
   ListItemButton,
-
 } from "@mui/material";
 import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
 import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
 import axios from "axios";
 
-export function TabIdentificacion({  }: {  }) {
+export function TabIdentificacion({}: {}) {
   const [componentSelect, setComponentSelect] = useState(1);
 
   //catalogos
@@ -92,12 +91,8 @@ export function TabIdentificacion({  }: {  }) {
     getInstituciones();
   }, []);
 
-  
-
   return (
     <Grid
-     
-    
       sx={{
         width: "75vw",
         height: "77vh",
@@ -249,10 +244,10 @@ export function TabIdentificacion({  }: {  }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     size="small"
                     options={catalogoAniosFiscales}
@@ -289,7 +284,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -313,10 +307,10 @@ export function TabIdentificacion({  }: {  }) {
 
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     size="small"
                     options={top100Films()}
@@ -350,7 +344,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -364,10 +357,10 @@ export function TabIdentificacion({  }: {  }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     options={catalogoInstituciones}
                     getOptionLabel={(option) => option.NombreInstitucion}
@@ -398,7 +391,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -432,10 +424,10 @@ export function TabIdentificacion({  }: {  }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -460,7 +452,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -475,10 +466,10 @@ export function TabIdentificacion({  }: {  }) {
 
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -503,7 +494,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -517,10 +507,10 @@ export function TabIdentificacion({  }: {  }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -545,7 +535,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -569,10 +558,10 @@ export function TabIdentificacion({  }: {  }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -597,7 +586,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -640,7 +628,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -655,10 +642,10 @@ export function TabIdentificacion({  }: {  }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -683,7 +670,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -738,10 +724,10 @@ export function TabIdentificacion({  }: {  }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -766,7 +752,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -781,10 +766,10 @@ export function TabIdentificacion({  }: {  }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -809,7 +794,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -824,10 +808,10 @@ export function TabIdentificacion({  }: {  }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -852,7 +836,6 @@ export function TabIdentificacion({  }: {  }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            
                           },
                         }}
                         sx={{
@@ -865,7 +848,7 @@ export function TabIdentificacion({  }: {  }) {
                   />
                 </FormControl>
               </Grid>
-              
+
               <Grid
                 sx={{
                   height: "45%",
@@ -876,67 +859,65 @@ export function TabIdentificacion({  }: {  }) {
                 }}
               >
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
-                <TextField
-                // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
-               // rows={8}
-                multiline
-                //sx={{ width: "90%", GridShadow: 2 }}
-                variant={"standard"}
-                label={"Programa Sectorial"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratSemiBold",
-                    
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setAlineacionPlaneacion({
-                    ...alineacionPlaneacion,
-                    programaSectorial: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={alineacionPlaneacion.programaSectorial}
-              />
+                  <TextField
+                    // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                    // rows={8}
+                    multiline
+                    //sx={{ width: "90%", GridShadow: 2 }}
+                    variant={"standard"}
+                    label={"Programa Sectorial"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onChange={(c) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        programaSectorial: c.target.value
+                          .replaceAll('"', "")
+                          .replaceAll("'", "")
+                          .replaceAll("\n", ""),
+                      });
+                    }}
+                    value={alineacionPlaneacion.programaSectorial}
+                  />
                 </FormControl>
 
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <TextField
-                // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
-               // rows={8}
-                multiline
-                //sx={{ width: "90%", GridShadow: 2 }}
-                variant={"standard"}
-                label={"Objetivo Programa Sectorial"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratSemiBold",
-                    
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setAlineacionPlaneacion({
-                    ...alineacionPlaneacion,
-                    objetivoProgramaSectorial: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={alineacionPlaneacion.objetivoProgramaSectorial}
-              />
+                    // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                    // rows={8}
+                    multiline
+                    //sx={{ width: "90%", GridShadow: 2 }}
+                    variant={"standard"}
+                    label={"Objetivo Programa Sectorial"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onChange={(c) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        objetivoProgramaSectorial: c.target.value
+                          .replaceAll('"', "")
+                          .replaceAll("'", "")
+                          .replaceAll("\n", ""),
+                      });
+                    }}
+                    value={alineacionPlaneacion.objetivoProgramaSectorial}
+                  />
                 </FormControl>
               </Grid>
 
@@ -950,67 +931,65 @@ export function TabIdentificacion({  }: {  }) {
                 }}
               >
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
-                <TextField
-                // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
-               // rows={8}
-                multiline
-                //sx={{ width: "90%", GridShadow: 2 }}
-                variant={"standard"}
-                label={"Meta 1"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratSemiBold",
-                    
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setAlineacionPlaneacion({
-                    ...alineacionPlaneacion,
-                    meta1: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={alineacionPlaneacion.meta1}
-              />
+                  <TextField
+                    // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                    // rows={8}
+                    multiline
+                    //sx={{ width: "90%", GridShadow: 2 }}
+                    variant={"standard"}
+                    label={"Meta 1"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onChange={(c) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        meta1: c.target.value
+                          .replaceAll('"', "")
+                          .replaceAll("'", "")
+                          .replaceAll("\n", ""),
+                      });
+                    }}
+                    value={alineacionPlaneacion.meta1}
+                  />
                 </FormControl>
 
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
                   <TextField
-                // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
-               // rows={8}
-                multiline
-                //sx={{ width: "90%", GridShadow: 2 }}
-                variant={"standard"}
-                label={"Meta 2"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratSemiBold",
-                    
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setAlineacionPlaneacion({
-                    ...alineacionPlaneacion,
-                    meta2: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={alineacionPlaneacion.meta2}
-              />
+                    // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                    // rows={8}
+                    multiline
+                    //sx={{ width: "90%", GridShadow: 2 }}
+                    variant={"standard"}
+                    label={"Meta 2"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onChange={(c) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        meta2: c.target.value
+                          .replaceAll('"', "")
+                          .replaceAll("'", "")
+                          .replaceAll("\n", ""),
+                      });
+                    }}
+                    value={alineacionPlaneacion.meta2}
+                  />
                 </FormControl>
               </Grid>
             </Grid>
@@ -1113,7 +1092,6 @@ export function TabIdentificacion({  }: {  }) {
                   }}
                 />
               </Grid>
-              
             </Grid>
           ) : null}
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
