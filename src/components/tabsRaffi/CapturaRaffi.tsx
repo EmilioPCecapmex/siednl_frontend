@@ -464,8 +464,8 @@ export default function CapturaRaffi({
           item
           sx={{
             display: "flex",
-            width: "75vw",
-            height: "75vh",
+            width: "93vw",
+            height: "82vh",
             boxShadow: 10,
             borderRadius: 5,
             flexDirection: "column",
@@ -532,7 +532,7 @@ export default function CapturaRaffi({
               showMirFnc={showMirFnc}
             />
           )}
-
+        {value === 50 && (
           <TabResumenRF
             show={value === 50 ? true : false}
             // encabezado={ValueEncabezado}
@@ -549,6 +549,7 @@ export default function CapturaRaffi({
             MIR={MIR}
             MA={MA}
           />
+          )}
         </Grid>
       </Grid>
       <TabResumenMIR

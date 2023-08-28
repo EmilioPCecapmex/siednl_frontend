@@ -959,6 +959,17 @@ export const FichaTecnica = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <Grid sx={{ width: "100%" }}>
+              <TablePagination
+                rowsPerPageOptions={[renglonesPagina]}
+                component="div"
+                count={ft.length}
+                rowsPerPage={renglonesPagina}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Grid>
             </Grid>
 
             <ModalVerResumenFT
@@ -971,17 +982,7 @@ export const FichaTecnica = () => {
               Consecutivo={FTShow[0]?.Consecutivo}
             />
 
-            <Grid sx={{ width: "100%" }}>
-              <TablePagination
-                rowsPerPageOptions={[renglonesPagina]}
-                component="div"
-                count={ft.length}
-                rowsPerPage={renglonesPagina}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Grid>
+            
           </>
         ) : (
           <Grid

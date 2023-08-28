@@ -413,7 +413,7 @@ export const LateralMenu = ({
                     : selection === "Actividades Institucionales"
                     ? "Actividades Institucionales"
                     : selection === "Programa Anual de Evaluación"
-                    ? "Programa Anual de Evaluacion"
+                    ? "PAE"
                     : selection === "Notificaciones"
                     ? "Notificaciones"
                     : selection === "Configuración"
@@ -621,7 +621,12 @@ export const LateralMenu = ({
                       />
                     </ListItemButton>
 
-                    <ListItemButton
+                    
+                  </List>
+                </Collapse>
+
+                <List component="div" disablePadding>
+                <ListItemButton
                       onClick={() => {
                         //setResumeDefaultAI();
                         exitAlert("../Institutionalactivities");
@@ -664,10 +669,8 @@ export const LateralMenu = ({
                         sx={st.selectedBox}
                       />
                     </ListItemButton>
+                </List>
 
-
-                  </List>
-                </Collapse>
 
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <ListItemButton onClick={() => exitAlert("../notifications")}>

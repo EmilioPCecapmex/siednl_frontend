@@ -130,7 +130,7 @@ export const MetaAnual = () => {
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
 
-  const [validaFecha, setValidaFecha] = useState(false);
+  const [validaFecha, setValidaFecha] = useState(true);
   const [ma, setMa] = useState<Array<IIMa>>([]);
   const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
@@ -195,7 +195,7 @@ export const MetaAnual = () => {
           },
           params: {
             Rol: localStorage.getItem("Rol"),
-            Modulo: "Meta_Anual",
+            Modulo: "Meta Anual",
           },
         }
       )
@@ -809,7 +809,24 @@ export const MetaAnual = () => {
                             scope="row"
                           >
                           
-                              <Tooltip title="REGISTRAR META ANUAL">
+                              <Tooltip title="REGISTRAR META ANUAL"
+                              // {!(row.Estado === "En Captura" &&
+                              //         localStorage.getItem("Rol") ===
+                              //           "Capturador"
+                              //           ? false
+                              //           : row.Estado === "En Revisión" &&
+                                          
+                              //             localStorage.getItem("Rol") ===
+                              //               "Verificador"
+                              //           ? false
+                              //           : row.Estado === "En Autorización" &&
+                                          
+                              //             localStorage.getItem("Rol") ===
+                              //               "Administrador"
+                              //           ? false
+                              //           : true)?"REGISTRAR META ANUAL":(validaFecha?"FECHA CAPTURA TERMINADA":"REGISTRAR META ANUAL")
+                              //       }
+                                    >
                                 <span>
                                   <IconButton
                                     disabled={
@@ -920,7 +937,7 @@ export const MetaAnual = () => {
               </TableContainer>
 
               
-            </Grid>
+            
             <Box sx={{ width: "100%" }}>
               <TablePagination
                 rowsPerPageOptions={[renglonesPagina]}
@@ -932,6 +949,7 @@ export const MetaAnual = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </Box>
+            </Grid>
           </>
         ) : (
           <Grid

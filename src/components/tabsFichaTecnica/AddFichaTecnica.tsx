@@ -321,8 +321,8 @@ export default function AddFichaTecnica({
 
         <Box
           sx={{
-            width: "75vw",
-            height: "77vh",
+            width: "93vw",
+            height: "82vh",
           }}
         >
           <TabEncabezado

@@ -94,13 +94,14 @@ export function TabIdentificacion({}: {}) {
   return (
     <Grid
       sx={{
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",
         backgroundColor: "#fff",
-        GridShadow: 20,
+        // GridShadow: 20,
+        boxShadow: 20,
         borderRadius: 5,
       }}
     >

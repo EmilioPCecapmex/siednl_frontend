@@ -157,6 +157,28 @@ export const MIR = () => {
     setShowResume(true);
     //getMIRs(setMirs);
   };
+  const validaFechaCaptura = () => {
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+          params: {
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "Mir",
+          },
+        }
+      )
+      .then((r) => {
+        r.data.data.valida == "true"
+          ? setValidaFecha(true)
+          : setValidaFecha(false);
+      })
+      .catch((err) => {});
+  };
 
   const [showResume, setShowResume] = useState(true);
   const [validaFecha, setValidaFecha] = useState(true);
@@ -194,6 +216,7 @@ export const MIR = () => {
   // Filtrado por caracter
 
   useEffect(() => {
+    validaFechaCaptura();
     getMIRs(setMirs);
   }, []);
 
@@ -446,6 +469,7 @@ export const MIR = () => {
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Grid>
 {/* //boxShadow: 10, */}
+
       <Grid
         justifyContent={"center"}
         display={"flex"}
@@ -622,7 +646,9 @@ export const MIR = () => {
                 </Grid>
 
                 <Grid item xl={3} lg={4} md={3} sm={2}>
+                  
                   <Button
+                    disabled={!validaFecha}
                     sx={{
                       backgroundColor: "#c2a37b",
                       width: "10vw",
@@ -651,8 +677,9 @@ export const MIR = () => {
                       ]);
                       handleClickOpen();
                     }}
+                    
                   >
-                    Añadir registro
+                    {!validaFecha?"Fecha de captura terminada":"Añadir registro"}
                   </Button>
                 </Grid>
               </Grid>
