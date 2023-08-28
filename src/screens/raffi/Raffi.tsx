@@ -106,7 +106,7 @@ export const Raffi = () => {
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
   const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
-  const [validaFecha, setValidaFecha] = useState(false);
+  const [validaFecha, setValidaFecha] = useState(true);
 
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
@@ -116,6 +116,7 @@ export const Raffi = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   useEffect(() => {
+    validaFechaCaptura();
     setOpenTabs(true);
     listaRaffi(setRf);
   }, []);
@@ -672,6 +673,7 @@ export const Raffi = () => {
                               {  row.Estado !=="Sin Asignar" && (
                                   <Tooltip title="EDITAR">
                                   <IconButton
+                                    disabled={!validaFecha}
                                     type="button"
                                     onClick={() => {
                                       setRfEdit([
@@ -721,7 +723,7 @@ export const Raffi = () => {
                                 //     ? false
                                 //     : true
                                 // }
-                               
+                                  disabled={!validaFecha}
                                   type="button"
                                   onClick={() => {
                                     setRfEdit([
