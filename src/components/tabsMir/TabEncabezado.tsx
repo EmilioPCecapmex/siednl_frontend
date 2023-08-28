@@ -631,11 +631,11 @@ export function TabEncabezado({
           justifyContent: "center",
         }}
       >
-        <Button href="/files/MIR_2023.xlsx" target="_blank" download>
+        {/* <Button href="/files/MIR_2023.xlsx" target="_blank" download>
           <Typography sx={{ fontFamily: "MontserratMedium", color: "#616161" }}>
             Plantilla
           </Typography>
-        </Button>
+        </Button> */}
       </Box>
 
       <FormControl sx={{ gridRow: "1", width: "20vw" }}>
@@ -698,7 +698,7 @@ export function TabEncabezado({
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
-
+{/* 
       <Box
         sx={{
           gridColumn: "2/4",
@@ -771,13 +771,14 @@ export function TabEncabezado({
             Cargar
           </Button>
         )}
+        
         <Box
           sx={{ position: "absolute" }}
           visibility={loadingFile ? "visible" : "hidden"}
         >
           <CircularProgress />
         </Box>
-      </Box>
+      </Box> */}
 
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
@@ -892,7 +893,7 @@ export function TabEncabezado({
         />
       </FormControl>
 
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+      
         <FormControlLabel
           label="ANTICORRUPCIÓN"
           control={
@@ -920,7 +921,7 @@ export function TabEncabezado({
           value={consecutivo}
           sx={{ width: "70%" }}
         />
-      </Box>
+      
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
@@ -1159,7 +1160,7 @@ export function TabEncabezado({
 
       <FormControl required>
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
-        <Stack spacing={3} sx={{ width: 500 }}>
+        <Stack spacing={3} sx={{ width: 400 }}>
           <Autocomplete
             clearText="Borrar"
             noOptionsText="Sin opciones"

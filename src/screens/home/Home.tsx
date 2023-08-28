@@ -22,7 +22,7 @@ export const Home = () => {
       container
       direction="column"
     >
-      <Grid>
+      <Grid  >
         <LateralMenu selection={"Inicio"} actionNumber={0} />
       </Grid>
 

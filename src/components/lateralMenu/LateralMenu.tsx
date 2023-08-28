@@ -53,6 +53,7 @@ import TaskIcon from "@mui/icons-material/Task";
 // import FormLabel from "@mui/material/FormLabel";
 import MenuIcon from "@mui/icons-material/Menu";
 import { TimerCounter } from "../timer/TimerCounter";
+import { getAllusers } from "../../screens/config/GetUsuarios";
 export const LateralMenu = ({
   selection,
   actionNumber,
@@ -80,6 +81,16 @@ export const LateralMenu = ({
   const navigate = useNavigate();
   const [openProgramas, setOpenProgramas] = useState(true);
   const [openDocs, setOpenDocs] = useState(false);
+
+  const[usuariosTi, setUsuariosTi] =useState("")
+
+  getAllusers(setUsuariosTi)
+
+  useEffect(() => {
+   console.log(usuariosTi);
+   
+  }, [])
+  
 
   const handleClickProgramas = () => {
     setOpenProgramas(!openProgramas);
@@ -528,6 +539,8 @@ export const LateralMenu = ({
 
                 <Collapse in={openProgramas} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
+
+
                     <ListItemButton
                       onClick={() => {
                         setResumeDefaultMIR();
@@ -538,6 +551,7 @@ export const LateralMenu = ({
                       <Grid sx={st.iconMenuList}>
                         <KeyboardDoubleArrowRightIcon />
                       </Grid>
+
                       <Typography sx={st.subMenuItemsText}>MIR</Typography>
                       <Grid
                         visibility={selection === "MIR" ? "visible" : "hidden"}
@@ -616,7 +630,7 @@ export const LateralMenu = ({
                       <Grid sx={st.iconMenuList}>
                         <KeyboardDoubleArrowRightIcon />
                       </Grid>
-                      <Typography sx={st.firstItemsStyle}>
+                      <Typography sx={st.subMenuItemsText}>
                         Actividades Institucionales
                       </Typography>
                       <Grid
@@ -638,7 +652,7 @@ export const LateralMenu = ({
                       <Grid sx={st.iconMenuList}>
                         <KeyboardDoubleArrowRightIcon />
                       </Grid>
-                      <Typography sx={st.firstItemsStyle}>
+                      <Typography sx={st.subMenuItemsText}>
                         Programa Anual de Evaluacion
                       </Typography>
                       <Grid
@@ -650,6 +664,8 @@ export const LateralMenu = ({
                         sx={st.selectedBox}
                       />
                     </ListItemButton>
+
+
                   </List>
                 </Collapse>
 
