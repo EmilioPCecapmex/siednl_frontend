@@ -33,38 +33,22 @@ import TablePaginationActions from "@mui/material/TablePagination/TablePaginatio
 import { CSVCatalogo } from "./CSVCatalogo";
 
 interface Head {
-  id: keyof IDatosTabla;
+  id: keyof ITablaCatalogos;
   isNumeric: boolean;
   label: string;
 }
 
 const heads: readonly Head[] = [
   {
-    id: "Id",
-    isNumeric: true,
-    label: "Id",
-  },
-  {
-    id: "Desc",
+    id: "Descripcion",
     isNumeric: true,
     label: "Descripcion",
   },
   {
-    id: "fnc",
+    id: "Acciones",
     isNumeric: true,
-    label: "fnc",
+    label: "Acciones",
   },
-  {
-    id: "Tabla",
-    isNumeric: true,
-    label: "Tabla",
-  },
-  {
-    id: "selected",
-    isNumeric: true,
-    label: "selected",
-  },
-  
 ];
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
@@ -1295,14 +1279,20 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         xl={12}
         lg={12}
         md={12}
-        sm={7.5}
+        sm={8}
         xs={6}
         sx={{ backgroundColor: "white" }}
       >
-        <Grid sx={{ width: "100%", height: "100%", display: "flex" }}>
+        <Grid item container sx={{ height: "100%", display: "flex", }}>
           <Grid
+            item
+            xl={3}
+            lg={3}
+            md={3}
+            sm={3}
+            xs={3}
             sx={{
-              width: "22%",
+              height: "100%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -1311,7 +1301,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           >
             <List
               sx={{
-                height: "100vh",
+                height: "100%",
                 pb: 2,
                 pt: 2,
 
@@ -1460,38 +1450,126 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           </Grid>
 
           <Grid
+            item
+            container
+            xl={9}
+            lg={9}
+            md={9}
+            sm={9}
+            xs={9}
             sx={{
               display: "flex",
-              flexDirection: "column",
-              width: "60%",
-              ml: "8%",
+              flexDirection: "row",
+              
+              
+              justifyContent:"center"
             }}
           >
             <Grid
-              sx={{
-                width: "100%",
-                height: "10%",
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                borderRadius: "30px",
-                mt: 5,
-              }}
+              item
+              container
+              xl={10}
+              lg={10}
+              md={10}
+              sm={10}
+              xs={10}
+              sx={{ justifyContent: "flex-end", display: "flex" }}
             >
-              <Typography
+              <Grid
+                item
+                xl={8}
+                lg={8}
+                md={8}
+                sm={8}
+                xs={8}
                 sx={{
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: "1.2vw",
-                  textAlign: "center",
+                  height: "10%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  borderRadius: "30px",
+                  background: "",
+                  mt: 5,
                 }}
               >
-                {catalogoActual.toLocaleUpperCase()}
-              </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: "1.2vw",
+                    textAlign: "center",
+                  }}
+                >
+                  {catalogoActual.toLocaleUpperCase()}
+                </Typography>
+              </Grid>
+
+              <Grid
+                item
+                display={"flex"}
+                sx={{ background: "", justifyContent: "flex-end", alignItems: "center" }}
+                xl={2}
+                lg={2}
+                md={2}
+                sm={2}
+                xs={2}
+              >
+                <Grid
+                  title="Agregar"
+                  borderRadius={100}
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    backgroundColor: "#c4a57b",
+
+                    ":hover": {
+                      backgroundColor: "#ffdcac",
+                    },
+
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AddDialogCatalogo
+                    catalogo={tablaActual}
+                    tabla={tablaActual}
+                    select={selected}
+                    actualizado={actualizaContador}
+                  />
+                </Grid>
+
+                <Grid
+                  title="Exportar a excell"
+                  borderRadius={100}
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    backgroundColor: "#c4a57b",
+
+                    ":hover": {
+                      backgroundColor: "#ffdcac",
+                    },
+
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CSVCatalogo tabla={tablaActual} datos={datosTabla} />
+                </Grid>
+              </Grid>
             </Grid>
 
-            <Grid
+
+
+            <Grid item
+            xl={10}
+            lg={10}
+            md={10}
+            sm={10}
+            xs={10}
               sx={{
-                width: "100%",
+                
                 height: "80%",
                 display: "flex",
                 justifyContent: "center",
@@ -1520,6 +1598,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 >
                   Descripción
                 </Typography>
+
                 <Grid
                   sx={{
                     alignItems: "center",
@@ -1564,6 +1643,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   Acciones
                 </Typography>
               </Grid>
+
               <TableContainer
                 component={Paper}
                 sx={{
@@ -1583,7 +1663,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 }}
               >
                 <Table
-                  sx={{ maxWidth: 600 }}
+                  //sx={{ maxWidth: 600 }}
                   stickyHeader
                   aria-label="sticky table"
                 >
@@ -1602,7 +1682,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                           <TableRow key={row.Id || Math.random()}>
                             <TableCell
                               component="th"
-                              align="center"
+                              //  align="center"
                               sx={
                                 row.Id === rowColorB
                                   ? { backgroundColor: colorB }
@@ -1618,7 +1698,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               <Typography
                                 sx={{
                                   fontFamily: "MontserratRegular",
-                                  fontSize: ".7vw",
+                                  fontSize: "1vw",
                                 }}
                               >
                                 {row?.Desc}
@@ -1671,78 +1751,44 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   </TableBody>
                 </Table>
               </TableContainer>
+
               <Grid
+                container
                 sx={{
                   width: "100%",
                   display: "flex",
                   justifyContent: "flex-end",
                   mt: 1,
                 }}
+                direction={"row"}
               >
-                <TablePagination
-                  rowsPerPageOptions={[
-                    5,
-                    10,
-                    25,
-                    { label: "Todos", value: -1 },
-                  ]}
-                  count={DataDescripctionFiltered.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  component="div"
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
-              </Grid>
-              <Grid
-                title="Agregar"
-                borderRadius={100}
-                sx={{
-                  width: 50,
-                  height: 50,
-                  backgroundColor: "#c4a57b",
-                  position: "absolute",
-                  ":hover": {
-                    backgroundColor: "#ffdcac",
-                  },
-                  right: "35vh",
-                  bottom: "11vh",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <AddDialogCatalogo
-                  catalogo={tablaActual}
-                  tabla={tablaActual}
-                  select={selected}
-                  actualizado={actualizaContador}
-                />
-              </Grid>
-              <Grid
-                title="Exportar a excell"
-                borderRadius={100}
-                sx={{
-                  width: 50,
-                  height: 50,
-                  backgroundColor: "#c4a57b",
-                  position: "absolute",
-                  ":hover": {
-                    backgroundColor: "#ffdcac",
-                  },
-                  right: "28vh",
-                  bottom: "11vh",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <CSVCatalogo tabla={tablaActual} datos={datosTabla} />
+                <Grid item>
+                  <TablePagination
+                    rowsPerPageOptions={[
+                      5,
+                      10,
+                      25,
+                      { label: "Todos", value: -1 },
+                    ]}
+                    count={DataDescripctionFiltered.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    component="div"
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                  />
+                </Grid>
               </Grid>
             </Grid>
+
+
+
+
           </Grid>
         </Grid>
+
+
       </Grid>
     </Grid>
   );
@@ -1754,4 +1800,9 @@ export interface IDatosTabla {
   fnc: string;
   Tabla: string;
   selected: string;
+}
+
+interface ITablaCatalogos {
+  Descripcion: string;
+  Acciones: string;
 }
