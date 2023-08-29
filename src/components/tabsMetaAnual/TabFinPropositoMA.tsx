@@ -293,8 +293,8 @@ export function TabFinPropositoMA({
       >
         <List
           sx={{
-            width: "10vw",
-            height: "65vh",
+            width: "15vw",
+            height: "95%",
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",
@@ -335,7 +335,7 @@ export function TabFinPropositoMA({
               }}
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
               >
                 FIN
               </Typography>

@@ -289,8 +289,8 @@ export const TabActividades = ({
       >
         <List
           sx={{
-            width: "10vw",
-            height: "65vh",
+            width: "15vw",
+            height: "95%",
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",
@@ -340,7 +340,7 @@ export const TabActividades = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.9rem" }}
+                    sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
                   >
                     COMPONENTE {index + 1}
                   </Typography>
@@ -365,11 +365,11 @@ export const TabActividades = ({
                           "&.Mui-selected:hover": {
                             backgroundColor: "#cbcbcb",
                           },
-                          fontSize: "0.7vw",
+                          
                         }}
                       >
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                          Actividad {value}
+                        <Typography sx={{fontSize: "1vw", fontFamily: "MontserratMedium" }}>
+                          ACTIVIDAD {value}
                         </Typography>
                       </ListItemButton>
                     ))}

@@ -346,19 +346,7 @@ export const ModifyDialogCatalogos = ({
   } else if (tabla === "FechasDeCaptura") {
     return (
       <Box sx={{ display: "flex" }}>
-        <Tooltip title="Editar">
-          <IconButton onClick={handleClickOpen}>
-            <EditIcon
-              sx={[
-                {
-                  "&:hover": {
-                    color: "blue",
-                  },
-                },
-              ]}
-            />
-          </IconButton>
-        </Tooltip>
+        
         <Dialog open={open} onClose={handleClose} fullWidth>
           <Box
             sx={{

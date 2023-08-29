@@ -84,12 +84,12 @@ export const LateralMenu = ({
 
   const[usuariosTi, setUsuariosTi] =useState("")
 
-  // getAllusers(setUsuariosTi)
+   getAllusers(setUsuariosTi)
 
-  // useEffect(() => {
-  //  console.log(usuariosTi);
+   useEffect(() => {
+    console.log(usuariosTi);
    
-  // }, [])
+   }, [])
   
 
   const handleClickProgramas = () => {
