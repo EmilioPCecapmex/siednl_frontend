@@ -105,6 +105,7 @@ export const DeleteDialogCatalogos = ({
             Id: id,
             Tabla: tabla,
             IdUser: localStorage.getItem("IdUsuario"),
+            Rol: localStorage.getItem("Rol"),
           },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",

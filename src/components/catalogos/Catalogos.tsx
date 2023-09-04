@@ -720,6 +720,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
+          Rol: localStorage.getItem("Rol") 
         },
       })
       .then((r) => {
@@ -1052,7 +1053,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         }
       });
   };
-
+// no se usa por eso no agregue el Rol
   const getTipoDeFormula = () => {
     setSelected("Tipos de Fórmula");
 
