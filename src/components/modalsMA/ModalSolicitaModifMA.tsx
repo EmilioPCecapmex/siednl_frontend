@@ -536,6 +536,7 @@ export default function ModalSolicitaModif({
           IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
+          Rol: localStorage.getItem("Rol"),
         },
 
         {

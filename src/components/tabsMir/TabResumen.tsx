@@ -119,6 +119,7 @@ export function TabResumen({
           Eje: MIR?.encabezado.eje,
           Tematica: MIR?.encabezado.tema,
           IdMir: idMir,
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {

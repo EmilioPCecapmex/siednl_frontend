@@ -18,6 +18,7 @@ export const createFechaDeCaptua = (
         FechaCapturaFinal: Fecha2,
         Modulo: Descripcion,
         IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        Rol: localStorage.getItem("Rol"),
       },
       {
         headers: {

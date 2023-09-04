@@ -193,6 +193,7 @@ export const AddDialogCatalogo = ({
           Descripcion: descripcion,
           FechaDeCaptura: fechaCaptura,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -226,6 +227,7 @@ export const AddDialogCatalogo = ({
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdInstitucion: institution,
           IdUnidad: unidad,
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -292,6 +294,7 @@ export const AddDialogCatalogo = ({
           NombrePrograma: descripcion,
           IdInstitucion: institution,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {

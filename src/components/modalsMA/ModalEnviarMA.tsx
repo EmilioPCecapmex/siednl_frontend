@@ -522,6 +522,7 @@ export default function ModalEnviarMA({
           IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -568,6 +569,7 @@ export default function ModalEnviarMA({
           IdMa: IdMA,
           Id: "",
           Estado: "En Captura",
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {

@@ -133,6 +133,7 @@ export function TabResumenFT({
           IdMa: IdMA,
           Id: IdFT,
           Estado: estado,
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {

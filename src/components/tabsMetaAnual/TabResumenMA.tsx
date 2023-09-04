@@ -69,6 +69,7 @@ export function TabResumenMA({
           IdMir: IdMir,
           Estado: estado,
           Id: IdMA,
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
