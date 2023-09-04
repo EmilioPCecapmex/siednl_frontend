@@ -407,7 +407,7 @@ export default function ModalEnviarMIR({
           IdMir: idMir,
           Estado: "En Captura",
           Id: "",
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {

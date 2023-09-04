@@ -197,6 +197,7 @@ export const AddDialogCatalogo = ({
           Descripcion: descripcion,
           FechaDeCaptura: fechaCaptura,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
