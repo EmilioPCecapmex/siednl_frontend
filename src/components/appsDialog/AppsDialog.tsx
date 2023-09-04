@@ -120,7 +120,7 @@ export const AppsDialog = ({
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),
             IdInstitucion: localStorage.getItem("IdInstitucion"),
-            Rol: localStorage.getItem("Rol") 
+            Rol: localStorage.getItem("Rol"),
           },
         })
         .then((r) => {
