@@ -297,6 +297,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
+            Rol: localStorage.getItem("Rol") || "",
           },
         }
       )
@@ -862,6 +863,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     );
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosPEENL", {
+        
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -960,6 +962,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
         {
+          params: {
+            Rol: localStorage.getItem("Rol"),
+          },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
@@ -1082,6 +1087,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Tipos de indicador");
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
+        params: {
+          Rol: localStorage.getItem("Rol"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -1110,6 +1118,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Unidades de medida");
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/unidadDeMedida", {
+        params: {
+          Rol: localStorage.getItem("Rol"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },

@@ -52,6 +52,9 @@ export function TabFinProposito({
   const getIndicadores = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
+        params: {
+          Rol: localStorage.getItem("Rol"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },

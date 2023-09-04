@@ -324,7 +324,7 @@ export const Raffi = () => {
     <Grid justifyContent={"space-between"}>
 
       <Grid item xl={12 } height={"7vh"}>
-        <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
+        <LateralMenu selection={"RAFFI"} actionNumber={actionNumber} />
       </Grid>
       
       <Grid justifyContent={"center"}
@@ -490,13 +490,13 @@ export const Raffi = () => {
                 <Grid item xl={5} lg={4} md={3}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                      Filtro por estado de la Raffi
+                      FILTRO POR ESTADO DE LA Raffi
                     </InputLabel>
                     <Select
                       size="small"
                       fullWidth
                       variant="outlined"
-                      label="Filtro por estado de la Raffi"
+                      label="FILTRO POR ESTADO DE LA Raffi"
                       value={findSelectStr}
                       onChange={(v) => {
                         // v.target.value === "Todos"

@@ -536,6 +536,7 @@ export default function ModalSolicitaModif({
           IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
+          Rol: localStorage.getItem("Rol")
         },
 
         {
@@ -593,6 +594,7 @@ export default function ModalSolicitaModif({
             params: {
               TipoUsuario: tipousuario,
               Institucion: JSON.parse(MIR)?.encabezado?.institucion,
+              Rol: localStorage.getItem("Rol")
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",

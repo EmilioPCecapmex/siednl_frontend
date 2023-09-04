@@ -47,6 +47,7 @@ export const getUserDetails = (idCentral: string) => {
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuario", {
       params: {
         IdUsuario: idCentral,
+        Rol: localStorage.getItem("Rol"),
       },
       headers: {
         "Content-Type": "application/json",

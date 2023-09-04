@@ -129,6 +129,7 @@ export const AddDialogCatalogo = ({
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
+            Rol: localStorage.getItem("Rol") || "",
           },
         }
       )
@@ -142,6 +143,9 @@ export const AddDialogCatalogo = ({
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
         {
+          params: {
+            Rol: localStorage.getItem("Rol"),
+          },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
@@ -226,6 +230,7 @@ export const AddDialogCatalogo = ({
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdInstitucion: institution,
           IdUnidad: unidad,
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -292,6 +297,7 @@ export const AddDialogCatalogo = ({
           NombrePrograma: descripcion,
           IdInstitucion: institution,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {

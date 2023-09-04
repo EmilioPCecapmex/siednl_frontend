@@ -355,8 +355,10 @@ export const LateralMenu = ({
   const getInstituciones = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+        
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -399,26 +401,27 @@ export const LateralMenu = ({
           <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
             <Header
               details={{
-                name1: "Inicio",
+                name1: "INICIO",
                 path1: "../home",
                 name2:
-                  selection === "MIR"
-                    ? "MIR"
-                    : selection === "Meta Anual"
-                    ? "Meta Anual"
-                    : selection === "Ficha Técnica"
-                    ? "Ficha Tecnica"
-                    : selection === "Raffi"
-                    ? "Raffi"
-                    : selection === "Actividades Institucionales"
-                    ? "Actividades Institucionales"
-                    : selection === "Programa Anual de Evaluación"
-                    ? "PAE"
-                    : selection === "Notificaciones"
-                    ? "Notificaciones"
-                    : selection === "Configuración"
-                    ? "Configuración"
-                    : "",
+                  selection, 
+                  // === "MIR"
+                  //   ? "MIR"
+                  //   : selection === "Meta Anual"
+                  //   ? "Meta Anual"
+                  //   : selection === "Ficha Técnica"
+                  //   ? "Ficha Tecnica"
+                  //   : selection === "Raffi"
+                  //   ? "Raffi"
+                  //   : selection === "Actividades Institucionales"
+                  //   ? "Actividades Institucionales"
+                  //   : selection === "Programa Anual de Evaluación"
+                  //   ? "PAE"
+                  //   : selection === "Notificaciones"
+                  //   ? "Notificaciones"
+                  //   : selection === "Configuración"
+                  //   ? "Configuración"
+                  //   : "",
                 path2: "",
                 name3: "",
               }}

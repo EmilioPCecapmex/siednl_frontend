@@ -112,6 +112,8 @@ export const TabResumenRF = ({
           IdMa: IdMA,
           Estado: estado,
           Id: IdRF,
+          Rol: localStorage.getItem("Rol")
+
         },
         {
           headers: {

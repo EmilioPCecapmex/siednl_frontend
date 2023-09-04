@@ -144,6 +144,7 @@ export const Notification = () => {
           IdRemitente: localStorage.getItem("IdUsuario"),
           subject: titulo,
           message: mensaje,
+          Rol: localStorage.getItem("Rol")
         },
         {
           headers: {
@@ -172,6 +173,7 @@ export const Notification = () => {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),
             IdInstitucion: "",
+            Rol: localStorage.getItem("Rol"),
           },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",

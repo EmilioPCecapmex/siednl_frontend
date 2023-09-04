@@ -150,6 +150,7 @@ export const FichaTecnica = () => {
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -339,6 +340,7 @@ export const FichaTecnica = () => {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),
             IdInstitucion: localStorage.getItem("IdInstitucion"),
+            Rol: localStorage.getItem("Rol")
           },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -470,7 +472,7 @@ export const FichaTecnica = () => {
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid item xl={12} height={"7vh"}>
-        <LateralMenu selection={"Ficha Técnica"} actionNumber={actionNumber} />
+        <LateralMenu selection={"FICHA TECNICA"} actionNumber={actionNumber} />
       </Grid>
 
       {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
@@ -588,13 +590,13 @@ export const FichaTecnica = () => {
                   }}
                 >
                   <InputLabel sx={queries.text}>
-                    Filtro por Estado de la FT
+                    FILTRO POR ESTADO DE LA FT
                   </InputLabel>
                   <Select
                     size="small"
                     fullWidth
                     variant="outlined"
-                    label="Filtro por estado de la MA"
+                    label="FILTRO POR ESTADO DE LA MA"
                     sx={{ fontFamily: "MontserratRegular" }}
                     value={findSelectStr}
                     onChange={(v) => {
@@ -610,7 +612,7 @@ export const FichaTecnica = () => {
                   >
                     {estados.map((estado) => (
                       <MenuItem key={estado} value={estado}>
-                        {estado}
+                        {estado.toUpperCase()}
                       </MenuItem>
                     ))}
                   </Select>
@@ -628,7 +630,7 @@ export const FichaTecnica = () => {
                   }}
                 >
                   <InputLabel sx={queries.text}>
-                    Filtro por institución
+                    FILTRO POR INSTITUCION
                   </InputLabel>
                   <Select
                     size="small"
@@ -647,7 +649,7 @@ export const FichaTecnica = () => {
                       value={"Todos"}
                       sx={{ fontFamily: "MontserratRegular" }}
                     >
-                      Todos
+                      TODOS
                     </MenuItem>
 
                     {instituciones?.map((item) => {

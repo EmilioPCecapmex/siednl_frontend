@@ -23,7 +23,7 @@ export const Home = () => {
       direction="column"
     >
       <Grid  >
-        <LateralMenu selection={"Inicio"} actionNumber={0} />
+        <LateralMenu selection={""} actionNumber={0} />
       </Grid>
 
       {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>

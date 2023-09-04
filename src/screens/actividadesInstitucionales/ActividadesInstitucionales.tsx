@@ -323,7 +323,7 @@ const returnMain = () => {
         
       >
         <LateralMenu
-          selection={"Actividades Institucionales"}
+          selection={"AI"}
           actionNumber={actionNumber}
         />
       </Grid>
@@ -450,13 +450,13 @@ const returnMain = () => {
                 <Grid item xl={5} lg={4} md={3} sm={2}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                      Filtro por institución
+                      FILTRO POR INSTITUCION
                     </InputLabel>
                     <Select
                       size="small"
                       fullWidth
                       variant="outlined"
-                      label="Filtro por institución"
+                      label="FILTRO POR INSTITUCION"
                       value={findInstStr}
                       onChange={(v) => {
                         // v.target.value === "Todos"
@@ -473,7 +473,7 @@ const returnMain = () => {
                         value={"Todos"}
                         sx={{ fontFamily: "MontserratRegular" }}
                       >
-                        Todos
+                        TODOS
                       </MenuItem>
 
                       {instituciones?.map((item) => {
@@ -493,13 +493,13 @@ const returnMain = () => {
                 <Grid item xl={5} lg={4} md={3}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                      Filtro por estado de la Raffi
+                      FILTRO POR ESTADO DE LA RF
                     </InputLabel>
                     <Select
                       size="small"
                       fullWidth
                       variant="outlined"
-                      label="Filtro por estado de la Raffi"
+                      label="FILTRO POR ESTADO DE LA RF"
                       value={findSelectStr}
                       onChange={(v) => {
                         // v.target.value === "Todos"
@@ -514,7 +514,7 @@ const returnMain = () => {
                     >
                       {estados.map((estado) => (
                         <MenuItem key={estado} value={estado}>
-                          {estado}
+                          {estado.toUpperCase()}
                         </MenuItem>
                       ))}
                     </Select>
@@ -828,7 +828,15 @@ const returnMain = () => {
            // gridArea={"main"}
 
           >
-            <TabsActividadesInstitucionales returnMain={returnMain }  />
+            <TabsActividadesInstitucionales
+            MIR={aiEdit[0].MIR || ""}
+            FT={aiEdit[0].FichaTecnica || ""}
+            AI={aiEdit[0].ActividadInstitucional || ""}
+            opentabs={returnMain}
+            IdMir={aiEdit[0].IdMir || ""}
+            IdFT={aiEdit[0].IdFichaTecnica || ""}
+            IdAI={aiEdit[0].IdActividadInstitucional || ""} 
+            returnMain={returnMain }  />
           </Grid>
         )}
       </Grid>

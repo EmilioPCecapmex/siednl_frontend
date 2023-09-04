@@ -8,6 +8,8 @@ import {
   FormControl,
   Divider,
   ListItemButton,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
 import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
@@ -68,12 +70,16 @@ export function TabIdentificacion({}: {}) {
         setCatalogoAniosFiscales(r.data.data);
       });
   };
+  const prueba = "si";
 
   const getInstituciones = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+
+        
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -280,7 +286,7 @@ export function TabIdentificacion({}: {}) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Ejercicio Fiscal"}
+                        label={"EJERCICIO FISCAL"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
@@ -341,7 +347,7 @@ export function TabIdentificacion({}: {}) {
                       <TextField
                         variant="standard"
                         {...params}
-                        label="Clasificación Programatica"
+                        label="INSTITUCIÓN"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
@@ -387,7 +393,7 @@ export function TabIdentificacion({}: {}) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Institución"}
+                        label={"PROGRAMA"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
@@ -410,6 +416,43 @@ export function TabIdentificacion({}: {}) {
                     isOptionEqualToValue={(option, value) =>
                       option.Id === value.Id
                     }
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid
+                sx={{
+                  height: "30%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormControlLabel
+                  label="ANTICORRUPCIÓN"
+                  control={
+                    <Checkbox checked={prueba === "si"} onChange={() => {}} />
+                  }
+                />
+
+                <FormControl sx={{ gridRow: "1", width: "15%" }}>
+                  <TextField
+                    disabled
+                    size="small"
+                    label={"CONAC:"}
+                    //value={"conac"}
+                    //sx={{ width: "25%" }}
+                  />
+                </FormControl>
+
+                <FormControl sx={{ gridRow: "1", width: "65%" }}>
+                  <TextField
+                    disabled
+                    size="small"
+                    label={"CLASIFICACIÓN PROGRAMÁTICA:"}
+                    // value={"consecutivo"}
+                    //sx={{ width: "60%" }}
                   />
                 </FormControl>
               </Grid>
@@ -448,7 +491,7 @@ export function TabIdentificacion({}: {}) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Temática"}
+                        label={"EJE"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
@@ -490,7 +533,7 @@ export function TabIdentificacion({}: {}) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Objetivo"}
+                        label={"TEMA"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
@@ -531,7 +574,7 @@ export function TabIdentificacion({}: {}) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"CONAC"}
+                        label={"OBJETIVO"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
@@ -582,7 +625,7 @@ export function TabIdentificacion({}: {}) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Tipo Beneficiario"}
+                        label={"ESTRATEGIA"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
@@ -624,7 +667,7 @@ export function TabIdentificacion({}: {}) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Lineas de Accion"}
+                        label={"LINEAS DE ACCIÓN"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
@@ -666,7 +709,7 @@ export function TabIdentificacion({}: {}) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Programa"}
+                        label={"BENEFICIARIO"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
@@ -714,7 +757,8 @@ export function TabIdentificacion({}: {}) {
                   Alineación
                 </Typography>
               </Grid>
-              <Grid
+
+              {/* <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -848,9 +892,9 @@ export function TabIdentificacion({}: {}) {
                     )}
                   />
                 </FormControl>
-              </Grid>
+              </Grid> */}
 
-              <Grid
+              {/* <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -920,9 +964,63 @@ export function TabIdentificacion({}: {}) {
                     value={alineacionPlaneacion.objetivoProgramaSectorial}
                   />
                 </FormControl>
+              </Grid> */}
+
+              <Grid
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <TextField
+                  multiline
+                  rows={6}
+                  variant="filled"
+                  sx={{ width: "80%", GridShadow: 2 }}
+                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  label={"OBJETIVO PRPGRAMA SECTORIAL"}
+                  // value={objetivosActividadInstitucional.objetivoGeneral}
+                  // onChange={(c) => {
+                  //   setobjetivosActividadInstitucional({
+                  //     ...objetivosActividadInstitucional,
+                  //     objetivoGeneral: c.target.value,
+                  //   });
+                  // }}
+                />
               </Grid>
 
               <Grid
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <TextField
+                  multiline
+                  rows={6}
+                  variant="filled"
+                  sx={{ width: "80%", GridShadow: 2 }}
+                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  label={"PROGRAMA SECTORIAL"}
+                  // value={objetivosActividadInstitucional.objetivoGeneral}
+                  // onChange={(c) => {
+                  //   setobjetivosActividadInstitucional({
+                  //     ...objetivosActividadInstitucional,
+                  //     objetivoGeneral: c.target.value,
+                  //   });
+                  // }}
+                />
+              </Grid>
+
+              {/* <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -992,7 +1090,7 @@ export function TabIdentificacion({}: {}) {
                     value={alineacionPlaneacion.meta2}
                   />
                 </FormControl>
-              </Grid>
+              </Grid> */}
             </Grid>
           ) : null}
 
@@ -1024,6 +1122,7 @@ export function TabIdentificacion({}: {}) {
                   Objetivos
                 </Typography>
               </Grid>
+
               <Grid
                 sx={{
                   height: "45%",
@@ -1050,6 +1149,7 @@ export function TabIdentificacion({}: {}) {
                   }}
                 />
               </Grid>
+
               <Grid
                 sx={{
                   height: "45%",

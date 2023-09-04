@@ -41,7 +41,7 @@ export const ProgramaAnualEvaluacion = () => {
         //</Grid>sx={{ mr: showResume ? 5 : 0 }}
       >
         <LateralMenu
-          selection={"Programa Anual de Evaluación"}
+          selection={"PAE"}
           actionNumber={actionNumber}
         />
       </Grid>

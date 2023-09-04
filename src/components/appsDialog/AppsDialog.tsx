@@ -99,6 +99,7 @@ export const AppsDialog = ({
           {
             params: {
               IdUsuario: id,
+              Rol: localStorage.getItem("Rol"),
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",

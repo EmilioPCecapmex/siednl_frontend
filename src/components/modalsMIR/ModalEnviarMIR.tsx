@@ -407,6 +407,7 @@ export default function ModalEnviarMIR({
           IdMir: idMir,
           Estado: "En Captura",
           Id: "",
+          Rol: localStorage.getItem("Rol")
         },
         {
           headers: {
@@ -462,6 +463,7 @@ export default function ModalEnviarMIR({
           Eje: JSON.parse(MIR)?.encabezado.eje,
           Tematica: JSON.parse(MIR)?.encabezado.tema,
           IdMir: IdMir,
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {

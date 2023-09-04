@@ -143,6 +143,7 @@ export const MetaAnual = () => {
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -351,6 +352,7 @@ export const MetaAnual = () => {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
+          Rol: localStorage.getItem("Rol")
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -455,7 +457,7 @@ export const MetaAnual = () => {
         height={"7vh"}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu selection={"Meta Anual"} actionNumber={actionNumber} />
+        <LateralMenu selection={"META ANUAL"} actionNumber={actionNumber} />
       </Grid>
 
       {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
@@ -573,13 +575,13 @@ export const MetaAnual = () => {
                   }}
                 >
                   <InputLabel sx={queries.text}>
-                    Filtro por Estado de la MA
+                    FILTRO POR ESTADO DE LA MA
                   </InputLabel>
                   <Select
                     size="small"
                     fullWidth
                     variant="outlined"
-                    label="Filtro por estado de la MA"
+                    label="FILTRO POR ESTADO DE LA MA"
                     sx={{ fontFamily: "MontserratRegular" }}
                     value={findSelectStr}
                     onChange={(v) => {
@@ -595,7 +597,7 @@ export const MetaAnual = () => {
                   >
                     {estados.map((estado) => (
                       <MenuItem key={estado} value={estado}>
-                        {estado}
+                        {estado.toUpperCase()}
                       </MenuItem>
                     ))}
                   </Select>
@@ -613,13 +615,13 @@ export const MetaAnual = () => {
                   }}
                 >
                   <InputLabel sx={queries.text}>
-                    Filtro por institución
+                    FILTRO POR INSTITUCION
                   </InputLabel>
                   <Select
                     size="small"
                     variant="outlined"
                     fullWidth
-                    label="Filtro por institución"
+                    label="FILTRO POR INSTITUCION"
                     sx={{ fontFamily: "MontserratRegular" }}
                     value={findInstStr}
                     // sx={{ fontFamily: "MontserratRegular" }}
@@ -632,13 +634,13 @@ export const MetaAnual = () => {
                       value={"Todos"}
                       sx={{ fontFamily: "MontserratRegular" }}
                     >
-                      Todos
+                      TODOS
                     </MenuItem>
 
                     {instituciones?.map((item) => {
                       return (
                         <MenuItem value={item.NombreInstitucion} key={item.Id}>
-                          {item.NombreInstitucion}
+                          {item.NombreInstitucion.toUpperCase()}
                         </MenuItem>
                       );
                     })}

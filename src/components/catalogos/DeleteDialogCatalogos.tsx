@@ -49,6 +49,7 @@ export const DeleteDialogCatalogos = ({
           data: {
             Id: id,
             ModificadoPor: localStorage.getItem("IdUsuario"),
+            Rol: localStorage.getItem("Rol"),
           },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -77,6 +78,7 @@ export const DeleteDialogCatalogos = ({
             data: {
               IdProgramaPresupuestario: id,
               IdUser: localStorage.getItem("IdUsuario"),
+              Rol: localStorage.getItem("Rol"),
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",

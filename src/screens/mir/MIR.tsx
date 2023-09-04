@@ -117,6 +117,7 @@ export const MIR = () => {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdInstitucion: localStorage.getItem("IdInstitucion"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -136,6 +137,7 @@ export const MIR = () => {
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -521,12 +523,12 @@ export const MIR = () => {
                 <Grid item xl={5} lg={4} md={3} sm={2}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                      Filtro por institucion
+                      FILTRO POR INSTITUCION
                     </InputLabel>
                     <Select
                       size="small"
                       variant="outlined"
-                      label="Filtro por institucion"
+                      label="FILTRO POR INSTITUCION"
                       value={findInstStr}
                       sx={{ fontFamily: "MontserratRegular" }}
                       fullWidth
@@ -538,7 +540,7 @@ export const MIR = () => {
                         value={"Todos"}
                         sx={{ fontFamily: "MontserratRegular" }}
                       >
-                        Todos
+                        TODOS
                       </MenuItem>
 
                       {instituciones?.map((item) => {
@@ -564,13 +566,13 @@ export const MIR = () => {
                 >
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                      Filtro por estado de la MIR
+                      FILTRO POR ESTADO DE LA MIR
                     </InputLabel>
                     <Select
                       size="small"
                       variant="outlined"
                       value={findSelectStr}
-                      label="Filtro por Estado de la MIR"
+                      label="FILTRO POR ESTADO DE LA MIR"
                       sx={{ fontFamily: "MontserratRegular" }}
                       fullWidth
                       onChange={(v) => {
@@ -586,7 +588,7 @@ export const MIR = () => {
                     >
                       {estados.map((estado) => (
                         <MenuItem key={estado} value={estado}>
-                          {estado}
+                          {estado.toUpperCase()}
                         </MenuItem>
                       ))}
                     </Select>

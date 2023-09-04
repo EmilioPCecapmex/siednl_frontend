@@ -10,11 +10,25 @@ import { TabResumen } from "./TabResumen";
 import TabAvance from "./TabAvance";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+
+const newAI ={}
 export default function TabsActividadesInstitucionales({
   returnMain,
-
-  
+  MIR,
+  FT,
+  AI,
+  opentabs,
+  IdMir,
+  IdFT,
+  IdAI,  
 }: {
+  MIR: string;
+  FT: string;
+  AI: string;
+  opentabs: Function;
+  IdMir: string;
+  IdFT: string;
+  IdAI: string;
   returnMain: Function;
 
   
@@ -24,6 +38,7 @@ export default function TabsActividadesInstitucionales({
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
+  const jsonMir = JSON.parse(MIR);
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {

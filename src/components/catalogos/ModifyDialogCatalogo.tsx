@@ -189,6 +189,7 @@ export const ModifyDialogCatalogos = ({
           NuevoProgramaPresupuestario: nuevaDescripcion,
           IdInstitucion: institution,
           ModificadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {

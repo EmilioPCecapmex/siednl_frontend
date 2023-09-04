@@ -18,3 +18,7 @@ export interface IActividadesInstitucionales {
     Consecutivo: String;
     Opciones: string;
   }
+
+  export interface IAI {
+    
+  }

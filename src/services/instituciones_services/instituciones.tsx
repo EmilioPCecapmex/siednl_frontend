@@ -6,6 +6,7 @@ export const getInstituciones = (setstate: Function) => {
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol")
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
