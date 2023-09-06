@@ -212,25 +212,25 @@ export const ModifyDialogCatalogos = ({
   };
   const [institution, setInstitution] = useState("0");
 
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-          Rol: localStorage.getItem("Rol") 
-        },
-      })
-      .then((r) => {
-        setCatalogoInstituciones(r.data.data);
-      });
-  };
+  // const getInstituciones = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         Rol: localStorage.getItem("Rol") 
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoInstituciones(r.data.data);
+  //     });
+  // };
 
   useEffect(() => {
-    getInstituciones();
+   // getInstituciones();
   }, []);
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([

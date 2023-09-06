@@ -112,34 +112,34 @@ export default function ModalEditarSolicitud({
     setCellphone("");
   };
 
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-          Rol: localStorage.getItem("Rol") ,
-        },
-      })
-      .then((r) => {
-        setCatalogoInstituciones(r.data.data);
-      });
-  };
+  // const getInstituciones = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         Rol: localStorage.getItem("Rol") ,
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoInstituciones(r.data.data);
+  //     });
+  // };
 
-  const getUserType = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setUserTypeCatalogue(r.data.data);
-      });
-  };
+  // const getUserType = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setUserTypeCatalogue(r.data.data);
+  //     });
+  // };
 
   const createComentarios = (idSolicitud: string) => {
     axios
@@ -353,8 +353,8 @@ export default function ModalEditarSolicitud({
   };
 
   useEffect(() => {
-    getInstituciones();
-    getUserType();
+    //getInstituciones();
+    //getUserType();
   }, []);
 
   return (

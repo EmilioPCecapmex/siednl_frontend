@@ -100,44 +100,44 @@ export const AddDialogCatalogo = ({
   ]);
 
   React.useEffect(() => {
-    getInstituciones();
+    //getInstituciones();
     getProgramas();
-    getUnidadesAdministrativas();
+    //getUnidadesAdministrativas();
   }, []);
 
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
+  // const getInstituciones = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
 
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-          Rol: localStorage.getItem("Rol"),
-        },
-      })
-      .then((r) => {
-        setCatalogoInstituciones(r.data.data);
-      });
-  };
+  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoInstituciones(r.data.data);
+  //     });
+  // };
 
-  const getUnidadesAdministrativas = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-            Rol: localStorage.getItem("Rol") || "",
-          },
-        }
-      )
-      .then((r) => {
-        setCatalogoUnidades(r.data.data);
-      });
-  };
+  // const getUnidadesAdministrativas = () => {
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //           Rol: localStorage.getItem("Rol") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       setCatalogoUnidades(r.data.data);
+  //     });
+  // };
 
   const getProgramas = () => {
     axios
@@ -223,39 +223,39 @@ export const AddDialogCatalogo = ({
       );
   };
 
-  const CreatePorCatalogoInstitucionUnidadAdmin = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK +
-          "/api/create-institucionUnidad",
-        {
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          IdInstitucion: institution,
-          IdUnidad: unidad,
-          Rol: localStorage.getItem("Rol"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        handleClose();
-        Toast.fire({
-          icon: "success",
-          title: "Elemento registrado con éxito.",
-        });
+  // const CreatePorCatalogoInstitucionUnidadAdmin = () => {
+  //   axios
+  //     .post(
+  //       process.env.REACT_APP_APPLICATION_BACK +
+  //         "/api/create-institucionUnidad",
+  //       {
+  //         CreadoPor: localStorage.getItem("IdUsuario"),
+  //         IdInstitucion: institution,
+  //         IdUnidad: unidad,
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       handleClose();
+  //       Toast.fire({
+  //         icon: "success",
+  //         title: "Elemento registrado con éxito.",
+  //       });
 
-        actualizado();
-      })
-      .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        })
-      );
-  };
+  //       actualizado();
+  //     })
+  //     .catch((err) =>
+  //       Toast.fire({
+  //         icon: "error",
+  //         title: err.response.data.result.error,
+  //       })
+  //     );
+  // };
 
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
@@ -793,7 +793,7 @@ export const AddDialogCatalogo = ({
 
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={CreatePorCatalogoInstitucionUnidadAdmin}
+              //onClick={CreatePorCatalogoInstitucionUnidadAdmin}
               autoFocus
             >
               <Typography

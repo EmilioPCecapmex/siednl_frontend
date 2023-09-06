@@ -71,32 +71,32 @@ export const ComentDialogMir = ({
 
   const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
 
-  const getUsuariosXInstitucion = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            Institucion: localStorage.getItem("IdInstitucion"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
-  };
+  // const getUsuariosXInstitucion = () => {
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+  //       {
+  //         params: {
+  //           IdUsuario: localStorage.getItem("IdUsuario"),
+  //           Institucion: localStorage.getItem("IdInstitucion"),
+  //         },
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         setUserXInst(r.data.data);
+  //       }
+  //     });
+  // };
 
-  React.useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
-    }
-  }, [open]);
+  // React.useEffect(() => {
+  //   if (open) {
+  //     getUsuariosXInstitucion();
+  //   }
+  // }, [open]);
 
 
   const [coment, setComent] = React.useState("");

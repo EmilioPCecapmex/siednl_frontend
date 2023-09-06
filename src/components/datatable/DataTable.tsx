@@ -48,24 +48,24 @@ export const DataTable = ({
   >([]);
 
   // Consumo de API
-  const getUsuarios = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-          "Content-Type": "application/json",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-          Rol: localStorage.getItem("Rol"),
-        },
-      })
-      .then((response) => {
-        setUsuarios(response.data.data);
-        setUsersFiltered(response.data.data);
-      });
-  };
+  // const getUsuarios = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //         "Content-Type": "application/json",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setUsuarios(response.data.data);
+  //       setUsersFiltered(response.data.data);
+  //     });
+  // };
 
   useEffect(() => {
     if (textFind !== "") {

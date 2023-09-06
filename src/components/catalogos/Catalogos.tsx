@@ -288,75 +288,75 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       tipo: "Relaciones",
     },
   ];
-  const getUnidadesAdministrativas = () => {
-    setSelected("Unidades Administrativas");
-    setCatalogoActual("Unidades Administrativas");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-            Rol: localStorage.getItem("Rol") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Unidad: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Unidad.toUpperCase(),
-                Tabla: "UnidadesAdministrativas",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  // const getUnidadesAdministrativas = () => {
+  //   setSelected("Unidades Administrativas");
+  //   setCatalogoActual("Unidades Administrativas");
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //           Rol: localStorage.getItem("Rol") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         let update = r.data.data;
+  //         update = update.map(
+  //           (item: { Id: string; Unidad: string; Tabla: string }) => {
+  //             return {
+  //               Id: item.Id,
+  //               Desc: item.Unidad.toUpperCase(),
+  //               Tabla: "UnidadesAdministrativas",
+  //             };
+  //           }
+  //         );
+  //         setDatosTabla(update);
+  //         setDataDescripctionFiltered(update);
+  //       }
+  //     });
+  // };
 
-  const getInstitucionesUnidades = () => {
-    setSelected("Instituciones - Unidades");
-    setCatalogoActual("Instituciones - Unidades");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/institucionesUnidad",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
+  // const getInstitucionesUnidades = () => {
+  //   setSelected("Instituciones - Unidades");
+  //   setCatalogoActual("Instituciones - Unidades");
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/institucionesUnidad",
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         let update = r.data.data;
 
-          update = update.map(
-            (item: {
-              Id: string;
-              NombreInstitucion: string;
-              Unidad: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc:
-                  item.NombreInstitucion.toUpperCase() +
-                  " / " +
-                  item.Unidad.toUpperCase(),
-                Tabla: "InstitucionUnidad",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  //         update = update.map(
+  //           (item: {
+  //             Id: string;
+  //             NombreInstitucion: string;
+  //             Unidad: string;
+  //             Tabla: string;
+  //           }) => {
+  //             return {
+  //               Id: item.Id,
+  //               Desc:
+  //                 item.NombreInstitucion.toUpperCase() +
+  //                 " / " +
+  //                 item.Unidad.toUpperCase(),
+  //               Tabla: "InstitucionUnidad",
+  //             };
+  //           }
+  //         );
+  //         setDatosTabla(update);
+  //         setDataDescripctionFiltered(update);
+  //       }
+  //     });
+  // };
 
   const getProgramasInstituciones = () => {
     setSelected("Programas - Instituciones");
@@ -708,42 +708,42 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       });
   };
 
-  const getInstituciones = () => {
-    setSelected("Instituciones");
+  // const getInstituciones = () => {
+  //   setSelected("Instituciones");
 
-    setCatalogoActual("Instituciones");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-          Rol: localStorage.getItem("Rol"),
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: {
-              Id: string;
-              NombreInstitucion: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc: item.NombreInstitucion.toUpperCase(),
-                Tabla: "Instituciones",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  //   setCatalogoActual("Instituciones");
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //     })
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         let update = r.data.data;
+  //         update = update.map(
+  //           (item: {
+  //             Id: string;
+  //             NombreInstitucion: string;
+  //             Tabla: string;
+  //           }) => {
+  //             return {
+  //               Id: item.Id,
+  //               Desc: item.NombreInstitucion.toUpperCase(),
+  //               Tabla: "Instituciones",
+  //             };
+  //           }
+  //         );
+  //         setDatosTabla(update);
+  //         setDataDescripctionFiltered(update);
+  //       }
+  //     });
+  // };
   const getLineasDeAccion = () => {
     setSelected("Lineas de Acción");
 
@@ -998,33 +998,33 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       });
   };
 
-  const getRoles = () => {
-    setSelected("Roles");
+  // const getRoles = () => {
+  //   setSelected("Roles");
 
-    setCatalogoActual("Roles");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Rol: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Rol.toUpperCase(),
-                Tabla: "Roles",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  //   setCatalogoActual("Roles");
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         let update = r.data.data;
+  //         update = update.map(
+  //           (item: { Id: string; Rol: string; Tabla: string }) => {
+  //             return {
+  //               Id: item.Id,
+  //               Desc: item.Rol.toUpperCase(),
+  //               Tabla: "Roles",
+  //             };
+  //           }
+  //         );
+  //         setDatosTabla(update);
+  //         setDataDescripctionFiltered(update);
+  //       }
+  //     });
+  // };
 
   const getTematicas = () => {
     setSelected("Temáticas");

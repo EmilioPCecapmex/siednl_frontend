@@ -557,28 +557,28 @@ export default function ModalSolicitaModif({
       });
   };
 
-  useEffect(() => {
-    if (open) {
-      axios
-        .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-          {
-            params: {
-              IdUsuario: localStorage.getItem("IdUsuario"),
-              Institucion: JSON.parse(MIR)?.encabezado?.institucion,
-            },
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          if (r.status === 200) {
-            setUserXInst(r.data.data);
-          }
-        });
-    }
-  }, [MIR, open]);
+  // useEffect(() => {
+  //   if (open) {
+  //     axios
+  //       .get(
+  //         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+  //         {
+  //           params: {
+  //             IdUsuario: localStorage.getItem("IdUsuario"),
+  //             Institucion: JSON.parse(MIR)?.encabezado?.institucion,
+  //           },
+  //           headers: {
+  //             Authorization: localStorage.getItem("jwtToken") || "",
+  //           },
+  //         }
+  //       )
+  //       .then((r) => {
+  //         if (r.status === 200) {
+  //           setUserXInst(r.data.data);
+  //         }
+  //       });
+  //   }
+  // }, [MIR, open]);
   ///////////////////////////////////////////////////////////////////////////////////
   const Toast = Swal.mixin({
     toast: false,

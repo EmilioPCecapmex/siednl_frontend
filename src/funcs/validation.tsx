@@ -110,7 +110,7 @@ const getDataSolicitud = (idSolicitud: string) => {
           r.data.data[0].DatosAdicionales
         );
         let CreadoPor = r.data.data[0].CreadoPor;
-        siednlSignUp(idSolicitud, objetoDatosAdicionales, CreadoPor);
+        //siednlSignUp(idSolicitud, objetoDatosAdicionales, CreadoPor);
       }
     })
     .catch((error) => {
@@ -119,29 +119,29 @@ const getDataSolicitud = (idSolicitud: string) => {
     });
 };
 
-const siednlSignUp = (
-  idUsrCentral: string,
-  datosAdicionales: IDatosAdicionales,
-  idCreadoPor: string
-) => {
-  axios
-    .post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
-      {
-        IdUsuarioCentral: idUsrCentral,
-        IdInstitucion: datosAdicionales.institution,
-        Cargo: datosAdicionales.rol,
-        IdRol: datosAdicionales.userType,
-        CreadoPor: idCreadoPor,
-      },
-      { headers: { Authorization: localStorage.getItem("jwtToken") || "" } }
-    )
-    .then((r) => {
-      if (r.status === 200) {
-        window.location.reload();
-      }
-    });
-};
+// const siednlSignUp = (
+//   idUsrCentral: string,
+//   datosAdicionales: IDatosAdicionales,
+//   idCreadoPor: string
+// ) => {
+//   axios
+//     .post(
+//       process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
+//       {
+//         IdUsuarioCentral: idUsrCentral,
+//         IdInstitucion: datosAdicionales.institution,
+//         Cargo: datosAdicionales.rol,
+//         IdRol: datosAdicionales.userType,
+//         CreadoPor: idCreadoPor,
+//       },
+//       { headers: { Authorization: localStorage.getItem("jwtToken") || "" } }
+//     )
+//     .then((r) => {
+//       if (r.status === 200) {
+//         window.location.reload();
+//       }
+//     });
+// };
 
 export const continueSession = () => {
   console.log(localStorage.getItem("jwtToken"))

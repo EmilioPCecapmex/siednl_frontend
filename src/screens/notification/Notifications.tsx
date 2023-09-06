@@ -164,30 +164,30 @@ export const Notification = () => {
       });
   };
 
-  const getUsuarios = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios",
+  // const getUsuarios = () => {
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios",
 
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            IdInstitucion: "",
-            Rol: localStorage.getItem("Rol"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        setUsuarios(response.data.data);
-      });
-  };
+  //       {
+  //         params: {
+  //           IdUsuario: localStorage.getItem("IdUsuario"),
+  //           IdInstitucion: "",
+  //           Rol: localStorage.getItem("Rol"),
+  //         },
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       setUsuarios(response.data.data);
+  //     });
+  // };
 
   useEffect(() => {
-    getUsuarios();
+    //getUsuarios();
     getNotifEnviadas();
   }, []);
 
