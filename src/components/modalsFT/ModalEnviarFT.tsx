@@ -418,32 +418,32 @@ export default function ModalEnviarFT({
       });
   };
 
-  useEffect(() => {
-    if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.institucion;
+  // useEffect(() => {
+  //   if (open) {
+  //     let inst = JSON.parse(MIR)?.encabezado.institucion;
 
      
-      ////////////////////////Esto esta fallando
-      axios
-        .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-          {
-            params: {
-              IdUsuario: localStorage.getItem("IdUsuario"),
-              Institucion: inst,
-            },
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          if (r.status === 200) {
-            setUserXInst(r.data.data);
-          }
-        });
-    }
-  }, [MIR, open]);
+  //     ////////////////////////Esto esta fallando
+  //     axios
+  //       .get(
+  //         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+  //         {
+  //           params: {
+  //             IdUsuario: localStorage.getItem("IdUsuario"),
+  //             Institucion: inst,
+  //           },
+  //           headers: {
+  //             Authorization: localStorage.getItem("jwtToken") || "",
+  //           },
+  //         }
+  //       )
+  //       .then((r) => {
+  //         if (r.status === 200) {
+  //           setUserXInst(r.data.data);
+  //         }
+  //       });
+  //   }
+  // }, [MIR, open]);
 
   const enviarNotificacion = (
     IdUsuarioDestino: string,

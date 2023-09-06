@@ -522,41 +522,41 @@ export default function ModalEnviarMIR({
   };
 
 
-  useEffect(() => {
-    if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.institucion;
-      //inst = "admin";
-    //  if (localStorage.getItem("Rol") === "Verificador") {
-    //    inst = "admin";
-    //  }
-    axios
+  // useEffect(() => {
+  //   if (open) {
+  //     let inst = JSON.parse(MIR)?.encabezado.institucion;
+  //     //inst = "admin";
+  //   //  if (localStorage.getItem("Rol") === "Verificador") {
+  //   //    inst = "admin";
+  //   //  }
+  //   axios
 
 
-    /////listado
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            Institucion: inst,
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        console.log('r',r);
+  //   /////listado
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+  //       {
+  //         params: {
+  //           IdUsuario: localStorage.getItem("IdUsuario"),
+  //           Institucion: inst,
+  //         },
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       console.log('r',r);
         
-        if (r.status === 200) {
+  //       if (r.status === 200) {
           
-          setUserXInst(r.data.data);
+  //         setUserXInst(r.data.data);
          
           
-        }
-      });
-    }
-  }, [MIR, open]);
+  //       }
+  //     });
+  //   }
+  // }, [MIR, open]);
 
   const enviarNotificacion = (IdUsuarioDestino: string ,IdDoc="", Nombre="") => {
     console.log("IdDoc: ",IdDoc);
