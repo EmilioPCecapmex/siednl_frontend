@@ -34,7 +34,7 @@ export const DataTable = ({
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    getUsuarios();
+    //getUsuarios();
   }, [actualizar]);
 
   //# Renglones por pag
@@ -79,7 +79,7 @@ export const DataTable = ({
 
   const [actualizacion, setActualizacion] = useState(0);
   useEffect(() => {
-    getUsuarios();
+    //getUsuarios();
   }, [actualizacion]);
 
   const actualizaContador = () => {

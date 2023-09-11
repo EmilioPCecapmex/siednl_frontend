@@ -256,7 +256,7 @@ export const AddDialogCatalogo = ({
   //       })
   //     );
   // };
-
+// Aqui 
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
       .post(
@@ -265,7 +265,7 @@ export const AddDialogCatalogo = ({
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdPrograma: programa,
-          IdInstitucion: institution,
+          IdEntidad: localStorage.getItem(""),
         },
         {
           headers: {
