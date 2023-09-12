@@ -23,7 +23,7 @@ export interface IInstituciones {
 }
 
 interface IDatosAdicionales {
-  IdInstitucion: string;
+  IdEntidad: string;
   Cargo: string;
   IdRol: string;
   Rol: string;
@@ -59,7 +59,7 @@ export default function ModalEditarSolicitud({
  const [datosAdicionales,setDatosAdicionales]=useState<IDatosAdicionales>(JSON.parse(dataUser?.DatosAdicionales))
 
   const [institution, setInstitution] = useState(
-    datosAdicionales.IdInstitucion
+    datosAdicionales.IdEntidad
   );
   const [rol, setRol] = useState(datosAdicionales.Cargo);
   const [userType, setUserType] = useState(datosAdicionales.IdRol);
@@ -120,7 +120,7 @@ export default function ModalEditarSolicitud({
   //       },
   //       params: {
   //         IdUsuario: localStorage.getItem("IdUsuario"),
-  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
   //         Rol: localStorage.getItem("Rol") ,
   //       },
   //     })
@@ -199,7 +199,7 @@ export default function ModalEditarSolicitud({
             Rol: datosAdicionales.Rol,
             IdRol: datosAdicionales.IdRol,
             Cargo: datosAdicionales.Cargo,
-            IdInstitucion: datosAdicionales.IdInstitucion,
+            IdEntidad: datosAdicionales.IdEntidad,
           }),
           Estatus: "0",
           IdApp: localStorage.getItem("IdApp"),
@@ -338,7 +338,7 @@ export default function ModalEditarSolicitud({
         text: "No se puede modificar el correo electrónico ",
         type: "error",
       });
-    }else if (names===dataUser?.Nombre && firstName===dataUser?.ApellidoPaterno && secondName===dataUser?.ApellidoMaterno && puesto===dataUser?.Puesto && institution===datosAdicionales.IdInstitucion 
+    }else if (names===dataUser?.Nombre && firstName===dataUser?.ApellidoPaterno && secondName===dataUser?.ApellidoMaterno && puesto===dataUser?.Puesto && institution===datosAdicionales.IdEntidad 
       && rol===datosAdicionales.Cargo && userType===datosAdicionales.IdRol && curp ===dataUser?.Curp && rfc===dataUser?.Rfc && telephone===dataUser?.Telefono 
       && ext===dataUser?.Ext && cellphone===dataUser?.Celular) {
       setErrorsForm({

@@ -76,7 +76,7 @@ export const ComentDialogFT = ({
   //       {
   //         params: {
   //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           Institucion: localStorage.getItem("IdInstitucion"),
+  //           Institucion: localStorage.getItem("IdEntidad"),
   //         },
   //         headers: {
   //           Authorization: localStorage.getItem("jwtToken") || "",
@@ -105,7 +105,7 @@ export const ComentDialogFT = ({
         IdUsuarioDestino: v,
         Titulo: "Nuevo comentario Ficha Técnica",
         Mensaje: coment,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {

@@ -64,14 +64,14 @@ export const getUserDetails = (idCentral: string) => {
         localStorage.setItem("FirstSignIn", r.data.data.PrimerInicioDeSesion);
 
         if (
-          localStorage.getItem("IdInstitucion") === null ||
-          localStorage.getItem("IdInstitucion") === null
+          localStorage.getItem("IdEntidad") === null ||
+          localStorage.getItem("IdEntidad") === null
         ) {
-          localStorage.setItem("IdInstitucion", r.data.data.IdInstitucion);
+          localStorage.setItem("IdEntidad", r.data.data.IdEntidad);
         } else {
           localStorage.setItem(
-            "IdInstitucion",
-            localStorage.getItem("IdInstitucion") as string
+            "IdEntidad",
+            localStorage.getItem("IdEntidad") as string
           );
         }
 
@@ -129,7 +129,7 @@ const getDataSolicitud = (idSolicitud: string) => {
 //       process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
 //       {
 //         IdUsuarioCentral: idUsrCentral,
-//         IdInstitucion: datosAdicionales.institution,
+//         IdEntidad: datosAdicionales.institution,
 //         Cargo: datosAdicionales.rol,
 //         IdRol: datosAdicionales.userType,
 //         CreadoPor: idCreadoPor,

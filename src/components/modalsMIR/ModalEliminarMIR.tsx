@@ -44,6 +44,7 @@ export const DeleteDialogMIR = ({
       .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-mir", {
         data: {
           Id: id,
+          // se va a cambiar0
           ModificadoPor: localStorage.getItem("IdUsuario"),
         },
         headers: {

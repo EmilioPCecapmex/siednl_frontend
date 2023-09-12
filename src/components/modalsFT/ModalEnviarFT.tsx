@@ -459,7 +459,7 @@ export default function ModalEnviarFT({
         Titulo: tipoDoc,
         Mensaje: enviarMensaje + " " + Nombre,
         IdDocumento: IdDoc,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {

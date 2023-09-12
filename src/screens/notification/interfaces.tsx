@@ -11,7 +11,7 @@ export interface IUsuarios {
   Celular: string;
   IdRol: string;
   Rol: string;
-  IdInstitucion: string;
+  IdEntidad: string;
   NombreInstitucion: string;
   FechaCreacion: string;
   CreadoPor: string;

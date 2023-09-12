@@ -45,6 +45,7 @@ export default function ModalEnviarMIR({
         {
           IdMir: id,
           Coment: comment,
+          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
           MIR_MA: "MIR",
         },
@@ -403,10 +404,12 @@ export default function ModalEnviarMIR({
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: "",
+          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: idMir,
           Estado: "En Captura",
           Id: "",
+          // va a cambiar
           Rol: localStorage.getItem("Rol"),
         },
         {
@@ -456,6 +459,7 @@ export default function ModalEnviarMIR({
           CreadoPor:
             userSelected !== "0"
               ? userSelected
+              //se va a modificar
               : localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
           Institucion: JSON.parse(MIR)?.encabezado.institucion,
@@ -463,6 +467,7 @@ export default function ModalEnviarMIR({
           Eje: JSON.parse(MIR)?.encabezado.eje,
           Tematica: JSON.parse(MIR)?.encabezado.tema,
           IdMir: IdMir,
+          // se va a modificar
           Rol: localStorage.getItem("Rol"),
         },
         {
@@ -570,7 +575,7 @@ export default function ModalEnviarMIR({
         Titulo: Nombre,
         Mensaje: enviarMensaje + " "+ Nombre,
         IdDocumento: IdDoc,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {

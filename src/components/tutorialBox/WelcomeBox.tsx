@@ -14,7 +14,7 @@ export const WelcomeBox = () => {
           IdUsuarioDestino: v,
           Titulo: "!Hola¡",
           Mensaje: "Recuerda que siempre puedes consultar la bandeja de notificaciones",
-          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
         },
         {
           headers: {

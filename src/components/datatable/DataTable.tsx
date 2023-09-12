@@ -57,7 +57,7 @@ export const DataTable = ({
   //       },
   //       params: {
   //         IdUsuario: localStorage.getItem("IdUsuario"),
-  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
   //         Rol: localStorage.getItem("Rol"),
   //       },
   //     })
@@ -123,7 +123,7 @@ export const DataTable = ({
       Celular: "",
       IdRol: "",
       Rol: "",
-      IdInstitucion: "",
+      IdEntidad: "",
       NombreInstitucion: "",
       CreadoPor: "",
       ModificadoPor: "",

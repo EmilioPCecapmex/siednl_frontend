@@ -76,7 +76,7 @@ export const ComentDialogMA = ({
   //       {
   //         params: {
   //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           Institucion: localStorage.getItem("IdInstitucion"),
+  //           Institucion: localStorage.getItem("IdEntidad"),
   //         },
   //         headers: {
   //           Authorization: localStorage.getItem("jwtToken") || "",
@@ -105,7 +105,7 @@ export const ComentDialogMA = ({
         IdUsuarioDestino: v,
         Titulo: "Nuevo comentario Meta Anual",
         Mensaje: coment,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {

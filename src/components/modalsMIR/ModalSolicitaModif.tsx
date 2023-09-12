@@ -361,6 +361,7 @@ export default function ModalSolicitaModif({
           CreadoPor:
             userSelected !== "0"
               ? userSelected
+              //va a cambiar
               : localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
           Institucion: JSON.parse(MIR)?.encabezado.institucion,
@@ -368,6 +369,7 @@ export default function ModalSolicitaModif({
           Eje: JSON.parse(MIR)?.encabezado.eje,
           Tematica: JSON.parse(MIR)?.encabezado.tema,
           IdMir: IdMir,
+          // se va a modificar
           Rol: localStorage.getItem("Rol"),
         },
         {
@@ -456,7 +458,7 @@ export default function ModalSolicitaModif({
         IdUsuarioDestino: userSelected,
         Titulo: "MIR",
         Mensaje: "Se le ha solicitado una modificación.",
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {

@@ -113,7 +113,7 @@ export default function ModalCrearUsuario({
   //       },
   //       params: {
   //         IdUsuario: localStorage.getItem("IdUsuario"),
-  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
   //         Rol: localStorage.getItem("Rol"),
   //       },
   //     })

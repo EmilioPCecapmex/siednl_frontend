@@ -363,7 +363,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Programas - Instituciones");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/programasInstituciones",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programasInstituciones",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -400,7 +400,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Años Fiscales");
     setCatalogoActual("Años Fiscales");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/AniosFiscales", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-aniosFiscales", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -428,7 +428,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Beneficiarios");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Beneficiarios", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiarios", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -458,7 +458,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK +
-          "/api/clasificacionesProgramaticas",
+          "/api/list-clasificacionesProgramaticas",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -493,7 +493,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Dimensiones del Indicador");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/dimensionesDelIndicador",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-dimensionesDelIndicador",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -527,7 +527,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Ejes");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejes", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ejes", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -555,7 +555,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Ejes del Plan Nacional de Desarrollo");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejesPND", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ejesPND", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -583,7 +583,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Estrategias");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Estrategias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-estrategias", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -611,7 +611,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Fórmulas");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Formulas", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-formulas", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -639,7 +639,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Fechas de captura");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/fechasDeCaptura", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechasDeCaptura", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -685,7 +685,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Frecuencias");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Frecuencias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-frecuencias", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -719,7 +719,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   //       },
   //       params: {
   //         IdUsuario: localStorage.getItem("IdUsuario"),
-  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
   //         Rol: localStorage.getItem("Rol"),
   //       },
   //     })
@@ -749,7 +749,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Lineas de acción");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/lineasDeAccion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-lineasDeAccion", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -777,7 +777,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Metas ODS");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/metasODS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-metasODS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -805,7 +805,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Modalidades");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/modalidades", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-modalidad", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -833,7 +833,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Objetivos");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivos", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivo", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -892,7 +892,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Objetivos Desarrollo Sostenible");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosDS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivoDS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -920,7 +920,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("PED");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -961,7 +961,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Programas Presupuestarios");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programaPresupuestario",
         {
           params: {
             Rol: localStorage.getItem("Rol"),
@@ -1031,7 +1031,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Temáticas");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tematica", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tematica", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -1059,7 +1059,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Tipos de Fórmula");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/TipoDeFormula", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tipoDeFormula", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -1087,7 +1087,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Tipos de indicador");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tipoDeIndicador", {
         params: {
           Rol: localStorage.getItem("Rol"),
         },
@@ -1118,7 +1118,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Unidades de medida");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/unidadDeMedida", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-unidadDeMedida", {
         params: {
           Rol: localStorage.getItem("Rol"),
         },

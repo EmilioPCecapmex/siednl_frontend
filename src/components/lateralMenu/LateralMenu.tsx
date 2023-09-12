@@ -150,7 +150,7 @@ export const LateralMenu = ({
   }
 
   const [institucionSeleccionada, setInstitucionSeleccionada] = useState(
-    localStorage.getItem("IdInstitucion") as string
+    localStorage.getItem("IdEntidad") as string
   );
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -488,7 +488,7 @@ export const LateralMenu = ({
                 <Select
                   value={
                     institucionSeleccionada ||
-                    (localStorage.getItem("IdInstitucion") as string)
+                    (localStorage.getItem("IdEntidad") as string)
                   }
                   label="Institución"
                   onChange={handleChange}

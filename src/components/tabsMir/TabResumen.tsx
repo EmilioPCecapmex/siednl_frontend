@@ -112,6 +112,7 @@ export function TabResumen({
         {
           MIR: JSON.stringify(MIR),
           Estado: estado,
+          //se va a cambiar 
           CreadoPor: localStorage.getItem("IdUsuario"),
           AnioFiscal: MIR?.encabezado.ejercicioFiscal,
           Institucion: MIR?.encabezado.institucion,
@@ -119,6 +120,7 @@ export function TabResumen({
           Eje: MIR?.encabezado.eje,
           Tematica: MIR?.encabezado.tema,
           IdMir: idMir,
+          //Se va a cambiar
           Rol: localStorage.getItem("Rol"),
         },
         {

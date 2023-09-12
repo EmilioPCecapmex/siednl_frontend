@@ -116,7 +116,7 @@ export const MIR = () => {
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
         },
         headers: {

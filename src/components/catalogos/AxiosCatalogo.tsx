@@ -17,7 +17,7 @@ export const createFechaDeCaptua = (
         FechaCapturaInicio: Fecha1,
         FechaCapturaFinal: Fecha2,
         Modulo: Descripcion,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
         Rol: localStorage.getItem("Rol"),
       },
       {

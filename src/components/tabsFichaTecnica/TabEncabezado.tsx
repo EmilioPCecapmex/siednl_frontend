@@ -70,7 +70,7 @@ export function TabEncabezado({
   const getObjetivos = (id: Array<number>) => {
     id.map((value, index) => {
       axios
-        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
+        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
           params: {
             Col: "ObjetivosDs",
             Id: value,
@@ -89,7 +89,7 @@ export function TabEncabezado({
 
   const getMetas = (Id: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
         params: {
           Col: "MetasODS",
           Id: Id,

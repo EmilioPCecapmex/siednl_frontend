@@ -339,7 +339,7 @@ export const FichaTecnica = () => {
         {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),
-            IdInstitucion: localStorage.getItem("IdInstitucion"),
+            IdEntidad: localStorage.getItem("IdEntidad"),
             Rol: localStorage.getItem("Rol")
           },
           headers: {

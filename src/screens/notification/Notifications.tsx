@@ -111,7 +111,7 @@ export const Notification = () => {
           IdUsuarioDestino: usuarioSeleccionado,
           Titulo: titulo,
           Mensaje: mensaje,
-          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
         },
         {
           headers: {
@@ -172,7 +172,7 @@ export const Notification = () => {
   //       {
   //         params: {
   //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           IdInstitucion: "",
+  //           IdEntidad: "",
   //           Rol: localStorage.getItem("Rol"),
   //         },
   //         headers: {

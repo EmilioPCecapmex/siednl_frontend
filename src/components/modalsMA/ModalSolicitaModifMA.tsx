@@ -633,7 +633,7 @@ export default function ModalSolicitaModif({
         IdUsuarioDestino: userSelected,
         Titulo: "Meta Anual",
         Mensaje: "Se le ha solicitado una modificación.",
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {

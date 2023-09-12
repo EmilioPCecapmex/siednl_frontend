@@ -78,7 +78,7 @@ export const ComentDialogMir = ({
   //       {
   //         params: {
   //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           Institucion: localStorage.getItem("IdInstitucion"),
+  //           Institucion: localStorage.getItem("IdEntidad"),
   //         },
   //         headers: {
   //           Authorization: localStorage.getItem("jwtToken") || "",
@@ -108,7 +108,8 @@ export const ComentDialogMir = ({
         IdUsuarioDestino: v,
         Titulo: "Nuevo comentario MIR",
         Mensaje: coment,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        // Se va a modificar
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {
@@ -125,6 +126,7 @@ export const ComentDialogMir = ({
         {
           IdMir: id,
           Coment: coment,
+          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
           MIR_MA:'MIR'
         },

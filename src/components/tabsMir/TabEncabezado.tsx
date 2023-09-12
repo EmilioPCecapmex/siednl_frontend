@@ -227,6 +227,7 @@ export function TabEncabezado({
         setCatalogoAniosFiscales(r.data.data);
       });
   };
+  // cambiar por entidad
   const getInstituciones = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
@@ -242,6 +243,8 @@ export function TabEncabezado({
         setCatalogoInstituciones(r.data.data);
       });
   };
+
+
   const getProgramas = (id: string) => {
     if (id !== undefined) {
       axios
@@ -249,7 +252,7 @@ export function TabEncabezado({
           process.env.REACT_APP_APPLICATION_BACK + "/api/programaInstitucion",
           {
             params: {
-              IdInstitucion: id,
+              IdEntidad: id,
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
@@ -268,9 +271,10 @@ export function TabEncabezado({
         });
     }
   };
+  // no se porque este no lleva Id:(id: string)
   const getEjes = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
         params: {
           Col: "Ejes",
           Id: " ",
@@ -285,7 +289,7 @@ export function TabEncabezado({
   };
   const getTematicas = (id: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
         params: {
           Col: "Temáticas",
           Id: id,
@@ -303,7 +307,7 @@ export function TabEncabezado({
   };
   const getObjetivos = (id: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
         params: {
           Col: "Objetivos",
           Id: id,
@@ -321,7 +325,7 @@ export function TabEncabezado({
   };
   const getEstrategias = (id: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
         params: {
           Col: "Estrategias",
           Id: id,
@@ -339,7 +343,7 @@ export function TabEncabezado({
   };
   const getLineasDeAccion = (id: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
         params: {
           Col: "Lineas de Acción",
           Id: id,

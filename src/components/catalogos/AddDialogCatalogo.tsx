@@ -114,7 +114,7 @@ export const AddDialogCatalogo = ({
   //       params: {
   //         IdUsuario: localStorage.getItem("IdUsuario"),
 
-  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
   //         Rol: localStorage.getItem("Rol"),
   //       },
   //     })
@@ -164,7 +164,8 @@ export const AddDialogCatalogo = ({
         {
           Descripcion: descripcion,
           Tabla: tabla,
-          IdUser: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -196,7 +197,9 @@ export const AddDialogCatalogo = ({
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-fechaDeCaptura",
         {
           Descripcion: descripcion,
-          FechaDeCaptura: fechaCaptura,
+          FechaCapturaInicio: fechaCaptura,
+          FechaCapturaFinal: fechaCaptura,
+          Modulo: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
         },
@@ -230,7 +233,7 @@ export const AddDialogCatalogo = ({
   //         "/api/create-institucionUnidad",
   //       {
   //         CreadoPor: localStorage.getItem("IdUsuario"),
-  //         IdInstitucion: institution,
+  //         IdEntidad: institution,
   //         IdUnidad: unidad,
   //         Rol: localStorage.getItem("Rol"),
   //       },
@@ -297,7 +300,7 @@ export const AddDialogCatalogo = ({
           "/api/create-programaPresupuestario",
         {
           NombrePrograma: descripcion,
-          IdInstitucion: institution,
+          IdEntidad: institution,
           CreadoPor: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
         },

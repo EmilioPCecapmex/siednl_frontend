@@ -43,7 +43,7 @@ export default function ModalEditarUsuario({
   const [curp, setCURP] = useState(dataUser.Curp);
   const [rfc, setRFC] = useState(dataUser.Rfc);
 
-  const [institution, setInstitution] = useState(dataUser.IdInstitucion);
+  const [institution, setInstitution] = useState(dataUser.IdEntidad);
   const [rol, setRol] = useState(dataUser.Cargo);
   const [userType, setUserType] = useState(dataUser.IdRol);
 
@@ -109,7 +109,7 @@ export default function ModalEditarUsuario({
   //       },
   //       params: {
   //         IdUsuario: localStorage.getItem("IdUsuario"),
-  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
   //         Rol: localStorage.getItem("Rol") ,
   //       },
   //     })
@@ -187,7 +187,7 @@ export default function ModalEditarUsuario({
             Rol: dataUser.Rol,
             IdRol: dataUser.IdRol,
             Cargo: dataUser.Cargo,
-            IdInstitucion: dataUser.IdInstitucion,
+            IdEntidad: dataUser.IdEntidad,
           }),
           TipoSolicitud: "MODIFICACION",
           CreadoPor: localStorage.getItem("IdCentral"),
@@ -326,7 +326,7 @@ export default function ModalEditarUsuario({
       names === dataUser.Nombre &&
       firstName === dataUser.ApellidoPaterno &&
       secondName === dataUser.ApellidoMaterno &&
-      institution === dataUser.IdInstitucion &&
+      institution === dataUser.IdEntidad &&
       rol === dataUser.Cargo &&
       userType === dataUser.IdRol &&
       curp === dataUser.Curp &&

@@ -62,8 +62,8 @@ export const AppsDialog = ({
           "/api/vincular-usuarioInsitucion",
         {
           IdUsuario: id,
-          IdInstitucion: instSel.map((item) => {
-            return { IdInstitucion: item.Id };
+          IdEntidad: instSel.map((item) => {
+            return { IdEntidad: item.Id };
           }),
           CreadoPor: localStorage.getItem("IdUsuario"),
         },
@@ -119,7 +119,7 @@ export const AppsDialog = ({
   //         },
   //         params: {
   //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //           IdEntidad: localStorage.getItem("IdEntidad"),
   //           Rol: localStorage.getItem("Rol"),
   //         },
   //       })

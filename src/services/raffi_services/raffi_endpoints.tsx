@@ -5,7 +5,7 @@ export const listaRaffi = (setState: Function) => {
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/lista-raffis", {
       params: {
         IdUsuario: localStorage.getItem("IdUsuario"),
-        IdInstitucion: localStorage.getItem("IdInstitucion"),
+        IdEntidad: localStorage.getItem("IdEntidad"),
         Rol: "Capturador",
       },
       headers: {

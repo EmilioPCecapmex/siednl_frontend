@@ -351,7 +351,7 @@ export const MetaAnual = () => {
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-MetaAnual", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol")
         },
         headers: {
