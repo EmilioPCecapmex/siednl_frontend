@@ -91,12 +91,13 @@ export const ModifyDialogCatalogos = ({
       axios
         .put(
           process.env.REACT_APP_APPLICATION_BACK +
-            "/api/programaPresupuestario",
+            "/api/modify-programaPresupuestario",
           {
             IdProgramaPresupuestario: id,
             NuevoProgramaPresupuestario: nuevaDescripcion,
-            IdInstitucion: institution,
+            //IdEntidad: institution,
             ModificadoPor: localStorage.getItem("IdUsuario"),
+            Rol: localStorage.getItem("Rol"),
           },
           {
             headers: {
@@ -121,12 +122,12 @@ export const ModifyDialogCatalogos = ({
     } else {
       axios
         .put(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/catalogos",
+          process.env.REACT_APP_APPLICATION_BACK + "/api/modify-catalogo",
           {
             Id: id,
             NuevaDescripcion: nuevaDescripcion,
             Tabla: tabla,
-            IdUser: localStorage.getItem("IdUsuario"),
+            CreadoPor: localStorage.getItem("IdUsuario"),
             Rol: localStorage.getItem("Rol"),
           },
           {
@@ -156,11 +157,14 @@ export const ModifyDialogCatalogos = ({
   const ModifyPorCatalogoFechas = () => {
     axios
       .put(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/fechaDeCaptura",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/modify-fechaDeCaptura",
         {
           IdFechaDeCaptura: id,
           NuevoDescripcion: nuevaDescripcion,
-          NuevoFechaDeCaptura: fechaCaptura,
+          //Se agregaron 3 campos nuevos pero esto se hizo en otro accios esto se va a modificar
+          NuevoFechaCapturaInicio: fechaCaptura,
+          NuevoFechaCapturaFinal:fechaCaptura,
+          NuevoModulo: "",
           ModificadoPor: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
         },
@@ -185,11 +189,11 @@ export const ModifyDialogCatalogos = ({
   const ModifyPorCatalogoProgramasP = () => {
     axios
       .put(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/modify-programaPresupuestario",
         {
           IdProgramaPresupuestario: id,
           NuevoProgramaPresupuestario: nuevaDescripcion,
-          IdInstitucion: institution,
+          //IdEntidad: institution,
           ModificadoPor: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
         },
@@ -220,7 +224,7 @@ export const ModifyDialogCatalogos = ({
   //       },
   //       params: {
   //         IdUsuario: localStorage.getItem("IdUsuario"),
-  //         IdInstitucion: localStorage.getItem("IdInstitucion"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
   //         Rol: localStorage.getItem("Rol") 
   //       },
   //     })
