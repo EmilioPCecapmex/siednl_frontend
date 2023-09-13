@@ -64,9 +64,9 @@ const heads: readonly Head[] = [
     label: "EJERCICIO FISCAL",
   },
   {
-    id: "Institucion",
+    id: "Entidad",
     isNumeric: true,
-    label: "INSTITUCIÓN",
+    label: "ENTIDAD",
   },
   {
     id: "Programa",
@@ -113,7 +113,7 @@ export const MIR = () => {
 
   const getMIRs = (setState: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
@@ -131,18 +131,18 @@ export const MIR = () => {
   };
 
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
-
+// cambiar
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
+      params: {
+        IdUsuario: localStorage.getItem("IdUsuario"),
+        Rol: localStorage.getItem("Rol"),
+      },
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
       .then((r) => {
         if (r.status === 200) {
           setstate(r.data.data);
@@ -242,12 +242,12 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -258,12 +258,12 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+              x.Entidad.toLowerCase().includes(inst.toLowerCase()))
         )
       );
     } else if (
@@ -275,7 +275,7 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             x.AnioFiscal.includes(v) ||
-            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
             x.Programa.toLowerCase().includes(v.toLowerCase()) ||
             x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
             x.CreadoPor.toLowerCase().includes(v.toLowerCase())
@@ -292,7 +292,7 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -303,7 +303,7 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else {
@@ -331,7 +331,7 @@ export const MIR = () => {
 
   useEffect(() => {
     let id = urlParams.get("Id");
-    setMirsFiltered(mirs.filter((x) => x.ID.toLowerCase().includes(id || "")));
+    setMirsFiltered(mirs.filter((x) => x.Id.toLowerCase().includes(id || "")));
   }, [mirs]);
 
   const [actualizacion, setActualizacion] = useState(0);
@@ -433,7 +433,7 @@ export const MIR = () => {
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Institucion.toString()
+        elemento.Entidad.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
         elemento.Programa.toString()
@@ -662,9 +662,9 @@ export const MIR = () => {
                     onClick={() => {
                       setMirEdit([
                         {
-                          ID: "",
+                          Id: "",
                           AnioFiscal: "",
-                          Institucion: "",
+                          Entidad: "",
                           Programa: "",
                           Eje: "",
                           Tematica: "",
@@ -771,7 +771,7 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                            {row.Institucion.toUpperCase()}
+                            {row.Entidad.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
@@ -868,7 +868,7 @@ export const MIR = () => {
                                     onClick={() =>
                                       downloadMIR(
                                         row.AnioFiscal,
-                                        row.Institucion,
+                                        row.Entidad,
                                         row.Programa,
                                         row.MIR
                                       )
@@ -891,7 +891,7 @@ export const MIR = () => {
 
                               <ComentDialogMir
                                 estado={row.Estado}
-                                id={row.ID}
+                                id={row.Id}
                                 actualizado={actualizaContador}
                               />
 
@@ -910,7 +910,7 @@ export const MIR = () => {
                                     ? false
                                     : true
                                 }
-                                id={row.ID}
+                                id={row.Id}
                                 actualizado={actualizaContador}
                               />
                               <Tooltip
@@ -946,9 +946,9 @@ export const MIR = () => {
                                     onClick={() => {
                                       setMirEdit([
                                         {
-                                          ID: row.ID,
+                                          Id: row.Id,
                                           AnioFiscal: row.AnioFiscal,
-                                          Institucion: row.Institucion,
+                                          Entidad: row.Entidad,
                                           Programa: row.Programa,
                                           Eje: row.Eje,
                                           Tematica: row.Tematica,
@@ -1018,7 +1018,7 @@ export const MIR = () => {
               anioFiscalEdit={anioFiscalEdit}
               MIR={mirEdit[0]?.MIR || ""}
               showResume={returnMain}
-              IdMir={mirEdit[0]?.ID || ""}
+              IdMir={mirEdit[0]?.Id || ""}
             />
           </Grid>
         )}
@@ -1030,9 +1030,9 @@ export const MIR = () => {
 };
 
 export interface IIMir {
-  ID: string;
+  Id: string;
   AnioFiscal: string;
-  Institucion: string;
+  Entidad: string;
   Programa: string;
   Eje: string;
   Tematica: string;
