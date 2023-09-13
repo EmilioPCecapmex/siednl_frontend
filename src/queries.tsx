@@ -1,4 +1,5 @@
 export const queries = {
+  
 
   buttonCancelarSolicitudInscripcion: {
     marginTop: "1rem",

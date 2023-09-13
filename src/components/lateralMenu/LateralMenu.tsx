@@ -82,15 +82,13 @@ export const LateralMenu = ({
   const [openProgramas, setOpenProgramas] = useState(true);
   const [openDocs, setOpenDocs] = useState(false);
 
-  const[usuariosTi, setUsuariosTi] =useState("")
+  const [usuariosTi, setUsuariosTi] = useState("");
 
-   getAllusers(setUsuariosTi)
+  getAllusers(setUsuariosTi);
 
-   useEffect(() => {
+  useEffect(() => {
     console.log(usuariosTi);
-   
-   }, [])
-  
+  }, []);
 
   const handleClickProgramas = () => {
     setOpenProgramas(!openProgramas);
@@ -355,7 +353,6 @@ export const LateralMenu = ({
   const getInstituciones = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-        
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
@@ -403,25 +400,24 @@ export const LateralMenu = ({
               details={{
                 name1: "INICIO",
                 path1: "../home",
-                name2:
-                  selection, 
-                  // === "MIR"
-                  //   ? "MIR"
-                  //   : selection === "Meta Anual"
-                  //   ? "Meta Anual"
-                  //   : selection === "Ficha Técnica"
-                  //   ? "Ficha Tecnica"
-                  //   : selection === "Raffi"
-                  //   ? "Raffi"
-                  //   : selection === "Actividades Institucionales"
-                  //   ? "Actividades Institucionales"
-                  //   : selection === "Programa Anual de Evaluación"
-                  //   ? "PAE"
-                  //   : selection === "Notificaciones"
-                  //   ? "Notificaciones"
-                  //   : selection === "Configuración"
-                  //   ? "Configuración"
-                  //   : "",
+                name2: selection,
+                // === "MIR"
+                //   ? "MIR"
+                //   : selection === "Meta Anual"
+                //   ? "Meta Anual"
+                //   : selection === "Ficha Técnica"
+                //   ? "Ficha Tecnica"
+                //   : selection === "Raffi"
+                //   ? "Raffi"
+                //   : selection === "Actividades Institucionales"
+                //   ? "Actividades Institucionales"
+                //   : selection === "Programa Anual de Evaluación"
+                //   ? "PAE"
+                //   : selection === "Notificaciones"
+                //   ? "Notificaciones"
+                //   : selection === "Configuración"
+                //   ? "Configuración"
+                //   : "",
                 path2: "",
                 name3: "",
               }}
@@ -484,27 +480,43 @@ export const LateralMenu = ({
             </Typography>
 
             <Grid sx={st.selectInstitucionBox}>
-              {renderInfo ? (
-                <Select
-                  value={
-                    institucionSeleccionada ||
-                    (localStorage.getItem("IdEntidad") as string)
-                  }
-                  label="Institución"
-                  onChange={handleChange}
-                  variant="standard"
-                  disableUnderline
-                  sx={st.selectInstitucionStyle}
+              {/* {renderInfo ? (
+                // <Select
+                //   value={
+                //     institucionSeleccionada ||
+                //     (localStorage.getItem("IdEntidad") as string)
+                //   }
+                //   label="Institución"
+                //   onChange={handleChange}
+                //   variant="standard"
+                //   disableUnderline
+                //   sx={st.selectInstitucionStyle}
+                // >
+                //   {instituciones?.map((item) => {
+                //     return (
+                //       <MenuItem value={item.Id} key={item.Id || Math.random()}>
+                //         {item.NombreInstitucion}
+                //       </MenuItem>
+                //     );
+                //   })}
+                // </Select>
+              ) : null} */}
+              <Tooltip title={localStorage.getItem("Entidad")}>
+                <Typography
+                  fontFamily={"'Montserrat', sans-serif"}
+                  sx={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    textAlign: "center",
+                    fontSize: [8, 8, 9, 9, 9], // Tamaños de fuente para diferentes breakpoints
+                    // color: "#AF8C55",
+                  }}
                 >
-                  {instituciones?.map((item) => {
-                    return (
-                      <MenuItem value={item.Id} key={item.Id || Math.random()}>
-                        {item.NombreInstitucion}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              ) : null}
+               
+                  {localStorage.getItem("Entidad")}
+                </Typography>
+              </Tooltip>
             </Grid>
 
             <Grid sx={st.dividerBox} />
@@ -542,8 +554,6 @@ export const LateralMenu = ({
 
                 <Collapse in={openProgramas} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-
-
                     <ListItemButton
                       onClick={() => {
                         setResumeDefaultMIR();
@@ -623,57 +633,54 @@ export const LateralMenu = ({
                         sx={st.selectedBox}
                       />
                     </ListItemButton>
-
-                    
                   </List>
                 </Collapse>
 
                 <List component="div" disablePadding>
-                <ListItemButton
-                      onClick={() => {
-                        //setResumeDefaultAI();
-                        exitAlert("../Institutionalactivities");
-                      }}
-                    >
-                      <Grid sx={st.iconMenuList}>
-                        <KeyboardDoubleArrowRightIcon />
-                      </Grid>
-                      <Typography sx={st.subMenuItemsText}>
-                        Actividades Institucionales
-                      </Typography>
-                      <Grid
-                        visibility={
-                          selection === "Actividades Institucionales"
-                            ? "visible"
-                            : "hidden"
-                        }
-                        sx={st.selectedBox}
-                      />
-                    </ListItemButton>
+                  <ListItemButton
+                    onClick={() => {
+                      //setResumeDefaultAI();
+                      exitAlert("../Institutionalactivities");
+                    }}
+                  >
+                    <Grid sx={st.iconMenuList}>
+                      <KeyboardDoubleArrowRightIcon />
+                    </Grid>
+                    <Typography sx={st.subMenuItemsText}>
+                      Actividades Institucionales
+                    </Typography>
+                    <Grid
+                      visibility={
+                        selection === "Actividades Institucionales"
+                          ? "visible"
+                          : "hidden"
+                      }
+                      sx={st.selectedBox}
+                    />
+                  </ListItemButton>
 
-                    <ListItemButton
-                      onClick={() => {
-                        //setResumeDefaultAI();
-                        navigate("../programaAnualEvaluacion");
-                      }}
-                    >
-                      <Grid sx={st.iconMenuList}>
-                        <KeyboardDoubleArrowRightIcon />
-                      </Grid>
-                      <Typography sx={st.subMenuItemsText}>
-                        Programa Anual de Evaluacion
-                      </Typography>
-                      <Grid
-                        visibility={
-                          selection === "Programa Anual de Evaluacion"
-                            ? "visible"
-                            : "hidden"
-                        }
-                        sx={st.selectedBox}
-                      />
-                    </ListItemButton>
+                  <ListItemButton
+                    onClick={() => {
+                      //setResumeDefaultAI();
+                      navigate("../programaAnualEvaluacion");
+                    }}
+                  >
+                    <Grid sx={st.iconMenuList}>
+                      <KeyboardDoubleArrowRightIcon />
+                    </Grid>
+                    <Typography sx={st.subMenuItemsText}>
+                      Programa Anual de Evaluacion
+                    </Typography>
+                    <Grid
+                      visibility={
+                        selection === "Programa Anual de Evaluacion"
+                          ? "visible"
+                          : "hidden"
+                      }
+                      sx={st.selectedBox}
+                    />
+                  </ListItemButton>
                 </List>
-
 
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <ListItemButton onClick={() => exitAlert("../notifications")}>
