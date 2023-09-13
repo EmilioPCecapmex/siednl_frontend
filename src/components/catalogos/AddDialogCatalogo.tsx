@@ -142,7 +142,7 @@ export const AddDialogCatalogo = ({
   const getProgramas = () => {
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programaPresupuestario",
         {
           params: {
             Rol: localStorage.getItem("Rol"),
@@ -153,8 +153,10 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
-        setCatalogoProgramas(r.data.data);
-      });
+        
+      }).catch((err) =>
+      console.log("Hola",err)
+    );
   };
 
   const CreatePorCatalogo = () => {
