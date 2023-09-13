@@ -108,44 +108,44 @@ export const CapturarFechas = ({
     console.log("fecha1: ",fecha1);
     console.log("fecha2: ",fecha2);
     createFechaDeCaptua(modulo, fecha1, fecha2)
-    //getFechasDeCaptura()
+    getFechasDeCaptura()
     
   };
 
 
-  // const getFechasDeCaptura = () => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/fechasDeCaptura", {
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       console.log(r);
+  const getFechasDeCaptura = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechaDeCaptura", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        console.log(r);
         
-  //       if (r.status === 200) {
-  //         console.log(r.data.data);
+        if (r.status === 200) {
+          console.log(r.data.data);
           
-  //         let update = r.data.data;
-  //         update = update.map(
-  //           (item: {
-  //             Id: string;
-  //             FechaDeCaptura: string;
-  //             Descripcion: string;
-  //             Tabla: string;
-  //           }) => {
-  //             return {
-  //               Id: item.Id,
-  //               Desc:
-  //                 item.FechaDeCaptura + " / " + item.Descripcion.toUpperCase(),
-  //               Tabla: "FechasDeCaptura",
-  //             };
-  //           }
-  //         );
+          let update = r.data.data;
+          update = update.map(
+            (item: {
+              Id: string;
+              FechaDeCaptura: string;
+              Descripcion: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc:
+                  item.FechaDeCaptura + " / " + item.Descripcion.toUpperCase(),
+                Tabla: "FechasDeCaptura",
+              };
+            }
+          );
           
-  //       }
-  //     });
-  // };
+        }
+      });
+  };
 
   return (
     <Grid container lg={12}>

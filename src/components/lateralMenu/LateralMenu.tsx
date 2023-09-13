@@ -715,7 +715,7 @@ export const LateralMenu = ({
 
                     <Grid
                       visibility={
-                        selection === "Configuración" ? "visible" : "hidden"
+                        selection === "CONFIGURACIÓN" ? "visible" : "hidden"
                       }
                       sx={st.selectedBox}
                     />

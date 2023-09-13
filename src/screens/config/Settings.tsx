@@ -33,7 +33,7 @@ export const Settings = () => {
     <Grid justifyContent={"space-between"}>
       <Grid item xl={12} height={"7vh"}>
         <LateralMenu
-          selection={"Configuración"}
+          selection={"CONFIGURACIÓN"}
           actionNumber={0}
           settingsCard={resetView}
         />
