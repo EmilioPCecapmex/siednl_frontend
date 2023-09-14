@@ -32,7 +32,7 @@ import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { queries } from "../../queries";
 import moment from "moment";
 import Swal from "sweetalert2";
-import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
@@ -130,8 +130,8 @@ export const MIR = () => {
       });
   };
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
-// cambiar
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
+// cambiado
   const getInstituciones = (setstate: Function) => {
     axios
     .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
@@ -145,6 +145,8 @@ export const MIR = () => {
     })
       .then((r) => {
         if (r.status === 200) {
+          console.log("r.data.data: ",r.data.data);
+          
           setstate(r.data.data);
         }
       });
@@ -321,6 +323,8 @@ export const MIR = () => {
 
   useEffect(() => {
     //getMIRs(setMirs);
+    console.log("Entidades: ",instituciones);
+    
     getInstituciones(setInstituciones);
   }, []);
 
@@ -546,10 +550,10 @@ export const MIR = () => {
                       {instituciones?.map((item) => {
                         return (
                           <MenuItem
-                            value={item.NombreInstitucion}
+                            value={item.Nombre}
                             key={item.Id}
                           >
-                            {item.NombreInstitucion}
+                            {item.Nombre}
                           </MenuItem>
                         );
                       })}

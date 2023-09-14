@@ -20,9 +20,9 @@ export const AppsDialog = ({
 }) => {
   const [open, setOpen] = React.useState(false);
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>([]);
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>([]);
 
-  const [instSel, setInstSel] = useState<Array<IInstituciones>>([]);
+  const [instSel, setInstSel] = useState<Array<IEntidad>>([]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -188,7 +188,7 @@ export const AppsDialog = ({
             multiple
             sx={{ width: "95%" }}
             options={instituciones}
-            getOptionLabel={(option) => option.NombreInstitucion}
+            getOptionLabel={(option) => option.Nombre}
             value={instSel}
             renderOption={(props, option) => {
               return (
@@ -199,7 +199,7 @@ export const AppsDialog = ({
                       fontSize: ".8vw",
                     }}
                   >
-                    {option.NombreInstitucion}
+                    {option.Nombre}
                     <br></br>
                     <div
                       style={{
@@ -207,7 +207,7 @@ export const AppsDialog = ({
                         fontSize: ".6vw",
                       }}
                     >
-                      {option.Secretaria}
+                      {option.Nombre}
                     </div>
                   </div>
                 </li>
@@ -257,13 +257,19 @@ export const AppsDialog = ({
 
 export default AppsDialog;
 
-export interface IInstituciones {
+export interface IEntidad {
   Id: string;
-  NombreInstitucion: string;
+  Nombre: string;
+  NombreTipoEntidad: string;
+  EntidadPerteneceA: string;
+  Direccion: string;
+  Telefono: string;
+  IdEntidadPerteneceA: string;
+  IdTipoEntidad: string;
   FechaCreacion: string;
   CreadoPor: string;
-  UltimaModificacion: string;
+  UltimaActualizacion: string;
   ModificadoPor: string;
-  Deleted: number;
-  Secretaria: string;
+  Titular: string;
+  
 }
