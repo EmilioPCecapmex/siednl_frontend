@@ -84,7 +84,7 @@ export function TabFinPropositoMA({
   const [catalogoUnidadResponsable, setCatalogounidadResponsable] = useState([
     {
       Id: "",
-      Unidad: "",
+      Nombre: "",
     },
   ]);
 
@@ -193,25 +193,39 @@ export function TabFinPropositoMA({
   };
 
   const getUnidades = () => {
+    // axios
+    //   .get(
+    //     process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
+    //     {
+    //       params: {
+    //         Institucion: JSON.parse(MIR).encabezado.institucion,
+    //       },
+
+    //       headers: {
+    //         Authorization: localStorage.getItem("jwtToken") || "",
+    //       },
+    //     }
+    //   )
+
+    //   .then((r) => {
+    //     setCatalogounidadResponsable(r.data.data);
+    //   })
+
+    //   .catch((err) => {});
+
     axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
-        {
-          params: {
-            Institucion: JSON.parse(MIR).encabezado.institucion,
-          },
-
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
       .then((r) => {
         setCatalogounidadResponsable(r.data.data);
-      })
-
-      .catch((err) => {});
+      });
   };
 
   useEffect(() => {
@@ -689,10 +703,10 @@ export function TabFinPropositoMA({
                       valueFin[0].unidadResponsable !== ""
                     }
                     options={catalogoUnidadResponsable}
-                    getOptionLabel={(option) => option.Unidad}
+                    getOptionLabel={(option) => option.Nombre}
                     value={{
                       Id: catalogoUnidadResponsable[0].Id || "",
-                      Unidad: valueFin[0].unidadResponsable || "",
+                      Nombre: valueFin[0].unidadResponsable || "",
                     }}
                     renderOption={(props, option) => {
                       return (
@@ -703,7 +717,7 @@ export function TabFinPropositoMA({
                               fontSize: ".7vw",
                             }}
                           >
-                            {option.Unidad}
+                            {option.Nombre}
                           </p>
                         </li>
                       );
@@ -728,7 +742,7 @@ export function TabFinPropositoMA({
                     )}
                     onChange={(event, value) => {
                       valueFin[0].unidadResponsable =
-                        (value?.Unidad as string) || "";
+                        (value?.Nombre as string) || "";
                       setValueFin([...valueFin]);
                     }}
                     isOptionEqualToValue={(option, value) =>
@@ -1154,7 +1168,7 @@ export function TabFinPropositoMA({
                 justifyContent: "space-evenly",
               }}
             >
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   justifyContent: "center",
@@ -1182,14 +1196,14 @@ export function TabFinPropositoMA({
               valueProposito[0].unidadResponsable !== ""
             }
                     options={catalogoUnidadResponsable}
-                    getOptionLabel={(option) => option.Unidad}
+                    getOptionLabel={(option) => option.Nombre}
                     value={{
-                      Id: catalogoUnidadResponsable[0].Id,
-                      Unidad: valueProposito[0].unidadResponsable,
+                      Id: catalogoUnidadResponsable[0].Id || "",
+                      Nombre: valueFin[0].unidadResponsable || "",
                     }}
                     renderOption={(props: any, option: any) => {
                       return (
-                        <li {...props}>
+                        <li {...props} key={option.Id}>
                           <p
                             style={{
                               fontFamily: "MontserratRegular",
@@ -1221,7 +1235,7 @@ export function TabFinPropositoMA({
                     )}
                     onChange={(event, value) => {
                       valueProposito[0].unidadResponsable =
-                        (value?.Unidad as string) || "";
+                        (value?.Nombre as string) || "";
                       setValueProposito([...valueProposito]);
                     }}
                     isOptionEqualToValue={(option, value) =>
@@ -1229,6 +1243,76 @@ export function TabFinPropositoMA({
                     }
                   />
                 </FormControl>
+              </Box> */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  boxShadow: 2,
+                  width: "40%",
+                  height: "12vh",
+                  backgroundColor: "#f0f0f0",
+                }}
+              >
+                <FormControl sx={{ width: "25vw" }}>
+                  <Autocomplete
+                  clearText="Borrar"
+                  noOptionsText="Sin opciones"
+                  closeText="Cerrar"
+                  openText="Abrir"
+                    disabled={
+                      MAEdit?.fin?.unidadResponsable &&
+                      valueProposito[0].unidadResponsable !== ""
+                    }
+                    options={catalogoUnidadResponsable}
+                    getOptionLabel={(option) => option.Nombre}
+                    value={{
+                      Id: catalogoUnidadResponsable[0].Id || "",
+                      Nombre: valueProposito[0].unidadResponsable || "",
+                    }}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.Id}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option.Nombre}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"UNIDAD RESPONSABLE"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".7vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                    onChange={(event, value) => {
+                      valueProposito[0].unidadResponsable =
+                        (value?.Nombre as string) || "";
+                      setValueProposito([...valueProposito]);
+                    }}
+                    isOptionEqualToValue={(option, value) =>
+                      option.Id === value.Id
+                    }
+                  />
+                </FormControl>{" "}
               </Box>
 
               <TextField

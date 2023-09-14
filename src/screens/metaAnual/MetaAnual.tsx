@@ -28,7 +28,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
@@ -61,9 +61,9 @@ const heads: readonly Head[] = [
     label: "EJERCICIO FISCAL",
   },
   {
-    id: "Institucion",
+    id: "Entidad",
     isNumeric: true,
-    label: "INSTITUCIÓN",
+    label: "ENTIDAD",
   },
   {
     id: "Programa",
@@ -136,11 +136,26 @@ export const MetaAnual = () => {
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
   const [maxFiltered, setMaxFiltered] = useState<Array<IIMa>>([]);
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
   const getInstituciones = (setstate: Function) => {
+    // axios
+    //   .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+    //     params: {
+    //       IdUsuario: localStorage.getItem("IdUsuario"),
+    //       Rol: localStorage.getItem("Rol"),
+    //     },
+    //     headers: {
+    //       Authorization: localStorage.getItem("jwtToken") || "",
+    //     },
+    //   })
+    //   .then((r) => {
+    //     if (r.status === 200) {
+    //       setstate(r.data.data);
+    //     }
+    //   });
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
@@ -150,9 +165,7 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
-        if (r.status === 200) {
-          setstate(r.data.data);
-        }
+        setstate(r.data.data);
       });
   };
 
@@ -273,12 +286,12 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -289,12 +302,12 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+              x.Entidad.toLowerCase().includes(inst.toLowerCase()))
         )
       );
     } else if (
@@ -306,7 +319,7 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             x.AnioFiscal.includes(v) ||
-            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
             x.Programa.toLowerCase().includes(v.toLowerCase()) ||
             x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
             x.CreadoPor.toLowerCase().includes(v.toLowerCase())
@@ -323,7 +336,7 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -334,7 +347,7 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else {
@@ -348,7 +361,7 @@ export const MetaAnual = () => {
 
   const getMA = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-MetaAnual", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-metaAnual", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
@@ -421,7 +434,7 @@ export const MetaAnual = () => {
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Institucion.toString()
+        elemento.Entidad.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
         elemento.Programa.toString()
@@ -639,8 +652,8 @@ export const MetaAnual = () => {
 
                     {instituciones?.map((item) => {
                       return (
-                        <MenuItem value={item.NombreInstitucion} key={item.Id}>
-                          {item.NombreInstitucion.toUpperCase()}
+                        <MenuItem value={item.Nombre} key={item.Id}>
+                          {item.Nombre.toUpperCase()}
                         </MenuItem>
                       );
                     })}
@@ -735,7 +748,7 @@ export const MetaAnual = () => {
                             component="th"
                             scope="row"
                           >
-                            {row.Institucion?.toUpperCase()}
+                            {row.Entidad?.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
@@ -861,7 +874,7 @@ export const MetaAnual = () => {
                                           IdMa: row.IdMa,
                                           IdMir: row.IdMir,
                                           AnioFiscal: row.AnioFiscal,
-                                          Institucion: row.Institucion,
+                                          Entidad: row.Entidad,
                                           Programa: row.Programa,
                                           MIR: row.MIR,
                                           //meta anual completa
@@ -900,7 +913,7 @@ export const MetaAnual = () => {
                                         row.MetaAnual,
                                         row.Programa,
                                         row.FechaCreacion,
-                                        row.Institucion
+                                        row.Entidad
                                       );
                                     }}
                                     disabled={
@@ -983,7 +996,7 @@ export interface IIMa {
   IdMa: string;
   IdMir: string;
   AnioFiscal: string;
-  Institucion: string;
+  Entidad: string;
   Programa: string;
   MIR: string;
   MetaAnual: string;

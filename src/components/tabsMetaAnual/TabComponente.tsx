@@ -265,27 +265,40 @@ export const TabComponenteMA = ({
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
       Id: "",
-      Unidad: "",
+      Nombre: "",
     },
   ]);
 
   const getUnidades = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst", {
-        params: {
-          Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
-        },
+    // axios
+    //   .get(process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst", {
+    //     params: {
+    //       Institucion: "a52a01f1-56cf-11ed-a988-040300000000",
+    //     },
 
+    //     headers: {
+    //       Authorization: localStorage.getItem("jwtToken") || "",
+    //     },
+    //   })
+
+    //   .then((r) => {
+    //     setCatalogoUnidadResponsable(r.data.data);
+    //   })
+
+    //   .catch((err) => {});
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
-
       .then((r) => {
         setCatalogoUnidadResponsable(r.data.data);
-      })
-
-      .catch((err) => {});
+      });
   };
 
   useEffect(() => {
@@ -1043,7 +1056,7 @@ export const TabComponenteMA = ({
               justifyContent: "space-evenly",
             }}
           >
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -1117,8 +1130,82 @@ export const TabComponenteMA = ({
                   }
                 />
               </FormControl>{" "}
-            </Box>
+            </Box> */}
 
+<Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  boxShadow: 2,
+                  width: "40%",
+                  height: "12vh",
+                  backgroundColor: "#f0f0f0",
+                }}
+              >
+                <FormControl sx={{ width: "25vw" }}>
+                  <Autocomplete
+                  clearText="Borrar"
+                  noOptionsText="Sin opciones"
+                  closeText="Cerrar"
+                  openText="Abrir"
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .unidadResponsable
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.unidadResponsable !== ""
+                  }
+                    options={catalogoUnidadResponsable}
+                    getOptionLabel={(option) => option.Nombre}
+                    value={{
+                      Id: catalogoUnidadResponsable[0].Id || "",
+                      Nombre: componentesValues[componentSelect - 1]?.unidadResponsable || "",
+                    }}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.Id}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option.Nombre}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"UNIDAD RESPONSABLE"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: ".7vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                    onChange={(event, value) => {
+                      componentesValues[componentSelect - 1].unidadResponsable =
+                      value?.Nombre || "";
+                    setComponentesValues([...componentesValues]);
+                    }}
+                    isOptionEqualToValue={(option, value) =>
+                      option.Id === value.Id
+                    }
+                  />
+                </FormControl>{" "}
+              </Box>
             <TextField
               disabled={
                 (MAEdit !== ""
