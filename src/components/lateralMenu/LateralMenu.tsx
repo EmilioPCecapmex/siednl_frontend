@@ -53,7 +53,7 @@ import TaskIcon from "@mui/icons-material/Task";
 // import FormLabel from "@mui/material/FormLabel";
 import MenuIcon from "@mui/icons-material/Menu";
 import { TimerCounter } from "../timer/TimerCounter";
-import { getAllusers } from "../../screens/config/GetUsuarios";
+//import { getAllusers } from "../../screens/config/GetUsuarios";
 export const LateralMenu = ({
   selection,
   actionNumber,
@@ -84,7 +84,7 @@ export const LateralMenu = ({
 
   const [usuariosTi, setUsuariosTi] = useState("");
 
-  getAllusers(setUsuariosTi);
+  //getAllusers(setUsuariosTi);
 
   useEffect(() => {
     console.log(usuariosTi);

@@ -28,7 +28,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
@@ -136,7 +136,7 @@ export const MetaAnual = () => {
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
   const [maxFiltered, setMaxFiltered] = useState<Array<IIMa>>([]);
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
   const getInstituciones = (setstate: Function) => {
     axios
@@ -639,8 +639,8 @@ export const MetaAnual = () => {
 
                     {instituciones?.map((item) => {
                       return (
-                        <MenuItem value={item.NombreInstitucion} key={item.Id}>
-                          {item.NombreInstitucion.toUpperCase()}
+                        <MenuItem value={item.Nombre} key={item.Id}>
+                          {item.Nombre.toUpperCase()}
                         </MenuItem>
                       );
                     })}
