@@ -101,30 +101,30 @@ export const LateralMenu = ({
   };
 
   const exitAlert = (urlNavigate: string) => {
-    // if (selection === 2 || selection === 3 || selection === 4) {
-    //   if (actionNumber === 1) {
-    //     Swal.fire({
-    //       title: "Pregunta",
-    //       text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
-    //       icon: "question",
-    //       showCancelButton: true,
-    //       confirmButtonColor: "#000E4E",
-    //       cancelButtonColor: "#A40000",
-    //       confirmButtonText: "Si",
-    //       cancelButtonText: "No",
-    //       allowOutsideClick: false,
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         navigate(urlNavigate);
-    //       } else {
-    //       }
-    //     });
-    //   } else {
-    //     navigate(urlNavigate);
-    //   }
-    // } else {
+    if (selection === "MIR" || selection === "Meta Anual" || selection === "Ficha Técnica" || selection === "Actividades Institucionales" || selection === "Programas Presupuestarios") {
+      if (actionNumber === 1) {
+        Swal.fire({
+          title: "Pregunta",
+          text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#000E4E",
+          cancelButtonColor: "#A40000",
+          confirmButtonText: "Si",
+          cancelButtonText: "No",
+          allowOutsideClick: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate(urlNavigate);
+          } else {
+          }
+        });
+      } else {
+        navigate(urlNavigate);
+      }
+    } else {
     navigate(urlNavigate);
-    // }
+     }
   };
 
   function stringToColor(string: string) {
@@ -347,32 +347,32 @@ export const LateralMenu = ({
     );
   };
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  //const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
   const [renderInfo, setRenderInfo] = useState(false);
 
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          setInstituciones(r.data.data);
-          console.log("usuarioInsitucion: ", r.data.data);
+  // const getInstituciones = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         setInstituciones(r.data.data);
+  //         console.log("usuarioInsitucion: ", r.data.data);
 
-          setRenderInfo(true);
-        }
-      });
-  };
+  //         setRenderInfo(true);
+  //       }
+  //     });
+  // };
 
   useEffect(() => {
-    getInstituciones();
+    //getInstituciones();
   }, []);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

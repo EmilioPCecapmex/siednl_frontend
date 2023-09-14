@@ -1,5 +1,7 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { IDatosAdicionales } from "../components/modalUsuarios/InterfazUsuario";
+import { useActionData } from "react-router-dom";
 
 const params = new URLSearchParams(window.location.search);
 const IdApp = params.get("IdApp");
@@ -42,8 +44,12 @@ export const sessionValid = () => {
 
 export const getUserDetails = (IdCentral: string) => {
   console.log(IdCentral);
+  console.log("IdApp: ",IdApp)
+  console.log("params: ",params)
   
   return axios
+  
+  
   .post(process.env.REACT_APP_APPLICATION_LOGIN + "/api/userapp-detail", 
        {
         IdUsuario: IdCentral,

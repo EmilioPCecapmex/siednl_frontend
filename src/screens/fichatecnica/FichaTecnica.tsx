@@ -336,7 +336,7 @@ export const FichaTecnica = () => {
   const getFT = (setstate: Function) => {
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-Ficha-tecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-fichaTecnica",
         {
           params: {
             IdUsuario: localStorage.getItem("IdUsuario"),

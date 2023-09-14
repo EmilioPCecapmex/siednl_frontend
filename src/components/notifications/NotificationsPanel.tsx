@@ -29,7 +29,7 @@ export default function NotificationsPanel() {
   const obtenerNotificaciones = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/obtener-notif",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-notif",
         {
           IdUsuarioDestino: localStorage.getItem("IdUsuario"),
         },
@@ -57,7 +57,7 @@ export default function NotificationsPanel() {
 
   const eliminaNotificacion = (v: string) => {
     axios
-      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/borra-notif", {
+      .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-notif", {
         data: {
           IdNotificacion: v,
         },
