@@ -40,6 +40,7 @@ import Swal from "sweetalert2";
 //import { TutorialGrid } from "../../components/tutorialGrid/tutorialGrid";
 import { queries } from "../../queries";
 import { SelectChangeEvent } from "@mui/material/Select";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -66,9 +67,9 @@ const heads: readonly Head[] = [
     label: "EJERCICIO FISCAL",
   },
   {
-    id: "Institucion",
+    id: "Entidad",
     isNumeric: true,
-    label: "INSTITUCIÓN",
+    label: "ENTIDAD",
   },
   {
     id: "Programa",
@@ -143,15 +144,15 @@ export const FichaTecnica = () => {
   const [ftxFiltered, setFtxFiltered] = useState<Array<IIFT>>([]);
   const [ftFiltered, setFtFiltered] = useState<Array<IIFT>>([]);
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
+    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
+      params: {
+        IdUsuario: localStorage.getItem("IdUsuario"),
+        Rol: localStorage.getItem("Rol"),
+      },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -259,12 +260,12 @@ export const FichaTecnica = () => {
         ft.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -275,12 +276,12 @@ export const FichaTecnica = () => {
         ft.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+              x.Entidad.toLowerCase().includes(inst.toLowerCase()))
         )
       );
     } else if (
@@ -292,7 +293,7 @@ export const FichaTecnica = () => {
         ft.filter(
           (x) =>
             x.AnioFiscal.includes(v) ||
-            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
             x.Programa.toLowerCase().includes(v.toLowerCase()) ||
             x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
             x.CreadoPor.toLowerCase().includes(v.toLowerCase())
@@ -309,7 +310,7 @@ export const FichaTecnica = () => {
         ft.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -320,7 +321,7 @@ export const FichaTecnica = () => {
         ft.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else {
@@ -441,7 +442,7 @@ export const FichaTecnica = () => {
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Institucion.toString()
+        elemento.Entidad.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
         elemento.Programa.toString()
@@ -654,8 +655,8 @@ export const FichaTecnica = () => {
 
                     {instituciones?.map((item) => {
                       return (
-                        <MenuItem value={item.NombreInstitucion} key={item.Id}>
-                          {item.NombreInstitucion}
+                        <MenuItem value={item.Nombre} key={item.Id}>
+                          {item.Nombre}
                         </MenuItem>
                       );
                     })}
@@ -747,7 +748,7 @@ export const FichaTecnica = () => {
                             component="th"
                             scope="row"
                           >
-                            {row.Institucion.toUpperCase()}
+                            {row.Entidad.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
@@ -852,7 +853,7 @@ export const FichaTecnica = () => {
                                         CreadoPor: row.CreadoPor,
                                         FechaCreacion: row.FechaCreacion,
                                         AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
+                                        Entidad: row.Entidad,
                                         Programa: row.Programa,
                                         MIR: row.MIR,
                                         MetaAnual: row.MetaAnual,
@@ -888,7 +889,7 @@ export const FichaTecnica = () => {
                                         CreadoPor: row.CreadoPor,
                                         FechaCreacion: row.FechaCreacion,
                                         AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
+                                        Entidad: row.Entidad,
                                         Programa: row.Programa,
                                         MIR: row.MIR,
                                         MetaAnual: row.MetaAnual,
@@ -926,7 +927,7 @@ export const FichaTecnica = () => {
                                         row.FichaT,
                                         row.Programa,
                                         row.FechaCreacion,
-                                        row.Institucion
+                                        row.Entidad
                                       );
                                     }}
                                     disabled={
@@ -1023,7 +1024,7 @@ export interface IIFT {
   CreadoPor: string;
   FechaCreacion: string;
   AnioFiscal: string;
-  Institucion: string;
+  Entidad: string;
   Programa: string;
   MIR: string;
   MetaAnual: string;

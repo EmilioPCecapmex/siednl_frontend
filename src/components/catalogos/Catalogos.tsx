@@ -150,14 +150,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
       tipo: "Catalogos",
     },
-    {
-      id: 11,
-      Desc: "Instituciones",
-      fnc: "getInstituciones()",
-      Tabla: "Instituciones",
-      selected: false,
-      tipo: "Catalogos",
-    },
+    // {
+    //   id: 11,
+    //   Desc: "Instituciones",
+    //   fnc: "getInstituciones()",
+    //   Tabla: "Instituciones",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
     {
       id: 12,
       Desc: "Lineas de Acción",
@@ -215,14 +215,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
       tipo: "Catalogos",
     },
-    {
-      id: 19,
-      Desc: "Roles",
-      fnc: "getRoles()",
-      Tabla: "Roles",
-      selected: false,
-      tipo: "Catalogos",
-    },
+    // {
+    //   id: 19,
+    //   Desc: "Roles",
+    //   fnc: "getRoles()",
+    //   Tabla: "Roles",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
     {
       id: 20,
       Desc: "Temáticas",
@@ -255,14 +255,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
       tipo: "Catalogos",
     },
-    {
-      id: 24,
-      Desc: "Unidades Administrativas",
-      fnc: "getUnidadesAdministrativas()",
-      Tabla: "UnidadesAdministrativas",
-      selected: false,
-      tipo: "Catalogos",
-    },
+    // {
+    //   id: 24,
+    //   Desc: "Unidades Administrativas",
+    //   fnc: "getUnidadesAdministrativas()",
+    //   Tabla: "UnidadesAdministrativas",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
     {
       id: 25,
       Desc: "PED",
@@ -271,14 +271,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
       tipo: "Relaciones",
     },
-    {
-      id: 26,
-      Desc: "Instituciones - Unidades",
-      fnc: "getInstitucionesUnidades()",
-      Tabla: "InstitucionUnidad",
-      selected: false,
-      tipo: "Relaciones",
-    },
+    // {
+    //   id: 26,
+    //   Desc: "Instituciones - Unidades",
+    //   fnc: "getInstitucionesUnidades()",
+    //   Tabla: "InstitucionUnidad",
+    //   selected: false,
+    //   tipo: "Relaciones",
+    // },
     {
       id: 27,
       Desc: "Programas - Instituciones",
@@ -400,7 +400,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Años Fiscales");
     setCatalogoActual("Años Fiscales");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-aniosFiscales", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-anioFiscal", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -428,7 +428,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Beneficiarios");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiarios", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiario", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -458,7 +458,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK +
-          "/api/list-clasificacionesProgramaticas",
+          "/api/list-clasificacionProgramatica",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -493,7 +493,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Dimensiones del Indicador");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-dimensionesDelIndicador",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-dimensionDelIndicador",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -527,7 +527,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Ejes");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ejes", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-eje", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -555,7 +555,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Ejes del Plan Nacional de Desarrollo");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ejesPND", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ejePND", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -583,7 +583,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Estrategias");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-estrategias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-estrategia", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -611,7 +611,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Fórmulas");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-formulas", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-formula", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -635,11 +635,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   };
 
   const getFechasDeCaptura = () => {
+    console.log("Hola entre aqui");
+    
     setSelected("Fechas de Captura");
-
+    console.log("Hola entre aqui 2");
     setCatalogoActual("Fechas de captura");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechasDeCaptura", {
+    console.log("Hola entre aqui 3");
+    axios                                                 
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechaDeCaptura", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -685,7 +688,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Frecuencias");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-frecuencias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-frecuencia", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -863,7 +866,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       "Objetivos del Plan Estrategico del Estado de Nuevo León"
     );
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosPEENL", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivosPEENL", {
         
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -972,6 +975,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         }
       )
       .then((r) => {
+        console.log(r.data.data);
+        
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
@@ -985,9 +990,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 Id: item.Id,
                 Desc:
                   "Programa: " +
-                  item.NombrePrograma.toUpperCase() +
-                  " / Institución: " +
-                  item.NombreInstitucion.toUpperCase(),
+                  item.NombrePrograma.toUpperCase() ,
+                 // " / Institución: ",
+                //   +item.NombreInstitucion.toUpperCase(),
                 Tabla: "ProgramasPresupuestarios",
               };
             }

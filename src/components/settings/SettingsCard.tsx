@@ -15,7 +15,7 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
     { id: 8, label: "Fechas de Captura" },
     { id: 9, label: "Fórmulas" },
     { id: 10, label: "Frecuencias" },
-    { id: 11, label: "Instituciones" },
+    //{ id: 11, label: "Instituciones" },
     { id: 12, label: "Lineas de Acción" },
     { id: 13, label: "Metas ODS" },
     { id: 14, label: "Modalidades" },

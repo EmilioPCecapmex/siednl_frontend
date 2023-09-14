@@ -90,7 +90,7 @@ export function TabResumen({
         icon: "error",
         title: "Selecciona año fiscal.",
       });
-    } else if (MIR?.encabezado.institucion === "") {
+    } else if (MIR?.encabezado.IdEntidad === "") {
       return Toast.fire({
         icon: "error",
         title: "Selecciona institución.",
@@ -115,7 +115,7 @@ export function TabResumen({
           //se va a cambiar 
           CreadoPor: localStorage.getItem("IdUsuario"),
           AnioFiscal: MIR?.encabezado.ejercicioFiscal,
-          Institucion: MIR?.encabezado.institucion,
+          IdEntidad: MIR?.encabezado.IdEntidad || localStorage.getItem("IdEntidad"),
           Programa: MIR?.encabezado.nombre_del_programa,
           Eje: MIR?.encabezado.eje,
           Tematica: MIR?.encabezado.tema,
@@ -137,6 +137,8 @@ export function TabResumen({
         showResume();
       })
       .catch((err) => {
+        console.log(JSON.stringify(MIR),);
+        
         if (err.response.status === 409) {
           Toast.fire({
             icon: "error",
@@ -421,7 +423,7 @@ export function TabResumen({
                   textTransform: "uppercase",
                 }}
               >
-                {MIRPADRE.encabezado?.institucion}
+                {MIRPADRE.encabezado?.IdEntidad}
               </Typography>
             </Box>
           </Box>

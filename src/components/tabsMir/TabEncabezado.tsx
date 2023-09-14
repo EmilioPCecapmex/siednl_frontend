@@ -20,7 +20,7 @@ import Stack from "@mui/material/Stack";
 
 export interface IEncabezado {
   ejercicioFiscal: string;
-  institucion: string;
+  IdEntidad: string;
   nombre_del_programa: string;
   eje: string;
   tema: string;
@@ -152,7 +152,7 @@ export function TabEncabezado({
     MIR.encabezado?.ejercicioFiscal || y.toString()
   );
   const [institution, setInstitution] = useState(
-    MIR.encabezado?.institucion || ""
+    MIR.encabezado?.IdEntidad || ""
   );
   const [programa, setPrograma] = useState(
     MIR.encabezado?.nombre_del_programa || ""
@@ -182,7 +182,7 @@ export function TabEncabezado({
     { Id: "0", AnioFiscal: "" },
   ]);
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
-    { Id: "0", NombreInstitucion: "" },
+    { Id: "0", Nombre: "" },
   ]);
   const [catalogoProgramas, setCatalogoProgramas] = useState([
     { Id: "0", NombrePrograma: "", Conac: "", Consecutivo: "" },
@@ -230,7 +230,7 @@ export function TabEncabezado({
   // cambiar por entidad
   const getInstituciones = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
@@ -249,11 +249,11 @@ export function TabEncabezado({
     if (id !== undefined) {
       axios
         .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/programaInstitucion",
+          process.env.REACT_APP_APPLICATION_BACK + "/api/list-programasInstituciones",
           {
-            params: {
-              IdEntidad: id,
-            },
+            // params: {
+            //   IdEntidad: id,
+            // },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
             },
@@ -361,7 +361,8 @@ export function TabEncabezado({
   };
   const getBeneficiarios = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/beneficiarios", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiario", {
+
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -374,10 +375,10 @@ export function TabEncabezado({
   //Obtener Id de la descripción extraida de la MIR
   const getIdInstitucion = (Description: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
         params: {
-          Col: "Instituciones",
-          Descripcion: Description,
+          Col: "Entidades",
+          Descripcion: Description || localStorage.getItem("IdEntidad"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -390,7 +391,7 @@ export function TabEncabezado({
   };
   const getIdPrograma = (Description: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
         params: {
           Col: "Programas",
           Descripcion: Description,
@@ -407,7 +408,7 @@ export function TabEncabezado({
   };
   const getIdEje = (Description: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
         params: {
           Col: "Ejes",
           Descripcion: Description,
@@ -424,7 +425,7 @@ export function TabEncabezado({
   };
   const getIdTematica = (Description: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
         params: {
           Col: "Temáticas",
           Descripcion: Description,
@@ -441,7 +442,7 @@ export function TabEncabezado({
   };
   const getIdObjetivo = (Description: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
         params: {
           Col: "Objetivos",
           Descripcion: Description,
@@ -458,7 +459,7 @@ export function TabEncabezado({
   };
   const getIdEstrategia = (Description: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
         params: {
           Col: "Estrategias",
           Descripcion: Description,
@@ -474,7 +475,7 @@ export function TabEncabezado({
   };
   const getIdLineaDeAccion = (Description: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
         params: {
           Col: "Lineas de Acción",
           Descripcion: Description,
@@ -494,7 +495,7 @@ export function TabEncabezado({
 
   const getIdBeneficiario = (Description: string) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
         params: {
           Col: "Beneficiarios",
           Descripcion: Description,
@@ -795,10 +796,10 @@ export function TabEncabezado({
           // disabled={mirEdit?.encabezado.institucion}
           disablePortal
           options={catalogoInstituciones}
-          getOptionLabel={(option) => option.NombreInstitucion || ""}
+          getOptionLabel={(option) => option.Nombre || ""}
           value={{
             Id: catalogoInstituciones[0].Id,
-            NombreInstitucion: institution,
+            Nombre: institution,
           }}
           size="small"
           renderOption={(props, option) => {
@@ -807,7 +808,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.NombreInstitucion.toUpperCase()}
+                  {option.Nombre.toUpperCase()}
                 </p>
               </li>
             );
@@ -834,7 +835,7 @@ export function TabEncabezado({
           onChange={(event, value) =>
             enCambioInstitucion(
               value?.Id as string,
-              (value?.NombreInstitucion as string) || ""
+              (value?.Nombre as string) || ""
             )
           }
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
