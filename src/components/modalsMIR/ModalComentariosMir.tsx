@@ -164,7 +164,7 @@ export const ComentDialogMir = ({
 
   React.useEffect(() => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/detail-commentMir", {
       params: {
         IdMir: id,
       },
