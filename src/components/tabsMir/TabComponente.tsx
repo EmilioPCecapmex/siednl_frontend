@@ -51,9 +51,9 @@ export const TabComponente = ({
   };
 
   const changeFormula = (txt: string) => {
-    // let prevLocal = [...MIR.componentes];
-    // prevLocal[componentSelect - 1].formula = txt;
-    // setComponentes(prevLocal);
+    let prevLocal = [...MIR.componentes];
+    prevLocal[componentSelect - 1].formula = txt;
+    setComponentes(prevLocal);
   };
 
   const evalueTxtIndicador = () => {
