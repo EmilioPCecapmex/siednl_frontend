@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail} from "../../funcs/sendMailCustomMessage";
+import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 
 export let errores: string[] = [];
@@ -36,7 +36,7 @@ export default function ModalEnviarMA({
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [newComent, setNewComent] = React.useState(false);
 
-   const enviarMensaje = "Se ha creado una nueva";
+  const enviarMensaje = "Se ha creado una nueva";
 
   const comentMA = (id: string) => {
     axios
@@ -522,7 +522,7 @@ export default function ModalEnviarMA({
           IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -532,11 +532,16 @@ export default function ModalEnviarMA({
       )
       .then((r) => {
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
-          sendMail(user.CorreoElectronico,enviarMensaje,"MA")
+          enviarNotificacion(
+            user.IdUsuario,
+            r.data.data.Id,
+            "MA",
+            "Meta Anual"
+          );
+          sendMail(user.CorreoElectronico, enviarMensaje, "MA");
         });
         if (estado === "Autorizada") {
-          CrearFichaTecnica();  
+          CrearFichaTecnica();
         }
         Toast.fire({
           icon: "success",
@@ -556,9 +561,8 @@ export default function ModalEnviarMA({
   };
 
   const CrearFichaTecnica = () => {
+    console.log("Entre a crearFichaTecnica donde esta enviar notificacions");
 
-   console.log("Entre a crearFichaTecnica donde esta enviar notificacions");
-   
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
@@ -569,7 +573,7 @@ export default function ModalEnviarMA({
           IdMa: IdMA,
           Id: "",
           Estado: "En Captura",
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -578,69 +582,77 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
-        console.log("IdFt: ",r.data.data.Id);
-        console.log("IdFt: ",r.data.data);
-        console.log("IdFt: ",r.data.IdFT);
+        console.log("IdFt: ", r.data.data.Id);
+        console.log("IdFt: ", r.data.data);
+        console.log("IdFt: ", r.data.IdFT);
         userXInst.map((user) => {
-          
-          console.log("user.IdUsuario: ",user.IdUsuario);
+          console.log("user.IdUsuario: ", user.IdUsuario);
 
-          enviarNotificacion(user.IdUsuario,r.data.data.Id, "FT", "Ficha Tecnica");
+          enviarNotificacion(
+            user.IdUsuario,
+            r.data.data.Id,
+            "FT",
+            "Ficha Tecnica"
+          );
           sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
         });
-        
+
         showResume();
       })
       .catch((err) => {
-        
-        err = 1
-        errores.push(err)
+        err = 1;
+        errores.push(err);
       });
   };
 
-  // useEffect(() => {
-  //   if (open) {
-  //     let inst = JSON.parse(MIR)?.encabezado.institucion;
+  useEffect(() => {
+    if (open) {
+      let inst = JSON.parse(MIR)?.encabezado.institucion;
 
-  //   // if (localStorage.getItem("Rol") === "Verificador") {
-  //   //   inst = "admin";
-  //   // }
+      // if (localStorage.getItem("Rol") === "Verificador") {
+      //   inst = "admin";
+      // }
 
-  //   axios
-  //     .get(
-  //       // eslint-disable-next-line no-useless-concat
-  //       process.env.REACT_APP_APPLICATION_BACK+ "/api/usuarioXInstitucion",
-  //       {
-  //         params: {
-  //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           Institucion: inst,
-  //         },
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         setUserXInst(r.data.data);
-  //       }
-  //     });
-  //   }
-  // }, [MIR, open]);
+      axios
+        .get(
+          // eslint-disable-next-line no-useless-concat
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+          {
+            params: {
+              TipoUsuario: localStorage.getItem("Rol"),
+              IdEntidad: localStorage.getItem("IdEntidad"),
+              IdApp: localStorage.getItem("dApp"),
+            },
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
+    }
+  }, [MIR, open]);
 
-  const enviarNotificacion = (IdUsuarioDestino: string, IdDoc="",tipoDoc ="", Nombre ="") => {
-    
-    console.log("IdUsuarioDestino: ",IdUsuarioDestino);
-    console.log("IdDoc: ",IdDoc);
-    console.log("tipoDoc: ",tipoDoc);
-    console.log("Nombre: ",Nombre);
-   
+  const enviarNotificacion = (
+    IdUsuarioDestino: string,
+    IdDoc = "",
+    tipoDoc = "",
+    Nombre = ""
+  ) => {
+    console.log("IdUsuarioDestino: ", IdUsuarioDestino);
+    console.log("IdDoc: ", IdDoc);
+    console.log("tipoDoc: ", tipoDoc);
+    console.log("Nombre: ", Nombre);
+
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
         IdUsuarioDestino: IdUsuarioDestino,
         Titulo: tipoDoc,
-        Mensaje:  enviarMensaje + " "+ Nombre,
+        Mensaje: enviarMensaje + " " + Nombre,
         IdDocumento: IdDoc,
         CreadoPor: localStorage.getItem("IdUsuario"),
       },
@@ -706,17 +718,16 @@ export default function ModalEnviarMA({
           </Typography>
         </Box>
 
-       
-          <Box sx={{ width: "30vw" }}>
-            <TextField
-              multiline
-              rows={3}
-              label={"Agregar Comentario"}
-              sx={{ width: "30vw" }}
-              onChange={(v) => setComment(v.target.value)}
-            ></TextField>
-          </Box>
-        
+        <Box sx={{ width: "30vw" }}>
+          <TextField
+            multiline
+            rows={3}
+            label={"Agregar Comentario"}
+            sx={{ width: "30vw" }}
+            onChange={(v) => setComment(v.target.value)}
+          ></TextField>
+        </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -736,7 +747,6 @@ export default function ModalEnviarMA({
           >
             <Button
               sx={queries.buttonCancelarSolicitudInscripcion}
-              
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -758,7 +768,6 @@ export default function ModalEnviarMA({
 
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
-              
               onClick={() => {
                 checkMA(
                   localStorage.getItem("Rol") === "Capturador"
