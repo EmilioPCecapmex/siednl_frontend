@@ -322,7 +322,10 @@ export const TabComponente = ({
             }}
             sx={{ width: "90%", boxShadow: 2 }}
             label={"FÓRMULA"}
-            onClick={() => evalueTxtIndicador()}
+            onClick={() => {evalueTxtIndicador()
+              console.log("formula: ", componentes[componentSelect - 1]?.formula);
+              
+            }}
             value={componentes[componentSelect - 1]?.formula}
           />
 

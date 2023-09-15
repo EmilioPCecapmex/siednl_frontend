@@ -69,30 +69,28 @@ export const ComentDialogFT = ({
 
   const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
 
-  // const getUsuariosXInstitucion = () => {
-  //   axios
-  //     .get(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-  //       {
-  //         params: {
-  //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           Institucion: localStorage.getItem("IdEntidad"),
-  //         },
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         setUserXInst(r.data.data);
-  //       }
-  //     });
-  // };
+  const getUsuariosXInstitucion = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
+        params: {
+          TipoUsuario: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdApp: localStorage.getItem("dApp"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        if (r.status === 200) {
+          setUserXInst(r.data.data);
+        }
+      });
+  };
 
   React.useEffect(() => {
     if (open) {
-     // getUsuariosXInstitucion();
+      // getUsuariosXInstitucion();
     }
   }, [open]);
 
@@ -158,17 +156,17 @@ export const ComentDialogFT = ({
 
   React.useEffect(() => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/detail-commentMir", {
-      params: {
-        IdMir: id,
-      },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      setComents(r.data.data);
-    });
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/detail-commentMir", {
+        params: {
+          IdMir: id,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setComents(r.data.data);
+      });
   }, [actualizado, id]);
 
   const isComentEmpty = () => {
@@ -303,24 +301,24 @@ export const ComentDialogFT = ({
               </Table>
             </TableContainer>
           </Box>
-         
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-              <TextField
-                multiline
-                rows={3}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "30vw" }}
-                placeholder="Añada un comentario para poder Agregar"
-                onChange={(v) => {
-                  setComent(v.target.value);
-                }}
-              ></TextField>
-            </Box>
-         
+
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+            <TextField
+              multiline
+              rows={3}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              sx={{ width: "30vw" }}
+              placeholder="Añada un comentario para poder Agregar"
+              onChange={(v) => {
+                setComent(v.target.value);
+              }}
+            ></TextField>
+          </Box>
+
           <Box
             sx={{
               display: "flex",
@@ -339,7 +337,7 @@ export const ComentDialogFT = ({
               }}
             >
               <Button
-               sx={queries.buttonCancelarSolicitudInscripcion}
+                sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
                 color="error"
                 onClick={handleClose}
@@ -351,7 +349,7 @@ export const ComentDialogFT = ({
                 </Typography>{" "}
               </Button>
               <Button
-                sx={queries.buttonContinuarSolicitudInscripcion }
+                sx={queries.buttonContinuarSolicitudInscripcion}
                 variant="contained"
                 disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"
@@ -364,7 +362,7 @@ export const ComentDialogFT = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
                 >
-                  { "Agregar" }
+                  {"Agregar"}
                 </Typography>
               </Button>
             </Box>

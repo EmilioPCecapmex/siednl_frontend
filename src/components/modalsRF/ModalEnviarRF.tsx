@@ -615,7 +615,7 @@ export default function ModalEnviarMA({
   //   axios
   //     .get(
   //       // eslint-disable-next-line no-useless-concat
-  //       process.env.REACT_APP_APPLICATION_BACK+ "/api/usuarioXInstitucion",
+  //       process.env.REACT_APP_APPLICATION_BACK+ "/api/tipo-usuario",
   //       {
   //         params: {
   //           IdUsuario: localStorage.getItem("IdUsuario"),
