@@ -418,32 +418,29 @@ export default function ModalEnviarFT({
       });
   };
 
-  // useEffect(() => {
-  //   if (open) {
-  //     let inst = JSON.parse(MIR)?.encabezado.institucion;
+  useEffect(() => {
+    if (open) {
+      let inst = JSON.parse(MIR)?.encabezado.institucion;
 
-     
-  //     ////////////////////////Esto esta fallando
-  //     axios
-  //       .get(
-  //         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-  //         {
-  //           params: {
-  //             IdUsuario: localStorage.getItem("IdUsuario"),
-  //             Institucion: inst,
-  //           },
-  //           headers: {
-  //             Authorization: localStorage.getItem("jwtToken") || "",
-  //           },
-  //         }
-  //       )
-  //       .then((r) => {
-  //         if (r.status === 200) {
-  //           setUserXInst(r.data.data);
-  //         }
-  //       });
-  //   }
-  // }, [MIR, open]);
+      ////////////////////////Esto esta fallando
+      axios
+        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
+          params: {
+            TipoUsuario: localStorage.getItem("Rol"),
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("dApp"),
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
+        .then((r) => {
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
+    }
+  }, [MIR, open]);
 
   const enviarNotificacion = (
     IdUsuarioDestino: string,
@@ -451,7 +448,6 @@ export default function ModalEnviarFT({
     tipoDoc = "",
     Nombre = ""
   ) => {
-    
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
@@ -523,17 +519,15 @@ export default function ModalEnviarFT({
           </Typography>
         </Box>
 
-    
-          <Box sx={{ width: "30vw" }}>
-            <TextField
-              multiline
-              rows={3}
-              label={"Agregar Comentario"}
-              sx={{ width: "30vw" }}
-              onChange={(v) => setComment(v.target.value)}
-            ></TextField>
-          </Box>
-       
+        <Box sx={{ width: "30vw" }}>
+          <TextField
+            multiline
+            rows={3}
+            label={"Agregar Comentario"}
+            sx={{ width: "30vw" }}
+            onChange={(v) => setComment(v.target.value)}
+          ></TextField>
+        </Box>
 
         <Box
           sx={{
@@ -553,8 +547,7 @@ export default function ModalEnviarFT({
             }}
           >
             <Button
-              sx={ queries.buttonCancelarSolicitudInscripcion}
-          
+              sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -562,12 +555,9 @@ export default function ModalEnviarFT({
               </Typography>
             </Button>
 
-       
-
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
               variant="contained"
-              
               onClick={() => {
                 checkFT(
                   localStorage.getItem("Rol") === "Capturador"

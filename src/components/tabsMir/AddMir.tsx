@@ -40,7 +40,7 @@ export default function FullModalMir({
       : {
           encabezado: {
             ejercicioFiscal: "",
-            institucion: "",
+            entidad: "",
             nombre_del_programa: "",
             eje: "",
             tema: "",

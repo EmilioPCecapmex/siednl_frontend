@@ -251,9 +251,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: RAFFI sin información.`
+          `<strong> Componente ${index + 1} </strong>: RAFFI sin información.`
         );
       }
 
@@ -525,7 +523,7 @@ export default function ModalSolicitaModif({
           IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -557,28 +555,26 @@ export default function ModalSolicitaModif({
       });
   };
 
-  // useEffect(() => {
-  //   if (open) {
-  //     axios
-  //       .get(
-  //         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-  //         {
-  //           params: {
-  //             IdUsuario: localStorage.getItem("IdUsuario"),
-  //             Institucion: JSON.parse(MIR)?.encabezado?.institucion,
-  //           },
-  //           headers: {
-  //             Authorization: localStorage.getItem("jwtToken") || "",
-  //           },
-  //         }
-  //       )
-  //       .then((r) => {
-  //         if (r.status === 200) {
-  //           setUserXInst(r.data.data);
-  //         }
-  //       });
-  //   }
-  // }, [MIR, open]);
+  useEffect(() => {
+    if (open) {
+      axios
+        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
+          params: {
+            TipoUsuario: localStorage.getItem("Rol"),
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("dApp"),
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
+        .then((r) => {
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
+    }
+  }, [MIR, open]);
   ///////////////////////////////////////////////////////////////////////////////////
   const Toast = Swal.mixin({
     toast: false,

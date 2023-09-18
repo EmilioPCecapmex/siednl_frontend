@@ -72,7 +72,7 @@ export const ComentDialogMA = ({
   // const getUsuariosXInstitucion = () => {
   //   axios
   //     .get(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
   //       {
   //         params: {
   //           IdUsuario: localStorage.getItem("IdUsuario"),

@@ -459,7 +459,7 @@ export default function ModalSolicitaModif({
           Estado: estado,
           IdMa: IdMa,
           Id: IdFT,
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -491,38 +491,36 @@ export default function ModalSolicitaModif({
       });
   };
 
-
   useEffect(() => {
-
     let tipousuario = "";
 
     if (localStorage.getItem("Rol") === "Capturador")
-    tipousuario = "Verificador";
+      tipousuario = "Verificador";
     console.log(tipousuario);
-  if (localStorage.getItem("Rol") === "Verificador")
-    tipousuario = "Verificador";
-  if (localStorage.getItem("Rol") === "Administrador")
-    tipousuario = "VERIFICADOR_CAPTURADOR";
+    if (localStorage.getItem("Rol") === "Verificador")
+      tipousuario = "Verificador";
+    if (localStorage.getItem("Rol") === "Administrador")
+      tipousuario = "VERIFICADOR_CAPTURADOR";
     if (open) {
       axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeUsuarioXInstitucion",
-        {
-          params: {
-            TipoUsuario: tipousuario,
-            Institucion: JSON.parse(MIR)?.encabezado?.institucion,
-            Rol: localStorage.getItem("Rol"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
+        .get(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDetipo-usuario",
+          {
+            params: {
+              TipoUsuario: tipousuario,
+              IdEntidad: localStorage.getItem("IdEntidad"),
+              Rol: localStorage.getItem("Rol"),
+            },
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
     }
   }, [MIR, open]);
 
@@ -600,8 +598,8 @@ export default function ModalSolicitaModif({
               </MenuItem>
 
               {userXInst.map((item) => {
-                console.log("userXInst: ",userXInst);
-                
+                console.log("userXInst: ", userXInst);
+
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
                     {item.Nombre}
@@ -639,16 +637,22 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ ...queries.buttonCancelarSolicitudInscripcion, display: "flex", width: "15vw" }}
+              sx={{
+                ...queries.buttonCancelarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               onClick={() => handleClose()}
             >
-              <Typography >
-                Cancelar
-              </Typography>
+              <Typography>Cancelar</Typography>
             </Button>
 
             <Button
-              sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "15vw"}}
+              sx={{
+                ...queries.buttonContinuarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -660,7 +664,7 @@ export default function ModalSolicitaModif({
                 handleClose();
               }}
             >
-              <Typography >
+              <Typography>
                 {comentario === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>

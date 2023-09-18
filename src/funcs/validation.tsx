@@ -94,7 +94,7 @@ export const getUserDetails = (IdCentral: string) => {
         }
 
         localStorage.setItem("Rol", data.roles[0][0].Nombre);
-
+        localStorage.setItem("IdRol", data.roles[0][0].Id);
         return true;
       }
     })

@@ -361,8 +361,8 @@ export default function ModalSolicitaModif({
           CreadoPor:
             userSelected !== "0"
               ? userSelected
-              //va a cambiar
-              : localStorage.getItem("IdUsuario"),
+              : //va a cambiar
+                localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
           Institucion: JSON.parse(MIR)?.encabezado.institucion,
           Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
@@ -405,10 +405,10 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     let tipousuario = "";
     console.log("Entre");
-    
+
     if (localStorage.getItem("Rol") === "Capturador")
       tipousuario = "Verificador";
-      console.log(tipousuario);
+    console.log(tipousuario);
     if (localStorage.getItem("Rol") === "Verificador")
       tipousuario = "Verificador";
     if (localStorage.getItem("Rol") === "Administrador")
@@ -416,20 +416,16 @@ export default function ModalSolicitaModif({
 
     if (open) {
       axios
-        .get(
-          process.env.REACT_APP_APPLICATION_BACK + 
-          "/api/tipoDeUsuarioXInstitucion",
-          {
-            params: {
-              TipoUsuario: tipousuario,
-              Institucion: JSON.parse(MIR)?.encabezado.institucion,
-              Rol: localStorage.getItem("Rol")
-            },
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
+        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
+          params: {
+            TipoUsuario: localStorage.getItem("Rol"),
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("dApp"),
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
         .then((r) => {
           if (r.status === 200) {
             console.log("UserXInst: ", r.data.data);
@@ -576,9 +572,12 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ ...queries.buttonCancelarSolicitudInscripcion, display: "flex", width: "15vw" }}
+              sx={{
+                ...queries.buttonCancelarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               variant="contained"
-             
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -587,9 +586,12 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
-              sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "15vw"}}
+              sx={{
+                ...queries.buttonContinuarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               variant="contained"
-              
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
