@@ -293,7 +293,7 @@ export const TabPAE = ({
               },
             }}
           >
-            {[1, 2, 3, 4].map((item, index) => {
+            {[1, 2, 3].map((item, index) => {
               return (
                 <Box
                   key={index}
@@ -325,8 +325,8 @@ export const TabPAE = ({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
                     >
-                      {item == 1 ? "2022" : item == 2 ? "2021" : item == 3 ? "2020" : "2019"}
-                      {(item == 1 || item == 4) && localStorage.getItem("Rol") === "Administrador" && open === item ?
+                      {item == 1 ? "2022" : item == 2 ? "2021" : "2020"}
+                      {(item == 1 || item == 3) && localStorage.getItem("Rol") === "Administrador" && open === item ?
                         <IconButton
                           onClick={() => {
                             creaPAE("2023", "6", "PAE_V2.pdf", "/prueba/");
@@ -339,43 +339,7 @@ export const TabPAE = ({
 
 
                   </ListItemButton>
-                  <Collapse in={open === item} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      {[1, 2].map((value, x) => {
-                        return (
-                          <ListItemButton
-                            selected={x === actividadSelect ? true : false}
-                            key={x}
-                            onClick={() => {
-                              setActividadSelect(x);
-                            }}
-                            sx={{
-                              height: "3vh",
-                              pl: 4,
-                              "&.Mui-selected ": {
-                                backgroundColor: "#efd8b9",
-                              },
-                              "&.Mui-selected:hover": {
-                                backgroundColor: "#cbcbcb",
-                              },
-                              fontSize: "0.7vw",
-                            }}
-                          >
-                            {x == 1 ? "Versión 1" : "Versión 2"}
-                            {x != 1 && localStorage.getItem("Rol") === "Administrador" ?
-                              <IconButton
-                                onClick={() => {
-                                  creaPAE("2023", "6", "PAE_V2.pdf", "/prueba/");
-                                }}
-                              >
-                                <AddCircleIcon fontSize="small" sx={{ display: "flex", justifyContent: "flex-end" }} />
-                              </IconButton>
-                              : ""}
-                          </ListItemButton>
-                        );
-                      })}
-                    </List>
-                  </Collapse>
+                  
 
                   <Divider />
                 </Box>

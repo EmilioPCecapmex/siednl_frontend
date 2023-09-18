@@ -504,7 +504,7 @@ export default function ModalSolicitaModif({
     if (open) {
       axios
         .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDetipo-usuario",
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             params: {
               TipoUsuario: tipousuario,
