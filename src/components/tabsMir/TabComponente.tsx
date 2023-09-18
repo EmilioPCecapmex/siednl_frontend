@@ -51,16 +51,16 @@ export const TabComponente = ({
   };
 
   const changeFormula = (txt: string) => {
-    // let prevLocal = [...MIR.componentes];
-    // prevLocal[componentSelect - 1].formula = txt;
-    // setComponentes(prevLocal);
+    let prevLocal = [...MIR.componentes];
+    prevLocal[componentSelect - 1].formula = txt;
+    setComponentes(prevLocal);
   };
 
   const evalueTxtIndicador = () => {
     const cIndicador =
       MIR.componentes[componentSelect - 1].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
-      if (cIndicador.includes("porcentaje")) {
+      if (cIndicador.includes("porcentaje" || "PORCENTAJE") ) {
         setTipoFormula("Porcentaje");
         setElementoFormula("Componente " + componentSelect.toString());
         handleClickOpen();
@@ -70,7 +70,7 @@ export const TabComponente = ({
         setElementoFormula("Componente " + componentSelect.toString());
         handleClickOpen();
         setErrorIndicador(-1);
-      } else if (cIndicador.includes("indice" || "índice")) {
+      } else if (cIndicador.includes("indice" || "índice" || "Índice")) {
         setTipoFormula("Índice");
         setElementoFormula("Componente " + componentSelect.toString());
         handleClickOpen();
@@ -95,6 +95,7 @@ export const TabComponente = ({
 
   useEffect(() => {
     setComponentes(MIR.componentes);
+    console.log("formula: ", componentes[componentSelect - 1]?.formula);
   }, [MIR]);
 
   useEffect(() => {

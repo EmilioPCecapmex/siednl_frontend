@@ -509,7 +509,7 @@ export default function ModalSolicitaModif({
             params: {
               TipoUsuario: tipousuario,
               IdEntidad: localStorage.getItem("IdEntidad"),
-              Rol: localStorage.getItem("Rol"),
+              IdApp: localStorage.getItem("IdApp"),
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",

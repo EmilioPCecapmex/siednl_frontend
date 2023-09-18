@@ -31,11 +31,11 @@ export const FormulaDialog = ({
   const [emptyTxt, setEmptyTxt] = useState(false);
 
   const checkValues = () => {
-    if (tipo === "Indice" || tipo === "Índice") {
+    if (tipo === "Indice" || tipo === "Índice" || tipo === "indice") {
       if (descA === "") {
         setEmptyTxt(true);
       } else {
-        if (tipo === "Indice" || tipo === "Índice") {
+        if (tipo === "Indice" || tipo === "Índice" || tipo === "indice") {
           textoSet(
             descA.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")
           );
@@ -46,7 +46,7 @@ export const FormulaDialog = ({
       if (descA === "" || descB === "") {
         setEmptyTxt(true);
       } else {
-        if (tipo === "Porcentaje") {
+        if ( tipo === "Porcentaje" || tipo === "porcentaje" || tipo === "PORCENTAJE") {
           textoSet(
             "(" +
               descA

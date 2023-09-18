@@ -415,21 +415,25 @@ export default function ModalSolicitaModif({
       tipousuario = "VERIFICADOR_CAPTURADOR";
 
     if (open) {
+      console.log(tipousuario);
+      
       axios
-        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
-          params: {
-            TipoUsuario: localStorage.getItem("Rol"),
+        .post(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", 
+           {
+            TipoUsuario: tipousuario,
             IdEntidad: localStorage.getItem("IdEntidad"),
-            IdApp: localStorage.getItem("dApp"),
+            IdApp: localStorage.getItem("IdApp"),
           },
+          {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
         })
-        .then((r) => {
-          if (r.status === 200) {
-            console.log("UserXInst: ", r.data.data);
-            setUserXInst(r.data.data);
+        .then(({status,data}) => {
+          if (status === 200) {
+            console.log("UserXInst: ",data.data);
+            console.log("UserXInst: ", data);
+            setUserXInst(data.data);
           }
         });
     }

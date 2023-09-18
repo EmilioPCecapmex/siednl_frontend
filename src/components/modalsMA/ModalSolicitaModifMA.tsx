@@ -592,9 +592,9 @@ export default function ModalSolicitaModif({
             "/api/tipo-usuario",
           {
             params: {
-              TipoUsuario: tipousuario,
-              Institucion: JSON.parse(MIR)?.encabezado?.institucion,
-              Rol: localStorage.getItem("Rol")
+              TipoUsuario: localStorage.getItem("Rol"),
+              IdEntidad: localStorage.getItem("IdEntidad"),
+              IdApp: localStorage.getItem("dApp"),
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",

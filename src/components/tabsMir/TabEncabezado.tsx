@@ -63,17 +63,10 @@ export function TabEncabezado({
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
   function enCambioAnio(Id: string, Anio: string) {
     setAnioFiscal(Anio);
+    
   }
-  function enCambioInstitucion(Id: string, Inst: string) {
-    setInstitution(Inst);
-    setPrograma("");
-    setConac("");
-    setConsecutivo("");
-    if (Id !== "") {
-      getProgramas(Id);
-    }
-    setDisabledProgramas(false);
-  }
+  function enCambioInstitucion(Id: string, Inst: string) {}
+
   function enCambioPrograma(Id: string, Prog: string) {
     setConac("");
     setConsecutivo("");
@@ -188,7 +181,7 @@ export function TabEncabezado({
     { Id: "0", NombrePrograma: "", Conac: "", Consecutivo: "" },
   ]);
   const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "0", Eje: "" }]);
-  
+
   const [catalogoTematicas, setCatalogoTematicas] = useState([
     { IdTematica: "0", Tematica: "" },
   ]);
@@ -204,6 +197,13 @@ export function TabEncabezado({
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
     { Id: "0", Beneficiario: "" },
   ]);
+
+  const [entidadSeleccionada, setEntidadSeleccionada] = useState({
+    
+      Id: localStorage.getItem("IdEntidad")||"",
+      Nombre: localStorage.getItem("Entidad")||"",
+    
+  });
 
   const replica = catalogoLineasDeAccion;
 
@@ -244,16 +244,16 @@ export function TabEncabezado({
       });
   };
 
-
   const getProgramas = (id: string) => {
     if (id !== undefined) {
       axios
         .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/list-programasInstituciones",
+          process.env.REACT_APP_APPLICATION_BACK +
+            "/api/list-programasInstituciones",
           {
-            // params: {
-            //   IdEntidad: id,
-            // },
+            params: {
+              IdEntidad: id,
+            },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
             },
@@ -362,7 +362,6 @@ export function TabEncabezado({
   const getBeneficiarios = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiario", {
-
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -559,10 +558,17 @@ export function TabEncabezado({
         setLoadingFile(false);
       });
   };
-
+ useEffect(() => {
+  console.log("entidadSeleccionada: ",entidadSeleccionada);
+ }, [entidadSeleccionada.Nombre])
+ 
   useEffect(() => {
-    console.log(MIR);
-
+   
+    // setEntidadSeleccionada({
+    //   Id: localStorage.getItem("IdEntidad")||"",
+    //   Nombre: localStorage.getItem("Entidad")||"",
+    // });
+    
     getAniosFiscales();
     getInstituciones();
     getEjes();
@@ -575,7 +581,7 @@ export function TabEncabezado({
       ...{
         encabezado: {
           ejercicioFiscal: anioFiscal.toUpperCase(),
-          institucion: institution.toUpperCase(),
+          entidad: entidadSeleccionada.Nombre?.toUpperCase(),
           nombre_del_programa: programa.toUpperCase(),
           eje: eje.toUpperCase(),
           tema: tematica.toUpperCase(),
@@ -592,7 +598,7 @@ export function TabEncabezado({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     anioFiscal,
-    institution,
+    entidadSeleccionada.Nombre,
     programa,
     eje,
     tematica,
@@ -604,6 +610,17 @@ export function TabEncabezado({
     consecutivo,
     anticorrupcion,
   ]);
+
+  useEffect(() => {
+    if(entidadSeleccionada?.Id)
+      {
+          setPrograma("");
+          setConac("");
+          setConsecutivo("");
+          getProgramas(entidadSeleccionada.Id || "");
+          setDisabledProgramas(false);
+        }
+  }, [entidadSeleccionada?.Id]);
 
   const [loadingFile, setLoadingFile] = useState(false);
 
@@ -704,7 +721,7 @@ export function TabEncabezado({
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
-{/* 
+      {/* 
       <Box
         sx={{
           gridColumn: "2/4",
@@ -797,10 +814,7 @@ export function TabEncabezado({
           disablePortal
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.Nombre || ""}
-          value={{
-            Id: catalogoInstituciones[0].Id,
-            Nombre: institution,
-          }}
+          value={entidadSeleccionada}
           size="small"
           renderOption={(props, option) => {
             return (
@@ -808,7 +822,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Nombre.toUpperCase()}
+                  {option.Nombre?.toUpperCase()}
                 </p>
               </li>
             );
@@ -832,11 +846,14 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>
-            enCambioInstitucion(
-              value?.Id as string,
-              (value?.Nombre as string) || ""
-            )
+          onChange={(event, value) =>{
+            setEntidadSeleccionada({Id:value?.Id||"",Nombre:value?.Nombre||""})
+            
+            // enCambioInstitucion(
+            //   value?.Id as string,
+            //   (value?.Nombre as string) || ""
+            // )
+          }
           }
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
@@ -855,10 +872,16 @@ export function TabEncabezado({
           size="small"
           getOptionLabel={(option) => option.NombrePrograma || ""}
           value={{
-            Id: catalogoProgramas[0].Id,
+            Id: catalogoProgramas[0]?.Id||"",
             NombrePrograma: programa,
             Conac: conac,
             Consecutivo: consecutivo,
+          }}
+          onChange={(event, value) => {
+            enCambioPrograma(
+              value?.Id as string,
+              (value?.NombrePrograma as string) || ""
+            );
           }}
           renderOption={(props, option) => {
             return (
@@ -874,7 +897,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Programa".toUpperCase()}
+              label={"PROGRAMA"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -889,45 +912,38 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) => {
-            enCambioPrograma(
-              value?.Id as string,
-              (value?.NombrePrograma as string) || ""
-            );
-          }}
+         
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
-      
-        <FormControlLabel
-          label="ANTICORRUPCIÓN"
-          control={
-            <Checkbox
-              checked={anticorrupcion === "SI"}
-              onChange={() => {
-                anticorrupcion === "NO"
-                  ? setAnticorrupcion("SI")
-                  : setAnticorrupcion("NO");
-              }}
-            />
-          }
-        />
-        <TextField
-          disabled
-          size="small"
-          label={"CONAC:"}
-          value={conac}
-          sx={{ width: "25%" }}
-        />
-        <TextField
-          disabled
-          size="small"
-          label={"CLASIFICACIÓN PROGRAMÁTICA:"}
-          value={consecutivo}
-          sx={{ width: "70%" }}
-        />
-      
+      <FormControlLabel
+        label="ANTICORRUPCIÓN"
+        control={
+          <Checkbox
+            checked={anticorrupcion === "SI"}
+            onChange={() => {
+              anticorrupcion === "NO"
+                ? setAnticorrupcion("SI")
+                : setAnticorrupcion("NO");
+            }}
+          />
+        }
+      />
+      <TextField
+        disabled
+        size="small"
+        label={"CONAC:"}
+        value={conac}
+        sx={{ width: "25%" }}
+      />
+      <TextField
+        disabled
+        size="small"
+        label={"CLASIFICACIÓN PROGRAMÁTICA:"}
+        value={consecutivo}
+        sx={{ width: "70%" }}
+      />
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
