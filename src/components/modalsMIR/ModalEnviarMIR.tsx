@@ -461,7 +461,7 @@ export default function ModalEnviarMIR({
               : //se va a modificar
                 localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
-          Entidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
           Eje: JSON.parse(MIR)?.encabezado.eje,
           Tematica: JSON.parse(MIR)?.encabezado.tema,
