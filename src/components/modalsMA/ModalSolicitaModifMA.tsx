@@ -536,7 +536,8 @@ export default function ModalSolicitaModif({
           IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad:localStorage.getItem("IdEntidad"),
         },
 
         {
@@ -587,23 +588,20 @@ export default function ModalSolicitaModif({
 
     if (open) {
       axios
-        .get(
+        .post(
           process.env.REACT_APP_APPLICATION_BACK +
             "/api/tipo-usuario",
-          {
-            params: {
-              TipoUsuario: localStorage.getItem("Rol"),
+            {
+              TipoUsuario: tipousuario,
               IdEntidad: localStorage.getItem("IdEntidad"),
-              IdApp: localStorage.getItem("dApp"),
+              IdApp: localStorage.getItem("IdApp"),
             },
+            {
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
             },
-          }
-          
-        )
-        
-        .then((r) => {
+          })
+          .then((r) => {
           console.log("a");
           if (r.status === 200) {
            
@@ -612,7 +610,7 @@ export default function ModalSolicitaModif({
           }
         });
     }
-  }, [MIR, open]);
+  }, [MA, open]);
   ///////////////////////////////////////////////////////////////////////////////////
   const Toast = Swal.mixin({
     toast: false,

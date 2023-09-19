@@ -411,6 +411,7 @@ export default function ModalEnviarMIR({
           Id: "",
           // va a cambiar
           Rol: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -435,6 +436,7 @@ export default function ModalEnviarMIR({
         errores.push(err);
       });
   };
+  
 
   const createMIR = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
@@ -444,6 +446,8 @@ export default function ModalEnviarMIR({
       estado = "En Captura";
     } else {
     }
+    console.log(localStorage.getItem("IdEntidad"));
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
