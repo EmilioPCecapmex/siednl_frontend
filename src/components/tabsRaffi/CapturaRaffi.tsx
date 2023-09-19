@@ -532,7 +532,7 @@ export default function CapturaRaffi({
               showMirFnc={showMirFnc}
             />
           )}
-        {value === 50 && (
+          {value === 50 && (
           <TabResumenRF
             show={value === 50 ? true : false}
             // encabezado={ValueEncabezado}
