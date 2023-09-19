@@ -260,7 +260,10 @@ export function TabEncabezado({
           }
         )
         .then((r) => {
+          console.log(r.data.data)
           setCatalogoProgramas(r.data.data);
+          
+          
         })
         .catch((err) => {
           Toast.fire({

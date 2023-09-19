@@ -513,20 +513,23 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
+    console.log("Entre al create MetaAnual");
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
-          MetaAnual: MA,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          IdMir: IdMIR,
-          Estado: estado,
-          Id: IdMA,
-          Rol: localStorage.getItem("Rol"),
+          MetaAnual:MA,
+          CreadoPor:localStorage.getItem("IdUsuario"),
+          IdMir:IdMIR,
+          Estado:estado,
+          Id:IdMA,
+          Rol:localStorage.getItem("Rol"),
+          IdEntidad:localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
+            Authorization:localStorage.getItem("jwtToken") || "",
           },
         }
       )
