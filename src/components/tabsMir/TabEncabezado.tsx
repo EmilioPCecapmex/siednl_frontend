@@ -207,7 +207,7 @@ export function TabEncabezado({
   },[estrategia])
 
   const onClearLineasDeAccion = () => {
-    //setLineaDeAccion([]);
+    setLineaDeAccion([]);
   };
   
   // const replica = catalogoLineasDeAccion; //warning
@@ -1088,7 +1088,7 @@ export function TabEncabezado({
           }
         />
       </FormControl>
-
+          
       <FormControl required>
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 400 }}>
@@ -1109,6 +1109,7 @@ export function TabEncabezado({
             getOptionLabel={(option) =>
               option.Label.toUpperCase() || ""
             }
+            value={lineaDeAccion}
             renderOption={(props, option) => {
               return (
                 <li {...props} key={option.Id}>

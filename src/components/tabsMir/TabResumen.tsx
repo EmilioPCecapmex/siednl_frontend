@@ -140,8 +140,6 @@ export function TabResumen({
         showResume();
       })
       .catch((err) => {
-        console.log(JSON.stringify(MIR),);
-        
         if (err.response.status === 409) {
           Toast.fire({
             icon: "error",
