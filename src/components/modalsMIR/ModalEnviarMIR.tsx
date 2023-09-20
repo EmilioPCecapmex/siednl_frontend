@@ -36,6 +36,8 @@ export default function ModalEnviarMIR({
 
   const [newComent, setNewComent] = React.useState(false);
 
+  const [estadoMir, setestadoMir] =useState("");
+
   const enviarMensaje = "Se ha creado una nueva";
 
   const comentMir = (id: string) => {
@@ -689,6 +691,7 @@ export default function ModalEnviarMIR({
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
+                
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"

@@ -94,7 +94,7 @@ export function TabAvanceFinanciero({
     
   const [avanceFinanciero, setAvanceFinanciero] = useState<IAvanceFinancieroRF>(
     {
-      nombrePrograma: jsonMir.encabezado.nombre_del_programa,
+      nombrePrograma: "",
       valorProgramaPresupuestario: "0",
       monto: {
         devengadoModificado: devengadoModificado,
@@ -111,7 +111,8 @@ export function TabAvanceFinanciero({
 
   useEffect(() => {
     let objetoAuxiliar: IAvanceFinancieroRF = {
-      nombrePrograma: jsonMir.encabezado.nombre_del_programa,
+      nombrePrograma: "",
+       //jsonMir.encabezado.nombre_del_programa,
       valorProgramaPresupuestario: valorProgramaPresupuestario,
       //Calculo: "DEVENGADO/MODIFICADO",
       monto: {
@@ -395,7 +396,7 @@ export function TabAvanceFinanciero({
             fullWidth
             sx={queries.medium_text}
             variant="standard"
-            value={jsonMir.encabezado.nombre_del_programa}
+            value={jsonMir.encabezado}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratMedium",
