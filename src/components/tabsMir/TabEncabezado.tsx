@@ -153,15 +153,17 @@ export function TabEncabezado({
     getListasLogin({Tabla:"Entidades",ValorCondicion:""},setCatalogoInstituciones);
     getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
     getLista("Beneficiario","",setCatalogoBeneficiarios);
-
-    console.log("MIR",MIR);
+    setEje(MIR.encabezado?.eje || objetoVacio);
+    // console.log("tema",tematica);
+    // setTematica(MIR.encabezado?.tema || objetoVacio);
+    // console.log("MIR",MIR);
     
   }, [])
 
   useEffect(() => {
     if (entidadSeleccionada?.Id) {
       getLista("ProgramasXInstitucion",entidadSeleccionada?.Id,setCatalogoProgramas);
-      setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
+      //setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
       setConac("");
       setConsecutivo("");
       setDisabledProgramas(false);
@@ -169,21 +171,21 @@ export function TabEncabezado({
   }, [entidadSeleccionada?.Id]);
 
   useEffect(()=>{
-    setTematica(objetoVacio);
+    // setTematica(objetoVacio);
     setDisabledObjetivos(true);
-    setObjetivo(objetoVacio);
+    //setObjetivo(objetoVacio);
     setDisabledEstrategias(true);
-    setEstrategia(objetoVacio);
+    //setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion([]);
+    //setLineaDeAccion([]);
     getListPedColumns({Col:"Temáticas",Id:eje.Id},setCatalogoTematicas,setDisabledTematicas);
     setDisabledTematicas(false);
   },[eje])
 
   useEffect(()=> {
-    setObjetivo(objetoVacio);
+    // setObjetivo(objetoVacio);
     setDisabledEstrategias(true);
-    setEstrategia(objetoVacio);
+    //setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
     getListPedColumns({Col:"Objetivos",Id:tematica.Id},setCatalogoObjetivos,setDisabledObjetivos);
     setDisabledObjetivos(false);
@@ -191,21 +193,21 @@ export function TabEncabezado({
 
   useEffect(()=>{
     
-    setEstrategia(objetoVacio);
+    // setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion([]);
+    //setLineaDeAccion([]);
     getListPedColumns({Col:"Estrategias",Id:objetivo.Id},setCatalogoEstrategias,setDisabledEstrategias);
     setDisabledEstrategias(false);
   },[objetivo])
   
   useEffect(()=>{
-    setLineaDeAccion([]);
+    //setLineaDeAccion([]);
     getListPedColumns({Col:"Lineas de Acción",Id:estrategia.Id},setCatalogoLineasDeAccion,setDisabledLineasDeAccion);
     setDisabledLineasDeAccion(false);
   },[estrategia])
 
   const onClearLineasDeAccion = () => {
-    setLineaDeAccion([]);
+    //setLineaDeAccion([]);
   };
   
   // const replica = catalogoLineasDeAccion; //warning
