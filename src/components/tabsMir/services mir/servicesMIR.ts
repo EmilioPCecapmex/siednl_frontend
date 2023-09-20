@@ -35,3 +35,16 @@ export const getListPedColumns = (data:any,setState:Function,fncDisable:Function
         setState(data.data);
       }).catch(()=>fncDisable(true));
   };
+
+  export const getListasLogin = (datos:any,setState:Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
+        params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setState(r.data.data);
+      });
+  };
