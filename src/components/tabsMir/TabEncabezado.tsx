@@ -210,6 +210,30 @@ export function TabEncabezado({
     setLineaDeAccion([]);
   };
   
+  function RestaurarValores(tipo:string){
+    switch(tipo){
+      case "Eje":
+        setTematica(objetoVacio);
+        setObjetivo(objetoVacio);
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Tematica':
+        setObjetivo(objetoVacio);
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Objetivo':
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Estrategia':
+        setLineaDeAccion([]);
+        break;
+    }
+    
+  }
+
   // const replica = catalogoLineasDeAccion; //warning
 
   // const [uploadFile, setUploadFile] = React.useState("");
@@ -927,7 +951,7 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => {setEje(value||objetoVacio)}}
+          onChange={(event, value) => {setEje(value||objetoVacio);RestaurarValores('Eje');}}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -981,7 +1005,7 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => setTematica(value||objetoVacio)}
+          onChange={(event, value) => {setTematica(value||objetoVacio);RestaurarValores('Tematica');}}
           isOptionEqualToValue={(option, value) =>
             option.Id === value.Id
           }
@@ -1032,7 +1056,7 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) =>setObjetivo(value||objetoVacio)}
+          onChange={(event, value) =>{setObjetivo(value||objetoVacio);RestaurarValores('Objetivo');}}
           isOptionEqualToValue={(option, value) =>
             option.Id === value.Id
           }
@@ -1082,7 +1106,7 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => setEstrategia(value||objetoVacio)}
+          onChange={(event, value) => {setEstrategia(value||objetoVacio);RestaurarValores('Estrategia');}}
           isOptionEqualToValue={(option, value) =>
             option.Id === value.Id
           }
