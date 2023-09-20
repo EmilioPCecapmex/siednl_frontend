@@ -513,7 +513,7 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
-    console.log("Entre al create MetaAnual");
+    console.log("Entre al create MetaAnual ModalEnviarMA");
     console.log("IdEntidad",localStorage.getItem("IdEntidad"),);
     axios
       .post(
@@ -617,20 +617,19 @@ export default function ModalEnviarMA({
       // }
 
       axios
-        .get(
+        .post(
           // eslint-disable-next-line no-useless-concat
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
-            params: {
-              TipoUsuario: localStorage.getItem("Rol"),
-              IdEntidad: localStorage.getItem("IdEntidad"),
-              IdApp: localStorage.getItem("dApp"),
-            },
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
+            TipoUsuario: localStorage.getItem("Rol"),
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("IdApp"),
+          },
+          {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
         .then((r) => {
           if (r.status === 200) {
             setUserXInst(r.data.data);
