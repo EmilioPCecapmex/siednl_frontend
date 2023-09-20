@@ -802,9 +802,9 @@ export const MIR = () => {
                           >
                             {row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
-                              ? "Borrador"
-                              : row.Estado === "En Revisión" &&
-                                localStorage.getItem("Rol") === "Verificador"
+                              ? "Borrador Capturador"
+                              : row.Estado === "En Revisión"  &&
+                                localStorage.getItem("Rol") === "Verificador" 
                               ? "Esperando revisión"
                               : row.Estado === "En Autorización" &&
                                 localStorage.getItem("Rol") === "Administrador"
@@ -937,11 +937,11 @@ export const MIR = () => {
                                       localStorage.getItem("Rol") ===
                                         "Capturador"
                                         ? false
-                                        : row.Estado === "En Revisión" && validaFecha &&
+                                        : row.Estado === "En Revisión" || "Borrador" && validaFecha &&
                                           localStorage.getItem("Rol") ===
                                             "Verificador"
                                         ? false
-                                        : row.Estado === "En Autorización" && validaFecha &&
+                                        : row.Estado === "En Autorización" || "Borrador" && validaFecha &&
                                           localStorage.getItem("Rol") ===
                                             "Administrador"
                                         ? false

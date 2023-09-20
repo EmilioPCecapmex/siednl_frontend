@@ -363,11 +363,11 @@ export default function ModalSolicitaModif({
               ? userSelected
               : //va a cambiar
                 localStorage.getItem("IdUsuario"),
-          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
-          Institucion: JSON.parse(MIR)?.encabezado.institucion,
-          Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
-          Eje: JSON.parse(MIR)?.encabezado.eje,
-          Tematica: JSON.parse(MIR)?.encabezado.tema,
+          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
+          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+          Programa: JSON.parse(MIR)?.encabezado.programa.Label,
+          Eje: JSON.parse(MIR)?.encabezado.eje.Label,
+          Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
           IdMir: IdMir,
           // se va a modificar
           Rol: localStorage.getItem("Rol"),
