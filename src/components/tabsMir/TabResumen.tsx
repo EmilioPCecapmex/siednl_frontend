@@ -117,11 +117,11 @@ export function TabResumen({
           Estado: estado,
           //se va a cambiar 
           CreadoPor: localStorage.getItem("IdUsuario"),
-          AnioFiscal: MIR?.encabezado.ejercicioFiscal,
-          IdEntidad: MIR?.encabezado.Entidad || localStorage.getItem("IdEntidad"),
-          Programa: MIR?.encabezado.programa,
-          Eje: MIR?.encabezado.eje,
-          Tematica: MIR?.encabezado.tema,
+          AnioFiscal: MIR?.encabezado.ejercicioFiscal.Label,
+          IdEntidad: MIR?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+          Programa: MIR?.encabezado.programa.Label,
+          Eje: MIR?.encabezado.eje.Label,
+          Tematica: MIR?.encabezado.tema.Label,
           IdMir: idMir,
           //Se va a cambiar
           Rol: localStorage.getItem("Rol"),
@@ -347,7 +347,7 @@ export function TabResumen({
           >
             Datos Generales
           </Typography>
-          {JSON.stringify(MIRPADRE)}
+         
           <Box sx={{ display: "flex" }}>
             <Box
               sx={{

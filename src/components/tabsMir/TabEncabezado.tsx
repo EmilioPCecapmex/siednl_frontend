@@ -153,6 +153,9 @@ export function TabEncabezado({
     getListasLogin({Tabla:"Entidades",ValorCondicion:""},setCatalogoInstituciones);
     getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
     getLista("Beneficiario","",setCatalogoBeneficiarios);
+
+    console.log("MIR",MIR);
+    
   }, [])
 
   useEffect(() => {
