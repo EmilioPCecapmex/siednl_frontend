@@ -192,12 +192,14 @@ export function TabEncabezado({
     setDisabledLineasDeAccion(false);
   },[estrategia])
 
-  
+  // useEffect(()=>{
+  //   setLineaDeAccion([]);
+  //   getLineasDeAccion(estrategia.Id);
+  //   setDisabledLineasDeAccion(false);
+  // },[lineaDeAccion])
   
  
-  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState([
-    { Id: "0", LineaDeAccion: "" },
-  ]);
+  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState<Array<ILista>>([]);
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
     { Id: "0", Beneficiario: "" },
   ]);
@@ -823,7 +825,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Institución".toUpperCase()}
+              label={"INSTITUCIÓN"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -964,7 +966,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Eje".toUpperCase()}
+              label={"EJE"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1021,7 +1023,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Temática".toUpperCase()}
+              label={"TEMÁTICA"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1078,7 +1080,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Objetivo".toUpperCase()}
+              label={"OBJETIVO"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1136,7 +1138,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Estrategia".toUpperCase()}
+              label={"ESTRATEGIA"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1182,7 +1184,7 @@ export function TabEncabezado({
             options={replica}
             size="small"
             getOptionLabel={(option) =>
-              option.LineaDeAccion.toUpperCase() || ""
+              option.Label.toUpperCase() || ""
             }
             //const replica = catalogoLineasDeAccion
             // value={lineaDeAccion}
@@ -1195,7 +1197,7 @@ export function TabEncabezado({
                       fontSize: ".7vw",
                     }}
                   >
-                    {option.LineaDeAccion.toUpperCase()}
+                    {option.Label.toUpperCase()}
                   </p>
                 </li>
               );
@@ -1206,7 +1208,7 @@ export function TabEncabezado({
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={"Lineas de Acción".toUpperCase()}
+                label={"LINEAS DE ACCIÓN"}
                 variant="standard"
                 InputLabelProps={{
                   style: {
@@ -1223,20 +1225,20 @@ export function TabEncabezado({
               />
             )}
             onChange={(event, value) => {
-              // value.map((value2, index) => {
-              //   if (value2.Id !== "" && value2.LineaDeAccion !== "") {
-              //     setLineaDeAccion(value);
-              //   }
-              // });
+              value.map((value2, index) => {
+                if (value2.Id !== "" && value2.Label !== "") {
+                  setLineaDeAccion(value);
+                }
+              });
             }}
             isOptionEqualToValue={(
               option: {
                 Id: string;
-                LineaDeAccion: string;
+                Label: string;
               },
               value: {
                 Id: string;
-                LineaDeAccion: string;
+                Label: string;
               }
             ) => value.Id === option.Id}
           />
@@ -1270,7 +1272,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Beneficiario".toUpperCase()}
+              label={"BENEFICIARIO"}
               variant="standard"
               InputLabelProps={{
                 style: {
