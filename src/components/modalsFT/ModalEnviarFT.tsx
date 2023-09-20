@@ -424,15 +424,18 @@ export default function ModalEnviarFT({
 
       ////////////////////////Esto esta fallando
       axios
-        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
-          params: {
+        .post(process.env.REACT_APP_APPLICATION_BACK + 
+          "/api/tipo-usuario",
+         {
             TipoUsuario: localStorage.getItem("Rol"),
             IdEntidad: localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("dApp"),
-          },
+         },
+         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
+
         })
         .then((r) => {
           if (r.status === 200) {

@@ -119,8 +119,7 @@ export function TabEncabezado({
   
   
   
-  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILista>>(MIR.encabezado?.lineas_de_accion ||[]);
-  const [beneficiario, setBeneficiario] = useState<ILista>(MIR.encabezado?.beneficiario || objetoVacio);
+  
   
   const [anticorrupcion, setAnticorrupcion] = React.useState(
     MIR.encabezado?.anticorrupcion || "NO"
@@ -152,9 +151,29 @@ export function TabEncabezado({
   const [catalogoEstrategias, setCatalogoEstrategias] = useState<Array<ILista>>([]);
   const [estrategia, setEstrategia] = useState<ILista>(MIR.encabezado?.estrategia ||objetoVacio);
 
+  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState<Array<ILista>>([]);
+  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILista>>(MIR.encabezado?.lineas_de_accion ||[]);
+
+  const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState<Array<ILista>>([]);
+  const [beneficiario, setBeneficiario] = useState<ILista>(MIR.encabezado?.beneficiario || objetoVacio);
+
   useEffect(() => {
     getLista("AniosFiscales","",setCatalogoAniosFiscales);
+    getInstituciones();
+    getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
+    getLista("Beneficiario","",setCatalogoBeneficiarios);
+    // getBeneficiarios();
   }, [])
+
+  useEffect(() => {
+    if (entidadSeleccionada?.Id) {
+      getLista("ProgramasXInstitucion",entidadSeleccionada?.Id,setCatalogoProgramas);
+      setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
+      setConac("");
+      setConsecutivo("");
+      setDisabledProgramas(false);
+    }
+  }, [entidadSeleccionada?.Id]);
 
   useEffect(()=>{
     setTematica(objetoVacio);
@@ -173,7 +192,8 @@ export function TabEncabezado({
     setDisabledEstrategias(true);
     setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
-    getObjetivos(tematica.Id);
+    //  getObjetivos(tematica.Id);
+    getListPedColumns({Col:"Objetivos",Id:tematica.Id},setCatalogoObjetivos,setDisabledObjetivos);
     setDisabledObjetivos(false);
   },[tematica])
 
@@ -182,13 +202,14 @@ export function TabEncabezado({
     setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
     setLineaDeAccion([]);
-    getEstrategias(objetivo.Id);
+    // getEstrategias(objetivo.Id);
+    getListPedColumns({Col:"Estrategias",Id:objetivo.Id},setCatalogoEstrategias,setDisabledEstrategias);
     setDisabledEstrategias(false);
   },[objetivo])
   
   useEffect(()=>{
     setLineaDeAccion([]);
-    getLineasDeAccion(estrategia.Id);
+    getListPedColumns({Col:"Lineas de Acción",Id:estrategia.Id},setCatalogoLineasDeAccion,setDisabledLineasDeAccion);
     setDisabledLineasDeAccion(false);
   },[estrategia])
 
@@ -199,13 +220,10 @@ export function TabEncabezado({
   // },[lineaDeAccion])
   
  
-  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState<Array<ILista>>([]);
-  const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
-    { Id: "0", Beneficiario: "" },
-  ]);
+
 
   
-  const replica = catalogoLineasDeAccion; //warning
+  // const replica = catalogoLineasDeAccion; //warning
 
   // const [uploadFile, setUploadFile] = React.useState("");
   // const [errorMsg, setErrorMsg] = useState("");
@@ -546,26 +564,6 @@ export function TabEncabezado({
   //       // setLoadingFile(false);
   //     });
   // };
-  useEffect(() => {
-    console.log("entidadSeleccionada: ", entidadSeleccionada);
-  }, [entidadSeleccionada.Label])
-
-  useEffect(() => {
-
-    // setEntidadSeleccionada({
-    //   Id: localStorage.getItem("IdEntidad")||"",
-    //   Nombre: localStorage.getItem("Entidad")||"",
-    // });
-
-    // getAniosFiscales();
-    getInstituciones();
-    getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
-    
-    // getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
-    // getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
-    // getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
-    getBeneficiarios();
-  }, []);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
@@ -602,18 +600,6 @@ export function TabEncabezado({
     consecutivo,
     anticorrupcion,
   ]);
-
-  useEffect(() => {
-    if (entidadSeleccionada?.Id) {
-      getLista("ProgramasXInstitucion",entidadSeleccionada?.Id,setCatalogoProgramas);
-      setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
-      setConac("");
-      setConsecutivo("");
-      // getProgramas(entidadSeleccionada.Id || "");
-      setDisabledProgramas(false);
-    }
-  }, [entidadSeleccionada?.Id]);
-
 
   useEffect(() => {
     console.log("MIR",MIR.encabezado);
@@ -1123,7 +1109,7 @@ export function TabEncabezado({
           options={catalogoEstrategias}
           size="small"
           getOptionLabel={(option) => option.Label || ""}
-          // value={}
+          value={estrategia}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
@@ -1181,7 +1167,7 @@ export function TabEncabezado({
             }
             multiple
             limitTags={4}
-            options={replica}
+            options={catalogoLineasDeAccion}
             size="small"
             getOptionLabel={(option) =>
               option.Label.toUpperCase() || ""
@@ -1256,15 +1242,15 @@ export function TabEncabezado({
           disablePortal
           size="small"
           options={catalogoBeneficiarios}
-          getOptionLabel={(option) => option.Beneficiario || ""}
-          // value={}
+          getOptionLabel={(option) => option.Label || ""}
+          value={beneficiario}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Beneficiario}
+                  {option.Label}
                 </p>
               </li>
             );

@@ -513,6 +513,7 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
+    console.log("IdEntidad:localStorage.getItem(IdEntidad): ModalEnviarRF",localStorage.getItem("IdEntidad"),);
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",

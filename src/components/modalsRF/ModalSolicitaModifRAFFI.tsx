@@ -502,6 +502,7 @@ export default function ModalSolicitaModif({
   };
   ///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
+    console.log("IdEntidad:localStorage.getItem(IdEntidad) ModalSolicitaModififRaFFI ",localStorage.getItem("IdEntidad"),);
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
     } else if (estado === "En Autorización" && userSelected !== "0") {
