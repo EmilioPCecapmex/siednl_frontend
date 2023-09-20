@@ -67,7 +67,7 @@ export function TabResumen({
     ],
   ]);
 
-  const objetoVacio :ILista={Id:"",Label:""}
+  const objetoVacio: ILista = { Id: "", Label: "" };
 
   useEffect(() => {
     let n: Array<Array<IActividadesMir>> = [];
@@ -107,18 +107,22 @@ export function TabResumen({
       createMIR(v);
     }
   };
+  const [estadoMir, setestadoMir] = useState("");
 
   const createMIR = (estado: string) => {
+    console.log("estadoMir: ", estadoMir);
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
           MIR: JSON.stringify(MIR),
-          Estado: estado,
-          //se va a cambiar 
+          Estado: estadoMir,
+          //se va a cambiar
           CreadoPor: localStorage.getItem("IdUsuario"),
           AnioFiscal: MIR?.encabezado.ejercicioFiscal.Label,
-          IdEntidad: MIR?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            MIR?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
           Programa: MIR?.encabezado.programa.Label,
           Eje: MIR?.encabezado.eje.Label,
           Tematica: MIR?.encabezado.tema.Label,
@@ -140,8 +144,8 @@ export function TabResumen({
         showResume();
       })
       .catch((err) => {
-        console.log(JSON.stringify(MIR),);
-        
+        console.log(JSON.stringify(MIR));
+
         if (err.response.status === 409) {
           Toast.fire({
             icon: "error",
@@ -299,8 +303,22 @@ export function TabResumen({
           backgroundColor: "rgba(175, 140, 85, 0.6)",
         },
       },
-    })
+    }),
   };
+
+
+  useEffect(() => {
+    console.log("estadoMir: ",estadoMir);
+    if(localStorage.getItem("Rol") === "Administrador"){
+      setestadoMir("Borrador Autorizador");
+    }
+    if(localStorage.getItem("Rol") === "Verificador"){
+      setestadoMir("Borrador Verificador ");
+    }
+    
+    console.log("estadoMir: ",estadoMir);
+  }, [estadoMir])
+  
 
   return (
     <Box
@@ -347,7 +365,7 @@ export function TabResumen({
           >
             Datos Generales
           </Typography>
-         
+
           <Box sx={{ display: "flex" }}>
             <Box
               sx={{
@@ -427,7 +445,6 @@ export function TabResumen({
                   textTransform: "uppercase",
                 }}
               >
-                
                 {MIRPADRE.encabezado?.entidad?.Label}
               </Typography>
             </Box>
@@ -1675,15 +1692,16 @@ export function TabResumen({
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() =>
+          onClick={() => {
+            setestadoMir("Borrador");
             checkMir(
               localStorage.getItem("Rol") === "Capturador"
                 ? "En Captura"
                 : localStorage.getItem("Rol") === "Verificador"
                 ? "En Revisión"
                 : "En Autorización"
-            )
-          }
+            );
+          }}
           //al menos un opcion
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -1693,7 +1711,17 @@ export function TabResumen({
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() => setOpenModalEnviar(true)}
+          onClick={() => {
+            if(localStorage.getItem("Rol") === "Capturador")
+            {
+              setestadoMir("En Revisión");
+            }
+            if(localStorage.getItem("Rol") === "Verificador")
+            {
+              setestadoMir("En Autorización");
+            }
+           
+            setOpenModalEnviar(true)}}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"
