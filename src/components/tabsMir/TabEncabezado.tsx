@@ -18,7 +18,7 @@ import { getListPedColumns, getLista } from "./services mir/servicesMIR";
 
 export interface IEncabezado {
   ejercicioFiscal: ILista;
-  Entidad: ILista;
+  entidad: ILista;
   programa:IListaProgramas;
   eje: ILista;
   tema: ILista;
@@ -131,7 +131,7 @@ export function TabEncabezado({
   const [anioFiscal, setAnioFiscal] = useState<ILista>(MIR.encabezado.ejercicioFiscal||{Id:new Date().getFullYear().toString(),Label:new Date().getFullYear().toString()});
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<ILista>>([]);
-  const [entidadSeleccionada, setEntidadSeleccionada] = useState(MIR.encabezado?.Entidad ||{Id: localStorage.getItem("IdEntidad") || "", Label: localStorage.getItem("Entidad") || ""});
+  const [entidadSeleccionada, setEntidadSeleccionada] = useState(MIR.encabezado?.entidad ||{Id: localStorage.getItem("IdEntidad") || "", Label: localStorage.getItem("Entidad") || ""});
   
   const [catalogoProgramas, setCatalogoProgramas] = useState<Array<IListaProgramas>>([]);
   const [programa, setPrograma] = useState<IListaProgramas>(MIR.encabezado?.programa||{...objetoVacio,Conac:"",Consecutivo:""});
@@ -573,8 +573,8 @@ export function TabEncabezado({
       ...{
         encabezado: {
           ejercicioFiscal: anioFiscal,
-          entidad: entidadSeleccionada.Label?.toUpperCase(),
-          nombre_del_programa: programa,
+          entidad: entidadSeleccionada,
+          programa: programa,
           eje: eje,
           tema: tematica,
           objetivo: objetivo,
