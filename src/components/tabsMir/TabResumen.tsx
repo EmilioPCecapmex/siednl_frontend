@@ -93,7 +93,7 @@ export function TabResumen({
         icon: "error",
         title: "Selecciona año fiscal.",
       });
-    } else if (MIR?.encabezado.Entidad === objetoVacio) {
+    } else if (MIR?.encabezado.entidad === objetoVacio) {
       return Toast.fire({
         icon: "error",
         title: "Selecciona institución.",
@@ -117,11 +117,11 @@ export function TabResumen({
           Estado: estado,
           //se va a cambiar 
           CreadoPor: localStorage.getItem("IdUsuario"),
-          AnioFiscal: MIR?.encabezado.ejercicioFiscal.Label,
-          IdEntidad: MIR?.encabezado.Entidad.Label || localStorage.getItem("IdEntidad"),
-          Programa: MIR?.encabezado.programa.Label,
-          Eje: MIR?.encabezado.eje.Label,
-          Tematica: MIR?.encabezado.tema.Label,
+          AnioFiscal: MIR?.encabezado.ejercicioFiscal,
+          IdEntidad: MIR?.encabezado.Entidad || localStorage.getItem("IdEntidad"),
+          Programa: MIR?.encabezado.programa,
+          Eje: MIR?.encabezado.eje,
+          Tematica: MIR?.encabezado.tema,
           IdMir: idMir,
           //Se va a cambiar
           Rol: localStorage.getItem("Rol"),
@@ -347,6 +347,7 @@ export function TabResumen({
           >
             Datos Generales
           </Typography>
+          {JSON.stringify(MIRPADRE)}
           <Box sx={{ display: "flex" }}>
             <Box
               sx={{
@@ -417,7 +418,7 @@ export function TabResumen({
                   textTransform: "uppercase",
                 }}
               >
-                Institución:
+                Entidad:
               </Typography>
               <Typography
                 sx={{
@@ -426,7 +427,8 @@ export function TabResumen({
                   textTransform: "uppercase",
                 }}
               >
-                {MIRPADRE.encabezado?.Entidad?.Label}
+                
+                {MIRPADRE.encabezado?.entidad?.Label}
               </Typography>
             </Box>
           </Box>
