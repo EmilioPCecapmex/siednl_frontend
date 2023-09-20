@@ -253,12 +253,15 @@ export default function ModalSolicitaModif({
   };
   /////////////////////////////////////////////////////////////////////
   const checkComponentes = (v: string) => {
+
     JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
       if (
         componente.metaAnual === undefined ||
-        /^[\s]*$/.test(componente.metaAnual) ||
-        componente.metaAnual === null
+      //  /^[\s]*$/.test(componente.metaAnual) ||
+        componente.metaAnual === null || componente.metaAnual === ""
       ) {
+        console.log("componente.metaAnual :", componente.metaAnual);
+        
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -514,6 +517,8 @@ export default function ModalSolicitaModif({
   };
   ///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
+    console.log("IdEntidad:localStorage.getItem(IdEntidad): ",localStorage.getItem("IdEntidad"));
+    
     console.log("IdMIR: ", IdMIR);
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";

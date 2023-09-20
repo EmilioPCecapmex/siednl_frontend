@@ -76,15 +76,31 @@ export default function ModalSolicitaModif({
 
   const checkFT = (v: string) => {
     errores = [];
+    console.log("prueba de vacio: ",JSON.parse(FT)?.encabezado.programaSER);
+    console.log("prueba de vacio 2: ",JSON.parse(FT)?.encabezado.unidadDeMedida);
+    
+    
 
     if (
-      JSON.parse(FT)?.encabezado.programaSER === null ||
-      JSON.parse(FT)?.encabezado.programaSER === undefined ||
-      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
+      JSON.parse(FT)?.encabezado === null ||
+      JSON.parse(FT)?.encabezado === undefined 
+      //|| /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
     ) {
       err = 1;
       errores.push(
-        "Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
+        "Sección <strong>Encabezado</strong> incompleta."
+        //"Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
+      );
+    }
+    if (
+      JSON.parse(FT)?.encabezado.programaSER === undefined ||
+      JSON.parse(FT)?.encabezado.programaSER === "" ||
+      JSON.parse(FT)?.encabezado.programaSER === null 
+      || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Programa sectorial, especial o regional sin información."
       );
     }
 
@@ -98,6 +114,15 @@ export default function ModalSolicitaModif({
         "Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta."
       );
     }
+    if (
+      JSON.parse(FT)?.encabezado.objetivoODS === undefined ||
+      JSON.parse(FT)?.encabezado.objetivoODS === ""
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Objetivo ODS no seleccionado."
+      );
+    }
 
     if (
       JSON.parse(FT)?.encabezado.metaODS === null ||
@@ -106,19 +131,17 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta."
+        "Sección <strong>Encabezado</strong>:  Meta ODS no seleccionado.."
       );
     }
 
     if (
-      JSON.parse(FT)?.encabezado.unidadDeMedida === null ||
-      JSON.parse(FT)?.encabezado.unidadDeMedida === undefined ||
-      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida)
+      JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
+      JSON.parse(FT)?.fin.unidadDeMedida === "" ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.unidadDeMedida)
     ) {
       err = 1;
-      errores.push(
-        "Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
-      );
+      errores.push("<strong>Fin</strong>: Unidad de medida sin información.");
     }
     if (JSON.parse(FT)?.fin === null) {
       err = 1;
@@ -503,14 +526,14 @@ export default function ModalSolicitaModif({
       tipousuario = "VERIFICADOR_CAPTURADOR";
     if (open) {
       axios
-        .get(
+        .post(
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
-            params: {
-              TipoUsuario: tipousuario,
-              IdEntidad: localStorage.getItem("IdEntidad"),
-              IdApp: localStorage.getItem("IdApp"),
-            },
+            TipoUsuario: tipousuario,
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("IdApp"),
+          },
+          {
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
             },

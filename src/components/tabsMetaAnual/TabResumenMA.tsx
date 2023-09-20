@@ -60,6 +60,7 @@ export function TabResumenMA({
   };
 
   const creaMA = (estado: string) => {
+    console.log("IdEntidad:localStorage.getItem(IdEntidad), TabResumenMA: ",localStorage.getItem("IdEntidad"));
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -69,7 +70,8 @@ export function TabResumenMA({
           IdMir: IdMir,
           Estado: estado,
           Id: IdMA,
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad")
         },
         {
           headers: {
