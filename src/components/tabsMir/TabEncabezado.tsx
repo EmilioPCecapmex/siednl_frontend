@@ -46,17 +46,17 @@ export function TabEncabezado({
   //   "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   // );
   const objetoVacio :ILista={Id:"",Label:""}
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+  // const Toast = Swal.mixin({
+  //   toast: true,
+  //   position: "top-end",
+  //   showConfirmButton: false,
+  //   timer: 2000,
+  //   timerProgressBar: true,
+  //   didOpen: (toast) => {
+  //     toast.addEventListener("mouseenter", Swal.stopTimer);
+  //     toast.addEventListener("mouseleave", Swal.resumeTimer);
+  //   },
+  // });
 
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
   // function enCambioAnio(Id: string, Anio: string) {
@@ -113,17 +113,8 @@ export function TabEncabezado({
   // const [institution, setInstitution] = useState(
   //   MIR.encabezado?.IdEntidad || ""
   // );
-  
 
-  
-  
-  
-  
-  
-  
-  const [anticorrupcion, setAnticorrupcion] = React.useState(
-    MIR.encabezado?.anticorrupcion || "NO"
-  );
+  const [anticorrupcion, setAnticorrupcion] = React.useState(MIR.encabezado?.anticorrupcion || "NO");
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState<Array<ILista>>([]);
@@ -162,6 +153,9 @@ export function TabEncabezado({
     getListasLogin({Tabla:"Entidades",ValorCondicion:""},setCatalogoInstituciones);
     getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
     getLista("Beneficiario","",setCatalogoBeneficiarios);
+
+    console.log("MIR",MIR);
+    
   }, [])
 
   useEffect(() => {
@@ -286,71 +280,71 @@ export function TabEncabezado({
   //       setDisabledTematicas(true);
   //     });
   // };
-  const getObjetivos = (id: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
-        params: {
-          Col: "Objetivos",
-          Id: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoObjetivos(r.data.data);
-      })
-      .catch((err) => {
-        setDisabledObjetivos(true);
-      });
-  };
-  const getEstrategias = (id: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
-        params: {
-          Col: "Estrategias",
-          Id: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoEstrategias(r.data.data);
-      })
-      .catch((err) => {
-        setDisabledEstrategias(true);
-      });
-  };
-  const getLineasDeAccion = (id: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
-        params: {
-          Col: "Lineas de Acción",
-          Id: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoLineasDeAccion(r.data.data);
-      })
-      .catch((err) => {
-        setDisabledLineasDeAccion(true);
-      });
-  };
-  const getBeneficiarios = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiario", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoBeneficiarios(r.data.data);
-      });
-  };
+  // const getObjetivos = (id: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
+  //       params: {
+  //         Col: "Objetivos",
+  //         Id: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoObjetivos(r.data.data);
+  //     })
+  //     .catch((err) => {
+  //       setDisabledObjetivos(true);
+  //     });
+  // };
+  // const getEstrategias = (id: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
+  //       params: {
+  //         Col: "Estrategias",
+  //         Id: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoEstrategias(r.data.data);
+  //     })
+  //     .catch((err) => {
+  //       setDisabledEstrategias(true);
+  //     });
+  // };
+  // const getLineasDeAccion = (id: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
+  //       params: {
+  //         Col: "Lineas de Acción",
+  //         Id: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoLineasDeAccion(r.data.data);
+  //     })
+  //     .catch((err) => {
+  //       setDisabledLineasDeAccion(true);
+  //     });
+  // };
+  // const getBeneficiarios = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiario", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoBeneficiarios(r.data.data);
+  //     });
+  // };
 
   //Obtener Id de la descripción extraida de la MIR
   // const getIdInstitucion = (Description: string) => {
@@ -562,15 +556,15 @@ export function TabEncabezado({
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    anioFiscal,
-    entidadSeleccionada.Label,
-    programa,
-    eje,
-    tematica,
-    objetivo,
-    estrategia,
+    anioFiscal.Id,
+    entidadSeleccionada.Id,
+    programa.Id,
+    eje.Id,
+    tematica.Id,
+    objetivo.Id,
+    estrategia.Id,
     lineaDeAccion,
-    beneficiario,
+    beneficiario.Id,
     conac,
     consecutivo,
     anticorrupcion,
@@ -1220,8 +1214,3 @@ export function TabEncabezado({
 }
 
 export default TabEncabezado;
-
-export interface ILineasDeAccion {
-  Id: string;
-  LineaDeAccion: string;
-}
