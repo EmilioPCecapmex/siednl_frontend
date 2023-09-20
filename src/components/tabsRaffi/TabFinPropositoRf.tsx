@@ -58,12 +58,16 @@ export function TabFinPropositoRF({
   const jsonMir: IMIR = JSON.parse(MIR);
 
   const [fin, setFin] = useState<IFinRF>({
-    añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+    añoAvanceFisico: "",
+    //jsonMir.encabezado.ejercicioFiscal,
+
     valorAvanceFisico: "",
   });
 
   const [proposito, setProposito] = useState<IPropositoRF>({
-    añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+
+    añoAvanceFisico: "",
+    //jsonMir.encabezado.ejercicioFiscal,
     valorAvanceFisico: "",
   });
 
@@ -117,15 +121,15 @@ export function TabFinPropositoRF({
     resumenFinRF(fin);
   }, [resumenFinRF]);
 
-  useEffect(() => {
-    let objectaux: IPropositoRF = {
-      añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
-      valorAvanceFisico: "",
-    };
-    setPropositoRF(objectaux);
-    setProposito(objectaux);
-    console.log(objectaux);
-  }, []);
+  // useEffect(() => {
+  //   let objectaux: IPropositoRF = {
+  //     añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+  //     valorAvanceFisico: "",
+  //   };
+  //   setPropositoRF(objectaux);
+  //   setProposito(objectaux);
+  //   console.log(objectaux);
+  // }, []);
 
   useEffect(() => {
     console.log("propositoRF:", propositoRF);
@@ -142,15 +146,15 @@ export function TabFinPropositoRF({
     setPropositoRF(proposito);
   }, [proposito]);
 
-  useEffect(() => {
-    let objectaux: IFinRF = {
-      añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
-      valorAvanceFisico: "",
-    };
-    setFinRF(objectaux);
-    setFin(objectaux);
-    console.log(objectaux);
-  }, []);
+  // useEffect(() => {
+  //   let objectaux: IFinRF = {
+  //     añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal,
+  //     valorAvanceFisico: "",
+  //   };
+  //   setFinRF(objectaux);
+  //   setFin(objectaux);
+  //   console.log(objectaux);
+  // }, []);
 
   useEffect(() => {
     console.log("propositoRF:", propositoRF);

@@ -347,7 +347,7 @@ export function TabResumen({
           >
             Datos Generales
           </Typography>
-          {JSON.stringify(MIRPADRE)}
+        
           <Box sx={{ display: "flex" }}>
             <Box
               sx={{
