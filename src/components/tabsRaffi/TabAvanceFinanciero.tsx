@@ -95,7 +95,6 @@ export function TabAvanceFinanciero({
   const [avanceFinanciero, setAvanceFinanciero] = useState<IAvanceFinancieroRF>(
     {
       nombrePrograma: "",
-      //jsonMir.encabezado.nombre_del_programa,
       valorProgramaPresupuestario: "0",
       monto: {
         devengadoModificado: devengadoModificado,
