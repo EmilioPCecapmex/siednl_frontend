@@ -443,23 +443,7 @@ export default function ModalEnviarMIR({
       });
   };
 
-  useEffect(() => {
-    console.log("estadoMir: ", estadoMir);
-
-    if (localStorage.getItem("Rol") === "Capturador") {
-      setestadoMir("En Revisioó");
-    }
-
-    if (localStorage.getItem("Rol") === "Administrador") {
-      setestadoMir("Autorizada");
-      
-    }
-    if (localStorage.getItem("Rol") === "Verificador") {
-      setestadoMir("En Autorización");
-    }
-
-    console.log("estadoMir: ", estadoMir);
-  }, [estadoMir]);
+  
 
   const createMIR = (estado: string) => {
     // if (estado === "Autorizada" && userSelected !== "0") {
@@ -470,9 +454,7 @@ export default function ModalEnviarMIR({
     // } else {
     // }
     
-    console.log("createMIR - estadoMir: ", estadoMir);
-    console.log("entre y mi ultimo estado es: ", estadoMir);
-    console.log("createMIR: ", localStorage.getItem("IdEntidad"));
+  
 
     axios
       .post(
@@ -480,7 +462,7 @@ export default function ModalEnviarMIR({
 
         {
           MIR: MIR,
-          Estado: estadoMir,
+          Estado: estado,
           CreadoPor:
             userSelected !== "0"
               ? userSelected
@@ -731,13 +713,7 @@ export default function ModalEnviarMIR({
                     : "Autorizada"
                 );
 
-                if (localStorage.getItem("Rol") === "Capturador") {
-                  setestadoMir("En Revisión")
-                } else if (localStorage.getItem("Rol") === "Verificador") {
-                  setestadoMir("En Autorización")
-                } else {
-                  setestadoMir("Autorizada")
-                }
+               
 
                 
                 handleClose(false);

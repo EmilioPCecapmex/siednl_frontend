@@ -70,7 +70,7 @@ export function TabResumenMA({
           MetaAnual: JSON.stringify(MA),
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
-          Estado: estadoMir,
+          Estado: estado,
           Id: IdMA,
           Rol: localStorage.getItem("Rol"),
           IdEntidad: localStorage.getItem("IdEntidad")
@@ -294,17 +294,7 @@ export function TabResumenMA({
     return x;
    }
 
-   useEffect(() => {
-    console.log("estadoMir: ",estadoMir);
-    if(localStorage.getItem("Rol") === "Administrador"){
-      setestadoMir("Borrador Autorizador");
-    }
-    if(localStorage.getItem("Rol") === "Verificador"){
-      setestadoMir("Borrador Verificador");
-    }
-    
-    console.log("estadoMir: ",estadoMir);
-  }, [estadoMir])
+   
 
   return (
     <Box
@@ -2096,13 +2086,25 @@ export function TabResumenMA({
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() =>{
-            setestadoMir("Borrador");
+            let estado  = ""
+            if(localStorage.getItem("Rol") === "Capturador")
+            {
+              estado = "En Captura"
+              //setestadoMir("En Captura");
+            }
+            if(localStorage.getItem("Rol") === "Verificador")
+            {
+              estado = "Borrador Verificador"
+              //setestadoMir("Borrador Verificador");
+            }
+            if(localStorage.getItem("Rol") === "Administrador")
+            {
+              estado = "Borrador Autorizador"
+              //setestadoMir("Borrador Autorizador");
+            }
+            console.log("Boton Guardar Borrador y estado: ",estado);
             creaMA(
-              localStorage.getItem("Rol") === "Capturador"
-                ? "En Captura"
-                : localStorage.getItem("Rol") === "Verificador"
-                ? "En Revisión"
-                : "En Autorización"
+              estado
             )
           }}
         >
@@ -2114,14 +2116,14 @@ export function TabResumenMA({
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() => {
-            if(localStorage.getItem("Rol") === "Capturador")
-            {
-              setestadoMir("En Revisión");
-            }
-            if(localStorage.getItem("Rol") === "Verificador")
-            {
-              setestadoMir("En Autorización");
-            }
+            // if(localStorage.getItem("Rol") === "Capturador")
+            // {
+            //   setestadoMir("En Revisión");
+            // }
+            // if(localStorage.getItem("Rol") === "Verificador")
+            // {
+            //   setestadoMir("En Autorización");
+            // }
            
             setOpenModalEnviar(true)}}
         >
