@@ -384,6 +384,7 @@ export default function ModalEnviarFT({
           Id: IdFT,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
+          IdEntidad:localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
