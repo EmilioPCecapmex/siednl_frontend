@@ -36,7 +36,7 @@ export default function ModalEnviarMIR({
 
   const [newComent, setNewComent] = React.useState(false);
 
-  const [estadoMir, setestadoMir] =useState("");
+  const [estadoMir, setestadoMir] = useState("");
 
   const enviarMensaje = "Se ha creado una nueva";
 
@@ -401,7 +401,10 @@ export default function ModalEnviarMIR({
   };
 
   const CrearMetaAnual = (idMir: string) => {
-    console.log("IdEntidad:localStorage.getItem(IdEntidad): ModalEnviarMIR",localStorage.getItem("IdEntidad"),);
+    console.log(
+      "IdEntidad:localStorage.getItem(IdEntidad): ModalEnviarMIR",
+      localStorage.getItem("IdEntidad")
+    );
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -439,25 +442,45 @@ export default function ModalEnviarMIR({
         errores.push(err);
       });
   };
-  
+
+  useEffect(() => {
+    console.log("estadoMir: ", estadoMir);
+
+    if (localStorage.getItem("Rol") === "Capturador") {
+      setestadoMir("En Revisioó");
+    }
+
+    if (localStorage.getItem("Rol") === "Administrador") {
+      setestadoMir("Autorizada");
+      
+    }
+    if (localStorage.getItem("Rol") === "Verificador") {
+      setestadoMir("En Autorización");
+    }
+
+    console.log("estadoMir: ", estadoMir);
+  }, [estadoMir]);
 
   const createMIR = (estado: string) => {
-    if (estado === "Autorizada" && userSelected !== "0") {
-      estado = "En Revisión";
-    }
-    if (estado === "En Autorización" && userSelected !== "0") {
-      estado = "En Captura";
-    } else {
-    }
-    console.log(localStorage.getItem("IdEntidad"));
+    // if (estado === "Autorizada" && userSelected !== "0") {
+    //   estado = "En Revisión";
+    // }
+    // if (estado === "En Autorización" && userSelected !== "0") {
+    //   estado = "En Captura";
+    // } else {
+    // }
     
+    console.log("createMIR - estadoMir: ", estadoMir);
+    console.log("entre y mi ultimo estado es: ", estadoMir);
+    console.log("createMIR: ", localStorage.getItem("IdEntidad"));
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
 
         {
           MIR: MIR,
-          Estado: estado,
+          Estado: estadoMir,
           CreadoPor:
             userSelected !== "0"
               ? userSelected
@@ -532,19 +555,27 @@ export default function ModalEnviarMIR({
       //  if (localStorage.getItem("Rol") === "Verificador") {
       //    inst = "admin";
       //  }
+      console.log("Entre al tipo usuario en useEffect");
+      console.log("IdEntidad: ", localStorage.getItem("IdEntidad"));
+
       axios
 
         /////listado
-        .post(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
-          
+        .post(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+
+          {
             TipoUsuario: localStorage.getItem("Rol"),
             IdEntidad: localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("dApp"),
-          
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
           },
-        })
+
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
         .then((r) => {
           console.log("r", r);
 
@@ -691,7 +722,7 @@ export default function ModalEnviarMIR({
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
-                
+                //setestadoMir("borrador")
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
@@ -699,6 +730,16 @@ export default function ModalEnviarMIR({
                     ? "En Autorización"
                     : "Autorizada"
                 );
+
+                if (localStorage.getItem("Rol") === "Capturador") {
+                  setestadoMir("En Revisión")
+                } else if (localStorage.getItem("Rol") === "Verificador") {
+                  setestadoMir("En Autorización")
+                } else {
+                  setestadoMir("Autorizada")
+                }
+
+                
                 handleClose(false);
                 setNewComent(false);
               }}

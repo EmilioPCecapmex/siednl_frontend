@@ -87,7 +87,7 @@ export function TabResumen({
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
-  const checkMir = (v: string) => {
+  const checkMir = (estado: string) => {
     if (MIR?.encabezado.ejercicioFiscal === objetoVacio) {
       return Toast.fire({
         icon: "error",
@@ -104,20 +104,21 @@ export function TabResumen({
         title: "Selecciona programa.",
       });
     } else {
-      createMIR(v);
+      createMIR(estado);
     }
   };
-  const [estadoMir, setestadoMir] = useState("");
+ 
+  
 
   const createMIR = (estado: string) => {
-    console.log("estadoMir: ", estadoMir);
+    
     
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
         {
           MIR: JSON.stringify(MIR),
-          Estado: estadoMir,
+          Estado: estado,
           //se va a cambiar
           CreadoPor: localStorage.getItem("IdUsuario"),
           AnioFiscal: MIR?.encabezado.ejercicioFiscal.Label,
@@ -305,17 +306,6 @@ export function TabResumen({
   };
 
 
-  useEffect(() => {
-    console.log("estadoMir: ",estadoMir);
-    if(localStorage.getItem("Rol") === "Administrador"){
-      setestadoMir("Borrador Autorizador");
-    }
-    if(localStorage.getItem("Rol") === "Verificador"){
-      setestadoMir("Borrador Verificador ");
-    }
-    
-    console.log("estadoMir: ",estadoMir);
-  }, [estadoMir])
   
 
   return (
@@ -1691,14 +1681,27 @@ export function TabResumen({
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() => {
-            setestadoMir("Borrador");
+            //setestadoMir("Borrador");
+            let estado  = ""
+            if(localStorage.getItem("Rol") === "Capturador")
+            {
+              estado = "En Captura"
+              //setestadoMir("En Captura");
+            }
+            if(localStorage.getItem("Rol") === "Verificador")
+            {
+              estado = "Borrador Verificador"
+              //setestadoMir("Borrador Verificador");
+            }
+            if(localStorage.getItem("Rol") === "Administrador")
+            {
+              estado = "Borrador Autorizador"
+              //setestadoMir("Borrador Autorizador");
+            }
+            console.log("Boton Guardar Borrador y estado: ",estado);
+            
             checkMir(
-              localStorage.getItem("Rol") === "Capturador"
-                ? "En Captura"
-                : localStorage.getItem("Rol") === "Verificador"
-                ? "En Revisión"
-                : "En Autorización"
-            );
+              estado );
           }}
           //al menos un opcion
         >
@@ -1710,14 +1713,15 @@ export function TabResumen({
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() => {
-            if(localStorage.getItem("Rol") === "Capturador")
-            {
-              setestadoMir("En Revisión");
-            }
-            if(localStorage.getItem("Rol") === "Verificador")
-            {
-              setestadoMir("En Autorización");
-            }
+            // let estado  = ""
+            // if(localStorage.getItem("Rol") === "Capturador")
+            // {
+            //   estado = "En Revisión";
+            // }
+            // if(localStorage.getItem("Rol") === "Verificador")
+            // {
+            //   estado = "En Autorización";
+            // }
            
             setOpenModalEnviar(true)}}
         >

@@ -131,22 +131,22 @@ export const MIR = () => {
   };
 
   const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
-// cambiado
+  // cambiado
   const getInstituciones = (setstate: Function) => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-      params: {
-        IdUsuario: localStorage.getItem("IdUsuario"),
-        Rol: localStorage.getItem("Rol"),
-      },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
       .then((r) => {
         if (r.status === 200) {
-          console.log("r.data.data: ",r.data.data);
-          
+          console.log("r.data.data: ", r.data.data);
+
           setstate(r.data.data);
         }
       });
@@ -323,8 +323,8 @@ export const MIR = () => {
 
   useEffect(() => {
     //getMIRs(setMirs);
-    console.log("Entidades: ",instituciones);
-    
+    console.log("Entidades: ", instituciones);
+
     getInstituciones(setInstituciones);
   }, []);
 
@@ -356,7 +356,6 @@ export const MIR = () => {
   ) => {
     axios
       .post(
-       
         process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
         JSON.parse(mir),
         {
@@ -433,7 +432,6 @@ export const MIR = () => {
       console.log(mirxFiltered);
 
       if (
-        
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
@@ -468,13 +466,16 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container justifyContent={"space-between"} >
-      <Grid item xl={12 } height={"7vh"}
-     // sx={{ mr: showResume ? 8 : 0 }}
+    <Grid container justifyContent={"space-between"}>
+      <Grid
+        item
+        xl={12}
+        height={"7vh"}
+        // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Grid>
-{/* //boxShadow: 10, */}
+      {/* //boxShadow: 10, */}
 
       <Grid
         justifyContent={"center"}
@@ -488,12 +489,9 @@ export const MIR = () => {
         md={12}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "white", }}
+        sx={{ backgroundColor: "white" }}
       >
-
         {showResume ? (
-
-          
           <>
             {/* FILTROS */}
             <Grid
@@ -512,8 +510,6 @@ export const MIR = () => {
                 alignItems: "center",
               }}
             >
-
-
               <Grid
                 xl={12}
                 lg={12}
@@ -549,10 +545,7 @@ export const MIR = () => {
 
                       {instituciones?.map((item) => {
                         return (
-                          <MenuItem
-                            value={item.Nombre}
-                            key={item.Id}
-                          >
+                          <MenuItem value={item.Nombre} key={item.Id}>
                             {item.Nombre}
                           </MenuItem>
                         );
@@ -598,7 +591,6 @@ export const MIR = () => {
                     </Select>
                   </FormControl>
                 </Grid>
-
               </Grid>
 
               <Grid
@@ -652,7 +644,6 @@ export const MIR = () => {
                 </Grid>
 
                 <Grid item xl={3} lg={4} md={3} sm={2}>
-                  
                   <Button
                     disabled={!validaFecha}
                     sx={{
@@ -683,13 +674,13 @@ export const MIR = () => {
                       ]);
                       handleClickOpen();
                     }}
-                    
                   >
-                    {!validaFecha?"Fecha de captura terminada":"Añadir registro"}
+                    {!validaFecha
+                      ? "Fecha de captura terminada"
+                      : "Añadir registro"}
                   </Button>
                 </Grid>
               </Grid>
-              
             </Grid>
 
             {/* TABLA */}
@@ -703,20 +694,22 @@ export const MIR = () => {
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
-             
-
-              <TableContainer sx={{ borderRadius: 5, height: 450,
-            overflow: "auto",
-            "&::-webkit-scrollbar": {
-              width: ".5vw",
-              mt: 1,
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#edeaea",
-              //outline: "1px solid slategrey",
-              borderRadius: 1,
-            },
-             }}>
+              <TableContainer
+                sx={{
+                  borderRadius: 5,
+                  height: 450,
+                  overflow: "auto",
+                  "&::-webkit-scrollbar": {
+                    width: ".5vw",
+                    mt: 1,
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#edeaea",
+                    //outline: "1px solid slategrey",
+                    borderRadius: 1,
+                  },
+                }}
+              >
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow
@@ -747,10 +740,10 @@ export const MIR = () => {
 
                   <TableBody>
                     {mirsFiltered
-                       .slice(
-                         page * rowsPerPage,
-                         page * rowsPerPage + rowsPerPage
-                       )
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
                       .map((row, index) => (
                         <TableRow>
                           <TableCell
@@ -803,8 +796,8 @@ export const MIR = () => {
                             {row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
-                              : row.Estado === "En Revisión"  &&
-                                localStorage.getItem("Rol") === "Verificador" 
+                              : row.Estado === "En Revisión" &&
+                                localStorage.getItem("Rol") === "Verificador"
                               ? "Esperando revisión"
                               : row.Estado === "En Autorización" &&
                                 localStorage.getItem("Rol") === "Administrador"
@@ -850,140 +843,150 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                           
-                              <Tooltip
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
-                                      },
+                            <Tooltip
+                              PopperProps={{
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: {
+                                      offset: [0, -13],
                                     },
-                                  ],
-                                }}
-                                title="DESCARGAR MIR"
-                              >
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "Autorizada" && validaFecha ? false : true
-                                    }
-                                    onClick={() =>
-                                      downloadMIR(
-                                        row.AnioFiscal,
-                                        row.Entidad,
-                                        row.Programa,
-                                        row.MIR
-                                      )
-                                    }
-                                  >
-                                    <DownloadIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "orange",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
+                                  },
+                                ],
+                              }}
+                              title="DESCARGAR MIR"
+                            >
+                              <span>
+                                <IconButton
+                                  disabled={
+                                    row.Estado === "Autorizada" && validaFecha
+                                      ? false
+                                      : true
+                                  }
+                                  onClick={() =>
+                                    downloadMIR(
+                                      row.AnioFiscal,
+                                      row.Entidad,
+                                      row.Programa,
+                                      row.MIR
+                                    )
+                                  }
+                                >
+                                  <DownloadIcon
+                                    sx={[
+                                      {
+                                        "&:hover": {
+                                          color: "orange",
                                         },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
-                              <ComentDialogMir
-                                estado={row.Estado}
-                                id={row.Id}
-                                actualizado={actualizaContador}
-                              />
-
-                              <DeleteDialogMIR
-                                disab={
-                                  row.Estado === "En Captura" && validaFecha &&
-                                  localStorage.getItem("Rol") === "Capturador"
-                                    ? false
-                                    : row.Estado === "En Revisión" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador"
-                                    ? false
-                                    : row.Estado === "En Autorización" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador"
-                                    ? false
-                                    : true
-                                }
-                                id={row.Id}
-                                actualizado={actualizaContador}
-                              />
-                              <Tooltip
-                                title="EDITAR"
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
+                                        width: "1.2vw",
+                                        height: "1.2vw",
                                       },
+                                    ]}
+                                  />
+                                </IconButton>
+                              </span>
+                            </Tooltip>
+
+                            <ComentDialogMir
+                              estado={row.Estado}
+                              id={row.Id}
+                              actualizado={actualizaContador}
+                            />
+
+                            <DeleteDialogMIR
+                              disab={
+                                row.Estado === "En Captura" &&
+                                validaFecha &&
+                                localStorage.getItem("Rol") === "Capturador"
+                                  ? false
+                                  : row.Estado === "En Revisión" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Verificador"
+                                  ? false
+                                  : row.Estado === "En Autorización" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Administrador"
+                                  ? false
+                                  : true
+                              }
+                              id={row.Id}
+                              actualizado={actualizaContador}
+                            />
+                            <Tooltip
+                              title="EDITAR"
+                              PopperProps={{
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: {
+                                      offset: [0, -13],
                                     },
-                                  ],
-                                }}
-                              >
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "En Captura" && validaFecha &&
+                                  },
+                                ],
+                              }}
+                            >
+                              <span>
+                                <IconButton
+                                  disabled={
+                                    (row.Estado === "En Captura" &&
+                                      validaFecha &&
                                       localStorage.getItem("Rol") ===
-                                        "Capturador"
-                                        ? false
-                                        : row.Estado === "En Revisión" || "Borrador" && validaFecha &&
-                                          localStorage.getItem("Rol") ===
-                                            "Verificador"
-                                        ? false
-                                        : row.Estado === "En Autorización" || "Borrador" && validaFecha &&
-                                          localStorage.getItem("Rol") ===
-                                            "Administrador"
-                                        ? false
-                                        : true
-                                    }
-                                    onClick={() => {
-                                      setMirEdit([
-                                        {
-                                          Id: row.Id,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          Eje: row.Eje,
-                                          Tematica: row.Tematica,
-                                          MIR: row.MIR,
-                                          Estado: row.Estado,
-                                          FechaCreacion: row.FechaCreacion,
-                                          CreadoPor: row.CreadoPor,
-                                          Conac: row.Conac,
-                                          Consecutivo: row.Consecutivo,
-                                          Opciones: row.Opciones,
+                                        "Capturador") ||
+                                    (row.Estado === "En Revisión" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador") ||
+                                    (row.Estado === "Borrador Verificador" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador") ||
+                                    (row.Estado === "En Autorización" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador") ||
+                                    (row.Estado === "Borrador Autorizador" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador")
+                                      ? false
+                                      : true
+                                  }
+                                  onClick={() => {
+                                    setMirEdit([
+                                      {
+                                        Id: row.Id,
+                                        AnioFiscal: row.AnioFiscal,
+                                        Entidad: row.Entidad,
+                                        Programa: row.Programa,
+                                        Eje: row.Eje,
+                                        Tematica: row.Tematica,
+                                        MIR: row.MIR,
+                                        Estado: row.Estado,
+                                        FechaCreacion: row.FechaCreacion,
+                                        CreadoPor: row.CreadoPor,
+                                        Conac: row.Conac,
+                                        Consecutivo: row.Consecutivo,
+                                        Opciones: row.Opciones,
+                                      },
+                                    ]);
+                                    setShowResume(false);
+                                    setActionNumber(1);
+                                  }}
+                                >
+                                  <EditIcon
+                                    sx={[
+                                      {
+                                        "&:hover": {
+                                          color: "blue",
                                         },
-                                      ]);
-                                      setShowResume(false);
-                                      setActionNumber(1);
-                                    }}
-                                  >
-                                    <EditIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "blue",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-                            
+                                        width: "1.2vw",
+                                        height: "1.2vw",
+                                      },
+                                    ]}
+                                  />
+                                </IconButton>
+                              </span>
+                            </Tooltip>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -994,7 +997,7 @@ export const MIR = () => {
               </TableContainer>
 
               <Box sx={{ width: "100%" }}>
-                 <TablePagination
+                <TablePagination
                   rowsPerPageOptions={[renglonesPagina]}
                   component="div"
                   count={mirs.length}
@@ -1002,10 +1005,9 @@ export const MIR = () => {
                   page={page}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                /> 
+                />
               </Box>
             </Grid>
-
           </>
         ) : (
           <Grid
@@ -1026,9 +1028,7 @@ export const MIR = () => {
             />
           </Grid>
         )}
-        
       </Grid>
-
     </Grid>
   );
 };
