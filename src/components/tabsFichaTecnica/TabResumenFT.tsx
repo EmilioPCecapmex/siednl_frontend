@@ -4,7 +4,15 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
-import { IActividadesFT, IComponentesFT, ICValorFT, IEncabezadoFT, IFinFT, IFT, IPropositoFT } from "./Interfaces";
+import {
+  IActividadesFT,
+  IComponentesFT,
+  ICValorFT,
+  IEncabezadoFT,
+  IFinFT,
+  IFT,
+  IPropositoFT,
+} from "./Interfaces";
 import { queries } from "../../queries";
 export function TabResumenFT({
   show,
@@ -93,7 +101,6 @@ export function TabResumenFT({
     setEditActividades(aEdit);
 
     asignarFT(encabezado, fin, proposito, componenteValor, arr);
-    
   }, [encabezado, componenteValor, proposito, fin, cValor, show]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
@@ -121,8 +128,6 @@ export function TabResumenFT({
   });
 
   const creaFT = (estado: string) => {
-
-    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
@@ -133,7 +138,8 @@ export function TabResumenFT({
           IdMa: IdMA,
           Id: IdFT,
           Estado: estado,
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -266,7 +272,10 @@ export function TabResumenFT({
               <Checkbox
                 value={!editEncabezado.programaSER}
                 onChange={(v) => {
-                  setEditEncabezado({ ...editEncabezado, programaSER: !v.target.checked });
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    programaSER: !v.target.checked,
+                  });
                 }}
               />
             )}
@@ -292,7 +301,10 @@ export function TabResumenFT({
               <Checkbox
                 value={!editEncabezado.objetivoSER}
                 onChange={(v) => {
-                  setEditEncabezado({ ...editEncabezado, objetivoSER: !v.target.checked });
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    objetivoSER: !v.target.checked,
+                  });
                 }}
               />
             )}
@@ -314,14 +326,17 @@ export function TabResumenFT({
               borderColor: "#cfcfcf",
             }}
           >
-             {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editEncabezado.objetivoODS}
                 onChange={(v) => {
-                  setEditEncabezado({ ...editEncabezado, objetivoODS: !v.target.checked });
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    objetivoODS: !v.target.checked,
+                  });
                 }}
               />
-            )} 
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               OBJETIVO ODS:
             </Typography>
@@ -340,7 +355,7 @@ export function TabResumenFT({
               borderColor: "#cfcfcf",
             }}
           >
-             {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            {localStorage.getItem("Rol") !== "Administrador" ? null : (
               <Checkbox
                 value={!editEncabezado.metaODS}
                 onChange={(v) => {
@@ -350,7 +365,7 @@ export function TabResumenFT({
                   });
                 }}
               />
-            )} 
+            )}
             <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
               META ODS:
             </Typography>
@@ -363,7 +378,7 @@ export function TabResumenFT({
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
-            FIN 
+            FIN
           </Typography>
 
           <Box
@@ -1601,7 +1616,10 @@ export function TabResumenFT({
           mt: 2,
         }}
       >
-        <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => showResume()}>
+        <Button
+          sx={queries.buttonCancelarSolicitudInscripcion}
+          onClick={() => showResume()}
+        >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
@@ -1618,18 +1636,25 @@ export function TabResumenFT({
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() =>
+          onClick={() => {
+            let estado = "";
+            if (localStorage.getItem("Rol") === "Capturador") {
+              estado = "En Captura";
+            }
+            if (localStorage.getItem("Rol") === "Verificador") {
+              estado = "Borrador Verificador";
+            }
+            if (localStorage.getItem("Rol") === "Administrador") {
+              estado = "Borrador Autorizador";
+            }
+
             creaFT(
-              localStorage.getItem("Rol") === "Capturador"
-                ? "En Captura"
-                : localStorage.getItem("Rol") === "Verificador"
-                ? "En Revisión"
-                : "En Autorización"
-            )
-          }
+              estado
+            );
+          }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Borrador
+            Guardar Borrador
           </Typography>
         </Button>
 
@@ -1646,26 +1671,25 @@ export function TabResumenFT({
 
         {/*CAMBIAR POR EL MODAL DE MODIFICAR DE FICHA TÉCNICA*/}
         <ModalsSolicitModifFT
-           open={openModalSolicitarModif}
-           handleClose={handleCloseModif}
+          open={openModalSolicitarModif}
+          handleClose={handleCloseModif}
           // Ft={JSON.stringify(FT)}
-           MIR={MIR}
-           showResume={showResume}
-           IdFT={IdFT}
-           IdMa ={IdMA}
-           IdMIR={IdMir}
-
-           FTEdit={
-             localStorage.getItem("Rol") !== "Administrador"
+          MIR={MIR}
+          showResume={showResume}
+          IdFT={IdFT}
+          IdMa={IdMA}
+          IdMIR={IdMir}
+          FTEdit={
+            localStorage.getItem("Rol") !== "Administrador"
               ? ""
-               : JSON.stringify({
-                   fin: editFin,
+              : JSON.stringify({
+                  fin: editFin,
                   proposito: editProposito,
-                   componentes: editComponentes,
-                   actividades: editActividades,
-                 })
-           }
-          FT = {JSON.stringify(FT)}
+                  componentes: editComponentes,
+                  actividades: editActividades,
+                })
+          }
+          FT={JSON.stringify(FT)}
         ></ModalsSolicitModifFT>
 
         <ModalEnviarFT
@@ -1678,8 +1702,6 @@ export function TabResumenFT({
           FT={JSON.stringify(FT)}
           IdMA={IdMA}
         ></ModalEnviarFT>
-
-
       </Box>
     </Box>
   );
