@@ -59,6 +59,8 @@ export function TabResumenMA({
     setOpenModalSolicitarModif(false);
   };
 
+  const [estadoMir, setestadoMir] = useState("");
+
   const creaMA = (estado: string) => {
     console.log("IdEntidad:localStorage.getItem(IdEntidad), TabResumenMA: ",localStorage.getItem("IdEntidad"));
     axios
@@ -68,7 +70,7 @@ export function TabResumenMA({
           MetaAnual: JSON.stringify(MA),
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
-          Estado: estado,
+          Estado: estadoMir,
           Id: IdMA,
           Rol: localStorage.getItem("Rol"),
           IdEntidad: localStorage.getItem("IdEntidad")
@@ -292,7 +294,17 @@ export function TabResumenMA({
     return x;
    }
 
-   
+   useEffect(() => {
+    console.log("estadoMir: ",estadoMir);
+    if(localStorage.getItem("Rol") === "Administrador"){
+      setestadoMir("Borrador Autorizador");
+    }
+    if(localStorage.getItem("Rol") === "Verificador"){
+      setestadoMir("Borrador Verificador");
+    }
+    
+    console.log("estadoMir: ",estadoMir);
+  }, [estadoMir])
 
   return (
     <Box
@@ -2083,7 +2095,8 @@ export function TabResumenMA({
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() =>
+          onClick={() =>{
+            setestadoMir("Borrador");
             creaMA(
               localStorage.getItem("Rol") === "Capturador"
                 ? "En Captura"
@@ -2091,16 +2104,26 @@ export function TabResumenMA({
                 ? "En Revisión"
                 : "En Autorización"
             )
-          }
+          }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Borrador
+           Guardar borrador
           </Typography>
         </Button>
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() => setOpenModalEnviar(true)}
+          onClick={() => {
+            if(localStorage.getItem("Rol") === "Capturador")
+            {
+              setestadoMir("En Revisión");
+            }
+            if(localStorage.getItem("Rol") === "Verificador")
+            {
+              setestadoMir("En Autorización");
+            }
+           
+            setOpenModalEnviar(true)}}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"
