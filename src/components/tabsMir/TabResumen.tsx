@@ -107,12 +107,8 @@ export function TabResumen({
       createMIR(estado);
     }
   };
- 
-  
 
   const createMIR = (estado: string) => {
-    
-    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
@@ -305,9 +301,6 @@ export function TabResumen({
     }),
   };
 
-
-  
-
   return (
     <Box
       // visibility={show ? "visible" : "hidden"}
@@ -353,7 +346,7 @@ export function TabResumen({
           >
             Datos Generales
           </Typography>
-         
+
           <Box sx={{ display: "flex" }}>
             <Box
               sx={{
@@ -1681,27 +1674,19 @@ export function TabResumen({
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() => {
-            //setestadoMir("Borrador");
-            let estado  = ""
-            if(localStorage.getItem("Rol") === "Capturador")
-            {
-              estado = "En Captura"
-              //setestadoMir("En Captura");
+            let estado = "";
+            if (localStorage.getItem("Rol") === "Capturador") {
+              estado = "En Captura";
             }
-            if(localStorage.getItem("Rol") === "Verificador")
-            {
-              estado = "Borrador Verificador"
-              //setestadoMir("Borrador Verificador");
+            if (localStorage.getItem("Rol") === "Verificador") {
+              estado = "Borrador Verificador";
             }
-            if(localStorage.getItem("Rol") === "Administrador")
-            {
-              estado = "Borrador Autorizador"
-              //setestadoMir("Borrador Autorizador");
+            if (localStorage.getItem("Rol") === "Administrador") {
+              estado = "Borrador Autorizador";
             }
-            console.log("Boton Guardar Borrador y estado: ",estado);
-            
-            checkMir(
-              estado );
+            console.log("Boton Guardar Borrador y estado: ", estado);
+
+            checkMir(estado);
           }}
           //al menos un opcion
         >
@@ -1713,17 +1698,8 @@ export function TabResumen({
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() => {
-            // let estado  = ""
-            // if(localStorage.getItem("Rol") === "Capturador")
-            // {
-            //   estado = "En Revisión";
-            // }
-            // if(localStorage.getItem("Rol") === "Verificador")
-            // {
-            //   estado = "En Autorización";
-            // }
-           
-            setOpenModalEnviar(true)}}
+            setOpenModalEnviar(true);
+          }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"

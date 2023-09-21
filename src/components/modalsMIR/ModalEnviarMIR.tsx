@@ -446,15 +446,9 @@ export default function ModalEnviarMIR({
   
 
   const createMIR = (estado: string) => {
-    // if (estado === "Autorizada" && userSelected !== "0") {
-    //   estado = "En Revisión";
-    // }
-    // if (estado === "En Autorización" && userSelected !== "0") {
-    //   estado = "En Captura";
-    // } else {
-    // }
-    
-  
+    console.log("Entre al create MetaAnual ModalEnviarMA");
+    console.log("IdEntidad",localStorage.getItem("IdEntidad"),);
+    console.log("estado: ",estado);
 
     axios
       .post(
