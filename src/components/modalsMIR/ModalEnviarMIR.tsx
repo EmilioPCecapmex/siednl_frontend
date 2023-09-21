@@ -447,7 +447,7 @@ export default function ModalEnviarMIR({
     console.log("estadoMir: ", estadoMir);
 
     if (localStorage.getItem("Rol") === "Capturador") {
-      setestadoMir("En Revisioó");
+      setestadoMir("En Revisión");
     }
 
     if (localStorage.getItem("Rol") === "Administrador") {
