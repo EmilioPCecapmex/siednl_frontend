@@ -130,13 +130,13 @@ export const ResumenFichaTecnica = ({
   const jsonFT = JSON.parse(FT);
 
   const page1Values = [
-    jsonMir.encabezado.beneficiario.toUpperCase(),
-    jsonMir.encabezado.tema.toUpperCase(),
-    jsonMir.encabezado.objetivo.toUpperCase(),
-    jsonMir.encabezado.estrategia.toUpperCase(),
+    jsonMir.encabezado.beneficiario.Label.toUpperCase(),
+    jsonMir.encabezado.tema.Label.toUpperCase(),
+    jsonMir.encabezado.objetivo.Label.toUpperCase(),
+    jsonMir.encabezado.estrategia.Label.toUpperCase(),
     jsonMir.encabezado.lineas_de_accion.map(
-      (value: { Id: string; LineaDeAccion: string }, x: any) => {
-        return value?.LineaDeAccion.toUpperCase();
+      (value: { Id: string; Label: string }, x: any) => {
+        return value?.Label.toUpperCase();
       }
     ),
     jsonFT.encabezado.programaSER.toUpperCase(),
@@ -241,7 +241,7 @@ export const ResumenFichaTecnica = ({
             {/*ROW*/}
             <Box sx={sxResultSize}>
               <Typography sx={sxResultContentDesign}>
-                {jsonMir.encabezado.nombre_del_programa.toUpperCase()}
+                {jsonMir.encabezado.programa.Label.toUpperCase()}
               </Typography>
             </Box>
           </Box>
@@ -337,7 +337,7 @@ export const ResumenFichaTecnica = ({
           {/*ROW*/}
           <Box sx={sxResultSize}>
             <Typography sx={sxResultContentDesign}>
-              {jsonMir.encabezado.institucion.toUpperCase()}
+              {jsonMir.encabezado.entidad.Label.toUpperCase()}
             </Typography>
           </Box>
         </Box>
@@ -354,7 +354,7 @@ export const ResumenFichaTecnica = ({
             {/*ROW*/}
             <Box sx={sxResultSize}>
               <Typography sx={sxResultContentDesign}>
-                {jsonMir.encabezado.eje.toUpperCase()}
+                {jsonMir.encabezado.eje.Label.toUpperCase()}
               </Typography>
             </Box>
           </Box>
