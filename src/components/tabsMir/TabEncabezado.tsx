@@ -5,11 +5,7 @@ import {
   FormControl,
   TextField,
   Box,
-  Typography,
-  Alert,
-  Button,
   Autocomplete,
-  CircularProgress,
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
@@ -17,17 +13,19 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { IMIR, IMIREdit } from "./IMIR";
 import Stack from "@mui/material/Stack";
+import { ILista, IListaProgramas } from "./IListas";
+import { getListPedColumns, getLista, getListasLogin } from "./services mir/servicesMIR";
 
 export interface IEncabezado {
-  ejercicioFiscal: string;
-  institucion: string;
-  nombre_del_programa: string;
-  eje: string;
-  tema: string;
-  objetivo: string;
-  estrategia: string;
-  lineas_de_accion: Array<{ Id: string; LineaDeAccion: string }>;
-  beneficiario: string;
+  ejercicioFiscal: ILista;
+  entidad: ILista;
+  programa:IListaProgramas;
+  eje: ILista;
+  tema: ILista;
+  objetivo: ILista;
+  estrategia: ILista;
+  lineas_de_accion: Array<ILista>;
+  beneficiario: ILista;
   conac: string;
   consecutivo: string;
   anticorrupcion: string;
@@ -44,100 +42,61 @@ export function TabEncabezado({
   setMIR: Function;
   mirEdit: IMIREdit;
 }) {
-  const [nombreArchivo, setNombreArchivo] = useState(
-    "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
-  );
-
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+  // const [nombreArchivo, setNombreArchivo] = useState(
+  //   "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
+  // );
+  const objetoVacio :ILista={Id:"",Label:""}
+  // const Toast = Swal.mixin({
+  //   toast: true,
+  //   position: "top-end",
+  //   showConfirmButton: false,
+  //   timer: 2000,
+  //   timerProgressBar: true,
+  //   didOpen: (toast) => {
+  //     toast.addEventListener("mouseenter", Swal.stopTimer);
+  //     toast.addEventListener("mouseleave", Swal.resumeTimer);
+  //   },
+  // });
 
   //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
-  function enCambioAnio(Id: string, Anio: string) {
-    setAnioFiscal(Anio);
-  }
-  function enCambioInstitucion(Id: string, Inst: string) {
-    setInstitution(Inst);
-    setPrograma("");
-    setConac("");
-    setConsecutivo("");
-    if (Id !== "") {
-      getProgramas(Id);
-    }
-    setDisabledProgramas(false);
-  }
-  function enCambioPrograma(Id: string, Prog: string) {
-    setConac("");
-    setConsecutivo("");
-    if (Prog !== "") {
-      getIdPrograma(Prog);
-    }
-  }
-  function enCambioEje(Id: string, Eje: string) {
-    setEje(Eje);
-    setTematica("");
-    setDisabledObjetivos(true);
-    setObjetivo("");
-    setDisabledEstrategias(true);
-    setEstrategia("");
-    setDisabledLineasDeAccion(true);
-    setLineaDeAccion([]);
-    getTematicas(Id);
-    setDisabledTematicas(false);
-  }
-  function enCambioTematica(Id: string, Tematica: string) {
-    setTematica(Tematica);
-    setObjetivo("");
-    setDisabledEstrategias(true);
-    setEstrategia("");
-    setDisabledLineasDeAccion(true);
-    getObjetivos(Id);
-    setDisabledObjetivos(false);
-  }
-  function enCambioObjetivo(Id: string, Objetivo: string) {
-    setObjetivo(Objetivo);
-    setEstrategia("");
-    setDisabledLineasDeAccion(true);
-    setLineaDeAccion([]);
-    getEstrategias(Id);
-    setDisabledEstrategias(false);
-  }
-  function enCambioEstrategia(Id: string, Estrategia: string) {
-    setEstrategia(Estrategia);
-    setLineaDeAccion([]);
-    getLineasDeAccion(Id);
-    setDisabledLineasDeAccion(false);
-  }
+  // function enCambioAnio(Id: string, Anio: string) {
+  //   setAnioFiscal(Anio);
+  // }
+
+
+  // function enCambioPrograma(Id: string, Prog: string) {
+  //   setConac("");
+  //   setConsecutivo("");
+  //   if (Prog !== "") {
+  //     getIdPrograma(Prog);
+  //   }
+  // }
+ 
+  
+  
+  
+
   // function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
   //   setLineaDeAccion([]);
   //   setLineaDeAccion(LDA);
   // }
 
-  function enCambioBeneficiario(Id: string, Ben: string) {
-    setBeneficiario(Ben);
-  }
+  // function enCambioBeneficiario(Id: string, Ben: string) {
+  //   setBeneficiario(Ben);
+  // }
 
-  function enCambioFile(event: any) {
-    setUploadFile(event.target.files[0]);
-    setLineaDeAccion([]);
+  // function enCambioFile(event: any) {
+  //   setUploadFile(event.target.files[0]);
+  //   setLineaDeAccion([]);
 
-    if (event.target.value !== "") {
-      setNombreArchivo(event.target.value.split("\\")[2]);
-    }
-    nombreArchivo == null || uploadFile == null
-      ? setDisabledButton(true)
-      : setDisabledButton(false);
-  }
+  //   if (event.target.value !== "") {
+  //     setNombreArchivo(event.target.value.split("\\")[2]);
+  //   }
+  //   nombreArchivo == null || uploadFile == null
+  //     ? setDisabledButton(true)
+  //     : setDisabledButton(false);
+  // }
 
-  var y = new Date().getFullYear();
 
   //Desactivar si el anterior no tiene value
   const [disabledProgramas, setDisabledProgramas] = useState(true);
@@ -148,434 +107,473 @@ export function TabEncabezado({
   const [disabledButton, setDisabledButton] = useState(true);
 
   //Values
-  const [anioFiscal, setAnioFiscal] = useState(
-    MIR.encabezado?.ejercicioFiscal || y.toString()
-  );
-  const [institution, setInstitution] = useState(
-    MIR.encabezado?.institucion || ""
-  );
-  const [programa, setPrograma] = useState(
-    MIR.encabezado?.nombre_del_programa || ""
-  );
-  const [eje, setEje] = useState(MIR.encabezado?.eje || "");
-  const [tematica, setTematica] = useState(MIR.encabezado?.tema || "");
-  const [objetivo, setObjetivo] = useState(MIR.encabezado?.objetivo || "");
-  const [estrategia, setEstrategia] = useState(
-    MIR.encabezado?.estrategia || ""
-  );
-  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILineasDeAccion>>(
-    MIR.encabezado?.lineas_de_accion || []
-  );
-  const [beneficiario, setBeneficiario] = useState(
-    MIR.encabezado?.beneficiario || ""
-  );
-  const [conac, setConac] = useState(MIR.encabezado?.conac || "");
-  const [consecutivo, setConsecutivo] = useState(
-    MIR.encabezado?.consecutivo || ""
-  );
-  const [anticorrupcion, setAnticorrupcion] = React.useState(
-    MIR.encabezado?.anticorrupcion || "NO"
-  );
+  // const [anioFiscal, setAnioFiscal] = useState(
+  //   MIR.encabezado?.ejercicioFiscal || new Date().getFullYear().toString()
+  // );
+  // const [institution, setInstitution] = useState(
+  //   MIR.encabezado?.IdEntidad || ""
+  // );
+
+  const [anticorrupcion, setAnticorrupcion] = React.useState(MIR.encabezado?.anticorrupcion || "NO");
 
   //Catalogos
-  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState([
-    { Id: "0", AnioFiscal: "" },
-  ]);
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState([
-    { Id: "0", NombreInstitucion: "" },
-  ]);
-  const [catalogoProgramas, setCatalogoProgramas] = useState([
-    { Id: "0", NombrePrograma: "", Conac: "", Consecutivo: "" },
-  ]);
-  const [catalogoEjes, setCatalogoEjes] = useState([{ Id: "0", Eje: "" }]);
-  const [catalogoTematicas, setCatalogoTematicas] = useState([
-    { IdTematica: "0", Tematica: "" },
-  ]);
-  const [catalogoObjetivos, setCatalogoObjetivos] = useState([
-    { IdObjetivo: "0", Objetivo: "" },
-  ]);
-  const [catalogoEstrategias, setCatalogoEstrategias] = useState([
-    { IdEstrategia: "0", Estrategia: "" },
-  ]);
-  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState([
-    { Id: "0", LineaDeAccion: "" },
-  ]);
-  const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState([
-    { Id: "0", Beneficiario: "" },
-  ]);
+  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState<Array<ILista>>([]);
+  const [anioFiscal, setAnioFiscal] = useState<ILista>(MIR.encabezado.ejercicioFiscal||{Id:new Date().getFullYear().toString(),Label:new Date().getFullYear().toString()});
 
-  const replica = catalogoLineasDeAccion;
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<ILista>>([]);
+  const [entidadSeleccionada, setEntidadSeleccionada] = useState(MIR.encabezado?.entidad ||{Id: localStorage.getItem("IdEntidad") || "", Label: localStorage.getItem("Entidad") || ""});
+  
+  const [catalogoProgramas, setCatalogoProgramas] = useState<Array<IListaProgramas>>([]);
+  const [programa, setPrograma] = useState<IListaProgramas>(MIR.encabezado?.programa||{...objetoVacio,Conac:"",Consecutivo:""});
 
-  const [uploadFile, setUploadFile] = React.useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
+  const [conac, setConac] = useState(MIR.encabezado?.conac || "");
+
+  const [consecutivo, setConsecutivo] = useState(MIR.encabezado?.consecutivo || "");
+
+  const [catalogoEjes, setCatalogoEjes] = useState<Array<ILista>>([]);
+  const [eje, setEje] = useState<ILista>(MIR.encabezado?.eje || objetoVacio);
+
+  const [catalogoTematicas, setCatalogoTematicas] = useState<Array<ILista>>([]);
+  const [tematica, setTematica] = useState<ILista>(MIR.encabezado?.tema || objetoVacio);
+
+  const [catalogoObjetivos, setCatalogoObjetivos] = useState<Array<ILista>>([]);
+  const [objetivo, setObjetivo] = useState<ILista>(MIR.encabezado?.objetivo || objetoVacio);
+
+  const [catalogoEstrategias, setCatalogoEstrategias] = useState<Array<ILista>>([]);
+  const [estrategia, setEstrategia] = useState<ILista>(MIR.encabezado?.estrategia ||objetoVacio);
+
+  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState<Array<ILista>>([]);
+  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILista>>(MIR.encabezado?.lineas_de_accion ||[]);
+
+  const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState<Array<ILista>>([]);
+  const [beneficiario, setBeneficiario] = useState<ILista>(MIR.encabezado?.beneficiario || objetoVacio);
+
+  useEffect(() => {
+    getLista("AniosFiscales","",setCatalogoAniosFiscales);
+    getListasLogin({Tabla:"Entidades",ValorCondicion:""},setCatalogoInstituciones);
+    getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
+    getLista("Beneficiario","",setCatalogoBeneficiarios);
+    setEje(MIR.encabezado?.eje || objetoVacio);
+    // console.log("tema",tematica);
+    // setTematica(MIR.encabezado?.tema || objetoVacio);
+    // console.log("MIR",MIR);
+    
+  }, [])
+
+  useEffect(() => {
+    if (entidadSeleccionada?.Id) {
+      getLista("ProgramasXInstitucion",entidadSeleccionada?.Id,setCatalogoProgramas);
+      //setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
+      setConac("");
+      setConsecutivo("");
+      setDisabledProgramas(false);
+    }
+  }, [entidadSeleccionada?.Id]);
+
+  useEffect(()=>{
+    // setTematica(objetoVacio);
+    setDisabledObjetivos(true);
+    //setObjetivo(objetoVacio);
+    setDisabledEstrategias(true);
+    //setEstrategia(objetoVacio);
+    setDisabledLineasDeAccion(true);
+    //setLineaDeAccion([]);
+    getListPedColumns({Col:"Temáticas",Id:eje.Id},setCatalogoTematicas,setDisabledTematicas);
+    setDisabledTematicas(false);
+  },[eje])
+
+  useEffect(()=> {
+    // setObjetivo(objetoVacio);
+    setDisabledEstrategias(true);
+    //setEstrategia(objetoVacio);
+    setDisabledLineasDeAccion(true);
+    getListPedColumns({Col:"Objetivos",Id:tematica.Id},setCatalogoObjetivos,setDisabledObjetivos);
+    setDisabledObjetivos(false);
+  },[tematica])
+
+  useEffect(()=>{
+    
+    // setEstrategia(objetoVacio);
+    setDisabledLineasDeAccion(true);
+    //setLineaDeAccion([]);
+    getListPedColumns({Col:"Estrategias",Id:objetivo.Id},setCatalogoEstrategias,setDisabledEstrategias);
+    setDisabledEstrategias(false);
+  },[objetivo])
+  
+  useEffect(()=>{
+    //setLineaDeAccion([]);
+    getListPedColumns({Col:"Lineas de Acción",Id:estrategia.Id},setCatalogoLineasDeAccion,setDisabledLineasDeAccion);
+    setDisabledLineasDeAccion(false);
+  },[estrategia])
 
   const onClearLineasDeAccion = () => {
     setLineaDeAccion([]);
   };
+  
+  function RestaurarValores(tipo:string){
+    switch(tipo){
+      case "Eje":
+        setTematica(objetoVacio);
+        setObjetivo(objetoVacio);
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Tematica':
+        setObjetivo(objetoVacio);
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Objetivo':
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Estrategia':
+        setLineaDeAccion([]);
+        break;
+    }
+    
+  }
+
+  // const replica = catalogoLineasDeAccion; //warning
+
+  // const [uploadFile, setUploadFile] = React.useState("");
+  // const [errorMsg, setErrorMsg] = useState("");
+  // const [showAlert, setShowAlert] = useState(false);
+
+ 
 
   //Obtener catálogos por id dependiendo de la seleccion anterior
-  const getAniosFiscales = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/aniosFiscales", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoAniosFiscales(r.data.data);
-      });
-  };
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoInstituciones(r.data.data);
-      });
-  };
-  const getProgramas = (id: string) => {
-    if (id !== undefined) {
-      axios
-        .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/programaInstitucion",
-          {
-            params: {
-              IdInstitucion: id,
-            },
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          setCatalogoProgramas(r.data.data);
-        })
-        .catch((err) => {
-          Toast.fire({
-            icon: "error",
-            title: "No existen programas asociados a esta institución.",
-          });
-          setDisabledProgramas(true);
-        });
-    }
-  };
-  const getEjes = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
-        params: {
-          Col: "Ejes",
-          Id: " ",
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoEjes(r.data.data);
-      });
-  };
-  const getTematicas = (id: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
-        params: {
-          Col: "Temáticas",
-          Id: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoTematicas(r.data.data);
-      })
-      .catch((err) => {
-        setDisabledTematicas(true);
-      });
-  };
-  const getObjetivos = (id: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
-        params: {
-          Col: "Objetivos",
-          Id: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoObjetivos(r.data.data);
-      })
-      .catch((err) => {
-        setDisabledObjetivos(true);
-      });
-  };
-  const getEstrategias = (id: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
-        params: {
-          Col: "Estrategias",
-          Id: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoEstrategias(r.data.data);
-      })
-      .catch((err) => {
-        setDisabledEstrategias(true);
-      });
-  };
-  const getLineasDeAccion = (id: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped-columns", {
-        params: {
-          Col: "Lineas de Acción",
-          Id: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoLineasDeAccion(r.data.data);
-      })
-      .catch((err) => {
-        setDisabledLineasDeAccion(true);
-      });
-  };
-  const getBeneficiarios = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/beneficiarios", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setCatalogoBeneficiarios(r.data.data);
-      });
-  };
+  // const getAniosFiscales = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/aniosFiscales", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoAniosFiscales(r.data.data);
+  //     });
+  // };
+  // cambiar por entidad
+  
+
+  // const getProgramas = (id: string) => {
+  //   if (id !== undefined) {
+  //     axios
+  //       .get(
+  //         process.env.REACT_APP_APPLICATION_BACK +
+  //         "/api/list-programasInstituciones",
+  //         {
+  //           params: {
+  //             IdEntidad: id,
+  //           },
+  //           headers: {
+  //             Authorization: localStorage.getItem("jwtToken") || "",
+  //           },
+  //         }
+  //       )
+  //       .then((r) => {
+  //         setCatalogoProgramas(r.data.data);
+  //         console.log("CATALOGO PROGRAMAS",r.data.data);
+          
+  //       })
+  //       .catch((err) => {
+  //         Toast.fire({
+  //           icon: "error",
+  //           title: "No existen programas asociados a esta institución.",
+  //         });
+  //         setDisabledProgramas(true);
+  //       });
+  //   }
+  // };
+  // no se porque este no lleva Id:(id: string)
+  
+  // const getTematicas = (id: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
+  //       params: {
+  //         Col: "Temáticas",
+  //         Id: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoTematicas(r.data.data);
+  //     })
+  //     .catch((err) => {
+  //       setDisabledTematicas(true);
+  //     });
+  // };
+  // const getObjetivos = (id: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
+  //       params: {
+  //         Col: "Objetivos",
+  //         Id: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoObjetivos(r.data.data);
+  //     })
+  //     .catch((err) => {
+  //       setDisabledObjetivos(true);
+  //     });
+  // };
+  // const getEstrategias = (id: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
+  //       params: {
+  //         Col: "Estrategias",
+  //         Id: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoEstrategias(r.data.data);
+  //     })
+  //     .catch((err) => {
+  //       setDisabledEstrategias(true);
+  //     });
+  // };
+  // const getLineasDeAccion = (id: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
+  //       params: {
+  //         Col: "Lineas de Acción",
+  //         Id: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoLineasDeAccion(r.data.data);
+  //     })
+  //     .catch((err) => {
+  //       setDisabledLineasDeAccion(true);
+  //     });
+  // };
+  // const getBeneficiarios = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiario", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoBeneficiarios(r.data.data);
+  //     });
+  // };
 
   //Obtener Id de la descripción extraida de la MIR
-  const getIdInstitucion = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Instituciones",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setInstitution(r.data.data[0].NombreInstitucion);
-      })
-      .catch((err) => {});
-  };
-  const getIdPrograma = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Programas",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setPrograma(r.data.data[0].NombrePrograma);
-        setConac(r.data.data[0].Conac);
-        setConsecutivo(r.data.data[0].Consecutivo);
-      });
-  };
-  const getIdEje = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Ejes",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setEje(r.data.data[0]?.Eje);
-        getTematicas(r.data.data[0]?.Id);
-        setDisabledTematicas(false);
-      });
-  };
-  const getIdTematica = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Temáticas",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setTematica(r.data.data[0].Tematica);
-        getObjetivos(r.data.data[0].Id);
-        setDisabledObjetivos(false);
-      });
-  };
-  const getIdObjetivo = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Objetivos",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setObjetivo(r.data.data[0].Objetivo);
-        getEstrategias(r.data.data[0].Id);
-        setDisabledEstrategias(false);
-      });
-  };
-  const getIdEstrategia = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Estrategias",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setEstrategia(r.data.data[0]?.Estrategia);
-        getLineasDeAccion(r.data.data[0]?.Id);
-      });
-  };
-  const getIdLineaDeAccion = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Lineas de Acción",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.data.data.length !== 0) {
-          lineaDeAccion.push(r.data.data[0]);
-          setDisabledLineasDeAccion(false);
-        }
-      })
-      .catch((err) => {});
-  };
+  // const getIdInstitucion = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
+  //       params: {
+  //         Col: "Entidades",
+  //         Descripcion: Description || localStorage.getItem("IdEntidad"),
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {getIdEje
+  //       // setInstitution(r.data.data[0].NombreInstitucion);
+  //     })
+  //     .catch((err) => { });
+  // };
+  // const getIdPrograma = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
+  //       params: {
+  //         Col: "Programas",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setPrograma(r.data.data[0].NombrePrograma);
+  //       setConac(r.data.data[0].Conac);
+  //       setConsecutivo(r.data.data[0].Consecutivo);
+  //     });
+  // };
+  // const getIdEje = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
+  //       params: {
+  //         Col: "Ejes",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setEje(r.data.data[0]?.Eje);
+  //       getTematicas(r.data.data[0]?.Id);
+  //       setDisabledTematicas(false);
+  //     });
+  // };
+  // const getIdTematica = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
+  //       params: {
+  //         Col: "Temáticas",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setTematica(r.data.data[0].Tematica);
+  //       getObjetivos(r.data.data[0].Id);
+  //       setDisabledObjetivos(false);
+  //     });
+  // };
+  // const getIdObjetivo = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
+  //       params: {
+  //         Col: "Objetivos",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setObjetivo(r.data.data[0].Objetivo);
+  //       getEstrategias(r.data.data[0].Id);
+  //       setDisabledEstrategias(false);
+  //     });
+  // };
+  // const getIdEstrategia = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
+  //       params: {
+  //         Col: "Estrategias",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setEstrategia(r.data.data[0]?.Estrategia);
+  //       getLineasDeAccion(r.data.data[0]?.Id);
+  //     });
+  // };
+  // const getIdLineaDeAccion = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
+  //       params: {
+  //         Col: "Lineas de Acción",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       if (r.data.data.length !== 0) {
+  //         lineaDeAccion.push(r.data.data[0]);
+  //         setDisabledLineasDeAccion(false);
+  //       }
+  //     })
+  //     .catch((err) => { });
+  // };
 
-  const getIdBeneficiario = (Description: string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir-id", {
-        params: {
-          Col: "Beneficiarios",
-          Descripcion: Description,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setBeneficiario(r.data.data[0].Beneficiario);
-      });
-  };
+  // const getIdBeneficiario = (Description: string) => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/id-mir", {
+  //       params: {
+  //         Col: "Beneficiarios",
+  //         Descripcion: Description,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setBeneficiario(r.data.data[0].Beneficiario);
+  //     });
+  // };
   //Cuando se da click en cargar archivo
-  const submitForm = (event: any) => {
-    setDisabledButton(true);
+  // const submitForm = (event: any) => {
+  //   setDisabledButton(true);
 
-    event.preventDefault();
-    setLoadingFile(true);
+  //   event.preventDefault();
+  //   // setLoadingFile(true);
 
-    const dataArray = new FormData();
-    dataArray.append("file", uploadFile);
+  //   const dataArray = new FormData();
+  //   dataArray.append("file", uploadFile);
 
-    axios
-      .post(process.env.REACT_APP_APPLICATION_MID + "/upload", dataArray, {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then(({ data }) => {
-        setMIR((MIR: IMIR) => ({
-          ...MIR,
-          ...{ fin: data.fin[0] },
-          ...{ proposito: data.propositos[0] },
-          ...{ componentes: data.componentes },
-          ...{ actividades: data.actividades },
-          ...{ componenteActividad: data.componenteActividad },
-        }));
-        setAnticorrupcion(data.encabezado[0].anticorrupcion);
-        getIdInstitucion(data.encabezado[0].institucion);
-        getIdPrograma(data.encabezado[0].nombre_del_programa);
-        getIdEje(data.encabezado[0].eje);
-        getIdTematica(data.encabezado[0].tema);
-        getIdObjetivo(data.encabezado[0].objetivo);
-        getIdEstrategia(data.encabezado[0].estrategia);
-        setTimeout(() => {
-          data.encabezado[0]?.lineas_de_accion
-            ?.split(".\n")
-            .map((value: string) => {
-              if (value !== "") {
-                getIdLineaDeAccion(value);
-              }
-            });
-          setLoadingFile(false);
-          getIdBeneficiario(data.encabezado[0].beneficiario);
-        }, 1500);
-      })
-      .catch((error) => {
-        setErrorMsg(error.response.data || "Formato de archivo incorrecto");
-        setShowAlert(true);
-        setDisabledButton(true);
-        setLoadingFile(false);
-      });
-  };
-
-  useEffect(() => {
-    console.log(MIR);
-
-    getAniosFiscales();
-    getInstituciones();
-    getEjes();
-    getBeneficiarios();
-  }, []);
+  //   axios
+  //     .post(process.env.REACT_APP_APPLICATION_MID + "/upload", dataArray, {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then(({ data }) => {
+  //       setMIR((MIR: IMIR) => ({
+  //         ...MIR,
+  //         ...{ fin: data.fin[0] },
+  //         ...{ proposito: data.propositos[0] },
+  //         ...{ componentes: data.componentes },
+  //         ...{ actividades: data.actividades },
+  //         ...{ componenteActividad: data.componenteActividad },
+  //       }));
+  //       setAnticorrupcion(data.encabezado[0].anticorrupcion);
+  //       getIdInstitucion(data.encabezado[0].institucion);
+  //       getIdPrograma(data.encabezado[0].nombre_del_programa);
+  //       getIdEje(data.encabezado[0].eje);
+  //       getIdTematica(data.encabezado[0].tema);
+  //       getIdObjetivo(data.encabezado[0].objetivo);
+  //       getIdEstrategia(data.encabezado[0].estrategia);
+  //       setTimeout(() => {
+  //         data.encabezado[0]?.lineas_de_accion
+  //           ?.split(".\n")
+  //           .map((value: string) => {
+  //             if (value !== "") {
+  //               getIdLineaDeAccion(value);
+  //             }
+  //           });
+  //         // setLoadingFile(false);
+  //         getIdBeneficiario(data.encabezado[0].beneficiario);
+  //       }, 1500);
+  //     })
+  //     .catch((error) => {
+  //       setErrorMsg(error.response.data || "Formato de archivo incorrecto");
+  //       setShowAlert(true);
+  //       setDisabledButton(true);
+  //       // setLoadingFile(false);
+  //     });
+  // };
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
       ...MIR,
       ...{
         encabezado: {
-          ejercicioFiscal: anioFiscal.toUpperCase(),
-          institucion: institution.toUpperCase(),
-          nombre_del_programa: programa.toUpperCase(),
-          eje: eje.toUpperCase(),
-          tema: tematica.toUpperCase(),
-          objetivo: objetivo.toUpperCase(),
-          estrategia: estrategia.toUpperCase(),
+          ejercicioFiscal: anioFiscal,
+          entidad: entidadSeleccionada,
+          programa: programa,
+          eje: eje,
+          tema: tematica,
+          objetivo: objetivo,
+          estrategia: estrategia,
           lineas_de_accion: lineaDeAccion,
-          beneficiario: beneficiario.toUpperCase(),
+          beneficiario: beneficiario,
           conac: conac,
           consecutivo: consecutivo,
           anticorrupcion: anticorrupcion,
@@ -584,29 +582,35 @@ export function TabEncabezado({
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    anioFiscal,
-    institution,
-    programa,
-    eje,
-    tematica,
-    objetivo,
-    estrategia,
+    anioFiscal.Id,
+    entidadSeleccionada.Id,
+    programa.Id,
+    eje.Id,
+    tematica.Id,
+    objetivo.Id,
+    estrategia.Id,
     lineaDeAccion,
-    beneficiario,
+    beneficiario.Id,
     conac,
     consecutivo,
     anticorrupcion,
   ]);
 
-  const [loadingFile, setLoadingFile] = useState(false);
+  useEffect(() => {
+    console.log("MIR",MIR.encabezado);
+    
+  }, [MIR.encabezado])
+  
+
+  // const [loadingFile, setLoadingFile] = useState(false);
 
   return (
     <Box
       visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
-        width: "75vw",
-        height: "75vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",
@@ -630,11 +634,11 @@ export function TabEncabezado({
           justifyContent: "center",
         }}
       >
-        <Button href="/files/MIR_2023.xlsx" target="_blank" download>
+        {/* <Button href="/files/MIR_2023.xlsx" target="_blank" download>
           <Typography sx={{ fontFamily: "MontserratMedium", color: "#616161" }}>
             Plantilla
           </Typography>
-        </Button>
+        </Button> */}
       </Box>
 
       <FormControl sx={{ gridRow: "1", width: "20vw" }}>
@@ -644,17 +648,13 @@ export function TabEncabezado({
           noOptionsText="Sin opciones"
           closeText="Cerrar"
           openText="Abrir"
-          // disabled={mirEdit?.encabezado.ejercicioFiscal}
           disablePortal
           size="small"
           options={catalogoAniosFiscales}
-          getOptionLabel={(option) => option.AnioFiscal || ""}
-          value={{
-            Id: catalogoAniosFiscales[0].Id,
-            AnioFiscal: anioFiscal,
-          }}
+          getOptionLabel={(option) => option.Label || ""}
+          value={anioFiscal}
           getOptionDisabled={(option) => {
-            if (option.Id === "0") {
+            if (option.Id === "") {
               return true;
             }
             return false;
@@ -665,7 +665,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.AnioFiscal}
+                  {option.Label}
                 </p>
               </li>
             );
@@ -673,7 +673,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Ejercicio Fiscal".toUpperCase()}
+              label="EJERCICIO FISCAL"
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -688,16 +688,11 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>
-            enCambioAnio(
-              value?.Id as string,
-              (value?.AnioFiscal as string) || ""
-            )
-          }
+          onChange={(event, value) =>setAnioFiscal(value||objetoVacio)}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
-
+      {/* 
       <Box
         sx={{
           gridColumn: "2/4",
@@ -770,13 +765,14 @@ export function TabEncabezado({
             Cargar
           </Button>
         )}
+        
         <Box
           sx={{ position: "absolute" }}
           visibility={loadingFile ? "visible" : "hidden"}
         >
           <CircularProgress />
         </Box>
-      </Box>
+      </Box> */}
 
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
@@ -785,14 +781,10 @@ export function TabEncabezado({
           noOptionsText="Sin opciones"
           closeText="Cerrar"
           openText="Abrir"
-          // disabled={mirEdit?.encabezado.institucion}
           disablePortal
           options={catalogoInstituciones}
-          getOptionLabel={(option) => option.NombreInstitucion || ""}
-          value={{
-            Id: catalogoInstituciones[0].Id,
-            NombreInstitucion: institution,
-          }}
+          getOptionLabel={(option) => option.Label || ""}
+          value={entidadSeleccionada}
           size="small"
           renderOption={(props, option) => {
             return (
@@ -800,7 +792,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.NombreInstitucion.toUpperCase()}
+                  {option.Label?.toUpperCase()}
                 </p>
               </li>
             );
@@ -808,7 +800,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Institución".toUpperCase()}
+              label={"INSTITUCIÓN"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -824,11 +816,9 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>
-            enCambioInstitucion(
-              value?.Id as string,
-              (value?.NombreInstitucion as string) || ""
-            )
+          onChange={(event, value) => {
+            setEntidadSeleccionada({ Id: value?.Id || "", Label: value?.Label || "" })
+          }
           }
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
@@ -845,12 +835,12 @@ export function TabEncabezado({
           }
           options={catalogoProgramas}
           size="small"
-          getOptionLabel={(option) => option.NombrePrograma || ""}
-          value={{
-            Id: catalogoProgramas[0].Id,
-            NombrePrograma: programa,
-            Conac: conac,
-            Consecutivo: consecutivo,
+          getOptionLabel={(option) => option.Label || ""}
+          value={programa}
+          onChange={(event, value) => {
+            setConac(value?.Conac||"")
+            setConsecutivo(value?.Consecutivo||"")
+            setPrograma(value||{...objetoVacio,Conac:"",Consecutivo:""})
           }}
           renderOption={(props, option) => {
             return (
@@ -858,7 +848,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.NombrePrograma}
+                  {option.Label}
                 </p>
               </li>
             );
@@ -866,7 +856,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Programa".toUpperCase()}
+              label={"PROGRAMA"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -881,45 +871,38 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) => {
-            enCambioPrograma(
-              value?.Id as string,
-              (value?.NombrePrograma as string) || ""
-            );
-          }}
+
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-        <FormControlLabel
-          label="ANTICORRUPCIÓN"
-          control={
-            <Checkbox
-              checked={anticorrupcion === "SI"}
-              onChange={() => {
-                anticorrupcion === "NO"
-                  ? setAnticorrupcion("SI")
-                  : setAnticorrupcion("NO");
-              }}
-            />
-          }
-        />
-        <TextField
-          disabled
-          size="small"
-          label={"CONAC:"}
-          value={conac}
-          sx={{ width: "25%" }}
-        />
-        <TextField
-          disabled
-          size="small"
-          label={"CLASIFICACIÓN PROGRAMÁTICA:"}
-          value={consecutivo}
-          sx={{ width: "70%" }}
-        />
-      </Box>
+      <FormControlLabel
+        label="ANTICORRUPCIÓN"
+        control={
+          <Checkbox
+            checked={anticorrupcion === "SI"}
+            onChange={() => {
+              anticorrupcion === "NO"
+                ? setAnticorrupcion("SI")
+                : setAnticorrupcion("NO");
+            }}
+          />
+        }
+      />
+      <TextField
+        disabled
+        size="small"
+        label={"CONAC:"}
+        value={conac}
+        sx={{ width: "25%" }}
+      />
+      <TextField
+        disabled
+        size="small"
+        label={"CLASIFICACIÓN PROGRAMÁTICA:"}
+        value={consecutivo}
+        sx={{ width: "70%" }}
+      />
 
       <FormControl required sx={{ width: "20vw" }}>
         <Autocomplete
@@ -931,8 +914,8 @@ export function TabEncabezado({
           disabled={mirEdit?.encabezado.eje}
           size="small"
           options={catalogoEjes}
-          getOptionLabel={(option) => option.Eje || ""}
-          value={{ Id: catalogoEjes[0].Id, Eje: eje }}
+          getOptionLabel={(option) => option.Label || ""}
+          value={eje}
           getOptionDisabled={(option) => {
             if (option.Id === "0") {
               return true;
@@ -945,7 +928,7 @@ export function TabEncabezado({
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Eje}
+                  {option.Label}
                 </p>
               </li>
             );
@@ -953,7 +936,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Eje".toUpperCase()}
+              label={"EJE"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -966,11 +949,9 @@ export function TabEncabezado({
                   fontFamily: "MontserratRegular",
                 },
               }}
-            ></TextField>
+            />
           )}
-          onChange={(event, value) => {
-            enCambioEje(value?.Id as string, (value?.Eje as string) || "");
-          }}
+          onChange={(event, value) => {setEje(value||objetoVacio);RestaurarValores('Eje');}}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -982,28 +963,25 @@ export function TabEncabezado({
           closeText="Cerrar"
           openText="Abrir"
           disabled={
-            (mirEdit?.encabezado.tema && tematica !== "") || disabledTematicas
+            (mirEdit?.encabezado.tema && tematica.Id !== "") || disabledTematicas
           }
           options={catalogoTematicas}
           size="small"
-          getOptionLabel={(option) => option.Tematica || ""}
-          value={{
-            IdTematica: catalogoTematicas[0].IdTematica,
-            Tematica: tematica,
-          }}
+          getOptionLabel={(option) => option.Label || ""}
+          value={tematica}
           getOptionDisabled={(option) => {
-            if (option.IdTematica === "0") {
+            if (option.Id === "0") {
               return true;
             }
             return false;
           }}
           renderOption={(props, option) => {
             return (
-              <li {...props} key={option.IdTematica}>
+              <li {...props} key={option.Id}>
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Tematica.toUpperCase()}
+                  {option.Label.toUpperCase()}
                 </p>
               </li>
             );
@@ -1011,7 +989,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Temática".toUpperCase()}
+              label={"TEMÁTICA"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1025,16 +1003,11 @@ export function TabEncabezado({
                   textTransform: "uppercase",
                 },
               }}
-            ></TextField>
+            />
           )}
-          onChange={(event, value) => {
-            enCambioTematica(
-              value?.IdTematica as string,
-              (value?.Tematica as string) || ""
-            );
-          }}
+          onChange={(event, value) => {setTematica(value||objetoVacio);RestaurarValores('Tematica');}}
           isOptionEqualToValue={(option, value) =>
-            option.IdTematica === value.IdTematica
+            option.Id === value.Id
           }
         />
       </FormControl>
@@ -1046,23 +1019,20 @@ export function TabEncabezado({
           closeText="Cerrar"
           openText="Abrir"
           disabled={
-            (mirEdit?.encabezado.objetivo && objetivo !== "") ||
+            (mirEdit?.encabezado.objetivo && objetivo.Id !== "") ||
             disabledObjetivos
           }
           options={catalogoObjetivos}
-          getOptionLabel={(option) => option.Objetivo || ""}
-          value={{
-            IdObjetivo: catalogoObjetivos[0].IdObjetivo,
-            Objetivo: objetivo,
-          }}
+          getOptionLabel={(option) => option.Label || ""}
+          value={objetivo}
           size="small"
           renderOption={(props, option) => {
             return (
-              <li {...props} key={option.IdObjetivo}>
+              <li {...props} key={option.Id}>
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Objetivo.toUpperCase()}
+                  {option.Label.toUpperCase()}
                 </p>
               </li>
             );
@@ -1070,7 +1040,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Objetivo".toUpperCase()}
+              label={"OBJETIVO"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1084,16 +1054,11 @@ export function TabEncabezado({
                   textTransform: "uppercase",
                 },
               }}
-            ></TextField>
+            />
           )}
-          onChange={(event, value) =>
-            enCambioObjetivo(
-              value?.IdObjetivo as string,
-              (value?.Objetivo as string) || ""
-            )
-          }
+          onChange={(event, value) =>{setObjetivo(value||objetoVacio);RestaurarValores('Objetivo');}}
           isOptionEqualToValue={(option, value) =>
-            option.IdObjetivo === value.IdObjetivo
+            option.Id === value.Id
           }
         />
       </FormControl>
@@ -1105,23 +1070,20 @@ export function TabEncabezado({
           closeText="Cerrar"
           openText="Abrir"
           disabled={
-            (mirEdit?.encabezado.estrategia && estrategia !== "") ||
+            (mirEdit?.encabezado.estrategia && estrategia.Id !== "") ||
             disabledEstrategias
           }
           options={catalogoEstrategias}
           size="small"
-          getOptionLabel={(option) => option.Estrategia || ""}
-          value={{
-            IdEstrategia: catalogoEstrategias[0].IdEstrategia,
-            Estrategia: estrategia,
-          }}
+          getOptionLabel={(option) => option.Label || ""}
+          value={estrategia}
           renderOption={(props, option) => {
             return (
-              <li {...props} key={option.IdEstrategia}>
+              <li {...props} key={option.Id}>
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Estrategia}
+                  {option.Label}
                 </p>
               </li>
             );
@@ -1129,7 +1091,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Estrategia".toUpperCase()}
+              label={"ESTRATEGIA"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1142,23 +1104,18 @@ export function TabEncabezado({
                   fontFamily: "MontserratRegular",
                 },
               }}
-            ></TextField>
+            />
           )}
-          onChange={(event, value) => {
-            enCambioEstrategia(
-              value?.IdEstrategia as string,
-              (value?.Estrategia as string) || ""
-            );
-          }}
+          onChange={(event, value) => {setEstrategia(value||objetoVacio);RestaurarValores('Estrategia');}}
           isOptionEqualToValue={(option, value) =>
-            option.IdEstrategia === value.IdEstrategia
+            option.Id === value.Id
           }
         />
       </FormControl>
-
+          
       <FormControl required>
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
-        <Stack spacing={3} sx={{ width: 500 }}>
+        <Stack spacing={3} sx={{ width: 400 }}>
           <Autocomplete
             clearText="Borrar"
             noOptionsText="Sin opciones"
@@ -1166,17 +1123,16 @@ export function TabEncabezado({
             openText="Abrir"
             disabled={
               (mirEdit?.encabezado.lineas_de_accion &&
-                lineaDeAccion[0]?.LineaDeAccion === "") ||
+                lineaDeAccion[0]?.Id === "") ||
               disabledLineasDeAccion
             }
             multiple
             limitTags={4}
-            options={replica}
+            options={catalogoLineasDeAccion}
             size="small"
             getOptionLabel={(option) =>
-              option.LineaDeAccion.toUpperCase() || ""
+              option.Label.toUpperCase() || ""
             }
-            //const replica = catalogoLineasDeAccion
             value={lineaDeAccion}
             renderOption={(props, option) => {
               return (
@@ -1187,18 +1143,17 @@ export function TabEncabezado({
                       fontSize: ".7vw",
                     }}
                   >
-                    {option.LineaDeAccion.toUpperCase()}
+                    {option.Label.toUpperCase()}
                   </p>
                 </li>
               );
             }}
             onInputChange={() => onClearLineasDeAccion()}
-            //onClearLineasDeAccion
             //--------------------------- esto si va --------------------------------------------
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={"Lineas de Acción".toUpperCase()}
+                label={"LINEAS DE ACCIÓN"}
                 variant="standard"
                 InputLabelProps={{
                   style: {
@@ -1216,7 +1171,7 @@ export function TabEncabezado({
             )}
             onChange={(event, value) => {
               value.map((value2, index) => {
-                if (value2.Id !== "" && value2.LineaDeAccion !== "") {
+                if (value2.Id !== "" && value2.Label !== "") {
                   setLineaDeAccion(value);
                 }
               });
@@ -1224,11 +1179,11 @@ export function TabEncabezado({
             isOptionEqualToValue={(
               option: {
                 Id: string;
-                LineaDeAccion: string;
+                Label: string;
               },
               value: {
                 Id: string;
-                LineaDeAccion: string;
+                Label: string;
               }
             ) => value.Id === option.Id}
           />
@@ -1242,22 +1197,18 @@ export function TabEncabezado({
           noOptionsText="Sin opciones"
           closeText="Cerrar"
           openText="Abrir"
-          // disabled={mirEdit?.encabezado.beneficiario}
           disablePortal
           size="small"
           options={catalogoBeneficiarios}
-          getOptionLabel={(option) => option.Beneficiario || ""}
-          value={{
-            Id: catalogoBeneficiarios[0].Id,
-            Beneficiario: beneficiario,
-          }}
+          getOptionLabel={(option) => option.Label || ""}
+          value={beneficiario}
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.Id}>
                 <p
                   style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
                 >
-                  {option.Beneficiario}
+                  {option.Label}
                 </p>
               </li>
             );
@@ -1265,7 +1216,7 @@ export function TabEncabezado({
           renderInput={(params) => (
             <TextField
               {...params}
-              label={"Beneficiario".toUpperCase()}
+              label={"BENEFICIARIO"}
               variant="standard"
               InputLabelProps={{
                 style: {
@@ -1280,12 +1231,8 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>
-            enCambioBeneficiario(
-              value?.Id as string,
-              (value?.Beneficiario as string) || ""
-            )
-          }
+          onChange={(event, value) =>{setBeneficiario(value||objetoVacio)}
+           }
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -1294,8 +1241,3 @@ export function TabEncabezado({
 }
 
 export default TabEncabezado;
-
-export interface ILineasDeAccion {
-  Id: string;
-  LineaDeAccion: string;
-}

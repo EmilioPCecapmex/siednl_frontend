@@ -40,7 +40,7 @@ export default function FullModalMir({
       : {
           encabezado: {
             ejercicioFiscal: "",
-            institucion: "",
+            entidad: "",
             nombre_del_programa: "",
             eje: "",
             tema: "",
@@ -528,8 +528,8 @@ export default function FullModalMir({
 
         <Box
           sx={{
-            width: "75vw",
-            height: "77vh",
+            width: "93vw",
+            height: "82vh",
           }}
         >
           <TabEncabezado

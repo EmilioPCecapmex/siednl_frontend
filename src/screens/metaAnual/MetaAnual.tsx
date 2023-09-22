@@ -1,8 +1,8 @@
-  /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DownloadIcon from "@mui/icons-material/Download";
 import {
-  Box,
+  Grid,
   FormControl,
   IconButton,
   Input,
@@ -21,14 +21,14 @@ import {
   TextField,
   Paper,
   InputBase,
-  Grid,
+  Box,
   TableSortLabel,
 } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
@@ -46,6 +46,50 @@ const estados = [
   "En Revisión",
   "En Autorización",
   "Autorizada",
+];
+
+interface Head {
+  id: keyof IIMa;
+  isNumeric: boolean;
+  label: string;
+}
+
+const heads: readonly Head[] = [
+  {
+    id: "AnioFiscal",
+    isNumeric: true,
+    label: "EJERCICIO FISCAL",
+  },
+  {
+    id: "Entidad",
+    isNumeric: true,
+    label: "ENTIDAD",
+  },
+  {
+    id: "Programa",
+    isNumeric: true,
+    label: "NOMBRE DEL PROGRAMA",
+  },
+  {
+    id: "Estado",
+    isNumeric: true,
+    label: "ESTADO",
+  },
+  {
+    id: "FechaCreacion",
+    isNumeric: true,
+    label: "FECHA DE CREACIÓN",
+  },
+  {
+    id: "CreadoPor",
+    isNumeric: true,
+    label: "CREADO POR",
+  },
+  {
+    id: "Opciones",
+    isNumeric: true,
+    label: "OPCIONES",
+  },
 ];
 export const MetaAnual = () => {
   const queryString = window.location.search;
@@ -86,27 +130,42 @@ export const MetaAnual = () => {
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
 
+  const [validaFecha, setValidaFecha] = useState(true);
   const [ma, setMa] = useState<Array<IIMa>>([]);
-  const [maEdit,  setMaEdit] = useState<Array<IIMa>>([]);
+  const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
   const [maxFiltered, setMaxFiltered] = useState<Array<IIMa>>([]);
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
   const getInstituciones = (setstate: Function) => {
+    // axios
+    //   .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+    //     params: {
+    //       IdUsuario: localStorage.getItem("IdUsuario"),
+    //       Rol: localStorage.getItem("Rol"),
+    //     },
+    //     headers: {
+    //       Authorization: localStorage.getItem("jwtToken") || "",
+    //     },
+    //   })
+    //   .then((r) => {
+    //     if (r.status === 200) {
+    //       setstate(r.data.data);
+    //     }
+    //   });
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
-        if (r.status === 200) {
-          setstate(r.data.data);
-        }
+        setstate(r.data.data);
       });
   };
 
@@ -138,6 +197,29 @@ export const MetaAnual = () => {
     let id = urlParams.get("Id");
     setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
   }, [ma]);
+
+  const validaFechaCaptura = () => {
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+          params: {
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "Meta Anual",
+          },
+        }
+      )
+      .then((r) => {
+        r.data.data.valida == "true"
+          ? setValidaFecha(true)
+          : setValidaFecha(false);
+      })
+      .catch((err) => {});
+  };
 
   const getMetaAnualDownload = (
     MIR: string,
@@ -187,6 +269,7 @@ export const MetaAnual = () => {
   };
 
   useEffect(() => {
+    validaFechaCaptura();
     getInstituciones(setInstituciones);
   }, []);
 
@@ -203,12 +286,12 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -219,12 +302,12 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+              x.Entidad.toLowerCase().includes(inst.toLowerCase()))
         )
       );
     } else if (
@@ -236,7 +319,7 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             x.AnioFiscal.includes(v) ||
-            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
             x.Programa.toLowerCase().includes(v.toLowerCase()) ||
             x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
             x.CreadoPor.toLowerCase().includes(v.toLowerCase())
@@ -253,7 +336,7 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -264,7 +347,7 @@ export const MetaAnual = () => {
         ma.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else {
@@ -278,10 +361,11 @@ export const MetaAnual = () => {
 
   const getMA = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Lista-MetaAnual", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-metaAnual", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          Rol: localStorage.getItem("Rol")
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -330,7 +414,7 @@ export const MetaAnual = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    console.log("Entra");
+    // console.log("Entra");
     let Arrayfiltro: IIMa[];
     Arrayfiltro = [];
 
@@ -341,16 +425,16 @@ export const MetaAnual = () => {
     }
 
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      console.log("entre");
-      console.log(elemento);
-      console.log(findTextStr);
-      console.log(maxFiltered);
+      // console.log("entre");
+      // console.log(elemento);
+      // console.log(findTextStr);
+      // console.log(maxFiltered);
 
       if (
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Institucion.toString()
+        elemento.Entidad.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
         elemento.Programa.toString()
@@ -366,7 +450,7 @@ export const MetaAnual = () => {
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase())
       ) {
-        console.log(elemento);
+        // console.log(elemento);
         return elemento;
       }
     });
@@ -379,23 +463,17 @@ export const MetaAnual = () => {
   };
 
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "grid",
-        backgroundColor: "#F2F2F2",
-        gridTemplateAreas: `
-                            'aside header'
-                            'aside main'
-                           `,
-      }}
-    >
-      <Box gridArea={"aside"} sx={{ mr: showResume ? 8 : 0 }}>
-        <LateralMenu selection={"Meta Anual"} actionNumber={actionNumber} />
-      </Box>
+    <Grid container justifyContent={"space-between"}>
+      <Grid
+        item
+        xl={12}
+        height={"7vh"}
+        // sx={{ mr: showResume ? 8 : 0 }}
+      >
+        <LateralMenu selection={"META ANUAL"} actionNumber={actionNumber} />
+      </Grid>
 
-      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+      {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
         <Header
           details={{
             name1: "Inicio",
@@ -405,37 +483,43 @@ export const MetaAnual = () => {
             name3: "",
           }}
         />
-      </Box>
+      </Grid> */}
+    <Grid
+        justifyContent={"center"}
+        display={"flex"}
+        container
+        height={"93vh"}
+        alignItems={"center"}
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={7.5}
+        xs={6}
+        sx={{ backgroundColor: "white" }}
+      >
+        {showResume ? (
+          <>
+            {/* Filtros */}
 
-      {showResume ? (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            height: "92vh",
-          }}
-          gridArea={"main"}
-        >
-          <Box
-            sx={{
-              width: "60%",
-              height: "16vh",
-              backgroundColor: "#fff",
-              borderRadius: 5,
-              display: "flex",
-              //gridTemplateColumns: "repeat(2, 1fr)",
-              flexDirection: "column",
-              boxShadow: 5,
-              justifyContent:"space-evenly",
-              alignItems: "center"
-              //flexDirection: "row",
-              
-            }}
-          >
-            {/* <TutorialBox initialState={35} endState={39} /> */}
-            
+            <Grid
+              container
+              item
+              xl={8}
+              lg={7}
+              md={6}
+              height="15vh"
+              direction="row"
+              sx={{
+                boxShadow: 5,
+                backgroundColor: "#FFFF",
+                borderRadius: 5,
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              {/* <TutorialBox initialState={35} endState={39} /> */}
+
               {/* <TextField
                 size="small"
                 value={findTextStr}
@@ -446,6 +530,7 @@ export const MetaAnual = () => {
                   setFindTextStr(v.target.value);
                 }}
               /> */}
+
               <Paper
                 component="form"
                 sx={{
@@ -453,7 +538,7 @@ export const MetaAnual = () => {
                   justifyItems: "center",
                   display: "flex",
                   width: "90%",
-                  height:"6vh"
+                  height: "6vh",
                 }}
               >
                 <InputBase
@@ -480,225 +565,157 @@ export const MetaAnual = () => {
                   <SearchIcon />
                 </IconButton>
               </Paper>
-            
 
-            <Box
-              sx={{
-                display: "flex",
-                //gridTemplateColumns: "repeat(2, 1fr)",
-                //alignItems:"center",
-                justifyItems: "space-evenly",
-                gap: 2,
-                width: "90%",
-              }}
-            >
-              <FormControl
+              <Grid
                 sx={{
                   display: "flex",
-                  width: "100%",
-                  // alignItems: "center",
-                  // justifyContent: "center",
-
-                   borderRadius: 2,
-                   borderColor: "#616161",
-                   
+                  //gridTemplateColumns: "repeat(2, 1fr)",
+                  //alignItems:"center",
+                  justifyItems: "space-evenly",
+                  gap: 2,
+                  width: "90%",
                 }}
               >
-                <InputLabel sx={queries.text}>
-                  Filtro por Estado de la MA
-                </InputLabel>
-                <Select
-                  size="small"
-                  fullWidth
-                  variant="outlined"
-                  label="Filtro por estado de la MA"
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  value={findSelectStr}
-                  onChange={(v) => {
-                    // v.target.value === "Todos"
-                    //   ? findText(
-                    //       findTextStr,
-                    //       "0",
-                    //       findInstStr === "Todos" ? "0" : findInstStr
-                    //     )
-                    //   : findText(findTextStr, v.target.value, findInstStr);
-                    setFindSelectStr(v.target.value);
-                  }}
-                >
-                  {estados.map((estado) => (
-                    <MenuItem key={estado} value={estado}>
-                      {estado}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <FormControl
-                sx={{
-                  display: "flex",
-                  width: "100%",
-                  // alignItems: "center",
-                  // justifyContent: "center",
-                  // //border: 1,
-                   borderRadius: 2,
-                   borderColor: "#616161",
-                   
-                }}
-              >
-                <InputLabel sx={queries.text}>
-                  Filtro por institución
-                </InputLabel>
-                <Select
-                  size="small"
-                  variant="outlined"
-                  fullWidth
-                  label="Filtro por institución"
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  value={findInstStr}
-                  // sx={{ fontFamily: "MontserratRegular" }}
-
-                  onChange={(v) => {
-                    setFindInstStr(v.target.value);
-                  }}
-                >
-                  <MenuItem
-                    value={"Todos"}
-                    sx={{ fontFamily: "MontserratRegular" }}
-                  >
-                    Todos
-                  </MenuItem>
-
-                  {instituciones?.map((item) => {
-                    return (
-                      <MenuItem value={item.NombreInstitucion} key={item.Id}>
-                        {item.NombreInstitucion}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </Box>
-
-          </Box>
-
-
-
-
-          <Box
-            sx={{
-              width: "80%",
-              height: "65vh",
-              backgroundColor: "#ffff",
-              borderRadius: 5,
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-              boxShadow: 5,
-            }}
-          >
-            <Table>
-              <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
-                <TableRow
+                <FormControl
                   sx={{
+                    display: "flex",
                     width: "100%",
-                    display: "grid",
-                    gridTemplateColumns: "repeat(7, 1fr)",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    // alignItems: "center",
+                    // justifyContent: "center",
+
+                    borderRadius: 2,
+                    borderColor: "#616161",
                   }}
                 >
-                  <TableCell
-                    sx={{
-                      fontFamily: "MontserratBold",
-                      borderBottom: 0,
-                      fontSize: "0.8vw",
+                  <InputLabel sx={queries.text}>
+                    FILTRO POR ESTADO DE LA MA
+                  </InputLabel>
+                  <Select
+                    size="small"
+                    fullWidth
+                    variant="outlined"
+                    label="FILTRO POR ESTADO DE LA MA"
+                    sx={{ fontFamily: "MontserratRegular" }}
+                    value={findSelectStr}
+                    onChange={(v) => {
+                      // v.target.value === "Todos"
+                      //   ? findText(
+                      //       findTextStr,
+                      //       "0",
+                      //       findInstStr === "Todos" ? "0" : findInstStr
+                      //     )
+                      //   : findText(findTextStr, v.target.value, findInstStr);
+                      setFindSelectStr(v.target.value);
                     }}
-                    align="center"
                   >
-                    EJERCICIO FISCAL
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontFamily: "MontserratBold",
-                      borderBottom: 0,
-                      fontSize: "0.8vw",
+                    {estados.map((estado) => (
+                      <MenuItem key={estado} value={estado}>
+                        {estado.toUpperCase()}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <FormControl
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    // alignItems: "center",
+                    // justifyContent: "center",
+                    // //border: 1,
+                    borderRadius: 2,
+                    borderColor: "#616161",
+                  }}
+                >
+                  <InputLabel sx={queries.text}>
+                    FILTRO POR INSTITUCION
+                  </InputLabel>
+                  <Select
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    label="FILTRO POR INSTITUCION"
+                    sx={{ fontFamily: "MontserratRegular" }}
+                    value={findInstStr}
+                    // sx={{ fontFamily: "MontserratRegular" }}
+
+                    onChange={(v) => {
+                      setFindInstStr(v.target.value);
                     }}
-                    align="center"
                   >
-                    INSTITUCIÓN
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontFamily: "MontserratBold",
-                      borderBottom: 0,
-                      fontSize: "0.8vw",
-                    }}
-                    align="center"
-                  >
-                    NOMBRE DEL PROGRAMA
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontFamily: "MontserratBold",
-                      borderBottom: 0,
-                      fontSize: "0.8vw",
-                    }}
-                    align="center"
-                  >
-                    ESTADO
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontFamily: "MontserratBold",
-                      borderBottom: 0,
-                      fontSize: "0.8vw",
-                    }}
-                    align="center"
-                  >
-                    FECHA DE CREACIÓN
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontFamily: "MontserratBold",
-                      borderBottom: 0,
-                      fontSize: "0.8vw",
-                    }}
-                    align="center"
-                  >
-                    CREADO POR
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontFamily: "MontserratBold",
-                      borderBottom: 0,
-                      fontSize: "0.8vw",
-                    }}
-                    align="center"
-                  >
-                    OPCIONES
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-            </Table>
-            <Box
-              sx={{
-                width: "100%",
-                height: "65vh",
-                overflow: "hidden",
-                overflowY: "unset",
-                "&::-webkit-scrollbar": {
-                  width: ".3vw",
-                  mt: 1,
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "rgba(0,0,0,.5)",
-                  outline: "1px solid slategrey",
-                  borderRadius: 1,
-                },
-              }}
+                    <MenuItem
+                      value={"Todos"}
+                      sx={{ fontFamily: "MontserratRegular" }}
+                    >
+                      TODOS
+                    </MenuItem>
+
+                    {instituciones?.map((item) => {
+                      return (
+                        <MenuItem value={item.Nombre} key={item.Id}>
+                          {item.Nombre.toUpperCase()}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+
+            {/* TABLA */}
+            <Grid
+              container
+              item
+              lg={10}
+              md={9}
+              height="65vh"
+              direction="row"
+              sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
-              <TableContainer>
-                <Table>
+              <TableContainer
+                sx={{
+                  borderRadius: 5,
+                  height: 450,
+                  overflow: "auto",
+                  "&::-webkit-scrollbar": {
+                    width: ".5vw",
+                    mt: 1,
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#edeaea",
+                    //outline: "1px solid slategrey",
+                    borderRadius: 1,
+                  },
+                }}
+              >
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow
+                      sx={{
+                        gridTemplateColumns: "repeat(7,1fr)",
+                      }}
+                    >
+                      {heads.map((head, index) => (
+                        <TableCell
+                          sx={{
+                            backgroundColor: "#edeaea",
+                            fontFamily: "MontserratBold",
+                            borderBottom: 0,
+                            fontSize: "0.8vw",
+                            // fontFamily: "MontserratRegular",
+                            //   fontSize: ".7vw",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          align="center"
+                          key={index}
+                        >
+                          <TableSortLabel>{head.label}</TableSortLabel>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+
                   <TableBody>
                     {maFiltered
                       .slice(
@@ -707,114 +724,75 @@ export const MetaAnual = () => {
                       )
                       .map((row, index) => (
                         <TableRow
-                          key={index}
-                          sx={{
-                            display: "grid",
-                            gridTemplateColumns: "repeat(7,1fr)",
-                          }}
+                        
                         >
                           <TableCell
                             sx={{
+                              padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
                             }}
                             align="center"
+                            component="th"
+                            scope="row"
                           >
                             {row.AnioFiscal}
                           </TableCell>
                           <TableCell
                             sx={{
+                              padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
                             }}
                             align="center"
+                            component="th"
+                            scope="row"
                           >
-                            {row.Institucion?.toUpperCase()}
+                            {row.Entidad?.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
+                              padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
                             }}
                             align="center"
+                            component="th"
+                            scope="row"
                           >
                             {row.Programa.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
+                              padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
                             }}
                             align="center"
+                            component="th"
+                            scope="row"
                           >
-                            <Box
-                              sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                width: "100%",
-                                height: "5vh",
-                                alignItems: "center",
-                                justifyContent: "center",
-                              }}
-                            >
-                              <Box
-                                sx={{
-                                  width: ".5vw",
-                                  height: "1vh",
-                                  borderRadius: 100,
-                                  backgroundColor: colorMir(
-                                    row.Estado,
-                                    row.MIR
-                                  ),
-                                }}
-                              />
-                              <Typography
-                                sx={{
-                                  width: "60%",
-                                  fontFamily: "MontserratRegular",
-                                  color: "#616161",
-                                  fontSize: ".7vw",
-                                  ml: "10%",
-                                  textAlign: "center",
-                                }}
-                              >
-                                {(row.Estado === "En Captura" &&
-                                localStorage.getItem("Rol") === "Capturador"
-                                  ? "Esperando captura"
-                                  : row.Estado === "En Revisión" &&
-                                    localStorage.getItem("Rol") ===
-                                      "Verificador"
-                                  ? "Esperando revisión"
-                                  : row.Estado === "En Autorización" &&
-                                    localStorage.getItem("Rol") ===
-                                      "Administrador"
-                                  ? "Esperando autorización"
-                                  : row.Estado
-                                ).toUpperCase()}
-                              </Typography>
-                            </Box>
+                            {(row.Estado === "En Captura" &&
+                            localStorage.getItem("Rol") === "Capturador"
+                              ? "Borrador Capturador"
+                              : row.Estado === "En Revisión" &&
+                                localStorage.getItem("Rol") === "Verificador"
+                              ? "Esperando revisión"
+                              : row.Estado === "En Autorización" &&
+                                localStorage.getItem("Rol") === "Administrador"
+                              ? "Esperando autorización"
+                              : row.Estado
+                            ).toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
+                              padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
                             }}
                             align="center"
+                            component="th"
+                            scope="row"
                           >
                             {moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
@@ -822,13 +800,13 @@ export const MetaAnual = () => {
                           </TableCell>
                           <TableCell
                             sx={{
+                              padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: ".7vw",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
                             }}
                             align="center"
+                            component="th"
+                            scope="row"
                           >
                             {row.Estado === "En Captura"
                               ? "SIN ASIGNAR"
@@ -836,37 +814,57 @@ export const MetaAnual = () => {
                           </TableCell>
 
                           <TableCell
-                            align="center"
                             sx={{
-                              display: "flex",
-                              //flexDirection: "column",
-                              alignItems: "center",
-                              justifyContent: "center",
+                              flexDirection: "row",
+                              display: "grid",
+                              gridTemplateColumns: "repeat(4,1fr)",
                             }}
+                            align="center"
+                            component="th"
+                            scope="row"
                           >
-                            <Box
-                              sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <Tooltip title="REGISTRAR META ANUAL">
+                          
+                              <Tooltip title="REGISTRAR META ANUAL"
+                              // {!(row.Estado === "En Captura" &&
+                              //         localStorage.getItem("Rol") ===
+                              //           "Capturador"
+                              //           ? false
+                              //           : row.Estado === "En Revisión" &&
+                                          
+                              //             localStorage.getItem("Rol") ===
+                              //               "Verificador"
+                              //           ? false
+                              //           : row.Estado === "En Autorización" &&
+                                          
+                              //             localStorage.getItem("Rol") ===
+                              //               "Administrador"
+                              //           ? false
+                              //           : true)?"REGISTRAR META ANUAL":(validaFecha?"FECHA CAPTURA TERMINADA":"REGISTRAR META ANUAL")
+                              //       }
+                                    >
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "En Captura" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Capturador"
-                                        ? false
-                                        : row.Estado === "En Revisión" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Verificador"
-                                        ? false
-                                        : row.Estado === "En Autorización" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Administrador"
+                                      (row.Estado === "En Captura" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "En Autorización" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
                                         ? false
                                         : true
                                     }
@@ -882,7 +880,7 @@ export const MetaAnual = () => {
                                           IdMa: row.IdMa,
                                           IdMir: row.IdMir,
                                           AnioFiscal: row.AnioFiscal,
-                                          Institucion: row.Institucion,
+                                          Entidad: row.Entidad,
                                           Programa: row.Programa,
                                           MIR: row.MIR,
                                           //meta anual completa
@@ -890,6 +888,7 @@ export const MetaAnual = () => {
                                           Estado: row.Estado,
                                           CreadoPor: row.CreadoPor,
                                           FechaCreacion: row.FechaCreacion,
+                                          Opciones: row.Opciones,
                                         },
                                       ]);
                                       setShowResume(false);
@@ -908,9 +907,9 @@ export const MetaAnual = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                            </Box>
+                            
 
-                            <Box sx={{ display: "flex" }}>
+                            
                               <Tooltip title="DESCARGAR">
                                 <span>
                                   <IconButton
@@ -920,11 +919,13 @@ export const MetaAnual = () => {
                                         row.MetaAnual,
                                         row.Programa,
                                         row.FechaCreacion,
-                                        row.Institucion
+                                        row.Entidad
                                       );
                                     }}
                                     disabled={
-                                      row.Estado === "Autorizada" ? false : true
+                                      row.Estado === "Autorizada" && validaFecha
+                                        ? false
+                                        : true
                                     }
                                   >
                                     <DownloadIcon
@@ -947,14 +948,17 @@ export const MetaAnual = () => {
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
                               />
-                            </Box>
+                            
+
                           </TableCell>
                         </TableRow>
                       ))}
                   </TableBody>
                 </Table>
               </TableContainer>
-            </Box>
+
+              
+            
             <Box sx={{ width: "100%" }}>
               <TablePagination
                 rowsPerPageOptions={[renglonesPagina]}
@@ -966,29 +970,31 @@ export const MetaAnual = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </Box>
-          </Box>
-        </Box>
-      ) : (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            height: "92vh",
-          }}
-          gridArea={"main"}
-        >
-          <AddMetaAnual
-            MIR={maEdit[0]?.MIR || ""}
-            MA={maEdit[0]?.MetaAnual || ""}
-            showResume={returnMain}
-            IdMir={maEdit[0]?.IdMir || ""}
-            IdMA={maEdit[0]?.IdMa || ""}
-          />
-        </Box>
-      )}
-    </Box>
+            </Grid>
+          </>
+        ) : (
+          <Grid
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              height: "92vh",
+            }}
+            gridArea={"main"}
+          >
+            <AddMetaAnual
+              MIR={maEdit[0]?.MIR || ""}
+              MA={maEdit[0]?.MetaAnual || ""}
+              showResume={returnMain}
+              IdMir={maEdit[0]?.IdMir || ""}
+              IdMA={maEdit[0]?.IdMa || ""}
+            />
+          </Grid>
+        )}
+    </Grid>
+
+    </Grid>
   );
 };
 
@@ -996,13 +1002,14 @@ export interface IIMa {
   IdMa: string;
   IdMir: string;
   AnioFiscal: string;
-  Institucion: string;
+  Entidad: string;
   Programa: string;
   MIR: string;
   MetaAnual: string;
   Estado: string;
   CreadoPor: string;
   FechaCreacion: string;
+  Opciones: string;
 }
 
 export interface IDownloadMA {

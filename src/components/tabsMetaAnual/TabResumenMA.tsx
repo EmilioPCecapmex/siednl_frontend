@@ -60,6 +60,10 @@ export function TabResumenMA({
   };
 
   const creaMA = (estado: string) => {
+    console.log(
+      "IdEntidad:localStorage.getItem(IdEntidad), TabResumenMA: ",
+      localStorage.getItem("IdEntidad")
+    );
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -69,6 +73,8 @@ export function TabResumenMA({
           IdMir: IdMir,
           Estado: estado,
           Id: IdMA,
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -78,7 +84,7 @@ export function TabResumenMA({
       )
       .then((r) => {
         console.log("Hola soy la respuesta");
-        console.log("r: ",r);
+        console.log("r: ", r);
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
@@ -280,16 +286,19 @@ export function TabResumenMA({
     }),
   };
 
-  function mapeaindice(c=0,a=0){
-    let x=0;
+  function mapeaindice(c = 0, a = 0) {
+    let x = 0;
     //Componente 1
-    (c==0&&a==0)?x=0:(c==0&&a==1)?x=1:
-    (c==1&&a==0)?x=2:x=3;
-    
-    return x;
-   }
+    c == 0 && a == 0
+      ? (x = 0)
+      : c == 0 && a == 1
+      ? (x = 1)
+      : c == 1 && a == 0
+      ? (x = 2)
+      : (x = 3);
 
-   
+    return x;
+  }
 
   return (
     <Box
@@ -297,8 +306,8 @@ export function TabResumenMA({
       position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
         alignItems: "center",
@@ -344,7 +353,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editFin.metaAnual}
                 onChange={(v) => {
@@ -370,7 +379,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editFin.lineaBase}
                 onChange={(v) => {
@@ -396,7 +405,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editFin.valorNumerador}
                 onChange={(v) => {
@@ -430,7 +439,7 @@ export function TabResumenMA({
                 borderColor: "#cfcfcf",
               }}
             >
-              {localStorage.getItem("Rol") ==="Capturador" ? null : (
+              {localStorage.getItem("Rol") === "Capturador" ? null : (
                 <Checkbox
                   value={!editFin.valorDenominador}
                   onChange={(v) => {
@@ -461,7 +470,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editFin.sentidoDelIndicador}
                 onChange={(v) => {
@@ -490,7 +499,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editFin.unidadResponsable}
                 onChange={(v) => {
@@ -520,7 +529,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editFin.descIndicador}
                 onChange={(v) => {
@@ -547,7 +556,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editFin.descNumerador}
                 onChange={(v) => {
@@ -574,7 +583,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editFin.descDenominador}
                 onChange={(v) => {
@@ -610,7 +619,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editProposito.metaAnual}
                 onChange={(v) => {
@@ -640,7 +649,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editProposito.lineaBase}
                 onChange={(v) => {
@@ -669,7 +678,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editProposito.valorNumerador}
                 onChange={(v) => {
@@ -712,7 +721,7 @@ export function TabResumenMA({
                 borderColor: "#cfcfcf",
               }}
             >
-              {localStorage.getItem("Rol") ==="Capturador" ? null : (
+              {localStorage.getItem("Rol") === "Capturador" ? null : (
                 <Checkbox
                   value={!editProposito.valorDenominador}
                   onChange={(v) => {
@@ -743,7 +752,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editProposito.sentidoDelIndicador}
                 onChange={(v) => {
@@ -773,7 +782,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editProposito.unidadResponsable}
                 onChange={(v) => {
@@ -803,7 +812,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editProposito.descIndicador}
                 onChange={(v) => {
@@ -833,7 +842,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editProposito.descNumerador}
                 onChange={(v) => {
@@ -863,7 +872,7 @@ export function TabResumenMA({
               borderColor: "#cfcfcf",
             }}
           >
-            {localStorage.getItem("Rol") ==="Capturador" ? null : (
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Checkbox
                 value={!editProposito.descDenominador}
                 onChange={(v) => {
@@ -912,7 +921,7 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Checkbox
                       value={!editComponentes[index - 1]?.metaAnual}
                       onChange={(v) => {
@@ -944,7 +953,7 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Checkbox
                       value={!editComponentes[index - 1]?.lineaBase}
                       onChange={(v) => {
@@ -1007,8 +1016,7 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1044,8 +1052,7 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1089,8 +1096,7 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1125,8 +1131,7 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1161,8 +1166,7 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1197,8 +1201,7 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
                               !editComponentes[index - 1]?.metasPorFrecuencia[0]
@@ -1240,7 +1243,7 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Checkbox
                       value={!editComponentes[index - 1]?.valorNumerador}
                       onChange={(v) => {
@@ -1286,7 +1289,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={!editComponentes[index - 1]?.valorDenominador}
                         onChange={(v) => {
@@ -1320,7 +1323,7 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Checkbox
                       value={!editComponentes[index - 1]?.sentidoDelIndicador}
                       onChange={(v) => {
@@ -1352,7 +1355,7 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Checkbox
                       value={!editComponentes[index - 1]?.unidadResponsable}
                       onChange={(v) => {
@@ -1384,7 +1387,7 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Checkbox
                       value={!editComponentes[index - 1]?.descIndicador}
                       onChange={(v) => {
@@ -1416,7 +1419,7 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Checkbox
                       value={!editComponentes[index - 1]?.descNumerador}
                       onChange={(v) => {
@@ -1448,7 +1451,7 @@ export function TabResumenMA({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Checkbox
                       value={!editComponentes[index - 1]?.descDenominador}
                       onChange={(v) => {
@@ -1507,7 +1510,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={!editActividades[indexComponentes]?.metaAnual}
                         onChange={(v) => {
@@ -1543,7 +1546,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={!editActividades[indexComponentes]?.lineaBase}
                         onChange={(v) => {
@@ -1602,17 +1605,17 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
-                              !editActividades[mapeaindice(indexComponentes,indexActividades)]
-                                ?.metasPorFrecuencia[0].trimestre1
+                              !editActividades[
+                                mapeaindice(indexComponentes, indexActividades)
+                              ]?.metasPorFrecuencia[0].trimestre1
                             }
                             onChange={(v) => {
                               let past = [...editActividades];
                               past[
-                                mapeaindice(indexComponentes,indexActividades)
+                                mapeaindice(indexComponentes, indexActividades)
                               ].metasPorFrecuencia[0].trimestre1 =
                                 !v.target.checked;
                               setEditActividades(past);
@@ -1642,17 +1645,17 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
-                              !editActividades[mapeaindice(indexComponentes,indexActividades)]
-                                ?.metasPorFrecuencia[0].trimestre2
+                              !editActividades[
+                                mapeaindice(indexComponentes, indexActividades)
+                              ]?.metasPorFrecuencia[0].trimestre2
                             }
                             onChange={(v) => {
                               let past = [...editActividades];
                               past[
-                                mapeaindice(indexComponentes,indexActividades)
+                                mapeaindice(indexComponentes, indexActividades)
                               ].metasPorFrecuencia[0].trimestre2 =
                                 !v.target.checked;
                               setEditActividades(past);
@@ -1682,17 +1685,17 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
-                              !editActividades[mapeaindice(indexComponentes,indexActividades)]
-                                ?.metasPorFrecuencia[0].trimestre3
+                              !editActividades[
+                                mapeaindice(indexComponentes, indexActividades)
+                              ]?.metasPorFrecuencia[0].trimestre3
                             }
                             onChange={(v) => {
                               let past = [...editActividades];
                               past[
-                                mapeaindice(indexComponentes,indexActividades)
+                                mapeaindice(indexComponentes, indexActividades)
                               ].metasPorFrecuencia[0].trimestre3 =
                                 !v.target.checked;
                               setEditActividades(past);
@@ -1722,17 +1725,17 @@ export function TabResumenMA({
                           justifyContent: "center",
                         }}
                       >
-                        {localStorage.getItem("Rol") !==
-                        "Administrador" ? null : (
+                        {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Checkbox
                             value={
-                              !editActividades[mapeaindice(indexComponentes,indexActividades)]
-                                ?.metasPorFrecuencia[0].trimestre4
+                              !editActividades[
+                                mapeaindice(indexComponentes, indexActividades)
+                              ]?.metasPorFrecuencia[0].trimestre4
                             }
                             onChange={(v) => {
                               let past = [...editActividades];
                               past[
-                                mapeaindice(indexComponentes,indexActividades)
+                                mapeaindice(indexComponentes, indexActividades)
                               ].metasPorFrecuencia[0].trimestre4 =
                                 !v.target.checked;
                               setEditActividades(past);
@@ -1768,7 +1771,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.valorNumerador
@@ -1821,8 +1824,7 @@ export function TabResumenMA({
                         borderColor: "#cfcfcf",
                       }}
                     >
-                      {localStorage.getItem("Rol") !==
-                      "Administrador" ? null : (
+                      {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Checkbox
                           value={
                             !editActividades[indexComponentes]?.valorDenominador
@@ -1863,7 +1865,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]
@@ -1903,7 +1905,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.unidadResponsable
@@ -1942,7 +1944,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.descIndicador
@@ -1981,7 +1983,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.descNumerador
@@ -2020,7 +2022,7 @@ export function TabResumenMA({
                       borderColor: "#cfcfcf",
                     }}
                   >
-                    {localStorage.getItem("Rol") ==="Capturador" ? null : (
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.descDenominador
@@ -2063,7 +2065,10 @@ export function TabResumenMA({
           mt: 2,
         }}
       >
-        <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => showResume()}>
+        <Button
+          sx={queries.buttonCancelarSolicitudInscripcion}
+          onClick={() => showResume()}
+        >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
@@ -2080,24 +2085,31 @@ export function TabResumenMA({
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() =>
-            creaMA(
-              localStorage.getItem("Rol") === "Capturador"
-                ? "En Captura"
-                : localStorage.getItem("Rol") === "Verificador"
-                ? "En Revisión"
-                : "En Autorización"
-            )
-          }
+          onClick={() => {
+            let estado = "";
+            if (localStorage.getItem("Rol") === "Capturador") {
+              estado = "En Captura";
+            }
+            if (localStorage.getItem("Rol") === "Verificador") {
+              estado = "Borrador Verificador";
+            }
+            if (localStorage.getItem("Rol") === "Administrador") {
+              estado = "Borrador Autorizador";
+            }
+            console.log("Boton Guardar Borrador y estado: ", estado);
+            creaMA(estado);
+          }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Borrador
+            Guardar borrador
           </Typography>
         </Button>
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() => setOpenModalEnviar(true)}
+          onClick={() => {
+            setOpenModalEnviar(true);
+          }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"
@@ -2115,7 +2127,7 @@ export function TabResumenMA({
           IdMA={IdMA}
           IdMIR={IdMir}
           MAEdit={
-            localStorage.getItem("Rol") ==="Capturador"
+            localStorage.getItem("Rol") === "Capturador"
               ? ""
               : JSON.stringify({
                   fin: editFin,

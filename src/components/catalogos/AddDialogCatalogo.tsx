@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
-import { Box, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
@@ -17,7 +17,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { queries } from "../../queries";
 import { PED } from "./PED";
-
+import { CapturarFechas } from "./AddFechaCapturaDialog";
 export const AddDialogCatalogo = ({
   catalogo,
   select,
@@ -100,56 +100,63 @@ export const AddDialogCatalogo = ({
   ]);
 
   React.useEffect(() => {
-    getInstituciones();
+    //getInstituciones();
     getProgramas();
-    getUnidadesAdministrativas();
+    //getUnidadesAdministrativas();
   }, []);
 
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
+  // const getInstituciones = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
 
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-        },
-      })
-      .then((r) => {
-        setCatalogoInstituciones(r.data.data);
-      });
-  };
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoInstituciones(r.data.data);
+  //     });
+  // };
 
-  const getUnidadesAdministrativas = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        setCatalogoUnidades(r.data.data);
-      });
-  };
+  // const getUnidadesAdministrativas = () => {
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //           Rol: localStorage.getItem("Rol") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       setCatalogoUnidades(r.data.data);
+  //     });
+  // };
 
   const getProgramas = () => {
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programaPresupuestario",
         {
+          params: {
+            Rol: localStorage.getItem("Rol"),
+          },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
         }
       )
       .then((r) => {
-        setCatalogoProgramas(r.data.data);
-      });
+        
+      }).catch((err) =>
+      console.log("Hola",err)
+    );
   };
 
   const CreatePorCatalogo = () => {
@@ -159,7 +166,8 @@ export const AddDialogCatalogo = ({
         {
           Descripcion: descripcion,
           Tabla: tabla,
-          IdUser: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -191,8 +199,11 @@ export const AddDialogCatalogo = ({
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-fechaDeCaptura",
         {
           Descripcion: descripcion,
-          FechaDeCaptura: fechaCaptura,
+          FechaCapturaInicio: fechaCaptura,
+          FechaCapturaFinal: fechaCaptura,
+          Modulo: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -217,39 +228,40 @@ export const AddDialogCatalogo = ({
       );
   };
 
-  const CreatePorCatalogoInstitucionUnidadAdmin = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK +
-          "/api/create-institucionUnidad",
-        {
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          IdInstitucion: institution,
-          IdUnidad: unidad,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        handleClose();
-        Toast.fire({
-          icon: "success",
-          title: "Elemento registrado con éxito.",
-        });
+  // const CreatePorCatalogoInstitucionUnidadAdmin = () => {
+  //   axios
+  //     .post(
+  //       process.env.REACT_APP_APPLICATION_BACK +
+  //         "/api/create-institucionUnidad",
+  //       {
+  //         CreadoPor: localStorage.getItem("IdUsuario"),
+  //         IdEntidad: institution,
+  //         IdUnidad: unidad,
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       handleClose();
+  //       Toast.fire({
+  //         icon: "success",
+  //         title: "Elemento registrado con éxito.",
+  //       });
 
-        actualizado();
-      })
-      .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        })
-      );
-  };
-
+  //       actualizado();
+  //     })
+  //     .catch((err) =>
+  //       Toast.fire({
+  //         icon: "error",
+  //         title: err.response.data.result.error,
+  //       })
+  //     );
+  // };
+// Aqui 
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
       .post(
@@ -258,7 +270,7 @@ export const AddDialogCatalogo = ({
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdPrograma: programa,
-          IdInstitucion: institution,
+          IdEntidad: localStorage.getItem(""),
         },
         {
           headers: {
@@ -290,8 +302,9 @@ export const AddDialogCatalogo = ({
           "/api/create-programaPresupuestario",
         {
           NombrePrograma: descripcion,
-          IdInstitucion: institution,
+          IdEntidad: institution,
           CreadoPor: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -316,12 +329,12 @@ export const AddDialogCatalogo = ({
 
   const validarNumero = (dato: string, state: any) => {
     console.log("Entre");
-    console.log("dato: ",dato);
-    console.log("state: ",state);
-    
+    console.log("dato: ", dato);
+    console.log("state: ", state);
+
     if (/^[0-9]+$/.test(dato)) {
-      console.log("dato en el if : ",dato);
-      
+      console.log("dato en el if : ", dato);
+
       return dato;
     } else if (dato.length === 0) {
       return "";
@@ -331,120 +344,146 @@ export const AddDialogCatalogo = ({
 
   if (tabla === "FechasDeCaptura") {
     return (
+
       <Box sx={{ display: "flex" }}>
-        <IconButton onClick={handleClickOpen}>
-          <AddIcon
-            sx={{
-              width: 50,
-              height: 50,
-            }}
-          />
-        </IconButton>
-        <Dialog fullWidth open={open} onClose={handleClose}>
-          <Box
-            sx={{
-              width: "100%",
-              height: "5vh",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              borderBottom: 0.5,
-              borderColor: "#ccc",
-              boxShadow: 1,
-            }}
-          >
-            <Typography
-              sx={{
-                fontFamily: "MontserratSemiBold",
-                width: "90%",
-                fontSize: "1vw",
-                textAlign: "center",
-              }}
-            >
-              Añadir Fecha de Captura
-            </Typography>
-          </Box>
-          <DialogContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TextField
-              multiline={descripcion.length < 20 ? false : true}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratLight",
-                },
-              }}
-              rows={3}
-              label={"Descripción"}
-              variant="outlined"
-              onChange={(v) => setDescripcion(v.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              onChange={(x) => setFechaCaptura(x.target.value)}
-              multiline={descripcion.length < 20 ? false : true}
-              defaultValue={fechaCaptura}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
-              style={{ marginTop: "2vh" }}
-              type="date"
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratLight",
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-            />
-          </DialogContent>
+      <IconButton onClick={handleClickOpen}>
+        <AddIcon
+          sx={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      </IconButton>
 
-          <DialogActions
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
-              onClick={handleClose}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-              >
-                Cancelar
-              </Typography>
-            </Button>
-
-            <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={CreatePorCatalogoFechas}
-              autoFocus
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-              >
-                De Acuerdo
-              </Typography>
-            </Button>
-          </DialogActions>
-        </Dialog>
+      
+      <CapturarFechas
+      actualizado={actualizado}
+      open={open}
+      close={handleClose}
+      //ClickOpen={handleClickOpen}
+      />
       </Box>
+      // <Grid sx={{ display: "flex" }}>
+      //   <IconButton onClick={handleClickOpen}>
+      //     <AddIcon
+      //       sx={{
+      //         width: 50,
+      //         height: 50,
+      //       }}
+      //     />
+      //   </IconButton>
+      //   <Dialog fullWidth open={open} onClose={handleClose}>
+      //     <Grid
+      //       sx={{
+      //         width: "100%",
+      //         height: "5vh",
+      //         alignItems: "center",
+      //         display: "flex",
+      //         justifyContent: "center",
+      //         flexDirection: "column",
+      //         borderBottom: 0.5,
+      //         borderColor: "#ccc",
+      //         boxShadow: 1,
+      //       }}
+      //     >
+      //       <Typography
+      //         sx={{
+      //           fontFamily: "MontserratSemiBold",
+      //           width: "90%",
+      //           fontSize: "1vw",
+      //           textAlign: "center",
+      //         }}
+      //       >
+      //         Añadir Fecha de Captura
+      //       </Typography>
+      //     </Grid>
+      //     <DialogContent
+      //       sx={{
+      //         display: "flex",
+      //         flexDirection: "column",
+      //         alignItems: "center",
+      //         justifyContent: "center",
+      //       }}
+      //     >
+      //       <TextField
+      //         multiline={descripcion.length < 20 ? false : true}
+      //         sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+      //         InputLabelProps={{
+      //           style: {
+      //             fontFamily: "MontserratRegular",
+      //           },
+      //         }}
+      //         InputProps={{
+      //           style: {
+      //             fontFamily: "MontserratLight",
+      //           },
+      //         }}
+      //         rows={3}
+      //         label={"Descripción"}
+      //         variant="outlined"
+      //         onChange={(v) => setDescripcion(v.target.value)}
+      //       />
+
+
+      //       <TextField
+      //         variant="outlined"
+      //         onChange={(x) => {
+      //           setFechaCaptura(x.target.value);
+      //           console.log(x);
+      //         }}
+      //         multiline={descripcion.length < 20 ? false : true}
+      //         defaultValue={fechaCaptura}
+      //         sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+      //         style={{ marginTop: "2vh" }}
+      //         type="date"
+      //         InputProps={{
+      //           style: {
+      //             fontFamily: "MontserratLight",
+      //           },
+      //         }}
+      //         InputLabelProps={{
+      //           style: {
+      //             fontFamily: "MontserratRegular",
+      //           },
+      //         }}
+      //         rows={3}
+      //       />
+      //     </DialogContent>
+
+      //     <DialogActions
+      //       sx={{
+      //         display: "flex",
+      //         alignItems: "center",
+      //         justifyContent: "center",
+      //       }}
+      //     >
+      //       <Button
+      //         sx={queries.buttonCancelarSolicitudInscripcion}
+      //         onClick={handleClose}
+      //       >
+      //         <Typography
+      //           sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+      //         >
+      //           Cancelar
+      //         </Typography>
+      //       </Button>
+
+      //       <Button
+      //         sx={queries.buttonContinuarSolicitudInscripcion}
+      //         onClick={CreatePorCatalogoFechas}
+      //         autoFocus
+      //       >
+      //         <Typography
+      //           sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+      //         >
+      //           De Acuerdo
+      //         </Typography>
+      //       </Button>
+      //     </DialogActions>
+      //   </Dialog>
+      // </Grid>
+
+
     );
   } else if (tabla === "ProgramasInstituciones") {
     return (
@@ -620,7 +659,8 @@ export const AddDialogCatalogo = ({
             }}
           />
         </IconButton>
-        <Dialog fullWidth open={open} onClose={handleClose}>
+        
+         <Dialog fullWidth open={open} onClose={handleClose}>
           <Box
             sx={{
               width: "100%",
@@ -758,7 +798,7 @@ export const AddDialogCatalogo = ({
 
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={CreatePorCatalogoInstitucionUnidadAdmin}
+              //onClick={CreatePorCatalogoInstitucionUnidadAdmin}
               autoFocus
             >
               <Typography
@@ -768,7 +808,8 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
           </DialogActions>
-        </Dialog>
+        </Dialog>:
+        
       </Box>
     );
   } else if (tabla === "PEDs") {

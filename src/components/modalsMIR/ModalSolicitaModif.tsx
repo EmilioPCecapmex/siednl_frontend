@@ -361,13 +361,16 @@ export default function ModalSolicitaModif({
           CreadoPor:
             userSelected !== "0"
               ? userSelected
-              : localStorage.getItem("IdUsuario"),
-          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
-          Institucion: JSON.parse(MIR)?.encabezado.institucion,
-          Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
-          Eje: JSON.parse(MIR)?.encabezado.eje,
-          Tematica: JSON.parse(MIR)?.encabezado.tema,
+              : //va a cambiar
+                localStorage.getItem("IdUsuario"),
+          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
+          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+          Programa: JSON.parse(MIR)?.encabezado.programa.Label,
+          Eje: JSON.parse(MIR)?.encabezado.eje.Label,
+          Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
           IdMir: IdMir,
+          // se va a modificar
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -402,34 +405,35 @@ export default function ModalSolicitaModif({
   useEffect(() => {
     let tipousuario = "";
     console.log("Entre");
-    
+
     if (localStorage.getItem("Rol") === "Capturador")
       tipousuario = "Verificador";
-      console.log(tipousuario);
+    console.log(tipousuario);
     if (localStorage.getItem("Rol") === "Verificador")
       tipousuario = "Verificador";
     if (localStorage.getItem("Rol") === "Administrador")
       tipousuario = "VERIFICADOR_CAPTURADOR";
 
     if (open) {
+      console.log(tipousuario);
+      
       axios
-        .get(
-          process.env.REACT_APP_APPLICATION_BACK + 
-          "/api/tipoDeUsuarioXInstitucion",
+        .post(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", 
+           {
+            TipoUsuario: tipousuario,
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("IdApp"),
+          },
           {
-            params: {
-              TipoUsuario: tipousuario,
-              Institucion: JSON.parse(MIR)?.encabezado.institucion,
-            },
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          if (r.status === 200) {
-            console.log("UserXInst: ", r.data.data);
-            setUserXInst(r.data.data);
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        })
+        .then(({status,data}) => {
+          if (status === 200) {
+            console.log("UserXInst: ",data.data);
+            console.log("UserXInst: ", data);
+            setUserXInst(data.data);
           }
         });
     }
@@ -454,7 +458,7 @@ export default function ModalSolicitaModif({
         IdUsuarioDestino: userSelected,
         Titulo: "MIR",
         Mensaje: "Se le ha solicitado una modificación.",
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {
@@ -572,9 +576,12 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ ...queries.buttonCancelarSolicitudInscripcion, display: "flex", width: "15vw" }}
+              sx={{
+                ...queries.buttonCancelarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               variant="contained"
-             
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -583,9 +590,12 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
-              sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "15vw"}}
+              sx={{
+                ...queries.buttonContinuarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               variant="contained"
-              
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"

@@ -15,7 +15,7 @@ import {
   Table,
   TableBody,
   Input,
-  Box,
+  Grid,
   TablePagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -31,6 +31,25 @@ import AddDialogCatalogo from "./AddDialogCatalogo";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { CSVCatalogo } from "./CSVCatalogo";
+
+interface Head {
+  id: keyof ITablaCatalogos;
+  isNumeric: boolean;
+  label: string;
+}
+
+const heads: readonly Head[] = [
+  {
+    id: "Descripcion",
+    isNumeric: true,
+    label: "Descripcion",
+  },
+  {
+    id: "Acciones",
+    isNumeric: true,
+    label: "Acciones",
+  },
+];
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [defaultSelection, setDefaultSelection] = useState(defSelected);
@@ -131,14 +150,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
       tipo: "Catalogos",
     },
-    {
-      id: 11,
-      Desc: "Instituciones",
-      fnc: "getInstituciones()",
-      Tabla: "Instituciones",
-      selected: false,
-      tipo: "Catalogos",
-    },
+    // {
+    //   id: 11,
+    //   Desc: "Instituciones",
+    //   fnc: "getInstituciones()",
+    //   Tabla: "Instituciones",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
     {
       id: 12,
       Desc: "Lineas de Acción",
@@ -196,14 +215,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
       tipo: "Catalogos",
     },
-    {
-      id: 19,
-      Desc: "Roles",
-      fnc: "getRoles()",
-      Tabla: "Roles",
-      selected: false,
-      tipo: "Catalogos",
-    },
+    // {
+    //   id: 19,
+    //   Desc: "Roles",
+    //   fnc: "getRoles()",
+    //   Tabla: "Roles",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
     {
       id: 20,
       Desc: "Temáticas",
@@ -236,14 +255,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
       tipo: "Catalogos",
     },
-    {
-      id: 24,
-      Desc: "Unidades Administrativas",
-      fnc: "getUnidadesAdministrativas()",
-      Tabla: "UnidadesAdministrativas",
-      selected: false,
-      tipo: "Catalogos",
-    },
+    // {
+    //   id: 24,
+    //   Desc: "Unidades Administrativas",
+    //   fnc: "getUnidadesAdministrativas()",
+    //   Tabla: "UnidadesAdministrativas",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
     {
       id: 25,
       Desc: "PED",
@@ -252,14 +271,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       selected: false,
       tipo: "Relaciones",
     },
-    {
-      id: 26,
-      Desc: "Instituciones - Unidades",
-      fnc: "getInstitucionesUnidades()",
-      Tabla: "InstitucionUnidad",
-      selected: false,
-      tipo: "Relaciones",
-    },
+    // {
+    //   id: 26,
+    //   Desc: "Instituciones - Unidades",
+    //   fnc: "getInstitucionesUnidades()",
+    //   Tabla: "InstitucionUnidad",
+    //   selected: false,
+    //   tipo: "Relaciones",
+    // },
     {
       id: 27,
       Desc: "Programas - Instituciones",
@@ -269,81 +288,82 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       tipo: "Relaciones",
     },
   ];
-  const getUnidadesAdministrativas = () => {
-    setSelected("Unidades Administrativas");
-    setCatalogoActual("Unidades Administrativas");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Unidad: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Unidad.toUpperCase(),
-                Tabla: "UnidadesAdministrativas",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  // const getUnidadesAdministrativas = () => {
+  //   setSelected("Unidades Administrativas");
+  //   setCatalogoActual("Unidades Administrativas");
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //           Rol: localStorage.getItem("Rol") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         let update = r.data.data;
+  //         update = update.map(
+  //           (item: { Id: string; Unidad: string; Tabla: string }) => {
+  //             return {
+  //               Id: item.Id,
+  //               Desc: item.Unidad.toUpperCase(),
+  //               Tabla: "UnidadesAdministrativas",
+  //             };
+  //           }
+  //         );
+  //         setDatosTabla(update);
+  //         setDataDescripctionFiltered(update);
+  //       }
+  //     });
+  // };
 
-  const getInstitucionesUnidades = () => {
-    setSelected("Instituciones - Unidades");
-    setCatalogoActual("Instituciones - Unidades");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/institucionesUnidad",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
+  // const getInstitucionesUnidades = () => {
+  //   setSelected("Instituciones - Unidades");
+  //   setCatalogoActual("Instituciones - Unidades");
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/institucionesUnidad",
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         let update = r.data.data;
 
-          update = update.map(
-            (item: {
-              Id: string;
-              NombreInstitucion: string;
-              Unidad: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc:
-                  item.NombreInstitucion.toUpperCase() +
-                  " / " +
-                  item.Unidad.toUpperCase(),
-                Tabla: "InstitucionUnidad",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  //         update = update.map(
+  //           (item: {
+  //             Id: string;
+  //             NombreInstitucion: string;
+  //             Unidad: string;
+  //             Tabla: string;
+  //           }) => {
+  //             return {
+  //               Id: item.Id,
+  //               Desc:
+  //                 item.NombreInstitucion.toUpperCase() +
+  //                 " / " +
+  //                 item.Unidad.toUpperCase(),
+  //               Tabla: "InstitucionUnidad",
+  //             };
+  //           }
+  //         );
+  //         setDatosTabla(update);
+  //         setDataDescripctionFiltered(update);
+  //       }
+  //     });
+  // };
 
   const getProgramasInstituciones = () => {
     setSelected("Programas - Instituciones");
     setCatalogoActual("Programas - Instituciones");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/programasInstituciones",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programasInstituciones",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -380,7 +400,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setSelected("Años Fiscales");
     setCatalogoActual("Años Fiscales");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/AniosFiscales", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-anioFiscal", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -408,7 +428,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Beneficiarios");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Beneficiarios", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiario", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -438,7 +458,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK +
-          "/api/clasificacionesProgramaticas",
+          "/api/list-clasificacionProgramatica",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -473,7 +493,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Dimensiones del Indicador");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/dimensionesDelIndicador",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-dimensionDelIndicador",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -507,7 +527,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Ejes");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejes", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-eje", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -535,7 +555,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Ejes del Plan Nacional de Desarrollo");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejesPND", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ejePND", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -563,7 +583,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Estrategias");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Estrategias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-estrategia", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -591,7 +611,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Fórmulas");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Formulas", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-formula", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -615,33 +635,48 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   };
 
   const getFechasDeCaptura = () => {
+    console.log("Hola entre aqui");
+    
     setSelected("Fechas de Captura");
-
+    console.log("Hola entre aqui 2");
     setCatalogoActual("Fechas de captura");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/fechasDeCaptura", {
+    console.log("Hola entre aqui 3");
+    axios                                                 
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechaDeCaptura", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
+        console.log(r);
+
         if (r.status === 200) {
+          console.log("entre al if de getfechas", r.data.data);
+
           let update = r.data.data;
           update = update.map(
             (item: {
               Id: string;
-              FechaDeCaptura: string;
+              FechaCapturaInicio: string;
+              FechaCapturaFinal: string;
               Descripcion: string;
               Tabla: string;
             }) => {
               return {
                 Id: item.Id,
                 Desc:
-                  item.FechaDeCaptura + " / " + item.Descripcion.toUpperCase(),
+                  item.FechaCapturaInicio +
+                  " - " +
+                  item.FechaCapturaFinal +
+                  " / " +
+                  item.Descripcion.toUpperCase(),
                 Tabla: "FechasDeCaptura",
               };
             }
           );
+          console.log("update: ", update);
+          console.log("entre al if de getfechas2", r.data.data);
+
           setDatosTabla(update);
           setDataDescripctionFiltered(update);
         }
@@ -653,7 +688,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Frecuencias");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/Frecuencias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-frecuencia", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -676,47 +711,48 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       });
   };
 
-  const getInstituciones = () => {
-    setSelected("Instituciones");
+  // const getInstituciones = () => {
+  //   setSelected("Instituciones");
 
-    setCatalogoActual("Instituciones");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: {
-              Id: string;
-              NombreInstitucion: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc: item.NombreInstitucion.toUpperCase(),
-                Tabla: "Instituciones",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  //   setCatalogoActual("Instituciones");
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //     })
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         let update = r.data.data;
+  //         update = update.map(
+  //           (item: {
+  //             Id: string;
+  //             NombreInstitucion: string;
+  //             Tabla: string;
+  //           }) => {
+  //             return {
+  //               Id: item.Id,
+  //               Desc: item.NombreInstitucion.toUpperCase(),
+  //               Tabla: "Instituciones",
+  //             };
+  //           }
+  //         );
+  //         setDatosTabla(update);
+  //         setDataDescripctionFiltered(update);
+  //       }
+  //     });
+  // };
   const getLineasDeAccion = () => {
     setSelected("Lineas de Acción");
 
     setCatalogoActual("Lineas de acción");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/lineasDeAccion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-lineasDeAccion", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -744,7 +780,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Metas ODS");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/metasODS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-metasODS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -772,7 +808,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Modalidades");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/modalidades", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-modalidad", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -800,7 +836,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Objetivos");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivos", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivo", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -830,7 +866,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       "Objetivos del Plan Estrategico del Estado de Nuevo León"
     );
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosPEENL", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivosPEENL", {
+        
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -858,7 +895,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Objetivos Desarrollo Sostenible");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosDS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivoDS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -886,7 +923,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("PED");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ped", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -927,14 +964,19 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Programas Presupuestarios");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programaPresupuestario",
         {
+          params: {
+            Rol: localStorage.getItem("Rol"),
+          },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
         }
       )
       .then((r) => {
+        console.log(r.data.data);
+        
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
@@ -948,9 +990,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 Id: item.Id,
                 Desc:
                   "Programa: " +
-                  item.NombrePrograma.toUpperCase() +
-                  " / Institución: " +
-                  item.NombreInstitucion.toUpperCase(),
+                  item.NombrePrograma.toUpperCase() ,
+                 // " / Institución: ",
+                //   +item.NombreInstitucion.toUpperCase(),
                 Tabla: "ProgramasPresupuestarios",
               };
             }
@@ -961,40 +1003,40 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       });
   };
 
-  const getRoles = () => {
-    setSelected("Roles");
+  // const getRoles = () => {
+  //   setSelected("Roles");
 
-    setCatalogoActual("Roles");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Rol: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Rol.toUpperCase(),
-                Tabla: "Roles",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  //   setCatalogoActual("Roles");
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         let update = r.data.data;
+  //         update = update.map(
+  //           (item: { Id: string; Rol: string; Tabla: string }) => {
+  //             return {
+  //               Id: item.Id,
+  //               Desc: item.Rol.toUpperCase(),
+  //               Tabla: "Roles",
+  //             };
+  //           }
+  //         );
+  //         setDatosTabla(update);
+  //         setDataDescripctionFiltered(update);
+  //       }
+  //     });
+  // };
 
   const getTematicas = () => {
     setSelected("Temáticas");
 
     setCatalogoActual("Temáticas");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tematica", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tematica", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -1016,13 +1058,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         }
       });
   };
-
+// no se usa por eso no agregue el Rol
   const getTipoDeFormula = () => {
     setSelected("Tipos de Fórmula");
 
     setCatalogoActual("Tipos de Fórmula");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/TipoDeFormula", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tipoDeFormula", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -1050,7 +1092,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Tipos de indicador");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tipoDeIndicador", {
+        params: {
+          Rol: localStorage.getItem("Rol"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -1078,7 +1123,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Unidades de medida");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/unidadDeMedida", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-unidadDeMedida", {
+        params: {
+          Rol: localStorage.getItem("Rol"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -1119,15 +1167,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   useEffect(() => {
     setDataDescripctionFiltered(datosTabla);
     console.log(datosTabla);
-    
   }, [datosTabla]);
 
   useEffect(() => {
     setDataDescripctionFiltered(datosTabla);
     console.log(datosTabla);
-    
   }, [descripctionFiltered]);
-  
 
   const filtrarDatos = () => {
     console.log("Entra");
@@ -1144,7 +1189,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       console.log("entre");
       console.log(elemento);
       console.log(DataDescripctionFiltered);
-      if (elemento.Desc.toString().toLocaleLowerCase().includes(descripctionFiltered.toLocaleLowerCase())) {
+      if (
+        elemento.Desc.toString()
+          .toLocaleLowerCase()
+          .includes(descripctionFiltered.toLocaleLowerCase())
+      ) {
         return elemento;
       }
     });
@@ -1164,8 +1213,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   //     setDataDescripctionFiltered(datosTabla);
   //   }
   // }, [datosTabla, descripctionFiltered]);
-
- 
 
   // useEffect(() => {
   //   configOptions.map((item) => {
@@ -1224,37 +1271,45 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setDescripctionFiltered(dato);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-     DataDescripctionFiltered.length !== 0 ? setDatosTabla(datosTabla) : null;
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [DataDescripctionFiltered]);
+    DataDescripctionFiltered.length !== 0 ? setDatosTabla(datosTabla) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [DataDescripctionFiltered]);
+
+  useEffect(() => {
+    console.log("tablaActual: ", tablaActual);
+    console.log("selected: ", selected);
+    console.log("actualizaContador: ", actualizaContador);
+    getFechasDeCaptura();
+  }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-        height: "92vh",
-      }}
-    >
-      <Box
-        sx={{
-          width: "80%",
-          height: "80%",
-          backgroundColor: "#ffffff",
-          borderRadius: 5,
-          display: "flex",
-          alignItems: "center",
-          mt: "10vh",
-          boxShadow: 10,
-        }}
+    <Grid container justifyContent={"space-between"}>
+      <Grid
+        justifyContent={"center"}
+        display={"flex"}
+        container
+        height={"93vh"}
+        alignItems={"center"}
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={8}
+        xs={6}
+        sx={{ backgroundColor: "white" }}
       >
-        <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-          <Box
+        <Grid item container sx={{ height: "100%", display: "flex", }}>
+          <Grid
+            item
+            xl={3}
+            lg={3}
+            md={3}
+            sm={3}
+            xs={3}
             sx={{
-              width: "22%",
+              height: "100%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -1263,7 +1318,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           >
             <List
               sx={{
-                height: "100vh",
+                height: "100%",
                 pb: 2,
                 pt: 2,
 
@@ -1302,7 +1357,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
                 {configOptions.map((item) => {
                   return (
-                    <Box key={item.id} sx={{}}>
+                    <Grid key={item.id} sx={{}}>
                       {item.tipo === "Catalogos" ? (
                         <AccordionDetails sx={{ padding: 0 }}>
                           <ListItemButton
@@ -1334,7 +1389,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       ) : (
                         ""
                       )}
-                    </Box>
+                    </Grid>
                   );
                 })}
               </Accordion>
@@ -1375,7 +1430,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
                 {configOptions.map((item) => {
                   return (
-                    <Box key={item.id} sx={{}}>
+                    <Grid key={item.id} sx={{}}>
                       {item.tipo === "Relaciones" ? (
                         <AccordionDetails sx={{ padding: 0 }}>
                           <ListItemButton
@@ -1404,46 +1459,134 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       ) : (
                         ""
                       )}
-                    </Box>
+                    </Grid>
                   );
                 })}
               </Accordion>
             </List>
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
+            item
+            container
+            xl={9}
+            lg={9}
+            md={9}
+            sm={9}
+            xs={9}
             sx={{
               display: "flex",
-              flexDirection: "column",
-              width: "60%",
-              ml: "8%",
+              flexDirection: "row",
+              
+              
+              justifyContent:"center"
             }}
           >
-            <Box
-              sx={{
-                width: "100%",
-                height: "10%",
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                borderRadius: "30px",
-                mt: 5,
-              }}
+            <Grid
+              item
+              container
+              xl={10}
+              lg={10}
+              md={10}
+              sm={10}
+              xs={10}
+              sx={{ justifyContent: "flex-end", display: "flex" }}
             >
-              <Typography
+              <Grid
+                item
+                xl={8}
+                lg={8}
+                md={8}
+                sm={8}
+                xs={8}
                 sx={{
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: "1.2vw",
-                  textAlign: "center",
+                  height: "10%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  borderRadius: "30px",
+                  background: "",
+                  mt: 5,
                 }}
               >
-                {catalogoActual.toLocaleUpperCase()}
-              </Typography>
-            </Box>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratSemiBold",
+                    fontSize: "1.2vw",
+                    textAlign: "center",
+                  }}
+                >
+                  {catalogoActual.toLocaleUpperCase()}
+                </Typography>
+              </Grid>
 
-            <Box
+              <Grid
+                item
+                display={"flex"}
+                sx={{ background: "", justifyContent: "flex-end", alignItems: "center" }}
+                xl={2}
+                lg={2}
+                md={2}
+                sm={2}
+                xs={2}
+              >
+                <Grid
+                  title="Agregar"
+                  borderRadius={100}
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    backgroundColor: "#c4a57b",
+
+                    ":hover": {
+                      backgroundColor: "#ffdcac",
+                    },
+
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AddDialogCatalogo
+                    catalogo={tablaActual}
+                    tabla={tablaActual}
+                    select={selected}
+                    actualizado={actualizaContador}
+                  />
+                </Grid>
+
+                <Grid
+                  title="Exportar a excell"
+                  borderRadius={100}
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    backgroundColor: "#c4a57b",
+
+                    ":hover": {
+                      backgroundColor: "#ffdcac",
+                    },
+
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CSVCatalogo tabla={tablaActual} datos={datosTabla} />
+                </Grid>
+              </Grid>
+            </Grid>
+
+
+
+            <Grid item
+            xl={10}
+            lg={10}
+            md={10}
+            sm={10}
+            xs={10}
               sx={{
-                width: "100%",
+                
                 height: "80%",
                 display: "flex",
                 justifyContent: "center",
@@ -1451,7 +1594,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   display: "flex",
                   backgroundColor: "#ccc",
@@ -1472,12 +1615,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 >
                   Descripción
                 </Typography>
-                <Box
+
+                <Grid
                   sx={{
                     alignItems: "center",
                     justifyContent: "center",
                     display: "flex",
-                    width: "40%",
+                    width: "60%",
                     backgroundColor: "#EBEBEB",
                     border: 1,
                     borderRadius: 10,
@@ -1504,7 +1648,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     }}
                   />
                   <SearchIcon sx={{ color: "action.active", mr: 1 }} />
-                </Box>
+                </Grid>
 
                 <Typography
                   sx={{
@@ -1515,12 +1659,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 >
                   Acciones
                 </Typography>
-              </Box>
+              </Grid>
+
               <TableContainer
                 component={Paper}
                 sx={{
                   width: "100%",
-                  height: "40vh",
+                  height: "60vh",
                   boxShadow: 10,
                   mt: 1,
                   "&::-webkit-scrollbar": {
@@ -1535,8 +1680,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 }}
               >
                 <Table
-                  sx={{ maxWidth: 600 }}
-                  aria-label="custom pagination table"
+                  //sx={{ maxWidth: 600 }}
+                  stickyHeader
+                  aria-label="sticky table"
                 >
                   <TableBody>
                     {(rowsPerPage > 0
@@ -1553,6 +1699,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                           <TableRow key={row.Id || Math.random()}>
                             <TableCell
                               component="th"
+                              //  align="center"
                               sx={
                                 row.Id === rowColorB
                                   ? { backgroundColor: colorB }
@@ -1568,7 +1715,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               <Typography
                                 sx={{
                                   fontFamily: "MontserratRegular",
-                                  fontSize: ".7vw",
+                                  fontSize: "1vw",
                                 }}
                               >
                                 {row?.Desc}
@@ -1589,7 +1736,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 setColorB("#E7E7E7");
                               }}
                             >
-                              <Box sx={{ display: "flex" }}>
+                              <Grid sx={{ display: "flex" }}>
                                 {selected === "Programas - Instituciones" ||
                                 selected ===
                                   "Instituciones - Unidades" ? null : (
@@ -1607,7 +1754,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                   tabla={row.Tabla}
                                   actualizado={actualizaContador}
                                 />
-                              </Box>
+                              </Grid>
                             </TableCell>
                           </TableRow>
                         );
@@ -1621,80 +1768,46 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Box
+
+              <Grid
+                container
                 sx={{
                   width: "100%",
                   display: "flex",
                   justifyContent: "flex-end",
                   mt: 1,
                 }}
+                direction={"row"}
               >
-                <TablePagination
-                  rowsPerPageOptions={[
-                    5,
-                    10,
-                    25,
-                    { label: "Todos", value: -1 },
-                  ]}
-                  count={DataDescripctionFiltered.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  component="div"
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
-              </Box>
-              <Box
-                title="Agregar"
-                borderRadius={100}
-                sx={{
-                  width: 50,
-                  height: 50,
-                  backgroundColor: "#c4a57b",
-                  position: "absolute",
-                  ":hover": {
-                    backgroundColor: "#ffdcac",
-                  },
-                  right: "35vh",
-                  bottom: "11vh",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <AddDialogCatalogo
-                  catalogo={tablaActual}
-                  tabla={tablaActual}
-                  select={selected}
-                  actualizado={actualizaContador}
-                />
-              </Box>
-              <Box
-                title="Exportar a excell"
-                borderRadius={100}
-                sx={{
-                  width: 50,
-                  height: 50,
-                  backgroundColor: "#c4a57b",
-                  position: "absolute",
-                  ":hover": {
-                    backgroundColor: "#ffdcac",
-                  },
-                  right: "28vh",
-                  bottom: "11vh",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <CSVCatalogo tabla={tablaActual} datos={datosTabla} />
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+                <Grid item>
+                  <TablePagination
+                    rowsPerPageOptions={[
+                      5,
+                      10,
+                      25,
+                      { label: "Todos", value: -1 },
+                    ]}
+                    count={DataDescripctionFiltered.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    component="div"
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+
+
+
+
+          </Grid>
+        </Grid>
+
+
+      </Grid>
+    </Grid>
   );
 };
 
@@ -1704,4 +1817,9 @@ export interface IDatosTabla {
   fnc: string;
   Tabla: string;
   selected: string;
+}
+
+interface ITablaCatalogos {
+  Descripcion: string;
+  Acciones: string;
 }

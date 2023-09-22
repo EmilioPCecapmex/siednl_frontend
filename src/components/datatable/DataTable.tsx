@@ -34,7 +34,7 @@ export const DataTable = ({
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    getUsuarios();
+    //getUsuarios();
   }, [actualizar]);
 
   //# Renglones por pag
@@ -48,23 +48,24 @@ export const DataTable = ({
   >([]);
 
   // Consumo de API
-  const getUsuarios = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-          "Content-Type": "application/json",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-        },
-      })
-      .then((response) => {
-        setUsuarios(response.data.data);
-        setUsersFiltered(response.data.data);
-      });
-  };
+  // const getUsuarios = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //         "Content-Type": "application/json",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setUsuarios(response.data.data);
+  //       setUsersFiltered(response.data.data);
+  //     });
+  // };
 
   useEffect(() => {
     if (textFind !== "") {
@@ -78,7 +79,7 @@ export const DataTable = ({
 
   const [actualizacion, setActualizacion] = useState(0);
   useEffect(() => {
-    getUsuarios();
+    //getUsuarios();
   }, [actualizacion]);
 
   const actualizaContador = () => {
@@ -122,7 +123,7 @@ export const DataTable = ({
       Celular: "",
       IdRol: "",
       Rol: "",
-      IdInstitucion: "",
+      IdEntidad: "",
       NombreInstitucion: "",
       CreadoPor: "",
       ModificadoPor: "",

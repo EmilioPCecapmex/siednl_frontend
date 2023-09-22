@@ -23,7 +23,7 @@ export interface IInstituciones {
 }
 
 interface IDatosAdicionales {
-  IdInstitucion: string;
+  IdEntidad: string;
   Cargo: string;
   IdRol: string;
   Rol: string;
@@ -59,7 +59,7 @@ export default function ModalEditarSolicitud({
  const [datosAdicionales,setDatosAdicionales]=useState<IDatosAdicionales>(JSON.parse(dataUser?.DatosAdicionales))
 
   const [institution, setInstitution] = useState(
-    datosAdicionales.IdInstitucion
+    datosAdicionales.IdEntidad
   );
   const [rol, setRol] = useState(datosAdicionales.Cargo);
   const [userType, setUserType] = useState(datosAdicionales.IdRol);
@@ -112,33 +112,34 @@ export default function ModalEditarSolicitud({
     setCellphone("");
   };
 
-  const getInstituciones = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
-        },
-      })
-      .then((r) => {
-        setCatalogoInstituciones(r.data.data);
-      });
-  };
+  // const getInstituciones = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //       params: {
+  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  //         IdEntidad: localStorage.getItem("IdEntidad"),
+  //         Rol: localStorage.getItem("Rol") ,
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setCatalogoInstituciones(r.data.data);
+  //     });
+  // };
 
-  const getUserType = () => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setUserTypeCatalogue(r.data.data);
-      });
-  };
+  // const getUserType = () => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setUserTypeCatalogue(r.data.data);
+  //     });
+  // };
 
   const createComentarios = (idSolicitud: string) => {
     axios
@@ -198,7 +199,7 @@ export default function ModalEditarSolicitud({
             Rol: datosAdicionales.Rol,
             IdRol: datosAdicionales.IdRol,
             Cargo: datosAdicionales.Cargo,
-            IdInstitucion: datosAdicionales.IdInstitucion,
+            IdEntidad: datosAdicionales.IdEntidad,
           }),
           Estatus: "0",
           IdApp: localStorage.getItem("IdApp"),
@@ -337,7 +338,7 @@ export default function ModalEditarSolicitud({
         text: "No se puede modificar el correo electrónico ",
         type: "error",
       });
-    }else if (names===dataUser?.Nombre && firstName===dataUser?.ApellidoPaterno && secondName===dataUser?.ApellidoMaterno && puesto===dataUser?.Puesto && institution===datosAdicionales.IdInstitucion 
+    }else if (names===dataUser?.Nombre && firstName===dataUser?.ApellidoPaterno && secondName===dataUser?.ApellidoMaterno && puesto===dataUser?.Puesto && institution===datosAdicionales.IdEntidad 
       && rol===datosAdicionales.Cargo && userType===datosAdicionales.IdRol && curp ===dataUser?.Curp && rfc===dataUser?.Rfc && telephone===dataUser?.Telefono 
       && ext===dataUser?.Ext && cellphone===dataUser?.Celular) {
       setErrorsForm({
@@ -352,8 +353,8 @@ export default function ModalEditarSolicitud({
   };
 
   useEffect(() => {
-    getInstituciones();
-    getUserType();
+    //getInstituciones();
+    //getUserType();
   }, []);
 
   return (

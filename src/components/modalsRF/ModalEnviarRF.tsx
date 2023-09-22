@@ -513,6 +513,7 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
+    console.log("IdEntidad:localStorage.getItem(IdEntidad): ModalEnviarRF",localStorage.getItem("IdEntidad"),);
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -522,6 +523,7 @@ export default function ModalEnviarMA({
           IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
+          Rol: localStorage.getItem("Rol")
         },
         {
           headers: {
@@ -574,6 +576,7 @@ export default function ModalEnviarMA({
           IdMa: IdMA,
           Id: "",
           Estado: "En Captura",
+          Rol: localStorage.getItem("Rol")
         },
         {
           headers: {
@@ -602,35 +605,35 @@ export default function ModalEnviarMA({
       });
   };
 
-  useEffect(() => {
-    if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.institucion;
+  // useEffect(() => {
+  //   if (open) {
+  //     let inst = JSON.parse(MIR)?.encabezado.institucion;
 
-    // if (localStorage.getItem("Rol") === "Verificador") {
-    //   inst = "admin";
-    // }
+  //   // if (localStorage.getItem("Rol") === "Verificador") {
+  //   //   inst = "admin";
+  //   // }
 
-    axios
-      .get(
-        // eslint-disable-next-line no-useless-concat
-        process.env.REACT_APP_APPLICATION_BACK+ "/api/usuarioXInstitucion",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            Institucion: inst,
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
-    }
-  }, [MIR, open]);
+  //   axios
+  //     .get(
+  //       // eslint-disable-next-line no-useless-concat
+  //       process.env.REACT_APP_APPLICATION_BACK+ "/api/tipo-usuario",
+  //       {
+  //         params: {
+  //           IdUsuario: localStorage.getItem("IdUsuario"),
+  //           Institucion: inst,
+  //         },
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         setUserXInst(r.data.data);
+  //       }
+  //     });
+  //   }
+  // }, [MIR, open]);
 
   const enviarNotificacion = (IdUsuarioDestino: string, IdDoc="",tipoDoc ="", Nombre ="") => {
     
@@ -646,7 +649,7 @@ export default function ModalEnviarMA({
         Titulo: tipoDoc,
         Mensaje:  enviarMensaje + " "+ Nombre,
         IdDocumento: IdDoc,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {

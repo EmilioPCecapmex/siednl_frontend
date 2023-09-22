@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
+  Grid,
   Select,
   MenuItem,
   InputLabel,
@@ -30,7 +30,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { useNavigate } from "react-router-dom";
-import { TutorialBox } from "../../components/tutorialBox/tutorialBox";
+//import { TutorialGrid } from "../../components/tutorialGrid/tutorialGrid";
 import { queries } from "../../queries";
 
 export const Notification = () => {
@@ -111,7 +111,7 @@ export const Notification = () => {
           IdUsuarioDestino: usuarioSeleccionado,
           Titulo: titulo,
           Mensaje: mensaje,
-          IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
         },
         {
           headers: {
@@ -144,6 +144,7 @@ export const Notification = () => {
           IdRemitente: localStorage.getItem("IdUsuario"),
           subject: titulo,
           message: mensaje,
+          Rol: localStorage.getItem("Rol")
         },
         {
           headers: {
@@ -163,29 +164,30 @@ export const Notification = () => {
       });
   };
 
-  const getUsuarios = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios",
+  // const getUsuarios = () => {
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios",
 
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            IdInstitucion: "",
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        setUsuarios(response.data.data);
-      });
-  };
+  //       {
+  //         params: {
+  //           IdUsuario: localStorage.getItem("IdUsuario"),
+  //           IdEntidad: "",
+  //           Rol: localStorage.getItem("Rol"),
+  //         },
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       setUsuarios(response.data.data);
+  //     });
+  // };
 
   useEffect(() => {
-    getUsuarios();
+    //getUsuarios();
     getNotifEnviadas();
   }, []);
 
@@ -253,24 +255,15 @@ export const Notification = () => {
   const [checkedEmail, setCheckedEmail] = useState(false);
 
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "grid",
-        backgroundColor: "#F2F2F2",
-        gridTemplateAreas: `
-                          'aside header'
-                          'aside main'
-                         `,
-      }}
+    <Grid
+    container justifyContent={"space-between"}
     >
-      <Box gridArea={"aside"}>
+      <Grid item xl={12 } height={"7vh"}>
         <LateralMenu selection={"Notificaciones"} actionNumber={0} />
-        {/* <TutorialBox initialState={13} endState={17} /> */}
-      </Box>
+        {/* <TutorialGrid initialState={13} endState={17} /> */}
+      </Grid>
 
-      <Box gridArea={"header"} sx={{ height: "8vh" }}>
+      {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
         <Header
           details={{
             name1: "Notificaciones",
@@ -280,9 +273,9 @@ export const Notification = () => {
             name3: "",
           }}
         />
-      </Box>
+      </Grid> */}
 
-      <Box
+      <Grid
         sx={{
           display: "grid",
           width: "100%",
@@ -296,7 +289,7 @@ export const Notification = () => {
         }}
         gridArea={"main"}
       >
-        <Box
+        <Grid
           sx={{
             width: "90%",
             height: "70%",
@@ -422,8 +415,8 @@ export const Notification = () => {
               Enviar
             </Typography>
           </Button>
-        </Box>
-        <Box
+        </Grid>
+        <Grid
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -450,7 +443,7 @@ export const Notification = () => {
             HISTORIAL DE NOTIFICACIONES ENVIADAS
           </Typography>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Grid sx={{ display: "flex", alignItems: "center" }}>
             <Input
               disableUnderline
               sx={{
@@ -465,8 +458,8 @@ export const Notification = () => {
               onChange={(x) => filterN(x.target.value)}
             />
             <SearchIcon sx={{ mr: "1vw", color: "#616161" }} />
-          </Box>
-          <Box
+          </Grid>
+          <Grid
             sx={{
               width: "100%",
               display: "flex",
@@ -525,7 +518,7 @@ export const Notification = () => {
             >
               Mensaje
             </Typography>
-          </Box>
+          </Grid>
           <TableContainer
             component={Paper}
             sx={{
@@ -639,9 +632,9 @@ export const Notification = () => {
               borderRadius: 10,
             }}
           />
-        </Box>
-      </Box>
-    </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,13 +1,13 @@
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 
-export function TabAvance({ show }: { show: boolean }) {
+export function TabAvance({  }: { }) {
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+    <Grid
+      
+      
       sx={{
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",
@@ -16,14 +16,14 @@ export function TabAvance({ show }: { show: boolean }) {
         borderRadius: 5,
       }}
     >
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
           display: "flex",
         }}
-      ></Box>
-    </Box>
+      ></Grid>
+    </Grid>
   );
 }
 

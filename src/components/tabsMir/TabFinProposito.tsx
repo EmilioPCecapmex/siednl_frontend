@@ -52,6 +52,9 @@ export function TabFinProposito({
   const getIndicadores = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeIndicador", {
+        params: {
+          Rol: localStorage.getItem("Rol"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -215,8 +218,8 @@ export function TabFinProposito({
       position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
-        height: "75vh",
+        width: "93vw",
+        height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
@@ -262,8 +265,8 @@ export function TabFinProposito({
       >
         <List
           sx={{
-            width: "10vw",
-            height: "65vh",
+            width: "15vw",
+            height: "95%",
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",
@@ -303,7 +306,7 @@ export function TabFinProposito({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{fontSize: "1vw", fontFamily: "MontserratMedium" }}>
                 FIN
               </Typography>
             </ListItemButton>

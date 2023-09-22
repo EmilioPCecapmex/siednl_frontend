@@ -45,10 +45,11 @@ export const DeleteDialogCatalogos = ({
   const deletePorCatalogo = () => {
     if (tabla === "PEDs") {
       axios
-        .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/deletePED", {
+        .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-ped", {
           data: {
-            Id: id,
+            IdPED: id,
             ModificadoPor: localStorage.getItem("IdUsuario"),
+            Rol: localStorage.getItem("Rol"),
           },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -72,11 +73,12 @@ export const DeleteDialogCatalogos = ({
       axios
         .delete(
           process.env.REACT_APP_APPLICATION_BACK +
-            "/api/programaPresupuestario",
+            "/api/delete-programaPresupuestario",
           {
             data: {
               IdProgramaPresupuestario: id,
-              IdUser: localStorage.getItem("IdUsuario"),
+              ModificadoPor: localStorage.getItem("IdUsuario"),
+              Rol: localStorage.getItem("Rol"),
             },
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
@@ -98,11 +100,12 @@ export const DeleteDialogCatalogos = ({
         );
     } else {
       axios
-        .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/catalogos", {
+        .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-catalogo", {
           data: {
             Id: id,
             Tabla: tabla,
-            IdUser: localStorage.getItem("IdUsuario"),
+            ModificadoPor: localStorage.getItem("IdUsuario"),
+            Rol: localStorage.getItem("Rol"),
           },
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",

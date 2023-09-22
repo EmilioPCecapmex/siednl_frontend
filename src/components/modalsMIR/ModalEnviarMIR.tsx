@@ -11,7 +11,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail} from "../../funcs/sendMailCustomMessage";
+import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 export let errores: string[] = [];
 
@@ -36,6 +36,8 @@ export default function ModalEnviarMIR({
 
   const [newComent, setNewComent] = React.useState(false);
 
+  const [estadoMir, setestadoMir] = useState("");
+
   const enviarMensaje = "Se ha creado una nueva";
 
   const comentMir = (id: string) => {
@@ -45,6 +47,7 @@ export default function ModalEnviarMIR({
         {
           IdMir: id,
           Coment: comment,
+          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
           MIR_MA: "MIR",
         },
@@ -65,8 +68,8 @@ export default function ModalEnviarMIR({
     errores = [];
     if (
       JSON.parse(MIR)?.encabezado.ejercicioFiscal === "" ||
-      JSON.parse(MIR)?.encabezado.institucion === "" ||
-      JSON.parse(MIR)?.encabezado.nombre_del_programa === "" ||
+      JSON.parse(MIR)?.encabezado.entidad === "" ||
+      JSON.parse(MIR)?.encabezado.programa === "" ||
       JSON.parse(MIR)?.encabezado.eje === "" ||
       JSON.parse(MIR)?.encabezado.tema === "" ||
       JSON.parse(MIR)?.encabezado.objetivo === "" ||
@@ -81,11 +84,11 @@ export default function ModalEnviarMIR({
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
-    if (JSON.parse(MIR)?.encabezado.institucion === "") {
+    if (JSON.parse(MIR)?.encabezado.entidad === "") {
       err = 1;
       errores.push("<strong> INSTITUCIÓN</strong> NO SELECCIONADA.");
     }
-    if (JSON.parse(MIR)?.encabezado.nombre_del_programa === "") {
+    if (JSON.parse(MIR)?.encabezado.programa === "") {
       err = 1;
       errores.push(
         "<strong> PROGRAMA PRESUPUESTARIO</strong> NO SELECCIONADO."
@@ -398,15 +401,23 @@ export default function ModalEnviarMIR({
   };
 
   const CrearMetaAnual = (idMir: string) => {
+    console.log(
+      "IdEntidad:localStorage.getItem(IdEntidad): ModalEnviarMIR",
+      localStorage.getItem("IdEntidad")
+    );
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: "",
+          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: idMir,
           Estado: "En Captura",
           Id: "",
+          // va a cambiar
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -415,15 +426,14 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        console.log("Create MA r.data.Id: ",r.data.data);
-        console.log("r: ",r);
-        
+        console.log("Create MA r.data.Id: ", r.data.data);
+        console.log("r: ", r);
+
         userXInst.map((user) => {
-          console.log('userInst',userXInst);
-          
+          console.log("userInst", userXInst);
+
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
-          sendMail(user.CorreoElectronico,enviarMensaje, "MA",);
-          
+          sendMail(user.CorreoElectronico, enviarMensaje, "MA");
         });
         showResume();
       })
@@ -433,35 +443,33 @@ export default function ModalEnviarMIR({
       });
   };
 
+  
+
   const createMIR = (estado: string) => {
-    if (estado === "Autorizada" && userSelected !== "0") {
-      estado = "En Revisión";
-      
-    }
-    if (estado === "En Autorización" && userSelected !== "0") {
-      estado = "En Captura";
-      
-    }else{
-      
-    }
+    console.log("Entre al create MetaAnual ModalEnviarMA");
+    console.log("IdEntidad",localStorage.getItem("IdEntidad"),);
+    console.log("estado: ",estado);
+
     axios
       .post(
-        
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
-        
+
         {
           MIR: MIR,
           Estado: estado,
           CreadoPor:
             userSelected !== "0"
               ? userSelected
-              : localStorage.getItem("IdUsuario"),
-          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
-          Institucion: JSON.parse(MIR)?.encabezado.institucion,
-          Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
-          Eje: JSON.parse(MIR)?.encabezado.eje,
-          Tematica: JSON.parse(MIR)?.encabezado.tema,
+              : //se va a modificar
+                localStorage.getItem("IdUsuario"),
+          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          Programa: JSON.parse(MIR)?.encabezado.programa.Label,
+          Eje: JSON.parse(MIR)?.encabezado.eje.Label,
+          Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
           IdMir: IdMir,
+          // se va a modificar
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -471,16 +479,13 @@ export default function ModalEnviarMIR({
       )
       .then((r) => {
         userXInst.map((user) => {
-          
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
-          console.log("IdMir: ",r.data.data.ID);
-          console.log("estado: ",estado)
-          console.log("create MIR r.data.data: ",r.data.data);
-          console.log("user: ",user);
-          sendMail(user.CorreoElectronico,enviarMensaje, "MIR");
-          enviarNotificacion(user.IdUsuario,r.data.data.ID, "MIR");
-          
-          
+          console.log("IdMir: ", r.data.data.ID);
+          console.log("estado: ", estado);
+          console.log("create MIR r.data.data: ", r.data.data);
+          console.log("user: ", user);
+          sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
+          enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
 
         if (estado === "Autorizada") {
@@ -496,7 +501,7 @@ export default function ModalEnviarMIR({
         });
 
         if (comment !== "") {
-          comentMir(r.data.data.ID)
+          comentMir(r.data.data.ID);
         }
         showResume();
       })
@@ -519,56 +524,61 @@ export default function ModalEnviarMIR({
       });
   };
 
-
   useEffect(() => {
     if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.institucion;
+      let inst = JSON.parse(MIR)?.encabezado.entidad;
       //inst = "admin";
-    //  if (localStorage.getItem("Rol") === "Verificador") {
-    //    inst = "admin";
-    //  }
-    axios
+      //  if (localStorage.getItem("Rol") === "Verificador") {
+      //    inst = "admin";
+      //  }
+      console.log("Entre al tipo usuario en useEffect");
+      console.log("IdEntidad: ", localStorage.getItem("IdEntidad"));
 
+      axios
 
-    /////listado
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            Institucion: inst,
+        /////listado
+        .post(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+
+          {
+            TipoUsuario: localStorage.getItem("Rol"),
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("dApp"),
           },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        console.log('r',r);
-        
-        if (r.status === 200) {
-          
-          setUserXInst(r.data.data);
-         
-          
-        }
-      });
+
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          console.log("r", r);
+
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (IdUsuarioDestino: string ,IdDoc="", Nombre="") => {
-    console.log("IdDoc: ",IdDoc);
-    console.log("IdUsuarioDestino: ",IdUsuarioDestino);
-    console.log("Nombre: ",Nombre);
+  const enviarNotificacion = (
+    IdUsuarioDestino: string,
+    IdDoc = "",
+    Nombre = ""
+  ) => {
+    console.log("IdDoc: ", IdDoc);
+    console.log("IdUsuarioDestino: ", IdUsuarioDestino);
+    console.log("Nombre: ", Nombre);
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
 
       {
         IdUsuarioDestino: IdUsuarioDestino,
         Titulo: Nombre,
-        Mensaje: enviarMensaje + " "+ Nombre,
+        Mensaje: enviarMensaje + " " + Nombre,
         IdDocumento: IdDoc,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {
@@ -591,7 +601,12 @@ export default function ModalEnviarMIR({
   });
 
   return (
-    <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose(false)}>
+    <Dialog
+      fullWidth
+      maxWidth="md"
+      open={open}
+      onClose={() => handleClose(false)}
+    >
       <DialogTitle
         sx={{
           fontFamily: "MontserratBold",
@@ -632,17 +647,15 @@ export default function ModalEnviarMIR({
           </Typography>
         </Box>
 
-        
-          <Box sx={{ width: "30vw" }}>
-            <TextField
-              multiline
-              rows={3}
-              label={"Agregar Comentario"}
-              sx={{ width: "30vw" }}
-              onChange={(v) => setComment(v.target.value)}
-            ></TextField>
-          </Box>
-        
+        <Box sx={{ width: "30vw" }}>
+          <TextField
+            multiline
+            rows={3}
+            label={"Agregar Comentario"}
+            sx={{ width: "30vw" }}
+            onChange={(v) => setComment(v.target.value)}
+          ></TextField>
+        </Box>
 
         <Box
           sx={{
@@ -685,6 +698,7 @@ export default function ModalEnviarMIR({
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
+                //setestadoMir("borrador")
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
@@ -692,6 +706,10 @@ export default function ModalEnviarMIR({
                     ? "En Autorización"
                     : "Autorizada"
                 );
+
+               
+
+                
                 handleClose(false);
                 setNewComent(false);
               }}
@@ -709,10 +727,11 @@ export default function ModalEnviarMIR({
 
 export interface IIUserXInst {
   IdUsuario: string;
-  IdUsuarioTiCentral: string;
   Rol: string;
-  NombreInstitucion: string;
+  Entidad: string;
   Nombre: string;
   ApellidoPaterno: string;
+  ApellidoMaterno: string;
+  NomvreUsuario: string;
   CorreoElectronico: string;
 }

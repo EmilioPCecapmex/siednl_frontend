@@ -13,6 +13,8 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 
+
+
 export const TabComponenteFT = ({
   show,
   valoresComponenteFTFnc,
@@ -72,8 +74,8 @@ export const TabComponenteFT = ({
       position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
@@ -109,8 +111,8 @@ export const TabComponenteFT = ({
       >
         <List
           sx={{
-            width: "10vw",
-            height: "65vh",
+            width: "15vw",
+            height: "95%",
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",
@@ -154,7 +156,7 @@ export const TabComponenteFT = ({
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}>
                     COMPONENTE {item}
                   </Typography>
                 </ListItemButton>

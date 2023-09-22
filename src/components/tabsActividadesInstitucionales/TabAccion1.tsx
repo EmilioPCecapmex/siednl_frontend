@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   TextField,
-  Box,
+  Grid,
   Typography,
   List,
   Divider,
@@ -10,15 +10,15 @@ import {
   FormControl,
 } from "@mui/material";
 
-export function TabAccion1({ show }: { show: boolean }) {
+export function TabAccion1({  }: {  }) {
   const [componentSelect, setComponentSelect] = useState(1);
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+    <Grid
+      
+      
       sx={{
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",
@@ -27,7 +27,7 @@ export function TabAccion1({ show }: { show: boolean }) {
         borderRadius: 5,
       }}
     >
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -53,7 +53,7 @@ export function TabAccion1({ show }: { show: boolean }) {
             },
           }}
         >
-          <Box
+          <Grid
             sx={{
               height: "15vh",
               display: "flex",
@@ -100,10 +100,10 @@ export function TabAccion1({ show }: { show: boolean }) {
             <Divider />
 
             <Divider />
-          </Box>
+          </Grid>
         </List>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -115,7 +115,7 @@ export function TabAccion1({ show }: { show: boolean }) {
         >
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 1 ? (
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "100%",
@@ -125,7 +125,7 @@ export function TabAccion1({ show }: { show: boolean }) {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   width: "90%",
                   display: "flex",
@@ -138,8 +138,8 @@ export function TabAccion1({ show }: { show: boolean }) {
                 >
                   Acción 1
                 </Typography>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -170,9 +170,9 @@ export function TabAccion1({ show }: { show: boolean }) {
                   sx={{ width: "45%", boxShadow: 2 }}
                   label={"Nombre del Indicador"}
                 />
-              </Box>
+              </Grid>
 
-              <Box
+              <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -208,15 +208,15 @@ export function TabAccion1({ show }: { show: boolean }) {
                     />
                   );
                 })}
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
           {componentSelect === 2 ? (
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "100%",
@@ -226,7 +226,7 @@ export function TabAccion1({ show }: { show: boolean }) {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   width: "90%",
                   display: "flex",
@@ -239,8 +239,8 @@ export function TabAccion1({ show }: { show: boolean }) {
                 >
                   Acción 1 - Datos del Indicador
                 </Typography>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "20%",
                   width: "90%",
@@ -260,8 +260,8 @@ export function TabAccion1({ show }: { show: boolean }) {
                   sx={{ width: "40%", boxShadow: 2 }}
                   label={"Fórmula de Cálculo"}
                 />
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "25%",
                   width: "95%",
@@ -480,8 +480,8 @@ export function TabAccion1({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "45%",
                   width: "100%",
@@ -491,7 +491,7 @@ export function TabAccion1({ show }: { show: boolean }) {
                   flexDirection: "column",
                 }}
               >
-                <Box
+                <Grid
                   sx={{
                     height: "24%",
                     display: "flex",
@@ -533,8 +533,8 @@ export function TabAccion1({ show }: { show: boolean }) {
                     }}
                     InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   />
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     height: "24%",
                     display: "flex",
@@ -576,15 +576,15 @@ export function TabAccion1({ show }: { show: boolean }) {
                     sx={{ width: "35%", boxShadow: 2 }}
                     label={"Medio de Verificación / Fuente de Información"}
                   />
-                </Box>
-              </Box>
-            </Box>
+                </Grid>
+              </Grid>
+            </Grid>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
-        </Box>
-      </Box>
-    </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 

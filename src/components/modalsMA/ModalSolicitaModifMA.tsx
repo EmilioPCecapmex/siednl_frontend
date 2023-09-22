@@ -253,12 +253,15 @@ export default function ModalSolicitaModif({
   };
   /////////////////////////////////////////////////////////////////////
   const checkComponentes = (v: string) => {
+
     JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
       if (
         componente.metaAnual === undefined ||
-        /^[\s]*$/.test(componente.metaAnual) ||
-        componente.metaAnual === null
+      //  /^[\s]*$/.test(componente.metaAnual) ||
+        componente.metaAnual === null || componente.metaAnual === ""
       ) {
+        console.log("componente.metaAnual :", componente.metaAnual);
+        
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -514,6 +517,8 @@ export default function ModalSolicitaModif({
   };
   ///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
+    console.log("IdEntidad:localStorage.getItem(IdEntidad): ",localStorage.getItem("IdEntidad"));
+    
     console.log("IdMIR: ", IdMIR);
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
@@ -536,6 +541,8 @@ export default function ModalSolicitaModif({
           IdMir: IdMIR,
           Estado: estado,
           Id: IdMA,
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad:localStorage.getItem("IdEntidad"),
         },
 
         {
@@ -586,22 +593,20 @@ export default function ModalSolicitaModif({
 
     if (open) {
       axios
-        .get(
+        .post(
           process.env.REACT_APP_APPLICATION_BACK +
-            "/api/tipoDeUsuarioXInstitucion",
-          {
-            params: {
+            "/api/tipo-usuario",
+            {
               TipoUsuario: tipousuario,
-              Institucion: JSON.parse(MIR)?.encabezado?.institucion,
+              IdEntidad: localStorage.getItem("IdEntidad"),
+              IdApp: localStorage.getItem("IdApp"),
             },
+            {
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
             },
-          }
-          
-        )
-        
-        .then((r) => {
+          })
+          .then((r) => {
           console.log("a");
           if (r.status === 200) {
            
@@ -610,7 +615,7 @@ export default function ModalSolicitaModif({
           }
         });
     }
-  }, [MIR, open]);
+  }, [MA, open]);
   ///////////////////////////////////////////////////////////////////////////////////
   const Toast = Swal.mixin({
     toast: false,
@@ -631,7 +636,7 @@ export default function ModalSolicitaModif({
         IdUsuarioDestino: userSelected,
         Titulo: "Meta Anual",
         Mensaje: "Se le ha solicitado una modificación.",
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {

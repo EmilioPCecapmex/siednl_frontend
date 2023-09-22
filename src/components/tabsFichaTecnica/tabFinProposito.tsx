@@ -68,8 +68,8 @@ export function TabFinPropositoFT({
       position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
@@ -106,8 +106,8 @@ export function TabFinPropositoFT({
       >
         <List
           sx={{
-            width: "10vw",
-            height: "65vh",
+            width: "15vw",
+            height: "95%",
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",

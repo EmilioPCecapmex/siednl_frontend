@@ -103,6 +103,7 @@ export const lstXl = {
     fontFamily: "MontserratLight",
     fontSize: ".9vw",
     ml: "1vw",
+    
   },
   subMenuItemsText: { fontFamily: "MontserratLight", fontSize: ".9vw" },
   bottomItemsStyle: {
@@ -160,7 +161,7 @@ export const lstLg = {
   },
   rolStyle: {
     fontFamily: "MontserratMedium",
-    fontSize: ".9vw",
+    fontSize: "1vw",
     fontStyle: "oblique",
   },
   institucionStyle: {
@@ -215,13 +216,13 @@ export const lstLg = {
   iconMenuList: { color: "#15212f", width: "3vw" },
   firstItemsStyle: {
     fontFamily: "MontserratLight",
-    fontSize: "1.4vw",
+    fontSize: "1.2vw",
     ml: "1vw",
   },
   subMenuItemsText: { fontFamily: "MontserratLight", fontSize: "1.2vw" },
   bottomItemsStyle: {
     fontFamily: "MontserratLight",
-    fontSize: "1.4vw",
+    fontSize: "1.2vw",
     ml: "1vw",
   },
 };
@@ -462,7 +463,7 @@ export const lstSm = {
 
 export const lstXs = {
   parentBox: {
-    width: "35vw",
+    width: "50vw",
     height: "100vh",
     backgroundColor: "#fff",
     flexDirection: "column",
@@ -503,18 +504,18 @@ export const lstXs = {
   },
   userInfoBox: {
     textAlign: "center",
-    fontSize: "3vw",
+    fontSize: "4vw",
     fontFamily: "MontserratBold",
   },
   rolStyle: {
     fontFamily: "MontserratMedium",
-    fontSize: "2vw",
+    fontSize: "3vw",
     fontStyle: "oblique",
   },
   ///////////////////////////////////////////////
   institucionStyle: {
     fontFamily: "MontserratMedium",
-    fontSize: "1.5vw",
+    fontSize: "3vw",
     alignItems: "center",
     display: "flex",
     textAlign: "center",
@@ -525,7 +526,7 @@ export const lstXs = {
   ///////////////////////////////////////////////
   selectInstitucionBox: {
     width: "90%",
-    height: "4vh",
+    height: "3vh",
     justifyContent: "center",
     display: "flex",
     alignItems: "center",
@@ -535,7 +536,7 @@ export const lstXs = {
     width: "100%",
     textAlign: "center",
     fontFamily: "MontserratMedium",
-    fontSize: "2vw",
+    fontSize: "3vw",
   },
   dividerBox: {
     backgroundColor: "#ccc",
@@ -565,17 +566,17 @@ export const lstXs = {
   iconMenuList: { color: "#15212f", width: "3vw" },
   firstItemsStyle: {
     fontFamily: "MontserratLight",
-    fontSize: "2vw",
-    ml: "2vw",
+    fontSize: "3vw",
+    ml: "6vw",
   },
   subMenuItemsText: {
     fontFamily: "MontserratLight",
-    fontSize: "1.8vw",
-    ml: "2vw",
+    fontSize: "3vw",
+    ml: "6vw",
   },
   bottomItemsStyle: {
     fontFamily: "MontserratLight",
-    fontSize: "2vw",
-    ml: "2vw",
+    fontSize: "3vw",
+    ml: "6vw",
   },
 };

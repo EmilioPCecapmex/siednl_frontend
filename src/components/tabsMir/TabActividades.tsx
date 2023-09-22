@@ -220,11 +220,11 @@ export const TabActividades = ({
 
   return (
     <Box
-      position="absolute"
+     // position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
-        height: "75vh",
+        width: "93vw",
+        height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
@@ -289,15 +289,16 @@ export const TabActividades = ({
       >
         <List
           sx={{
-            width: "10vw",
-            height: "65vh",
+            width: "15vw",
+            height: "95%",
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",
             justifyContent:
               MIR.componentes.length > 9 ? "flex-start" : "center",
             borderColor: "#BCBCBC",
-            overflow: "scroll",
+            overflow: 
+              MIR.componentes.length > 9 ? "scroll" : "",
             "&::-webkit-scrollbar": {
               width: ".3vw",
             },
@@ -339,7 +340,7 @@ export const TabActividades = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.9rem" }}
+                    sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
                   >
                     COMPONENTE {index + 1}
                   </Typography>
@@ -356,6 +357,7 @@ export const TabActividades = ({
                           setActividadSelect(index);
                         }}
                         sx={{
+                          height: "3vh",
                           pl: 4,
                           "&.Mui-selected ": {
                             backgroundColor: "#efd8b9",
@@ -363,10 +365,11 @@ export const TabActividades = ({
                           "&.Mui-selected:hover": {
                             backgroundColor: "#cbcbcb",
                           },
+                          
                         }}
                       >
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                          Actividad {value}
+                        <Typography sx={{fontSize: "1vw", fontFamily: "MontserratMedium" }}>
+                          ACTIVIDAD {value}
                         </Typography>
                       </ListItemButton>
                     ))}

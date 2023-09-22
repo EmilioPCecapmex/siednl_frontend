@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { TabFinPropositoMA } from "./TabFinPropositoMA";
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
 import { IComponenteActividad } from "../tabsMir/AddMir";
-import TabResumenMIR from "../modalsMA/ModalResumenMir";
+import TabResumenMIR from "../modalsMA/ModalResumenMA";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
@@ -193,20 +193,22 @@ export default function AddMetaAnual({
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-evenly",
-      }}
+    <Grid
+    container
+    sx={{
+      display: "flex",
+      justifyContent: "space-evenly",
+    }}
     >
       {/* {value === 10 ? <TutorialBox initialState={35} endState={39} /> : null}
       {value === 20 ? <TutorialBox initialState={39} endState={40} /> : null}
       {value === 30 ? <TutorialBox initialState={40} endState={41} /> : null}
       {value === 40 ? <TutorialBox initialState={41} endState={42} /> : null}
       {value === 50 ? <TutorialBox initialState={42} endState={45} /> : null} */}
-      <Box
+      <Grid
+        item
         sx={{
-          width: "60%",
+          width: "auto",
           height: "90vh",
           borderRadius: 5,
           display: "flex",
@@ -296,10 +298,17 @@ export default function AddMetaAnual({
           />
         </Tabs>
 
-        <Box
+        <Grid
+          container
+          item
           sx={{
-            width: "75vw",
-            height: "77vh",
+            display: "flex",
+            width: "93vw",
+            height: "82vh",
+            boxShadow: 10,
+            borderRadius: 5,
+            flexDirection: "column",
+            backgroundColor: "#fff",
           }}
         >
           <TabFinPropositoMA
@@ -353,8 +362,10 @@ export default function AddMetaAnual({
             MIR={MIR}
             noComponentes={noComponentes}
           ></TabResumenMIR>
-        </Box>
-      </Box>
-    </Box>
+        </Grid>
+        
+      </Grid>
+     
+    </Grid>
   );
 }

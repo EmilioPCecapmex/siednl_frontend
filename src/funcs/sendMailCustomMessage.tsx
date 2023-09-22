@@ -12,6 +12,7 @@ export const sendMailCustomMessage = (
       message: `${mensaje} ${documentType}`,
       IdDestinatario: v,
       IdRemitente: localStorage.getItem("IdUsuario"),
+      Rol: localStorage.getItem("Rol")
     },
     {
       headers: {

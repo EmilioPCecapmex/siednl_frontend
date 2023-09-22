@@ -32,7 +32,7 @@ import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { queries } from "../../queries";
 import moment from "moment";
 import Swal from "sweetalert2";
-import { IInstituciones } from "../../components/appsDialog/AppsDialog";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
@@ -64,9 +64,9 @@ const heads: readonly Head[] = [
     label: "EJERCICIO FISCAL",
   },
   {
-    id: "Institucion",
+    id: "Entidad",
     isNumeric: true,
-    label: "INSTITUCIÓN",
+    label: "ENTIDAD",
   },
   {
     id: "Programa",
@@ -113,10 +113,11 @@ export const MIR = () => {
 
   const getMIRs = (setState: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/mir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdInstitucion: localStorage.getItem("IdInstitucion"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -129,13 +130,14 @@ export const MIR = () => {
       });
   };
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
-
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
+  // cambiado
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -143,6 +145,8 @@ export const MIR = () => {
       })
       .then((r) => {
         if (r.status === 200) {
+          console.log("r.data.data: ", r.data.data);
+
           setstate(r.data.data);
         }
       });
@@ -157,8 +161,31 @@ export const MIR = () => {
     setShowResume(true);
     //getMIRs(setMirs);
   };
+  const validaFechaCaptura = () => {
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+          params: {
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "Mir",
+          },
+        }
+      )
+      .then((r) => {
+        r.data.data.valida == "true"
+          ? setValidaFecha(true)
+          : setValidaFecha(false);
+      })
+      .catch((err) => {});
+  };
 
   const [showResume, setShowResume] = useState(true);
+  const [validaFecha, setValidaFecha] = useState(true);
   const [page, setPage] = useState(0);
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
@@ -193,6 +220,7 @@ export const MIR = () => {
   // Filtrado por caracter
 
   useEffect(() => {
+    validaFechaCaptura();
     getMIRs(setMirs);
   }, []);
 
@@ -216,12 +244,12 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -232,12 +260,12 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+              x.Entidad.toLowerCase().includes(inst.toLowerCase()))
         )
       );
     } else if (
@@ -249,7 +277,7 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             x.AnioFiscal.includes(v) ||
-            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
             x.Programa.toLowerCase().includes(v.toLowerCase()) ||
             x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
             x.CreadoPor.toLowerCase().includes(v.toLowerCase())
@@ -266,7 +294,7 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -277,7 +305,7 @@ export const MIR = () => {
         mirs.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else {
@@ -295,6 +323,8 @@ export const MIR = () => {
 
   useEffect(() => {
     //getMIRs(setMirs);
+    console.log("Entidades: ", instituciones);
+
     getInstituciones(setInstituciones);
   }, []);
 
@@ -305,7 +335,7 @@ export const MIR = () => {
 
   useEffect(() => {
     let id = urlParams.get("Id");
-    setMirsFiltered(mirs.filter((x) => x.ID.toLowerCase().includes(id || "")));
+    setMirsFiltered(mirs.filter((x) => x.Id.toLowerCase().includes(id || "")));
   }, [mirs]);
 
   const [actualizacion, setActualizacion] = useState(0);
@@ -402,11 +432,10 @@ export const MIR = () => {
       console.log(mirxFiltered);
 
       if (
-        
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Institucion.toString()
+        elemento.Entidad.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
         elemento.Programa.toString()
@@ -437,37 +466,31 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container direction="row" height={"100vh"} width={"100vw"}>
-      <Grid item height={"100vh"} 
-     // sx={{ mr: showResume ? 8 : 0 }}
+    <Grid container justifyContent={"space-between"}>
+      <Grid
+        item
+        xl={12}
+        height={"7vh"}
+        // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Grid>
+      {/* //boxShadow: 10, */}
 
       <Grid
         justifyContent={"center"}
         display={"flex"}
         container
+        height={"93vh"}
+        alignItems={"center"}
         item
-        xl={10.2}
-        lg={9.9}
-        md={9.4}
+        xl={12}
+        lg={12}
+        md={12}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "#F2F2F2" }}
+        sx={{ backgroundColor: "white" }}
       >
-        <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
-          <Header
-            details={{
-              name1: "Inicio",
-              path1: "../home",
-              name2: "MIR",
-              path2: "../mir",
-              name3: "",
-            }}
-          />
-        </Grid>
-
         {showResume ? (
           <>
             {/* FILTROS */}
@@ -480,19 +503,19 @@ export const MIR = () => {
               height="15vh"
               direction="row"
               sx={{
+                boxShadow: 5,
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 justifyContent: "space-evenly",
                 alignItems: "center",
               }}
             >
-
-
               <Grid
                 xl={12}
                 lg={12}
                 md={12}
                 container
+                item
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
@@ -500,12 +523,12 @@ export const MIR = () => {
                 <Grid item xl={5} lg={4} md={3} sm={2}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                      Filtro por institucion
+                      FILTRO POR INSTITUCION
                     </InputLabel>
                     <Select
                       size="small"
                       variant="outlined"
-                      label="Filtro por institucion"
+                      label="FILTRO POR INSTITUCION"
                       value={findInstStr}
                       sx={{ fontFamily: "MontserratRegular" }}
                       fullWidth
@@ -517,16 +540,13 @@ export const MIR = () => {
                         value={"Todos"}
                         sx={{ fontFamily: "MontserratRegular" }}
                       >
-                        Todos
+                        TODOS
                       </MenuItem>
 
                       {instituciones?.map((item) => {
                         return (
-                          <MenuItem
-                            value={item.NombreInstitucion}
-                            key={item.Id}
-                          >
-                            {item.NombreInstitucion}
+                          <MenuItem value={item.Nombre} key={item.Id}>
+                            {item.Nombre}
                           </MenuItem>
                         );
                       })}
@@ -543,13 +563,13 @@ export const MIR = () => {
                 >
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                      Filtro por estado de la MIR
+                      FILTRO POR ESTADO DE LA MIR
                     </InputLabel>
                     <Select
                       size="small"
                       variant="outlined"
                       value={findSelectStr}
-                      label="Filtro por Estado de la MIR"
+                      label="FILTRO POR ESTADO DE LA MIR"
                       sx={{ fontFamily: "MontserratRegular" }}
                       fullWidth
                       onChange={(v) => {
@@ -565,13 +585,12 @@ export const MIR = () => {
                     >
                       {estados.map((estado) => (
                         <MenuItem key={estado} value={estado}>
-                          {estado}
+                          {estado.toUpperCase()}
                         </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
                 </Grid>
-
               </Grid>
 
               <Grid
@@ -616,7 +635,7 @@ export const MIR = () => {
                     <IconButton
                       type="button"
                       sx={{ p: "10px" }}
-                      aria-label="search"
+                      aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
                       <SearchIcon />
@@ -626,6 +645,7 @@ export const MIR = () => {
 
                 <Grid item xl={3} lg={4} md={3} sm={2}>
                   <Button
+                    disabled={!validaFecha}
                     sx={{
                       backgroundColor: "#c2a37b",
                       width: "10vw",
@@ -637,9 +657,9 @@ export const MIR = () => {
                     onClick={() => {
                       setMirEdit([
                         {
-                          ID: "",
+                          Id: "",
                           AnioFiscal: "",
-                          Institucion: "",
+                          Entidad: "",
                           Programa: "",
                           Eje: "",
                           Tematica: "",
@@ -655,7 +675,9 @@ export const MIR = () => {
                       handleClickOpen();
                     }}
                   >
-                    Añadir registro
+                    {!validaFecha
+                      ? "Fecha de captura terminada"
+                      : "Añadir registro"}
                   </Button>
                 </Grid>
               </Grid>
@@ -672,103 +694,22 @@ export const MIR = () => {
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
-              {/* <Table>
-                <TableHead sx={{ backgroundColor: "#edeaea", width: "100%" }}>
-                  <TableRow
-                    sx={{
-                      width: "100%",
-                      display: "grid",
-                      gridTemplateColumns: "repeat(7, 1fr)",
-                      justifyContent: "space-evenly",
-                      alignItems: "center",
-                    }}
-                  >
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      EJERCICIO FISCAL
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      INSTITUCIÓN
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      NOMBRE DEL PROGRAMA
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      ESTADO
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      FECHA DE CREACIÓN
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      CREADO POR
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "MontserratBold",
-                        borderBottom: 0,
-                        fontSize: "0.8vw",
-                      }}
-                      align="center"
-                    >
-                      OPCIONES
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-              </Table> */}
-
-              <TableContainer sx={{ borderRadius: 5, height: 450,
-            overflow: "auto",
-            "&::-webkit-scrollbar": {
-              width: ".5vw",
-              mt: 1,
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#edeaea",
-              //outline: "1px solid slategrey",
-              borderRadius: 1,
-            },
-             }}>
+              <TableContainer
+                sx={{
+                  borderRadius: 5,
+                  height: 450,
+                  overflow: "auto",
+                  "&::-webkit-scrollbar": {
+                    width: ".5vw",
+                    mt: 1,
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#edeaea",
+                    //outline: "1px solid slategrey",
+                    borderRadius: 1,
+                  },
+                }}
+              >
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow
@@ -799,10 +740,10 @@ export const MIR = () => {
 
                   <TableBody>
                     {mirsFiltered
-                       .slice(
-                         page * rowsPerPage,
-                         page * rowsPerPage + rowsPerPage
-                       )
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
                       .map((row, index) => (
                         <TableRow>
                           <TableCell
@@ -827,7 +768,7 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                            {row.Institucion.toUpperCase()}
+                            {row.Entidad.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
@@ -852,16 +793,16 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                            {row.Estado === "En Captura" &&
+                            {(row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
-                              ? "Borrador"
+                              ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
                                 localStorage.getItem("Rol") === "Verificador"
                               ? "Esperando revisión"
                               : row.Estado === "En Autorización" &&
                                 localStorage.getItem("Rol") === "Administrador"
                               ? "En Autorización"
-                              : row.Estado}
+                              : row.Estado).toUpperCase()}
                           </TableCell>
 
                           <TableCell
@@ -902,140 +843,150 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                           
-                              <Tooltip
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
-                                      },
+                            <Tooltip
+                              PopperProps={{
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: {
+                                      offset: [0, -13],
                                     },
-                                  ],
-                                }}
-                                title="DESCARGAR MIR"
-                              >
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "Autorizada" ? false : true
-                                    }
-                                    onClick={() =>
-                                      downloadMIR(
-                                        row.AnioFiscal,
-                                        row.Institucion,
-                                        row.Programa,
-                                        row.MIR
-                                      )
-                                    }
-                                  >
-                                    <DownloadIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "orange",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
+                                  },
+                                ],
+                              }}
+                              title="DESCARGAR MIR"
+                            >
+                              <span>
+                                <IconButton
+                                  disabled={
+                                    row.Estado === "Autorizada" && validaFecha
+                                      ? false
+                                      : true
+                                  }
+                                  onClick={() =>
+                                    downloadMIR(
+                                      row.AnioFiscal,
+                                      row.Entidad,
+                                      row.Programa,
+                                      row.MIR
+                                    )
+                                  }
+                                >
+                                  <DownloadIcon
+                                    sx={[
+                                      {
+                                        "&:hover": {
+                                          color: "orange",
                                         },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
-                              <ComentDialogMir
-                                estado={row.Estado}
-                                id={row.ID}
-                                actualizado={actualizaContador}
-                              />
-
-                              <DeleteDialogMIR
-                                disab={
-                                  row.Estado === "En Captura" &&
-                                  localStorage.getItem("Rol") === "Capturador"
-                                    ? false
-                                    : row.Estado === "En Revisión" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador"
-                                    ? false
-                                    : row.Estado === "En Autorización" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador"
-                                    ? false
-                                    : true
-                                }
-                                id={row.ID}
-                                actualizado={actualizaContador}
-                              />
-                              <Tooltip
-                                title="EDITAR"
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
+                                        width: "1.2vw",
+                                        height: "1.2vw",
                                       },
+                                    ]}
+                                  />
+                                </IconButton>
+                              </span>
+                            </Tooltip>
+
+                            <ComentDialogMir
+                              estado={row.Estado}
+                              id={row.Id}
+                              actualizado={actualizaContador}
+                            />
+
+                            <DeleteDialogMIR
+                              disab={
+                                row.Estado === "En Captura" &&
+                                validaFecha &&
+                                localStorage.getItem("Rol") === "Capturador"
+                                  ? false
+                                  : row.Estado === "En Revisión" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Verificador"
+                                  ? false
+                                  : row.Estado === "En Autorización" &&
+                                    localStorage.getItem("Rol") ===
+                                      "Administrador"
+                                  ? false
+                                  : true
+                              }
+                              id={row.Id}
+                              actualizado={actualizaContador}
+                            />
+                            <Tooltip
+                              title="EDITAR"
+                              PopperProps={{
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: {
+                                      offset: [0, -13],
                                     },
-                                  ],
-                                }}
-                              >
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      row.Estado === "En Captura" &&
+                                  },
+                                ],
+                              }}
+                            >
+                              <span>
+                                <IconButton
+                                  disabled={
+                                    (row.Estado === "En Captura" &&
+                                      validaFecha &&
                                       localStorage.getItem("Rol") ===
-                                        "Capturador"
-                                        ? false
-                                        : row.Estado === "En Revisión" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Verificador"
-                                        ? false
-                                        : row.Estado === "En Autorización" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Administrador"
-                                        ? false
-                                        : true
-                                    }
-                                    onClick={() => {
-                                      setMirEdit([
-                                        {
-                                          ID: row.ID,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Institucion: row.Institucion,
-                                          Programa: row.Programa,
-                                          Eje: row.Eje,
-                                          Tematica: row.Tematica,
-                                          MIR: row.MIR,
-                                          Estado: row.Estado,
-                                          FechaCreacion: row.FechaCreacion,
-                                          CreadoPor: row.CreadoPor,
-                                          Conac: row.Conac,
-                                          Consecutivo: row.Consecutivo,
-                                          Opciones: row.Opciones,
+                                        "Capturador") ||
+                                    (row.Estado === "En Revisión" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador") ||
+                                    (row.Estado === "Borrador Verificador" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador") ||
+                                    (row.Estado === "En Autorización" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador") ||
+                                    (row.Estado === "Borrador Autorizador" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador")
+                                      ? false
+                                      : true
+                                  }
+                                  onClick={() => {
+                                    setMirEdit([
+                                      {
+                                        Id: row.Id,
+                                        AnioFiscal: row.AnioFiscal,
+                                        Entidad: row.Entidad,
+                                        Programa: row.Programa,
+                                        Eje: row.Eje,
+                                        Tematica: row.Tematica,
+                                        MIR: row.MIR,
+                                        Estado: row.Estado,
+                                        FechaCreacion: row.FechaCreacion,
+                                        CreadoPor: row.CreadoPor,
+                                        Conac: row.Conac,
+                                        Consecutivo: row.Consecutivo,
+                                        Opciones: row.Opciones,
+                                      },
+                                    ]);
+                                    setShowResume(false);
+                                    setActionNumber(1);
+                                  }}
+                                >
+                                  <EditIcon
+                                    sx={[
+                                      {
+                                        "&:hover": {
+                                          color: "blue",
                                         },
-                                      ]);
-                                      setShowResume(false);
-                                      setActionNumber(1);
-                                    }}
-                                  >
-                                    <EditIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "blue",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-                            
+                                        width: "1.2vw",
+                                        height: "1.2vw",
+                                      },
+                                    ]}
+                                  />
+                                </IconButton>
+                              </span>
+                            </Tooltip>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -1046,7 +997,7 @@ export const MIR = () => {
               </TableContainer>
 
               <Box sx={{ width: "100%" }}>
-                 <TablePagination
+                <TablePagination
                   rowsPerPageOptions={[renglonesPagina]}
                   component="div"
                   count={mirs.length}
@@ -1054,12 +1005,12 @@ export const MIR = () => {
                   page={page}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                /> 
+                />
               </Box>
             </Grid>
           </>
         ) : (
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -1073,9 +1024,9 @@ export const MIR = () => {
               anioFiscalEdit={anioFiscalEdit}
               MIR={mirEdit[0]?.MIR || ""}
               showResume={returnMain}
-              IdMir={mirEdit[0]?.ID || ""}
+              IdMir={mirEdit[0]?.Id || ""}
             />
-          </Box>
+          </Grid>
         )}
       </Grid>
     </Grid>
@@ -1083,9 +1034,9 @@ export const MIR = () => {
 };
 
 export interface IIMir {
-  ID: string;
+  Id: string;
   AnioFiscal: string;
-  Institucion: string;
+  Entidad: string;
   Programa: string;
   Eje: string;
   Tematica: string;

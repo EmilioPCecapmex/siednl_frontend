@@ -60,7 +60,7 @@ export const TabComponente = ({
     const cIndicador =
       MIR.componentes[componentSelect - 1].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
-      if (cIndicador.includes("porcentaje")) {
+      if (cIndicador.includes("porcentaje" || "PORCENTAJE") ) {
         setTipoFormula("Porcentaje");
         setElementoFormula("Componente " + componentSelect.toString());
         handleClickOpen();
@@ -70,7 +70,7 @@ export const TabComponente = ({
         setElementoFormula("Componente " + componentSelect.toString());
         handleClickOpen();
         setErrorIndicador(-1);
-      } else if (cIndicador.includes("indice" || "índice")) {
+      } else if (cIndicador.includes("indice" || "índice" || "Índice")) {
         setTipoFormula("Índice");
         setElementoFormula("Componente " + componentSelect.toString());
         handleClickOpen();
@@ -95,6 +95,7 @@ export const TabComponente = ({
 
   useEffect(() => {
     setComponentes(MIR.componentes);
+    console.log("formula: ", componentes[componentSelect - 1]?.formula);
   }, [MIR]);
 
   useEffect(() => {
@@ -113,8 +114,8 @@ export const TabComponente = ({
       position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
-        height: "75vh",
+        width: "93vw",
+        height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
@@ -176,15 +177,16 @@ export const TabComponente = ({
       >
         <List
           sx={{
-            width: "10vw",
-            height: "65vh",
+            width: "15vw",
+            height: "95%",
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",
             justifyContent:
               MIR.componentes.length > 9 ? "flex-start" : "center",
             borderColor: "#BCBCBC",
-            overflow: "scroll",
+            overflow: 
+              MIR.componentes.length > 9 ? "scroll" : "",
             "&::-webkit-scrollbar": {
               width: ".3vw",
             },
@@ -221,7 +223,7 @@ export const TabComponente = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.9rem" }}
+                    sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
                   >
                     COMPONENTE {item}
                   </Typography>
@@ -321,7 +323,10 @@ export const TabComponente = ({
             }}
             sx={{ width: "90%", boxShadow: 2 }}
             label={"FÓRMULA"}
-            onClick={() => evalueTxtIndicador()}
+            onClick={() => {evalueTxtIndicador()
+              console.log("formula: ", componentes[componentSelect - 1]?.formula);
+              
+            }}
             value={componentes[componentSelect - 1]?.formula}
           />
 
@@ -440,6 +445,8 @@ export const TabComponente = ({
           />
         </Box>
       </Box>
+
     </Box>
+    
   );
 };

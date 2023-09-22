@@ -76,15 +76,31 @@ export default function ModalSolicitaModif({
 
   const checkFT = (v: string) => {
     errores = [];
+    console.log("prueba de vacio: ",JSON.parse(FT)?.encabezado.programaSER);
+    console.log("prueba de vacio 2: ",JSON.parse(FT)?.encabezado.unidadDeMedida);
+    
+    
 
     if (
-      JSON.parse(FT)?.encabezado.programaSER === null ||
-      JSON.parse(FT)?.encabezado.programaSER === undefined ||
-      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
+      JSON.parse(FT)?.encabezado === null ||
+      JSON.parse(FT)?.encabezado === undefined 
+      //|| /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
     ) {
       err = 1;
       errores.push(
-        "Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
+        "Sección <strong>Encabezado</strong> incompleta."
+        //"Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
+      );
+    }
+    if (
+      JSON.parse(FT)?.encabezado.programaSER === undefined ||
+      JSON.parse(FT)?.encabezado.programaSER === "" ||
+      JSON.parse(FT)?.encabezado.programaSER === null 
+      || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Programa sectorial, especial o regional sin información."
       );
     }
 
@@ -98,6 +114,15 @@ export default function ModalSolicitaModif({
         "Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta."
       );
     }
+    if (
+      JSON.parse(FT)?.encabezado.objetivoODS === undefined ||
+      JSON.parse(FT)?.encabezado.objetivoODS === ""
+    ) {
+      err = 1;
+      errores.push(
+        "<strong>Encabezado</strong>: Objetivo ODS no seleccionado."
+      );
+    }
 
     if (
       JSON.parse(FT)?.encabezado.metaODS === null ||
@@ -106,19 +131,17 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta."
+        "Sección <strong>Encabezado</strong>:  Meta ODS no seleccionado.."
       );
     }
 
     if (
-      JSON.parse(FT)?.encabezado.unidadDeMedida === null ||
-      JSON.parse(FT)?.encabezado.unidadDeMedida === undefined ||
-      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.unidadDeMedida)
+      JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
+      JSON.parse(FT)?.fin.unidadDeMedida === "" ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.unidadDeMedida)
     ) {
       err = 1;
-      errores.push(
-        "Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
-      );
+      errores.push("<strong>Fin</strong>: Unidad de medida sin información.");
     }
     if (JSON.parse(FT)?.fin === null) {
       err = 1;
@@ -459,6 +482,7 @@ export default function ModalSolicitaModif({
           Estado: estado,
           IdMa: IdMa,
           Id: IdFT,
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -490,37 +514,36 @@ export default function ModalSolicitaModif({
       });
   };
 
-
   useEffect(() => {
-
     let tipousuario = "";
 
     if (localStorage.getItem("Rol") === "Capturador")
-    tipousuario = "Verificador";
+      tipousuario = "Verificador";
     console.log(tipousuario);
-  if (localStorage.getItem("Rol") === "Verificador")
-    tipousuario = "Verificador";
-  if (localStorage.getItem("Rol") === "Administrador")
-    tipousuario = "VERIFICADOR_CAPTURADOR";
+    if (localStorage.getItem("Rol") === "Verificador")
+      tipousuario = "Verificador";
+    if (localStorage.getItem("Rol") === "Administrador")
+      tipousuario = "VERIFICADOR_CAPTURADOR";
     if (open) {
       axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/tipoDeUsuarioXInstitucion",
-        {
-          params: {
+        .post(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+          {
             TipoUsuario: tipousuario,
-            Institucion: JSON.parse(MIR)?.encabezado?.institucion,
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("IdApp"),
           },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          if (r.status === 200) {
+            setUserXInst(r.data.data);
+          }
+        });
     }
   }, [MIR, open]);
 
@@ -598,8 +621,8 @@ export default function ModalSolicitaModif({
               </MenuItem>
 
               {userXInst.map((item) => {
-                console.log("userXInst: ",userXInst);
-                
+                console.log("userXInst: ", userXInst);
+
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
                     {item.Nombre}
@@ -637,16 +660,22 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ ...queries.buttonCancelarSolicitudInscripcion, display: "flex", width: "15vw" }}
+              sx={{
+                ...queries.buttonCancelarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               onClick={() => handleClose()}
             >
-              <Typography >
-                Cancelar
-              </Typography>
+              <Typography>Cancelar</Typography>
             </Button>
 
             <Button
-              sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "15vw"}}
+              sx={{
+                ...queries.buttonContinuarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -658,7 +687,7 @@ export default function ModalSolicitaModif({
                 handleClose();
               }}
             >
-              <Typography >
+              <Typography>
                 {comentario === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>

@@ -36,11 +36,11 @@ export const TabActividadesFT = ({
 }) => {
   // business logic-------------------------------------------------------------------------------
 
-  const componenteActividad = ([
+  const componenteActividad = [
     {
       componentes: componentes.map((x) => compAct),
     },
-  ]);
+  ];
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
@@ -206,8 +206,8 @@ export const TabActividadesFT = ({
       position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
@@ -227,7 +227,7 @@ export const TabActividadesFT = ({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            fontSize: "0.7vw",
           }}
         >
           COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
@@ -243,8 +243,8 @@ export const TabActividadesFT = ({
       >
         <List
           sx={{
-            width: "10vw",
-            height: "65vh",
+            width: "15vw",
+            height: "95%",
             borderRight: "solid",
             display: "flex",
             flexDirection: "column",
@@ -291,7 +291,7 @@ export const TabActividadesFT = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.9rem" }}
+                    sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
                   >
                     COMPONENTE {item}
                   </Typography>
@@ -320,7 +320,14 @@ export const TabActividadesFT = ({
                               },
                             }}
                           >
-                            ACTIVIDAD {x + 1}
+                            <Typography
+                              sx={{
+                                fontSize: "1vw",
+                                fontFamily: "MontserratMedium",
+                              }}
+                            >
+                              ACTIVIDAD {x + 1}
+                            </Typography>
                           </ListItemButton>
                         );
                       }

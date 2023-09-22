@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import {
   TextField,
-  Box,
+  Grid,
   Typography,
   Autocomplete,
   List,
   FormControl,
   Divider,
   ListItemButton,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
 import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
 import axios from "axios";
 
-export function TabIdentificacion({ show }: { show: boolean }) {
+export function TabIdentificacion({}: {}) {
   const [componentSelect, setComponentSelect] = useState(1);
 
   //catalogos
@@ -44,6 +46,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
       estrategiaPED: "",
       programaSectorial: "",
       objetivoProgramaSectorial: "",
+      meta1: "",
+      meta2: "",
     });
 
   const [objetivosActividadInstitucional, setobjetivosActividadInstitucional] =
@@ -66,12 +70,16 @@ export function TabIdentificacion({ show }: { show: boolean }) {
         setCatalogoAniosFiscales(r.data.data);
       });
   };
+  const prueba = "si";
 
   const getInstituciones = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
+
+        
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -90,21 +98,20 @@ export function TabIdentificacion({ show }: { show: boolean }) {
   }, []);
 
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+    <Grid
       sx={{
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         alignItems: "center",
         justifyItems: "center",
         backgroundColor: "#fff",
+        // GridShadow: 20,
         boxShadow: 20,
         borderRadius: 5,
       }}
     >
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -130,7 +137,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
             },
           }}
         >
-          <Box
+          <Grid
             sx={{
               height: "15vh",
               display: "flex",
@@ -194,10 +201,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
             </ListItemButton>
 
             <Divider />
-          </Box>
+          </Grid>
         </List>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -209,7 +216,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
         >
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 1 ? (
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "100%",
@@ -219,7 +226,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   width: "90%",
                   display: "flex",
@@ -232,8 +239,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 >
                   Identificación
                 </Typography>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "30%",
                   width: "90%",
@@ -244,10 +251,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     size="small"
                     options={catalogoAniosFiscales}
@@ -279,12 +286,11 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Ejercicio Fiscal"}
+                        label={"EJERCICIO FISCAL"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -308,10 +314,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     size="small"
                     options={top100Films()}
@@ -341,11 +347,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                       <TextField
                         variant="standard"
                         {...params}
-                        label="Clasificación Programatica"
+                        label="INSTITUCIÓN"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -359,10 +364,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disablePortal
                     options={catalogoInstituciones}
                     getOptionLabel={(option) => option.NombreInstitucion}
@@ -388,12 +393,11 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Institución"}
+                        label={"PROGRAMA"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -414,9 +418,46 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     }
                   />
                 </FormControl>
-              </Box>
+              </Grid>
 
-              <Box
+              <Grid
+                sx={{
+                  height: "30%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormControlLabel
+                  label="ANTICORRUPCIÓN"
+                  control={
+                    <Checkbox checked={prueba === "si"} onChange={() => {}} />
+                  }
+                />
+
+                <FormControl sx={{ gridRow: "1", width: "15%" }}>
+                  <TextField
+                    disabled
+                    size="small"
+                    label={"CONAC:"}
+                    //value={"conac"}
+                    //sx={{ width: "25%" }}
+                  />
+                </FormControl>
+
+                <FormControl sx={{ gridRow: "1", width: "65%" }}>
+                  <TextField
+                    disabled
+                    size="small"
+                    label={"CLASIFICACIÓN PROGRAMÁTICA:"}
+                    // value={"consecutivo"}
+                    //sx={{ width: "60%" }}
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid
                 sx={{
                   height: "30%",
                   width: "90%",
@@ -427,10 +468,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -450,12 +491,11 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Temática"}
+                        label={"EJE"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -470,10 +510,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "35%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -493,12 +533,11 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Objetivo"}
+                        label={"TEMA"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -512,10 +551,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -535,12 +574,11 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"CONAC"}
+                        label={"OBJETIVO"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -552,8 +590,8 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-              </Box>
-              <Box
+              </Grid>
+              <Grid
                 sx={{
                   height: "30%",
                   width: "90%",
@@ -562,12 +600,12 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   alignItems: "center",
                 }}
               >
-                <FormControl sx={{ gridRow: "1", width: "40%" }}>
+                <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -587,12 +625,11 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Tipo Beneficiario"}
+                        label={"ESTRATEGIA"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -604,12 +641,13 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-                <FormControl sx={{ gridRow: "1", width: "40%" }}>
+
+                <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -629,12 +667,11 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={"Programa"}
+                        label={"LINEAS DE ACCIÓN"}
                         variant="standard"
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -646,15 +683,57 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-              </Box>
-            </Box>
+
+                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                  <Autocomplete
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
+                    options={top100Films()}
+                    size="small"
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={Math.random()}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"BENEFICIARIO"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+            </Grid>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
           {componentSelect === 2 ? (
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "100%",
@@ -664,7 +743,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   width: "90%",
                   display: "flex",
@@ -677,8 +756,9 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 >
                   Alineación
                 </Typography>
-              </Box>
-              <Box
+              </Grid>
+
+              {/* <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -689,10 +769,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -717,7 +797,6 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -732,10 +811,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -760,7 +839,6 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -775,10 +853,10 @@ export function TabIdentificacion({ show }: { show: boolean }) {
 
                 <FormControl sx={{ gridRow: "1", width: "30%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -803,7 +881,6 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
                           },
                         }}
                         sx={{
@@ -815,8 +892,9 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     )}
                   />
                 </FormControl>
-              </Box>
-              <Box
+              </Grid> */}
+
+              {/* <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -826,99 +904,201 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 }}
               >
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
-                  <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-                    options={top100Films()}
-                    size="small"
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option}
-                          </p>
-                        </li>
-                      );
+                  <TextField
+                    // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                    // rows={8}
+                    multiline
+                    //sx={{ width: "90%", GridShadow: 2 }}
+                    variant={"standard"}
+                    label={"Programa Sectorial"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
                     }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"Programa Sectorial"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
-                          },
-                        }}
-                        sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
-                        }}
-                      ></TextField>
-                    )}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onChange={(c) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        programaSectorial: c.target.value
+                          .replaceAll('"', "")
+                          .replaceAll("'", "")
+                          .replaceAll("\n", ""),
+                      });
+                    }}
+                    value={alineacionPlaneacion.programaSectorial}
                   />
                 </FormControl>
 
                 <FormControl sx={{ gridRow: "1", width: "40%" }}>
-                  <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-                    options={top100Films()}
-                    size="small"
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option}
-                          </p>
-                        </li>
-                      );
+                  <TextField
+                    // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                    // rows={8}
+                    multiline
+                    //sx={{ width: "90%", GridShadow: 2 }}
+                    variant={"standard"}
+                    label={"Objetivo Programa Sectorial"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
                     }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"Objetivo Programa Sectorial"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
-                          },
-                        }}
-                        sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
-                        }}
-                      ></TextField>
-                    )}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onChange={(c) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        objetivoProgramaSectorial: c.target.value
+                          .replaceAll('"', "")
+                          .replaceAll("'", "")
+                          .replaceAll("\n", ""),
+                      });
+                    }}
+                    value={alineacionPlaneacion.objetivoProgramaSectorial}
                   />
                 </FormControl>
-              </Box>
-            </Box>
+              </Grid> */}
+
+              <Grid
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <TextField
+                  multiline
+                  rows={6}
+                  variant="filled"
+                  sx={{ width: "80%", GridShadow: 2 }}
+                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  label={"OBJETIVO PRPGRAMA SECTORIAL"}
+                  // value={objetivosActividadInstitucional.objetivoGeneral}
+                  // onChange={(c) => {
+                  //   setobjetivosActividadInstitucional({
+                  //     ...objetivosActividadInstitucional,
+                  //     objetivoGeneral: c.target.value,
+                  //   });
+                  // }}
+                />
+              </Grid>
+
+              <Grid
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <TextField
+                  multiline
+                  rows={6}
+                  variant="filled"
+                  sx={{ width: "80%", GridShadow: 2 }}
+                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  label={"PROGRAMA SECTORIAL"}
+                  // value={objetivosActividadInstitucional.objetivoGeneral}
+                  // onChange={(c) => {
+                  //   setobjetivosActividadInstitucional({
+                  //     ...objetivosActividadInstitucional,
+                  //     objetivoGeneral: c.target.value,
+                  //   });
+                  // }}
+                />
+              </Grid>
+
+              {/* <Grid
+                sx={{
+                  height: "45%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <FormControl sx={{ gridRow: "1", width: "40%" }}>
+                  <TextField
+                    // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                    // rows={8}
+                    multiline
+                    //sx={{ width: "90%", GridShadow: 2 }}
+                    variant={"standard"}
+                    label={"Meta 1"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onChange={(c) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        meta1: c.target.value
+                          .replaceAll('"', "")
+                          .replaceAll("'", "")
+                          .replaceAll("\n", ""),
+                      });
+                    }}
+                    value={alineacionPlaneacion.meta1}
+                  />
+                </FormControl>
+
+                <FormControl sx={{ gridRow: "1", width: "40%" }}>
+                  <TextField
+                    // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
+                    // rows={8}
+                    multiline
+                    //sx={{ width: "90%", GridShadow: 2 }}
+                    variant={"standard"}
+                    label={"Meta 2"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onChange={(c) => {
+                      setAlineacionPlaneacion({
+                        ...alineacionPlaneacion,
+                        meta2: c.target.value
+                          .replaceAll('"', "")
+                          .replaceAll("'", "")
+                          .replaceAll("\n", ""),
+                      });
+                    }}
+                    value={alineacionPlaneacion.meta2}
+                  />
+                </FormControl>
+              </Grid> */}
+            </Grid>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 3 ? (
-            <Box
+            <Grid
               sx={{
                 width: "100%",
                 height: "100%",
@@ -928,7 +1108,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 flexDirection: "column",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   width: "90%",
                   display: "flex",
@@ -941,8 +1121,9 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                 >
                   Objetivos
                 </Typography>
-              </Box>
-              <Box
+              </Grid>
+
+              <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -955,7 +1136,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   multiline
                   rows={6}
                   variant="filled"
-                  sx={{ width: "80%", boxShadow: 2 }}
+                  sx={{ width: "80%", GridShadow: 2 }}
                   InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
                   InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   label={"Objetivo General"}
@@ -967,8 +1148,9 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     });
                   }}
                 />
-              </Box>
-              <Box
+              </Grid>
+
+              <Grid
                 sx={{
                   height: "45%",
                   width: "90%",
@@ -981,7 +1163,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   multiline
                   rows={6}
                   variant="filled"
-                  sx={{ width: "40%", boxShadow: 2 }}
+                  sx={{ width: "40%", GridShadow: 2 }}
                   label={"Objetivo Especifico 1"}
                   InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
                   InputProps={{ style: { fontFamily: "MontserratRegular" } }}
@@ -998,7 +1180,7 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                   multiline
                   rows={6}
                   variant="filled"
-                  sx={{ width: "40%", boxShadow: 2 }}
+                  sx={{ width: "40%", GridShadow: 2 }}
                   label={"Objetivo Especifico 2"}
                   value={objetivosActividadInstitucional.objetivoEspecifico2}
                   InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
@@ -1010,13 +1192,13 @@ export function TabIdentificacion({ show }: { show: boolean }) {
                     });
                   }}
                 />
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
           ) : null}
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
-        </Box>
-      </Box>
-    </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 

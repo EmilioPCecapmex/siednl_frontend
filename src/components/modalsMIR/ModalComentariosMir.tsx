@@ -23,7 +23,6 @@ import moment from "moment";
 import { IIUserXInst } from "./ModalEnviarMIR";
 import { queries } from "../../queries";
 
-
 export const ComentDialogMir = ({
   estado,
   id,
@@ -73,18 +72,18 @@ export const ComentDialogMir = ({
 
   const getUsuariosXInstitucion = () => {
     axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
+      .post(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", 
         {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            Institucion: localStorage.getItem("IdInstitucion"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+          TipoUsuario: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdApp: localStorage.getItem("dApp"),
+       },
+       {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+
+      })
       .then((r) => {
         if (r.status === 200) {
           setUserXInst(r.data.data);
@@ -98,7 +97,6 @@ export const ComentDialogMir = ({
     }
   }, [open]);
 
-
   const [coment, setComent] = React.useState("");
 
   const enviarNotificacion = (v: string) => {
@@ -108,7 +106,8 @@ export const ComentDialogMir = ({
         IdUsuarioDestino: v,
         Titulo: "Nuevo comentario MIR",
         Mensaje: coment,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        // Se va a modificar
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {
@@ -125,8 +124,9 @@ export const ComentDialogMir = ({
         {
           IdMir: id,
           Coment: coment,
+          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA:'MIR'
+          MIR_MA: "MIR",
         },
         {
           headers: {
@@ -152,7 +152,6 @@ export const ComentDialogMir = ({
         });
       })
       .catch((err) => {
-        
         Toast.fire({
           icon: "error",
           title: "Se produjo un error",
@@ -162,18 +161,17 @@ export const ComentDialogMir = ({
 
   React.useEffect(() => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
-      params: {
-        IdMir: id,
-      },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      
-      setComents(r.data.data);
-    });
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+        params: {
+          IdMir: id,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setComents(r.data.data);
+      });
   }, [actualizado, id]);
 
   const isComentEmpty = () => {
@@ -308,22 +306,22 @@ export const ComentDialogMir = ({
               </Table>
             </TableContainer>
           </Box>
-         
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-              <TextField
-                multiline
-                rows={3}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "30vw" }}
-                placeholder="Añada un comentario para poder Agregar"
-                onChange={(v) => setComent(v.target.value)}
-              ></TextField>
-            </Box>
-        
+
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+            <TextField
+              multiline
+              rows={3}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              sx={{ width: "30vw" }}
+              placeholder="Añada un comentario para poder Agregar"
+              onChange={(v) => setComent(v.target.value)}
+            ></TextField>
+          </Box>
+
           <Box
             sx={{
               display: "flex",
@@ -344,7 +342,6 @@ export const ComentDialogMir = ({
               <Button
                 sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
-             
                 onClick={handleClose}
               >
                 <Typography
@@ -354,7 +351,7 @@ export const ComentDialogMir = ({
                 </Typography>{" "}
               </Button>
               <Button
-                 sx={queries.buttonContinuarSolicitudInscripcion}
+                sx={queries.buttonContinuarSolicitudInscripcion}
                 variant="contained"
                 disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"

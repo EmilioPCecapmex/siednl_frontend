@@ -38,6 +38,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
 import CommentIcon from "@mui/icons-material/Comment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import axios from "axios";
 
 const estados = [
   "Todos",
@@ -103,8 +104,9 @@ export const Raffi = () => {
   const [rf, setRf] = useState<Array<IRaffi>>([]);
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
-  const [rfEdit, setRtEdit] = useState<IRaffi>();
+  const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [validaFecha, setValidaFecha] = useState(true);
 
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
@@ -114,6 +116,8 @@ export const Raffi = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   useEffect(() => {
+    validaFechaCaptura();
+    setOpenTabs(true);
     listaRaffi(setRf);
   }, []);
 
@@ -126,8 +130,8 @@ export const Raffi = () => {
   }, [rfFiltered]);
 
   const returnMain = () => {
-    setShowResume(true);
-    listaRaffi(setRf);
+    setOpenTabs(true);
+    setActionNumber(1);
   };
 
   const findText = (v: string, est: string, inst: string) => {
@@ -211,14 +215,39 @@ export const Raffi = () => {
     }
   };
 
+  const validaFechaCaptura = () => {
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+          params: {
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "Raffi",
+          },
+        }
+      )
+      .then((r) => {
+        r.data.data.valida == "true"
+          ? setValidaFecha(true)
+          : setValidaFecha(false);
+      })
+      .catch((err) => {});
+  };
+
+
   useEffect(() => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
   useEffect(() => {
+    validaFechaCaptura();
     getInstituciones(setInstituciones);
   }, []);
-
+  
   const handleChange = (dato: string) => {
     setFindTextStr(dato);
   };
@@ -292,24 +321,26 @@ export const Raffi = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container direction="row" height={"100vh"} width={"100vw"}>
+    <Grid justifyContent={"space-between"}>
 
-      <Grid item height={"100vh"}>
-        <LateralMenu selection={"Raffi"} actionNumber={actionNumber} />
+      <Grid item xl={12 } height={"7vh"}>
+        <LateralMenu selection={"RAFFI"} actionNumber={actionNumber} />
       </Grid>
-
-      <Grid item
-        justifyContent={"center"}
+      
+      <Grid justifyContent={"center"}
         display={"flex"}
         container
-        xl={10.2}
-        lg={9.9}
-        md={9.4}
+        height={"93vh"}
+        alignItems={"center"}
+        item
+        xl={12}
+        lg={12}
+        md={12}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "#F2F2F2" }}
+        sx={{ backgroundColor: "white", }}
       >
-        <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
+        {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
             details={{
               name1: "Inicio",
@@ -319,7 +350,7 @@ export const Raffi = () => {
               name3: "",
             }}
           />
-        </Grid>
+        </Grid> */}
 
         {opentabs ? (
           <>
@@ -337,6 +368,7 @@ export const Raffi = () => {
                 borderRadius: 5,
                 justifyContent: "space-evenly",
                 alignItems: "center",
+                boxShadow: 5
               }}
             >
               <Grid
@@ -381,7 +413,7 @@ export const Raffi = () => {
                     <IconButton
                       type="button"
                       sx={{ p: "10px" }}
-                      aria-label="search"
+                      aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
                       <SearchIcon />
@@ -458,13 +490,13 @@ export const Raffi = () => {
                 <Grid item xl={5} lg={4} md={3}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                      Filtro por estado de la Raffi
+                      FILTRO POR ESTADO DE LA Raffi
                     </InputLabel>
                     <Select
                       size="small"
                       fullWidth
                       variant="outlined"
-                      label="Filtro por estado de la Raffi"
+                      label="FILTRO POR ESTADO DE LA Raffi"
                       value={findSelectStr}
                       onChange={(v) => {
                         // v.target.value === "Todos"
@@ -501,6 +533,7 @@ export const Raffi = () => {
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
+              
               <TableContainer sx={{ borderRadius: 5 }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
@@ -640,12 +673,14 @@ export const Raffi = () => {
                               {  row.Estado !=="Sin Asignar" && (
                                   <Tooltip title="EDITAR">
                                   <IconButton
+                                    disabled={!validaFecha}
                                     type="button"
                                     onClick={() => {
-                                      setRtEdit({
-                                        IdRf: row.IdRf,
+                                      setRfEdit([
+                                        {
+                                        IdRaffi: row.IdRaffi,
                                         IdMir: row.IdMir,
-                                        IdMa: row.IdMa,
+                                        IdMetaAnual: row.IdMetaAnual,
                                         RAFFI: row.RAFFI,
                                         Estado: row.Estado,
                                         CreadoPor: row.CreadoPor,
@@ -659,7 +694,8 @@ export const Raffi = () => {
                                         Conac: row.Conac,
                                         Consecutivo: row.Consecutivo,
                                         Opciones: row.Opciones,
-                                      });
+                                      },
+                                    ]);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -687,12 +723,14 @@ export const Raffi = () => {
                                 //     ? false
                                 //     : true
                                 // }
+                                  disabled={!validaFecha}
                                   type="button"
                                   onClick={() => {
-                                    setRtEdit({
-                                      IdRf: row.IdRf,
+                                    setRfEdit([
+                                      {
+                                      IdRaffi: row.IdRaffi,
                                       IdMir: row.IdMir,
-                                      IdMa: row.IdMa,
+                                      IdMetaAnual: row.IdMetaAnual,
                                       RAFFI: row.RAFFI,
                                       Estado: row.Estado,
                                       CreadoPor: row.CreadoPor,
@@ -706,7 +744,8 @@ export const Raffi = () => {
                                       Conac: row.Conac,
                                       Consecutivo: row.Consecutivo,
                                       Opciones: row.Opciones,
-                                    });
+                                    },
+                                  ]);
                                     setOpenTabs(false);
                                     setActionNumber(1); //Revisar esta funcionalidad
                                   }}
@@ -725,30 +764,47 @@ export const Raffi = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+            
             </Grid>
 
           </>
         ) : (
+          <Grid
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            height: "92vh",
+          }}
+          gridArea={"main"}
+        >
+          
           <CapturaRaffi
-            MIR={rfEdit?.MIR || ""}
-            MA={rfEdit?.MetaAnual || ""}
-            RF={rfEdit?.RAFFI || ""}
+            MIR={rfEdit[0].MIR || ""}
+            MA={rfEdit[0].MetaAnual || ""}
+            RF={rfEdit[0].RAFFI || ""}
             opentabs={returnMain}
-            IdMir={rfEdit?.IdMir || ""}
-            IdMA={rfEdit?.IdMa || ""}
-            IdRf={rfEdit?.IdRf || ""}
+            IdMir={rfEdit[0].IdMir || ""}
+            IdMA={rfEdit[0].IdMetaAnual || ""}
+            IdRf={rfEdit[0].IdRaffi || ""}
+            showResume={returnMain}
           />
+          </Grid>
         )}
+        {/* rdEdit: 
+        {JSON.stringify(rfEdit[0]?.MIR)} */}
       </Grid>
+      
 
     </Grid>
   );
 };
 
 export interface IRaffi {
-  IdRf: string;
+  IdRaffi: string;
   IdMir: string;
-  IdMa: string;
+  IdMetaAnual: string;
   RAFFI: string;
   Estado: string;
   CreadoPor: string;

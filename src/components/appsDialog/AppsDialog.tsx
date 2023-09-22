@@ -20,9 +20,9 @@ export const AppsDialog = ({
 }) => {
   const [open, setOpen] = React.useState(false);
 
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>([]);
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>([]);
 
-  const [instSel, setInstSel] = useState<Array<IInstituciones>>([]);
+  const [instSel, setInstSel] = useState<Array<IEntidad>>([]);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -62,8 +62,8 @@ export const AppsDialog = ({
           "/api/vincular-usuarioInsitucion",
         {
           IdUsuario: id,
-          IdInstitucion: instSel.map((item) => {
-            return { IdInstitucion: item.Id };
+          IdEntidad: instSel.map((item) => {
+            return { IdEntidad: item.Id };
           }),
           CreadoPor: localStorage.getItem("IdUsuario"),
         },
@@ -91,44 +91,46 @@ export const AppsDialog = ({
       );
   };
 
-  useLayoutEffect(() => {
-    if (open) {
-      axios
-        .get(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion",
-          {
-            params: {
-              IdUsuario: id,
-            },
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          if (r.status === 200) {
-            setInstSel(r.data.data);
-          }
-        });
+  // useLayoutEffect(() => {
+  //   if (open) {
+  //     axios
+  //       .get(
+  //         process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion",
+  //         {
+  //           params: {
+  //             IdUsuario: id,
+  //             Rol: localStorage.getItem("Rol"),
+  //           },
+  //           headers: {
+  //             Authorization: localStorage.getItem("jwtToken") || "",
+  //           },
+  //         }
+  //       )
+  //       .then((r) => {
+  //         if (r.status === 200) {
+  //           setInstSel(r.data.data);
+  //         }
+  //       });
         
-      axios
-        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            IdInstitucion: localStorage.getItem("IdInstitucion"),
-          },
-        })
-        .then((r) => {
-          if (r.status === 200) {
-            setInstituciones(r.data.data);
-          }
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+  //     axios
+  //       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //         params: {
+  //           IdUsuario: localStorage.getItem("IdUsuario"),
+  //           IdEntidad: localStorage.getItem("IdEntidad"),
+  //           Rol: localStorage.getItem("Rol"),
+  //         },
+  //       })
+  //       .then((r) => {
+  //         if (r.status === 200) {
+  //           setInstituciones(r.data.data);
+  //         }
+  //       });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [open]);
 
   return (
     <Box>
@@ -186,7 +188,7 @@ export const AppsDialog = ({
             multiple
             sx={{ width: "95%" }}
             options={instituciones}
-            getOptionLabel={(option) => option.NombreInstitucion}
+            getOptionLabel={(option) => option.Nombre}
             value={instSel}
             renderOption={(props, option) => {
               return (
@@ -197,7 +199,7 @@ export const AppsDialog = ({
                       fontSize: ".8vw",
                     }}
                   >
-                    {option.NombreInstitucion}
+                    {option.Nombre}
                     <br></br>
                     <div
                       style={{
@@ -205,7 +207,7 @@ export const AppsDialog = ({
                         fontSize: ".6vw",
                       }}
                     >
-                      {option.Secretaria}
+                      {option.Nombre}
                     </div>
                   </div>
                 </li>
@@ -255,13 +257,19 @@ export const AppsDialog = ({
 
 export default AppsDialog;
 
-export interface IInstituciones {
+export interface IEntidad {
   Id: string;
-  NombreInstitucion: string;
+  Nombre: string;
+  NombreTipoEntidad: string;
+  EntidadPerteneceA: string;
+  Direccion: string;
+  Telefono: string;
+  IdEntidadPerteneceA: string;
+  IdTipoEntidad: string;
   FechaCreacion: string;
   CreadoPor: string;
-  UltimaModificacion: string;
+  UltimaActualizacion: string;
   ModificadoPor: string;
-  Deleted: number;
-  Secretaria: string;
+  Titular: string;
+  
 }

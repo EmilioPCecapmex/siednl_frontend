@@ -1,19 +1,11 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box,Grid, Typography, Button } from "@mui/material";
 
-export function TabResumen({
-  show,
-  showResume,
-}: {
-  show: boolean;
-  showResume: Function;
-}) {
+export function TabResumen({ showResume }: { showResume: Function }) {
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+    <Grid
       sx={{
-        width: "75vw",
-        height: "77vh",
+        width: "93vw",
+        height: "82vh",
         justifyContent: "center",
         display: "flex",
         flexDirection: "column",
@@ -24,7 +16,7 @@ export function TabResumen({
         borderRadius: 5,
       }}
     >
-      <Box
+      <Grid
         sx={{
           width: "90%",
           border: 0.1,
@@ -43,13 +35,13 @@ export function TabResumen({
           },
         }}
       >
-        <Box sx={{ p: 5, display: "flex", flexDirection: "column" }}>
+        <Grid sx={{ p: 5, display: "flex", flexDirection: "column" }}>
           <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1 }}>
             Identificación
           </Typography>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -66,9 +58,9 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -85,10 +77,10 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -105,9 +97,9 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -124,11 +116,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -145,9 +137,9 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -164,11 +156,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -185,9 +177,9 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -204,10 +196,10 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -224,7 +216,7 @@ export function TabResumen({
             <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
               Lorem Ipsum
             </Typography>
-          </Box>
+          </Grid>
 
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: "3vh" }}
@@ -232,8 +224,8 @@ export function TabResumen({
             Alineación
           </Typography>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -250,9 +242,9 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -269,10 +261,10 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -289,9 +281,9 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -308,11 +300,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -329,8 +321,8 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: "3vh" }}
@@ -338,8 +330,8 @@ export function TabResumen({
             Objetivos
           </Typography>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -356,11 +348,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -378,11 +370,11 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -400,16 +392,16 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
                 illo modi perspiciatis do Accusamus, excepturi?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: "3vh" }}
           >
             Acción 1
           </Typography>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -426,10 +418,10 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -446,11 +438,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -468,8 +460,8 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -487,8 +479,8 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -506,11 +498,11 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -528,8 +520,8 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -547,8 +539,8 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -566,11 +558,11 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -588,16 +580,16 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: "3vh" }}
           >
             Acción 1 - Datos del Indicador
           </Typography>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -614,11 +606,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -635,8 +627,8 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem ipsum dolor.
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -653,8 +645,8 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem imodi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -671,11 +663,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem ipsum?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -692,8 +684,8 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem lorefut nemo modi magnam
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -710,11 +702,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem ipsnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -732,10 +724,10 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -753,10 +745,10 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -774,11 +766,11 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -796,10 +788,10 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -817,10 +809,10 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -838,16 +830,16 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: "3vh" }}
           >
             Acción 2
           </Typography>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -864,10 +856,10 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -884,11 +876,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -906,8 +898,8 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -925,8 +917,8 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -944,11 +936,11 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -966,8 +958,8 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -985,8 +977,8 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1004,11 +996,11 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1026,16 +1018,16 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: "3vh" }}
           >
             Acción 2 - Datos del Indicador
           </Typography>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1052,11 +1044,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem Ipsum
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1073,8 +1065,8 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem ipsum dolor.
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1091,8 +1083,8 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem imodi magnam?
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1109,11 +1101,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem ipsum?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1130,8 +1122,8 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem lorefut nemo modi magnam
               </Typography>
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1148,11 +1140,11 @@ export function TabResumen({
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
                 Lorem ipsnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1170,10 +1162,10 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1191,10 +1183,10 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1212,11 +1204,11 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
 
-          <Box sx={{ display: "flex" }}>
-            <Box
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1234,10 +1226,10 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1255,10 +1247,10 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
+            </Grid>
+          </Grid>
+          <Grid sx={{ display: "flex" }}>
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -1276,11 +1268,11 @@ export function TabResumen({
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
                 fugit nemo modi magnam?
               </Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-      <Box
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -1297,8 +1289,8 @@ export function TabResumen({
         <Button color="success" variant="outlined">
           Enviar
         </Button>
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
 

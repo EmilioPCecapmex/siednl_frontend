@@ -8,6 +8,7 @@ export const enviarMail = (mensaje: string, destinatario: string) => {
       message: mensaje,
       IdDestinatario: destinatario,
       IdRemitente: localStorage.getItem("IdUsuario"),
+      Rol: localStorage.getItem("Rol")
     },
     {
       headers: {

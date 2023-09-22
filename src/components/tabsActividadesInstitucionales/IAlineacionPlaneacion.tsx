@@ -4,4 +4,6 @@ export interface IAlineacionPlaneacion {
   estrategiaPED: string;
   programaSectorial: string;
   objetivoProgramaSectorial: string;
+  meta1: string;
+  meta2: string;
 }

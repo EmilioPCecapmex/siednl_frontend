@@ -2,14 +2,15 @@
 /* eslint-disable array-callback-return */
 import { Box, Button, Checkbox, Typography } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
 import { IActividadesMir } from "./ICValor";
 import { IMIR } from "./IMIR";
-
+import { ILista, IListaProgramas } from "./IListas";
 import { queries } from "../../queries";
+
 export function TabResumen({
   MIRPADRE,
   showResume,
@@ -66,6 +67,8 @@ export function TabResumen({
     ],
   ]);
 
+  const objetoVacio: ILista = { Id: "", Label: "" };
+
   useEffect(() => {
     let n: Array<Array<IActividadesMir>> = [];
     let indexActividades = 0;
@@ -84,24 +87,24 @@ export function TabResumen({
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
-  const checkMir = (v: string) => {
-    if (MIR?.encabezado.ejercicioFiscal === "") {
+  const checkMir = (estado: string) => {
+    if (MIR?.encabezado.ejercicioFiscal === objetoVacio) {
       return Toast.fire({
         icon: "error",
         title: "Selecciona año fiscal.",
       });
-    } else if (MIR?.encabezado.institucion === "") {
+    } else if (MIR?.encabezado.entidad === objetoVacio) {
       return Toast.fire({
         icon: "error",
         title: "Selecciona institución.",
       });
-    } else if (MIR?.encabezado.nombre_del_programa === "") {
+    } else if (MIR?.encabezado.programa === objetoVacio) {
       return Toast.fire({
         icon: "error",
         title: "Selecciona programa.",
       });
     } else {
-      createMIR(v);
+      createMIR(estado);
     }
   };
 
@@ -112,13 +115,17 @@ export function TabResumen({
         {
           MIR: JSON.stringify(MIR),
           Estado: estado,
+          //se va a cambiar
           CreadoPor: localStorage.getItem("IdUsuario"),
-          AnioFiscal: MIR?.encabezado.ejercicioFiscal,
-          Institucion: MIR?.encabezado.institucion,
-          Programa: MIR?.encabezado.nombre_del_programa,
-          Eje: MIR?.encabezado.eje,
-          Tematica: MIR?.encabezado.tema,
+          AnioFiscal: MIR?.encabezado.ejercicioFiscal.Label,
+          IdEntidad:
+            MIR?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+          Programa: MIR?.encabezado.programa.Label,
+          Eje: MIR?.encabezado.eje.Label,
+          Tematica: MIR?.encabezado.tema.Label,
           IdMir: idMir,
+          //Se va a cambiar
+          Rol: localStorage.getItem("Rol"),
         },
         {
           headers: {
@@ -291,7 +298,7 @@ export function TabResumen({
           backgroundColor: "rgba(175, 140, 85, 0.6)",
         },
       },
-    })
+    }),
   };
 
   return (
@@ -300,8 +307,8 @@ export function TabResumen({
       position="absolute"
       sx={{
         display: "flex",
-        width: "75vw",
-        height: "75vh",
+        width: "93vw",
+        height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
         alignItems: "center",
@@ -339,6 +346,7 @@ export function TabResumen({
           >
             Datos Generales
           </Typography>
+
           <Box sx={{ display: "flex" }}>
             <Box
               sx={{
@@ -373,7 +381,7 @@ export function TabResumen({
                 Ejercicio Fiscal:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {MIRPADRE.encabezado?.ejercicioFiscal}
+                {MIRPADRE.encabezado?.ejercicioFiscal?.Label}
               </Typography>
             </Box>
 
@@ -409,7 +417,7 @@ export function TabResumen({
                   textTransform: "uppercase",
                 }}
               >
-                Institución:
+                Entidad:
               </Typography>
               <Typography
                 sx={{
@@ -418,7 +426,7 @@ export function TabResumen({
                   textTransform: "uppercase",
                 }}
               >
-                {MIRPADRE.encabezado?.institucion}
+                {MIRPADRE.encabezado?.entidad?.Label}
               </Typography>
             </Box>
           </Box>
@@ -456,7 +464,7 @@ export function TabResumen({
                 Programa:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {MIRPADRE.encabezado?.nombre_del_programa}
+                {MIRPADRE.encabezado?.programa?.Label}
               </Typography>
             </Box>
             <Box
@@ -492,7 +500,7 @@ export function TabResumen({
                 Eje:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {MIRPADRE.encabezado?.eje}
+                {MIRPADRE.encabezado?.eje?.Label}
               </Typography>
             </Box>
           </Box>
@@ -536,7 +544,7 @@ export function TabResumen({
                   textTransform: "uppercase",
                 }}
               >
-                {MIRPADRE.encabezado?.tema}
+                {MIRPADRE.encabezado?.tema?.Label}
               </Typography>
             </Box>
 
@@ -572,7 +580,7 @@ export function TabResumen({
                 Objetivo:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {MIRPADRE.encabezado?.objetivo}
+                {MIRPADRE.encabezado?.objetivo?.Label}
               </Typography>
             </Box>
           </Box>
@@ -609,7 +617,7 @@ export function TabResumen({
                 Estrategia:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {MIRPADRE.encabezado?.estrategia}
+                {MIRPADRE.encabezado?.estrategia?.Label}
               </Typography>
             </Box>
 
@@ -646,7 +654,7 @@ export function TabResumen({
                 Beneficiario:
               </Typography>
               <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
-                {MIRPADRE.encabezado?.beneficiario}
+                {MIRPADRE.encabezado?.beneficiario?.Label}
               </Typography>
             </Box>
           </Box>
@@ -683,7 +691,7 @@ export function TabResumen({
             </Typography>
             <Box>
               {MIRPADRE.encabezado?.lineas_de_accion.map(
-                (value: { Id: string; LineaDeAccion: string }, x: any) => {
+                (value: { Id: string; Label: string }, x: any) => {
                   return (
                     <Typography
                       key={x}
@@ -695,7 +703,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      {value?.LineaDeAccion}
+                      {value?.Label}
                     </Typography>
                   );
                 }
@@ -1665,15 +1673,21 @@ export function TabResumen({
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() =>
-            checkMir(
-              localStorage.getItem("Rol") === "Capturador"
-                ? "En Captura"
-                : localStorage.getItem("Rol") === "Verificador"
-                ? "En Revisión"
-                : "En Autorización"
-            )
-          }
+          onClick={() => {
+            let estado = "";
+            if (localStorage.getItem("Rol") === "Capturador") {
+              estado = "En Captura";
+            }
+            if (localStorage.getItem("Rol") === "Verificador") {
+              estado = "Borrador Verificador";
+            }
+            if (localStorage.getItem("Rol") === "Administrador") {
+              estado = "Borrador Autorizador";
+            }
+            console.log("Boton Guardar Borrador y estado: ", estado);
+
+            checkMir(estado);
+          }}
           //al menos un opcion
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -1683,7 +1697,9 @@ export function TabResumen({
 
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() => setOpenModalEnviar(true)}
+          onClick={() => {
+            setOpenModalEnviar(true);
+          }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"

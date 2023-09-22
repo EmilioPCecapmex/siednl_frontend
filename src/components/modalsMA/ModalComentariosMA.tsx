@@ -71,18 +71,18 @@ export const ComentDialogMA = ({
 
   const getUsuariosXInstitucion = () => {
     axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioXInstitucion",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            Institucion: localStorage.getItem("IdInstitucion"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+      .post(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+       {
+  
+          TipoUsuario: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdApp: localStorage.getItem("dApp"),
+        },
+       { 
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
       .then((r) => {
         if (r.status === 200) {
           setUserXInst(r.data.data);
@@ -105,7 +105,7 @@ export const ComentDialogMA = ({
         IdUsuarioDestino: v,
         Titulo: "Nuevo comentario Meta Anual",
         Mensaje: coment,
-        IdUsuarioCreador: localStorage.getItem("IdUsuario"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
       },
       {
         headers: {
@@ -280,9 +280,7 @@ export const ComentDialogMA = ({
                             {moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
-                            
                           </TableCell>
-                          
                         </TableRow>
                       ) : null
                     )
@@ -343,7 +341,6 @@ export const ComentDialogMA = ({
               <Button
                 sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
-               
                 onClick={handleClose}
               >
                 <Typography
