@@ -774,7 +774,7 @@ export const FichaTecnica = () => {
                           >
                             {row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
-                              ? "BORRADOR CAPTURADPR"
+                              ? "ESPERANDO CAPTURA"
                               : row.Estado === "En Revisión" &&
                                 localStorage.getItem("Rol") === "Verificador"
                               ? "ESPERANDO REVISIÓN"
