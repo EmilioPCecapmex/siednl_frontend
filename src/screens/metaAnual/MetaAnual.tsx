@@ -171,7 +171,7 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     getMA(setMa);
-  }, []);
+  }, [showResume]);
 
   useEffect(() => {
     setMaFiltered(ma);

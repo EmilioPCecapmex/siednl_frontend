@@ -614,7 +614,7 @@ export const LateralMenu = ({
                       />
                     </ListItemButton>
 
-                    <ListItemButton
+                    {/* <ListItemButton
                       onClick={() => {
                         //setResumeDefaultFT();
                         //exitAlert("../fichaTecnica");
@@ -632,12 +632,12 @@ export const LateralMenu = ({
                         }
                         sx={st.selectedBox}
                       />
-                    </ListItemButton>
+                    </ListItemButton> */}
                   </List>
                 </Collapse>
 
                 <List component="div" disablePadding>
-                  <ListItemButton
+                  {/* <ListItemButton
                     onClick={() => {
                       //setResumeDefaultAI();
                       exitAlert("../Institutionalactivities");
@@ -657,9 +657,9 @@ export const LateralMenu = ({
                       }
                       sx={st.selectedBox}
                     />
-                  </ListItemButton>
+                  </ListItemButton> */}
 
-                  <ListItemButton
+                  {/* <ListItemButton
                     onClick={() => {
                       //setResumeDefaultAI();
                       navigate("../programaAnualEvaluacion");
@@ -679,7 +679,7 @@ export const LateralMenu = ({
                       }
                       sx={st.selectedBox}
                     />
-                  </ListItemButton>
+                  </ListItemButton> */}
                 </List>
 
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
