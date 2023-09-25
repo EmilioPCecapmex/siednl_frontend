@@ -162,7 +162,7 @@ export const AddDialogCatalogo = ({
   const CreatePorCatalogo = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-catalogos",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-catalogo",
         {
           Descripcion: descripcion,
           Tabla: tabla,

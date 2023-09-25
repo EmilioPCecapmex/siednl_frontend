@@ -1131,7 +1131,7 @@ export function TabEncabezado({
             options={catalogoLineasDeAccion}
             size="small"
             getOptionLabel={(option) =>
-              option.Label.toUpperCase() || ""
+              option.Label?.toUpperCase() || ""
             }
             value={lineaDeAccion}
             renderOption={(props, option) => {

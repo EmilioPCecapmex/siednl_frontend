@@ -191,6 +191,7 @@ export const MIR = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
+  
   const onChangeActionNumberValue = () => {
     setActionNumber(1);
   };
@@ -222,7 +223,7 @@ export const MIR = () => {
   useEffect(() => {
     validaFechaCaptura();
     getMIRs(setMirs);
-  }, []);
+  }, [showResume]);
 
   useEffect(() => {
     setMirsFiltered(mirs);
