@@ -1637,13 +1637,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 >
                   <Input
                     disableUnderline
-                    size="small"
+                    // size="small"
                     placeholder="Buscar"
                     name="InSearch"
                     sx={{
                       backgroundColor: "#EBEBEB",
                       fontFamily: "MontserratLight",
                       borderRadius: 100,
+                      width: "34vw",
                     }}
                     onChange={(v) => handleChangeFilter(v.target.value)}
                     onKeyPress={(ev) => {
