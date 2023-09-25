@@ -68,8 +68,8 @@ export default function ModalEnviarMIR({
     errores = [];
     if (
       JSON.parse(MIR)?.encabezado.ejercicioFiscal === "" ||
-      JSON.parse(MIR)?.encabezado.institucion === "" ||
-      JSON.parse(MIR)?.encabezado.nombre_del_programa === "" ||
+      JSON.parse(MIR)?.encabezado.entidad === "" ||
+      JSON.parse(MIR)?.encabezado.programa === "" ||
       JSON.parse(MIR)?.encabezado.eje === "" ||
       JSON.parse(MIR)?.encabezado.tema === "" ||
       JSON.parse(MIR)?.encabezado.objetivo === "" ||
@@ -84,11 +84,11 @@ export default function ModalEnviarMIR({
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
-    if (JSON.parse(MIR)?.encabezado.institucion === "") {
+    if (JSON.parse(MIR)?.encabezado.entidad === "") {
       err = 1;
       errores.push("<strong> INSTITUCIÓN</strong> NO SELECCIONADA.");
     }
-    if (JSON.parse(MIR)?.encabezado.nombre_del_programa === "") {
+    if (JSON.parse(MIR)?.encabezado.programa === "") {
       err = 1;
       errores.push(
         "<strong> PROGRAMA PRESUPUESTARIO</strong> NO SELECCIONADO."
@@ -443,36 +443,12 @@ export default function ModalEnviarMIR({
       });
   };
 
-  useEffect(() => {
-    console.log("estadoMir: ", estadoMir);
-
-    if (localStorage.getItem("Rol") === "Capturador") {
-      setestadoMir("En Revisioó");
-    }
-
-    if (localStorage.getItem("Rol") === "Administrador") {
-      setestadoMir("Autorizada");
-      
-    }
-    if (localStorage.getItem("Rol") === "Verificador") {
-      setestadoMir("En Autorización");
-    }
-
-    console.log("estadoMir: ", estadoMir);
-  }, [estadoMir]);
+  
 
   const createMIR = (estado: string) => {
-    // if (estado === "Autorizada" && userSelected !== "0") {
-    //   estado = "En Revisión";
-    // }
-    // if (estado === "En Autorización" && userSelected !== "0") {
-    //   estado = "En Captura";
-    // } else {
-    // }
-    
-    console.log("createMIR - estadoMir: ", estadoMir);
-    console.log("entre y mi ultimo estado es: ", estadoMir);
-    console.log("createMIR: ", localStorage.getItem("IdEntidad"));
+    console.log("Entre al create MetaAnual ModalEnviarMA");
+    console.log("IdEntidad",localStorage.getItem("IdEntidad"),);
+    console.log("estado: ",estado);
 
     axios
       .post(
@@ -480,17 +456,17 @@ export default function ModalEnviarMIR({
 
         {
           MIR: MIR,
-          Estado: estadoMir,
+          Estado: estado,
           CreadoPor:
             userSelected !== "0"
               ? userSelected
               : //se va a modificar
                 localStorage.getItem("IdUsuario"),
-          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal,
+          AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
           IdEntidad: localStorage.getItem("IdEntidad"),
-          Programa: JSON.parse(MIR)?.encabezado.nombre_del_programa,
-          Eje: JSON.parse(MIR)?.encabezado.eje,
-          Tematica: JSON.parse(MIR)?.encabezado.tema,
+          Programa: JSON.parse(MIR)?.encabezado.programa.Label,
+          Eje: JSON.parse(MIR)?.encabezado.eje.Label,
+          Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
           IdMir: IdMir,
           // se va a modificar
           Rol: localStorage.getItem("Rol"),
@@ -550,7 +526,7 @@ export default function ModalEnviarMIR({
 
   useEffect(() => {
     if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.institucion;
+      let inst = JSON.parse(MIR)?.encabezado.entidad;
       //inst = "admin";
       //  if (localStorage.getItem("Rol") === "Verificador") {
       //    inst = "admin";
@@ -731,13 +707,7 @@ export default function ModalEnviarMIR({
                     : "Autorizada"
                 );
 
-                if (localStorage.getItem("Rol") === "Capturador") {
-                  setestadoMir("En Revisión")
-                } else if (localStorage.getItem("Rol") === "Verificador") {
-                  setestadoMir("En Autorización")
-                } else {
-                  setestadoMir("Autorizada")
-                }
+               
 
                 
                 handleClose(false);

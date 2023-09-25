@@ -153,15 +153,17 @@ export function TabEncabezado({
     getListasLogin({Tabla:"Entidades",ValorCondicion:""},setCatalogoInstituciones);
     getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
     getLista("Beneficiario","",setCatalogoBeneficiarios);
-
-    console.log("MIR",MIR);
+    setEje(MIR.encabezado?.eje || objetoVacio);
+    // console.log("tema",tematica);
+    // setTematica(MIR.encabezado?.tema || objetoVacio);
+    // console.log("MIR",MIR);
     
   }, [])
 
   useEffect(() => {
     if (entidadSeleccionada?.Id) {
       getLista("ProgramasXInstitucion",entidadSeleccionada?.Id,setCatalogoProgramas);
-      setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
+      //setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
       setConac("");
       setConsecutivo("");
       setDisabledProgramas(false);
@@ -169,21 +171,21 @@ export function TabEncabezado({
   }, [entidadSeleccionada?.Id]);
 
   useEffect(()=>{
-    setTematica(objetoVacio);
+    // setTematica(objetoVacio);
     setDisabledObjetivos(true);
-    setObjetivo(objetoVacio);
+    //setObjetivo(objetoVacio);
     setDisabledEstrategias(true);
-    setEstrategia(objetoVacio);
+    //setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion([]);
+    //setLineaDeAccion([]);
     getListPedColumns({Col:"Temáticas",Id:eje.Id},setCatalogoTematicas,setDisabledTematicas);
     setDisabledTematicas(false);
   },[eje])
 
   useEffect(()=> {
-    setObjetivo(objetoVacio);
+    // setObjetivo(objetoVacio);
     setDisabledEstrategias(true);
-    setEstrategia(objetoVacio);
+    //setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
     getListPedColumns({Col:"Objetivos",Id:tematica.Id},setCatalogoObjetivos,setDisabledObjetivos);
     setDisabledObjetivos(false);
@@ -191,15 +193,15 @@ export function TabEncabezado({
 
   useEffect(()=>{
     
-    setEstrategia(objetoVacio);
+    // setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
-    setLineaDeAccion([]);
+    //setLineaDeAccion([]);
     getListPedColumns({Col:"Estrategias",Id:objetivo.Id},setCatalogoEstrategias,setDisabledEstrategias);
     setDisabledEstrategias(false);
   },[objetivo])
   
   useEffect(()=>{
-    setLineaDeAccion([]);
+    //setLineaDeAccion([]);
     getListPedColumns({Col:"Lineas de Acción",Id:estrategia.Id},setCatalogoLineasDeAccion,setDisabledLineasDeAccion);
     setDisabledLineasDeAccion(false);
   },[estrategia])
@@ -208,6 +210,30 @@ export function TabEncabezado({
     setLineaDeAccion([]);
   };
   
+  function RestaurarValores(tipo:string){
+    switch(tipo){
+      case "Eje":
+        setTematica(objetoVacio);
+        setObjetivo(objetoVacio);
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Tematica':
+        setObjetivo(objetoVacio);
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Objetivo':
+        setEstrategia(objetoVacio);
+        setLineaDeAccion([]);
+        break;
+      case 'Estrategia':
+        setLineaDeAccion([]);
+        break;
+    }
+    
+  }
+
   // const replica = catalogoLineasDeAccion; //warning
 
   // const [uploadFile, setUploadFile] = React.useState("");
@@ -925,7 +951,7 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => {setEje(value||objetoVacio)}}
+          onChange={(event, value) => {setEje(value||objetoVacio);RestaurarValores('Eje');}}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -979,7 +1005,7 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => setTematica(value||objetoVacio)}
+          onChange={(event, value) => {setTematica(value||objetoVacio);RestaurarValores('Tematica');}}
           isOptionEqualToValue={(option, value) =>
             option.Id === value.Id
           }
@@ -1030,7 +1056,7 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) =>setObjetivo(value||objetoVacio)}
+          onChange={(event, value) =>{setObjetivo(value||objetoVacio);RestaurarValores('Objetivo');}}
           isOptionEqualToValue={(option, value) =>
             option.Id === value.Id
           }
@@ -1080,13 +1106,13 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => setEstrategia(value||objetoVacio)}
+          onChange={(event, value) => {setEstrategia(value||objetoVacio);RestaurarValores('Estrategia');}}
           isOptionEqualToValue={(option, value) =>
             option.Id === value.Id
           }
         />
       </FormControl>
-
+          
       <FormControl required>
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 400 }}>
@@ -1105,8 +1131,9 @@ export function TabEncabezado({
             options={catalogoLineasDeAccion}
             size="small"
             getOptionLabel={(option) =>
-              option.Label.toUpperCase() || ""
+              option.Label?.toUpperCase() || ""
             }
+            value={lineaDeAccion}
             renderOption={(props, option) => {
               return (
                 <li {...props} key={option.Id}>

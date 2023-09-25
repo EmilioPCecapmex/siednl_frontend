@@ -171,7 +171,7 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     getMA(setMa);
-  }, []);
+  }, [showResume]);
 
   useEffect(() => {
     setMaFiltered(ma);
@@ -774,7 +774,7 @@ export const MetaAnual = () => {
                           >
                             {(row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
-                              ? "Esperando captura"
+                              ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
                                 localStorage.getItem("Rol") === "Verificador"
                               ? "Esperando revisión"
@@ -845,20 +845,26 @@ export const MetaAnual = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      row.Estado === "En Captura" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Capturador"
-                                        ? false
-                                        : row.Estado === "En Revisión" &&
-                                          validaFecha &&
-                                          localStorage.getItem("Rol") ===
-                                            "Verificador"
-                                        ? false
-                                        : row.Estado === "En Autorización" &&
-                                          validaFecha &&
-                                          localStorage.getItem("Rol") ===
-                                            "Administrador"
+                                      (row.Estado === "En Captura" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "En Autorización" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
                                         ? false
                                         : true
                                     }

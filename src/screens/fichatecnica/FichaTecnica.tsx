@@ -99,10 +99,7 @@ const heads: readonly Head[] = [
 ];
 
 export const FichaTecnica = () => {
-  useEffect(() => {
-    setShowResume(true);
-    getFT(setft);
-  }, [resumeDefaultFT]);
+
 
   const returnMain = () => {
     setShowResume(true);
@@ -134,6 +131,11 @@ export const FichaTecnica = () => {
     setPage(0);
   };
 
+  useEffect(() => {
+    setShowResume(true);
+    getFT(setft);
+  }, [resumeDefaultFT,showResume]);
+  
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
@@ -825,23 +827,30 @@ export const FichaTecnica = () => {
                             <Tooltip title="REGISTRAR FICHA TÉCNICA">
                               <span>
                                 <IconButton
-                                  disabled={
-                                    row.Estado === "En Captura" &&
-                                    validaFecha &&
-                                    localStorage.getItem("Rol") === "Capturador"
-                                      ? false
-                                      : row.Estado === "En Revisión" &&
+                                    disabled={
+                                      (row.Estado === "En Captura" &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
-                                          "Verificador"
-                                      ? false
-                                      : row.Estado === "En Autorización" &&
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
-                                          "Administrador"
-                                      ? false
-                                      : true
-                                  }
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "En Autorización" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true
+                                    }
                                   onClick={() => {
                                     setFTEdit([
                                       {

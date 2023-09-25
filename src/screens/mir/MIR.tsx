@@ -191,6 +191,7 @@ export const MIR = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
+  
   const onChangeActionNumberValue = () => {
     setActionNumber(1);
   };
@@ -222,7 +223,7 @@ export const MIR = () => {
   useEffect(() => {
     validaFechaCaptura();
     getMIRs(setMirs);
-  }, []);
+  }, [showResume]);
 
   useEffect(() => {
     setMirsFiltered(mirs);
@@ -793,7 +794,7 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                            {row.Estado === "En Captura" &&
+                            {(row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
@@ -802,7 +803,7 @@ export const MIR = () => {
                               : row.Estado === "En Autorización" &&
                                 localStorage.getItem("Rol") === "Administrador"
                               ? "En Autorización"
-                              : row.Estado}
+                              : row.Estado).toUpperCase()}
                           </TableCell>
 
                           <TableCell

@@ -55,6 +55,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [defaultSelection, setDefaultSelection] = useState(defSelected);
   const [expanded, setExpanded] = React.useState<string | false>("panel1");
 
+  const[fncSelected,setFncSelected]=useState("")
+
   useEffect(() => {
     let tableOption = configOptions.find((item) => item.Desc === defSelected);
     setTablaActual(tableOption?.Tabla as string);
@@ -1284,6 +1286,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     getFechasDeCaptura();
   }, []);
 
+  const evalFunc=(fnc:string)=>{
+    eval(fnc!==""?fnc:fncSelected)
+  } 
+
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
@@ -1375,7 +1381,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                             onClick={() => {
                               console.log("valor selected: ", selected);
 
-                              eval(item.fnc);
+                              evalFunc(item.fnc);
+                              setFncSelected(item.fnc)
                               setTablaActual(item.Tabla);
                               setDefaultSelection(item.Desc);
                             }}
