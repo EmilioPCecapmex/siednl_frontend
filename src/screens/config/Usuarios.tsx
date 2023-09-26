@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
+import { Box, Grid } from "@mui/material";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { Button, Typography, Input } from "@mui/material";
 import { Header } from "../../components/header/Header";
@@ -8,12 +8,16 @@ import DataTable from "../../components/datatable/DataTable";
 import ModalCrearUsuario from "../../components/modalUsuarios/ModalCrearUsuario";
 import AddLinkIcon from "@mui/icons-material/AddLink";
 import ModalVincularUsuario from "../../components/modalUsuarios/ModalVincularUsuario";
-import { useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import ScheduleSendIcon from "@mui/icons-material/ScheduleSend";
 import DialogSolicitudes from "../../components/solicitudes/DialogSolicitudes";
+import IFrame from "./AgregarUsuarios";
 
-
+export const getToken = () => {
+  let token = localStorage.getItem("jwtToken");
+  return token;
+};
 
 export const Usuarios = () => {
   const navigate = useNavigate();
@@ -30,6 +34,7 @@ export const Usuarios = () => {
     useState(false);
 
   const [actualizarDatos, setActualizarDatos] = useState(0);
+  const [banderaNuevo, setBandera] = useState(0);
 
   const handleCloseModalUsuarios = () => {
     setOpenModalUsuarios(false);
@@ -57,24 +62,49 @@ export const Usuarios = () => {
   };
 
   return (
-    <Box
-      sx={{
-      width: "100vw",
-      height: "100vh",
-      display: "grid",
-      backgroundColor: "#F2F2F2",
-      gridTemplateAreas: `
-                        'aside header'
-                        'aside main'
-                       `,
-      alignItems: "start",
-    }}
-    >
-      <Box gridArea={'aside'} >
+    // <Grid
+    //   sx={{
+    //   width: "100vw",
+    //   height: "100vh",
+    //   display: "grid",
+    //   backgroundColor: "#F2F2F2",
+    //   gridTemplateAreas: `
+    //                     'aside header'
+    //                     'aside main'
+    //                    `,
+    //   alignItems: "start",
+    // }}
+    // >
+    //   <Grid gridArea={'aside'} >
+    //     <LateralMenu selection={"Usuarios"} actionNumber={0} />
+    //   </Grid>
+    <Grid container>
+      <Grid
+        item
+        xl={12}
+        height={"7vh"}
+        // sx={{ mr: showResume ? 8 : 0 }}
+      >
         <LateralMenu selection={"Usuarios"} actionNumber={0} />
-      </Box>
+      </Grid>
+      {/* //GridShadow: 10, */}
+
+      {/* <Grid
+        justifyContent={"center"}
+        display={"flex"}
+        container
+        height={"93vh"}
+        alignItems={"center"}
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={7.5}
+        xs={6}
+        sx={{ backgroundColor: "white" }}
+      ></Grid> */}
       
-      <Box gridArea={'header'} sx={{ height: "8vh" }}>
+      <Grid gridArea={'header'} >
         <Header
         details={{
           name1: "Inicio",
@@ -84,9 +114,9 @@ export const Usuarios = () => {
           name3: "Usuarios",
         }}
       />
-      </Box>
+      </Grid>
       
-      <Box
+      {/* <Grid
         sx={{
           display: "flex",
           flexDirection:'column',
@@ -96,7 +126,17 @@ export const Usuarios = () => {
           alignItems:'center'
         }}
         gridArea={'main'}
-      >
+      > */}
+      {/* <Grid
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              height: "92vh",
+            }}
+            gridArea={"main"}
+          >
         <ModalCrearUsuario
           title="Crear Solicitud Nuevo Usuario"
           open={openModalUsuarios}
@@ -113,7 +153,7 @@ export const Usuarios = () => {
           handleClose={handleCloseSolicitudesP}
         />
 
-        <Box
+        <Grid
           sx={{
             width: "70vw",
             height: "10vh",
@@ -124,7 +164,7 @@ export const Usuarios = () => {
             justifyContent: "space-between",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
               alignItems: "center",
@@ -141,9 +181,9 @@ export const Usuarios = () => {
               onChange={(v) => dataFilter(v.target.value)}
             />
             <SearchIcon sx={{ color: "action.active", mr: 1 }} />
-          </Box>
+          </Grid>
 
-          <Box>
+          <Grid>
             <Button
               variant="contained"
               disabled={
@@ -179,7 +219,7 @@ export const Usuarios = () => {
                 },
               }}
               onClick={() => setOpenModalVincularUsuario(true)}
-            >
+            >usuario
               <AddLinkIcon sx={{ mr: 1 }} />
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
@@ -208,26 +248,110 @@ export const Usuarios = () => {
                 CREAR SOLICITUD DE ALTA
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid> */}
 
         {/* ----- */}
-        <Box
+        <Grid container rowSpacing={3}>
+        <Grid item width={"100%"} display={"flex"}>
+        <Grid width={"43%"} ml={2}>
+            <Button
+              sx={{
+                backgroundColor: "#15212f",
+                color: "white",
+                "&&:hover": {
+                  backgroundColor: "rgba(47, 47, 47, 0.4)",
+                  color: "#000",
+                },
+                //fontSize: "90%",
+                borderRadius: "0.8vh",
+                textTransform: "capitalize",
+                fontSize: "50%",
+                "@media (min-width: 480px)": {
+                  fontSize: "70%",
+                },
+
+                "@media (min-width: 768px)": {
+                  fontSize: "80%",
+                },
+              }}
+              onClick={() => navigate("../settings")}
+            >
+              Volver
+            </Button>
+          </Grid>
+<Grid>
+  <Button onClick={() => setBandera(banderaNuevo==0?1:0)}>
+        <Typography
+            sx={{
+              fontSize: "2.3ch",
+              fontFamily: "MontserratBold",
+              color: "#AF8C55",
+              "@media (max-width: 600px)": {
+                // XS (extra small) screen
+                fontSize: "1rem",
+              },
+              "@media (min-width: 601px) and (max-width: 900px)": {
+                // SM (small) screen
+                fontSize: "1.5ch",
+              },
+            }}
+          >
+            {banderaNuevo==0?
+            "Agregar Usuario"
+            :"Modificar Usuario"
+          }
+          </Typography>
+          </Button>
+</Grid>
+</Grid>
+        <Grid item
           sx={{
-            width: "70vw",
-            height: "65vh",
+            width: "100vw",
+            height: "82vh",
             backgroundColor: "#fff",
-            borderRadius: 5,
+            borderRadius: 50,
             display: "flex",
             alignItems: "center",
           }}
         >
-          <DataTable
+          {/* <DataTable
             textFind={usersFiltered}
             actualizar={actualizarDatos}
-          ></DataTable>
-        </Box>
-      </Box>
-    </Box>
+          ></DataTable> */}
+          {/* <Routes>
+          <Route
+            path="IFrame"
+            element={ */}
+            {banderaNuevo==0?
+              <IFrame
+                source={
+                  "?jwt=" +
+                  getToken() +
+                  "&IdApp=" +
+                  localStorage.getItem("IdApp") +
+                  "&idUsuarioModificado=" +
+                  localStorage.getItem("IdUsuario") //Usar variable que le mande 
+                }
+                baseURL={String(process.env.REACT_APP_APPLICATION_FRONT_LOGIN)}
+              />
+              :
+              <IFrame
+                source={
+                  "?jwt=" +
+                  getToken() +
+                  "&IdApp=" +
+                  localStorage.getItem("IdApp")
+                }
+                baseURL={String(process.env.REACT_APP_APPLICATION_FRONT_LOGIN)}
+              />
+            }
+            {/* }
+          >
+          </Route>
+          </Routes> */}
+        </Grid>
+      </Grid>
+    // </Grid>
   );
 };
