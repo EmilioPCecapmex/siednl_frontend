@@ -1,14 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
   Button,
-  FormControl,
   IconButton,
-  Input,
-  MenuItem,
-  Select,
   Table,
   TableBody,
   TableCell,
@@ -17,9 +11,6 @@ import {
   TablePagination,
   TableRow,
   Tooltip,
-  Typography,
-  InputLabel,
-  TextField,
   InputBase,
   Paper,
   Grid,
@@ -27,16 +18,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import { queries } from "../../queries";
-import moment from "moment";
 import Swal from "sweetalert2";
-import { IEntidad } from "../../components/appsDialog/AppsDialog";
-import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
-import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
-import FullModalMir from "../../components/tabsMir/AddMir";
-import { SelectChangeEvent } from "@mui/material/Select";
 import SearchIcon from "@mui/icons-material/Search";
 import Usuarios from "../../components/tabsConfig/Usuarios";
 export let resumeDefaultMIR = true;
@@ -123,8 +106,6 @@ export const PanelUsuarios = () => {
         },
       })
       .then((r) => {
-        // setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-
         setState(r.data.data);
       });
   };
@@ -132,13 +113,11 @@ export const PanelUsuarios = () => {
   
   useEffect(() => {
     setShowResume(true);
-    //getMIRs(setMirs);
   }, []);
 
   const returnMain = () => {
     setShowResume(true);
     setBandera("");
-    //getMIRs(setMirs);
   };
   
   const [showResume, setShowResume] = useState(true);
@@ -165,10 +144,6 @@ export const PanelUsuarios = () => {
 
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("Todos");
-  const [findSelectStr, setFindSelectStr] = useState("Todos");
-
-//   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
   const [usuarios, setUsuarios] = useState<Array<IIUsuarios>>([]);
   const [usuariosFiltered, setUsuariosFiltered] = useState<Array<IIUsuarios>>([]);
@@ -198,11 +173,6 @@ export const PanelUsuarios = () => {
   const findText = (v: string) => {
     if (
       v !== "" 
-    //   &&
-    //   est !== "0" &&
-    //   est !== "Todos" &&
-    //   inst !== "0" &&
-    //   inst !== "Todos"
     ) {
       setUsuariosFiltered(
         usuarios.filter(
@@ -214,62 +184,7 @@ export const PanelUsuarios = () => {
               x.Puesto.toLowerCase().includes(v.toLowerCase())) 
         )
       );
-    // } else if (
-    //   v !== "" &&
-    //   ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
-    // ) {
-    //   setUsuariosFiltered(
-    //     usuarios.filter(
-    //       (x) =>
-    //         (x.AnioFiscal.includes(v) ||
-    //           x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
-    //           x.Programa.toLowerCase().includes(v.toLowerCase()) ||
-    //           x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
-    //           x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
-    //         (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-    //           x.Entidad.toLowerCase().includes(inst.toLowerCase()))
-    //     )
-    //   );
-    // } else if (
-    //   v !== "" &&
-    //   (est === "0" || est === "Todos") &&
-    //   (inst === "0" || inst === "Todos")
-    // ) {
-    //   setUsuariosFiltered(
-    //     usuarios.filter(
-    //       (x) =>
-    //         x.AnioFiscal.includes(v) ||
-    //         x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
-    //         x.Programa.toLowerCase().includes(v.toLowerCase()) ||
-    //         x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
-    //         x.CreadoPor.toLowerCase().includes(v.toLowerCase())
-    //     )
-    //   );
-    // } else if (
-    //   v === "" &&
-    //   est !== "0" &&
-    //   est !== "Todos" &&
-    //   inst !== "0" &&
-    //   inst !== "Todos"
-    // ) {
-    //   setUsuariosFiltered(
-    //     usuarios.filter(
-    //       (x) =>
-    //         x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-    //         x.Entidad.toLowerCase().includes(inst.toLowerCase())
-    //     )
-    //   );
-    // } else if (
-    //   v === "" &&
-    //   ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
-    // ) {
-    //   setUsuariosFiltered(
-    //     usuarios.filter(
-    //       (x) =>
-    //         x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-    //         x.Entidad.toLowerCase().includes(inst.toLowerCase())
-    //     )
-    //   );
+   
     } else {
       setUsuariosFiltered(usuarios);
     }
@@ -283,18 +198,11 @@ export const PanelUsuarios = () => {
     setFindTextStr(dato);
   };
 
-//   useEffect(() => {
-//     //getMIRs(setMirs);
-//     console.log("Entidades: ", instituciones);
-
-//     getInstituciones(setInstituciones);
-//   }, []);
 
   const handleClickOpen = (bandera:string,idUsuario:string) => {
     setShowResume(false);
     setIdUsuario(idUsuario);
     setBandera(bandera);
-    // onChangeActionNumberValue();
   };
 
   useEffect(() => {
@@ -304,16 +212,11 @@ export const PanelUsuarios = () => {
 
   const [actualizacion, setActualizacion] = useState(0);
 
-//   useEffect(() => {usuariosxFiltered
-//     getUsuarios(setUsuarios);
-//   }, [actualizacion]);
-
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
   };
   
   const filtrarDatos = () => {
-    // eslint-disable-next-line array-callback-return
     console.log("Entra");
     let Arrayfiltro: IIUsuarios[];
     Arrayfiltro = [];
@@ -325,10 +228,6 @@ export const PanelUsuarios = () => {
     }
 
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      console.log("entre");
-      console.log(elemento);
-      console.log(findTextStr);
-      console.log(usuariosxFiltered);
 
       if (
         elemento.NombreUsuario.toString()
@@ -347,7 +246,6 @@ export const PanelUsuarios = () => {
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) 
       ) {
-        console.log(elemento);
         return elemento;
       }
     });
@@ -564,8 +462,7 @@ export const PanelUsuarios = () => {
                             component="th"
                             scope="row"
                           >
-                            {/* {row.Nombre.toUpperCase()} */}
-                            {row.Id}
+                            {row.Nombre.toUpperCase()}
                           </TableCell>
                           <TableCell
                             sx={{
@@ -629,61 +526,7 @@ export const PanelUsuarios = () => {
                             component="th"
                             scope="row"
                           >
-                            {/* <Tooltip
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
-                                    },
-                                  },
-                                ],
-                              }}
-                              title="DESCARGAR MIR"
-                            >
-                              <span>
-                                <IconButton
-                                  disabled={
-                                    row.Estado === "Autorizada" && validaFecha
-                                      ? false
-                                      : true
-                                  }
-                                  onClick={() =>
-                                    downloadMIR(
-                                      row.AnioFiscal,
-                                      row.Entidad,
-                                      row.Programa,
-                                      row.MIR
-                                    )
-                                  }
-                                >
-                                  <DownloadIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "orange",
-                                        },
-                                        width: "1.2vw",
-                                        height: "1.2vw",
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </span>
-                            </Tooltip> */}
-
-                            {/* <ComentDialogMir
-                              estado={row.Estado}
-                              id={row.Id}
-                              actualizado={actualizaContador}
-                            /> */}
-
-                            {/* <DeleteDialogMIR
-                              
-                              id={row.Id}
-                              actualizado={actualizaContador}
-                            /> */}
+                            
                             <Tooltip
                               title="EDITAR"
                               PopperProps={{
