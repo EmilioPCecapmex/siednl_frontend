@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
+import { LateralMenu } from "../lateralMenu/LateralMenu";
 import { Button, Typography, Input } from "@mui/material";
-import { Header } from "../../components/header/Header";
+import { Header } from "../header/Header";
 import SearchIcon from "@mui/icons-material/Search";
-import DataTable from "../../components/datatable/DataTable";
-import ModalCrearUsuario from "../../components/modalUsuarios/ModalCrearUsuario";
+import DataTable from "../datatable/DataTable";
+import ModalCrearUsuario from "../modalUsuarios/ModalCrearUsuario";
 import AddLinkIcon from "@mui/icons-material/AddLink";
-import ModalVincularUsuario from "../../components/modalUsuarios/ModalVincularUsuario";
+import ModalVincularUsuario from "../modalUsuarios/ModalVincularUsuario";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import ScheduleSendIcon from "@mui/icons-material/ScheduleSend";
-import DialogSolicitudes from "../../components/solicitudes/DialogSolicitudes";
+import DialogSolicitudes from "../solicitudes/DialogSolicitudes";
 import IFrame from "./AgregarUsuarios";
 
 export const getToken = () => {
@@ -19,7 +19,17 @@ export const getToken = () => {
   return token;
 };
 
-export const Usuarios = () => {
+export default function Usuarios({
+  idUsuario,
+  idApp,
+  banderaCrea,
+  showResumen,
+}: {
+  idUsuario: string;
+  idApp: string;
+  banderaCrea: string;
+  showResumen: Function;
+}) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -79,14 +89,14 @@ export const Usuarios = () => {
     //     <LateralMenu selection={"Usuarios"} actionNumber={0} />
     //   </Grid>
     <Grid container>
-      <Grid
+      {/* <Grid
         item
         xl={12}
         height={"7vh"}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"Usuarios"} actionNumber={0} />
-      </Grid>
+      </Grid> */}
       {/* //GridShadow: 10, */}
 
       {/* <Grid
@@ -104,7 +114,7 @@ export const Usuarios = () => {
         sx={{ backgroundColor: "white" }}
       ></Grid> */}
       
-      <Grid gridArea={'header'} >
+      {/* <Grid gridArea={'header'} >
         <Header
         details={{
           name1: "Inicio",
@@ -114,7 +124,7 @@ export const Usuarios = () => {
           name3: "Usuarios",
         }}
       />
-      </Grid>
+      </Grid> */}
       
       {/* <Grid
         sx={{
@@ -253,11 +263,15 @@ export const Usuarios = () => {
 
         {/* ----- */}
         <Grid container rowSpacing={3}>
-        <Grid item width={"100%"} display={"flex"}>
-        <Grid width={"43%"} ml={2}>
+        <Grid container item width={"100%"} display={"flex"} justifyContent={"flex-end"}>
+          {/* <Grid item order={1}>
+
+          </Grid> */}
+        <Grid item>
             <Button
               sx={{
-                backgroundColor: "#15212f",
+                // backgroundColor: "#15212f",
+                backgroundColor:"#912c34",
                 color: "white",
                 "&&:hover": {
                   backgroundColor: "rgba(47, 47, 47, 0.4)",
@@ -275,13 +289,13 @@ export const Usuarios = () => {
                   fontSize: "80%",
                 },
               }}
-              onClick={() => navigate("../settings")}
+              onClick={() => showResumen()}
             >
-              Volver
+              x
             </Button>
           </Grid>
-<Grid>
-  <Button onClick={() => setBandera(banderaNuevo==0?1:0)}>
+{/* <Grid item order={2}>
+  
         <Typography
             sx={{
               fontSize: "2.3ch",
@@ -297,13 +311,14 @@ export const Usuarios = () => {
               },
             }}
           >
-            {banderaNuevo==0?
-            "Agregar Usuario"
-            :"Modificar Usuario"
+            {banderaCrea=="1"?
+            "Agregar Usuario":
+            "Modificar Usuario"
           }
+          
           </Typography>
-          </Button>
-</Grid>
+          
+</Grid> */}
 </Grid>
         <Grid item
           sx={{
@@ -323,35 +338,35 @@ export const Usuarios = () => {
           <Route
             path="IFrame"
             element={ */}
-            {banderaNuevo==0?
+            {banderaCrea=="1"?
               <IFrame
                 source={
                   "?jwt=" +
                   getToken() +
+                  "&IdApp=" + 
+                  idApp
+                }
+                baseURL={String(process.env.REACT_APP_APPLICATION_FRONT_LOGIN)}
+              />
+          :
+          <IFrame
+                source={
+                  "?jwt=" +
+                  getToken() +
                   "&IdApp=" +
-                  localStorage.getItem("IdApp") +
+                  idApp +
                   "&idUsuarioModificado=" +
-                  localStorage.getItem("IdUsuario") //Usar variable que le mande 
+                  idUsuario
                 }
                 baseURL={String(process.env.REACT_APP_APPLICATION_FRONT_LOGIN)}
               />
-              :
-              <IFrame
-                source={
-                  "?jwt=" +
-                  getToken() +
-                  "&IdApp=" +
-                  localStorage.getItem("IdApp")
-                }
-                baseURL={String(process.env.REACT_APP_APPLICATION_FRONT_LOGIN)}
-              />
-            }
+          }
             {/* }
           >
           </Route>
           </Routes> */}
         </Grid>
       </Grid>
-    // </Grid>
+    </Grid>
   );
 };

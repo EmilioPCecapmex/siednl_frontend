@@ -7,7 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./screens/home/Home";
 import { Settings } from "./screens/config/Settings";
 import { E404 } from "./screens/e404/E404";
-import { Usuarios } from "./screens/config/Usuarios";
+import { PanelUsuarios } from "./screens/config/PanelUsuarios";
 import { Init } from "./screens/init/Init";
 import { continueSession, sessionValid } from "./funcs/validation";
 import { useNavigate } from "react-router-dom";
@@ -72,7 +72,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="users" element={<Usuarios />} />
+          <Route path="users" element={<PanelUsuarios />} />
           <Route path="*" element={<E404 />} />
           <Route path="fichaTecnica" element={<FichaTecnica />} />
           <Route
