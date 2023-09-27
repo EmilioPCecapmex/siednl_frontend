@@ -44,8 +44,9 @@ export default function Usuarios({
   return (
     <Grid container>
       <Grid container rowSpacing={3}>
-        <Grid container item width={"100%"} display={"flex"} justifyContent={"flex-end"}>
-          <Grid item>
+        <Grid container item width={"100%"} display={"flex"} justifyContent={"flex-end"}
+        sx={{height: "8vh"}}>
+     
             <Button
               sx={{
                 // backgroundColor: "#15212f",
@@ -66,17 +67,18 @@ export default function Usuarios({
                 "@media (min-width: 768px)": {
                   fontSize: "80%",
                 },
+                mr:"2vw",
               }}
               onClick={() => showResumen()}
             >
               x
             </Button>
-          </Grid>
+         
         </Grid>
         <Grid item
           sx={{
             width: "100vw",
-            height: "82vh",
+            height: "85vh",
             backgroundColor: "#fff",
             borderRadius: 50,
             display: "flex",

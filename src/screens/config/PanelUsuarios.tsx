@@ -122,7 +122,7 @@ export const PanelUsuarios = () => {
   
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
-  const renglonesPagina = 5;
+  const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
@@ -138,7 +138,7 @@ export const PanelUsuarios = () => {
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 5));
+    setRowsPerPage(parseInt(event.target.value, 6));
     setPage(0);
   };
 
@@ -294,7 +294,7 @@ export const PanelUsuarios = () => {
               xl={8}
               lg={7}
               md={6}
-              height="15vh"
+              height="10vh"
               direction="row"
               sx={{
                 boxShadow: 5,
@@ -384,7 +384,7 @@ export const PanelUsuarios = () => {
               item
               lg={10}
               md={9}
-              height="65vh"
+              height="70vh"
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
