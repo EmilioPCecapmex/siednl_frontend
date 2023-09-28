@@ -154,7 +154,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   const postPED = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/ped-add",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-ped",
         {
           IdEje: eje,
           IdTematicas: tematica,
