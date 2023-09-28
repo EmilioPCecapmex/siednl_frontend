@@ -91,6 +91,10 @@ export const AddDialogCatalogo = ({
     { Id: "", NombreInstitucion: "" },
   ]);
 
+  const [catalogoEntidades, setCatalogoEntidades] = React.useState([
+    { Id: "", Label: "" },
+  ]);
+
   const [catalogoProgramas, setCatalogoProgramas] = React.useState([
     { Id: "", NombrePrograma: "" },
   ]);
@@ -100,28 +104,30 @@ export const AddDialogCatalogo = ({
   ]);
 
   React.useEffect(() => {
-    //getInstituciones();
+    getListasLogin({Tabla:"Entidades",ValorCondicion:""},setCatalogoInstituciones);
     getProgramas();
     //getUnidadesAdministrativas();
   }, []);
 
-  // const getInstituciones = () => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //       params: {
-  //         IdUsuario: localStorage.getItem("IdUsuario"),
+  const getInstituciones = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
 
-  //         IdEntidad: localStorage.getItem("IdEntidad"),
-  //         Rol: localStorage.getItem("Rol"),
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setCatalogoInstituciones(r.data.data);
-  //     });
-  // };
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          Rol: localStorage.getItem("Rol"),
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+      });
+  };
+
+
 
   // const getUnidadesAdministrativas = () => {
   //   axios
@@ -139,6 +145,19 @@ export const AddDialogCatalogo = ({
   //     });
   // };
 
+  const getListasLogin = (datos:any,setState:Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
+        params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoEntidades(r.data.data);
+      });
+  };
+
   const getProgramas = () => {
     axios
       .get(
@@ -153,7 +172,7 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
-        
+        setCatalogoProgramas(r.data.data);
       }).catch((err) =>
       console.log("Hola",err)
     );
@@ -270,7 +289,7 @@ export const AddDialogCatalogo = ({
         {
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdPrograma: programa,
-          IdEntidad: localStorage.getItem(""),
+          IdEntidad: institution,
         },
         {
           headers: {
@@ -599,14 +618,14 @@ export const AddDialogCatalogo = ({
                 >
                   Selecciona
                 </MenuItem>
-                {catalogoInstituciones.map((item) => {
+                {catalogoEntidades.map((item) => {
                   return (
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
                       sx={{ fontFamily: "MontserratRegular" }}
                     >
-                      {item.NombreInstitucion}
+                      {item.Label}
                     </MenuItem>
                   );
                 })}
