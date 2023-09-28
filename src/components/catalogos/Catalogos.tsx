@@ -373,9 +373,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
-          params: {
-            idEntidad:localStorage.getItem("IdApp")
-          },
         }
       )
       .then((r) => {
@@ -384,14 +381,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           update = update.map(
             (item: {
               Id: string;
-              Nombre: string;
+              NombreInstitucion: string;
               NombrePrograma: string;
               Tabla: string;
             }) => {
               return {
                 Id: item.Id,
                 Desc:
-                  item.Nombre.toUpperCase() +
+                  item.NombreInstitucion.toUpperCase() +
                   " / " +
                   item.NombrePrograma.toUpperCase(),
                 Tabla: "ProgramasInstituciones",
@@ -403,8 +400,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         }
       });
   };
-
-  
 
   const getAniosFiscales = () => {
     setSelected("Años Fiscales");
@@ -509,7 +504,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
-          
         }
       )
       .then((r) => {

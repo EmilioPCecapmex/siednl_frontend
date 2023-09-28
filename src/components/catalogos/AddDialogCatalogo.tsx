@@ -529,171 +529,171 @@ export const AddDialogCatalogo = ({
       // </Grid>
     );
   }
-  // else if (tabla === "ProgramasInstituciones") {
-  //   return (
-  //     <Box sx={{ display: "flex" }}>
-  //       {/* <IconButton onClick={handleClickOpen}>
-  //         <AddIcon
-  //           sx={{
-  //             width: 50,
-  //             height: 50,
-  //           }}
-  //         />
-  //       </IconButton> */}
+  else if (tabla === "ProgramasInstituciones") {
+    return (
+      <Box sx={{ display: "flex" }}>
+        {/* <IconButton onClick={handleClickOpen}>
+          <AddIcon
+            sx={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        </IconButton> */}
 
-  //       <Dialog fullWidth open={open} onClose={cerrardialog}>
-  //         <Box
-  //           sx={{
-  //             width: "100%",
-  //             height: "5vh",
-  //             alignItems: "center",
-  //             display: "flex",
-  //             justifyContent: "center",
-  //             flexDirection: "column",
-  //             borderBottom: 0.5,
-  //             borderColor: "#ccc",
-  //             boxShadow: 1,
-  //           }}
-  //         >
-  //           <Typography
-  //             sx={{
-  //               fontFamily: "MontserratSemiBold",
-  //               width: "90%",
-  //               fontSize: "1vw",
-  //               textAlign: "center",
-  //             }}
-  //           >
-  //             Vincular Programa - Institucion
-  //           </Typography>
-  //         </Box>
-  //         <DialogContent
-  //           sx={{
-  //             display: "flex",
-  //             flexDirection: "column",
-  //             alignItems: "center",
-  //             justifyContent: "center",
-  //           }}
-  //         >
-  //           <FormControl
-  //             sx={{
-  //               width: "60%",
-  //               mt: "2vh",
-  //             }}
-  //           >
-  //             <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-  //               Programas institucionales
-  //             </InputLabel>
-  //             <Select
-  //               value={programa}
-  //               label="Institución institucionales"
-  //               onChange={(x) => {
-  //                 setPrograma(x.target.value);
-  //               }}
-  //               sx={{
-  //                 fontFamily: "MontserratRegular",
-  //               }}
-  //             >
-  //               <MenuItem
-  //                 value={"0"}
-  //                 key={0}
-  //                 disabled
-  //                 sx={{
-  //                   fontFamily: "MontserratRegular",
-  //                 }}
-  //               >
-  //                 Selecciona
-  //               </MenuItem>
-  //               {catalogoProgramas.map((item) => {
-  //                 return (
-  //                   <MenuItem
-  //                     value={item.Id}
-  //                     key={item.Id}
-  //                     sx={{ fontFamily: "MontserratRegular" }}
-  //                   >
-  //                     {item.NombrePrograma}
-  //                   </MenuItem>
-  //                 );
-  //               })}
-  //             </Select>
-  //           </FormControl>
+        <Dialog fullWidth open={open} onClose={cerrardialog}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5vh",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              borderBottom: 0.5,
+              borderColor: "#ccc",
+              boxShadow: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                width: "90%",
+                fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              Vincular Programa - Institucion
+            </Typography>
+          </Box>
+          <DialogContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FormControl
+              sx={{
+                width: "60%",
+                mt: "2vh",
+              }}
+            >
+              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                Programas institucionales
+              </InputLabel>
+              <Select
+                value={programa}
+                label="Institución institucionales"
+                onChange={(x) => {
+                  setPrograma(x.target.value);
+                }}
+                sx={{
+                  fontFamily: "MontserratRegular",
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  key={0}
+                  disabled
+                  sx={{
+                    fontFamily: "MontserratRegular",
+                  }}
+                >
+                  Selecciona
+                </MenuItem>
+                {catalogoProgramas.map((item) => {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratRegular" }}
+                    >
+                      {item.NombrePrograma}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
 
-  //           <FormControl
-  //             sx={{
-  //               width: "60%",
-  //               mt: "2vh",
-  //             }}
-  //           >
-  //             <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-  //               Institución
-  //             </InputLabel>
-  //             <Select
-  //               value={institution}
-  //               label="Institución"
-  //               onChange={(x) => setInstitution(x.target.value)}
-  //               sx={{
-  //                 fontFamily: "MontserratRegular",
-  //               }}
-  //             >
-  //               <MenuItem
-  //                 value={"0"}
-  //                 key={0}
-  //                 disabled
-  //                 sx={{
-  //                   fontFamily: "MontserratRegular",
-  //                 }}
-  //               >
-  //                 Selecciona
-  //               </MenuItem>
-  //               {catalogoInstituciones.map((item) => {
-  //                 return (
-  //                   <MenuItem
-  //                     value={item.Id}
-  //                     key={item.Id}
-  //                     sx={{ fontFamily: "MontserratRegular" }}
-  //                   >
-  //                     {item.NombreInstitucion}
-  //                   </MenuItem>
-  //                 );
-  //               })}
-  //             </Select>
-  //           </FormControl>
-  //         </DialogContent>
+            <FormControl
+              sx={{
+                width: "60%",
+                mt: "2vh",
+              }}
+            >
+              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                Institución
+              </InputLabel>
+              <Select
+                value={institution}
+                label="Institución"
+                onChange={(x) => setInstitution(x.target.value)}
+                sx={{
+                  fontFamily: "MontserratRegular",
+                }}
+              >
+                <MenuItem
+                  value={"0"}
+                  key={0}
+                  disabled
+                  sx={{
+                    fontFamily: "MontserratRegular",
+                  }}
+                >
+                  Selecciona
+                </MenuItem>
+                {catalogoInstituciones.map((item) => {
+                  return (
+                    <MenuItem
+                      value={item.Id}
+                      key={item.Id}
+                      sx={{ fontFamily: "MontserratRegular" }}
+                    >
+                      {item.Nombre}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </DialogContent>
 
-  //         <DialogActions
-  //           sx={{
-  //             display: "flex",
-  //             alignItems: "center",
-  //             justifyContent: "center",
-  //           }}
-  //         >
-  //           <Button
-  //             sx={queries.buttonCancelarSolicitudInscripcion}
-  //             color="error"
-  //             onClick={handleClose}
-  //           >
-  //             <Typography
-  //               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-  //             >
-  //               Cancelar
-  //             </Typography>
-  //           </Button>
+          <DialogActions
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              color="error"
+              onClick={cerrardialog}
+            >
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                Cancelar
+              </Typography>
+            </Button>
 
-  //           <Button
-  //             sx={queries.buttonContinuarSolicitudInscripcion}
-  //             onClick={CreatePorCatalogoProgramaInstitucion}
-  //             autoFocus
-  //           >
-  //             <Typography
-  //               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-  //             >
-  //               De Acuerdo
-  //             </Typography>
-  //           </Button>
-  //         </DialogActions>
-  //       </Dialog>
-  //     </Box>
-  //   );
-  // }
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={CreatePorCatalogoProgramaInstitucion}
+              autoFocus
+            >
+              <Typography
+                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              >
+                De Acuerdo
+              </Typography>
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    );
+  }
   else if (tabla === "InstitucionUnidad") {
     return (
       <Box sx={{ display: "flex" }}>
