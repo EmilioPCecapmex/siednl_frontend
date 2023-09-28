@@ -17,21 +17,23 @@ import {
   Input,
   Grid,
   TablePagination,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Accordion from "@mui/material/Accordion";
-
+import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
-
 import AddDialogCatalogo from "./AddDialogCatalogo";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { CSVCatalogo } from "./CSVCatalogo";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 interface Head {
   id: keyof ITablaCatalogos;
   isNumeric: boolean;
@@ -55,7 +57,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [defaultSelection, setDefaultSelection] = useState(defSelected);
   const [expanded, setExpanded] = React.useState<string | false>("panel1");
 
-  const[fncSelected,setFncSelected]=useState("")
+  const [fncSelected, setFncSelected] = useState("");
 
   useEffect(() => {
     let tableOption = configOptions.find((item) => item.Desc === defSelected);
@@ -365,7 +367,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Programas - Instituciones");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programasInstituciones",
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/list-programasInstituciones",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -495,7 +498,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Dimensiones del Indicador");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-dimensionDelIndicador",
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/list-dimensionDelIndicador",
         {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
@@ -637,24 +641,23 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   };
 
   const getFechasDeCaptura = () => {
-    console.log("Hola entre aqui");
-    
     setSelected("Fechas de Captura");
-    console.log("Hola entre aqui 2");
+
     setCatalogoActual("Fechas de captura");
-    console.log("Hola entre aqui 3");
-    axios                                                 
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechaDeCaptura", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechaDeCaptura",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         console.log(r);
 
         if (r.status === 200) {
-          console.log("entre al if de getfechas", r.data.data);
-
           let update = r.data.data;
           update = update.map(
             (item: {
@@ -676,8 +679,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               };
             }
           );
-          console.log("update: ", update);
-          console.log("entre al if de getfechas2", r.data.data);
 
           setDatosTabla(update);
           setDataDescripctionFiltered(update);
@@ -754,11 +755,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Lineas de acción");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-lineasDeAccion", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-lineasDeAccion",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -868,12 +872,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       "Objetivos del Plan Estrategico del Estado de Nuevo León"
     );
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivosPEENL", {
-        
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivosPEENL",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -966,7 +972,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setCatalogoActual("Programas Presupuestarios");
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/list-programaPresupuestario",
         {
           params: {
             Rol: localStorage.getItem("Rol"),
@@ -977,8 +984,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         }
       )
       .then((r) => {
-        console.log(r.data.data);
-        
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
@@ -990,10 +995,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             }) => {
               return {
                 Id: item.Id,
-                Desc:
-                  "Programa: " +
-                  item.NombrePrograma.toUpperCase() ,
-                 // " / Institución: ",
+                Desc: "Programa: " + item.NombrePrograma.toUpperCase(),
+                // " / Institución: ",
                 //   +item.NombreInstitucion.toUpperCase(),
                 Tabla: "ProgramasPresupuestarios",
               };
@@ -1060,7 +1063,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         }
       });
   };
-// no se usa por eso no agregue el Rol
+  // no se usa por eso no agregue el Rol
   const getTipoDeFormula = () => {
     setSelected("Tipos de Fórmula");
 
@@ -1094,14 +1097,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Tipos de indicador");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tipoDeIndicador", {
-        params: {
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-tipoDeIndicador",
+        {
+          params: {
+            Rol: localStorage.getItem("Rol"),
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -1125,14 +1131,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
     setCatalogoActual("Unidades de medida");
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-unidadDeMedida", {
-        params: {
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-unidadDeMedida",
+        {
+          params: {
+            Rol: localStorage.getItem("Rol"),
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let update = r.data.data;
@@ -1161,7 +1170,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   };
 
   const [datosTabla, setDatosTabla] = useState<Array<IDatosTabla>>([]);
-
+  const [deleteRow, setDeleteRow] = useState<IDatosTabla>();
+  const [modyRow, setModyRow] = useState<IDatosTabla>();
   const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState<
     Array<IDatosTabla>
   >([]);
@@ -1174,10 +1184,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   useEffect(() => {
     setDataDescripctionFiltered(datosTabla);
     console.log(datosTabla);
-  }, [descripctionFiltered]);
+  }, [descripctionFiltered, datosTabla]);
 
   const filtrarDatos = () => {
-    console.log("Entra");
     let Arrayfiltro: IDatosTabla[];
     Arrayfiltro = [];
 
@@ -1188,9 +1197,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     }
 
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      console.log("entre");
-      console.log(elemento);
-      console.log(DataDescripctionFiltered);
       if (
         elemento.Desc.toString()
           .toLocaleLowerCase()
@@ -1201,8 +1207,23 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     });
     setDataDescripctionFiltered(ResultadoBusqueda);
   };
+  const [openAdd, setOpenAdd] = useState(false);
+  const [openDel, setOpenDel] = useState(false);
+  const [openMody, setOpenMody] = useState(false);
 
   const [actualizacion, setActualizacion] = useState(0);
+
+  const handleClose = () => {
+    setOpenAdd(false);
+  };
+
+  const handleCloseDel = () => {
+    setOpenDel(false);
+  };
+
+  const handleCloseMody = () => {
+    setOpenMody(false);
+  };
 
   // useEffect(() => {
   //   if (descripctionFiltered !== "") {
@@ -1279,16 +1300,46 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [DataDescripctionFiltered]);
 
-  useEffect(() => {
-    console.log("tablaActual: ", tablaActual);
-    console.log("selected: ", selected);
-    console.log("actualizaContador: ", actualizaContador);
-    getFechasDeCaptura();
-  }, []);
+  // useEffect(() => {
 
-  const evalFunc=(fnc:string)=>{
-    eval(fnc!==""?fnc:fncSelected)
-  } 
+  //   //getFechasDeCaptura();
+  // }, [actualizacion, configOptions, selected]);
+
+  const evalFunc = (fnc = "") => {
+    eval(fnc !== "" ? fnc : fncSelected);
+  };
+
+  useEffect(() => {
+    if (!openAdd) {
+      evalFunc();
+      // El eval usa el string y lo ejecuta como si fuera codigo al usarlo dentro del useEffect aplica el valor guardado en la funcion evalFunc
+      // que es fncSelected en esta useState se guarda el string de la funcion a usar y al ejecutarse llama al eval y se vuelve a ejecutar la funcion guradada
+      // }else if(!openDel){
+      //   evalFunc()
+      //   // El eval usa el string y lo ejecuta como si fuera codigo al usarlo dentro del useEffect aplica el valor guardado en la funcion evalFunc
+      //   // que es fncSelected en esta useState se guarda el string de la funcion a usar y al ejecutarse llama al eval y se vuelve a ejecutar la funcion guradada
+    }
+  }, [openAdd]);
+
+  useEffect(() => {
+    if (!openDel) {
+      evalFunc();
+      // El eval usa el string y lo ejecuta como si fuera codigo al usarlo dentro del useEffect aplica el valor guardado en la funcion evalFunc
+      // que es fncSelected en esta useState se guarda el string de la funcion a usar y al ejecutarse llama al eval y se vuelve a ejecutar la funcion guradada
+    }
+  }, [openDel]);
+
+  useEffect(() => {
+    if (!openMody) {
+      evalFunc();
+      // El eval usa el string y lo ejecuta como si fuera codigo al usarlo dentro del useEffect aplica el valor guardado en la funcion evalFunc
+      // que es fncSelected en esta useState se guarda el string de la funcion a usar y al ejecutarse llama al eval y se vuelve a ejecutar la funcion guradada
+    }
+  }, [openMody]);
+
+  const borrar = (row: string, Id: string, tabla: string) => {
+    setOpenDel(true);
+  };
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -1306,7 +1357,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         xs={6}
         sx={{ backgroundColor: "white" }}
       >
-        <Grid item container sx={{ height: "100%", display: "flex", }}>
+        <Grid item container sx={{ height: "100%", display: "flex" }}>
           <Grid
             item
             xl={3}
@@ -1382,7 +1433,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               console.log("valor selected: ", selected);
 
                               evalFunc(item.fnc);
-                              setFncSelected(item.fnc)
+                              setFncSelected(item.fnc);
                               setTablaActual(item.Tabla);
                               setDefaultSelection(item.Desc);
                             }}
@@ -1484,9 +1535,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              
-              
-              justifyContent:"center"
+
+              justifyContent: "center",
             }}
           >
             <Grid
@@ -1530,7 +1580,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               <Grid
                 item
                 display={"flex"}
-                sx={{ background: "", justifyContent: "flex-end", alignItems: "center" }}
+                sx={{
+                  background: "",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
                 xl={2}
                 lg={2}
                 md={2}
@@ -1554,7 +1608,17 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     justifyContent: "center",
                   }}
                 >
+                  <IconButton onClick={() => setOpenAdd(true)}>
+                    <AddIcon
+                      sx={{
+                        width: 50,
+                        height: 50,
+                      }}
+                    />
+                  </IconButton>
                   <AddDialogCatalogo
+                    open={openAdd}
+                    handleClose={handleClose}
                     catalogo={tablaActual}
                     tabla={tablaActual}
                     select={selected}
@@ -1584,16 +1648,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               </Grid>
             </Grid>
 
-
-
-            <Grid item
-            xl={10}
-            lg={10}
-            md={10}
-            sm={10}
-            xs={10}
+            <Grid
+              item
+              xl={10}
+              lg={10}
+              md={10}
+              sm={10}
+              xs={10}
               sx={{
-                
                 height: "80%",
                 display: "flex",
                 justifyContent: "center",
@@ -1745,23 +1807,52 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               }}
                             >
                               <Grid sx={{ display: "flex" }}>
-                                {selected === "Programas - Instituciones" ||
-                                selected ===
-                                  "Instituciones - Unidades" ? null : (
-                                  <ModifyDialogCatalogos
-                                    descripcion={row.Desc}
-                                    id={row.Id}
-                                    tabla={row.Tabla}
-                                    actualizado={actualizaContador}
-                                  />
-                                )}
+                                <Tooltip title="Editar">
+                                  <IconButton onClick={() => {
+                                    setModyRow({
+                                      Id: row.Id,
+                                      Desc: row.Desc,
+                                      fnc: row.fnc,
+                                      Tabla: row.Tabla,
+                                      selected: row.selected,
+                                    });
 
-                                <DeleteDialogCatalogos
-                                  deleteText={row.Desc}
-                                  id={row.Id}
-                                  tabla={row.Tabla}
-                                  actualizado={actualizaContador}
-                                />
+                                    setOpenMody(true);
+                                  }}>
+                                    <EditIcon
+                                      sx={[
+                                        {
+                                          "&:hover": {
+                                            color: "blue",
+                                          },
+                                        },
+                                      ]}
+                                    />
+                                  </IconButton>
+                                </Tooltip>
+                                <IconButton
+                                  onClick={() => {
+                                    setDeleteRow({
+                                      Id: row.Id,
+                                      Desc: row.Desc,
+                                      fnc: row.fnc,
+                                      Tabla: row.Tabla,
+                                      selected: row.selected,
+                                    });
+
+                                    setOpenDel(true);
+                                  }}
+                                >
+                                  <DeleteIcon
+                                    sx={[
+                                      {
+                                        "&:hover": {
+                                          color: "red",
+                                        },
+                                      },
+                                    ]}
+                                  />
+                                </IconButton>
                               </Grid>
                             </TableCell>
                           </TableRow>
@@ -1806,15 +1897,31 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 </Grid>
               </Grid>
             </Grid>
-
-
-
-
           </Grid>
         </Grid>
-
-
       </Grid>
+      {selected === "Programas - Instituciones" ||
+      selected === "Instituciones - Unidades" ? null : (
+        <ModifyDialogCatalogos
+          descripcion={modyRow?.Desc || ""}
+          id={modyRow?.Id || ""}
+          tabla={modyRow?.Tabla || ""}
+          actualizado={actualizaContador}
+          open={openMody}
+          handleCloseMody={handleCloseMody}
+        />
+      )}
+      {openDel ? (
+        <DeleteDialogCatalogos
+          deleteText={deleteRow?.Desc || ""}
+          id={deleteRow?.Id || ""}
+          tabla={deleteRow?.Tabla || ""}
+          actualizado={actualizaContador}
+          open={openDel}
+          // setOpenDel={setOpenDel}
+          handleCloseDel={handleCloseDel}
+        />
+      ) : null}
     </Grid>
   );
 };

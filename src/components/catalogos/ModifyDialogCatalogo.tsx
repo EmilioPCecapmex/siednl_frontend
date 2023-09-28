@@ -22,17 +22,22 @@ import {
 import { queries } from "../../queries";
 
 export const ModifyDialogCatalogos = ({
+  open,
   id,
   tabla,
   descripcion,
   actualizado,
+  handleCloseMody,
 }: {
+  open: boolean;
   tabla: string;
   id: string;
   descripcion: string;
   actualizado: Function;
+  handleCloseMody: Function;
+
 }) => {
-  const [open, setOpen] = React.useState(false);
+  //const [open, setOpen] = React.useState(false);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -46,13 +51,17 @@ export const ModifyDialogCatalogos = ({
     },
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+
+  const cerrardialog = () =>{
+    handleCloseMody();
+  }
 
   let today = new Date();
   let year = today.getFullYear();
@@ -107,7 +116,7 @@ export const ModifyDialogCatalogos = ({
         )
         .then((r) => {
           actualizado();
-          handleClose();
+          cerrardialog();
           Toast.fire({
             icon: "success",
             title: "!Elemento modificado con éxito!",
@@ -139,7 +148,7 @@ export const ModifyDialogCatalogos = ({
         .then((r) => {
           actualizado();
 
-          handleClose();
+          cerrardialog();
           Toast.fire({
             icon: "success",
             title: "!Elemento modificado con éxito!",
@@ -176,7 +185,7 @@ export const ModifyDialogCatalogos = ({
       )
       .then((r) => {
         actualizado();
-        handleClose();
+        cerrardialog();
       })
       .catch((err) =>
         Toast.fire({
@@ -205,7 +214,7 @@ export const ModifyDialogCatalogos = ({
       )
       .then((r) => {
         actualizado();
-        handleClose();
+        cerrardialog();
       })
       .catch((err) =>
         Toast.fire({
@@ -244,20 +253,8 @@ export const ModifyDialogCatalogos = ({
   if (tabla === "ProgramasPresupuestarios") {
     return (
       <Box>
-        <Tooltip title="Editar">
-          <IconButton onClick={handleClickOpen}>
-            <EditIcon
-              sx={[
-                {
-                  "&:hover": {
-                    color: "blue",
-                  },
-                },
-              ]}
-            />
-          </IconButton>
-        </Tooltip>
-        <Dialog open={open} onClose={handleClose} fullWidth>
+        
+        <Dialog open={open} onClose={cerrardialog} fullWidth>
           <Box
             sx={{
               width: "100%",
@@ -332,7 +329,7 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={cerrardialog}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -355,7 +352,7 @@ export const ModifyDialogCatalogos = ({
     return (
       <Box sx={{ display: "flex" }}>
         
-        <Dialog open={open} onClose={handleClose} fullWidth>
+        <Dialog open={open} onClose={cerrardialog} fullWidth>
           <Box
             sx={{
               width: "100%",
@@ -423,7 +420,7 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={cerrardialog}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -445,7 +442,7 @@ export const ModifyDialogCatalogos = ({
   } else if (tabla === "PEDs") {
     return (
       <Box>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={cerrardialog}>
           <DialogTitle>{`Modificar  '${descripcion}'`}</DialogTitle>
 
           <DialogContent>
@@ -457,7 +454,7 @@ export const ModifyDialogCatalogos = ({
             />
           </DialogContent>
 
-          <DialogActions onClick={handleClose}>
+          <DialogActions onClick={cerrardialog}>
             <Button sx={queries.buttonCancelarSolicitudInscripcion} >Cancelar</Button>
 
             <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogo} autoFocus>
@@ -470,20 +467,8 @@ export const ModifyDialogCatalogos = ({
   } else {
     return (
       <Box>
-        <Tooltip title="Editar">
-          <IconButton onClick={handleClickOpen}>
-            <EditIcon
-              sx={[
-                {
-                  "&:hover": {
-                    color: "blue",
-                  },
-                },
-              ]}
-            />
-          </IconButton>
-        </Tooltip>
-        <Dialog open={open} onClose={handleClose} fullWidth>
+        
+        <Dialog open={open} onClose={cerrardialog} fullWidth>
         
           <Box
             sx={{
@@ -549,7 +534,7 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={cerrardialog}>
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >

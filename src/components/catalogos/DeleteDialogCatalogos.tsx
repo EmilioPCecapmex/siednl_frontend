@@ -14,11 +14,18 @@ export const DeleteDialogCatalogos = ({
   id,
   tabla,
   actualizado,
+  open,
+
+  handleCloseDel,
 }: {
   deleteText: string;
   tabla: string;
   id: string;
   actualizado: Function;
+  open: boolean;
+  
+  handleCloseDel: Function;
+
 }) => {
   const Toast = Swal.mixin({
     toast: true,
@@ -32,15 +39,30 @@ export const DeleteDialogCatalogos = ({
     },
   });
 
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+
+  
+
+  const cerrardialog = () =>{
+    handleCloseDel();
+   // actualizado();
+    
+    
+  }
+
+  const opendialog = () =>{
+    handleCloseDel();
+    //actualizado();
+    deletePorCatalogo()
+  }
 
   const deletePorCatalogo = () => {
     if (tabla === "PEDs") {
@@ -125,11 +147,13 @@ export const DeleteDialogCatalogos = ({
           })
         );
     }
+    //handleCloseDel();
+
   };
 
   return (
     <Box>
-      <IconButton onClick={handleClickOpen}>
+      {/* <IconButton onClick={cerrardialog}>
         <DeleteIcon
           sx={[
             {
@@ -139,8 +163,8 @@ export const DeleteDialogCatalogos = ({
             },
           ]}
         />
-      </IconButton>
-      <Dialog fullWidth open={open} onClose={handleClose}>
+      </IconButton> */}
+      <Dialog fullWidth open={open} onClose={cerrardialog}>
         <Box
           sx={{
             width: "100%",
@@ -185,7 +209,7 @@ export const DeleteDialogCatalogos = ({
             justifyContent: "center",
           }}
         >
-          <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+          <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={cerrardialog}>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
@@ -193,7 +217,7 @@ export const DeleteDialogCatalogos = ({
             </Typography>
           </Button>
 
-          <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={deletePorCatalogo} color="error" autoFocus>
+          <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={opendialog} color="error" autoFocus>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >

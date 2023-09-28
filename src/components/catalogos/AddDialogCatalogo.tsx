@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -18,18 +19,24 @@ import Toolbar from "@mui/material/Toolbar";
 import { queries } from "../../queries";
 import { PED } from "./PED";
 import { CapturarFechas } from "./AddFechaCapturaDialog";
+import { IDatosTabla } from "./Catalogos";
+import { margin } from "@mui/system";
 export const AddDialogCatalogo = ({
+  open,
   catalogo,
   select,
   tabla,
   actualizado,
+  handleClose,
 }: {
+  open: boolean;
   catalogo: string;
   select: string;
   tabla: string;
   actualizado: Function;
+  handleClose: Function;
 }) => {
-  const [open, setOpen] = React.useState(false);
+  //const [open, setOpen] = React.useState(false);
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -42,16 +49,33 @@ export const AddDialogCatalogo = ({
     },
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+  const cerrardialog = () => {
+    handleClose();
     actualizado();
   };
 
+  const opendialog = () => {
+    handleClose();
+    actualizado();
+    CreatePorCatalogo();
+  };
+
+  // useEffect(() => {
+  //   setTablaActual(datosTabla)
+  // }, [datosTabla])
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  //   actualizado();
+  // };
+
   const [descripcion, setDescripcion] = React.useState("");
+  const [descripcionConac, setDescripcionConac] = React.useState("");
+  const [descripcionConsecutivo, setDescripcionConsecutivo] =
+    React.useState("");
   const [programa, setPrograma] = React.useState("");
   let today = new Date();
   let year = today.getFullYear();
@@ -88,7 +112,7 @@ export const AddDialogCatalogo = ({
   const [unidad, setUnidad] = React.useState("0");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([
-    { Id: "", NombreInstitucion: "" },
+    { Id: "", Nombre: "" },
   ]);
 
   const [catalogoProgramas, setCatalogoProgramas] = React.useState([
@@ -100,28 +124,27 @@ export const AddDialogCatalogo = ({
   ]);
 
   React.useEffect(() => {
-    //getInstituciones();
+    getInstituciones();
     getProgramas();
     //getUnidadesAdministrativas();
   }, []);
 
-  // const getInstituciones = () => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //       params: {
-  //         IdUsuario: localStorage.getItem("IdUsuario"),
-
-  //         IdEntidad: localStorage.getItem("IdEntidad"),
-  //         Rol: localStorage.getItem("Rol"),
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setCatalogoInstituciones(r.data.data);
-  //     });
-  // };
+  const getInstituciones = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setCatalogoInstituciones(r.data.data);
+        console.log("Entidades: ", r.data.data);
+      });
+  };
 
   // const getUnidadesAdministrativas = () => {
   //   axios
@@ -142,7 +165,8 @@ export const AddDialogCatalogo = ({
   const getProgramas = () => {
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/list-programaPresupuestario",
         {
           params: {
             Rol: localStorage.getItem("Rol"),
@@ -152,11 +176,8 @@ export const AddDialogCatalogo = ({
           },
         }
       )
-      .then((r) => {
-        
-      }).catch((err) =>
-      console.log("Hola",err)
-    );
+      .then((r) => {})
+      .catch((err) => console.log("Hola", err));
   };
 
   const CreatePorCatalogo = () => {
@@ -261,7 +282,7 @@ export const AddDialogCatalogo = ({
   //       })
   //     );
   // };
-// Aqui 
+  // Aqui
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
       .post(
@@ -305,6 +326,8 @@ export const AddDialogCatalogo = ({
           IdEntidad: institution,
           CreadoPor: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
+          Conac: descripcionConac,
+          Consecutivo: descripcionConsecutivo
         },
         {
           headers: {
@@ -328,13 +351,7 @@ export const AddDialogCatalogo = ({
   };
 
   const validarNumero = (dato: string, state: any) => {
-    console.log("Entre");
-    console.log("dato: ", dato);
-    console.log("state: ", state);
-
     if (/^[0-9]+$/.test(dato)) {
-      console.log("dato en el if : ", dato);
-
       return dato;
     } else if (dato.length === 0) {
       return "";
@@ -342,26 +359,35 @@ export const AddDialogCatalogo = ({
     return state;
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+
+    // Utiliza una expresión regular para validar que solo haya una letra
+    if (/^[a-zA-Z]$/.test(inputValue) || inputValue === "") {
+      setDescripcionConac(inputValue);
+    }
+  };
+
+  
+
   if (tabla === "FechasDeCaptura") {
     return (
-
       <Box sx={{ display: "flex" }}>
-      <IconButton onClick={handleClickOpen}>
+        {/* <IconButton onClick={handleClickOpen}>
         <AddIcon
           sx={{
             width: 50,
             height: 50,
           }}
         />
-      </IconButton>
+      </IconButton> */}
 
-      
-      <CapturarFechas
-      actualizado={actualizado}
-      open={open}
-      close={handleClose}
-      //ClickOpen={handleClickOpen}
-      />
+        <CapturarFechas
+          actualizado={actualizado}
+          open={open}
+          close={handleClose}
+          //ClickOpen={handleClickOpen}
+        />
       </Box>
       // <Grid sx={{ display: "flex" }}>
       //   <IconButton onClick={handleClickOpen}>
@@ -424,7 +450,6 @@ export const AddDialogCatalogo = ({
       //         onChange={(v) => setDescripcion(v.target.value)}
       //       />
 
-
       //       <TextField
       //         variant="outlined"
       //         onChange={(x) => {
@@ -482,185 +507,185 @@ export const AddDialogCatalogo = ({
       //     </DialogActions>
       //   </Dialog>
       // </Grid>
-
-
     );
-  } else if (tabla === "ProgramasInstituciones") {
+  }
+  // else if (tabla === "ProgramasInstituciones") {
+  //   return (
+  //     <Box sx={{ display: "flex" }}>
+  //       {/* <IconButton onClick={handleClickOpen}>
+  //         <AddIcon
+  //           sx={{
+  //             width: 50,
+  //             height: 50,
+  //           }}
+  //         />
+  //       </IconButton> */}
+
+  //       <Dialog fullWidth open={open} onClose={cerrardialog}>
+  //         <Box
+  //           sx={{
+  //             width: "100%",
+  //             height: "5vh",
+  //             alignItems: "center",
+  //             display: "flex",
+  //             justifyContent: "center",
+  //             flexDirection: "column",
+  //             borderBottom: 0.5,
+  //             borderColor: "#ccc",
+  //             boxShadow: 1,
+  //           }}
+  //         >
+  //           <Typography
+  //             sx={{
+  //               fontFamily: "MontserratSemiBold",
+  //               width: "90%",
+  //               fontSize: "1vw",
+  //               textAlign: "center",
+  //             }}
+  //           >
+  //             Vincular Programa - Institucion
+  //           </Typography>
+  //         </Box>
+  //         <DialogContent
+  //           sx={{
+  //             display: "flex",
+  //             flexDirection: "column",
+  //             alignItems: "center",
+  //             justifyContent: "center",
+  //           }}
+  //         >
+  //           <FormControl
+  //             sx={{
+  //               width: "60%",
+  //               mt: "2vh",
+  //             }}
+  //           >
+  //             <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+  //               Programas institucionales
+  //             </InputLabel>
+  //             <Select
+  //               value={programa}
+  //               label="Institución institucionales"
+  //               onChange={(x) => {
+  //                 setPrograma(x.target.value);
+  //               }}
+  //               sx={{
+  //                 fontFamily: "MontserratRegular",
+  //               }}
+  //             >
+  //               <MenuItem
+  //                 value={"0"}
+  //                 key={0}
+  //                 disabled
+  //                 sx={{
+  //                   fontFamily: "MontserratRegular",
+  //                 }}
+  //               >
+  //                 Selecciona
+  //               </MenuItem>
+  //               {catalogoProgramas.map((item) => {
+  //                 return (
+  //                   <MenuItem
+  //                     value={item.Id}
+  //                     key={item.Id}
+  //                     sx={{ fontFamily: "MontserratRegular" }}
+  //                   >
+  //                     {item.NombrePrograma}
+  //                   </MenuItem>
+  //                 );
+  //               })}
+  //             </Select>
+  //           </FormControl>
+
+  //           <FormControl
+  //             sx={{
+  //               width: "60%",
+  //               mt: "2vh",
+  //             }}
+  //           >
+  //             <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+  //               Institución
+  //             </InputLabel>
+  //             <Select
+  //               value={institution}
+  //               label="Institución"
+  //               onChange={(x) => setInstitution(x.target.value)}
+  //               sx={{
+  //                 fontFamily: "MontserratRegular",
+  //               }}
+  //             >
+  //               <MenuItem
+  //                 value={"0"}
+  //                 key={0}
+  //                 disabled
+  //                 sx={{
+  //                   fontFamily: "MontserratRegular",
+  //                 }}
+  //               >
+  //                 Selecciona
+  //               </MenuItem>
+  //               {catalogoInstituciones.map((item) => {
+  //                 return (
+  //                   <MenuItem
+  //                     value={item.Id}
+  //                     key={item.Id}
+  //                     sx={{ fontFamily: "MontserratRegular" }}
+  //                   >
+  //                     {item.NombreInstitucion}
+  //                   </MenuItem>
+  //                 );
+  //               })}
+  //             </Select>
+  //           </FormControl>
+  //         </DialogContent>
+
+  //         <DialogActions
+  //           sx={{
+  //             display: "flex",
+  //             alignItems: "center",
+  //             justifyContent: "center",
+  //           }}
+  //         >
+  //           <Button
+  //             sx={queries.buttonCancelarSolicitudInscripcion}
+  //             color="error"
+  //             onClick={handleClose}
+  //           >
+  //             <Typography
+  //               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+  //             >
+  //               Cancelar
+  //             </Typography>
+  //           </Button>
+
+  //           <Button
+  //             sx={queries.buttonContinuarSolicitudInscripcion}
+  //             onClick={CreatePorCatalogoProgramaInstitucion}
+  //             autoFocus
+  //           >
+  //             <Typography
+  //               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+  //             >
+  //               De Acuerdo
+  //             </Typography>
+  //           </Button>
+  //         </DialogActions>
+  //       </Dialog>
+  //     </Box>
+  //   );
+  // }
+  else if (tabla === "InstitucionUnidad") {
     return (
       <Box sx={{ display: "flex" }}>
-        <IconButton onClick={handleClickOpen}>
+        {/* <IconButton onClick={handleClickOpen}>
           <AddIcon
             sx={{
               width: 50,
               height: 50,
             }}
           />
-        </IconButton>
-        <Dialog fullWidth open={open} onClose={handleClose}>
-          <Box
-            sx={{
-              width: "100%",
-              height: "5vh",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              borderBottom: 0.5,
-              borderColor: "#ccc",
-              boxShadow: 1,
-            }}
-          >
-            <Typography
-              sx={{
-                fontFamily: "MontserratSemiBold",
-                width: "90%",
-                fontSize: "1vw",
-                textAlign: "center",
-              }}
-            >
-              Vincular Programa - Institucion
-            </Typography>
-          </Box>
-          <DialogContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <FormControl
-              sx={{
-                width: "60%",
-                mt: "2vh",
-              }}
-            >
-              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-                Programas institucionales
-              </InputLabel>
-              <Select
-                value={programa}
-                label="Institución institucionales"
-                onChange={(x) => {
-                  setPrograma(x.target.value);
-                }}
-                sx={{
-                  fontFamily: "MontserratRegular",
-                }}
-              >
-                <MenuItem
-                  value={"0"}
-                  key={0}
-                  disabled
-                  sx={{
-                    fontFamily: "MontserratRegular",
-                  }}
-                >
-                  Selecciona
-                </MenuItem>
-                {catalogoProgramas.map((item) => {
-                  return (
-                    <MenuItem
-                      value={item.Id}
-                      key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
-                    >
-                      {item.NombrePrograma}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-
-            <FormControl
-              sx={{
-                width: "60%",
-                mt: "2vh",
-              }}
-            >
-              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-                Institución
-              </InputLabel>
-              <Select
-                value={institution}
-                label="Institución"
-                onChange={(x) => setInstitution(x.target.value)}
-                sx={{
-                  fontFamily: "MontserratRegular",
-                }}
-              >
-                <MenuItem
-                  value={"0"}
-                  key={0}
-                  disabled
-                  sx={{
-                    fontFamily: "MontserratRegular",
-                  }}
-                >
-                  Selecciona
-                </MenuItem>
-                {catalogoInstituciones.map((item) => {
-                  return (
-                    <MenuItem
-                      value={item.Id}
-                      key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
-                    >
-                      {item.NombreInstitucion}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </DialogContent>
-
-          <DialogActions
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
-              color="error"
-              onClick={handleClose}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-              >
-                Cancelar
-              </Typography>
-            </Button>
-
-            <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={CreatePorCatalogoProgramaInstitucion}
-              autoFocus
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-              >
-                De Acuerdo
-              </Typography>
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Box>
-    );
-  } else if (tabla === "InstitucionUnidad") {
-    return (
-      <Box sx={{ display: "flex" }}>
-        <IconButton onClick={handleClickOpen}>
-          <AddIcon
-            sx={{
-              width: 50,
-              height: 50,
-            }}
-          />
-        </IconButton>
-        
-         <Dialog fullWidth open={open} onClose={handleClose}>
+        </IconButton> */}
+        <Dialog fullWidth open={open} onClose={cerrardialog}>
           <Box
             sx={{
               width: "100%",
@@ -770,7 +795,7 @@ export const AddDialogCatalogo = ({
                       key={item.Id}
                       sx={{ fontFamily: "MontserratRegular" }}
                     >
-                      {item.NombreInstitucion}
+                      {item.Nombre}
                     </MenuItem>
                   );
                 })}
@@ -787,7 +812,7 @@ export const AddDialogCatalogo = ({
           >
             <Button
               sx={queries.buttonCancelarSolicitudInscripcion}
-              onClick={handleClose}
+              onClick={cerrardialog}
             >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
@@ -808,28 +833,28 @@ export const AddDialogCatalogo = ({
               </Typography>
             </Button>
           </DialogActions>
-        </Dialog>:
-        
+        </Dialog>
+        :
       </Box>
     );
   } else if (tabla === "PEDs") {
     return (
       <Box>
-        <IconButton onClick={handleClickOpen}>
+        {/* <IconButton onClick={handleClickOpen}>
           <AddIcon
             sx={{
               width: 50,
               height: 50,
             }}
           />
-        </IconButton>
-        <Dialog fullWidth maxWidth={"xl"} open={open} onClose={handleClose}>
+        </IconButton> */}
+        <Dialog fullWidth maxWidth={"xl"} open={open} onClose={cerrardialog}>
           <AppBar sx={{ position: "relative", backgroundColor: "#bdbdbd" }}>
             <Toolbar>
               <IconButton
                 edge="end"
                 color="inherit"
-                onClick={handleClose}
+                onClick={cerrardialog}
                 aria-label="close"
               >
                 <CloseIcon />
@@ -843,7 +868,7 @@ export const AddDialogCatalogo = ({
   } else if (tabla === "ProgramasPresupuestarios") {
     return (
       <Box sx={{ display: "flex" }}>
-        <Tooltip title="Editar">
+        {/* <Tooltip title="Editar">
           <IconButton onClick={handleClickOpen}>
             <AddIcon
               sx={{
@@ -852,8 +877,8 @@ export const AddDialogCatalogo = ({
               }}
             />
           </IconButton>
-        </Tooltip>
-        <Dialog fullWidth open={open} onClose={handleClose}>
+        </Tooltip> */}
+        <Dialog fullWidth open={open} onClose={cerrardialog}>
           <Box
             sx={{
               width: "100%",
@@ -890,10 +915,63 @@ export const AddDialogCatalogo = ({
               label={"Nombre del programa"}
               variant="outlined"
               multiline={descripcion.length < 20 ? false : true}
-              sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
+              sx={
+                descripcion.length < 20
+                  ? { width: "60%", mb: "2vh" }
+                  : { width: "80%", mb: "2vh" }
+              }
               onChange={(v) => setDescripcion(v.target.value)}
               style={{ marginTop: 1 }}
               rows={3}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
+            />
+
+            <TextField
+              label={"Conac"}
+              variant="outlined"
+              // multiline={descripcionConac.length < 2 ? false : true}
+              sx={{ width: "60%", mb: "2vh"  }}
+              value={descripcionConac}
+              onChange={handleChange}
+              style={{ marginTop: 1 }}
+              rows={1}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratLight",
+                },
+              }}
+            />
+
+            <TextField
+              label={"Consecutivo"}
+              variant="outlined"
+              // multiline={descripcionConac.length < 2 ? false : true}
+              sx={{ width: "60%" }}
+              value={descripcionConsecutivo}
+              onChange={(x)=>{
+                if (
+                  /^^[0-9]{1,3}$/.test(x.target.value) || x.target.value === '') {
+                  setDescripcionConsecutivo(x.target.value);
+                }
+              }
+                
+              }
+              style={{ marginTop: 1 }}
+              rows={1}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratRegular",
@@ -943,7 +1021,7 @@ export const AddDialogCatalogo = ({
                       key={item.Id}
                       sx={{ fontFamily: "MontserratLight" }}
                     >
-                      {item.NombreInstitucion}
+                      {item.Nombre}
                     </MenuItem>
                   );
                 })}
@@ -961,7 +1039,7 @@ export const AddDialogCatalogo = ({
             <Button
               sx={queries.buttonCancelarSolicitudInscripcion}
               color="error"
-              onClick={handleClose}
+              onClick={cerrardialog}
             >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
@@ -988,15 +1066,15 @@ export const AddDialogCatalogo = ({
   } else {
     return (
       <Box>
-        <IconButton onClick={handleClickOpen}>
+        {/* <IconButton onClick={handleClickOpen}>
           <AddIcon
             sx={{
               width: 50,
               height: 50,
             }}
           />
-        </IconButton>
-        <Dialog open={open} onClose={handleClose} fullWidth>
+        </IconButton> */}
+        <Dialog open={open} onClose={cerrardialog} fullWidth>
           <Box
             sx={{
               width: "100%",
@@ -1048,10 +1126,6 @@ export const AddDialogCatalogo = ({
                 } else {
                   setDescripcion(valor);
                 }
-
-                console.log(v.target.value);
-                console.log(valor);
-                console.log(select);
               }}
               style={{ marginTop: 1 }}
               rows={3}
@@ -1077,7 +1151,7 @@ export const AddDialogCatalogo = ({
           >
             <Button
               sx={queries.buttonCancelarSolicitudInscripcion}
-              onClick={handleClose}
+              onClick={cerrardialog}
             >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
@@ -1088,7 +1162,7 @@ export const AddDialogCatalogo = ({
 
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={CreatePorCatalogo}
+              onClick={opendialog}
               autoFocus
             >
               <Typography
