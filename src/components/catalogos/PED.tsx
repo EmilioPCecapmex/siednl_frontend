@@ -53,7 +53,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
 
   const getEje = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejes", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-eje", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -64,7 +64,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   };
   const getTematica = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tematica", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tematica", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -75,7 +75,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   };
   const getObjetivo = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivos", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivo", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -86,7 +86,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   };
   const getEstrategia = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/estrategias", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-estrategia", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -97,7 +97,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   };
   const getLineaDeAccion = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/lineasDeAccion", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-lineasDeAccion", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -108,7 +108,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   };
   const getObjetivoDS = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosDS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivoDS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -119,7 +119,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   };
   const getMetaODS = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/metasODS", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-metasODS", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -130,7 +130,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   };
   const getEjePND = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ejesPND", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ejePND", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -141,7 +141,7 @@ export const PED = ({ handleClose }: { handleClose: Function }) => {
   };
   const getObjetivoPEENL = () => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/objetivosPEENL", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivosPEENL", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
