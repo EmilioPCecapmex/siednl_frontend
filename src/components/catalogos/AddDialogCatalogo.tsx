@@ -644,14 +644,14 @@ export const AddDialogCatalogo = ({
                 >
                   Selecciona
                 </MenuItem>
-                {catalogoInstituciones.map((item) => {
+                {catalogoEntidades.map((item) => {
                   return (
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
                       sx={{ fontFamily: "MontserratRegular" }}
                     >
-                      {item.Nombre}
+                      {item.Label}
                     </MenuItem>
                   );
                 })}
@@ -808,14 +808,14 @@ export const AddDialogCatalogo = ({
                 >
                   Selecciona
                 </MenuItem>
-                {catalogoInstituciones.map((item) => {
+                {catalogoEntidades.map((item) => {
                   return (
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
                       sx={{ fontFamily: "MontserratRegular" }}
                     >
-                      {item.Nombre}
+                      {item.Label}
                     </MenuItem>
                   );
                 })}
@@ -1034,14 +1034,14 @@ export const AddDialogCatalogo = ({
                 >
                   Selecciona Institución
                 </MenuItem>
-                {catalogoInstituciones.map((item) => {
+                {catalogoEntidades.map((item) => {
                   return (
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
                       sx={{ fontFamily: "MontserratLight" }}
                     >
-                      {item.Nombre}
+                      {item.Label}
                     </MenuItem>
                   );
                 })}
