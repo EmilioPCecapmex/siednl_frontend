@@ -365,7 +365,7 @@ export const MetaAnual = () => {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -484,7 +484,7 @@ export const MetaAnual = () => {
           }}
         />
       </Grid> */}
-    <Grid
+      <Grid
         justifyContent={"center"}
         display={"flex"}
         container
@@ -542,7 +542,15 @@ export const MetaAnual = () => {
                 }}
               >
                 <InputBase
-                  sx={{ ml: 1, flex: 1 }}
+                  sx={{
+                    ml: 1,
+                    flex: 1,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    //textAlign: "center",
+                    fontSize: [10, 10, 18, 18, 18],
+                  }}
                   placeholder="Buscar"
                   value={findTextStr}
                   onChange={(e) => {
@@ -595,7 +603,15 @@ export const MetaAnual = () => {
                     fullWidth
                     variant="outlined"
                     label="FILTRO POR ESTADO DE LA MA"
-                    sx={{ fontFamily: "MontserratRegular" }}
+                    sx={{
+                      fontFamily: "MontserratRegular",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      //textAlign: "center",
+                      fontSize: [10, 10, 18, 18, 18],
+                      // Tamaños de fuente para diferentes breakpoints
+                    }}
                     value={findSelectStr}
                     onChange={(v) => {
                       // v.target.value === "Todos"
@@ -615,50 +631,59 @@ export const MetaAnual = () => {
                     ))}
                   </Select>
                 </FormControl>
-
-                <FormControl
-                  sx={{
-                    display: "flex",
-                    width: "100%",
-                    // alignItems: "center",
-                    // justifyContent: "center",
-                    // //border: 1,
-                    borderRadius: 2,
-                    borderColor: "#616161",
-                  }}
-                >
-                  <InputLabel sx={queries.text}>
-                    FILTRO POR INSTITUCION
-                  </InputLabel>
-                  <Select
-                    size="small"
-                    variant="outlined"
-                    fullWidth
-                    label="FILTRO POR INSTITUCION"
-                    sx={{ fontFamily: "MontserratRegular" }}
-                    value={findInstStr}
-                    // sx={{ fontFamily: "MontserratRegular" }}
-
-                    onChange={(v) => {
-                      setFindInstStr(v.target.value);
+                <Tooltip title={findInstStr}>
+                  <FormControl
+                    sx={{
+                      display: "flex",
+                      width: "100%",
+                      // alignItems: "center",
+                      // justifyContent: "center",
+                      // //border: 1,
+                      borderRadius: 2,
+                      borderColor: "#616161",
                     }}
                   >
-                    <MenuItem
-                      value={"Todos"}
-                      sx={{ fontFamily: "MontserratRegular" }}
-                    >
-                      TODOS
-                    </MenuItem>
+                    <InputLabel sx={queries.text}>
+                      FILTRO POR INSTITUCION
+                    </InputLabel>
 
-                    {instituciones?.map((item) => {
-                      return (
-                        <MenuItem value={item.Nombre} key={item.Id}>
-                          {item.Nombre.toUpperCase()}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
+                    <Select
+                      size="small"
+                      variant="outlined"
+                      fullWidth
+                      label="FILTRO POR INSTITUCION"
+                      sx={{
+                        fontFamily: "MontserratRegular",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        //textAlign: "center",
+                        fontSize: [10, 10, 18, 18, 18],
+                      }}
+                      value={findInstStr}
+                      // sx={{ fontFamily: "MontserratRegular" }}
+
+                      onChange={(v) => {
+                        setFindInstStr(v.target.value);
+                      }}
+                    >
+                      <MenuItem
+                        value={"Todos"}
+                        sx={{ fontFamily: "MontserratRegular" }}
+                      >
+                        TODOS
+                      </MenuItem>
+
+                      {instituciones?.map((item) => {
+                        return (
+                          <MenuItem value={item.Nombre} key={item.Id}>
+                            {item.Nombre.toUpperCase()}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Tooltip>
               </Grid>
             </Grid>
 
@@ -723,9 +748,7 @@ export const MetaAnual = () => {
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) => (
-                        <TableRow
-                        
-                        >
+                        <TableRow>
                           <TableCell
                             sx={{
                               padding: "1px 15px 1px 0",
@@ -823,133 +846,129 @@ export const MetaAnual = () => {
                             component="th"
                             scope="row"
                           >
-                          
-                              <Tooltip title="REGISTRAR META ANUAL"
+                            <Tooltip
+                              title="REGISTRAR META ANUAL"
                               // {!(row.Estado === "En Captura" &&
                               //         localStorage.getItem("Rol") ===
                               //           "Capturador"
                               //           ? false
                               //           : row.Estado === "En Revisión" &&
-                                          
+
                               //             localStorage.getItem("Rol") ===
                               //               "Verificador"
                               //           ? false
                               //           : row.Estado === "En Autorización" &&
-                                          
+
                               //             localStorage.getItem("Rol") ===
                               //               "Administrador"
                               //           ? false
                               //           : true)?"REGISTRAR META ANUAL":(validaFecha?"FECHA CAPTURA TERMINADA":"REGISTRAR META ANUAL")
                               //       }
-                                    >
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      (row.Estado === "En Captura" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Capturador") ||
-                                      (row.Estado === "En Revisión" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Verificador") ||
-                                      (row.Estado === "Borrador Verificador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Verificador") ||
-                                      (row.Estado === "En Autorización" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Administrador") ||
-                                      (row.Estado === "Borrador Autorizador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Administrador")
-                                        ? false
-                                        : true
-                                    }
-                                    sx={{
-                                      color: "#616161",
-                                      "&:hover": {
-                                        color: "blue",
+                            >
+                              <span>
+                                <IconButton
+                                  disabled={
+                                    (row.Estado === "En Captura" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Capturador") ||
+                                    (row.Estado === "En Revisión" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador") ||
+                                    (row.Estado === "Borrador Verificador" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador") ||
+                                    (row.Estado === "En Autorización" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador") ||
+                                    (row.Estado === "Borrador Autorizador" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador")
+                                      ? false
+                                      : true
+                                  }
+                                  sx={{
+                                    color: "#616161",
+                                    "&:hover": {
+                                      color: "blue",
+                                    },
+                                  }}
+                                  onClick={() => {
+                                    setMaEdit([
+                                      {
+                                        IdMa: row.IdMa,
+                                        IdMir: row.IdMir,
+                                        AnioFiscal: row.AnioFiscal,
+                                        Entidad: row.Entidad,
+                                        Programa: row.Programa,
+                                        MIR: row.MIR,
+                                        //meta anual completa
+                                        MetaAnual: row.MetaAnual,
+                                        Estado: row.Estado,
+                                        CreadoPor: row.CreadoPor,
+                                        FechaCreacion: row.FechaCreacion,
+                                        Opciones: row.Opciones,
                                       },
+                                    ]);
+                                    setShowResume(false);
+                                    setActionNumber(1);
+                                  }}
+                                >
+                                  <AddCircleOutlineIcon
+                                    sx={{
+                                      "&:hover": {
+                                        color: "lightBlue",
+                                      },
+                                      width: "1.2vw",
+                                      height: "1.2vw",
                                     }}
-                                    onClick={() => {
-                                      setMaEdit([
-                                        {
-                                          IdMa: row.IdMa,
-                                          IdMir: row.IdMir,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          MIR: row.MIR,
-                                          //meta anual completa
-                                          MetaAnual: row.MetaAnual,
-                                          Estado: row.Estado,
-                                          CreadoPor: row.CreadoPor,
-                                          FechaCreacion: row.FechaCreacion,
-                                          Opciones: row.Opciones,
-                                        },
-                                      ]);
-                                      setShowResume(false);
-                                      setActionNumber(1);
-                                    }}
-                                  >
-                                    <AddCircleOutlineIcon
-                                      sx={{
+                                  />
+                                </IconButton>
+                              </span>
+                            </Tooltip>
+
+                            <Tooltip title="DESCARGAR">
+                              <span>
+                                <IconButton
+                                  onClick={() => {
+                                    getMetaAnualDownload(
+                                      row.MIR,
+                                      row.MetaAnual,
+                                      row.Programa,
+                                      row.FechaCreacion,
+                                      row.Entidad
+                                    );
+                                  }}
+                                  disabled={
+                                    row.Estado === "Autorizada" && validaFecha
+                                      ? false
+                                      : true
+                                  }
+                                >
+                                  <DownloadIcon
+                                    sx={[
+                                      {
                                         "&:hover": {
-                                          color: "lightBlue",
+                                          color: "orange",
                                         },
                                         width: "1.2vw",
                                         height: "1.2vw",
-                                      }}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-                            
+                                      },
+                                    ]}
+                                  />
+                                </IconButton>
+                              </span>
+                            </Tooltip>
 
-                            
-                              <Tooltip title="DESCARGAR">
-                                <span>
-                                  <IconButton
-                                    onClick={() => {
-                                      getMetaAnualDownload(
-                                        row.MIR,
-                                        row.MetaAnual,
-                                        row.Programa,
-                                        row.FechaCreacion,
-                                        row.Entidad
-                                      );
-                                    }}
-                                    disabled={
-                                      row.Estado === "Autorizada" && validaFecha
-                                        ? false
-                                        : true
-                                    }
-                                  >
-                                    <DownloadIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "orange",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
-                              <ComentDialogMA
-                                estado={row.Estado}
-                                id={row.IdMir}
-                                actualizado={actualizaContador}
-                              />
-                            
-
+                            <ComentDialogMA
+                              estado={row.Estado}
+                              id={row.IdMir}
+                              actualizado={actualizaContador}
+                            />
                           </TableCell>
                         </TableRow>
                       ))}
@@ -957,19 +976,17 @@ export const MetaAnual = () => {
                 </Table>
               </TableContainer>
 
-              
-            
-            <Box sx={{ width: "100%" }}>
-              <TablePagination
-                rowsPerPageOptions={[renglonesPagina]}
-                component="div"
-                count={ma.length}
-                rowsPerPage={renglonesPagina}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Box>
+              <Box sx={{ width: "100%" }}>
+                <TablePagination
+                  rowsPerPageOptions={[renglonesPagina]}
+                  component="div"
+                  count={ma.length}
+                  rowsPerPage={renglonesPagina}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </Box>
             </Grid>
           </>
         ) : (
@@ -992,8 +1009,7 @@ export const MetaAnual = () => {
             />
           </Grid>
         )}
-    </Grid>
-
+      </Grid>
     </Grid>
   );
 };
