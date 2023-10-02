@@ -549,7 +549,7 @@ export const MetaAnual = () => {
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     //textAlign: "center",
-                    fontSize: [10, 10, 18, 18, 18],
+                    fontSize: [10, 10, 15, 18, 30],
                   }}
                   placeholder="Buscar"
                   value={findTextStr}
@@ -609,7 +609,7 @@ export const MetaAnual = () => {
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       //textAlign: "center",
-                      fontSize: [10, 10, 18, 18, 18],
+                      fontSize: [10, 10, 15, 18, 30],
                       // Tamaños de fuente para diferentes breakpoints
                     }}
                     value={findSelectStr}
@@ -658,7 +658,7 @@ export const MetaAnual = () => {
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         //textAlign: "center",
-                        fontSize: [10, 10, 18, 18, 18],
+                        fontSize: [10, 10, 15, 18, 30],
                       }}
                       value={findInstStr}
                       // sx={{ fontFamily: "MontserratRegular" }}
@@ -726,7 +726,7 @@ export const MetaAnual = () => {
                             backgroundColor: "#edeaea",
                             fontFamily: "MontserratBold",
                             borderBottom: 0,
-                            fontSize: "0.8vw",
+                            fontSize: [10, 10, 10, 15, 25],
                             // fontFamily: "MontserratRegular",
                             //   fontSize: ".7vw",
                             justifyContent: "center",
@@ -753,11 +753,11 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 25],
+                              textAlign:"center"
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
+                           
+                            
                           >
                             {row.AnioFiscal}
                           </TableCell>
@@ -765,11 +765,10 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 25],
+                              textAlign:"center"
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
+                          
                           >
                             {row.Entidad?.toUpperCase()}
                           </TableCell>
@@ -777,11 +776,10 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 25],
+                              textAlign:"center"
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
+                            
                           >
                             {row.Programa.toUpperCase()}
                           </TableCell>
@@ -789,11 +787,10 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 25],
+                              textAlign:"center"
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
+                           
                           >
                             {(row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
@@ -811,11 +808,10 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 25],
+                              textAlign:"center"
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
+                            
                           >
                             {moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
@@ -825,11 +821,10 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 25],
+                              textAlign:"center"
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
+                           
                           >
                             {row.Estado === "En Captura"
                               ? "SIN ASIGNAR"
@@ -841,10 +836,10 @@ export const MetaAnual = () => {
                               flexDirection: "row",
                               display: "grid",
                               gridTemplateColumns: "repeat(4,1fr)",
+                              fontSize: [10, 10, 10, 15, 25],
+                              textAlign:"center"
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
+                           
                           >
                             <Tooltip
                               title="REGISTRAR META ANUAL"
