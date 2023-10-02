@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {
-  Box,
+  Grid,
   Typography,
   List,
   ListItemButton,
@@ -405,7 +405,7 @@ export const TabActividadesMA = ({
 
   //return main
   return (
-    <Box
+    <Grid
       visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
@@ -435,7 +435,7 @@ export const TabActividadesMA = ({
         MIR={MIR}
         frecuencia={"trimestral"}
       />
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -463,9 +463,9 @@ export const TabActividadesMA = ({
         >
           COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
         </Typography>
-      </Box>
+      </Grid>
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -493,7 +493,7 @@ export const TabActividadesMA = ({
         >
           {componentes.map((item, index) => {
             return (
-              <Box
+              <Grid
                 key={index}
                 sx={{
                   display: "flex",
@@ -521,7 +521,7 @@ export const TabActividadesMA = ({
                   }}
                 >
                   <Typography
-                      sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
+                      sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18] }}
                   >
                     COMPONENTE {item}
                   </Typography>
@@ -553,7 +553,7 @@ export const TabActividadesMA = ({
                           >
                             <Typography
                               sx={{
-                                fontSize: "1vw",
+                                fontSize: [10, 10, 10, 13, 15, 18],
                                 fontFamily: "MontserratMedium",
                               }}
                             >
@@ -568,12 +568,12 @@ export const TabActividadesMA = ({
                 </Collapse>
 
                 <Divider />
-              </Box>
+              </Grid>
             );
           })}
         </List>
 
-        <Box
+        <Grid
           sx={{
             // display: "grid",
             // gridTemplateColumns: "1fr 1fr 1fr",
@@ -584,7 +584,7 @@ export const TabActividadesMA = ({
             justifyContent: "center",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
               width: "100%",
@@ -606,7 +606,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   META ANUAL 2023
                 </Typography>
@@ -679,7 +679,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   LÍNEA BASE 2021
                 </Typography>
@@ -768,7 +768,7 @@ export const TabActividadesMA = ({
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     ÍNDICE
                   </Typography>
@@ -799,7 +799,7 @@ export const TabActividadesMA = ({
                 }
               />
             ) : (
-              <Box sx={{ width: "45%" }}>
+              <Grid sx={{ width: "45%" }}>
                 <TextField
                   disabled={
                     (MAEdit !== ""
@@ -813,7 +813,7 @@ export const TabActividadesMA = ({
                   variant={"filled"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                     >
                       VALOR DEL NUMERADOR
                     </Typography>
@@ -856,7 +856,7 @@ export const TabActividadesMA = ({
                   variant={"filled"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                     >
                       VALOR DEL DENOMINADOR
                     </Typography>
@@ -886,7 +886,7 @@ export const TabActividadesMA = ({
                     ]?.valorDenominador || ""
                   }
                 />
-              </Box>
+              </Grid>
             )}
 
             <FormControl
@@ -911,7 +911,7 @@ export const TabActividadesMA = ({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.6vw",
+                  fontSize: [10, 10, 10, 11, 12, 13]
                 }}
               >
                 SENTIDO DEL INDICADOR
@@ -920,7 +920,7 @@ export const TabActividadesMA = ({
                 value={"ASCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                   >
                     ASCENDENTE
                   </Typography>
@@ -949,7 +949,7 @@ export const TabActividadesMA = ({
                 value={"DESCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                   >
                     DESCENDENTE
                   </Typography>
@@ -975,7 +975,7 @@ export const TabActividadesMA = ({
                 value={"NORMAL"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                   >
                     NORMAL
                   </Typography>
@@ -998,8 +998,8 @@ export const TabActividadesMA = ({
                 }
               />
             </FormControl>
-          </Box>
-          <Box
+          </Grid>
+          <Grid
             sx={{
               display: "flex",
               width: "100%",
@@ -1030,7 +1030,7 @@ export const TabActividadesMA = ({
               }
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   TRIMESTRE 1
                 </Typography>
@@ -1072,7 +1072,7 @@ export const TabActividadesMA = ({
               }
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   TRIMESTRE 2
                 </Typography>
@@ -1114,7 +1114,7 @@ export const TabActividadesMA = ({
               }
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   TRIMESTRE 3
                 </Typography>
@@ -1156,7 +1156,7 @@ export const TabActividadesMA = ({
               }
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   TRIMESTRE 4
                 </Typography>
@@ -1177,9 +1177,9 @@ export const TabActividadesMA = ({
                 },
               }}
             />
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               width: "100%",
@@ -1188,7 +1188,7 @@ export const TabActividadesMA = ({
               justifyContent: "space-evenly",
             }}
           >
-            {/* <Box
+            {/* <Grid
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -1266,9 +1266,9 @@ export const TabActividadesMA = ({
                   }
                 />
               </FormControl>{" "}
-            </Box> */}
+            </Grid> */}
 
-<Box
+<Grid
                 sx={{
                   display: "flex",
                   justifyContent: "center",
@@ -1346,7 +1346,7 @@ export const TabActividadesMA = ({
                     }
                   />
                 </FormControl>{" "}
-              </Box>
+              </Grid>
 
 
 
@@ -1366,7 +1366,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL INDICADOR
                 </Typography>
@@ -1397,8 +1397,8 @@ export const TabActividadesMA = ({
                 },
               }}
             />
-          </Box>
-          <Box
+          </Grid>
+          <Grid
             sx={{
               display: "flex",
               width: "100%",
@@ -1422,7 +1422,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL NUMERADOR
                 </Typography>
@@ -1468,7 +1468,7 @@ export const TabActividadesMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL DENOMINADOR
                 </Typography>
@@ -1499,9 +1499,9 @@ export const TabActividadesMA = ({
                 },
               }}
             />
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   TextField,
-  Box,
+  Grid,
   Typography,
   List,
   ListItemButton,
@@ -232,11 +232,33 @@ export function TabFinPropositoMA({
     getUnidades();
   }, []);
 
+  const style = {
+    fontFamily: "MontserratSemiBold",
+    fontSize: "14px", // Tamaño de fuente predeterminado
+  
+    // Media queries definidas como objetos separados y combinadas con merge
+    "@media (max-width: 600px)": {
+      fontSize: 12, // Tamaño de fuente para pantallas pequeñas
+    },
+    "@media (min-width: 601px) and (max-width: 960px)": {
+      fontSize: 16, // Tamaño de fuente para pantallas medianas
+    },
+    "@media (min-width: 961px) and (max-width: 1280px)": {
+      fontSize: 18, // Tamaño de fuente para pantallas más grandes
+    },
+    "@media (min-width: 1281px)": {
+      fontSize: 20, // Tamaño de fuente para pantallas muy grandes
+    },
+    "@media (min-width: 2200px)": {
+      fontSize: 24, // Tamaño de fuente para pantallas extremadamente grandes
+    },
+  };
+
   return (
-    <Box
+    <Grid
       visibility={show ? "visible" : "hidden"}
-      position="absolute"
-      
+      //position="absolute"
+
       sx={{
         display: "flex",
         width: "93vw",
@@ -256,7 +278,7 @@ export function TabFinPropositoMA({
         MIR={MIR}
       />
       {showFin || showProposito ? (
-        <Box
+        <Grid
           sx={{
             width: "100%",
             display: "flex",
@@ -285,9 +307,9 @@ export function TabFinPropositoMA({
             {showFin ? "FIN" : null}
             {showProposito ? "PROPÓSITO" : null}
           </Typography>
-        </Box>
+        </Grid>
       ) : (
-        <Box
+        <Grid
           sx={{
             width: "100%",
             display: "flex",
@@ -295,10 +317,10 @@ export function TabFinPropositoMA({
             justifyContent: "flex-end",
             alignItems: "center",
           }}
-        ></Box>
+        ></Grid>
       )}
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -324,7 +346,7 @@ export function TabFinPropositoMA({
             },
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -349,15 +371,15 @@ export function TabFinPropositoMA({
               }}
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
+                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18] }}
               >
                 FIN
               </Typography>
             </ListItemButton>
             <Divider />
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -381,17 +403,17 @@ export function TabFinPropositoMA({
               }}
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18] }}
               >
                 PROPÓSITO
               </Typography>
             </ListItemButton>
             <Divider />
-          </Box>
+          </Grid>
         </List>
 
         {showFin ? (
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -400,7 +422,7 @@ export function TabFinPropositoMA({
               justifyContent: "center",
             }}
           >
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 width: "100%",
@@ -413,11 +435,18 @@ export function TabFinPropositoMA({
                 disabled={
                   MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== ""
                 }
-                sx={{ width: "18%", boxShadow: 2 }}
+                sx={{
+                 // width: "18%",
+                  boxShadow: 2,
+                  fontSize: [10, 10, 10, 15, 15, 18],
+                }}
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                      fontFamily: "MontserratMedium",
+                    }}
                   >
                     META ANUAL 2023
                   </Typography>
@@ -432,7 +461,11 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() => MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== "" ? "" : handleClickOpen()}
+                onClick={() =>
+                  MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== ""
+                    ? ""
+                    : handleClickOpen()
+                }
                 value={valueFin[0]?.metaAnual || ""}
                 error={parseFloat(valueFin[0]?.metaAnual) < 0 ? true : false}
                 helperText={
@@ -445,11 +478,18 @@ export function TabFinPropositoMA({
                 disabled={
                   MAEdit?.fin?.lineaBase && valueFin[0].lineaBase !== ""
                 }
-                sx={{ width: "18%", boxShadow: 2 }}
+                sx={{
+                  //width: "18%",
+                  boxShadow: 2,
+                  fontSize: [10, 10, 10, 15, 15, 18],
+                }}
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                      fontFamily: "MontserratMedium",
+                    }}
                   >
                     LÍNEA BASE 2021
                   </Typography>
@@ -494,11 +534,11 @@ export function TabFinPropositoMA({
                     MAEdit?.fin?.valorNumerador &&
                     valueFin[0].valorNumerador !== ""
                   }
-                  sx={{ width: "18%", boxShadow: 2 }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], boxShadow: 2 }}
                   variant={"filled"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                     >
                       ÍNDICE
                     </Typography>
@@ -513,22 +553,27 @@ export function TabFinPropositoMA({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  onClick={() => MAEdit?.fin?.valorNumerador && valueFin[0].valorNumerador !== "" ? "" : handleClickOpen()}
+                  onClick={() =>
+                    MAEdit?.fin?.valorNumerador &&
+                    valueFin[0].valorNumerador !== ""
+                      ? ""
+                      : handleClickOpen()
+                  }
                   value={valueFin[0]?.valorNumerador || ""}
                 />
               ) : (
-                <Box sx={{ width: "45%" }}>
+                <Grid sx={{ width: "45%" }}>
                   <TextField
                     disabled={
                       MAEdit?.fin?.valorNumerador &&
                       valueFin[0].valorNumerador !== ""
                     }
-                    sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
+                    sx={{ width: "45%", boxShadow: 2, mr: "2%",fontSize: [10, 10, 10, 15, 15, 18], }}
                     variant={"filled"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [10, 10, 10, 15, 15, 18],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -545,7 +590,12 @@ export function TabFinPropositoMA({
                         fontFamily: "MontserratRegular",
                       },
                     }}
-                    onClick={() => MAEdit?.fin?.valorNumerador && valueFin[0].valorNumerador !== "" ? "" : handleClickOpen()}
+                    onClick={() =>
+                      MAEdit?.fin?.valorNumerador &&
+                      valueFin[0].valorNumerador !== ""
+                        ? ""
+                        : handleClickOpen()
+                    }
                     value={valueFin[0]?.valorNumerador || ""}
                   />
                   <TextField
@@ -553,12 +603,12 @@ export function TabFinPropositoMA({
                       MAEdit?.fin?.valorDenominador &&
                       valueFin[0].valorDenominador !== ""
                     }
-                    sx={{ width: "45%", boxShadow: 2 }}
+                    sx={{ width: "45%", boxShadow: 2,fontSize: [10, 10, 10, 15, 15, 18], }}
                     variant={"filled"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [10, 10, 10, 15, 15, 18],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -575,10 +625,15 @@ export function TabFinPropositoMA({
                         fontFamily: "MontserratRegular",
                       },
                     }}
-                    onClick={() => MAEdit?.fin?.valorDenominador && valueFin[0].valorDenominador !== "" ? "" : handleClickOpen()}
+                    onClick={() =>
+                      MAEdit?.fin?.valorDenominador &&
+                      valueFin[0].valorDenominador !== ""
+                        ? ""
+                        : handleClickOpen()
+                    }
                     value={valueFin[0]?.valorDenominador || ""}
                   />
-                </Box>
+                </Grid>
               )}
 
               <FormControl
@@ -599,8 +654,7 @@ export function TabFinPropositoMA({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
-                    
+                    fontSize: [10, 10, 10, 11, 12, 13],
                   }}
                 >
                   SENTIDO DEL INDICADOR
@@ -609,7 +663,7 @@ export function TabFinPropositoMA({
                   value={"ASCENDENTE"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                     >
                       ASCENDENTE
                     </Typography>
@@ -633,7 +687,7 @@ export function TabFinPropositoMA({
                   value={"DESCENDENTE"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                      sx={{  fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                     >
                       DESCENDENTE
                     </Typography>
@@ -654,7 +708,7 @@ export function TabFinPropositoMA({
                   value={"NORMAL"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                      sx={{  fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                     >
                       NORMAL
                     </Typography>
@@ -670,9 +724,9 @@ export function TabFinPropositoMA({
                   }
                 />
               </FormControl>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 width: "100%",
@@ -681,7 +735,7 @@ export function TabFinPropositoMA({
                 justifyContent: "space-evenly",
               }}
             >
-              <Box
+              <Grid
                 sx={{
                   display: "flex",
                   justifyContent: "center",
@@ -692,12 +746,12 @@ export function TabFinPropositoMA({
                   backgroundColor: "#f0f0f0",
                 }}
               >
-                <FormControl sx={{ width: "25vw" }}>
+                <FormControl sx={{ width: "25vw",  }}>
                   <Autocomplete
-                  clearText="Borrar"
-                  noOptionsText="Sin opciones"
-                  closeText="Cerrar"
-                  openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disabled={
                       MAEdit?.fin?.unidadResponsable &&
                       valueFin[0].unidadResponsable !== ""
@@ -734,9 +788,8 @@ export function TabFinPropositoMA({
                           },
                         }}
                         sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
+                          fontFamily: "MontserratRegular",
+                          fontSize: [10, 10, 10, 13, 15, 18]
                         }}
                       ></TextField>
                     )}
@@ -750,7 +803,7 @@ export function TabFinPropositoMA({
                     }
                   />
                 </FormControl>{" "}
-              </Box>
+              </Grid>
 
               <TextField
                 disabled={
@@ -762,7 +815,7 @@ export function TabFinPropositoMA({
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     DESCRIPCIÓN DEL INDICADOR
                   </Typography>
@@ -786,8 +839,8 @@ export function TabFinPropositoMA({
                 }}
                 value={valueFin[0]?.descIndicador || ""}
               />
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 width: "100%",
@@ -806,7 +859,7 @@ export function TabFinPropositoMA({
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     DESCRIPCIÓN DEL NUMERADOR
                   </Typography>
@@ -841,7 +894,7 @@ export function TabFinPropositoMA({
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     DESCRIPCIÓN DEL DENOMINADOR
                   </Typography>
@@ -865,12 +918,12 @@ export function TabFinPropositoMA({
                 }}
                 value={valueFin[0]?.descDenominador || ""}
               />
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
         ) : null}
 
         {showProposito ? (
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -879,7 +932,7 @@ export function TabFinPropositoMA({
               justifyContent: "center",
             }}
           >
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 width: "100%",
@@ -890,13 +943,14 @@ export function TabFinPropositoMA({
             >
               <TextField
                 disabled={
-                  MAEdit?.proposito?.metaAnual && valueProposito[0].metaAnual !== ""
+                  MAEdit?.proposito?.metaAnual &&
+                  valueProposito[0].metaAnual !== ""
                 }
-                sx={{ width: "18%", boxShadow: 2 }}
+                sx={{  boxShadow: 2 }}
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     META ANUAL 2023
                   </Typography>
@@ -911,7 +965,12 @@ export function TabFinPropositoMA({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() => MAEdit?.proposito?.metaAnual && valueProposito[0].metaAnual !== "" ? "" : handleClickOpen()}
+                onClick={() =>
+                  MAEdit?.proposito?.metaAnual &&
+                  valueProposito[0].metaAnual !== ""
+                    ? ""
+                    : handleClickOpen()
+                }
                 value={valueProposito[0]?.metaAnual || ""}
                 error={
                   parseFloat(valueProposito[0]?.metaAnual) < 0 ? true : false
@@ -924,13 +983,14 @@ export function TabFinPropositoMA({
               />
               <TextField
                 disabled={
-                  MAEdit?.proposito?.lineaBase && valueProposito[0].lineaBase !== ""
+                  MAEdit?.proposito?.lineaBase &&
+                  valueProposito[0].lineaBase !== ""
                 }
-                sx={{ width: "18%", boxShadow: 2 }}
+                sx={{ fontSize: [10, 10, 10, 13, 15, 18], boxShadow: 2 }}
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     LÍNEA BASE 2021
                   </Typography>
@@ -980,11 +1040,11 @@ export function TabFinPropositoMA({
                     MAEdit?.proposito?.valorNumerador &&
                     valueProposito[0].valorNumerador !== ""
                   }
-                  sx={{ width: "18%", boxShadow: 2 }}
+                  sx={{  boxShadow: 2 }}
                   variant={"filled"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                     >
                       ÍNDICE
                     </Typography>
@@ -999,22 +1059,27 @@ export function TabFinPropositoMA({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  onClick={() => MAEdit?.proposito?.valorNumerador && valueProposito[0].valorNumerador !== "" ? "" : handleClickOpen()}
+                  onClick={() =>
+                    MAEdit?.proposito?.valorNumerador &&
+                    valueProposito[0].valorNumerador !== ""
+                      ? ""
+                      : handleClickOpen()
+                  }
                   value={valueProposito[0]?.valorNumerador || ""}
                 />
               ) : (
-                <Box sx={{ width: "45%" }}>
+                <Grid sx={{ width: "45%" }}>
                   <TextField
                     disabled={
                       MAEdit?.proposito?.valorNumerador &&
                       valueProposito[0].valorNumerador !== ""
                     }
-                    sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], width: "45%", boxShadow: 2, mr: "2%" }}
                     variant={"filled"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [10, 10, 10, 13, 15, 18],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -1031,7 +1096,12 @@ export function TabFinPropositoMA({
                         fontFamily: "MontserratRegular",
                       },
                     }}
-                    onClick={() => MAEdit?.proposito?.valorNumerador && valueProposito[0].valorNumerador !== "" ? "" : handleClickOpen()}
+                    onClick={() =>
+                      MAEdit?.proposito?.valorNumerador &&
+                      valueProposito[0].valorNumerador !== ""
+                        ? ""
+                        : handleClickOpen()
+                    }
                     value={valueProposito[0]?.valorNumerador || ""}
                   />
                   <TextField
@@ -1039,12 +1109,12 @@ export function TabFinPropositoMA({
                       MAEdit?.proposito?.valorDenominador &&
                       valueProposito[0].valorDenominador !== ""
                     }
-                    sx={{ width: "45%", boxShadow: 2 }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], boxShadow: 2 }}
                     variant={"filled"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [10, 10, 10, 13, 15, 18],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -1061,10 +1131,15 @@ export function TabFinPropositoMA({
                         fontFamily: "MontserratRegular",
                       },
                     }}
-                    onClick={() => MAEdit?.proposito?.valorDenominador && valueProposito[0].valorDenominador !== "" ? "" : handleClickOpen()}
+                    onClick={() =>
+                      MAEdit?.proposito?.valorDenominador &&
+                      valueProposito[0].valorDenominador !== ""
+                        ? ""
+                        : handleClickOpen()
+                    }
                     value={valueProposito[0]?.valorDenominador || ""}
                   />
-                </Box>
+                </Grid>
               )}
 
               <FormControl
@@ -1085,7 +1160,7 @@ export function TabFinPropositoMA({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.6vw",
+                    fontSize: [10, 10, 10, 11, 12, 13]
                   }}
                 >
                   SENTIDO DEL INDICADOR
@@ -1094,7 +1169,7 @@ export function TabFinPropositoMA({
                   value={"ASCENDENTE"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                     >
                       ASCENDENTE
                     </Typography>
@@ -1118,7 +1193,7 @@ export function TabFinPropositoMA({
                   value={"DESCENDENTE"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                     >
                       DESCENDENTE
                     </Typography>
@@ -1139,7 +1214,7 @@ export function TabFinPropositoMA({
                   value={"NORMAL"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                     >
                       NORMAL
                     </Typography>
@@ -1157,9 +1232,9 @@ export function TabFinPropositoMA({
                   }
                 />
               </FormControl>
-            </Box>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 width: "100%",
@@ -1168,7 +1243,7 @@ export function TabFinPropositoMA({
                 justifyContent: "space-evenly",
               }}
             >
-              {/* <Box
+              {/* <Grid
                 sx={{
                   display: "flex",
                   justifyContent: "center",
@@ -1243,8 +1318,8 @@ export function TabFinPropositoMA({
                     }
                   />
                 </FormControl>
-              </Box> */}
-              <Box
+              </Grid> */}
+              <Grid
                 sx={{
                   display: "flex",
                   justifyContent: "center",
@@ -1255,12 +1330,12 @@ export function TabFinPropositoMA({
                   backgroundColor: "#f0f0f0",
                 }}
               >
-                <FormControl sx={{ width: "25vw" }}>
+                <FormControl sx={{ width: "25vw", fontSize: [10, 10, 10, 13, 15, 18] }}>
                   <Autocomplete
-                  clearText="Borrar"
-                  noOptionsText="Sin opciones"
-                  closeText="Cerrar"
-                  openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     disabled={
                       MAEdit?.fin?.unidadResponsable &&
                       valueProposito[0].unidadResponsable !== ""
@@ -1293,16 +1368,19 @@ export function TabFinPropositoMA({
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
+                            fontSize: ".9vw",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
                             fontFamily: "MontserratRegular",
+                            fontSize: [10, 10, 10, 13, 15, 18]
                           },
+                          
                         }}
                       ></TextField>
                     )}
+                    style={style}
                     onChange={(event, value) => {
                       valueProposito[0].unidadResponsable =
                         (value?.Nombre as string) || "";
@@ -1313,11 +1391,12 @@ export function TabFinPropositoMA({
                     }
                   />
                 </FormControl>{" "}
-              </Box>
+              </Grid>
 
               <TextField
                 disabled={
-                  MAEdit?.proposito?.descIndicador && valueProposito[0].descIndicador !== ""
+                  MAEdit?.proposito?.descIndicador &&
+                  valueProposito[0].descIndicador !== ""
                 }
                 rows={5}
                 multiline
@@ -1325,7 +1404,7 @@ export function TabFinPropositoMA({
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     DESCRIPCIÓN DEL INDICADOR
                   </Typography>
@@ -1349,8 +1428,8 @@ export function TabFinPropositoMA({
                 }}
                 value={valueProposito[0]?.descIndicador || ""}
               />
-            </Box>
-            <Box
+            </Grid>
+            <Grid
               sx={{
                 display: "flex",
                 width: "100%",
@@ -1361,7 +1440,8 @@ export function TabFinPropositoMA({
             >
               <TextField
                 disabled={
-                  MAEdit?.proposito?.descNumerador && valueProposito[0].descNumerador !== ""
+                  MAEdit?.proposito?.descNumerador &&
+                  valueProposito[0].descNumerador !== ""
                 }
                 rows={5}
                 multiline
@@ -1369,7 +1449,7 @@ export function TabFinPropositoMA({
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     DESCRIPCIÓN DEL NUMERADOR
                   </Typography>
@@ -1404,7 +1484,7 @@ export function TabFinPropositoMA({
                 variant={"filled"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     DESCRIPCIÓN DEL DENOMINADOR
                   </Typography>
@@ -1428,11 +1508,11 @@ export function TabFinPropositoMA({
                 }}
                 value={valueProposito[0]?.descDenominador || ""}
               />
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
         ) : null}
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
 

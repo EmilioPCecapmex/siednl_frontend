@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {
-  Box,
+  Grid,
   Typography,
   TextField,
   Divider,
@@ -306,7 +306,7 @@ export const TabComponenteMA = ({
   }, []);
 
   return (
-    <Box
+    <Grid
       visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
@@ -337,7 +337,7 @@ export const TabComponenteMA = ({
         MIR={MIR}
         frecuencia={frecuencia}
       />
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -365,9 +365,9 @@ export const TabComponenteMA = ({
         >
           COMPONENTE {componentSelect}
         </Typography>
-      </Box>
+      </Grid>
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -395,7 +395,7 @@ export const TabComponenteMA = ({
         >
           {noComponentes.map((item) => {
             return (
-              <Box
+              <Grid
                 key={item}
                 sx={{
                   display: "flex",
@@ -421,19 +421,19 @@ export const TabComponenteMA = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
+                    sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18] }}
                   >
                     COMPONENTE {item}
                   </Typography>
                 </ListItemButton>
 
                 <Divider />
-              </Box>
+              </Grid>
             );
           })}
         </List>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -442,7 +442,7 @@ export const TabComponenteMA = ({
             justifyContent: "center",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
               width: "100%",
@@ -462,7 +462,7 @@ export const TabComponenteMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{  fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   META ANUAL 2023
                 </Typography>
@@ -523,7 +523,7 @@ export const TabComponenteMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{  fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   LÍNEA BASE 2021
                 </Typography>
@@ -589,8 +589,10 @@ export const TabComponenteMA = ({
                 sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
+                  // fontSize: [10, 10, 10, 15, 15, 18]
+                  //fontSize: [10, 10, 10, 11, 12, 13]
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{  fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     ÍNDICE
                   </Typography>
@@ -615,7 +617,7 @@ export const TabComponenteMA = ({
                 }
               />
             ) : (
-              <Box sx={{ width: "45%" }}>
+              <Grid sx={{ width: "45%" }}>
                 <TextField
                   disabled={
                     (MAEdit !== ""
@@ -628,7 +630,7 @@ export const TabComponenteMA = ({
                   variant={"filled"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                     >
                       VALOR DEL NUMERADOR
                     </Typography>
@@ -665,7 +667,7 @@ export const TabComponenteMA = ({
                   variant={"filled"}
                   label={
                     <Typography
-                      sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                      sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                     >
                       VALOR DEL DENOMINADOR
                     </Typography>
@@ -690,7 +692,7 @@ export const TabComponenteMA = ({
                     ""
                   }
                 />
-              </Box>
+              </Grid>
             )}
             <FormControl
               disabled={
@@ -713,7 +715,7 @@ export const TabComponenteMA = ({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.6vw",
+                  fontSize: [10, 10, 10, 11, 12, 13]
                 }}
               >
                 SENTIDO DEL INDICADOR
@@ -722,7 +724,7 @@ export const TabComponenteMA = ({
                 value={"ASCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                   >
                     ASCENDENTE
                   </Typography>
@@ -749,7 +751,7 @@ export const TabComponenteMA = ({
                 value={"DESCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                   >
                     DESCENDENTE
                   </Typography>
@@ -773,7 +775,7 @@ export const TabComponenteMA = ({
                 value={"NORMAL"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.6vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
                   >
                     NORMAL
                   </Typography>
@@ -794,12 +796,12 @@ export const TabComponenteMA = ({
                 }
               />
             </FormControl>
-          </Box>
+          </Grid>
 
           {JSON.parse(MIR).componentes[
             componentSelect - 1
           ].frecuencia?.toLowerCase() === "trimestral" ? (
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 width: "100%",
@@ -826,7 +828,7 @@ export const TabComponenteMA = ({
                 }
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     TRIMESTRE 1
                   </Typography>
@@ -864,7 +866,7 @@ export const TabComponenteMA = ({
                 }
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     TRIMESTRE 2
                   </Typography>
@@ -901,7 +903,7 @@ export const TabComponenteMA = ({
                 }
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     TRIMESTRE 3
                   </Typography>
@@ -938,7 +940,7 @@ export const TabComponenteMA = ({
                 }
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     TRIMESTRE 4
                   </Typography>
@@ -958,9 +960,9 @@ export const TabComponenteMA = ({
                   },
                 }}
               />
-            </Box>
+            </Grid>
           ) : (
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 width: "100%",
@@ -987,7 +989,7 @@ export const TabComponenteMA = ({
                 }
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     SEMESTRE 1
                   </Typography>
@@ -1024,7 +1026,7 @@ export const TabComponenteMA = ({
                 }
                 label={
                   <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                   >
                     SEMESTRE 2
                   </Typography>
@@ -1044,10 +1046,10 @@ export const TabComponenteMA = ({
                   },
                 }}
               />
-            </Box>
+            </Grid>
           )}
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               width: "100%",
@@ -1056,7 +1058,7 @@ export const TabComponenteMA = ({
               justifyContent: "space-evenly",
             }}
           >
-            {/* <Box
+            {/* <Grid
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -1130,9 +1132,9 @@ export const TabComponenteMA = ({
                   }
                 />
               </FormControl>{" "}
-            </Box> */}
+            </Grid> */}
 
-<Box
+<Grid
                 sx={{
                   display: "flex",
                   justifyContent: "center",
@@ -1205,7 +1207,7 @@ export const TabComponenteMA = ({
                     }
                   />
                 </FormControl>{" "}
-              </Box>
+              </Grid>
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -1219,7 +1221,7 @@ export const TabComponenteMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL INDICADOR
                 </Typography>
@@ -1246,8 +1248,8 @@ export const TabComponenteMA = ({
                 },
               }}
             />
-          </Box>
-          <Box
+          </Grid>
+          <Grid
             sx={{
               display: "flex",
               width: "100%",
@@ -1269,7 +1271,7 @@ export const TabComponenteMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL NUMERADOR
                 </Typography>
@@ -1309,7 +1311,7 @@ export const TabComponenteMA = ({
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
+                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
                 >
                   DESCRIPCIÓN DEL DENOMINADOR
                 </Typography>
@@ -1336,9 +1338,9 @@ export const TabComponenteMA = ({
                 },
               }}
             />
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };

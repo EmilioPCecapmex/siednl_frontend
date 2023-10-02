@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -652,8 +652,8 @@ export default function ModalSolicitaModif({
         Solicitud de modificación
       </DialogTitle>
 
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Box
+      <Grid sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid
           sx={{
             backgroundColor: "#BBBABA",
             width: "60vw",
@@ -662,7 +662,7 @@ export default function ModalSolicitaModif({
             justifyContent: "center",
           }}
         />
-      </Box>
+      </Grid>
 
       <DialogContent
         sx={{
@@ -670,7 +670,7 @@ export default function ModalSolicitaModif({
           flexDirection: "column",
         }}
       >
-        <Box
+        <Grid
           sx={{
             width: "100%",
             display: "flex",
@@ -720,9 +720,9 @@ export default function ModalSolicitaModif({
               })}
             </Select>
           </FormControl>{" "}
-        </Box>
+        </Grid>
 
-        <Box sx={{ width: "100%", mb: 2 }}>
+        <Grid sx={{ width: "100%", mb: 2 }}>
           <TextField
             multiline
             rows={2}
@@ -730,9 +730,9 @@ export default function ModalSolicitaModif({
             sx={{ width: "100%" }}
             onChange={(v) => setComment(v.target.value)}
           ></TextField>
-        </Box>
+        </Grid>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -740,7 +740,7 @@ export default function ModalSolicitaModif({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
               alignItems: "flex-end",
@@ -781,8 +781,8 @@ export default function ModalSolicitaModif({
               </Typography>
             </Button>
 
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );

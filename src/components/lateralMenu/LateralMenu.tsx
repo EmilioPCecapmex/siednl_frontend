@@ -395,7 +395,7 @@ export const LateralMenu = ({
               </IconButton>
             </Tooltip>
           </Grid>
-          <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
+          <Grid sx={{ height: "8vh" }}>
             <Header
               details={{
                 name1: "INICIO",

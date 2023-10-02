@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import { useEffect, useState } from "react";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -168,7 +168,7 @@ export function TabResumenMIR({
           heigth: "100%",
         }}
       >
-        <Box
+        <Grid
           sx={{
             width: "90%",
             border: 0.1,
@@ -187,13 +187,13 @@ export function TabResumenMIR({
             },
           }}
         >
-          <Box sx={{ p: 5, display: "flex", flexDirection: "column" }}>
+          <Grid sx={{ p: 5, display: "flex", flexDirection: "column" }}>
             <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1 }}>
               Datos Generales
             </Typography>
 
-            <Box sx={{ display: "flex" }}>
-              <Box
+            <Grid sx={{ display: "flex" }}>
+              <Grid
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -216,9 +216,9 @@ export function TabResumenMIR({
                     ? ""
                     : encabezado?.ejercicioFiscal}
                 </Typography>
-              </Box>
+              </Grid>
 
-              <Box
+              <Grid
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -241,10 +241,10 @@ export function TabResumenMIR({
                     ? ""
                     : encabezado?.institucion}
                 </Typography>
-              </Box>
-            </Box>
-            <Box sx={{ display: "flex" }}>
-              <Box
+              </Grid>
+            </Grid>
+            <Grid sx={{ display: "flex" }}>
+              <Grid
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -267,9 +267,9 @@ export function TabResumenMIR({
                     ? ""
                     : encabezado?.nombre_del_programa}
                 </Typography>
-              </Box>
+              </Grid>
 
-              <Box
+              <Grid
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -290,11 +290,11 @@ export function TabResumenMIR({
                 >
                   {encabezado?.eje === "Selecciona" ? "" : encabezado?.eje}
                 </Typography>
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
 
-            <Box sx={{ display: "flex" }}>
-              <Box
+            <Grid sx={{ display: "flex" }}>
+              <Grid
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -315,9 +315,9 @@ export function TabResumenMIR({
                 >
                   {encabezado?.tema === "Selecciona" ? "" : encabezado?.tema}
                 </Typography>
-              </Box>
+              </Grid>
 
-              <Box
+              <Grid
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -340,11 +340,11 @@ export function TabResumenMIR({
                     ? ""
                     : encabezado?.objetivo}
                 </Typography>
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
 
-            <Box sx={{ display: "flex" }}>
-              <Box
+            <Grid sx={{ display: "flex" }}>
+              <Grid
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -367,9 +367,9 @@ export function TabResumenMIR({
                     ? ""
                     : encabezado?.estrategia}
                 </Typography>
-              </Box>
+              </Grid>
 
-              <Box
+              <Grid
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -392,10 +392,10 @@ export function TabResumenMIR({
                     ? ""
                     : encabezado?.beneficiario}
                 </Typography>
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
 
-            <Box
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -409,7 +409,7 @@ export function TabResumenMIR({
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
                 Lineas de Acción:
               </Typography>
-              <Box>
+              <Grid>
                 {encabezado?.lineas_de_accion.map(
                   (value: { Id: string; LineaDeAccion: string }, x: any) => {
                     return (
@@ -429,17 +429,17 @@ export function TabResumenMIR({
                     );
                   }
                 )}
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
 
             {showSt === "Fin" ? (
-              <Box>
+              <Grid>
                 <Typography
                   sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
                 >
                   Fin
                 </Typography>
-                <Box
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -460,8 +460,8 @@ export function TabResumenMIR({
                   >
                     {fin?.resumen}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -482,8 +482,8 @@ export function TabResumenMIR({
                   >
                     {fin?.indicador}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -504,8 +504,8 @@ export function TabResumenMIR({
                   >
                     {fin?.formula}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -526,8 +526,8 @@ export function TabResumenMIR({
                   >
                     {fin?.frecuencia}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -548,8 +548,8 @@ export function TabResumenMIR({
                   >
                     {fin?.medios}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -570,16 +570,16 @@ export function TabResumenMIR({
                   >
                     {fin?.supuestos}
                   </Typography>
-                </Box>
-              </Box>
+                </Grid>
+              </Grid>
             ) : showSt === "Proposito" ? (
-              <Box>
+              <Grid>
                 <Typography
                   sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
                 >
                   Propósito
                 </Typography>
-                <Box
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -600,8 +600,8 @@ export function TabResumenMIR({
                   >
                     {proposito?.resumen}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -622,8 +622,8 @@ export function TabResumenMIR({
                   >
                     {proposito?.indicador}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -644,8 +644,8 @@ export function TabResumenMIR({
                   >
                     {proposito?.formula}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -666,8 +666,8 @@ export function TabResumenMIR({
                   >
                     {proposito?.frecuencia}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -688,8 +688,8 @@ export function TabResumenMIR({
                   >
                     {proposito?.medios_verificacion}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+                <Grid
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -710,10 +710,10 @@ export function TabResumenMIR({
                   >
                     {proposito?.supuestos}
                   </Typography>
-                </Box>
-              </Box>
+                </Grid>
+              </Grid>
             ) : showSt === "Componentes" ? (
-              <Box>
+              <Grid>
                 <Typography
                   sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
                 >
@@ -722,7 +722,7 @@ export function TabResumenMIR({
 
                 {noComponentes.map((index) => {
                   return (
-                    <Box key={index}>
+                    <Grid key={index}>
                       <Typography
                         sx={{
                           fontFamily: "MontserratMedium",
@@ -733,7 +733,7 @@ export function TabResumenMIR({
                       >
                         Componente {index}
                       </Typography>
-                      <Box
+                      <Grid
                         sx={{
                           display: "flex",
                           flexDirection: "row",
@@ -754,8 +754,8 @@ export function TabResumenMIR({
                         >
                           {Componentes[index - 1]?.resumen}
                         </Typography>
-                      </Box>
-                      <Box
+                      </Grid>
+                      <Grid
                         sx={{
                           display: "flex",
                           flexDirection: "row",
@@ -776,8 +776,8 @@ export function TabResumenMIR({
                         >
                           {Componentes[index - 1]?.indicador}
                         </Typography>
-                      </Box>
-                      <Box
+                      </Grid>
+                      <Grid
                         sx={{
                           display: "flex",
                           flexDirection: "row",
@@ -798,8 +798,8 @@ export function TabResumenMIR({
                         >
                           {Componentes[index - 1]?.formula}
                         </Typography>
-                      </Box>
-                      <Box
+                      </Grid>
+                      <Grid
                         sx={{
                           display: "flex",
                           flexDirection: "row",
@@ -820,8 +820,8 @@ export function TabResumenMIR({
                         >
                           {Componentes[index - 1]?.frecuencia}
                         </Typography>
-                      </Box>
-                      <Box
+                      </Grid>
+                      <Grid
                         sx={{
                           display: "flex",
                           flexDirection: "row",
@@ -842,8 +842,8 @@ export function TabResumenMIR({
                         >
                           {Componentes[index - 1]?.medios}
                         </Typography>
-                      </Box>
-                      <Box
+                      </Grid>
+                      <Grid
                         sx={{
                           display: "flex",
                           flexDirection: "row",
@@ -864,13 +864,13 @@ export function TabResumenMIR({
                         >
                           {Componentes[index - 1]?.supuestos}
                         </Typography>
-                      </Box>
-                    </Box>
+                      </Grid>
+                    </Grid>
                   );
                 })}
-              </Box>
+              </Grid>
             ) : showSt === "Actividades" ? (
-              <Box>
+              <Grid>
                 <Typography
                   sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
                 >
@@ -880,7 +880,7 @@ export function TabResumenMIR({
                 {cValor[0]?.componentes.map((item, indexComponentes) => {
                   return item.actividades.map((value, indexActividades) => {
                     return (
-                      <Box key={indexActividades}>
+                      <Grid key={indexActividades}>
                         <Typography
                           sx={{
                             fontFamily: "MontserratMedium",
@@ -892,7 +892,7 @@ export function TabResumenMIR({
                           Componente {indexComponentes + 1} - Actividad{" "}
                           {indexActividades + 1}
                         </Typography>
-                        <Box
+                        <Grid
                           sx={{
                             display: "flex",
                             flexDirection: "row",
@@ -920,8 +920,8 @@ export function TabResumenMIR({
                               indexActividades
                             ].resumen?.toUpperCase()}
                           </Typography>
-                        </Box>
-                        <Box
+                        </Grid>
+                        <Grid
                           sx={{
                             display: "flex",
                             flexDirection: "row",
@@ -945,8 +945,8 @@ export function TabResumenMIR({
                           >
                             {actividades[indexActividades].indicador}
                           </Typography>
-                        </Box>
-                        <Box
+                        </Grid>
+                        <Grid
                           sx={{
                             display: "flex",
                             flexDirection: "row",
@@ -970,8 +970,8 @@ export function TabResumenMIR({
                           >
                             {actividades[indexActividades].formula}
                           </Typography>
-                        </Box>
-                        <Box
+                        </Grid>
+                        <Grid
                           sx={{
                             display: "flex",
                             flexDirection: "row",
@@ -995,8 +995,8 @@ export function TabResumenMIR({
                           >
                             {actividades[indexActividades]?.frecuencia}
                           </Typography>
-                        </Box>
-                        <Box
+                        </Grid>
+                        <Grid
                           sx={{
                             display: "flex",
                             flexDirection: "row",
@@ -1020,8 +1020,8 @@ export function TabResumenMIR({
                           >
                             {actividades[indexActividades].medios}
                           </Typography>
-                        </Box>
-                        <Box
+                        </Grid>
+                        <Grid
                           sx={{
                             display: "flex",
                             flexDirection: "row",
@@ -1045,15 +1045,15 @@ export function TabResumenMIR({
                           >
                             {actividades[indexActividades].supuestos}
                           </Typography>
-                        </Box>
-                      </Box>
+                        </Grid>
+                      </Grid>
                     );
                   });
                 })}
-              </Box>
+              </Grid>
             ) : null}
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );
