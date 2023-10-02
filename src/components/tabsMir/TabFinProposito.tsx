@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   TextField,
-  Box,
+  Grid,
   Typography,
   List,
   ListItemButton,
@@ -213,7 +213,7 @@ export function TabFinProposito({
   };
 
   return (
-    <Box
+    <Grid
       // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
@@ -235,7 +235,7 @@ export function TabFinProposito({
         elemento={elementoFormula}
       />
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -254,9 +254,9 @@ export function TabFinProposito({
           {showFin ? "FIN" : null}
           {showProposito ? "PROPÓSITO" : null}
         </Typography>
-      </Box>
+      </Grid>
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -282,7 +282,7 @@ export function TabFinProposito({
             },
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -312,9 +312,9 @@ export function TabFinProposito({
             </ListItemButton>
 
             <Divider />
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -342,12 +342,12 @@ export function TabFinProposito({
               </Typography>
             </ListItemButton>
             <Divider />
-          </Box>
+          </Grid>
         </List>
 
         {showFin ? (
           <>
-            <Box
+            <Grid
               sx={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr 1fr",
@@ -544,13 +544,13 @@ export function TabFinProposito({
                 }}
                 value={fin.supuestos}
               />
-            </Box>
+            </Grid>
           </>
         ) : null}
 
         {showProposito ? (
           <>
-            <Box
+            <Grid
               sx={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr 1fr",
@@ -749,11 +749,11 @@ export function TabFinProposito({
                 }}
                 value={proposito.supuestos}
               />
-            </Box>
+            </Grid>
           </>
         ) : null}
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
 

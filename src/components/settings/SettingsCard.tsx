@@ -26,12 +26,13 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
       label: "Objetivos del Plan Estrategico del Estado de Nuevo León",
     },
     { id: 18, label: "PED" },
-    { id: 19, label: "Programas Presupuestarios" },
-    { id: 20, label: "Temáticas" },
-    { id: 21, label: "Tipos de Fórmula" },
-    { id: 22, label: "Tipos de Indicador" },
-    { id: 23, label: "Unidades de Medida" },
-    { id: 24, label: "Usuarios" },
+    { id: 19, label: "Programas - Instituciones" },
+    { id: 20, label: "Programas Presupuestarios" },
+    { id: 21, label: "Temáticas" },
+    { id: 22, label: "Tipos de Fórmula" },
+    { id: 23, label: "Tipos de Indicador" },
+    { id: 24, label: "Unidades de Medida" },
+    { id: 25, label: "Usuarios" },
   ];
 
   const navigationOptions = (value: number, label: string) => {

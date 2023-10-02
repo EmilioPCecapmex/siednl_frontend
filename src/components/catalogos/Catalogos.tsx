@@ -373,6 +373,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           headers: {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
+          params: {
+            idEntidad:localStorage.getItem("IdApp")
+          },
         }
       )
       .then((r) => {
@@ -381,14 +384,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           update = update.map(
             (item: {
               Id: string;
-              NombreInstitucion: string;
+              Nombre: string;
               NombrePrograma: string;
               Tabla: string;
             }) => {
               return {
                 Id: item.Id,
                 Desc:
-                  item.NombreInstitucion.toUpperCase() +
+                  item.Nombre.toUpperCase() +
                   " / " +
                   item.NombrePrograma.toUpperCase(),
                 Tabla: "ProgramasInstituciones",
@@ -1807,6 +1810,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               }}
                             >
                               <Grid sx={{ display: "flex" }}>
+                              {selected === "Programas - Instituciones" ? null :
                                 <Tooltip title="Editar">
                                   <IconButton onClick={() => {
                                     setModyRow({
@@ -1830,6 +1834,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                     />
                                   </IconButton>
                                 </Tooltip>
+                      }
                                 <IconButton
                                   onClick={() => {
                                     setDeleteRow({

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {
-  Box,
+  Grid,
   IconButton,
   Typography,
   TextField,
@@ -109,7 +109,7 @@ export const TabComponente = ({
   }, [componentes]);
 
   return (
-    <Box
+    <Grid
       // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
@@ -131,7 +131,7 @@ export const TabComponente = ({
         elemento={elementoFormula}
       />
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -166,9 +166,9 @@ export const TabComponente = ({
         >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
-      </Box>
+      </Grid>
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -199,7 +199,7 @@ export const TabComponente = ({
         >
           {noComponentes.map((item) => {
             return (
-              <Box
+              <Grid
                 key={item}
                 sx={{
                   display: "flex",
@@ -229,12 +229,12 @@ export const TabComponente = ({
                   </Typography>
                 </ListItemButton>
                 <Divider />
-              </Box>
+              </Grid>
             );
           })}
         </List>
 
-        <Box
+        <Grid
           sx={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
@@ -443,10 +443,10 @@ export const TabComponente = ({
             }}
             value={componentes[componentSelect - 1]?.supuestos}
           />
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
 
-    </Box>
+    </Grid>
     
   );
 };

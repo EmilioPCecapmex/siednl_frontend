@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import {
   FormControl,
   TextField,
-  Box,
+  Grid,
   Autocomplete,
   Checkbox,
   FormControlLabel,
@@ -605,7 +605,7 @@ export function TabEncabezado({
   // const [loadingFile, setLoadingFile] = useState(false);
 
   return (
-    <Box
+    <Grid
       visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
@@ -622,7 +622,7 @@ export function TabEncabezado({
         gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
     >
-      <Box
+      <Grid
         sx={{
           width: "5vw",
           height: "3vh",
@@ -639,7 +639,7 @@ export function TabEncabezado({
             Plantilla
           </Typography>
         </Button> */}
-      </Box>
+      </Grid>
 
       <FormControl sx={{ gridRow: "1", width: "20vw" }}>
         <Autocomplete
@@ -693,7 +693,7 @@ export function TabEncabezado({
         />
       </FormControl>
       {/* 
-      <Box
+      <Grid
         sx={{
           gridColumn: "2/4",
           width: "30vw",
@@ -766,13 +766,13 @@ export function TabEncabezado({
           </Button>
         )}
         
-        <Box
+        <Grid
           sx={{ position: "absolute" }}
           visibility={loadingFile ? "visible" : "hidden"}
         >
           <CircularProgress />
-        </Box>
-      </Box> */}
+        </Grid>
+      </Grid> */}
 
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
@@ -1236,7 +1236,7 @@ export function TabEncabezado({
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
-    </Box>
+    </Grid>
   );
 }
 
