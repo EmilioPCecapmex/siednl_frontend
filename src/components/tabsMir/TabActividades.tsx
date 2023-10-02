@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import {
-  Box,
+  Grid,
   IconButton,
   Typography,
   List,
@@ -219,7 +219,7 @@ export const TabActividades = ({
 
 
   return (
-    <Box
+    <Grid
      // position="absolute"
       sx={{
         display: "flex",
@@ -240,7 +240,7 @@ export const TabActividades = ({
         elemento={elementoFormula}
       />
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -278,9 +278,9 @@ export const TabActividades = ({
         >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
-      </Box>
+      </Grid>
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -311,7 +311,7 @@ export const TabActividades = ({
         >
           {noComponentes.map((item, index) => {
             return (
-              <Box
+              <Grid
                 key={index}
                 sx={{
                   display: "flex",
@@ -377,12 +377,12 @@ export const TabActividades = ({
                 </Collapse>
 
                 <Divider />
-              </Box>
+              </Grid>
             );
           })}
         </List>
 
-        <Box
+        <Grid
           sx={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
@@ -391,7 +391,7 @@ export const TabActividades = ({
             justifyItems: "center",
           }}
         >
-          <Box sx={{ width: "90%", gridColumn: "1/4" }}>
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
             <Typography
               sx={{
                 fontFamily: "MontserratSemiBold",
@@ -410,7 +410,7 @@ export const TabActividades = ({
             >
               {MIR.componentes[componenteSelect]?.resumen}
             </Typography>
-          </Box>
+          </Grid>
 
           <TextField
             // disabled={mirEdit?.actividades[componenteSelect].resumen}
@@ -613,8 +613,8 @@ export const TabActividades = ({
                 ?.supuestos || ""
             }
           />
-        </Box>
-      </Box>
-    </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };

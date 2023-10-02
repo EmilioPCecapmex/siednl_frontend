@@ -467,11 +467,16 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container justifyContent={"space-between"}>
+    <Grid container sx={{justifyContent: "space-between"}}>
       <Grid
         item
         xl={12}
-        height={"7vh"}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        // height={"7vh"}
+        sx={{height:"7vh", whitespace: "nowrap"}}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
@@ -479,18 +484,24 @@ export const MIR = () => {
       {/* //boxShadow: 10, */}
 
       <Grid
-        justifyContent={"center"}
-        display={"flex"}
+        // justifyContent={"center"}
+        // display={"flex"}
+        // height={"93vh"}
+        // alignItems={"center"}
         container
-        height={"93vh"}
-        alignItems={"center"}
         item
         xl={12}
         lg={12}
         md={12}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "white" }}
+        sx={{ 
+          backgroundColor: "white",
+          justifyContent: "center",
+          display: "flex",
+          height: "93vh",
+          alignItems: "center",
+       }}
       >
         {showResume ? (
           <>
@@ -501,14 +512,16 @@ export const MIR = () => {
               xl={8}
               lg={7}
               md={6}
-              height="15vh"
-              direction="row"
+              // height="15vh"
+              // direction="row"
               sx={{
                 boxShadow: 5,
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 justifyContent: "space-evenly",
                 alignItems: "center",
+                height: "15vh",
+                direction: "row",
               }}
             >
               <Grid
@@ -517,11 +530,29 @@ export const MIR = () => {
                 md={12}
                 container
                 item
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
+                // direction="row"
+                // justifyContent="space-around"
+                // alignItems="center"
+                sx={{
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  direction: "row",
+                }}
               >
                 <Grid item xl={5} lg={4} md={3} sm={2}>
+                <Tooltip
+                              PopperProps={{
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: {
+                                      offset: [0, -13],
+                                    },
+                                  },
+                                ],
+                              }}
+                              title={findInstStr}
+                            >
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
                       FILTRO POR INSTITUCION
@@ -531,7 +562,14 @@ export const MIR = () => {
                       variant="outlined"
                       label="FILTRO POR INSTITUCION"
                       value={findInstStr}
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        // textAlign: "center",
+                        fontSize: [15, 15, 15, 15, 18], // Tamaños de fuente para diferentes breakpoints
+                        // color: "#AF8C55"
+                      }}
                       fullWidth
                       onChange={(v) => {
                         setFindInstStr(v.target.value);
@@ -553,6 +591,7 @@ export const MIR = () => {
                       })}
                     </Select>
                   </FormControl>
+                  </Tooltip>
                 </Grid>
 
                 <Grid
@@ -562,6 +601,19 @@ export const MIR = () => {
                   lg={4}
                   md={3}
                 >
+                  <Tooltip
+                              PopperProps={{
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: {
+                                      offset: [0, -13],
+                                    },
+                                  },
+                                ],
+                              }}
+                              title={findSelectStr}
+                            >
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
                       FILTRO POR ESTADO DE LA MIR
@@ -571,7 +623,14 @@ export const MIR = () => {
                       variant="outlined"
                       value={findSelectStr}
                       label="FILTRO POR ESTADO DE LA MIR"
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        // textAlign: "center",
+                        fontSize: [15, 15, 15, 15, 18], // Tamaños de fuente para diferentes breakpoints
+                        // color: "#AF8C55"
+                      }}
                       fullWidth
                       onChange={(v) => {
                         // v.target.value === "Todos"
@@ -591,6 +650,7 @@ export const MIR = () => {
                       ))}
                     </Select>
                   </FormControl>
+                  </Tooltip>
                 </Grid>
               </Grid>
 
@@ -599,9 +659,14 @@ export const MIR = () => {
                 lg={12}
                 md={12}
                 container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
+                // direction="row"
+                // justifyContent="space-around"
+                // alignItems="center"
+                sx={{
+                  direction: "row",
+                  justifyContent: "space-around",
+                  alignItems: "center"
+                }}
               >
                 <Grid
                   sx={{ fontFamily: "MontserratRegular" }}
@@ -691,9 +756,9 @@ export const MIR = () => {
               item
               lg={10}
               md={9}
-              height="65vh"
-              direction="row"
-              sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
+              // height="65vh"
+              // direction="row"
+              sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5, height: "65vh", direction: "row" }}
             >
               <TableContainer
                 sx={{

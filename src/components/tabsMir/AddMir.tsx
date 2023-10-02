@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import React, { useEffect, useState } from "react";
@@ -406,22 +406,22 @@ export default function FullModalMir({
   };
 
   return (
-    <Box
+    <Grid
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
       }}
     >
-      {/* {value === 10 ? <TutorialBox initialState={22} endState={27} /> : null}
-      {value === 20 ? <TutorialBox initialState={27} endState={28} /> : null}
-      {value === 30 ? <TutorialBox initialState={28} endState={30} /> : null}
-      {value === 40 ? <TutorialBox initialState={33} endState={35} /> : null}
-      {value === 50 ? <TutorialBox initialState={30} endState={33} /> : null} */}
+      {/* {value === 10 ? <TutorialGrid initialState={22} endState={27} /> : null}
+      {value === 20 ? <TutorialGrid initialState={27} endState={28} /> : null}
+      {value === 30 ? <TutorialGrid initialState={28} endState={30} /> : null}
+      {value === 40 ? <TutorialGrid initialState={33} endState={35} /> : null}
+      {value === 50 ? <TutorialGrid initialState={30} endState={33} /> : null} */}
 
 
 
 
-      <Box
+      <Grid
         sx={{
           width: "auto",
           height: "90vh",
@@ -437,7 +437,7 @@ export default function FullModalMir({
           sx={{
             backgroundColor: "#e0e0e0",
             borderRadius: "10px 10px 0 0",
-            boxShadow: 20,
+            GridShadow: 20,
           }}
         >
           <Tab
@@ -526,7 +526,7 @@ export default function FullModalMir({
           />
         </Tabs>
 
-        <Box
+        <Grid
           sx={{
             width: "93vw",
             height: "82vh",
@@ -573,11 +573,11 @@ export default function FullModalMir({
             ></TabActividades>
           )}
           {/* )} */}
-        </Box>
+        </Grid>
 
         
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
 
