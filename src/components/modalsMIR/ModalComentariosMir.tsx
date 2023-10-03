@@ -189,9 +189,26 @@ export const ComentDialogMir = ({
                   "&:hover": {
                     color: "indigo",
                   },
-                  width: "1.2vw",
-                  height: "1.2vw",
+                  fontSize: "24px", // Tamaño predeterminado del icono
+                  "@media (max-width: 600px)": {
+                    fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                  },
+                  "@media (min-width: 601px) and (max-width: 960px)": {
+                    fontSize: 25, // Pantalla pequeña (md)
+                  },
+                  "@media (min-width: 961px) and (max-width: 1280px)": {
+                    fontSize: 30, // Pantalla mediana (lg)
+                  },
+                  "@media (min-width: 1281px)": {
+                    fontSize: 30, // Pantalla grande (xl)
+                  },
+                  "@media (min-width: 2200px)": {
+                    fontSize: 30, // Pantalla grande (xl)
+                  }
                 },
+               
+                  
+              
               ]}
             />
           </IconButton>

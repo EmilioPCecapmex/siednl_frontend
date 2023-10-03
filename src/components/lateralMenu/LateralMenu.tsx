@@ -72,9 +72,10 @@ export const LateralMenu = ({
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
   const isXs = useMediaQuery(theme.breakpoints.up("xs"));
 
+  
   if (isXl) st = lstXl;
   else if (isLg) st = lstLg;
-  else if (isMd) st = lstMd;
+  else if (isMd) st = lstMd; 
   else if (isSm) st = lstSm;
   else if (isXs) st = lstXs;
 
@@ -395,7 +396,8 @@ export const LateralMenu = ({
               </IconButton>
             </Tooltip>
           </Grid>
-          <Grid sx={{ height: "8vh" }}>
+          {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}> */}
+          <Grid sx={{ height: "8vh"}}>
             <Header
               details={{
                 name1: "INICIO",
@@ -434,7 +436,6 @@ export const LateralMenu = ({
             {/* <TimerCounter /> */}
           </Grid>
         </Grid>
-
         <Drawer
           anchor="left"
           open={isDrawerOpen}
@@ -518,9 +519,10 @@ export const LateralMenu = ({
                 </Typography>
               </Tooltip>
             </Grid>
-
+            
             <Grid sx={st.dividerBox} />
             <Grid sx={st.menuListBox}>
+            
               <List>
                 <ListItemButton onClick={() => exitAlert("../home")}>
                   <Grid sx={st.iconMenuList}>
@@ -540,6 +542,7 @@ export const LateralMenu = ({
 
                   <Typography sx={st.firstItemsStyle}>
                     Programas Presupuestarios
+                    
                   </Typography>
                   {openProgramas ? <ExpandLess /> : <ExpandMore />}
                   <Grid
@@ -659,7 +662,7 @@ export const LateralMenu = ({
                     />
                   </ListItemButton> */}
 
-                  {/* <ListItemButton
+                  <ListItemButton
                     onClick={() => {
                       //setResumeDefaultAI();
                       navigate("../programaAnualEvaluacion");
@@ -679,7 +682,7 @@ export const LateralMenu = ({
                       }
                       sx={st.selectedBox}
                     />
-                  </ListItemButton> */}
+                  </ListItemButton>
                 </List>
 
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
