@@ -110,8 +110,8 @@ export const TabComponente = ({
 
   return (
     <Grid
-      // visibility={show ? "visible" : "hidden"}
-      position="absolute"
+      //visibility={show ? "visible" : "hidden"}
+      //position="absolute"
       sx={{
         display: "flex",
         width: "93vw",

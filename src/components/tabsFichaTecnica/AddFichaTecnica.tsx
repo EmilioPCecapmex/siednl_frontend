@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabResumenFT from "./TabResumenFT";
-import { Box, IconButton } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
@@ -53,7 +53,6 @@ export default function AddFichaTecnica({
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
     console.log("hola");
-    
   };
 
   const cambiarTab = (option: string) => {
@@ -196,7 +195,7 @@ export default function AddFichaTecnica({
   };
 
   return (
-    <Box
+    <Grid
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
@@ -207,7 +206,7 @@ export default function AddFichaTecnica({
       {value === 30 ? <TutorialBox initialState={51} endState={52} /> : null}
       {value === 40 ? <TutorialBox initialState={52} endState={53} /> : null}
       {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null} */}
-      <Box
+      <Grid
         sx={{
           width: "auto",
           height: "90vh",
@@ -217,7 +216,7 @@ export default function AddFichaTecnica({
           alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex" }}>
+        <Grid sx={{ display: "flex" }}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -317,63 +316,71 @@ export default function AddFichaTecnica({
               }}
             />
           </Tabs>
-        </Box>
+        </Grid>
 
-        <Box
+        <Grid
           sx={{
             width: "93vw",
             height: "82vh",
           }}
         >
+          {value === 10 && (
           <TabEncabezado
-            show={value === 10 ? true : false}
+            //show={value === 10 ? true : false}
             resumenEncabezadoFT={resumenEncabezadoFT}
             FT={FT}
             MIR={MIR}
           ></TabEncabezado>
+          )}
 
-          <TabFinPropositoFT
-            show={value === 20 ? true : false}
-            resumenFinFT={resumenFinFT}
-            resumenPropositoFT={resumenPropositoFT}
-            FT={FT}
-          ></TabFinPropositoFT>
+          {value === 20 && (
+            <TabFinPropositoFT
+              // show={value === 20 ? true : false}
+              resumenFinFT={resumenFinFT}
+              resumenPropositoFT={resumenPropositoFT}
+              FT={FT}
+            />
+          )}
 
-          <TabComponenteFT
-            show={value === 30 ? true : false}
-            valoresComponenteFTFnc={valoresComponenteFTFnc}
-            noComponentes={noComponentes}
-            showFnc={setTxtShowFnc}
-            showMirFnc={showMirFnc}
-            FT={FT}
-          ></TabComponenteFT>
+          {value === 30 && (
+            <TabComponenteFT
+              //show={value === 30 ? true : false}
+              valoresComponenteFTFnc={valoresComponenteFTFnc}
+              noComponentes={noComponentes}
+              showFnc={setTxtShowFnc}
+              showMirFnc={showMirFnc}
+              FT={FT}
+            />
+          )}
+          {value === 40 && (
+            <TabActividadesFT
+              //show={value === 40 ? true : false}
+              setTxtShowFnc={setTxtShowFnc}
+              showMirFnc={showMirFnc}
+              compAct={compAct}
+              componentes={noComponentes}
+              asignarCValor={asignarCValorFT}
+              FT={FT}
+            />
+          )}
 
-          <TabActividadesFT
-            show={value === 40 ? true : false}
-            setTxtShowFnc={setTxtShowFnc}
-            showMirFnc={showMirFnc}
-            compAct={compAct}
-            componentes={noComponentes}
-            asignarCValor={asignarCValorFT}
-            FT={FT}
-          ></TabActividadesFT>
-
-          <TabResumenFT
-            show={value === 50 ? true : false}
-            encabezado={ValueEncabezado}
-            fin={ValueFin}
-            proposito={ValueProposito}
-            componentes={noComponentes}
-            componenteValor={valoresComponenteFT}
-            cValor={cValorFT}
-            IdMir={IdMir}
-            IdFT={IdFT}
-            IdMA={IdMA}
-            showResume={showResume}
-            MIR={MIR}
-          ></TabResumenFT>
-        </Box>
-      </Box>
-    </Box>
+          {value === 50 && (
+            <TabResumenFT
+              encabezado={ValueEncabezado}
+              fin={ValueFin}
+              proposito={ValueProposito}
+              componentes={noComponentes}
+              componenteValor={valoresComponenteFT}
+              cValor={cValorFT}
+              IdMir={IdMir}
+              IdFT={IdFT}
+              IdMA={IdMA}
+              showResume={showResume}
+              MIR={MIR}
+            />
+          )}
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }

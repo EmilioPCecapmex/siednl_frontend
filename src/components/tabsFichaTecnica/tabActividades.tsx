@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {
-  Box,
+  Grid,
   Typography,
   List,
   ListItemButton,
@@ -18,7 +18,7 @@ import { IComponenteActividad } from "../tabsMir/AddMir";
 
 //funcion main
 export const TabActividadesFT = ({
-  show,
+ 
   componentes,
   asignarCValor,
   compAct,
@@ -26,7 +26,7 @@ export const TabActividadesFT = ({
   setTxtShowFnc,
   FT,
 }: {
-  show: boolean;
+ 
   componentes: number[];
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
@@ -77,7 +77,7 @@ export const TabActividadesFT = ({
   }, [aValorFT]);
 
   useEffect(() => {
-    if (show === true && componentes.length > aValorFT[0].componentes.length) {
+    if (componentes.length > aValorFT[0].componentes.length) {
       let restantes = componentes.length - aValorFT[0].componentes.length;
       let prevState = [...aValorFT];
       for (let index = 1; index <= restantes; index++) {
@@ -112,7 +112,7 @@ export const TabActividadesFT = ({
         setAValorFT(prevState);
       }
     } else if (
-      show === true &&
+      
       componentes.length < aValorFT[0].componentes.length
     ) {
       let prevState = [...aValorFT];
@@ -123,7 +123,7 @@ export const TabActividadesFT = ({
       }
       setComponenteSelect(0);
     }
-  }, [show, compAct]);
+  }, [ compAct]);
 
   useEffect(() => {
     if (compAct.length > 0) {
@@ -201,9 +201,9 @@ export const TabActividadesFT = ({
 
   //return main
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+    <Grid
+      //visibility={show ? "visible" : "hidden"}
+      //position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
@@ -214,7 +214,7 @@ export const TabActividadesFT = ({
         backgroundColor: "#fff",
       }}
     >
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -227,14 +227,14 @@ export const TabActividadesFT = ({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "0.7vw",
+            fontSize: [10, 10, 15, 18, 25, 25],
           }}
         >
           COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
         </Typography>
-      </Box>
+      </Grid>
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -262,7 +262,7 @@ export const TabActividadesFT = ({
         >
           {componentes.map((item, index) => {
             return (
-              <Box
+              <Grid
                 key={index}
                 sx={{
                   display: "flex",
@@ -291,7 +291,7 @@ export const TabActividadesFT = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
+                    sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 12, 15, 18, 20], }}
                   >
                     COMPONENTE {item}
                   </Typography>
@@ -322,7 +322,7 @@ export const TabActividadesFT = ({
                           >
                             <Typography
                               sx={{
-                                fontSize: "1vw",
+                                fontSize: [10, 10, 12, 15, 18, 20],
                                 fontFamily: "MontserratMedium",
                               }}
                             >
@@ -336,12 +336,12 @@ export const TabActividadesFT = ({
                 </Collapse>
 
                 <Divider />
-              </Box>
+              </Grid>
             );
           })}
         </List>
 
-        <Box
+        <Grid
           sx={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
@@ -364,18 +364,18 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.8vw",
+                fontSize: [10, 10, 13, 15, 18],
               }}
             >
               TIPO DE INDICADOR
             </FormLabel>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SELECCIÓN ESTRATEGICO"}
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -407,7 +407,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -434,7 +434,7 @@ export const TabActividadesFT = ({
                   />
                 }
               />
-            </Box>
+            </Grid>
           </FormControl>
 
           <FormControl
@@ -451,19 +451,19 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.8vw",
+                fontSize: [10, 10, 13, 15, 18],
               }}
             >
               DIMENSIÓN
             </FormLabel>
 
-            <Box sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
+            <Grid sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
               <FormControlLabel
                 value={"EFICIENCIA"}
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -495,7 +495,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -527,7 +527,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -560,7 +560,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -587,19 +587,19 @@ export const TabActividadesFT = ({
                   />
                 }
               />
-            </Box>
+            </Grid>
           </FormControl>
 
           <TextField
-            rows={8}
+            rows={5}
             multiline
             variant="filled"
-            sx={{ width: "90%", boxShadow: 2 }}
+            sx={{fontSize: [10, 10, 13, 15, 18], width: "90%", boxShadow: 2 }}
             label={"UNIDAD DE MEDIDA"}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratMedium",
-                fontSize: ".8vw",
+                fontSize: "1vw",
               },
             }}
             InputProps={{
@@ -627,7 +627,7 @@ export const TabActividadesFT = ({
           <FormControl
             sx={{
               width: "90%",
-              height: "60%",
+              height: "70%",
               backgroundColor: "#f0f0f0",
               boxShadow: 2,
               fontFamily: "MontserratMedium",
@@ -638,18 +638,18 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.8vw",
+                fontSize: [10, 10, 13, 15, 18],
               }}
             >
               CLARIDAD
             </FormLabel>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -681,7 +681,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -708,13 +708,13 @@ export const TabActividadesFT = ({
                   />
                 }
               />
-            </Box>
+            </Grid>
           </FormControl>
 
           <FormControl
             sx={{
               width: "90%",
-              height: "60%",
+              height: "70%",
               backgroundColor: "#f0f0f0",
               boxShadow: 2,
               fontFamily: "MontserratMedium",
@@ -725,18 +725,18 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.8vw",
+                fontSize: [10, 10, 13, 15, 18],
               }}
             >
               RELEVANCIA
             </FormLabel>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -768,7 +768,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -795,13 +795,13 @@ export const TabActividadesFT = ({
                   />
                 }
               />
-            </Box>
+            </Grid>
           </FormControl>
 
           <FormControl
             sx={{
               width: "90%",
-              height: "60%",
+              height: "70%",
               backgroundColor: "#f0f0f0",
               boxShadow: 2,
               fontFamily: "MontserratMedium",
@@ -812,18 +812,18 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.8vw",
+                fontSize: [10, 10, 13, 15, 18],
               }}
             >
               ECONOMÍA
             </FormLabel>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -855,7 +855,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -882,13 +882,13 @@ export const TabActividadesFT = ({
                   />
                 }
               />
-            </Box>
+            </Grid>
           </FormControl>
 
           <FormControl
             sx={{
               width: "90%",
-              height: "60%",
+              height: "70%",
               backgroundColor: "#f0f0f0",
               boxShadow: 2,
               fontFamily: "MontserratMedium",
@@ -899,18 +899,18 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.8vw",
+                fontSize: [10, 10, 13, 15, 18],
               }}
             >
               MONITOREABLE
             </FormLabel>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -942,7 +942,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -969,13 +969,13 @@ export const TabActividadesFT = ({
                   />
                 }
               />
-            </Box>
+            </Grid>
           </FormControl>
 
           <FormControl
             sx={{
               width: "90%",
-              height: "60%",
+              height: "70%",
               backgroundColor: "#f0f0f0",
               boxShadow: 2,
               fontFamily: "MontserratMedium",
@@ -986,18 +986,18 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.8vw",
+                fontSize: [10, 10, 13, 15, 18],
               }}
             >
               ADECUADO
             </FormLabel>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -1029,7 +1029,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -1056,13 +1056,13 @@ export const TabActividadesFT = ({
                   />
                 }
               />
-            </Box>
+            </Grid>
           </FormControl>
 
           <FormControl
             sx={{
               width: "90%",
-              height: "60%",
+              height: "70%",
               backgroundColor: "#f0f0f0",
               boxShadow: 2,
               fontFamily: "MontserratMedium",
@@ -1073,18 +1073,18 @@ export const TabActividadesFT = ({
             <FormLabel
               sx={{
                 fontFamily: "MontserratBold",
-                fontSize: "0.8vw",
+                fontSize: [10, 10, 13, 15, 18],
               }}
             >
               APORTE MARGINAL
             </FormLabel>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <FormControlLabel
                 value={"SI"}
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -1116,7 +1116,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -1148,7 +1148,7 @@ export const TabActividadesFT = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.7vw",
+                      fontSize: [ 10, 10, 11, 12, 13],
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -1175,10 +1175,10 @@ export const TabActividadesFT = ({
                   />
                 }
               />
-            </Box>
+            </Grid>
           </FormControl>
-        </Box>
-      </Box>
-    </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };

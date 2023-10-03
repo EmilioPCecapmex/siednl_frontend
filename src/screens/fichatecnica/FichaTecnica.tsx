@@ -148,11 +148,11 @@ export const FichaTecnica = () => {
 
   const getInstituciones = (setstate: Function) => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-      params: {
-        IdUsuario: localStorage.getItem("IdUsuario"),
-        Rol: localStorage.getItem("Rol"),
-      },
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          Rol: localStorage.getItem("Rol"),
+        },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -335,19 +335,16 @@ export const FichaTecnica = () => {
 
   const getFT = (setstate: Function) => {
     axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-fichaTecnica",
-        {
-          params: {
-            IdUsuario: localStorage.getItem("IdUsuario"),
-            IdEntidad: localStorage.getItem("IdEntidad"),
-            Rol: localStorage.getItem("Rol")
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fichaTecnica", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          Rol: localStorage.getItem("Rol"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
       .then((r) => {
         setstate(r.data.data);
         //setFtFiltered(r.data.data);
@@ -545,7 +542,15 @@ export const FichaTecnica = () => {
                 }}
               >
                 <InputBase
-                  sx={{ ml: 1, flex: 1 }}
+                  sx={{
+                    ml: 1,
+                    flex: 1,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    //textAlign: "center",
+                    fontSize: [10, 10, 15, 15, 18, 20],
+                  }}
                   placeholder="Buscar"
                   value={findTextStr}
                   // onChange={(e) => {
@@ -565,7 +570,31 @@ export const FichaTecnica = () => {
                   aria-label="search"
                   onClick={() => filtrarDatos()}
                 >
-                  <SearchIcon />
+                  <SearchIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 25, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 30, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 30, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        fontSize: 30, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
                 </IconButton>
               </Paper>
 
@@ -598,7 +627,15 @@ export const FichaTecnica = () => {
                     fullWidth
                     variant="outlined"
                     label="FILTRO POR ESTADO DE LA MA"
-                    sx={{ fontFamily: "MontserratRegular" }}
+                    sx={{
+                      fontFamily: "MontserratRegular",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      //textAlign: "center",
+                      fontSize: [10, 10, 15, 15, 18, 20],
+                      // Tamaños de fuente para diferentes breakpoints
+                    }}
                     value={findSelectStr}
                     onChange={(v) => {
                       // v.target.value === "Todos"
@@ -638,7 +675,14 @@ export const FichaTecnica = () => {
                     variant="outlined"
                     fullWidth
                     label="Filtro por institución"
-                    sx={{ fontFamily: "MontserratRegular" }}
+                    sx={{
+                      fontFamily: "MontserratRegular",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      //textAlign: "center",
+                      fontSize: [10, 10, 15, 15, 18, 20],
+                    }}
                     value={findInstStr}
                     // sx={{ fontFamily: "MontserratRegular" }}
 
@@ -704,7 +748,7 @@ export const FichaTecnica = () => {
                             backgroundColor: "#edeaea",
                             fontFamily: "MontserratBold",
                             borderBottom: 0,
-                            fontSize: "0.8vw",
+                            fontSize: [10, 10, 10, 15, 16, 18],
                             // fontFamily: "MontserratRegular",
                             //   fontSize: ".7vw",
                             justifyContent: "center",
@@ -730,11 +774,9 @@ export const FichaTecnica = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
                           >
                             {row.AnioFiscal}
                           </TableCell>
@@ -742,11 +784,9 @@ export const FichaTecnica = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
                           >
                             {row.Entidad.toUpperCase()}
                           </TableCell>
@@ -754,11 +794,9 @@ export const FichaTecnica = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
                           >
                             {row.Programa.toUpperCase()}
                           </TableCell>
@@ -766,11 +804,9 @@ export const FichaTecnica = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
                           >
                             {row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
@@ -787,11 +823,9 @@ export const FichaTecnica = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
                           >
                             {moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
@@ -801,11 +835,9 @@ export const FichaTecnica = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
                           >
                             {row.Estado === "En Captura"
                               ? "SIN ASIGNAR"
@@ -817,38 +849,62 @@ export const FichaTecnica = () => {
                               flexDirection: "row",
                               display: "grid",
                               gridTemplateColumns: "repeat(4,1fr)",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            align="center"
-                            component="th"
-                            scope="row"
                           >
                             <Tooltip title="REGISTRAR FICHA TÉCNICA">
                               <span>
                                 <IconButton
-                                    disabled={
-                                      (row.Estado === "En Captura" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Capturador") ||
-                                      (row.Estado === "En Revisión" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Verificador") ||
-                                      (row.Estado === "Borrador Verificador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Verificador") ||
-                                      (row.Estado === "En Autorización" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Administrador") ||
-                                      (row.Estado === "Borrador Autorizador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Administrador")
-                                        ? false
-                                        : true
-                                    }
+                                  disabled={
+                                    (row.Estado === "En Captura" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Capturador") ||
+                                    (row.Estado === "En Revisión" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador") ||
+                                    (row.Estado === "Borrador Verificador" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador") ||
+                                    (row.Estado === "En Autorización" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador") ||
+                                    (row.Estado === "Borrador Autorizador" &&
+                                      validaFecha &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador")
+                                      ? false
+                                      : true
+                                  }
+                                  sx={{
+                                    fontSize: "24px", // Tamaño predeterminado del icono
+
+                                    "@media (max-width: 600px)": {
+                                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                    },
+
+                                    "@media (min-width: 601px) and (max-width: 960px)":
+                                      {
+                                        fontSize: 20, // Pantalla pequeña (md)
+                                      },
+
+                                    "@media (min-width: 961px) and (max-width: 1280px)":
+                                      {
+                                        fontSize: 20, // Pantalla mediana (lg)
+                                      },
+
+                                    "@media (min-width: 1281px)": {
+                                      fontSize: 25, // Pantalla grande (xl)
+                                    },
+
+                                    "@media (min-width: 2200px)": {
+                                      ffontSize: 25, // Pantalla grande (xl)
+                                    },
+                                  }}
                                   onClick={() => {
                                     setFTEdit([
                                       {
@@ -873,7 +929,33 @@ export const FichaTecnica = () => {
                                     setActionNumber(1);
                                   }}
                                 >
-                                  <AddCircleOutlineIcon />
+                                  <AddCircleOutlineIcon
+                                    sx={{
+                                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                                      "@media (max-width: 600px)": {
+                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                      },
+
+                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
+
+                                      "@media (min-width: 961px) and (max-width: 1280px)":
+                                        {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
+
+                                      "@media (min-width: 1281px)": {
+                                        fontSize: 25, // Pantalla grande (xl)
+                                      },
+
+                                      "@media (min-width: 2200px)": {
+                                        ffontSize: 25, // Pantalla grande (xl)
+                                      },
+                                    }}
+                                  />
                                 </IconButton>
                               </span>
                             </Tooltip>
@@ -909,15 +991,30 @@ export const FichaTecnica = () => {
                                   }}
                                 >
                                   <VisibilityIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "lightBlue",
-                                        },
-                                        width: "1.2vw",
-                                        height: "1.2vw",
+                                    sx={{
+                                      fontSize: "24px", // Tamaño predeterminado del icono
+  
+                                      "@media (max-width: 600px)": {
+                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
-                                    ]}
+  
+                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
+  
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
+  
+                                      "@media (min-width: 1281px)": {
+                                        fontSize: 25, // Pantalla grande (xl)
+                                      },
+  
+                                      "@media (min-width: 2200px)": {
+                                        ffontSize: 25, // Pantalla grande (xl)
+                                      },
+                                    }}
                                   />
                                 </IconButton>
                               </span>
@@ -944,15 +1041,30 @@ export const FichaTecnica = () => {
                                     }
                                   >
                                     <DownloadIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "orange",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+    
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
-                                      ]}
+    
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+    
+                                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+    
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+    
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
                                     />
                                   </IconButton>
                                 </span>
@@ -970,16 +1082,16 @@ export const FichaTecnica = () => {
                 </Table>
               </TableContainer>
               <Grid sx={{ width: "100%" }}>
-              <TablePagination
-                rowsPerPageOptions={[renglonesPagina]}
-                component="div"
-                count={ft.length}
-                rowsPerPage={renglonesPagina}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Grid>
+                <TablePagination
+                  rowsPerPageOptions={[renglonesPagina]}
+                  component="div"
+                  count={ft.length}
+                  rowsPerPage={renglonesPagina}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </Grid>
             </Grid>
 
             <ModalVerResumenFT
@@ -991,8 +1103,6 @@ export const FichaTecnica = () => {
               Conac={FTShow[0]?.Conac}
               Consecutivo={FTShow[0]?.Consecutivo}
             />
-
-            
           </>
         ) : (
           <Grid

@@ -21,7 +21,7 @@ import axios from "axios";
 import { queries } from "../../queries";
 
 export function TabFinPropositoMA({
-  show,
+ // show,
   resumenFinMa,
   resumenPropositoMa,
   showMirFnc,
@@ -29,7 +29,7 @@ export function TabFinPropositoMA({
   MA,
   MIR,
 }: {
-  show: boolean;
+  //show: boolean;
   resumenFinMa: Function;
   resumenPropositoMa: Function;
   showMirFnc: Function;
@@ -256,7 +256,7 @@ export function TabFinPropositoMA({
 
   return (
     <Grid
-      visibility={show ? "visible" : "hidden"}
+    //  visibility={show ? "visible" : "hidden"}
       //position="absolute"
 
       sx={{
@@ -436,7 +436,7 @@ export function TabFinPropositoMA({
                   MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== ""
                 }
                 sx={{
-                 // width: "18%",
+                  width: "18%",
                   boxShadow: 2,
                   fontSize: [10, 10, 10, 15, 15, 18],
                 }}
@@ -479,7 +479,7 @@ export function TabFinPropositoMA({
                   MAEdit?.fin?.lineaBase && valueFin[0].lineaBase !== ""
                 }
                 sx={{
-                  //width: "18%",
+                  width: "18%",
                   boxShadow: 2,
                   fontSize: [10, 10, 10, 15, 15, 18],
                 }}
@@ -534,7 +534,7 @@ export function TabFinPropositoMA({
                     MAEdit?.fin?.valorNumerador &&
                     valueFin[0].valorNumerador !== ""
                   }
-                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], boxShadow: 2 }}
+                  sx={{ width: "18%" , fontSize: [10, 10, 10, 15, 15, 18], boxShadow: 2 }}
                   variant={"filled"}
                   label={
                     <Typography
@@ -784,7 +784,7 @@ export function TabFinPropositoMA({
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
+                            fontSize: "1vw",
                           },
                         }}
                         sx={{
@@ -946,7 +946,7 @@ export function TabFinPropositoMA({
                   MAEdit?.proposito?.metaAnual &&
                   valueProposito[0].metaAnual !== ""
                 }
-                sx={{  boxShadow: 2 }}
+                sx={{ width: "18%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
                   <Typography
@@ -986,7 +986,7 @@ export function TabFinPropositoMA({
                   MAEdit?.proposito?.lineaBase &&
                   valueProposito[0].lineaBase !== ""
                 }
-                sx={{ fontSize: [10, 10, 10, 13, 15, 18], boxShadow: 2 }}
+                sx={{width: "18%",  fontSize: [10, 10, 10, 13, 15, 18], boxShadow: 2 }}
                 variant={"filled"}
                 label={
                   <Typography
@@ -1040,7 +1040,7 @@ export function TabFinPropositoMA({
                     MAEdit?.proposito?.valorNumerador &&
                     valueProposito[0].valorNumerador !== ""
                   }
-                  sx={{  boxShadow: 2 }}
+                  sx={{width: "18%",   boxShadow: 2 }}
                   variant={"filled"}
                   label={
                     <Typography
@@ -1368,7 +1368,7 @@ export function TabFinPropositoMA({
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".9vw",
+                            fontSize: "1vw",
                           },
                         }}
                         sx={{

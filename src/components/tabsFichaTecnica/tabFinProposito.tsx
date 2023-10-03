@@ -1,5 +1,5 @@
 import {
-  Box,
+  Grid,
   Typography,
   List,
   Divider,
@@ -14,12 +14,12 @@ import FormLabel from "@mui/material/FormLabel";
 import { IFinFT, IPropositoFT } from "./Interfaces";
 
 export function TabFinPropositoFT({
-  show,
+ // show,
   resumenFinFT,
   resumenPropositoFT,
   FT,
 }: {
-  show: boolean;
+  //show: boolean;
   resumenFinFT: Function;
   resumenPropositoFT: Function;
   FT: string;
@@ -63,9 +63,9 @@ export function TabFinPropositoFT({
   }, [fin, proposito]);
 
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+    <Grid
+      //visibility={show ? "visible" : "hidden"}
+      
       sx={{
         display: "flex",
         width: "93vw",
@@ -76,7 +76,7 @@ export function TabFinPropositoFT({
         backgroundColor: "#fff",
       }}
     >
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -89,15 +89,15 @@ export function TabFinPropositoFT({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            fontSize: [10, 10, 15, 18, 25, 25],
           }}
         >
           {showFin ? "FIN" : null}
           {showProposito ? "PROPÓSITO" : null}
         </Typography>
-      </Box>
+      </Grid>
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -123,7 +123,7 @@ export function TabFinPropositoFT({
             },
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -147,14 +147,14 @@ export function TabFinPropositoFT({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{fontSize: [10, 10, 12, 15, 18, 20], fontFamily: "MontserratMedium" }}>
                 FIN
               </Typography>
             </ListItemButton>
             <Divider />
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -177,17 +177,17 @@ export function TabFinPropositoFT({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{fontSize: [10, 10, 12, 15, 18, 20], fontFamily: "MontserratMedium" }}>
                 PROPÓSITO
               </Typography>
             </ListItemButton>
             <Divider />
-          </Box>
+          </Grid>
         </List>
 
         {showFin ? (
           <>
-            <Box
+            <Grid
               sx={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr 1fr",
@@ -210,18 +210,18 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.8vw",
+                    fontSize: [10, 10, 13, 15, 18],
                   }}
                 >
                   TIPO DE INDICADOR
                 </FormLabel>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Grid sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SELECCIÓN ESTRATEGICO"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -250,7 +250,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -272,7 +272,7 @@ export function TabFinPropositoFT({
                       />
                     }
                   />
-                </Box>
+                </Grid>
               </FormControl>
 
 
@@ -293,13 +293,13 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.8vw",
+                    fontSize: [10, 10, 13, 15, 18],
                   }}
                 >
                   DIMENSIÓN
                 </FormLabel>
 
-                <Box
+                <Grid
                   sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}
                 >
                   <FormControlLabel
@@ -307,7 +307,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -334,7 +334,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -361,7 +361,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -389,7 +389,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -411,19 +411,19 @@ export function TabFinPropositoFT({
                       />
                     }
                   />
-                </Box>
+                </Grid>
               </FormControl>
 
               <TextField
-                rows={8}
+                rows={5}
                 multiline
                 variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
+                sx={{fontSize: [10, 10, 13, 15, 18], width: "90%", boxShadow: 2 }}
                 label={"UNIDAD DE MEDIDA"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
-                    fontSize: ".8vw",
+                    fontSize: "1vw",
                   },
                 }}
                 InputProps={{
@@ -446,7 +446,7 @@ export function TabFinPropositoFT({
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "60%",
+                  height: "70%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -457,18 +457,18 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.8vw",
+                    fontSize: [10, 10, 13, 15, 18],
                   }}
                 >
                   CLARIDAD
                 </FormLabel>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Grid sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -495,7 +495,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -517,13 +517,13 @@ export function TabFinPropositoFT({
                       />
                     }
                   />
-                </Box>
+                </Grid>
               </FormControl>
 
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "60%",
+                  height: "70%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -534,18 +534,18 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.8vw",
+                    fontSize: [10, 10, 13, 15, 18],
                   }}
                 >
                   RELEVANCIA
                 </FormLabel>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Grid sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -572,7 +572,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -594,13 +594,13 @@ export function TabFinPropositoFT({
                       />
                     }
                   />
-                </Box>
+                </Grid>
               </FormControl>
 
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "60%",
+                  height: "70%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -611,18 +611,18 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.8vw",
+                    fontSize: [10, 10, 13, 15, 18],
                   }}
                 >
                   ECONOMÍA
                 </FormLabel>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Grid sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -649,7 +649,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -671,13 +671,13 @@ export function TabFinPropositoFT({
                       />
                     }
                   />
-                </Box>
+                </Grid>
               </FormControl>
 
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "60%",
+                  height: "70%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -688,18 +688,18 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.8vw",
+                    fontSize: [10, 10, 13, 15, 18],
                   }}
                 >
                   MONITOREABLE
                 </FormLabel>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Grid sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -726,7 +726,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -748,13 +748,13 @@ export function TabFinPropositoFT({
                       />
                     }
                   />
-                </Box>
+                </Grid>
               </FormControl>
 
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "60%",
+                  height: "70%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -765,18 +765,18 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.8vw",
+                    fontSize: [10, 10, 13, 15, 18],
                   }}
                 >
                   ADECUADO
                 </FormLabel>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Grid sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -803,7 +803,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -825,13 +825,13 @@ export function TabFinPropositoFT({
                       />
                     }
                   />
-                </Box>
+                </Grid>
               </FormControl>
 
               <FormControl
                 sx={{
                   width: "90%",
-                  height: "60%",
+                  height: "70%",
                   backgroundColor: "#f0f0f0",
                   boxShadow: 2,
                   fontFamily: "MontserratMedium",
@@ -842,18 +842,18 @@ export function TabFinPropositoFT({
                 <FormLabel
                   sx={{
                     fontFamily: "MontserratBold",
-                    fontSize: "0.8vw",
+                    fontSize: [10, 10, 13, 15, 18],
                   }}
                 >
                   APORTE MARGINAL
                 </FormLabel>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Grid sx={{ display: "flex", flexDirection: "column" }}>
                   <FormControlLabel
                     value={"SI"}
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -880,7 +880,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -907,7 +907,7 @@ export function TabFinPropositoFT({
                     label={
                       <Typography
                         sx={{
-                          fontSize: "0.7vw",
+                          fontSize: [ 10, 10, 11, 12, 13],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -929,14 +929,14 @@ export function TabFinPropositoFT({
                       />
                     }
                   />
-                </Box>
+                </Grid>
               </FormControl>
-            </Box>
+            </Grid>
           </>
         ) : null}
 
         {showProposito ? (
-          <Box
+          <Grid
             sx={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
@@ -959,18 +959,18 @@ export function TabFinPropositoFT({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
               >
                 TIPO DE INDICADOR
               </FormLabel>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
                   value={"SELECCIÓN ESTRATEGICO"}
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -999,7 +999,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1021,7 +1021,7 @@ export function TabFinPropositoFT({
                     />
                   }
                 />
-              </Box>
+              </Grid>
             </FormControl>
 
             <FormControl
@@ -1038,13 +1038,13 @@ export function TabFinPropositoFT({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
               >
                 DIMENSIÓN
               </FormLabel>
 
-              <Box
+              <Grid
                 sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}
               >
                 <FormControlLabel
@@ -1052,7 +1052,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1079,7 +1079,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1106,7 +1106,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1134,7 +1134,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1156,11 +1156,11 @@ export function TabFinPropositoFT({
                     />
                   }
                 />
-              </Box>
+              </Grid>
             </FormControl>
 
             <TextField
-              rows={8}
+              rows={5}
               multiline
               variant="filled"
               sx={{ width: "90%", boxShadow: 2 }}
@@ -1168,7 +1168,7 @@ export function TabFinPropositoFT({
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
-                  fontSize: ".8vw",
+                  fontSize: "1vw",
                 },
               }}
               InputProps={{
@@ -1191,7 +1191,7 @@ export function TabFinPropositoFT({
             <FormControl
               sx={{
                 width: "90%",
-                height: "60%",
+                height: "70%",
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
                 fontFamily: "MontserratMedium",
@@ -1202,18 +1202,18 @@ export function TabFinPropositoFT({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
               >
                 CLARIDAD
               </FormLabel>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
                   value={"SI"}
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1240,7 +1240,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1262,13 +1262,13 @@ export function TabFinPropositoFT({
                     />
                   }
                 />
-              </Box>
+              </Grid>
             </FormControl>
 
             <FormControl
               sx={{
                 width: "90%",
-                height: "60%",
+                height: "70%",
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
                 fontFamily: "MontserratMedium",
@@ -1279,18 +1279,18 @@ export function TabFinPropositoFT({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
               >
                 RELEVANCIA
               </FormLabel>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
                   value={"SI"}
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1317,7 +1317,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1339,13 +1339,13 @@ export function TabFinPropositoFT({
                     />
                   }
                 />
-              </Box>
+              </Grid>
             </FormControl>
 
             <FormControl
               sx={{
                 width: "90%",
-                height: "60%",
+                height: "70%",
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
                 fontFamily: "MontserratMedium",
@@ -1356,18 +1356,18 @@ export function TabFinPropositoFT({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
               >
                 ECONOMÍA
               </FormLabel>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
                   value={"SI"}
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1394,7 +1394,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1416,13 +1416,13 @@ export function TabFinPropositoFT({
                     />
                   }
                 />
-              </Box>
+              </Grid>
             </FormControl>
 
             <FormControl
               sx={{
                 width: "90%",
-                height: "60%",
+                height: "70%",
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
                 fontFamily: "MontserratMedium",
@@ -1433,18 +1433,18 @@ export function TabFinPropositoFT({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
               >
                 MONITOREABLE
               </FormLabel>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
                   value={"SI"}
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1471,7 +1471,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1493,13 +1493,13 @@ export function TabFinPropositoFT({
                     />
                   }
                 />
-              </Box>
+              </Grid>
             </FormControl>
 
             <FormControl
               sx={{
                 width: "90%",
-                height: "60%",
+                height: "70%",
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
                 fontFamily: "MontserratMedium",
@@ -1510,18 +1510,18 @@ export function TabFinPropositoFT({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
               >
                 ADECUADO
               </FormLabel>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
                   value={"SI"}
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1548,7 +1548,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1570,13 +1570,13 @@ export function TabFinPropositoFT({
                     />
                   }
                 />
-              </Box>
+              </Grid>
             </FormControl>
 
             <FormControl
               sx={{
                 width: "90%",
-                height: "60%",
+                height: "70%",
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
                 fontFamily: "MontserratMedium",
@@ -1587,18 +1587,18 @@ export function TabFinPropositoFT({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
               >
                 APORTE MARGINAL
               </FormLabel>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
                   value={"SI"}
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1625,7 +1625,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1652,7 +1652,7 @@ export function TabFinPropositoFT({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
+                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -1674,11 +1674,11 @@ export function TabFinPropositoFT({
                     />
                   }
                 />
-              </Box>
+              </Grid>
             </FormControl>
-          </Box>
+          </Grid>
         ) : null}
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }

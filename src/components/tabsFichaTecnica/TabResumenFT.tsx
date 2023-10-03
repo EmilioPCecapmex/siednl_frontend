@@ -15,7 +15,7 @@ import {
 } from "./Interfaces";
 import { queries } from "../../queries";
 export function TabResumenFT({
-  show,
+ // show,
   encabezado,
   fin,
   proposito,
@@ -28,7 +28,7 @@ export function TabResumenFT({
   showResume,
   MIR,
 }: {
-  show: boolean;
+//  show: boolean;
   encabezado: Array<IEncabezadoFT>;
   fin: Array<IFinFT>;
   proposito: Array<IPropositoFT>;
@@ -101,7 +101,7 @@ export function TabResumenFT({
     setEditActividades(aEdit);
 
     asignarFT(encabezado, fin, proposito, componenteValor, arr);
-  }, [encabezado, componenteValor, proposito, fin, cValor, show]);
+  }, [encabezado, componenteValor, proposito, fin, cValor]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -217,8 +217,8 @@ export function TabResumenFT({
   };
   return (
     <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+     // visibility={show ? "visible" : "hidden"}
+      
       sx={{
         display: "flex",
         width: "93vw",
