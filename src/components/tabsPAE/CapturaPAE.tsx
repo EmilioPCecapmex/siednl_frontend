@@ -218,6 +218,7 @@ export default function CapturaPAE() {
             Numero={"2"}
             Nombre={"A"}
             Ruta={"A"}
+            value={value}
           />
         </Grid>
 

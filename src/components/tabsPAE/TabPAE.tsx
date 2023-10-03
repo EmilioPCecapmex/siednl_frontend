@@ -30,6 +30,7 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import DownloadIcon from "@mui/icons-material/Download";
 import axios from "axios";
 import Swal from "sweetalert2";
+import VisualizarPAE from "../../components/modalsPAE/ModalVisualizacionPAE";
 
 
 export const TabPAE = ({
@@ -38,7 +39,8 @@ export const TabPAE = ({
   Anio,
   Numero,
   Nombre,
-  Ruta
+  Ruta,
+  value
 }: {
   anios: number[];
   idPAE: string;
@@ -46,21 +48,243 @@ export const TabPAE = ({
   Numero: string;
   Nombre: string;
   Ruta: string;
+  value: number;
 }) => {
+  interface Registro {
+    Id: string;
+    Anio: string;
+    Nombre: string;
+    Ruta: string;
+    PerteneceA: string;
+
+  }
   const [open, setOpen] = useState(1);
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [noAnios, setAnios] = useState([1]);
   const [noNumeros, setNumeros] = useState([1]);
   const [registros, setRegistros] = useState<Registro[]>([]);
+  const [registrosFiltrados, setRegistrosFiltrados] = useState<Registro[]>([]);
   const handleClickComponente = (index: number) => {
     setOpen(index);
   };
   const [actividadSelect, setActividadSelect] = useState(0);
 
+  const tabsRegistros = (value:number,anio:string) => {
+    getListaPae();
+    switch(anio) {
+      case "2020":
+        switch (value) {
+          case 10:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+                (
+                x.Anio.includes("2020")
+                )
+            ));
+            break;
+          case 20:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+                (x.PerteneceA.includes("PAE") &&
+                x.Anio.includes("2020")
+                )
+            ));
+            break;
+          case 30:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+                (x.PerteneceA.includes("Terminos de referencia") &&
+                x.Anio.includes("2020")
+                )
+            ));
+            break;
+            case 40:
+              setRegistrosFiltrados(registros.filter(
+                (x) =>
+                  (x.PerteneceA.includes("Bitacora de informacion") &&
+                  x.Anio.includes("2020")
+                  )
+              ));
+              break;
+              case 50:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+                (x.PerteneceA.includes("Informe calidad") &&
+                x.Anio.includes("2020")
+                )
+            ));
+            break;
+            case 60:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+                (x.PerteneceA.includes("Informe final") &&
+                x.Anio.includes("2020")
+                )
+            ));
+            break;
+            case 70:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+                (x.PerteneceA.includes("Anexo CONAC") &&
+                x.Anio.includes("2020")
+                )
+            ));
+            break;
+            case 80:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+                (x.PerteneceA.includes("Reporte Evaluacion") &&
+                x.Anio.includes("2020")
+                )
+            ));
+            break;
+          }
+        break;
+        case "2021":
+          switch (value) {
+            case 10:
+              setRegistrosFiltrados(registros.filter(
+                (x) =>
+                  (
+                  x.Anio.includes("2021")
+                  )
+              ));
+              break;
+            case 20:
+              setRegistrosFiltrados(registros.filter(
+                (x) =>
+                  (x.PerteneceA.includes("PAE") &&
+                  x.Anio.includes("2021")
+                  )
+              ));
+              break;
+            case 30:
+              setRegistrosFiltrados(registros.filter(
+                (x) =>
+                  (x.PerteneceA.includes("Terminos de referencia") &&
+                  x.Anio.includes("2021")
+                  )
+              ));
+              break;
+              case 40:
+                setRegistrosFiltrados(registros.filter(
+                  (x) =>
+                    (x.PerteneceA.includes("Bitacora de informacion") &&
+                    x.Anio.includes("2021")
+                    )
+                ));
+                break;
+                case 50:
+              setRegistrosFiltrados(registros.filter(
+                (x) =>
+                  (x.PerteneceA.includes("Informe calidad") &&
+                  x.Anio.includes("2021")
+                  )
+              ));
+              break;
+              case 60:
+              setRegistrosFiltrados(registros.filter(
+                (x) =>
+                  (x.PerteneceA.includes("Informe final") &&
+                  x.Anio.includes("2021")
+                  )
+              ));
+              break;
+              case 70:
+              setRegistrosFiltrados(registros.filter(
+                (x) =>
+                  (x.PerteneceA.includes("Anexo CONAC") &&
+                  x.Anio.includes("2021")
+                  )
+              ));
+              break;
+              case 80:
+              setRegistrosFiltrados(registros.filter(
+                (x) =>
+                  (x.PerteneceA.includes("Reporte Evaluacion") &&
+                  x.Anio.includes("2021")
+                  )
+              ));
+              break;
+            }
+          break;
+          case "2022":
+            switch (value) {
+              case 10:
+                setRegistrosFiltrados(registros.filter(
+                  (x) =>
+                    (
+                    x.Anio.includes("2022")
+                    )
+                ));
+                break;
+              case 20:
+                setRegistrosFiltrados(registros.filter(
+                  (x) =>
+                    (x.PerteneceA.includes("PAE") &&
+                    x.Anio.includes("2022")
+                    )
+                ));
+                break;
+              case 30:
+                setRegistrosFiltrados(registros.filter(
+                  (x) =>
+                    (x.PerteneceA.includes("Terminos de referencia") &&
+                    x.Anio.includes("2022")
+                    )
+                ));
+                break;
+                case 40:
+                  setRegistrosFiltrados(registros.filter(
+                    (x) =>
+                      (x.PerteneceA.includes("Bitacora de informacion") &&
+                      x.Anio.includes("2022")
+                      )
+                  ));
+                  break;
+                  case 50:
+                setRegistrosFiltrados(registros.filter(
+                  (x) =>
+                    (x.PerteneceA.includes("Informe calidad") &&
+                    x.Anio.includes("2022")
+                    )
+                ));
+                break;
+                case 60:
+                setRegistrosFiltrados(registros.filter(
+                  (x) =>
+                    (x.PerteneceA.includes("Informe final") &&
+                    x.Anio.includes("2022")
+                    )
+                ));
+                break;
+                case 70:
+                setRegistrosFiltrados(registros.filter(
+                  (x) =>
+                    (x.PerteneceA.includes("Anexo CONAC") &&
+                    x.Anio.includes("2022")
+                    )
+                ));
+                break;
+                case 80:
+                setRegistrosFiltrados(registros.filter(
+                  (x) =>
+                    (x.PerteneceA.includes("Reporte Evaluacion") &&
+                    x.Anio.includes("2022")
+                    )
+                ));
+                break;
+              }
+            break;
+          
+    }
+  };
+
   useEffect(() => {
     getAniosPae("2023");
     getNumeroPae("2023", "1");
     getListaPae();
+    tabsRegistros(value,"2020");
     // console.log(noAnios+","+noNumeros)
   }, []);
 
@@ -77,16 +301,7 @@ export const TabPAE = ({
   });
 
 
-  interface Registro {
-    Id: string;
-    Anio: string;
-    Numero: string;
-    Nombre: string;
-    Ruta: string;
-    CreadoPor: string;
-    FechaCreacion: string;
-    Deleted: number;
-  }
+  
 
   interface Head {
     id: string;
@@ -207,7 +422,7 @@ export const TabPAE = ({
 
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/lista-pae",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-pae",
         {
           headers: {
             "Content-Type": "application/json",
@@ -281,6 +496,13 @@ export const TabPAE = ({
       .catch((r) => {});
   };
 
+  useEffect(() => {
+    tabsRegistros(value,componenteSelect==0?"2022":componenteSelect==1?"2021":"2020");
+  }, [value]);
+
+  useEffect(() => {
+    tabsRegistros(value,componenteSelect==0?"2022":componenteSelect==1?"2021":"2020");
+  }, [componenteSelect]);
 
   return (
     <>
@@ -378,8 +600,8 @@ export const TabPAE = ({
 
         <Grid container item xs={10}>
           <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%" }}>
-            {/* {JSON.stringify(registros[0]?.Nombre)} */}
-            {/* {registros[0]} */}
+            {/* {componenteSelect+"  "}
+             
              {componenteSelect==0&&actividadSelect==0?
           "Programa Anual de evaluación 2022, Versión 2":
           componenteSelect==0&&actividadSelect==1?
@@ -395,11 +617,11 @@ export const TabPAE = ({
           componenteSelect==3&&actividadSelect==0?
           "Programa Anual de evaluación 2019, Versión 2":
           "Programa Anual de evaluación 2019, Versión 1"}
-          .Publicado el:  
+          .Publicado el:   */}
           </Typography>
 
           <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%", alignContent: "right", textAlign: "right" }}>
-            {componenteSelect == 0 && actividadSelect == 0 ?
+            {/* {componenteSelect == 0 && actividadSelect == 0 ?
               "20/Abril/2022" :
               componenteSelect == 0 && actividadSelect == 1 ?
                 "19/Abril/2022" :
@@ -413,12 +635,12 @@ export const TabPAE = ({
                         "17/Abril/2020" :
                         componenteSelect == 3 && actividadSelect == 0 ?
                           "17/Abril/2019" :
-                          "16/Abril/2019"}
+                          "16/Abril/2019"} */}
           </Typography>
           <Grid container item xs={12} sx={{ height: "-webkit-fill-available" }}>
             {/* <InsertarComponentePDF Nombre={"C" + (componenteSelect + 1) + "A" + (actividadSelect + 1)} /> */}
 
-
+                          
 
 
 
@@ -427,8 +649,6 @@ export const TabPAE = ({
             <Grid
               container
               item
-              lg={10}
-              md={9}
               height="65vh"
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
@@ -476,7 +696,7 @@ export const TabPAE = ({
                   </TableHead>
 
                   <TableBody>
-                    {mirsFiltered
+                    {registrosFiltrados
                        .slice(
                          page * rowsPerPage,
                          page * rowsPerPage + rowsPerPage
@@ -493,14 +713,14 @@ export const TabPAE = ({
                             component="th"
                             scope="row"
                           >
-                            {row.AnioFiscal}
+                            {row.Nombre}
                           </TableCell>
 
                           <TableCell
                             sx={{
                               flexDirection: "row",
                               display: "grid",
-                              gridTemplateColumns: "repeat(4,1fr)",
+                              gridTemplateColumns: "repeat(2,1fr)",
                             }}
                             align="center"
                             component="th"
@@ -518,7 +738,7 @@ export const TabPAE = ({
                                     },
                                   ],
                                 }}
-                                title="DESCARGAR MIR"
+                                title="DESCARGAR ARCHIVO"
                               >
                                 <span>
                                   <IconButton
@@ -547,12 +767,12 @@ export const TabPAE = ({
                                 </span>
                               </Tooltip>
 
-                              {/* <ComentDialogMir
-                                estado={row.Estado}
+                              <VisualizarPAE
+                                estado={row.Nombre}
                                 id={row.Id}
-                                actualizado={actualizaContador}
+                              
                               />
-
+{/* 
                               <DeleteDialogMIR
                                 disab={
                                   row.Estado === "En Captura" && validaFecha &&
