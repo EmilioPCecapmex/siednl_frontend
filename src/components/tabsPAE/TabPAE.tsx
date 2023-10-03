@@ -791,58 +791,7 @@ export const TabPAE = ({
                                 id={row.Id}
                                 actualizado={actualizaContador}
                               /> */}
-                              <Tooltip
-                                title="VISUALIZAR"
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
-                                      },
-                                    },
-                                  ],
-                                }}
-                              >
-                                <span>
-                                  <IconButton
-                                   
-                                    // onClick={() => {
-                                    //   setMirEdit([
-                                    //     {
-                                    //       Id: row.Id,
-                                    //       AnioFiscal: row.AnioFiscal,
-                                    //       Entidad: row.Entidad,
-                                    //       Programa: row.Programa,
-                                    //       Eje: row.Eje,
-                                    //       Tematica: row.Tematica,
-                                    //       MIR: row.MIR,
-                                    //       Estado: row.Estado,
-                                    //       FechaCreacion: row.FechaCreacion,
-                                    //       CreadoPor: row.CreadoPor,
-                                    //       Conac: row.Conac,
-                                    //       Consecutivo: row.Consecutivo,
-                                    //       Opciones: row.Opciones,
-                                    //     },
-                                    //   ]);
-                                    //   setShowResume(false);
-                                    //   setActionNumber(1);
-                                    // }}
-                                  >
-                                    <LaunchIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "blue",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
+                              
                             
                           </TableCell>
                         </TableRow>
