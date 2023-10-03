@@ -549,7 +549,7 @@ export const MetaAnual = () => {
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     //textAlign: "center",
-                    fontSize: [10, 10, 15, 18, 30],
+                    fontSize: [10, 10, 15, 15, 18, 20],
                   }}
                   placeholder="Buscar"
                   value={findTextStr}
@@ -570,7 +570,31 @@ export const MetaAnual = () => {
                   aria-label="search"
                   onClick={() => filtrarDatos()}
                 >
-                  <SearchIcon />
+                  <SearchIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 25, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 30, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 30, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        fontSize: 30, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
                 </IconButton>
               </Paper>
 
@@ -609,7 +633,7 @@ export const MetaAnual = () => {
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       //textAlign: "center",
-                      fontSize: [10, 10, 15, 18, 30],
+                      fontSize: [10, 10, 15, 15, 18, 20],
                       // Tamaños de fuente para diferentes breakpoints
                     }}
                     value={findSelectStr}
@@ -658,7 +682,7 @@ export const MetaAnual = () => {
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         //textAlign: "center",
-                        fontSize: [10, 10, 15, 18, 30],
+                        fontSize: [10, 10, 15, 15, 18, 20],
                       }}
                       value={findInstStr}
                       // sx={{ fontFamily: "MontserratRegular" }}
@@ -726,7 +750,7 @@ export const MetaAnual = () => {
                             backgroundColor: "#edeaea",
                             fontFamily: "MontserratBold",
                             borderBottom: 0,
-                            fontSize: [10, 10, 10, 15, 25],
+                            fontSize: [10, 10, 10, 15, 16, 18],
                             // fontFamily: "MontserratRegular",
                             //   fontSize: ".7vw",
                             justifyContent: "center",
@@ -753,11 +777,9 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 25],
-                              textAlign:"center"
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                           
-                            
                           >
                             {row.AnioFiscal}
                           </TableCell>
@@ -765,10 +787,9 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 25],
-                              textAlign:"center"
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                          
                           >
                             {row.Entidad?.toUpperCase()}
                           </TableCell>
@@ -776,10 +797,9 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 25],
-                              textAlign:"center"
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            
                           >
                             {row.Programa.toUpperCase()}
                           </TableCell>
@@ -787,10 +807,9 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 25],
-                              textAlign:"center"
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                           
                           >
                             {(row.Estado === "En Captura" &&
                             localStorage.getItem("Rol") === "Capturador"
@@ -808,23 +827,23 @@ export const MetaAnual = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 25],
-                              textAlign:"center"
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                            
                           >
                             {moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()}
                           </TableCell>
+
+                          
                           <TableCell
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 25],
-                              textAlign:"center"
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                           
                           >
                             {row.Estado === "En Captura"
                               ? "SIN ASIGNAR"
@@ -834,12 +853,12 @@ export const MetaAnual = () => {
                           <TableCell
                             sx={{
                               flexDirection: "row",
-                              display: "grid",
+                              //display: "grid",
+                              //padding: "2px 20px 2px 10",
                               gridTemplateColumns: "repeat(4,1fr)",
-                              fontSize: [10, 10, 10, 15, 25],
-                              textAlign:"center"
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
-                           
                           >
                             <Tooltip
                               title="REGISTRAR META ANUAL"
@@ -887,9 +906,27 @@ export const MetaAnual = () => {
                                       : true
                                   }
                                   sx={{
-                                    color: "#616161",
-                                    "&:hover": {
-                                      color: "blue",
+                                    fontSize: "24px", // Tamaño predeterminado del icono
+
+                                    "@media (max-width: 600px)": {
+                                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                    },
+
+                                    "@media (min-width: 601px) and (max-width: 960px)":
+                                      {
+                                        fontSize: 20, // Pantalla pequeña (md)
+                                      },
+
+                                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                                        fontSize: 20, // Pantalla mediana (lg)
+                                      },
+
+                                    "@media (min-width: 1281px)": {
+                                      fontSize: 25, // Pantalla grande (xl)
+                                    },
+
+                                    "@media (min-width: 2200px)": {
+                                      ffontSize: 25, // Pantalla grande (xl)
                                     },
                                   }}
                                   onClick={() => {
@@ -915,11 +952,28 @@ export const MetaAnual = () => {
                                 >
                                   <AddCircleOutlineIcon
                                     sx={{
-                                      "&:hover": {
-                                        color: "lightBlue",
+                                      fontSize: "24px", // Tamaño predeterminado del icono
+  
+                                      "@media (max-width: 600px)": {
+                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
-                                      width: "1.2vw",
-                                      height: "1.2vw",
+  
+                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
+  
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
+  
+                                      "@media (min-width: 1281px)": {
+                                        fontSize: 25, // Pantalla grande (xl)
+                                      },
+  
+                                      "@media (min-width: 2200px)": {
+                                        ffontSize: 25, // Pantalla grande (xl)
+                                      },
                                     }}
                                   />
                                 </IconButton>
@@ -945,15 +999,30 @@ export const MetaAnual = () => {
                                   }
                                 >
                                   <DownloadIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "orange",
-                                        },
-                                        width: "1.2vw",
-                                        height: "1.2vw",
+                                     sx={{
+                                      fontSize: "24px", // Tamaño predeterminado del icono
+  
+                                      "@media (max-width: 600px)": {
+                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
-                                    ]}
+  
+                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
+  
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
+  
+                                      "@media (min-width: 1281px)": {
+                                        fontSize: 25, // Pantalla grande (xl)
+                                      },
+  
+                                      "@media (min-width: 2200px)": {
+                                        ffontSize: 25, // Pantalla grande (xl)
+                                      },
+                                    }}
                                   />
                                 </IconButton>
                               </span>
@@ -971,7 +1040,7 @@ export const MetaAnual = () => {
                 </Table>
               </TableContainer>
 
-              <Box sx={{ width: "100%" }}>
+              <Box sx={{ width: "100%", fontSize: [10, 10, 10, 15, 18] }}>
                 <TablePagination
                   rowsPerPageOptions={[renglonesPagina]}
                   component="div"

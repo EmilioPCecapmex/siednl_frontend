@@ -1,6 +1,6 @@
 import {
   Dialog,
-  Box,
+  Grid,
   DialogContent,
   Button,
   Typography,
@@ -83,7 +83,7 @@ export const FormulaDialogMA = ({
 
   return (
     <Dialog open={open} fullWidth>
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -92,14 +92,14 @@ export const FormulaDialogMA = ({
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
+        <Typography sx={{ fontFamily: "MontserratBold", fontSize: [10, 10, 10, 15, 18, 18], }}>
           {elemento} - Fórmula - {tipo}
         </Typography>
 
         <Typography
           sx={{
             fontFamily: "MontserratRegular",
-            fontSize: ".6vw",
+            fontSize: [10, 10, 10, 13, 14, 18],
             width: "90%",
             textAlign: "center",
           }}
@@ -120,7 +120,7 @@ export const FormulaDialogMA = ({
         <Typography
           sx={{
             fontFamily: "MontserratRegular",
-            fontSize: ".6vw",
+            fontSize: [10, 10, 10, 13, 14, 18],
             width: "90%",
             textAlign: "center",
           }}
@@ -135,7 +135,7 @@ export const FormulaDialogMA = ({
             ? JSON.parse(MIR).actividades[noActividad - 1]?.formula
             : null}
         </Typography>
-      </Box>
+      </Grid>
 
       <DialogContent>
         <Snackbar
@@ -146,7 +146,7 @@ export const FormulaDialogMA = ({
         >
           <Alert severity="warning">Verifica información</Alert>
         </Snackbar>
-        <Box
+        <Grid
           sx={{
             width: "100%",
             height: "7vh",
@@ -158,7 +158,7 @@ export const FormulaDialogMA = ({
             <TextField
               type={"number"}
               label={
-                <Typography sx={{ fontFamily: "MontserratBold" }}>
+                <Typography sx={{ fontFamily: "MontserratBold",fontSize: [10, 10, 10, 14, 15, 18], }}>
                   {"Valor del índice"}
                 </Typography>
               }
@@ -198,7 +198,7 @@ export const FormulaDialogMA = ({
               }}
             />
           ) : (
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid sx={{ display: "flex", justifyContent: "center" ,fontSize: [10, 10, 10, 14, 15, 18],}}>
               <TextField
                 type={"number"}
                 label={
@@ -232,7 +232,7 @@ export const FormulaDialogMA = ({
               <TextField
                 type={"number"}
                 label={
-                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                  <Typography sx={{ fontFamily: "MontserratBold", fontSize: [10, 10, 10, 14, 15, 18], }}>
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
@@ -259,24 +259,24 @@ export const FormulaDialogMA = ({
                   },
                 }}
               />
-            </Box>
+            </Grid>
           )}{" "}
-        </Box>
+        </Grid>
       </DialogContent>
-      <Box
+      <Grid
         sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" }}
       >
         <Button sx ={queries.buttonCancelarSolicitudInscripcion} onClick={() => close()} >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 14, 15, 18], }}>
             Cancelar
           </Typography>
         </Button>
         <Button sx ={queries.buttonContinuarSolicitudInscripcion}  onClick={() => checkValues()} >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "MontserratMedium",fontSize: [10, 10, 10, 14, 15, 18], }}>
             Agregar
           </Typography>
         </Button>
-      </Box>
+      </Grid>
     </Dialog>
   );
 };
