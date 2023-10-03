@@ -36,7 +36,7 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
   ];
 
   const navigationOptions = (value: number, label: string) => {
-    if (value === 24) {
+    if (value === 25) {
       navigate("../users");
     } else {
       showConfig(label);
