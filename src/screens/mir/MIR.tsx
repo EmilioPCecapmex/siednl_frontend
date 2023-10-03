@@ -937,7 +937,7 @@ export const MIR = () => {
                             sx={{
                               flexDirection: "row",
                               display: "grid",
-                              gridTemplateColumns: "repeat(4,1fr)", 
+                              gridTemplateColumns: "repeat(2,2fr)", 
                             }}
                             align="center"
                             component="th"
