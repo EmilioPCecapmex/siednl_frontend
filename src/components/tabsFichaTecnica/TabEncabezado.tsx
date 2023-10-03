@@ -7,7 +7,7 @@ import {
   Divider,
   List,
   ListItemButton,
-  Box,
+  Grid,
   Autocomplete,
   Typography,
 } from "@mui/material";
@@ -15,12 +15,12 @@ import axios from "axios";
 import { IEncabezadoFT } from "./Interfaces";
 
 export function TabEncabezado({
-  show,
+ // show,
   resumenEncabezadoFT,
   FT,
   MIR,
 }: {
-  show: boolean;
+  //show: boolean;
   resumenEncabezadoFT: Function;
   FT: string;
   MIR: string;
@@ -65,7 +65,7 @@ export function TabEncabezado({
       lda.push(x.Id);
     });
     getObjetivos(lda);
-  }, [show, MIR]);
+  }, [ MIR]);
 
   const getObjetivos = (id: Array<number>) => {
     id.map((value, index) => {
@@ -120,9 +120,9 @@ export function TabEncabezado({
   }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel]);
 
   return (
-    <Box
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+    <Grid
+      //visibility={show ? "visible" : "hidden"}
+      //position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
@@ -133,7 +133,7 @@ export function TabEncabezado({
         backgroundColor: "#fff",
       }}
     >
-      <Box
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -146,14 +146,14 @@ export function TabEncabezado({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            fontSize: [ 10, 15, 18, 22, 22, 25],
           }}
         >
           ENCABEZADO
         </Typography>
-      </Box>
+      </Grid>
 
-      <Box
+      <Grid
         sx={{
           width: "100%",
           height: "100%",
@@ -162,7 +162,7 @@ export function TabEncabezado({
       >
         <List
           sx={{
-            width: "10vw",
+            width: "15vw",
             height: "65vh",
             borderRight: "solid",
             display: "flex",
@@ -179,7 +179,7 @@ export function TabEncabezado({
             },
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -199,16 +199,16 @@ export function TabEncabezado({
                 },
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{fontSize: [ 10, 15, 18, 18, 22, 25], fontFamily: "MontserratMedium" }}>
                 ENCABEZADO
               </Typography>
             </ListItemButton>
 
             <Divider />
-          </Box>
+          </Grid>
         </List>
 
-        <Box
+        <Grid
           sx={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -231,6 +231,7 @@ export function TabEncabezado({
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratMedium",
+                fontSize: "1.3vw",
               },
             }}
             InputProps={{
@@ -253,6 +254,7 @@ export function TabEncabezado({
             label="OBJETIVO SECTORIAL, ESPECIAL O REGIONAL"
             InputLabelProps={{
               style: {
+                fontSize: "1.3vw",
                 fontFamily: "MontserratMedium",
               },
             }}
@@ -265,7 +267,7 @@ export function TabEncabezado({
 
           {/*------------------------TF2--------------------- */}
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -310,7 +312,7 @@ export function TabEncabezado({
                     InputLabelProps={{
                       style: {
                         fontFamily: "MontserratSemiBold",
-                        fontSize: ".8vw",
+                        fontSize: "1.3vw",
                       },
                     }}
                     sx={{
@@ -329,9 +331,9 @@ export function TabEncabezado({
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -377,7 +379,7 @@ export function TabEncabezado({
                     InputLabelProps={{
                       style: {
                         fontFamily: "MontserratSemiBold",
-                        fontSize: ".8vw",
+                        fontSize: "1.3vw",
                       },
                     }}
                     sx={{
@@ -393,9 +395,9 @@ export function TabEncabezado({
                 }}
               />
             </FormControl>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }

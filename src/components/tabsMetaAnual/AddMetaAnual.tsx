@@ -194,11 +194,11 @@ export default function AddMetaAnual({
 
   return (
     <Grid
-    container
-    sx={{
-      display: "flex",
-      justifyContent: "space-evenly",
-    }}
+      container
+      sx={{
+        display: "flex",
+        justifyContent: "space-evenly",
+      }}
     >
       {/* {value === 10 ? <TutorialBox initialState={35} endState={39} /> : null}
       {value === 20 ? <TutorialBox initialState={39} endState={40} /> : null}
@@ -299,73 +299,75 @@ export default function AddMetaAnual({
         </Tabs>
 
         <Grid
-          container
-          item
+          // container
+          // item
           sx={{
-            display: "flex",
+            //display: "flex",
             width: "93vw",
             height: "82vh",
-            boxShadow: 10,
-            borderRadius: 5,
-            flexDirection: "column",
-            backgroundColor: "#fff",
+            // boxShadow: 10,
+            // borderRadius: 5,
+            // flexDirection: "column",
+            // backgroundColor: "#fff",
           }}
         >
-          <TabFinPropositoMA
-            MA={MA}
-            MIR={MIR}
-            setTxtShowFnc={showFnc}
-            show={value === 20 ? true : false}
-            resumenFinMa={resumenFinMa}
-            resumenPropositoMa={resumenPropositoMa}
-            showMirFnc={showMirFnc}
-          ></TabFinPropositoMA>
-
-          <TabComponenteMA
-            setTxtShowFnc={showFnc}
-            showMirFnc={showMirFnc}
-            show={value === 30 ? true : false}
-            valoresComponenteMAFnc={valoresComponenteMAFnc}
-            noComponentes={noComponentes}
-            MA={MA}
-            MIR={MIR}
-          ></TabComponenteMA>
-
-          <TabActividadesMA
-            setTxtShowFnc={showFnc}
-            showMirFnc={showMirFnc}
-            compAct={compAct}
-            show={value === 40 ? true : false}
-            componentes={noComponentes}
-            asignarCValor={asignarCValorMA}
-            MA={MA}
-            MIR={MIR}
-          ></TabActividadesMA>
-
-          <TabResumenMA
-            show={value === 50 ? true : false}
-            componentes={noComponentes}
-            componenteValor={valoresComponenteMA}
-            cValor={cValorMA}
-            fin={ValueFin}
-            proposito={ValueProposito}
-            IdMir={IdMir}
-            IdMA={IdMA}
-            showResume={showResume}
-            MIR={MIR}
-          ></TabResumenMA>
-
-          <TabResumenMIR
+          {value === 20 && (
+            <TabFinPropositoMA
+              MA={MA}
+              MIR={MIR}
+              setTxtShowFnc={showFnc}
+              //show={value === 20 ? true : false}
+              resumenFinMa={resumenFinMa}
+              resumenPropositoMa={resumenPropositoMa}
+              showMirFnc={showMirFnc}
+            />
+          )}
+          {value === 30 && (
+            <TabComponenteMA
+              setTxtShowFnc={showFnc}
+              showMirFnc={showMirFnc}
+              //show={value === 30 ? true : false}
+              valoresComponenteMAFnc={valoresComponenteMAFnc}
+              noComponentes={noComponentes}
+              MA={MA}
+              MIR={MIR}
+            />
+          )}
+          {value === 40 && (
+            <TabActividadesMA
+              setTxtShowFnc={showFnc}
+              showMirFnc={showMirFnc}
+              compAct={compAct}
+              // show={value === 40 ? true : false}
+              componentes={noComponentes}
+              asignarCValor={asignarCValorMA}
+              MA={MA}
+              MIR={MIR}
+            />
+          )}
+          {value === 50 && (
+            <TabResumenMA
+              // show={value === 50 ? true : false}
+              componentes={noComponentes}
+              componenteValor={valoresComponenteMA}
+              cValor={cValorMA}
+              fin={ValueFin}
+              proposito={ValueProposito}
+              IdMir={IdMir}
+              IdMA={IdMA}
+              showResume={showResume}
+              MIR={MIR}
+            />
+          )}
+          {/* <TabResumenMIR
             show={showMir}
             showMirFnc={showMirFnc}
             showSt={showSt}
             MIR={MIR}
             noComponentes={noComponentes}
-          ></TabResumenMIR>
+          ></TabResumenMIR> */}
         </Grid>
-        
       </Grid>
-     
     </Grid>
   );
 }

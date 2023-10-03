@@ -20,7 +20,7 @@ import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import axios from "axios";
 
 export const TabComponenteMA = ({
-  show,
+  //show,
   valoresComponenteMAFnc,
   noComponentes,
   showMirFnc,
@@ -28,7 +28,7 @@ export const TabComponenteMA = ({
   MA,
   MIR,
 }: {
-  show: boolean;
+  //show: boolean;
   valoresComponenteMAFnc: Function;
   noComponentes: number[];
   showMirFnc: Function;
@@ -307,8 +307,8 @@ export const TabComponenteMA = ({
 
   return (
     <Grid
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+      //visibility={show ? "visible" : "hidden"}
+      //position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
@@ -1187,7 +1187,7 @@ export const TabComponenteMA = ({
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
+                            fontSize: "1vw",
                           },
                         }}
                         sx={{

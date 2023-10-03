@@ -24,7 +24,7 @@ import axios from "axios";
 
 //funcion main
 export const TabActividadesMA = ({
-  show,
+  
   componentes,
   asignarCValor,
   compAct,
@@ -33,7 +33,7 @@ export const TabActividadesMA = ({
   MA,
   MIR,
 }: {
-  show: boolean;
+ 
   componentes: number[];
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
@@ -406,8 +406,8 @@ export const TabActividadesMA = ({
   //return main
   return (
     <Grid
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+     // visibility={show ? "visible" : "hidden"}
+      //position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
@@ -1324,7 +1324,7 @@ export const TabActividadesMA = ({
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
+                            fontSize: "1vw",
                           },
                         }}
                         sx={{
