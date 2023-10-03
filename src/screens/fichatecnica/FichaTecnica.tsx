@@ -99,7 +99,10 @@ const heads: readonly Head[] = [
 ];
 
 export const FichaTecnica = () => {
-
+  useEffect(() => {
+    setShowResume(true);
+    getFT(setft);
+  }, [resumeDefaultFT]);
 
   const returnMain = () => {
     setShowResume(true);
@@ -131,11 +134,6 @@ export const FichaTecnica = () => {
     setPage(0);
   };
 
-  useEffect(() => {
-    setShowResume(true);
-    getFT(setft);
-  }, [resumeDefaultFT,showResume]);
-  
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
