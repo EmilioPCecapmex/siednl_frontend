@@ -18,7 +18,7 @@ import { IComponenteActividad } from "../tabsMir/AddMir";
 
 //funcion main
 export const TabActividadesFT = ({
- 
+  show,
   componentes,
   asignarCValor,
   compAct,
@@ -26,7 +26,7 @@ export const TabActividadesFT = ({
   setTxtShowFnc,
   FT,
 }: {
- 
+  show: boolean;
   componentes: number[];
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
@@ -202,8 +202,8 @@ export const TabActividadesFT = ({
   //return main
   return (
     <Grid
-      //visibility={show ? "visible" : "hidden"}
-      //position="absolute"
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
