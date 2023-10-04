@@ -1,7 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable array-callback-return */
-/* eslint-disable no-eval */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import {
   ListItemButton,

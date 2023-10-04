@@ -14,12 +14,12 @@ import FormLabel from "@mui/material/FormLabel";
 import { IFinFT, IPropositoFT } from "./Interfaces";
 
 export function TabFinPropositoFT({
- // show,
+ show,
   resumenFinFT,
   resumenPropositoFT,
   FT,
 }: {
-  //show: boolean;
+  show: boolean;
   resumenFinFT: Function;
   resumenPropositoFT: Function;
   FT: string;
@@ -64,8 +64,8 @@ export function TabFinPropositoFT({
 
   return (
     <Grid
-      //visibility={show ? "visible" : "hidden"}
-      
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
       sx={{
         display: "flex",
         width: "93vw",

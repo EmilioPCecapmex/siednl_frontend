@@ -15,7 +15,7 @@ import {
 } from "./Interfaces";
 import { queries } from "../../queries";
 export function TabResumenFT({
- // show,
+  show,
   encabezado,
   fin,
   proposito,
@@ -28,7 +28,7 @@ export function TabResumenFT({
   showResume,
   MIR,
 }: {
-//  show: boolean;
+  show: boolean;
   encabezado: Array<IEncabezadoFT>;
   fin: Array<IFinFT>;
   proposito: Array<IPropositoFT>;
@@ -217,8 +217,8 @@ export function TabResumenFT({
   };
   return (
     <Box
-     // visibility={show ? "visible" : "hidden"}
-      
+     visibility={show ? "visible" : "hidden"}
+     position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
