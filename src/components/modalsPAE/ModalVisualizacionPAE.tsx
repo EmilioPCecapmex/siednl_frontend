@@ -24,6 +24,7 @@ import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
 import { InsertarComponentePDF } from "../tabsPAE/InsertarPDF";
 import CloseIcon from '@mui/icons-material/Close';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 export const VisualizarPAE = ({
   estado,
@@ -182,10 +183,10 @@ export const VisualizarPAE = ({
 
   return (
     <Box>
-      <Tooltip title="COMENTARIOS">
+      <Tooltip title="VISUALIZAR">
         <span>
           <IconButton onClick={handleClickOpen}>
-            <MessageIcon
+            <LaunchIcon
               sx={[
                 {
                   "&:hover": {

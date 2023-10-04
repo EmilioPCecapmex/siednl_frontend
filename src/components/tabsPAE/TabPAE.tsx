@@ -281,10 +281,10 @@ export const TabPAE = ({
   };
 
   useEffect(() => {
-    getAniosPae("2023");
-    getNumeroPae("2023", "1");
+    getAniosPae("2022");
+    getNumeroPae("2022", "1");
     getListaPae();
-    tabsRegistros(value,"2020");
+    tabsRegistros(value,"2022");
     // console.log(noAnios+","+noNumeros)
   }, []);
 
@@ -697,10 +697,10 @@ export const TabPAE = ({
 
                   <TableBody>
                     {registrosFiltrados
-                       .slice(
-                         page * rowsPerPage,
-                         page * rowsPerPage + rowsPerPage
-                       )
+                      //  .slice(
+                      //    page * rowsPerPage,
+                      //    page * rowsPerPage + rowsPerPage
+                      //  )
                       .map((row, index) => (
                         <TableRow>
                           <TableCell
@@ -791,58 +791,7 @@ export const TabPAE = ({
                                 id={row.Id}
                                 actualizado={actualizaContador}
                               /> */}
-                              <Tooltip
-                                title="VISUALIZAR"
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
-                                      },
-                                    },
-                                  ],
-                                }}
-                              >
-                                <span>
-                                  <IconButton
-                                   
-                                    // onClick={() => {
-                                    //   setMirEdit([
-                                    //     {
-                                    //       Id: row.Id,
-                                    //       AnioFiscal: row.AnioFiscal,
-                                    //       Entidad: row.Entidad,
-                                    //       Programa: row.Programa,
-                                    //       Eje: row.Eje,
-                                    //       Tematica: row.Tematica,
-                                    //       MIR: row.MIR,
-                                    //       Estado: row.Estado,
-                                    //       FechaCreacion: row.FechaCreacion,
-                                    //       CreadoPor: row.CreadoPor,
-                                    //       Conac: row.Conac,
-                                    //       Consecutivo: row.Consecutivo,
-                                    //       Opciones: row.Opciones,
-                                    //     },
-                                    //   ]);
-                                    //   setShowResume(false);
-                                    //   setActionNumber(1);
-                                    // }}
-                                  >
-                                    <LaunchIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "blue",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
+                              
                             
                           </TableCell>
                         </TableRow>

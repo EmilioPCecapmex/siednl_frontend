@@ -576,11 +576,12 @@ export const MIR = () => {
                       label="FILTRO POR INSTITUCION"
                       value={findInstStr}
                       sx={{
+                        fontFamily: "MontserratRegular",
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         // textAlign: "center",
-                        fontSize: [10, 10, 10, 15, 20], // Tamaños de fuente para diferentes breakpoints
+                        fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
                         // color: "#AF8C55"
                       }}
                       fullWidth
@@ -650,11 +651,12 @@ export const MIR = () => {
                       value={findSelectStr}
                       label="FILTRO POR ESTADO DE LA MIR"
                       sx={{
+                        fontFamily: "MontserratRegular",
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         // textAlign: "center",
-                        fontSize: [10, 10, 10, 15, 20], // Tamaños de fuente para diferentes breakpoints
+                        fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
                         // color: "#AF8C55"
                       }}
                       fullWidth
@@ -710,7 +712,7 @@ export const MIR = () => {
                     }}
                   >
                     <InputBase
-                      sx={{ ml: 1, flex: 1 , fontSize: [10, 10, 10, 15, 20],
+                      sx={{ ml: 1, flex: 1 , fontSize: [10, 10, 15, 15, 18, 20],
                         textAlign:"center",}}
                       placeholder="Buscar"
                       value={findTextStr}
@@ -816,7 +818,7 @@ export const MIR = () => {
                             backgroundColor: "#edeaea",
                             fontFamily: "MontserratBold",
                             borderBottom: 0,
-                            fontSize: [10, 10, 10, 15, 20],
+                            fontSize: [10, 10, 10, 15, 16, 18],
                             textAlign:"center",
                             // fontFamily: "MontserratRegular",
                             //   fontSize: ".7vw",
@@ -844,7 +846,7 @@ export const MIR = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 18],
+                              fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign:"center",
                             }}
                             align="center"
@@ -857,7 +859,7 @@ export const MIR = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 18],
+                              fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign:"center",
                             }}
                             align="center"
@@ -870,7 +872,7 @@ export const MIR = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 18],
+                              fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign:"center",
                             }}
                             align="center"
@@ -884,7 +886,7 @@ export const MIR = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 18],
+                              fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign:"center",
                             }}
                             align="center"
@@ -907,7 +909,7 @@ export const MIR = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 18],
+                              fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign:"center",
                             }}
                             align="center"
@@ -923,7 +925,7 @@ export const MIR = () => {
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 18],
+                              fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign:"center",
                             }}
                             align="center"
@@ -937,7 +939,7 @@ export const MIR = () => {
                             sx={{
                               flexDirection: "row",
                               display: "grid",
-                              gridTemplateColumns: "repeat(2,2fr)", 
+                              gridTemplateColumns: "repeat(4,1fr)", 
                             }}
                             align="center"
                             component="th"
@@ -975,20 +977,26 @@ export const MIR = () => {
                                   <DownloadIcon
                                     sx={{
                                       fontSize: "24px", // Tamaño predeterminado del icono
+  
                                       "@media (max-width: 600px)": {
-                                        fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
-                                      "@media (min-width: 601px) and (max-width: 960px)": {
-                                        fontSize: 25, // Pantalla pequeña (md)
-                                      },
-                                      "@media (min-width: 961px) and (max-width: 1280px)": {
-                                        fontSize: 30, // Pantalla mediana (lg)
-                                      },
+  
+                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
+  
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
+  
                                       "@media (min-width: 1281px)": {
-                                        fontSize: 30, // Pantalla grande (xl)
+                                        fontSize: 25, // Pantalla grande (xl)
                                       },
+  
                                       "@media (min-width: 2200px)": {
-                                        fontSize: 30, // Pantalla grande (xl)
+                                        ffontSize: 25, // Pantalla grande (xl)
                                       },
                                     }}
                                   />
@@ -1084,31 +1092,30 @@ export const MIR = () => {
                                   }}
                                 >
                                   <EditIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "blue",
-                                        },
-                                        // width: "2vw",
-                                        // height: "2vh",
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 25, // Pantalla extra pequeña (xs y sm)
-                                        },
-                                        "@media (min-width: 601px) and (max-width: 960px)": {
-                                          fontSize: 25, // Pantalla pequeña (md)
-                                        },
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                                          fontSize: 30, // Pantalla mediana (lg)
-                                        },
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 30, // Pantalla grande (xl)
-                                        },
-                                        "@media (min-width: 2200px)": {
-                                          fontSize: 30, // Pantalla grande (xl)
-                                        }
+                                    sx={{
+                                      fontSize: "24px", // Tamaño predeterminado del icono
+  
+                                      "@media (max-width: 600px)": {
+                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
-                                    ]}
+  
+                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
+  
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
+  
+                                      "@media (min-width: 1281px)": {
+                                        fontSize: 25, // Pantalla grande (xl)
+                                      },
+  
+                                      "@media (min-width: 2200px)": {
+                                        ffontSize: 25, // Pantalla grande (xl)
+                                      },
+                                    }}
                                   />
                                 </IconButton>
                               </span>
