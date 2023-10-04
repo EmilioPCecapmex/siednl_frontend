@@ -15,12 +15,12 @@ import axios from "axios";
 import { IEncabezadoFT } from "./Interfaces";
 
 export function TabEncabezado({
- // show,
+ show,
   resumenEncabezadoFT,
   FT,
   MIR,
 }: {
-  //show: boolean;
+  show: boolean;
   resumenEncabezadoFT: Function;
   FT: string;
   MIR: string;
@@ -121,8 +121,8 @@ export function TabEncabezado({
 
   return (
     <Grid
-      //visibility={show ? "visible" : "hidden"}
-      //position="absolute"
+      visibility={show ? "visible" : "hidden"}
+      position="absolute"
       sx={{
         display: "flex",
         width: "93vw",

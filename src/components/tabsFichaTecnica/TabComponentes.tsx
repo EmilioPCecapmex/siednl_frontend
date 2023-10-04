@@ -16,14 +16,14 @@ import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 
 
 export const TabComponenteFT = ({
-  //show,
+  show,
   valoresComponenteFTFnc,
   noComponentes,
   showMirFnc,
   showFnc,
   FT,
 }: {
-  //show: boolean;
+  show: boolean;
   valoresComponenteFTFnc: Function;
   noComponentes: number[];
   showMirFnc: Function;
@@ -70,8 +70,8 @@ export const TabComponenteFT = ({
 
   return (
     <Grid
-     // visibility={show ? "visible" : "hidden"}
-     
+     visibility={show ? "visible" : "hidden"}
+     position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
