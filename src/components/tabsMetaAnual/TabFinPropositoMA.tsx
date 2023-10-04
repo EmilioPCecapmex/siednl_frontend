@@ -21,7 +21,7 @@ import axios from "axios";
 import { queries } from "../../queries";
 
 export function TabFinPropositoMA({
- // show,
+ show,
   resumenFinMa,
   resumenPropositoMa,
   showMirFnc,
@@ -29,7 +29,7 @@ export function TabFinPropositoMA({
   MA,
   MIR,
 }: {
-  //show: boolean;
+  show: boolean;
   resumenFinMa: Function;
   resumenPropositoMa: Function;
   showMirFnc: Function;
@@ -256,8 +256,8 @@ export function TabFinPropositoMA({
 
   return (
     <Grid
-    //  visibility={show ? "visible" : "hidden"}
-      //position="absolute"
+     visibility={show ? "visible" : "hidden"}
+      position="absolute"
 
       sx={{
         display: "flex",
