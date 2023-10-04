@@ -20,6 +20,7 @@ import {
   Typography,
 } from "@mui/material";
 import { queries } from "../../queries";
+import { log } from "console";
 
 export const ModifyDialogCatalogos = ({
   open,
@@ -136,7 +137,7 @@ export const ModifyDialogCatalogos = ({
             Id: id,
             NuevaDescripcion: nuevaDescripcion,
             Tabla: tabla,
-            CreadoPor: localStorage.getItem("IdUsuario"),
+            ModificadoPor: localStorage.getItem("IdUsuario"),
             Rol: localStorage.getItem("Rol"),
           },
           {
@@ -288,7 +289,7 @@ export const ModifyDialogCatalogos = ({
             }}
           >
             <TextField
-              multiline={descripcion.length < 200 ? false : true}
+              multiline={descripcion.length < 10 ? false : true}
               sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
               InputProps={{
                 style: {
@@ -299,7 +300,14 @@ export const ModifyDialogCatalogos = ({
               id="outlined-basic"
               value={nuevaDescripcion || descripcion}
               variant="outlined"
-              onChange={(v) => setnuevaDescripcion(v.target.value)}
+              onChange={(v) =>{ 
+                let valor = v.target.value;
+                console.log(valor);
+                console.log(descripcion);
+                console.log(nuevaDescripcion);
+                setnuevaDescripcion(valor)
+                console.log(nuevaDescripcion);
+              }}
             />
 
             <InputLabel>Institución</InputLabel>
@@ -516,13 +524,17 @@ export const ModifyDialogCatalogos = ({
               value={nuevaDescripcion || descripcion}
               variant="outlined"
               onChange={(v) => {
+                let valor = v.target.value;
+                console.log(valor);
+                console.log(descripcion);
+                console.log(nuevaDescripcion);
+                setnuevaDescripcion(valor)
+                console.log(nuevaDescripcion);
                 // if (!v.target.value || !nuevaDescripcion || !descripcion) {
                 //   // Valores vacíos o nulos, muestra un mensaje de error o realiza la acción necesaria
                 //   console.error('Por favor, ingresa una descripción válida.');
                 //   return;
                 // }
-              
-                setnuevaDescripcion(v.target.value);
               }}
             />
           </DialogContent>
