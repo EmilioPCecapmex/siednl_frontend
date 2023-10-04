@@ -853,7 +853,7 @@ export const MetaAnual = () => {
                           <TableCell
                             sx={{
                               flexDirection: "row",
-                              //display: "grid",
+                              display: "grid",
                               //padding: "2px 20px 2px 10",
                               gridTemplateColumns: "repeat(4,1fr)",
                               fontSize: [10, 10, 10, 15, 15, 18],
