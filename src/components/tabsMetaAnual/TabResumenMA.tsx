@@ -9,7 +9,7 @@ import { IMA } from "./IMA";
 import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 import { queries } from "../../queries";
 export function TabResumenMA({
-
+ show,
   fin,
   proposito,
   componentes,
@@ -20,7 +20,7 @@ export function TabResumenMA({
   MIR,
   showResume,
 }: {
-  
+  show: boolean;
   fin: Array<IFinMA>;
   proposito: Array<IPropositoMA>;
   componentes: number[];
@@ -302,8 +302,8 @@ export function TabResumenMA({
 
   return (
     <Box
-    //  visibility={show ? "visible" : "hidden"}
-      //position="absolute"
+     visibility={show ? "visible" : "hidden"}
+      position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
