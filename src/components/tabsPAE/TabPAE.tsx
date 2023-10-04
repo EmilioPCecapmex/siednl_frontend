@@ -281,10 +281,10 @@ export const TabPAE = ({
   };
 
   useEffect(() => {
-    getAniosPae("2023");
-    getNumeroPae("2023", "1");
+    getAniosPae("2022");
+    getNumeroPae("2022", "1");
     getListaPae();
-    tabsRegistros(value,"2020");
+    tabsRegistros(value,"2022");
     // console.log(noAnios+","+noNumeros)
   }, []);
 
@@ -697,10 +697,10 @@ export const TabPAE = ({
 
                   <TableBody>
                     {registrosFiltrados
-                       .slice(
-                         page * rowsPerPage,
-                         page * rowsPerPage + rowsPerPage
-                       )
+                      //  .slice(
+                      //    page * rowsPerPage,
+                      //    page * rowsPerPage + rowsPerPage
+                      //  )
                       .map((row, index) => (
                         <TableRow>
                           <TableCell
