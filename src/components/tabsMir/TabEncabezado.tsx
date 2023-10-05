@@ -14,12 +14,16 @@ import Swal from "sweetalert2";
 import { IMIR, IMIREdit } from "./IMIR";
 import Stack from "@mui/material/Stack";
 import { ILista, IListaProgramas } from "./IListas";
-import { getListPedColumns, getLista, getListasLogin } from "./services mir/servicesMIR";
+import {
+  getListPedColumns,
+  getLista,
+  getListasLogin,
+} from "./services mir/servicesMIR";
 
 export interface IEncabezado {
   ejercicioFiscal: ILista;
   entidad: ILista;
-  programa:IListaProgramas;
+  programa: IListaProgramas;
   eje: ILista;
   tema: ILista;
   objetivo: ILista;
@@ -45,7 +49,7 @@ export function TabEncabezado({
   // const [nombreArchivo, setNombreArchivo] = useState(
   //   "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   // );
-  const objetoVacio :ILista={Id:"",Label:""}
+  const objetoVacio: ILista = { Id: "", Label: "" };
   // const Toast = Swal.mixin({
   //   toast: true,
   //   position: "top-end",
@@ -63,7 +67,6 @@ export function TabEncabezado({
   //   setAnioFiscal(Anio);
   // }
 
-
   // function enCambioPrograma(Id: string, Prog: string) {
   //   setConac("");
   //   setConsecutivo("");
@@ -71,10 +74,6 @@ export function TabEncabezado({
   //     getIdPrograma(Prog);
   //   }
   // }
- 
-  
-  
-  
 
   // function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
   //   setLineaDeAccion([]);
@@ -97,7 +96,6 @@ export function TabEncabezado({
   //     : setDisabledButton(false);
   // }
 
-
   //Desactivar si el anterior no tiene value
   const [disabledProgramas, setDisabledProgramas] = useState(true);
   const [disabledTematicas, setDisabledTematicas] = useState(true);
@@ -114,55 +112,99 @@ export function TabEncabezado({
   //   MIR.encabezado?.IdEntidad || ""
   // );
 
-  const [anticorrupcion, setAnticorrupcion] = React.useState(MIR.encabezado?.anticorrupcion || "NO");
+  const [anticorrupcion, setAnticorrupcion] = React.useState(
+    MIR.encabezado?.anticorrupcion || "NO"
+  );
 
   //Catalogos
-  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState<Array<ILista>>([]);
-  const [anioFiscal, setAnioFiscal] = useState<ILista>(MIR.encabezado.ejercicioFiscal||{Id:new Date().getFullYear().toString(),Label:new Date().getFullYear().toString()});
+  const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState<
+    Array<ILista>
+  >([]);
+  const [anioFiscal, setAnioFiscal] = useState<ILista>(
+    MIR.encabezado.ejercicioFiscal || {
+      Id: new Date().getFullYear().toString(),
+      Label: new Date().getFullYear().toString(),
+    }
+  );
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState<Array<ILista>>([]);
-  const [entidadSeleccionada, setEntidadSeleccionada] = useState(MIR.encabezado?.entidad ||{Id: localStorage.getItem("IdEntidad") || "", Label: localStorage.getItem("Entidad") || ""});
-  
-  const [catalogoProgramas, setCatalogoProgramas] = useState<Array<IListaProgramas>>([]);
-  const [programa, setPrograma] = useState<IListaProgramas>(MIR.encabezado?.programa||{...objetoVacio,Conac:"",Consecutivo:""});
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<ILista>
+  >([]);
+  const [entidadSeleccionada, setEntidadSeleccionada] = useState(
+    MIR.encabezado?.entidad || {
+      Id: localStorage.getItem("IdEntidad") || "",
+      Label: localStorage.getItem("Entidad") || "",
+    }
+  );
+
+  const [catalogoProgramas, setCatalogoProgramas] = useState<
+    Array<IListaProgramas>
+  >([]);
+  const [programa, setPrograma] = useState<IListaProgramas>(
+    MIR.encabezado?.programa || { ...objetoVacio, Conac: "", Consecutivo: "" }
+  );
 
   const [conac, setConac] = useState(MIR.encabezado?.conac || "");
 
-  const [consecutivo, setConsecutivo] = useState(MIR.encabezado?.consecutivo || "");
+  const [consecutivo, setConsecutivo] = useState(
+    MIR.encabezado?.consecutivo || ""
+  );
 
   const [catalogoEjes, setCatalogoEjes] = useState<Array<ILista>>([]);
   const [eje, setEje] = useState<ILista>(MIR.encabezado?.eje || objetoVacio);
 
   const [catalogoTematicas, setCatalogoTematicas] = useState<Array<ILista>>([]);
-  const [tematica, setTematica] = useState<ILista>(MIR.encabezado?.tema || objetoVacio);
+  const [tematica, setTematica] = useState<ILista>(
+    MIR.encabezado?.tema || objetoVacio
+  );
 
   const [catalogoObjetivos, setCatalogoObjetivos] = useState<Array<ILista>>([]);
-  const [objetivo, setObjetivo] = useState<ILista>(MIR.encabezado?.objetivo || objetoVacio);
+  const [objetivo, setObjetivo] = useState<ILista>(
+    MIR.encabezado?.objetivo || objetoVacio
+  );
 
-  const [catalogoEstrategias, setCatalogoEstrategias] = useState<Array<ILista>>([]);
-  const [estrategia, setEstrategia] = useState<ILista>(MIR.encabezado?.estrategia ||objetoVacio);
+  const [catalogoEstrategias, setCatalogoEstrategias] = useState<Array<ILista>>(
+    []
+  );
+  const [estrategia, setEstrategia] = useState<ILista>(
+    MIR.encabezado?.estrategia || objetoVacio
+  );
 
-  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState<Array<ILista>>([]);
-  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILista>>(MIR.encabezado?.lineas_de_accion ||[]);
+  const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState<
+    Array<ILista>
+  >([]);
+  const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILista>>(
+    MIR.encabezado?.lineas_de_accion || []
+  );
 
-  const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState<Array<ILista>>([]);
-  const [beneficiario, setBeneficiario] = useState<ILista>(MIR.encabezado?.beneficiario || objetoVacio);
+  const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState<
+    Array<ILista>
+  >([]);
+  const [beneficiario, setBeneficiario] = useState<ILista>(
+    MIR.encabezado?.beneficiario || objetoVacio
+  );
 
   useEffect(() => {
-    getLista("AniosFiscales","",setCatalogoAniosFiscales);
-    getListasLogin({Tabla:"Entidades",ValorCondicion:""},setCatalogoInstituciones);
-    getListPedColumns({Col:"Ejes",Id:""},setCatalogoEjes,()=>{});
-    getLista("Beneficiario","",setCatalogoBeneficiarios);
+    getLista("AniosFiscales", "", setCatalogoAniosFiscales);
+    getListasLogin(
+      { Tabla: "Entidades", ValorCondicion: "" },
+      setCatalogoInstituciones
+    );
+    getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
+    getLista("Beneficiario", "", setCatalogoBeneficiarios);
     setEje(MIR.encabezado?.eje || objetoVacio);
     // console.log("tema",tematica);
     // setTematica(MIR.encabezado?.tema || objetoVacio);
     // console.log("MIR",MIR);
-    
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (entidadSeleccionada?.Id) {
-      getLista("ProgramasXInstitucion",entidadSeleccionada?.Id,setCatalogoProgramas);
+      getLista(
+        "ProgramasXInstitucion",
+        entidadSeleccionada?.Id,
+        setCatalogoProgramas
+      );
       //setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
       setConac("");
       setConsecutivo("");
@@ -170,7 +212,7 @@ export function TabEncabezado({
     }
   }, [entidadSeleccionada?.Id]);
 
-  useEffect(()=>{
+  useEffect(() => {
     // setTematica(objetoVacio);
     setDisabledObjetivos(true);
     //setObjetivo(objetoVacio);
@@ -178,60 +220,74 @@ export function TabEncabezado({
     //setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
     //setLineaDeAccion([]);
-    getListPedColumns({Col:"Temáticas",Id:eje.Id},setCatalogoTematicas,setDisabledTematicas);
+    getListPedColumns(
+      { Col: "Temáticas", Id: eje.Id },
+      setCatalogoTematicas,
+      setDisabledTematicas
+    );
     setDisabledTematicas(false);
-  },[eje])
+  }, [eje]);
 
-  useEffect(()=> {
+  useEffect(() => {
     // setObjetivo(objetoVacio);
     setDisabledEstrategias(true);
     //setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
-    getListPedColumns({Col:"Objetivos",Id:tematica.Id},setCatalogoObjetivos,setDisabledObjetivos);
+    getListPedColumns(
+      { Col: "Objetivos", Id: tematica.Id },
+      setCatalogoObjetivos,
+      setDisabledObjetivos
+    );
     setDisabledObjetivos(false);
-  },[tematica])
+  }, [tematica]);
 
-  useEffect(()=>{
-    
+  useEffect(() => {
     // setEstrategia(objetoVacio);
     setDisabledLineasDeAccion(true);
     //setLineaDeAccion([]);
-    getListPedColumns({Col:"Estrategias",Id:objetivo.Id},setCatalogoEstrategias,setDisabledEstrategias);
+    getListPedColumns(
+      { Col: "Estrategias", Id: objetivo.Id },
+      setCatalogoEstrategias,
+      setDisabledEstrategias
+    );
     setDisabledEstrategias(false);
-  },[objetivo])
-  
-  useEffect(()=>{
+  }, [objetivo]);
+
+  useEffect(() => {
     //setLineaDeAccion([]);
-    getListPedColumns({Col:"Lineas de Acción",Id:estrategia.Id},setCatalogoLineasDeAccion,setDisabledLineasDeAccion);
+    getListPedColumns(
+      { Col: "Lineas de Acción", Id: estrategia.Id },
+      setCatalogoLineasDeAccion,
+      setDisabledLineasDeAccion
+    );
     setDisabledLineasDeAccion(false);
-  },[estrategia])
+  }, [estrategia]);
 
   const onClearLineasDeAccion = () => {
     setLineaDeAccion([]);
   };
-  
-  function RestaurarValores(tipo:string){
-    switch(tipo){
+
+  function RestaurarValores(tipo: string) {
+    switch (tipo) {
       case "Eje":
         setTematica(objetoVacio);
         setObjetivo(objetoVacio);
         setEstrategia(objetoVacio);
         setLineaDeAccion([]);
         break;
-      case 'Tematica':
+      case "Tematica":
         setObjetivo(objetoVacio);
         setEstrategia(objetoVacio);
         setLineaDeAccion([]);
         break;
-      case 'Objetivo':
+      case "Objetivo":
         setEstrategia(objetoVacio);
         setLineaDeAccion([]);
         break;
-      case 'Estrategia':
+      case "Estrategia":
         setLineaDeAccion([]);
         break;
     }
-    
   }
 
   // const replica = catalogoLineasDeAccion; //warning
@@ -239,8 +295,6 @@ export function TabEncabezado({
   // const [uploadFile, setUploadFile] = React.useState("");
   // const [errorMsg, setErrorMsg] = useState("");
   // const [showAlert, setShowAlert] = useState(false);
-
- 
 
   //Obtener catálogos por id dependiendo de la seleccion anterior
   // const getAniosFiscales = () => {
@@ -255,7 +309,6 @@ export function TabEncabezado({
   //     });
   // };
   // cambiar por entidad
-  
 
   // const getProgramas = (id: string) => {
   //   if (id !== undefined) {
@@ -275,7 +328,7 @@ export function TabEncabezado({
   //       .then((r) => {
   //         setCatalogoProgramas(r.data.data);
   //         console.log("CATALOGO PROGRAMAS",r.data.data);
-          
+
   //       })
   //       .catch((err) => {
   //         Toast.fire({
@@ -287,7 +340,7 @@ export function TabEncabezado({
   //   }
   // };
   // no se porque este no lleva Id:(id: string)
-  
+
   // const getTematicas = (id: string) => {
   //   axios
   //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
@@ -597,10 +650,8 @@ export function TabEncabezado({
   ]);
 
   useEffect(() => {
-    console.log("MIR",MIR.encabezado);
-    
-  }, [MIR.encabezado])
-  
+    console.log("MIR", MIR.encabezado);
+  }, [MIR.encabezado]);
 
   // const [loadingFile, setLoadingFile] = useState(false);
 
@@ -688,7 +739,7 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>setAnioFiscal(value||objetoVacio)}
+          onChange={(event, value) => setAnioFiscal(value || objetoVacio)}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -776,12 +827,11 @@ export function TabEncabezado({
 
       <FormControl sx={{ width: "20vw" }}>
         <Autocomplete
-          disabled={mirEdit?.encabezado.institucion}
+          disabled={mirEdit?.encabezado.institucion || localStorage.getItem("Rol") !== "Administrador"}
           clearText="Borrar"
           noOptionsText="Sin opciones"
           closeText="Cerrar"
           openText="Abrir"
-          disablePortal
           options={catalogoInstituciones}
           getOptionLabel={(option) => option.Label || ""}
           value={entidadSeleccionada}
@@ -808,18 +858,25 @@ export function TabEncabezado({
                   fontSize: ".8vw",
                 },
               }}
+              //InputProps={{ readOnly: localStorage.getItem("Rol") === "Administrador"  ? true : false  }}
               sx={{
                 "& .MuiAutocomplete-input": {
                   fontFamily: "MontserratRegular",
                   textTransform: "uppercase",
                 },
+                // "& input[disabled]": {
+                //  // backgroundColor: "lightgray", // Cambia el color de fondo
+                //  color: "#3333", // Cambia el color del texto
+                // },
               }}
             ></TextField>
           )}
           onChange={(event, value) => {
-            setEntidadSeleccionada({ Id: value?.Id || "", Label: value?.Label || "" })
-          }
-          }
+            setEntidadSeleccionada({
+              Id: value?.Id || "",
+              Label: value?.Label || "",
+            });
+          }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -838,9 +895,11 @@ export function TabEncabezado({
           getOptionLabel={(option) => option.Label || ""}
           value={programa}
           onChange={(event, value) => {
-            setConac(value?.Conac||"")
-            setConsecutivo(value?.Consecutivo||"")
-            setPrograma(value||{...objetoVacio,Conac:"",Consecutivo:""})
+            setConac(value?.Conac || "");
+            setConsecutivo(value?.Consecutivo || "");
+            setPrograma(
+              value || { ...objetoVacio, Conac: "", Consecutivo: "" }
+            );
           }}
           renderOption={(props, option) => {
             return (
@@ -871,7 +930,6 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -951,7 +1009,10 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => {setEje(value||objetoVacio);RestaurarValores('Eje');}}
+          onChange={(event, value) => {
+            setEje(value || objetoVacio);
+            RestaurarValores("Eje");
+          }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
@@ -963,7 +1024,8 @@ export function TabEncabezado({
           closeText="Cerrar"
           openText="Abrir"
           disabled={
-            (mirEdit?.encabezado.tema && tematica.Id !== "") || disabledTematicas
+            (mirEdit?.encabezado.tema && tematica.Id !== "") ||
+            disabledTematicas
           }
           options={catalogoTematicas}
           size="small"
@@ -1005,10 +1067,11 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => {setTematica(value||objetoVacio);RestaurarValores('Tematica');}}
-          isOptionEqualToValue={(option, value) =>
-            option.Id === value.Id
-          }
+          onChange={(event, value) => {
+            setTematica(value || objetoVacio);
+            RestaurarValores("Tematica");
+          }}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
@@ -1056,10 +1119,11 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) =>{setObjetivo(value||objetoVacio);RestaurarValores('Objetivo');}}
-          isOptionEqualToValue={(option, value) =>
-            option.Id === value.Id
-          }
+          onChange={(event, value) => {
+            setObjetivo(value || objetoVacio);
+            RestaurarValores("Objetivo");
+          }}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
 
@@ -1106,13 +1170,14 @@ export function TabEncabezado({
               }}
             />
           )}
-          onChange={(event, value) => {setEstrategia(value||objetoVacio);RestaurarValores('Estrategia');}}
-          isOptionEqualToValue={(option, value) =>
-            option.Id === value.Id
-          }
+          onChange={(event, value) => {
+            setEstrategia(value || objetoVacio);
+            RestaurarValores("Estrategia");
+          }}
+          isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
-          
+
       <FormControl required>
         {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
         <Stack spacing={3} sx={{ width: 400 }}>
@@ -1130,9 +1195,7 @@ export function TabEncabezado({
             limitTags={4}
             options={catalogoLineasDeAccion}
             size="small"
-            getOptionLabel={(option) =>
-              option.Label?.toUpperCase() || ""
-            }
+            getOptionLabel={(option) => option.Label?.toUpperCase() || ""}
             value={lineaDeAccion}
             renderOption={(props, option) => {
               return (
@@ -1231,8 +1294,9 @@ export function TabEncabezado({
               }}
             ></TextField>
           )}
-          onChange={(event, value) =>{setBeneficiario(value||objetoVacio)}
-           }
+          onChange={(event, value) => {
+            setBeneficiario(value || objetoVacio);
+          }}
           isOptionEqualToValue={(option, value) => option.Id === value.Id}
         />
       </FormControl>
