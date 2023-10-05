@@ -9,8 +9,6 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import axios from "axios";
-import Swal from "sweetalert2";
 import { IMIR, IMIREdit } from "./IMIR";
 import Stack from "@mui/material/Stack";
 import { ILista, IListaProgramas } from "./IListas";
@@ -102,7 +100,6 @@ export function TabEncabezado({
   const [disabledObjetivos, setDisabledObjetivos] = useState(true);
   const [disabledEstrategias, setDisabledEstrategias] = useState(true);
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
-  const [disabledButton, setDisabledButton] = useState(true);
 
   //Values
   // const [anioFiscal, setAnioFiscal] = useState(
@@ -196,6 +193,7 @@ export function TabEncabezado({
     // console.log("tema",tematica);
     // setTematica(MIR.encabezado?.tema || objetoVacio);
     // console.log("MIR",MIR);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

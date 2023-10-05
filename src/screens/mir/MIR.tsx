@@ -6,7 +6,6 @@ import {
   Button,
   FormControl,
   IconButton,
-  Input,
   MenuItem,
   Select,
   Table,
@@ -17,9 +16,7 @@ import {
   TablePagination,
   TableRow,
   Tooltip,
-  Typography,
   InputLabel,
-  TextField,
   InputBase,
   Paper,
   Grid,
@@ -27,7 +24,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { queries } from "../../queries";
 import moment from "moment";
@@ -36,7 +32,6 @@ import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
-import { SelectChangeEvent } from "@mui/material/Select";
 import SearchIcon from "@mui/icons-material/Search";
 export let resumeDefaultMIR = true;
 
@@ -177,7 +172,7 @@ export const MIR = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida == "true"
+        r.data.data.valida === "true"
           ? setValidaFecha(true)
           : setValidaFecha(false);
       })
@@ -395,24 +390,7 @@ export const MIR = () => {
       });
   };
   ///////////////////////////////////////
-  const colorMir = (v: string, mEdit: string) => {
-    // if (mEdit !== undefined) {
-    //   let isModification = mEdit;
-    //   isModification = JSON.parse(mEdit);
-    //   if (isModification[1]) {
-    //     return "#cccc00";
-    //   }
-    // }
-    if (v === "En Captura") {
-      return "#b3e6b3";
-    } else if (v === "En Revisión") {
-      return "#e6e6ff";
-    } else if (v === "En Autorización") {
-      return "#b3b3ff";
-    } else if (v === "Autorizada") {
-      return "#0000ff";
-    }
-  };
+  
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
@@ -426,6 +404,7 @@ export const MIR = () => {
       Arrayfiltro = mirxFiltered;
     }
 
+    // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
       console.log("entre");
       console.log(elemento);

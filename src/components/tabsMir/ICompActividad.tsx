@@ -2,7 +2,7 @@ export interface ICompActividad {
   actividades: number;
   componente: string;
 }
-[];
+
 
 export interface IActividades {
   actividades: {

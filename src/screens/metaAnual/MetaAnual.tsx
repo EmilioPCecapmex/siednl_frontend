@@ -5,7 +5,6 @@ import {
   Grid,
   FormControl,
   IconButton,
-  Input,
   MenuItem,
   Select,
   Table,
@@ -16,9 +15,7 @@ import {
   TablePagination,
   TableRow,
   Tooltip,
-  Typography,
   InputLabel,
-  TextField,
   Paper,
   InputBase,
   Box,
@@ -29,11 +26,9 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
-import { Header } from "../../components/header/Header";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
-import { SelectChangeEvent } from "@mui/material/Select";
 import { queries } from "../../queries";
 import SearchIcon from "@mui/icons-material/Search";
 export let ResumeDefaultMA = true;
@@ -214,7 +209,7 @@ export const MetaAnual = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida == "true"
+        r.data.data.valida === "true"
           ? setValidaFecha(true)
           : setValidaFecha(false);
       })
@@ -391,26 +386,8 @@ export const MetaAnual = () => {
     setActualizacion(actualizacion + 1);
   };
 
-  const colorMir = (v: string, mEdit: string) => {
-    if (mEdit !== undefined) {
-      let isModification = mEdit;
-      isModification = JSON.parse(mEdit);
-      if (isModification[1]) {
-        return "#cccc00";
-      }
-    }
-    if (v === "En Captura") {
-      return "#b3e6b3";
-    } else if (v === "En Revisión") {
-      return "#e6e6ff";
-    } else if (v === "En Autorización") {
-      return "#b3b3ff";
-    } else if (v === "Autorizada") {
-      return "#0000ff";
-    }
-  };
+ 
 
-  const [estadosR, SetEstadosR] = useState<string[]>([]);
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
@@ -424,6 +401,7 @@ export const MetaAnual = () => {
       Arrayfiltro = maxFiltered;
     }
 
+    // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
       // console.log("entre");
       // console.log(elemento);
