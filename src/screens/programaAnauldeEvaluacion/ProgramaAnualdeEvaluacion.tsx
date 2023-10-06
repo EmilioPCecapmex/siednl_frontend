@@ -1,34 +1,20 @@
 import {
-  Button,
+  
   Grid,
-  Typography,
-  TextField,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Tooltip,
-  InputBase,
-  Paper,
+  
 } from "@mui/material";
 import {
   LateralMenu,
-  IInstituciones,
+
 } from "../../components/lateralMenu/LateralMenu";
-import { useNavigate } from "react-router-dom";
-import { Header } from "../../components/header/Header";
-import React, { useEffect, useState } from "react";
+//import { useNavigate } from "react-router-dom";
+//import { Header } from "../../components/header/Header";
+import React, { useState } from "react";
 import CapturaPAE from "../../components/tabsPAE/CapturaPAE";
             
 export const ProgramaAnualEvaluacion = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [actionNumber, setActionNumber] = useState(0);
 
 

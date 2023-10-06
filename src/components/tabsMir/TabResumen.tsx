@@ -2,13 +2,13 @@
 /* eslint-disable array-callback-return */
 import { Grid, Button, Checkbox, Typography } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, useState,  } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
 import { IActividadesMir } from "./ICValor";
 import { IMIR } from "./IMIR";
-import { ILista, IListaProgramas } from "./IListas";
+import { ILista, } from "./IListas";
 import { queries } from "../../queries";
 
 export function TabResumen({
@@ -202,6 +202,7 @@ export function TabResumen({
     Array<IComponenteMirEdit>
   >([]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [editActividades, setEditActividades] = useState<
     Array<IActividadesMirEdit>
   >([]);

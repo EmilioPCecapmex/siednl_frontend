@@ -1,8 +1,7 @@
 import {
-  Button,
+ 
   Grid,
-  Typography,
-  TextField,
+  
   InputLabel,
   Select,
   MenuItem,
@@ -18,25 +17,25 @@ import {
   InputBase,
   Paper,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import {
   LateralMenu,
   IInstituciones,
 } from "../../components/lateralMenu/LateralMenu";
 import React, { useEffect, useState } from "react";
-import { Header } from "../../components/header/Header";
+
 import CapturaRaffi from "../../components/tabsRaffi/CapturaRaffi";
-import { SelectChangeEvent } from "@mui/material/Select";
+
 import { queries } from "../../queries";
 import { listaRaffi } from "../../services/raffi_services/raffi_endpoints";
 import { getInstituciones } from "../../services/instituciones_services/instituciones";
 import moment from "moment";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import DeleteIcon from "@mui/icons-material/Delete";
+// import VisibilityIcon from "@mui/icons-material/Visibility";
+// import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
-import CommentIcon from "@mui/icons-material/Comment";
+//import CommentIcon from "@mui/icons-material/Comment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
 
@@ -95,11 +94,11 @@ const heads: readonly Head[] = [
 
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
-  const [showResume, setShowResume] = useState(true);
+
 
   const [opentabs, setOpenTabs] = useState(true);
 
-  const [sinasignar, setSinAsignar] = useState(true);
+  
 
   const [rf, setRf] = useState<Array<IRaffi>>([]);
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
@@ -112,7 +111,9 @@ export const Raffi = () => {
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
   const renglonesPagina = 7;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   useEffect(() => {
@@ -231,7 +232,7 @@ export const Raffi = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida == "true"
+        r.data.data.valida === "true"
           ? setValidaFecha(true)
           : setValidaFecha(false);
       })
@@ -241,6 +242,7 @@ export const Raffi = () => {
 
   useEffect(() => {
     findText(findTextStr, findSelectStr, findInstStr);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr, findInstStr, findSelectStr]);
 
   useEffect(() => {
@@ -264,22 +266,9 @@ export const Raffi = () => {
       Arrayfiltro = rfFiltered;
     }
 
-  function veropciones  (estado: string) {
-    if(estado === "En Captura"){
-      return true
-    }
-    if(estado === "En Revisión"){
-      return true
-    }
-    if(estado === "En Autorización"){
-      return true
-    }
-    if(estado === "Sin Asignar"){
-      return false
-    }
-    return true;
-  }
+  
 
+    // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
       console.log("entre");
       console.log(elemento);

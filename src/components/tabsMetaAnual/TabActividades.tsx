@@ -99,10 +99,12 @@ export const TabActividadesMA = ({
     if (compAct.length > 0) {
       loadActividadesMA();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [compAct]);
 
   useEffect(() => {
     asignarCValor(aValorMA);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aValorMA]);
 
   let aument_number = -1;
@@ -395,8 +397,8 @@ export const TabActividadesMA = ({
  function mapeaindice(c=0,a=0){
   let x=0;
   //Componente 1
-  (c==0&&a==0)?x=0:(c==0&&a==1)?x=1:
-  (c==1&&a==0)?x=2:x=3;
+  (c===0&&a===0)?x=0:(c===0&&a===1)?x=1:
+  (c===1&&a===0)?x=2:x=3;
   
   return x;
  }
