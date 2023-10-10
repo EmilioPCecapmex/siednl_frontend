@@ -7,10 +7,12 @@ import {
   ListItemButton,
   Divider,
   FormControl,
+  useMediaQuery,
+  Hidden,
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIR,  } from "./IMIR";
+import { IMIR } from "./IMIR";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -23,28 +25,26 @@ export function TabFinProposito({
   // show: boolean;
   MIR: IMIR;
   setMIR: Function;
-
 }) {
-  
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
   const [fin, setFin] = useState<IFin>({
-    resumen: MIR.fin?.resumen ||'',
-    indicador:MIR.fin?.indicador ||'',
-    formula: MIR.fin?.formula ||'',
-    frecuencia: MIR.fin?.frecuencia ||'',
-    medios: MIR.fin?.medios ||'',
-    supuestos: MIR.fin?.supuestos ||'',
+    resumen: MIR.fin?.resumen || "",
+    indicador: MIR.fin?.indicador || "",
+    formula: MIR.fin?.formula || "",
+    frecuencia: MIR.fin?.frecuencia || "",
+    medios: MIR.fin?.medios || "",
+    supuestos: MIR.fin?.supuestos || "",
   });
 
   const [proposito, setProposito] = useState<IProposito>({
-    resumen: MIR.proposito?.resumen ||'',
-    indicador: MIR.proposito?.indicador ||'',
-    formula: MIR.proposito?.formula ||'',
-    frecuencia:'ANUAL',
-    medios_verificacion : MIR.proposito?.medios_verificacion ||'',
-    supuestos: MIR.proposito?.supuestos ||'',
+    resumen: MIR.proposito?.resumen || "",
+    indicador: MIR.proposito?.indicador || "",
+    formula: MIR.proposito?.formula || "",
+    frecuencia: "ANUAL",
+    medios_verificacion: MIR.proposito?.medios_verificacion || "",
+    supuestos: MIR.proposito?.supuestos || "",
   });
-  
-  
 
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
@@ -132,28 +132,32 @@ export function TabFinProposito({
   };
 
   useEffect(() => {
-    setMIR((MIR:IMIR)=>({...MIR,...{fin:{
+    setMIR((MIR: IMIR) => ({
+      ...MIR,
+      ...{
+        fin: {
+          resumen: fin.resumen,
+          indicador: fin.indicador,
+          formula: fin.formula,
+          frecuencia: fin.frecuencia,
+          medios: fin.medios,
+          supuestos: fin.supuestos,
+        },
+      },
+      ...{
+        proposito: {
+          resumen: proposito.resumen,
+          indicador: proposito.indicador,
+          formula: proposito.formula,
+          frecuencia: proposito.frecuencia,
+          medios_verificacion: proposito.medios_verificacion,
+          supuestos: proposito.supuestos,
+        },
+      },
+    }));
 
-      resumen: fin.resumen,
-      indicador: fin.indicador,
-      formula: fin.formula,
-      frecuencia: fin.frecuencia,
-      medios: fin.medios,
-      supuestos: fin.supuestos,
-
-    }},...{proposito:{
-        resumen: proposito.resumen,
-        indicador: proposito.indicador,
-        formula: proposito.formula,
-        frecuencia: proposito.frecuencia,
-        medios_verificacion: proposito.medios_verificacion,
-        supuestos: proposito.supuestos,
-      }}}))
-
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fin, proposito]);
-
 
   const getFrecuencias = () => {
     axios
@@ -219,12 +223,13 @@ export function TabFinProposito({
       position="absolute"
       sx={{
         display: "flex",
-        width: "93vw",
-        height: "82vh",
+        width: "94vw",
+        height: ["100%", "82vh", "82vh", "82vh", "82vh", "82vh"],
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
         backgroundColor: "#fff",
+        overflow: "auto",
       }}
     >
       <FormulaDialog
@@ -236,27 +241,28 @@ export function TabFinProposito({
         elemento={elementoFormula}
       />
 
-      <Grid
-        sx={{
-          width: "100%",
-          display: "flex",
-          height: "7vh",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <Typography
+      {!isSmallScreen ? (
+        <Grid
           sx={{
-            mr: "1vw",
-            fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            width: "100%",
+            display: "flex",
+            height: "7vh",
+            justifyContent: "flex-end",
+            alignItems: "center",
           }}
         >
-          {showFin ? "FIN" : null}
-          {showProposito ? "PROPÓSITO" : null}
-        </Typography>
-      </Grid>
-
+          <Typography
+            sx={{
+              mr: "1vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: "1.5vw",
+            }}
+          >
+            {showFin ? "FIN" : null}
+            {showProposito ? "PROPÓSITO" : null}
+          </Typography>
+        </Grid>
+      ) : null}
       <Grid
         sx={{
           width: "100%",
@@ -264,287 +270,491 @@ export function TabFinProposito({
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "95%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          <Grid
+        {!isSmallScreen && (
+          <List
             sx={{
+              width: "15vw",
+              height: "95%",
+              borderRight: "solid",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              borderColor: "#BCBCBC",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
             }}
           >
-            <Divider />
-            <ListItemButton
-              selected={showFin}
-              onClick={() => {
-                setShowFin(true);
-                setShowProposito(false);
-              }}
+            <Grid
               sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              <Typography sx={{fontSize: "1vw", fontFamily: "MontserratMedium" }}>
-                FIN
-              </Typography>
-            </ListItemButton>
+              <Divider />
+              <ListItemButton
+                selected={showFin}
+                onClick={() => {
+                  setShowFin(true);
+                  setShowProposito(false);
+                }}
+                sx={{
+                  height: "7vh",
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "1vw", fontFamily: "MontserratMedium" }}
+                >
+                  FIN
+                </Typography>
+              </ListItemButton>
 
-            <Divider />
-          </Grid>
+              <Divider />
+            </Grid>
 
-          <Grid
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <ListItemButton
-              selected={showProposito}
-              onClick={() => {
-                setShowProposito(true);
-                setShowFin(false);
-              }}
+            <Grid
               sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                PROPÓSITO
-              </Typography>
-            </ListItemButton>
-            <Divider />
-          </Grid>
-        </List>
+              <ListItemButton
+                selected={showProposito}
+                onClick={() => {
+                  setShowProposito(true);
+                  setShowFin(false);
+                }}
+                sx={{
+                  height: "7vh",
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "1vw", fontFamily: "MontserratMedium" }}
+                >
+                  PROPÓSITO
+                </Typography>
+              </ListItemButton>
+
+              <Divider />
+            </Grid>
+          </List>
+        )}
 
         {showFin ? (
           <>
             <Grid
+              item
+              container
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              display={"flex"}
+              justifyContent={"space-evenly"}
+              alignItems={"center"}
               sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                width: "90%",
-                alignItems: "center",
-                justifyItems: "center",
+                '& > .MuiGrid-item': {
+                  marginBottom: '20px', // Ajusta la cantidad de espacio vertical entre los elementos
+                },
               }}
             >
-              <TextField
-                // disabled={mirEdit?.fin.resumen && fin.resumen !== ""}
-                rows={8}
-                multiline
-                sx={{ width: "90%", boxShadow: 2 }}
-                variant={"filled"}
-                label={"RESUMEN NARRATIVO"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setFin({
-                    ...fin,
-                    resumen: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={fin.resumen}
-              />
-              <TextField
-                // disabled={mirEdit?.fin.indicador && fin.indicador !== ""}
-                rows={8}
-                multiline
-                sx={{ width: "90%", boxShadow: 2 }}
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onBlur={() =>
-                  fin.indicador === "" ? null : evalueTxtindicador("fin")
-                }
-                label={"INDICADOR"}
-                error={errorIndicadorFin === "fin" ? true : false}
-                helperText={
-                  errorIndicadorFin
-                    ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
-                    : null
-                }
-                onChange={(c) => {
-                  setFin({
-                    ...fin,
-                    indicador: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                    formula: "",
-                  });
-                }}
-                value={fin.indicador}
-              />
-              <TextField
-                // disabled={mirEdit?.fin.formula && fin.formula !== ""}
-                rows={8}
-                multiline
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"FÓRMULA"}
-                onClick={() => handleClickOpen()}
-                value={fin.formula}
-              />
+              {isSmallScreen && (
+                <Grid>
+                  <List sx={{}}>
+                    <Divider />
+                    <ListItemButton
+                      selected={showFin}
+                      onClick={() => {
+                        setShowFin(true);
+                        setShowProposito(false);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{ fontSize: "6vw", fontFamily: "MontserratMedium" }}
+                      >
+                        FIN
+                      </Typography>
+                    </ListItemButton>
 
-              <FormControl
+                    <Divider />
+
+                    <Grid
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <ListItemButton
+                        selected={showProposito}
+                        onClick={() => {
+                          setShowProposito(true);
+                          setShowFin(false);
+                        }}
+                        sx={{
+                          height: "7vh",
+                          "&.Mui-selected ": {
+                            backgroundColor: "#c4a57b",
+                          },
+                          "&.Mui-selected:hover": {
+                            backgroundColor: "#cbcbcb",
+                          },
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: "6vw",
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          PROPÓSITO
+                        </Typography>
+                      </ListItemButton>
+
+                      <Divider />
+                    </Grid>
+                  </List>
+                </Grid>
+              )}
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
                 sx={{
-                  width: "90%",
-                  height: "44%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <FormLabel>FRECUENCIA</FormLabel>
-                <FormControlLabel
-                  value={"ANUAL"}
-                  label={"ANUAL"}
+                <TextField
+                  rows={8}
+                  multiline
+                  variant="filled"
                   sx={{
-                    fontFamily: "MontserratMedium",
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                    //top: ["15vh", "block", "none", "none", "none", "none"]
                   }}
-                  control={
-                    <Radio
-                      checked={fin.frecuencia === "ANUAL"}
-                      onChange={(c) => {
-                        setFin({
-                          ...fin,
-                          frecuencia: c.target.value,
-                        });
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"BIENAL"}
-                  label={"BIENAL"}
-                  sx={{
-                    fontFamily: "MontserratMedium",
+                  label={"RESUMEN NARRATIVO"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
                   }}
-                  control={
-                    <Radio
-                      checked={fin.frecuencia === "BIENAL"}
-                      onChange={(c) => {
-                        setFin({
-                          ...fin,
-                          frecuencia: c.target.value,
-                        });
-                      }}
-                    />
-                  }
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    setFin({
+                      ...fin,
+                      resumen: c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                    });
+                  }}
+                  value={fin.resumen}
                 />
-              </FormControl>
+              </Grid>
 
-              <TextField
-                // disabled={mirEdit?.fin.medios && fin.medios !== ""}
-                rows={8}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"MEDIOS DE VERIFICACIÓN"}
-                InputLabelProps={{
-                  style: {
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  // disabled={
+                  //   mirEdit?.fin.indicador && fin.indicador !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  sx={{
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                    //top: ["10vh", "none", "none", "none", "none", "none"]
+                  }}
+                  variant="filled"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onBlur={() =>
+                    fin.indicador === "" ? null : evalueTxtindicador("fin")
+                  }
+                  label={"INDICADOR"}
+                  error={errorIndicadorFin === "fin" ? true : false}
+                  helperText={
+                    errorIndicadorFin
+                      ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                      : null
+                  }
+                  onChange={(c) => {
+                    setFin({
+                      ...fin,
+                      indicador: c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                      formula: "",
+                    });
+                  }}
+                  value={fin.indicador}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  // disabled={
+                  //   mirEdit?.fin.formula && fin.formula !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  variant="filled"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  sx={{
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                    //top: ["5vh", "none", "none", "none", "none", "none"]
+                  }}
+                  label={"FÓRMULA"}
+                  onClick={() => handleClickOpen()}
+                  value={fin.formula}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl
+                  sx={{
+                    width: ["33vh", "30vh", "40vh", "50vh", "50vh"],
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
                     fontFamily: "MontserratMedium",
-                  },
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                    //top: ["1vh", "none", "none", "none", "none", "none"]
+                  }}
+                >
+                  <FormLabel>FRECUENCIA</FormLabel>
+                  <FormControlLabel
+                    value={"ANUAL"}
+                    label={"ANUAL"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={fin.frecuencia === "ANUAL"}
+                        onChange={(c) => {
+                          setFin({
+                            ...fin,
+                            frecuencia: c.target.value,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"BIENAL"}
+                    label={"BIENAL"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={fin.frecuencia === "BIENAL"}
+                        onChange={(c) => {
+                          setFin({
+                            ...fin,
+                            frecuencia: c.target.value,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
+              >
+                <TextField
+                  // disabled={
+                  //   mirEdit?.fin.medios_verificacion &&
+                  //   fin.medios_verificacion !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  variant="filled"
+                  sx={{
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                    //top: ["-4vh", "none", "none", "none", "none", "none"]
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  label={"MEDIOS DE VERIFICACIÓN"}
+                  onChange={(c) => {
+                    setFin({
+                      ...fin,
+                      medios: c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                    });
+                  }}
+                  value={fin.medios}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                onChange={(c) => {
-                  setFin((fin)=>({...fin,...{medios:c.target.value.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")}}))
-                }}
-                value={fin.medios}
-              />
-              <TextField
-                // disabled={mirEdit?.fin.supuestos && fin.supuestos !== ""}
-                rows={8}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"SUPUESTOS"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setFin({
-                    ...fin,
-                    supuestos: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={fin.supuestos}
-              />
+              >
+                <TextField
+                  // disabled={
+                  //   mirEdit?.fin.supuestos && fin.supuestos !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  variant="filled"
+                  sx={{
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                    //top: ["-8vh", "none", "none", "none", "none", "none"]
+                  }}
+                  label={"SUPUESTOS"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    setFin({
+                      ...fin,
+                      supuestos: c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                    });
+                  }}
+                  value={fin.supuestos}
+                />
+              </Grid>
             </Grid>
           </>
         ) : null}
@@ -552,204 +762,373 @@ export function TabFinProposito({
         {showProposito ? (
           <>
             <Grid
-              sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                width: "90%",
-                alignItems: "center",
-                justifyItems: "center",
-              }}
+              item
+              container
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              display={"flex"}
+              justifyContent={"space-evenly"}
+              alignItems={"center"}
             >
-              <TextField
-                // disabled={
-                //   mirEdit?.proposito.resumen && proposito.resumen !== ""
-                // }
-                rows={8}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"RESUMEN NARRATIVO"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setProposito({
-                    ...proposito,
-                    resumen: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={proposito.resumen}
-              />
+              {isSmallScreen && (
+                <List sx={{}}>
+                  <Divider />
+                  <ListItemButton
+                    selected={showFin}
+                    onClick={() => {
+                      setShowFin(true);
+                      setShowProposito(false);
+                    }}
+                    sx={{
+                      height: "7vh",
+                      "&.Mui-selected ": {
+                        backgroundColor: "#c4a57b",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#cbcbcb",
+                      },
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontSize: "6vw", fontFamily: "MontserratMedium" }}
+                    >
+                      FIN
+                    </Typography>
+                  </ListItemButton>
 
-              <TextField
-                // disabled={
-                //   mirEdit?.proposito.indicador && proposito.indicador !== ""
-                // }
-                rows={8}
-                multiline
-                sx={{ width: "90%", boxShadow: 2 }}
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onBlur={() =>
-                  proposito.indicador === ""
-                    ? null
-                    : evalueTxtindicador("proposito")
-                }
-                label={"INDICADOR"}
-                error={errorIndicadorProposito === "proposito" ? true : false}
-                helperText={
-                  errorIndicadorProposito
-                    ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
-                    : null
-                }
-                onChange={(c) => {
-                  setProposito({
-                    ...proposito,
-                    indicador: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                    formula: "",
-                  });
-                }}
-                value={proposito.indicador}
-              />
-              <TextField
-                // disabled={
-                //   mirEdit?.proposito.formula && proposito.formula !== ""
-                // }
-                rows={8}
-                multiline
-                variant="filled"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"FÓRMULA"}
-                onClick={() => handleClickOpen()}
-                value={proposito.formula}
-              />
+                  <Divider />
 
-              <FormControl
+                  <Grid
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ListItemButton
+                      selected={showProposito}
+                      onClick={() => {
+                        setShowProposito(true);
+                        setShowFin(false);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "6vw",
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        PROPÓSITO
+                      </Typography>
+                    </ListItemButton>
+
+                    <Divider />
+                  </Grid>
+                </List>
+              )}
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
                 sx={{
-                  width: "90%",
-                  height: "44%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <FormLabel>FRECUENCIA</FormLabel>
-                <FormControlLabel
-                  value={"ANUAL"}
-                  label={"ANUAL"}
+                <TextField
+                  // disabled={
+                  //   mirEdit?.proposito.resumen && proposito.resumen !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  variant="filled"
                   sx={{
-                    fontFamily: "MontserratMedium",
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
                   }}
-                  control={
-                    <Radio
-                      checked={proposito.frecuencia === "ANUAL"}
-                      onChange={(c) => {
-                        setProposito({
-                          ...proposito,
-                          frecuencia: c.target.value,
-                        });
-                      }}
-                    />
-                  }
+                  label={"RESUMEN NARRATIVO"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    setProposito({
+                      ...proposito,
+                      resumen: c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                    });
+                  }}
+                  value={proposito.resumen}
                 />
-              </FormControl>
+              </Grid>
 
-              <TextField
-                // disabled={
-                //   mirEdit?.proposito.medios_verificacion &&
-                //   proposito.medios_verificacion !== ""
-                // }
-                rows={8}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                InputLabelProps={{
-                  style: {
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  // disabled={
+                  //   mirEdit?.proposito.indicador && proposito.indicador !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  sx={{
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                  }}
+                  variant="filled"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onBlur={() =>
+                    proposito.indicador === ""
+                      ? null
+                      : evalueTxtindicador("proposito")
+                  }
+                  label={"INDICADOR"}
+                  error={errorIndicadorProposito === "proposito" ? true : false}
+                  helperText={
+                    errorIndicadorProposito
+                      ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                      : null
+                  }
+                  onChange={(c) => {
+                    setProposito({
+                      ...proposito,
+                      indicador: c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                      formula: "",
+                    });
+                  }}
+                  value={proposito.indicador}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  // disabled={
+                  //   mirEdit?.proposito.formula && proposito.formula !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  variant="filled"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  sx={{
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                  }}
+                  label={"FÓRMULA"}
+                  onClick={() => handleClickOpen()}
+                  value={proposito.formula}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl
+                  sx={{
+                    backgroundColor: "#f0f0f0",
+                    width: ["33vh", "30vh", "40vh", "50vh", "50vh"],
+                    boxShadow: 2,
                     fontFamily: "MontserratMedium",
-                  },
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel>FRECUENCIA</FormLabel>
+                  <FormControlLabel
+                    value={"ANUAL"}
+                    label={"ANUAL"}
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={proposito.frecuencia === "ANUAL"}
+                        onChange={(c) => {
+                          setProposito({
+                            ...proposito,
+                            frecuencia: c.target.value,
+                          });
+                        }}
+                      />
+                    }
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
+              >
+                <TextField
+                  // disabled={
+                  //   mirEdit?.proposito.medios_verificacion &&
+                  //   proposito.medios_verificacion !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  variant="filled"
+                  sx={{
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  label={"MEDIOS DE VERIFICACIÓN"}
+                  onChange={(c) => {
+                    setProposito({
+                      ...proposito,
+                      medios_verificacion: c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                    });
+                  }}
+                  value={proposito.medios_verificacion}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                label={"MEDIOS DE VERIFICACIÓN"}
-                onChange={(c) => {
-                  setProposito({
-                    ...proposito,
-                    medios_verificacion: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={proposito.medios_verificacion}
-              />
-              <TextField
-                // disabled={
-                //   mirEdit?.proposito.supuestos && proposito.supuestos !== ""
-                // }
-                rows={8}
-                multiline
-                variant="filled"
-                sx={{ width: "90%", boxShadow: 2 }}
-                label={"SUPUESTOS"}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  setProposito({
-                    ...proposito,
-                    supuestos: c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""),
-                  });
-                }}
-                value={proposito.supuestos}
-              />
+              >
+                <TextField
+                  // disabled={
+                  //   mirEdit?.proposito.supuestos && proposito.supuestos !== ""
+                  // }
+                  rows={8}
+                  multiline
+                  variant="filled"
+                  sx={{
+                    boxShadow: 2,
+                    width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                  }}
+                  label={"SUPUESTOS"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    setProposito({
+                      ...proposito,
+                      supuestos: c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                    });
+                  }}
+                  value={proposito.supuestos}
+                />
+              </Grid>
             </Grid>
           </>
         ) : null}

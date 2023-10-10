@@ -19,7 +19,7 @@ import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { createTheme } from "@mui/material/styles";
 import { ProgramaAnualEvaluacion } from "./screens/programaAnauldeEvaluacion/ProgramaAnualdeEvaluacion";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-//import { Raffi } from "./screens/raffi/Raffi";
+import { Raffi } from "./screens/raffi/Raffi";
 export const appTheme = createTheme({
   palette: {
     primary: {
@@ -83,7 +83,7 @@ function App() {
           <Route path="mir" element={<MIR />} />
           <Route path="metaAnual" element={<MetaAnual />} />
           <Route path="programaAnualEvaluacion" element={<ProgramaAnualEvaluacion />} />
-          {/* <Route path="raffi" element={<Raffi />} /> */}
+           <Route path="raffi" element={<Raffi />} /> 
           <Route path="notifications" element={<Notification />} />
         </Routes>
       </CssBaseline>

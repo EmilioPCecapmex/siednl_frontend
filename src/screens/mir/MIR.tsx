@@ -186,7 +186,6 @@ export const MIR = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
-  
   const onChangeActionNumberValue = () => {
     setActionNumber(1);
   };
@@ -350,15 +349,19 @@ export const MIR = () => {
     prog: string,
     mir: string
   ) => {
+    console.log("entre:",JSON.parse(mir));
     axios
+
       .post(
-        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
+        //process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
+       "http://192.168.137.152:7001/api/fill_mir",
         JSON.parse(mir),
+
         {
           responseType: "blob",
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
+          // headers: {
+          //   Authorization: localStorage.getItem("jwtToken") || "",
+          // },
         }
       )
       .then((r) => {
@@ -390,7 +393,6 @@ export const MIR = () => {
       });
   };
   ///////////////////////////////////////
-  
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
@@ -446,7 +448,7 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container sx={{justifyContent: "space-between"}}>
+    <Grid container sx={{ justifyContent: "space-between" }}>
       <Grid
         item
         xl={12}
@@ -455,7 +457,7 @@ export const MIR = () => {
         sm={12}
         xs={12}
         // height={"7vh"}
-        sx={{height:"7vh", whitespace: "nowrap"}}
+        sx={{ height: "7vh", whitespace: "nowrap" }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
@@ -472,15 +474,15 @@ export const MIR = () => {
         xl={12}
         lg={12}
         md={12}
-        sm={7.5}
-        xs={6}
-        sx={{ 
+        sm={12}
+        xs={12}
+        sx={{
           backgroundColor: "white",
           justifyContent: "center",
           display: "flex",
           height: "93vh",
           alignItems: "center",
-       }}
+        }}
       >
         {showResume ? (
           <>
@@ -489,8 +491,9 @@ export const MIR = () => {
               container
               item
               xl={8}
-              lg={7}
-              md={6}
+              lg={8}
+              md={8}
+              sm={8}
               // height="15vh"
               // direction="row"
               sx={{
@@ -507,6 +510,8 @@ export const MIR = () => {
                 xl={12}
                 lg={12}
                 md={12}
+                sm={12}
+                xs={12}
                 container
                 item
                 // direction="row"
@@ -518,72 +523,73 @@ export const MIR = () => {
                   direction: "row",
                 }}
               >
-                <Grid item xl={5} lg={4} md={3} sm={2}>
-                <Tooltip
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
-                                    },
-                                  },
-                                ],
-                              }}
-                              title={findInstStr}
-                            >
-                  <FormControl fullWidth>
-                    <InputLabel sx={queries.text}>
-                    <Tooltip
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
-                                    },
-                                  },
-                                ],
-                              }}
-                              title={"FILTRO POR INSTITUCION"}>
-                      <span>FILTRO POR INSTITUCION</span>
-                      </Tooltip>
-                    </InputLabel>
-                    <Select
-                      size="small"
-                      variant="outlined"
-                      label="FILTRO POR INSTITUCION"
-                      value={findInstStr}
-                      sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        // textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
-                        // color: "#AF8C55"
-                      }}
-                      fullWidth
-                      onChange={(v) => {
-                        setFindInstStr(v.target.value);
-                      }}
-                    >
-                      <MenuItem
-                        value={"Todos"}
-                        sx={{ fontFamily: "MontserratRegular" }}
+                <Grid item xl={5} lg={5} md={5} sm={5}>
+                  <Tooltip
+                    PopperProps={{
+                      modifiers: [
+                        {
+                          name: "offset",
+                          options: {
+                            offset: [0, -13],
+                          },
+                        },
+                      ],
+                    }}
+                    title={findInstStr}
+                  >
+                    <FormControl fullWidth>
+                      <InputLabel sx={queries.text}>
+                        <Tooltip
+                          PopperProps={{
+                            modifiers: [
+                              {
+                                name: "offset",
+                                options: {
+                                  offset: [0, -13],
+                                },
+                              },
+                            ],
+                          }}
+                          title={"FILTRO POR INSTITUCION"}
+                        >
+                          <span>FILTRO POR INSTITUCION</span>
+                        </Tooltip>
+                      </InputLabel>
+                      <Select
+                        size="small"
+                        variant="outlined"
+                        label="FILTRO POR INSTITUCION"
+                        value={findInstStr}
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          // textAlign: "center",
+                          fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
+                          // color: "#AF8C55"
+                        }}
+                        fullWidth
+                        onChange={(v) => {
+                          setFindInstStr(v.target.value);
+                        }}
                       >
-                        TODOS
-                      </MenuItem>
+                        <MenuItem
+                          value={"Todos"}
+                          sx={{ fontFamily: "MontserratRegular" }}
+                        >
+                          TODOS
+                        </MenuItem>
 
-                      {instituciones?.map((item) => {
-                        return (
-                          <MenuItem value={item.Nombre} key={item.Id}>
-                            {item.Nombre}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
+                        {instituciones?.map((item) => {
+                          return (
+                            <MenuItem value={item.Nombre} key={item.Id}>
+                              {item.Nombre}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
                   </Tooltip>
                 </Grid>
 
@@ -591,72 +597,74 @@ export const MIR = () => {
                   // sx={{ fontFamily: "MontserratRegular" }}
                   item
                   xl={5}
-                  lg={4}
-                  md={3}
+                  lg={5}
+                  md={5}
+                  sm={5}
                 >
                   <Tooltip
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
-                                    },
-                                  },
-                                ],
-                              }}
-                              title={findSelectStr}
-                            >
-                  <FormControl fullWidth>
-                    <InputLabel sx={queries.text}>
-                    <Tooltip
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
-                                    },
-                                  },
-                                ],
-                              }}
-                              title={"FILTRO POR ESTADO DE LA MIR"}>
-                      <span>FILTRO POR ESTADO DE LA MIR</span>
-                      </Tooltip>
-                    </InputLabel>
-                    <Select
-                      size="small"
-                      variant="outlined"
-                      value={findSelectStr}
-                      label="FILTRO POR ESTADO DE LA MIR"
-                      sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        // textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
-                        // color: "#AF8C55"
-                      }}
-                      fullWidth
-                      onChange={(v) => {
-                        // v.target.value === "Todos"
-                        //   ? findText(
-                        //       findTextStr,
-                        //       "0",
-                        //       findInstStr === "Todos" ? "0" : findInstStr
-                        //     )
-                        //   : findText(findTextStr, v.target.value, findInstStr);
-                        setFindSelectStr(v.target.value);
-                      }}
-                    >
-                      {estados.map((estado) => (
-                        <MenuItem key={estado} value={estado}>
-                          {estado.toUpperCase()}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                    PopperProps={{
+                      modifiers: [
+                        {
+                          name: "offset",
+                          options: {
+                            offset: [0, -13],
+                          },
+                        },
+                      ],
+                    }}
+                    title={findSelectStr}
+                  >
+                    <FormControl fullWidth>
+                      <InputLabel sx={queries.text}>
+                        <Tooltip
+                          PopperProps={{
+                            modifiers: [
+                              {
+                                name: "offset",
+                                options: {
+                                  offset: [0, -13],
+                                },
+                              },
+                            ],
+                          }}
+                          title={"FILTRO POR ESTADO DE LA MIR"}
+                        >
+                          <span>FILTRO POR ESTADO DE LA MIR</span>
+                        </Tooltip>
+                      </InputLabel>
+                      <Select
+                        size="small"
+                        variant="outlined"
+                        value={findSelectStr}
+                        label="FILTRO POR ESTADO DE LA MIR"
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          // textAlign: "center",
+                          fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
+                          // color: "#AF8C55"
+                        }}
+                        fullWidth
+                        onChange={(v) => {
+                          // v.target.value === "Todos"
+                          //   ? findText(
+                          //       findTextStr,
+                          //       "0",
+                          //       findInstStr === "Todos" ? "0" : findInstStr
+                          //     )
+                          //   : findText(findTextStr, v.target.value, findInstStr);
+                          setFindSelectStr(v.target.value);
+                        }}
+                      >
+                        {estados.map((estado) => (
+                          <MenuItem key={estado} value={estado}>
+                            {estado.toUpperCase()}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </Tooltip>
                 </Grid>
               </Grid>
@@ -672,16 +680,16 @@ export const MIR = () => {
                 sx={{
                   direction: "row",
                   justifyContent: "space-around",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <Grid
                   sx={{ fontFamily: "MontserratRegular" }}
                   item
                   xl={7}
-                  lg={4}
-                  md={3}
-                  sm={2}
+                  lg={6}
+                  md={6}
+                  sm={7}
                 >
                   <Paper
                     component="form"
@@ -691,8 +699,12 @@ export const MIR = () => {
                     }}
                   >
                     <InputBase
-                      sx={{ ml: 1, flex: 1 , fontSize: [10, 10, 15, 15, 18, 20],
-                        textAlign:"center",}}
+                      sx={{
+                        ml: 1,
+                        flex: 1,
+                        fontSize: [10, 10, 15, 15, 18, 20],
+                        textAlign: "center",
+                      }}
                       placeholder="Buscar"
                       value={findTextStr}
                       onChange={(e) => {
@@ -717,16 +729,18 @@ export const MIR = () => {
                   </Paper>
                 </Grid>
 
-                <Grid item xl={3} lg={4} md={3} sm={2}>
+                <Grid item xl={3} lg={3} md={4} sm={3}>
                   <Button
                     disabled={!validaFecha}
                     sx={{
                       backgroundColor: "#c2a37b",
-                      width: "10vw",
-                      height: "3.3vh",
+                      // width: "10vw",
+                      // height: "3.3vh",
+                      width: ["80px", "120px", "160px", "180px", "250px"],
+                      height: ["30px", "20px", "30px", "40px", "50px"],
                       color: "black",
                       fontFamily: "MontserratMedium",
-                      fontSize: "0.6vw",
+                      fontSize: [5, 7, 10, 12, 16, 20],
                     }}
                     onClick={() => {
                       setMirEdit([
@@ -763,10 +777,17 @@ export const MIR = () => {
               container
               item
               lg={10}
-              md={9}
+              md={10}
+              sm={10}
               // height="65vh"
               // direction="row"
-              sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5, height: "65vh", direction: "row" }}
+              sx={{
+                backgroundColor: "#FFFF",
+                borderRadius: 5,
+                boxShadow: 5,
+                height: "65vh",
+                direction: "row",
+              }}
             >
               <TableContainer
                 sx={{
@@ -798,7 +819,7 @@ export const MIR = () => {
                             fontFamily: "MontserratBold",
                             borderBottom: 0,
                             fontSize: [10, 10, 10, 15, 16, 18],
-                            textAlign:"center",
+                            textAlign: "center",
                             // fontFamily: "MontserratRegular",
                             //   fontSize: ".7vw",
                             justifyContent: "center",
@@ -826,7 +847,7 @@ export const MIR = () => {
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign:"center",
+                              textAlign: "center",
                             }}
                             align="center"
                             component="th"
@@ -839,7 +860,7 @@ export const MIR = () => {
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign:"center",
+                              textAlign: "center",
                             }}
                             align="center"
                             component="th"
@@ -852,7 +873,7 @@ export const MIR = () => {
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign:"center",
+                              textAlign: "center",
                             }}
                             align="center"
                             component="th"
@@ -866,7 +887,7 @@ export const MIR = () => {
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign:"center",
+                              textAlign: "center",
                             }}
                             align="center"
                             component="th"
@@ -881,7 +902,8 @@ export const MIR = () => {
                               : row.Estado === "En Autorización" &&
                                 localStorage.getItem("Rol") === "Administrador"
                               ? "En Autorización"
-                              : row.Estado).toUpperCase()}
+                              : row.Estado
+                            ).toUpperCase()}
                           </TableCell>
 
                           <TableCell
@@ -889,7 +911,7 @@ export const MIR = () => {
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign:"center",
+                              textAlign: "center",
                             }}
                             align="center"
                             component="th"
@@ -905,7 +927,7 @@ export const MIR = () => {
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
                               fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign:"center",
+                              textAlign: "center",
                             }}
                             align="center"
                             component="th"
@@ -918,7 +940,7 @@ export const MIR = () => {
                             sx={{
                               flexDirection: "row",
                               display: "grid",
-                              gridTemplateColumns: "repeat(4,1fr)", 
+                              gridTemplateColumns: "repeat(4,1fr)",
                             }}
                             align="center"
                             component="th"
@@ -956,24 +978,25 @@ export const MIR = () => {
                                   <DownloadIcon
                                     sx={{
                                       fontSize: "24px", // Tamaño predeterminado del icono
-  
+
                                       "@media (max-width: 600px)": {
                                         fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
-  
+
                                       "@media (min-width: 601px) and (max-width: 960px)":
                                         {
                                           fontSize: 20, // Pantalla pequeña (md)
                                         },
-  
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+
+                                      "@media (min-width: 961px) and (max-width: 1280px)":
+                                        {
                                           fontSize: 20, // Pantalla mediana (lg)
                                         },
-  
+
                                       "@media (min-width: 1281px)": {
                                         fontSize: 25, // Pantalla grande (xl)
                                       },
-  
+
                                       "@media (min-width: 2200px)": {
                                         ffontSize: 25, // Pantalla grande (xl)
                                       },
@@ -987,7 +1010,6 @@ export const MIR = () => {
                               estado={row.Estado}
                               id={row.Id}
                               actualizado={actualizaContador}
-                              
                             />
 
                             <DeleteDialogMIR
@@ -1073,24 +1095,25 @@ export const MIR = () => {
                                   <EditIcon
                                     sx={{
                                       fontSize: "24px", // Tamaño predeterminado del icono
-  
+
                                       "@media (max-width: 600px)": {
                                         fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
-  
+
                                       "@media (min-width: 601px) and (max-width: 960px)":
                                         {
                                           fontSize: 20, // Pantalla pequeña (md)
                                         },
-  
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+
+                                      "@media (min-width: 961px) and (max-width: 1280px)":
+                                        {
                                           fontSize: 20, // Pantalla mediana (lg)
                                         },
-  
+
                                       "@media (min-width: 1281px)": {
                                         fontSize: 25, // Pantalla grande (xl)
                                       },
-  
+
                                       "@media (min-width: 2200px)": {
                                         ffontSize: 25, // Pantalla grande (xl)
                                       },

@@ -193,7 +193,7 @@ export function TabEncabezado({
     // console.log("tema",tematica);
     // setTematica(MIR.encabezado?.tema || objetoVacio);
     // console.log("MIR",MIR);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -655,23 +655,25 @@ export function TabEncabezado({
 
   return (
     <Grid
+      container
       visibility={show ? "visible" : "hidden"}
       position="absolute"
+      //height={"rem"}
       sx={{
         width: "93vw",
-        height: "82vh",
-        justifyContent: "center",
-        alignItems: "center",
-        justifyItems: "center",
+        height: ["100vh", "82vh", "82vh", "82vh", "82vh"],
+        // justifyContent: "center",
+        // alignItems: "center",
+        // justifyItems: "center",
         backgroundColor: "#fff",
         boxShadow: 20,
         borderRadius: 5,
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gridTemplateRows: "1fr 1fr 1fr 2fr",
+        // display: "grid",
+        // gridTemplateColumns: "repeat(3, 1fr)",
+        // gridTemplateRows: "1fr 1fr 1fr 2fr",
       }}
     >
-      <Grid
+      {/* <Grid
         sx={{
           width: "5vw",
           height: "3vh",
@@ -683,621 +685,609 @@ export function TabEncabezado({
           justifyContent: "center",
         }}
       >
-        {/* <Button href="/files/MIR_2023.xlsx" target="_blank" download>
+         <Button href="/files/MIR_2023.xlsx" target="_blank" download>
           <Typography sx={{ fontFamily: "MontserratMedium", color: "#616161" }}>
             Plantilla
           </Typography>
-        </Button> */}
-      </Grid>
-
-      <FormControl sx={{ gridRow: "1", width: "20vw" }}>
-        <Autocomplete
-          disabled={mirEdit?.encabezado.ejercicioFiscal}
-          clearText="Borrar"
-          noOptionsText="Sin opciones"
-          closeText="Cerrar"
-          openText="Abrir"
-          disablePortal
-          size="small"
-          options={catalogoAniosFiscales}
-          getOptionLabel={(option) => option.Label || ""}
-          value={anioFiscal}
-          getOptionDisabled={(option) => {
-            if (option.Id === "") {
-              return true;
-            }
-            return false;
-          }}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.Label}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="EJERCICIO FISCAL"
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
-              }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-            ></TextField>
-          )}
-          onChange={(event, value) => setAnioFiscal(value || objetoVacio)}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
-      </FormControl>
-      {/* 
-      <Grid
-        sx={{
-          gridColumn: "2/4",
-          width: "30vw",
-          height: "10vh",
-          border: 1,
-          borderRadius: 3,
-          borderColor: "#af8c55",
-          borderStyle: "dashed",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          mt: "6vh",
-          cursor: "pointer",
-        }}
-      >
-        {showAlert ? (
-          <Alert
-            sx={{ borderRadius: 5, width: "80%", alignItems: "center", mt: 2 }}
-            severity="error"
-            onClose={() => {
-              setShowAlert(false);
-              setNombreArchivo(
-                "Arrastre o de click aquí para seleccionar archivo"
-              );
-            }}
-          >
-            {errorMsg}
-          </Alert>
-        ) : (
-          <Typography
-            sx={{
-              position: "absolute",
-              fontFamily: "MontserratLight",
-              fontSize: ".7vw",
-              textAlign: "center",
-              width: "28vw",
-              mb: 1,
-            }}
-          >
-            {nombreArchivo}
-          </Typography>
-        )}
-
-        <input
-          type="file"
-          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-          onChange={(v) => enCambioFile(v)}
-          style={{
-            color: "#000",
-            opacity: 0,
-            width: "100%",
-            height: "10vh",
-            cursor: "pointer",
-          }}
-        />
-        {disabledButton ? null : (
-          <Button
-            disabled={disabledButton}
-            onClick={submitForm}
-            sx={{
-              backgroundColor: "#b0e2ff8f",
-              color: "black",
-              height: "3vh",
-              width: "10vw",
-              mb: 0.5,
-            }}
-          >
-            Cargar
-          </Button>
-        )}
-        
-        <Grid
-          sx={{ position: "absolute" }}
-          visibility={loadingFile ? "visible" : "hidden"}
-        >
-          <CircularProgress />
-        </Grid>
+        </Button> 
       </Grid> */}
-
-      <FormControl sx={{ width: "20vw" }}>
-        <Autocomplete
-          disabled={mirEdit?.encabezado.institucion || localStorage.getItem("Rol") !== "Administrador"}
-          clearText="Borrar"
-          noOptionsText="Sin opciones"
-          closeText="Cerrar"
-          openText="Abrir"
-          options={catalogoInstituciones}
-          getOptionLabel={(option) => option.Label || ""}
-          value={entidadSeleccionada}
-          size="small"
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.Label?.toUpperCase()}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"INSTITUCIÓN"}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
+      <Grid
+        item
+        container
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        display={"flex"}
+        justifyContent={"space-evenly"}
+        alignItems={"center"}
+      >
+        <Grid
+          xl={3}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={10}
+          item
+          sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+        >
+          <FormControl required fullWidth>
+            <Autocomplete
+              disabled={mirEdit?.encabezado.ejercicioFiscal}
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              disablePortal
+              size="small"
+              options={catalogoAniosFiscales}
+              getOptionLabel={(option) => option.Label || ""}
+              value={anioFiscal}
+              getOptionDisabled={(option) => {
+                if (option.Id === "") {
+                  return true;
+                }
+                return false;
               }}
-              //InputProps={{ readOnly: localStorage.getItem("Rol") === "Administrador"  ? true : false  }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                  textTransform: "uppercase",
-                },
-                // "& input[disabled]": {
-                //  // backgroundColor: "lightgray", // Cambia el color de fondo
-                //  color: "#3333", // Cambia el color del texto
-                // },
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.Id}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                        fontSize: ".7vw",
+                      }}
+                    >
+                      {option.Label}
+                    </p>
+                  </li>
+                );
               }}
-            ></TextField>
-          )}
-          onChange={(event, value) => {
-            setEntidadSeleccionada({
-              Id: value?.Id || "",
-              Label: value?.Label || "",
-            });
-          }}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
-      </FormControl>
-
-      <FormControl sx={{ width: "20vw" }}>
-        <Autocomplete
-          clearText="Borrar"
-          noOptionsText="Sin opciones"
-          closeText="Cerrar"
-          openText="Abrir"
-          disabled={
-            mirEdit?.encabezado.nombre_del_programa || disabledProgramas
-          }
-          options={catalogoProgramas}
-          size="small"
-          getOptionLabel={(option) => option.Label || ""}
-          value={programa}
-          onChange={(event, value) => {
-            setConac(value?.Conac || "");
-            setConsecutivo(value?.Consecutivo || "");
-            setPrograma(
-              value || { ...objetoVacio, Conac: "", Consecutivo: "" }
-            );
-          }}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.Label}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"PROGRAMA"}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
-              }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-            ></TextField>
-          )}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
-      </FormControl>
-
-      <FormControlLabel
-        label="ANTICORRUPCIÓN"
-        control={
-          <Checkbox
-            checked={anticorrupcion === "SI"}
-            onChange={() => {
-              anticorrupcion === "NO"
-                ? setAnticorrupcion("SI")
-                : setAnticorrupcion("NO");
-            }}
-          />
-        }
-      />
-      <TextField
-        disabled
-        size="small"
-        label={"CONAC:"}
-        value={conac}
-        sx={{ width: "25%" }}
-      />
-      <TextField
-        disabled
-        size="small"
-        label={"CLASIFICACIÓN PROGRAMÁTICA:"}
-        value={consecutivo}
-        sx={{ width: "70%" }}
-      />
-
-      <FormControl required sx={{ width: "20vw" }}>
-        <Autocomplete
-          clearText="Borrar"
-          noOptionsText="Sin opciones"
-          closeText="Cerrar"
-          openText="Abrir"
-          disablePortal
-          disabled={mirEdit?.encabezado.eje}
-          size="small"
-          options={catalogoEjes}
-          getOptionLabel={(option) => option.Label || ""}
-          value={eje}
-          getOptionDisabled={(option) => {
-            if (option.Id === "0") {
-              return true;
-            }
-            return false;
-          }}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.Label}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"EJE"}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
-              }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-            />
-          )}
-          onChange={(event, value) => {
-            setEje(value || objetoVacio);
-            RestaurarValores("Eje");
-          }}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
-      </FormControl>
-
-      <FormControl required sx={{ width: "20vw" }}>
-        <Autocomplete
-          clearText="Borrar"
-          noOptionsText="Sin opciones"
-          closeText="Cerrar"
-          openText="Abrir"
-          disabled={
-            (mirEdit?.encabezado.tema && tematica.Id !== "") ||
-            disabledTematicas
-          }
-          options={catalogoTematicas}
-          size="small"
-          getOptionLabel={(option) => option.Label || ""}
-          value={tematica}
-          getOptionDisabled={(option) => {
-            if (option.Id === "0") {
-              return true;
-            }
-            return false;
-          }}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.Label.toUpperCase()}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"TEMÁTICA"}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
-              }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                  textTransform: "uppercase",
-                },
-              }}
-            />
-          )}
-          onChange={(event, value) => {
-            setTematica(value || objetoVacio);
-            RestaurarValores("Tematica");
-          }}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
-      </FormControl>
-
-      <FormControl required sx={{ width: "20vw" }}>
-        <Autocomplete
-          clearText="Borrar"
-          noOptionsText="Sin opciones"
-          closeText="Cerrar"
-          openText="Abrir"
-          disabled={
-            (mirEdit?.encabezado.objetivo && objetivo.Id !== "") ||
-            disabledObjetivos
-          }
-          options={catalogoObjetivos}
-          getOptionLabel={(option) => option.Label || ""}
-          value={objetivo}
-          size="small"
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.Label.toUpperCase()}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"OBJETIVO"}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
-              }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                  textTransform: "uppercase",
-                },
-              }}
-            />
-          )}
-          onChange={(event, value) => {
-            setObjetivo(value || objetoVacio);
-            RestaurarValores("Objetivo");
-          }}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
-      </FormControl>
-
-      <FormControl required sx={{ width: "20vw" }}>
-        <Autocomplete
-          clearText="Borrar"
-          noOptionsText="Sin opciones"
-          closeText="Cerrar"
-          openText="Abrir"
-          disabled={
-            (mirEdit?.encabezado.estrategia && estrategia.Id !== "") ||
-            disabledEstrategias
-          }
-          options={catalogoEstrategias}
-          size="small"
-          getOptionLabel={(option) => option.Label || ""}
-          value={estrategia}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.Label}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"ESTRATEGIA"}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
-              }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-            />
-          )}
-          onChange={(event, value) => {
-            setEstrategia(value || objetoVacio);
-            RestaurarValores("Estrategia");
-          }}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
-      </FormControl>
-
-      <FormControl required>
-        {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
-        <Stack spacing={3} sx={{ width: 400 }}>
-          <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-            disabled={
-              (mirEdit?.encabezado.lineas_de_accion &&
-                lineaDeAccion[0]?.Id === "") ||
-              disabledLineasDeAccion
-            }
-            multiple
-            limitTags={4}
-            options={catalogoLineasDeAccion}
-            size="small"
-            getOptionLabel={(option) => option.Label?.toUpperCase() || ""}
-            value={lineaDeAccion}
-            renderOption={(props, option) => {
-              return (
-                <li {...props} key={option.Id}>
-                  <p
-                    style={{
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="EJERCICIO FISCAL"
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
                       fontFamily: "MontserratRegular",
-                      fontSize: ".7vw",
-                    }}
-                  >
-                    {option.Label.toUpperCase()}
-                  </p>
-                </li>
-              );
-            }}
-            onInputChange={() => onClearLineasDeAccion()}
-            //--------------------------- esto si va --------------------------------------------
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={"LINEAS DE ACCIÓN"}
-                variant="standard"
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
-                  },
-                }}
-                sx={{
-                  "& .MuiAutocomplete-input": {
-                    fontFamily: "MontserratRegular",
-                    textTransform: "uppercase",
-                  },
+                    },
+                  }}
+                ></TextField>
+              )}
+              onChange={(event, value) => setAnioFiscal(value || objetoVacio)}
+              isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            />
+          </FormControl>
+        </Grid>
+        <Grid
+          xl={4}
+          lg={4}
+          md={4}
+          sm={4}
+          xs={10}
+          item
+          sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+        >
+          <FormControl required fullWidth>
+            <Autocomplete
+              disabled={
+                mirEdit?.encabezado.institucion ||
+                localStorage.getItem("Rol") !== "Administrador"
+              }
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              options={catalogoInstituciones}
+              getOptionLabel={(option) => option.Label || ""}
+              value={entidadSeleccionada}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.Id}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                        fontSize: ".7vw",
+                      }}
+                    >
+                      {option.Label?.toUpperCase()}
+                    </p>
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"INSTITUCIÓN"}
+                  size="small"
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  //InputProps={{ readOnly: localStorage.getItem("Rol") === "Administrador"  ? true : false  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                      textTransform: "uppercase",
+                    },
+                    // "& input[disabled]": {
+                    //  // backgroundColor: "lightgray", // Cambia el color de fondo
+                    //  color: "#3333", // Cambia el color del texto
+                    // },
+                  }}
+                ></TextField>
+              )}
+              onChange={(event, value) => {
+                setEntidadSeleccionada({
+                  Id: value?.Id || "",
+                  Label: value?.Label || "",
+                });
+              }}
+              isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            />
+          </FormControl>
+        </Grid>
+        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+          <FormControl required fullWidth>
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              disabled={
+                mirEdit?.encabezado.nombre_del_programa || disabledProgramas
+              }
+              options={catalogoProgramas}
+              size="small"
+              getOptionLabel={(option) => option.Label || ""}
+              value={programa}
+              onChange={(event, value) => {
+                setConac(value?.Conac || "");
+                setConsecutivo(value?.Consecutivo || "");
+                setPrograma(
+                  value || { ...objetoVacio, Conac: "", Consecutivo: "" }
+                );
+              }}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.Id}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                        fontSize: ".7vw",
+                      }}
+                    >
+                      {option.Label}
+                    </p>
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size={"small"}
+                  label={"PROGRAMA"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                ></TextField>
+              )}
+              isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            />
+          </FormControl>
+        </Grid>
+
+        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+          <FormControlLabel
+            label="ANTICORRUPCIÓN"
+            control={
+              <Checkbox
+                checked={anticorrupcion === "SI"}
+                onChange={() => {
+                  anticorrupcion === "NO"
+                    ? setAnticorrupcion("SI")
+                    : setAnticorrupcion("NO");
                 }}
               />
-            )}
-            onChange={(event, value) => {
-              value.map((value2, index) => {
-                if (value2.Id !== "" && value2.Label !== "") {
-                  setLineaDeAccion(value);
-                }
-              });
-            }}
-            isOptionEqualToValue={(
-              option: {
-                Id: string;
-                Label: string;
-              },
-              value: {
-                Id: string;
-                Label: string;
-              }
-            ) => value.Id === option.Id}
+            }
           />
-        </Stack>
-      </FormControl>
+        </Grid>
+        <Grid xl={4} lg={4} md={4} sm={4} xs={10} item>
+          <TextField
+            fullWidth
+            disabled
+            size="small"
+            label={"CONAC:"}
+            value={conac}
+          />
+        </Grid>
+        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+          <TextField
+            fullWidth
+            disabled
+            size="small"
+            label={"CLASIFICACIÓN PROGRAMÁTICA:"}
+            value={consecutivo}
+          />
+        </Grid>
 
-      <FormControl required sx={{ width: "20vw" }}>
-        <Autocomplete
-          disabled={mirEdit?.encabezado.beneficiario}
-          clearText="Borrar"
-          noOptionsText="Sin opciones"
-          closeText="Cerrar"
-          openText="Abrir"
-          disablePortal
-          size="small"
-          options={catalogoBeneficiarios}
-          getOptionLabel={(option) => option.Label || ""}
-          value={beneficiario}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.Id}>
-                <p
-                  style={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
-                >
-                  {option.Label}
-                </p>
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"BENEFICIARIO"}
-              variant="standard"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
-                },
+        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+          <FormControl required fullWidth>
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              disablePortal
+              disabled={mirEdit?.encabezado.eje}
+              size="small"
+              options={catalogoEjes}
+              getOptionLabel={(option) => option.Label || ""}
+              value={eje}
+              getOptionDisabled={(option) => {
+                if (option.Id === "0") {
+                  return true;
+                }
+                return false;
               }}
-              sx={{
-                "& .MuiAutocomplete-input": {
-                  fontFamily: "MontserratRegular",
-                },
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.Id}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                        fontSize: ".7vw",
+                      }}
+                    >
+                      {option.Label}
+                    </p>
+                  </li>
+                );
               }}
-            ></TextField>
-          )}
-          onChange={(event, value) => {
-            setBeneficiario(value || objetoVacio);
-          }}
-          isOptionEqualToValue={(option, value) => option.Id === value.Id}
-        />
-      </FormControl>
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"EJE"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                />
+              )}
+              onChange={(event, value) => {
+                setEje(value || objetoVacio);
+                RestaurarValores("Eje");
+              }}
+              isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            />
+          </FormControl>
+        </Grid>
+
+        <Grid xl={4} lg={4} md={4} sm={4} xs={10} item>
+          <FormControl required fullWidth>
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              disabled={
+                (mirEdit?.encabezado.tema && tematica.Id !== "") ||
+                disabledTematicas
+              }
+              options={catalogoTematicas}
+              size="small"
+              getOptionLabel={(option) => option.Label || ""}
+              value={tematica}
+              getOptionDisabled={(option) => {
+                if (option.Id === "0") {
+                  return true;
+                }
+                return false;
+              }}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.Id}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                        fontSize: ".7vw",
+                      }}
+                    >
+                      {option.Label.toUpperCase()}
+                    </p>
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"TEMÁTICA"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                      textTransform: "uppercase",
+                    },
+                  }}
+                />
+              )}
+              onChange={(event, value) => {
+                setTematica(value || objetoVacio);
+                RestaurarValores("Tematica");
+              }}
+              isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            />
+          </FormControl>
+        </Grid>
+
+        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+          <FormControl required fullWidth>
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              disabled={
+                (mirEdit?.encabezado.objetivo && objetivo.Id !== "") ||
+                disabledObjetivos
+              }
+              options={catalogoObjetivos}
+              getOptionLabel={(option) => option.Label || ""}
+              value={objetivo}
+              size="small"
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.Id}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                        fontSize: ".7vw",
+                      }}
+                    >
+                      {option.Label.toUpperCase()}
+                    </p>
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"OBJETIVO"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                      textTransform: "uppercase",
+                    },
+                  }}
+                />
+              )}
+              onChange={(event, value) => {
+                setObjetivo(value || objetoVacio);
+                RestaurarValores("Objetivo");
+              }}
+              isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            />
+          </FormControl>
+        </Grid>
+
+        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+          <FormControl required fullWidth>
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              disabled={
+                (mirEdit?.encabezado.estrategia && estrategia.Id !== "") ||
+                disabledEstrategias
+              }
+              options={catalogoEstrategias}
+              size="small"
+              getOptionLabel={(option) => option.Label || ""}
+              value={estrategia}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.Id}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                        fontSize: ".7vw",
+                      }}
+                    >
+                      {option.Label}
+                    </p>
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"ESTRATEGIA"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                />
+              )}
+              onChange={(event, value) => {
+                setEstrategia(value || objetoVacio);
+                RestaurarValores("Estrategia");
+              }}
+              isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            />
+          </FormControl>
+        </Grid>
+
+        <Grid xl={4} lg={4} md={4} sm={4} xs={10} item>
+          <FormControl required fullWidth>
+            {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
+            <Stack spacing={3}>
+              <Autocomplete
+                clearText="Borrar"
+                noOptionsText="Sin opciones"
+                closeText="Cerrar"
+                openText="Abrir"
+                disabled={
+                  (mirEdit?.encabezado.lineas_de_accion &&
+                    lineaDeAccion[0]?.Id === "") ||
+                  disabledLineasDeAccion
+                }
+                multiple
+                limitTags={4}
+                options={catalogoLineasDeAccion}
+                size="small"
+                getOptionLabel={(option) => option.Label?.toUpperCase() || ""}
+                value={lineaDeAccion}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.Id}>
+                      <p
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
+                        }}
+                      >
+                        {option.Label.toUpperCase()}
+                      </p>
+                    </li>
+                  );
+                }}
+                onInputChange={() => onClearLineasDeAccion()}
+                //--------------------------- esto si va --------------------------------------------
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={"LINEAS DE ACCIÓN"}
+                    variant="standard"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    sx={{
+                      "& .MuiAutocomplete-input": {
+                        fontFamily: "MontserratRegular",
+                        textTransform: "uppercase",
+                      },
+                    }}
+                  />
+                )}
+                onChange={(event, value) => {
+                  value.map((value2, index) => {
+                    if (value2.Id !== "" && value2.Label !== "") {
+                      setLineaDeAccion(value);
+                    }
+                  });
+                }}
+                isOptionEqualToValue={(
+                  option: {
+                    Id: string;
+                    Label: string;
+                  },
+                  value: {
+                    Id: string;
+                    Label: string;
+                  }
+                ) => value.Id === option.Id}
+              />
+            </Stack>
+          </FormControl>
+        </Grid>
+
+        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+          <FormControl required fullWidth>
+            <Autocomplete
+              disabled={mirEdit?.encabezado.beneficiario}
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              disablePortal
+              size="small"
+              options={catalogoBeneficiarios}
+              getOptionLabel={(option) => option.Label || ""}
+              value={beneficiario}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.Id}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                        fontSize: ".7vw",
+                      }}
+                    >
+                      {option.Label}
+                    </p>
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"BENEFICIARIO"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                ></TextField>
+              )}
+              onChange={(event, value) => {
+                setBeneficiario(value || objetoVacio);
+              }}
+              isOptionEqualToValue={(option, value) => option.Id === value.Id}
+            />
+          </FormControl>
+        </Grid>
+      </Grid>
     </Grid>
   );
 }
