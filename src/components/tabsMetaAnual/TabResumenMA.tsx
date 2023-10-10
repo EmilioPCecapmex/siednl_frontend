@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -101,7 +102,9 @@ export function TabResumenMA({
 
   useEffect(() => {
     let arr: any[] = [];
+    // eslint-disable-next-line array-callback-return
     cValor[0].componentes.map((a) => {
+      // eslint-disable-next-line array-callback-return
       a.actividades.map((b) => {
         Object.assign(b);
         arr.push(b);
@@ -289,11 +292,11 @@ export function TabResumenMA({
   function mapeaindice(c = 0, a = 0) {
     let x = 0;
     //Componente 1
-    c == 0 && a == 0
+    c === 0 && a === 0
       ? (x = 0)
-      : c == 0 && a == 1
+      : c === 0 && a === 1
       ? (x = 1)
-      : c == 1 && a == 0
+      : c === 1 && a === 0
       ? (x = 2)
       : (x = 3);
 

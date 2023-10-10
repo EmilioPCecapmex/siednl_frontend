@@ -11,7 +11,6 @@ import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
 import { IComponenteActividad } from "../tabsMir/AddMir";
 import TabResumenMIR from "../modalsMA/ModalResumenMA";
-import { TutorialBox } from "../tutorialBox/tutorialBox";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 

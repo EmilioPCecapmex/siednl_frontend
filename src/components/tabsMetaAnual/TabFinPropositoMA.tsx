@@ -18,7 +18,6 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import axios from "axios";
-import { queries } from "../../queries";
 
 export function TabFinPropositoMA({
  show,
@@ -93,6 +92,7 @@ export function TabFinPropositoMA({
   useEffect(() => {
     resumenFinMa(valueFin);
     resumenPropositoMa(valueProposito);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueFin, valueProposito]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);

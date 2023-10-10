@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import {
-  IInstituciones,
   LateralMenu,
 } from "../../components/lateralMenu/LateralMenu";
-import { Header } from "../../components/header/Header";
 import {
   Grid,
   TableContainer,
@@ -16,13 +14,10 @@ import {
   Tooltip,
   IconButton,
   TablePagination,
-  Input,
   Select,
   FormControl,
   MenuItem,
-  Typography,
   InputLabel,
-  TextField,
   Paper,
   InputBase,
   TableSortLabel,
@@ -39,7 +34,6 @@ import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
 import Swal from "sweetalert2";
 //import { TutorialGrid } from "../../components/tutorialGrid/tutorialGrid";
 import { queries } from "../../queries";
-import { SelectChangeEvent } from "@mui/material/Select";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
@@ -134,6 +128,7 @@ export const FichaTecnica = () => {
     setPage(0);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
@@ -203,7 +198,7 @@ export const FichaTecnica = () => {
     const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
 
     axios
-      .post("http://192.168.137.152:7001" + "/api/fill_ft", fullft, {
+      .post("http://192.168.137.152:7001/api/fill_ft", fullft, {
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -372,7 +367,7 @@ export const FichaTecnica = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida == "true"
+        r.data.data.valida === "true"
           ? setValidaFecha(true)
           : setValidaFecha(false);
       })
@@ -397,26 +392,6 @@ export const FichaTecnica = () => {
     setActualizacion(actualizacion + 1);
   };
 
-  const colorMir = (v: string, mEdit: string) => {
-    if (mEdit !== undefined) {
-      let isModification = mEdit;
-      isModification = JSON.parse(mEdit);
-      if (isModification[1]) {
-        return "#cccc00";
-      }
-    }
-    if (v === "En Captura") {
-      return "#b3e6b3";
-    } else if (v === "En Revisión") {
-      return "#e6e6ff";
-    } else if (v === "En Autorización") {
-      return "#b3b3ff";
-    } else if (v === "Autorizada") {
-      return "#0000ff";
-    }
-  };
-  const [estadosR, SetEstadosR] = useState<string[]>([]);
-
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
     console.log("Entra");
@@ -429,6 +404,7 @@ export const FichaTecnica = () => {
       Arrayfiltro = ftxFiltered;
     }
 
+    // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
       console.log("entre");
       console.log(elemento);

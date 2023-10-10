@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIR, IMIREdit } from "./IMIR";
+import { IMIR,  } from "./IMIR";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -151,6 +151,7 @@ export function TabFinProposito({
       }}}))
 
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fin, proposito]);
 
 

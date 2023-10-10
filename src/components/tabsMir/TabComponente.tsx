@@ -96,7 +96,7 @@ export const TabComponente = ({
   useEffect(() => {
     setComponentes(MIR.componentes);
     console.log("formula: ", componentes[componentSelect - 1]?.formula);
-  }, [MIR]);
+  }, [MIR, componentSelect, componentes]);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({

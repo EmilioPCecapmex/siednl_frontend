@@ -117,10 +117,12 @@ export const TabComponenteMA = ({
     });
     
     setComponentesValues(comp);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noComponentes]);
 
   useEffect(() => {
     valoresComponenteMAFnc(componentesValues);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [componentesValues]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
