@@ -62,9 +62,9 @@ const heads: readonly Head[] = [
     label: "EJERCICIO FISCAL",
   },
   {
-    id: "Institucion",
+    id: "Entidad",
     isNumeric: true,
-    label: "INSTITUCIÓN",
+    label: "ENTIDAD",
   },
   {
     id: "Programa",
@@ -166,12 +166,12 @@ const returnMain = () => {
         ai.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -182,12 +182,12 @@ const returnMain = () => {
         ai.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+              x.Entidad.toLowerCase().includes(inst.toLowerCase()))
         )
       );
     } else if (
@@ -199,7 +199,7 @@ const returnMain = () => {
         ai.filter(
           (x) =>
             x.AnioFiscal.includes(v) ||
-            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
             x.Programa.toLowerCase().includes(v.toLowerCase()) ||
             x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
             x.CreadoPor.toLowerCase().includes(v.toLowerCase())
@@ -216,7 +216,7 @@ const returnMain = () => {
         ai.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -227,7 +227,7 @@ const returnMain = () => {
         ai.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else {
@@ -286,7 +286,7 @@ const returnMain = () => {
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Institucion.toString()
+        elemento.Entidad.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
         elemento.Programa.toString()
@@ -610,8 +610,8 @@ const returnMain = () => {
                               component="th"
                               scope="row"
                             >
-                              {row.Institucion}
-                              {/* {row.Institucion.toUpperCase()} */}
+                              {row.Entidad}
+                              {/* {row.Entidad.toUpperCase()} */}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -723,7 +723,7 @@ const returnMain = () => {
                                         IdMir: row.IdMir,
                                         IdFichaTecnica: row.IdFichaTecnica,
                                         AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
+                                        Entidad: row.Entidad,
                                         Programa: row.Programa,
                                         Eje: row.Eje,
                                         Tematica: row.Tematica,
@@ -776,7 +776,7 @@ const returnMain = () => {
                                       IdMir: row.IdMir,
                                       IdFichaTecnica: row.IdFichaTecnica,
                                       AnioFiscal: row.AnioFiscal,
-                                      Institucion: row.Institucion,
+                                      Entidad: row.Entidad,
                                       Programa: row.Programa,
                                       Eje: row.Eje,
                                       Tematica: row.Tematica,

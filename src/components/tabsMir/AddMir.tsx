@@ -407,9 +407,11 @@ export default function FullModalMir({
 
   return (
     <Grid
+      container
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
+        height: "100%",
       }}
     >
       {/* {value === 10 ? <TutorialGrid initialState={22} endState={27} /> : null}
@@ -418,164 +420,204 @@ export default function FullModalMir({
       {value === 40 ? <TutorialGrid initialState={33} endState={35} /> : null}
       {value === 50 ? <TutorialGrid initialState={30} endState={33} /> : null} */}
 
-
-
-
       <Grid
+        container
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
         sx={{
           width: "auto",
-          height: "90vh",
-          borderRadius: 5,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          height: "100%",
+
+          // height: "93vh",
+          // borderRadius: 5,
+          // display: "flex",
+          // flexDirection: "column",
+          // alignItems: "center",
         }}
       >
-        <Tabs
-          value={value}
-          textColor="inherit"
-          sx={{
-            backgroundColor: "#e0e0e0",
-            borderRadius: "10px 10px 0 0",
-            GridShadow: 20,
-          }}
-        >
-          <Tab
-            label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "#af8c55",
-              fontFamily: "MontserratSemiBold",
-              backgroundColor: "#ccc",
-            }}
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          />
-          <Tab
-            label="Encabezado"
-            value={10}
-            onClick={() => {
-              setValue(10);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Fin / Propósito"
-            value={20}
-            onClick={() => {
-              setValue(20);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Componentes"
-            value={30}
-            onClick={() => {
-              setValue(30);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Actividades"
-            value={40}
-            onClick={() => {
-              setValue(40);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Resumen"
-            value={50}
-            onClick={() => {
-              setValue(50);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-
-          <Tab
-            label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "#af8c55",
-              backgroundColor: "#ccc",
-            }}
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          />
-        </Tabs>
-
         <Grid
           sx={{
-            width: "93vw",
+            //width: "93vw",
+            width: ["300xp", "750px", "750px", "1100px", "1100px"],
             height: "82vh",
+
+            borderRadius: 5,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <TabEncabezado
-            show={value === 10 ? true : false}
-            MIR={MIRPADRE}
-            setMIR={setMIRPADRE}
-            mirEdit={mirEdit}
-          ></TabEncabezado>
-
-          {value === 20 && (
-            <TabFinProposito MIR={MIRPADRE} setMIR={setMIRPADRE} />
-          )}
-
-          {value === 50 && (
-            <TabResumen
-              showResume={showResume}
-              MIRPADRE={MIRPADRE}
-              idMir={IdMir}
+          <Tabs
+            value={value}
+            textColor="inherit"
+            sx={{
+              backgroundColor: "#e0e0e0",
+              borderRadius: "10px 10px 0 0",
+              GridShadow: 20,
+              width: ["300px", "628px","900px", "1120px", "1120px", "1250px"],
+              //height: ["30px", "20px", "30px", "40px", "50px"],
+            }}
+          >
+            <Tab
+              label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "#af8c55",
+                fontFamily: "MontserratSemiBold",
+                backgroundColor: "#ccc",
+                width: ["0px", "65px", "130px", "160px", "175px"],
+                display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
+              }}
+              onClick={() => {
+                cambiarTab("atras");
+              }}
             />
-          )}
+            <Tab
+              label="Encabezado"
+              value={10}
+              onClick={() => {
+                setValue(10);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "65px", "130px", "160px", "180px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
+            <Tab
+              label="Fin / Propósito"
+              value={20}
+              onClick={() => {
+                setValue(20);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "65px", "130px", "160px", "180px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
+            <Tab
+              label="Componentes"
+              value={30}
+              onClick={() => {
+                setValue(30);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "65px", "130px", "160px", "180px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
+            <Tab
+              label="Actividades"
+              value={40}
+              onClick={() => {
+                setValue(40);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "65px", "130px", "160px", "180px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
+            <Tab
+              label="Resumen"
+              value={50}
+              onClick={() => {
+                setValue(50);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "65px", "130px", "160px", "180px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
 
-          {value === 30 && (
-            <TabComponente
-              noComponentes={noComponentes}
-              addComponente={addComponente}
-              removeComponente={removeComponente}
+            <Tab
+              label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
+              sx={{
+                //borderRight: "5px solid #b3afaf",
+                color: "#af8c55",
+                backgroundColor: "#ccc",
+                width: ["15px", "65px", "130px", "160px", "175px"],
+                display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
+              }}
+              onClick={() => {
+                cambiarTab("adelante");
+              }}
+            />
+          </Tabs>
+
+          <Grid
+            sx={{
+              //width: "93vw",
+              width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],
+              height: "82vh",
+
+              borderRadius: 5,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <TabEncabezado
+              show={value === 10 ? true : false}
               MIR={MIRPADRE}
               setMIR={setMIRPADRE}
-            ></TabComponente>
-          )}
+              mirEdit={mirEdit}
+            ></TabEncabezado>
 
-          {/* {value === 40 && ( */}
-          {value === 40 && (
-            <TabActividades
-              noActividades={noActividades}
-              addActividad={addActividad}
-              removeActividad={removeActividad}
-              MIR={MIRPADRE}
-              setMIR={setMIRPADRE}
-              noComponentes={noComponentes}
-            ></TabActividades>
-          )}
+            {value === 20 && (
+              <TabFinProposito MIR={MIRPADRE} setMIR={setMIRPADRE} />
+            )}
+
+            {value === 50 && (
+              <TabResumen
+                showResume={showResume}
+                MIRPADRE={MIRPADRE}
+                idMir={IdMir}
+              />
+            )}
+
+            {value === 30 && (
+              <TabComponente
+                noComponentes={noComponentes}
+                addComponente={addComponente}
+                removeComponente={removeComponente}
+                MIR={MIRPADRE}
+                setMIR={setMIRPADRE}
+              ></TabComponente>
+            )}
+
+            {/* {value === 40 && ( */}
+            {value === 40 && (
+              <TabActividades
+                noActividades={noActividades}
+                addActividad={addActividad}
+                removeActividad={removeActividad}
+                MIR={MIRPADRE}
+                setMIR={setMIRPADRE}
+                noComponentes={noComponentes}
+              ></TabActividades>
+            )}
+          </Grid>
+
           {/* )} */}
         </Grid>
-
-        
       </Grid>
     </Grid>
   );

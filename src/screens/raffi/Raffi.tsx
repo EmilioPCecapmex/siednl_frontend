@@ -1,7 +1,5 @@
 import {
- 
   Grid,
-  
   InputLabel,
   Select,
   MenuItem,
@@ -61,9 +59,9 @@ const heads: readonly Head[] = [
     label: "EJERCICIO FISCAL",
   },
   {
-    id: "Institucion",
+    id: "Entidad",
     isNumeric: true,
-    label: "INSTITUCIÓN",
+    label: "ENTIDAD",
   },
   {
     id: "Programa",
@@ -95,10 +93,7 @@ const heads: readonly Head[] = [
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
 
-
   const [opentabs, setOpenTabs] = useState(true);
-
-  
 
   const [rf, setRf] = useState<Array<IRaffi>>([]);
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
@@ -147,12 +142,12 @@ export const Raffi = () => {
         rf.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -163,12 +158,12 @@ export const Raffi = () => {
         rf.filter(
           (x) =>
             (x.AnioFiscal.includes(v) ||
-              x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+              x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
               x.Programa.toLowerCase().includes(v.toLowerCase()) ||
               x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             (x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-              x.Institucion.toLowerCase().includes(inst.toLowerCase()))
+              x.Entidad.toLowerCase().includes(inst.toLowerCase()))
         )
       );
     } else if (
@@ -180,7 +175,7 @@ export const Raffi = () => {
         rf.filter(
           (x) =>
             x.AnioFiscal.includes(v) ||
-            x.Institucion.toLowerCase().includes(v.toLowerCase()) ||
+            x.Entidad.toLowerCase().includes(v.toLowerCase()) ||
             x.Programa.toLowerCase().includes(v.toLowerCase()) ||
             x.FechaCreacion.toLowerCase().includes(v.toLowerCase()) ||
             x.CreadoPor.toLowerCase().includes(v.toLowerCase())
@@ -197,7 +192,7 @@ export const Raffi = () => {
         rf.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else if (
@@ -208,7 +203,7 @@ export const Raffi = () => {
         rf.filter(
           (x) =>
             x.Estado.toLowerCase().includes(est.toLowerCase()) ||
-            x.Institucion.toLowerCase().includes(inst.toLowerCase())
+            x.Entidad.toLowerCase().includes(inst.toLowerCase())
         )
       );
     } else {
@@ -239,17 +234,16 @@ export const Raffi = () => {
       .catch((err) => {});
   };
 
-
   useEffect(() => {
     findText(findTextStr, findSelectStr, findInstStr);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr, findInstStr, findSelectStr]);
 
   useEffect(() => {
     validaFechaCaptura();
     getInstituciones(setInstituciones);
   }, []);
-  
+
   const handleChange = (dato: string) => {
     setFindTextStr(dato);
   };
@@ -266,8 +260,6 @@ export const Raffi = () => {
       Arrayfiltro = rfFiltered;
     }
 
-  
-
     // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
       console.log("entre");
@@ -279,7 +271,7 @@ export const Raffi = () => {
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Institucion.toString()
+        elemento.Entidad.toString()
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase()) ||
         elemento.Programa.toString()
@@ -310,24 +302,38 @@ export const Raffi = () => {
   }, [findTextStr]);
 
   return (
-    <Grid justifyContent={"space-between"}>
-
-      <Grid item xl={12 } height={"7vh"}>
+    <Grid container justifyContent={"space-between"}>
+      <Grid
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        sx={{ height: "7vh", whitespace: "nowrap" }}
+      >
         <LateralMenu selection={"RAFFI"} actionNumber={actionNumber} />
       </Grid>
-      
-      <Grid justifyContent={"center"}
-        display={"flex"}
+
+      <Grid
+        // justifyContent={"center"}
+        // display={"flex"}
+        // height={"93vh"}
+        // alignItems={"center"}
         container
-        height={"93vh"}
-        alignItems={"center"}
         item
         xl={12}
         lg={12}
         md={12}
         sm={7.5}
         xs={6}
-        sx={{ backgroundColor: "white", }}
+        sx={{
+          backgroundColor: "white",
+          justifyContent: "center",
+          display: "flex",
+          height: "93vh",
+          alignItems: "center",
+        }}
       >
         {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
@@ -350,14 +356,14 @@ export const Raffi = () => {
               xl={8}
               lg={7}
               md={6}
-              height="15vh"
-              direction="row"
               sx={{
+                boxShadow: 5,
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 justifyContent: "space-evenly",
                 alignItems: "center",
-                boxShadow: 5
+                height: "15vh",
+                direction: "row",
               }}
             >
               <Grid
@@ -366,9 +372,11 @@ export const Raffi = () => {
                 md={12}
                 item
                 container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
+                sx={{
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  direction: "row",
+                }}
               >
                 <Grid
                   sx={{ fontFamily: "MontserratRegular" }}
@@ -382,10 +390,21 @@ export const Raffi = () => {
                     sx={{
                       display: "flex",
                       width: "100%",
+                      alignItems: "center",
+                      justifyItems: "center",
+                      height: "6vh",
                     }}
                   >
                     <InputBase
-                      sx={{ ml: 1, flex: 1 }}
+                      sx={{
+                        ml: 1,
+                        flex: 1,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        //textAlign: "center",
+                        fontSize: [10, 10, 15, 15, 18, 20],
+                      }}
                       placeholder="Buscar"
                       value={findTextStr}
                       onChange={(e) => {
@@ -405,7 +424,31 @@ export const Raffi = () => {
                       aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
-                      <SearchIcon />
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+
+                          "@media (max-width: 600px)": {
+                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                          },
+
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 25, // Pantalla pequeña (md)
+                          },
+
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 30, // Pantalla mediana (lg)
+                          },
+
+                          "@media (min-width: 1281px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+
+                          "@media (min-width: 2200px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+                        }}
+                      />
                     </IconButton>
                   </Paper>
                 </Grid>
@@ -424,7 +467,7 @@ export const Raffi = () => {
               </Grid>
 
               <Grid
-              item
+                item
                 xl={12}
                 lg={12}
                 md={12}
@@ -434,15 +477,33 @@ export const Raffi = () => {
                 alignItems="center"
               >
                 <Grid item xl={5} lg={4} md={3} sm={2}>
-                  <FormControl fullWidth>
+                  <FormControl
+                    sx={{
+                      display: "flex",
+                      width: "100%",
+                      // alignItems: "center",
+                      // justifyContent: "center",
+                      // //border: 1,
+                      borderRadius: 2,
+                      borderColor: "#616161",
+                    }}
+                  >
                     <InputLabel sx={queries.text}>
-                      Filtro por institución
+                      FILTRO POR INSTITUCION
                     </InputLabel>
                     <Select
                       size="small"
                       fullWidth
                       variant="outlined"
-                      label="Filtro por institución"
+                      label="FILTRO POR INSTITUCION"
+                      sx={{
+                        fontFamily: "MontserratRegular",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        //textAlign: "center",
+                        fontSize: [10, 10, 15, 15, 18, 20],
+                      }}
                       value={findInstStr}
                       onChange={(v) => {
                         // v.target.value === "Todos"
@@ -477,15 +538,34 @@ export const Raffi = () => {
                 </Grid>
 
                 <Grid item xl={5} lg={4} md={3}>
-                  <FormControl fullWidth>
+                  <FormControl
+                    sx={{
+                      display: "flex",
+                      width: "100%",
+                      // alignItems: "center",
+                      // justifyContent: "center",
+
+                      borderRadius: 2,
+                      borderColor: "#616161",
+                    }}
+                  >
                     <InputLabel sx={queries.text}>
-                      FILTRO POR ESTADO DE LA Raffi
+                      FILTRO POR ESTADO DE LA RAFFI
                     </InputLabel>
                     <Select
                       size="small"
                       fullWidth
                       variant="outlined"
                       label="FILTRO POR ESTADO DE LA Raffi"
+                      sx={{
+                        fontFamily: "MontserratRegular",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        //textAlign: "center",
+                        fontSize: [10, 10, 15, 15, 18, 20],
+                        // Tamaños de fuente para diferentes breakpoints
+                      }}
                       value={findSelectStr}
                       onChange={(v) => {
                         // v.target.value === "Todos"
@@ -507,10 +587,6 @@ export const Raffi = () => {
                   </FormControl>
                 </Grid>
               </Grid>
-
-
-
-
             </Grid>
             {/* TABLA */}
             <Grid
@@ -522,8 +598,22 @@ export const Raffi = () => {
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
-              
-              <TableContainer sx={{ borderRadius: 5 }}>
+              <TableContainer
+                sx={{
+                  borderRadius: 5,
+                  height: 450,
+                  overflow: "auto",
+                  "&::-webkit-scrollbar": {
+                    width: ".5vw",
+                    mt: 1,
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#edeaea",
+                    //outline: "1px solid slategrey",
+                    borderRadius: 1,
+                  },
+                }}
+              >
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow
@@ -533,16 +623,16 @@ export const Raffi = () => {
                     >
                       {heads.map((head, index) => (
                         <TableCell
-                          sx={{
-                            backgroundColor: "#edeaea",
-                            fontFamily: "MontserratBold",
-                            borderBottom: 0,
-                            fontSize: "0.8vw",
-                            // fontFamily: "MontserratRegular",
-                            //   fontSize: ".7vw",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
+                        sx={{
+                          backgroundColor: "#edeaea",
+                          fontFamily: "MontserratBold",
+                          borderBottom: 0,
+                          fontSize: [10, 10, 10, 15, 16, 18],
+                          // fontFamily: "MontserratRegular",
+                          //   fontSize: ".7vw",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
                           align="center"
                           key={index}
                         >
@@ -565,187 +655,208 @@ export const Raffi = () => {
                               sx={{
                                 padding: "1px 15px 1px 0",
                                 fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
+                                fontSize: [10, 10, 10, 15, 15, 18],
+                                textAlign: "center",
                               }}
-                              align="center"
-                              component="th"
-                              scope="row"
                             >
-                              {row.AnioFiscal}
+                              {row.AnioFiscal.toUpperCase()}
+                            </TableCell>
+                            <TableCell
+                               sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: [10, 10, 10, 15, 15, 18],
+                                textAlign: "center",
+                              }}
+                            >
+                              {row.Entidad?.toUpperCase()}
+                            </TableCell>
+                            <TableCell
+                               sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: [10, 10, 10, 15, 15, 18],
+                                textAlign: "center",
+                              }}
+                            >
+                             {row.Programa.toUpperCase()} 
+                            </TableCell>
+
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: [10, 10, 10, 15, 15, 18],
+                                textAlign: "center",
+                              }}
+                            >
+                            {row.Estado}
                             </TableCell>
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
                                 fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
+                                fontSize: [10, 10, 10, 15, 15, 18],
+                                textAlign: "center",
                               }}
-                              align="center"
-                              component="th"
-                              scope="row"
-                            >
-                              {row.Institucion}
-                              {/* {row.Institucion.toUpperCase()} */}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                              }}
-                              align="center"
-                              component="th"
-                              scope="row"
-                            >
-                              {row.Programa}
-                              {/* {row.Programa.toUpperCase()} */}
-                            </TableCell>
-                            
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                              }}
-                              align="center"
-                              component="th"
-                              scope="row"
-                            >
-                              {row.Estado === "En Captura" &&
-                              localStorage.getItem("Rol") === "Capturador"
-                                ? "Borrador"
-                                : row.Estado === "En Revisión" &&
-                                  localStorage.getItem("Rol") === "Verificador"
-                                ? "En Revisión"
-                                : row.Estado === "En Autorización" &&
-                                  localStorage.getItem("Rol") ===
-                                    "Administrador"
-                                ? "En Autorización"
-                                : row.Estado}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                              }}
-                              align="center"
-                              component="th"
-                              scope="row"
                             >
                               {moment(row.FechaCreacion, moment.ISO_8601)
                                 .format("DD/MM/YYYY HH:mm:SS")
                                 .toString()}
                             </TableCell>
                             <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                              }}
-                              align="center"
-                              component="th"
-                              scope="row"
+                             sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
+                            }}
                             >
-                              {row.CreadoPor}
-                              {/* {row.CreadoPor.toUpperCase()} */}
+                             
+                               {row.CreadoPor?.toUpperCase()} 
                             </TableCell>
                             <TableCell
                               sx={{
                                 flexDirection: "row",
                                 display: "grid",
+                                //padding: "2px 20px 2px 10",
                                 gridTemplateColumns: "repeat(4,1fr)",
+                                fontSize: [10, 10, 10, 15, 15, 18],
+                                textAlign: "center",
                               }}
-                              align="center"
-                              component="th"
-                              scope="row"
                             >
-                              {  row.Estado !=="Sin Asignar" && (
-                                  <Tooltip title="EDITAR">
+                              {row.Estado !== "Sin Asignar" && (
+                                <Tooltip title="EDITAR">
                                   <IconButton
                                     disabled={!validaFecha}
                                     type="button"
                                     onClick={() => {
                                       setRfEdit([
                                         {
-                                        IdRaffi: row.IdRaffi,
-                                        IdMir: row.IdMir,
-                                        IdMetaAnual: row.IdMetaAnual,
-                                        RAFFI: row.RAFFI,
-                                        Estado: row.Estado,
-                                        CreadoPor: row.CreadoPor,
-                                        FechaCreacion: row.FechaCreacion,
-                                        ModificadoPor: row.ModificadoPor,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Institucion: row.Institucion,
-                                        Programa: row.Programa,
-                                        MIR: row.MIR,
-                                        MetaAnual: row.MetaAnual,
-                                        Conac: row.Conac,
-                                        Consecutivo: row.Consecutivo,
-                                        Opciones: row.Opciones,
-                                      },
-                                    ]);
+                                          IdRaffi: row.IdRaffi,
+                                          IdMir: row.IdMir,
+                                          IdMetaAnual: row.IdMetaAnual,
+                                          RAFFI: row.RAFFI,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          ModificadoPor: row.ModificadoPor,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                          Opciones: row.Opciones,
+                                        },
+                                      ]);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
                                   >
-                                    <EditIcon />
-                                    {row.Opciones}
-                                  </IconButton></Tooltip>) 
-                              }
+                                    <EditIcon  sx={{
+                                    fontSize: "24px", // Tamaño predeterminado del icono
 
-                              { 
-                                <Tooltip title="REGISTRAR RAFFI">
-                                <IconButton
-                                // disabled={
-                                //   row.Estado === "En Captura" &&
-                                //   localStorage.getItem("Rol") ===
-                                //     "Capturador"
-                                //     ? false
-                                //     : row.Estado === "En Revisión" &&
-                                //       localStorage.getItem("Rol") ===
-                                //         "Verificador"
-                                //     ? false
-                                //     : row.Estado === "En Autorización" &&
-                                //       localStorage.getItem("Rol") ===
-                                //         "Administrador"
-                                //     ? false
-                                //     : true
-                                // }
-                                  disabled={!validaFecha}
-                                  type="button"
-                                  onClick={() => {
-                                    setRfEdit([
-                                      {
-                                      IdRaffi: row.IdRaffi,
-                                      IdMir: row.IdMir,
-                                      IdMetaAnual: row.IdMetaAnual,
-                                      RAFFI: row.RAFFI,
-                                      Estado: row.Estado,
-                                      CreadoPor: row.CreadoPor,
-                                      FechaCreacion: row.FechaCreacion,
-                                      ModificadoPor: row.ModificadoPor,
-                                      AnioFiscal: row.AnioFiscal,
-                                      Institucion: row.Institucion,
-                                      Programa: row.Programa,
-                                      MIR: row.MIR,
-                                      MetaAnual: row.MetaAnual,
-                                      Conac: row.Conac,
-                                      Consecutivo: row.Consecutivo,
-                                      Opciones: row.Opciones,
+                                    "@media (max-width: 600px)": {
+                                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                     },
-                                  ]);
-                                    setOpenTabs(false);
-                                    setActionNumber(1); //Revisar esta funcionalidad
-                                  }}
-                                >
-                                  <AddCircleOutlineIcon />
-                                  {row.Opciones}
-                                </IconButton>
-                              </Tooltip>
+
+                                    "@media (min-width: 601px) and (max-width: 960px)":
+                                      {
+                                        fontSize: 20, // Pantalla pequeña (md)
+                                      },
+
+                                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                                        fontSize: 20, // Pantalla mediana (lg)
+                                      },
+
+                                    "@media (min-width: 1281px)": {
+                                      fontSize: 25, // Pantalla grande (xl)
+                                    },
+
+                                    "@media (min-width: 2200px)": {
+                                      ffontSize: 25, // Pantalla grande (xl)
+                                    },
+                                  }} />
+                                    {row.Opciones}
+                                  </IconButton>
+                                </Tooltip>
+                              )}
+
+                              {
+                                <Tooltip title="REGISTRAR RAFFI">
+                                  <IconButton
+                                    // disabled={
+                                    //   row.Estado === "En Captura" &&
+                                    //   localStorage.getItem("Rol") ===
+                                    //     "Capturador"
+                                    //     ? false
+                                    //     : row.Estado === "En Revisión" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //         "Verificador"
+                                    //     ? false
+                                    //     : row.Estado === "En Autorización" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //         "Administrador"
+                                    //     ? false
+                                    //     : true
+                                    // }
+                                   // disabled={!validaFecha}
+                                    type="button"
+                                    onClick={() => {
+                                      setRfEdit([
+                                        {
+                                          IdRaffi: row.IdRaffi,
+                                          IdMir: row.IdMir,
+                                          IdMetaAnual: row.IdMetaAnual,
+                                          RAFFI: row.RAFFI,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          ModificadoPor: row.ModificadoPor,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                          Opciones: row.Opciones,
+                                        },
+                                      ]);
+                                      setOpenTabs(false);
+                                      setActionNumber(1); //Revisar esta funcionalidad
+                                    }}
+                                  >
+                                    <AddCircleOutlineIcon  sx={{
+                                    fontSize: "24px", // Tamaño predeterminado del icono
+
+                                    "@media (max-width: 600px)": {
+                                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                    },
+
+                                    "@media (min-width: 601px) and (max-width: 960px)":
+                                      {
+                                        fontSize: 20, // Pantalla pequeña (md)
+                                      },
+
+                                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                                        fontSize: 20, // Pantalla mediana (lg)
+                                      },
+
+                                    "@media (min-width: 1281px)": {
+                                      fontSize: 25, // Pantalla grande (xl)
+                                    },
+
+                                    "@media (min-width: 2200px)": {
+                                      ffontSize: 25, // Pantalla grande (xl)
+                                    },
+                                  }} />
+                                    {row.Opciones}
+                                  </IconButton>
+                                </Tooltip>
                               }
-                              
-                              
                             </TableCell>
                           </TableRow>
                         );
@@ -753,39 +864,34 @@ export const Raffi = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-            
             </Grid>
-
           </>
         ) : (
           <Grid
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            height: "92vh",
-          }}
-          gridArea={"main"}
-        >
-          
-          <CapturaRaffi
-            MIR={rfEdit[0].MIR || ""}
-            MA={rfEdit[0].MetaAnual || ""}
-            RF={rfEdit[0].RAFFI || ""}
-            opentabs={returnMain}
-            IdMir={rfEdit[0].IdMir || ""}
-            IdMA={rfEdit[0].IdMetaAnual || ""}
-            IdRf={rfEdit[0].IdRaffi || ""}
-            showResume={returnMain}
-          />
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              height: "92vh",
+            }}
+            gridArea={"main"}
+          >
+            <CapturaRaffi
+              MIR={rfEdit[0].MIR || ""}
+              MA={rfEdit[0].MetaAnual || ""}
+              RF={rfEdit[0].RAFFI || ""}
+              opentabs={returnMain}
+              IdMir={rfEdit[0].IdMir || ""}
+              IdMA={rfEdit[0].IdMetaAnual || ""}
+              IdRf={rfEdit[0].IdRaffi || ""}
+              showResume={returnMain}
+            />
           </Grid>
         )}
         {/* rdEdit: 
         {JSON.stringify(rfEdit[0]?.MIR)} */}
       </Grid>
-      
-
     </Grid>
   );
 };
@@ -800,7 +906,7 @@ export interface IRaffi {
   FechaCreacion: string;
   ModificadoPor: string;
   AnioFiscal: string; //viene de la mir
-  Institucion: string;
+  Entidad: string;
   Programa: string;
   MIR: string;
   MetaAnual: string;

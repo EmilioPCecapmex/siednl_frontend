@@ -2,10 +2,10 @@ import axios from "axios";
 
 export const listaRaffi = (setState: Function) => {
   axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/lista-raffis", {
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-raffis", {
       params: {
         IdUsuario: localStorage.getItem("IdUsuario"),
-        IdEntidad: localStorage.getItem("IdEntidad"),
+       // IdEntidad: localStorage.getItem("IdEntidad"),
         Rol: "Capturador",
       },
       headers: {
@@ -14,7 +14,7 @@ export const listaRaffi = (setState: Function) => {
     })
     .then((r) => {
       if (r.status === 200) {
-        console.log(r.data.data);
+        console.log("hola: ",r.data.data);
         
         setState(r.data.data);
         //setStateFiltered(r.data.data)

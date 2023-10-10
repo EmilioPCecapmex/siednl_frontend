@@ -3,7 +3,7 @@ export interface IActividadesInstitucionales {
     IdMir: string;
     IdFichaTecnica: string;
     AnioFiscal: string; //viene de la mir
-    Institucion: string;
+    Entidad: string;
     Programa: string;
     Eje: string;
     Tematica: string;

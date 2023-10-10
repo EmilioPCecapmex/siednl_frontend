@@ -1,4 +1,4 @@
-import { Typography, Box, Breadcrumbs, Link } from "@mui/material";
+import { Typography, Grid, Breadcrumbs, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { TimerCounter } from "../timer/TimerCounter";
 import NotificationsPanel from "../notifications/NotificationsPanel";
@@ -15,23 +15,40 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
   const navigate = useNavigate();
 
   return (
-    <Box
+    <Grid
+      container
       sx={{
-        display: "flex",
-        width: "80vw",
+        // display: "flex",
+        //
+        //width: "100vw",
         height: "100%",
         justifyContent: "space-between",
-        alignItems: "center",
+        // alignItems: "center",
       }}
     >
-      <Box
+      <Grid
+        container
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
         sx={{
-          width: "30vw",
+          width: "75vw",
+          display: "flex",
+
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
         <Breadcrumbs
           aria-label="breadcrumb"
-          sx={{ fontFamily: "MontserratBold", fontSize: "1.5vw", color: "white"}}
+          sx={{
+            fontFamily: "MontserratBold",
+            fontSize: "1.5vw",
+            color: "white",
+          }}
         >
           <Link
             underline="hover"
@@ -66,9 +83,9 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
             </Typography>
           ) : null}
         </Breadcrumbs>
-      </Box>
+      </Grid>
 
-      {/* <Box
+      {/* <Grid
         sx={{
           mr: "2vw",
           backgroundColor: "#fff",
@@ -80,20 +97,20 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           borderRadius: 10,
         }}
       >
-        <Box sx={{ ml: ".5vw", width: "2vw" }}>
+        <Grid sx={{ ml: ".5vw", width: "2vw" }}>
           <NotificationsPanel />
-        </Box>
-        <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
-        <Box
+        </Grid>
+        <Grid sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
+        <Grid
           sx={{
             width: "2vw",
           }}
         >
           <TimerCounter />
-        </Box>
-        <Box sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
-        <Box sx={{ mr: ".5vw", width: "2vw" }}></Box>
-      </Box> */}
-    </Box>
+        </Grid>
+        <Grid sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
+        <Grid sx={{ mr: ".5vw", width: "2vw" }}></Grid>
+      </Grid> */}
+    </Grid>
   );
 };

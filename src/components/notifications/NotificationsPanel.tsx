@@ -42,8 +42,8 @@ export default function NotificationsPanel() {
       .then((r) => {
         if (r.status === 200) {
           if (r.data.data.length >= 1) {
-            console.log("notificacion, r.data: ",r.data);
-            
+            console.log("notificacion, r.data: ", r.data);
+
             setNotificaciones(r.data.data);
           } else {
             setSinNotificaciones(false);
@@ -159,26 +159,27 @@ export default function NotificationsPanel() {
                   >
                     {index.Titulo}
                   </Typography>
-                  
+
                   <Button
                     variant="text"
                     onClick={() => {
-                      console.log("index.IdDocumento: ",index.IdDocumento);
-                      console.log("index: ",index);
+                      console.log("index.IdDocumento: ", index.IdDocumento);
+                      console.log("index: ", index);
                       eliminaNotificacion(index.Id);
-                      if(index.Titulo==="MIR"){
-                        console.log("index.IdDocumento: ",index.IdDocumento);
-                        navigate("../MIR"+"?Id="+index.IdDocumento);
+                      if (index.Titulo === "MIR") {
+                        console.log("index.IdDocumento: ", index.IdDocumento);
+                        navigate("../MIR" + "?Id=" + index.IdDocumento);
                       }
-                      if(index.Titulo==="MA"){
-                        console.log("index.IdDocumento: ",index.IdDocumento);
-                        navigate("../metaAnual"+"?Id="+index.IdDocumento);
+                      if (index.Titulo === "MA") {
+                        console.log("index.IdDocumento: ", index.IdDocumento);
+                        navigate("../metaAnual" + "?Id=" + index.IdDocumento);
                       }
-                      if(index.Titulo==="FT"){
-                        console.log("index.IdDocumento: ",index.IdDocumento);
-                        navigate("../fichaTecnica"+"?Id="+index.IdDocumento);
+                      if (index.Titulo === "FT") {
+                        console.log("index.IdDocumento: ", index.IdDocumento);
+                        navigate(
+                          "../fichaTecnica" + "?Id=" + index.IdDocumento
+                        );
                       }
-                      
                     }}
                   >
                     <Typography
@@ -244,7 +245,6 @@ export default function NotificationsPanel() {
                     backgroundColor: "#ccc",
                     mt: "1vh",
                     boxShadow: 0.1,
-                    
                   }}
                 />
               </Box>
@@ -269,8 +269,6 @@ export default function NotificationsPanel() {
       <Button
         sx={{
           ...queries.buttonCancelarSolicitudInscripcion,
-        
-      
         }}
         onClick={() => handleCloseNotifPanel()}
         color="error"
@@ -282,13 +280,33 @@ export default function NotificationsPanel() {
 
   return (
     <React.Fragment key={"right"}>
-      <IconButton  color="inherit" onClick={() => handleOpenNotifPanel()}>
-        <Badge
-          badgeContent={sinNotificaciones ? notificaciones?.length : 0}
-       
-          
-        >
-          <NotificationsIcon />
+      <IconButton color="inherit" onClick={() => handleOpenNotifPanel()}>
+        <Badge badgeContent={sinNotificaciones ? notificaciones?.length : 0}>
+          <NotificationsIcon
+            sx={{
+              fontSize: "24px", // Tamaño predeterminado del icono
+
+              "@media (max-width: 600px)": {
+                fontSize: 20, // Pantalla extra pequeña (xs y sm)
+              },
+
+              "@media (min-width: 601px) and (max-width: 960px)": {
+                fontSize: 20, // Pantalla pequeña (md)
+              },
+
+              "@media (min-width: 961px) and (max-width: 1280px)": {
+                fontSize: 20, // Pantalla mediana (lg)
+              },
+
+              "@media (min-width: 1281px)": {
+                fontSize: 30, // Pantalla grande (xl)
+              },
+
+              "@media (min-width: 2200px)": {
+                ffontSize: 30, // Pantalla grande (xl)
+              },
+            }}
+          />
         </Badge>
       </IconButton>
 

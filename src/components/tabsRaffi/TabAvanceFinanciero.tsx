@@ -396,7 +396,7 @@ export function TabAvanceFinanciero({
             fullWidth
             sx={queries.medium_text}
             variant="standard"
-            value={jsonMir.encabezado}
+            value={jsonMir.encabezado.programa.Label}
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratMedium",
