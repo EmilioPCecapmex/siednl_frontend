@@ -24,7 +24,7 @@ import {
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, SetStateAction } from "react";
 import { InsertarComponentePDF } from "./InsertarPDF";
 import LaunchIcon from '@mui/icons-material/Launch';
 import DownloadIcon from "@mui/icons-material/Download";
@@ -56,7 +56,7 @@ export const TabPAE = ({
     Nombre: string;
     Ruta: string;
     PerteneceA: string;
-
+    FechaCreacion: string;
   }
   const [open, setOpen] = useState(1);
   const [componenteSelect, setComponenteSelect] = useState(0);
@@ -68,215 +68,217 @@ export const TabPAE = ({
     setOpen(index);
   };
   const [actividadSelect, setActividadSelect] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);;
 
-  const tabsRegistros = (value:number,anio:string) => {
+
+  const tabsRegistros = (value: number, anio: string) => {
     getListaPae();
-    switch(anio) {
+    switch (anio) {
       case "2020":
         switch (value) {
           case 10:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (
+              (
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
           case 20:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("PAE") &&
+              (x.PerteneceA.includes("PAE") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
           case 30:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Terminos de referencia") &&
+              (x.PerteneceA.includes("Terminos de referencia") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-            case 40:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Bitacora de informacion") &&
-                  x.Anio.includes("2020")
-                  )
-              ));
-              break;
-              case 50:
+          case 40:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Informe calidad") &&
+              (x.PerteneceA.includes("Bitacora de informacion") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-            case 60:
+          case 50:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Informe final") &&
+              (x.PerteneceA.includes("Informe calidad") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-            case 70:
+          case 60:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Anexo CONAC") &&
+              (x.PerteneceA.includes("Informe final") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-            case 80:
+          case 70:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Reporte Evaluacion") &&
+              (x.PerteneceA.includes("Anexo CONAC") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-          }
+          case 80:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Reporte Evaluacion") &&
+                x.Anio.includes("2020")
+              )
+            ));
+            break;
+        }
         break;
-        case "2021":
-          switch (value) {
-            case 10:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-            case 20:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("PAE") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-            case 30:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Terminos de referencia") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-              case 40:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Bitacora de informacion") &&
-                    x.Anio.includes("2021")
-                    )
-                ));
-                break;
-                case 50:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Informe calidad") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-              case 60:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Informe final") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-              case 70:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Anexo CONAC") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-              case 80:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Reporte Evaluacion") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-            }
-          break;
-          case "2022":
-            switch (value) {
-              case 10:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-              case 20:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("PAE") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-              case 30:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Terminos de referencia") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-                case 40:
-                  setRegistrosFiltrados(registros.filter(
-                    (x) =>
-                      (x.PerteneceA.includes("Bitacora de informacion") &&
-                      x.Anio.includes("2022")
-                      )
-                  ));
-                  break;
-                  case 50:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Informe calidad") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-                case 60:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Informe final") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-                case 70:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Anexo CONAC") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-                case 80:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Reporte Evaluacion") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-              }
+      case "2021":
+        switch (value) {
+          case 10:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (
+                x.Anio.includes("2021")
+              )
+            ));
             break;
-          
+          case 20:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("PAE") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 30:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Terminos de referencia") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 40:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Bitacora de informacion") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 50:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Informe calidad") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 60:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Informe final") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 70:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Anexo CONAC") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 80:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Reporte Evaluacion") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+        }
+        break;
+      case "2022":
+        switch (value) {
+          case 10:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 20:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("PAE") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 30:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Terminos de referencia") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 40:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Bitacora de informacion") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 50:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Informe calidad") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 60:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Informe final") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 70:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Anexo CONAC") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 80:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Reporte Evaluacion") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+        }
+        break;
+
     }
   };
 
@@ -284,7 +286,7 @@ export const TabPAE = ({
     getAniosPae("2022");
     getNumeroPae("2022", "1");
     getListaPae();
-    tabsRegistros(value,"2022");
+    tabsRegistros(value, "2022");
     // console.log(noAnios+","+noNumeros)
   }, []);
 
@@ -300,29 +302,46 @@ export const TabPAE = ({
     },
   });
 
+  const [editMode, setEditMode] = useState(false);
+  const [editedDate, setEditedDate] = useState("");
 
-  
+  const handleDoubleClick = (initialValue: string) => {
+    setEditedDate(initialValue);
+    setEditMode(true);
+  };
 
+
+  const saveEditedDate = (id: string) => {
+    setEditMode(false);
+    console.log("editedDate",editedDate);
+    modifyPAE("FechaCaptura",editedDate,id);
+  };
   interface Head {
     id: string;
     isNumeric: boolean;
     label: string;
   }
-  
+
   const heads: readonly Head[] = [
     {
       id: "Titulo",
       isNumeric: true,
       label: "TÍTULO ARCHIVO",
     },
-    
+
+    {
+      id: "Fecha",
+      isNumeric: true,
+      label: "FECHA PUBLICACIÓN",
+    },
+
     {
       id: "Opciones",
       isNumeric: true,
       label: "OPCIONES",
     },
   ];
-  
+
   const [page, setPage] = useState(0);
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
@@ -365,6 +384,46 @@ export const TabPAE = ({
         });
       });
   };
+
+
+
+  const modifyPAE = (CampoModificar: string, Campo: string, Id:string,) => {
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/modify-pae",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || ""
+
+          },
+          params: {
+            CampoModificar: CampoModificar,
+            Campo: Campo,
+            IdPAE: Id,
+          }
+        }
+      )
+      .then((r) => {
+        console.log("Hola soy la respuesta");
+        console.log("r: ", r);
+        Toast.fire({
+          icon: "success",
+          title: r.data.data.message,
+        });
+        // showResume();
+      })
+      .catch((err) => {
+        console.log(err)
+        console.log(err.response.data)
+        Toast.fire({
+          icon: "error",
+          title: "err.response.data,"
+        });
+      });
+  };
+
+
 
   const getAniosPae = (Anio: string) => {
 
@@ -434,7 +493,8 @@ export const TabPAE = ({
         }
       )
       .then((r) => {
-        setRegistros(r.data.data)
+        setRegistros(r.data.data);
+
       })
       .catch((err) => {
 
@@ -444,7 +504,7 @@ export const TabPAE = ({
 
 
 
-  const guardarDoc = (ruta:string,url:string) => {
+  const guardarDoc = (ruta: string, url: string) => {
     let dataArray = new FormData();
     dataArray.append("ROUTE", `${ruta}`);
     dataArray.append("ADDROUTE", "true");
@@ -467,7 +527,7 @@ export const TabPAE = ({
         //   data.RESPONSE.NOMBREARCHIVO
         // );
       })
-      .catch((e) => {});
+      .catch((e) => { });
   };
 
   const getDocumento = async (
@@ -493,16 +553,50 @@ export const TabPAE = ({
         let file = data.RESPONSE.FILE;
         setState(file);
       })
-      .catch((r) => {});
+      .catch((r) => { });
   };
 
   useEffect(() => {
-    tabsRegistros(value,componenteSelect==0?"2022":componenteSelect==1?"2021":"2020");
+    tabsRegistros(value, componenteSelect == 0 ? "2022" : componenteSelect == 1 ? "2021" : "2020");
   }, [value]);
 
   useEffect(() => {
-    tabsRegistros(value,componenteSelect==0?"2022":componenteSelect==1?"2021":"2020");
+    tabsRegistros(value, componenteSelect == 0 ? "2022" : componenteSelect == 1 ? "2021" : "2020");
   }, [componenteSelect]);
+
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, Anio: string, tab: string) => {
+    const fileList = e.target.files;
+
+    if (fileList && fileList.length > 0) {
+      const file = fileList[0];
+      const newPdf = {
+        Id: String(Date.now()),
+        Anio: Anio,
+        Nombre: file.name,
+        Ruta: "/your-upload-path/", // Set your upload path here
+        PerteneceA: "YourPerteneceA", // Set your PerteneceA value here
+        FechaCreacion: Date.now().toString()
+      };
+      setRegistros([...registros, newPdf]);
+    }
+  };
+
+  const handleClickAddPDF = () => {
+
+    if (fileInputRef.current) {
+
+      console.log(fileInputRef.current);
+      fileInputRef.current.click(); // Trigger the file input
+      console.log((fileInputRef.current.children[0] as HTMLInputElement).files![0].name);
+      // console.log(fileInputRef.current.children[0].;
+    }
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Call your handleFileUpload function here with the event
+    handleFileUpload(e, componenteSelect.toString(), value.toString());
+  };
 
   return (
     <>
@@ -575,7 +669,7 @@ export const TabPAE = ({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
                     >
-                      {item == 1 ? "2022" : item == 2 ? "2021" : "2020"}
+                      {item === 1 ? "2022" : item === 2 ? "2021" : "2020"}
                       {/* {(item == 1 || item == 3) && localStorage.getItem("Rol") === "Administrador" && open === item ?
                         <IconButton
                           onClick={() => {
@@ -589,7 +683,7 @@ export const TabPAE = ({
 
 
                   </ListItemButton>
-                  
+
 
                   <Divider />
                 </Box>
@@ -639,12 +733,41 @@ export const TabPAE = ({
           </Typography>
           <Grid container item xs={12} sx={{ height: "-webkit-fill-available" }}>
             {/* <InsertarComponentePDF Nombre={"C" + (componenteSelect + 1) + "A" + (actividadSelect + 1)} /> */}
+            {localStorage.getItem("Rol") === "Administrador" ?
+              <>
+                <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%", alignContent: "right", textAlign: "right" }}>
+                  Cargar Archivo:
+                </Typography>
+                <Grid
 
-                          
-
-
-
-              {/* TABLA */}
+                  item
+                  direction="row"
+                  sx={{ margin: '2vw' }}
+                >
+                  <Input
+                    type="file"
+                    inputProps={{
+                      accept: ".pdf,application/pdf",
+                      'aria-label': 'Upload PDF',
+                    }}
+                    style={{
+                      width: "45vw", backgroundColor: "transparent", // Make the input element background transparent
+                      opacity: 0.5,
+                    }}
+                    onChange={handleFileInputChange}
+                    ref={fileInputRef}
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={handleClickAddPDF}
+                    style={{ cursor: 'pointer', border: 'none', background: 'none', opacity: 1 }}
+                  >
+                    {"c:" + componenteSelect + ",t:" + value}
+                  </Button>
+                </Grid>
+              </>
+              : ""}
+            {/* TABLA */}
 
             <Grid
               container
@@ -653,20 +776,23 @@ export const TabPAE = ({
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
-             
 
-              <TableContainer sx={{ borderRadius: 5, height: 450,
-            overflow: "auto",
-            "&::-webkit-scrollbar": {
-              width: ".5vw",
-              mt: 1,
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#edeaea",
-              //outline: "1px solid slategrey",
-              borderRadius: 1,
-            },
-             }}>
+
+
+
+              <TableContainer sx={{
+                borderRadius: 5, height: 450,
+                overflow: "auto",
+                "&::-webkit-scrollbar": {
+                  width: ".5vw",
+                  mt: 1,
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "#edeaea",
+                  //outline: "1px solid slategrey",
+                  borderRadius: 1,
+                },
+              }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow
@@ -702,6 +828,7 @@ export const TabPAE = ({
                       //    page * rowsPerPage + rowsPerPage
                       //  )
                       .map((row, index) => (
+
                         <TableRow>
                           <TableCell
                             sx={{
@@ -716,6 +843,83 @@ export const TabPAE = ({
                             {row.Nombre}
                           </TableCell>
 
+                          {/* <TableCell
+                            onDoubleClick={() => handleDoubleClick(row.FechaCreacion)}
+                            sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            
+                            {row.FechaCreacion.substring(0,10)}
+                          </TableCell> */}
+
+                          {editMode ? (
+                            <TableCell
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              <input
+                                type="date"
+                                value={editedDate}
+                                onChange={(e) => setEditedDate(e.target.value)}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {
+                                    saveEditedDate(row.Id);
+                                  }
+                                }}
+                                onBlur={() => setEditMode(false)}
+                                autoFocus
+                                style={{
+                                  border: "1px solid #ccc",
+                                  padding: "4px",
+                                  borderRadius: "4px",
+                                  fontSize: "0.7vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              />
+                            </TableCell>
+                          ) : (
+                            <TableCell
+                              onDoubleClick={() => handleDoubleClick(row.FechaCreacion)}
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              <Tooltip
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
+                                    },
+                                  ],
+                                }}
+                                title="DA DOBLE CLICK PARA EDITAR"
+                              >
+                                <span>
+                                  {row.FechaCreacion.substring(0, 10)}</span>
+                              </Tooltip>
+                            </TableCell>
+                          )}
+
                           <TableCell
                             sx={{
                               flexDirection: "row",
@@ -726,8 +930,8 @@ export const TabPAE = ({
                             component="th"
                             scope="row"
                           >
-                           
-                              <Tooltip
+
+                            {/* <Tooltip
                                 PopperProps={{
                                   modifiers: [
                                     {
@@ -765,37 +969,49 @@ export const TabPAE = ({
                                     />
                                   </IconButton>
                                 </span>
-                              </Tooltip>
+                              </Tooltip> */}
 
-                              <VisualizarPAE
-                                estado={row.Nombre}
-                                id={row.Id}
-                              
-                              />
-{/* 
-                              <DeleteDialogMIR
-                                disab={
-                                  row.Estado === "En Captura" && validaFecha &&
-                                  localStorage.getItem("Rol") === "Capturador"
-                                    ? false
-                                    : row.Estado === "En Revisión" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador"
-                                    ? false
-                                    : row.Estado === "En Autorización" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador"
-                                    ? false
-                                    : true
-                                }
-                                id={row.Id}
-                                actualizado={actualizaContador}
-                              /> */}
-                              
-                            
+                            <VisualizarPAE
+                              estado={row.Nombre}
+                              id={row.Id}
+
+                            />
+
                           </TableCell>
                         </TableRow>
+
                       ))}
+                    {/* <TableRow sx={{ border: '1px dotted #000'}}>
+                          <TableCell>
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              style={{ height: "100%" }}
+                            >
+                              <Input
+                                type="file"
+                                inputProps={{
+                                  accept: ".pdf,application/pdf",
+                                  'aria-label': 'Upload PDF',
+                                }}
+                                style={{ width: "45vw", backgroundColor: "transparent", // Make the input element background transparent
+                                opacity: 0.5, }}
+                                onChange={handleFileInputChange}
+                                ref={fileInputRef}
+                              />
+                            </Grid>
+                            </TableCell>
+                            <TableCell>
+                            <Button
+                              variant="outlined"
+                              onClick={handleClickAddPDF}
+                              style={{ cursor: 'pointer', border: 'none', background: 'none', opacity:1 }}
+                            >
+                              {"c:"+componenteSelect+",t:"+value}
+                            </Button>
+                          </TableCell>
+                      </TableRow> */}
 
                     {/* ))} */}
                   </TableBody>
@@ -814,23 +1030,8 @@ export const TabPAE = ({
                 /> 
               </Box> */}
             </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
           </Grid>
         </Grid>
-
-
-
       </Grid>
     </>
   );
