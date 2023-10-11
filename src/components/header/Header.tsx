@@ -21,8 +21,10 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         // display: "flex",
         //
         //width: "100vw",
-        height: "100%",
+        //height: "100%",
         justifyContent: "space-between",
+        
+        
         // alignItems: "center",
       }}
     >
@@ -37,7 +39,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         sx={{
           width: "75vw",
           display: "flex",
-
+          
           justifyContent: "space-between",
           alignItems: "center",
         }}

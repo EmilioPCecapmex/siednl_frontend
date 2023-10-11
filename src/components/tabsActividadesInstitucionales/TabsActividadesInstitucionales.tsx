@@ -38,7 +38,8 @@ export default function TabsActividadesInstitucionales({
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
-  const jsonMir = JSON.parse(MIR);
+
+  //const jsonMir = JSON.parse(MIR);
 
   const cambiarTab = (option: string) => {
     if (option === "adelante") {
@@ -78,7 +79,7 @@ export default function TabsActividadesInstitucionales({
         <Grid>
           <Tabs
             value={value}
-            //onChange={handleChange}
+            onChange={handleChange}
             textColor="inherit"
             sx={{
               backgroundColor: "#e0e0e0",
@@ -135,7 +136,7 @@ export default function TabsActividadesInstitucionales({
               }}
             />
             <Tab
-              label="Avance fisico finaciero"
+              label="Avance fisico financiero"
               value={40}
               onClick={() => {
                 setValue(40);

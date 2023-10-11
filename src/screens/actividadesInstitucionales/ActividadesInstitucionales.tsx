@@ -150,7 +150,7 @@ export const ActividadesInstitucionales = ({}:{}) => {
 const returnMain = () => {
     setShowResume(true);
 
-    setOpenTabs(true);
+    //setOpenTabs(true);
     setActionNumber(1);
   };
 
@@ -423,18 +423,45 @@ const returnMain = () => {
                     </IconButton>
                   </Paper>
                 </Grid>
+                
 
-                {/* <Grid item xl={5} lg={4} md={3}>
+                <Grid item xl={5} lg={4} md={3}>
                   <Button
                     fullWidth
                     sx={queries.buttonContinuarSolicitudInscripcion}
                     onClick={() => {
-                      setOpenTabs(false);
+                      setAiEdit([
+                        {
+                        IdActividadInstitucional: "",
+                        IdMir: "",
+                        IdFichaTecnica: "",
+                        AnioFiscal: "",
+                        Entidad: "",
+                        Programa: "",
+                        Eje: "",
+                        Tematica: "",
+                        ActividadInstitucional: "",
+                        MIR:"",
+                        FichaTecnica:"",
+                        Estado: "",
+                        FechaCreacion: "",
+                        ModificadoPor: "",
+                        CreadoPor:"",
+                        Conac: "",
+                        Consecutivo: "",
+                        Opciones: "",
+                       
+                      },
+                    ]);
+                    // returnMain();
+                     setShowResume(false);
+                    //handleClickOpenTabsActInst();
+                      //handleClickOpenTabsActInst()
                     }}
                   >
                     Buscar
                   </Button>
-                </Grid> */}
+                </Grid>
               </Grid>
 
               <Grid
@@ -752,21 +779,21 @@ const returnMain = () => {
                               { 
                                 <Tooltip title="REGISTRAR ACTIVIDAD INSTITUCIONAL">
                                 <IconButton
-                                // disabled={
-                                //   row.Estado === "En Captura" &&
-                                //   localStorage.getItem("Rol") ===
-                                //     "Capturador"
-                                //     ? false
-                                //     : row.Estado === "En Revisión" &&
-                                //       localStorage.getItem("Rol") ===
-                                //         "Verificador"
-                                //     ? false
-                                //     : row.Estado === "En Autorización" &&
-                                //       localStorage.getItem("Rol") ===
-                                //         "Administrador"
-                                //     ? false
-                                //     : true
-                                // }
+                                disabled={
+                                  row.Estado === "En Captura" &&
+                                  localStorage.getItem("Rol") ===
+                                    "Capturador"
+                                    ? false
+                                    : row.Estado === "En Revisión" &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador"
+                                    ? false
+                                    : row.Estado === "En Autorización" &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador"
+                                    ? false
+                                    : true
+                                }
                                
                                   type="button"
                                   onClick={() => {

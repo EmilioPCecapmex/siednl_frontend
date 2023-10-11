@@ -1,10 +1,10 @@
-/* eslint-disable array-callback-return */
+/* eslint-disase array-callback-return */
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import React, { useEffect, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { IMIR, IMIREdit } from "./IMIR";
 import { TabActividades } from "./TabActividades";
 import { TabComponente } from "./TabComponente";
@@ -405,6 +405,14 @@ export default function FullModalMir({
     setNoActividades(arr);
   };
 
+  const query = {
+    isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
+
+    isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
+  };
+
+  
+
   return (
     <Grid
       container
@@ -412,6 +420,7 @@ export default function FullModalMir({
         display: "flex",
         justifyContent: "space-evenly",
         height: "100%",
+      
       }}
     >
       {/* {value === 10 ? <TutorialGrid initialState={22} endState={27} /> : null}
@@ -431,7 +440,7 @@ export default function FullModalMir({
         sx={{
           width: "auto",
           height: "100%",
-
+          
           // height: "93vh",
           // borderRadius: 5,
           // display: "flex",
@@ -442,23 +451,28 @@ export default function FullModalMir({
         <Grid
           sx={{
             //width: "93vw",
-            width: ["300xp", "750px", "750px", "1100px", "1100px"],
+            width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
 
             borderRadius: 5,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+           
           }}
         >
           <Tabs
             value={value}
             textColor="inherit"
+            variant={query.isScrollable ? "scrollable" : "standard"}
+            // centered={query.isScrollable ? false : true}
+            scrollButtons="auto"
+            allowScrollButtonsMobile
             sx={{
               backgroundColor: "#e0e0e0",
               borderRadius: "10px 10px 0 0",
               GridShadow: 20,
-              width: ["300px", "628px","900px", "1120px", "1120px", "1250px"],
+              width: ["300px", "628px", "900px", "1120px", "1250px", "1450px"],
               //height: ["30px", "20px", "30px", "40px", "50px"],
             }}
           >
@@ -567,7 +581,7 @@ export default function FullModalMir({
               //width: "93vw",
               width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],
               height: "82vh",
-
+              //justifyContent: "center",
               borderRadius: 5,
               display: "flex",
               flexDirection: "column",

@@ -661,7 +661,7 @@ export function TabEncabezado({
       //height={"rem"}
       sx={{
         width: "93vw",
-        height: ["100vh", "82vh", "82vh", "82vh", "82vh"],
+        height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
         // justifyContent: "center",
         // alignItems: "center",
         // justifyItems: "center",

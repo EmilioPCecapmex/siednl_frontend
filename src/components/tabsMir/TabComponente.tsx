@@ -8,6 +8,7 @@ import {
   List,
   ListItemButton,
   FormControl,
+  useMediaQuery,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
@@ -60,7 +61,7 @@ export const TabComponente = ({
     const cIndicador =
       MIR.componentes[componentSelect - 1].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
-      if (cIndicador.includes("porcentaje" || "PORCENTAJE") ) {
+      if (cIndicador.includes("porcentaje" || "PORCENTAJE")) {
         setTipoFormula("Porcentaje");
         setElementoFormula("Componente " + componentSelect.toString());
         handleClickOpen();
@@ -105,8 +106,10 @@ export const TabComponente = ({
         componentes: componentes,
       },
     }));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [componentes]);
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
     <Grid
@@ -120,6 +123,7 @@ export const TabComponente = ({
         borderRadius: 5,
         flexDirection: "column",
         backgroundColor: "#fff",
+        overflow: "auto",
       }}
     >
       <FormulaDialog
@@ -144,10 +148,10 @@ export const TabComponente = ({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            fontSize: ["3vh", "10", "13", "14", "15", "18"],
           }}
         >
-          Componente #{componentSelect}
+          COMPONENTE #{componentSelect}
         </Typography>
         <IconButton
           onClick={() => {
@@ -175,278 +179,434 @@ export const TabComponente = ({
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "95%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent:
-              MIR.componentes.length > 9 ? "flex-start" : "center",
-            borderColor: "#BCBCBC",
-            overflow: 
-              MIR.componentes.length > 9 ? "scroll" : "",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          {noComponentes.map((item) => {
-            return (
-              <Grid
-                key={item}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
-                <Divider />
-                <ListItemButton
-                  selected={item === componentSelect ? true : false}
-                  key={item}
-                  onClick={() => setComponentSelect(item)}
-                  sx={{
-                    height: "7vh",
-                    "&.Mui-selected ": {
-                      backgroundColor: "#c4a57b",
-                    },
-                    "&.Mui-selected:hover": {
-                      backgroundColor: "#cbcbcb",
-                    },
-                  }}
-                >
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
-                  >
-                    COMPONENTE {item}
-                  </Typography>
-                </ListItemButton>
-                <Divider />
-              </Grid>
-            );
-          })}
-        </List>
-
-        <Grid
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            width: "90%",
-            alignItems: "center",
-            justifyItems: "center",
-          }}
-        >
-          <TextField
-            // disabled={mirEdit?.componentes[componentSelect - 1].resumen}
-            rows={8}
-            multiline
-            sx={{ width: "90%", boxShadow: 2 }}
-            variant="filled"
-            label={"RESUMEN NARRATIVO"}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-            onChange={(c) => {
-              let prevLocal = [...componentes];
-              prevLocal[componentSelect - 1].resumen = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              setComponentes(prevLocal);
-            }}
-            value={componentes[componentSelect - 1]?.resumen}
-          />
-          <TextField
-            // disabled={mirEdit?.componentes[componentSelect - 1].indicador}
-            rows={8}
-            multiline
-            sx={{ width: "90%", boxShadow: 2 }}
-            variant="filled"
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-            // onBlur={() => evalueTxtIndicador()}
-            label={"INDICADOR"}
-            error={errorIndicador === componentSelect - 1 ? true : false}
-            helperText={
-              errorIndicador === componentSelect - 1
-                ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
-                : null
-            }
-            onChange={(c) => {
-              let prevLocal = [...componentes];
-              prevLocal[componentSelect - 1].indicador = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              prevLocal[componentSelect - 1].formula = "";
-              setComponentes(prevLocal);
-            }}
-            value={componentes[componentSelect - 1]?.indicador}
-          />
-          <TextField
-            // disabled={mirEdit?.componentes[componentSelect - 1].formula}
-            rows={8}
-            multiline
-            variant="filled"
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              readOnly: true,
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-            sx={{ width: "90%", boxShadow: 2 }}
-            label={"FÓRMULA"}
-            onClick={() => {evalueTxtIndicador()
-              console.log("formula: ", componentes[componentSelect - 1]?.formula);
-              
-            }}
-            value={componentes[componentSelect - 1]?.formula}
-          />
-
-          <FormControl
+        {!isSmallScreen && (
+          <List
             sx={{
-              width: "90%",
-              height: "44%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
+              width: "15vw",
+              height: "95%",
+              borderRight: "solid",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent:
+                MIR.componentes.length > 9 ? "flex-start" : "center",
+              borderColor: "#BCBCBC",
+              overflow: MIR.componentes.length > 9 ? "scroll" : "",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
             }}
           >
-            <FormLabel>FRECUENCIA</FormLabel>
-            <FormControlLabel
-              value={"SEMESTRAL"}
-              label={"SEMESTRAL"}
-              sx={{
-                fontFamily: "MontserratMedium",
-              }}
-              control={
-                <Radio
-                  checked={
-                    componentes[componentSelect - 1]?.frecuencia === "SEMESTRAL"
-                  }
-                  onChange={(c) => {
-                    let prevLocal = [...componentes];
-                    prevLocal[componentSelect - 1].frecuencia = c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "");
-                    setComponentes(prevLocal);
+            {noComponentes.map((item) => {
+              return (
+                <Grid
+                  key={item}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
                   }}
-                />
-              }
-            />
-            <FormControlLabel
-              value={"TRIMESTRAL"}
-              label={"TRIMESTRAL"}
-              sx={{
-                fontFamily: "MontserratMedium",
-              }}
-              control={
-                <Radio
-                  checked={
-                    componentes[componentSelect - 1]?.frecuencia ===
-                    "TRIMESTRAL"
-                  }
-                  onChange={(c) => {
-                    let prevLocal = [...componentes];
-                    prevLocal[componentSelect - 1].frecuencia = c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "");
-                    setComponentes(prevLocal);
-                  }}
-                />
-              }
-            />
-          </FormControl>
+                >
+                  <Divider />
+                  <ListItemButton
+                    selected={item === componentSelect ? true : false}
+                    key={item}
+                    onClick={() => setComponentSelect(item)}
+                    sx={{
+                      height: "7vh",
+                      "&.Mui-selected ": {
+                        backgroundColor: "#c4a57b",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#cbcbcb",
+                      },
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
+                    >
+                      COMPONENTE {item}
+                    </Typography>
+                  </ListItemButton>
+                  <Divider />
+                </Grid>
+              );
+            })}
+          </List>
+        )}
 
-          <TextField
-            // disabled={mirEdit?.componentes[componentSelect - 1].medios}
-            rows={8}
-            multiline
-            variant="filled"
-            sx={{ width: "90%", boxShadow: 2 }}
-            label={"MEDIOS DE VERIFICACIÓN"}
-            InputLabelProps={{
-              style: {
+        <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          display={"flex"}
+          justifyContent={"space-evenly"}
+          alignItems={"center"}
+          sx={{
+            "& > .MuiGrid-item": {
+              marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+            },
+          }}
+        >
+          {isSmallScreen && (
+            <List sx={{}}>
+              {noComponentes.map((item) => {
+                return (
+                  <Grid
+                    key={item}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Divider />
+                    <ListItemButton
+                      selected={item === componentSelect ? true : false}
+                      key={item}
+                      onClick={() => setComponentSelect(item)}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{ fontFamily: "MontserratMedium", fontSize: "6vw" }}
+                      >
+                        COMPONENTE {item}
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+                  </Grid>
+                );
+              })}
+            </List>
+          )}
+
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              // disabled={mirEdit?.componentes[componentSelect - 1].resumen}
+              rows={8}
+              multiline
+              sx={{
+                width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                boxShadow: 2,
+              }}
+              variant="filled"
+              label={"RESUMEN NARRATIVO"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              onChange={(c) => {
+                let prevLocal = [...componentes];
+                prevLocal[componentSelect - 1].resumen = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setComponentes(prevLocal);
+              }}
+              value={componentes[componentSelect - 1]?.resumen}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              // disabled={mirEdit?.componentes[componentSelect - 1].indicador}
+              rows={8}
+              multiline
+              sx={{
+                width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                boxShadow: 2,
+              }}
+              variant="filled"
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              // onBlur={() => evalueTxtIndicador()}
+              label={"INDICADOR"}
+              error={errorIndicador === componentSelect - 1 ? true : false}
+              helperText={
+                errorIndicador === componentSelect - 1
+                  ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                  : null
+              }
+              onChange={(c) => {
+                let prevLocal = [...componentes];
+                prevLocal[componentSelect - 1].indicador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                prevLocal[componentSelect - 1].formula = "";
+                setComponentes(prevLocal);
+              }}
+              value={componentes[componentSelect - 1]?.indicador}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              // disabled={mirEdit?.componentes[componentSelect - 1].formula}
+              rows={8}
+              multiline
+              variant="filled"
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                readOnly: true,
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              sx={{
+                width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                boxShadow: 2,
+              }}
+              label={"FÓRMULA"}
+              onClick={() => {
+                evalueTxtIndicador();
+                console.log(
+                  "formula: ",
+                  componentes[componentSelect - 1]?.formula
+                );
+              }}
+              value={componentes[componentSelect - 1]?.formula}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <FormControl
+              sx={{
+                width: ["33vh", "30vh", "40vh", "50vh", "50vh"],
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
                 fontFamily: "MontserratMedium",
-              },
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <FormLabel>FRECUENCIA</FormLabel>
+              <FormControlLabel
+                value={"SEMESTRAL"}
+                label={"SEMESTRAL"}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componentes[componentSelect - 1]?.frecuencia ===
+                      "SEMESTRAL"
+                    }
+                    onChange={(c) => {
+                      let prevLocal = [...componentes];
+                      prevLocal[componentSelect - 1].frecuencia = c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "");
+                      setComponentes(prevLocal);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                value={"TRIMESTRAL"}
+                label={"TRIMESTRAL"}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                }}
+                control={
+                  <Radio
+                    checked={
+                      componentes[componentSelect - 1]?.frecuencia ===
+                      "TRIMESTRAL"
+                    }
+                    onChange={(c) => {
+                      let prevLocal = [...componentes];
+                      prevLocal[componentSelect - 1].frecuencia = c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "");
+                      setComponentes(prevLocal);
+                    }}
+                  />
+                }
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
+          >
+            <TextField
+              // disabled={mirEdit?.componentes[componentSelect - 1].medios}
+              rows={8}
+              multiline
+              variant="filled"
+              sx={{
+                boxShadow: 2,
+                width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                //top: ["-4vh", "none", "none", "none", "none", "none"]
+              }}
+              label={"MEDIOS DE VERIFICACIÓN"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              onChange={(c) => {
+                let prevLocal = [...componentes];
+                prevLocal[componentSelect - 1].medios = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setComponentes(prevLocal);
+              }}
+              value={componentes[componentSelect - 1]?.medios}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
-            onChange={(c) => {
-              let prevLocal = [...componentes];
-              prevLocal[componentSelect - 1].medios = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              setComponentes(prevLocal);
-            }}
-            value={componentes[componentSelect - 1]?.medios}
-          />
-          <TextField
-            // disabled={mirEdit?.componentes[componentSelect - 1].supuestos}
-            rows={8}
-            multiline
-            variant="filled"
-            sx={{ width: "90%", boxShadow: 2 }}
-            label={"SUPUESTOS"}
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-            onChange={(c) => {
-              let prevLocal = [...componentes];
-              prevLocal[componentSelect - 1].supuestos = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              setComponentes(prevLocal);
-            }}
-            value={componentes[componentSelect - 1]?.supuestos}
-          />
+          >
+            <TextField
+              // disabled={mirEdit?.componentes[componentSelect - 1].supuestos}
+              rows={8}
+              multiline
+              variant="filled"
+              sx={{
+                boxShadow: 2,
+                width: ["none", "30vh", "40vh", "50vh", "50vh"],
+                //top: ["-4vh", "none", "none", "none", "none", "none"]
+              }}
+              label={"SUPUESTOS"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              onChange={(c) => {
+                let prevLocal = [...componentes];
+                prevLocal[componentSelect - 1].supuestos = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setComponentes(prevLocal);
+              }}
+              value={componentes[componentSelect - 1]?.supuestos}
+            />
+          </Grid>
         </Grid>
-      </Grid>
 
+
+      </Grid>
     </Grid>
-    
   );
 };
