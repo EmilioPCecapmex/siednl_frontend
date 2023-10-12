@@ -212,9 +212,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado?.ejercicioFiscal === "Selecciona"
+                  {encabezado?.ejercicioFiscal.Label === "Selecciona"
                     ? ""
-                    : encabezado?.ejercicioFiscal}
+                    : encabezado?.ejercicioFiscal.Labl}
                 </Typography>
               </Grid>
 
@@ -237,9 +237,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado?.institucion === "Selecciona"
+                  {encabezado?.entidad.Label === "Selecciona"
                     ? ""
-                    : encabezado?.institucion}
+                    : encabezado?.entidad.Label}
                 </Typography>
               </Grid>
             </Grid>
@@ -263,9 +263,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado?.nombre_del_programa === "Selecciona"
+                  {encabezado?.programa.Label === "Selecciona"
                     ? ""
-                    : encabezado?.nombre_del_programa}
+                    : encabezado?.programa.Label}
                 </Typography>
               </Grid>
 
@@ -288,7 +288,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado?.eje === "Selecciona" ? "" : encabezado?.eje}
+                  {encabezado?.eje.Label === "Selecciona" ? "" : encabezado?.eje.Label}
                 </Typography>
               </Grid>
             </Grid>
@@ -313,7 +313,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado?.tema === "Selecciona" ? "" : encabezado?.tema}
+                  {encabezado?.tema.Label === "Selecciona" ? "" : encabezado?.tema.Label}
                 </Typography>
               </Grid>
 
@@ -336,9 +336,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado?.objetivo === "Selecciona"
+                  {encabezado?.objetivo.Label === "Selecciona"
                     ? ""
-                    : encabezado?.objetivo}
+                    : encabezado?.objetivo.Label}
                 </Typography>
               </Grid>
             </Grid>
@@ -363,9 +363,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado?.estrategia === "Selecciona"
+                  {encabezado?.estrategia.Label === "Selecciona"
                     ? ""
-                    : encabezado?.estrategia}
+                    : encabezado?.estrategia.Label}
                 </Typography>
               </Grid>
 
@@ -388,9 +388,9 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
                 >
-                  {encabezado?.beneficiario === "Selecciona"
+                  {encabezado?.beneficiario.Label === "Selecciona"
                     ? ""
-                    : encabezado?.beneficiario}
+                    : encabezado?.beneficiario.Label}
                 </Typography>
               </Grid>
             </Grid>
@@ -411,7 +411,7 @@ export function TabResumenMIR({
               </Typography>
               <Grid>
                 {encabezado?.lineas_de_accion.map(
-                  (value: { Id: string; LineaDeAccion: string }, x: any) => {
+                  (value: { Id: string; Label: string }, x: any) => {
                     return (
                       <Typography
                         key={x}
@@ -422,9 +422,9 @@ export function TabResumenMIR({
                           "&:last-Child": { borderBottom: 0 },
                         }}
                       >
-                        {value?.LineaDeAccion === "Selecciona"
+                        {value?.Label === "Selecciona"
                           ? ""
-                          : value?.LineaDeAccion}
+                          : value?.Label}
                       </Typography>
                     );
                   }

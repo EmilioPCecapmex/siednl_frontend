@@ -593,7 +593,7 @@ export const LateralMenu = ({
                         />
                       </ListItemButton>
 
-                      {/* <ListItemButton
+                      <ListItemButton
                         onClick={() => {
                           //setResumeDefaultFT();
                           //exitAlert("../fichaTecnica");
@@ -611,7 +611,7 @@ export const LateralMenu = ({
                           }
                           sx={st.selectedBox}
                         />
-                      </ListItemButton> */}
+                      </ListItemButton>
                     </List>
                   </Collapse>
 
