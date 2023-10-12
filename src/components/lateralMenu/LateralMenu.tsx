@@ -638,7 +638,7 @@ export const LateralMenu = ({
                     />
                   </ListItemButton>
 
-                    {/* <ListItemButton
+                    <ListItemButton
                     onClick={() => {
                       //setResumeDefaultAI();
                       navigate("../programaAnualEvaluacion");
@@ -658,7 +658,7 @@ export const LateralMenu = ({
                       }
                       sx={st.selectedBox}
                     />
-                  </ListItemButton> */}
+                  </ListItemButton>
                   </List>
 
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (

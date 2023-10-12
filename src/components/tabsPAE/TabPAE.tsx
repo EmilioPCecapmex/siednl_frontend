@@ -287,6 +287,8 @@ export const TabPAE = ({
     getNumeroPae("2022", "1");
     getListaPae();
     tabsRegistros(value, "2022");
+    setBanderaEdit(false);
+    console.log("bandera", banderaEdit);
     // console.log(noAnios+","+noNumeros)
   }, []);
 
@@ -302,20 +304,40 @@ export const TabPAE = ({
     },
   });
 
-  const [editMode, setEditMode] = useState(false);
-  const [editedDate, setEditedDate] = useState("");
+  const [editMode, setEditMode] = useState(registrosFiltrados.map(() => false));
+  const [editedDate, setEditedDate] = useState(registrosFiltrados.map((row) => row.FechaCreacion));
+  const [finalDate, setFinalDate] = useState("");
+  const [banderaEdit, setBanderaEdit] = useState(false);
 
-  const handleDoubleClick = (initialValue: string) => {
-    setEditedDate(initialValue);
-    setEditMode(true);
+  const handleDoubleClick = (rowIndex:number) => {
+    const updatedEditModes = [...editMode];
+    updatedEditModes[rowIndex] = true;
+    setEditedDate(registrosFiltrados.map((row) => row.FechaCreacion.substring(0,10)));
+    setEditMode(updatedEditModes);
   };
 
-
-  const saveEditedDate = (id: string) => {
-    setEditMode(false);
-    console.log("editedDate",editedDate);
-    modifyPAE("FechaCaptura",editedDate,id);
+  const handleDateChange = (e:React.ChangeEvent<HTMLInputElement>, rowIndex:number) => {
+    // Create a copy of editedDates to avoid mutating state directly
+    const updatedEditedDates = [...editedDate];
+    updatedEditedDates[rowIndex] = e.target.value;
+    setEditedDate(updatedEditedDates);
   };
+
+  const saveEditedDate = (id: string, rowIndex:number) => {
+    setEditMode(registrosFiltrados.map(() => false));
+    modifyPAE("FechaCaptura", editedDate[rowIndex], id);
+    setBanderaEdit(true);
+    setFinalDate(editedDate[rowIndex]);
+  };
+
+  useEffect(() => {
+    setBanderaEdit(false);
+  }, [value]);
+
+  useEffect(() => {
+    setBanderaEdit(false);
+  }, [componenteSelect]);
+
   interface Head {
     id: string;
     isNumeric: boolean;
@@ -344,8 +366,6 @@ export const TabPAE = ({
 
   const [page, setPage] = useState(0);
   const renglonesPagina = 6;
-  const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
-  const [mirsFiltered, setMirsFiltered] = useState<Array<IIPAE>>([]);
 
   const creaPAE = (Anio: string, Numero: string, Nombre: string, Ruta: string) => {
     axios
@@ -387,7 +407,7 @@ export const TabPAE = ({
 
 
 
-  const modifyPAE = (CampoModificar: string, Campo: string, Id:string,) => {
+  const modifyPAE = (CampoModificar: string, Campo: string, Id: string,) => {
     axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/modify-pae",
@@ -405,20 +425,16 @@ export const TabPAE = ({
         }
       )
       .then((r) => {
-        console.log("Hola soy la respuesta");
-        console.log("r: ", r);
         Toast.fire({
           icon: "success",
-          title: r.data.data.message,
+          title: "Fecha actualizada correctamente",
         });
         // showResume();
       })
       .catch((err) => {
-        console.log(err)
-        console.log(err.response.data)
         Toast.fire({
           icon: "error",
-          title: "err.response.data,"
+          title: "Hubo un error al actualizar la fecha",
         });
       });
   };
@@ -505,6 +521,7 @@ export const TabPAE = ({
 
 
   const guardarDoc = (ruta: string, url: string) => {
+    console.log("react",process.env.REACT_APP_APPLICATION_FILES);
     let dataArray = new FormData();
     dataArray.append("ROUTE", `${ruta}`);
     dataArray.append("ADDROUTE", "true");
@@ -583,13 +600,14 @@ export const TabPAE = ({
   };
 
   const handleClickAddPDF = () => {
-
+    guardarDoc("a","a");
     if (fileInputRef.current) {
-
-      console.log(fileInputRef.current);
+      
+      // console.log(fileInputRef.current);
       fileInputRef.current.click(); // Trigger the file input
-      console.log((fileInputRef.current.children[0] as HTMLInputElement).files![0].name);
+      // console.log((fileInputRef.current.children[0] as HTMLInputElement).files![0].name);
       // console.log(fileInputRef.current.children[0].;
+      
     }
   };
 
@@ -694,42 +712,9 @@ export const TabPAE = ({
 
         <Grid container item xs={10}>
           <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%" }}>
-            {/* {componenteSelect+"  "}
-             
-             {componenteSelect==0&&actividadSelect==0?
-          "Programa Anual de evaluación 2022, Versión 2":
-          componenteSelect==0&&actividadSelect==1?
-          "Programa Anual de evaluación 2022, Versión 1":
-          componenteSelect==1&&actividadSelect==0?
-          "Programa Anual de evaluación 2021, Versión 2":
-          componenteSelect==1&&actividadSelect==1?
-          "Programa Anual de evaluación 2021, Versión 1":
-          componenteSelect==2&&actividadSelect==0?
-          "Programa Anual de evaluación 2020, Versión 2":
-          componenteSelect==2&&actividadSelect==1?
-          "Programa Anual de evaluación 2020, Versión 1":
-          componenteSelect==3&&actividadSelect==0?
-          "Programa Anual de evaluación 2019, Versión 2":
-          "Programa Anual de evaluación 2019, Versión 1"}
-          .Publicado el:   */}
           </Typography>
 
           <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%", alignContent: "right", textAlign: "right" }}>
-            {/* {componenteSelect == 0 && actividadSelect == 0 ?
-              "20/Abril/2022" :
-              componenteSelect == 0 && actividadSelect == 1 ?
-                "19/Abril/2022" :
-                componenteSelect == 1 && actividadSelect == 0 ?
-                  "19/Abril/2021" :
-                  componenteSelect == 1 && actividadSelect == 1 ?
-                    "18/Abril/2022" :
-                    componenteSelect == 2 && actividadSelect == 0 ?
-                      "18/Abril/2020" :
-                      componenteSelect == 2 && actividadSelect == 1 ?
-                        "17/Abril/2020" :
-                        componenteSelect == 3 && actividadSelect == 0 ?
-                          "17/Abril/2019" :
-                          "16/Abril/2019"} */}
           </Typography>
           <Grid container item xs={12} sx={{ height: "-webkit-fill-available" }}>
             {/* <InsertarComponentePDF Nombre={"C" + (componenteSelect + 1) + "A" + (actividadSelect + 1)} /> */}
@@ -762,7 +747,8 @@ export const TabPAE = ({
                     onClick={handleClickAddPDF}
                     style={{ cursor: 'pointer', border: 'none', background: 'none', opacity: 1 }}
                   >
-                    {"c:" + componenteSelect + ",t:" + value}
+                    {/* {"c:" + componenteSelect + ",t:" + value} */}
+                    CARGAR ARCHIVO
                   </Button>
                 </Grid>
               </>
@@ -808,7 +794,7 @@ export const TabPAE = ({
                             borderBottom: 0,
                             fontSize: "0.8vw",
                             // fontFamily: "MontserratRegular",
-                            //   fontSize: ".7vw",
+                            // fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -841,25 +827,77 @@ export const TabPAE = ({
                             scope="row"
                           >
                             {row.Nombre}
+                            {/* {banderaEdit? "1,":"0,"}
+                            {banderaEdit? editedDate[index]:row.FechaCreacion.substring(0, 10)} */}
                           </TableCell>
-
-                          {/* <TableCell
-                            onDoubleClick={() => handleDoubleClick(row.FechaCreacion)}
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
-                            
-                            {row.FechaCreacion.substring(0,10)}
-                          </TableCell> */}
-
-                          {editMode ? (
+                          {localStorage.getItem("Rol") === "Administrador" ?
+                            <>
+                              {editMode[index] ? (
+                                <TableCell
+                                  sx={{
+                                    padding: "1px 15px 1px 0",
+                                    fontFamily: "MontserratRegular",
+                                    fontSize: ".7vw",
+                                  }}
+                                  align="center"
+                                  component="th"
+                                  scope="row"
+                                >
+                                  <input
+                                    type="date"
+                                    value={editedDate[index]}
+                                    onChange={(e) => handleDateChange(e,index)}
+                                    onKeyDown={(e) => {
+                                      if (e.key === "Enter") {
+                                        saveEditedDate(row.Id,index);
+                                      }
+                                    }}
+                                    onBlur={() => saveEditedDate(row.Id,index)}
+                                    autoFocus
+                                    style={{
+                                      border: "1px solid #ccc",
+                                      padding: "4px",
+                                      borderRadius: "4px",
+                                      fontSize: "0.7vw",
+                                      fontFamily: "MontserratMedium",
+                                    }}
+                                  />
+                                </TableCell>
+                              ) : (
+                                <TableCell
+                                  onDoubleClick={() => handleDoubleClick(index)}
+                                  sx={{
+                                    padding: "1px 15px 1px 0",
+                                    fontFamily: "MontserratRegular",
+                                    fontSize: ".7vw",
+                                  }}
+                                  align="center"
+                                  component="th"
+                                  scope="row"
+                                >
+                                  <Tooltip
+                                    PopperProps={{
+                                      modifiers: [
+                                        {
+                                          name: "offset",
+                                          options: {
+                                            offset: [0, -13],
+                                          },
+                                        },
+                                      ],
+                                    }}
+                                    title="DA DOBLE CLICK PARA EDITAR"
+                                  >
+                                    <span>
+                                      {banderaEdit ? editedDate[index] : row.FechaCreacion.substring(0, 10)}
+                                    </span>
+                                  </Tooltip>
+                                </TableCell>
+                              )}
+                            </>
+                            :
                             <TableCell
+
                               sx={{
                                 padding: "1px 15px 1px 0",
                                 fontFamily: "MontserratRegular",
@@ -869,56 +907,13 @@ export const TabPAE = ({
                               component="th"
                               scope="row"
                             >
-                              <input
-                                type="date"
-                                value={editedDate}
-                                onChange={(e) => setEditedDate(e.target.value)}
-                                onKeyDown={(e) => {
-                                  if (e.key === "Enter") {
-                                    saveEditedDate(row.Id);
-                                  }
-                                }}
-                                onBlur={() => setEditMode(false)}
-                                autoFocus
-                                style={{
-                                  border: "1px solid #ccc",
-                                  padding: "4px",
-                                  borderRadius: "4px",
-                                  fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
-                                }}
-                              />
+
+
+                              {row.FechaCreacion.substring(0, 10)}
+
+
                             </TableCell>
-                          ) : (
-                            <TableCell
-                              onDoubleClick={() => handleDoubleClick(row.FechaCreacion)}
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: ".7vw",
-                              }}
-                              align="center"
-                              component="th"
-                              scope="row"
-                            >
-                              <Tooltip
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
-                                      },
-                                    },
-                                  ],
-                                }}
-                                title="DA DOBLE CLICK PARA EDITAR"
-                              >
-                                <span>
-                                  {row.FechaCreacion.substring(0, 10)}</span>
-                              </Tooltip>
-                            </TableCell>
-                          )}
+                          }
 
                           <TableCell
                             sx={{
@@ -1017,18 +1012,6 @@ export const TabPAE = ({
                   </TableBody>
                 </Table>
               </TableContainer>
-
-              {/* <Box sx={{ width: "100%" }}>
-                 <TablePagination
-                  rowsPerPageOptions={[renglonesPagina]}
-                  component="div"
-                  count={mirs.length}
-                  rowsPerPage={renglonesPagina}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                /> 
-              </Box> */}
             </Grid>
           </Grid>
         </Grid>
