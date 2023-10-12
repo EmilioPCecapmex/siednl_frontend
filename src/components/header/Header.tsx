@@ -111,6 +111,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         <Grid sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
         <Grid sx={{ mr: ".5vw", width: "2vw" }}></Grid>
       </Grid> */}
+      <TimerCounter />
     </Grid>
   );
 };

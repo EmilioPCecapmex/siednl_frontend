@@ -91,25 +91,27 @@ export const TimerCounter = () => {
   };
 
   return (
-    <Box
-      sx={{
-        fontFamily: "MontserratMedium",
-        fontSize: ".8vw",
-        width: "2vw",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#fff",
-      }}
-    >
-      {rest > 0
-        ? Math.floor(rest / 1000 / 60).toString() +
-          ":" +
-          (Math.floor((rest / 1000) % 60) < 10
-            ? "0" + Math.floor((rest / 1000) % 60).toString()
-            : Math.floor((rest / 1000) % 60))
-        : "0:0"}
-    </Box>
+    // <Box
+    //   sx={{
+    //     fontFamily: "MontserratMedium",
+    //     fontSize: ".8vw",
+    //     width: "2vw",
+    //     height: "100%",
+    //     display: "flex",
+    //     alignItems: "center",
+    //     justifyContent: "center",
+    //     color: "#fff",
+    //   }}
+    // >
+    //   {rest > 0
+    //     ? Math.floor(rest / 1000 / 60).toString() +
+    //       ":" +
+    //       (Math.floor((rest / 1000) % 60) < 10
+    //         ? "0" + Math.floor((rest / 1000) % 60).toString()
+    //         : Math.floor((rest / 1000) % 60))
+    //     : "0:0"}
+    // </Box>
+    null
+
   );
 };
