@@ -97,7 +97,8 @@ export const TabComponente = ({
   useEffect(() => {
     setComponentes(MIR.componentes);
     console.log("formula: ", componentes[componentSelect - 1]?.formula);
-  }, [MIR, componentSelect, componentes]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [MIR]);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
@@ -604,8 +605,6 @@ export const TabComponente = ({
             />
           </Grid>
         </Grid>
-
-
       </Grid>
     </Grid>
   );
