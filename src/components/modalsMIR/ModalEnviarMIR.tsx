@@ -489,6 +489,7 @@ export default function ModalEnviarMIR({
         });
 
         if (estado === "Autorizada") {
+          console.log(r.data.data);
           CrearMetaAnual(r.data.data.ID);
         }
 

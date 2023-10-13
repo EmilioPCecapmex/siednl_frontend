@@ -187,12 +187,17 @@ export const TabActividades = ({
     let indexActividades = 0;
     MIR.componenteActividad.map((v, index) => {
       let aux: Array<IActividadesMir> = [];
+      console.log("aux",aux);
 
       v.actividades.map((x) => {
         aux.push(MIR.actividades[indexActividades]);
         indexActividades++;
         
-      });
+      }); 
+      console.log("aux fuera",aux);
+      console.log("act",v.actividades);
+      
+      
       n.push(aux);
       // n[index] = ;
     });
@@ -214,6 +219,8 @@ export const TabActividades = ({
         actividades: arr,
       },
     }));
+    console.log("arr fuera",arr);
+    console.log("valoresComponenteActividad",valoresComponenteActividad);
   }, [valoresComponenteActividad]);
 
 
