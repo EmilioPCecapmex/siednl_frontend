@@ -183,20 +183,19 @@ export const TabActividades = ({
     let indexActividades = 0;
     MIR.componenteActividad.map((v, index) => {
       let aux: Array<IActividadesMir> = [];
-      console.log("aux: ",aux);
+      
       
       v.actividades.map((x) => {
         aux.push(MIR.actividades[indexActividades]);
         indexActividades++;
       });
-      console.log("aux_parte2: ",aux);
-      console.log("indexActividades: ",indexActividades);
+     
       n.push(aux);
       // n[index] = ;
     });
     setValoresComponenteActividad(n);
   //Aqui no se guarda bien ya se esta pusheando mal
-    console.log("n:",n);
+  
     
   }, [addA]);
 
@@ -214,8 +213,7 @@ export const TabActividades = ({
         actividades: arr,
       },
     }));
-    console.log("arr: ",arr);
-    console.log("valoresComponenteActividad: ",valoresComponenteActividad);
+
     
   }, [valoresComponenteActividad]);
 
