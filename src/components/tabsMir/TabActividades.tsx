@@ -215,6 +215,7 @@ export const TabActividades = ({
       },
     }));
     console.log("arr: ",arr);
+    console.log("valoresComponenteActividad: ",valoresComponenteActividad);
     
   }, [valoresComponenteActividad]);
 
