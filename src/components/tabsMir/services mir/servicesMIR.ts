@@ -23,7 +23,7 @@ export const getLista = (tabla:string,valorCondicion:string,setState:Function) =
     });
   };
 
-export const getListPedColumns = (data:any,setState:Function,fncDisable:Function) => {
+  export const getListPedColumns = (data:any,setState:Function,fncDisable:Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
         params: data,
@@ -40,6 +40,18 @@ export const getListPedColumns = (data:any,setState:Function,fncDisable:Function
     axios
       .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
         params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setState(r.data.data);
+      });
+  };
+
+  export const getListasLoginProgramas = (setState:Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas", {
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
