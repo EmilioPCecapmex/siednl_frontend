@@ -399,12 +399,18 @@ export default function ModalEnviarMIR({
       });
     }
   };
+  useEffect(() => {
+    console.log("USEFFECT: ",IdMir);
+  }, [IdMir])
+  
 
-  const CrearMetaAnual = (idMir: string) => {
+  const CrearMetaAnual = (mensaje: string, IdMir: string) => {
     console.log(
       "IdEntidad:localStorage.getItem(IdEntidad): ModalEnviarMIR",
       localStorage.getItem("IdEntidad")
     );
+    console.log("Entre modal enviar y este es el idmir sexo: ",IdMir);
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -412,7 +418,7 @@ export default function ModalEnviarMIR({
           MetaAnual: "",
           // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
-          IdMir: idMir,
+          IdMir: IdMir,
           Estado: "En Captura",
           Id: "",
           // va a cambiar
@@ -484,12 +490,15 @@ export default function ModalEnviarMIR({
           console.log("estado: ", estado);
           console.log("create MIR r.data.data: ", r.data.data);
           console.log("user: ", user);
+
           sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
           enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
 
         if (estado === "Autorizada") {
-          CrearMetaAnual(r.data.data.ID);
+         CrearMetaAnual(r.data.data.ID, IdMir);
+          console.log("r.data.data.ID",r.data.data);
+          
         }
 
         Toast.fire({

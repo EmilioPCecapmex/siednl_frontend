@@ -187,7 +187,8 @@ export const TabActividadesMA = ({
         }),
       };
     });
-
+    console.log("y:", y);
+    
     setAValorMA(y);
   };
 
@@ -390,7 +391,9 @@ export const TabActividadesMA = ({
 
   useEffect(() => {
     getUnidades();
-  }, []);
+    console.log("MA: ",MA);
+    
+  }, [MA]);
 
   //Se crea funcion para encontrar indice, funciona hasta para 3 componentes y hasta para 3 actividades por componente
   //Se realiza de está manera por formato de JSON
