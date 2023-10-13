@@ -184,7 +184,7 @@ export function TabEncabezado({
   useEffect(() => {
     getLista("AniosFiscales", "", setCatalogoAniosFiscales);
     getListasLogin(
-      { Tabla: "Entidades", ValorCondicion: "" },
+      { Tabla: "EntidadesMatrices", ValorCondicion: "" },
       setCatalogoInstituciones
     );
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
