@@ -241,8 +241,9 @@ export default function FullModalMir({
     arr.push(noComponentes.length + 1);
     setNoComponentes(arr);
 
-    let x = arr.length - 1;
+    let x = arr.length ;
     let auxAct = MIRPADRE.actividades;
+
 
     auxAct.push({
       actividad: `A1C${x}`,
