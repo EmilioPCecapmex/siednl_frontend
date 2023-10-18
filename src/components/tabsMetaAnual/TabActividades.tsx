@@ -349,7 +349,7 @@ export const TabActividadesMA = ({
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
       Id: "",
-      Nombre: "",
+      Label: "",
     },
   ]);
 
@@ -389,9 +389,24 @@ export const TabActividadesMA = ({
 
   };
 
+
+  const getListasLogin = (datos:any,setState:Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
+        params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setState(r.data.data);
+      });
+  };
+
   useEffect(() => {
-    getUnidades();
-    console.log("MA: ",MA);
+    // getUnidades();
+    // console.log("MA: ",MA);
+    getListasLogin({Tabla:"EntidadesHijas",ValorCondicion:JSON.parse(MIR).encabezado.entidad.Id},setCatalogoUnidadResponsable);
     
   }, [MA]);
 
@@ -1299,10 +1314,10 @@ export const TabActividadesMA = ({
               ]?.unidadResponsable !== ""
                   }
                     options={catalogoUnidadResponsable}
-                    getOptionLabel={(option) => option.Nombre}
+                    getOptionLabel={(option) => option.Label}
                     value={{
                       Id: catalogoUnidadResponsable[0].Id,
-                    Nombre:
+                      Label:
                       aValorMA[0].componentes[componenteSelect].actividades[
                         actividadSelect
                       ]?.unidadResponsable,
@@ -1316,7 +1331,7 @@ export const TabActividadesMA = ({
                               fontSize: ".7vw",
                             }}
                           >
-                            {option.Nombre}
+                            {option.Label}
                           </p>
                         </li>
                       );
@@ -1343,7 +1358,7 @@ export const TabActividadesMA = ({
                       let y = [...aValorMA];
                       y[0].componentes[componenteSelect].actividades[
                         actividadSelect
-                      ].unidadResponsable = value?.Nombre || "";
+                      ].unidadResponsable = value?.Label || "";
                       setAValorMA(y);
                     }}
                     isOptionEqualToValue={(option, value) =>

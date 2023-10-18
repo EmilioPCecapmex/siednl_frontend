@@ -267,7 +267,7 @@ export const TabComponenteMA = ({
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
       Id: "",
-      Nombre: "",
+      Label: "",
     },
   ]);
 
@@ -303,8 +303,21 @@ export const TabComponenteMA = ({
       });
   };
 
+  const getListasLogin = (datos:any,setState:Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
+        params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setState(r.data.data);
+      });
+  };
   useEffect(() => {
-    getUnidades();
+    // getUnidades();
+    getListasLogin({Tabla:"EntidadesHijas",ValorCondicion:JSON.parse(MIR).encabezado.entidad.Id},setCatalogoUnidadResponsable);
   }, []);
 
   return (
@@ -1162,10 +1175,10 @@ export const TabComponenteMA = ({
                       ?.unidadResponsable !== ""
                   }
                     options={catalogoUnidadResponsable}
-                    getOptionLabel={(option) => option.Nombre}
+                    getOptionLabel={(option) => option.Label}
                     value={{
                       Id: catalogoUnidadResponsable[0].Id || "",
-                      Nombre: componentesValues[componentSelect - 1]?.unidadResponsable || "",
+                      Label: componentesValues[componentSelect - 1]?.unidadResponsable || "",
                     }}
                     renderOption={(props, option) => {
                       return (
@@ -1176,7 +1189,7 @@ export const TabComponenteMA = ({
                               fontSize: ".7vw",
                             }}
                           >
-                            {option.Nombre}
+                            {option.Label}
                           </p>
                         </li>
                       );
@@ -1201,7 +1214,7 @@ export const TabComponenteMA = ({
                     )}
                     onChange={(event, value) => {
                       componentesValues[componentSelect - 1].unidadResponsable =
-                      value?.Nombre || "";
+                      value?.Label || "";
                     setComponentesValues([...componentesValues]);
                     }}
                     isOptionEqualToValue={(option, value) =>

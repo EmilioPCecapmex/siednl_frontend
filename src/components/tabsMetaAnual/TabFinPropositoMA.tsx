@@ -83,7 +83,7 @@ export function TabFinPropositoMA({
   const [catalogoUnidadResponsable, setCatalogounidadResponsable] = useState([
     {
       Id: "",
-      Nombre: "",
+      Label: "",
     },
   ]);
 
@@ -228,8 +228,22 @@ export function TabFinPropositoMA({
       });
   };
 
+  const getListasLogin = (datos:any,setState:Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
+        params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setState(r.data.data);
+      });
+  };
+
   useEffect(() => {
-    getUnidades();
+    // getUnidades();
+    getListasLogin({Tabla:"EntidadesHijas",ValorCondicion:JSON.parse(MIR).encabezado.entidad.Id},setCatalogounidadResponsable);
   }, []);
 
   const style = {
@@ -757,10 +771,10 @@ export function TabFinPropositoMA({
                       valueFin[0].unidadResponsable !== ""
                     }
                     options={catalogoUnidadResponsable}
-                    getOptionLabel={(option) => option.Nombre}
+                    getOptionLabel={(option) => option.Label}
                     value={{
                       Id: catalogoUnidadResponsable[0].Id || "",
-                      Nombre: valueFin[0].unidadResponsable || "",
+                      Label: valueFin[0].unidadResponsable || "",
                     }}
                     renderOption={(props, option) => {
                       return (
@@ -771,7 +785,7 @@ export function TabFinPropositoMA({
                               fontSize: ".7vw",
                             }}
                           >
-                            {option.Nombre}
+                            {option.Label}
                           </p>
                         </li>
                       );
@@ -795,7 +809,7 @@ export function TabFinPropositoMA({
                     )}
                     onChange={(event, value) => {
                       valueFin[0].unidadResponsable =
-                        (value?.Nombre as string) || "";
+                        (value?.Label as string) || "";
                       setValueFin([...valueFin]);
                     }}
                     isOptionEqualToValue={(option, value) =>
@@ -1341,10 +1355,10 @@ export function TabFinPropositoMA({
                       valueProposito[0].unidadResponsable !== ""
                     }
                     options={catalogoUnidadResponsable}
-                    getOptionLabel={(option) => option.Nombre}
+                    getOptionLabel={(option) => option.Label}
                     value={{
                       Id: catalogoUnidadResponsable[0].Id || "",
-                      Nombre: valueProposito[0].unidadResponsable || "",
+                      Label: valueProposito[0].unidadResponsable || "",
                     }}
                     renderOption={(props, option) => {
                       return (
@@ -1355,7 +1369,7 @@ export function TabFinPropositoMA({
                               fontSize: ".7vw",
                             }}
                           >
-                            {option.Nombre}
+                            {option.Label}
                           </p>
                         </li>
                       );
@@ -1383,7 +1397,7 @@ export function TabFinPropositoMA({
                     style={style}
                     onChange={(event, value) => {
                       valueProposito[0].unidadResponsable =
-                        (value?.Nombre as string) || "";
+                        (value?.Label as string) || "";
                       setValueProposito([...valueProposito]);
                     }}
                     isOptionEqualToValue={(option, value) =>
