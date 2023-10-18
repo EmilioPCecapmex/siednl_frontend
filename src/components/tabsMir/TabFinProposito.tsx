@@ -8,7 +8,7 @@ import {
   Divider,
   FormControl,
   useMediaQuery,
-  Hidden,
+
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
@@ -222,9 +222,9 @@ export function TabFinProposito({
       // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
-        display: "flex",
-        width: "94vw",
-        height: ["100%", "82vh", "82vh", "82vh", "82vh", "82vh"],
+       // display: "flex",
+        width: "93vw",
+        height: ["82vh", "82vh", "82vh", "82vh", "82vh", "82vh"],
         boxShadow: 10,
         borderRadius: 5,
         flexDirection: "column",
@@ -232,6 +232,8 @@ export function TabFinProposito({
         overflow: "auto",
       }}
     >
+
+
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
@@ -772,6 +774,11 @@ export function TabFinProposito({
               display={"flex"}
               justifyContent={"space-evenly"}
               alignItems={"center"}
+              sx={{
+                '& > .MuiGrid-item': {
+                  marginBottom: '20px', // Ajusta la cantidad de espacio vertical entre los elementos
+                },
+              }}
             >
               {isSmallScreen && (
                 <List sx={{}}>
@@ -1133,6 +1140,8 @@ export function TabFinProposito({
           </>
         ) : null}
       </Grid>
+      
+
     </Grid>
   );
 }

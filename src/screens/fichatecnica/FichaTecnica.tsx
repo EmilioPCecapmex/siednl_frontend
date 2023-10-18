@@ -845,7 +845,7 @@ export const FichaTecnica = () => {
                                       validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Verificador") ||
-                                    (row.Estado === "En Autorización" &&
+                                        ((row.Estado === "En Autorización" || row.Estado ==="Autorizada") &&
                                       validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador") ||

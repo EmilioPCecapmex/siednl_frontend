@@ -355,11 +355,11 @@ export const LateralMenu = ({
   return (
     <Grid
       container
-      sx={{ alignItems: "center", justifyContent: "space-between", height: "100%", }}
+      sx={{ alignItems: "center", justifyContent: "space-between", height: "100%",   }}
     >
       <AppBar position="static">
-        <Toolbar variant="dense" sx={{ height: "7vh",  }}>
-          <Grid>
+        <Toolbar variant="dense" sx={{ height: "7vh", width: "100%"  }}>
+          <Grid sx={{}}>
             <Tooltip title="Menu Lateral">
               <IconButton
                 size="large"
@@ -371,7 +371,7 @@ export const LateralMenu = ({
             </Tooltip>
           </Grid>
           {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}> */}
-          <Grid >
+          <Grid  sx ={{}}>
             <Header
               details={{
                 name1: "INICIO",

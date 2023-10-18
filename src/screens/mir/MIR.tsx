@@ -448,7 +448,7 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container sx={{ justifyContent: "space-between" }}>
+    <Grid container sx={{ justifyContent: "space-between", }}>
       <Grid
         item
         xl={12}
@@ -457,7 +457,7 @@ export const MIR = () => {
         sm={12}
         xs={12}
         // height={"7vh"}
-        sx={{ height: "7vh", whitespace: "nowrap" }}
+        sx={{ height: "7vh", whitespace: "nowrap", }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
@@ -469,6 +469,7 @@ export const MIR = () => {
         // display={"flex"}
         // height={"93vh"}
         // alignItems={"center"}
+       
         container
         item
         xl={12}
@@ -477,11 +478,12 @@ export const MIR = () => {
         sm={12}
         xs={12}
         sx={{
-          backgroundColor: "white",
+          //backgroundColor:"blue",
           justifyContent: "center",
           display: "flex",
-          height: "93vh",
+          height: "90vh",
           alignItems: "center",
+          
         }}
       >
         {showResume ? (
@@ -523,7 +525,7 @@ export const MIR = () => {
                   direction: "row",
                 }}
               >
-                <Grid item xl={5} lg={5} md={5} sm={5}>
+                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
                   <Tooltip
                     PopperProps={{
                       modifiers: [
@@ -600,6 +602,7 @@ export const MIR = () => {
                   lg={5}
                   md={5}
                   sm={5}
+                  xs={5}
                 >
                   <Tooltip
                     PopperProps={{
@@ -1059,7 +1062,7 @@ export const MIR = () => {
                                       validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Verificador") ||
-                                        ((row.Estado === "En Autorización" || row.Estado ==="Autorizada") &&
+                                    ((row.Estado === "En Autorización" || row.Estado ==="Autorizada") &&
                                       validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador") ||
