@@ -834,23 +834,23 @@ export const FichaTecnica = () => {
                                 <IconButton
                                   disabled={
                                     (row.Estado === "En Captura" &&
-                                      validaFecha &&
+                                      //validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Capturador") ||
                                     (row.Estado === "En Revisión" &&
-                                      validaFecha &&
+                                      //validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Verificador") ||
                                     (row.Estado === "Borrador Verificador" &&
-                                      validaFecha &&
+                                      //validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Verificador") ||
                                         ((row.Estado === "En Autorización" || row.Estado ==="Autorizada") &&
-                                      validaFecha &&
+                                     // validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador") ||
                                     (row.Estado === "Borrador Autorizador" &&
-                                      validaFecha &&
+                                     // validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador")
                                       ? false

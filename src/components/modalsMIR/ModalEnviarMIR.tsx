@@ -455,6 +455,8 @@ export default function ModalEnviarMIR({
     console.log("Entre al create MetaAnual ModalEnviarMA");
     console.log("IdEntidad",localStorage.getItem("IdEntidad"),);
     console.log("estado: ",estado);
+    console.log("Create mir de Modalenviarmir");
+    
 
     axios
       .post(

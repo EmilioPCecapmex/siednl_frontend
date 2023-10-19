@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { TabFinPropositoMA } from "./TabFinPropositoMA";
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
@@ -191,13 +191,20 @@ export default function AddMetaAnual({
     setValueProposito(arr);
   };
 
+  const query = {
+    isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
+
+    isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
+  };
+
   return (
     <Grid
-    container
-    sx={{
-      display: "flex",
-      justifyContent: "space-evenly",
-    }}
+      container
+      sx={{
+        display: "flex",
+        justifyContent: "space-evenly",
+        height: "100%",
+      }}
     >
       {/* {value === 10 ? <TutorialBox initialState={35} endState={39} /> : null}
       {value === 20 ? <TutorialBox initialState={39} endState={40} /> : null}
@@ -205,166 +212,202 @@ export default function AddMetaAnual({
       {value === 40 ? <TutorialBox initialState={41} endState={42} /> : null}
       {value === 50 ? <TutorialBox initialState={42} endState={45} /> : null} */}
       <Grid
+        container
         item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
         sx={{
           width: "auto",
-          height: "90vh",
-          borderRadius: 5,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          height: "100%",
+
+          // height: "93vh",
+          // borderRadius: 5,
+          // display: "flex",
+          // flexDirection: "column",
+          // alignItems: "center",
         }}
       >
-        <Tabs
-          value={value}
-          textColor="inherit"
-          sx={{
-            backgroundColor: "#e0e0e0",
-            borderRadius: "10px 10px 0 0",
-            boxShadow: 20,
-          }}
-        >
-          <Tab
-            label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "#af8c55",
-              fontFamily: "MontserratSemiBold",
-              backgroundColor: "#ccc",
-            }}
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          />
-          <Tab
-            label="Fin / Propósito"
-            value={20}
-            onClick={() => {
-              setValue(20);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Componentes"
-            value={30}
-            onClick={() => {
-              setValue(30);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Actividades"
-            value={40}
-            onClick={() => {
-              setValue(40);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Resumen"
-            value={50}
-            onClick={() => {
-              setValue(50);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "#af8c55",
-              backgroundColor: "#ccc",
-            }}
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          />
-        </Tabs>
-
         <Grid
-          container
-          item
           sx={{
-            display: "flex",
-            width: "93vw",
+            //width: "93vw",
+            width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
-            boxShadow: 10,
+
             borderRadius: 5,
+            display: "flex",
             flexDirection: "column",
-            backgroundColor: "#fff",
+            alignItems: "center",
           }}
         >
-          <TabFinPropositoMA
-            MA={MA}
-            MIR={MIR}
-            setTxtShowFnc={showFnc}
-            show={value === 20 ? true : false}
-            resumenFinMa={resumenFinMa}
-            resumenPropositoMa={resumenPropositoMa}
-            showMirFnc={showMirFnc}
-          ></TabFinPropositoMA>
+          <Tabs
+            value={value}
+            textColor="inherit"
+            variant={query.isScrollable ? "scrollable" : "standard"}
+            // centered={query.isScrollable ? false : true}
+            scrollButtons="auto"
+            allowScrollButtonsMobile
+            sx={{
+              backgroundColor: "#e0e0e0",
+              borderRadius: "10px 10px 0 0",
+              GridShadow: 20,
+              width: ["300px", "628px", "900px", "1120px", "1250px", "1450px"],
+              //height: ["30px", "20px", "30px", "40px", "50px"],
+            }}
+          >
+            <Tab
+              label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "#af8c55",
+                fontFamily: "MontserratSemiBold",
+                backgroundColor: "#ccc",
+                width: ["0px", "105px", "150px", "190px", "210px"],
+                display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
+              }}
+              onClick={() => {
+                cambiarTab("atras");
+              }}
+            />
+            <Tab
+              label="Fin / Propósito"
+              value={20}
+              onClick={() => {
+                setValue(20);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "105px", "150px", "190px", "210px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
+            <Tab
+              label="Componentes"
+              value={30}
+              onClick={() => {
+                setValue(30);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "105px", "150px", "190px", "210px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
+            <Tab
+              label="Actividades"
+              value={40}
+              onClick={() => {
+                setValue(40);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "105px", "150px", "190px", "210px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
+            <Tab
+              label="Resumen"
+              value={50}
+              onClick={() => {
+                setValue(50);
+              }}
+              sx={{
+                borderRight: "5px solid #b3afaf",
+                color: "black",
+                fontFamily: "MontserratBold",
+                width: ["15px", "105px", "150px", "190px", "210px"],
+                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+              }}
+            />
+            <Tab
+              label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
+              sx={{
+                //borderRight: "5px solid #b3afaf",
+                color: "#af8c55",
+                backgroundColor: "#ccc",
+                width: ["0px", "105px", "150px", "190px", "210px"],
+                display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
+              }}
+              onClick={() => {
+                cambiarTab("adelante");
+              }}
+            />
+          </Tabs>
 
-          <TabComponenteMA
-            setTxtShowFnc={showFnc}
-            showMirFnc={showMirFnc}
-            show={value === 30 ? true : false}
-            valoresComponenteMAFnc={valoresComponenteMAFnc}
-            noComponentes={noComponentes}
-            MA={MA}
-            MIR={MIR}
-          ></TabComponenteMA>
+          <Grid
+            sx={{
+              //width: "93vw",
+              width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],
+              height: "82vh",
+              //justifyContent: "center",
+              borderRadius: 5,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <TabFinPropositoMA
+              MA={MA}
+              MIR={MIR}
+              setTxtShowFnc={showFnc}
+              show={value === 20 ? true : false}
+              resumenFinMa={resumenFinMa}
+              resumenPropositoMa={resumenPropositoMa}
+              showMirFnc={showMirFnc}
+            ></TabFinPropositoMA>
 
-          <TabActividadesMA
-            setTxtShowFnc={showFnc}
-            showMirFnc={showMirFnc}
-            compAct={compAct}
-            show={value === 40 ? true : false}
-            componentes={noComponentes}
-            asignarCValor={asignarCValorMA}
-            MA={MA}
-            MIR={MIR}
-          ></TabActividadesMA>
+            <TabComponenteMA
+              setTxtShowFnc={showFnc}
+              showMirFnc={showMirFnc}
+              show={value === 30 ? true : false}
+              valoresComponenteMAFnc={valoresComponenteMAFnc}
+              noComponentes={noComponentes}
+              MA={MA}
+              MIR={MIR}
+            ></TabComponenteMA>
 
-          <TabResumenMA
-            show={value === 50 ? true : false}
-            componentes={noComponentes}
-            componenteValor={valoresComponenteMA}
-            cValor={cValorMA}
-            fin={ValueFin}
-            proposito={ValueProposito}
-            IdMir={IdMir}
-            IdMA={IdMA}
-            showResume={showResume}
-            MIR={MIR}
-          ></TabResumenMA>
+            <TabActividadesMA
+              setTxtShowFnc={showFnc}
+              showMirFnc={showMirFnc}
+              compAct={compAct}
+              show={value === 40 ? true : false}
+              componentes={noComponentes}
+              asignarCValor={asignarCValorMA}
+              MA={MA}
+              MIR={MIR}
+            ></TabActividadesMA>
 
-          <TabResumenMIR
-            show={showMir}
-            showMirFnc={showMirFnc}
-            showSt={showSt}
-            MIR={MIR}
-            noComponentes={noComponentes}
-          ></TabResumenMIR>
+            <TabResumenMA
+              show={value === 50 ? true : false}
+              componentes={noComponentes}
+              componenteValor={valoresComponenteMA}
+              cValor={cValorMA}
+              fin={ValueFin}
+              proposito={ValueProposito}
+              IdMir={IdMir}
+              IdMA={IdMA}
+              showResume={showResume}
+              MIR={MIR}
+            ></TabResumenMA>
+
+            <TabResumenMIR
+              show={showMir}
+              showMirFnc={showMirFnc}
+              showSt={showSt}
+              MIR={MIR}
+              noComponentes={noComponentes}
+            ></TabResumenMIR>
+          </Grid>
         </Grid>
-        
       </Grid>
-     
     </Grid>
   );
 }

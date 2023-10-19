@@ -349,12 +349,12 @@ export const MIR = () => {
     prog: string,
     mir: string
   ) => {
-    console.log("entre:",JSON.parse(mir));
+    console.log("entre:", JSON.parse(mir));
     axios
 
       .post(
         //process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
-       "http://192.168.137.152:7001/api/fill_mir",
+        "http://192.168.137.152:7001/api/fill_mir",
         JSON.parse(mir),
 
         {
@@ -448,7 +448,7 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container sx={{ justifyContent: "space-between", }}>
+    <Grid container sx={{ justifyContent: "space-between" }}>
       <Grid
         item
         xl={12}
@@ -457,7 +457,7 @@ export const MIR = () => {
         sm={12}
         xs={12}
         // height={"7vh"}
-        sx={{ height: "7vh", whitespace: "nowrap", }}
+        sx={{ height: "7vh", whitespace: "nowrap" }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
@@ -469,7 +469,7 @@ export const MIR = () => {
         // display={"flex"}
         // height={"93vh"}
         // alignItems={"center"}
-       
+
         container
         item
         xl={12}
@@ -483,7 +483,6 @@ export const MIR = () => {
           display: "flex",
           height: "90vh",
           alignItems: "center",
-          
         }}
       >
         {showResume ? (
@@ -676,6 +675,8 @@ export const MIR = () => {
                 xl={12}
                 lg={12}
                 md={12}
+                sm={12}
+                xs={12}
                 container
                 // direction="row"
                 // justifyContent="space-around"
@@ -727,7 +728,31 @@ export const MIR = () => {
                       aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
-                      <SearchIcon />
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+
+                          "@media (max-width: 600px)": {
+                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                          },
+
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 25, // Pantalla pequeña (md)
+                          },
+
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 30, // Pantalla mediana (lg)
+                          },
+
+                          "@media (min-width: 1281px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+
+                          "@media (min-width: 2200px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+                        }}
+                      />
                     </IconButton>
                   </Paper>
                 </Grid>
@@ -1062,7 +1087,8 @@ export const MIR = () => {
                                       validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Verificador") ||
-                                    ((row.Estado === "En Autorización" || row.Estado ==="Autorizada") &&
+                                    ((row.Estado === "En Autorización" ||
+                                      row.Estado === "Autorizada") &&
                                       validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador") ||

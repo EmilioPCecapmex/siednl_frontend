@@ -9,6 +9,7 @@ import {
   FormControl,
   Autocomplete,
   Tooltip,
+  useMediaQuery,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { IFinMA } from "./IFin";
@@ -20,7 +21,7 @@ import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import axios from "axios";
 
 export function TabFinPropositoMA({
- show,
+  show,
   resumenFinMa,
   resumenPropositoMa,
   showMirFnc,
@@ -92,7 +93,7 @@ export function TabFinPropositoMA({
   useEffect(() => {
     resumenFinMa(valueFin);
     resumenPropositoMa(valueProposito);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueFin, valueProposito]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
@@ -235,7 +236,7 @@ export function TabFinPropositoMA({
   const style = {
     fontFamily: "MontserratSemiBold",
     fontSize: "14px", // Tamaño de fuente predeterminado
-  
+
     // Media queries definidas como objetos separados y combinadas con merge
     "@media (max-width: 600px)": {
       fontSize: 12, // Tamaño de fuente para pantallas pequeñas
@@ -254,11 +255,12 @@ export function TabFinPropositoMA({
     },
   };
 
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
   return (
     <Grid
-     visibility={show ? "visible" : "hidden"}
+      visibility={show ? "visible" : "hidden"}
       position="absolute"
-
       sx={{
         display: "flex",
         width: "93vw",
@@ -267,6 +269,7 @@ export function TabFinPropositoMA({
         borderRadius: 5,
         flexDirection: "column",
         backgroundColor: "#fff",
+        overflow: "auto",
       }}
     >
       <FormulaDialogMA
@@ -277,7 +280,8 @@ export function TabFinPropositoMA({
         elemento={elementoFormula}
         MIR={MIR}
       />
-      {showFin || showProposito ? (
+
+      {!isSmallScreen ? (
         <Grid
           sx={{
             width: "100%",
@@ -308,17 +312,7 @@ export function TabFinPropositoMA({
             {showProposito ? "PROPÓSITO" : null}
           </Typography>
         </Grid>
-      ) : (
-        <Grid
-          sx={{
-            width: "100%",
-            display: "flex",
-            height: "7vh",
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        ></Grid>
-      )}
+      ) : null}
 
       <Grid
         sx={{
@@ -327,220 +321,217 @@ export function TabFinPropositoMA({
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "95%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          <Grid
+        {!isSmallScreen && (
+          <List
             sx={{
+              width: "15vw",
+              height: "95%",
+              borderRight: "solid",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-            }}
-          >
-            <Divider />
-            <ListItemButton
-              selected={showFin}
-              onClick={() => {
-                setShowFin(true);
-                setShowProposito(false);
-              }}
-              sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18] }}
-              >
-                FIN
-              </Typography>
-            </ListItemButton>
-            <Divider />
-          </Grid>
-
-          <Grid
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <ListItemButton
-              selected={showProposito}
-              onClick={() => {
-                setShowProposito(true);
-                setShowFin(false);
-              }}
-              sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18] }}
-              >
-                PROPÓSITO
-              </Typography>
-            </ListItemButton>
-            <Divider />
-          </Grid>
-        </List>
-
-        {showFin ? (
-          <Grid
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "90%",
-              alignItems: "center",
-              justifyContent: "center",
+              borderColor: "#BCBCBC",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
             }}
           >
             <Grid
               sx={{
                 display: "flex",
-                width: "100%",
-                height: "33%",
-                alignItems: "center",
-                justifyContent: "space-evenly",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              <TextField
-                disabled={
-                  MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== ""
-                }
+              <Divider />
+              <ListItemButton
+                selected={showFin}
+                onClick={() => {
+                  setShowFin(true);
+                  setShowProposito(false);
+                }}
                 sx={{
-                  width: "18%",
-                  boxShadow: 2,
-                  fontSize: [10, 10, 10, 15, 15, 18],
+                  height: "7vh",
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
                 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [10, 10, 10, 15, 15, 18],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    META ANUAL 2023
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
+              >
+                <Typography
+                  sx={{
                     fontFamily: "MontserratMedium",
-                  },
+                    fontSize: [10, 10, 10, 13, 15, 18],
+                  }}
+                >
+                  FIN
+                </Typography>
+              </ListItemButton>
+              <Divider />
+            </Grid>
+
+            <Grid
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <ListItemButton
+                selected={showProposito}
+                onClick={() => {
+                  setShowProposito(true);
+                  setShowFin(false);
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onClick={() =>
-                  MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== ""
-                    ? ""
-                    : handleClickOpen()
-                }
-                value={valueFin[0]?.metaAnual || ""}
-                error={parseFloat(valueFin[0]?.metaAnual) < 0 ? true : false}
-                helperText={
-                  parseFloat(valueFin[0]?.metaAnual) < 0
-                    ? "Meta Anual debe ser valor mayor que 0"
-                    : null
-                }
-              />
-              <TextField
-                disabled={
-                  MAEdit?.fin?.lineaBase && valueFin[0].lineaBase !== ""
-                }
                 sx={{
-                  width: "18%",
-                  boxShadow: 2,
-                  fontSize: [10, 10, 10, 15, 15, 18],
+                  height: "7vh",
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
                 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [10, 10, 10, 15, 15, 18],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    LÍNEA BASE 2021
-                  </Typography>
-                }
-                error={
-                  parseFloat(valueFin[0].lineaBase) < 0 ||
-                  (isNaN(parseFloat(valueFin[0].lineaBase)) &&
-                    valueFin[0].lineaBase !== "")
-                    ? true
-                    : false
-                }
-                helperText={
-                  parseFloat(valueFin[0].lineaBase) < 0 ||
-                  (isNaN(parseFloat(valueFin[0].lineaBase)) &&
-                    valueFin[0].lineaBase !== "")
-                    ? "Introducir valor mayor que 0"
-                    : null
-                }
-                InputLabelProps={{
-                  style: {
+              >
+                <Typography
+                  sx={{
                     fontFamily: "MontserratMedium",
-                  },
+                    fontSize: [10, 10, 10, 13, 15, 18],
+                  }}
+                >
+                  PROPÓSITO
+                </Typography>
+              </ListItemButton>
+              <Divider />
+            </Grid>
+          </List>
+        )}
+
+        {showFin ? (
+          <>
+            <Grid
+              item
+              container
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                "& > .MuiGrid-item": {
+                  marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+                },
+              }}
+            >
+              {isSmallScreen && (
+                <Grid>
+                  <List>
+                    <Divider />
+                    <ListItemButton
+                      selected={showFin}
+                      onClick={() => {
+                        setShowFin(true);
+                        setShowProposito(false);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                          fontSize: [10, 10, 10, 13, 15, 18],
+                        }}
+                      >
+                        FIN
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+
+                    <Grid
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <ListItemButton
+                        selected={showProposito}
+                        onClick={() => {
+                          setShowProposito(true);
+                          setShowFin(false);
+                        }}
+                        sx={{
+                          height: "7vh",
+                          "&.Mui-selected ": {
+                            backgroundColor: "#c4a57b",
+                          },
+                          "&.Mui-selected:hover": {
+                            backgroundColor: "#cbcbcb",
+                          },
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontFamily: "MontserratMedium",
+                            fontSize: [10, 10, 10, 13, 15, 18],
+                          }}
+                        >
+                          PROPÓSITO
+                        </Typography>
+                      </ListItemButton>
+                      <Divider />
+                    </Grid>
+                  </List>
+                </Grid>
+              )}
+
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueFin[0].lineaBase = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setValueFin([...valueFin]);
-                }}
-                value={valueFin[0]?.lineaBase || ""}
-              />
-              {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
-              JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
+              >
                 <TextField
                   disabled={
-                    MAEdit?.fin?.valorNumerador &&
-                    valueFin[0].valorNumerador !== ""
+                    MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== ""
                   }
-                  sx={{ width: "18%" , fontSize: [10, 10, 10, 15, 15, 18], boxShadow: 2 }}
+                  sx={{
+                    boxShadow: 2,
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                  }}
                   variant={"filled"}
                   label={
                     <Typography
-                      sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
                     >
-                      ÍNDICE
+                      META ANUAL 2023
                     </Typography>
                   }
                   InputLabelProps={{
@@ -554,21 +545,165 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onClick={() =>
-                    MAEdit?.fin?.valorNumerador &&
-                    valueFin[0].valorNumerador !== ""
+                    MAEdit?.fin?.metaAnual && valueFin[0].metaAnual !== ""
                       ? ""
                       : handleClickOpen()
                   }
-                  value={valueFin[0]?.valorNumerador || ""}
+                  value={valueFin[0]?.metaAnual || ""}
+                  error={parseFloat(valueFin[0]?.metaAnual) < 0 ? true : false}
+                  helperText={
+                    parseFloat(valueFin[0]?.metaAnual) < 0
+                      ? "Meta Anual debe ser valor mayor que 0"
+                      : null
+                  }
                 />
-              ) : (
-                <Grid sx={{ width: "45%" }}>
+              </Grid>
+
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  disabled={
+                    MAEdit?.fin?.lineaBase && valueFin[0].lineaBase !== ""
+                  }
+                  sx={{
+                    boxShadow: 2,
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                  }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      LÍNEA BASE 2021
+                    </Typography>
+                  }
+                  error={
+                    parseFloat(valueFin[0].lineaBase) < 0 ||
+                    (isNaN(parseFloat(valueFin[0].lineaBase)) &&
+                      valueFin[0].lineaBase !== "")
+                      ? true
+                      : false
+                  }
+                  helperText={
+                    parseFloat(valueFin[0].lineaBase) < 0 ||
+                    (isNaN(parseFloat(valueFin[0].lineaBase)) &&
+                      valueFin[0].lineaBase !== "")
+                      ? "Introducir valor mayor que 0"
+                      : null
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    valueFin[0].lineaBase = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setValueFin([...valueFin]);
+                  }}
+                  value={valueFin[0]?.lineaBase || ""}
+                />
+              </Grid>
+
+              {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
+                <Grid
+                  item
+                  xl={3}
+                  lg={3}
+                  md={2}
+                  sm={2}
+                  xs={12}
+                  sx={{
+                    alignContent: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
                   <TextField
                     disabled={
                       MAEdit?.fin?.valorNumerador &&
                       valueFin[0].valorNumerador !== ""
                     }
-                    sx={{ width: "45%", boxShadow: 2, mr: "2%",fontSize: [10, 10, 10, 15, 15, 18], }}
+                    sx={{
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                      boxShadow: 2,
+                    }}
+                    variant={"filled"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 10, 15, 15, 18],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        ÍNDICE
+                      </Typography>
+                    }
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratMedium",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onClick={() =>
+                      MAEdit?.fin?.valorNumerador &&
+                      valueFin[0].valorNumerador !== ""
+                        ? ""
+                        : handleClickOpen()
+                    }
+                    value={valueFin[0]?.valorNumerador || ""}
+                  />
+                </Grid>
+              ) : (
+                <Grid
+                  item
+                  xl={3}
+                  lg={3}
+                  md={2}
+                  sm={2}
+                  xs={12}
+                  sx={{
+                    alignContent: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <TextField
+                    disabled={
+                      MAEdit?.fin?.valorNumerador &&
+                      valueFin[0].valorNumerador !== ""
+                    }
+                    sx={{
+                      boxShadow: 2,
+                      //mr: "2%",
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
                     variant={"filled"}
                     label={
                       <Typography
@@ -603,7 +738,10 @@ export function TabFinPropositoMA({
                       MAEdit?.fin?.valorDenominador &&
                       valueFin[0].valorDenominador !== ""
                     }
-                    sx={{ width: "45%", boxShadow: 2,fontSize: [10, 10, 10, 15, 15, 18], }}
+                    sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
                     variant={"filled"}
                     label={
                       <Typography
@@ -636,117 +774,130 @@ export function TabFinPropositoMA({
                 </Grid>
               )}
 
-              <FormControl
-                disabled={
-                  MAEdit?.fin?.sentidoDelIndicador &&
-                  valueFin[0].sentidoDelIndicador !== ""
-                }
-                sx={{
-                  width: "15%",
-                  height: "80%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 6,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "flex-start",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 10, 11, 12, 13],
-                  }}
-                >
-                  SENTIDO DEL INDICADOR
-                </FormLabel>
-                <FormControlLabel
-                  value={"ASCENDENTE"}
-                  label={
-                    <Typography
-                      sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
-                    >
-                      ASCENDENTE
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        valueFin[0]?.sentidoDelIndicador === "ASCENDENTE"
-                      }
-                      onChange={(c) => {
-                        valueFin[0].sentidoDelIndicador = c.target.value;
-                        setValueFin([...valueFin]);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"DESCENDENTE"}
-                  label={
-                    <Typography
-                      sx={{  fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
-                    >
-                      DESCENDENTE
-                    </Typography>
-                  }
-                  control={
-                    <Radio
-                      checked={
-                        valueFin[0]?.sentidoDelIndicador === "DESCENDENTE"
-                      }
-                      onChange={(c) => {
-                        valueFin[0].sentidoDelIndicador = c.target.value;
-                        setValueFin([...valueFin]);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"NORMAL"}
-                  label={
-                    <Typography
-                      sx={{  fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
-                    >
-                      NORMAL
-                    </Typography>
-                  }
-                  control={
-                    <Radio
-                      checked={valueFin[0]?.sentidoDelIndicador === "NORMAL"}
-                      onChange={(c) => {
-                        valueFin[0].sentidoDelIndicador = c.target.value;
-                        setValueFin([...valueFin]);
-                      }}
-                    />
-                  }
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid
-              sx={{
-                display: "flex",
-                width: "100%",
-                height: "50%",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-              }}
-            >
               <Grid
+                item
+                xl={3}
+                lg={3}
+                md={4}
+                sm={4}
+                xs={12}
                 sx={{
+                  alignContent: "center",
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
-                  boxShadow: 2,
-                  width: "40%",
-                  height: "12vh",
-                  backgroundColor: "#f0f0f0",
                 }}
               >
-                <FormControl sx={{ width: "25vw",  }}>
+                <FormControl
+                  disabled={
+                    MAEdit?.fin?.sentidoDelIndicador &&
+                    valueFin[0].sentidoDelIndicador !== ""
+                  }
+                  sx={{
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 6,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 10, 11, 12, 13],
+                    }}
+                  >
+                    SENTIDO DEL INDICADOR
+                  </FormLabel>
+                  <FormControlLabel
+                    value={"ASCENDENTE"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 10, 11, 12, 13],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        ASCENDENTE
+                      </Typography>
+                    }
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                    }}
+                    control={
+                      <Radio
+                        checked={
+                          valueFin[0]?.sentidoDelIndicador === "ASCENDENTE"
+                        }
+                        onChange={(c) => {
+                          valueFin[0].sentidoDelIndicador = c.target.value;
+                          setValueFin([...valueFin]);
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"DESCENDENTE"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 10, 11, 12, 13],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        DESCENDENTE
+                      </Typography>
+                    }
+                    control={
+                      <Radio
+                        checked={
+                          valueFin[0]?.sentidoDelIndicador === "DESCENDENTE"
+                        }
+                        onChange={(c) => {
+                          valueFin[0].sentidoDelIndicador = c.target.value;
+                          setValueFin([...valueFin]);
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NORMAL"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 10, 11, 12, 13],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NORMAL
+                      </Typography>
+                    }
+                    control={
+                      <Radio
+                        checked={valueFin[0]?.sentidoDelIndicador === "NORMAL"}
+                        onChange={(c) => {
+                          valueFin[0].sentidoDelIndicador = c.target.value;
+                          setValueFin([...valueFin]);
+                        }}
+                      />
+                    }
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xl={2}
+                lg={2}
+                md={4}
+                sm={4}
+                xs={11}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -768,7 +919,7 @@ export function TabFinPropositoMA({
                           <p
                             style={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              //fontSize: ".7vw",
                             }}
                           >
                             {option.Nombre}
@@ -784,12 +935,12 @@ export function TabFinPropositoMA({
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: "1vw",
+                            //fontSize: "1vw",
                           },
                         }}
                         sx={{
                           fontFamily: "MontserratRegular",
-                          fontSize: [10, 10, 10, 13, 15, 18]
+                          fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       ></TextField>
                     )}
@@ -805,248 +956,286 @@ export function TabFinPropositoMA({
                 </FormControl>{" "}
               </Grid>
 
-              <TextField
-                disabled={
-                  MAEdit?.fin?.descIndicador && valueFin[0].descIndicador !== ""
-                }
-                rows={5}
-                multiline
-                sx={{ width: "40%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    DESCRIPCIÓN DEL INDICADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueFin[0].descIndicador = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setValueFin([...valueFin]);
-                }}
-                value={valueFin[0]?.descIndicador || ""}
-              />
-            </Grid>
-            <Grid
-              sx={{
-                display: "flex",
-                width: "100%",
-                height: "30%",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <TextField
-                disabled={
-                  MAEdit?.fin?.descNumerador && valueFin[0].descNumerador !== ""
-                }
-                rows={5}
-                multiline
-                sx={{ width: "40%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    DESCRIPCIÓN DEL NUMERADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueFin[0].descNumerador = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setValueFin([...valueFin]);
-                }}
-                value={valueFin[0]?.descNumerador || ""}
-              />
-              <TextField
-                disabled={
-                  MAEdit?.fin?.descDenominador &&
-                  valueFin[0].descDenominador !== ""
-                }
-                rows={5}
-                multiline
-                sx={{ width: "40%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    DESCRIPCIÓN DEL DENOMINADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueFin[0].descDenominador = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setValueFin([...valueFin]);
-                }}
-                value={valueFin[0]?.descDenominador || ""}
-              />
-            </Grid>
-          </Grid>
-        ) : null}
 
-        {showProposito ? (
-          <Grid
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "90%",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Grid
-              sx={{
-                display: "flex",
-                width: "100%",
-                height: "33%",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <TextField
-                disabled={
-                  MAEdit?.proposito?.metaAnual &&
-                  valueProposito[0].metaAnual !== ""
-                }
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    META ANUAL 2023
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onClick={() =>
-                  MAEdit?.proposito?.metaAnual &&
-                  valueProposito[0].metaAnual !== ""
-                    ? ""
-                    : handleClickOpen()
-                }
-                value={valueProposito[0]?.metaAnual || ""}
-                error={
-                  parseFloat(valueProposito[0]?.metaAnual) < 0 ? true : false
-                }
-                helperText={
-                  parseFloat(valueProposito[0]?.metaAnual) < 0
-                    ? "Meta Anual debe ser valor mayor que 0"
-                    : null
-                }
-              />
-              <TextField
-                disabled={
-                  MAEdit?.proposito?.lineaBase &&
-                  valueProposito[0].lineaBase !== ""
-                }
-                sx={{width: "18%",  fontSize: [10, 10, 10, 13, 15, 18], boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    LÍNEA BASE 2021
-                  </Typography>
-                }
-                error={
-                  parseFloat(valueProposito[0].lineaBase) < 0 ||
-                  (isNaN(parseFloat(valueProposito[0].lineaBase)) &&
-                    valueProposito[0].lineaBase !== "")
-                    ? true
-                    : false
-                }
-                helperText={
-                  parseFloat(valueProposito[0].lineaBase) < 0 ||
-                  (isNaN(parseFloat(valueProposito[0].lineaBase)) &&
-                    valueProposito[0].lineaBase !== "")
-                    ? "Introducir valor mayor que 0"
-                    : null
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueProposito[0].lineaBase = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setValueProposito([...valueProposito]);
-                }}
-                value={valueProposito[0]?.lineaBase || ""}
-              />
-
-              {JSON.parse(MIR)
-                .proposito.indicador.toLowerCase()
-                .includes("indice") ||
-              JSON.parse(MIR)
-                .proposito.indicador.toLowerCase()
-                .includes("índice") ? (
+              >
                 <TextField
                   disabled={
-                    MAEdit?.proposito?.valorNumerador &&
-                    valueProposito[0].valorNumerador !== ""
+                    MAEdit?.fin?.descIndicador &&
+                    valueFin[0].descIndicador !== ""
                   }
-                  sx={{width: "18%",   boxShadow: 2 }}
+                  rows={5}
+                  multiline
+                  sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   label={
                     <Typography
-                      sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
+                      sx={{
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
                     >
-                      ÍNDICE
+                      DESCRIPCIÓN DEL INDICADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    valueFin[0].descIndicador = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setValueFin([...valueFin]);
+                  }}
+                  value={valueFin[0]?.descIndicador || ""}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  disabled={
+                    MAEdit?.fin?.descNumerador &&
+                    valueFin[0].descNumerador !== ""
+                  }
+                  rows={5}
+                  multiline
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      DESCRIPCIÓN DEL NUMERADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    valueFin[0].descNumerador = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setValueFin([...valueFin]);
+                  }}
+                  value={valueFin[0]?.descNumerador || ""}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  disabled={
+                    MAEdit?.fin?.descDenominador &&
+                    valueFin[0].descDenominador !== ""
+                  }
+                  rows={5}
+                  multiline
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      DESCRIPCIÓN DEL DENOMINADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    valueFin[0].descDenominador = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setValueFin([...valueFin]);
+                  }}
+                  value={valueFin[0]?.descDenominador || ""}
+                />
+              </Grid>
+              
+            </Grid>
+          </>
+        ) : null}
+
+        {showProposito ? (
+          <>
+            <Grid
+              item
+              container
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                "& > .MuiGrid-item": {
+                  marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+                },
+              }}
+            >
+              {isSmallScreen && (
+                <Grid>
+                  <List>
+                    <Divider />
+                    <ListItemButton
+                      selected={showFin}
+                      onClick={() => {
+                        setShowFin(true);
+                        setShowProposito(false);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                          fontSize: [10, 10, 10, 13, 15, 18],
+                        }}
+                      >
+                        FIN
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+
+                    <Grid
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <ListItemButton
+                        selected={showProposito}
+                        onClick={() => {
+                          setShowProposito(true);
+                          setShowFin(false);
+                        }}
+                        sx={{
+                          height: "7vh",
+                          "&.Mui-selected ": {
+                            backgroundColor: "#c4a57b",
+                          },
+                          "&.Mui-selected:hover": {
+                            backgroundColor: "#cbcbcb",
+                          },
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontFamily: "MontserratMedium",
+                            fontSize: [10, 10, 10, 13, 15, 18],
+                          }}
+                        >
+                          PROPÓSITO
+                        </Typography>
+                      </ListItemButton>
+                      <Divider />
+                    </Grid>
+                  </List>
+                </Grid>
+              )}
+
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  disabled={
+                    MAEdit?.proposito?.metaAnual &&
+                    valueProposito[0].metaAnual !== ""
+                  }
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      META ANUAL 2023
                     </Typography>
                   }
                   InputLabelProps={{
@@ -1060,21 +1249,173 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onClick={() =>
-                    MAEdit?.proposito?.valorNumerador &&
-                    valueProposito[0].valorNumerador !== ""
+                    MAEdit?.proposito?.metaAnual &&
+                    valueProposito[0].metaAnual !== ""
                       ? ""
                       : handleClickOpen()
                   }
-                  value={valueProposito[0]?.valorNumerador || ""}
+                  value={valueProposito[0]?.metaAnual || ""}
+                  error={
+                    parseFloat(valueProposito[0]?.metaAnual) < 0 ? true : false
+                  }
+                  helperText={
+                    parseFloat(valueProposito[0]?.metaAnual) < 0
+                      ? "Meta Anual debe ser valor mayor que 0"
+                      : null
+                  }
                 />
-              ) : (
-                <Grid sx={{ width: "45%" }}>
+              </Grid>
+
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  disabled={
+                    MAEdit?.proposito?.lineaBase &&
+                    valueProposito[0].lineaBase !== ""
+                  }
+                  sx={{
+                    fontSize: [10, 10, 10, 13, 15, 18],
+                    boxShadow: 2,
+                  }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      LÍNEA BASE 2021
+                    </Typography>
+                  }
+                  error={
+                    parseFloat(valueProposito[0].lineaBase) < 0 ||
+                    (isNaN(parseFloat(valueProposito[0].lineaBase)) &&
+                      valueProposito[0].lineaBase !== "")
+                      ? true
+                      : false
+                  }
+                  helperText={
+                    parseFloat(valueProposito[0].lineaBase) < 0 ||
+                    (isNaN(parseFloat(valueProposito[0].lineaBase)) &&
+                      valueProposito[0].lineaBase !== "")
+                      ? "Introducir valor mayor que 0"
+                      : null
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    valueProposito[0].lineaBase = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setValueProposito([...valueProposito]);
+                  }}
+                  value={valueProposito[0]?.lineaBase || ""}
+                />
+              </Grid>
+
+              {JSON.parse(MIR)
+                .proposito.indicador.toLowerCase()
+                .includes("indice") ||
+              JSON.parse(MIR)
+                .proposito.indicador.toLowerCase()
+                .includes("índice") ? (
+                <Grid
+                  item
+                  xl={3}
+                  lg={3}
+                  md={2}
+                  sm={2}
+                  xs={12}
+                  sx={{
+                    alignContent: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
                   <TextField
                     disabled={
                       MAEdit?.proposito?.valorNumerador &&
                       valueProposito[0].valorNumerador !== ""
                     }
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], width: "45%", boxShadow: 2, mr: "2%" }}
+                    sx={{
+                      boxShadow: 2,
+                    }}
+                    variant={"filled"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 10, 13, 15, 18],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        ÍNDICE
+                      </Typography>
+                    }
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratMedium",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    onClick={() =>
+                      MAEdit?.proposito?.valorNumerador &&
+                      valueProposito[0].valorNumerador !== ""
+                        ? ""
+                        : handleClickOpen()
+                    }
+                    value={valueProposito[0]?.valorNumerador || ""}
+                  />
+                </Grid>
+              ) : (
+                <Grid
+                  item
+                  xl={3}
+                  lg={3}
+                  md={2}
+                  sm={2}
+                  xs={12}
+                  sx={{
+                    alignContent: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <TextField
+                    disabled={
+                      MAEdit?.proposito?.valorNumerador &&
+                      valueProposito[0].valorNumerador !== ""
+                    }
+                    sx={{
+                      fontSize: [10, 10, 10, 13, 15, 18],
+                      width: "45%",
+                      boxShadow: 2,
+                      mr: "2%",
+                    }}
                     variant={"filled"}
                     label={
                       <Typography
@@ -1142,195 +1483,137 @@ export function TabFinPropositoMA({
                 </Grid>
               )}
 
-              <FormControl
-                disabled={
-                  MAEdit?.proposito?.sentidoDelIndicador &&
-                  valueProposito[0].sentidoDelIndicador !== ""
-                }
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={4}
+                sm={4}
+                xs={12}
                 sx={{
-                  width: "15%",
-                  height: "80%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 6,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "flex-start",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 10, 11, 12, 13]
-                  }}
-                >
-                  SENTIDO DEL INDICADOR
-                </FormLabel>
-                <FormControlLabel
-                  value={"ASCENDENTE"}
-                  label={
-                    <Typography
-                      sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
-                    >
-                      ASCENDENTE
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        valueProposito[0]?.sentidoDelIndicador === "ASCENDENTE"
-                      }
-                      onChange={(c) => {
-                        valueProposito[0].sentidoDelIndicador = c.target.value;
-                        setValueProposito([...valueProposito]);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"DESCENDENTE"}
-                  label={
-                    <Typography
-                      sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
-                    >
-                      DESCENDENTE
-                    </Typography>
-                  }
-                  control={
-                    <Radio
-                      checked={
-                        valueProposito[0]?.sentidoDelIndicador === "DESCENDENTE"
-                      }
-                      onChange={(c) => {
-                        valueProposito[0].sentidoDelIndicador = c.target.value;
-                        setValueProposito([...valueProposito]);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"NORMAL"}
-                  label={
-                    <Typography
-                      sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
-                    >
-                      NORMAL
-                    </Typography>
-                  }
-                  control={
-                    <Radio
-                      checked={
-                        valueProposito[0]?.sentidoDelIndicador === "NORMAL"
-                      }
-                      onChange={(c) => {
-                        valueProposito[0].sentidoDelIndicador = c.target.value;
-                        setValueProposito([...valueProposito]);
-                      }}
-                    />
-                  }
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid
-              sx={{
-                display: "flex",
-                width: "100%",
-                height: "50%",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-              }}
-            >
-              {/* <Grid
-                sx={{
+                  alignContent: "center",
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
-                  boxShadow: 2,
-                  width: "40%",
-                  height: "12vh",
-                  backgroundColor: "#f0f0f0",
                 }}
               >
                 <FormControl
                   disabled={
-                    MAEdit?.proposito?.unidadResponsable &&
-                    valueProposito[0].unidadResponsable !== ""
+                    MAEdit?.proposito?.sentidoDelIndicador &&
+                    valueProposito[0].sentidoDelIndicador !== ""
                   }
-                  sx={{ width: "25vw" }}
+                  sx={{
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 6,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "flex-start",
+                  }}
                 >
-                  <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-            disabled={
-              MAEdit?.proposito?.unidadResponsable &&
-              valueProposito[0].unidadResponsable !== ""
-            }
-                    options={catalogoUnidadResponsable}
-                    getOptionLabel={(option) => option.Nombre}
-                    value={{
-                      Id: catalogoUnidadResponsable[0].Id || "",
-                      Nombre: valueFin[0].unidadResponsable || "",
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 10, 11, 12, 13],
                     }}
-                    renderOption={(props: any, option: any) => {
-                      return (
-                        <li {...props} key={option.Id}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option.Unidad}
-                          </p>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"UNIDAD RESPONSABLE"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".7vw",
-                          },
-                        }}
+                  >
+                    SENTIDO DEL INDICADOR
+                  </FormLabel>
+                  <FormControlLabel
+                    value={"ASCENDENTE"}
+                    label={
+                      <Typography
                         sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
+                          fontSize: [10, 10, 10, 11, 12, 13],
+                          fontFamily: "MontserratMedium",
                         }}
-                      ></TextField>
-                    )}
-                    onChange={(event, value) => {
-                      valueProposito[0].unidadResponsable =
-                        (value?.Nombre as string) || "";
-                      setValueProposito([...valueProposito]);
+                      >
+                        ASCENDENTE
+                      </Typography>
+                    }
+                    sx={{
+                      fontFamily: "MontserratMedium",
                     }}
-                    isOptionEqualToValue={(option, value) =>
-                      option.Id === value.Id
+                    control={
+                      <Radio
+                        checked={
+                          valueProposito[0]?.sentidoDelIndicador ===
+                          "ASCENDENTE"
+                        }
+                        onChange={(c) => {
+                          valueProposito[0].sentidoDelIndicador =
+                            c.target.value;
+                          setValueProposito([...valueProposito]);
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"DESCENDENTE"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 10, 11, 12, 13],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        DESCENDENTE
+                      </Typography>
+                    }
+                    control={
+                      <Radio
+                        checked={
+                          valueProposito[0]?.sentidoDelIndicador ===
+                          "DESCENDENTE"
+                        }
+                        onChange={(c) => {
+                          valueProposito[0].sentidoDelIndicador =
+                            c.target.value;
+                          setValueProposito([...valueProposito]);
+                        }}
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    value={"NORMAL"}
+                    label={
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 10, 11, 12, 13],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        NORMAL
+                      </Typography>
+                    }
+                    control={
+                      <Radio
+                        checked={
+                          valueProposito[0]?.sentidoDelIndicador === "NORMAL"
+                        }
+                        onChange={(c) => {
+                          valueProposito[0].sentidoDelIndicador =
+                            c.target.value;
+                          setValueProposito([...valueProposito]);
+                        }}
+                      />
                     }
                   />
                 </FormControl>
-              </Grid> */}
+              </Grid>
+
               <Grid
+                item
+                xl={2}
+                lg={2}
+                md={4}
+                sm={4}
+                xs={11}
                 sx={{
+                  alignContent: "center",
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
-                  boxShadow: 2,
-                  width: "40%",
-                  height: "12vh",
-                  backgroundColor: "#f0f0f0",
                 }}
               >
-                <FormControl sx={{ width: "25vw", fontSize: [10, 10, 10, 13, 15, 18] }}>
+                <FormControl required fullWidth >
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -1352,7 +1635,7 @@ export function TabFinPropositoMA({
                           <p
                             style={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                             
                             }}
                           >
                             {option.Nombre}
@@ -1368,15 +1651,12 @@ export function TabFinPropositoMA({
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-                            fontSize: "1vw",
+                            
                           },
                         }}
                         sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                            fontSize: [10, 10, 10, 13, 15, 18]
-                          },
-                          
+                          fontFamily: "MontserratRegular",
+                          fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       ></TextField>
                     )}
@@ -1393,123 +1673,165 @@ export function TabFinPropositoMA({
                 </FormControl>{" "}
               </Grid>
 
-              <TextField
-                disabled={
-                  MAEdit?.proposito?.descIndicador &&
-                  valueProposito[0].descIndicador !== ""
-                }
-                rows={5}
-                multiline
-                sx={{ width: "40%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    DESCRIPCIÓN DEL INDICADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
+              >
+                <TextField
+                  disabled={
+                    MAEdit?.proposito?.descIndicador &&
+                    valueProposito[0].descIndicador !== ""
+                  }
+                  rows={5}
+                  multiline
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      DESCRIPCIÓN DEL INDICADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    valueProposito[0].descIndicador = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setValueProposito([...valueProposito]);
+                  }}
+                  value={valueProposito[0]?.descIndicador || ""}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                onChange={(c) => {
-                  valueProposito[0].descIndicador = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setValueProposito([...valueProposito]);
+              >
+                <TextField
+                  disabled={
+                    MAEdit?.proposito?.descNumerador &&
+                    valueProposito[0].descNumerador !== ""
+                  }
+                  rows={5}
+                  multiline
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      DESCRIPCIÓN DEL NUMERADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    valueProposito[0].descNumerador = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setValueProposito([...valueProposito]);
+                  }}
+                  value={valueProposito[0]?.descNumerador || ""}
+                />
+              </Grid>
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={2}
+                sm={2}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                value={valueProposito[0]?.descIndicador || ""}
-              />
+              >
+                <TextField
+                  disabled={
+                    MAEdit?.proposito?.descDenominador &&
+                    valueProposito[0].descDenominador !== ""
+                  }
+                  rows={5}
+                  multiline
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      DESCRIPCIÓN DEL DENOMINADOR
+                    </Typography>
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  onChange={(c) => {
+                    valueProposito[0].descDenominador = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setValueProposito([...valueProposito]);
+                  }}
+                  value={valueProposito[0]?.descDenominador || ""}
+                />
+              </Grid>
             </Grid>
-            <Grid
-              sx={{
-                display: "flex",
-                width: "100%",
-                height: "30%",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <TextField
-                disabled={
-                  MAEdit?.proposito?.descNumerador &&
-                  valueProposito[0].descNumerador !== ""
-                }
-                rows={5}
-                multiline
-                sx={{ width: "40%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    DESCRIPCIÓN DEL NUMERADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueProposito[0].descNumerador = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setValueProposito([...valueProposito]);
-                }}
-                value={valueProposito[0]?.descNumerador || ""}
-              />
-              <TextField
-                disabled={
-                  MAEdit?.proposito?.descDenominador &&
-                  valueProposito[0].descDenominador !== ""
-                }
-                rows={5}
-                multiline
-                sx={{ width: "40%", boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 13, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    DESCRIPCIÓN DEL DENOMINADOR
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                onChange={(c) => {
-                  valueProposito[0].descDenominador = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setValueProposito([...valueProposito]);
-                }}
-                value={valueProposito[0]?.descDenominador || ""}
-              />
-            </Grid>
-          </Grid>
+          </>
         ) : null}
       </Grid>
     </Grid>

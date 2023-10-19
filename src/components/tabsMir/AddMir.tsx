@@ -568,7 +568,7 @@ export default function FullModalMir({
                 //borderRight: "5px solid #b3afaf",
                 color: "#af8c55",
                 backgroundColor: "#ccc",
-                width: ["15px", "65px", "130px", "160px", "175px"],
+                width: ["0px", "65px", "130px", "160px", "175px"],
                 display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
               }}
               onClick={() => {

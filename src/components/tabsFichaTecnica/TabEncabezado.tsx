@@ -68,6 +68,9 @@ export function TabEncabezado({
   }, [ MIR]);
 
   const getObjetivos = (id: Array<number>) => {
+
+    console.log("id: ",id);
+    
     id.map((value, index) => {
       axios
         .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
@@ -81,9 +84,13 @@ export function TabEncabezado({
           },
         })
         .then((r) => {
+          console.log("r.data.data: ",r.data.data);
+          console.log("value: ",value);
           setCatalogoObjetivosDS(r.data.data);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log("value: ",value);
+        });
     });
   };
 
