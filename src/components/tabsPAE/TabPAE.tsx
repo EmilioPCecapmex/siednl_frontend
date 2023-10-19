@@ -520,12 +520,17 @@ export const TabPAE = ({
 
 
 
-  const guardarDoc = (ruta: string, url: string) => {
-    console.log("react",process.env.REACT_APP_APPLICATION_FILES);
-    let dataArray = new FormData();
-    dataArray.append("ROUTE", `${ruta}`);
-    dataArray.append("ADDROUTE", "true");
-    dataArray.append("FILE", url);
+  const guardarDoc = (archivo:{ archivo: File; nombreArchivo: string }, ruta_inicial: string) => {
+    const url = new File([archivo.archivo], archivo.nombreArchivo);
+  let ruta = "";
+  // TabValue === "Guias" ? (ruta = "/GUIAS/") : (ruta = "/VIDEOS/TUTORIALES/");
+  ruta = (process.env.REACT_APP_DOC_ROUTE || "") + ruta;
+  let dataArray = new FormData();
+  dataArray.append("ROUTE", `${ruta}`);
+  dataArray.append("ADDROUTE", "true");
+  dataArray.append("FILE", url);
+  dataArray.append("TOKEN", localStorage.getItem("jwtToken")||""); // probar mandar archivo.archivo
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/SaveFile",
@@ -600,9 +605,9 @@ export const TabPAE = ({
   };
 
   const handleClickAddPDF = () => {
-    guardarDoc("a","a");
+    
     if (fileInputRef.current) {
-      
+      guardarDoc({archivo:(fileInputRef.current.children[0] as HTMLInputElement).files![0],nombreArchivo:(fileInputRef.current.children[0] as HTMLInputElement).files![0].name},"a");
       // console.log(fileInputRef.current);
       fileInputRef.current.click(); // Trigger the file input
       // console.log((fileInputRef.current.children[0] as HTMLInputElement).files![0].name);
@@ -718,7 +723,7 @@ export const TabPAE = ({
           </Typography>
           <Grid container item xs={12} sx={{ height: "-webkit-fill-available" }}>
             {/* <InsertarComponentePDF Nombre={"C" + (componenteSelect + 1) + "A" + (actividadSelect + 1)} /> */}
-            {localStorage.getItem("Rol") === "Administrador" ?
+            {localStorage.getItem("Rol") === "Administrador" || value===40 ?
               <>
                 <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%", alignContent: "right", textAlign: "right" }}>
                   Cargar Archivo:
