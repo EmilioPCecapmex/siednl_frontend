@@ -521,10 +521,12 @@ export const TabPAE = ({
 
 
   const guardarDoc = (archivo:{ archivo: File; nombreArchivo: string }, ruta_inicial: string) => {
+    // console.log(archivo);
     const url = new File([archivo.archivo], archivo.nombreArchivo);
-  let ruta = "";
+  let ruta = "/SIEDNL_DEV/";
   // TabValue === "Guias" ? (ruta = "/GUIAS/") : (ruta = "/VIDEOS/TUTORIALES/");
   ruta = (process.env.REACT_APP_DOC_ROUTE || "") + ruta;
+  console.log("ruta:",ruta)
   let dataArray = new FormData();
   dataArray.append("ROUTE", `${ruta}`);
   dataArray.append("ADDROUTE", "true");
@@ -542,12 +544,7 @@ export const TabPAE = ({
         }
       )
       .then(({ data }) => {
-        // state.savePathDocAut(
-        //   idRegistro,
-        //   data.RESPONSE.RUTA,
-        //   data.RESPONSE.NOMBREIDENTIFICADOR,
-        //   data.RESPONSE.NOMBREARCHIVO
-        // );
+        console.log(data.RESPONSE.FILE);
       })
       .catch((e) => { });
   };
@@ -605,6 +602,7 @@ export const TabPAE = ({
   };
 
   const handleClickAddPDF = () => {
+    console.log("aaa");
     
     if (fileInputRef.current) {
       guardarDoc({archivo:(fileInputRef.current.children[0] as HTMLInputElement).files![0],nombreArchivo:(fileInputRef.current.children[0] as HTMLInputElement).files![0].name},"a");
