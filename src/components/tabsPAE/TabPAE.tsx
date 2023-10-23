@@ -69,6 +69,36 @@ export const TabPAE = ({
   };
   const [actividadSelect, setActividadSelect] = useState(0);
   const fileInputRef = useRef<HTMLInputElement | null>(null);;
+  const [PerteneceAValue, setPerteneceAValue] = useState("");
+
+  const getPerteneceAValue = (value: number) => {
+        switch (value) {
+          case 10:
+            setPerteneceAValue("Todos los documentos");
+            break;
+          case 20:
+            setPerteneceAValue("PAE");
+            break;
+          case 30:
+            setPerteneceAValue("Terminos de referencia");
+            break;
+          case 40:
+            setPerteneceAValue("Bitacora de informacion");
+            break;
+          case 50:
+            setPerteneceAValue("Informe calidad");
+            break;
+          case 60:
+            setPerteneceAValue("Informe final");
+            break;
+          case 70:
+            setPerteneceAValue("Anexo CONAC");
+            break;
+          case 80:
+            setPerteneceAValue("Reporte Evaluacion");
+            break;
+        }
+    };
 
 
   const tabsRegistros = (value: number, anio: string) => {
@@ -288,6 +318,7 @@ export const TabPAE = ({
     getListaPae();
     tabsRegistros(value, "2022");
     setBanderaEdit(false);
+    getPerteneceAValue(value);
     console.log("bandera", banderaEdit);
     // console.log(noAnios+","+noNumeros)
   }, []);
@@ -367,18 +398,17 @@ export const TabPAE = ({
   const [page, setPage] = useState(0);
   const renglonesPagina = 6;
 
-  const creaPAE = (Anio: string, Numero: string, Nombre: string, Ruta: string) => {
+  const creaPAE = (Nombre: string, Ruta: string, Anio: string, PerteneceA: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-Pae",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-pae",
         {
-          Id: idPAE,
-          Anio: Anio,
-          Numero: Numero,
           Nombre: Nombre,
+          Tipo: "pdf",
           Ruta: Ruta,
+          Anio: Anio,
+          PerteneceA: PerteneceA,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          Rol: "Administrador", //REVISAR
         },
         {
           headers: {
@@ -545,38 +575,49 @@ export const TabPAE = ({
       )
       .then(({ data }) => {
         console.log(data.RESPONSE.FILE);
+        //creaPAE(archivo.nombreArchivo,ruta,anio,perteneceA);
       })
       .catch((e) => { });
   };
 
-  const getDocumento = async (
-    ROUTE: string,
-    NOMBRE: string,
-    setState: Function
-  ) => {
+
+  const [archivoUrl, setArchivoUrl] = useState<string>("");
+
+  const savePDF =(data:string)=>{
+      setArchivoUrl(`data:application/pdf;base64,${data}`);
+  }
+
+  // useEffect(() => {
+
+  //     getFileByName(process.env.REACT_APP_DOC_ROUTE+'/GUIAS/', infoFile.nombre,savePDF)
+  // }, [])
+
+
+  const getFileByName= async(ROUTE:string,NOMBRE:string,setState:Function)=>{
     await axios
-      .post(
-        process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
-        {
-          ROUTE: ROUTE,
-          NOMBRE: NOMBRE,
+    .post(
+      process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
+      {
+        ROUTE: ROUTE,
+        NOMBRE: NOMBRE,
+        TOKEN: localStorage.getItem("jwtToken")||""
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+          responseType: "blob",
         },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-            responseType: "blob",
-          },
-        }
-      )
-      .then(({ data }) => {
-        let file = data.RESPONSE.FILE;
-        setState(file);
-      })
-      .catch((r) => { });
+      }
+    )
+    .then(({ data }) => {
+      setState(data.RESPONSE.FILE);
+    })
+    .catch((r) => {});
   };
 
   useEffect(() => {
     tabsRegistros(value, componenteSelect == 0 ? "2022" : componenteSelect == 1 ? "2021" : "2020");
+    getFileByName(process.env.REACT_APP_DOC_ROUTE+'/SIEDNL_DEV/', "prueba.pdf",savePDF)
   }, [value]);
 
   useEffect(() => {
@@ -602,7 +643,6 @@ export const TabPAE = ({
   };
 
   const handleClickAddPDF = () => {
-    console.log("aaa");
     
     if (fileInputRef.current) {
       guardarDoc({archivo:(fileInputRef.current.children[0] as HTMLInputElement).files![0],nombreArchivo:(fileInputRef.current.children[0] as HTMLInputElement).files![0].name},"a");
@@ -610,6 +650,7 @@ export const TabPAE = ({
       fileInputRef.current.click(); // Trigger the file input
       // console.log((fileInputRef.current.children[0] as HTMLInputElement).files![0].name);
       // console.log(fileInputRef.current.children[0].;
+      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name,(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/",componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020",PerteneceAValue)
       
     }
   };
