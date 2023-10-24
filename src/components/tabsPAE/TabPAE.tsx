@@ -594,6 +594,7 @@ export const TabPAE = ({
 
 
   const getFileByName= async(ROUTE:string,NOMBRE:string,setState:Function)=>{
+    // console.log("enrta a getfile");
     await axios
     .post(
       process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
@@ -617,7 +618,7 @@ export const TabPAE = ({
 
   useEffect(() => {
     tabsRegistros(value, componenteSelect == 0 ? "2022" : componenteSelect == 1 ? "2021" : "2020");
-    getFileByName(process.env.REACT_APP_DOC_ROUTE+'/SIEDNL_DEV/', "prueba.pdf",savePDF)
+    // getFileByName(process.env.REACT_APP_DOC_ROUTE+'/SIEDNL_DEV/', "prueba.pdf",savePDF)
   }, [value]);
 
   useEffect(() => {
