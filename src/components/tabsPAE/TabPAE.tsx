@@ -1012,9 +1012,11 @@ export const TabPAE = ({
                               </Tooltip> */}
 
                             <VisualizarPAE
-                              estado={row.Nombre}
-                              id={row.Id}
-
+                              ruta={(process.env.REACT_APP_DOC_ROUTE || "")+"/SIEDNL_DEV"}
+                              nombre={row.Nombre}
+                              tipo={"pdf"}
+                              anio={row.Anio}
+                              perteneceA={row.PerteneceA}
                             />
 
                           </TableCell>

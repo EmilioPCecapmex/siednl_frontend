@@ -7,15 +7,23 @@ import { useEffect, useState, useRef, SetStateAction } from "react";
 
 
  export const InsertarComponentePDF = ({
-  Nombre,
-  }: {
-  Nombre: string;}) => {
+  ruta,
+  nombre,
+  tipo,
+  anio,
+  perteneceA
+}: {
+  ruta: string;
+  nombre: string;
+  tipo: string;
+  anio: string;
+  perteneceA: string;}) => {
     const getDocumento = async (
       ROUTE: string,
       NOMBRE: string,
       setState: Function
     ) => {
-      console.log("entra a get documento");
+      console.log("entra a get documento:",ruta,nombre,";",anio,",",perteneceA);
       await axios
         .post(
           process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
@@ -41,7 +49,7 @@ import { useEffect, useState, useRef, SetStateAction } from "react";
     const savePDF =(data:string)=>{
       setArchivoUrl(`data:application/pdf;base64,${data}`);
     } 
-    getDocumento((process.env.REACT_APP_DOC_ROUTE || "")+"/SIEDNL_DEV/","prueba.pdf",savePDF);
+    getDocumento(ruta,nombre,savePDF);
     const [archivoUrl, setArchivoUrl] = useState<string>("");
 
   return (
