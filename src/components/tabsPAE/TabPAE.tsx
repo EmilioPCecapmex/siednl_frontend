@@ -363,10 +363,12 @@ export const TabPAE = ({
 
   useEffect(() => {
     setBanderaEdit(false);
+    getPerteneceAValue(value);
   }, [value]);
 
   useEffect(() => {
     setBanderaEdit(false);
+    getPerteneceAValue(value);
   }, [componenteSelect]);
 
   interface Head {
@@ -1012,11 +1014,11 @@ export const TabPAE = ({
                               </Tooltip> */}
 
                             <VisualizarPAE
-                              ruta={(process.env.REACT_APP_DOC_ROUTE || "")+"/SIEDNL_DEV"}
+                              ruta={(process.env.REACT_APP_DOC_ROUTE || "")+"/SIEDNL_DEV/"}
                               nombre={row.Nombre}
                               tipo={"pdf"}
-                              anio={row.Anio}
-                              perteneceA={row.PerteneceA}
+                              anio={componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020"}
+                              perteneceA={PerteneceAValue}
                             />
 
                           </TableCell>
