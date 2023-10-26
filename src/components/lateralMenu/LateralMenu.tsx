@@ -30,6 +30,8 @@ import {
   Tooltip,
   IconButton,
   Drawer,
+  MenuItem,
+  Menu,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../funcs/validation";
@@ -40,9 +42,31 @@ import { lstLg, lstMd, lstSm, lstXl, lstXs } from "./stylesLateralMenu";
 import { setResumeDefaultMIR } from "../../screens/mir/MIR";
 import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
 import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoIcon from '@mui/icons-material/Info';
 
 import MenuIcon from "@mui/icons-material/Menu";
+import { getAyuda } from "../../screens/Ayuda/ServicesAyuda";
+import { VisualizadorAyudas } from "../../screens/Ayuda/VisualizadorAyudas";
 //import { getAllusers } from "../../screens/config/GetUsuarios";
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import HelpIcon from "@mui/icons-material/Help";
+
+
+export const IconsMenu = (icon: string) => {
+  switch (icon) {
+    case "OndemandVideoIcon":
+      return <OndemandVideoIcon sx={{ mr: "10px" }} />;
+    case "MenuBookIcon":
+      return <MenuBookIcon sx={{ mr: "10px" }} />;
+    case "HelpIcon":
+      return <HelpIcon sx={{ mr: "10px" }} />;
+    default:
+  }
+};
+
+
 export const LateralMenu = ({
   selection,
   actionNumber,
@@ -351,14 +375,31 @@ export const LateralMenu = ({
   }, []);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  /////////////ayuda
 
+  const [arrayAyudas, setArrayAyudas] = useState<any[]>([])
+
+  const [openVAyudas, setOpenVAyudas] = useState(false);
+  const [option, setOption] = useState("Videos");
+
+  function handleCloseVAyudas() {
+    setOpenVAyudas(false)
+  }
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  //////////ayuda
   return (
     <Grid
       container
-      sx={{ alignItems: "center", justifyContent: "space-between", height: "100%",   }}
+      sx={{ alignItems: "center", justifyContent: "space-between", height: "100%", }}
     >
       <AppBar position="static">
-        <Toolbar variant="dense" sx={{ height: "7vh", width: "100%"  }}>
+        <Toolbar variant="dense" sx={{ height: "7vh", width: "100%" }}>
           <Grid sx={{}}>
             <Tooltip title="Menu Lateral">
               <IconButton
@@ -371,7 +412,7 @@ export const LateralMenu = ({
             </Tooltip>
           </Grid>
           {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}> */}
-          <Grid  sx ={{}}>
+          <Grid sx={{}}>
             <Header
               details={{
                 name1: "INICIO",
@@ -405,11 +446,50 @@ export const LateralMenu = ({
             display={"flex"}
             justifyContent={"flex-end"}
             width={85}
+          ><IconButton
+            color="inherit"
+            onClick={handleMenu}
+          >
+              <InfoOutlinedIcon />
+            </IconButton>
+
+            <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                {<MenuItem onClick={() => {getAyuda(setArrayAyudas, "1", "Videos"); setOpenVAyudas(true); setOption("Videos") }}>{IconsMenu("OndemandVideoIcon")} Ver Tutoriales </MenuItem>}
+                {<MenuItem onClick={() => {getAyuda(setArrayAyudas, "1", "Guías"); setOpenVAyudas(true); setOption("Guías") }}>{IconsMenu("MenuBookIcon")} Ver Guías </MenuItem>}
+                {<MenuItem onClick={() => {getAyuda(setArrayAyudas, "1", "Preguntas"); setOpenVAyudas(true); setOption("Preguntas") }}>{IconsMenu("HelpIcon")} Preguntas </MenuItem>}
+
+              </Menu>
+
+          </Grid>
+
+          {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option} openState  /> : null}
+
+
+          <Grid
+            // mt={1.5}
+            display={"flex"}
+            justifyContent={"flex-end"}
+            width={85}
           >
             <NotificationsPanel />
 
             {/* <TimerCounter /> */}
           </Grid>
+
 
           <Drawer
             anchor="left"
@@ -617,26 +697,26 @@ export const LateralMenu = ({
 
                   <List component="div" disablePadding>
                     <ListItemButton
-                    onClick={() => {
-                      //setResumeDefaultAI();
-                      exitAlert("../Institutionalactivities");
-                    }}
-                  >
-                    <Grid sx={st.iconMenuList}>
-                      <KeyboardDoubleArrowRightIcon />
-                    </Grid>
-                    <Typography sx={st.subMenuItemsText}>
-                      Actividades Institucionales
-                    </Typography>
-                    <Grid
-                      visibility={
-                        selection === "Actividades Institucionales"
-                          ? "visible"
-                          : "hidden"
-                      }
-                      sx={st.selectedBox}
-                    />
-                  </ListItemButton>
+                      onClick={() => {
+                        //setResumeDefaultAI();
+                        exitAlert("../Institutionalactivities");
+                      }}
+                    >
+                      <Grid sx={st.iconMenuList}>
+                        <KeyboardDoubleArrowRightIcon />
+                      </Grid>
+                      <Typography sx={st.subMenuItemsText}>
+                        Actividades Institucionales
+                      </Typography>
+                      <Grid
+                        visibility={
+                          selection === "Actividades Institucionales"
+                            ? "visible"
+                            : "hidden"
+                        }
+                        sx={st.selectedBox}
+                      />
+                    </ListItemButton>
 
                     {/* <ListItemButton
                     onClick={() => {
