@@ -18,6 +18,7 @@ import { IMIR } from "./IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import { alertaEliminar } from "../alertas/Alertas";
 
 export const TabComponente = ({
   // show,
@@ -112,6 +113,11 @@ export const TabComponente = ({
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
+  const eliminarComponente=()=>{
+    removeComponente(componentSelect-1);
+    setComponentSelect(1);
+  }
+
   return (
     <Grid
       //visibility={show ? "visible" : "hidden"}
@@ -164,8 +170,8 @@ export const TabComponente = ({
         </IconButton>
         <IconButton
           onClick={() => {
-            removeComponente();
-            setComponentSelect(MIR.componentes.length - 1);
+            alertaEliminar(eliminarComponente);
+           
           }}
           disabled={MIR.componentes.length <= 2}
         >
@@ -216,7 +222,7 @@ export const TabComponente = ({
                   <ListItemButton
                     selected={item === componentSelect ? true : false}
                     key={item}
-                    onClick={() => setComponentSelect(item)}
+                    onClick={() => {setComponentSelect(item)}}
                     sx={{
                       height: "7vh",
                       "&.Mui-selected ": {
@@ -273,7 +279,7 @@ export const TabComponente = ({
                     <ListItemButton
                       selected={item === componentSelect ? true : false}
                       key={item}
-                      onClick={() => setComponentSelect(item)}
+                      onClick={() => {setComponentSelect(item);console.log("componente onclick",item-1);}}
                       sx={{
                         height: "7vh",
                         "&.Mui-selected ": {
