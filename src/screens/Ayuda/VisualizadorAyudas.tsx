@@ -127,6 +127,7 @@ export interface IInfoFile {
     return (
       (<ModalForm
         title="Visualizar" handleClose={() => { handleClose() }}>
+
         <Grid item sx={{ width: "100vw", height: "90vh", justifyContent:"center",alignItems:"center",displa:"flex" }}>
           {/* cambio a tabla preguntas */}
           {value == "Preguntas" ? (
@@ -138,7 +139,7 @@ export interface IInfoFile {
             <MUIXDataGrid id={(row: any) => row.Id} columns={columnsVideo} rows={arrayAyudas} />
           ) : null}
           {/* cambio a tabla guías */}
-          {value == "Guias" ? (
+          {value == "Guías" ? (
             <MUIXDataGrid id={(row: any) => row.Id} columns={columnsGuia} rows={arrayAyudas} />
           ) : null}
   

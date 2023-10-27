@@ -185,7 +185,7 @@ export const getMenus = (setState: Function) => {
     .then((r) => {
 
       let menus = r.data.data
-      let menusFiltrados = menus.filter((menu: MenuItem) => menu.Path !== "#")
+      let menusFiltrados = menus.filter((menu: MenuItem) => menu.Path !== "/")
 
       setState(menusFiltrados);
     });
