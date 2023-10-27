@@ -32,6 +32,9 @@ import {
   Drawer,
   MenuItem,
   Menu,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../funcs/validation";
@@ -53,11 +56,46 @@ import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import HelpIcon from "@mui/icons-material/Help";
 
+interface MenuObject {
+  Id: string;
+  FechaDeCreacion: string;
+  UltimaModificacion: string;
+  CreadoPor: string;
+  ModificadoPor: string;
+  Deleted: number;
+  Menu: string;
+  Descripcion: string;
+  MenuPadre: string;
+  Icon: string | null;
+  Path: string;
+  Nivel: number;
+  Orden: number;
+  ControlInterno: string | null;
+  IdApp: string;
+  item: MenuObject[]; // Esto es para el arreglo de objetos anidados, si los hay
+}
+
+interface MenuProps {
+  data: MenuObject;
+}
 
 export const IconsMenu = (icon: string) => {
   switch (icon) {
+
+    case "HomeOutlinedIcon":
+      return <HomeOutlinedIcon sx={{ mr: "10px" }} />;
+    case "FolderOutlinedIcon":
+      return <FolderOutlinedIcon sx={{ mr: "10px" }} />;
+    case "CampaignIcon":
+      return <CampaignIcon sx={{ mr: "10px" }} />;
+    case "KeyboardDoubleArrowRightIcon":
+      return <KeyboardDoubleArrowRightIcon sx={{ mr: "10px" }} />;
+
     case "OndemandVideoIcon":
       return <OndemandVideoIcon sx={{ mr: "10px" }} />;
+
+    case "SettingsOutlinedIcon":
+      return <SettingsOutlinedIcon sx={{ mr: "10px" }} />;
     case "MenuBookIcon":
       return <MenuBookIcon sx={{ mr: "10px" }} />;
     case "HelpIcon":
@@ -76,6 +114,13 @@ export const LateralMenu = ({
   actionNumber: number;
   settingsCard?: Function;
 }) => {
+
+  const menus: MenuObject[] =
+    localStorage.getItem("Menus") !== undefined &&
+      localStorage.getItem("Menus") !== null
+      ? JSON.parse(localStorage.getItem("Menus")!)
+      : [];
+
   const theme = useTheme();
   let st = lstXl;
 
@@ -393,6 +438,49 @@ export const LateralMenu = ({
     setAnchorEl(null);
   };
   //////////ayuda
+
+  const RecursiveMenu: React.FC<MenuProps> = ({ data }) => {
+    const [open, setOpen] = useState(false);
+
+    const handleToggle = () => {
+      setOpen(!open);
+    };
+
+
+    if (data.item.length !== 0) {
+      return (
+        <><ListItemButton onClick={handleToggle} sx={{ width: "100%" }}>
+          <ListItemText primary={data.Menu} sx={{ width: "100%" }} />
+          {data.item && data.item.length > 0 && (
+            <ListItemIcon>
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemIcon>
+          )}
+        </ListItemButton>
+          {data.item && data.item.length > 0 && (
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {data.item.map((subItem) =>
+                  <RecursiveMenu key={subItem.Id} data={subItem} />)}
+
+              </List>
+            </Collapse>
+          )}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <ListItemButton onClick={()=>{localStorage.setItem("IdMenuActual",data.Id);exitAlert(data.Path)}} sx={{ width: "100%" }}>
+            <ListItemText primary={data.Menu} sx={{ width: "100%" }} />
+          </ListItemButton>
+        </>)
+    }
+
+  }
+
+
+
   return (
     <Grid
       container
@@ -454,29 +542,29 @@ export const LateralMenu = ({
             </IconButton>
 
             <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {<MenuItem onClick={() => {getAyuda(setArrayAyudas, "1", "Videos"); setOpenVAyudas(true); setOption("Videos") }}>{IconsMenu("OndemandVideoIcon")} Ver Tutoriales </MenuItem>}
-                {<MenuItem onClick={() => {getAyuda(setArrayAyudas, "1", "Guías"); setOpenVAyudas(true); setOption("Guías") }}>{IconsMenu("MenuBookIcon")} Ver Guías </MenuItem>}
-                {<MenuItem onClick={() => {getAyuda(setArrayAyudas, "1", "Preguntas"); setOpenVAyudas(true); setOption("Preguntas") }}>{IconsMenu("HelpIcon")} Preguntas </MenuItem>}
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Videos"); setOpenVAyudas(true); setOption("Videos") }}>{IconsMenu("OndemandVideoIcon")} Ver Tutoriales </MenuItem>}
+              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Guías"); setOpenVAyudas(true); setOption("Guías") }}>{IconsMenu("MenuBookIcon")} Ver Guías </MenuItem>}
+              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Preguntas"); setOpenVAyudas(true); setOption("Preguntas") }}>{IconsMenu("HelpIcon")} Preguntas </MenuItem>}
 
-              </Menu>
+            </Menu>
 
           </Grid>
 
-          {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option} openState  /> : null}
+          {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option} openState /> : null}
 
 
           <Grid
@@ -496,331 +584,97 @@ export const LateralMenu = ({
             open={isDrawerOpen}
             onClose={() => setIsDrawerOpen(false)}
           >
-            <Grid sx={st.parentBox}>
-              <ChangePasswordModal />
-              <Grid sx={st.imgBox}>
-                <img src={logo} alt="Logo" style={st.imgSize} />
-              </Grid>
+            <Grid
+              container
+              sx={{ width: "25vw", height: "100vh" }}>
+              <Grid
+                item
+                container
+                sx={{ width: "100%", height: "40vh", alignContent: "flex-start", display: "flex"}}>
 
-              <Grid sx={{ width: "100%" }}>
-                <Typography
-                  sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
-                >
-                  Sistema del Presupuesto Basado en Resultados
-                </Typography>
-              </Grid>
 
-              <Grid sx={st.avatarBox}>
-                <Avatar
-                  style={{
-                    backgroundColor: stringToColor(
-                      localStorage.getItem("NombreUsuario") as string
-                    ),
-                  }}
-                  sx={st.avatarStyle}
-                >
-                  {stringAvatar(
-                    localStorage.getItem("NombreUsuario") as string
-                  )}
-                </Avatar>
-              </Grid>
+                <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
+                  <img src={logo} alt="Logo" height={"100%"} />
+                </Grid>
 
-              <Grid sx={st.userInfoBox}>
-                {localStorage.getItem("NombreUsuario")}
-                <Typography sx={st.rolStyle}>
-                  {localStorage.getItem("Rol") === "Administrador"
-                    ? "Autorizador"
-                    : localStorage.getItem("Rol")}
-                </Typography>
-              </Grid>
-              <Typography sx={st.institucionStyle}>
-                INSTITUCIONES ASIGNADAS
-              </Typography>
 
-              <Grid sx={st.selectInstitucionBox}>
-                {/* { ? (
-                // <Select
-                //   value={
-                //     institucionSeleccionada ||
-                //     (localStorage.getItem("IdEntidad") as string)
-                //   }
-                //   label="Institución"
-                //   onChange={handleChange}
-                //   variant="standard"
-                //   disableUnderline
-                //   sx={st.selectInstitucionStyle}
-                // >
-                //   {instituciones?.map((item) => {
-                //     return (
-                //       <MenuItem value={item.Id} key={item.Id || Math.random()}>
-                //         {item.NombreInstitucion}
-                //       </MenuItem>
-                //     );
-                //   })}
-                // </Select>
-              ) : null} */}
-                <Tooltip title={localStorage.getItem("Entidad")}>
+                <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
                   <Typography
-                    fontFamily={"'Montserrat', sans-serif"}
-                    sx={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      textAlign: "center",
-                      fontSize: [8, 8, 9, 9, 9], // Tamaños de fuente para diferentes breakpoints
-                      // color: "#AF8C55",
-                    }}
+                    sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
                   >
-                    {localStorage.getItem("Entidad")}
+                    Sistema del Presupuesto Basado en Resultados
                   </Typography>
-                </Tooltip>
-              </Grid>
+                </Grid>
 
-              <Grid sx={st.dividerBox} />
-              <Grid sx={st.menuListBox}>
-                <List>
-                  <ListItemButton onClick={() => exitAlert("../home")}>
-                    <Grid sx={st.iconMenuList}>
-                      <HomeOutlinedIcon />
-                    </Grid>
-                    <Typography sx={st.firstItemsStyle}>Inicio</Typography>
-                    <Grid
-                      visibility={selection === "Inicio" ? "visible" : "hidden"}
-                      sx={st.selectedBox}
-                    />
-                  </ListItemButton>
 
-                  <ListItemButton onClick={handleClickProgramas}>
-                    <Grid sx={st.iconMenuList}>
-                      <FolderOutlinedIcon />
-                    </Grid>
+                <Grid sx={{ width: "100%", height: "11vh", justifyContent: "center", display: "flex", alignItems: "center", }}>
+                  <Avatar
+                    style={{
+                      backgroundColor: stringToColor(
+                        localStorage.getItem("NombreUsuario") as string
+                      ),
+                    }}
+                    sx={st.avatarStyle}
+                  >
+                    {stringAvatar(
+                      localStorage.getItem("NombreUsuario") as string
+                    )}
+                  </Avatar>
+                </Grid>
 
-                    <Typography sx={st.firstItemsStyle}>
-                      Programas Presupuestarios
-                    </Typography>
-                    {openProgramas ? <ExpandLess /> : <ExpandMore />}
-                    <Grid
-                      visibility={
-                        selection === "Programas Presupuestarios"
-                          ? "visible"
-                          : "hidden"
-                      }
-                      sx={st.selectedBox}
-                    />
-                  </ListItemButton>
+                <Grid sx={{ ...st.userInfoBox, width: "100%", height: "7vh", alignItems: "center", display: "flex", flexDirection: "column" }}>
+                  {localStorage.getItem("NombreUsuario")}
+                  <Typography sx={st.rolStyle}>
+                    {localStorage.getItem("Rol") === "Administrador"
+                      ? "Autorizador"
+                      : localStorage.getItem("Rol")}
+                  </Typography>
+                </Grid>
 
-                  <Collapse in={openProgramas} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      <ListItemButton
-                        onClick={() => {
-                          setResumeDefaultMIR();
-                          exitAlert("../mir");
-                        }}
-                        sx={st.subMenuItemStyle}
-                      >
-                        <Grid sx={st.iconMenuList}>
-                          <KeyboardDoubleArrowRightIcon />
-                        </Grid>
-
-                        <Typography sx={st.subMenuItemsText}>MIR</Typography>
-                        <Grid
-                          visibility={
-                            selection === "MIR" ? "visible" : "hidden"
-                          }
-                          sx={st.selectedBox}
-                        />
-                      </ListItemButton>
-
-                      <ListItemButton
-                        onClick={() => {
-                          setResumeDefaultMA();
-                          exitAlert("../metaAnual");
-                        }}
-                        sx={st.subMenuItemStyle}
-                      >
-                        <Grid sx={st.iconMenuList}>
-                          <KeyboardDoubleArrowRightIcon />
-                        </Grid>
-                        <Typography sx={st.subMenuItemsText}>
-                          Meta Anual
-                        </Typography>
-                        <Grid
-                          visibility={
-                            selection === "Meta Anual" ? "visible" : "hidden"
-                          }
-                          sx={st.selectedBox}
-                        />
-                      </ListItemButton>
-
-                      <ListItemButton
-                        onClick={() => {
-                          setResumeDefaultFT();
-                          exitAlert("../fichaTecnica");
-                        }}
-                        sx={st.subMenuItemStyle}
-                      >
-                        <Grid sx={st.iconMenuList}>
-                          <KeyboardDoubleArrowRightIcon />
-                        </Grid>
-                        <Typography sx={st.subMenuItemsText}>
-                          Ficha Técnica
-                        </Typography>
-                        <Grid
-                          visibility={
-                            selection === "Ficha Técnica" ? "visible" : "hidden"
-                          }
-                          sx={st.selectedBox}
-                        />
-                      </ListItemButton>
-
-                      <ListItemButton
-                        onClick={() => {
-                          //setResumeDefaultFT();
-                          //exitAlert("../fichaTecnica");
-                          navigate("../raffi");
-                        }}
-                        sx={st.subMenuItemStyle}
-                      >
-                        <Grid sx={st.iconMenuList}>
-                          <KeyboardDoubleArrowRightIcon />
-                        </Grid>
-                        <Typography sx={st.subMenuItemsText}>Raffi</Typography>
-                        <Grid
-                          visibility={
-                            selection === "Raffi" ? "visible" : "hidden"
-                          }
-                          sx={st.selectedBox}
-                        />
-                      </ListItemButton>
-                    </List>
-                  </Collapse>
-
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() => {
-                        //setResumeDefaultAI();
-                        exitAlert("../Institutionalactivities");
+                <Grid sx={{ ...st.userInfoBox, width: "100%", height: "7vh", alignItems: "center", display: "flex", flexDirection: "column" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium", display: "flex" }}>
+                    INSTITUCION ASIGNADA
+                  </Typography>
+                  <Tooltip title={localStorage.getItem("Entidad")}>
+                    <Typography
+                      fontFamily={"'Montserrat', sans-serif"}
+                      sx={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        textAlign: "center",
+                        fontSize: [9, 9, 10, 10, 10], // Tamaños de fuente para diferentes breakpoints
+                        // color: "#AF8C55",
                       }}
                     >
-                      <Grid sx={st.iconMenuList}>
-                        <KeyboardDoubleArrowRightIcon />
-                      </Grid>
-                      <Typography sx={st.subMenuItemsText}>
-                        Actividades Institucionales
-                      </Typography>
-                      <Grid
-                        visibility={
-                          selection === "Actividades Institucionales"
-                            ? "visible"
-                            : "hidden"
-                        }
-                        sx={st.selectedBox}
-                      />
-                    </ListItemButton>
-
-                    {/* <ListItemButton
-                    onClick={() => {
-                      //setResumeDefaultAI();
-                      navigate("../programaAnualEvaluacion");
-                    }}
-                  >
-                    <Grid sx={st.iconMenuList}>
-                      <KeyboardDoubleArrowRightIcon />
-                    </Grid>
-                    <Typography sx={st.subMenuItemsText}>
-                      Programa Anual de Evaluacion
+                      {localStorage.getItem("Entidad")}
                     </Typography>
-                    <Grid
-                      visibility={
-                        selection === "Programa Anual de Evaluacion"
-                          ? "visible"
-                          : "hidden"
-                      }
-                      sx={st.selectedBox}
-                    />
-                  </ListItemButton> */}
-                  </List>
+                  </Tooltip>
+                </Grid>
 
-                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
-                    <ListItemButton
-                      onClick={() => exitAlert("../notifications")}
-                    >
-                      <Grid sx={st.iconMenuList}>
-                        <CampaignIcon />
-                      </Grid>
-                      <Typography sx={st.firstItemsStyle}>
-                        Notificaciones
-                      </Typography>
-                      <Grid
-                        visibility={
-                          selection === "Notificaciones" ? "visible" : "hidden"
-                        }
-                        sx={st.selectedBox}
-                      />
-                    </ListItemButton>
-                  )}
-                </List>
+
+                <Grid sx={st.selectInstitucionBox}>
+
+                </Grid>
+
               </Grid>
+              <Divider />
+              <Grid
+                item
+                container
+                sx={{ width: "100%", height: "60vh", overflow: "auto" }}>
 
-              <Divider></Divider>
-              <Grid sx={st.bottomMenuBox}>
                 <List>
-                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
-                    <ListItemButton onClick={() => goSettings()}>
-                      <Grid sx={st.iconMenuList}>
-                        <SettingsOutlinedIcon />
-                      </Grid>
-                      <Typography sx={st.bottomItemsStyle}>
-                        Configuración
-                      </Typography>
-
-                      <Grid
-                        visibility={
-                          selection === "CONFIGURACIÓN" ? "visible" : "hidden"
-                        }
-                        sx={st.selectedBox}
-                      />
-                    </ListItemButton>
-                  )}
-
-                  {localStorage.getItem("Rol") !== "Verificador" ? null : (
-                    <ListItemButton onClick={() => exitAlert("../users")}>
-                      <Grid sx={st.iconMenuList}>
-                        <GroupIcon />
-                      </Grid>
-                      <Typography sx={st.bottomItemsStyle}>Usuarios</Typography>
-
-                      <Grid
-                        visibility={
-                          selection === "Usuarios" ? "visible" : "hidden"
-                        }
-                        sx={st.selectedBox}
-                      />
-                    </ListItemButton>
-                  )}
-
-                  <ListItemButton onClick={() => setOpenPasswordChange(true)}>
-                    <Grid sx={st.iconMenuList}>
-                      <LockResetIcon />
-                    </Grid>
-                    <Typography sx={st.bottomItemsStyle}>
-                      Cambiar Contraseña
-                    </Typography>
-                  </ListItemButton>
-                  <ListItemButton onClick={() => logout()}>
-                    <Grid sx={st.iconMenuList}>
-                      <LogoutOutlinedIcon />
-                    </Grid>
-                    <Typography sx={st.bottomItemsStyle}>
-                      Cerrar Sesión
-                    </Typography>
-                  </ListItemButton>
+                  {menus.map((menuItem) => <RecursiveMenu key={menuItem.Id} data={menuItem} />)}
                 </List>
+
               </Grid>
+
             </Grid>
           </Drawer>
         </Toolbar>
       </AppBar>
+      <ChangePasswordModal />
     </Grid>
   );
 };
