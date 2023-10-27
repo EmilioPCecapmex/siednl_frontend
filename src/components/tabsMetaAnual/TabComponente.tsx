@@ -1309,7 +1309,7 @@ export const TabComponenteMA = ({
                     }}
                   />
                 </Grid>
-                
+
               </Grid>
             )}
 
@@ -1563,6 +1563,7 @@ export const TabComponenteMA = ({
                 }}
               />
             </Grid>
+            
           </Grid>
         </Grid>
       </Grid>

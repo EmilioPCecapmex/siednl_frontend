@@ -432,7 +432,7 @@ export function TabResumen({
               </Typography>
             </Grid>
 
-            <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
+            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
               <Typography sx={{ fontFamily: "MontserratLight" }}>
                 {MIRPADRE.encabezado?.ejercicioFiscal?.Label}
               </Typography>
@@ -1016,7 +1016,7 @@ export function TabResumen({
               <Typography
                 sx={{
                   fontFamily: "MontserratMedium",
-                  width: "20%",
+                  
                   textTransform: "uppercase",
                 }}
               >
@@ -1025,7 +1025,7 @@ export function TabResumen({
             </Grid>
 
             <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "MontserratLight",  }}>
                 {MIRPADRE.fin?.formula}
               </Typography>
             </Grid>
@@ -1336,7 +1336,7 @@ export function TabResumen({
               <Typography
                 sx={{
                   fontFamily: "MontserratMedium",
-                  width: "20%",
+                  
                   textTransform: "uppercase",
                 }}
               >
@@ -1345,7 +1345,7 @@ export function TabResumen({
             </Grid>
 
             <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "MontserratLight",  }}>
                 {MIRPADRE.proposito?.formula}
               </Typography>
             </Grid>
@@ -1437,7 +1437,7 @@ export function TabResumen({
               <Typography
                 sx={{
                   fontFamily: "MontserratMedium",
-                  width: "20%",
+                  
                   textTransform: "uppercase",
                 }}
               >
@@ -1446,7 +1446,7 @@ export function TabResumen({
             </Grid>
 
             <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "MontserratLight",  }}>
                 {MIRPADRE.proposito?.medios_verificacion}
               </Typography>
             </Grid>
@@ -1601,7 +1601,7 @@ export function TabResumen({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
-                        width: "20%",
+                        
                         textTransform: "uppercase",
                       }}
                     >
@@ -1610,7 +1610,7 @@ export function TabResumen({
                   </Grid>
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                      sx={{ fontFamily: "MontserratLight",  }}
                     >
                       {v?.resumen}
                     </Typography>
@@ -1650,7 +1650,7 @@ export function TabResumen({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
-                        width: "20%",
+                        
                         textTransform: "uppercase",
                       }}
                     >
@@ -1660,7 +1660,7 @@ export function TabResumen({
 
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                      sx={{ fontFamily: "MontserratLight",  }}
                     >
                       {v?.indicador}
                     </Typography>
@@ -1845,7 +1845,7 @@ export function TabResumen({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
-                        width: "20%",
+                        
                         textTransform: "uppercase",
                       }}
                     >
@@ -1854,7 +1854,7 @@ export function TabResumen({
                   </Grid>
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                      sx={{ fontFamily: "MontserratLight",  }}
                     >
                       {v?.supuestos}
                     </Typography>

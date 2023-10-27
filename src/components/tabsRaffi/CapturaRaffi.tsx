@@ -345,6 +345,7 @@ export default function CapturaRaffi({
   useEffect(() => {
     console.log("raffi", raffi);
   }, [raffi]);
+  
   return (
     <Grid
       container

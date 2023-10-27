@@ -802,11 +802,14 @@ export const MIR = () => {
             {/* TABLA */}
 
             <Grid
-              container
+              
               item
+              xl={10}
               lg={10}
               md={10}
               sm={10}
+              xs={10}
+              //width={"80%"}
               // height="65vh"
               // direction="row"
               sx={{
@@ -820,14 +823,14 @@ export const MIR = () => {
               <TableContainer
                 sx={{
                   borderRadius: 5,
-                  height: 450,
+                  height: "90%",
                   overflow: "auto",
                   "&::-webkit-scrollbar": {
                     width: ".5vw",
-                    mt: 1,
+                    //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "#edeaea",
+                    backgroundColor: "red",
                     //outline: "1px solid slategrey",
                     borderRadius: 1,
                   },
@@ -967,13 +970,16 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               flexDirection: "row",
-                              display: "grid",
-                              gridTemplateColumns: "repeat(4,1fr)",
+                              //display: "grid",
+                              gridTemplateColumns: "repeat(2,2fr)",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
                             align="center"
                             component="th"
                             scope="row"
                           >
+<Grid sx={{display: "flex",}}>
                             <Tooltip
                               PopperProps={{
                                 modifiers: [
@@ -1151,6 +1157,8 @@ export const MIR = () => {
                                 </IconButton>
                               </span>
                             </Tooltip>
+</Grid>
+
                           </TableCell>
                         </TableRow>
                       ))}
@@ -1160,7 +1168,7 @@ export const MIR = () => {
                 </Table>
               </TableContainer>
 
-              <Box sx={{ width: "100%" }}>
+              <Grid sx={{ width: "100%" }}>
                 <TablePagination
                   rowsPerPageOptions={[renglonesPagina]}
                   component="div"
@@ -1170,7 +1178,7 @@ export const MIR = () => {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-              </Box>
+              </Grid>
             </Grid>
           </>
         ) : (

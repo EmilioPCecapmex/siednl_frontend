@@ -154,6 +154,7 @@ export const TabComponente = ({
         >
           COMPONENTE #{componentSelect}
         </Typography>
+        
         <IconButton
           onClick={() => {
             addComponente();
@@ -308,6 +309,7 @@ export const TabComponente = ({
               alignContent: "center",
               display: "flex",
               justifyContent: "center",
+              
             }}
           >
             <TextField

@@ -424,12 +424,7 @@ export default function FullModalMir({
       
       }}
     >
-      {/* {value === 10 ? <TutorialGrid initialState={22} endState={27} /> : null}
-      {value === 20 ? <TutorialGrid initialState={27} endState={28} /> : null}
-      {value === 30 ? <TutorialGrid initialState={28} endState={30} /> : null}
-      {value === 40 ? <TutorialGrid initialState={33} endState={35} /> : null}
-      {value === 50 ? <TutorialGrid initialState={30} endState={33} /> : null} */}
-
+     
       <Grid
         container
         item
@@ -632,7 +627,9 @@ export default function FullModalMir({
           </Grid>
 
           {/* )} */}
+        
         </Grid>
+
       </Grid>
     </Grid>
   );

@@ -1076,6 +1076,7 @@ export const TabActividadesMA = ({
               />
             </Grid>
           )}
+
           <Grid
             item
             xl={3}
@@ -1488,176 +1489,98 @@ export const TabActividadesMA = ({
           </Grid>
 
           <Grid
+            item
+            xl={2}
+            lg={2}
+            md={4}
+            sm={4}
+            xs={11}
             sx={{
+              alignContent: "center",
               display: "flex",
-              width: "100%",
-              height: "30%",
-              alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyContent: "center",
             }}
           >
-            {/* <Grid
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: 2,
-                width: "40%",
-                height: "12vh",
-                backgroundColor: "#f0f0f0",
-              }}
-            >
-              <FormControl sx={{ width: "25vw" }}>
-                <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-            disabled={
-              (MAEdit !== ""
-                ? MAEdit?.actividades[mapeaindice(componenteSelect,actividadSelect)]?.unidadResponsable
-                : false) &&
-              aValorMA[0].componentes[componenteSelect].actividades[
-                actividadSelect
-              ]?.unidadResponsable !== ""
-            }
-                  options={catalogoUnidadResponsable}
-                  getOptionLabel={(option) => option.Unidad || ""}
-                  value={{
-                    Id: catalogoUnidadResponsable[0].Id,
-                    Unidad:
-                      aValorMA[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.unidadResponsable,
-                  }}
-                  renderOption={(props, option) => {
-                    return (
-                      <li {...props} key={option.Id}>
-                        <p
-                          style={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                        >
-                          {option.Unidad}
-                        </p>
-                      </li>
-                    );
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={"UNIDAD RESPONSABLE"}
-                      variant="standard"
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratSemiBold",
-                          fontSize: ".7vw",
-                        },
-                      }}
-                      sx={{
-                        "& .MuiAutocomplete-input": {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                    ></TextField>
-                  )}
-                  onChange={(event, value) => {
-                    let y = [...aValorMA];
-                    y[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].unidadResponsable = value?.Unidad || "";
-                    setAValorMA(y);
-                  }}
-                  isOptionEqualToValue={(option, value) =>
-                    option.Id === value.Id
-                  }
-                />
-              </FormControl>{" "}
-            </Grid> */}
-
-            <Grid
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: 2,
-                width: "40%",
-                height: "12vh",
-                backgroundColor: "#f0f0f0",
-              }}
-            >
-              <FormControl sx={{ width: "25vw" }}>
-                <Autocomplete
-                  clearText="Borrar"
-                  noOptionsText="Sin opciones"
-                  closeText="Cerrar"
-                  openText="Abrir"
-                  disabled={
-                    (MAEdit !== ""
-                      ? MAEdit?.actividades[
-                          mapeaindice(componenteSelect, actividadSelect)
-                        ]?.unidadResponsable
-                      : false) &&
+            <FormControl required fullWidth>
+              <Autocomplete
+                clearText="Borrar"
+                noOptionsText="Sin opciones"
+                closeText="Cerrar"
+                openText="Abrir"
+                disabled={
+                  (MAEdit !== ""
+                    ? MAEdit?.actividades[
+                        mapeaindice(componenteSelect, actividadSelect)
+                      ]?.unidadResponsable
+                    : false) &&
+                  aValorMA[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.unidadResponsable !== ""
+                }
+                options={catalogoUnidadResponsable}
+                getOptionLabel={(option) => option.Nombre}
+                value={{
+                  Id: catalogoUnidadResponsable[0].Id,
+                  Nombre:
                     aValorMA[0].componentes[componenteSelect].actividades[
                       actividadSelect
-                    ]?.unidadResponsable !== ""
-                  }
-                  options={catalogoUnidadResponsable}
-                  getOptionLabel={(option) => option.Nombre}
-                  value={{
-                    Id: catalogoUnidadResponsable[0].Id,
-                    Nombre:
-                      aValorMA[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.unidadResponsable,
-                  }}
-                  renderOption={(props, option) => {
-                    return (
-                      <li {...props} key={option.Id}>
-                        <p
-                          style={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                        >
-                          {option.Nombre}
-                        </p>
-                      </li>
-                    );
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={"UNIDAD RESPONSABLE"}
-                      variant="standard"
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratSemiBold",
-                          fontSize: "1vw",
-                        },
-                      }}
-                      sx={{
-                        "& .MuiAutocomplete-input": {
+                    ]?.unidadResponsable,
+                }}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.Id}>
+                      <p
+                        style={{
                           fontFamily: "MontserratRegular",
-                        },
-                      }}
-                    ></TextField>
-                  )}
-                  onChange={(event, value) => {
-                    let y = [...aValorMA];
-                    y[0].componentes[componenteSelect].actividades[
-                      actividadSelect
-                    ].unidadResponsable = value?.Nombre || "";
-                    setAValorMA(y);
-                  }}
-                  isOptionEqualToValue={(option, value) =>
-                    option.Id === value.Id
-                  }
-                />
-              </FormControl>{" "}
-            </Grid>
+                        }}
+                      >
+                        {option.Nombre}
+                      </p>
+                    </li>
+                  );
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={"UNIDAD RESPONSABLE"}
+                    variant="standard"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    sx={{
+                      "& .MuiAutocomplete-input": {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                  ></TextField>
+                )}
+                onChange={(event, value) => {
+                  let y = [...aValorMA];
+                  y[0].componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ].unidadResponsable = value?.Nombre || "";
+                  setAValorMA(y);
+                }}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
+            </FormControl>{" "}
+          </Grid>
 
+          <Grid
+            item
+            xl={2}
+            lg={2}
+            md={2}
+            sm={2}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -1671,7 +1594,7 @@ export const TabActividadesMA = ({
               }
               rows={5}
               multiline
-              sx={{ width: "40%", boxShadow: 2 }}
+              sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
@@ -1712,12 +1635,16 @@ export const TabActividadesMA = ({
           </Grid>
 
           <Grid
+            item
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={12}
             sx={{
+              alignContent: "center",
               display: "flex",
-              width: "100%",
-              height: "30%",
-              alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyContent: "center",
             }}
           >
             <TextField
@@ -1733,7 +1660,7 @@ export const TabActividadesMA = ({
               }
               rows={5}
               multiline
-              sx={{ width: "40%", boxShadow: 2 }}
+              sx={{  boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
@@ -1771,6 +1698,21 @@ export const TabActividadesMA = ({
                 },
               }}
             />
+          </Grid>
+
+          <Grid
+            item
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -1784,7 +1726,7 @@ export const TabActividadesMA = ({
               }
               rows={5}
               multiline
-              sx={{ width: "40%", boxShadow: 2 }}
+              sx={{  boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography

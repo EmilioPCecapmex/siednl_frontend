@@ -666,7 +666,7 @@ export function TabEncabezado({
         // alignItems: "center",
         // justifyItems: "center",
         backgroundColor: "#fff",
-        boxShadow: 20,
+        boxShadow: 10,
         borderRadius: 5,
         // display: "grid",
         // gridTemplateColumns: "repeat(3, 1fr)",
@@ -1287,6 +1287,7 @@ export function TabEncabezado({
             />
           </FormControl>
         </Grid>
+        
       </Grid>
     </Grid>
   );

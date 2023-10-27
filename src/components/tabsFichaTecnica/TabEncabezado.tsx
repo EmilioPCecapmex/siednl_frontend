@@ -15,7 +15,7 @@ import axios from "axios";
 import { IEncabezadoFT } from "./Interfaces";
 
 export function TabEncabezado({
- show,
+  show,
   resumenEncabezadoFT,
   FT,
   MIR,
@@ -65,12 +65,11 @@ export function TabEncabezado({
       lda.push(x.Id);
     });
     getObjetivos(lda);
-  }, [ MIR]);
+  }, [MIR]);
 
   const getObjetivos = (id: Array<number>) => {
+    console.log("id: ", id);
 
-    console.log("id: ",id);
-    
     id.map((value, index) => {
       axios
         .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
@@ -84,12 +83,12 @@ export function TabEncabezado({
           },
         })
         .then((r) => {
-          console.log("r.data.data: ",r.data.data);
-          console.log("value: ",value);
+          console.log("r.data.data: ", r.data.data);
+          console.log("value: ", value);
           setCatalogoObjetivosDS(r.data.data);
         })
         .catch((err) => {
-          console.log("value: ",value);
+          console.log("value: ", value);
         });
     });
   };
@@ -131,16 +130,17 @@ export function TabEncabezado({
       visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
-        display: "flex",
+        //display: "flex",
         width: "93vw",
-        height: "82vh",
+        height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
         boxShadow: 10,
         borderRadius: 5,
-        flexDirection: "column",
+
+        //flexDirection: "column",
         backgroundColor: "#fff",
       }}
     >
-      <Grid
+      {/* <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -158,7 +158,8 @@ export function TabEncabezado({
         >
           ENCABEZADO
         </Typography>
-      </Grid>
+
+      </Grid> */}
 
       <Grid
         sx={{
@@ -167,130 +168,106 @@ export function TabEncabezado({
           display: "flex",
         }}
       >
-        <List
+        <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
           sx={{
-            width: "15vw",
-            height: "65vh",
-            borderRight: "solid",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            "& > .MuiGrid-item": {
+              marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
             },
           }}
         >
           <Grid
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
+            xl={5}
+            lg={5}
+            md={5}
+            sm={5}
+            xs={10}
+            item
+            sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
-            <Divider />
-            <ListItemButton
-              selected
-              sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
+            <TextField
+              onChange={(a) => setProgramaSER(a.target.value)}
+              value={programaSER
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")}
+              rows={8}
+              multiline
+              sx={{ width: "90%", boxShadow: 2 }}
+              variant={"filled"}
+              label="PROGRAMA SECTORIAL, ESPECIAL O REGIONAL"
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "1.3vw",
                 },
               }}
-            >
-              <Typography sx={{fontSize: [ 10, 15, 18, 18, 22, 25], fontFamily: "MontserratMedium" }}>
-                ENCABEZADO
-              </Typography>
-            </ListItemButton>
-
-            <Divider />
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            ></TextField>
           </Grid>
-        </List>
-
-        <Grid
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            width: "90%",
-            alignItems: "center",
-            justifyItems: "center",
-          }}
-        >
-          <TextField
-            onChange={(a) => setProgramaSER(a.target.value)}
-            value={programaSER
-              .replaceAll('"', "")
-              .replaceAll("'", "")
-              .replaceAll("\n", "")}
-            rows={8}
-            multiline
-            sx={{ width: "90%", boxShadow: 2 }}
-            variant={"filled"}
-            label="PROGRAMA SECTORIAL, ESPECIAL O REGIONAL"
-            InputLabelProps={{
-              style: {
-                fontFamily: "MontserratMedium",
-                fontSize: "1.3vw",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-          ></TextField>
-
-          <TextField
-            onChange={(v) => setObjetivoSER(v.target.value)}
-            value={objetivoSER
-              .replaceAll('"', "")
-              .replaceAll("'", "")
-              .replaceAll("\n", "")}
-            rows={8}
-            multiline
-            sx={{ width: "90%", boxShadow: 2 }}
-            variant={"filled"}
-            label="OBJETIVO SECTORIAL, ESPECIAL O REGIONAL"
-            InputLabelProps={{
-              style: {
-                fontSize: "1.3vw",
-                fontFamily: "MontserratMedium",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-          ></TextField>
-
-          {/*------------------------TF2--------------------- */}
 
           <Grid
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              boxShadow: 2,
-              width: "90%",
-              height: "20vh",
-              backgroundColor: "#e2e2e2",
-            }}
+            xl={5}
+            lg={5}
+            md={5}
+            sm={5}
+            xs={10}
+            item
+            sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
-            <FormControl sx={{ width: "30vw" }}>
+            <TextField
+              onChange={(v) => setObjetivoSER(v.target.value)}
+              value={objetivoSER
+                .replaceAll('"', "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")}
+              rows={8}
+              multiline
+              sx={{ width: "90%", boxShadow: 2 }}
+              variant={"filled"}
+              label="OBJETIVO SECTORIAL, ESPECIAL O REGIONAL"
+              InputLabelProps={{
+                style: {
+                  fontSize: "1.3vw",
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+            ></TextField>
+          </Grid>
+
+          <Grid
+            xl={5}
+            lg={5}
+            md={5}
+            sm={5}
+            xs={10}
+            item
+            sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+          >
+            <FormControl required fullWidth>
               <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                clearText="Borrar"
+                noOptionsText="Sin opciones"
+                closeText="Cerrar"
+                openText="Abrir"
                 options={catalogoObjetivosDS}
                 getOptionLabel={(option) => option.ObjetivoDS}
                 value={{
@@ -303,7 +280,6 @@ export function TabEncabezado({
                       <p
                         style={{
                           fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
                         }}
                       >
                         {option.ObjetivoDS}
@@ -319,7 +295,6 @@ export function TabEncabezado({
                     InputLabelProps={{
                       style: {
                         fontFamily: "MontserratSemiBold",
-                        fontSize: "1.3vw",
                       },
                     }}
                     sx={{
@@ -341,22 +316,20 @@ export function TabEncabezado({
           </Grid>
 
           <Grid
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              boxShadow: 2,
-              width: "90%",
-              height: "20vh",
-              backgroundColor: "#e2e2e2",
-            }}
+            xl={5}
+            lg={5}
+            md={5}
+            sm={5}
+            xs={10}
+            item
+            sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
-            <FormControl sx={{ width: "30vw" }}>
+            <FormControl required fullWidth>
               <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                clearText="Borrar"
+                noOptionsText="Sin opciones"
+                closeText="Cerrar"
+                openText="Abrir"
                 disabled={disabledMetas || objetivoODSSel === ""}
                 options={catalogoMetasODS}
                 getOptionLabel={(option) => option.MetaODS}
@@ -370,7 +343,6 @@ export function TabEncabezado({
                       <p
                         style={{
                           fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
                         }}
                       >
                         {option.MetaODS}
@@ -386,7 +358,6 @@ export function TabEncabezado({
                     InputLabelProps={{
                       style: {
                         fontFamily: "MontserratSemiBold",
-                        fontSize: "1.3vw",
                       },
                     }}
                     sx={{

@@ -405,6 +405,7 @@ export default function AddMetaAnual({
               MIR={MIR}
               noComponentes={noComponentes}
             ></TabResumenMIR>
+            
           </Grid>
         </Grid>
       </Grid>

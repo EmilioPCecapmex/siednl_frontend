@@ -610,24 +610,25 @@ export const MetaAnual = () => {
                     </FormControl>
                   </Tooltip>
                 </Grid>
+
                 <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
-                    <Tooltip
-                          PopperProps={{
-                            modifiers: [
-                              {
-                                name: "offset",
-                                options: {
-                                  offset: [0, -13],
-                                },
+                      <Tooltip
+                        PopperProps={{
+                          modifiers: [
+                            {
+                              name: "offset",
+                              options: {
+                                offset: [0, -13],
                               },
-                            ],
-                          }}
-                          title={"FILTRO POR ESTADO DE LA MIR"}
-                        >
-                          <span>FILTRO POR ESTADO DE LA MA</span>
-                        </Tooltip>
+                            },
+                          ],
+                        }}
+                        title={"FILTRO POR ESTADO DE LA MA"}
+                      >
+                        <span>FILTRO POR ESTADO DE LA MA</span>
+                      </Tooltip>
                     </InputLabel>
                     <Select
                       size="small"
@@ -747,11 +748,12 @@ export const MetaAnual = () => {
 
             {/* TABLA */}
             <Grid
-              container
               item
+              xl={10}
               lg={10}
               md={10}
               sm={10}
+              xs={10}
               sx={{
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
@@ -763,14 +765,14 @@ export const MetaAnual = () => {
               <TableContainer
                 sx={{
                   borderRadius: 5,
-                  height: 450,
+                  height: "90%",
                   overflow: "auto",
                   "&::-webkit-scrollbar": {
                     width: ".5vw",
-                    mt: 1,
+                    //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "#edeaea",
+                    backgroundColor: "red",
                     //outline: "1px solid slategrey",
                     borderRadius: 1,
                   },
@@ -891,106 +893,60 @@ export const MetaAnual = () => {
                           <TableCell
                             sx={{
                               flexDirection: "row",
-                              display: "grid",
+                              //display: "grid",
                               //padding: "2px 20px 2px 10",
                               gridTemplateColumns: "repeat(4,1fr)",
                               fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign: "center",
                             }}
                           >
-                            <Tooltip
-                              title="REGISTRAR META ANUAL"
-                              // {!(row.Estado === "En Captura" &&
-                              //         localStorage.getItem("Rol") ===
-                              //           "Capturador"
-                              //           ? false
-                              //           : row.Estado === "En Revisión" &&
+                            <Grid sx={{ display: "flex" }}>
+                              <Tooltip
+                                title="REGISTRAR META ANUAL"
+                                // {!(row.Estado === "En Captura" &&
+                                //         localStorage.getItem("Rol") ===
+                                //           "Capturador"
+                                //           ? false
+                                //           : row.Estado === "En Revisión" &&
 
-                              //             localStorage.getItem("Rol") ===
-                              //               "Verificador"
-                              //           ? false
-                              //           : row.Estado === "En Autorización" &&
+                                //             localStorage.getItem("Rol") ===
+                                //               "Verificador"
+                                //           ? false
+                                //           : row.Estado === "En Autorización" &&
 
-                              //             localStorage.getItem("Rol") ===
-                              //               "Administrador"
-                              //           ? false
-                              //           : true)?"REGISTRAR META ANUAL":(validaFecha?"FECHA CAPTURA TERMINADA":"REGISTRAR META ANUAL")
-                              //       }
-                            >
-                              <span>
-                                <IconButton
-                                  disabled={
-                                    (row.Estado === "En Captura" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Capturador") ||
-                                    (row.Estado === "En Revisión" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador") ||
-                                    (row.Estado === "Borrador Verificador" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador") ||
-                                    ((row.Estado === "En Autorización" ||
-                                      row.Estado === "Autorizada") &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador") ||
-                                    (row.Estado === "Borrador Autorizador" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador")
-                                      ? false
-                                      : true
-                                  }
-                                  sx={{
-                                    fontSize: "24px", // Tamaño predeterminado del icono
-
-                                    "@media (max-width: 600px)": {
-                                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                    },
-
-                                    "@media (min-width: 601px) and (max-width: 960px)":
-                                      {
-                                        fontSize: 20, // Pantalla pequeña (md)
-                                      },
-
-                                    "@media (min-width: 961px) and (max-width: 1280px)":
-                                      {
-                                        fontSize: 20, // Pantalla mediana (lg)
-                                      },
-
-                                    "@media (min-width: 1281px)": {
-                                      fontSize: 25, // Pantalla grande (xl)
-                                    },
-
-                                    "@media (min-width: 2200px)": {
-                                      ffontSize: 25, // Pantalla grande (xl)
-                                    },
-                                  }}
-                                  onClick={() => {
-                                    setMaEdit([
-                                      {
-                                        IdMa: row.IdMa,
-                                        IdMir: row.IdMir,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Entidad: row.Entidad,
-                                        Programa: row.Programa,
-                                        MIR: row.MIR,
-                                        //meta anual completa
-                                        MetaAnual: row.MetaAnual,
-                                        Estado: row.Estado,
-                                        CreadoPor: row.CreadoPor,
-                                        FechaCreacion: row.FechaCreacion,
-                                        Opciones: row.Opciones,
-                                      },
-                                    ]);
-                                    setShowResume(false);
-                                    setActionNumber(1);
-                                  }}
-                                >
-                                  <AddCircleOutlineIcon
+                                //             localStorage.getItem("Rol") ===
+                                //               "Administrador"
+                                //           ? false
+                                //           : true)?"REGISTRAR META ANUAL":(validaFecha?"FECHA CAPTURA TERMINADA":"REGISTRAR META ANUAL")
+                                //       }
+                              >
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      (row.Estado === "En Captura" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      ((row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true
+                                    }
                                     sx={{
                                       fontSize: "24px", // Tamaño predeterminado del icono
 
@@ -1016,65 +972,113 @@ export const MetaAnual = () => {
                                         ffontSize: 25, // Pantalla grande (xl)
                                       },
                                     }}
-                                  />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
-
-                            <Tooltip title="DESCARGAR">
-                              <span>
-                                <IconButton
-                                  onClick={() => {
-                                    getMetaAnualDownload(
-                                      row.MIR,
-                                      row.MetaAnual,
-                                      row.Programa,
-                                      row.FechaCreacion,
-                                      row.Entidad
-                                    );
-                                  }}
-                                  disabled={
-                                    row.Estado === "Autorizada" && validaFecha
-                                      ? false
-                                      : true
-                                  }
-                                >
-                                  <DownloadIcon
-                                    sx={{
-                                      fontSize: "24px", // Tamaño predeterminado del icono
-
-                                      "@media (max-width: 600px)": {
-                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                      },
-
-                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                    onClick={() => {
+                                      setMaEdit([
                                         {
-                                          fontSize: 20, // Pantalla pequeña (md)
+                                          IdMa: row.IdMa,
+                                          IdMir: row.IdMir,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          //meta anual completa
+                                          MetaAnual: row.MetaAnual,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          Opciones: row.Opciones,
                                         },
-
-                                      "@media (min-width: 961px) and (max-width: 1280px)":
-                                        {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
-
-                                      "@media (min-width: 1281px)": {
-                                        fontSize: 25, // Pantalla grande (xl)
-                                      },
-
-                                      "@media (min-width: 2200px)": {
-                                        ffontSize: 25, // Pantalla grande (xl)
-                                      },
+                                      ]);
+                                      setShowResume(false);
+                                      setActionNumber(1);
                                     }}
-                                  />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
+                                  >
+                                    <AddCircleOutlineIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
 
-                            <ComentDialogMA
-                              estado={row.Estado}
-                              id={row.IdMir}
-                              actualizado={actualizaContador}
-                            />
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+
+                              <Tooltip title="DESCARGAR">
+                                <span>
+                                  <IconButton
+                                    onClick={() => {
+                                      getMetaAnualDownload(
+                                        row.MIR,
+                                        row.MetaAnual,
+                                        row.Programa,
+                                        row.FechaCreacion,
+                                        row.Entidad
+                                      );
+                                    }}
+                                    disabled={
+                                      row.Estado === "Autorizada" && validaFecha
+                                        ? false
+                                        : true
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+
+                              <ComentDialogMA
+                                estado={row.Estado}
+                                id={row.IdMir}
+                                actualizado={actualizaContador}
+                              />
+                            </Grid>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -1082,7 +1086,7 @@ export const MetaAnual = () => {
                 </Table>
               </TableContainer>
 
-              <Box sx={{ width: "100%", fontSize: [10, 10, 10, 15, 18] }}>
+              <Grid sx={{ width: "100%", fontSize: [10, 10, 10, 15, 18] }}>
                 <TablePagination
                   rowsPerPageOptions={[renglonesPagina]}
                   component="div"
@@ -1092,7 +1096,7 @@ export const MetaAnual = () => {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-              </Box>
+              </Grid>
             </Grid>
           </>
         ) : (
