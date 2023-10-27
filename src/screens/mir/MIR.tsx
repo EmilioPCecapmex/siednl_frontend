@@ -172,9 +172,12 @@ export const MIR = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida === "true"
-          ? setValidaFecha(true)
-          : setValidaFecha(false);
+        if(r.data.data.valida === "true"){
+          setValidaFecha(true);
+          setTitle("EDITAR");}
+        else{
+          setValidaFecha(false);
+          setTitle("FECHA CAPTURA FINALIZADA");}
       })
       .catch((err) => {});
   };
@@ -202,6 +205,7 @@ export const MIR = () => {
   };
 
   const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
+  const [title_texto, setTitle] = useState("");
 
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
@@ -1066,7 +1070,7 @@ export const MIR = () => {
                               actualizado={actualizaContador}
                             />
                             <Tooltip
-                              title="EDITAR"
+                              title={title_texto}
                               PopperProps={{
                                 modifiers: [
                                   {

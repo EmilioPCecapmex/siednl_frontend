@@ -348,6 +348,7 @@ export const FichaTecnica = () => {
   // useEffect(() => {
   //   getFT();
   // }, []);
+  const [title_texto, setTitle] = useState("");
 
   const validaFechaCaptura = () => {
     axios
@@ -365,9 +366,12 @@ export const FichaTecnica = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida === "true"
-          ? setValidaFecha(true)
-          : setValidaFecha(false);
+        if(r.data.data.valida === "true"){
+          setValidaFecha(true);
+          setTitle("VER FICHA TÉCNICA");}
+        else{
+          setValidaFecha(false);
+          setTitle("FECHA CAPTURA FINALIZADA");}
       })
       .catch((err) => {});
   };
@@ -1062,7 +1066,7 @@ export const FichaTecnica = () => {
                               </span>
                             </Tooltip>
 
-                            <Tooltip title="VER FICHA TÉCNICA">
+                            <Tooltip title={title_texto}>
                               <span>
                                 <IconButton
                                   disabled={

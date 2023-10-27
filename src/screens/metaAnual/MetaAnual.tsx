@@ -124,6 +124,7 @@ export const MetaAnual = () => {
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const [title_texto, setTitle] = useState("");
 
   const [validaFecha, setValidaFecha] = useState(true);
   const [ma, setMa] = useState<Array<IIMa>>([]);
@@ -209,9 +210,12 @@ export const MetaAnual = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida === "true"
-          ? setValidaFecha(true)
-          : setValidaFecha(false);
+        if(r.data.data.valida === "true"){
+          setValidaFecha(true);
+          setTitle("REGISTRAR META ANUAL");}
+        else{
+          setValidaFecha(false);
+          setTitle("FECHA CAPTURA FINALIZADA");}
       })
       .catch((err) => {});
   };
@@ -902,7 +906,7 @@ export const MetaAnual = () => {
                           >
                             <Grid sx={{ display: "flex" }}>
                               <Tooltip
-                                title="REGISTRAR META ANUAL"
+                                title={title_texto}
                                 // {!(row.Estado === "En Captura" &&
                                 //         localStorage.getItem("Rol") ===
                                 //           "Capturador"
