@@ -1352,8 +1352,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         xl={12}
         lg={12}
         md={12}
-        sm={8}
-        xs={6}
+        sm={12}
+        xs={12}
         sx={{ backgroundColor: "white" }}
       >
         <Grid item container sx={{ height: "100%", display: "flex" }}>
@@ -1370,6 +1370,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
+              "@media (max-width: 600px)": {
+                flexDirection: "initial", // Pantalla extra pequeña (xs y sm)
+              },
+              "@media (min-width: 601px) and (max-width: 960px)": {
+                flexDirection: "initial", // Pantalla pequeña (md)
+              },
+              // overflow: "auto"
             }}
           >
             <List
@@ -1437,7 +1444,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               setDefaultSelection(item.Desc);
                             }}
                           >
-                            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                            <Typography sx={{ fontFamily: "MontserratMedium", "@media (max-width: 600px)": {
+                fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
+              },
+              "@media (min-width: 601px) and (max-width: 960px)": {
+                fontSize: "3vw", // Pantalla pequeña (md)
+              }, }}>
                               {item.Desc}
                             </Typography>
                           </ListItemButton>
@@ -1480,7 +1492,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "MontserratMedium", "@media (max-width: 600px)": {
+                                    fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
+                                  },
+                          
+                                  "@media (min-width: 601px) and (max-width: 960px)": {
+                                    fontSize: "3vw", // Pantalla pequeña (md)
+                                  }, }}>
                     Relaciones
                   </Typography>
                 </AccordionSummary>
@@ -1507,7 +1525,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               setDefaultSelection(item.Desc);
                             }}
                           >
-                            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                            <Typography sx={{ fontFamily: "MontserratMedium", "@media (max-width: 600px)": {
+                                    fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
+                                  },
+                          
+                                  "@media (min-width: 601px) and (max-width: 960px)": {
+                                    fontSize: "3vw", // Pantalla pequeña (md)
+                                  }, }}>
                               {item.Desc}
                             </Typography>
                           </ListItemButton>
@@ -1570,6 +1594,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     fontFamily: "MontserratSemiBold",
                     fontSize: "1.2vw",
                     textAlign: "center",
+                    "@media (max-width: 600px)": {
+                      fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
+                    },
+            
+                    "@media (min-width: 601px) and (max-width: 960px)": {
+                      fontSize: "1.5vw", // Pantalla pequeña (md)
+                    },
                   }}
                 >
                   {catalogoActual.toLocaleUpperCase()}
@@ -1679,6 +1710,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     fontFamily: "MontserratSemiBold",
                     ml: "1vw",
                     fontSize: ".9vw",
+                    "@media (max-width: 600px)": {
+                      fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
+                    },
+            
+                    "@media (min-width: 601px) and (max-width: 960px)": {
+                      fontSize: "1.5vw", // Pantalla pequeña (md)
+                    },
                   }}
                 >
                   Descripción
@@ -1724,6 +1762,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     fontFamily: "MontserratSemiBold",
                     mr: "1vw",
                     fontSize: ".9vw",
+                    "@media (max-width: 600px)": {
+                      fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
+                    },
+            
+                    "@media (min-width: 601px) and (max-width: 960px)": {
+                      fontSize: "1.5vw", // Pantalla pequeña (md)
+                    },
                   }}
                 >
                   Acciones
@@ -1785,6 +1830,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                 sx={{
                                   fontFamily: "MontserratRegular",
                                   fontSize: "1vw",
+                                  "@media (max-width: 600px)": {
+                                    fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
+                                  },
+                          
+                                  "@media (min-width: 601px) and (max-width: 960px)": {
+                                    fontSize: "1.5vw", // Pantalla pequeña (md)
+                                  },
                                 }}
                               >
                                 {row?.Desc}

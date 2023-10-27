@@ -266,7 +266,7 @@ export const TabComponenteMA = ({
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
       Id: "",
-      Nombre: "",
+      Label: "",
     },
   ]);
 
@@ -302,8 +302,21 @@ export const TabComponenteMA = ({
       });
   };
 
+  const getListasLogin = (datos:any,setState:Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
+        params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setState(r.data.data);
+      });
+  };
   useEffect(() => {
-    getUnidades();
+    // getUnidades();
+    getListasLogin({Tabla:"EntidadesHijas",ValorCondicion:JSON.parse(MIR).encabezado.entidad.Id},setCatalogoUnidadResponsable);
   }, []);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
@@ -1340,47 +1353,47 @@ export const TabComponenteMA = ({
                     componentesValues[componentSelect - 1]
                       ?.unidadResponsable !== ""
                   }
-                  options={catalogoUnidadResponsable}
-                  getOptionLabel={(option) => option.Nombre}
-                  value={{
-                    Id: catalogoUnidadResponsable[0].Id || "",
-                    Nombre:
-                      componentesValues[componentSelect - 1]
-                        ?.unidadResponsable || "",
-                  }}
-                  renderOption={(props, option) => {
-                    return (
-                      <li {...props} key={option.Id}>
-                        <p
-                          style={{
+                    options={catalogoUnidadResponsable}
+                    getOptionLabel={(option) => option.Label}
+                    value={{
+                      Id: catalogoUnidadResponsable[0].Id || "",
+                      Label: componentesValues[componentSelect - 1]?.unidadResponsable || "",
+                    }}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.Id}>
+                          <p
+                            style={{
+                              fontFamily: "MontserratRegular",
+                              fontSize: ".7vw",
+                            }}
+                          >
+                            {option.Label}
+                          </p>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"UNIDAD RESPONSABLE"}
+                        variant="standard"
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratSemiBold",
+                            fontSize: "1vw",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiAutocomplete-input": {
                             fontFamily: "MontserratRegular",
-                          }}
-                        >
-                          {option.Nombre}
-                        </p>
-                      </li>
-                    );
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={"UNIDAD RESPONSABLE"}
-                      variant="standard"
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratSemiBold",
-                        },
-                      }}
-                      sx={{
-                        "& .MuiAutocomplete-input": {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                    ></TextField>
-                  )}
-                  onChange={(event, value) => {
-                    componentesValues[componentSelect - 1].unidadResponsable =
-                      value?.Nombre || "";
+                          },
+                        }}
+                      ></TextField>
+                    )}
+                    onChange={(event, value) => {
+                      componentesValues[componentSelect - 1].unidadResponsable =
+                      value?.Label || "";
                     setComponentesValues([...componentesValues]);
                   }}
                   isOptionEqualToValue={(option, value) =>

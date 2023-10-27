@@ -213,8 +213,6 @@ export const TabActividades = ({
         actividades: arr,
       },
     }));
-
-    
   }, [valoresComponenteActividad]);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");

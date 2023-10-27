@@ -350,7 +350,7 @@ export const TabActividadesMA = ({
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
       Id: "",
-      Nombre: "",
+      Label: "",
     },
   ]);
 
@@ -389,9 +389,33 @@ export const TabActividadesMA = ({
       });
   };
 
+
+
+
+
+  const getListasLogin = (datos:any,setState:Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
+        params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setState(r.data.data);
+      });
+  };
+
   useEffect(() => {
-    getUnidades();
-    console.log("MA: ", MA);
+    // getUnidades();
+    // console.log("MA: ",MA);
+    getListasLogin(
+      {
+        Tabla: "EntidadesHijas",
+        ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id,
+      },
+      setCatalogoUnidadResponsable
+    );
   }, [MA]);
 
   //Se crea funcion para encontrar indice, funciona hasta para 3 componentes y hasta para 3 actividades por componente
@@ -1501,7 +1525,7 @@ export const TabActividadesMA = ({
               justifyContent: "center",
             }}
           >
-            <FormControl required fullWidth>
+            <FormControl sx={{ width: "25vw" }}>
               <Autocomplete
                 clearText="Borrar"
                 noOptionsText="Sin opciones"
@@ -1518,10 +1542,10 @@ export const TabActividadesMA = ({
                   ]?.unidadResponsable !== ""
                 }
                 options={catalogoUnidadResponsable}
-                getOptionLabel={(option) => option.Nombre}
+                getOptionLabel={(option) => option.Label}
                 value={{
                   Id: catalogoUnidadResponsable[0].Id,
-                  Nombre:
+                  Label:
                     aValorMA[0].componentes[componenteSelect].actividades[
                       actividadSelect
                     ]?.unidadResponsable,
@@ -1532,9 +1556,10 @@ export const TabActividadesMA = ({
                       <p
                         style={{
                           fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
                         }}
                       >
-                        {option.Nombre}
+                        {option.Label}
                       </p>
                     </li>
                   );
@@ -1547,6 +1572,7 @@ export const TabActividadesMA = ({
                     InputLabelProps={{
                       style: {
                         fontFamily: "MontserratSemiBold",
+                        fontSize: "1vw",
                       },
                     }}
                     sx={{
@@ -1560,7 +1586,7 @@ export const TabActividadesMA = ({
                   let y = [...aValorMA];
                   y[0].componentes[componenteSelect].actividades[
                     actividadSelect
-                  ].unidadResponsable = value?.Nombre || "";
+                  ].unidadResponsable = value?.Label || "";
                   setAValorMA(y);
                 }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
@@ -1660,7 +1686,7 @@ export const TabActividadesMA = ({
               }
               rows={5}
               multiline
-              sx={{  boxShadow: 2 }}
+              sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
@@ -1726,7 +1752,7 @@ export const TabActividadesMA = ({
               }
               rows={5}
               multiline
-              sx={{  boxShadow: 2 }}
+              sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography

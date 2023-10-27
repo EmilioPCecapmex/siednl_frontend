@@ -16,6 +16,7 @@ import {
   getListPedColumns,
   getLista,
   getListasLogin,
+  getListasLoginProgramas,
 } from "./services mir/servicesMIR";
 
 export interface IEncabezado {
@@ -183,8 +184,11 @@ export function TabEncabezado({
 
   useEffect(() => {
     getLista("AniosFiscales", "", setCatalogoAniosFiscales);
-    getListasLogin(
-      { Tabla: "Entidades", ValorCondicion: "" },
+    // getListasLogin(
+    //   { Tabla: "EntidadesMatrices", ValorCondicion: "" },
+    //   setCatalogoInstituciones
+    // );
+    getListasLoginProgramas(
       setCatalogoInstituciones
     );
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
