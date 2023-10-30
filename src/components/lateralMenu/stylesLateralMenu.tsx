@@ -85,7 +85,7 @@ export const lstXl = {
     overflowX: "hidden",
   },
   selectedBox: {
-    width: ".5vw",
+    // width: ".5vw",
     backgroundColor: "#c4a57b",
     height: "3vh",
     position: "absolute",

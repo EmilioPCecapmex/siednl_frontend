@@ -83,24 +83,31 @@ export const IconsMenu = (icon: string) => {
   switch (icon) {
 
     case "HomeOutlinedIcon":
-      return <HomeOutlinedIcon sx={{ mr: "10px" }} />;
+      return <HomeOutlinedIcon />;
     case "FolderOutlinedIcon":
-      return <FolderOutlinedIcon sx={{ mr: "10px" }} />;
+      return <FolderOutlinedIcon />;
     case "CampaignIcon":
-      return <CampaignIcon sx={{ mr: "10px" }} />;
+      return <CampaignIcon />;
     case "KeyboardDoubleArrowRightIcon":
-      return <KeyboardDoubleArrowRightIcon sx={{ mr: "10px" }} />;
+      return <KeyboardDoubleArrowRightIcon />;
 
     case "OndemandVideoIcon":
-      return <OndemandVideoIcon sx={{ mr: "10px" }} />;
+      return <OndemandVideoIcon />;
 
     case "SettingsOutlinedIcon":
-      return <SettingsOutlinedIcon sx={{ mr: "10px" }} />;
+      return <SettingsOutlinedIcon />;
     case "MenuBookIcon":
-      return <MenuBookIcon sx={{ mr: "10px" }} />;
+      return <MenuBookIcon />;
     case "HelpIcon":
-      return <HelpIcon sx={{ mr: "10px" }} />;
+      return <HelpIcon />;
+    case "GroupIcon":
+      return <GroupIcon />;
+    case "LockResetIcon":
+      return <LockResetIcon />;
+    case "LogoutOutlinedIcon":
+      return <LogoutOutlinedIcon />;
     default:
+      return <KeyboardDoubleArrowRightIcon />;
   }
 };
 
@@ -449,17 +456,22 @@ export const LateralMenu = ({
 
     if (data.item.length !== 0) {
       return (
-        <><ListItemButton onClick={handleToggle} sx={{ width: "100%" }}>
-          <ListItemText primary={data.Menu} sx={{ width: "100%" }} />
-          {data.item && data.item.length > 0 && (
+        <>
+          <ListItemButton onClick={handleToggle} sx={{ width: "98%" }}>
             <ListItemIcon>
-              {open ? <ExpandLess /> : <ExpandMore />}
+              {IconsMenu(data.Icon || "")}
             </ListItemIcon>
-          )}
-        </ListItemButton>
+            <ListItemText primary={data.Menu} sx={{ width: "100%" }} />
+            {data.item && data.item.length > 0 && (
+              <ListItemIcon sx={{ display: "flex", justifyContent: "flex-end" }}>
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItemIcon>
+            )}
+          </ListItemButton>
           {data.item && data.item.length > 0 && (
             <Collapse in={open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
+
+              <List component="div" disablePadding sx={{ ml: "2vw" }}>
                 {data.item.map((subItem) =>
                   <RecursiveMenu key={subItem.Id} data={subItem} />)}
 
@@ -470,11 +482,26 @@ export const LateralMenu = ({
       );
     } else {
       return (
-        <>
-          <ListItemButton onClick={()=>{localStorage.setItem("IdMenuActual",data.Id);exitAlert(data.Path)}} sx={{ width: "100%" }}>
-            <ListItemText primary={data.Menu} sx={{ width: "100%" }} />
+        <Grid>
+          <ListItemButton onClick={() => {
+            localStorage.setItem("IdMenuActual", data.Id);
+            if (data.Path.includes("setting")) {
+              goSettings();
+            } else { exitAlert(data.Path) }
+          }} sx={{ width: "98%" }}>
+            <ListItemIcon>
+              {IconsMenu(data.Icon || "")}
+            </ListItemIcon>
+            <ListItemText primary={data.Menu} sx={{ width: "98%" }} />
+            <Grid
+            visibility={
+              localStorage.getItem("IdMenuActual")===data.Id ? "visible" : "hidden"
+            }
+            sx={{...st.selectedBox,width: "2%"}}
+          />
           </ListItemButton>
-        </>)
+          
+        </Grid>)
     }
 
   }
@@ -590,7 +617,7 @@ export const LateralMenu = ({
               <Grid
                 item
                 container
-                sx={{ width: "100%", height: "40vh", alignContent: "flex-start", display: "flex"}}>
+                sx={{ width: "100%", height: "40vh", alignContent: "flex-start", display: "flex" }}>
 
 
                 <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
@@ -664,8 +691,25 @@ export const LateralMenu = ({
                 container
                 sx={{ width: "100%", height: "60vh", overflow: "auto" }}>
 
-                <List>
+                <List sx={{ width: "100%" }}>
+                  <Divider />
                   {menus.map((menuItem) => <RecursiveMenu key={menuItem.Id} data={menuItem} />)}
+
+
+                  <ListItemButton onClick={() => setOpenPasswordChange(true)} sx={{ width: "100%" }}>
+                    <ListItemIcon>
+                      {IconsMenu("LockResetIcon")}
+                    </ListItemIcon>
+                    <ListItemText primary={"Cambiar Contraseña"} sx={{ width: "100%" }} />
+                  </ListItemButton>
+
+
+                  <ListItemButton onClick={() => logout()} sx={{ width: "100%" }}>
+                    <ListItemIcon>
+                      {IconsMenu("LogoutOutlinedIcon")}
+                    </ListItemIcon>
+                    <ListItemText primary={"Cerrar Sesión"} sx={{ width: "100%" }} />
+                  </ListItemButton>
                 </List>
 
               </Grid>
