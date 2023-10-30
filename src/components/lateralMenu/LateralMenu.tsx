@@ -663,7 +663,12 @@ export const LateralMenu = ({
                         localStorage.getItem("NombreUsuario") as string
                       ),
                     }}
-                    sx={st.avatarStyle}
+                    sx={ {
+                      width: "11vh",
+                      height: "11vh",
+                      fontSize: "1.5vw",
+                      fontFamily: "MontserratMedium",
+                      boxShadow: 4,}}
                   >
                     {stringAvatar(
                       localStorage.getItem("NombreUsuario") as string
