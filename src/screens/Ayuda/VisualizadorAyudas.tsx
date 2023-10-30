@@ -15,12 +15,12 @@ export interface IInfoFile {
     handleClose,
     arrayAyudas,
     value,
-    openState,
+    //openState,
   }: {
     handleClose: Function
     arrayAyudas: any[]
     value: string
-    openState: boolean;
+    //openState: boolean;
 
   }) => {
   
@@ -125,8 +125,7 @@ export interface IInfoFile {
     };
   
     return (
-      (<ModalForm
-        title="Visualizar" handleClose={() => { handleClose() }}>
+      (<ModalForm title="Visualizar" handleClose={() => { handleClose() }}>
 
         <Grid item sx={{ width: "100vw", height: "90vh", justifyContent:"center",alignItems:"center",displa:"flex" }}>
           {/* cambio a tabla preguntas */}

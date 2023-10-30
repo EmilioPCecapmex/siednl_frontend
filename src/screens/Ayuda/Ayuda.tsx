@@ -266,7 +266,7 @@ const Ayuda = () => {
             onChange={handleChange}
           >
             <BottomNavigationAction
-              label="Videos de ayuda"
+              label="Videos de Ayuda"
               value="Videos"
               icon={<OndemandVideoIcon />}
             />

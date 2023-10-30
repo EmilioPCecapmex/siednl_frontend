@@ -3,6 +3,7 @@ import { IInfoFile } from "./VisualizadorAyudas";
 import { Box, Dialog, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { getFileByName } from "./ServicesAyuda";
+import ModalForm from "../../components/ModalForm";
 
 
 export const MostrarArchivos = ({
@@ -33,16 +34,11 @@ export const MostrarArchivos = ({
     }, [])
 
     return (
-        <Dialog
-            className="containerVizualizar"
-            fullScreen
-            sx={{ zIndex: 2000 }}
-            open={true}
-        >
+        
+<ModalForm title="Visualizar" handleClose={() => { handleClose() }}>
 
-
-            <Grid container sx={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "flex-end" }}>
-                <Grid container item xs={12} sm={12} md={12} lg={12} sx={{height:"7vh", display: "flex", justifyContent: "flex-end"}}>
+            <Grid container sx={{ width: "100vw", height: "92vh", display: "flex", justifyContent: "flex-end" }}>
+                {/* <Grid container item xs={12} sm={12} md={12} lg={12} sx={{height:"7vh", display: "flex", justifyContent: "flex-end"}}>
                 <Grid item xs={10} sm={10} md={10} lg={10} sx={{display:"flex",alignItems:"Center", justifyContent: "center"}} >
                     <Box sx={{ display: "flex", justifyContent: "center",alignItems:"Center" }}>
                         <Typography
@@ -73,7 +69,7 @@ export const MostrarArchivos = ({
                         </Tooltip>
                     </Grid>
                 </Grid>
-                </Grid>
+                </Grid> */}
 
                 <Grid item   container xs={12} sm={12} md={12} lg={12} sx={{height:"90vh", display: "flex", justifyContent: "center",alignItems:"center"}}>
                     {
@@ -104,7 +100,7 @@ export const MostrarArchivos = ({
                     }
                 </Grid>
             </Grid>
-        </Dialog >
+            </ModalForm>
     )
 }
 

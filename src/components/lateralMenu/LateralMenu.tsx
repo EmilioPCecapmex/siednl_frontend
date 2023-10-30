@@ -429,6 +429,28 @@ export const LateralMenu = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   /////////////ayuda
 
+  interface MenuObject {
+    Id: string;
+    FechaDeCreacion: string;
+    UltimaModificacion: string;
+    CreadoPor: string;
+    ModificadoPor: string;
+    Deleted: number;
+    Menu: string;
+    Descripcion: string;
+    MenuPadre: string;
+    Icon: string | null;
+    Path: string;
+    Nivel: number;
+    Orden: number;
+    ControlInterno: string | null;
+    IdApp: string;
+    item: MenuObject[]; // Esto es para el arreglo de objetos anidados, si los hay
+  }
+
+  let idMenu = localStorage.getItem("IdMenuACtual")||""
+
+
   const [arrayAyudas, setArrayAyudas] = useState<any[]>([])
 
   const [openVAyudas, setOpenVAyudas] = useState(false);
@@ -591,7 +613,7 @@ export const LateralMenu = ({
 
           </Grid>
 
-          {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option} openState /> : null}
+          {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option}  /> : null}
 
 
           <Grid

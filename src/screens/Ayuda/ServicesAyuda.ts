@@ -142,7 +142,7 @@ export const getAyuda = (
 ) => {
   axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ayuda", {
-      params: { IdMenu: IdMenu, Opcion: Opcion },
+      params: { IdMenu: IdMenu==="0"?"0":localStorage.getItem("IdMenuActual"), Opcion: Opcion },
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("jwtToken") || "",
@@ -188,6 +188,23 @@ export const getMenus = (setState: Function) => {
       let menusFiltrados = menus.filter((menu: MenuItem) => menu.Path !== "/")
 
       setState(menusFiltrados);
+    });
+};
+
+export const getRoles = (setState: Function ) => {
+  axios
+    .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/roles", {
+      params: { IdApp: localStorage.getItem("IdApp") },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+
+      console.log("r",r);
+      
+      setState(r.data.data);
     });
 };
 
