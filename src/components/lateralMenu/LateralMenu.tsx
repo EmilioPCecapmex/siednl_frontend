@@ -90,10 +90,8 @@ export const IconsMenu = (icon: string) => {
       return <CampaignIcon />;
     case "KeyboardDoubleArrowRightIcon":
       return <KeyboardDoubleArrowRightIcon />;
-
     case "OndemandVideoIcon":
       return <OndemandVideoIcon />;
-
     case "SettingsOutlinedIcon":
       return <SettingsOutlinedIcon />;
     case "MenuBookIcon":
@@ -106,6 +104,9 @@ export const IconsMenu = (icon: string) => {
       return <LockResetIcon />;
     case "LogoutOutlinedIcon":
       return <LogoutOutlinedIcon />;
+    case "InfoOutlinedIcon":
+      return <InfoOutlinedIcon />;
+
     default:
       return <KeyboardDoubleArrowRightIcon />;
   }
@@ -448,7 +449,7 @@ export const LateralMenu = ({
     item: MenuObject[]; // Esto es para el arreglo de objetos anidados, si los hay
   }
 
-  let idMenu = localStorage.getItem("IdMenuACtual")||""
+  let idMenu = localStorage.getItem("IdMenuACtual") || ""
 
 
   const [arrayAyudas, setArrayAyudas] = useState<any[]>([])
@@ -516,13 +517,13 @@ export const LateralMenu = ({
             </ListItemIcon>
             <ListItemText primary={data.Menu} sx={{ width: "98%" }} />
             <Grid
-            visibility={
-              localStorage.getItem("IdMenuActual")===data.Id ? "visible" : "hidden"
-            }
-            sx={{...st.selectedBox,width: "2%"}}
-          />
+              visibility={
+                localStorage.getItem("IdMenuActual") === data.Id ? "visible" : "hidden"
+              }
+              sx={{ ...st.selectedBox, width: "2%" }}
+            />
           </ListItemButton>
-          
+
         </Grid>)
     }
 
@@ -587,7 +588,7 @@ export const LateralMenu = ({
             color="inherit"
             onClick={handleMenu}
           >
-              <InfoOutlinedIcon />
+              {IconsMenu("InfoOutlinedIcon")}
             </IconButton>
 
             <Menu
@@ -613,7 +614,7 @@ export const LateralMenu = ({
 
           </Grid>
 
-          {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option}  /> : null}
+          {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option} /> : null}
 
 
           <Grid
@@ -663,12 +664,13 @@ export const LateralMenu = ({
                         localStorage.getItem("NombreUsuario") as string
                       ),
                     }}
-                    sx={ {
+                    sx={{
                       width: "11vh",
                       height: "11vh",
                       fontSize: "1.5vw",
                       fontFamily: "MontserratMedium",
-                      boxShadow: 4,}}
+                      boxShadow: 4,
+                    }}
                   >
                     {stringAvatar(
                       localStorage.getItem("NombreUsuario") as string
