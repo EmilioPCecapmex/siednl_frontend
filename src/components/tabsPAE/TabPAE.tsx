@@ -457,13 +457,15 @@ export const TabPAE = ({
   const guardarDoc = (archivo: { archivo: File; nombreArchivo: string }, ruta_inicial: string) => {
     const url = new File([archivo.archivo], archivo.nombreArchivo);
     let ruta = "/SIEDNL_DEV/";
-    ruta = (process.env.REACT_APP_DOC_ROUTE || "") + ruta;
-    console.log("ruta:", ruta)
+    ruta = ((process.env.REACT_APP_DOC_ROUTE || "") + ruta).trim();
+    // console.log("ruta:", ruta)
     let dataArray = new FormData();
     dataArray.append("ROUTE", `${ruta}`);
     dataArray.append("ADDROUTE", "true");
-    dataArray.append("FILE", url);
+    dataArray.append("FILE", url.name);
     dataArray.append("TOKEN", localStorage.getItem("jwtToken") || "");
+    console.log("route:",`${ruta}`,".file:",url.name);
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/SaveFile",
