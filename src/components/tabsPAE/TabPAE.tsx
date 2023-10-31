@@ -801,7 +801,7 @@ export const TabPAE = ({
                             scope="row"
                           >
                             <VisualizarPAE
-                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + + PerteneceAValue.replaceAll(" ","_") + "/"}
+                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_") + "/"}
                               nombre={row.Nombre}
                               tipo={"pdf"}
                               anio={componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020"}
