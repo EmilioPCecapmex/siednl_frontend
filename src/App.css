@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.HeaderModal {
+  z-index: 2000;
+  background-color: #ffffff;
+  border-bottom: 2px solid rgba(175, 140, 85, 0.641);
+  padding-left: 22px;
+  /* border:  */
+
+}
+
+.alert-container {
+  z-index: 9999; /* Ajusta el índice z para estar en frente del modal */
+  
+}
+

@@ -3,7 +3,6 @@ import { ReactNode } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Header } from "./header/Header";
 
-
 interface Props {
   children?: ReactNode;
   title: string;
@@ -18,7 +17,7 @@ const ModalForm = ({ children, title, handleClose }: Props) => {
         <Grid container className="HeaderModal" justifyContent="flex-end" alignItems="center" paddingBottom={.5} >
 
 
-          <Grid container className="HeaderModal" justifyContent="flex-end" alignItems="center" sx={{bgcolor:"#AF8C55", height: "7vh",width: "100%", display: "flex", justifyContent: "flex-end", }}>
+          <Grid container justifyContent="flex-end" alignItems="center" sx={{bgcolor:"#AF8C55", height: "7vh",width: "100%", display: "flex", justifyContent: "flex-end", }}>
             <Grid item xs={10} sm={10} md={10} lg={10} sx={{ height: "7vh", display: "flex", justifyContent: "center", alignItems:"center" }}>
 
 

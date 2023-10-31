@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { AppBar, Autocomplete, Button, Dialog, Grid, TextField, Toolbar, Typography } from "@mui/material";
 import ModalForm from "../../components/ModalForm";
 import { createAyuda, getMenus, getRoles, saveFile } from "./ServicesAyuda";
-import { alertaError } from "../../components/alertas/Alertas";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { queries } from "../../queries";
+import Swal from "sweetalert2";
+import { alertaError } from "../../components/alertas/Alertas";
 
 export interface ILista {
   Id: string;
@@ -220,10 +221,12 @@ export const AyudasModal = ({
                   if (menu.Id !== "") {
                     setslideropen(true)
 
-                    saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, pregunta, respuesta, handleClose);
+                    saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, rol.Id, pregunta, respuesta, handleClose);
 
                   }
                   else {
+                    console.log("a",alertaError);
+                    
                     alertaError("Seleccione un menú")
                   }
                 }
@@ -248,14 +251,14 @@ export const AyudasModal = ({
                     if (pregunta !== "") {
                       setslideropen(true)
 
-                      saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, pregunta, respuesta, handleClose)
+                      saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, rol.Id, pregunta, respuesta, handleClose)
                     }
                     else {
                       alertaError("Escriba título de guía")
                     }
                   }
                   else {
-                    alertaError("Seleccione un menú")
+                    alertaError("Seleccione un menú2")
                   }
                 }
 
@@ -283,6 +286,7 @@ export const AyudasModal = ({
 
                         let datos = {
                           IdMenu: menu.Id,
+                          IdRol: rol.Id,
                           Pregunta: pregunta,
                           Texto: respuesta,
                           RutaGuia: "",
@@ -304,7 +308,7 @@ export const AyudasModal = ({
                   }
 
                   else {
-                    alertaError("Seleccione un menú")
+                    alertaError("Seleccione un menú3")
                   }
                 }
 

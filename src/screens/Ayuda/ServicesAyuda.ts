@@ -28,6 +28,7 @@ export const saveFile = (
   value: string,
   archivo: { archivo: File; nombreArchivo: string },
   idMenu: string,
+  idRol: string,
   pregunta: string,
   texto: string,
   handleClose: Function
@@ -57,6 +58,7 @@ export const saveFile = (
           createAyuda(
             {
               IdMenu: idMenu,
+              IdRol: idRol,
               Pregunta: pregunta,
               Texto: "",
               RutaGuia: data?.RESPONSE.RUTA,
@@ -80,6 +82,7 @@ export const saveFile = (
           createAyuda(
             {
               IdMenu: idMenu,
+              IdRol: idRol,
               Pregunta: "",
               Texto: "",
               RutaGuia: "",
@@ -138,11 +141,12 @@ export const deleteFile= async(ROUTE:string,NOMBRE:string,Id:string)=>{
 export const getAyuda = (
   setState: Function,
   IdMenu: string,
-  Opcion: string
+  Opcion: string,
+  IdRol: string,
 ) => {
   axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ayuda", {
-      params: { IdMenu: IdMenu==="0"?"0":localStorage.getItem("IdMenuActual"), Opcion: Opcion },
+      params: { IdMenu: IdMenu==="0"?"0":localStorage.getItem("IdMenuActual"), Opcion: Opcion, IdRol: IdRol==="0"?"0":localStorage.getItem("IdRol") },
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("jwtToken") || "",

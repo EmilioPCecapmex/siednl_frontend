@@ -60,6 +60,12 @@ export interface IInfoFile {
         description: "Nombre Video",
         width: 600,
       },
+      {
+        field: "Nombre",
+        headerName: "Rol",
+        description: "Rol",
+        width: 600,
+      },
   
     ];
   
@@ -100,6 +106,12 @@ export interface IInfoFile {
         description: "Nombre Guía",
         width: 600,
       },
+      {
+        field: "Nombre",
+        headerName: "Rol",
+        description: "Rol",
+        width: 600,
+      },
   
     ];
   
@@ -117,6 +129,12 @@ export interface IInfoFile {
         headerName: "Respuesta",
         description: "Respuesta",
         width: 800,
+      },
+      {
+        field: "Nombre",
+        headerName: "Rol",
+        description: "Rol",
+        width: 600,
       },
     ];
   
