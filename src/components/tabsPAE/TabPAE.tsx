@@ -462,9 +462,9 @@ export const TabPAE = ({
     let dataArray = new FormData();
     dataArray.append("ROUTE", `${ruta}`);
     dataArray.append("ADDROUTE", "true");
-    dataArray.append("FILE", url.name);
+    dataArray.append("FILE", url);
     dataArray.append("TOKEN", localStorage.getItem("jwtToken") || "");
-    console.log("route:",`${ruta}`,".file:",url.name);
+    console.log("route:",`${ruta}`,".file:",url);
     
     axios
       .post(
