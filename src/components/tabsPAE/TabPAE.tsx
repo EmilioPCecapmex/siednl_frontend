@@ -456,7 +456,7 @@ export const TabPAE = ({
 
   const guardarDoc = (archivo: { archivo: File; nombreArchivo: string }, perteneceA: string) => {
     const url = new File([archivo.archivo], archivo.nombreArchivo);
-    let ruta = "/SIEDNL_DEV/"+perteneceA+"/";
+    let ruta = "/SIEDNL_DEV/PAE/"+perteneceA+"/";
     ruta = ((process.env.REACT_APP_DOC_ROUTE || "") + ruta).trim();
     // console.log("ruta:", ruta)
     let dataArray = new FormData();
@@ -511,7 +511,7 @@ export const TabPAE = ({
     if (fileInputRef.current) {
       guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, PerteneceAValue.replace(" ","_"));
       fileInputRef.current.click();
-      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name, (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/", componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020", PerteneceAValue)
+      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name, (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/"+PerteneceAValue.replace(" ","_")+"/", componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020", PerteneceAValue)
     }
   };
 
@@ -800,7 +800,7 @@ export const TabPAE = ({
                             scope="row"
                           >
                             <VisualizarPAE
-                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/" + PerteneceAValue.replace(" ","_") + "/"}
+                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + PerteneceAValue.replace(" ","_") + "/"}
                               nombre={row.Nombre}
                               tipo={"pdf"}
                               anio={componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020"}
