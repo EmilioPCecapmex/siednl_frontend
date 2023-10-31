@@ -461,6 +461,7 @@ export const TabPAE = ({
     // console.log("ruta:", ruta)
     let dataArray = new FormData();
     dataArray.append("ROUTE", `${ruta}`);
+    dataArray.append("CN", "true");
     dataArray.append("ADDROUTE", "true");
     dataArray.append("FILE", url);
     dataArray.append("TOKEN", localStorage.getItem("jwtToken") || "");
