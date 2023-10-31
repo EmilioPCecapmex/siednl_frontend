@@ -509,9 +509,9 @@ export const TabPAE = ({
 
   const handleClickAddPDF = () => {
     if (fileInputRef.current) {
-      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, PerteneceAValue.replaceAll(" ","_"));
+      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_"));
       fileInputRef.current.click();
-      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name, (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/"+PerteneceAValue.replaceAll(" ","_")+"/", componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020", PerteneceAValue)
+      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name, (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/"+(componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_")+"/", componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020", PerteneceAValue)
     }
   };
 
@@ -800,7 +800,7 @@ export const TabPAE = ({
                             scope="row"
                           >
                             <VisualizarPAE
-                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + PerteneceAValue.replaceAll(" ","_") + "/"}
+                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + + PerteneceAValue.replaceAll(" ","_") + "/"}
                               nombre={row.Nombre}
                               tipo={"pdf"}
                               anio={componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020"}
