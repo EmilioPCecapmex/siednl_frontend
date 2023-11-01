@@ -13,7 +13,7 @@ import AyudasModal from "./AyudaModal";
 import { deleteFile, getAyuda } from "./ServicesAyuda";
 import { alertaError, alertaExito } from "../../components/alertas/Alertas";
 
-export interface IAyudaVideo {
+export interface IAyudaVideo { 
   Id: string,
   IdMenu: string,
   Menu: string,
@@ -48,25 +48,25 @@ const Ayuda = () => {
   const [Videos, setVideos] = useState<IAyudaVideo[]>([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("Videos");
+  
 
 
   function eliminar(v: any) {
     Swal.fire({
-      title: "¿Estás seguro de eliminar este registro?",
+      title: "¿ESTÁS SEGURO DE ELIMINAR ESTE REGISTRO?",
       icon: "question",
       showCancelButton: true,
 
       cancelButtonColor: "#af8c55",
-      cancelButtonText: "Cancelar",
-      confirmButtonText: "Eliminar",
+      cancelButtonText: "CANCELAR",
+      confirmButtonText: "ELIMINAR",
       confirmButtonColor: "#15212f",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("valor v", v);
 
         deleteFile(v?.row?.RutaGuia, v?.row?.NombreArchivoServidor, v?.row?.Id)
           .then((response) => {
-            alertaExito(() => { }, "¡Registro eliminado!");
+            alertaExito(() => { }, "¡REGISTRO ELIMINADO!");
             obtenerDatos();
           })
           .catch((error) => {
@@ -90,11 +90,10 @@ const Ayuda = () => {
       sortable: false,
       width: 100,
       renderCell: (v: any) => {
-        console.log("v", v);
 
         return (
           <Box>
-            <Tooltip title="Eliminar Guía">
+            <Tooltip title="ELIMINAR GUÍA">
               <IconButton onClick={() => {
                 eliminar(v)
               }
@@ -119,13 +118,13 @@ const Ayuda = () => {
       field: "NombreArchivo",
       headerName: "NOMBRE GUÍA",
       //description: "Nombre Guía",
-      width: 600,
+      width: 550,
     },
     {
       field: "Nombre",
       headerName: "ROL",
       //description: "Rol",
-      width: 600,
+      width: 200,
     },
   ];
 
@@ -140,7 +139,7 @@ const Ayuda = () => {
       renderCell: (v: any) => {
         return (
           <Box>
-            <Tooltip title="Eliminar Video">
+            <Tooltip title="ELIMINAR VIDEO">
               <IconButton onClick={() => { eliminar(v) }}>
                 <DeleteForeverIcon />
               </IconButton>
@@ -156,13 +155,13 @@ const Ayuda = () => {
       field: "NombreArchivo",
       headerName: "NOMBRE VIDEO",
       //description: "Nombre Video",
-      width: 600,
+      width: 550,
     },
     {
       field: "Nombre",
       headerName: "ROL",
       //description: "Rol",
-      width: 600,
+      width: 200,
     },
 
   ];
@@ -178,7 +177,7 @@ const Ayuda = () => {
       renderCell: (v: any) => {
         return (
           <Box>
-            <Tooltip title="Eliminar Pregunta">
+            <Tooltip title="ELIMINAR PREGUNTA">
               <IconButton onClick={() => { eliminar(v) }
               }>
                 <DeleteForeverIcon />
@@ -208,7 +207,7 @@ const Ayuda = () => {
       field: "Nombre",
       headerName: "ROL",
       //description: "Rol",
-      width: 600,
+      width: 200,
     },
   ];
 

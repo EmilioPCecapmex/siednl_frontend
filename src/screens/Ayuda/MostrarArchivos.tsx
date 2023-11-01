@@ -35,7 +35,7 @@ export const MostrarArchivos = ({
 
     return (
         
-<ModalForm title="Visualizar" handleClose={() => { handleClose() }}>
+<ModalForm title="VISUALIZAR" handleClose={() => { handleClose() }}>
 
             <Grid container sx={{ width: "100vw", height: "92vh", display: "flex", justifyContent: "flex-end" }}>
                 {/* <Grid container item xs={12} sm={12} md={12} lg={12} sx={{height:"7vh", display: "flex", justifyContent: "flex-end"}}>

@@ -13,11 +13,11 @@ const ModalForm = ({ children, title, handleClose }: Props) => {
   return (
     <div>
       <Dialog
-        open={true} fullScreen >
-        <Grid container className="HeaderModal" justifyContent="flex-end" alignItems="center" paddingBottom={.5} >
+        open={true} fullScreen style={{ zIndex: 1000 }}>
+        <Grid container className="HeaderModal" justifyContent="flex-end" alignItems="center"  >
 
 
-          <Grid container justifyContent="flex-end" alignItems="center" sx={{bgcolor:"#AF8C55", height: "7vh",width: "100%", display: "flex", justifyContent: "flex-end", }}>
+          <Grid container className="HeaderModal" justifyContent="flex-end" alignItems="center" sx={{bgcolor:"#AF8C55", height: "7vh",width: "100%", display: "flex", justifyContent: "flex-end" }}>
             <Grid item xs={10} sm={10} md={10} lg={10} sx={{ height: "7vh", display: "flex", justifyContent: "center", alignItems:"center" }}>
 
 
@@ -46,7 +46,7 @@ const ModalForm = ({ children, title, handleClose }: Props) => {
 
             <Grid item xs={1} paddingBottom={0} >
               <Grid container alignItems="flex-end" direction="row" justifyContent="flex-end" paddingRight={1} >
-                <Tooltip title={"Salir"}>
+                <Tooltip title={"SALIR"}>
                   <IconButton
                     onClick={() => handleClose()}
                   >

@@ -605,9 +605,9 @@ export const LateralMenu = ({
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Videos","1"); setOpenVAyudas(true); setOption("Videos") }}>{IconsMenu("OndemandVideoIcon")} Ver Tutoriales </MenuItem>}
-              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Guías","1"); setOpenVAyudas(true); setOption("Guías") }}>{IconsMenu("MenuBookIcon")} Ver Guías </MenuItem>}
-              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Preguntas","1"); setOpenVAyudas(true); setOption("Preguntas") }}>{IconsMenu("HelpIcon")} Preguntas </MenuItem>}
+              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Videos","1"); setOpenVAyudas(true); setOption("Videos") }}>{IconsMenu("OndemandVideoIcon")} VER TUTORIALES </MenuItem>}
+              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Guías","1"); setOpenVAyudas(true); setOption("Guías") }}>{IconsMenu("MenuBookIcon")} VER GUÍAS </MenuItem>}
+              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Preguntas","1"); setOpenVAyudas(true); setOption("Preguntas") }}>{IconsMenu("HelpIcon")} PREGUNTAS </MenuItem>}
 
             </Menu>
 
