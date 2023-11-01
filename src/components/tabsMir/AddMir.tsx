@@ -312,20 +312,22 @@ export default function FullModalMir({
 
     // let filteredActividades = MIRPADRE.actividades.filter((item) => !item.actividad.includes(`C${componenteSelect+1}`));
     const filtro = `C${componenteSelect+1}`; // Donde '#' es una variable
-    const filteredActividades =  MIRPADRE.actividades.filter((item) => !item.actividad.includes(`C${componenteSelect+1}`)).map((item) => {
+    const filteredActividades =  MIRPADRE.actividades.filter((item) => !item.actividad.includes(`C${componenteSelect+1}`))
+    // SE COMENTO ESTO QUE ES DEL FILTEREDACTIVIDADES
+    // .map((item) => {
       
-      const numeroDespuesDeC = parseInt(item.actividad.split('C')[1], 10);
-      if (item.actividad.includes(filtro)) {
-        // Extraer el número después de la 'C'
+    //   const numeroDespuesDeC = parseInt(item.actividad.split('C')[1], 10);
+    //   if (item.actividad.includes(filtro)) {
+    //     // Extraer el número después de la 'C'
         
-        if (!isNaN(numeroDespuesDeC) && numeroDespuesDeC > 1 && numeroDespuesDeC>componenteSelect+1) {
-          const nuevoNumeroDespuesDeC = numeroDespuesDeC + 1;
-          const nuevaActividad = item.actividad.replace(`C${numeroDespuesDeC}`, `C${nuevoNumeroDespuesDeC}`);
-          return { ...item, actividad: nuevaActividad };
-        }
-      }
-      return item;
-    });
+    //     if (!isNaN(numeroDespuesDeC) && numeroDespuesDeC > 1 && numeroDespuesDeC>componenteSelect+1) {
+    //       const nuevoNumeroDespuesDeC = numeroDespuesDeC + 1;
+    //       const nuevaActividad = item.actividad.replace(`C${numeroDespuesDeC}`, `C${nuevoNumeroDespuesDeC}`);
+    //       return { ...item, actividad: nuevaActividad };
+    //     }
+    //   }
+    //   return item;
+    // });
 
     /////////////////////////////
     // let arrAct: Array<number[]> = noActividades;
