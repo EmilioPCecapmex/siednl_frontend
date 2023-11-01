@@ -26,6 +26,7 @@ export default function FullModalMir({
   const [value, setValue] = React.useState(10);
 
   const [noComponentes, setNoComponentes] = useState([1, 2]);
+  const [noComponentesAct, setNoComponentesAct] = useState([1, 2, 3, 4]);
   const [noActividades, setNoActividades] = useState(
     noComponentes.map((v, index) => {
       return [1, 2];
@@ -227,6 +228,13 @@ export default function FullModalMir({
 
     setNoComponentes(arr);
 
+    let arrAct: Array<number> = [];
+    MIRPADRE?.actividades?.map((x, index) => {
+      return arrAct.push(index + 1);
+    });
+
+    setNoComponentesAct(arrAct);
+
     let arr2: Array<Array<number>> = [];
     MIRPADRE.componenteActividad.map((v, index) => {
       return arr2.push(v.actividades);
@@ -296,82 +304,42 @@ export default function FullModalMir({
   };
 
   const removeComponente = (componenteSelect: number) => {
-    console.log("componenteSelect", componenteSelect);
 
-    console.log("MIRPADRE antes de movimientos", MIRPADRE);
-
-    let arrCompAct = MIRPADRE.componenteActividad;
+    let arrCompAct: Array<number> = noComponentesAct;
+    
     let arr: Array<number> = noComponentes;
+    
     if (noComponentes.length > 2) {
 
       arr.pop();
     }
     setNoComponentes(arr);
-    console.log("MIRPADRE.actividades", MIRPADRE.actividades);
-
-
-    // let filteredActividades = MIRPADRE.actividades.filter((item) => !item.actividad.includes(`C${componenteSelect+1}`));
+    
     const filtro = `C${componenteSelect+1}`; // Donde '#' es una variable
-    const filteredActividades =  MIRPADRE.actividades.filter((item) => !item.actividad.includes(`C${componenteSelect+1}`)).map((item) => {
-      
-      const numeroDespuesDeC = parseInt(item.actividad.split('C')[1], 10);
-      if (item.actividad.includes(filtro)) {
-        // Extraer el número después de la 'C'
-        
-        if (!isNaN(numeroDespuesDeC) && numeroDespuesDeC > 1 && numeroDespuesDeC>componenteSelect+1) {
-          const nuevoNumeroDespuesDeC = numeroDespuesDeC + 1;
-          const nuevaActividad = item.actividad.replace(`C${numeroDespuesDeC}`, `C${nuevoNumeroDespuesDeC}`);
-          return { ...item, actividad: nuevaActividad };
-        }
-      }
-      return item;
-    });
 
-    /////////////////////////////
-    // let arrAct: Array<number[]> = noActividades;
-    // let auxAct: Array<IActividadesMir> = [];
-    // let countAct = 0;
-    // arrAct.map((item, index) => {
-    //   item.map((position, index2) => {
-    //     if (
-    //       index === componenteSelect &&
-    //       index2 === arrAct[componenteSelect].length - 1
-    //     ) {
-    //       auxAct.push({
-    //         actividad: `A${index2 + 1}C${index + 1}`,
-    //         resumen: "",
-    //         indicador: "",
-    //         frecuencia: "TRIMESTRAL",
-    //         formula: "",
-    //         medios: "",
-    //         supuestos: "",
-    //       });
-    //     } else {
-    //       auxAct.push({
-    //         actividad: `A${index2 + 1}C${index + 1}`,
-    //         resumen: MIRPADRE.actividades[countAct]?.resumen || "",
-    //         indicador: MIRPADRE.actividades[countAct]?.indicador || "",
-    //         frecuencia: "TRIMESTRAL",
-    //         formula: MIRPADRE.actividades[countAct]?.formula || "",
-    //         medios: MIRPADRE.actividades[countAct]?.medios || "",
-    //         supuestos: MIRPADRE.actividades[countAct]?.supuestos || "",
-    //       });
-    //       countAct++;
-    //     }
-    //   });
-    // });
-    /////////////////////////////////
+    let band=0;
+    let band2=0;
+    let bandlen=0;
+    let auxActividades: IActividadesMir[] = noActividades.flatMap((x, index) => {
+      try{bandlen=index<x.length?noActividades[index+1].length:noActividades[index].length;}catch{bandlen=x.length;}
+      band2=0;
+      return x.map((y, indexy) => {
+        let aux = MIRPADRE.actividades[band];
+        if (index >= componenteSelect) {
+          aux = MIRPADRE.actividades[band + x.length];
+          if (band2===bandlen)
+            return { ...aux}
+          band2=band2+1;
+        }
+        band = band + 1;
+        return { ...aux, actividad: "A" + (indexy+1) + "C" + (index + 1) };
+      });
+    });
+   
 
     let auxComponentes = arr.map((x, index) => {
-      return {
-        componentes: MIRPADRE.componentes[index >= componenteSelect ? index + 1 : index].componentes,
-        resumen: MIRPADRE.componentes[index >= componenteSelect ? index + 1 : index].resumen,
-        indicador: MIRPADRE.componentes[index >= componenteSelect ? index + 1 : index].indicador,
-        frecuencia: MIRPADRE.componentes[index >= componenteSelect ? index + 1 : index].frecuencia,
-        formula: MIRPADRE.componentes[index >= componenteSelect ? index + 1 : index].formula,
-        medios: MIRPADRE.componentes[index >= componenteSelect ? index + 1 : index].medios,
-        supuestos: MIRPADRE.componentes[index >= componenteSelect ? index + 1 : index].supuestos,
-      };
+      let aux= MIRPADRE.componentes[index >= componenteSelect ? index + 1 : index]
+      return { ...aux, componentes: "C" + (index + 1) };
     })
 
     let auxComponenteActividad = arr.map((x, index) => {
@@ -379,19 +347,40 @@ export default function FullModalMir({
       return { ...aux, componente: "C" + (index + 1) };
     })
 
+    // let auxActividades: IActividadesMir[];
+    // auxActividades = arr.map((x, index) => {
+    //   let arract: Array<number> = MIRPADRE.componenteActividad[componenteSelect].actividades;
+    //   arract.map((x,index2) =>{
+    //     let aux = MIRPADRE.actividades[index >= componenteSelect ? index + 1 : index]
+    //     return { ...aux, actividad: "A"+ (index2+1)+"C" + (index + 1) };
+    //   })
+    // })
+
+
+    // let auxActividades: IActividadesMir[] = arr.map((x, index) => {
+    //   let arract: number[] = MIRPADRE.componenteActividad[componenteSelect].actividades;
+    //   arract.map((x, index2) => {
+    //     let aux = MIRPADRE.actividades[index >= componenteSelect ? index + 1 : index];
+    //     return { ...aux, actividad: "A" + (index2 + 1) + "C" + (index + 1) };
+    //   });
+    // });
+
+    
+
     setMIRPADRE((MIRPADRE: IMIR) => ({
       ...MIRPADRE,
       ...{ componentes: auxComponentes },
       ...{ componenteActividad: auxComponenteActividad },
-      ...{ actividades: filteredActividades }
+      ...{ actividades: auxActividades }
     }));
 
-    console.log("auxComponentes", auxComponentes);
-    console.log("auxComponenteActividad", auxComponenteActividad);
-    console.log("filteredActividades", filteredActividades);
+    // console.log("auxComponentes", auxComponentes);
+    // console.log("auxComponenteActividad", auxComponenteActividad);
+    // console.log("filteredActividades", filteredActividades);
 
+    // console.log("MIRPADRE.actividades despues", MIRPADRE);
 
-
+    
 
 
   };

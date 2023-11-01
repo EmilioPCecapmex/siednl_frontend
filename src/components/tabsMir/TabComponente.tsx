@@ -97,9 +97,15 @@ export const TabComponente = ({
 
   useEffect(() => {
     setComponentes(MIR.componentes);
-    console.log("formula: ", componentes[componentSelect - 1]?.formula);
+    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR]);
+
+  useEffect(() => {
+    console.log("MIR desde comp:",MIR);
+    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
@@ -133,6 +139,7 @@ export const TabComponente = ({
         overflow: "auto",
       }}
     >
+      {/* {JSON.stringify(MIR)} */}
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
