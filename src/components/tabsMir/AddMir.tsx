@@ -11,6 +11,7 @@ import { TabComponente } from "./TabComponente";
 import TabEncabezado from "./TabEncabezado";
 import TabFinProposito from "./TabFinProposito";
 import TabResumen from "./TabResumen";
+import { log } from "console";
 
 export default function FullModalMir({
   MIR,
@@ -317,21 +318,21 @@ export default function FullModalMir({
     
     const filtro = `C${componenteSelect+1}`; // Donde '#' es una variable
 
-    let band=0;
-    let band2=0;
-    let bandlen=0;
+    let indice=0;
+    let indice2=0;
+    let indicelen=0;
     let auxActividades: IActividadesMir[] = noActividades.flatMap((x, index) => {
-      try{bandlen=index<x.length?noActividades[index+1].length:noActividades[index].length;}catch{bandlen=x.length;}
-      band2=0;
+      try{indicelen=index<x.length?noActividades[index+1].length:noActividades[index].length;}catch{indicelen=x.length;}
+      indice2=0;
       return x.map((y, indexy) => {
-        let aux = MIRPADRE.actividades[band];
+        let aux = MIRPADRE.actividades[indice];
         if (index >= componenteSelect) {
-          aux = MIRPADRE.actividades[band + x.length];
-          if (band2===bandlen)
+          aux = MIRPADRE.actividades[indice + x.length];
+          if (indice2===indicelen)
             return { ...aux}
-          band2=band2+1;
+          indice2=indice2+1;
         }
-        band = band + 1;
+        indice = indice + 1;
         return { ...aux, actividad: "A" + (indexy+1) + "C" + (index + 1) };
       });
     });
@@ -346,6 +347,15 @@ export default function FullModalMir({
       let aux = MIRPADRE.componenteActividad[index >= componenteSelect ? index + 1 : index]
       return { ...aux, componente: "C" + (index + 1) };
     })
+
+    let auxValoresActividad = arr.map((x, index) => {
+      let aux= MIRPADRE.actividades[index >= componenteSelect ? index + 1 : index]
+      return { ...aux, componentes: "C" + (index + 1) };
+    })
+
+
+    const filteredActividades =  MIRPADRE.actividades.filter((item) => !item.actividad.includes(`C${componenteSelect+1}`))
+    console.log("filteredActividades: ",filteredActividades);
 
     // let auxActividades: IActividadesMir[];
     // auxActividades = arr.map((x, index) => {
@@ -431,7 +441,7 @@ export default function FullModalMir({
 
   const removeActividad = (componenteSelect: number) => {
     let arr: Array<number[]> = noActividades;
-
+console.log(arr);
     let auxAct: Array<IActividadesMir> = [];
     let countAct = 0;
     arr.map((item, index) => {
@@ -439,16 +449,17 @@ export default function FullModalMir({
         if (
           index === componenteSelect &&
           index2 === arr[componenteSelect].length - 1
+
         ) {
         } else {
           auxAct.push({
-            actividad: `A${index2 + 1}C${index + 1}`,
-            resumen: MIRPADRE.actividades[countAct]?.resumen || "",
-            indicador: MIRPADRE.actividades[countAct]?.indicador || "",
+            actividad: `A${index2}C${index}`,
+            resumen: MIRPADRE.actividades[countAct+1]?.resumen || "",
+            indicador: MIRPADRE.actividades[countAct+1]?.indicador || "",
             frecuencia: "TRIMESTRAL",
-            formula: MIRPADRE.actividades[countAct]?.formula || "",
-            medios: MIRPADRE.actividades[countAct]?.medios || "",
-            supuestos: MIRPADRE.actividades[countAct]?.supuestos || "",
+            formula: MIRPADRE.actividades[countAct+1]?.formula || "",
+            medios: MIRPADRE.actividades[countAct+1]?.medios || "",
+            supuestos: MIRPADRE.actividades[countAct+1]?.supuestos || "",
           });
         }
         countAct++;
