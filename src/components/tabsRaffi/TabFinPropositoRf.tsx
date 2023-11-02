@@ -24,7 +24,7 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { queries } from "../../queries";
-import { IMIR } from "../tabsMir/IMIR";
+import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import { IFinRF, IPropositoRF } from "../../screens/raffi/interfacesRaffi";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 import { useEffect, useState } from "react";

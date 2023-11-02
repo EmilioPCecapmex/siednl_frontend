@@ -1,6 +1,6 @@
 import logo from "../../assets/logos/logo_tesoreriah1.png";
 import { Box, Divider, Typography } from "@mui/material";
-import { IComponente } from "../tabsMir/IComponente";
+import { IComponente } from "../tabsMir/interfaces mir/IMIR";
 
 export const CompFichaTecnica = ({
   MIR,

@@ -1,6 +1,5 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+
+import { useState, useEffect } from "react";
 import {
   Grid,
   IconButton,
@@ -18,26 +17,22 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IActividadesMir } from "./AddMir";
-import { IMIR } from "./IMIR";
+import { IMIR } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-//funcion main
+
 export const TabActividades = ({
-  noActividades,
+
   addActividad,
   removeActividad,
   MIR,
   setMIR,
-  noComponentes,
 }: {
-  noActividades: Array<number[]>;
   addActividad: Function;
   removeActividad: Function;
   MIR: IMIR;
   setMIR: Function;
-  noComponentes: number[];
 }) => {
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
@@ -52,9 +47,9 @@ export const TabActividades = ({
   const [errorIndicadorActividad, setErrorIndicadorActividad] = useState(-1);
 
   const handleClickOpen = () => {
-    setPrevTextFormula(
-      valoresComponenteActividad[componenteSelect][actividadSelect].formula
-    );
+    // setPrevTextFormula(
+    //   // valoresComponenteActividad[componenteSelect][actividadSelect].formula
+    // );
     setOpenFormulaDialog(true);
   };
 
@@ -63,157 +58,157 @@ export const TabActividades = ({
   };
 
   const changeFormula = (txt: string) => {
-    valoresComponenteActividad[componenteSelect][actividadSelect].formula = txt;
+    // valoresComponenteActividad[componenteSelect][actividadSelect].formula = txt;
   };
 
-  const evalueTxtIndicador = () => {
-    const cIndicador =
-      valoresComponenteActividad[componenteSelect][
-        actividadSelect
-      ].indicador?.toLowerCase();
-    if (cIndicador !== undefined) {
-      if (cIndicador.includes("porcentaje")) {
-        setTipoFormula("Porcentaje");
-        setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
-        handleClickOpen();
-        setErrorIndicadorComponente(-1);
-        setErrorIndicadorActividad(-1);
-      } else if (cIndicador.includes("tasa")) {
-        setTipoFormula("Tasa");
-        setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
-        handleClickOpen();
-        setErrorIndicadorComponente(-1);
-        setErrorIndicadorActividad(-1);
-      } else if (cIndicador.includes("indice" || "índice")) {
-        setTipoFormula("Índice");
-        setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
-        handleClickOpen();
-        setErrorIndicadorComponente(-1);
-        setErrorIndicadorActividad(-1);
-      } else if (cIndicador.includes("promedio")) {
-        setTipoFormula("Promedio");
-        setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
-        handleClickOpen();
-        setErrorIndicadorComponente(-1);
-        setErrorIndicadorActividad(-1);
-      } else {
-        setErrorIndicadorComponente(componenteSelect);
-        setErrorIndicadorActividad(actividadSelect);
+  // const evalueTxtIndicador = () => {
+  //   const cIndicador =
+  //     valoresComponenteActividad[componenteSelect][
+  //       actividadSelect
+  //     ].indicador?.toLowerCase();
+  //   if (cIndicador !== undefined) {
+  //     if (cIndicador.includes("porcentaje")) {
+  //       setTipoFormula("Porcentaje");
+  //       setElementoFormula(
+  //         "C" +
+  //           (componenteSelect + 1).toString() +
+  //           "A" +
+  //           (actividadSelect + 1).toString()
+  //       );
+  //       handleClickOpen();
+  //       setErrorIndicadorComponente(-1);
+  //       setErrorIndicadorActividad(-1);
+  //     } else if (cIndicador.includes("tasa")) {
+  //       setTipoFormula("Tasa");
+  //       setElementoFormula(
+  //         "C" +
+  //           (componenteSelect + 1).toString() +
+  //           "A" +
+  //           (actividadSelect + 1).toString()
+  //       );
+  //       handleClickOpen();
+  //       setErrorIndicadorComponente(-1);
+  //       setErrorIndicadorActividad(-1);
+  //     } else if (cIndicador.includes("indice" || "índice")) {
+  //       setTipoFormula("Índice");
+  //       setElementoFormula(
+  //         "C" +
+  //           (componenteSelect + 1).toString() +
+  //           "A" +
+  //           (actividadSelect + 1).toString()
+  //       );
+  //       handleClickOpen();
+  //       setErrorIndicadorComponente(-1);
+  //       setErrorIndicadorActividad(-1);
+  //     } else if (cIndicador.includes("promedio")) {
+  //       setTipoFormula("Promedio");
+  //       setElementoFormula(
+  //         "C" +
+  //           (componenteSelect + 1).toString() +
+  //           "A" +
+  //           (actividadSelect + 1).toString()
+  //       );
+  //       handleClickOpen();
+  //       setErrorIndicadorComponente(-1);
+  //       setErrorIndicadorActividad(-1);
+  //     } else {
+  //       setErrorIndicadorComponente(componenteSelect);
+  //       setErrorIndicadorActividad(actividadSelect);
 
-        let y = [...valoresComponenteActividad];
-        y[componenteSelect][actividadSelect].indicador = ""
-          .replaceAll('"', "")
-          .replaceAll("'", "")
-          .replaceAll("\n", "");
-        setValoresComponenteActividad(y);
-      }
-    }
-  };
+  //       let y = [...valoresComponenteActividad];
+  //       y[componenteSelect][actividadSelect].indicador = ""
+  //         .replaceAll('"', "")
+  //         .replaceAll("'", "")
+  //         .replaceAll("\n", "");
+  //       setValoresComponenteActividad(y);
+  //     }
+  //   }
+  // };
 
-  const [valoresComponenteActividad, setValoresComponenteActividad] = useState<
-    Array<Array<IActividadesMir>>
-  >([
-    [
-      {
-        actividad: "A1C1",
-        resumen: "",
-        indicador: "",
-        frecuencia: "TRIMESTRAL",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      },
-      {
-        actividad: "A2C1",
-        resumen: "",
-        indicador: "",
-        frecuencia: "TRIMESTRAL",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      },
-    ],
-    [
-      {
-        actividad: "A1C2",
-        resumen: "",
-        indicador: "",
-        frecuencia: "TRIMESTRAL",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      },
-      {
-        actividad: "A2C2",
-        resumen: "",
-        indicador: "",
-        frecuencia: "TRIMESTRAL",
-        formula: "",
-        medios: "",
-        supuestos: "",
-      },
-    ],
-  ]);
+  // const [valoresComponenteActividad, setValoresComponenteActividad] = useState<
+  //   Array<Array<IActividadesMir>>
+  // >([
+  //   [
+  //     {
+  //       actividad: "A1C1",
+  //       resumen: "",
+  //       indicador: "",
+  //       frecuencia: "TRIMESTRAL",
+  //       formula: "",
+  //       medios: "",
+  //       supuestos: "",
+  //     },
+  //     {
+  //       actividad: "A2C1",
+  //       resumen: "",
+  //       indicador: "",
+  //       frecuencia: "TRIMESTRAL",
+  //       formula: "",
+  //       medios: "",
+  //       supuestos: "",
+  //     },
+  //   ],
+  //   [
+  //     {
+  //       actividad: "A1C2",
+  //       resumen: "",
+  //       indicador: "",
+  //       frecuencia: "TRIMESTRAL",
+  //       formula: "",
+  //       medios: "",
+  //       supuestos: "",
+  //     },
+  //     {
+  //       actividad: "A2C2",
+  //       resumen: "",
+  //       indicador: "",
+  //       frecuencia: "TRIMESTRAL",
+  //       formula: "",
+  //       medios: "",
+  //       supuestos: "",
+  //     },
+  //   ],
+  // ]);
 
-  const [addA, setAddA] = useState(false);
+  // const [addA, setAddA] = useState(false);
 
-  useEffect(() => {
-    let n: Array<Array<IActividadesMir>> = [];
+  // useEffect(() => {
+  //   let n: Array<Array<IActividadesMir>> = [];
 
-    let indexActividades = 0;
-    MIR.componenteActividad.map((v, index) => {
-      let aux: Array<IActividadesMir> = [];
-      
-      
-      v.actividades.map((x) => {
-        aux.push(MIR.actividades[indexActividades]);
-        indexActividades++;
-      });
-     
-      n.push(aux);
-      // n[index] = ;
-    });
-    setValoresComponenteActividad(n);
-  //Aqui no se guarda bien ya se esta pusheando mal
-  
-    
-  }, [addA]);
+  //   let indexActividades = 0;
+  //   MIR.componenteActividad.map((v, index) => {
+  //     let aux: Array<IActividadesMir> = [];
 
-  useEffect(() => {
-    let arr: Array<IActividadesMir> = [];
-    valoresComponenteActividad.map((v, index) => {
-      v.map((val, index2) => {
-        arr.push(val);
-      });
-    });
 
-    setMIR((MIR: IMIR) => ({
-      ...MIR,
-      ...{
-        actividades: arr,
-      },
-    }));
-  }, [valoresComponenteActividad]);
+  //     v.actividades.map((x) => {
+  //       aux.push(MIR.actividades[indexActividades]);
+  //       indexActividades++;
+  //     });
+
+  //     n.push(aux);
+  //     // n[index] = ;
+  //   });
+  //   setValoresComponenteActividad(n);
+  // //Aqui no se guarda bien ya se esta pusheando mal
+
+
+  // }, [addA]);
+
+  // useEffect(() => {
+  //   let arr: Array<IActividadesMir> = [];
+  //   valoresComponenteActividad.map((v, index) => {
+  //     v.map((val, index2) => {
+  //       arr.push(val);
+  //     });
+  //   });
+
+  //   setMIR((MIR: IMIR) => ({
+  //     ...MIR,
+  //     ...{
+  //       actividades: arr,
+  //     },
+  //   }));
+  // }, [valoresComponenteActividad]);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
@@ -260,9 +255,9 @@ export const TabActividades = ({
         </Typography>
         <IconButton
           onClick={() => {
-            addActividad(componenteSelect);
-            setActividadSelect(noActividades[componenteSelect].length - 1);
-            setAddA(!addA);
+            addActividad(componenteSelect + 1);
+            setActividadSelect(MIR.componentes[componenteSelect - 1].actividades.length);
+            // setAddA(!addA);
           }}
         >
           <AddCircleIcon fontSize="large" />
@@ -270,11 +265,13 @@ export const TabActividades = ({
 
         <IconButton
           onClick={() => {
-            removeActividad(componenteSelect);
-            setActividadSelect(noActividades[componenteSelect].length - 1);
-            setAddA(!addA);
+            
+            
+            removeActividad(componenteSelect+1,actividadSelect+1);
+            // setActividadSelect(MIR.componentes[componenteSelect - 1].actividades.length - 1);
+            // setAddA(!addA);
           }}
-          // disabled={MIR.actividades.length <= 2}
+        // disabled={MIR.actividades.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
         </IconButton>
@@ -309,7 +306,7 @@ export const TabActividades = ({
               },
             }}
           >
-            {noComponentes.map((item, index) => {
+            {MIR.componentes.map((componente, index) => {
               return (
                 <Grid
                   key={index}
@@ -349,7 +346,7 @@ export const TabActividades = ({
                   </ListItemButton>
                   <Collapse in={open === index} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      {noActividades[componenteSelect].map((value, index) => (
+                      {componente.actividades.map((actividad, index) => (
                         <ListItemButton
                           selected={index === actividadSelect ? true : false}
                           key={index}
@@ -373,7 +370,7 @@ export const TabActividades = ({
                               fontFamily: "MontserratMedium",
                             }}
                           >
-                            ACTIVIDAD {value}
+                            ACTIVIDAD {index + 1}
                           </Typography>
                         </ListItemButton>
                       ))}
@@ -404,7 +401,7 @@ export const TabActividades = ({
             },
           }}
         >
-          {isSmallScreen && (
+          {/* {isSmallScreen && (
             <List sx={{}}>
               {noComponentes.map((item, index) => {
                 return (
@@ -482,7 +479,7 @@ export const TabActividades = ({
                 );
               })}
             </List>
-          )}
+          )} */}
 
           <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
             <Typography
@@ -538,18 +535,18 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              onChange={(c) => {
-                let y = [...valoresComponenteActividad];
-                y[componenteSelect][actividadSelect].resumen = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setValoresComponenteActividad(y);
-              }}
-              value={
-                valoresComponenteActividad[componenteSelect][actividadSelect]
-                  ?.resumen || ""
-              }
+            // onChange={(c) => {
+            //   let y = [...valoresComponenteActividad];
+            //   y[componenteSelect][actividadSelect].resumen = c.target.value
+            //     .replaceAll('"', "")
+            //     .replaceAll("'", "")
+            //     .replaceAll("\n", "");
+            //   setValoresComponenteActividad(y);
+            // }}
+            // value={
+            //   valoresComponenteActividad[componenteSelect][actividadSelect]
+            //     ?.resumen || ""
+            // }
             />
           </Grid>
 
@@ -589,28 +586,28 @@ export const TabActividades = ({
               // onBlur={() => evalueTxtIndicador()}
               error={
                 errorIndicadorComponente === componenteSelect &&
-                errorIndicadorActividad === actividadSelect
+                  errorIndicadorActividad === actividadSelect
                   ? true
                   : false
               }
               helperText={
                 errorIndicadorComponente === componenteSelect &&
-                errorIndicadorActividad === actividadSelect
+                  errorIndicadorActividad === actividadSelect
                   ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
                   : null
               }
-              onChange={(c) => {
-                let y = [...valoresComponenteActividad];
-                y[componenteSelect][actividadSelect].indicador = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setValoresComponenteActividad(y);
-              }}
-              value={
-                valoresComponenteActividad[componenteSelect][actividadSelect]
-                  ?.indicador || ""
-              }
+            // onChange={(c) => {
+            //   let y = [...valoresComponenteActividad];
+            //   y[componenteSelect][actividadSelect].indicador = c.target.value
+            //     .replaceAll('"', "")
+            //     .replaceAll("'", "")
+            //     .replaceAll("\n", "");
+            //   setValoresComponenteActividad(y);
+            // }}
+            // value={
+            //   valoresComponenteActividad[componenteSelect][actividadSelect]
+            //     ?.indicador || ""
+            // }
             />
           </Grid>
 
@@ -648,11 +645,11 @@ export const TabActividades = ({
                 boxShadow: 2,
               }}
               label={"FÓRMULA"}
-              onClick={() => evalueTxtIndicador()}
-              value={
-                valoresComponenteActividad[componenteSelect][actividadSelect]
-                  ?.formula || ""
-              }
+            // onClick={() => evalueTxtIndicador()}
+            // value={
+            //   valoresComponenteActividad[componenteSelect][actividadSelect]
+            //     ?.formula || ""
+            // }
             />
           </Grid>
 
@@ -691,20 +688,20 @@ export const TabActividades = ({
                     sx={{
                       fontFamily: "MontserratMedium",
                     }}
-                    checked={
-                      valoresComponenteActividad[componenteSelect][
-                        actividadSelect
-                      ]?.frecuencia === "TRIMESTRAL"
-                    }
-                    onChange={(c) => {
-                      let y = [...valoresComponenteActividad];
-                      y[componenteSelect][actividadSelect].frecuencia =
-                        c.target.value
-                          .replaceAll('"', "")
-                          .replaceAll("'", "")
-                          .replaceAll("\n", "");
-                      setValoresComponenteActividad(y);
-                    }}
+                  // checked={
+                  //   valoresComponenteActividad[componenteSelect][
+                  //     actividadSelect
+                  //   ]?.frecuencia === "TRIMESTRAL"
+                  // }
+                  // onChange={(c) => {
+                  //   let y = [...valoresComponenteActividad];
+                  //   y[componenteSelect][actividadSelect].frecuencia =
+                  //     c.target.value
+                  //       .replaceAll('"', "")
+                  //       .replaceAll("'", "")
+                  //       .replaceAll("\n", "");
+                  //   setValoresComponenteActividad(y);
+                  // }}
                   />
                 }
               />
@@ -745,18 +742,18 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              onChange={(c) => {
-                let y = [...valoresComponenteActividad];
-                y[componenteSelect][actividadSelect].medios = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setValoresComponenteActividad(y);
-              }}
-              value={
-                valoresComponenteActividad[componenteSelect][actividadSelect]
-                  ?.medios || ""
-              }
+            // onChange={(c) => {
+            //   let y = [...valoresComponenteActividad];
+            //   y[componenteSelect][actividadSelect].medios = c.target.value
+            //     .replaceAll('"', "")
+            //     .replaceAll("'", "")
+            //     .replaceAll("\n", "");
+            //   setValoresComponenteActividad(y);
+            // }}
+            // value={
+            //   valoresComponenteActividad[componenteSelect][actividadSelect]
+            //     ?.medios || ""
+            // }
             />
           </Grid>
 
@@ -794,18 +791,18 @@ export const TabActividades = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              onChange={(c) => {
-                let y = [...valoresComponenteActividad];
-                y[componenteSelect][actividadSelect].supuestos = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setValoresComponenteActividad(y);
-              }}
-              value={
-                valoresComponenteActividad[componenteSelect][actividadSelect]
-                  ?.supuestos || ""
-              }
+            // onChange={(c) => {
+            //   let y = [...valoresComponenteActividad];
+            //   y[componenteSelect][actividadSelect].supuestos = c.target.value
+            //     .replaceAll('"', "")
+            //     .replaceAll("'", "")
+            //     .replaceAll("\n", "");
+            //   setValoresComponenteActividad(y);
+            // }}
+            // value={
+            //   valoresComponenteActividad[componenteSelect][actividadSelect]
+            //     ?.supuestos || ""
+            // }
             />
           </Grid>
         </Grid>
