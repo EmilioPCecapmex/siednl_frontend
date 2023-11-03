@@ -318,24 +318,41 @@ export default function FullModalMir({
     
     const filtro = `C${componenteSelect+1}`; // Donde '#' es una variable
 
-    let indice=0;
-    let indice2=0;
-    let indicelen=0;
-    let auxActividades: IActividadesMir[] = noActividades.flatMap((x, index) => {
-      try{indicelen=index<x.length?noActividades[index+1].length:noActividades[index].length;}catch{indicelen=x.length;}
-      indice2=0;
-      return x.map((y, indexy) => {
-        let aux = MIRPADRE.actividades[indice];
-        if (index >= componenteSelect) {
-          aux = MIRPADRE.actividades[indice + x.length];
-          if (indice2===indicelen)
-            return { ...aux}
-          indice2=indice2+1;
-        }
-        indice = indice + 1;
-        return { ...aux, actividad: "A" + (indexy+1) + "C" + (index + 1) };
-      });
-    });
+
+   
+   
+      let arrComponentes:IActividadesMir[]=MIRPADRE.actividades.filter((actividades)=>!actividades.actividad.includes(`C${componenteSelect}`))
+      console.log(arrComponentes);
+      arrComponentes=arrComponentes.map((x,index)=>{
+        // if(parseInt(componente.componente.split("C")[1])>=componenteSelected){
+          // let aux ={...componente,componente:componente.componente.replace(/C\d+/, `C${index+1}`)}
+          return {...x,componente:`C${index+1}`,actividades:x.actividad.map((item)=>{return {...item,actividad:item.actividad.replace(/C\d+/, `C${index+1}`)}} )}
+      //   }else
+      //     return componente
+      })
+
+    //  return {...componente,componente:`C${index+1}`,actividades:componente.actividades.map((item)=>{return {...item,actividad:item.actividad.replace(/C\d+/, `C${index+1}`)}} )}
+ 
+
+
+    // let indice=0;
+    // let indice2=0;
+    // let indicelen=0;
+    // let auxActividades: IActividadesMir[] = noActividades.flatMap((x, index) => {
+    //   try{indicelen=index<x.length?noActividades[index+1].length:noActividades[index].length;}catch{indicelen=x.length;}
+    //   indice2=0;
+    //   return x.map((y, indexy) => {
+    //     let aux = MIRPADRE.actividades[indice];
+    //     if (index >= componenteSelect) {
+    //       aux = MIRPADRE.actividades[indice + x.length];
+    //       if (indice2===indicelen)
+    //         return { ...aux}
+    //       indice2=indice2+1;
+    //     }
+    //     indice = indice + 1;
+    //     return { ...aux, actividad: "A" + (indexy+1) + "C" + (index + 1) };
+    //   });
+    // });
    
 
     let auxComponentes = arr.map((x, index) => {
@@ -381,7 +398,7 @@ export default function FullModalMir({
       ...MIRPADRE,
       ...{ componentes: auxComponentes },
       ...{ componenteActividad: auxComponenteActividad },
-      ...{ actividades: auxActividades }
+      // ...{ actividades: auxActividades }
     }));
 
     // console.log("auxComponentes", auxComponentes);
