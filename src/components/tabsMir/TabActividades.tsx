@@ -115,7 +115,7 @@ export const TabActividades = ({
 
         let prevLocal = [...MIR.componentes];
         prevLocal[componenteSelect - 1].actividades[actividadSelect].indicador =
-          "";
+          "".replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "");
         setComponentes(prevLocal);
       }
     }
