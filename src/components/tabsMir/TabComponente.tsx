@@ -97,13 +97,13 @@ export const TabComponente = ({
   useEffect(() => {
     setComponentes(MIR.componentes);
     // console.log("formula: ", componentes[componentSelect - 1]?.formula);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR]);
 
   useEffect(() => {
-    console.log("MIR desde comp:",MIR);
+    console.log("MIR desde comp:", MIR);
     // console.log("formula: ", componentes[componentSelect - 1]?.formula);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -118,10 +118,10 @@ export const TabComponente = ({
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
-  const eliminarComponente=()=>{
-    removeComponente(componentSelect-1);
+  const eliminarComponente = () => {
+    removeComponente(componentSelect - 1);
     setComponentSelect(1);
-  }
+  };
 
   return (
     <Grid
@@ -166,19 +166,19 @@ export const TabComponente = ({
         >
           COMPONENTE #{componentSelect}
         </Typography>
-        
+
         <IconButton
           onClick={() => {
             addComponente();
-            setComponentSelect(MIR.componentes.length );
+            setComponentSelect(MIR.componentes.length);
           }}
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
         <IconButton
           onClick={() => {
-            console.log("componentSelect",componentSelect);
-            
+            console.log("componentSelect", componentSelect);
+
             removeComponente(componentSelect);
             setComponentSelect(MIR.componentes.length - 1);
           }}
@@ -217,10 +217,10 @@ export const TabComponente = ({
               },
             }}
           >
-            {MIR.componentes.map((item,index) => {
+            {MIR.componentes.map((item, index) => {
               return (
                 <Grid
-                  key={index+1}
+                  key={index + 1}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -229,9 +229,9 @@ export const TabComponente = ({
                 >
                   <Divider />
                   <ListItemButton
-                    selected={index+1 === componentSelect ? true : false}
-                    key={index+1}
-                    onClick={() => setComponentSelect(index+1)}
+                    selected={index + 1 === componentSelect ? true : false}
+                    key={index + 1}
+                    onClick={() => setComponentSelect(index + 1)}
                     sx={{
                       height: "7vh",
                       "&.Mui-selected ": {
@@ -245,7 +245,7 @@ export const TabComponente = ({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
                     >
-                      COMPONENTE {index+1}
+                      COMPONENTE {index + 1}
                     </Typography>
                   </ListItemButton>
                   <Divider />
@@ -274,10 +274,10 @@ export const TabComponente = ({
         >
           {isSmallScreen && (
             <List sx={{}}>
-              {MIR.componentes.map((item,index) => {
+              {MIR.componentes.map((item, index) => {
                 return (
                   <Grid
-                    key={index+1}
+                    key={index + 1}
                     sx={{
                       display: "flex",
                       flexDirection: "column",
@@ -287,8 +287,8 @@ export const TabComponente = ({
                     <Divider />
                     <ListItemButton
                       // selected={item === componentSelect ? true : false}
-                      key={index+1}
-                      onClick={() => setComponentSelect(index+1)}
+                      key={index + 1}
+                      onClick={() => setComponentSelect(index + 1)}
                       sx={{
                         height: "7vh",
                         "&.Mui-selected ": {
@@ -302,7 +302,7 @@ export const TabComponente = ({
                       <Typography
                         sx={{ fontFamily: "MontserratMedium", fontSize: "6vw" }}
                       >
-                        COMPONENTE {index+1}
+                        COMPONENTE {index + 1}
                       </Typography>
                     </ListItemButton>
                     <Divider />
@@ -323,7 +323,6 @@ export const TabComponente = ({
               alignContent: "center",
               display: "flex",
               justifyContent: "center",
-              
             }}
           >
             <TextField
@@ -447,10 +446,6 @@ export const TabComponente = ({
               label={"FÓRMULA"}
               onClick={() => {
                 evalueTxtIndicador();
-                console.log(
-                  "formula: ",
-                  componentes[componentSelect - 1]?.formula
-                );
               }}
               value={componentes[componentSelect - 1]?.formula}
             />
