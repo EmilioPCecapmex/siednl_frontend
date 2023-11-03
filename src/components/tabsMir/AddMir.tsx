@@ -11,9 +11,7 @@ import { TabComponente } from "./TabComponente";
 import TabEncabezado from "./TabEncabezado";
 import TabFinProposito from "./TabFinProposito";
 import TabResumen from "./TabResumen";
-<<<<<<<<< Temporary merge branch 1
-import { log } from "console";
-=========
+
 import { alertaError } from "../alertas/Alertas";
 
 function newActividad(indexComponente: number, indexActividad: number) {
@@ -249,7 +247,7 @@ export default function FullModalMir({
   //     return arr.push(index + 1);
   //   });
 
-    setNoComponentes(arr);
+    // setNoComponentes(arr);
 
   //   let arr2: Array<Array<number>> = [];
   //   MIRPADRE.componenteActividad.map((v, index) => {
