@@ -639,7 +639,7 @@ export const TabActividades = ({
               }}
               value={
                 componentes[componenteSelect].actividades[actividadSelect]
-                  ?.indicador
+                  ?.indicador || ""
               }
             />
           </Grid>
