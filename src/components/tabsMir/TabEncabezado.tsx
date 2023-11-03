@@ -9,30 +9,14 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import { IMIR, IMIREdit } from "./IMIR";
+import { ILista, IListaProgramas, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import Stack from "@mui/material/Stack";
-import { ILista, IListaProgramas } from "./IListas";
 import {
   getListPedColumns,
   getLista,
   getListasLogin,
   getListasLoginProgramas,
 } from "./services mir/servicesMIR";
-
-export interface IEncabezado {
-  ejercicioFiscal: ILista;
-  entidad: ILista;
-  programa: IListaProgramas;
-  eje: ILista;
-  tema: ILista;
-  objetivo: ILista;
-  estrategia: ILista;
-  lineas_de_accion: Array<ILista>;
-  beneficiario: ILista;
-  conac: string;
-  consecutivo: string;
-  anticorrupcion: string;
-}
 
 export function TabEncabezado({
   show,
