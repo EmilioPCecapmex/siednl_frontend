@@ -27,3 +27,7 @@ export function alertaError(titulo = "Movimiento fallido") {
     title: titulo,
   });
 }
+
+export function alertaEliminar(fnc:Function){
+  fnc();
+}

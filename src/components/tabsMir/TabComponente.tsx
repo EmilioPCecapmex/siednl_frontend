@@ -17,6 +17,7 @@ import { IComponente, IMIR } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import { alertaEliminar } from "../alertas/Alertas";
 
 export const TabComponente = ({
   // show,
@@ -95,9 +96,15 @@ export const TabComponente = ({
 
   useEffect(() => {
     setComponentes(MIR.componentes);
-    console.log("formula: ", componentes[componentSelect - 1]?.formula);
+    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR]);
+
+  useEffect(() => {
+    console.log("MIR desde comp:",MIR);
+    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
@@ -110,6 +117,11 @@ export const TabComponente = ({
   }, [componentes]);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
+  const eliminarComponente=()=>{
+    removeComponente(componentSelect-1);
+    setComponentSelect(1);
+  }
 
   return (
     <Grid
@@ -126,6 +138,7 @@ export const TabComponente = ({
         overflow: "auto",
       }}
     >
+      {/* {JSON.stringify(MIR)} */}
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
@@ -164,10 +177,8 @@ export const TabComponente = ({
         </IconButton>
         <IconButton
           onClick={() => {
-            console.log("componentSelect",componentSelect);
-            
-            removeComponente(componentSelect);
-            setComponentSelect(MIR.componentes.length - 1);
+            alertaEliminar(eliminarComponente);
+           
           }}
           disabled={MIR.componentes.length <= 2}
         >
@@ -216,9 +227,9 @@ export const TabComponente = ({
                 >
                   <Divider />
                   <ListItemButton
-                    selected={index+1 === componentSelect ? true : false}
-                    key={index+1}
-                    onClick={() => setComponentSelect(index+1)}
+                    selected={item === componentSelect ? true : false}
+                    key={item}
+                    onClick={() => {setComponentSelect(item)}}
                     sx={{
                       height: "7vh",
                       "&.Mui-selected ": {
@@ -273,9 +284,9 @@ export const TabComponente = ({
                   >
                     <Divider />
                     <ListItemButton
-                      // selected={item === componentSelect ? true : false}
-                      key={index+1}
-                      onClick={() => setComponentSelect(index+1)}
+                      selected={item === componentSelect ? true : false}
+                      key={item}
+                      onClick={() => {setComponentSelect(item);console.log("componente onclick",item-1);}}
                       sx={{
                         height: "7vh",
                         "&.Mui-selected ": {
