@@ -7,6 +7,7 @@ import {
   TextField,
   FormControlLabel,
   Radio,
+  useMediaQuery,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import FormControl from "@mui/material/FormControl";
@@ -14,7 +15,7 @@ import FormLabel from "@mui/material/FormLabel";
 import { IFinFT, IPropositoFT } from "./Interfaces";
 
 export function TabFinPropositoFT({
- show,
+  show,
   resumenFinFT,
   resumenPropositoFT,
   FT,
@@ -62,6 +63,8 @@ export function TabFinPropositoFT({
     resumenPropositoFT(proposito);
   }, [fin, proposito]);
 
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
   return (
     <Grid
       visibility={show ? "visible" : "hidden"}
@@ -74,28 +77,31 @@ export function TabFinPropositoFT({
         borderRadius: 5,
         flexDirection: "column",
         backgroundColor: "#fff",
+        overflow: "auto",
       }}
     >
-      <Grid
-        sx={{
-          width: "100%",
-          display: "flex",
-          height: "7vh",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <Typography
+      {!isSmallScreen ? (
+        <Grid
           sx={{
-            mr: "1vw",
-            fontFamily: "MontserratSemiBold",
-            fontSize: [10, 10, 15, 18, 25, 25],
+            width: "100%",
+            display: "flex",
+            height: "7vh",
+            justifyContent: "flex-end",
+            alignItems: "center",
           }}
         >
-          {showFin ? "FIN" : null}
-          {showProposito ? "PROPÓSITO" : null}
-        </Typography>
-      </Grid>
+          <Typography
+            sx={{
+              mr: "1vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: [10, 10, 15, 18, 25, 25],
+            }}
+          >
+            {showFin ? "FIN" : null}
+            {showProposito ? "PROPÓSITO" : null}
+          </Typography>
+        </Grid>
+      ) : null}
 
       <Grid
         sx={{
@@ -104,1579 +110,2004 @@ export function TabFinPropositoFT({
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "95%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          <Grid
+        {!isSmallScreen && (
+          <List
             sx={{
+              width: "15vw",
+              height: "95%",
+              borderRight: "solid",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              borderColor: "#BCBCBC",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
             }}
           >
-            <Divider />
-            <ListItemButton
-              selected={showFin}
-              onClick={() => {
-                setShowFin(true);
-                setShowProposito(false);
-              }}
+            <Grid
               sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              <Typography sx={{fontSize: [10, 10, 12, 15, 18, 20], fontFamily: "MontserratMedium" }}>
-                FIN
-              </Typography>
-            </ListItemButton>
-            <Divider />
-          </Grid>
+              <Divider />
+              <ListItemButton
+                selected={showFin}
+                onClick={() => {
+                  setShowFin(true);
+                  setShowProposito(false);
+                }}
+                sx={{
+                  height: "7vh",
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: [10, 10, 12, 15, 18, 20],
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  FIN
+                </Typography>
+              </ListItemButton>
+              <Divider />
+            </Grid>
 
-          <Grid
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <ListItemButton
-              selected={showProposito}
-              onClick={() => {
-                setShowProposito(true);
-                setShowFin(false);
-              }}
+            <Grid
               sx={{
-                height: "7vh",
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              <Typography sx={{fontSize: [10, 10, 12, 15, 18, 20], fontFamily: "MontserratMedium" }}>
-                PROPÓSITO
-              </Typography>
-            </ListItemButton>
-            <Divider />
-          </Grid>
-        </List>
+              <ListItemButton
+                selected={showProposito}
+                onClick={() => {
+                  setShowProposito(true);
+                  setShowFin(false);
+                }}
+                sx={{
+                  height: "7vh",
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: [10, 10, 12, 15, 18, 20],
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  PROPÓSITO
+                </Typography>
+              </ListItemButton>
+              <Divider />
+            </Grid>
+          </List>
+        )}
 
         {showFin ? (
           <>
             <Grid
+              item
+              container
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
               sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                width: "90%",
+                display: "flex",
+                justifyContent: "space-evenly",
                 alignItems: "center",
-                justifyItems: "center",
+                "& > .MuiGrid-item": {
+                  marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+                },
               }}
             >
-              <FormControl
+              {isSmallScreen && (
+                <List>
+                  <Grid>
+                    <Divider />
+                    <ListItemButton
+                      selected={showFin}
+                      onClick={() => {
+                        setShowFin(true);
+                        setShowProposito(false);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 12, 15, 18, 20],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        FIN
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+                  </Grid>
+
+                  <Grid
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ListItemButton
+                      selected={showProposito}
+                      onClick={() => {
+                        setShowProposito(true);
+                        setShowFin(false);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 12, 15, 18, 20],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        PROPÓSITO
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+                  </Grid>
+                </List>
+              )}
+
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  width: "90%",
-                  height: "60%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <FormLabel
+                <FormControl
+                fullWidth
                   sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 13, 15, 18],
-                  }}
-                >
-                  TIPO DE INDICADOR
-                </FormLabel>
-                <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                  <FormControlLabel
-                    value={"SELECCIÓN ESTRATEGICO"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SELECCIÓN ESTRATEGICO
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={
-                          fin[0].tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
-                        }
-                        onChange={(c) => {
-                          fin[0].tipoDeIndicador = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"DE GESTIÓN"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        DE GESTIÓN
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].tipoDeIndicador === "DE GESTIÓN"}
-                        onChange={(c) => {
-                          fin[0].tipoDeIndicador = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </Grid>
-              </FormControl>
-
-
-
-
-
-              <FormControl
-                sx={{
-                  width: "90%",
-                  height: "60%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 13, 15, 18],
-                  }}
-                >
-                  DIMENSIÓN
-                </FormLabel>
-
-                <Grid
-                  sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}
-                >
-                  <FormControlLabel
-                    value={"EFICIENCIA"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        EFICIENCIA
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].dimension === "EFICIENCIA"}
-                        onChange={(c) => {
-                          fin[0].dimension = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"EFICACIA"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        EFICACIA
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].dimension === "EFICACIA"}
-                        onChange={(c) => {
-                          fin[0].dimension = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"CALIDAD"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        CALIDAD
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].dimension === "CALIDAD"}
-                        onChange={(c) => {
-                          fin[0].dimension = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-
-                  <FormControlLabel
-                    value={"ECONOMÍA"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        ECONOMÍA
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].dimension === "ECONOMÍA"}
-                        onChange={(c) => {
-                          fin[0].dimension = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </Grid>
-              </FormControl>
-
-              <TextField
-                rows={5}
-                multiline
-                variant="filled"
-                sx={{fontSize: [10, 10, 13, 15, 18], width: "90%", boxShadow: 2 }}
-                label={"UNIDAD DE MEDIDA"}
-                InputLabelProps={{
-                  style: {
+                    //
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
                     fontFamily: "MontserratMedium",
-                    fontSize: "1vw",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={fin[0].unidadDeMedida}
-                onChange={(c) => {
-                  fin[0].unidadDeMedida = c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
-                  setFin({
-                    ...fin,
-                  });
-                }}
-              />
-
-              <FormControl
-                sx={{
-                  width: "90%",
-                  height: "70%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 13, 15, 18],
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
                 >
-                  CLARIDAD
-                </FormLabel>
-                <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <FormLabel
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
                     }}
-                    control={
-                      <Radio
-                        checked={fin[0].claridad === "SI"}
-                        onChange={(c) => {
-                          fin[0].claridad = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].claridad === "NO"}
-                        onChange={(c) => {
-                          fin[0].claridad = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </Grid>
-              </FormControl>
+                  >
+                    TIPO DE INDICADOR
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SELECCIÓN ESTRATEGICO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SELECCIÓN ESTRATEGICO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={
+                            fin[0].tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
+                          }
+                          onChange={(c) => {
+                            fin[0].tipoDeIndicador = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"DE GESTIÓN"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          DE GESTIÓN
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].tipoDeIndicador === "DE GESTIÓN"}
+                          onChange={(c) => {
+                            fin[0].tipoDeIndicador = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
 
-              <FormControl
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  width: "90%",
-                  height: "70%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <FormLabel
+                <FormControl
+                fullWidth
                   sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 13, 15, 18],
+                    
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
                 >
-                  RELEVANCIA
-                </FormLabel>
-                <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <FormLabel
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
                     }}
-                    control={
-                      <Radio
-                        checked={fin[0].relevancia === "SI"}
-                        onChange={(c) => {
-                          fin[0].relevancia = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].relevancia === "NO"}
-                        onChange={(c) => {
-                          fin[0].relevancia = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </Grid>
-              </FormControl>
+                  >
+                    DIMENSIÓN
+                  </FormLabel>
 
-              <FormControl
+                  <Grid
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(2,1fr)",
+                    }}
+                  >
+                    <FormControlLabel
+                      value={"EFICIENCIA"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          EFICIENCIA
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].dimension === "EFICIENCIA"}
+                          onChange={(c) => {
+                            fin[0].dimension = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"EFICACIA"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          EFICACIA
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].dimension === "EFICACIA"}
+                          onChange={(c) => {
+                            fin[0].dimension = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"CALIDAD"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          CALIDAD
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].dimension === "CALIDAD"}
+                          onChange={(c) => {
+                            fin[0].dimension = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+
+                    <FormControlLabel
+                      value={"ECONOMÍA"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          ECONOMÍA
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].dimension === "ECONOMÍA"}
+                          onChange={(c) => {
+                            fin[0].dimension = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  width: "90%",
-                  height: "70%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <FormLabel
+                <TextField
+                fullWidth
+                  rows={5}
+                  multiline
+                  variant="filled"
                   sx={{
-                    fontFamily: "MontserratBold",
                     fontSize: [10, 10, 13, 15, 18],
-                  }}
-                >
-                  ECONOMÍA
-                </FormLabel>
-                <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].economia === "SI"}
-                        onChange={(c) => {
-                          fin[0].economia = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].economia === "NO"}
-                        onChange={(c) => {
-                          fin[0].economia = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </Grid>
-              </FormControl>
 
-              <FormControl
+                    boxShadow: 2,
+                  }}
+                  label={"UNIDAD DE MEDIDA"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                      fontSize: "1vw",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  value={fin[0].unidadDeMedida}
+                  onChange={(c) => {
+                    fin[0].unidadDeMedida = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setFin({
+                      ...fin,
+                    });
+                  }}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  width: "90%",
-                  height: "70%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <FormLabel
+                <FormControl
+                fullWidth
                   sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 13, 15, 18],
+                    
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
                 >
-                  MONITOREABLE
-                </FormLabel>
-                <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <FormLabel
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
                     }}
-                    control={
-                      <Radio
-                        checked={fin[0].monitoreable === "SI"}
-                        onChange={(c) => {
-                          fin[0].monitoreable = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].monitoreable === "NO"}
-                        onChange={(c) => {
-                          fin[0].monitoreable = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </Grid>
-              </FormControl>
+                  >
+                    CLARIDAD
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].claridad === "SI"}
+                          onChange={(c) => {
+                            fin[0].claridad = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].claridad === "NO"}
+                          onChange={(c) => {
+                            fin[0].claridad = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
 
-              <FormControl
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  width: "90%",
-                  height: "70%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <FormLabel
+                <FormControl
+                fullWidth
                   sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 13, 15, 18],
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
                 >
-                  ADECUADO
-                </FormLabel>
-                <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <FormLabel
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
                     }}
-                    control={
-                      <Radio
-                        checked={fin[0].adecuado === "SI"}
-                        onChange={(c) => {
-                          fin[0].adecuado = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                    }}
-                    control={
-                      <Radio
-                        checked={fin[0].adecuado === "NO"}
-                        onChange={(c) => {
-                          fin[0].adecuado = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </Grid>
-              </FormControl>
+                  >
+                    RELEVANCIA
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].relevancia === "SI"}
+                          onChange={(c) => {
+                            fin[0].relevancia = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].relevancia === "NO"}
+                          onChange={(c) => {
+                            fin[0].relevancia = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
 
-              <FormControl
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  width: "90%",
-                  height: "70%",
-                  backgroundColor: "#f0f0f0",
-                  boxShadow: 2,
-                  fontFamily: "MontserratMedium",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <FormLabel
+                <FormControl
+                fullWidth
                   sx={{
-                    fontFamily: "MontserratBold",
-                    fontSize: [10, 10, 13, 15, 18],
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
                 >
-                  APORTE MARGINAL
-                </FormLabel>
-                <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                  <FormControlLabel
-                    value={"SI"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        SI
-                      </Typography>
-                    }
+                  <FormLabel
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
                     }}
-                    control={
-                      <Radio
-                        checked={fin[0].aporte_marginal === "SI"}
-                        onChange={(c) => {
-                          fin[0].aporte_marginal = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NO"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NO
-                      </Typography>
-                    }
+                  >
+                    ECONOMÍA
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].economia === "SI"}
+                          onChange={(c) => {
+                            fin[0].economia = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].economia === "NO"}
+                          onChange={(c) => {
+                            fin[0].economia = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
                     }}
-                    control={
-                      <Radio
-                        checked={fin[0].aporte_marginal === "NO"}
-                        onChange={(c) => {
-                          fin[0].aporte_marginal = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                  <FormControlLabel
-                    value={"NA"}
-                    label={
-                      <Typography
-                        sx={{
-                          fontSize: [ 10, 10, 11, 12, 13],
-                          fontFamily: "MontserratMedium",
-                        }}
-                      >
-                        NA
-                      </Typography>
-                    }
+                  >
+                    MONITOREABLE
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].monitoreable === "SI"}
+                          onChange={(c) => {
+                            fin[0].monitoreable = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].monitoreable === "NO"}
+                          onChange={(c) => {
+                            fin[0].monitoreable = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
                     }}
-                    control={
-                      <Radio
-                        checked={fin[0].aporte_marginal === "NA"}
-                        onChange={(c) => {
-                          fin[0].aporte_marginal = c.target.value;
-                          setFin({
-                            ...fin,
-                          });
-                        }}
-                      />
-                    }
-                  />
-                </Grid>
-              </FormControl>
+                  >
+                    ADECUADO
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].adecuado === "SI"}
+                          onChange={(c) => {
+                            fin[0].adecuado = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].adecuado === "NO"}
+                          onChange={(c) => {
+                            fin[0].adecuado = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    APORTE MARGINAL
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].aporte_marginal === "SI"}
+                          onChange={(c) => {
+                            fin[0].aporte_marginal = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].aporte_marginal === "NO"}
+                          onChange={(c) => {
+                            fin[0].aporte_marginal = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NA"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NA
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={fin[0].aporte_marginal === "NA"}
+                          onChange={(c) => {
+                            fin[0].aporte_marginal = c.target.value;
+                            setFin({
+                              ...fin,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
             </Grid>
           </>
         ) : null}
 
         {showProposito ? (
-          <Grid
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              width: "90%",
-              alignItems: "center",
-              justifyItems: "center",
-            }}
-          >
-            <FormControl
+          <>
+            <Grid
+              item
+              container
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={11}
               sx={{
-                width: "90%",
-                height: "60%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
+                display: "flex",
                 justifyContent: "space-evenly",
                 alignItems: "center",
+                "& > .MuiGrid-item": {
+                  marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+                },
               }}
             >
-              <FormLabel
-                sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 13, 15, 18],
-                }}
-              >
-                TIPO DE INDICADOR
-              </FormLabel>
-              <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                <FormControlLabel
-                  value={"SELECCIÓN ESTRATEGICO"}
-                  label={
-                    <Typography
+              {isSmallScreen && (
+                <List>
+                  <Grid>
+                    <Divider />
+                    <ListItemButton
+                      selected={showFin}
+                      onClick={() => {
+                        setShowFin(true);
+                        setShowProposito(false);
+                      }}
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
                       }}
                     >
-                      SELECCIÓN ESTRATEGICO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={
-                        proposito[0].tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
-                      }
-                      onChange={(c) => {
-                        proposito[0].tipoDeIndicador = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"DE GESTIÓN"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      DE GESTIÓN
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].tipoDeIndicador === "DE GESTIÓN"}
-                      onChange={(c) => {
-                        proposito[0].tipoDeIndicador = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-              </Grid>
-            </FormControl>
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 12, 15, 18, 20],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        FIN
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+                  </Grid>
 
-            <FormControl
-              sx={{
-                width: "90%",
-                height: "60%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel
+                  <Grid
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ListItemButton
+                      selected={showProposito}
+                      onClick={() => {
+                        setShowProposito(true);
+                        setShowFin(false);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: [10, 10, 12, 15, 18, 20],
+                          fontFamily: "MontserratMedium",
+                        }}
+                      >
+                        PROPÓSITO
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+                  </Grid>
+                </List>
+              )}
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 13, 15, 18],
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                DIMENSIÓN
-              </FormLabel>
+                <FormControl
+                fullWidth
+                  sx={{
+                    
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    TIPO DE INDICADOR
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SELECCIÓN ESTRATEGICO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SELECCIÓN ESTRATEGICO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={
+                            proposito[0].tipoDeIndicador ===
+                            "SELECCIÓN ESTRATEGICO"
+                          }
+                          onChange={(c) => {
+                            proposito[0].tipoDeIndicador = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"DE GESTIÓN"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          DE GESTIÓN
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={
+                            proposito[0].tipoDeIndicador === "DE GESTIÓN"
+                          }
+                          onChange={(c) => {
+                            proposito[0].tipoDeIndicador = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
 
               <Grid
-                sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}
-              >
-                <FormControlLabel
-                  value={"EFICIENCIA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      EFICIENCIA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].dimension === "EFICIENCIA"}
-                      onChange={(c) => {
-                        proposito[0].dimension = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"EFICACIA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      EFICACIA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].dimension === "EFICACIA"}
-                      onChange={(c) => {
-                        proposito[0].dimension = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"CALIDAD"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      CALIDAD
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].dimension === "CALIDAD"}
-                      onChange={(c) => {
-                        proposito[0].dimension = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-
-                <FormControlLabel
-                  value={"ECONOMÍA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      ECONOMÍA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].dimension === "ECONOMÍA"}
-                      onChange={(c) => {
-                        proposito[0].dimension = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-              </Grid>
-            </FormControl>
-
-            <TextField
-              rows={5}
-              multiline
-              variant="filled"
-              sx={{ width: "90%", boxShadow: 2 }}
-              label={"UNIDAD DE MEDIDA"}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                  fontSize: "1vw",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              value={proposito[0].unidadDeMedida}
-              onChange={(c) => {
-                proposito[0].unidadDeMedida = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setProposito({
-                  ...proposito,
-                });
-              }}
-            />
-
-            <FormControl
-              sx={{
-                width: "90%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 13, 15, 18],
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                CLARIDAD
-              </FormLabel>
-              <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                <FormControlLabel
-                  value={"SI"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      SI
-                    </Typography>
-                  }
+                <FormControl
+                fullWidth
                   sx={{
+                    
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
                     fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
-                  control={
-                    <Radio
-                      checked={proposito[0].claridad === "SI"}
-                      onChange={(c) => {
-                        proposito[0].claridad = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"NO"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      NO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].claridad === "NO"}
-                      onChange={(c) => {
-                        proposito[0].claridad = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-              </Grid>
-            </FormControl>
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    DIMENSIÓN
+                  </FormLabel>
 
-            <FormControl
-              sx={{
-                width: "90%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel
+                  <Grid
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(2,1fr)",
+                    }}
+                  >
+                    <FormControlLabel
+                      value={"EFICIENCIA"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          EFICIENCIA
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].dimension === "EFICIENCIA"}
+                          onChange={(c) => {
+                            proposito[0].dimension = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"EFICACIA"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          EFICACIA
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].dimension === "EFICACIA"}
+                          onChange={(c) => {
+                            proposito[0].dimension = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"CALIDAD"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          CALIDAD
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].dimension === "CALIDAD"}
+                          onChange={(c) => {
+                            proposito[0].dimension = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+
+                    <FormControlLabel
+                      value={"ECONOMÍA"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          ECONOMÍA
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].dimension === "ECONOMÍA"}
+                          onChange={(c) => {
+                            proposito[0].dimension = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 13, 15, 18],
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                RELEVANCIA
-              </FormLabel>
-              <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                <FormControlLabel
-                  value={"SI"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      SI
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
+                <TextField
+                  rows={5}
+                  multiline
+                  variant="filled"
+                  sx={{ boxShadow: 2 }}
+                  label={"UNIDAD DE MEDIDA"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                      fontSize: "1vw",
+                    },
                   }}
-                  control={
-                    <Radio
-                      checked={proposito[0].relevancia === "SI"}
-                      onChange={(c) => {
-                        proposito[0].relevancia = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"NO"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      NO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
                   }}
-                  control={
-                    <Radio
-                      checked={proposito[0].relevancia === "NO"}
-                      onChange={(c) => {
-                        proposito[0].relevancia = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
+                  value={proposito[0].unidadDeMedida}
+                  onChange={(c) => {
+                    proposito[0].unidadDeMedida = c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "");
+                    setProposito({
+                      ...proposito,
+                    });
+                  }}
                 />
               </Grid>
-            </FormControl>
-
-            <FormControl
-              sx={{
-                width: "90%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 13, 15, 18],
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                ECONOMÍA
-              </FormLabel>
-              <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                <FormControlLabel
-                  value={"SI"}
-                  label={
-                    <Typography
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    CLARIDAD
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
-                    >
-                      SI
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].economia === "SI"}
-                      onChange={(c) => {
-                        proposito[0].economia = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].claridad === "SI"}
+                          onChange={(c) => {
+                            proposito[0].claridad = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
-                <FormControlLabel
-                  value={"NO"}
-                  label={
-                    <Typography
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
-                    >
-                      NO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].economia === "NO"}
-                      onChange={(c) => {
-                        proposito[0].economia = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].claridad === "NO"}
+                          onChange={(c) => {
+                            proposito[0].claridad = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
+                  </Grid>
+                </FormControl>
               </Grid>
-            </FormControl>
 
-            <FormControl
-              sx={{
-                width: "90%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 13, 15, 18],
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                MONITOREABLE
-              </FormLabel>
-              <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                <FormControlLabel
-                  value={"SI"}
-                  label={
-                    <Typography
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    RELEVANCIA
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
-                    >
-                      SI
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].monitoreable === "SI"}
-                      onChange={(c) => {
-                        proposito[0].monitoreable = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].relevancia === "SI"}
+                          onChange={(c) => {
+                            proposito[0].relevancia = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
-                <FormControlLabel
-                  value={"NO"}
-                  label={
-                    <Typography
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
-                    >
-                      NO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].monitoreable === "NO"}
-                      onChange={(c) => {
-                        proposito[0].monitoreable = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].relevancia === "NO"}
+                          onChange={(c) => {
+                            proposito[0].relevancia = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
+                  </Grid>
+                </FormControl>
               </Grid>
-            </FormControl>
-
-            <FormControl
-              sx={{
-                width: "90%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 13, 15, 18],
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                ADECUADO
-              </FormLabel>
-              <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                <FormControlLabel
-                  value={"SI"}
-                  label={
-                    <Typography
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    ECONOMÍA
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
-                    >
-                      SI
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].adecuado === "SI"}
-                      onChange={(c) => {
-                        proposito[0].adecuado = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].economia === "SI"}
+                          onChange={(c) => {
+                            proposito[0].economia = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
-                <FormControlLabel
-                  value={"NO"}
-                  label={
-                    <Typography
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
-                    >
-                      NO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].adecuado === "NO"}
-                      onChange={(c) => {
-                        proposito[0].adecuado = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].economia === "NO"}
+                          onChange={(c) => {
+                            proposito[0].economia = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
+                  </Grid>
+                </FormControl>
               </Grid>
-            </FormControl>
-
-            <FormControl
-              sx={{
-                width: "90%",
-                height: "70%",
-                backgroundColor: "#f0f0f0",
-                boxShadow: 2,
-                fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <FormLabel
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
                 sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 13, 15, 18],
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                APORTE MARGINAL
-              </FormLabel>
-              <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                <FormControlLabel
-                  value={"SI"}
-                  label={
-                    <Typography
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    MONITOREABLE
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
-                    >
-                      SI
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].aporte_marginal === "SI"}
-                      onChange={(c) => {
-                        proposito[0].aporte_marginal = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].monitoreable === "SI"}
+                          onChange={(c) => {
+                            proposito[0].monitoreable = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
-                <FormControlLabel
-                  value={"NO"}
-                  label={
-                    <Typography
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
                       sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
                         fontFamily: "MontserratMedium",
                       }}
-                    >
-                      NO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].aporte_marginal === "NO"}
-                      onChange={(c) => {
-                        proposito[0].aporte_marginal = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].monitoreable === "NO"}
+                          onChange={(c) => {
+                            proposito[0].monitoreable = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
-                <FormControlLabel
-                  value={"NA"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [ 10, 10, 11, 12, 13],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      NA
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={proposito[0].aporte_marginal === "NA"}
-                      onChange={(c) => {
-                        proposito[0].aporte_marginal = c.target.value;
-                        setProposito({
-                          ...proposito,
-                        });
-                      }}
-                    />
-                  }
-                />
+                  </Grid>
+                </FormControl>
               </Grid>
-            </FormControl>
-          </Grid>
+
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    ADECUADO
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].adecuado === "SI"}
+                          onChange={(c) => {
+                            proposito[0].adecuado = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].adecuado === "NO"}
+                          onChange={(c) => {
+                            proposito[0].adecuado = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xl={3.5}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl
+                fullWidth
+                  sx={{
+                   
+                    backgroundColor: "#f0f0f0",
+                    boxShadow: 2,
+                    fontFamily: "MontserratMedium",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormLabel
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 13, 15, 18],
+                    }}
+                  >
+                    APORTE MARGINAL
+                  </FormLabel>
+                  <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                    <FormControlLabel
+                      value={"SI"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          SI
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].aporte_marginal === "SI"}
+                          onChange={(c) => {
+                            proposito[0].aporte_marginal = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NO"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NO
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].aporte_marginal === "NO"}
+                          onChange={(c) => {
+                            proposito[0].aporte_marginal = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value={"NA"}
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: [10, 10, 11, 12, 13],
+                            fontFamily: "MontserratMedium",
+                          }}
+                        >
+                          NA
+                        </Typography>
+                      }
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                      }}
+                      control={
+                        <Radio
+                          checked={proposito[0].aporte_marginal === "NA"}
+                          onChange={(c) => {
+                            proposito[0].aporte_marginal = c.target.value;
+                            setProposito({
+                              ...proposito,
+                            });
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </FormControl>
+              </Grid>
+            </Grid>
+          </>
         ) : null}
       </Grid>
     </Grid>

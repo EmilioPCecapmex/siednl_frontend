@@ -12,9 +12,8 @@ import {
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
-import { IComponente } from "./IComponente";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIR } from "./IMIR";
+import { IComponente, IMIR } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -97,9 +96,15 @@ export const TabComponente = ({
 
   useEffect(() => {
     setComponentes(MIR.componentes);
-    console.log("formula: ", componentes[componentSelect - 1]?.formula);
+    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR]);
+
+  useEffect(() => {
+    console.log("MIR desde comp:",MIR);
+    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
@@ -133,6 +138,7 @@ export const TabComponente = ({
         overflow: "auto",
       }}
     >
+      {/* {JSON.stringify(MIR)} */}
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
@@ -160,18 +166,21 @@ export const TabComponente = ({
         >
           COMPONENTE #{componentSelect}
         </Typography>
+        
         <IconButton
           onClick={() => {
             addComponente();
-            setComponentSelect(MIR.componentes.length + 1);
+            setComponentSelect(MIR.componentes.length );
           }}
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
         <IconButton
           onClick={() => {
-            alertaEliminar(eliminarComponente);
-           
+            console.log("componentSelect",componentSelect);
+            
+            removeComponente(componentSelect);
+            setComponentSelect(MIR.componentes.length - 1);
           }}
           disabled={MIR.componentes.length <= 2}
         >
@@ -208,10 +217,10 @@ export const TabComponente = ({
               },
             }}
           >
-            {noComponentes.map((item) => {
+            {MIR.componentes.map((item,index) => {
               return (
                 <Grid
-                  key={item}
+                  key={index+1}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -220,9 +229,9 @@ export const TabComponente = ({
                 >
                   <Divider />
                   <ListItemButton
-                    selected={item === componentSelect ? true : false}
-                    key={item}
-                    onClick={() => {setComponentSelect(item)}}
+                    selected={index+1 === componentSelect ? true : false}
+                    key={index+1}
+                    onClick={() => setComponentSelect(index+1)}
                     sx={{
                       height: "7vh",
                       "&.Mui-selected ": {
@@ -236,7 +245,7 @@ export const TabComponente = ({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
                     >
-                      COMPONENTE {item}
+                      COMPONENTE {index+1}
                     </Typography>
                   </ListItemButton>
                   <Divider />
@@ -265,10 +274,10 @@ export const TabComponente = ({
         >
           {isSmallScreen && (
             <List sx={{}}>
-              {noComponentes.map((item) => {
+              {MIR.componentes.map((item,index) => {
                 return (
                   <Grid
-                    key={item}
+                    key={index+1}
                     sx={{
                       display: "flex",
                       flexDirection: "column",
@@ -277,9 +286,9 @@ export const TabComponente = ({
                   >
                     <Divider />
                     <ListItemButton
-                      selected={item === componentSelect ? true : false}
-                      key={item}
-                      onClick={() => {setComponentSelect(item);console.log("componente onclick",item-1);}}
+                      // selected={item === componentSelect ? true : false}
+                      key={index+1}
+                      onClick={() => setComponentSelect(index+1)}
                       sx={{
                         height: "7vh",
                         "&.Mui-selected ": {
@@ -293,7 +302,7 @@ export const TabComponente = ({
                       <Typography
                         sx={{ fontFamily: "MontserratMedium", fontSize: "6vw" }}
                       >
-                        COMPONENTE {item}
+                        COMPONENTE {index+1}
                       </Typography>
                     </ListItemButton>
                     <Divider />
@@ -314,6 +323,7 @@ export const TabComponente = ({
               alignContent: "center",
               display: "flex",
               justifyContent: "center",
+              
             }}
           >
             <TextField

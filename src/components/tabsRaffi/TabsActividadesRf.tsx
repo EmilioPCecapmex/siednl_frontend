@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { IComponenteMA, ICValorRF, IFrecuenciasAct } from "./Interfaces";
-import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";

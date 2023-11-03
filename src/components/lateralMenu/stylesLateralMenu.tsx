@@ -17,7 +17,7 @@ export const lstXl = {
     },
   },
   imgBox: {
-    paddingTop: "1vh",
+    paddingTop: ".5vh",
     width: "100%",
     height: "6vh",
   },
@@ -33,8 +33,8 @@ export const lstXl = {
     alignItems: "center",
   },
   avatarStyle: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     fontSize: "1.5vw",
     fontFamily: "MontserratMedium",
     boxShadow: 4,
@@ -85,7 +85,7 @@ export const lstXl = {
     overflowX: "hidden",
   },
   selectedBox: {
-    width: ".5vw",
+    // width: ".5vw",
     backgroundColor: "#c4a57b",
     height: "3vh",
     position: "absolute",

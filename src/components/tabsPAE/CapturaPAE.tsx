@@ -212,12 +212,6 @@ export default function CapturaPAE() {
           }}
         >
           <TabPAE
-            anios={noComponentes}
-            idPAE={"111"}
-            Anio={"2023"}
-            Numero={"2"}
-            Nombre={"A"}
-            Ruta={"A"}
             value={value}
           />
         </Grid>

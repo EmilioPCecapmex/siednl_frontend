@@ -9,6 +9,7 @@ import {
   FormControl,
   Autocomplete,
   Tooltip,
+  useMediaQuery,
 } from "@mui/material";
 import { IComponenteMA } from "./Interfaces";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -115,14 +116,14 @@ export const TabComponenteMA = ({
           MA === "" ? "" : jsonMA?.componentes[index]?.descDenominador || "",
       });
     });
-    
+
     setComponentesValues(comp);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noComponentes]);
 
   useEffect(() => {
     valoresComponenteMAFnc(componentesValues);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [componentesValues]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
@@ -177,9 +178,7 @@ export const TabComponenteMA = ({
 
   const handleClickOpen2 = () => {
     setFrecuencia(
-      JSON.parse(MIR).componentes[
-        componentSelect - 1
-      ].frecuencia?.toLowerCase()
+      JSON.parse(MIR).componentes[componentSelect - 1].frecuencia?.toLowerCase()
     );
     setTipoFormula(
       JSON.parse(MIR)
@@ -267,7 +266,7 @@ export const TabComponenteMA = ({
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
     {
       Id: "",
-      Nombre: "",
+      Label: "",
     },
   ]);
 
@@ -303,9 +302,30 @@ export const TabComponenteMA = ({
       });
   };
 
+  const getListasLogin = (datos: any, setState: Function) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
+        params: datos,
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        setState(r.data.data);
+      });
+  };
   useEffect(() => {
-    getUnidades();
+    // getUnidades();
+    getListasLogin(
+      {
+        Tabla: "EntidadesHijas",
+        ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id,
+      },
+      setCatalogoUnidadResponsable
+    );
   }, []);
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
     <Grid
@@ -319,6 +339,7 @@ export const TabComponenteMA = ({
         borderRadius: 5,
         flexDirection: "column",
         backgroundColor: "#fff",
+        overflow: "auto",
       }}
     >
       <FormulaDialogMA
@@ -339,6 +360,7 @@ export const TabComponenteMA = ({
         MIR={MIR}
         frecuencia={frecuencia}
       />
+
       <Grid
         sx={{
           width: "100%",
@@ -348,16 +370,16 @@ export const TabComponenteMA = ({
           alignItems: "center",
         }}
       >
-<Tooltip title="RESUMEN COMPONENTE">
-        <InfoOutlinedIcon
-          onClick={() => {
-            showMirFnc(true);
-            setTxtShowFnc("Componentes");
-          }}
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-        ></InfoOutlinedIcon>
-</Tooltip>
+        <Tooltip title="RESUMEN COMPONENTE">
+          <InfoOutlinedIcon
+            onClick={() => {
+              showMirFnc(true);
+              setTxtShowFnc("Componentes");
+            }}
+            fontSize="large"
+            sx={{ cursor: "pointer" }}
+          ></InfoOutlinedIcon>
+        </Tooltip>
         <Typography
           sx={{
             mr: "1vw",
@@ -376,81 +398,146 @@ export const TabComponenteMA = ({
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "95%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          {noComponentes.map((item) => {
-            return (
-              <Grid
-                key={item}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
-                <Divider />
-                <ListItemButton
-                  selected={item === componentSelect ? true : false}
+        {!isSmallScreen && (
+          <List
+            sx={{
+              width: "15vw",
+              height: "95%",
+              borderRight: "solid",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              borderColor: "#BCBCBC",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
+            }}
+          >
+            {noComponentes.map((item) => {
+              return (
+                <Grid
                   key={item}
-                  onClick={() => {
-                    setComponentSelect(item);
-                  }}
                   sx={{
-                    height: "7vh",
-                    "&.Mui-selected ": {
-                      backgroundColor: "#c4a57b",
-                    },
-                    "&.Mui-selected:hover": {
-                      backgroundColor: "#cbcbcb",
-                    },
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
                   }}
                 >
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18] }}
+                  <Divider />
+                  <ListItemButton
+                    selected={item === componentSelect ? true : false}
+                    key={item}
+                    onClick={() => {
+                      setComponentSelect(item);
+                    }}
+                    sx={{
+                      height: "7vh",
+                      "&.Mui-selected ": {
+                        backgroundColor: "#c4a57b",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#cbcbcb",
+                      },
+                    }}
                   >
-                    COMPONENTE {item}
-                  </Typography>
-                </ListItemButton>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                      }}
+                    >
+                      COMPONENTE {item}
+                    </Typography>
+                  </ListItemButton>
 
-                <Divider />
-              </Grid>
-            );
-          })}
-        </List>
+                  <Divider />
+                </Grid>
+              );
+            })}
+          </List>
+        )}
 
         <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
           sx={{
             display: "flex",
-            flexDirection: "column",
-            width: "90%",
+            justifyContent: "space-evenly",
             alignItems: "center",
-            justifyContent: "center",
+            "& > .MuiGrid-item": {
+              marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+            },
           }}
         >
+          {isSmallScreen && (
+            <Grid>
+              <List>
+                {noComponentes.map((item) => {
+                  return (
+                    <Grid
+                      key={item}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Divider />
+                      <ListItemButton
+                        selected={item === componentSelect ? true : false}
+                        key={item}
+                        onClick={() => {
+                          setComponentSelect(item);
+                        }}
+                        sx={{
+                          height: "7vh",
+                          "&.Mui-selected ": {
+                            backgroundColor: "#c4a57b",
+                          },
+                          "&.Mui-selected:hover": {
+                            backgroundColor: "#cbcbcb",
+                          },
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontFamily: "MontserratMedium",
+                            fontSize: [10, 10, 10, 13, 15, 18],
+                          }}
+                        >
+                          COMPONENTE {item}
+                        </Typography>
+                      </ListItemButton>
+
+                      <Divider />
+                    </Grid>
+                  );
+                })}
+              </List>
+            </Grid>
+          )}
+
           <Grid
+            item
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={12}
             sx={{
+              alignContent: "center",
               display: "flex",
-              width: "100%",
-              height: "33%",
-              alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyContent: "center",
             }}
           >
             <TextField
@@ -460,11 +547,14 @@ export const TabComponenteMA = ({
                   : false) &&
                 componentesValues[componentSelect - 1]?.metaAnual !== ""
               }
-              sx={{ width: "18%", boxShadow: 2 }}
+              sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{  fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
+                  sx={{
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                    fontFamily: "MontserratMedium",
+                  }}
                 >
                   META ANUAL 2023
                 </Typography>
@@ -479,11 +569,14 @@ export const TabComponenteMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              onClick={() => (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].metaAnual
-                : false) &&
+              onClick={() =>
+                (MAEdit !== ""
+                  ? MAEdit?.componentes[componentSelect - 1].metaAnual
+                  : false) &&
                 componentesValues[componentSelect - 1]?.metaAnual !== ""
-                ? "" : handleClickOpen()}
+                  ? ""
+                  : handleClickOpen()
+              }
               value={componentesValues[componentSelect - 1]?.metaAnual || ""}
               error={
                 parseFloat(componentesValues[componentSelect - 1]?.metaAnual) <
@@ -514,6 +607,21 @@ export const TabComponenteMA = ({
                   : null
               }
             />
+          </Grid>
+
+          <Grid
+            item
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -521,11 +629,14 @@ export const TabComponenteMA = ({
                   : false) &&
                 componentesValues[componentSelect - 1]?.lineaBase !== ""
               }
-              sx={{ width: "18%", boxShadow: 2 }}
+              sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{  fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
+                  sx={{
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                    fontFamily: "MontserratMedium",
+                  }}
                 >
                   LÍNEA BASE 2021
                 </Typography>
@@ -574,13 +685,27 @@ export const TabComponenteMA = ({
               }}
               value={componentesValues[componentSelect - 1]?.lineaBase || ""}
             />
+          </Grid>
 
-            {JSON.parse(MIR)
-              .componentes[componentSelect - 1].indicador.toLowerCase()
-              .includes("indice") ||
-            JSON.parse(MIR)
-              .componentes[componentSelect - 1].indicador.toLowerCase()
-              .includes("índice") ? (
+          {JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toLowerCase()
+            .includes("indice") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect - 1].indicador.toLowerCase()
+            .includes("índice") ? (
+            <Grid
+              item
+              xl={3}
+              lg={3}
+              md={2}
+              sm={2}
+              xs={12}
+              sx={{
+                alignContent: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <TextField
                 disabled={
                   (MAEdit !== ""
@@ -588,13 +713,16 @@ export const TabComponenteMA = ({
                     : false) &&
                   componentesValues[componentSelect - 1]?.valorNumerador !== ""
                 }
-                sx={{ width: "18%", boxShadow: 2 }}
+                sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 label={
                   // fontSize: [10, 10, 10, 15, 15, 18]
                   //fontSize: [10, 10, 10, 11, 12, 13]
                   <Typography
-                    sx={{  fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
+                    sx={{
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                      fontFamily: "MontserratMedium",
+                    }}
                   >
                     ÍNDICE
                   </Typography>
@@ -609,93 +737,136 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() => (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].valorNumerador
-                : false) &&
-                componentesValues[componentSelect - 1]?.valorNumerador!== ""
-                ? "" : handleClickOpen()}
+                onClick={() =>
+                  (MAEdit !== ""
+                    ? MAEdit?.componentes[componentSelect - 1].valorNumerador
+                    : false) &&
+                  componentesValues[componentSelect - 1]?.valorNumerador !== ""
+                    ? ""
+                    : handleClickOpen()
+                }
                 value={
                   componentesValues[componentSelect - 1]?.valorNumerador || ""
                 }
               />
-            ) : (
-              <Grid sx={{ width: "45%" }}>
-                <TextField
-                  disabled={
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect - 1].valorNumerador
-                      : false) &&
-                    componentesValues[componentSelect - 1]?.valorNumerador !==
-                      ""
-                  }
-                  sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
-                  variant={"filled"}
-                  label={
-                    <Typography
-                      sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
-                    >
-                      VALOR DEL NUMERADOR
-                    </Typography>
-                  }
-                  InputLabelProps={{
-                    style: {
+            </Grid>
+          ) : (
+            <Grid
+              item
+              xl={3}
+              lg={3}
+              md={2}
+              sm={2}
+              xs={12}
+              sx={{
+                alignContent: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <TextField
+                disabled={
+                  (MAEdit !== ""
+                    ? MAEdit?.componentes[componentSelect - 1].valorNumerador
+                    : false) &&
+                  componentesValues[componentSelect - 1]?.valorNumerador !== ""
+                }
+                sx={{
+                  boxShadow: 2,
+                  // mr: "2%"
+                }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: [10, 10, 10, 15, 15, 18],
                       fontFamily: "MontserratMedium",
-                    },
-                  }}
-                  InputProps={{
-                    style: {
-                      fontFamily: "MontserratRegular",
-                    },
-                  }}
-                  onClick={() => (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].valorNumerador
-                : false) &&
-                componentesValues[componentSelect - 1]?.valorNumerador !== ""
-                ? "" : handleClickOpen()}
-                  value={
-                    componentesValues[componentSelect - 1]?.valorNumerador || ""
-                  }
-                />
-                <TextField
-                  disabled={
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect - 1]
-                          .valorDenominador
-                      : false) &&
-                    componentesValues[componentSelect - 1]?.valorDenominador !==
-                      ""
-                  }
-                  sx={{ width: "45%", boxShadow: 2 }}
-                  variant={"filled"}
-                  label={
-                    <Typography
-                      sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
-                    >
-                      VALOR DEL DENOMINADOR
-                    </Typography>
-                  }
-                  InputLabelProps={{
-                    style: {
-                      fontFamily: "MontserratMedium",
-                    },
-                  }}
-                  InputProps={{
-                    style: {
-                      fontFamily: "MontserratRegular",
-                    },
-                  }}
-                  onClick={() => (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].valorDenominador
-                : false) &&
-                componentesValues[componentSelect - 1]?.valorDenominador !== ""
-                ? "" : handleClickOpen()}
-                  value={
-                    componentesValues[componentSelect - 1]?.valorDenominador ||
+                    }}
+                  >
+                    VALOR DEL NUMERADOR
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onClick={() =>
+                  (MAEdit !== ""
+                    ? MAEdit?.componentes[componentSelect - 1].valorNumerador
+                    : false) &&
+                  componentesValues[componentSelect - 1]?.valorNumerador !== ""
+                    ? ""
+                    : handleClickOpen()
+                }
+                value={
+                  componentesValues[componentSelect - 1]?.valorNumerador || ""
+                }
+              />
+              <TextField
+                disabled={
+                  (MAEdit !== ""
+                    ? MAEdit?.componentes[componentSelect - 1].valorDenominador
+                    : false) &&
+                  componentesValues[componentSelect - 1]?.valorDenominador !==
                     ""
-                  }
-                />
-              </Grid>
-            )}
+                }
+                sx={{ boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    VALOR DEL DENOMINADOR
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                onClick={() =>
+                  (MAEdit !== ""
+                    ? MAEdit?.componentes[componentSelect - 1].valorDenominador
+                    : false) &&
+                  componentesValues[componentSelect - 1]?.valorDenominador !==
+                    ""
+                    ? ""
+                    : handleClickOpen()
+                }
+                value={
+                  componentesValues[componentSelect - 1]?.valorDenominador || ""
+                }
+              />
+            </Grid>
+          )}
+
+          <Grid
+            item
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <FormControl
               disabled={
                 (MAEdit !== ""
@@ -705,8 +876,6 @@ export const TabComponenteMA = ({
                   ""
               }
               sx={{
-                width: "15%",
-                height: "80%",
                 backgroundColor: "#f0f0f0",
                 boxShadow: 6,
                 fontFamily: "MontserratMedium",
@@ -717,7 +886,7 @@ export const TabComponenteMA = ({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 10, 11, 12, 13]
+                  fontSize: [10, 10, 10, 11, 12, 13],
                 }}
               >
                 SENTIDO DEL INDICADOR
@@ -726,7 +895,10 @@ export const TabComponenteMA = ({
                 value={"ASCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
+                    sx={{
+                      fontSize: [10, 10, 10, 11, 12, 13],
+                      fontFamily: "MontserratMedium",
+                    }}
                   >
                     ASCENDENTE
                   </Typography>
@@ -753,7 +925,10 @@ export const TabComponenteMA = ({
                 value={"DESCENDENTE"}
                 label={
                   <Typography
-                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
+                    sx={{
+                      fontSize: [10, 10, 10, 11, 12, 13],
+                      fontFamily: "MontserratMedium",
+                    }}
                   >
                     DESCENDENTE
                   </Typography>
@@ -777,7 +952,10 @@ export const TabComponenteMA = ({
                 value={"NORMAL"}
                 label={
                   <Typography
-                    sx={{ fontSize: [10, 10, 10, 11, 12, 13], fontFamily: "MontserratMedium" }}
+                    sx={{
+                      fontSize: [10, 10, 10, 11, 12, 13],
+                      fontFamily: "MontserratMedium",
+                    }}
                   >
                     NORMAL
                   </Typography>
@@ -804,412 +982,489 @@ export const TabComponenteMA = ({
             componentSelect - 1
           ].frecuencia?.toLowerCase() === "trimestral" ? (
             <Grid
+              item
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
               sx={{
+                alignContent: "center",
                 display: "flex",
-                width: "100%",
-                height: "20%",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                flexWrap: "wrap",
+                justifyContent: "center",
               }}
             >
-              <TextField
-                disabled={(MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre1
-                : false) &&
-                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1!== ""
-                }
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                onClick={() => 
-                  (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre1
-                  : false) &&
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre1!== ""
-                  ? "" : handleClickOpen2()
-                }
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    TRIMESTRE 1
-                  </Typography>
-                }
-                value={
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre1 || ""
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-              />
+              >
+                <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].trimestre1
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre1 !== ""
+                  }
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  onClick={() =>
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].trimestre1
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre1 !== ""
+                      ? ""
+                      : handleClickOpen2()
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      TRIMESTRE 1
+                    </Typography>
+                  }
+                  value={
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre1 || ""
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                />
+              </Grid>
 
-              <TextField
-                disabled={(MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre2
-                : false) &&
-                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2!== ""
-                }
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                onClick={() => 
-                  (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre2
-                  : false) &&
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre2!== ""
-                  ? "" : handleClickOpen2()
-                }
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    TRIMESTRE 2
-                  </Typography>
-                }
-                value={
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre2 || ""
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
+              >
+                <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].trimestre2
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre2 !== ""
+                  }
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  onClick={() =>
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].trimestre2
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre2 !== ""
+                      ? ""
+                      : handleClickOpen2()
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      TRIMESTRE 2
+                    </Typography>
+                  }
+                  value={
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre2 || ""
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-              />
-              <TextField
-                disabled={(MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre3
-                : false) &&
-                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3!== ""
-                }
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                onClick={() => 
-                  (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre3
-                  : false) &&
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre3!== ""
-                  ? "" : handleClickOpen2()
-                }
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    TRIMESTRE 3
-                  </Typography>
-                }
-                value={
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre3 || ""
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
+              >
+                <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].trimestre3
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre3 !== ""
+                  }
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  onClick={() =>
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].trimestre3
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre3 !== ""
+                      ? ""
+                      : handleClickOpen2()
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      TRIMESTRE 3
+                    </Typography>
+                  }
+                  value={
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre3 || ""
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-              />
-              <TextField
-                disabled={(MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre4
-                : false) &&
-                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4!== ""
-                }
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                onClick={() => 
-                  (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].trimestre4
-                  : false) &&
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.trimestre4!== ""
-                  ? "" : handleClickOpen2()
-                }
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    TRIMESTRE 4
-                  </Typography>
-                }
-                value={
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre4 || ""
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-              />
+              >
+                <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].trimestre4
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre4 !== ""
+                  }
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  onClick={() =>
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].trimestre4
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre4 !== ""
+                      ? ""
+                      : handleClickOpen2()
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      TRIMESTRE 4
+                    </Typography>
+                  }
+                  value={
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.trimestre4 || ""
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                />
+              </Grid>
             </Grid>
           ) : (
             <Grid
+              item
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
               sx={{
+                alignContent: "center",
                 display: "flex",
-                width: "100%",
-                height: "20%",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                flexWrap: "wrap",
+                justifyContent: "center",
               }}
             >
-              <TextField
-                disabled={(MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].semestre1
-                : false) &&
-                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1!== ""
-                }
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                onClick={() => 
-                  (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].semestre1
-                  : false) &&
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1!== ""
-                  ? "" : handleClickOpen2()
-                }
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    SEMESTRE 1
-                  </Typography>
-                }
-                value={
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.semestre1 || ""
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
+              >
+                <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].semestre1
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.semestre1 !== ""
+                  }
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  onClick={() =>
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].semestre1
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.semestre1 !== ""
+                      ? ""
+                      : handleClickOpen2()
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SEMESTRE 1
+                    </Typography>
+                  }
+                  value={
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.semestre1 || ""
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-              />
-              <TextField
-                disabled={(MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].semestre2
-                : false) &&
-                componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2!== ""
-                }
-                sx={{ width: "18%", boxShadow: 2 }}
-                variant={"filled"}
-                onClick={() => 
-                  (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect - 1].metasPorFrecuencia[0].semestre2
-                  : false) &&
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre2!== ""
-                  ? "" : handleClickOpen2()
-                }
-                label={
-                  <Typography
-                    sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
-                  >
-                    SEMESTRE 2
-                  </Typography>
-                }
-                value={
-                  componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]
-                    ?.semestre2 || ""
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-              />
+              >
+                <TextField
+                  disabled={
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].semestre2
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.semestre2 !== ""
+                  }
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  onClick={() =>
+                    (MAEdit !== ""
+                      ? MAEdit?.componentes[componentSelect - 1]
+                          .metasPorFrecuencia[0].semestre2
+                      : false) &&
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.semestre2 !== ""
+                      ? ""
+                      : handleClickOpen2()
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SEMESTRE 2
+                    </Typography>
+                  }
+                  value={
+                    componentesValues[componentSelect - 1]
+                      ?.metasPorFrecuencia[0]?.semestre2 || ""
+                  }
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                />
+              </Grid>
             </Grid>
           )}
 
           <Grid
+            item
+            xl={2}
+            lg={2}
+            md={4}
+            sm={4}
+            xs={11}
             sx={{
+              alignContent: "center",
               display: "flex",
-              width: "100%",
-              height: "30%",
-              alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyContent: "center",
             }}
           >
-            {/* <Grid
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: 2,
-                width: "40%",
-                height: "12vh",
-                backgroundColor: "#f0f0f0",
-              }}
-            >
-              <FormControl sx={{ width: "25vw" }}>
-                <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-                  disabled={
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect - 1]
-                          .unidadResponsable
-                      : false) &&
-                    componentesValues[componentSelect - 1]
-                      ?.unidadResponsable !== ""
-                  }
-                  options={catalogoUnidadResponsable}
-                  getOptionLabel={(option) => option.Unidad || ""}
-                  value={{
-                    Id: catalogoUnidadResponsable[0].Id,
-                    Unidad:
-                      componentesValues[componentSelect - 1]?.unidadResponsable,
-                  }}
-                  renderOption={(props, option) => {
-                    return (
-                      <li {...props} key={option.Id}>
-                        <p
-                          style={{
-                            fontFamily: "MontserratRegular",
-                            fontSize: ".7vw",
-                          }}
-                        >
-                          {option.Unidad}
-                        </p>
-                      </li>
-                    );
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={"UNIDAD RESPONSABLE"}
-                      variant="standard"
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratSemiBold",
-                          fontSize: ".7vw",
-                        },
-                      }}
-                      sx={{
-                        "& .MuiAutocomplete-input": {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                    ></TextField>
-                  )}
-                  onChange={(event, value) => {
-                    componentesValues[componentSelect - 1].unidadResponsable =
-                      value?.Unidad || "";
-                    setComponentesValues([...componentesValues]);
-                  }}
-                  isOptionEqualToValue={(option, value) =>
-                    option.Id === value.Id
-                  }
-                />
-              </FormControl>{" "}
-            </Grid> */}
-
-<Grid
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  boxShadow: 2,
-                  width: "40%",
-                  height: "12vh",
-                  backgroundColor: "#f0f0f0",
+            <FormControl required fullWidth>
+              <Autocomplete
+                clearText="Borrar"
+                noOptionsText="Sin opciones"
+                closeText="Cerrar"
+                openText="Abrir"
+                disabled={
+                  (MAEdit !== ""
+                    ? MAEdit?.componentes[componentSelect - 1].unidadResponsable
+                    : false) &&
+                  componentesValues[componentSelect - 1]?.unidadResponsable !==
+                    ""
+                }
+                options={catalogoUnidadResponsable}
+                getOptionLabel={(option) => option.Label}
+                value={{
+                  Id: catalogoUnidadResponsable[0].Id || "",
+                  Label:
+                    componentesValues[componentSelect - 1]?.unidadResponsable ||
+                    "",
                 }}
-              >
-                <FormControl sx={{ width: "25vw" }}>
-                  <Autocomplete
-                  clearText="Borrar"
-                  noOptionsText="Sin opciones"
-                  closeText="Cerrar"
-                  openText="Abrir"
-                  disabled={
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect - 1]
-                          .unidadResponsable
-                      : false) &&
-                    componentesValues[componentSelect - 1]
-                      ?.unidadResponsable !== ""
-                  }
-                    options={catalogoUnidadResponsable}
-                    getOptionLabel={(option) => option.Nombre}
-                    value={{
-                      Id: catalogoUnidadResponsable[0].Id || "",
-                      Nombre: componentesValues[componentSelect - 1]?.unidadResponsable || "",
-                    }}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={option.Id}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option.Nombre}
-                          </p>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"UNIDAD RESPONSABLE"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: "1vw",
-                          },
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.Id}>
+                      <p
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          fontSize: ".7vw",
                         }}
-                        sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
-                        }}
-                      ></TextField>
-                    )}
-                    onChange={(event, value) => {
-                      componentesValues[componentSelect - 1].unidadResponsable =
-                      value?.Nombre || "";
-                    setComponentesValues([...componentesValues]);
+                      >
+                        {option.Label}
+                      </p>
+                    </li>
+                  );
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={"UNIDAD RESPONSABLE"}
+                    variant="standard"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: "1vw",
+                      },
                     }}
-                    isOptionEqualToValue={(option, value) =>
-                      option.Id === value.Id
-                    }
-                  />
-                </FormControl>{" "}
-              </Grid>
+                    sx={{
+                      "& .MuiAutocomplete-input": {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                  ></TextField>
+                )}
+                onChange={(event, value) => {
+                  componentesValues[componentSelect - 1].unidadResponsable =
+                    value?.Label || "";
+                  setComponentesValues([...componentesValues]);
+                }}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
+            </FormControl>{" "}
+          </Grid>
+
+          <Grid
+            item
+            xl={2}
+            lg={2}
+            md={2}
+            sm={2}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -1219,11 +1474,14 @@ export const TabComponenteMA = ({
               }
               rows={5}
               multiline
-              sx={{ width: "40%", boxShadow: 2 }}
+              sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
+                  sx={{
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                    fontFamily: "MontserratMedium",
+                  }}
                 >
                   DESCRIPCIÓN DEL INDICADOR
                 </Typography>
@@ -1251,13 +1509,18 @@ export const TabComponenteMA = ({
               }}
             />
           </Grid>
+
           <Grid
+            item
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={12}
             sx={{
+              alignContent: "center",
               display: "flex",
-              width: "100%",
-              height: "30%",
-              alignItems: "center",
-              justifyContent: "space-evenly",
+              justifyContent: "center",
             }}
           >
             <TextField
@@ -1269,11 +1532,14 @@ export const TabComponenteMA = ({
               }
               rows={5}
               multiline
-              sx={{ width: "40%", boxShadow: 2 }}
+              sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
+                  sx={{
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                    fontFamily: "MontserratMedium",
+                  }}
                 >
                   DESCRIPCIÓN DEL NUMERADOR
                 </Typography>
@@ -1300,6 +1566,21 @@ export const TabComponenteMA = ({
                 },
               }}
             />
+          </Grid>
+
+          <Grid
+            item
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={12}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -1309,11 +1590,14 @@ export const TabComponenteMA = ({
               }
               rows={5}
               multiline
-              sx={{ width: "40%", boxShadow: 2 }}
+              sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
                 <Typography
-                  sx={{ fontSize: [10, 10, 10, 15, 15, 18], fontFamily: "MontserratMedium" }}
+                  sx={{
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                    fontFamily: "MontserratMedium",
+                  }}
                 >
                   DESCRIPCIÓN DEL DENOMINADOR
                 </Typography>

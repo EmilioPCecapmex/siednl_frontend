@@ -1,6 +1,6 @@
 import logo from "../../assets/logos/logo_tesoreriah1.png";
 import { Box, Divider, Typography } from "@mui/material";
-import { IActividades } from "../tabsMir/ICompActividad";
+import { IActividad } from "../tabsMir/interfaces mir/IMIR";
 
 export const ActFichaTecnica = ({
   MIR,
@@ -184,7 +184,7 @@ export const ActFichaTecnica = ({
 
   return (
     <>
-      {jsonMir.actividades.map((a: IActividades, index: number) => {
+      {jsonMir.actividades.map((a: IActividad, index: number) => {
         paginas = paginas + 1;
         return (
           <>

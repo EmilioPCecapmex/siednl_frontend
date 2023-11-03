@@ -464,11 +464,21 @@ export default function ModalSolicitaModif({
   };
 
   const createFT = (estado: string) => {
-    if (estado === "Autorizada" && userSelected !== "0") {
+    let rolusuario = userXInst.find((user) =>user.IdUsuario===userSelected)
+
+    if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Verificador") {
       estado = "En Revisión";
-    } else if (estado === "En Autorización" && userSelected !== "0") {
+      console.log("Entre al primer if");
+    } else if (estado === "En Autorización" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
       estado = "En Captura";
-    }
+      console.log("Entre al segundo if");
+    } else if (estado === "En Autorización" && userSelected !== "0") {
+      console.log("Entre al tercero if");
+      estado = "En Captura";
+    } else if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
+      console.log("Entre al cuarto if");
+      estado = "En Captura";
+    } 
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
@@ -499,7 +509,7 @@ export default function ModalSolicitaModif({
           title:
             localStorage.getItem("Rol") === "Verificador"
               ? "Ficha Tecnica enviada a capturador para corrección"
-              : "Ficha Tecnica enviada a revisión",
+              : "Ficha Tecnica enviada",
         });
 
         //enviarNotificacion();

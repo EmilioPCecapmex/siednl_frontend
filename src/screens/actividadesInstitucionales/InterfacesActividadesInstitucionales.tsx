@@ -1,3 +1,5 @@
+import { IIdentificacion } from "../../components/tabsActividadesInstitucionales/IAlineacionPlaneacion";
+import { IAccion } from "../../components/tabsActividadesInstitucionales/IAccion1";
 export interface IActividadesInstitucionales {
     IdActividadInstitucional: string;
     IdMir: string;
@@ -10,6 +12,7 @@ export interface IActividadesInstitucionales {
     ActividadInstitucional: string;
     MIR: string;
     FichaTecnica: string;
+    AI: string;
     Estado: string;
     FechaCreacion: string;
     ModificadoPor: string;
@@ -20,5 +23,8 @@ export interface IActividadesInstitucionales {
   }
 
   export interface IAI {
-    
+    identificacion: IIdentificacion;
+    //acciones: IAccion[];
+    acciones: Array<IAccion>;
+    //avancefisicofinanciero: string;
   }

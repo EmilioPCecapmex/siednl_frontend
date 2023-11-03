@@ -27,13 +27,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import LaunchIcon from '@mui/icons-material/Launch';
 
 export const VisualizarPAE = ({
-  estado,
-  id,
-  
+  ruta,
+  nombre,
+  tipo,
+  anio,
+  perteneceA
 }: {
-  estado: string;
-  id: string;
-  
+  ruta: string;
+  nombre: string;
+  tipo: string;
+  anio: string;
+  perteneceA: string;
 }) => {
   const Toast = Swal.mixin({
     toast: true,
@@ -120,62 +124,9 @@ export const VisualizarPAE = ({
     );
   };
 
-  const comentMir = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
-        {
-          IdMir: id,
-          Coment: coment,
-          // se va a modificar
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MIR",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (estado !== "En Captura") {
-          // eslint-disable-next-line array-callback-return
-          userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario);
-          });
-        }
-        //AlertBox need return a variable equal to 1 here.
-        setNewComent(false);
-        setComent("");
-        handleClose();
-        
-        Toast.fire({
-          icon: "success",
-          title: "Comentario añadidoa",
-        });
-      })
-      .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: "Se produjo un error",
-        });
-      });
-  };
+ 
 
-  React.useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
-        params: {
-          IdMir: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setComents(r.data.data);
-      });
-  }, [id]);
+  
 
   const isComentEmpty = () => {
     return !/^\s*$/.test(coment);
@@ -233,7 +184,7 @@ export const VisualizarPAE = ({
             flexDirection: "column",
           }}
         >
-<InsertarComponentePDF Nombre={"C1A1"} />
+<InsertarComponentePDF ruta={ruta} nombre={nombre} tipo={tipo} anio={anio} perteneceA={perteneceA} />
         </DialogContent>
       </Dialog>
     </Box>

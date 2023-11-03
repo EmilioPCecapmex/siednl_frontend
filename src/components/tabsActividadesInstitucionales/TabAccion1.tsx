@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   TextField,
   Grid,
@@ -8,14 +8,96 @@ import {
   ListItemButton,
   Autocomplete,
   FormControl,
+  IconButton,
+  Tooltip,
+  useMediaQuery,
 } from "@mui/material";
-
-export function TabAccion1({  }: {  }) {
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { IAI } from "../../screens/actividadesInstitucionales/InterfacesActividadesInstitucionales";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
+import { IAccion } from "./IAccion1";
+export function TabAccion1({
+  AI,
+  noAcciones,
+  addAccion,
+  addremoveAccion,
+  setAi,
+}: {
+  AI: IAI;
+  noAcciones: number[];
+  addAccion: Function;
+  addremoveAccion: Function;
+  setAi: Function;
+}) {
   const [componentSelect, setComponentSelect] = useState(1);
+  const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [acciones, setAcciones] = useState<Array<IAccion>>(AI.acciones);
+  const [prevTextFormula, setPrevTextFormula] = useState("");
+  const [errorIndicador, setErrorIndicador] = useState(-1);
+  const [tipoFormula, setTipoFormula] = useState("");
+  const [elementoFormula, setElementoFormula] = useState("");
+
+  useEffect(() => {
+    setAcciones(AI.acciones);
+  }, [AI]);
+
+  useEffect(() => {
+    setAi((AI: IAI) => ({
+      ...AI,
+      ...{
+        acciones: acciones,
+      },
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [acciones]);
+
+  useEffect(() => {
+    console.log("AI: ", AI);
+  }, [AI]);
+
+  const handleClickOpen = () => {
+    setPrevTextFormula(AI.acciones[componentSelect - 1].formula);
+    setOpenFormulaDialog(true);
+  };
+
+  const evalueTxtIndicador = () => {
+    const cIndicador =
+      AI.acciones[componentSelect - 1].nombreIndicador?.toLowerCase();
+    if (cIndicador !== undefined) {
+      if (cIndicador.includes("porcentaje" || "PORCENTAJE")) {
+        setTipoFormula("Porcentaje");
+        setElementoFormula("Componente " + componentSelect.toString());
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("tasa")) {
+        setTipoFormula("Tasa");
+        setElementoFormula("Componente " + componentSelect.toString());
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("indice" || "índice" || "Índice")) {
+        setTipoFormula("Índice");
+        setElementoFormula("Componente " + componentSelect.toString());
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else if (cIndicador.includes("promedio")) {
+        setTipoFormula("Promedio");
+        setElementoFormula("Componente " + componentSelect.toString());
+        handleClickOpen();
+        setErrorIndicador(-1);
+      } else {
+        setErrorIndicador(componentSelect - 1);
+        let prevLocal = [...AI.acciones];
+        prevLocal[componentSelect - 1].nombreIndicador = "";
+        setAcciones(prevLocal);
+      }
+    }
+  };
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
   return (
     <Grid
-      
-      
       sx={{
         width: "93vw",
         height: "82vh",
@@ -25,6 +107,7 @@ export function TabAccion1({  }: {  }) {
         backgroundColor: "#fff",
         boxShadow: 20,
         borderRadius: 5,
+        overflow: "auto",
       }}
     >
       <Grid
@@ -34,552 +117,600 @@ export function TabAccion1({  }: {  }) {
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "100%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          <Grid
+        {!isSmallScreen && (
+          <List
             sx={{
-              height: "15vh",
+              width: "15vw",
+              height: "100%",
+              borderRight: "solid",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              borderColor: "#BCBCBC",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
             }}
           >
-            <Divider />
-
-            <ListItemButton
-              selected={componentSelect === 1 ? true : false}
-              onClick={() => setComponentSelect(1)}
-              sx={{
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Acción 1
-              </Typography>
-            </ListItemButton>
-            <Divider />
-
-            <ListItemButton
-              selected={componentSelect === 2 ? true : false}
-              onClick={() => setComponentSelect(2)}
-              sx={{
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Datos del Indicador
-              </Typography>
-            </ListItemButton>
-            <Divider />
-
-            <Divider />
-          </Grid>
-        </List>
-
+            {noAcciones.map((item) => {
+              return (
+                <Grid
+                  sx={{
+                    //height: "15vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Divider />
+                  <ListItemButton
+                    selected={item === componentSelect ? true : false}
+                    key={item}
+                    onClick={() => {
+                      setComponentSelect(item);
+                    }}
+                    sx={{
+                      height: "7vh",
+                      "&.Mui-selected ": {
+                        backgroundColor: "#c4a57b",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#cbcbcb",
+                      },
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                      }}
+                    >
+                      Accion {item}
+                    </Typography>
+                  </ListItemButton>
+                </Grid>
+              );
+            })}
+          </List>
+        )}
         <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          display={"flex"}
+          justifyContent={"space-evenly"}
+          alignItems={"center"}
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "90%",
-            height: "100%",
-            alignItems: "center",
-            justifyContent: "center",
+            "& > .MuiGrid-item": {
+              marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+            },
           }}
         >
-          {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
-          {componentSelect === 1 ? (
-            <Grid
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-              }}
+          {/* <Grid
+            item
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            sx={{
+              //alignContent: "center",
+              display: "flex",
+              //justifyContent: "center",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              //backgroundColor: "blue"
+            }}
+          > */}
+          {isSmallScreen && (
+            <List
+             
             >
-              <Grid
-                sx={{
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
-                >
-                  Acción 1
-                </Typography>
-              </Grid>
-              <Grid
-                sx={{
-                  height: "45%",
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                }}
-              >
-                <TextField
-                  multiline
-                  rows={6}
-                  InputLabelProps={{
-                    style: { fontFamily: "MontserratSemiBold" },
-                  }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  variant="filled"
-                  sx={{ width: "45%", boxShadow: 2 }}
-                  label={"Descripción"}
-                />
-                <TextField
-                  multiline
-                  InputLabelProps={{
-                    style: { fontFamily: "MontserratSemiBold" },
-                  }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  rows={6}
-                  variant="filled"
-                  sx={{ width: "45%", boxShadow: 2 }}
-                  label={"Nombre del Indicador"}
-                />
-              </Grid>
-
-              <Grid
-                sx={{
-                  height: "45%",
-                  width: "90%",
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr",
-                  alignItems: "center",
-                }}
-              >
-                {periodo.map((x, y) => {
-                  return (
-                    <TextField
-                      key={y}
-                      multiline
-                      rows={1}
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratSemiBold",
-                          fontSize: ".7vw",
+              {noAcciones.map((item) => {
+                return (
+                  <Grid
+                    sx={{
+                      //height: "15vh",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Divider />
+                    <ListItemButton
+                      selected={item === componentSelect ? true : false}
+                      key={item}
+                      onClick={() => {
+                        setComponentSelect(item);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
                         },
                       }}
-                      InputProps={{
-                        style: { fontFamily: "MontserratRegular" },
-                      }}
-                      variant="standard"
-                      sx={{ width: "80%", gridColumn: y === 6 ? 2 : 0 }}
-                      label={
-                        y === 0
-                          ? `Linea Base ${periodo[y]} `
-                          : y === 6
-                          ? `Meta Sexenal ${periodo[y]} `
-                          : ` Meta ${periodo[y]} `
-                      }
-                    />
-                  );
-                })}
-              </Grid>
-            </Grid>
-          ) : null}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                          fontSize: [10, 10, 10, 13, 15, 18],
+                        }}
+                      >
+                        Accion {item}
+                      </Typography>
+                    </ListItemButton>
+                  </Grid>
+                );
+              })}
+            </List>
+          )}
 
-          {/* ---------------------------------------------------------------------------------------------------------------------------- */}
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={11}
+            sx={{
+              //alignContent: "center",
+              display: "flex",
 
-          {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
-          {componentSelect === 2 ? (
-            <Grid
+              //justifyContent: "center",
+              justifyContent: ["center", "flex-end", "flex-end", "flex-end", "flex-end"],
+
+              alignItems: "center",
+              //backgroundColor: "blue"
+            }}
+          >
+            <Tooltip title="RESUMEN">
+              <InfoOutlinedIcon
+                fontSize="large"
+                sx={{ cursor: "pointer" }}
+              ></InfoOutlinedIcon>
+            </Tooltip>
+            <Typography
               sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
+                fontFamily: "MontserratBold",
+                fontSize: ["2vh", "2vh", "2vh", "3vh", "4vh", "4vh"],
               }}
             >
-              <Grid
-                sx={{
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
-                >
-                  Acción 1 - Datos del Indicador
-                </Typography>
-              </Grid>
-              <Grid
-                sx={{
-                  height: "20%",
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                }}
-              >
-                <TextField
-                  multiline
-                  rows={3}
-                  variant="filled"
-                  InputLabelProps={{
-                    style: { fontFamily: "MontserratSemiBold" },
-                  }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  sx={{ width: "40%", boxShadow: 2 }}
-                  label={"Fórmula de Cálculo"}
-                />
-              </Grid>
-              <Grid
-                sx={{
-                  height: "25%",
-                  width: "95%",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                }}
-              >
-                <FormControl sx={{ gridRow: "1", width: "18%" }}>
-                  <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-                    options={top100Films()}
-                    size="small"
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option}
-                          </p>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"Unidad de Medida"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
-                          },
-                        }}
-                        sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
-                        }}
-                      ></TextField>
-                    )}
-                  />
-                </FormControl>
-                <FormControl sx={{ gridRow: "1", width: "18%" }}>
-                  <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-                    options={top100Films()}
-                    size="small"
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option}
-                          </p>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"Tipo de Fórmula"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
-                          },
-                        }}
-                        sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
-                        }}
-                      ></TextField>
-                    )}
-                  />
-                </FormControl>
-                <FormControl sx={{ gridRow: "1", width: "18%" }}>
-                  <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-                    options={top100Films()}
-                    size="small"
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option}
-                          </p>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"Tipo de Indicador"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
-                          },
-                        }}
-                        sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
-                        }}
-                      ></TextField>
-                    )}
-                  />
-                </FormControl>
-                <FormControl sx={{ gridRow: "1", width: "20%" }}>
-                  <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-                    options={top100Films()}
-                    size="small"
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option}
-                          </p>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"Dimensión del Indicador"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
-                          },
-                        }}
-                        sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
-                        }}
-                      ></TextField>
-                    )}
-                  />
-                </FormControl>
-                <FormControl sx={{ gridRow: "1", width: "18%" }}>
-                  <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
-                    options={top100Films()}
-                    size="small"
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={Math.random()}>
-                          <p
-                            style={{
-                              fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
-                            }}
-                          >
-                            {option}
-                          </p>
-                        </li>
-                      );
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"Sentido del Indicador"}
-                        variant="standard"
-                        InputLabelProps={{
-                          style: {
-                            fontFamily: "MontserratSemiBold",
-                            fontSize: ".8vw",
-                          },
-                        }}
-                        sx={{
-                          "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
-                          },
-                        }}
-                      ></TextField>
-                    )}
-                  />
-                </FormControl>
-              </Grid>
-              <Grid
-                sx={{
-                  height: "45%",
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-around",
-                  alignItems: "baseline",
-                  flexDirection: "column",
-                }}
-              >
-                <Grid
-                  sx={{
-                    height: "24%",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
-                  <TextField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    InputLabelProps={{
-                      style: { fontFamily: "MontserratSemiBold" },
-                    }}
-                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                    sx={{ width: "35%", boxShadow: 2 }}
-                    label={"Numerador"}
-                  />
-                  <TextField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    sx={{ width: "20%", boxShadow: 2 }}
-                    label={"Unidad de Medida"}
-                    InputLabelProps={{
-                      style: { fontFamily: "MontserratSemiBold" },
-                    }}
-                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  />
-                  <TextField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    sx={{ width: "35%", boxShadow: 2 }}
-                    label={"Medio de Verificación / Fuente de Información"}
-                    InputLabelProps={{
-                      style: { fontFamily: "MontserratSemiBold" },
-                    }}
-                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  />
-                </Grid>
-                <Grid
-                  sx={{
-                    height: "24%",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
-                  <TextField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    sx={{ width: "35%", boxShadow: 2 }}
-                    label={"Denominador"}
-                    InputLabelProps={{
-                      style: { fontFamily: "MontserratSemiBold" },
-                    }}
-                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  />
-                  <TextField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    sx={{ width: "20%", boxShadow: 2 }}
-                    label={"Unidad de Medida"}
-                    InputLabelProps={{
-                      style: { fontFamily: "MontserratSemiBold" },
-                    }}
-                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  />
-                  <TextField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    InputLabelProps={{
-                      style: { fontFamily: "MontserratSemiBold" },
-                    }}
-                    InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                    sx={{ width: "35%", boxShadow: 2 }}
-                    label={"Medio de Verificación / Fuente de Información"}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          ) : null}
+              Datos de la linea de las metas
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={11}
+            sx={{
+              //alignContent: "center",
+              display: "flex",
+              //justifyContent: "center",
+              justifyContent: ["center", "flex-end", "flex-end", "flex-end", "flex-end"],
+              alignItems: "center",
+              //backgroundColor: "blue"
+            }}
+          >
+            <Tooltip title="RESUMEN">
+              <InfoOutlinedIcon
+                fontSize="large"
+                sx={{ cursor: "pointer" }}
+              ></InfoOutlinedIcon>
+            </Tooltip>
+            <Typography
+              sx={{
+                fontFamily: "MontserratBold",
+                fontSize: ["2vh", "2vh", "2vh", "3vh", "4vh", "4vh"],
+              }}
+            >
+              Acción - Datos del Indicador
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            xl={4}
+            lg={4}
+            md={4}
+            sm={4}
+            xs={11}
+            sx={{
+              //alignContent: "center",
+              display: "flex",
+              //justifyContent: "center",
+              justifyContent: ["center", "flex-end", "flex-end", "flex-end", "flex-end"],
+              alignItems: "center",
+              //backgroundColor: "blue"
+            }}
+          >
+            <IconButton
+              onClick={() => {
+                addAccion();
+                setComponentSelect(AI.acciones.length + 1);
+              }}
+              disabled={AI.acciones.length === 2}
+            >
+              <AddCircleIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                addremoveAccion();
+                setComponentSelect(AI.acciones.length - 1);
+              }}
+              disabled={AI.acciones.length <= 1}
+            >
+              <DoDisturbOnIcon fontSize="large" />
+            </IconButton>
+            <Typography
+              sx={{
+                mr: "1vw",
+                fontFamily: "MontserratSemiBold",
+                fontSize: ["2vh", "2vh", "2vh", "3vh", "4vh", "4vh"],
+              }}
+            >
+              ACCION #{componentSelect}
+            </Typography>
+          </Grid>
+
+          {/* </Grid> */}
+
+          {/* <Grid
+            item
+            xl={11}
+            lg={11}
+            md={11}
+            sm={11}
+            xs={11}
+            sx={{
+              //alignContent: "center",
+              display: "flex",
+              //justifyContent: "center",
+              justifyContent: "flex-end",
+              //alignItems: "flex-start"
+              //backgroundColor: "blue"
+            }}
+          ></Grid> */}
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              variant="filled"
+              sx={{ boxShadow: 2 }}
+              label={"Descripción de la accion"}
+              onChange={(c) => {
+                let prevLocal = [...acciones];
+                prevLocal[componentSelect - 1].descripcion = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAcciones(prevLocal);
+              }}
+              value={acciones[componentSelect - 1]?.descripcion}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              rows={4}
+              variant="filled"
+              sx={{ boxShadow: 2 }}
+              label={"Nombre del Indicador"}
+              error={errorIndicador === componentSelect - 1 ? true : false}
+              helperText={
+                errorIndicador === componentSelect - 1
+                  ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                  : null
+              }
+              onChange={(c) => {
+                let prevLocal = [...acciones];
+                prevLocal[componentSelect - 1].nombreIndicador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAcciones(prevLocal);
+              }}
+              value={acciones[componentSelect - 1]?.nombreIndicador}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              sx={{ boxShadow: 2 }}
+              label={"Fórmula de Cálculo"}
+              onClick={() => {
+                evalueTxtIndicador();
+              }}
+              value={acciones[componentSelect - 1]?.formula}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              sx={{ boxShadow: 2 }}
+              label={"Numerador"}
+              onChange={(c) => {
+                let prevLocal = [...acciones];
+                prevLocal[componentSelect - 1].numerador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAcciones(prevLocal);
+              }}
+              value={acciones[componentSelect - 1]?.numerador}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              sx={{ boxShadow: 2 }}
+              label={"Unidad de Medida"}
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              onChange={(c) => {
+                let prevLocal = [...acciones];
+                prevLocal[componentSelect - 1].unidadMedida = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAcciones(prevLocal);
+              }}
+              value={acciones[componentSelect - 1]?.unidadMedida}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              sx={{ boxShadow: 2 }}
+              label={"Medio de Verificación / Fuente de Información"}
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              onChange={(c) => {
+                let prevLocal = [...acciones];
+                prevLocal[componentSelect - 1].medio_fuente = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAcciones(prevLocal);
+              }}
+              value={acciones[componentSelect - 1]?.medio_fuente}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              sx={{ boxShadow: 2 }}
+              label={"Denominador"}
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              onChange={(c) => {
+                let prevLocal = [...acciones];
+                prevLocal[componentSelect - 1].denomidador = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAcciones(prevLocal);
+              }}
+              value={acciones[componentSelect - 1]?.denomidador}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              sx={{ boxShadow: 2 }}
+              label={"Unidad de Medida"}
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              onChange={(c) => {
+                let prevLocal = [...acciones];
+                prevLocal[componentSelect - 1].unidadMedida = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAcciones(prevLocal);
+              }}
+              value={acciones[componentSelect - 1]?.unidadMedida}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xl={3.5}
+            lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              InputLabelProps={{
+                style: { fontFamily: "MontserratSemiBold" },
+              }}
+              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              sx={{ boxShadow: 2 }}
+              label={"Medio de Verificación / Fuente de Información"}
+              onChange={(c) => {
+                let prevLocal = [...acciones];
+                prevLocal[componentSelect - 1].medio_fuente2 = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAcciones(prevLocal);
+              }}
+              value={acciones[componentSelect - 1]?.medio_fuente2}
+            />
+          </Grid>
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
         </Grid>

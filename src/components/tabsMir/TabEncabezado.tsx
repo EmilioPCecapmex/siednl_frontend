@@ -9,29 +9,14 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import { IMIR, IMIREdit } from "./IMIR";
+import { ILista, IListaProgramas, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import Stack from "@mui/material/Stack";
-import { ILista, IListaProgramas } from "./IListas";
 import {
   getListPedColumns,
   getLista,
   getListasLogin,
+  getListasLoginProgramas,
 } from "./services mir/servicesMIR";
-
-export interface IEncabezado {
-  ejercicioFiscal: ILista;
-  entidad: ILista;
-  programa: IListaProgramas;
-  eje: ILista;
-  tema: ILista;
-  objetivo: ILista;
-  estrategia: ILista;
-  lineas_de_accion: Array<ILista>;
-  beneficiario: ILista;
-  conac: string;
-  consecutivo: string;
-  anticorrupcion: string;
-}
 
 export function TabEncabezado({
   show,
@@ -183,8 +168,11 @@ export function TabEncabezado({
 
   useEffect(() => {
     getLista("AniosFiscales", "", setCatalogoAniosFiscales);
-    getListasLogin(
-      { Tabla: "Entidades", ValorCondicion: "" },
+    // getListasLogin(
+    //   { Tabla: "EntidadesMatrices", ValorCondicion: "" },
+    //   setCatalogoInstituciones
+    // );
+    getListasLoginProgramas(
       setCatalogoInstituciones
     );
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
@@ -666,7 +654,7 @@ export function TabEncabezado({
         // alignItems: "center",
         // justifyItems: "center",
         backgroundColor: "#fff",
-        boxShadow: 20,
+        boxShadow: 10,
         borderRadius: 5,
         // display: "grid",
         // gridTemplateColumns: "repeat(3, 1fr)",
@@ -1287,6 +1275,7 @@ export function TabEncabezado({
             />
           </FormControl>
         </Grid>
+        
       </Grid>
     </Grid>
   );

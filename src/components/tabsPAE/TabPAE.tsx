@@ -1,53 +1,29 @@
 import {
   Box,
   Button,
-  FormControl,
-  IconButton,
   Input,
-  MenuItem,
-  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TablePagination,
   TableRow,
   Tooltip,
   List,
   Divider,
   ListItemButton,
-  Collapse,
   Typography,
   Grid,
   TableSortLabel,
 } from "@mui/material";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import { useEffect, useState } from "react";
-import { InsertarComponentePDF } from "./InsertarPDF";
-import LaunchIcon from '@mui/icons-material/Launch';
-import DownloadIcon from "@mui/icons-material/Download";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import VisualizarPAE from "../../components/modalsPAE/ModalVisualizacionPAE";
 
-
 export const TabPAE = ({
-  anios,
-  idPAE,
-  Anio,
-  Numero,
-  Nombre,
-  Ruta,
   value
 }: {
-  anios: number[];
-  idPAE: string;
-  Anio: string;
-  Numero: string;
-  Nombre: string;
-  Ruta: string;
   value: number;
 }) => {
   interface Registro {
@@ -56,236 +32,266 @@ export const TabPAE = ({
     Nombre: string;
     Ruta: string;
     PerteneceA: string;
-
+    FechaCreacion: string;
   }
   const [open, setOpen] = useState(1);
   const [componenteSelect, setComponenteSelect] = useState(0);
-  const [noAnios, setAnios] = useState([1]);
-  const [noNumeros, setNumeros] = useState([1]);
   const [registros, setRegistros] = useState<Registro[]>([]);
   const [registrosFiltrados, setRegistrosFiltrados] = useState<Registro[]>([]);
   const handleClickComponente = (index: number) => {
     setOpen(index);
   };
-  const [actividadSelect, setActividadSelect] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);;
+  const [PerteneceAValue, setPerteneceAValue] = useState("");
+  const [reloadPage, setReloadPage] = useState(false); // Add state variable for page reload
 
-  const tabsRegistros = (value:number,anio:string) => {
+
+  const getPerteneceAValue = (value: number) => {
+    switch (value) {
+      case 10:
+        setPerteneceAValue("Todos los documentos");
+        break;
+      case 20:
+        setPerteneceAValue("PAE");
+        break;
+      case 30:
+        setPerteneceAValue("Terminos de referencia");
+        break;
+      case 40:
+        setPerteneceAValue("Bitacora de informacion");
+        break;
+      case 50:
+        setPerteneceAValue("Informe calidad");
+        break;
+      case 60:
+        setPerteneceAValue("Informe final");
+        break;
+      case 70:
+        setPerteneceAValue("Anexo CONAC");
+        break;
+      case 80:
+        setPerteneceAValue("Reporte Evaluacion");
+        break;
+    }
+  };
+
+
+  const tabsRegistros = (value: number, anio: string) => {
     getListaPae();
-    switch(anio) {
+    switch (anio) {
       case "2020":
         switch (value) {
           case 10:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (
+              (
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
           case 20:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("PAE") &&
+              (x.PerteneceA.includes("PAE") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
           case 30:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Terminos de referencia") &&
+              (x.PerteneceA.includes("Terminos de referencia") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-            case 40:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Bitacora de informacion") &&
-                  x.Anio.includes("2020")
-                  )
-              ));
-              break;
-              case 50:
+          case 40:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Informe calidad") &&
+              (x.PerteneceA.includes("Bitacora de informacion") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-            case 60:
+          case 50:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Informe final") &&
+              (x.PerteneceA.includes("Informe calidad") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-            case 70:
+          case 60:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Anexo CONAC") &&
+              (x.PerteneceA.includes("Informe final") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-            case 80:
+          case 70:
             setRegistrosFiltrados(registros.filter(
               (x) =>
-                (x.PerteneceA.includes("Reporte Evaluacion") &&
+              (x.PerteneceA.includes("Anexo CONAC") &&
                 x.Anio.includes("2020")
-                )
+              )
             ));
             break;
-          }
+          case 80:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Reporte Evaluacion") &&
+                x.Anio.includes("2020")
+              )
+            ));
+            break;
+        }
         break;
-        case "2021":
-          switch (value) {
-            case 10:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-            case 20:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("PAE") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-            case 30:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Terminos de referencia") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-              case 40:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Bitacora de informacion") &&
-                    x.Anio.includes("2021")
-                    )
-                ));
-                break;
-                case 50:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Informe calidad") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-              case 60:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Informe final") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-              case 70:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Anexo CONAC") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-              case 80:
-              setRegistrosFiltrados(registros.filter(
-                (x) =>
-                  (x.PerteneceA.includes("Reporte Evaluacion") &&
-                  x.Anio.includes("2021")
-                  )
-              ));
-              break;
-            }
-          break;
-          case "2022":
-            switch (value) {
-              case 10:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-              case 20:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("PAE") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-              case 30:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Terminos de referencia") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-                case 40:
-                  setRegistrosFiltrados(registros.filter(
-                    (x) =>
-                      (x.PerteneceA.includes("Bitacora de informacion") &&
-                      x.Anio.includes("2022")
-                      )
-                  ));
-                  break;
-                  case 50:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Informe calidad") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-                case 60:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Informe final") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-                case 70:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Anexo CONAC") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-                case 80:
-                setRegistrosFiltrados(registros.filter(
-                  (x) =>
-                    (x.PerteneceA.includes("Reporte Evaluacion") &&
-                    x.Anio.includes("2022")
-                    )
-                ));
-                break;
-              }
+      case "2021":
+        switch (value) {
+          case 10:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (
+                x.Anio.includes("2021")
+              )
+            ));
             break;
-          
+          case 20:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("PAE") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 30:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Terminos de referencia") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 40:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Bitacora de informacion") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 50:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Informe calidad") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 60:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Informe final") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 70:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Anexo CONAC") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+          case 80:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Reporte Evaluacion") &&
+                x.Anio.includes("2021")
+              )
+            ));
+            break;
+        }
+        break;
+      case "2022":
+        switch (value) {
+          case 10:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 20:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("PAE") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 30:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Terminos de referencia") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 40:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Bitacora de informacion") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 50:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Informe calidad") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 60:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Informe final") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 70:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Anexo CONAC") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+          case 80:
+            setRegistrosFiltrados(registros.filter(
+              (x) =>
+              (x.PerteneceA.includes("Reporte Evaluacion") &&
+                x.Anio.includes("2022")
+              )
+            ));
+            break;
+        }
+        break;
+
     }
   };
 
   useEffect(() => {
-    getAniosPae("2022");
-    getNumeroPae("2022", "1");
     getListaPae();
-    tabsRegistros(value,"2022");
-    // console.log(noAnios+","+noNumeros)
+    tabsRegistros(value, "2022");
+    setBanderaEdit(false);
+    getPerteneceAValue(value);
   }, []);
 
   const Toast = Swal.mixin({
@@ -300,46 +306,79 @@ export const TabPAE = ({
     },
   });
 
+  const [editMode, setEditMode] = useState(registrosFiltrados.map(() => false));
+  const [editedDate, setEditedDate] = useState(registrosFiltrados.map((row) => row.FechaCreacion));
+  const [finalDate, setFinalDate] = useState("");
+  const [banderaEdit, setBanderaEdit] = useState(false);
 
-  
+  const handleDoubleClick = (rowIndex: number) => {
+    const updatedEditModes = [...editMode];
+    updatedEditModes[rowIndex] = true;
+    setEditedDate(registrosFiltrados.map((row) => row.FechaCreacion.substring(0, 10)));
+    setEditMode(updatedEditModes);
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>, rowIndex: number) => {
+    // Create a copy of editedDates to avoid mutating state directly
+    const updatedEditedDates = [...editedDate];
+    updatedEditedDates[rowIndex] = e.target.value;
+    setEditedDate(updatedEditedDates);
+  };
+
+  const saveEditedDate = (id: string, rowIndex: number) => {
+    setEditMode(registrosFiltrados.map(() => false));
+    modifyPAE("FechaCaptura", editedDate[rowIndex], id);
+    setBanderaEdit(true);
+    setFinalDate(editedDate[rowIndex]);
+  };
+
+  useEffect(() => {
+    setBanderaEdit(false);
+    getPerteneceAValue(value);
+  }, [value]);
+
+  useEffect(() => {
+    setBanderaEdit(false);
+    getPerteneceAValue(value);
+  }, [componenteSelect]);
 
   interface Head {
     id: string;
     isNumeric: boolean;
     label: string;
   }
-  
+
   const heads: readonly Head[] = [
     {
       id: "Titulo",
       isNumeric: true,
       label: "TÍTULO ARCHIVO",
     },
-    
+
+    {
+      id: "Fecha",
+      isNumeric: true,
+      label: "FECHA PUBLICACIÓN",
+    },
+
     {
       id: "Opciones",
       isNumeric: true,
       label: "OPCIONES",
     },
   ];
-  
-  const [page, setPage] = useState(0);
-  const renglonesPagina = 6;
-  const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
-  const [mirsFiltered, setMirsFiltered] = useState<Array<IIPAE>>([]);
 
-  const creaPAE = (Anio: string, Numero: string, Nombre: string, Ruta: string) => {
+  const creaPAE = (Nombre: string, Ruta: string, Anio: string, PerteneceA: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-Pae",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-pae",
         {
-          Id: idPAE,
-          Anio: Anio,
-          Numero: Numero,
           Nombre: Nombre,
+          Tipo: "pdf",
           Ruta: Ruta,
+          Anio: Anio,
+          PerteneceA: PerteneceA,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          Rol: "Administrador", //REVISAR
         },
         {
           headers: {
@@ -354,7 +393,6 @@ export const TabPAE = ({
           icon: "success",
           title: r.data.data.message,
         });
-        // showResume();
       })
       .catch((err) => {
         console.log(err)
@@ -366,11 +404,10 @@ export const TabPAE = ({
       });
   };
 
-  const getAniosPae = (Anio: string) => {
-
+  const modifyPAE = (CampoModificar: string, Campo: string, Id: string,) => {
     axios
       .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/anio-pae",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/modify-pae",
         {
           headers: {
             "Content-Type": "application/json",
@@ -378,48 +415,27 @@ export const TabPAE = ({
 
           },
           params: {
-            Anio: Anio,
+            CampoModificar: CampoModificar,
+            Campo: Campo,
+            IdPAE: Id,
           }
-
         }
       )
       .then((r) => {
-        setAnios(r.data.data.length)
+        Toast.fire({
+          icon: "success",
+          title: "Fecha actualizada correctamente",
+        });
       })
       .catch((err) => {
-
+        Toast.fire({
+          icon: "error",
+          title: "Hubo un error al actualizar la fecha",
+        });
       });
   };
-
-  const getNumeroPae = (Anio: string, Numero: string) => {
-
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/numero-pae",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("jwtToken") || ""
-
-          },
-          params: {
-            Anio: Anio,
-            Numero: Numero,
-          }
-
-        }
-      )
-      .then((r) => {
-        setNumeros(r.data.data.length)
-      })
-      .catch((err) => {
-
-      });
-  };
-
 
   const getListaPae = () => {
-
     axios
       .get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/list-pae",
@@ -429,26 +445,28 @@ export const TabPAE = ({
             Authorization: localStorage.getItem("jwtToken") || ""
 
           }
-
-
         }
       )
       .then((r) => {
-        setRegistros(r.data.data)
+        setRegistros(r.data.data);
       })
       .catch((err) => {
-
       });
   };
 
-
-
-
-  const guardarDoc = (ruta:string,url:string) => {
+  const guardarDoc = (archivo: { archivo: File; nombreArchivo: string }, perteneceA: string) => {
+    const url = new File([archivo.archivo], archivo.nombreArchivo);
+    let ruta = "/SIEDNL_DEV/PAE/"+perteneceA+"/";
+    ruta = ((process.env.REACT_APP_DOC_ROUTE || "") + ruta).trim();
+    // console.log("ruta:", ruta)
     let dataArray = new FormData();
     dataArray.append("ROUTE", `${ruta}`);
+    dataArray.append("CN", "true");
     dataArray.append("ADDROUTE", "true");
     dataArray.append("FILE", url);
+    dataArray.append("TOKEN", localStorage.getItem("jwtToken") || "");
+    console.log("route:",`${ruta}`,".file:",url);
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/SaveFile",
@@ -460,49 +478,47 @@ export const TabPAE = ({
         }
       )
       .then(({ data }) => {
-        // state.savePathDocAut(
-        //   idRegistro,
-        //   data.RESPONSE.RUTA,
-        //   data.RESPONSE.NOMBREIDENTIFICADOR,
-        //   data.RESPONSE.NOMBREARCHIVO
-        // );
+        console.log(data.RESPONSE.FILE);
       })
-      .catch((e) => {});
-  };
-
-  const getDocumento = async (
-    ROUTE: string,
-    NOMBRE: string,
-    setState: Function
-  ) => {
-    await axios
-      .post(
-        process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
-        {
-          ROUTE: ROUTE,
-          NOMBRE: NOMBRE,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-            responseType: "blob",
-          },
-        }
-      )
-      .then(({ data }) => {
-        let file = data.RESPONSE.FILE;
-        setState(file);
-      })
-      .catch((r) => {});
+      .catch((e) => { });
   };
 
   useEffect(() => {
-    tabsRegistros(value,componenteSelect==0?"2022":componenteSelect==1?"2021":"2020");
+    tabsRegistros(value, componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020");
   }, [value]);
 
   useEffect(() => {
-    tabsRegistros(value,componenteSelect==0?"2022":componenteSelect==1?"2021":"2020");
+    tabsRegistros(value, componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020");
   }, [componenteSelect]);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, Anio: string, tab: string) => {
+    const fileList = e.target.files;
+
+    if (fileList && fileList.length > 0) {
+      const file = fileList[0];
+      const newPdf = {
+        Id: String(Date.now()),
+        Anio: Anio,
+        Nombre: file.name,
+        Ruta: "/SIEDNL_DEV/",
+        PerteneceA: "PerteneceA",
+        FechaCreacion: Date.now().toString()
+      };
+      setRegistros([...registros, newPdf]);
+    }
+  };
+
+  const handleClickAddPDF = () => {
+    if (fileInputRef.current) {
+      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_"));
+      fileInputRef.current.click();
+      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name, (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/"+(componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_")+"/", componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020", PerteneceAValue)
+    }
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleFileUpload(e, componenteSelect.toString(), value.toString());
+  };
 
   return (
     <>
@@ -520,9 +536,6 @@ export const TabPAE = ({
           alignItems: "center",
         }}
       >
-
-
-
         <Grid item xs={2}>
           <List
             sx={{
@@ -560,7 +573,6 @@ export const TabPAE = ({
                     onClick={() => {
                       setComponenteSelect(item - 1);
                       handleClickComponente(item);
-                      setActividadSelect(0);
                     }}
                     sx={{
                       height: "7vh",
@@ -575,7 +587,7 @@ export const TabPAE = ({
                     <Typography
                       sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
                     >
-                      {item == 1 ? "2022" : item == 2 ? "2021" : "2020"}
+                      {item === 1 ? "2022" : item === 2 ? "2021" : "2020"}
                       {/* {(item == 1 || item == 3) && localStorage.getItem("Rol") === "Administrador" && open === item ?
                         <IconButton
                           onClick={() => {
@@ -586,11 +598,7 @@ export const TabPAE = ({
                         </IconButton>
                         : ""} */}
                     </Typography>
-
-
                   </ListItemButton>
-                  
-
                   <Divider />
                 </Box>
               );
@@ -600,52 +608,45 @@ export const TabPAE = ({
 
         <Grid container item xs={10}>
           <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%" }}>
-            {/* {componenteSelect+"  "}
-             
-             {componenteSelect==0&&actividadSelect==0?
-          "Programa Anual de evaluación 2022, Versión 2":
-          componenteSelect==0&&actividadSelect==1?
-          "Programa Anual de evaluación 2022, Versión 1":
-          componenteSelect==1&&actividadSelect==0?
-          "Programa Anual de evaluación 2021, Versión 2":
-          componenteSelect==1&&actividadSelect==1?
-          "Programa Anual de evaluación 2021, Versión 1":
-          componenteSelect==2&&actividadSelect==0?
-          "Programa Anual de evaluación 2020, Versión 2":
-          componenteSelect==2&&actividadSelect==1?
-          "Programa Anual de evaluación 2020, Versión 1":
-          componenteSelect==3&&actividadSelect==0?
-          "Programa Anual de evaluación 2019, Versión 2":
-          "Programa Anual de evaluación 2019, Versión 1"}
-          .Publicado el:   */}
           </Typography>
 
           <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%", alignContent: "right", textAlign: "right" }}>
-            {/* {componenteSelect == 0 && actividadSelect == 0 ?
-              "20/Abril/2022" :
-              componenteSelect == 0 && actividadSelect == 1 ?
-                "19/Abril/2022" :
-                componenteSelect == 1 && actividadSelect == 0 ?
-                  "19/Abril/2021" :
-                  componenteSelect == 1 && actividadSelect == 1 ?
-                    "18/Abril/2022" :
-                    componenteSelect == 2 && actividadSelect == 0 ?
-                      "18/Abril/2020" :
-                      componenteSelect == 2 && actividadSelect == 1 ?
-                        "17/Abril/2020" :
-                        componenteSelect == 3 && actividadSelect == 0 ?
-                          "17/Abril/2019" :
-                          "16/Abril/2019"} */}
           </Typography>
           <Grid container item xs={12} sx={{ height: "-webkit-fill-available" }}>
-            {/* <InsertarComponentePDF Nombre={"C" + (componenteSelect + 1) + "A" + (actividadSelect + 1)} /> */}
+            {localStorage.getItem("Rol") === "Administrador" || value === 40 ?
+              <>
+                <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%", alignContent: "right", textAlign: "right" }}>
+                  Cargar Archivo:
+                </Typography>
+                <Grid
 
-                          
-
-
-
-              {/* TABLA */}
-
+                  item
+                  direction="row"
+                  sx={{ margin: '2vw' }}
+                >
+                  <Input
+                    type="file"
+                    inputProps={{
+                      accept: ".pdf,application/pdf",
+                      'aria-label': 'Upload PDF',
+                    }}
+                    style={{
+                      width: "45vw", backgroundColor: "transparent",
+                      opacity: 0.5,
+                    }}
+                    onChange={handleFileInputChange}
+                    ref={fileInputRef}
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={handleClickAddPDF}
+                    style={{ cursor: 'pointer', border: 'none', background: 'none', opacity: 1 }}
+                  >
+                    CARGAR ARCHIVO
+                  </Button>
+                </Grid>
+              </>
+              : ""}
             <Grid
               container
               item
@@ -653,20 +654,18 @@ export const TabPAE = ({
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
-             
-
-              <TableContainer sx={{ borderRadius: 5, height: 450,
-            overflow: "auto",
-            "&::-webkit-scrollbar": {
-              width: ".5vw",
-              mt: 1,
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#edeaea",
-              //outline: "1px solid slategrey",
-              borderRadius: 1,
-            },
-             }}>
+              <TableContainer sx={{
+                borderRadius: 5, height: 450,
+                overflow: "auto",
+                "&::-webkit-scrollbar": {
+                  width: ".5vw",
+                  mt: 1,
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "#edeaea",
+                  borderRadius: 1,
+                },
+              }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow
@@ -681,8 +680,6 @@ export const TabPAE = ({
                             fontFamily: "MontserratBold",
                             borderBottom: 0,
                             fontSize: "0.8vw",
-                            // fontFamily: "MontserratRegular",
-                            //   fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -697,11 +694,8 @@ export const TabPAE = ({
 
                   <TableBody>
                     {registrosFiltrados
-                      //  .slice(
-                      //    page * rowsPerPage,
-                      //    page * rowsPerPage + rowsPerPage
-                      //  )
                       .map((row, index) => (
+
                         <TableRow>
                           <TableCell
                             sx={{
@@ -715,6 +709,86 @@ export const TabPAE = ({
                           >
                             {row.Nombre}
                           </TableCell>
+                          {localStorage.getItem("Rol") === "Administrador" ?
+                            <>
+                              {editMode[index] ? (
+                                <TableCell
+                                  sx={{
+                                    padding: "1px 15px 1px 0",
+                                    fontFamily: "MontserratRegular",
+                                    fontSize: ".7vw",
+                                  }}
+                                  align="center"
+                                  component="th"
+                                  scope="row"
+                                >
+                                  <input
+                                    type="date"
+                                    value={editedDate[index]}
+                                    onChange={(e) => handleDateChange(e, index)}
+                                    onKeyDown={(e) => {
+                                      if (e.key === "Enter") {
+                                        saveEditedDate(row.Id, index);
+                                      }
+                                    }}
+                                    onBlur={() => saveEditedDate(row.Id, index)}
+                                    autoFocus
+                                    style={{
+                                      border: "1px solid #ccc",
+                                      padding: "4px",
+                                      borderRadius: "4px",
+                                      fontSize: "0.7vw",
+                                      fontFamily: "MontserratMedium",
+                                    }}
+                                  />
+                                </TableCell>
+                              ) : (
+                                <TableCell
+                                  onDoubleClick={() => handleDoubleClick(index)}
+                                  sx={{
+                                    padding: "1px 15px 1px 0",
+                                    fontFamily: "MontserratRegular",
+                                    fontSize: ".7vw",
+                                  }}
+                                  align="center"
+                                  component="th"
+                                  scope="row"
+                                >
+                                  <Tooltip
+                                    PopperProps={{
+                                      modifiers: [
+                                        {
+                                          name: "offset",
+                                          options: {
+                                            offset: [0, -13],
+                                          },
+                                        },
+                                      ],
+                                    }}
+                                    title="DA DOBLE CLICK PARA EDITAR"
+                                  >
+                                    <span>
+                                      {banderaEdit ? editedDate[index] : row.FechaCreacion.substring(0, 10)}
+                                    </span>
+                                  </Tooltip>
+                                </TableCell>
+                              )}
+                            </>
+                            :
+                            <TableCell
+
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: ".7vw",
+                              }}
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.FechaCreacion.substring(0, 10)}
+                            </TableCell>
+                          }
 
                           <TableCell
                             sx={{
@@ -726,111 +800,23 @@ export const TabPAE = ({
                             component="th"
                             scope="row"
                           >
-                           
-                              <Tooltip
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
-                                      },
-                                    },
-                                  ],
-                                }}
-                                title="DESCARGAR ARCHIVO"
-                              >
-                                <span>
-                                  <IconButton
-                                    
-                                    // onClick={() =>
-                                    //   downloadMIR(
-                                    //     row.AnioFiscal,
-                                    //     row.Entidad,
-                                    //     row.Programa,
-                                    //     row.MIR
-                                    //   )
-                                    // }
-                                  >
-                                    <DownloadIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "orange",
-                                          },
-                                          width: "1.2vw",
-                                          height: "1.2vw",
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
-                              <VisualizarPAE
-                                estado={row.Nombre}
-                                id={row.Id}
-                              
-                              />
-{/* 
-                              <DeleteDialogMIR
-                                disab={
-                                  row.Estado === "En Captura" && validaFecha &&
-                                  localStorage.getItem("Rol") === "Capturador"
-                                    ? false
-                                    : row.Estado === "En Revisión" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador"
-                                    ? false
-                                    : row.Estado === "En Autorización" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador"
-                                    ? false
-                                    : true
-                                }
-                                id={row.Id}
-                                actualizado={actualizaContador}
-                              /> */}
-                              
-                            
+                            <VisualizarPAE
+                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_") + "/"}
+                              nombre={row.Nombre}
+                              tipo={"pdf"}
+                              anio={componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020"}
+                              perteneceA={PerteneceAValue}
+                            />
                           </TableCell>
                         </TableRow>
-                      ))}
 
-                    {/* ))} */}
+                      ))}
                   </TableBody>
                 </Table>
               </TableContainer>
-
-              {/* <Box sx={{ width: "100%" }}>
-                 <TablePagination
-                  rowsPerPageOptions={[renglonesPagina]}
-                  component="div"
-                  count={mirs.length}
-                  rowsPerPage={renglonesPagina}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                /> 
-              </Box> */}
             </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
           </Grid>
         </Grid>
-
-
-
       </Grid>
     </>
   );

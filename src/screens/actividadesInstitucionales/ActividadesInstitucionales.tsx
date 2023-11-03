@@ -23,7 +23,10 @@ import {
   Select,
 } from "@mui/material";
 import { Header } from "../../components/header/Header";
-import { LateralMenu, IInstituciones, } from "../../components/lateralMenu/LateralMenu";
+import {
+  LateralMenu,
+  IInstituciones,
+} from "../../components/lateralMenu/LateralMenu";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -103,10 +106,8 @@ const heads: readonly Head[] = [
   },
 ];
 
-export const ActividadesInstitucionales = ({}:{}) => {
+export const ActividadesInstitucionales = ({}: {}) => {
   const [showResume, setShowResume] = useState(true);
-
-  
 
   useEffect(() => {
     setShowResume(true);
@@ -119,8 +120,12 @@ export const ActividadesInstitucionales = ({}:{}) => {
   const [actionNumber, setActionNumber] = useState(0);
   const [opentabs, setOpenTabs] = useState(true);
   const [ai, setAi] = useState<Array<IActividadesInstitucionales>>([]);
-  const [aiFiltered, setAiFiltered] = useState<Array<IActividadesInstitucionales>>([]);
-  const [aixFiltered, setAixFiltered] = useState<Array<IActividadesInstitucionales>>([]);
+  const [aiFiltered, setAiFiltered] = useState<
+    Array<IActividadesInstitucionales>
+  >([]);
+  const [aixFiltered, setAixFiltered] = useState<
+    Array<IActividadesInstitucionales>
+  >([]);
   const [aiEdit, setAiEdit] = useState<Array<IActividadesInstitucionales>>([]);
   const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
 
@@ -138,23 +143,21 @@ export const ActividadesInstitucionales = ({}:{}) => {
 
   useEffect(() => {
     setAiFiltered(ai);
-    console.log("ai: ",ai);
-    
+    console.log("ai: ", ai);
   }, [ai]);
 
   useEffect(() => {
     setAixFiltered(aiFiltered);
   }, [aiFiltered]);
 
-  
-const returnMain = () => {
+  const returnMain = () => {
     setShowResume(true);
 
     //setOpenTabs(true);
     setActionNumber(1);
   };
 
-   const findText = (v: string, est: string, inst: string) => {
+  const findText = (v: string, est: string, inst: string) => {
     if (
       v !== "" &&
       est !== "0" &&
@@ -243,7 +246,6 @@ const returnMain = () => {
     setFindTextStr(dato);
   };
 
-  
   useEffect(() => {
     getInstituciones(setInstituciones);
   }, []);
@@ -260,21 +262,21 @@ const returnMain = () => {
       Arrayfiltro = aiFiltered;
     }
 
-  function veropciones  (estado: string) {
-    if(estado === "En Captura"){
-      return true
+    function veropciones(estado: string) {
+      if (estado === "En Captura") {
+        return true;
+      }
+      if (estado === "En Revisión") {
+        return true;
+      }
+      if (estado === "En Autorización") {
+        return true;
+      }
+      if (estado === "Sin Asignar") {
+        return false;
+      }
+      return true;
     }
-    if(estado === "En Revisión"){
-      return true
-    }
-    if(estado === "En Autorización"){
-      return true
-    }
-    if(estado === "Sin Asignar"){
-      return false
-    }
-    return true;
-  }
 
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
       console.log("entre");
@@ -319,28 +321,34 @@ const returnMain = () => {
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
-        item xl={12 } height={"7vh"}
-        
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        // height={"7vh"}
+        sx={{ height: "7vh", whitespace: "nowrap" }}
+        // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu
-          selection={"AI"}
-          actionNumber={actionNumber}
-        />
+        <LateralMenu selection={"AI"} actionNumber={actionNumber} />
       </Grid>
 
       <Grid
-         justifyContent={"center"}
-         display={"flex"}
-         container
-         height={"93vh"}
-         alignItems={"center"}
-         item
-         xl={12}
-         lg={12}
-         md={12}
-         sm={7.5}
-         xs={6}
-         sx={{ backgroundColor: "white", }}
+        container
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        sx={{
+          //backgroundColor:"blue",
+          justifyContent: "center",
+          display: "flex",
+          height: "90vh",
+          alignItems: "center",
+        }}
       >
         {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
           <Header
@@ -362,27 +370,37 @@ const returnMain = () => {
               container
               item
               xl={8}
-              lg={7}
-              md={6}
-              height="15vh"
-              direction="row"
+              lg={8}
+              md={8}
+              sm={8}
+              // height="15vh"
+              // direction="row"
               sx={{
                 boxShadow: 5,
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 justifyContent: "space-evenly",
                 alignItems: "center",
+                height: "15vh",
+                direction: "row",
               }}
             >
-                <Grid
+              <Grid
                 xl={12}
                 lg={12}
                 md={12}
-                item
+                sm={12}
+                xs={12}
                 container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
+                item
+                // direction="row"
+                // justifyContent="space-around"
+                // alignItems="center"
+                sx={{
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  direction: "row",
+                }}
               >
                 <Grid
                   sx={{ fontFamily: "MontserratRegular" }}
@@ -423,7 +441,6 @@ const returnMain = () => {
                     </IconButton>
                   </Paper>
                 </Grid>
-                
 
                 <Grid item xl={5} lg={4} md={3}>
                   <Button
@@ -432,30 +449,30 @@ const returnMain = () => {
                     onClick={() => {
                       setAiEdit([
                         {
-                        IdActividadInstitucional: "",
-                        IdMir: "",
-                        IdFichaTecnica: "",
-                        AnioFiscal: "",
-                        Entidad: "",
-                        Programa: "",
-                        Eje: "",
-                        Tematica: "",
-                        ActividadInstitucional: "",
-                        MIR:"",
-                        FichaTecnica:"",
-                        Estado: "",
-                        FechaCreacion: "",
-                        ModificadoPor: "",
-                        CreadoPor:"",
-                        Conac: "",
-                        Consecutivo: "",
-                        Opciones: "",
-                       
-                      },
-                    ]);
-                    // returnMain();
-                     setShowResume(false);
-                    //handleClickOpenTabsActInst();
+                          IdActividadInstitucional: "",
+                          IdMir: "",
+                          IdFichaTecnica: "",
+                          AnioFiscal: "",
+                          Entidad: "",
+                          Programa: "",
+                          Eje: "",
+                          Tematica: "",
+                          ActividadInstitucional: "",
+                          MIR: "",
+                          FichaTecnica: "",
+                          AI: "",
+                          Estado: "",
+                          FechaCreacion: "",
+                          ModificadoPor: "",
+                          CreadoPor: "",
+                          Conac: "",
+                          Consecutivo: "",
+                          Opciones: "",
+                        },
+                      ]);
+                      // returnMain();
+                      setShowResume(false);
+                      //handleClickOpenTabsActInst();
                       //handleClickOpenTabsActInst()
                     }}
                   >
@@ -465,7 +482,7 @@ const returnMain = () => {
               </Grid>
 
               <Grid
-              item
+                item
                 xl={12}
                 lg={12}
                 md={12}
@@ -548,7 +565,6 @@ const returnMain = () => {
                   </FormControl>
                 </Grid>
               </Grid>
-
             </Grid>
 
             {/* TABLA */}
@@ -579,7 +595,7 @@ const returnMain = () => {
                 }}
               >
                 <Table stickyHeader aria-label="sticky table">
-                  <TableHead >
+                  <TableHead>
                     <TableRow
                       sx={{
                         gridTemplateColumns: "repeat(7,1fr)",
@@ -679,7 +695,7 @@ const returnMain = () => {
                               {row.Tematica}
                               {/* {row.Programa.toUpperCase()} */}
                             </TableCell>
-                            
+
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
@@ -739,109 +755,108 @@ const returnMain = () => {
                               component="th"
                               scope="row"
                             >
-                              {  row.Estado !=="Sin Asignar" && (
-                                  <Tooltip title="EDITAR">
+                              {row.Estado !== "Sin Asignar" && (
+                                <Tooltip title="EDITAR">
                                   <IconButton
                                     type="button"
                                     onClick={() => {
                                       setAiEdit([
                                         {
-                                        IdActividadInstitucional: row.IdActividadInstitucional,
-                                        IdMir: row.IdMir,
-                                        IdFichaTecnica: row.IdFichaTecnica,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Entidad: row.Entidad,
-                                        Programa: row.Programa,
-                                        Eje: row.Eje,
-                                        Tematica: row.Tematica,
-                                        ActividadInstitucional: row.ActividadInstitucional,
-                                        MIR: row.MIR,
-                                        FichaTecnica: row.FichaTecnica,
-                                        Estado: row.Estado,
-                                        FechaCreacion: row.FechaCreacion,
-                                        ModificadoPor: row.ModificadoPor,
-                                        CreadoPor: row.CreadoPor,
-                                        Conac: row.Conac,
-                                        Consecutivo: row.Consecutivo,
-                                        Opciones: row.Opciones,
-                                       
-                                      },
-                                    ]);
-                                    setShowResume(false);
+                                          IdActividadInstitucional:
+                                            row.IdActividadInstitucional,
+                                          IdMir: row.IdMir,
+                                          IdFichaTecnica: row.IdFichaTecnica,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          Eje: row.Eje,
+                                          Tematica: row.Tematica,
+                                          ActividadInstitucional:
+                                            row.ActividadInstitucional,
+                                          MIR: row.MIR,
+                                          FichaTecnica: row.FichaTecnica,
+                                          AI: row.AI,
+                                          Estado: row.Estado,
+                                          FechaCreacion: row.FechaCreacion,
+                                          ModificadoPor: row.ModificadoPor,
+                                          CreadoPor: row.CreadoPor,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                          Opciones: row.Opciones,
+                                        },
+                                      ]);
+                                      setShowResume(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
                                   >
                                     <EditIcon />
                                     {row.Opciones}
-                                  </IconButton></Tooltip>) 
-                              }
+                                  </IconButton>
+                                </Tooltip>
+                              )}
 
-                              { 
+                              {
                                 <Tooltip title="REGISTRAR ACTIVIDAD INSTITUCIONAL">
-                                <IconButton
-                                disabled={
-                                  row.Estado === "En Captura" &&
-                                  localStorage.getItem("Rol") ===
-                                    "Capturador"
-                                    ? false
-                                    : row.Estado === "En Revisión" &&
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "En Captura" &&
                                       localStorage.getItem("Rol") ===
-                                        "Verificador"
-                                    ? false
-                                    : row.Estado === "En Autorización" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador"
-                                    ? false
-                                    : true
-                                }
-                               
-                                  type="button"
-                                  onClick={() => {
-                                    setAiEdit([
-                                      {
-                                      IdActividadInstitucional: row.IdActividadInstitucional,
-                                      IdMir: row.IdMir,
-                                      IdFichaTecnica: row.IdFichaTecnica,
-                                      AnioFiscal: row.AnioFiscal,
-                                      Entidad: row.Entidad,
-                                      Programa: row.Programa,
-                                      Eje: row.Eje,
-                                      Tematica: row.Tematica,
-                                      ActividadInstitucional: row.ActividadInstitucional,
-                                      MIR: row.MIR,
-                                      FichaTecnica: row.FichaTecnica,
-                                      Estado: row.Estado,
-                                      FechaCreacion: row.FechaCreacion,
-                                      ModificadoPor: row.ModificadoPor,
-                                      CreadoPor: row.CreadoPor,
-                                      Conac: row.Conac,
-                                      Consecutivo: row.Consecutivo,
-                                      Opciones: row.Opciones,
-                                     
-                                    },
-                                  ]);
-                                    setShowResume(false);
-                                    setActionNumber(1); //Revisar esta funcionalidad
-                                  }}
-                                >
-                                  <AddCircleOutlineIcon />
-                                  {row.Opciones}
-                                </IconButton>
-                              </Tooltip>
+                                        "Capturador"
+                                        ? false
+                                        : row.Estado === "En Revisión" &&
+                                          localStorage.getItem("Rol") ===
+                                            "Verificador"
+                                        ? false
+                                        : row.Estado === "En Autorización" &&
+                                          localStorage.getItem("Rol") ===
+                                            "Administrador"
+                                        ? false
+                                        : true
+                                    }
+                                    type="button"
+                                    onClick={() => {
+                                      setAiEdit([
+                                        {
+                                          IdActividadInstitucional:
+                                            row.IdActividadInstitucional,
+                                          IdMir: row.IdMir,
+                                          IdFichaTecnica: row.IdFichaTecnica,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          Eje: row.Eje,
+                                          Tematica: row.Tematica,
+                                          ActividadInstitucional:
+                                            row.ActividadInstitucional,
+                                          MIR: row.MIR,
+                                          FichaTecnica: row.FichaTecnica,
+                                          AI: row.AI,
+                                          Estado: row.Estado,
+                                          FechaCreacion: row.FechaCreacion,
+                                          ModificadoPor: row.ModificadoPor,
+                                          CreadoPor: row.CreadoPor,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                          Opciones: row.Opciones,
+                                        },
+                                      ]);
+                                      setShowResume(false);
+                                      setActionNumber(1); //Revisar esta funcionalidad
+                                    }}
+                                  >
+                                    <AddCircleOutlineIcon />
+                                    {row.Opciones}
+                                  </IconButton>
+                                </Tooltip>
                               }
-                              
-                              
                             </TableCell>
                           </TableRow>
                         );
                       })}
                   </TableBody>
-
                 </Table>
               </TableContainer>
             </Grid>
-
-            
           </>
         ) : (
           <Grid
@@ -852,23 +867,21 @@ const returnMain = () => {
               alignItems: "center",
               height: "92vh",
             }}
-           // gridArea={"main"}
-
+            // gridArea={"main"}
           >
             <TabsActividadesInstitucionales
-            MIR={aiEdit[0].MIR || ""}
-            FT={aiEdit[0].FichaTecnica || ""}
-            AI={aiEdit[0].ActividadInstitucional || ""}
-            opentabs={returnMain}
-            IdMir={aiEdit[0].IdMir || ""}
-            IdFT={aiEdit[0].IdFichaTecnica || ""}
-            IdAI={aiEdit[0].IdActividadInstitucional || ""} 
-            returnMain={returnMain }  />
+              MIR={aiEdit[0].MIR || ""}
+              FT={aiEdit[0].FichaTecnica || ""}
+              AI={aiEdit[0].ActividadInstitucional || ""}
+              opentabs={returnMain}
+              IdMir={aiEdit[0].IdMir || ""}
+              IdFT={aiEdit[0].IdFichaTecnica || ""}
+              IdAI={aiEdit[0].IdActividadInstitucional || ""}
+              returnMain={returnMain}
+            />
           </Grid>
         )}
       </Grid>
     </Grid>
   );
 };
-
-

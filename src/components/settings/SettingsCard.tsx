@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Grid, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
@@ -43,29 +43,52 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
     }
   };
   return (
-    <Box
+
+    <Grid
       sx={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
-        height: "92vh",
+        height: "210vh",
       }}
     >
-      <Box
-        sx={{
-          display: "grid",
-          width: "70%",
-          height: "60%",
-          backgroundColor: "#fff",
-          borderRadius: 5,
-          boxShadow: 10,
-          pt: 2,
-          pb: 1,
-          pl: 3,
-          gridTemplateColumns: "repeat(4,1fr)",
-        }}
-      >
+    <Grid
+      container
+      sx={{
+        pt: 2,
+        pb: 1,
+        pl: 3,
+        display: "grid",
+        width: "93vw",
+        height: "82vh",
+        boxShadow: 10,
+        borderRadius: 5,
+        flexDirection: "column",
+        backgroundColor: "#fff",
+        overflow: "auto",
+        "@media (max-width: 600px)": {
+          gridTemplateColumns: "repeat(2,1fr)", // Pantalla extra pequeña (xs y sm)
+        },
+
+        "@media (min-width: 601px) and (max-width: 960px)": {
+          gridTemplateColumns: "repeat(3,1fr)", // Pantalla pequeña (md)
+        },
+
+        "@media (min-width: 961px) and (max-width: 1280px)": {
+          gridTemplateColumns: "repeat(4,1fr)", // Pantalla mediana (lg)
+        },
+
+        "@media (min-width: 1281px)": {
+          gridTemplateColumns: "repeat(4,1fr)", // Pantalla grande (xl)
+        },
+
+        "@media (min-width: 2200px)": {
+          gridTemplateColumns: "repeat(4,1fr)", // Pantalla grande (xl)
+        },
+      }}
+    >
+         
         {configOptions.map((item) => {
           return (
             <Button
@@ -84,8 +107,26 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
               <Typography
                 sx={{
                   fontFamily: "MontserratMedium",
-                  fontSize: ".7vw",
                   color: "#000",
+                  "@media (max-width: 600px)": {
+                    fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
+                  },
+          
+                  "@media (min-width: 601px) and (max-width: 960px)": {
+                    fontSize: "1.5vw", // Pantalla pequeña (md)
+                  },
+          
+                  "@media (min-width: 961px) and (max-width: 1280px)": {
+                    fontSize: "1vw", // Pantalla mediana (lg)
+                  },
+          
+                  "@media (min-width: 1281px)": {
+                    fontSize: ".7vw", // Pantalla grande (xl)
+                  },
+          
+                  "@media (min-width: 2200px)": {
+                    fontSize: ".7vw", // Pantalla grande (xl)
+                  },
                 }}
               >
                 {item.label}
@@ -93,7 +134,8 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
             </Button>
           );
         })}
-      </Box>
-    </Box>
+        </Grid>
+    
+    </Grid>
   );
 };

@@ -1,9 +1,11 @@
-export interface IAlineacionPlaneacion {
-  temaPED: string;
-  objetivoPED: string;
-  estrategiaPED: string;
+export interface IIdentificacion {
+  //temaPED: string;
+  //objetivoPED: string;
+  //estrategiaPED: string;
   programaSectorial: string;
   objetivoProgramaSectorial: string;
-  meta1: string;
-  meta2: string;
+  objetivogeneral: string;
+  objetivosespecificos: Array<string>;
+  //meta1: string;
+  //meta2: string;
 }

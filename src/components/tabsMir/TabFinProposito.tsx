@@ -8,11 +8,10 @@ import {
   Divider,
   FormControl,
   useMediaQuery,
-
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIR } from "./IMIR";
+import { IMIR } from "./interfaces mir/IMIR";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -222,7 +221,7 @@ export function TabFinProposito({
       // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
-       // display: "flex",
+        // display: "flex",
         width: "93vw",
         height: ["82vh", "82vh", "82vh", "82vh", "82vh", "82vh"],
         boxShadow: 10,
@@ -232,8 +231,6 @@ export function TabFinProposito({
         overflow: "auto",
       }}
     >
-
-
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
@@ -265,6 +262,11 @@ export function TabFinProposito({
           </Typography>
         </Grid>
       ) : null}
+
+
+
+
+
       <Grid
         sx={{
           width: "100%",
@@ -350,7 +352,10 @@ export function TabFinProposito({
                 }}
               >
                 <Typography
-                  sx={{ fontSize: "1vw", fontFamily: "MontserratMedium" }}
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                    fontSize: [10, 10, 10, 13, 15, 18],
+                  }}
                 >
                   PROPÓSITO
                 </Typography>
@@ -371,16 +376,17 @@ export function TabFinProposito({
               md={12}
               sm={12}
               xs={12}
-              display={"flex"}
-              justifyContent={"space-evenly"}
-              alignItems={"center"}
               sx={{
-                '& > .MuiGrid-item': {
-                  marginBottom: '20px', // Ajusta la cantidad de espacio vertical entre los elementos
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                "& > .MuiGrid-item": {
+                  marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
                 },
               }}
             >
               {isSmallScreen && (
+
                 <Grid>
                   <List sx={{}}>
                     <Divider />
@@ -401,7 +407,10 @@ export function TabFinProposito({
                       }}
                     >
                       <Typography
-                        sx={{ fontSize: "6vw", fontFamily: "MontserratMedium" }}
+                         sx={{
+                        fontFamily: "MontserratMedium",
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                      }}
                       >
                         FIN
                       </Typography>
@@ -433,9 +442,9 @@ export function TabFinProposito({
                         }}
                       >
                         <Typography
-                          sx={{
-                            fontSize: "6vw",
+                           sx={{
                             fontFamily: "MontserratMedium",
+                            fontSize: [10, 10, 10, 13, 15, 18],
                           }}
                         >
                           PROPÓSITO
@@ -757,6 +766,7 @@ export function TabFinProposito({
                   value={fin.supuestos}
                 />
               </Grid>
+              
             </Grid>
           </>
         ) : null}
@@ -775,8 +785,8 @@ export function TabFinProposito({
               justifyContent={"space-evenly"}
               alignItems={"center"}
               sx={{
-                '& > .MuiGrid-item': {
-                  marginBottom: '20px', // Ajusta la cantidad de espacio vertical entre los elementos
+                "& > .MuiGrid-item": {
+                  marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
                 },
               }}
             >
@@ -1140,7 +1150,6 @@ export function TabFinProposito({
           </>
         ) : null}
       </Grid>
-      
 
     </Grid>
   );

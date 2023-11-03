@@ -10,7 +10,7 @@ import {
   IComponenteRF,
   ICValorRF,
 } from "./Interfaces";
-import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import TabResumenMIR from "../modalsRF/ModalResumenMir";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
@@ -345,6 +345,7 @@ export default function CapturaRaffi({
   useEffect(() => {
     console.log("raffi", raffi);
   }, [raffi]);
+  
   return (
     <Grid
       container

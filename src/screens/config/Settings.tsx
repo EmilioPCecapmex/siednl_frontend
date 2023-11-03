@@ -50,7 +50,15 @@ export const Settings = () => {
           }}
         />
       </Grid> */}
-
+<Grid
+      container
+      sx={{
+        display: "flex",
+        justifyContent: "space-evenly",
+        height: "100%",
+      
+      }}
+    ></Grid>
       <Grid
         justifyContent={"center"}
         display={"flex"}
@@ -61,9 +69,9 @@ export const Settings = () => {
         xl={12}
         lg={12}
         md={12}
-        sm={7.5}
-        xs={6}
-        sx={{ backgroundColor: "white" }}
+        sm={12}
+        xs={12}
+        sx={{ backgroundColor: "white",flexDirection: "column", }}
       >
         {showCards ? (
           <>
