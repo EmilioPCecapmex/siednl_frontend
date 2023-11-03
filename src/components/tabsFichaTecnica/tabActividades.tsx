@@ -15,7 +15,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
-import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 
 //funcion main
 export const TabActividadesFT = ({

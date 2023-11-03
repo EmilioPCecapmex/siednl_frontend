@@ -20,7 +20,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
-import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import axios from "axios";
 
 //funcion main

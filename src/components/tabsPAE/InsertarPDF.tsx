@@ -23,7 +23,7 @@ import { useEffect, useState, useRef, SetStateAction } from "react";
       NOMBRE: string,
       setState: Function
     ) => {
-      console.log("entra a get documento:",ruta,nombre,";",anio,",",perteneceA);
+      console.log("entra a get documento:",ROUTE,",NOMBRE:",NOMBRE);
       await axios
         .post(
           process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
@@ -39,8 +39,7 @@ import { useEffect, useState, useRef, SetStateAction } from "react";
           }
         )
         .then(({ data }) => {
-          let file = data.RESPONSE.FILE;
-          setState(file);
+          setState(data.RESPONSE.FILE);
         })
         .catch((r) => { });
     };
