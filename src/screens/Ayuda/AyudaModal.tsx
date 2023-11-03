@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { AppBar, Autocomplete, Button, Dialog, Grid, TextField, Toolbar, Typography } from "@mui/material";
 import ModalForm from "../../components/ModalForm";
 import { createAyuda, getMenus, getRoles, saveFile } from "./ServicesAyuda";
-import { alertaError } from "../../components/alertas/Alertas";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { queries } from "../../queries";
+import Swal from "sweetalert2";
+import { alertaError } from "../../components/alertas/Alertas";
 
 export interface ILista {
   Id: string;
@@ -27,7 +28,11 @@ export interface MenuItem {
   Path: string;
 }
 
-export interface IFile { archivo: File; nombreArchivo: string }
+export interface IFile { 
+  archivo: File; 
+  nombreArchivo: string 
+}
+
 
 export const AyudasModal = ({
   value,
@@ -51,6 +56,7 @@ export const AyudasModal = ({
   const [videoPreview, setVideoPreview] = useState("");
   const [slideropen, setslideropen] = useState(false);
 
+  
   function enCambioFile(event: any) {
     if (
       event?.target?.files[0] &&
@@ -71,19 +77,20 @@ export const AyudasModal = ({
 
       setNewVideo(file);
     } else {
-      alertaError("¡No es un archivo valido!")
+      alertaError("¡NO ES UN ARCHIVO VALIDO!")
 
     }
   }
 
 
-  useEffect(() => { getMenus(setMenus) 
-    
-    
+  useEffect(() => { getMenus(setMenus)
+
+
     getRoles(setRoles) }, [])
-    
+
   return (
-    <ModalForm title={"Administración de " + value} handleClose={handleClose}>
+    // <Dialog open={true} fullScreen style={{ zIndex: 1000 }}>
+    <ModalForm title={"ADMINISTRACIÓN DE " + value.toUpperCase()} handleClose={handleClose} >
       {/* <SliderProgress open={slideropen} texto={"Cargando..."}></SliderProgress> */}
 
       <Grid
@@ -97,15 +104,15 @@ export const AyudasModal = ({
           actionNumber={0}
         /> */}
         <Grid item xs={12} md={6.5} lg={8.2}>
-          <Typography variant="h6">Rol</Typography>
+          <Typography variant="h6">ROL</Typography>
           <Autocomplete
-            noOptionsText="No se encontraron opciones"
-            clearText="Borrar"
-            closeText="Cerrar"
-            openText="Abrir"
+            noOptionsText="NO SE ENCONTRARON OPCIONES"
+            clearText="BORRAR"
+            closeText="CERRAR"
+            openText="ABRIR"
             options={roles}
             getOptionLabel={(rol) =>
-              rol.Nombre || "Seleccione Rol"
+              rol.Nombre || "SELECCIONE ROL"
             }
             value={rol}
             onChange={(event, newValue) => {
@@ -132,15 +139,15 @@ export const AyudasModal = ({
         </Grid>
 
         <Grid item xs={12} md={6.5} lg={8.2}>
-          <Typography variant="h6">Menú</Typography>
+          <Typography variant="h6">MENÚ</Typography>
           <Autocomplete
-            noOptionsText="No se encontraron opciones"
-            clearText="Borrar"
-            closeText="Cerrar"
-            openText="Abrir"
+            noOptionsText="NO SE ENCONTRARON OPCIONES"
+            clearText="BORRAR"
+            closeText="CERRAR"
+            openText="ABRIR"
             options={menus}
             getOptionLabel={(menu) =>
-              menu.Label || "Seleccione Menú"
+              menu.Label || "SELECCIONE MENÚ"
             }
             value={menu}
             onChange={(event, newValue) => {
@@ -191,7 +198,7 @@ export const AyudasModal = ({
               component="label"
             >
 
-              Seleccionar {value}
+              SELECCIONAR {value.toUpperCase()}
               <input
                 hidden
                 accept={value == "Videos" ? "video/*" : "application/pdf"}
@@ -217,20 +224,27 @@ export const AyudasModal = ({
                 component="label"
                 //className="aceptar"
                 onClick={() => {
-                  if (menu.Id !== "") {
+                  if (rol.Id !== ""){
+                    if (menu.Id !== "") {
                     setslideropen(true)
 
-                    saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, pregunta, respuesta, handleClose);
+                    saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, rol.Id, pregunta, respuesta, handleClose);
 
                   }
                   else {
-                    alertaError("Seleccione un menú")
+
+                    alertaError("SELECCIONE UN MENÚ")
                   }
+                  }
+                  else {
+                    alertaError("SELECCIONE UN ROL")
+                  }
+                  
                 }
 
                 }
               >
-                Guardar
+                GUARDAR
               </Button>
             </>
           ) : (
@@ -244,24 +258,30 @@ export const AyudasModal = ({
 
                 className="aceptar"
                 onClick={() => {
-                  if (menu.Id !== "") {
+                  if (rol.Id !== ""){
+                    if (menu.Id !== "") {
                     if (pregunta !== "") {
                       setslideropen(true)
 
-                      saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, pregunta, respuesta, handleClose)
+                      saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, rol.Id, pregunta, respuesta, handleClose)
                     }
                     else {
-                      alertaError("Escriba título de guía")
+                      alertaError("ESCRIBA TÍTULO DE GUÍA")
                     }
                   }
                   else {
-                    alertaError("Seleccione un menú")
+                    alertaError("SELECCIONE UN MENÚ")
                   }
+                  }
+                  else {
+                    alertaError("SELECCIONE UN ROL")
+                  }
+
                 }
 
                 }
               >
-                Guardar
+                GUARDAR
               </Button>
             </>
           ) : (
@@ -275,14 +295,15 @@ export const AyudasModal = ({
 
                 className="aceptar"
                 onClick={() => {
-
-                  if (menu.Id !== "") {
+                  if (rol.Id !== ""){
+                    if (menu.Id !== "") {
                     if (pregunta !== "") {
                       if (respuesta !== "") {
                         setslideropen(true)
 
                         let datos = {
                           IdMenu: menu.Id,
+                          IdRol: rol.Id,
                           Pregunta: pregunta,
                           Texto: respuesta,
                           RutaGuia: "",
@@ -294,23 +315,28 @@ export const AyudasModal = ({
                         createAyuda(datos, handleClose)
                       }
                       else {
-                        alertaError("Escriba una respuesta")
+                        alertaError("ESCRIBA UNA RESPUESTA")
 
                       }
                     }
                     else {
-                      alertaError("Escriba una pregunta")
+                      alertaError("ESCRIBA UNA PREGUNTA")
                     }
                   }
 
                   else {
-                    alertaError("Seleccione un menú")
+                    alertaError("SELECCIONE UN MENÚ")
                   }
+                  }
+                  else {
+                    alertaError("SELECCIONE UN ROL")
+                  }
+                  
                 }
 
                 }
               >
-                Guardar
+                GUARDAR
               </Button>
             </>
           ) : null}
@@ -334,7 +360,7 @@ export const AyudasModal = ({
           ></Grid>
           <Grid container>
             <Grid>
-              <Typography variant="h6">Nombre del archivo: </Typography>
+              <Typography variant="h6">NOMBRE DEL ARCHIVO: </Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -356,7 +382,7 @@ export const AyudasModal = ({
             <Grid container>
               <Grid>
                 <Typography variant="h6">
-                  Pregunta / Título de guía:{" "}
+                PREGUNTA / TÍTULO DE GUÍA:{" "}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
@@ -398,7 +424,7 @@ export const AyudasModal = ({
           ></Grid>
           <Grid container>
             <Grid>
-              <Typography variant="h6">Pregunta</Typography>
+              <Typography variant="h6">PREGUNTA</Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -417,7 +443,7 @@ export const AyudasModal = ({
 
           <Grid container>
             <Grid>
-              <Typography variant="h6">Respuesta</Typography>
+              <Typography variant="h6">RESPUESTA</Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -466,6 +492,7 @@ export const AyudasModal = ({
 
 
     </ModalForm>
+    // </Dialog>
   );
 };
 

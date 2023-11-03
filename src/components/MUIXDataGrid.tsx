@@ -26,14 +26,14 @@ export default function MUIXDataGrid(props: any) {
             toolbar: {
               printOptions: { disableToolbarButton: true },
               csvOptions: { disableToolbarButton: true },
-              label: "Buscar",
+              label: "BUSCAR",
               showQuickFilter: true,
               quickFilterProps: { debounceMs: 500 },
             },
           }}
       
           localeText={{
-            noRowsLabel: "Sin filas",
+            noRowsLabel: "SIN FILAS",
             noResultsOverlayLabel: "Resultados no encontrados",
             errorOverlayDefaultLabel: "Ha ocurrido un error.",
             toolbarDensity: "Densidad",
@@ -55,8 +55,8 @@ export default function MUIXDataGrid(props: any) {
               count > 1 ? `${count} filtros activos` : `${count} filtro activo`,
 
             // Quick filter toolbar field
-            toolbarQuickFilterPlaceholder: "Buscar…",
-            toolbarQuickFilterLabel: "Buscar",
+            toolbarQuickFilterPlaceholder: "BUSCAR...",
+            toolbarQuickFilterLabel: "BUSCAR...",
             toolbarQuickFilterDeleteIconLabel: "Limpiar",
 
             // Export selector toolbar button text

@@ -31,16 +31,16 @@ export interface IInfoFile {
       {
         field: "Acciones",
         disableExport: true,
-        headerName: "Acciones",
-        description: "Acciones",
+        headerName: "ACCIONES",
+        //description: "",
         sortable: false,
-        width: 80,
+        width: 100,
         renderCell: (v: any) => {
           return (
             <Box>
   
   
-              <Tooltip title={"Visualizar"+value} >
+              <Tooltip title={"VISUALIZAR "+value.toUpperCase()} >
                 <IconButton onClick={() => {
                   setOpen(true);
                   setInfoFile({ ruta: v?.row?.RutaVideo, nombre: v?.row?.NombreArchivoServidor })
@@ -53,12 +53,21 @@ export interface IInfoFile {
           );
         },
       },
-      { field: "Menu", headerName: "Menú", description: "Menú", width: 250 },
+      { field: "Menu", 
+      headerName: "MENÚ", 
+      //description: "Menú", 
+      width: 250 },
       {
         field: "NombreArchivo",
-        headerName: "Nombre Video",
-        description: "Nombre Video",
-        width: 600,
+        headerName: "NOMBRE VIDEO",
+        //description: "Nombre Video",
+        width: 550,
+      },
+      {
+        field: "Nombre",
+        headerName: "ROL",
+        //description: "Rol",
+        width: 200,
       },
   
     ];
@@ -68,14 +77,14 @@ export interface IInfoFile {
       {
         field: "Acciones",
         disableExport: true,
-        headerName: "Acciones",
-        description: "Acciones",
+        headerName: "ACCIONES",
+        //description: "Acciones",
         sortable: false,
-        width: 80,
+        width: 100,
         renderCell: (v: any) => {
           return (
             <Box>
-              <Tooltip title="Visualizar">
+              <Tooltip title={"VISUALIZAR "+value.toUpperCase()}>
                 <IconButton onClick={() => {
                   setOpen(true)
                   setInfoFile({ ruta: v?.row?.RutaGuia, nombre: v?.row?.NombreArchivoServidor })
@@ -87,36 +96,54 @@ export interface IInfoFile {
           );
         },
       },
-      { field: "Menu", headerName: "Menú", description: "Menú", width: 250 },
+      { field: "Menu", 
+      headerName: "MENÚ", 
+      //description: "Menú", 
+      width: 250 },
       {
         field: "Pregunta",
-        headerName: "Pregunta",
+        headerName: "PREGUNTA",
         description: "Pregunta",
         width: 600,
       },
       {
         field: "NombreArchivo",
-        headerName: "Nombre Guía",
-        description: "Nombre Guía",
-        width: 600,
+        headerName: "NOMBRE GUÍA",
+        //description: "Nombre Guía",
+        width: 550,
+      },
+      {
+        field: "Nombre",
+        headerName: "ROL",
+        //description: "Rol",
+        width: 200,
       },
   
     ];
   
     const columnsPreguntas: GridColDef[] = [
   
-      { field: "Menu", headerName: "Menú", description: "Menú", width: 250 },
+      { field: "Menu", 
+      headerName: "MENÚ", 
+      //description: "Menú", 
+      width: 250 },
       {
         field: "Pregunta",
-        headerName: "Pregunta",
-        description: "Pregunta",
+        headerName: "PREGUNTA",
+        //description: "Pregunta",
         width: 600,
       },
       {
         field: "Texto",
-        headerName: "Respuesta",
-        description: "Respuesta",
+        headerName: "RESPUESTA",
+        //description: "Respuesta",
         width: 800,
+      },
+      {
+        field: "Nombre",
+        headerName: "ROL",
+        //description: "Rol",
+        width: 200,
       },
     ];
   
@@ -125,7 +152,7 @@ export interface IInfoFile {
     };
   
     return (
-      (<ModalForm title="Visualizar" handleClose={() => { handleClose() }}>
+      (<ModalForm title="VISUALIZAR" handleClose={() => { handleClose() }}>
 
         <Grid item sx={{ width: "100vw", height: "90vh", justifyContent:"center",alignItems:"center",displa:"flex" }}>
           {/* cambio a tabla preguntas */}
