@@ -7,7 +7,7 @@ import {
   DialogContent,
   Typography,
 } from "@mui/material";
-import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 
 export function TabResumenMIR({
   show,

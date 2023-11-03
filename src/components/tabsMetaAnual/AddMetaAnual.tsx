@@ -9,7 +9,7 @@ import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import TabResumenMIR from "../modalsMA/ModalResumenMA";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";

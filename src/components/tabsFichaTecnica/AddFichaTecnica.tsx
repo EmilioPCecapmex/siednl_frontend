@@ -6,7 +6,8 @@ import { Grid, IconButton, useMediaQuery } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
-import { IComponenteActividad } from "../tabsMir/AddMir";
+import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
+
 import {
   ICValorFT,
   IFinFT,

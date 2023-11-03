@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
-import { IActividadesMir, ILista, IMIR } from "./interfaces mir/IMIR";
+import { IActividad, ILista, IMIR } from "./interfaces mir/IMIR";
 import { queries } from "../../queries";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -25,7 +25,7 @@ export function TabResumen({
   
 
   const [valoresComponenteActividad, setValoresComponenteActividad] = useState<
-    Array<Array<IActividadesMir>>
+    Array<Array<IActividad>>
   >([
     [
       {
@@ -72,12 +72,12 @@ export function TabResumen({
   const objetoVacio: ILista = { Id: "", Label: "" };
 
   useEffect(() => {
-    let n: Array<Array<IActividadesMir>> = [];
+    let n: Array<Array<IActividad>> = [];
     let indexActividades = 0;
-    MIRPADRE.componenteActividad.map((v, index) => {
-      let aux: Array<IActividadesMir> = [];
+    MIRPADRE.componentes.map((v, index) => {
+      let aux: Array<IActividad> = [];
       v.actividades.map((x) => {
-        aux.push(MIRPADRE.actividades[indexActividades]);
+        aux.push(MIRPADRE.componentes[index].actividades[indexActividades]);
         indexActividades++;
       });
       n[index] = aux;
