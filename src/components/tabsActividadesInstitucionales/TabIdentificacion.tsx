@@ -10,12 +10,14 @@ import {
   ListItemButton,
   FormControlLabel,
   Checkbox,
+  useMediaQuery,
 } from "@mui/material";
-import { IAlineacionPlaneacion } from "./IAlineacionPlaneacion";
-import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
+import { IIdentificacion } from "./IAlineacionPlaneacion";
+//import { IObjetivosActividadInstitucional } from "./IObjetivosActividadInstitucional";
 import axios from "axios";
 
-export function TabIdentificacion({}: {}) {
+
+export function TabIdentificacion({ AI }: { AI: string }) {
   const [componentSelect, setComponentSelect] = useState(1);
 
   //catalogos
@@ -40,22 +42,25 @@ export function TabIdentificacion({}: {}) {
   const [institution, setInstitution] = useState("");
 
   const [alineacionPlaneacion, setAlineacionPlaneacion] =
-    useState<IAlineacionPlaneacion>({
-      temaPED: "",
-      objetivoPED: "",
-      estrategiaPED: "",
+    useState<IIdentificacion>({
+      //temaPED: "",
+      //objetivoPED: "",
+      //estrategiaPED: "",
       programaSectorial: "",
       objetivoProgramaSectorial: "",
-      meta1: "",
-      meta2: "",
+      objetivogeneral: "",
+      objetivosespecificos:[""],
+      //meta1: "",
+      //meta2: "",
+
     });
 
-  const [objetivosActividadInstitucional, setobjetivosActividadInstitucional] =
-    useState<IObjetivosActividadInstitucional>({
-      objetivoGeneral: "",
-      objetivoEspecifico1: "",
-      objetivoEspecifico2: "",
-    });
+  // const [objetivosActividadInstitucional, setobjetivosActividadInstitucional] =
+  //   useState<IObjetivosActividadInstitucional>({
+  //     objetivoGeneral: "",
+  //     objetivoEspecifico1: "",
+  //     objetivoEspecifico2: "",
+  //   });
 
   ///////////////// axios
 
@@ -75,8 +80,6 @@ export function TabIdentificacion({}: {}) {
   const getInstituciones = () => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-
-        
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
@@ -97,18 +100,21 @@ export function TabIdentificacion({}: {}) {
     getInstituciones();
   }, []);
 
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
   return (
     <Grid
       sx={{
         width: "93vw",
-        height: "82vh",
-        justifyContent: "center",
-        alignItems: "center",
-        justifyItems: "center",
-        backgroundColor: "#fff",
-        // GridShadow: 20,
-        boxShadow: 20,
+        height: ["82vh", "82vh", "82vh", "82vh", "82vh", "82vh"],
+        // justifyContent: "center",
+        // alignItems: "center",
+        // justifyItems: "center",
+        boxShadow: 10,
         borderRadius: 5,
+        flexDirection: "column",
+        backgroundColor: "#fff",
+        overflow: "auto",
       }}
     >
       <Grid
@@ -118,138 +124,211 @@ export function TabIdentificacion({}: {}) {
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "100%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          <Grid
+        {!isSmallScreen && (
+          <List
             sx={{
-              height: "15vh",
+              width: "15vw",
+              height: "95%",
+              borderRight: "solid",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              borderColor: "#BCBCBC",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
             }}
           >
-            <Divider />
-
-            <ListItemButton
-              selected={componentSelect === 1 ? true : false}
-              onClick={() => setComponentSelect(1)}
+            <Grid
               sx={{
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
+                height: "15vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Identificación
-              </Typography>
-            </ListItemButton>
-            <Divider />
+              <Divider />
 
-            <ListItemButton
-              selected={componentSelect === 2 ? true : false}
-              onClick={() => setComponentSelect(2)}
-              sx={{
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Alineación
-              </Typography>
-            </ListItemButton>
-            <Divider />
+              <ListItemButton
+                selected={componentSelect === 1 ? true : false}
+                onClick={() => setComponentSelect(1)}
+                sx={{
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
+                }}
+              >
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  Identificación
+                </Typography>
+              </ListItemButton>
+              <Divider />
 
-            <ListItemButton
-              selected={componentSelect === 3 ? true : false}
-              onClick={() => setComponentSelect(3)}
-              sx={{
-                "&.Mui-selected ": {
-                  backgroundColor: "#c4a57b",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#cbcbcb",
-                },
-              }}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Objetivos
-              </Typography>
-            </ListItemButton>
+              <ListItemButton
+                selected={componentSelect === 2 ? true : false}
+                onClick={() => setComponentSelect(2)}
+                sx={{
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
+                }}
+              >
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  Alineación
+                </Typography>
+              </ListItemButton>
+              <Divider />
 
-            <Divider />
-          </Grid>
-        </List>
+              <ListItemButton
+                selected={componentSelect === 3 ? true : false}
+                onClick={() => setComponentSelect(3)}
+                sx={{
+                  "&.Mui-selected ": {
+                    backgroundColor: "#c4a57b",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#cbcbcb",
+                  },
+                }}
+              >
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  Objetivos
+                </Typography>
+              </ListItemButton>
+
+              <Divider />
+            </Grid>
+          </List>
+        )}
 
         <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
           sx={{
             display: "flex",
-            flexDirection: "column",
-            width: "90%",
-            height: "100%",
+            justifyContent: "space-evenly",
             alignItems: "center",
-            justifyContent: "center",
+            "& > .MuiGrid-item": {
+              marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+            },
           }}
         >
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 1 ? (
-            <Grid
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-              }}
-            >
-              <Grid
-                sx={{
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+            <>
+              {isSmallScreen && (
+                <List>
+                  <Grid>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect === 1 ? true : false}
+                      onClick={() => setComponentSelect(1)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Identificación
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect > 1 && componentSelect < 3}
+                      onClick={() => setComponentSelect(2)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Alineación
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect > 1 && componentSelect > 2}
+                      onClick={() => setComponentSelect(3)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Objetivos
+                      </Typography>
+                    </ListItemButton>
+
+                    <Divider />
+                  </Grid>
+                </List>
+              )}
+
+              {/* <Grid
+                  item
+                  xl={12}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    alignContent: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
                 >
-                  Identificación
-                </Typography>
-              </Grid>
+                  <Typography
+                    sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                  >
+                    Identificación
+                  </Typography>
+                </Grid>  */}
+
               <Grid
+                item
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={10}
                 sx={{
-                  height: "30%",
-                  width: "90%",
+                  alignContent: "center",
                   display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <FormControl sx={{ gridRow: "1", width: "20%" }}>
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -311,8 +390,22 @@ export function TabIdentificacion({}: {}) {
                     }
                   />
                 </FormControl>
+              </Grid>
 
-                <FormControl sx={{ gridRow: "1", width: "35%" }}>
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={10}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -322,7 +415,7 @@ export function TabIdentificacion({}: {}) {
                     size="small"
                     options={top100Films()}
                     getOptionLabel={(option) => option}
-                    value={alineacionPlaneacion.temaPED}
+                   // value={alineacionPlaneacion.temaPED}
                     renderOption={(props, option) => {
                       return (
                         <li {...props} key={Math.random()}>
@@ -338,10 +431,10 @@ export function TabIdentificacion({}: {}) {
                       );
                     }}
                     onChange={(event, value) => {
-                      setAlineacionPlaneacion({
-                        ...alineacionPlaneacion,
-                        temaPED: value as string,
-                      });
+                      // setAlineacionPlaneacion({
+                      //   ...alineacionPlaneacion,
+                      //   temaPED: value as string,
+                      // });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -362,7 +455,22 @@ export function TabIdentificacion({}: {}) {
                     )}
                   />
                 </FormControl>
-                <FormControl sx={{ gridRow: "1", width: "35%" }}>
+              </Grid>
+
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={10}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -421,22 +529,42 @@ export function TabIdentificacion({}: {}) {
               </Grid>
 
               <Grid
+                item
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={10}
                 sx={{
-                  height: "30%",
-                  width: "90%",
+                  alignContent: "center",
                   display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
+                {" "}
                 <FormControlLabel
                   label="ANTICORRUPCIÓN"
                   control={
                     <Checkbox checked={prueba === "si"} onChange={() => {}} />
                   }
                 />
+              </Grid>
 
-                <FormControl sx={{ gridRow: "1", width: "15%" }}>
+              <Grid
+                item
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={10}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {" "}
+                <FormControl required fullWidth>
                   <TextField
                     disabled
                     size="small"
@@ -445,8 +573,22 @@ export function TabIdentificacion({}: {}) {
                     //sx={{ width: "25%" }}
                   />
                 </FormControl>
+              </Grid>
 
-                <FormControl sx={{ gridRow: "1", width: "65%" }}>
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={10}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <FormControl required fullWidth>
                   <TextField
                     disabled
                     size="small"
@@ -458,15 +600,15 @@ export function TabIdentificacion({}: {}) {
               </Grid>
 
               <Grid
-                sx={{
-                  height: "30%",
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                }}
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={10}
+                item
+                sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
               >
-                <FormControl sx={{ gridRow: "1", width: "35%" }}>
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -507,8 +649,18 @@ export function TabIdentificacion({}: {}) {
                     )}
                   />
                 </FormControl>
+              </Grid>
 
-                <FormControl sx={{ gridRow: "1", width: "35%" }}>
+              <Grid
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={10}
+                item
+                sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+              >
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -549,7 +701,18 @@ export function TabIdentificacion({}: {}) {
                     )}
                   />
                 </FormControl>
-                <FormControl sx={{ gridRow: "1", width: "20%" }}>
+              </Grid>
+
+              <Grid
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={10}
+                item
+                sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+              >
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -591,16 +754,18 @@ export function TabIdentificacion({}: {}) {
                   />
                 </FormControl>
               </Grid>
+
               <Grid
-                sx={{
-                  height: "30%",
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                }}
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={10}
+                item
+                sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
               >
-                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                {" "}
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -641,8 +806,18 @@ export function TabIdentificacion({}: {}) {
                     )}
                   />
                 </FormControl>
+              </Grid>
 
-                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+              <Grid
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={10}
+                item
+                sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+              >
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -683,8 +858,18 @@ export function TabIdentificacion({}: {}) {
                     )}
                   />
                 </FormControl>
+              </Grid>
 
-                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+              <Grid
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={10}
+                item
+                sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+              >
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -726,37 +911,81 @@ export function TabIdentificacion({}: {}) {
                   />
                 </FormControl>
               </Grid>
-            </Grid>
+            </>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/*  ALINEACIÓN A LA PLANEACIÓN DEL DESARROLLO---------------------------------------------------------------------------------- */}
           {componentSelect === 2 ? (
-            <Grid
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-              }}
-            >
-              <Grid
-                sx={{
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
-                >
-                  Alineación
-                </Typography>
-              </Grid>
+            <>
+              {isSmallScreen && (
+                <List>
+                  <Grid>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect < 2 && componentSelect < 3}
+                      onClick={() => setComponentSelect(1)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Identificación
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect > 1 && componentSelect < 3}
+                      onClick={() => setComponentSelect(2)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Alineación
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect > 1 && componentSelect > 2}
+                      onClick={() => setComponentSelect(3)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Objetivos
+                      </Typography>
+                    </ListItemButton>
+
+                    <Divider />
+                  </Grid>
+                </List>
+              )}
+              {/* <Typography
+                    sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                  >
+                    Alineación
+                  </Typography> */}
 
               {/* <Grid
                 sx={{
@@ -767,7 +996,7 @@ export function TabIdentificacion({}: {}) {
                   alignItems: "center",
                 }}
               >
-                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -809,7 +1038,7 @@ export function TabIdentificacion({}: {}) {
                   />
                 </FormControl>
 
-                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -851,7 +1080,7 @@ export function TabIdentificacion({}: {}) {
                   />
                 </FormControl>
 
-                <FormControl sx={{ gridRow: "1", width: "30%" }}>
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -967,12 +1196,16 @@ export function TabIdentificacion({}: {}) {
               </Grid> */}
 
               <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={10}
                 sx={{
-                  height: "45%",
-                  width: "90%",
+                  alignContent: "center",
                   display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <TextField
@@ -980,7 +1213,9 @@ export function TabIdentificacion({}: {}) {
                   rows={6}
                   variant="filled"
                   sx={{ width: "80%", GridShadow: 2 }}
-                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputLabelProps={{
+                    style: { fontFamily: "MontserratBold" },
+                  }}
                   InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   label={"OBJETIVO PRPGRAMA SECTORIAL"}
                   // value={objetivosActividadInstitucional.objetivoGeneral}
@@ -994,12 +1229,16 @@ export function TabIdentificacion({}: {}) {
               </Grid>
 
               <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={10}
                 sx={{
-                  height: "45%",
-                  width: "90%",
+                  alignContent: "center",
                   display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <TextField
@@ -1007,7 +1246,9 @@ export function TabIdentificacion({}: {}) {
                   rows={6}
                   variant="filled"
                   sx={{ width: "80%", GridShadow: 2 }}
-                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputLabelProps={{
+                    style: { fontFamily: "MontserratBold" },
+                  }}
                   InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   label={"PROGRAMA SECTORIAL"}
                   // value={objetivosActividadInstitucional.objetivoGeneral}
@@ -1091,109 +1332,170 @@ export function TabIdentificacion({}: {}) {
                   />
                 </FormControl>
               </Grid> */}
-            </Grid>
+            </>
           ) : null}
 
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
 
           {/* Identificacion de la Actividad Institucion --------------------------------------------------------------------------------- */}
           {componentSelect === 3 ? (
-            <Grid
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-              }}
-            >
-              <Grid
-                sx={{
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
-                >
-                  Objetivos
-                </Typography>
-              </Grid>
+            <>
+              {isSmallScreen && (
+                <List>
+                  <Grid>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect < 2 && componentSelect < 3}
+                      onClick={() => setComponentSelect(1)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Identificación
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect > 1 && componentSelect < 3}
+                      onClick={() => setComponentSelect(2)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Alineación
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={componentSelect > 1 && componentSelect > 2}
+                      onClick={() => setComponentSelect(3)}
+                      sx={{
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Objetivos
+                      </Typography>
+                    </ListItemButton>
+
+                    <Divider />
+                  </Grid>
+                </List>
+              )}
 
               <Grid
+                item
+                xl={10}
+                lg={10}
+                md={10}
+                sm={10}
+                xs={10}
                 sx={{
-                  height: "45%",
-                  width: "90%",
+                  alignContent: "center",
                   display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <TextField
                   multiline
                   rows={6}
                   variant="filled"
-                  sx={{ width: "80%", GridShadow: 2 }}
+                  fullWidth
                   InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
                   InputProps={{ style: { fontFamily: "MontserratRegular" } }}
                   label={"Objetivo General"}
-                  value={objetivosActividadInstitucional.objetivoGeneral}
+                  //value={objetivosActividadInstitucional.objetivoGeneral}
                   onChange={(c) => {
-                    setobjetivosActividadInstitucional({
-                      ...objetivosActividadInstitucional,
-                      objetivoGeneral: c.target.value,
-                    });
+                    // setobjetivosActividadInstitucional({
+                    //   ...objetivosActividadInstitucional,
+                    //   objetivoGeneral: c.target.value,
+                    // });
                   }}
                 />
               </Grid>
 
               <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={10}
                 sx={{
-                  height: "45%",
-                  width: "90%",
+                  alignContent: "center",
                   display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <TextField
                   multiline
+                  fullWidth
                   rows={6}
                   variant="filled"
-                  sx={{ width: "40%", GridShadow: 2 }}
                   label={"Objetivo Especifico 1"}
                   InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
                   InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  value={objetivosActividadInstitucional.objetivoEspecifico1}
+                //  value={objetivosActividadInstitucional.objetivoEspecifico1}
                   onChange={(c) => {
-                    setobjetivosActividadInstitucional({
-                      ...objetivosActividadInstitucional,
-                      objetivoEspecifico1: c.target.value,
-                    });
-                  }}
-                />
-
-                <TextField
-                  multiline
-                  rows={6}
-                  variant="filled"
-                  sx={{ width: "40%", GridShadow: 2 }}
-                  label={"Objetivo Especifico 2"}
-                  value={objetivosActividadInstitucional.objetivoEspecifico2}
-                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
-                  onChange={(c) => {
-                    setobjetivosActividadInstitucional({
-                      ...objetivosActividadInstitucional,
-                      objetivoEspecifico2: c.target.value,
-                    });
+                    // setobjetivosActividadInstitucional({
+                    //   ...objetivosActividadInstitucional,
+                    //   objetivoEspecifico1: c.target.value,
+                    // });
                   }}
                 />
               </Grid>
-            </Grid>
+
+              <Grid
+                item
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
+                xs={10}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  multiline
+                  fullWidth
+                  rows={6}
+                  variant="filled"
+                  label={"Objetivo Especifico 2"}
+                 // value={objetivosActividadInstitucional.objetivoEspecifico2}
+                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
+                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  onChange={(c) => {
+                    // setobjetivosActividadInstitucional({
+                    //   ...objetivosActividadInstitucional,
+                    //   objetivoEspecifico2: c.target.value,
+                    // });
+                  }}
+                />
+              </Grid>
+            </>
           ) : null}
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
         </Grid>

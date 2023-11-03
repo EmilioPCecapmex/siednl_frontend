@@ -519,12 +519,21 @@ export default function ModalSolicitaModif({
   const createMA = (estado: string) => {
     console.log("IdEntidad:localStorage.getItem(IdEntidad): ",localStorage.getItem("IdEntidad"));
     
-    console.log("IdMIR: ", IdMIR);
-    if (estado === "Autorizada" && userSelected !== "0") {
+    let rolusuario = userXInst.find((user) =>user.IdUsuario===userSelected)
+
+    if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Verificador") {
       estado = "En Revisión";
-    } else if (estado === "En Autorización" && userSelected !== "0") {
+      console.log("Entre al primer if MA");
+    } else if (estado === "En Autorización" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
       estado = "En Captura";
-    }
+      console.log("Entre al segundo if MA");
+    } else if (estado === "En Autorización" && userSelected !== "0") {
+      console.log("Entre al tercero if MA");
+      estado = "En Captura";
+    } else if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
+      console.log("Entre al cuarto if MA");
+      estado = "En Captura";
+    } 
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -563,7 +572,7 @@ export default function ModalSolicitaModif({
           title:
             localStorage.getItem("Rol") === "Verificador"
               ? "Meta anual enviada a capturador para corrección"
-              : "Meta anual enviada a revisión",
+              : "Meta anual enviada ",
         });
 
         enviarNotificacion();

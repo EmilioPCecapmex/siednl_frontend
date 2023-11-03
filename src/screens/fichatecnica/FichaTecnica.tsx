@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import {
-  LateralMenu,
-} from "../../components/lateralMenu/LateralMenu";
+import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import {
   Grid,
   TableContainer,
@@ -350,6 +348,7 @@ export const FichaTecnica = () => {
   // useEffect(() => {
   //   getFT();
   // }, []);
+  const [title_texto, setTitle] = useState("");
 
   const validaFechaCaptura = () => {
     axios
@@ -367,9 +366,12 @@ export const FichaTecnica = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida === "true"
-          ? setValidaFecha(true)
-          : setValidaFecha(false);
+        if(r.data.data.valida === "true"){
+          setValidaFecha(true);
+          setTitle("VER FICHA TÉCNICA");}
+        else{
+          setValidaFecha(false);
+          setTitle("FECHA CAPTURA FINALIZADA");}
       })
       .catch((err) => {});
   };
@@ -445,7 +447,15 @@ export const FichaTecnica = () => {
 
   return (
     <Grid container justifyContent={"space-between"}>
-      <Grid item xl={12} height={"7vh"}>
+      <Grid
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        sx={{ height: "7vh", whitespace: "nowrap" }}
+      >
         <LateralMenu selection={"FICHA TECNICA"} actionNumber={actionNumber} />
       </Grid>
 
@@ -462,18 +472,21 @@ export const FichaTecnica = () => {
       </Grid> */}
 
       <Grid
-        justifyContent={"center"}
-        display={"flex"}
         container
-        height={"93vh"}
-        alignItems={"center"}
         item
         xl={12}
         lg={12}
         md={12}
-        sm={7.5}
-        xs={6}
-        sx={{ backgroundColor: "white" }}
+        sm={12}
+        xs={12}
+        sx={{
+          //backgroundColor:"blue",
+          justifyContent: "center",
+          display: "flex",
+          height: "90vh",
+          alignItems: "center",
+          backgroundColor: "white",
+        }}
       >
         {showResume ? (
           <>
@@ -483,16 +496,19 @@ export const FichaTecnica = () => {
               container
               item
               xl={8}
-              lg={7}
-              md={6}
-              height="15vh"
-              direction="row"
+              lg={8}
+              md={8}
+              sm={8}
+              // height="15vh"
+              // direction="row"
               sx={{
                 boxShadow: 5,
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 justifyContent: "space-evenly",
                 alignItems: "center",
+                height: "15vh",
+                direction: "row",
               }}
             >
               {/* <TutorialGrid initialState={35} endState={39} /> */}
@@ -507,205 +523,262 @@ export const FichaTecnica = () => {
                   setFindTextStr(v.target.value);
                 }}
               /> */}
-              <Paper
-                component="form"
-                sx={{
-                  alignItems: "center",
-                  justifyItems: "center",
-                  display: "flex",
-                  width: "90%",
-                  height: "6vh",
-                }}
-              >
-                <InputBase
-                  sx={{
-                    ml: 1,
-                    flex: 1,
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    //textAlign: "center",
-                    fontSize: [10, 10, 15, 15, 18, 20],
-                  }}
-                  placeholder="Buscar"
-                  value={findTextStr}
-                  // onChange={(e) => {
-                  //   handleChange(e.target.value);
-                  // }}
-                  onKeyPress={(ev) => {
-                    if (ev.key === "Enter") {
-                      filtrarDatos();
-                      ev.preventDefault();
-                      return false;
-                    }
-                  }}
-                />
-                <IconButton
-                  type="button"
-                  sx={{ p: "10px" }}
-                  aria-label="search"
-                  onClick={() => filtrarDatos()}
-                >
-                  <SearchIcon
-                    sx={{
-                      fontSize: "24px", // Tamaño predeterminado del icono
-
-                      "@media (max-width: 600px)": {
-                        fontSize: 25, // Pantalla extra pequeña (xs y sm)
-                      },
-
-                      "@media (min-width: 601px) and (max-width: 960px)": {
-                        fontSize: 25, // Pantalla pequeña (md)
-                      },
-
-                      "@media (min-width: 961px) and (max-width: 1280px)": {
-                        fontSize: 30, // Pantalla mediana (lg)
-                      },
-
-                      "@media (min-width: 1281px)": {
-                        fontSize: 30, // Pantalla grande (xl)
-                      },
-
-                      "@media (min-width: 2200px)": {
-                        fontSize: 30, // Pantalla grande (xl)
-                      },
-                    }}
-                  />
-                </IconButton>
-              </Paper>
 
               <Grid
+                item
+                container
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                // sx={{
+                //
+                //   //gridTemplateColumns: "repeat(2, 1fr)",
+                //   //alignItems:"center",
+                //   justifyItems: "space-evenly",
+                //   gap: 2,
+                //  // width: "90%",
+                // }}
                 sx={{
-                  display: "flex",
-                  //gridTemplateColumns: "repeat(2, 1fr)",
-                  //alignItems:"center",
-                  justifyItems: "space-evenly",
-                  gap: 2,
-                  width: "90%",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  //display: "flex",
+                  direction: "row",
                 }}
               >
-                <FormControl
-                  sx={{
-                    display: "flex",
-                    width: "100%",
-                    // alignItems: "center",
-                    // justifyContent: "center",
-
-                    borderRadius: 2,
-                    borderColor: "#616161",
-                  }}
-                >
-                  <InputLabel sx={queries.text}>
-                    FILTRO POR ESTADO DE LA FT
-                  </InputLabel>
-                  <Select
-                    size="small"
-                    fullWidth
-                    variant="outlined"
-                    label="FILTRO POR ESTADO DE LA MA"
-                    sx={{
-                      fontFamily: "MontserratRegular",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      //textAlign: "center",
-                      fontSize: [10, 10, 15, 15, 18, 20],
-                      // Tamaños de fuente para diferentes breakpoints
-                    }}
-                    value={findSelectStr}
-                    onChange={(v) => {
-                      // v.target.value === "Todos"
-                      //   ? findText(
-                      //       findTextStr,
-                      //       "0",
-                      //       findInstStr === "Todos" ? "0" : findInstStr
-                      //     )
-                      //   : findText(findTextStr, v.target.value, findInstStr);
-                      setFindSelectStr(v.target.value);
+                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                  <Tooltip
+                    title={findInstStr}
+                    PopperProps={{
+                      modifiers: [
+                        {
+                          name: "offset",
+                          options: {
+                            offset: [0, -13],
+                          },
+                        },
+                      ],
                     }}
                   >
-                    {estados.map((estado) => (
-                      <MenuItem key={estado} value={estado}>
-                        {estado.toUpperCase()}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                    <FormControl fullWidth>
+                      <InputLabel sx={queries.text}>
+                        <Tooltip
+                          PopperProps={{
+                            modifiers: [
+                              {
+                                name: "offset",
+                                options: {
+                                  offset: [0, -13],
+                                },
+                              },
+                            ],
+                          }}
+                          title={"FILTRO POR INSTITUCION"}
+                        >
+                          <span>FILTRO POR INSTITUCION</span>
+                        </Tooltip>
+                      </InputLabel>
+                      <Select
+                        size="small"
+                        variant="outlined"
+                        fullWidth
+                        label="FILTRO POR INSTITUCION"
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          //textAlign: "center",
+                          fontSize: [10, 10, 15, 15, 18, 20],
+                        }}
+                        value={findInstStr}
+                        // sx={{ fontFamily: "MontserratRegular" }}
 
-                <FormControl
-                  sx={{
-                    display: "flex",
-                    width: "100%",
-                    // alignItems: "center",
-                    // justifyContent: "center",
-                    // //border: 1,
-                    borderRadius: 2,
-                    borderColor: "#616161",
-                  }}
-                >
-                  <InputLabel sx={queries.text}>
-                    FILTRO POR INSTITUCION
-                  </InputLabel>
-                  <Select
-                    size="small"
-                    variant="outlined"
-                    fullWidth
-                    label="Filtro por institución"
-                    sx={{
-                      fontFamily: "MontserratRegular",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      //textAlign: "center",
-                      fontSize: [10, 10, 15, 15, 18, 20],
-                    }}
-                    value={findInstStr}
-                    // sx={{ fontFamily: "MontserratRegular" }}
-
-                    onChange={(v) => {
-                      setFindInstStr(v.target.value);
-                    }}
-                  >
-                    <MenuItem
-                      value={"Todos"}
-                      sx={{ fontFamily: "MontserratRegular" }}
-                    >
-                      TODOS
-                    </MenuItem>
-
-                    {instituciones?.map((item) => {
-                      return (
-                        <MenuItem value={item.Nombre} key={item.Id}>
-                          {item.Nombre}
+                        onChange={(v) => {
+                          setFindInstStr(v.target.value);
+                        }}
+                      >
+                        <MenuItem
+                          value={"Todos"}
+                          sx={{ fontFamily: "MontserratRegular" }}
+                        >
+                          TODOS
                         </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
+
+                        {instituciones?.map((item) => {
+                          return (
+                            <MenuItem value={item.Nombre} key={item.Id}>
+                              {item.Nombre}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Tooltip>
+                </Grid>
+                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                  <FormControl fullWidth>
+                    <InputLabel sx={queries.text}>
+                      <Tooltip
+                        PopperProps={{
+                          modifiers: [
+                            {
+                              name: "offset",
+                              options: {
+                                offset: [0, -13],
+                              },
+                            },
+                          ],
+                        }}
+                        title={"FILTRO POR ESTADO DE LA FT"}
+                      >
+                        <span>FILTRO POR ESTADO DE LA FT</span>
+                      </Tooltip>
+                    </InputLabel>
+                    <Select
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      label="FILTRO POR ESTADO DE LA MA"
+                      sx={{
+                        fontFamily: "MontserratRegular",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        //textAlign: "center",
+                        fontSize: [10, 10, 15, 15, 18, 20],
+                        // Tamaños de fuente para diferentes breakpoints
+                      }}
+                      value={findSelectStr}
+                      onChange={(v) => {
+                        // v.target.value === "Todos"
+                        //   ? findText(
+                        //       findTextStr,
+                        //       "0",
+                        //       findInstStr === "Todos" ? "0" : findInstStr
+                        //     )
+                        //   : findText(findTextStr, v.target.value, findInstStr);
+                        setFindSelectStr(v.target.value);
+                      }}
+                    >
+                      {estados.map((estado) => (
+                        <MenuItem key={estado} value={estado}>
+                          {estado.toUpperCase()}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+
+              <Grid
+                // item
+                container
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11}
+                sx={{
+                  direction: "row",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+              >
+                <Paper
+                  component="form"
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                  }}
+                >
+                  <InputBase
+                    sx={{
+                      ml: 1,
+                      flex: 1,
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      textAlign: "center",
+                      fontSize: [10, 10, 15, 15, 18, 20],
+                    }}
+                    placeholder="Buscar"
+                    value={findTextStr}
+                    // onChange={(e) => {
+                    //   handleChange(e.target.value);
+                    // }}
+                    onKeyPress={(ev) => {
+                      if (ev.key === "Enter") {
+                        filtrarDatos();
+                        ev.preventDefault();
+                        return false;
+                      }
+                    }}
+                  />
+                  <IconButton
+                    type="button"
+                    sx={{ p: "10px" }}
+                    aria-label="search"
+                    onClick={() => filtrarDatos()}
+                  >
+                    <SearchIcon
+                      sx={{
+                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                        "@media (max-width: 600px)": {
+                          fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                        },
+
+                        "@media (min-width: 601px) and (max-width: 960px)": {
+                          fontSize: 25, // Pantalla pequeña (md)
+                        },
+
+                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                          fontSize: 30, // Pantalla mediana (lg)
+                        },
+
+                        "@media (min-width: 1281px)": {
+                          fontSize: 30, // Pantalla grande (xl)
+                        },
+
+                        "@media (min-width: 2200px)": {
+                          fontSize: 30, // Pantalla grande (xl)
+                        },
+                      }}
+                    />
+                  </IconButton>
+                </Paper>
               </Grid>
             </Grid>
 
             {/* TABLA */}
             <Grid
-              container
               item
+              xl={10}
               lg={10}
-              md={9}
-              height="65vh"
-              direction="row"
-              sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
+              md={10}
+              sm={10}
+              xs={10}
+              sx={{
+                backgroundColor: "#FFFF",
+                borderRadius: 5,
+                boxShadow: 5,
+                height: "65vh",
+                direction: "row",
+              }}
             >
               <TableContainer
                 sx={{
                   borderRadius: 5,
-                  height: 450,
+                  height: "90%",
                   overflow: "auto",
                   "&::-webkit-scrollbar": {
                     width: ".5vw",
-                    mt: 1,
+                    //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "#edeaea",
+                    backgroundColor: "red",
                     //outline: "1px solid slategrey",
                     borderRadius: 1,
                   },
@@ -823,34 +896,41 @@ export const FichaTecnica = () => {
                           <TableCell
                             sx={{
                               flexDirection: "row",
-                              display: "grid",
-                              gridTemplateColumns: "repeat(4,1fr)",
+                              // display: "grid",
+                              padding: "1px 15px 1px 0",
+                              gridTemplateColumns: "repeat(1,4fr)",
                               fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign: "center",
                             }}
+                            align="center"
+                            component="th"
+                            scope="row"
                           >
+                            <Grid sx={{display: "flex",}}>
+
                             <Tooltip title="REGISTRAR FICHA TÉCNICA">
                               <span>
                                 <IconButton
                                   disabled={
                                     (row.Estado === "En Captura" &&
-                                      validaFecha &&
+                                      //validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Capturador") ||
                                     (row.Estado === "En Revisión" &&
-                                      validaFecha &&
+                                      //validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Verificador") ||
                                     (row.Estado === "Borrador Verificador" &&
-                                      validaFecha &&
+                                      //validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Verificador") ||
-                                        ((row.Estado === "En Autorización" || row.Estado ==="Autorizada") &&
-                                      validaFecha &&
+                                    ((row.Estado === "En Autorización" ||
+                                      row.Estado === "Autorizada") &&
+                                      // validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador") ||
                                     (row.Estado === "Borrador Autorizador" &&
-                                      validaFecha &&
+                                      // validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador")
                                       ? false
@@ -935,7 +1015,58 @@ export const FichaTecnica = () => {
                                 </IconButton>
                               </span>
                             </Tooltip>
-                            <Tooltip title="VER FICHA TÉCNICA">
+
+                              <Tooltip title="DESCARGAR">
+                              <span>
+                                <IconButton
+                                  onClick={() => {
+                                    getFichaTecnicaDownload(
+                                      row.MIR,
+                                      row.MetaAnual,
+                                      row.FichaT,
+                                      row.Programa,
+                                      row.FechaCreacion,
+                                      row.Entidad
+                                    );
+                                  }}
+                                  disabled={
+                                    row.Estado === "Autorizada" && validaFecha
+                                      ? false
+                                      : true
+                                  }
+                                >
+                                  <DownloadIcon
+                                    sx={{
+                                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                                      "@media (max-width: 600px)": {
+                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                      },
+
+                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
+
+                                      "@media (min-width: 961px) and (max-width: 1280px)":
+                                        {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
+
+                                      "@media (min-width: 1281px)": {
+                                        fontSize: 25, // Pantalla grande (xl)
+                                      },
+
+                                      "@media (min-width: 2200px)": {
+                                        ffontSize: 25, // Pantalla grande (xl)
+                                      },
+                                    }}
+                                  />
+                                </IconButton>
+                              </span>
+                            </Tooltip>
+
+                            <Tooltip title={title_texto}>
                               <span>
                                 <IconButton
                                   disabled={
@@ -969,24 +1100,25 @@ export const FichaTecnica = () => {
                                   <VisibilityIcon
                                     sx={{
                                       fontSize: "24px", // Tamaño predeterminado del icono
-  
+
                                       "@media (max-width: 600px)": {
                                         fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
-  
+
                                       "@media (min-width: 601px) and (max-width: 960px)":
                                         {
                                           fontSize: 20, // Pantalla pequeña (md)
                                         },
-  
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+
+                                      "@media (min-width: 961px) and (max-width: 1280px)":
+                                        {
                                           fontSize: 20, // Pantalla mediana (lg)
                                         },
-  
+
                                       "@media (min-width: 1281px)": {
                                         fontSize: 25, // Pantalla grande (xl)
                                       },
-  
+
                                       "@media (min-width: 2200px)": {
                                         ffontSize: 25, // Pantalla grande (xl)
                                       },
@@ -996,61 +1128,16 @@ export const FichaTecnica = () => {
                               </span>
                             </Tooltip>
 
-                            <Grid sx={{ display: "flex" }}>
-                              <Tooltip title="DESCARGAR">
-                                <span>
-                                  <IconButton
-                                    onClick={() => {
-                                      getFichaTecnicaDownload(
-                                        row.MIR,
-                                        row.MetaAnual,
-                                        row.FichaT,
-                                        row.Programa,
-                                        row.FechaCreacion,
-                                        row.Entidad
-                                      );
-                                    }}
-                                    disabled={
-                                      row.Estado === "Autorizada" && validaFecha
-                                        ? false
-                                        : true
-                                    }
-                                  >
-                                    <DownloadIcon
-                                      sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-    
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-    
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
-    
-                                          "@media (min-width: 961px) and (max-width: 1280px)": {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
-    
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-    
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
-                                      }}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-                              <ComentDialogFT
-                                estado={row.Estado}
-                                id={row.IdMir}
-                                actualizado={actualizaContador}
-                              />
+                            <ComentDialogFT
+                              estado={row.Estado}
+                              id={row.IdMir}
+                              actualizado={actualizaContador}
+                            />
+
+                            
+
                             </Grid>
+                          
                           </TableCell>
                         </TableRow>
                       ))}

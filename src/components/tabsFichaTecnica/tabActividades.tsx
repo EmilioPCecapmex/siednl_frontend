@@ -6,6 +6,7 @@ import {
   ListItemButton,
   TextField,
   FormControl,
+  useMediaQuery,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
@@ -111,10 +112,7 @@ export const TabActividadesFT = ({
         });
         setAValorFT(prevState);
       }
-    } else if (
-      
-      componentes.length < aValorFT[0].componentes.length
-    ) {
+    } else if (componentes.length < aValorFT[0].componentes.length) {
       let prevState = [...aValorFT];
       let restantes = aValorFT[0].componentes.length - componentes.length;
       for (let index = 1; index <= restantes; index++) {
@@ -123,7 +121,7 @@ export const TabActividadesFT = ({
       }
       setComponenteSelect(0);
     }
-  }, [ compAct]);
+  }, [compAct]);
 
   useEffect(() => {
     if (compAct.length > 0) {
@@ -198,7 +196,7 @@ export const TabActividadesFT = ({
   const handleClickComponente = (index: number) => {
     setOpen(index);
   };
-
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
   //return main
   return (
     <Grid
@@ -212,28 +210,31 @@ export const TabActividadesFT = ({
         borderRadius: 5,
         flexDirection: "column",
         backgroundColor: "#fff",
+        overflow: "auto",
       }}
     >
-      <Grid
-        sx={{
-          width: "100%",
-          display: "flex",
-          height: "7vh",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <Typography
+      {!isSmallScreen ? (
+        <Grid
           sx={{
-            mr: "1vw",
-            fontFamily: "MontserratSemiBold",
-            fontSize: [10, 10, 15, 18, 25, 25],
+            width: "100%",
+            display: "flex",
+            height: "7vh",
+            justifyContent: "flex-end",
+            alignItems: "center",
           }}
         >
-          COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
-        </Typography>
-      </Grid>
-
+          <Typography
+            sx={{
+              mr: "1vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: [10, 10, 15, 18, 25, 25],
+            }}
+          >
+            COMPONENTE #{componenteSelect + 1} - ACTIVIDAD #{" "}
+            {actividadSelect + 1}
+          </Typography>
+        </Grid>
+      ) : null}
       <Grid
         sx={{
           width: "100%",
@@ -241,67 +242,65 @@ export const TabActividadesFT = ({
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "95%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          {componentes.map((item, index) => {
-            return (
-              <Grid
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
-                <Divider />
+        {!isSmallScreen && (
+          <List
+            sx={{
+              width: "15vw",
+              height: "95%",
+              borderRight: "solid",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              borderColor: "#BCBCBC",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
+            }}
+          >
+            {componentes.map((item, index) => {
+              return (
+                <Grid key={index}>
+                  <Divider />
 
-                <ListItemButton
-                  selected={item === componenteSelect + 1 ? true : false}
-                  key={item}
-                  onClick={() => {
-                    setComponenteSelect(item - 1);
-                    handleClickComponente(item);
-                    setActividadSelect(0);
-                  }}
-                  sx={{
-                    height: "7vh",
-                    "&.Mui-selected ": {
-                      backgroundColor: "#c4a57b",
-                    },
-                    "&.Mui-selected:hover": {
-                      backgroundColor: "#cbcbcb",
-                    },
-                  }}
-                >
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 12, 15, 18, 20], }}
+                  <ListItemButton
+                    selected={item === componenteSelect + 1 ? true : false}
+                    key={item}
+                    onClick={() => {
+                      setComponenteSelect(item - 1);
+                      handleClickComponente(item);
+                      setActividadSelect(0);
+                    }}
+                    sx={{
+                      height: "7vh",
+                      "&.Mui-selected ": {
+                        backgroundColor: "#c4a57b",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#cbcbcb",
+                      },
+                    }}
                   >
-                    COMPONENTE {item}
-                  </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        fontSize: [10, 10, 12, 15, 18, 20],
+                      }}
+                    >
+                      COMPONENTE {item}
+                    </Typography>
 
-                  {open === item ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-                <Collapse in={open === item} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {aValorFT[0].componentes[componenteSelect].actividades.map(
-                      (value, x) => {
+                    {open === item ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                  <Collapse in={open === item} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {aValorFT[0].componentes[
+                        componenteSelect
+                      ].actividades.map((value, x) => {
                         return (
                           <ListItemButton
                             selected={x === actividadSelect ? true : false}
@@ -330,853 +329,1066 @@ export const TabActividadesFT = ({
                             </Typography>
                           </ListItemButton>
                         );
-                      }
-                    )}
-                  </List>
-                </Collapse>
+                      })}
+                    </List>
+                  </Collapse>
 
-                <Divider />
-              </Grid>
-            );
-          })}
-        </List>
+                  <Divider />
+                </Grid>
+              );
+            })}
+          </List>
+        )}
 
         <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
           sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            width: "90%",
+            display: "flex",
+            justifyContent: "space-evenly",
             alignItems: "center",
-            justifyItems: "center",
+            "& > .MuiGrid-item": {
+              marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+            },
           }}
         >
-          <FormControl
+          {isSmallScreen && (
+            <List>
+              {componentes.map((item, index) => {
+                return (
+                  <Grid key={index}>
+                    <Divider />
+
+                    <ListItemButton
+                      selected={item === componenteSelect + 1 ? true : false}
+                      key={item}
+                      onClick={() => {
+                        setComponenteSelect(item - 1);
+                        handleClickComponente(item);
+                        setActividadSelect(0);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                          fontSize: [10, 10, 12, 15, 18, 20],
+                        }}
+                      >
+                        COMPONENTE {item}
+                      </Typography>
+
+                      {open === item ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                    <Collapse in={open === item} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+                        {aValorFT[0].componentes[
+                          componenteSelect
+                        ].actividades.map((value, x) => {
+                          return (
+                            <ListItemButton
+                              selected={x === actividadSelect ? true : false}
+                              key={x}
+                              onClick={() => {
+                                setActividadSelect(x);
+                              }}
+                              sx={{
+                                height: "3vh",
+                                pl: 4,
+                                "&.Mui-selected ": {
+                                  backgroundColor: "#efd8b9",
+                                },
+                                "&.Mui-selected:hover": {
+                                  backgroundColor: "#cbcbcb",
+                                },
+                              }}
+                            >
+                              <Typography
+                                sx={{
+                                  fontSize: [10, 10, 12, 15, 18, 20],
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                ACTIVIDAD {x + 1}
+                              </Typography>
+                            </ListItemButton>
+                          );
+                        })}
+                      </List>
+                    </Collapse>
+
+                    <Divider />
+                  </Grid>
+                );
+              })}
+            </List>
+          )}
+
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
             sx={{
-              width: "90%",
-              height: "60%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <FormLabel
+            <FormControl
+            fullWidth
               sx={{
-                fontFamily: "MontserratBold",
-                fontSize: [10, 10, 13, 15, 18],
-              }}
-            >
-              TIPO DE INDICADOR
-            </FormLabel>
-            <Grid sx={{ display: "flex", flexDirection: "column" }}>
-              <FormControlLabel
-                value={"SELECCIÓN ESTRATEGICO"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    SELECCIÓN ESTRATEGICO
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].tipoDeIndicador = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"DE GESTIÓN"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    DE GESTIÓN
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.tipoDeIndicador === "DE GESTIÓN"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].tipoDeIndicador = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </FormControl>
-
-          <FormControl
-            sx={{
-              width: "90%",
-              height: "60%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <FormLabel
-              sx={{
-                fontFamily: "MontserratBold",
-                fontSize: [10, 10, 13, 15, 18],
-              }}
-            >
-              DIMENSIÓN
-            </FormLabel>
-
-            <Grid sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
-              <FormControlLabel
-                value={"EFICIENCIA"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    EFICIENCIA
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.dimension === "EFICIENCIA"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"EFICACIA"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    EFICACIA
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.dimension === "EFICACIA"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"CALIDAD"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    CALIDAD
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.dimension === "CALIDAD"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-
-              <FormControlLabel
-                value={"ECONOMÍA"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    ECONOMÍA
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.dimension === "ECONOMÍA"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].dimension = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </FormControl>
-
-          <TextField
-            rows={5}
-            multiline
-            variant="filled"
-            sx={{fontSize: [10, 10, 13, 15, 18], width: "90%", boxShadow: 2 }}
-            label={"UNIDAD DE MEDIDA"}
-            InputLabelProps={{
-              style: {
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
                 fontFamily: "MontserratMedium",
-                fontSize: "1vw",
-              },
-            }}
-            InputProps={{
-              style: {
-                fontFamily: "MontserratRegular",
-              },
-            }}
-            onChange={(c) => {
-              let y = [...aValorFT];
-              y[0].componentes[componenteSelect].actividades[
-                actividadSelect
-              ].unidadDeMedida = c.target.value
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "");
-              setAValorFT(y);
-            }}
-            value={
-              aValorFT[0].componentes[componenteSelect]?.actividades[
-                actividadSelect
-              ]?.unidadDeMedida || ""
-            }
-          />
-
-          <FormControl
-            sx={{
-              width: "90%",
-              height: "70%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <FormLabel
-              sx={{
-                fontFamily: "MontserratBold",
-                fontSize: [10, 10, 13, 15, 18],
+                justifyContent: "space-evenly",
+                alignItems: "center",
               }}
             >
-              CLARIDAD
-            </FormLabel>
-            <Grid sx={{ display: "flex", flexDirection: "column" }}>
-              <FormControlLabel
-                value={"SI"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    SI
-                  </Typography>
-                }
+              <FormLabel
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "MontserratBold",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.claridad === "SI"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].claridad = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"NO"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    NO
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.claridad === "NO"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].claridad = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </FormControl>
+              >
+                TIPO DE INDICADOR
+              </FormLabel>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                <FormControlLabel
+                  value={"SELECCIÓN ESTRATEGICO"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SELECCIÓN ESTRATEGICO
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].tipoDeIndicador = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"DE GESTIÓN"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      DE GESTIÓN
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.tipoDeIndicador === "DE GESTIÓN"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].tipoDeIndicador = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+              </Grid>
+            </FormControl>
+          </Grid>
 
-          <FormControl
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
             sx={{
-              width: "90%",
-              height: "70%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <FormLabel
+            <FormControl
+            fullWidth
               sx={{
-                fontFamily: "MontserratBold",
-                fontSize: [10, 10, 13, 15, 18],
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
               }}
             >
-              RELEVANCIA
-            </FormLabel>
-            <Grid sx={{ display: "flex", flexDirection: "column" }}>
-              <FormControlLabel
-                value={"SI"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    SI
-                  </Typography>
-                }
+              <FormLabel
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "MontserratBold",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.relevancia === "SI"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].relevancia = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"NO"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    NO
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.relevancia === "NO"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].relevancia = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </FormControl>
+              >
+                DIMENSIÓN
+              </FormLabel>
 
-          <FormControl
+              <Grid
+                sx={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}
+              >
+                <FormControlLabel
+                  value={"EFICIENCIA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      EFICIENCIA
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.dimension === "EFICIENCIA"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].dimension = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"EFICACIA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      EFICACIA
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.dimension === "EFICACIA"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].dimension = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"CALIDAD"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      CALIDAD
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.dimension === "CALIDAD"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].dimension = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+
+                <FormControlLabel
+                  value={"ECONOMÍA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      ECONOMÍA
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.dimension === "ECONOMÍA"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].dimension = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+              </Grid>
+            </FormControl>
+          </Grid>
+
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
             sx={{
-              width: "90%",
-              height: "70%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <FormLabel
+            <TextField
+              fullWidth
+              rows={5}
+              multiline
+              variant="filled"
               sx={{
-                fontFamily: "MontserratBold",
                 fontSize: [10, 10, 13, 15, 18],
-              }}
-            >
-              ECONOMÍA
-            </FormLabel>
-            <Grid sx={{ display: "flex", flexDirection: "column" }}>
-              <FormControlLabel
-                value={"SI"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    SI
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.economia === "SI"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].economia = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"NO"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    NO
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.economia === "NO"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].economia = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </FormControl>
 
-          <FormControl
+                boxShadow: 2,
+              }}
+              label={"UNIDAD DE MEDIDA"}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                  fontSize: "1vw",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              onChange={(c) => {
+                let y = [...aValorFT];
+                y[0].componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].unidadDeMedida = c.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setAValorFT(y);
+              }}
+              value={
+                aValorFT[0].componentes[componenteSelect]?.actividades[
+                  actividadSelect
+                ]?.unidadDeMedida || ""
+              }
+            />
+          </Grid>
+
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
             sx={{
-              width: "90%",
-              height: "70%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <FormLabel
+            <FormControl
+              fullWidth
               sx={{
-                fontFamily: "MontserratBold",
-                fontSize: [10, 10, 13, 15, 18],
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
               }}
             >
-              MONITOREABLE
-            </FormLabel>
-            <Grid sx={{ display: "flex", flexDirection: "column" }}>
-              <FormControlLabel
-                value={"SI"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    SI
-                  </Typography>
-                }
+              <FormLabel
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "MontserratBold",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.monitoreable === "SI"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].monitoreable = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"NO"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    NO
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.monitoreable === "NO"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].monitoreable = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </FormControl>
+              >
+                CLARIDAD
+              </FormLabel>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                <FormControlLabel
+                  value={"SI"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SI
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.claridad === "SI"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].claridad = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NO"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      NO
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.claridad === "NO"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].claridad = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+              </Grid>
+            </FormControl>
+          </Grid>
 
-          <FormControl
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
             sx={{
-              width: "90%",
-              height: "70%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <FormLabel
+            <FormControl
+              fullWidth
               sx={{
-                fontFamily: "MontserratBold",
-                fontSize: [10, 10, 13, 15, 18],
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
               }}
             >
-              ADECUADO
-            </FormLabel>
-            <Grid sx={{ display: "flex", flexDirection: "column" }}>
-              <FormControlLabel
-                value={"SI"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    SI
-                  </Typography>
-                }
+              <FormLabel
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "MontserratBold",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.adecuado === "SI"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].adecuado = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"NO"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    NO
-                  </Typography>
-                }
-                sx={{
-                  fontFamily: "MontserratMedium",
-                }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.adecuado === "NO"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].adecuado = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </FormControl>
+              >
+                RELEVANCIA
+              </FormLabel>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                <FormControlLabel
+                  value={"SI"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SI
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.relevancia === "SI"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].relevancia = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NO"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      NO
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.relevancia === "NO"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].relevancia = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+              </Grid>
+            </FormControl>
+          </Grid>
 
-          <FormControl
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
             sx={{
-              width: "90%",
-              height: "70%",
-              backgroundColor: "#f0f0f0",
-              boxShadow: 2,
-              fontFamily: "MontserratMedium",
-              justifyContent: "space-evenly",
-              alignItems: "center",
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <FormLabel
+            <FormControl
+              fullWidth
               sx={{
-                fontFamily: "MontserratBold",
-                fontSize: [10, 10, 13, 15, 18],
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
               }}
             >
-              APORTE MARGINAL
-            </FormLabel>
-            <Grid sx={{ display: "flex", flexDirection: "column" }}>
-              <FormControlLabel
-                value={"SI"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    SI
-                  </Typography>
-                }
+              <FormLabel
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "MontserratBold",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.aporte_marginal === "SI"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].aporte_marginal = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"NO"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    NO
-                  </Typography>
-                }
+              >
+                ECONOMÍA
+              </FormLabel>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                <FormControlLabel
+                  value={"SI"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SI
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.economia === "SI"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].economia = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NO"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      NO
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.economia === "NO"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].economia = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+              </Grid>
+            </FormControl>
+          </Grid>
+
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <FormControl
+              fullWidth
+              sx={{
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <FormLabel
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "MontserratBold",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.aporte_marginal === "NO"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].aporte_marginal = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-              <FormControlLabel
-                value={"NA"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [ 10, 10, 11, 12, 13],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    NA
-                  </Typography>
-                }
+              >
+                MONITOREABLE
+              </FormLabel>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                <FormControlLabel
+                  value={"SI"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SI
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.monitoreable === "SI"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].monitoreable = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NO"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      NO
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.monitoreable === "NO"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].monitoreable = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+              </Grid>
+            </FormControl>
+          </Grid>
+
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <FormControl
+              fullWidth
+              sx={{
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <FormLabel
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "MontserratBold",
+                  fontSize: [10, 10, 13, 15, 18],
                 }}
-                control={
-                  <Radio
-                    checked={
-                      aValorFT[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ]?.aporte_marginal === "NA"
-                    }
-                    onChange={(c) => {
-                      let y = [...aValorFT];
-                      y[0].componentes[componenteSelect].actividades[
-                        actividadSelect
-                      ].aporte_marginal = c.target.value;
-                      setAValorFT(y);
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </FormControl>
+              >
+                ADECUADO
+              </FormLabel>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                <FormControlLabel
+                  value={"SI"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SI
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.adecuado === "SI"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].adecuado = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NO"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      NO
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.adecuado === "NO"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].adecuado = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+              </Grid>
+            </FormControl>
+          </Grid>
+
+          <Grid
+            item
+           xl={3.5}
+           lg={3.5}
+            md={3.5}
+            sm={3.5}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <FormControl
+              fullWidth
+              sx={{
+                backgroundColor: "#f0f0f0",
+                boxShadow: 2,
+                fontFamily: "MontserratMedium",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <FormLabel
+                sx={{
+                  fontFamily: "MontserratBold",
+                  fontSize: [10, 10, 13, 15, 18],
+                }}
+              >
+                APORTE MARGINAL
+              </FormLabel>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                <FormControlLabel
+                  value={"SI"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      SI
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.aporte_marginal === "SI"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].aporte_marginal = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NO"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      NO
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.aporte_marginal === "NO"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].aporte_marginal = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  value={"NA"}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 11, 12, 13],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      NA
+                    </Typography>
+                  }
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                  }}
+                  control={
+                    <Radio
+                      checked={
+                        aValorFT[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ]?.aporte_marginal === "NA"
+                      }
+                      onChange={(c) => {
+                        let y = [...aValorFT];
+                        y[0].componentes[componenteSelect].actividades[
+                          actividadSelect
+                        ].aporte_marginal = c.target.value;
+                        setAValorFT(y);
+                      }}
+                    />
+                  }
+                />
+              </Grid>
+            </FormControl>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

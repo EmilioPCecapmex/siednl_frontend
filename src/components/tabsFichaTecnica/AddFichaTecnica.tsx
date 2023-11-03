@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabResumenFT from "./TabResumenFT";
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, useMediaQuery } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
@@ -53,7 +53,6 @@ export default function AddFichaTecnica({
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
     console.log("hola");
-    
   };
 
   const cambiarTab = (option: string) => {
@@ -195,11 +194,19 @@ export default function AddFichaTecnica({
     setValueProposito(st);
   };
 
+  const query = {
+    isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
+
+    isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
+  };
+
   return (
     <Grid
+      container
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
+        height: "100%",
       }}
     >
       {/* {value === 10 ? <TutorialBox initialState={49} endState={50} /> : null}
@@ -209,115 +216,130 @@ export default function AddFichaTecnica({
       {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null} */}
       <Grid
         sx={{
-          width: "auto",
-          height: "90vh",
+          //width: "93vw",
+          width: ["300xp", "750px", "750px", "1100px", "1200px"],
+          height: "82vh",
+
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Grid sx={{ display: "flex" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="inherit"
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="inherit"
+          variant={query.isScrollable ? "scrollable" : "standard"}
+            // centered={query.isScrollable ? false : true}
+            scrollButtons="auto"
+            allowScrollButtonsMobile
             sx={{
               backgroundColor: "#e0e0e0",
               borderRadius: "10px 10px 0 0",
-              boxShadow: 20,
+              GridShadow: 20,
+              width: ["300px", "628px", "900px", "1120px", "1250px", "1450px"],
+              //height: ["30px", "20px", "30px", "40px", "50px"],
             }}
-          >
-            <Tab
-              label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "#af8c55",
-                fontFamily: "MontserratSemiBold",
-                backgroundColor: "#ccc",
-              }}
-              onClick={() => {
-                cambiarTab("atras");
-              }}
-            />
-            <Tab
-              label="Encabezado"
-              value={10}
-              onClick={() => {
-                setValue(10);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Fin / Propósito"
-              value={20}
-              onClick={() => {
-                setValue(20);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Componentes"
-              value={30}
-              onClick={() => {
-                setValue(30);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Actividades"
-              value={40}
-              onClick={() => {
-                setValue(40);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label="Resumen"
-              value={50}
-              onClick={() => {
-                setValue(50);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                backgroundColor: "#ccc",
-              }}
-            />
-            <Tab
-              label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "#af8c55",
-                backgroundColor: "#ccc",
-              }}
-              onClick={() => {
-                cambiarTab("adelante");
-              }}
-            />
-          </Tabs>
-        </Grid>
+        >
+          <Tab
+            label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "#af8c55",
+              fontFamily: "MontserratSemiBold",
+              backgroundColor: "#ccc",
+              width: ["0px", "65px", "130px", "160px", "175px"],
+              display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
+            }}
+            onClick={() => {
+              cambiarTab("atras");
+            }}
+          />
+          <Tab
+            label="Encabezado"
+            value={10}
+            onClick={() => {
+              setValue(10);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+              width: ["15px", "65px", "130px", "160px", "180px"],
+              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+            }}
+          />
+          <Tab
+            label="Fin / Propósito"
+            value={20}
+            onClick={() => {
+              setValue(20);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+              width: ["15px", "65px", "130px", "160px", "180px"],
+              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+            }}
+          />
+          <Tab
+            label="Componentes"
+            value={30}
+            onClick={() => {
+              setValue(30);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+              width: ["15px", "65px", "130px", "160px", "180px"],
+              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+            }}
+          />
+          <Tab
+            label="Actividades"
+            value={40}
+            onClick={() => {
+              setValue(40);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+              width: ["15px", "65px", "130px", "160px", "180px"],
+              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+            }}
+          />
+          <Tab
+            label="Resumen"
+            value={50}
+            onClick={() => {
+              setValue(50);
+            }}
+            sx={{
+              borderRight: "5px solid #b3afaf",
+              color: "black",
+              fontFamily: "MontserratBold",
+              width: ["15px", "65px", "130px", "160px", "180px"],
+              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
+            }}
+          />
+          <Tab
+            label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
+            sx={{
+              //borderRight: "5px solid #b3afaf",
+              color: "#af8c55",
+              backgroundColor: "#ccc",
+              width: ["0px", "65px", "130px", "160px", "175px"],
+              display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
+            }}
+            onClick={() => {
+              cambiarTab("adelante");
+            }}
+          />
+        </Tabs>
 
         <Grid
           sx={{

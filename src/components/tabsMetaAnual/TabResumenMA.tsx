@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Typography, Button, Checkbox } from "@mui/material";
+import { Grid, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -9,8 +9,10 @@ import { IFinMA, IPropositoMA } from "./IFin";
 import { IMA } from "./IMA";
 import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 import { queries } from "../../queries";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 export function TabResumenMA({
- show,
+  show,
   fin,
   proposito,
   componentes,
@@ -302,147 +304,228 @@ export function TabResumenMA({
 
     return x;
   }
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
-    <Box
-     visibility={show ? "visible" : "hidden"}
+    <Grid
+      visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
-        display: "flex",
+        //display: "flex",
         width: "93vw",
         height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
-        alignItems: "center",
-        justifyContent: "center",
+        // alignItems: "center",
+        // justifyContent: "center",
         flexDirection: "column",
         backgroundColor: "#fff",
+        ...(!isSmallScreen && {
+          height: "85%",
+          overflow: "auto",
+          // Otros estilos específicos para pantallas pequeñas
+        }),
       }}
     >
-      <Box
+      <Grid
+        item
+        container
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        display={"flex"}
+        justifyContent={"space-evenly"}
+        alignItems={"center"}
         sx={{
-          width: "90%",
-          border: 0.1,
-          borderColor: "#909090",
-          height: "80%",
-          overflow: "auto",
-          borderRadius: 1,
-          "&::-webkit-scrollbar": {
-            width: ".3vw",
-            mt: 1,
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "rgba(0,0,0,.5)",
-            outline: "1px solid slategrey",
-            borderRadius: 1,
-          },
+          ...(isSmallScreen && {
+            height: "85%",
+            overflow: "auto",
+            // Otros estilos específicos para pantallas pequeñas
+          }),
         }}
       >
-        <Box sx={{ p: 5, display: "flex", flexDirection: "column" }}>
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //display: "flex",
+            //flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{
+              fontFamily: "MontserratBold",
+              borderBottom: 1,
+              mt: 1,
+              textTransform: "uppercase",
+            }}
           >
             Fin
           </Typography>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editFin.metaAnual}
                 onChange={(v) => {
                   setEditFin({ ...editFin, metaAnual: !v.target.checked });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Meta Anual:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {fin[0]?.metaAnual}
             </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editFin.lineaBase}
                 onChange={(v) => {
                   setEditFin({ ...editFin, lineaBase: !v.target.checked });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Línea Base:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {fin[0]?.lineaBase}
             </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editFin.valorNumerador}
                 onChange={(v) => {
                   setEditFin({ ...editFin, valorNumerador: !v.target.checked });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice")
                 ? "Índice: "
                 : "Valor Numerador:"}
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {fin[0]?.valorNumerador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
-          JSON.parse(MIR)
-            .fin.indicador.toLowerCase()
-            .includes("índice") ? null : (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              {localStorage.getItem("Rol") === "Capturador" ? null : (
+        {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
+        JSON.parse(MIR)
+          .fin.indicador.toLowerCase()
+          .includes("índice") ? null : (
+          <Grid
+            item
+            container
+            xl={11}
+            lg={11}
+            md={12}
+            sm={12}
+            xs={12}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+
+              //mt: 1,
+              alignItems: "center",
+              borderBottom: 1,
+              borderColor: "#cfcfcf",
+            }}
+          >
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
+              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                 <Checkbox
                   value={!editFin.valorDenominador}
                   onChange={(v) => {
@@ -452,28 +535,42 @@ export function TabResumenMA({
                     });
                   }}
                 />
-              )}
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              </Grid>
+            )}
+            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
                 Valor Denomidador:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            </Grid>
+
+            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+              <Typography sx={{ fontFamily: "MontserratLight" }}>
                 {fin[0]?.valorDenominador}
               </Typography>
-            </Box>
-          )}
+            </Grid>
+          </Grid>
+        )}
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editFin.sentidoDelIndicador}
                 onChange={(v) => {
@@ -483,26 +580,41 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Sentido del indicador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {fin[0]?.sentidoDelIndicador}
             </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editFin.unidadResponsable}
                 onChange={(v) => {
@@ -512,81 +624,121 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Unidad responsable de reportar el indicador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {fin[0]?.unidadResponsable}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editFin.descIndicador}
                 onChange={(v) => {
                   setEditFin({ ...editFin, descIndicador: !v.target.checked });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Descripción del indicador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {fin[0]?.descIndicador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editFin.descNumerador}
                 onChange={(v) => {
                   setEditFin({ ...editFin, descNumerador: !v.target.checked });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Descripción del numerador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {fin[0]?.descNumerador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editFin.descDenominador}
                 onChange={(v) => {
@@ -596,33 +748,64 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Descripción del denominador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {fin[0]?.descDenominador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //display: "flex",
+            //flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
             Propósito
           </Typography>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editProposito.metaAnual}
                 onChange={(v) => {
@@ -632,27 +815,41 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-              Meta anual:
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Meta Anual:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {proposito[0]?.metaAnual}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editProposito.lineaBase}
                 onChange={(v) => {
@@ -662,26 +859,41 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Linea Base:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {proposito[0]?.lineaBase}
             </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editProposito.valorNumerador}
                 onChange={(v) => {
@@ -691,8 +903,10 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {JSON.parse(MIR)
                 .proposito.indicador.toLowerCase()
                 .includes("indice") ||
@@ -702,29 +916,39 @@ export function TabResumenMA({
                 ? "Índice: "
                 : "Valor Numerador:"}
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {proposito[0]?.valorNumerador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          {JSON.parse(MIR)
-            .proposito.indicador.toLowerCase()
-            .includes("indice") ||
-          JSON.parse(MIR)
-            .proposito.indicador.toLowerCase()
-            .includes("índice") ? null : (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                mt: 1,
-                alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-              }}
-            >
-              {localStorage.getItem("Rol") === "Capturador" ? null : (
+        {JSON.parse(MIR).proposito.indicador.toLowerCase().includes("indice") ||
+        JSON.parse(MIR)
+          .proposito.indicador.toLowerCase()
+          .includes("índice") ? null : (
+          <Grid
+            item
+            container
+            xl={11}
+            lg={11}
+            md={12}
+            sm={12}
+            xs={12}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+
+              //mt: 1,
+              alignItems: "center",
+              borderBottom: 1,
+              borderColor: "#cfcfcf",
+            }}
+          >
+            {localStorage.getItem("Rol") === "Capturador" ? null : (
+              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                 <Checkbox
                   value={!editProposito.valorDenominador}
                   onChange={(v) => {
@@ -734,28 +958,43 @@ export function TabResumenMA({
                     });
                   }}
                 />
-              )}
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              </Grid>
+            )}
+
+            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
                 Valor Denominador:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            </Grid>
+
+            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+              <Typography sx={{ fontFamily: "MontserratLight" }}>
                 {proposito[0]?.valorDenominador}
               </Typography>
-            </Box>
-          )}
+            </Grid>
+          </Grid>
+        )}
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editProposito.sentidoDelIndicador}
                 onChange={(v) => {
@@ -765,27 +1004,41 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Sentido del indicador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {proposito[0]?.sentidoDelIndicador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editProposito.unidadResponsable}
                 onChange={(v) => {
@@ -795,27 +1048,40 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Unidad responsable de reportar el indicador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {proposito[0]?.unidadResponsable}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editProposito.descIndicador}
                 onChange={(v) => {
@@ -825,27 +1091,41 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Descripción del indicador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {proposito[0]?.descIndicador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editProposito.descNumerador}
                 onChange={(v) => {
@@ -855,27 +1135,41 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Descripción del numerador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {proposito[0]?.descNumerador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") === "Capturador" ? null : (
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={!editProposito.descDenominador}
                 onChange={(v) => {
@@ -885,24 +1179,66 @@ export function TabResumenMA({
                   });
                 }}
               />
-            )}
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
               Descripción del denominador:
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
               {proposito[0]?.descDenominador}
             </Typography>
-          </Box>
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //display: "flex",
+            //flexDirection: "row",
 
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
             Componentes
           </Typography>
+        </Grid>
 
-          {componentes.map((index) => {
-            return (
-              <Box key={index}>
+        {componentes.map((index) => {
+          return (
+            <Grid
+              item
+              container
+              xl={11}
+              lg={11}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+              key={index}
+            >
+              <Grid item>
                 <Typography
                   sx={{
                     fontFamily: "MontserratMedium",
@@ -913,18 +1249,28 @@ export function TabResumenMA({
                 >
                   Componente {index}
                 </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                >
-                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+              </Grid>
+
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       value={!editComponentes[index - 1]?.metaAnual}
                       onChange={(v) => {
@@ -933,30 +1279,41 @@ export function TabResumenMA({
                         setEditComponentes(past);
                       }}
                     />
-                  )}
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                  >
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Meta Anual:
                   </Typography>
-                  <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                  >
+                </Grid>
+
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
                     {componenteValor[index - 1]?.metaAnual}
                   </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                >
-                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                </Grid>
+              </Grid>
+
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       value={!editComponentes[index - 1]?.lineaBase}
                       onChange={(v) => {
@@ -965,288 +1322,300 @@ export function TabResumenMA({
                         setEditComponentes(past);
                       }}
                     />
-                  )}
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                  >
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Línea Base:
                   </Typography>
-                  <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                  >
+                </Grid>
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
                     {componenteValor[index - 1]?.lineaBase}
                   </Typography>
-                </Box>
-                <Box
+                </Grid>
+              </Grid>
+
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                <Typography
                   sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
+                    fontFamily: "MontserratMedium",
                   }}
                 >
-                  <Typography
+                  Metas por frecuencia:
+                </Typography>
+
+                {componenteValor[index - 1]?.metasPorFrecuencia[0]
+                  ?.trimestre1 === "" &&
+                componenteValor[index - 1]?.metasPorFrecuencia[0]
+                  ?.trimestre2 === "" &&
+                componenteValor[index - 1]?.metasPorFrecuencia[0]
+                  ?.trimestre3 === "" &&
+                componenteValor[index - 1]?.metasPorFrecuencia[0]
+                  ?.trimestre4 === "" ? (
+                  <Grid
+                    item
+                    container
+                    xl={12}
+                    lg={12}
+                    md={12}
+                    sm={12}
+                    xs={12}
                     sx={{
-                      fontFamily: "MontserratMedium",
-                      width: "20%",
+                      display: "flex",
+                      flexDirection: "row",
+
+                      //mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
                     }}
                   >
-                    Metas por frecuencia:
-                  </Typography>
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editComponentes[index - 1]?.metasPorFrecuencia[0]
+                              .semestre1
+                          }
+                          onChange={(v) => {
+                            let past = [...editComponentes];
+                            past[index - 1].metasPorFrecuencia[0].semestre1 =
+                              !v.target.checked;
+                            setEditComponentes(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Semestre 1:
+                      </Typography>
+                    </Grid>
 
-                  {componenteValor[index - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre1 === "" &&
-                  componenteValor[index - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre2 === "" &&
-                  componenteValor[index - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre3 === "" &&
-                  componenteValor[index - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre4 === "" ? (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-evenly",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editComponentes[index - 1]?.metasPorFrecuencia[0]
-                                .semestre1
-                            }
-                            onChange={(v) => {
-                              let past = [...editComponentes];
-                              past[index - 1].metasPorFrecuencia[0].semestre1 =
-                                !v.target.checked;
-                              setEditComponentes(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Semestre 1:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            componenteValor[index - 1]?.metasPorFrecuencia[0]
-                              ?.semestre1
-                          }
-                        </Typography>
-                      </Box>
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          componenteValor[index - 1]?.metasPorFrecuencia[0]
+                            ?.semestre1
+                        }
+                      </Typography>
+                    </Grid>
 
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editComponentes[index - 1]?.metasPorFrecuencia[0]
-                                .semestre2
-                            }
-                            onChange={(v) => {
-                              let past = [...editComponentes];
-                              past[index - 1].metasPorFrecuencia[0].semestre2 =
-                                !v.target.checked;
-                              setEditComponentes(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Semestre 2:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            componenteValor[index - 1]?.metasPorFrecuencia[0]
-                              ?.semestre2
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editComponentes[index - 1]?.metasPorFrecuencia[0]
+                              .semestre2
                           }
-                        </Typography>
-                      </Box>
-                    </Box>
-                  ) : (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-evenly",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editComponentes[index - 1]?.metasPorFrecuencia[0]
-                                .trimestre1
-                            }
-                            onChange={(v) => {
-                              let past = [...editComponentes];
-                              past[index - 1].metasPorFrecuencia[0].trimestre1 =
-                                !v.target.checked;
-                              setEditComponentes(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Trimestre 1:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            componenteValor[index - 1]?.metasPorFrecuencia[0]
-                              ?.trimestre1
+                          onChange={(v) => {
+                            let past = [...editComponentes];
+                            past[index - 1].metasPorFrecuencia[0].semestre2 =
+                              !v.target.checked;
+                            setEditComponentes(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Semestre 2:
+                      </Typography>
+                    </Grid>
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          componenteValor[index - 1]?.metasPorFrecuencia[0]
+                            ?.semestre2
+                        }
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <Grid
+                    item
+                    container
+                    xl={12}
+                    lg={12}
+                    md={12}
+                    sm={12}
+                    xs={12}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+
+                      //mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editComponentes[index - 1]?.metasPorFrecuencia[0]
+                              .trimestre1
                           }
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editComponentes[index - 1]?.metasPorFrecuencia[0]
-                                .trimestre2
-                            }
-                            onChange={(v) => {
-                              let past = [...editComponentes];
-                              past[index - 1].metasPorFrecuencia[0].trimestre2 =
-                                !v.target.checked;
-                              setEditComponentes(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Trimestre 2:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            componenteValor[index - 1]?.metasPorFrecuencia[0]
-                              ?.trimestre2
+                          onChange={(v) => {
+                            let past = [...editComponentes];
+                            past[index - 1].metasPorFrecuencia[0].trimestre1 =
+                              !v.target.checked;
+                            setEditComponentes(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Trimestre 1:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          componenteValor[index - 1]?.metasPorFrecuencia[0]
+                            ?.trimestre1
+                        }
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editComponentes[index - 1]?.metasPorFrecuencia[0]
+                              .trimestre2
                           }
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editComponentes[index - 1]?.metasPorFrecuencia[0]
-                                .trimestre3
-                            }
-                            onChange={(v) => {
-                              let past = [...editComponentes];
-                              past[index - 1].metasPorFrecuencia[0].trimestre3 =
-                                !v.target.checked;
-                              setEditComponentes(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Trimestre 3:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            componenteValor[index - 1]?.metasPorFrecuencia[0]
-                              ?.trimestre3
+                          onChange={(v) => {
+                            let past = [...editComponentes];
+                            past[index - 1].metasPorFrecuencia[0].trimestre2 =
+                              !v.target.checked;
+                            setEditComponentes(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Trimestre 2:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          componenteValor[index - 1]?.metasPorFrecuencia[0]
+                            ?.trimestre2
+                        }
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editComponentes[index - 1]?.metasPorFrecuencia[0]
+                              .trimestre3
                           }
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editComponentes[index - 1]?.metasPorFrecuencia[0]
-                                .trimestre4
-                            }
-                            onChange={(v) => {
-                              let past = [...editComponentes];
-                              past[index - 1].metasPorFrecuencia[0].trimestre4 =
-                                !v.target.checked;
-                              setEditComponentes(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Trimestre 4:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            componenteValor[index - 1]?.metasPorFrecuencia[0]
-                              ?.trimestre4
+                          onChange={(v) => {
+                            let past = [...editComponentes];
+                            past[index - 1].metasPorFrecuencia[0].trimestre3 =
+                              !v.target.checked;
+                            setEditComponentes(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Trimestre 3:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          componenteValor[index - 1]?.metasPorFrecuencia[0]
+                            ?.trimestre3
+                        }
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editComponentes[index - 1]?.metasPorFrecuencia[0]
+                              .trimestre4
                           }
-                        </Typography>
-                      </Box>
-                    </Box>
-                  )}
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                >
-                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                          onChange={(v) => {
+                            let past = [...editComponentes];
+                            past[index - 1].metasPorFrecuencia[0].trimestre4 =
+                              !v.target.checked;
+                            setEditComponentes(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Trimestre 4:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          componenteValor[index - 1]?.metasPorFrecuencia[0]
+                            ?.trimestre4
+                        }
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                )}
+              </Grid>
+
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       value={!editComponentes[index - 1]?.valorNumerador}
                       onChange={(v) => {
@@ -1255,10 +1624,10 @@ export function TabResumenMA({
                         setEditComponentes(past);
                       }}
                     />
-                  )}
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                  >
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     {JSON.parse(MIR)
                       .componentes[index - 1]?.indicador.toUpperCase()
                       .includes("INDICE") ||
@@ -1268,31 +1637,40 @@ export function TabResumenMA({
                       ? "Índice: "
                       : "Valor Numerador: "}
                   </Typography>
-                  <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                  >
+                </Grid>
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
                     {componenteValor[index - 1]?.valorNumerador}
                   </Typography>
-                </Box>
+                </Grid>
+              </Grid>
 
-                {JSON.parse(MIR)
-                  .componentes[index - 1]?.indicador.toUpperCase()
-                  .includes("INDICE") ||
-                JSON.parse(MIR)
-                  .componentes[index - 1]?.indicador.toUpperCase()
-                  .includes("ÍNDICE") ? null : (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+              {JSON.parse(MIR)
+                .componentes[index - 1]?.indicador.toUpperCase()
+                .includes("INDICE") ||
+              JSON.parse(MIR)
+                .componentes[index - 1]?.indicador.toUpperCase()
+                .includes("ÍNDICE") ? null : (
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={!editComponentes[index - 1]?.valorDenominador}
                         onChange={(v) => {
@@ -1301,32 +1679,41 @@ export function TabResumenMA({
                           setEditComponentes(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       Valor Denominador:
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {componenteValor[index - 1]?.valorDenominador}
                     </Typography>
-                  </Box>
-                )}
+                  </Grid>
+                </Grid>
+              )}
 
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                >
-                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       value={!editComponentes[index - 1]?.sentidoDelIndicador}
                       onChange={(v) => {
@@ -1335,30 +1722,41 @@ export function TabResumenMA({
                         setEditComponentes(past);
                       }}
                     />
-                  )}
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                  >
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Sentido del indicador:
                   </Typography>
-                  <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                  >
+                </Grid>
+
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
                     {componenteValor[index - 1]?.sentidoDelIndicador}
                   </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                >
-                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                </Grid>
+              </Grid>
+
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       value={!editComponentes[index - 1]?.unidadResponsable}
                       onChange={(v) => {
@@ -1367,30 +1765,40 @@ export function TabResumenMA({
                         setEditComponentes(past);
                       }}
                     />
-                  )}
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                  >
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Unidad responsable de reportar el indicador:
                   </Typography>
-                  <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                  >
+                </Grid>
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
                     {componenteValor[index - 1]?.unidadResponsable}
                   </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                >
-                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                </Grid>
+              </Grid>
+
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       value={!editComponentes[index - 1]?.descIndicador}
                       onChange={(v) => {
@@ -1399,30 +1807,40 @@ export function TabResumenMA({
                         setEditComponentes(past);
                       }}
                     />
-                  )}
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                  >
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Descripción del indicador:
                   </Typography>
-                  <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                  >
+                </Grid>
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
                     {componenteValor[index - 1]?.descIndicador}
                   </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                >
-                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                </Grid>
+              </Grid>
+
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       value={!editComponentes[index - 1]?.descNumerador}
                       onChange={(v) => {
@@ -1431,30 +1849,39 @@ export function TabResumenMA({
                         setEditComponentes(past);
                       }}
                     />
-                  )}
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                  >
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Descripción del numerador:
                   </Typography>
-                  <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                  >
+                </Grid>
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
                     {componenteValor[index - 1]?.descNumerador}
                   </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    mt: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                >
-                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                </Grid>
+              </Grid>
+
+              <Grid
+                item
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+              >
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       value={!editComponentes[index - 1]?.descDenominador}
                       onChange={(v) => {
@@ -1463,57 +1890,111 @@ export function TabResumenMA({
                         setEditComponentes(past);
                       }}
                     />
-                  )}
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                  >
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     Descripción del denominador:
                   </Typography>
-                  <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                  >
+                </Grid>
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
                     {componenteValor[index - 1]?.descDenominador}
                   </Typography>
-                </Box>
-              </Box>
-            );
-          })}
+                </Grid>
+              </Grid>
+            </Grid>
+          );
+        })}
 
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //display: "flex",
+            //flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{
+              fontFamily: "MontserratBold",
+              borderBottom: 1,
+              mt: 1,
+              textTransform: "uppercase",
+            }}
           >
             Actividades
           </Typography>
+        </Grid>
 
-          {cValor[0].componentes.map((item, indexComponentes) => {
-            let i = 0;
-            return item.actividades.map((value, indexActividades) => {
-              i++;
-              return (
-                <Box key={indexActividades}>
+        {cValor[0].componentes.map((item, indexComponentes) => {
+          let i = 0;
+          return item.actividades.map((value, indexActividades) => {
+            i++;
+            return (
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mb: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
+                }}
+                key={indexActividades}
+              >
+                <Grid item>
                   <Typography
                     sx={{
                       fontFamily: "MontserratMedium",
                       borderBottom: 1,
-                      mt: 5,
+                      mt: 1,
                       textAlign: "center",
+                      textTransform: "uppercase",
                     }}
                   >
                     Componente {indexComponentes + 1} - Actividad{" "}
                     {indexActividades + 1}
                   </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={!editActividades[indexComponentes]?.metaAnual}
                         onChange={(v) => {
@@ -1522,34 +2003,44 @@ export function TabResumenMA({
                           setEditActividades(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       Meta Anual:
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
                         ].metaAnual
                       }
                     </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={!editActividades[indexComponentes]?.lineaBase}
                         onChange={(v) => {
@@ -1558,223 +2049,227 @@ export function TabResumenMA({
                           setEditActividades(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       Línea Base:
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
                         ].lineaBase
                       }
                     </Typography>
-                  </Box>
-                  <Box
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  <Typography
                     sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
+                      fontFamily: "MontserratMedium",
                     }}
                   >
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-                        width: "20%",
-                      }}
-                    >
-                      Metas por frecuencia:
-                    </Typography>
+                    Metas por frecuencia:
+                  </Typography>
 
-                    <Box
-                      sx={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-evenly",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editActividades[
-                                mapeaindice(indexComponentes, indexActividades)
-                              ]?.metasPorFrecuencia[0].trimestre1
-                            }
-                            onChange={(v) => {
-                              let past = [...editActividades];
-                              past[
-                                mapeaindice(indexComponentes, indexActividades)
-                              ].metasPorFrecuencia[0].trimestre1 =
-                                !v.target.checked;
-                              setEditActividades(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Trimestre 1:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            cValor[0]?.componentes[indexComponentes]
-                              ?.actividades[indexActividades]
-                              .metasPorFrecuencia[0]?.trimestre1
-                          }
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editActividades[
-                                mapeaindice(indexComponentes, indexActividades)
-                              ]?.metasPorFrecuencia[0].trimestre2
-                            }
-                            onChange={(v) => {
-                              let past = [...editActividades];
-                              past[
-                                mapeaindice(indexComponentes, indexActividades)
-                              ].metasPorFrecuencia[0].trimestre2 =
-                                !v.target.checked;
-                              setEditActividades(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Trimestre 2:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            cValor[0].componentes[indexComponentes].actividades[
-                              indexActividades
-                            ].metasPorFrecuencia[0].trimestre2
-                          }
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editActividades[
-                                mapeaindice(indexComponentes, indexActividades)
-                              ]?.metasPorFrecuencia[0].trimestre3
-                            }
-                            onChange={(v) => {
-                              let past = [...editActividades];
-                              past[
-                                mapeaindice(indexComponentes, indexActividades)
-                              ].metasPorFrecuencia[0].trimestre3 =
-                                !v.target.checked;
-                              setEditActividades(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Trimestre 3:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            cValor[0].componentes[indexComponentes].actividades[
-                              indexActividades
-                            ].metasPorFrecuencia[0].trimestre3
-                          }
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {localStorage.getItem("Rol") === "Capturador" ? null : (
-                          <Checkbox
-                            value={
-                              !editActividades[
-                                mapeaindice(indexComponentes, indexActividades)
-                              ]?.metasPorFrecuencia[0].trimestre4
-                            }
-                            onChange={(v) => {
-                              let past = [...editActividades];
-                              past[
-                                mapeaindice(indexComponentes, indexActividades)
-                              ].metasPorFrecuencia[0].trimestre4 =
-                                !v.target.checked;
-                              setEditActividades(past);
-                            }}
-                          />
-                        )}
-                        <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "100%" }}
-                        >
-                          Trimestre 4:
-                        </Typography>
-                        <Typography
-                          sx={{ fontFamily: "MontserratLight", ml: 1 }}
-                        >
-                          {
-                            cValor[0].componentes[indexComponentes].actividades[
-                              indexActividades
-                            ].metasPorFrecuencia[0].trimestre4
-                          }
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Grid
+                    item
+                    container
+                    xl={12}
+                    lg={12}
+                    md={12}
+                    sm={12}
+                    xs={12}
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
+
+                      //mt: 1,
                       alignItems: "center",
                       borderBottom: 1,
                       borderColor: "#cfcfcf",
                     }}
                   >
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editActividades[
+                              mapeaindice(indexComponentes, indexActividades)
+                            ]?.metasPorFrecuencia[0].trimestre1
+                          }
+                          onChange={(v) => {
+                            let past = [...editActividades];
+                            past[
+                              mapeaindice(indexComponentes, indexActividades)
+                            ].metasPorFrecuencia[0].trimestre1 =
+                              !v.target.checked;
+                            setEditActividades(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Trimestre 1:
+                      </Typography>
+                    </Grid>
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          cValor[0]?.componentes[indexComponentes]?.actividades[
+                            indexActividades
+                          ].metasPorFrecuencia[0]?.trimestre1
+                        }
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editActividades[
+                              mapeaindice(indexComponentes, indexActividades)
+                            ]?.metasPorFrecuencia[0].trimestre2
+                          }
+                          onChange={(v) => {
+                            let past = [...editActividades];
+                            past[
+                              mapeaindice(indexComponentes, indexActividades)
+                            ].metasPorFrecuencia[0].trimestre2 =
+                              !v.target.checked;
+                            setEditActividades(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Trimestre 2:
+                      </Typography>
+                    </Grid>
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          cValor[0].componentes[indexComponentes].actividades[
+                            indexActividades
+                          ].metasPorFrecuencia[0].trimestre2
+                        }
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editActividades[
+                              mapeaindice(indexComponentes, indexActividades)
+                            ]?.metasPorFrecuencia[0].trimestre3
+                          }
+                          onChange={(v) => {
+                            let past = [...editActividades];
+                            past[
+                              mapeaindice(indexComponentes, indexActividades)
+                            ].metasPorFrecuencia[0].trimestre3 =
+                              !v.target.checked;
+                            setEditActividades(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Trimestre 3:
+                      </Typography>
+                    </Grid>
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          cValor[0].componentes[indexComponentes].actividades[
+                            indexActividades
+                          ].metasPorFrecuencia[0].trimestre3
+                        }
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                        <Checkbox
+                          value={
+                            !editActividades[
+                              mapeaindice(indexComponentes, indexActividades)
+                            ]?.metasPorFrecuencia[0].trimestre4
+                          }
+                          onChange={(v) => {
+                            let past = [...editActividades];
+                            past[
+                              mapeaindice(indexComponentes, indexActividades)
+                            ].metasPorFrecuencia[0].trimestre4 =
+                              !v.target.checked;
+                            setEditActividades(past);
+                          }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        Trimestre 4:
+                      </Typography>
+                    </Grid>
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {
+                          cValor[0].componentes[indexComponentes].actividades[
+                            indexActividades
+                          ].metasPorFrecuencia[0].trimestre4
+                        }
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.valorNumerador
@@ -1786,10 +2281,10 @@ export function TabResumenMA({
                           setEditActividades(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       {JSON.parse(MIR)
                         .actividades[indexActividades].indicador.toUpperCase()
                         .includes("INDICE") ||
@@ -1799,35 +2294,44 @@ export function TabResumenMA({
                         ? "Índice: "
                         : "Valor numerador: "}
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
                         ].valorNumerador
                       }
                     </Typography>
-                  </Box>
+                  </Grid>
+                </Grid>
 
-                  {JSON.parse(MIR)
-                    .actividades[indexActividades].indicador.toUpperCase()
-                    .includes("INDICE") ||
-                  JSON.parse(MIR)
-                    .actividades[indexActividades].indicador.toUpperCase()
-                    .includes("ÍNDICE") ? null : (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        mt: 1,
-                        alignItems: "center",
-                        borderBottom: 1,
-                        borderColor: "#cfcfcf",
-                      }}
-                    >
-                      {localStorage.getItem("Rol") === "Capturador" ? null : (
+                {JSON.parse(MIR)
+                  .actividades[indexActividades].indicador.toUpperCase()
+                  .includes("INDICE") ||
+                JSON.parse(MIR)
+                  .actividades[indexActividades].indicador.toUpperCase()
+                  .includes("ÍNDICE") ? null : (
+                  <Grid
+                    item
+                    container
+                    xl={11}
+                    lg={11}
+                    md={12}
+                    sm={12}
+                    xs={12}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+
+                      //mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
                           value={
                             !editActividades[indexComponentes]?.valorDenominador
@@ -1839,36 +2343,45 @@ export function TabResumenMA({
                             setEditActividades(past);
                           }}
                         />
-                      )}
-                      <Typography
-                        sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                      >
+                      </Grid>
+                    )}
+                    <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         Valor denominador:
                       </Typography>
-                      <Typography
-                        sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                      >
+                    </Grid>
+                    <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight" }}>
                         {
                           cValor[0].componentes[indexComponentes].actividades[
                             indexActividades
                           ].valorDenominador
                         }
                       </Typography>
-                    </Box>
-                  )}
+                    </Grid>
+                  </Grid>
+                )}
 
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]
@@ -1881,34 +2394,44 @@ export function TabResumenMA({
                           setEditActividades(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       Sentido del Indicador:
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
                         ].sentidoDelIndicador
                       }
                     </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.unidadResponsable
@@ -1920,34 +2443,44 @@ export function TabResumenMA({
                           setEditActividades(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       Unidad responsable de reportar el indicador:
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
                         ].unidadResponsable
                       }
                     </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.descIndicador
@@ -1959,34 +2492,44 @@ export function TabResumenMA({
                           setEditActividades(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       Descripción del indicador:
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
                         ].descIndicador
                       }
                     </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.descNumerador
@@ -1998,34 +2541,44 @@ export function TabResumenMA({
                           setEditActividades(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       Descripción del numerador:
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
                         ].descNumerador
                       }
                     </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         value={
                           !editActividades[indexComponentes]?.descDenominador
@@ -2037,89 +2590,149 @@ export function TabResumenMA({
                           setEditActividades(past);
                         }}
                       />
-                    )}
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", width: "20%" }}
-                    >
+                    </Grid>
+                  )}
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       Descripción del denominador:
                     </Typography>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight", width: "80%" }}
-                    >
+                  </Grid>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
                         cValor[0].componentes[indexComponentes].actividades[
                           indexActividades
                         ].descDenominador
                       }
                     </Typography>
-                  </Box>
-                </Box>
-              );
-            });
-          })}
-        </Box>
-      </Box>
+                  </Grid>
+                </Grid>
+              </Grid>
+            );
+          });
+        })}
+      </Grid>
 
-      <Box
+      <Grid
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
         sx={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          width: "100%",
-          mt: 2,
+          ...(isSmallScreen && {
+            display: "flex",
+            // Otros estilos específicos para pantallas pequeñas
+          }),
+          //flexDirection: "row",
+
+          //mt: 1,
+          alignItems: "center",
+          justifyContent: "center",
+
+          borderBottom: 1,
+          borderColor: "#cfcfcf",
+
+          ...(isSmallScreen && {
+            height: "15%",
+          }),
         }}
       >
-        <Button
-          sx={queries.buttonCancelarSolicitudInscripcion}
-          onClick={() => showResume()}
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Cancelar
-          </Typography>
-        </Button>
-        <Button
-          disabled={isCapturador ? true : false}
-          sx={buttonStyles}
-          onClick={() => setOpenModalSolicitarModif(true)}
-        >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Solicitar Modificación
-          </Typography>
-        </Button>
+          <Button
+            sx={queries.buttonCancelarSolicitudInscripcion}
+            onClick={() => showResume()}
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Cancelar
+            </Typography>
+          </Button>
 
-        <Button
-          sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() => {
-            let estado = "";
-            if (localStorage.getItem("Rol") === "Capturador") {
-              estado = "En Captura";
-            }
-            if (localStorage.getItem("Rol") === "Verificador") {
-              estado = "Borrador Verificador";
-            }
-            if (localStorage.getItem("Rol") === "Administrador") {
-              estado = "Borrador Autorizador";
-            }
-            console.log("Boton Guardar Borrador y estado: ", estado);
-            creaMA(estado);
-          }}
+        </Grid>
+        
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Guardar borrador
-          </Typography>
-        </Button>
+          <Button
+            disabled={isCapturador ? true : false}
+            sx={buttonStyles}
+            onClick={() => setOpenModalSolicitarModif(true)}
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Solicitar Modificación
+            </Typography>
+          </Button>
+        </Grid>
 
-        <Button
-          sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() => {
-            setOpenModalEnviar(true);
-          }}
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            {localStorage.getItem("Rol") === "Administrador"
-              ? "Autorizar"
-              : "Enviar"}
-          </Typography>
-        </Button>
+          <Button
+            sx={queries.buttonContinuarSolicitudInscripcion}
+            onClick={() => {
+              let estado = "";
+              if (localStorage.getItem("Rol") === "Capturador") {
+                estado = "En Captura";
+              }
+              if (localStorage.getItem("Rol") === "Verificador") {
+                estado = "Borrador Verificador";
+              }
+              if (localStorage.getItem("Rol") === "Administrador") {
+                estado = "Borrador Autorizador";
+              }
+              console.log("Boton Guardar Borrador y estado: ", estado);
+              creaMA(estado);
+            }}
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Guardar borrador
+            </Typography>
+          </Button>
+        </Grid>
+
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+        >
+          <Button
+            sx={queries.buttonContinuarSolicitudInscripcion}
+            onClick={() => {
+              setOpenModalEnviar(true);
+            }}
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              {localStorage.getItem("Rol") === "Administrador"
+                ? "Autorizar"
+                : "Enviar"}
+            </Typography>
+          </Button>
+        </Grid>
 
         <ModalSolicitaModif
           open={openModalSolicitarModif}
@@ -2150,8 +2763,8 @@ export function TabResumenMA({
           IdMIR={IdMir}
           showResume={showResume}
         ></ModalEnviarMA>
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
 

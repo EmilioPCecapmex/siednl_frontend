@@ -172,9 +172,12 @@ export const MIR = () => {
         }
       )
       .then((r) => {
-        r.data.data.valida === "true"
-          ? setValidaFecha(true)
-          : setValidaFecha(false);
+        if(r.data.data.valida === "true"){
+          setValidaFecha(true);
+          setTitle("EDITAR");}
+        else{
+          setValidaFecha(false);
+          setTitle("FECHA CAPTURA FINALIZADA");}
       })
       .catch((err) => {});
   };
@@ -202,6 +205,7 @@ export const MIR = () => {
   };
 
   const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
+  const [title_texto, setTitle] = useState("");
 
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
@@ -349,12 +353,12 @@ export const MIR = () => {
     prog: string,
     mir: string
   ) => {
-    console.log("entre:",JSON.parse(mir));
+    console.log("entre:", JSON.parse(mir));
     axios
 
       .post(
         //process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
-       "http://192.168.137.152:7001/api/fill_mir",
+        "http://192.168.137.152:7001/api/fill_mir",
         JSON.parse(mir),
 
         {
@@ -448,7 +452,7 @@ export const MIR = () => {
   }, [findTextStr]);
 
   return (
-    <Grid container sx={{ justifyContent: "space-between", }}>
+    <Grid container sx={{ justifyContent: "space-between" }}>
       <Grid
         item
         xl={12}
@@ -457,7 +461,7 @@ export const MIR = () => {
         sm={12}
         xs={12}
         // height={"7vh"}
-        sx={{ height: "7vh", whitespace: "nowrap", }}
+        sx={{ height: "7vh", whitespace: "nowrap" }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
@@ -469,7 +473,7 @@ export const MIR = () => {
         // display={"flex"}
         // height={"93vh"}
         // alignItems={"center"}
-       
+
         container
         item
         xl={12}
@@ -483,7 +487,6 @@ export const MIR = () => {
           display: "flex",
           height: "90vh",
           alignItems: "center",
-          
         }}
       >
         {showResume ? (
@@ -676,6 +679,8 @@ export const MIR = () => {
                 xl={12}
                 lg={12}
                 md={12}
+                sm={12}
+                xs={12}
                 container
                 // direction="row"
                 // justifyContent="space-around"
@@ -727,7 +732,31 @@ export const MIR = () => {
                       aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
-                      <SearchIcon />
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+
+                          "@media (max-width: 600px)": {
+                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                          },
+
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 25, // Pantalla pequeña (md)
+                          },
+
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 30, // Pantalla mediana (lg)
+                          },
+
+                          "@media (min-width: 1281px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+
+                          "@media (min-width: 2200px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+                        }}
+                      />
                     </IconButton>
                   </Paper>
                 </Grid>
@@ -777,11 +806,14 @@ export const MIR = () => {
             {/* TABLA */}
 
             <Grid
-              container
+              
               item
+              xl={10}
               lg={10}
               md={10}
               sm={10}
+              xs={10}
+              //width={"80%"}
               // height="65vh"
               // direction="row"
               sx={{
@@ -795,14 +827,14 @@ export const MIR = () => {
               <TableContainer
                 sx={{
                   borderRadius: 5,
-                  height: 450,
+                  height: "90%",
                   overflow: "auto",
                   "&::-webkit-scrollbar": {
                     width: ".5vw",
-                    mt: 1,
+                    //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "#edeaea",
+                    backgroundColor: "red",
                     //outline: "1px solid slategrey",
                     borderRadius: 1,
                   },
@@ -942,13 +974,16 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               flexDirection: "row",
-                              display: "grid",
-                              gridTemplateColumns: "repeat(4,1fr)",
+                              //display: "grid",
+                              gridTemplateColumns: "repeat(2,2fr)",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
                             }}
                             align="center"
                             component="th"
                             scope="row"
                           >
+<Grid sx={{display: "flex",}}>
                             <Tooltip
                               PopperProps={{
                                 modifiers: [
@@ -1035,7 +1070,7 @@ export const MIR = () => {
                               actualizado={actualizaContador}
                             />
                             <Tooltip
-                              title="EDITAR"
+                              title={title_texto}
                               PopperProps={{
                                 modifiers: [
                                   {
@@ -1062,7 +1097,8 @@ export const MIR = () => {
                                       validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Verificador") ||
-                                    ((row.Estado === "En Autorización" || row.Estado ==="Autorizada") &&
+                                    ((row.Estado === "En Autorización" ||
+                                      row.Estado === "Autorizada") &&
                                       validaFecha &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador") ||
@@ -1125,6 +1161,8 @@ export const MIR = () => {
                                 </IconButton>
                               </span>
                             </Tooltip>
+</Grid>
+
                           </TableCell>
                         </TableRow>
                       ))}
@@ -1134,7 +1172,7 @@ export const MIR = () => {
                 </Table>
               </TableContainer>
 
-              <Box sx={{ width: "100%" }}>
+              <Grid sx={{ width: "100%" }}>
                 <TablePagination
                   rowsPerPageOptions={[renglonesPagina]}
                   component="div"
@@ -1144,7 +1182,7 @@ export const MIR = () => {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-              </Box>
+              </Grid>
             </Grid>
           </>
         ) : (
