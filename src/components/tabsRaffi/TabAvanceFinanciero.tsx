@@ -13,7 +13,7 @@ import {
 import { queries } from "../../queries";
 import { IIMir } from "../../screens/mir/MIR";
 import { useEffect, useState } from "react";
-import { IMIR } from "../tabsMir/IMIR";
+import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import {
   IAvanceFinancieroRF,
   IRF,
