@@ -61,6 +61,8 @@ export const getUserDetails = (IdCentral: string) => {
       },
     })
     .then(({data,status}) => {
+      console.log("data.data",data.menus[0]);
+      localStorage.setItem('Menus', JSON.stringify(data.menus[0]))
       if (status === 200) {
         localStorage.setItem("IdUsuario", data.data.Id);
         localStorage.setItem(

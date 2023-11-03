@@ -20,6 +20,7 @@ import { createTheme } from "@mui/material/styles";
 import { ProgramaAnualEvaluacion } from "./screens/programaAnauldeEvaluacion/ProgramaAnualdeEvaluacion";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Raffi } from "./screens/raffi/Raffi";
+import Ayuda from "./screens/Ayuda/Ayuda";
 export const appTheme = createTheme({
   palette: {
     primary: {
@@ -85,6 +86,8 @@ function App() {
           <Route path="programaAnualEvaluacion" element={<ProgramaAnualEvaluacion />} />
            <Route path="raffi" element={<Raffi />} /> 
           <Route path="notifications" element={<Notification />} />
+          <Route path="AdministracionAyudas" element={<Ayuda />} />
+
         </Routes>
       </CssBaseline>
     </ThemeProvider>
