@@ -17,7 +17,8 @@ import { IComponente, IMIR } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import { alertaEliminar } from "../alertas/Alertas";
+import DeleteCompActMir from "../modalsMIR/ModalEliminarCompActMir";
+import { alertaError } from "../alertas/Alertas";
 
 export const TabComponente = ({
   // show,
@@ -119,8 +120,13 @@ export const TabComponente = ({
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const eliminarComponente=()=>{
-    removeComponente(componentSelect-1);
-    setComponentSelect(1);
+    // removeComponente(componentSelect-1);
+    // setComponentSelect(1);
+    if(MIR.componentes.length>2){
+      removeComponente(componentSelect);
+      setComponentSelect(MIR.componentes.length - 1);
+    }else
+      alertaError("El minimo de componentes son dos.");
   }
 
   return (
@@ -175,17 +181,26 @@ export const TabComponente = ({
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
-        <IconButton
+
+
+        <DeleteCompActMir
+          tipoelemento={"componente"}
+          numerocomponente={componentSelect}
+          numeroactividad={0}
+          metaanual={false}
+          fichatecnica={false}
+          raffi={true}
+          functelim={eliminarComponente}
+        />
+
+        {/* <IconButton
           onClick={() => {
-            console.log("componentSelect",componentSelect);
-            
-            removeComponente(componentSelect);
-            setComponentSelect(MIR.componentes.length - 1);
+            handleClickOpenEliminar();
           }}
           disabled={MIR.componentes.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
-        </IconButton>
+        </IconButton> */}
       </Grid>
 
       <Grid

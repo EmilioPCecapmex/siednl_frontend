@@ -21,6 +21,7 @@ import { IMIR } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import DeleteCompActMir from "../modalsMIR/ModalEliminarCompActMir";
 
 export const TabActividades = ({
 
@@ -263,18 +264,23 @@ export const TabActividades = ({
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-        <IconButton
+        <DeleteCompActMir
+      tipoelemento={"actividad"}
+      numerocomponente={componenteSelect+1}
+      numeroactividad={actividadSelect+1}
+      metaanual={false}
+      fichatecnica={false}
+      raffi={true}
+      functelim={() => removeActividad(componenteSelect + 1, actividadSelect + 1)}
+    />
+
+        {/* <IconButton
           onClick={() => {
-            
-            
             removeActividad(componenteSelect+1,actividadSelect+1);
-            // setActividadSelect(MIR.componentes[componenteSelect - 1].actividades.length - 1);
-            // setAddA(!addA);
           }}
-        // disabled={MIR.actividades.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
-        </IconButton>
+        </IconButton> */}
       </Grid>
 
       <Grid

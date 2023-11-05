@@ -310,9 +310,8 @@ export default function FullModalMir({
   };
 
   const removeActividad = (componenteSelect: number, actividadSelect: number) => {
-    console.log("componenteSelect", componenteSelect);
-    console.log("actividadSelect", actividadSelect);
-
+    console.log("idmir",IdMir);
+    
     let arrComponentes: IComponente[] = MIRPADRE.componentes
     if (arrComponentes[componenteSelect - 1].actividades.length > 2) {
       arrComponentes = arrComponentes.map((componente, index) => {
