@@ -29,11 +29,13 @@ export const TabActividades = ({
   removeActividad,
   MIR,
   setMIR,
+  idMir,
 }: {
   addActividad: Function;
   removeActividad: Function;
   MIR: IMIR;
   setMIR: Function;
+  idMir: string;
 }) => {
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
@@ -268,10 +270,8 @@ export const TabActividades = ({
       tipoelemento={"actividad"}
       numerocomponente={componenteSelect+1}
       numeroactividad={actividadSelect+1}
-      metaanual={false}
-      fichatecnica={false}
-      raffi={true}
       functelim={() => removeActividad(componenteSelect + 1, actividadSelect + 1)}
+      idMir={idMir}
     />
 
         {/* <IconButton

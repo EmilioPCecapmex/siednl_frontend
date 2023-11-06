@@ -27,6 +27,7 @@ export const TabComponente = ({
   removeComponente,
   MIR,
   setMIR,
+  idMir,
 }: {
   // show: boolean;
   noComponentes: number[];
@@ -34,6 +35,7 @@ export const TabComponente = ({
   removeComponente: Function;
   MIR: IMIR;
   setMIR: Function;
+  idMir:string;
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
@@ -187,10 +189,8 @@ export const TabComponente = ({
           tipoelemento={"componente"}
           numerocomponente={componentSelect}
           numeroactividad={0}
-          metaanual={false}
-          fichatecnica={false}
-          raffi={true}
           functelim={eliminarComponente}
+          idMir={idMir}
         />
 
         {/* <IconButton

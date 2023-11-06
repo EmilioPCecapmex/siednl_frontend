@@ -533,6 +533,7 @@ export default function FullModalMir({
                 removeComponente={removeComponente}
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
+                idMir={IdMir}
               ></TabComponente>
             )}
 
@@ -544,6 +545,7 @@ export default function FullModalMir({
                 removeActividad={removeActividad}
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
+                idMir={IdMir}
               // noComponentes={noComponentes}
               ></TabActividades>
             )}

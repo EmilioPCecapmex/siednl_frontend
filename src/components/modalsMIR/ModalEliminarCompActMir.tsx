@@ -14,19 +14,15 @@ export const DeleteCompActMir = ({
   tipoelemento,
   numerocomponente,
   numeroactividad,
-  metaanual,
-  fichatecnica,
-  raffi,
   functelim,
+  idMir,
 }: {
 
   tipoelemento: string;
   numerocomponente: number;
   numeroactividad: number;
-  metaanual: boolean;
-  fichatecnica: boolean;
-  raffi: boolean;
   functelim: Function;
+  idMir: string;
 }) => {
   const Toast = Swal.mixin({
     toast: true,
@@ -41,13 +37,43 @@ export const DeleteCompActMir = ({
   });
 
   const [open, setOpen] = React.useState(false);
+  const [metaAnual, setMA] = React.useState(false);
+  const [fichaTecnica, setFT] = React.useState(false);
+  const [Raffi, setRF] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+    validaModulos(idMir);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+
+  const validaModulos = (IdMir: string) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/validateModules-mir", {
+        params: {
+          IdMir: IdMir,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        for (const item of r.data.data) {
+          if (item.Modulo === "Meta_Anual") {
+            setMA(true);
+          }
+          if (item.Modulo === "Ficha_Tecnica") {
+            setFT(true);
+          }
+          if (item.Modulo === "Raffi") {
+            setRF(true);
+          }
+        }
+      });
   };
 
   function InformationSection({ text,
@@ -69,14 +95,14 @@ export const DeleteCompActMir = ({
       </div>
     );
   }
-  
+
 
   return (
     <Grid>
-      
-          <IconButton onClick={handleClickOpen}>
-          <DoDisturbOnIcon fontSize="large" />
-          </IconButton>
+
+      <IconButton onClick={handleClickOpen}>
+        <DoDisturbOnIcon fontSize="large" />
+      </IconButton>
       <Dialog fullWidth open={open} onClose={handleClose}>
         <Grid
           sx={{
@@ -100,33 +126,33 @@ export const DeleteCompActMir = ({
               textAlign: "center",
             }}
           >
-            {tipoelemento==="componente"?
-            
-            "¿Desea eliminar el componente#"+numerocomponente+"?"
-          
-            : "¿Desea eliminar la actividad#"+numeroactividad+" del componente#"+numerocomponente+"?"
-          }<br /><br />
+            {tipoelemento === "componente" ?
+
+              "¿Desea eliminar el componente#" + numerocomponente + "?"
+
+              : "¿Desea eliminar la actividad#" + numeroactividad + " del componente#" + numerocomponente + "?"
+            }<br /><br />
           </Typography>
 
-          <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
-                >
-                  {tipoelemento === "componente" ? (
-  <InformationSection
-    text="Toma en cuenta que dicho componente ya contiene información dentro de los siguientes apartados"
-    metaanual={metaanual}
-    fichatecnica={fichatecnica}
-    raffi={raffi}
-  />
-) : (
-  <InformationSection
-    text="Toma en cuenta que dicha actividad ya contiene información dentro de los siguientes apartados"
-    metaanual={metaanual}
-    fichatecnica={fichatecnica}
-    raffi={raffi}
-  />
-)}
-          </Typography>
+          {metaAnual || fichaTecnica || Raffi ? (
+            <Typography sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}>
+              {tipoelemento === "componente" ? (
+                <InformationSection
+                  text="Toma en cuenta que dicho componente puede contener información dentro de los siguientes apartados"
+                  metaanual={metaAnual}
+                  fichatecnica={fichaTecnica}
+                  raffi={Raffi}
+                />
+              ) : (
+                <InformationSection
+                  text="Toma en cuenta que dicha actividad puede contener información dentro de los siguientes apartados"
+                  metaanual={metaAnual}
+                  fichatecnica={fichaTecnica}
+                  raffi={Raffi}
+                />
+              )}
+            </Typography>
+          ) : null}
 
 
         </Grid>
@@ -140,7 +166,7 @@ export const DeleteCompActMir = ({
             justifyContent: "center",
           }}
         >
-          <Button  sx ={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+          <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
@@ -153,7 +179,7 @@ export const DeleteCompActMir = ({
               functelim();
               handleClose();
             }}
-            sx ={queries.buttonContinuarSolicitudInscripcion}
+            sx={queries.buttonContinuarSolicitudInscripcion}
             autoFocus
           >
             <Typography
