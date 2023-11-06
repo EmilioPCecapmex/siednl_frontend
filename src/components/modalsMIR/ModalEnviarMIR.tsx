@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
+import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
 export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
@@ -323,74 +324,76 @@ export default function ModalEnviarMIR({
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MIR)?.componentes.map((componentes: any, index: number) => {
-      // componentes.map((actividades: any, index: number) =>{
-      //   console.log("actividades.actividad: ",actividades[index].actividad);
-      // });
+    JSON.parse(MIR)?.componentes.map((componente: IComponente, indexC: number) => {
+      componente.actividades.map((actividad: IActividad, indexA: number) =>{
+        console.log("actividades.actividad: ",actividad.actividad);
+        if (
+          actividad.resumen === undefined ||
+          /^[\s]*$/.test(actividad.resumen) ||
+          actividad.resumen === null ||
+          actividad.indicador === undefined ||
+          /^[\s]*$/.test(actividad.indicador) ||
+          actividad.formula === undefined ||
+          /^[\s]*$/.test(componente.actividades[indexA].formula) ||
+          actividad.frecuencia === undefined ||
+          /^[\s]*$/.test(componente.actividades[indexA].frecuencia) ||
+          actividad.medios === undefined ||
+          /^[\s]*$/.test( actividad.medios) ||
+          actividad.supuestos === undefined ||
+          /^[\s]*$/.test(actividad.supuestos)
+        ) {
+          err = 1;
+          errores.push(
+            `<hr><strong>ACTIVIDAD ${actividad.actividad, indexA + 1} </strong> INCOMPLETA.`
+          );
+        }
+        if (
+          actividad.resumen === undefined ||
+          /^[\s]*$/.test(actividad.resumen) ||
+          componente.actividades[indexA].resumen === null
+        ) {
+          errores.push(`<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`);
+          err = 1;
+        }
+        console.log("componente.actividades[indexA].indicador: ",componente.actividades[indexA].indicador);
+        
+        if (
+  
+          componente.actividades[indexA].indicador === undefined ||
+          /^[\s]*$/.test(componente.actividades[indexA].indicador)
+        ) {
+          err = 1;
+          errores.push(`<strong> INDICADOR </strong> SIN INFORMACIÓN.`);
+        }
+        if (
+          componente.actividades[indexA].formula === undefined ||
+          /^[\s]*$/.test(componente.actividades[indexA].formula)
+        ) {
+          errores.push(`<strong> FÓRMULA</strong> SIN INFORMACIÓN.`);
+          err = 1;
+        }
+        if (componente.actividades[indexA].frecuencia === undefined || componente.actividades[indexA].frecuencia === "") {
+          errores.push(`<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`);
+          err = 1;
+        }
+        if ( componente.actividades[indexA].medios === undefined || /^[\s]*$/.test( componente.actividades[indexA].medios)) {
+          errores.push(
+            `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+          );
+          err = 1;
+        }
+        if (
+          componente.actividades[indexA].supuestos === undefined ||
+          /^[\s]*$/.test(componente.actividades[indexA].supuestos)
+        ) {
+          errores.push(`<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`);
+          err = 1;
+        }
+        
+      });
       
-      console.log("componentes.actividades.actividad: ",componentes.actividades[index].actividad);
-      if (
-        componentes.actividades[index].resumen === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index].resumen) ||
-        componentes.actividades[index].resumen === null ||
-        componentes.actividades[index].indicador === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index].indicador) ||
-        componentes.actividades[index].formula === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index].formula) ||
-        componentes.actividades[index].frecuencia === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index].frecuencia) ||
-        componentes.actividades[index].medios === undefined ||
-        /^[\s]*$/.test( componentes.actividades[index].medios) ||
-        componentes.actividades[index].supuestos === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index].supuestos)
-      ) {
-        err = 1;
-        errores.push(
-          `<hr><strong>ACTIVIDAD ${componentes.actividades[index].actividad, index + 1} </strong> INCOMPLETA.`
-        );
-      }
-      if (
-        componentes.actividades[index]?.resumen === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index]?.resumen) ||
-        componentes.actividades[index].resumen === null
-      ) {
-        errores.push(`<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`);
-        err = 1;
-      }
-      console.log("componentes.actividades[index].indicador: ",componentes.actividades[index].indicador);
+      //console.log("componente.actividades.resumen: ",componente.actividades[index].resumen);
       
-      if (
-
-        componentes.actividades[index].indicador === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index].indicador)
-      ) {
-        err = 1;
-        errores.push(`<strong> INDICADOR </strong> SIN INFORMACIÓN.`);
-      }
-      if (
-        componentes.actividades[index].formula === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index].formula)
-      ) {
-        errores.push(`<strong> FÓRMULA</strong> SIN INFORMACIÓN.`);
-        err = 1;
-      }
-      if (componentes.actividades[index].frecuencia === undefined || componentes.actividades[index].frecuencia === "") {
-        errores.push(`<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`);
-        err = 1;
-      }
-      if ( componentes.actividades[index].medios === undefined || /^[\s]*$/.test( componentes.actividades[index].medios)) {
-        errores.push(
-          `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
-        );
-        err = 1;
-      }
-      if (
-        componentes.actividades[index].supuestos === undefined ||
-        /^[\s]*$/.test(componentes.actividades[index].supuestos)
-      ) {
-        errores.push(`<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`);
-        err = 1;
-      }
     });
     if (err === 0) {
       createMIR(v);
