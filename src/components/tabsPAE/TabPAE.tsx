@@ -34,42 +34,38 @@ export const TabPAE = ({
     PerteneceA: string;
     FechaCreacion: string;
   }
-  const [open, setOpen] = useState(1);
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [registros, setRegistros] = useState<Registro[]>([]);
   const [registrosFiltrados, setRegistrosFiltrados] = useState<Registro[]>([]);
-  const handleClickComponente = (index: number) => {
-    setOpen(index);
-  };
+ 
   const fileInputRef = useRef<HTMLInputElement | null>(null);;
   const [PerteneceAValue, setPerteneceAValue] = useState("");
-  const [reloadPage, setReloadPage] = useState(false); // Add state variable for page reload
 
 
   const getPerteneceAValue = (value: number) => {
     switch (value) {
-      case 10:
+      case 0:
         setPerteneceAValue("Todos los documentos");
         break;
-      case 20:
+      case 1:
         setPerteneceAValue("PAE");
         break;
-      case 30:
+      case 2:
         setPerteneceAValue("Terminos de referencia");
         break;
-      case 40:
+      case 3:
         setPerteneceAValue("Bitacora de informacion");
         break;
-      case 50:
+      case 4:
         setPerteneceAValue("Informe calidad");
         break;
-      case 60:
+      case 5:
         setPerteneceAValue("Informe final");
         break;
-      case 70:
+      case 6:
         setPerteneceAValue("Anexo CONAC");
         break;
-      case 80:
+      case 7:
         setPerteneceAValue("Reporte Evaluacion");
         break;
     }
@@ -81,7 +77,7 @@ export const TabPAE = ({
     switch (anio) {
       case "2020":
         switch (value) {
-          case 10:
+          case 0:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (
@@ -89,7 +85,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 20:
+          case 1:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("PAE") &&
@@ -97,7 +93,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 30:
+          case 2:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Terminos de referencia") &&
@@ -105,7 +101,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 40:
+          case 3:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Bitacora de informacion") &&
@@ -113,7 +109,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 50:
+          case 4:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Informe calidad") &&
@@ -121,7 +117,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 60:
+          case 5:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Informe final") &&
@@ -129,7 +125,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 70:
+          case 6:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Anexo CONAC") &&
@@ -137,7 +133,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 80:
+          case 7:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Reporte Evaluacion") &&
@@ -149,7 +145,7 @@ export const TabPAE = ({
         break;
       case "2021":
         switch (value) {
-          case 10:
+          case 0:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (
@@ -157,7 +153,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 20:
+          case 1:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("PAE") &&
@@ -165,7 +161,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 30:
+          case 2:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Terminos de referencia") &&
@@ -173,7 +169,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 40:
+          case 3:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Bitacora de informacion") &&
@@ -181,7 +177,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 50:
+          case 4:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Informe calidad") &&
@@ -189,7 +185,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 60:
+          case 5:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Informe final") &&
@@ -197,7 +193,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 70:
+          case 6:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Anexo CONAC") &&
@@ -205,7 +201,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 80:
+          case 7:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Reporte Evaluacion") &&
@@ -217,7 +213,7 @@ export const TabPAE = ({
         break;
       case "2022":
         switch (value) {
-          case 10:
+          case 0:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (
@@ -225,7 +221,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 20:
+          case 1:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("PAE") &&
@@ -233,7 +229,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 30:
+          case 2:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Terminos de referencia") &&
@@ -241,7 +237,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 40:
+          case 3:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Bitacora de informacion") &&
@@ -249,7 +245,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 50:
+          case 4:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Informe calidad") &&
@@ -257,7 +253,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 60:
+          case 5:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Informe final") &&
@@ -265,7 +261,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 70:
+          case 6:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Anexo CONAC") &&
@@ -273,7 +269,7 @@ export const TabPAE = ({
               )
             ));
             break;
-          case 80:
+          case 7:
             setRegistrosFiltrados(registros.filter(
               (x) =>
               (x.PerteneceA.includes("Reporte Evaluacion") &&
@@ -456,7 +452,7 @@ export const TabPAE = ({
 
   const guardarDoc = (archivo: { archivo: File; nombreArchivo: string }, perteneceA: string) => {
     const url = new File([archivo.archivo], archivo.nombreArchivo);
-    let ruta = "/SIEDNL_DEV/PAE/"+perteneceA+"/";
+    let ruta = "/SIEDNL_DEV/PAE/" + perteneceA + "/";
     ruta = ((process.env.REACT_APP_DOC_ROUTE || "") + ruta).trim();
     // console.log("ruta:", ruta)
     let dataArray = new FormData();
@@ -465,8 +461,8 @@ export const TabPAE = ({
     dataArray.append("ADDROUTE", "true");
     dataArray.append("FILE", url);
     dataArray.append("TOKEN", localStorage.getItem("jwtToken") || "");
-    console.log("route:",`${ruta}`,".file:",url);
-    
+    console.log("route:", `${ruta}`, ".file:", url);
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/SaveFile",
@@ -510,9 +506,9 @@ export const TabPAE = ({
 
   const handleClickAddPDF = () => {
     if (fileInputRef.current) {
-      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_"));
+      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ", "_"));
       fileInputRef.current.click();
-      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name, (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/"+(componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_")+"/", componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020", PerteneceAValue)
+      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name, (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ", "_") + "/", componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020", PerteneceAValue)
     }
   };
 
@@ -572,7 +568,6 @@ export const TabPAE = ({
                     key={item}
                     onClick={() => {
                       setComponenteSelect(item - 1);
-                      handleClickComponente(item);
                     }}
                     sx={{
                       height: "7vh",
@@ -588,15 +583,6 @@ export const TabPAE = ({
                       sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
                     >
                       {item === 1 ? "2022" : item === 2 ? "2021" : "2020"}
-                      {/* {(item == 1 || item == 3) && localStorage.getItem("Rol") === "Administrador" && open === item ?
-                        <IconButton
-                          onClick={() => {
-                            creaPAE("2023", "6", "PAE_V2.pdf", "/prueba/");
-                          }}
-                        >
-                          <AddCircleIcon fontSize="small" sx={{ display: "flex", justifyContent: "flex-end" }} />
-                        </IconButton>
-                        : ""} */}
                     </Typography>
                   </ListItemButton>
                   <Divider />
@@ -801,7 +787,7 @@ export const TabPAE = ({
                             scope="row"
                           >
                             <VisualizarPAE
-                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ","_") + "/"}
+                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + PerteneceAValue.replaceAll(" ", "_") + "/"}
                               nombre={row.Nombre}
                               tipo={"pdf"}
                               anio={componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020"}

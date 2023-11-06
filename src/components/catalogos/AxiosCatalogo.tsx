@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { alertaError, alertaExito } from "../alertas/Alertas";
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export const createFechaDeCaptua = (
   Descripcion: string,

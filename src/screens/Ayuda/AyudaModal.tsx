@@ -5,7 +5,7 @@ import { createAyuda, getMenus, getRoles, saveFile } from "./ServicesAyuda";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import { queries } from "../../queries";
 import Swal from "sweetalert2";
-import { alertaError } from "../../components/alertas/Alertas";
+import { alertaError } from "../../components/genericComponents/Alertas";
 
 export interface ILista {
   Id: string;

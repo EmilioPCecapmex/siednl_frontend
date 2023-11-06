@@ -17,7 +17,7 @@ import { IComponente, IMIR } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import { alertaEliminar } from "../alertas/Alertas";
+import { alertaEliminar } from "../genericComponents/Alertas";
 
 export const TabComponente = ({
   // show,

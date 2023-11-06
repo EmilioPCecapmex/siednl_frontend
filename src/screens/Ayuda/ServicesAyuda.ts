@@ -1,7 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { MenuItem } from "./AyudaModal";
-import { alertaError } from "../../components/alertas/Alertas";
+import { alertaError } from "../../components/genericComponents/Alertas";
 
 export const getFileByName= async(ROUTE:string,NOMBRE:string,setState:Function)=>{
   await axios
