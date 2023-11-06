@@ -14,6 +14,59 @@ import TabResumenMIR from "../modalsMA/ModalResumenMA";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 
+ export function newActividad(indexComponente: number, indexActividad: number) {
+  return {
+    actividad: `A${indexActividad}C${indexComponente}`,
+    metaAnual: "",
+    lineaBase: "",
+    metasPorFrecuencia: [
+      {
+        semestre1: "",
+        semestre2: "",
+        trimestre1: "",
+        trimestre2: "",
+        trimestre3: "",
+        trimestre4: "",
+      },
+    ],
+    valorNumerador: "",
+    valorDenominador: "",
+    sentidoDelIndicador: "",
+    unidadResponsable: "",
+    descIndicador: "",
+    descNumerador: "",
+    descDenominador: "",
+  };
+}
+
+export function newComponente(index: number) {
+  let componente: IComponenteMA;
+  componente = {
+    componentes: "C" + (index + 1),
+    metaAnual: "",
+    lineaBase: "",
+    metasPorFrecuencia: [
+      {
+        semestre1: "",
+        semestre2: "",
+        trimestre1: "",
+        trimestre2: "",
+        trimestre3: "",
+        trimestre4: "",
+      },
+    ],
+    valorNumerador: "",
+    valorDenominador: "",
+    sentidoDelIndicador: "",
+    unidadResponsable: "",
+    descIndicador: "",
+    descNumerador: "",
+    descDenominador: "",
+    actividades: [1, 2].map((item) => newActividad(index, item)),
+  };
+  return componente;
+}
+
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -51,35 +104,35 @@ export default function AddMetaAnual({
 
   const jsonMir = JSON.parse(MIR);
 
-  useEffect(() => {
-    let act: number[] = [];
-    let comp: string[] = [];
-    let ambos: any = [];
-    let i = 1;
-    let j = 1;
+  // useEffect(() => {
+  //   let act: number[] = [];
+  //   let comp: string[] = [];
+  //   let ambos: any = [];
+  //   let i = 1;
+  //   let j = 1;
 
-    jsonMir.componentes.map((x: any) => {
-      comp.push("C" + j);
-      jsonMir.actividades.map((a: any) => {
-        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-          act.push(i);
-          i++;
-        }
-      });
-      ambos.push({ actividades: act, componente: "C" + j });
-      act = [];
-      i = 1;
-      j++;
-    });
+  //   jsonMir.componentes.map((x: any) => {
+  //     comp.push("C" + j);
+  //     jsonMir.actividades.map((a: any) => {
+  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+  //         act.push(i);
+  //         i++;
+  //       }
+  //     });
+  //     ambos.push({ actividades: act, componente: "C" + j });
+  //     act = [];
+  //     i = 1;
+  //     j++;
+  //   });
 
-    setCompAct(ambos);
+  //   setCompAct(ambos);
 
-    jsonMir.componentes.map((value: any, index: number) => {
-      if (index > 1 && index < 6)
-        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   jsonMir.componentes.map((value: any, index: number) => {
+  //     if (index > 1 && index < 6)
+  //       setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // COMPONENTES ------------------ No me sirve para FichaTecnica
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
@@ -88,97 +141,69 @@ export default function AddMetaAnual({
     Array<IComponenteMA>
   >(
     noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
+      return newComponente(x);
     })
   );
+
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     setValoresComponenteMA(state);
   };
 
   // ACTIVIDADES
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  const componenteActividad = [
-    {
-      componentes: noComponentes.map((x) => [1, 2]),
-    },
-  ];
+  // const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
+  // const componenteActividad = [
+  //   {
+  //     componentes: noComponentes.map((x) => [1, 2]),
+  //   },
+  // ];
 
-  const [cValorMA, setCValorMA] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "",
-                metaAnual: "",
-                lineaBase: "",
-                metasPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
+  // const [cValorMA, setCValorMA] = useState(
+  //   componenteActividad.map((item) => {
+  //     return {
+  //       componentes: item.componentes.map((x, index) => {
+  //         return {
+  //           actividades: x.map((c, index2) => {
+  //             return {
+  //               actividad: "",
+  //               metaAnual: "",
+  //               lineaBase: "",
+  //               metasPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //               valorNumerador: "",
+  //               valorDenominador: "",
+  //               sentidoDelIndicador: "",
+  //               unidadResponsable: "",
+  //               descIndicador: "",
+  //               descNumerador: "",
+  //               descDenominador: "",
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   })
+  // );
 
-  const asignarCValorMA = (state: Array<ICValorMA>) => {
-    setCValorMA(state);
-  };
+  // const asignarCValorMA = (state: Array<ICValorMA>) => {
+  //   setCValorMA(state);
+  // };
 
   useEffect(() => {
     let arrayMA = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [
-          {
-            semestre1: "",
-            semestre2: "",
-            trimestre1: "",
-            trimestre2: "",
-            trimestre3: "",
-            trimestre4: "",
-          },
-        ],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
+      return newComponente(x)
     });
     setValoresComponenteMA(arrayMA);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log("valoresComponenteMA: ",valoresComponenteMA);
+    console.log("noComponentes: ",noComponentes);
+    
+    
   }, []);
 
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
@@ -369,12 +394,13 @@ export default function AddMetaAnual({
               showMirFnc={showMirFnc}
               show={value === 30 ? true : false}
               valoresComponenteMAFnc={valoresComponenteMAFnc}
+              valoresComponenteMA ={valoresComponenteMA}
               noComponentes={noComponentes}
               MA={MA}
               MIR={MIR}
             ></TabComponenteMA>
 
-            <TabActividadesMA
+            {/* <TabActividadesMA
               setTxtShowFnc={showFnc}
               showMirFnc={showMirFnc}
               compAct={compAct}
@@ -396,7 +422,7 @@ export default function AddMetaAnual({
               IdMA={IdMA}
               showResume={showResume}
               MIR={MIR}
-            ></TabResumenMA>
+            ></TabResumenMA> */}
 
             <TabResumenMIR
               show={showMir}
@@ -405,7 +431,6 @@ export default function AddMetaAnual({
               MIR={MIR}
               noComponentes={noComponentes}
             ></TabResumenMIR>
-            
           </Grid>
         </Grid>
       </Grid>

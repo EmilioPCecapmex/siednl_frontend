@@ -8,5 +8,5 @@ export interface IMA {
 
   componentes: Array<IComponenteMA>;
 
-  actividades: Array<IActividadesMA>;
+  //actividades: Array<IActividadesMA>;
 }
