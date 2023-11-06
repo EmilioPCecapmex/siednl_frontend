@@ -9,7 +9,7 @@ import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
+import { IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
 import TabResumenMIR from "../modalsMA/ModalResumenMA";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
@@ -42,7 +42,7 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 export function newComponente(index: number) {
   let componente: IComponenteMA;
   componente = {
-    componentes: "C" + (index + 1),
+    componentes: "C" + (index),
     metaAnual: "",
     lineaBase: "",
     metasPorFrecuencia: [
@@ -80,6 +80,28 @@ export default function AddMetaAnual({
   IdMir: string;
   IdMA: string;
 }) {
+function getNumComponents(){
+   let aux=JSON.parse(MIR).componentes?.length;
+   let arrayComponents=[]
+   for(let i =0;i<aux;i++){
+    arrayComponents.push((i+1))
+  }
+
+   return arrayComponents
+  }
+
+  useEffect(() => {
+    console.log("MIR",MIR);
+    console.log("MA",MA);
+    // console.log("showResume",showResume);
+    console.log("IdMir",IdMir);
+    console.log("IdMA",IdMA);
+    // getNumComponents();
+    console.log("numero de componentes de la mir",getNumComponents());
+  }, [])
+
+  
+  
   const [value, setValue] = React.useState(20);
 
   const [showMir, setShowMir] = React.useState(false);
@@ -135,15 +157,25 @@ export default function AddMetaAnual({
   // }, []);
 
   // COMPONENTES ------------------ No me sirve para FichaTecnica
-  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+  // const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
   const [valoresComponenteMA, setValoresComponenteMA] = useState<
     Array<IComponenteMA>
   >(
-    noComponentes.map((x, index) => {
+    [1,2].map((x, index) => {
       return newComponente(x);
     })
   );
+
+  useEffect(()=>{
+    let auxComponentesMA:IComponenteMA[]=[]
+
+    getNumComponents().map((item)=>{auxComponentesMA.push(newComponente(item))}) 
+    
+    setValoresComponenteMA(auxComponentesMA)
+    
+    console.log("auxComponentesMA",auxComponentesMA);
+  },[MIR])
 
   const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     setValoresComponenteMA(state);
@@ -194,17 +226,17 @@ export default function AddMetaAnual({
   //   setCValorMA(state);
   // };
 
-  useEffect(() => {
-    let arrayMA = noComponentes.map((x, index) => {
-      return newComponente(x)
-    });
-    setValoresComponenteMA(arrayMA);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    console.log("valoresComponenteMA: ",valoresComponenteMA);
-    console.log("noComponentes: ",noComponentes);
+  // useEffect(() => {
+  //   let arrayMA = noComponentes.map((x, index) => {
+  //     return newComponente(x)
+  //   });
+  //   setValoresComponenteMA(arrayMA);
+  //   eslint-disable-next-line react-hooks/exhaustive-deps
+  //   console.log("valoresComponenteMA: ",valoresComponenteMA);
+  //   console.log("noComponentes: ",noComponentes);
     
     
-  }, []);
+  // }, []);
 
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
@@ -395,7 +427,7 @@ export default function AddMetaAnual({
               show={value === 30 ? true : false}
               valoresComponenteMAFnc={valoresComponenteMAFnc}
               valoresComponenteMA ={valoresComponenteMA}
-              noComponentes={noComponentes}
+              noComponentes={[1,2]}
               MA={MA}
               MIR={MIR}
             ></TabComponenteMA>
@@ -429,7 +461,7 @@ export default function AddMetaAnual({
               showMirFnc={showMirFnc}
               showSt={showSt}
               MIR={MIR}
-              noComponentes={noComponentes}
+              noComponentes={[1,2]}
             ></TabResumenMIR>
           </Grid>
         </Grid>
