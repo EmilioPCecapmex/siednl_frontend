@@ -18,7 +18,7 @@ import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import DeleteCompActMir from "../modalsMIR/ModalEliminarCompActMir";
-import { alertaError } from "../alertas/Alertas";
+import { alertaError } from "../genericComponents/Alertas";
 
 export const TabComponente = ({
   // show,

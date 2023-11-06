@@ -11,7 +11,7 @@ import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import AyudasModal from "./AyudaModal";
 
 import { deleteFile, getAyuda } from "./ServicesAyuda";
-import { alertaError, alertaExito } from "../../components/alertas/Alertas";
+import { alertaError, alertaExito } from "../../components/genericComponents/Alertas";
 
 export interface IAyudaVideo { 
   Id: string,

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { alertaError } from "../../alertas/Alertas";
+import { alertaError } from "../../genericComponents/Alertas";
 
 export const getLista = (tabla:string,valorCondicion:string,setState:Function) => {
     axios

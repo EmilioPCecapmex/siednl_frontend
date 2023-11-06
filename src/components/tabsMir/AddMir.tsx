@@ -12,7 +12,7 @@ import TabEncabezado from "./TabEncabezado";
 import TabFinProposito from "./TabFinProposito";
 import TabResumen, { IComponenteMirEdit } from "./TabResumen";
 
-import { alertaError } from "../alertas/Alertas";
+import { alertaError } from "../genericComponents/Alertas";
 
 function newActividad(indexComponente: number, indexActividad: number) {
   return {

@@ -23,7 +23,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { queries } from "../../queries";
-import { alertaError } from "../alertas/Alertas";
+import { alertaError } from "../genericComponents/Alertas";
 import { createFechaDeCaptua } from "./AxiosCatalogo";
 
 const modulo = [
