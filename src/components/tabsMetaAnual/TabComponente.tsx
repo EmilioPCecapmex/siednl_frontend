@@ -19,7 +19,7 @@ import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import axios from "axios";
-
+import { newComponente, newActividad } from "./AddMetaAnual";
 export const TabComponenteMA = ({
   show,
   valoresComponenteMAFnc,
@@ -28,6 +28,7 @@ export const TabComponenteMA = ({
   setTxtShowFnc,
   MA,
   MIR,
+  valoresComponenteMA,
 }: {
   show: boolean;
   valoresComponenteMAFnc: Function;
@@ -36,6 +37,9 @@ export const TabComponenteMA = ({
   setTxtShowFnc: Function;
   MA: string;
   MIR: string;
+  
+  
+  valoresComponenteMA: IComponenteMA[]
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
@@ -53,6 +57,11 @@ export const TabComponenteMA = ({
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
+    useEffect(() => {
+      console.log("componentSelect",componentSelect);
+      
+    }, [componentSelect])
+    
   useEffect(() => {
     let comp: IComponenteMA[] = [];
 
@@ -114,12 +123,20 @@ export const TabComponenteMA = ({
           MA === "" ? "" : jsonMA?.componentes[index]?.descNumerador || "",
         descDenominador:
           MA === "" ? "" : jsonMA?.componentes[index]?.descDenominador || "",
+          actividades: MA === "" ? "" : jsonMA?.componentes[index].actividades || ""
       });
+
     });
 
     setComponentesValues(comp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noComponentes]);
+
+  useEffect(() => {
+   
+    valoresComponenteMA
+  }, [])
+  
 
   useEffect(() => {
     valoresComponenteMAFnc(componentesValues);
@@ -398,7 +415,7 @@ export const TabComponenteMA = ({
           display: "flex",
         }}
       >
-        {!isSmallScreen && (
+        {/* {!isSmallScreen && (
           <List
             sx={{
               width: "15vw",
@@ -460,7 +477,7 @@ export const TabComponenteMA = ({
               );
             })}
           </List>
-        )}
+        )} */}
 
         <Grid
           item
@@ -479,7 +496,7 @@ export const TabComponenteMA = ({
             },
           }}
         >
-          {isSmallScreen && (
+          {/* {isSmallScreen && (
             <Grid>
               <List>
                 {noComponentes.map((item) => {
@@ -525,7 +542,7 @@ export const TabComponenteMA = ({
                 })}
               </List>
             </Grid>
-          )}
+          )} */}
 
           <Grid
             item
