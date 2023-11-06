@@ -161,10 +161,7 @@ function getNumComponents(){
 
   const [valoresComponenteMA, setValoresComponenteMA] = useState<
     Array<IComponenteMA>
-  >(
-    [1,2].map((x, index) => {
-      return newComponente(x);
-    })
+  >([]
   );
 
   useEffect(()=>{
@@ -175,11 +172,11 @@ function getNumComponents(){
     setValoresComponenteMA(auxComponentesMA)
     
     console.log("auxComponentesMA",auxComponentesMA);
-  },[MIR])
+  },[])
 
-  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-    setValoresComponenteMA(state);
-  };
+  // const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
+  //   setValoresComponenteMA(state);
+  // };
 
   // ACTIVIDADES
   // const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
@@ -232,7 +229,7 @@ function getNumComponents(){
   //   });
   //   setValoresComponenteMA(arrayMA);
   //   eslint-disable-next-line react-hooks/exhaustive-deps
-  //   console.log("valoresComponenteMA: ",valoresComponenteMA);
+  //   
   //   console.log("noComponentes: ",noComponentes);
     
     
@@ -425,7 +422,7 @@ function getNumComponents(){
               setTxtShowFnc={showFnc}
               showMirFnc={showMirFnc}
               show={value === 30 ? true : false}
-              valoresComponenteMAFnc={valoresComponenteMAFnc}
+              valoresComponenteMAFnc={()=>{}}
               valoresComponenteMA ={valoresComponenteMA}
               noComponentes={[1,2]}
               MA={MA}
