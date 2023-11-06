@@ -37,15 +37,14 @@ export const TabComponenteMA = ({
   setTxtShowFnc: Function;
   MA: string;
   MIR: string;
-  
-  
   valoresComponenteMA: IComponenteMA[]
+
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
-  const [componentesValues, setComponentesValues] = useState<
-    Array<IComponenteMA>
-  >([]);
+  // const [componentesValues, setComponentesValues] = useState<
+  //   Array<IComponenteMA>
+  // >([]);
 
   let jsonMA =
     MA === ""
@@ -135,13 +134,15 @@ export const TabComponenteMA = ({
   useEffect(() => {
    
     // valoresComponenteMA
+    console.log("valoresComponenteMA en tab de componentes: ",valoresComponenteMA);
+    
   }, [])
   
 
-  useEffect(() => {
-    valoresComponenteMAFnc(componentesValues);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [componentesValues]);
+  // useEffect(() => {
+  //   valoresComponenteMAFnc(componentesValues);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [componentesValues]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
@@ -262,7 +263,7 @@ export const TabComponenteMA = ({
 
   const changeFormula2 = (txt: string) => {
     if (frecuencia === "trimestral") {
-      componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre1 =
+      valoresComponenteMA[componentSelect - 1].metasPorFrecuencia[0].trimestre1 =
         txt.split(",")[0];
       componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 =
         txt.split(",")[1];
@@ -435,10 +436,10 @@ export const TabComponenteMA = ({
               },
             }}
           >
-            {noComponentes.map((item) => {
+            {valoresComponenteMA.map((item, index) => {
               return (
                 <Grid
-                  key={item}
+                  key={index}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -447,10 +448,10 @@ export const TabComponenteMA = ({
                 >
                   <Divider />
                   <ListItemButton
-                    selected={item === componentSelect ? true : false}
-                    key={item}
+                    selected={index === componentSelect ? true : false}
+                    key={index}
                     onClick={() => {
-                      setComponentSelect(item);
+                      setComponentSelect(index);
                     }}
                     sx={{
                       height: "7vh",
@@ -468,7 +469,7 @@ export const TabComponenteMA = ({
                         fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                     >
-                      COMPONENTE {item}
+                      COMPONENTE {index}
                     </Typography>
                   </ListItemButton>
 
