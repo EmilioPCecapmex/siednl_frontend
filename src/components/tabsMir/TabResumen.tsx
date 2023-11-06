@@ -2431,6 +2431,7 @@ export interface IComponenteMirEdit {
   frecuencia: boolean;
   medios: boolean;
   supuestos: boolean;
+  actividades: IActividadesMirEdit[]
 }
 
 export interface IActividadesMirEdit {

@@ -17,6 +17,18 @@ export interface IMIR {
   componentes: IComponente[];
 }
 
+export interface IMIREdit {
+  encabezado: IEncabezadoEdit;
+
+  fin: IFinEdit;
+
+  proposito: IPropositoEdit;
+
+  componentes: Array<IComponenteMirEdit>;
+
+  // actividades: Array<IActividadesMirEdit>;
+}
+
 export interface IComponente {
   componente: string;
   resumen: string;
@@ -39,17 +51,7 @@ export interface IActividad {
 }
 
 
-export interface IMIREdit {
-  encabezado: IEncabezadoEdit;
 
-  fin: IFinEdit;
-
-  proposito: IPropositoEdit;
-
-  componentes: Array<IComponenteMirEdit>;
-
-  // actividades: Array<IActividadesMirEdit>;
-}
 
 export interface ICValor {
   [x: string]: any;

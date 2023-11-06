@@ -249,6 +249,9 @@ export default function ModalEnviarMIR({
 
   const checkComponentes = (v: string) => {
     JSON.parse(MIR)?.componentes.map((componente: any, index: number) => {
+      console.log("componente.indicador: ",componente.indicador);
+      //console.log(" en check componentes componente.actividades[index].actividad: ",componente.actividades[index][0].actividad);
+      
       if (
         componente.resumen === undefined ||
         /^[\s]*$/.test(componente.resumen) ||
@@ -320,62 +323,70 @@ export default function ModalEnviarMIR({
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MIR)?.actividades.map((actividad: any, index: number) => {
+    JSON.parse(MIR)?.componentes.map((componentes: any, index: number) => {
+      // componentes.map((actividades: any, index: number) =>{
+      //   console.log("actividades.actividad: ",actividades[index].actividad);
+      // });
+      
+      console.log("componentes.actividades.actividad: ",componentes.actividades[index].actividad);
       if (
-        actividad.resumen === undefined ||
-        /^[\s]*$/.test(actividad.resumen) ||
-        actividad.resumen === null ||
-        actividad.indicador === undefined ||
-        /^[\s]*$/.test(actividad.indicador) ||
-        actividad.formula === undefined ||
-        /^[\s]*$/.test(actividad.formula) ||
-        actividad.frecuencia === undefined ||
-        /^[\s]*$/.test(actividad.frecuencia) ||
-        actividad.medios === undefined ||
-        /^[\s]*$/.test(actividad.medios) ||
-        actividad.supuestos === undefined ||
-        /^[\s]*$/.test(actividad.supuestos)
+        componentes.actividades[index].resumen === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index].resumen) ||
+        componentes.actividades[index].resumen === null ||
+        componentes.actividades[index].indicador === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index].indicador) ||
+        componentes.actividades[index].formula === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index].formula) ||
+        componentes.actividades[index].frecuencia === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index].frecuencia) ||
+        componentes.actividades[index].medios === undefined ||
+        /^[\s]*$/.test( componentes.actividades[index].medios) ||
+        componentes.actividades[index].supuestos === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index].supuestos)
       ) {
         err = 1;
         errores.push(
-          `<hr><strong>ACTIVIDAD ${actividad.actividad} </strong> INCOMPLETA.`
+          `<hr><strong>ACTIVIDAD ${componentes.actividades[index].actividad, index + 1} </strong> INCOMPLETA.`
         );
       }
       if (
-        actividad.resumen === undefined ||
-        /^[\s]*$/.test(actividad.resumen) ||
-        actividad.resumen === null
+        componentes.actividades[index]?.resumen === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index]?.resumen) ||
+        componentes.actividades[index].resumen === null
       ) {
         errores.push(`<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`);
         err = 1;
       }
+      console.log("componentes.actividades[index].indicador: ",componentes.actividades[index].indicador);
+      
       if (
-        actividad.indicador === undefined ||
-        /^[\s]*$/.test(actividad.indicador)
+
+        componentes.actividades[index].indicador === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index].indicador)
       ) {
         err = 1;
         errores.push(`<strong> INDICADOR </strong> SIN INFORMACIÓN.`);
       }
       if (
-        actividad.formula === undefined ||
-        /^[\s]*$/.test(actividad.formula)
+        componentes.actividades[index].formula === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index].formula)
       ) {
         errores.push(`<strong> FÓRMULA</strong> SIN INFORMACIÓN.`);
         err = 1;
       }
-      if (actividad.frecuencia === undefined || actividad.frecuencia === "") {
+      if (componentes.actividades[index].frecuencia === undefined || componentes.actividades[index].frecuencia === "") {
         errores.push(`<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`);
         err = 1;
       }
-      if (actividad.medios === undefined || /^[\s]*$/.test(actividad.medios)) {
+      if ( componentes.actividades[index].medios === undefined || /^[\s]*$/.test( componentes.actividades[index].medios)) {
         errores.push(
           `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
         );
         err = 1;
       }
       if (
-        actividad.supuestos === undefined ||
-        /^[\s]*$/.test(actividad.supuestos)
+        componentes.actividades[index].supuestos === undefined ||
+        /^[\s]*$/.test(componentes.actividades[index].supuestos)
       ) {
         errores.push(`<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`);
         err = 1;
@@ -544,7 +555,7 @@ export default function ModalEnviarMIR({
       //  }
       console.log("Entre al tipo usuario en useEffect");
       console.log("IdEntidad: ", localStorage.getItem("IdEntidad"));
-
+      console.log("IdApp: ", localStorage.getItem("IdApp"));
       axios
 
         /////listado
@@ -554,7 +565,7 @@ export default function ModalEnviarMIR({
           {
             TipoUsuario: localStorage.getItem("Rol"),
             IdEntidad: localStorage.getItem("IdEntidad"),
-            IdApp: localStorage.getItem("dApp"),
+            IdApp: localStorage.getItem("IdApp"),
           },
 
           {
