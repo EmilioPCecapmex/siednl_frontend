@@ -1,5 +1,5 @@
 import axios from "axios";
-import { alertaError } from "../../components/alertas/Alertas";
+import { alertaError } from "../../components/genericComponents/Alertas";
 // este no sirve y se va a borrar
 export const listaActividadInstitucional = (setState: Function) => {
   axios
