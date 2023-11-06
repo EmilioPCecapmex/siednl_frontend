@@ -39,6 +39,7 @@ import { IActividadesInstitucionales } from "./InterfacesActividadesInstituciona
 import { listaActividadInstitucional } from "../../services/actividadesinstitucionales_services/Actividadades_endpoints";
 import { getInstituciones } from "../../services/instituciones_services/instituciones";
 import { queries } from "../../queries";
+import { getListaAI } from "../../services/actividadesinstitucionales_services/Actividadades_endpoints";
 export let resumeDefaultAI = true;
 export let setResumeDefaultAI = () => {
   resumeDefaultAI = !resumeDefaultAI;
@@ -138,7 +139,8 @@ export const ActividadesInstitucionales = ({}: {}) => {
 
   useEffect(() => {
     setOpenTabs(true);
-    listaActividadInstitucional(setAi);
+    //listaActividadInstitucional(setAi);
+    getListaAI(setAi)
   }, []);
 
   useEffect(() => {

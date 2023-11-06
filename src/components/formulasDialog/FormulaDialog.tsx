@@ -184,7 +184,7 @@ export const FormulaDialog = ({
             InputLabelProps={{
               style: {
                 fontFamily: "MontserratSemiBold",
-                fontSize: ".8vw",
+                //fontSize: ".8vw",
               },
             }}
             onChange={(c) =>
@@ -198,7 +198,7 @@ export const FormulaDialog = ({
             InputProps={{
               style: {
                 fontFamily: "MontserratRegular",
-                fontSize: ".8vw",
+               // fontSize: ".8vw",
               },
             }}
           />
@@ -214,7 +214,7 @@ export const FormulaDialog = ({
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
+                //  fontSize: ".8vw",
                 },
               }}
               multiline
@@ -231,7 +231,7 @@ export const FormulaDialog = ({
               InputProps={{
                 style: {
                   fontFamily: "MontserratRegular",
-                  fontSize: ".8vw",
+                  //fontSize: ".8vw",
                 },
               }}
             />

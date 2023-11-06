@@ -46,7 +46,10 @@ export const TabActividadesMA = ({
   // business logic-------------------------------------------------------------------------------
   const componenteActividad = [
     {
-      componentes: componentes.map((x) => compAct),
+      componentes: componentes.map((x) => (
+        compAct
+        
+        )),
     },
   ];
 
@@ -60,6 +63,11 @@ export const TabActividadesMA = ({
       ? JSON.parse(MA)[0]
       : JSON.parse(MA);
 
+      useEffect(() => {
+       console.log("jsonMA: ",jsonMA);
+       
+      }, [MA])
+      
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
@@ -470,7 +478,7 @@ export const TabActividadesMA = ({
         frecuencia={"trimestral"}
       />
 
-      <Grid
+      {/* <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -498,7 +506,7 @@ export const TabActividadesMA = ({
         >
           COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
         </Typography>
-      </Grid>
+      </Grid> */}
 
       <Grid
         sx={{
@@ -527,7 +535,7 @@ export const TabActividadesMA = ({
               },
             }}
           >
-            {componentes.map((item, index) => {
+            {componentes.map((componente, index) => {
               return (
                 <Grid
                   key={index}
@@ -539,11 +547,11 @@ export const TabActividadesMA = ({
                 >
                   <Divider />
                   <ListItemButton
-                    selected={item === componenteSelect + 1 ? true : false}
-                    key={item}
+                    selected={index === componenteSelect + 1 ? true : false}
+                    key={index}
                     onClick={() => {
-                      setComponenteSelect(item - 1);
-                      handleClickComponente(item);
+                      setComponenteSelect(index - 1);
+                      handleClickComponente(index);
                       setActividadSelect(0);
                     }}
                     sx={{
@@ -562,22 +570,23 @@ export const TabActividadesMA = ({
                         fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                     >
-                      COMPONENTE {item}
+                      COMPONENTE {index + 1}
                     </Typography>
 
-                    {open === item ? <ExpandLess /> : <ExpandMore />}
+                    {open === index ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
-                  <Collapse in={open === item} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      {aValorMA[0].componentes[
-                        componenteSelect
-                      ].actividades.map((value, x) => {
+
+                  <Collapse in={open === index} timeout="auto" unmountOnExit>
+
+                    {/* <List component="div" disablePadding>
+
+                      {componente.actividades.map((actividad, index) => {
                         return (
                           <ListItemButton
-                            selected={x === actividadSelect ? true : false}
-                            key={x}
+                            selected={index === actividadSelect ? true : false}
+                            key={index}
                             onClick={() => {
-                              setActividadSelect(x);
+                              setActividadSelect(index);
                             }}
                             sx={{
                               height: "3vh",
@@ -596,12 +605,12 @@ export const TabActividadesMA = ({
                                 fontFamily: "MontserratMedium",
                               }}
                             >
-                              ACTIVIDAD {x + 1}
+                              ACTIVIDAD {index + 1}
                             </Typography>
                           </ListItemButton>
                         );
                       })}
-                    </List>
+                    </List> */}
                   </Collapse>
 
                   <Divider />

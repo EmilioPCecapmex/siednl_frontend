@@ -45,9 +45,10 @@ export const TabActividades = ({
   const [errorIndicadorActividad, setErrorIndicadorActividad] = useState(-1);
 
   const handleClickOpen = () => {
-    // setPrevTextFormula(
-    //   // valoresComponenteActividad[componenteSelect][actividadSelect].formula
-    // );
+    setPrevTextFormula(
+      // valoresComponenteActividad[componenteSelect][actividadSelect].formula
+      componentes[componenteSelect].actividades[actividadSelect].formula
+    );
     setOpenFormulaDialog(true);
   };
 
@@ -57,6 +58,7 @@ export const TabActividades = ({
 
   const changeFormula = (txt: string) => {
     // valoresComponenteActividad[componenteSelect][actividadSelect].formula = txt;
+    componentes[componenteSelect].actividades[actividadSelect].formula = txt
   };
 
   const evalueTxtIndicador = () => {
@@ -261,7 +263,7 @@ export const TabActividades = ({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1vw",
+           // fontSize: "1vw",
           }}
         >
           ACTIVIDAD # {actividadSelect + 1}
@@ -379,7 +381,7 @@ export const TabActividades = ({
                         >
                           <Typography
                             sx={{
-                              fontSize: "1vw",
+                            //  fontSize: "1vw",
                               fontFamily: "MontserratMedium",
                             }}
                           >
@@ -414,9 +416,9 @@ export const TabActividades = ({
             },
           }}
         >
-          {/* {isSmallScreen && (
-            <List sx={{}}>
-              {noComponentes.map((item, index) => {
+          {isSmallScreen && (
+            <List>
+              {MIR.componentes.map((componente, index) => {
                 return (
                   <Grid
                     key={index}
@@ -437,7 +439,7 @@ export const TabActividades = ({
                         setActividadSelect(0);
                       }}
                       sx={{
-                        height: "7vh",
+                        //height: "7vh",
                         "&.Mui-selected ": {
                           backgroundColor: "#c4a57b",
                         },
@@ -456,7 +458,7 @@ export const TabActividades = ({
                     </ListItemButton>
                     <Collapse in={open === index} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        {noActividades[componenteSelect].map((value, index) => (
+                        {componente.actividades.map((actividad, index) => (
                           <ListItemButton
                             selected={index === actividadSelect ? true : false}
                             key={index}
@@ -476,11 +478,11 @@ export const TabActividades = ({
                           >
                             <Typography
                               sx={{
-                                fontSize: "5vw",
+                               // fontSize: "1vw",
                                 fontFamily: "MontserratMedium",
                               }}
                             >
-                              ACTIVIDAD {value}
+                              ACTIVIDAD {index + 1}
                             </Typography>
                           </ListItemButton>
                         ))}
@@ -492,13 +494,13 @@ export const TabActividades = ({
                 );
               })}
             </List>
-          )} */}
+          )}
 
           <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
             <Typography
               sx={{
                 fontFamily: "MontserratSemiBold",
-                fontSize: "1vw",
+              // fontSize: "1vw",
                 textAlign: "center",
               }}
             >
@@ -507,7 +509,7 @@ export const TabActividades = ({
             <Typography
               sx={{
                 fontFamily: "MontserratLight",
-                fontSize: ".8vw",
+               // fontSize: ".8vw",
                 textAlign: "center",
               }}
             >
