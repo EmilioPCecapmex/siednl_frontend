@@ -134,7 +134,7 @@ export const TabComponenteMA = ({
 
   useEffect(() => {
    
-    valoresComponenteMA
+    // valoresComponenteMA
   }, [])
   
 
@@ -415,7 +415,7 @@ export const TabComponenteMA = ({
           display: "flex",
         }}
       >
-        {/* {!isSmallScreen && (
+        {!isSmallScreen && (
           <List
             sx={{
               width: "15vw",
@@ -477,7 +477,7 @@ export const TabComponenteMA = ({
               );
             })}
           </List>
-        )} */}
+        )}
 
         <Grid
           item
@@ -496,7 +496,7 @@ export const TabComponenteMA = ({
             },
           }}
         >
-          {/* {isSmallScreen && (
+          {isSmallScreen && (
             <Grid>
               <List>
                 {noComponentes.map((item) => {
@@ -542,7 +542,7 @@ export const TabComponenteMA = ({
                 })}
               </List>
             </Grid>
-          )} */}
+          )}
 
           <Grid
             item
