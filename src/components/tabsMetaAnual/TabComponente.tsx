@@ -23,21 +23,22 @@ import { newComponente, newActividad } from "./AddMetaAnual";
 export const TabComponenteMA = ({
   show,
   valoresComponenteMAFnc,
-  noComponentes,
+ 
   showMirFnc,
   setTxtShowFnc,
+
   MA,
   MIR,
-  valoresComponenteMA,
+  ComponentesMA,
 }: {
   show: boolean;
   valoresComponenteMAFnc: Function;
-  noComponentes: number[];
+  
   showMirFnc: Function;
   setTxtShowFnc: Function;
   MA: string;
   MIR: string;
-  valoresComponenteMA: IComponenteMA[]
+  ComponentesMA: IComponenteMA[]
 
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
@@ -61,81 +62,78 @@ export const TabComponenteMA = ({
       
     }, [componentSelect])
     
+  // useEffect(() => {
+  //   let comp: IComponenteMA[] = [];
+
+  //   noComponentes.map((x, index) => {
+  //     return comp.push({
+  //       componentes: "C" + (index + 1),
+  //       metaAnual: MA === "" ? "" : jsonMA?.componentes[index]?.metaAnual || "",
+  //       lineaBase: MA === "" ? "" : jsonMA?.componentes[index]?.lineaBase || "",
+  //       metasPorFrecuencia: [
+  //         {
+  //           semestre1:
+  //             MA === ""
+  //               ? ""
+  //               : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+  //                   ?.semestre1 || "",
+  //           semestre2:
+  //             MA === ""
+  //               ? ""
+  //               : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+  //                   ?.semestre2 || "",
+  //           trimestre1:
+  //             MA === ""
+  //               ? ""
+  //               : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+  //                   ?.trimestre1 || "",
+  //           trimestre2:
+  //             MA === ""
+  //               ? ""
+  //               : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+  //                   ?.trimestre2 || "",
+  //           trimestre3:
+  //             MA === ""
+  //               ? ""
+  //               : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+  //                   ?.trimestre3 || "",
+  //           trimestre4:
+  //             MA === ""
+  //               ? ""
+  //               : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
+  //                   ?.trimestre4 || "",
+  //         },
+  //       ],
+
+  //       valorNumerador:
+  //         MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || "",
+  //       valorDenominador:
+  //         MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || "",
+  //       sentidoDelIndicador:
+  //         MA === ""
+  //           ? ""
+  //           : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
+
+  //       unidadResponsable:
+  //         MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
+
+  //       descIndicador:
+  //         MA === "" ? "" : jsonMA?.componentes[index]?.descIndicador || "",
+  //       descNumerador:
+  //         MA === "" ? "" : jsonMA?.componentes[index]?.descNumerador || "",
+  //       descDenominador:
+  //         MA === "" ? "" : jsonMA?.componentes[index]?.descDenominador || "",
+  //         actividades: MA === "" ? "" : jsonMA?.componentes[index].actividades || ""
+  //     });
+
+  //   });
+
+  //   setComponentesValues(comp);
+  //   eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [noComponentes]);
+
   useEffect(() => {
-    let comp: IComponenteMA[] = [];
-
-    noComponentes.map((x, index) => {
-      return comp.push({
-        componentes: "C" + (index + 1),
-        metaAnual: MA === "" ? "" : jsonMA?.componentes[index]?.metaAnual || "",
-        lineaBase: MA === "" ? "" : jsonMA?.componentes[index]?.lineaBase || "",
-        metasPorFrecuencia: [
-          {
-            semestre1:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.semestre1 || "",
-            semestre2:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.semestre2 || "",
-            trimestre1:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre1 || "",
-            trimestre2:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre2 || "",
-            trimestre3:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre3 || "",
-            trimestre4:
-              MA === ""
-                ? ""
-                : jsonMA?.componentes[index]?.metasPorFrecuencia[0]
-                    ?.trimestre4 || "",
-          },
-        ],
-
-        valorNumerador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.valorNumerador || "",
-        valorDenominador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.valorDenominador || "",
-        sentidoDelIndicador:
-          MA === ""
-            ? ""
-            : jsonMA?.componentes[index]?.sentidoDelIndicador || "",
-
-        unidadResponsable:
-          MA === "" ? "" : jsonMA?.componentes[index]?.unidadResponsable || "",
-
-        descIndicador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.descIndicador || "",
-        descNumerador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.descNumerador || "",
-        descDenominador:
-          MA === "" ? "" : jsonMA?.componentes[index]?.descDenominador || "",
-          actividades: MA === "" ? "" : jsonMA?.componentes[index].actividades || ""
-      });
-
-    });
-
-    setComponentesValues(comp);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [noComponentes]);
-
-  useEffect(() => {
-   
-    // valoresComponenteMA
-    console.log("valoresComponenteMA en tab de componentes: ",valoresComponenteMA);
-    
+    console.log("valoresComponenteMA en tab de componentes: ",ComponentesMA);
   }, [])
   
 

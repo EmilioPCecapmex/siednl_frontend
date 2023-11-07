@@ -7,6 +7,4 @@ export interface IMA {
   proposito: IPropositoMA;
 
   componentes: Array<IComponenteMA>;
-
-  //actividades: Array<IActividadesMA>;
 }
