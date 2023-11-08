@@ -13,14 +13,26 @@ import { IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
 import TabResumenMIR from "../modalsMA/ModalResumenMA";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import { actividadesObligatorias, componentesObligatorios } from "../../services/statesGlobals";
+import {
+  actividadesObligatorias,
+  componentesObligatorios,
+} from "../../services/statesGlobals";
 import { IMA } from "./IMA";
 import { alertaError } from "../genericComponents/Alertas";
 import { isValidIMA } from "../../funcs/ValidatorMA";
 import GenericTabs from "../genericComponents/genericTabs";
 
-const tabs=["Fin / Propósito","Componentes","Actividades","Resumen"]
+const tabs = ["Fin / Propósito", "Componentes", "Actividades", "Resumen"];
 
+function getNumComponents(MIR: string) {
+  let aux = JSON.parse(MIR).componentes?.length;
+  let arrayComponents = [];
+  for (let i = 0; i < aux; i++) {
+    arrayComponents.push(i + 1);
+  }
+
+  return arrayComponents;
+}
 function newFinPropositoMA() {
   return {
     metaAnual: "",
@@ -32,15 +44,15 @@ function newFinPropositoMA() {
     descIndicador: "",
     descNumerador: "",
     descDenominador: "",
-  }
+  };
 }
 
-function newMetaAnual() {
+function newMetaAnual(MIR: string) {
   return {
     fin: newFinPropositoMA(),
     proposito: newFinPropositoMA(),
-    componentes: componentesObligatorios.map((item) => newComponente(item))
-  }
+    componentes: getNumComponents(MIR).map((item) => newComponente(item)),
+  };
 }
 
 export function newActividad(indexComponente: number, indexActividad: number) {
@@ -71,7 +83,7 @@ export function newActividad(indexComponente: number, indexActividad: number) {
 export function newComponente(index: number) {
   let componente: IComponenteMA;
   componente = {
-    componentes: "C" + (index),
+    componentes: "C" + index,
     metaAnual: "",
     lineaBase: "",
     metasPorFrecuencia: [
@@ -91,7 +103,9 @@ export function newComponente(index: number) {
     descIndicador: "",
     descNumerador: "",
     descDenominador: "",
-    actividades: actividadesObligatorias.map((item) => newActividad(index, item)),
+    actividades: actividadesObligatorias.map((item) =>
+      newActividad(index, item)
+    ),
   };
   return componente;
 }
@@ -109,17 +123,7 @@ export default function AddMetaAnual({
   IdMir: string;
   IdMA: string;
 }) {
-  function getNumComponents() {
-    let aux = JSON.parse(MIR).componentes?.length;
-    let arrayComponents = []
-    for (let i = 0; i < aux; i++) {
-      arrayComponents.push((i + 1))
-    }
-
-    return arrayComponents
-  }
-
-  const [maPadre, setMAPadre] = useState<IMA>(newMetaAnual())
+  const [maPadre, setMAPadre] = useState<IMA>(newMetaAnual(MIR));
 
   useEffect(() => {
     console.log("MIR", MIR);
@@ -127,13 +131,13 @@ export default function AddMetaAnual({
     // console.log("showResume",showResume);
     console.log("IdMir", IdMir);
     console.log("IdMA", IdMA);
-    // getNumComponents();
-    console.log("numero de componentes de la mir", getNumComponents());
-  }, [])
+    //getNumComponents();
+    //console.log("numero de componentes de la mir", getNumComponents());
+    //setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
+    //setMAPadre({...maPadre,componentes: });
+  }, []);
 
-
-
-  const [value, setValue] = React.useState(20);
+  const [value, setValue] = React.useState(0);
 
   const [showMir, setShowMir] = React.useState(false);
 
@@ -157,6 +161,22 @@ export default function AddMetaAnual({
 
   const jsonMir = JSON.parse(MIR);
 
+
+  const setMAcomponentesPadre = (componentesValues: IComponenteMA[]) =>{
+    setMAPadre({
+        ...maPadre,
+          componentes: componentesValues,
+        
+      });
+  };
+
+  const setMAActividadesPadre = (componentesActividadesValues: IComponenteMA[]) =>{
+    setMAPadre({
+        ...maPadre,
+          componentes: componentesActividadesValues,
+        
+      });
+  };
   // useEffect(() => {
   //   let act: number[] = [];
   //   let comp: string[] = [];
@@ -193,20 +213,20 @@ export default function AddMetaAnual({
   // const [ComponentesMA, setComponentesMA] = useState<IComponenteMA[]>(componentesObligatorios.map((item) => newComponente(item)));
 
   useEffect(() => {
-
     if (MA !== "") {
       let auxMA = JSON.parse(MA);
-      if (isValidIMA(auxMA)) {
-        setMAPadre(auxMA);
-      } else {
-        alertaError("La infromacion puede estar dañada")
-      }
+      setMAPadre(auxMA);
+      // if (isValidIMA(auxMA)) {
+      //   setMAPadre(auxMA);
+      // } else {
+      //   alertaError("La información puede estar dañada");
+      // }
     }
-  }, [])
+  }, []);
 
-
-  useEffect(()=>{console.log("maPadre",maPadre);
-  },[maPadre])
+  useEffect(() => {
+    console.log("maPadre", maPadre);
+  }, [maPadre]);
 
   // const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
   //   setComponentesMA(state);
@@ -263,9 +283,8 @@ export default function AddMetaAnual({
   //   });
   //   setComponentesMA(arrayMA);
   //   eslint-disable-next-line react-hooks/exhaustive-deps
-  //   
+  //
   //   console.log("noComponentes: ",noComponentes);
-
 
   // }, []);
 
@@ -330,7 +349,7 @@ export default function AddMetaAnual({
             alignItems: "center",
           }}
         >
-          <GenericTabs tabSelect={setValue} tabsData={tabs}/>
+          <GenericTabs tabSelect={setValue} tabsData={tabs} />
 
           <Grid
             sx={{
@@ -344,52 +363,58 @@ export default function AddMetaAnual({
               alignItems: "center",
             }}
           >
-            <TabFinPropositoMA
-              MA={MA}
-              MIR={MIR}
-              setTxtShowFnc={showFnc}
-              show={value === 0 ? true : false}
-              resumenFinMa={resumenFinMa}
-              resumenPropositoMa={resumenPropositoMa}
-              showMirFnc={showMirFnc}
-            />
+            {value === 0 ? (
+              <TabFinPropositoMA
+                MA={MA}
+                MIR={MIR}
+                setTxtShowFnc={showFnc}
+                //show={value === 0 ? true : false}
+                resumenFinMa={resumenFinMa}
+                resumenPropositoMa={resumenPropositoMa}
+                showMirFnc={showMirFnc}
+              />
+            ) : null}
+            {value === 1 ? (
+              <TabComponenteMA
+                setTxtShowFnc={showFnc}
+                showMirFnc={showMirFnc}
+                //show={value === 1 ? true : false}
+                setMAcomponentesPadre= {setMAcomponentesPadre}
+                setComponenteMA={setMAPadre }
+                ComponentesMA={maPadre.componentes}
+                MA={MA}
+                MIR={MIR}
+              />
+            ) : null}
 
-            <TabComponenteMA
-              setTxtShowFnc={showFnc}
-              showMirFnc={showMirFnc}
-              show={value === 1 ? true : false}
-              valoresComponenteMAFnc={() => { }}
+            {value === 2 ? (
+              <TabActividadesMA
+                setTxtShowFnc={showFnc}
+                showMirFnc={showMirFnc}
+                compAct={[]}
+                // show={value === 2 ? true : false}
+                setMAActividadesPadre = {setMAActividadesPadre}
+                ComponentesActividadMA ={maPadre.componentes}
+                asignarCValor={() => {}}
+                MA={MA}
+                MIR={MIR}
+              ></TabActividadesMA>
+            ) : null}
 
-
-              ComponentesMA={maPadre.componentes}
-              MA={MA}
-              MIR={MIR}
-            /> 
-
-            {/* <TabActividadesMA
-              setTxtShowFnc={showFnc}
-              showMirFnc={showMirFnc}
-              compAct={compAct}
-              show={value === 2 ? true : false}
-              componentes={noComponentes}
-              asignarCValor={asignarCValorMA}
-              MA={MA}
-              MIR={MIR}
-            ></TabActividadesMA>
-
-            <TabResumenMA
-              show={value === 3 ? true : false}
-              componentes={noComponentes}
-              componenteValor={ComponentesMA}
-              cValor={cValorMA}
-              fin={ValueFin}
-              proposito={ValueProposito}
-              IdMir={IdMir}
-              IdMA={IdMA}
-              showResume={showResume}
-              MIR={MIR}
-            ></TabResumenMA>
-
+            {value === 3 ? (
+              <TabResumenMA
+                show={value === 3 ? true : false}
+                componentes={[]}
+                componenteValor={maPadre.componentes}
+                cValor={[]}
+                fin={ValueFin}
+                proposito={ValueProposito}
+                IdMir={IdMir}
+                IdMA={IdMA}
+                showResume={showResume}
+                MIR={MIR}
+              ></TabResumenMA>
+            ) : null}
             {/* <TabResumenMIR
               show={showMir}
               showMirFnc={showMirFnc}
