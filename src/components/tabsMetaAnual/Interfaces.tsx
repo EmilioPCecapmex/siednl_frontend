@@ -10,6 +10,7 @@ export interface IComponenteMA {
   descIndicador: string;
   descNumerador: string;
   descDenominador: string;
+  actividades: IActividadesMA[]
 }
 
 export interface IFrecuencias {

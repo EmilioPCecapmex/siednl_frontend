@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
+import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
+import { IActividad } from "../tabsMir/interfaces mir/IMIR";
 
 export let errores: string[] = [];
 
@@ -382,117 +384,119 @@ export default function ModalEnviarMA({
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    JSON.parse(MA)?.actividades.map((actividad: any, index: number) => {
-      if (
-        actividad.metaAnual === undefined ||
-        /^[\s]*$/.test(actividad.metaAnual)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
-        );
-        err = 1;
-      }
-      if (actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.lineaBase === undefined ||
-        /^[\s]*$/.test(actividad.lineaBase)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
-        );
-        err = 1;
-      }
-      if (
-        (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre1) ||
-          actividad.metasPorFrecuencia[0].semestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre2)) &&
-        (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
-          actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
-          actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
-          actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.valorNumerador === undefined ||
-        /^[\s]*$/.test(actividad.valorNumerador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        JSON.parse(MIR)
-          .actividades[index].indicador.toUpperCase()
-          .includes("ÍNDICE" || "INDICE") &&
-        (actividad.valorDenominador === undefined ||
-          /^[\s]*$/.test(actividad.valorDenominador))
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.sentidoDelIndicador === undefined ||
-        actividad.sentidoDelIndicador === ""
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.unidadResponsable === undefined ||
-        /^[\s]*$/.test(actividad.unidadResponsable)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descIndicador === undefined ||
-        /^[\s]*$/.test(actividad.descIndicador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descNumerador === undefined ||
-        /^[\s]*$/.test(actividad.descNumerador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descDenominador === undefined ||
-        /^[\s]*$/.test(actividad.descDenominador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
-        );
-        err = 1;
-      }
-    });
+    JSON.parse(MA)?.componentes.map((componente: IComponenteMA, indexC: number) => {
+        componente.actividades.map((actividad: IActividadesMA, indexA: number) => {
+            console.log("actividades.actividad: ",actividad.metaAnual);
+            if (
+              actividad.metaAnual === undefined ||
+              /^[\s]*$/.test(actividad.metaAnual)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.lineaBase === undefined ||
+              /^[\s]*$/.test(actividad.lineaBase)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
+              );
+              err = 1;
+            }
+            if (
+              
+              (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
+                /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
+                actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
+                /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
+                actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
+                /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
+                actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
+                /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.valorNumerador === undefined ||
+              /^[\s]*$/.test(actividad.valorNumerador)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
+              );
+              err = 1;
+            }
+            if (
+              JSON.parse(MIR).componentes[indexC].actividades[indexA].indicador.toUpperCase()
+                .includes("ÍNDICE" || "INDICE") &&
+              (actividad.valorDenominador === undefined ||
+                /^[\s]*$/.test(actividad.valorDenominador))
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.sentidoDelIndicador === undefined ||
+              actividad.sentidoDelIndicador === ""
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.unidadResponsable === undefined ||
+              /^[\s]*$/.test(actividad.unidadResponsable)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.descIndicador === undefined ||
+              /^[\s]*$/.test(actividad.descIndicador)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.descNumerador === undefined ||
+              /^[\s]*$/.test(actividad.descNumerador)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.descDenominador === undefined ||
+              /^[\s]*$/.test(actividad.descDenominador)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
+              );
+              err = 1;
+            }
+          });
+      });
+
     if (err === 0) {
       creaMA(v);
     } else {
@@ -514,23 +518,23 @@ export default function ModalEnviarMA({
 
   const creaMA = (estado: string) => {
     console.log("Entre al create MetaAnual ModalEnviarMA");
-    console.log("IdEntidad",localStorage.getItem("IdEntidad"),);
-    console.log("estado: ",estado);
+    console.log("IdEntidad", localStorage.getItem("IdEntidad"));
+    console.log("estado: ", estado);
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
-          MetaAnual:MA,
-          CreadoPor:localStorage.getItem("IdUsuario"),
-          IdMir:IdMIR,
-          Estado:estado,
-          Id:IdMA,
-          Rol:localStorage.getItem("Rol"),
-          IdEntidad:localStorage.getItem("IdEntidad"),
+          MetaAnual: MA,
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdMir: IdMIR,
+          Estado: estado,
+          Id: IdMA,
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
-            Authorization:localStorage.getItem("jwtToken") || "",
+            Authorization: localStorage.getItem("jwtToken") || "",
           },
         }
       )
@@ -627,10 +631,11 @@ export default function ModalEnviarMA({
             IdApp: localStorage.getItem("IdApp"),
           },
           {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        })
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
         .then((r) => {
           if (r.status === 200) {
             setUserXInst(r.data.data);

@@ -7,18 +7,109 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
-
+import GenericTabs from "../genericComponents/genericTabs";
+import {
+  actividadesObligatorias,
+  componentesObligatorios,
+} from "../../services/statesGlobals";
 import {
   ICValorFT,
   IFinFT,
   IPropositoFT,
   IComponentesFT,
   IEncabezadoFT,
+  IFT,
 } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
 import { TabFinPropositoFT } from "./tabFinProposito";
 import { TutorialBox } from "../tutorialBox/tutorialBox";
+
+const tabs = [
+  "Encabezado",
+  "Fin / Propósito",
+  "Componentes",
+  "Actividades",
+  "Resumen",
+];
+
+function getNumComponents(MIR: string) {
+  let aux = JSON.parse(MIR).componentes?.length;
+  let arrayComponents = [];
+  for (let i = 0; i < aux; i++) {
+    arrayComponents.push(i + 1);
+  }
+
+  return arrayComponents;
+}
+
+function newFichaTecnica(MIR: string) {
+  return {
+    encabezado: newEncabezadoFT(),
+    fin: newFinPropositoFT(),
+    proposito: newFinPropositoFT(),
+    componentes: getNumComponents(MIR).map((item) => newComponente(item)),
+  };
+}
+
+export function newFinPropositoFT() {
+  return {
+    programaSER: "",
+    objetivoSER: "",
+    objetivoODS: "",
+    metaODS: "",
+  };
+}
+
+export function newEncabezadoFT() {
+  return {
+    tipoDeIndicador: "",
+    claridad: "",
+    relevancia: "",
+    economia: "",
+    monitoreable: "",
+    adecuado: "",
+    aporte_marginal: "",
+    dimension: "",
+    unidadDeMedida: "",
+  };
+}
+
+export function newActividad(indexComponente: number, indexActividad: number) {
+  return {
+    //componentes: "C" + (index + 1),
+    actividades: `A${indexActividad}C${indexComponente}`,
+    tipoDeIndicador: "",
+    claridad: "",
+    relevancia: "",
+    economia: "",
+    monitoreable: "",
+    adecuado: "",
+    aporte_marginal: "",
+    dimension: "",
+    unidadDeMedida: "",
+  };
+}
+
+export function newComponente(index: number) {
+  let componente: IComponentesFT;
+  componente = {
+    componentes: "C" + (index + 1),
+    tipoDeIndicador: "",
+    claridad: "",
+    relevancia: "",
+    economia: "",
+    monitoreable: "",
+    adecuado: "",
+    aporte_marginal: "",
+    dimension: "",
+    unidadDeMedida: "",
+    actividades: actividadesObligatorias.map((item) =>
+      newActividad(index, item)
+    ),
+  };
+  return componente;
+}
 
 export default function AddFichaTecnica({
   MIR,
@@ -37,7 +128,7 @@ export default function AddFichaTecnica({
   IdMA: string;
   IdFT: string;
 }) {
-  const [value, setValue] = React.useState(10);
+  const [value, setValue] = React.useState(0);
 
   const [showMir, setShowMir] = React.useState(false);
 
@@ -66,34 +157,34 @@ export default function AddFichaTecnica({
 
   const jsonMir = JSON.parse(MIR);
 
-  useEffect(() => {
-    let act: number[] = [];
-    let comp: string[] = [];
-    let ambos: any = [];
-    let i = 1;
-    let j = 1;
+  // useEffect(() => {
+  //   let act: number[] = [];
+  //   let comp: string[] = [];
+  //   let ambos: any = [];
+  //   let i = 1;
+  //   let j = 1;
 
-    jsonMir.componentes.map((x: any) => {
-      comp.push("C" + j);
-      jsonMir.actividades.map((a: any) => {
-        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-          act.push(i);
-          i++;
-        }
-      });
-      ambos.push({ actividades: act, componente: "C" + j });
-      act = [];
-      i = 1;
-      j++;
-    });
+  //   jsonMir.componentes.map((x: any) => {
+  //     comp.push("C" + j);
+  //     jsonMir.actividades.map((a: any) => {
+  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+  //         act.push(i);
+  //         i++;
+  //       }
+  //     });
+  //     ambos.push({ actividades: act, componente: "C" + j });
+  //     act = [];
+  //     i = 1;
+  //     j++;
+  //   });
 
-    setCompAct(ambos);
+  //   setCompAct(ambos);
 
-    jsonMir.componentes.map((value: any, index: number) => {
-      if (index > 1 && index < 6)
-        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
-    });
-  }, []);
+  //   jsonMir.componentes.map((value: any, index: number) => {
+  //     if (index > 1 && index < 6)
+  //       setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
+  //   });
+  // }, []);
 
   ////////////////// Componentes //////////////////////////
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
@@ -113,6 +204,7 @@ export default function AddFichaTecnica({
         aporte_marginal: "",
         dimension: "",
         unidadDeMedida: "",
+        actividades: [],
       };
     })
   );
@@ -152,28 +244,31 @@ export default function AddFichaTecnica({
       };
     })
   );
+  const [ftPadre, setFTPadre] = useState<IFT
+  >(newFichaTecnica(MIR));
   //////////// Actividades/////////////////////7
   const asignarCValorFT = (state: Array<ICValorFT>) => {
     setCValorFT(state);
   };
 
-  useEffect(() => {
-    let arrayFT = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        tipoDeIndicador: "",
-        claridad: "",
-        relevancia: "",
-        economia: "",
-        monitoreable: "",
-        adecuado: "",
-        aporte_marginal: "",
-        dimension: "",
-        unidadDeMedida: "",
-      };
-    });
-    setValoresComponenteFT(arrayFT);
-  }, []);
+  // useEffect(() => {
+  //   let arrayFT = noComponentes.map((x, index) => {
+  //     return {
+  //       componentes: "C" + (index + 1),
+  //       tipoDeIndicador: "",
+  //       claridad: "",
+  //       relevancia: "",
+  //       economia: "",
+  //       monitoreable: "",
+  //       adecuado: "",
+  //       aporte_marginal: "",
+  //       dimension: "",
+  //       unidadDeMedida: "",
+  //       actiidad: [],
+  //     };
+  //   });
+  //   setValoresComponenteFT(arrayFT);
+  // }, []);
 
   const [ValueEncabezado, setValueEncabezado] = useState<Array<IEncabezadoFT>>(
     []
@@ -227,7 +322,9 @@ export default function AddFichaTecnica({
           alignItems: "center",
         }}
       >
-        <Tabs
+        <GenericTabs tabSelect={setValue} tabsData={tabs} />
+
+        {/* <Tabs
           value={value}
           onChange={handleChange}
           textColor="inherit"
@@ -340,7 +437,7 @@ export default function AddFichaTecnica({
               cambiarTab("adelante");
             }}
           />
-        </Tabs>
+        </Tabs> */}
 
         <Grid
           sx={{
@@ -348,53 +445,60 @@ export default function AddFichaTecnica({
             height: "82vh",
           }}
         >
-          <TabEncabezado
-            show={value === 10 ? true : false}
-            resumenEncabezadoFT={resumenEncabezadoFT}
-            FT={FT}
-            MIR={MIR}
-          ></TabEncabezado>
+          {value === 0 ? (
+            <TabEncabezado
+              show={value === 0 ? true : false}
+              resumenEncabezadoFT={resumenEncabezadoFT}
+              FT={FT}
+              MIR={MIR}
+            ></TabEncabezado>
+          ) : null}
 
-          <TabFinPropositoFT
-            show={value === 20 ? true : false}
-            resumenFinFT={resumenFinFT}
-            resumenPropositoFT={resumenPropositoFT}
-            FT={FT}
-          ></TabFinPropositoFT>
-
-          <TabComponenteFT
-            show={value === 30 ? true : false}
-            valoresComponenteFTFnc={valoresComponenteFTFnc}
-            noComponentes={noComponentes}
-            showFnc={setTxtShowFnc}
-            showMirFnc={showMirFnc}
-            FT={FT}
-          ></TabComponenteFT>
-
-          <TabActividadesFT
-            show={value === 40 ? true : false}
-            setTxtShowFnc={setTxtShowFnc}
-            showMirFnc={showMirFnc}
-            compAct={compAct}
-            componentes={noComponentes}
-            asignarCValor={asignarCValorFT}
-            FT={FT}
-          ></TabActividadesFT>
-
-          <TabResumenFT
-            show={value === 50 ? true : false}
-            encabezado={ValueEncabezado}
-            fin={ValueFin}
-            proposito={ValueProposito}
-            componentes={noComponentes}
-            componenteValor={valoresComponenteFT}
-            cValor={cValorFT}
-            IdMir={IdMir}
-            IdFT={IdFT}
-            IdMA={IdMA}
-            showResume={showResume}
-            MIR={MIR}
-          ></TabResumenFT>
+          {value === 1 ? (
+            <TabFinPropositoFT
+              show={value === 1 ? true : false}
+              resumenFinFT={resumenFinFT}
+              resumenPropositoFT={resumenPropositoFT}
+              FT={FT}
+            ></TabFinPropositoFT>
+          ) : null}
+          {value === 2 ? (
+            <TabComponenteFT
+              show={value === 2 ? true : false}
+              valoresComponenteFTFnc={valoresComponenteFTFnc}
+              noComponentes={noComponentes}
+              showFnc={setTxtShowFnc}
+              showMirFnc={showMirFnc}
+              FT={FT}
+            ></TabComponenteFT>
+          ) : null}
+          {value === 3 ? (
+            <TabActividadesFT
+              show={value === 3 ? true : false}
+              setTxtShowFnc={setTxtShowFnc}
+              showMirFnc={showMirFnc}
+              compAct={compAct}
+              componentes={noComponentes}
+              asignarCValor={asignarCValorFT}
+              FT={FT}
+            ></TabActividadesFT>
+          ) : null}
+          {value === 4 ? (
+            <TabResumenFT
+              show={value === 4 ? true : false}
+              encabezado={ValueEncabezado}
+              fin={ValueFin}
+              proposito={ValueProposito}
+              componentes={noComponentes}
+              componenteValor={valoresComponenteFT}
+              cValor={cValorFT}
+              IdMir={IdMir}
+              IdFT={IdFT}
+              IdMA={IdMA}
+              showResume={showResume}
+              MIR={MIR}
+            ></TabResumenFT>
+          ) : null}
         </Grid>
       </Grid>
     </Grid>

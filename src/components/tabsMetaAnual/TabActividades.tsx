@@ -22,36 +22,42 @@ import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import axios from "axios";
+import { IComponenteMA } from "./Interfaces";
 
 //funcion main
 export const TabActividadesMA = ({
-  show,
-  componentes,
+  //show,
+  // componentes,
   asignarCValor,
   compAct,
+  setMAActividadesPadre,
+  ComponentesActividadMA,
   showMirFnc,
   setTxtShowFnc,
   MA,
   MIR,
 }: {
-  show: boolean;
-  componentes: number[];
+  //show: boolean;
+  //componentes: number[];
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
+  setMAActividadesPadre: Function;
+  ComponentesActividadMA: IComponenteMA[];
   showMirFnc: Function;
   setTxtShowFnc: Function;
   MA: string;
   MIR: string;
 }) => {
   // business logic-------------------------------------------------------------------------------
-  const componenteActividad = [
-    {
-      componentes: componentes.map((x) => (
-        compAct
-        
-        )),
-    },
-  ];
+  // const componenteActividad = [
+  //   {
+  //     componentes: componentes.map((x) => compAct),
+  //   },
+  // ];
+
+  const [componentesActividadValues, setComponentesActividadValues] = useState<
+    IComponenteMA[]
+  >(ComponentesActividadMA);
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
@@ -63,143 +69,14 @@ export const TabActividadesMA = ({
       ? JSON.parse(MA)[0]
       : JSON.parse(MA);
 
-      useEffect(() => {
-       console.log("jsonMA: ",jsonMA);
-       
-      }, [MA])
-      
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
-  const [aValorMA, setAValorMA] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                metaAnual: "",
-                lineaBase: "",
-                metasPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  useEffect(() => {
-    if (compAct.length > 0) {
-      loadActividadesMA();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [compAct]);
-
-  useEffect(() => {
-    asignarCValor(aValorMA);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [aValorMA]);
-
   let aument_number = -1;
 
-  const loadActividadesMA = () => {
-    let y = componenteActividad.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
-          return {
-            actividades: x.actividades.map((c, index2) => {
-              aument_number++;
-
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                metaAnual:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.metaAnual || "",
-                lineaBase:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.lineaBase || "",
-                metasPorFrecuencia: [
-                  {
-                    trimestre1:
-                      MA === ""
-                        ? ""
-                        : jsonMA.actividades[aument_number]
-                            ?.metasPorFrecuencia[0]?.trimestre1 || "",
-                    trimestre2:
-                      MA === ""
-                        ? ""
-                        : jsonMA.actividades[aument_number]
-                            ?.metasPorFrecuencia[0]?.trimestre2 || "",
-                    trimestre3:
-                      MA === ""
-                        ? ""
-                        : jsonMA.actividades[aument_number]
-                            ?.metasPorFrecuencia[0]?.trimestre3 || "",
-                    trimestre4:
-                      MA === ""
-                        ? ""
-                        : jsonMA.actividades[aument_number]
-                            ?.metasPorFrecuencia[0]?.trimestre4 || "",
-                  },
-                ],
-                valorNumerador:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.valorNumerador || "",
-                valorDenominador:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.valorDenominador || "",
-                sentidoDelIndicador:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.sentidoDelIndicador ||
-                      "",
-                unidadResponsable:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.unidadResponsable ||
-                      "",
-                descIndicador:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.descIndicador || "",
-                descNumerador:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.descNumerador || "",
-                descDenominador:
-                  MA === ""
-                    ? ""
-                    : jsonMA.actividades[aument_number]?.descDenominador || "",
-              };
-            }),
-          };
-        }),
-      };
-    });
-    console.log("y:", y);
-
-    setAValorMA(y);
-  };
+  useEffect(() => {
+    setMAActividadesPadre(componentesActividadValues);
+  }, []);
 
   const [open, setOpen] = useState(1);
 
@@ -210,44 +87,61 @@ export const TabActividadesMA = ({
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
-
+  const [elementoFormulaActividad, setElementoFormulaActividad] = useState("");
+  // revisado
   const handleClickOpen = () => {
     setTipoFormula(
-      JSON.parse(MIR)
-        .actividades[actividadSelect].indicador.toUpperCase()
+      JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
         .includes("PORCENTAJE") ||
         JSON.parse(MIR)
-          .actividades[actividadSelect].indicador.toUpperCase()
+          .componentes[componenteSelect].actividades[
+            actividadSelect
+          ].indicador.toUpperCase()
           .includes("PORCENTAJE")
         ? "Porcentaje"
         : JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("TASA") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("TASA")
         ? "Tasa"
         : JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("INDICE" || "ÍNDICE") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("INDICE") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("ÍNDICE")
         ? "Índice"
         : JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("PROMEDIO") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("PROMEDIO")
         ? "Promedio"
         : ""
     );
 
-    setElementoFormula(
+    setElementoFormula("Componente " + componenteSelect.toString());
+    setElementoFormulaActividad(
       "C" +
         (componenteSelect + 1).toString() +
         "A" +
@@ -255,7 +149,7 @@ export const TabActividadesMA = ({
     );
     setOpenFormulaDialog(true);
   };
-
+  // revisado
   const handleClose = () => {
     setOpenFormulaDialog(false);
   };
@@ -263,70 +157,90 @@ export const TabActividadesMA = ({
   const changeFormula = (txt: string) => {
     if (
       JSON.parse(MIR)
-        .actividades[actividadSelect].indicador.toUpperCase()
+        .componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador.toUpperCase()
         .includes("INDICE") ||
       JSON.parse(MIR)
-        .actividades[actividadSelect].indicador.toUpperCase()
+        .componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador.toUpperCase()
         .includes("ÍNDICE")
     ) {
-      aValorMA[0].componentes[componenteSelect].actividades[
+      componentesActividadValues[componenteSelect].actividades[
         actividadSelect
       ].valorNumerador = txt;
-      aValorMA[0].componentes[componenteSelect].actividades[
+      componentesActividadValues[componenteSelect].actividades[
         actividadSelect
       ].metaAnual = txt;
     } else {
-      aValorMA[0].componentes[componenteSelect].actividades[
+      componentesActividadValues[componenteSelect].actividades[
         actividadSelect
       ].valorNumerador = txt.split(",")[0];
-      aValorMA[0].componentes[componenteSelect].actividades[
+      componentesActividadValues[componenteSelect].actividades[
         actividadSelect
-      ].valorDenominador = txt.split(",")[1];
-      aValorMA[0].componentes[componenteSelect].actividades[
+      ].valorNumerador = txt.split(",")[1];
+      componentesActividadValues[componenteSelect].actividades[
         actividadSelect
       ].metaAnual = txt.split(",")[2];
     }
-    setAValorMA([...aValorMA]);
+    setComponentesActividadValues([...componentesActividadValues]);
   };
+
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
 
   const handleClickOpen2 = () => {
     setTipoFormula(
-      JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
-        "PORCENTAJE"
-      ) ||
+      JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+        .includes("PORCENTAJE") ||
         JSON.parse(MIR)
-          .actividades[actividadSelect].indicador.toUpperCase()
+          .componentes[componenteSelect].actividades[
+            actividadSelect
+          ].indicador.toUpperCase()
           .includes("PORCENTAJE")
         ? "Porcentaje"
-        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
-            "TASA"
-          ) ||
+        : JSON.parse(MIR)
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
+            .includes("TASA") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("TASA")
         ? "Tasa"
-        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
-            "INDICE" || "ÍNDICE"
-          ) ||
+        : JSON.parse(MIR)
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
+            .includes("INDICE" || "ÍNDICE") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("INDICE") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("ÍNDICE")
         ? "Índice"
-        : JSON.parse(MIR).actividades[actividadSelect].indicador.includes(
-            "PROMEDIO"
-          ) ||
+        : JSON.parse(MIR)
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
+            .includes("PROMEDIO") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("PROMEDIO")
         ? "Promedio"
         : ""
     );
-
-    setElementoFormula(
+    setElementoFormula("Componente " + componenteSelect.toString());
+    setElementoFormulaActividad(
       "C" +
         (componenteSelect + 1).toString() +
         "A" +
@@ -340,19 +254,23 @@ export const TabActividadesMA = ({
   };
 
   const changeFormula2 = (txt: string) => {
-    aValorMA[0].componentes[componenteSelect].actividades[
+    componentesActividadValues[componenteSelect].actividades[
       actividadSelect
     ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
-    aValorMA[0].componentes[componenteSelect].actividades[
+
+    componentesActividadValues[componenteSelect].actividades[
       actividadSelect
     ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
-    aValorMA[0].componentes[componenteSelect].actividades[
+
+    componentesActividadValues[componenteSelect].actividades[
       actividadSelect
     ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2];
-    aValorMA[0].componentes[componenteSelect].actividades[
+
+    componentesActividadValues[componenteSelect].actividades[
       actividadSelect
     ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3];
-    setAValorMA([...aValorMA]);
+
+    setComponentesActividadValues([...componentesActividadValues]);
   };
 
   const [catalogoUnidadResponsable, setCatalogoUnidadResponsable] = useState([
@@ -397,11 +315,7 @@ export const TabActividadesMA = ({
       });
   };
 
-
-
-
-
-  const getListasLogin = (datos:any,setState:Function) => {
+  const getListasLogin = (datos: any, setState: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
         params: datos,
@@ -447,8 +361,8 @@ export const TabActividadesMA = ({
   //return main
   return (
     <Grid
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+      // visibility={show ? "visible" : "hidden"}
+      // position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
@@ -466,6 +380,7 @@ export const TabActividadesMA = ({
         textoSet={changeFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
+        elementoA={elementoFormulaActividad}
         MIR={MIR}
       />
       <FormulaDialogMACA
@@ -474,11 +389,12 @@ export const TabActividadesMA = ({
         textoSet={changeFormula2}
         tipo={tipoFormula}
         elemento={elementoFormula}
+        elementoA={elementoFormulaActividad}
         MIR={MIR}
         frecuencia={"trimestral"}
       />
 
-      {/* <Grid
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -506,7 +422,7 @@ export const TabActividadesMA = ({
         >
           COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
         </Typography>
-      </Grid> */}
+      </Grid>
 
       <Grid
         sx={{
@@ -535,7 +451,7 @@ export const TabActividadesMA = ({
               },
             }}
           >
-            {componentes.map((componente, index) => {
+            {componentesActividadValues.map((componente, index) => {
               return (
                 <Grid
                   key={index}
@@ -547,10 +463,10 @@ export const TabActividadesMA = ({
                 >
                   <Divider />
                   <ListItemButton
-                    selected={index === componenteSelect + 1 ? true : false}
+                    selected={index === componenteSelect ? true : false}
                     key={index}
                     onClick={() => {
-                      setComponenteSelect(index - 1);
+                      setComponenteSelect(index);
                       handleClickComponente(index);
                       setActividadSelect(0);
                     }}
@@ -575,18 +491,15 @@ export const TabActividadesMA = ({
 
                     {open === index ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
-
                   <Collapse in={open === index} timeout="auto" unmountOnExit>
-
-                    {/* <List component="div" disablePadding>
-
-                      {componente.actividades.map((actividad, index) => {
+                    <List component="div" disablePadding>
+                      {componente.actividades.map((value, x) => {
                         return (
                           <ListItemButton
-                            selected={index === actividadSelect ? true : false}
-                            key={index}
+                            selected={x === actividadSelect ? true : false}
+                            key={x}
                             onClick={() => {
-                              setActividadSelect(index);
+                              setActividadSelect(x);
                             }}
                             sx={{
                               height: "3vh",
@@ -605,12 +518,12 @@ export const TabActividadesMA = ({
                                 fontFamily: "MontserratMedium",
                               }}
                             >
-                              ACTIVIDAD {index + 1}
+                              ACTIVIDAD {x + 1}
                             </Typography>
                           </ListItemButton>
                         );
                       })}
-                    </List> */}
+                    </List>
                   </Collapse>
 
                   <Divider />
@@ -639,7 +552,7 @@ export const TabActividadesMA = ({
         >
           {isSmallScreen && (
             <List>
-              {componentes.map((item, index) => {
+              {componentesActividadValues.map((componente, index) => {
                 return (
                   <Grid
                     key={index}
@@ -651,11 +564,11 @@ export const TabActividadesMA = ({
                   >
                     <Divider />
                     <ListItemButton
-                      selected={item === componenteSelect + 1 ? true : false}
-                      key={item}
+                      selected={index === componenteSelect ? true : false}
+                      key={index}
                       onClick={() => {
-                        setComponenteSelect(item - 1);
-                        handleClickComponente(item);
+                        setComponenteSelect(index);
+                        handleClickComponente(index);
                         setActividadSelect(0);
                       }}
                       sx={{
@@ -674,16 +587,14 @@ export const TabActividadesMA = ({
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
-                        COMPONENTE {item}
+                        COMPONENTE {index + 1}
                       </Typography>
 
-                      {open === item ? <ExpandLess /> : <ExpandMore />}
+                      {open === index ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
-                    <Collapse in={open === item} timeout="auto" unmountOnExit>
+                    <Collapse in={open === index} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        {aValorMA[0].componentes[
-                          componenteSelect
-                        ].actividades.map((value, x) => {
+                        {componente.actividades.map((value, x) => {
                           return (
                             <ListItemButton
                               selected={x === actividadSelect ? true : false}
@@ -743,7 +654,7 @@ export const TabActividadesMA = ({
                       mapeaindice(componenteSelect, actividadSelect)
                     ]?.metaAnual
                   : false) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.metaAnual !== ""
               }
@@ -775,27 +686,27 @@ export const TabActividadesMA = ({
                       mapeaindice(componenteSelect, actividadSelect)
                     ]?.metaAnual
                   : false) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.metaAnual !== ""
                   ? ""
                   : handleClickOpen()
               }
               value={
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.metaAnual || ""
               }
               error={
                 parseFloat(
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metaAnual
-                ) < 0 ||
-                aValorMA[0].componentes[componenteSelect].actividades[
+                ) <= 0 ||
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.metaAnual !==
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0]?.trimestre4
                   ? true
@@ -803,14 +714,14 @@ export const TabActividadesMA = ({
               }
               helperText={
                 parseFloat(
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metaAnual
-                ) < 0 ||
-                aValorMA[0].componentes[componenteSelect].actividades[
+                ) <= 0 ||
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.metaAnual !==
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0]?.trimestre4
                   ? "El valor de la meta anual debe coincidir con el valor del trimestre 4, verifica los valores"
@@ -818,6 +729,7 @@ export const TabActividadesMA = ({
               }
             />
           </Grid>
+
           <Grid
             item
             xl={3}
@@ -838,7 +750,7 @@ export const TabActividadesMA = ({
                       mapeaindice(componenteSelect, actividadSelect)
                     ]?.lineaBase
                   : false) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.lineaBase !== ""
               }
@@ -856,18 +768,18 @@ export const TabActividadesMA = ({
               }
               error={
                 (parseFloat(
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.lineaBase
                 ) < 0 ||
                   isNaN(
                     parseFloat(
-                      aValorMA[0].componentes[componenteSelect].actividades[
+                      componentesActividadValues[componenteSelect].actividades[
                         actividadSelect
                       ]?.lineaBase
                     )
                   )) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.lineaBase !== ""
                   ? true
@@ -875,18 +787,18 @@ export const TabActividadesMA = ({
               }
               helperText={
                 (parseFloat(
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.lineaBase
-                ) < 0 ||
+                ) <= 0 ||
                   isNaN(
                     parseFloat(
-                      aValorMA[0].componentes[componenteSelect].actividades[
+                      componentesActividadValues[componenteSelect].actividades[
                         actividadSelect
                       ]?.lineaBase
                     )
                   )) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.lineaBase !== ""
                   ? "Introducir valor mayor que 0."
@@ -903,28 +815,32 @@ export const TabActividadesMA = ({
                 },
               }}
               value={
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.lineaBase || ""
               }
               onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
-                  actividadSelect
-                ].lineaBase = c.target.value
-                  .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
-                setAValorMA(y);
+                let y = [...componentesActividadValues];
+                y[componenteSelect].actividades[actividadSelect].lineaBase =
+                  c.target.value
+                    .replaceAll('"', "")
+                    .replaceAll("'", "")
+                    .replaceAll("\n", "");
+
+                setComponentesActividadValues(y);
               }}
             />
           </Grid>
 
           {JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("INDICE") ||
           JSON.parse(MIR)
-            .actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("ÍNDICE") ? (
             <Grid
               item
@@ -946,7 +862,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.valorNumerador
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorNumerador !== ""
                 }
@@ -978,14 +894,14 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.valorNumerador
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorNumerador !== ""
                     ? ""
                     : handleClickOpen()
                 }
                 value={
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorNumerador || ""
                 }
@@ -1012,7 +928,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.valorNumerador
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorNumerador !== ""
                 }
@@ -1044,14 +960,14 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.valorNumerador
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorNumerador !== ""
                     ? ""
                     : handleClickOpen()
                 }
                 value={
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorNumerador || ""
                 }
@@ -1063,7 +979,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.valorDenominador
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorDenominador !== ""
                 }
@@ -1095,14 +1011,14 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.valorDenominador
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorDenominador !== ""
                     ? ""
                     : handleClickOpen()
                 }
                 value={
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.valorDenominador || ""
                 }
@@ -1130,7 +1046,7 @@ export const TabActividadesMA = ({
                       mapeaindice(componenteSelect, actividadSelect)
                     ]?.sentidoDelIndicador
                   : false) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.sentidoDelIndicador !== ""
               }
@@ -1168,16 +1084,16 @@ export const TabActividadesMA = ({
                 control={
                   <Radio
                     checked={
-                      aValorMA[0]?.componentes[componenteSelect].actividades[
+                      componentesActividadValues[componenteSelect].actividades[
                         actividadSelect
                       ]?.sentidoDelIndicador === "ASCENDENTE"
                     }
                     onChange={(c) => {
-                      let y = [...aValorMA];
-                      y[0].componentes[componenteSelect].actividades[
+                      let y = [...componentesActividadValues];
+                      y[componenteSelect].actividades[
                         actividadSelect
                       ].sentidoDelIndicador = c.target.value;
-                      setAValorMA(y);
+                      setComponentesActividadValues(y);
                     }}
                   />
                 }
@@ -1197,16 +1113,16 @@ export const TabActividadesMA = ({
                 control={
                   <Radio
                     checked={
-                      aValorMA[0]?.componentes[componenteSelect].actividades[
+                      componentesActividadValues[componenteSelect].actividades[
                         actividadSelect
                       ]?.sentidoDelIndicador === "DESCENDENTE"
                     }
                     onChange={(c) => {
-                      let y = [...aValorMA];
-                      y[0].componentes[componenteSelect].actividades[
+                      let y = [...componentesActividadValues];
+                      y[componenteSelect].actividades[
                         actividadSelect
                       ].sentidoDelIndicador = c.target.value;
-                      setAValorMA(y);
+                      setComponentesActividadValues(y);
                     }}
                   />
                 }
@@ -1226,16 +1142,16 @@ export const TabActividadesMA = ({
                 control={
                   <Radio
                     checked={
-                      aValorMA[0]?.componentes[componenteSelect].actividades[
+                      componentesActividadValues[componenteSelect].actividades[
                         actividadSelect
                       ]?.sentidoDelIndicador === "NORMAL"
                     }
                     onChange={(c) => {
-                      let y = [...aValorMA];
-                      y[0].componentes[componenteSelect].actividades[
+                      let y = [...componentesActividadValues];
+                      y[componenteSelect].actividades[
                         actividadSelect
                       ].sentidoDelIndicador = c.target.value;
-                      setAValorMA(y);
+                      setComponentesActividadValues(y);
                     }}
                   />
                 }
@@ -1276,7 +1192,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.metasPorFrecuencia[0].trimestre1
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre1 !== ""
                 }
@@ -1288,7 +1204,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.metasPorFrecuencia[0].trimestre1
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre1 !== ""
                     ? ""
@@ -1305,7 +1221,7 @@ export const TabActividadesMA = ({
                   </Typography>
                 }
                 value={
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre1 || ""
                 }
@@ -1342,7 +1258,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.metasPorFrecuencia[0].trimestre2
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre2 !== ""
                 }
@@ -1354,7 +1270,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.metasPorFrecuencia[0].trimestre2
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre2 !== ""
                     ? ""
@@ -1371,7 +1287,7 @@ export const TabActividadesMA = ({
                   </Typography>
                 }
                 value={
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre2 || ""
                 }
@@ -1408,7 +1324,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.metasPorFrecuencia[0].trimestre3
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre3 !== ""
                 }
@@ -1420,7 +1336,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.metasPorFrecuencia[0].trimestre3
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre3 !== ""
                     ? ""
@@ -1437,7 +1353,7 @@ export const TabActividadesMA = ({
                   </Typography>
                 }
                 value={
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre3 || ""
                 }
@@ -1474,7 +1390,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.metasPorFrecuencia[0].trimestre4
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre4 !== ""
                 }
@@ -1486,7 +1402,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.metasPorFrecuencia[0].trimestre4
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre4 !== ""
                     ? ""
@@ -1503,7 +1419,7 @@ export const TabActividadesMA = ({
                   </Typography>
                 }
                 value={
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.metasPorFrecuencia[0].trimestre4 || ""
                 }
@@ -1546,7 +1462,7 @@ export const TabActividadesMA = ({
                         mapeaindice(componenteSelect, actividadSelect)
                       ]?.unidadResponsable
                     : false) &&
-                  aValorMA[0].componentes[componenteSelect].actividades[
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ]?.unidadResponsable !== ""
                 }
@@ -1555,7 +1471,7 @@ export const TabActividadesMA = ({
                 value={{
                   Id: catalogoUnidadResponsable[0].Id,
                   Label:
-                    aValorMA[0].componentes[componenteSelect].actividades[
+                    componentesActividadValues[componenteSelect].actividades[
                       actividadSelect
                     ]?.unidadResponsable,
                 }}
@@ -1592,11 +1508,11 @@ export const TabActividadesMA = ({
                   ></TextField>
                 )}
                 onChange={(event, value) => {
-                  let y = [...aValorMA];
-                  y[0].componentes[componenteSelect].actividades[
+                  let y = [...componentesActividadValues];
+                  componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
                   ].unidadResponsable = value?.Label || "";
-                  setAValorMA(y);
+                  setComponentesActividadValues(y);
                 }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
@@ -1623,7 +1539,7 @@ export const TabActividadesMA = ({
                       mapeaindice(componenteSelect, actividadSelect)
                     ]?.descIndicador
                   : false) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descIndicador !== ""
               }
@@ -1642,19 +1558,19 @@ export const TabActividadesMA = ({
                 </Typography>
               }
               value={
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descIndicador || ""
               }
               onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
+                let y = [...componentesActividadValues];
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ].descIndicador = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
-                setAValorMA(y);
+                setComponentesActividadValues(y);
               }}
               InputLabelProps={{
                 style: {
@@ -1689,7 +1605,7 @@ export const TabActividadesMA = ({
                       mapeaindice(componenteSelect, actividadSelect)
                     ]?.descNumerador
                   : false) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descNumerador !== ""
               }
@@ -1708,19 +1624,19 @@ export const TabActividadesMA = ({
                 </Typography>
               }
               value={
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descNumerador || ""
               }
               onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
+                let y = [...componentesActividadValues];
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ].descNumerador = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
-                setAValorMA(y);
+                setComponentesActividadValues(y);
               }}
               InputLabelProps={{
                 style: {
@@ -1755,7 +1671,7 @@ export const TabActividadesMA = ({
                       mapeaindice(componenteSelect, actividadSelect)
                     ]?.descDenominador
                   : false) &&
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descDenominador !== ""
               }
@@ -1774,19 +1690,19 @@ export const TabActividadesMA = ({
                 </Typography>
               }
               value={
-                aValorMA[0].componentes[componenteSelect].actividades[
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descDenominador || ""
               }
               onChange={(c) => {
-                let y = [...aValorMA];
-                y[0].componentes[componenteSelect].actividades[
+                let y = [...componentesActividadValues];
+                componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ].descDenominador = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
-                setAValorMA(y);
+                setComponentesActividadValues(y);
               }}
               InputLabelProps={{
                 style: {

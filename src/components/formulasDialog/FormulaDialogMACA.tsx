@@ -17,6 +17,7 @@ export const FormulaDialogMACA = ({
   textoSet,
   tipo,
   elemento,
+  elementoA,
   MIR,
   frecuencia,
 }: {
@@ -25,6 +26,7 @@ export const FormulaDialogMACA = ({
   textoSet: Function;
   tipo: string;
   elemento: string;
+  elementoA: string;
   MIR: string;
   frecuencia: string;
 }) => {
@@ -266,7 +268,9 @@ export const FormulaDialogMACA = ({
         }}
       >
         <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
-          {elemento} - Fórmula - {tipo}
+          {elementoA
+            ? `${elementoA} - Fórmula - ${tipo}`
+            : `${elemento } - Fórmula - ${tipo}`}
         </Typography>
 
         <Typography
@@ -303,9 +307,9 @@ export const FormulaDialogMACA = ({
             : elemento === "Propósito"
             ? JSON.parse(MIR).proposito.formula
             : elemento.includes("Componente")
-            ? JSON.parse(MIR).componentes[noComponente - 1].formula
+            ? JSON.parse(MIR).componentes[noComponente].formula
             : elemento.includes("A")
-            ? JSON.parse(MIR).actividades[noActividad - 1]?.formula
+            ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]?.formula
             : null}
         </Typography>
       </Box>

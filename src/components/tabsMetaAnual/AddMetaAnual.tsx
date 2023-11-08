@@ -9,10 +9,106 @@ import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
+import { IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
 import TabResumenMIR from "../modalsMA/ModalResumenMA";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import {
+  actividadesObligatorias,
+  componentesObligatorios,
+} from "../../services/statesGlobals";
+import { IMA } from "./IMA";
+import { alertaError } from "../genericComponents/Alertas";
+import { isValidIMA } from "../../funcs/ValidatorMA";
+import GenericTabs from "../genericComponents/genericTabs";
+
+const tabs = ["Fin / Propósito", "Componentes", "Actividades", "Resumen"];
+
+function getNumComponents(MIR: string) {
+  let aux = JSON.parse(MIR).componentes?.length;
+  let arrayComponents = [];
+  for (let i = 0; i < aux; i++) {
+    arrayComponents.push(i + 1);
+  }
+
+  return arrayComponents;
+}
+function newFinPropositoMA() {
+  return {
+    metaAnual: "",
+    lineaBase: "",
+    valorNumerador: "",
+    valorDenominador: "",
+    sentidoDelIndicador: "",
+    unidadResponsable: "",
+    descIndicador: "",
+    descNumerador: "",
+    descDenominador: "",
+  };
+}
+
+function newMetaAnual(MIR: string) {
+  return {
+    fin: newFinPropositoMA(),
+    proposito: newFinPropositoMA(),
+    componentes: getNumComponents(MIR).map((item) => newComponente(item)),
+  };
+}
+
+export function newActividad(indexComponente: number, indexActividad: number) {
+  return {
+    actividad: `A${indexActividad}C${indexComponente}`,
+    metaAnual: "",
+    lineaBase: "",
+    metasPorFrecuencia: [
+      {
+        semestre1: "",
+        semestre2: "",
+        trimestre1: "",
+        trimestre2: "",
+        trimestre3: "",
+        trimestre4: "",
+      },
+    ],
+    valorNumerador: "",
+    valorDenominador: "",
+    sentidoDelIndicador: "",
+    unidadResponsable: "",
+    descIndicador: "",
+    descNumerador: "",
+    descDenominador: "",
+  };
+}
+
+export function newComponente(index: number) {
+  let componente: IComponenteMA;
+  componente = {
+    componentes: "C" + index,
+    metaAnual: "",
+    lineaBase: "",
+    metasPorFrecuencia: [
+      {
+        semestre1: "",
+        semestre2: "",
+        trimestre1: "",
+        trimestre2: "",
+        trimestre3: "",
+        trimestre4: "",
+      },
+    ],
+    valorNumerador: "",
+    valorDenominador: "",
+    sentidoDelIndicador: "",
+    unidadResponsable: "",
+    descIndicador: "",
+    descNumerador: "",
+    descDenominador: "",
+    actividades: actividadesObligatorias.map((item) =>
+      newActividad(index, item)
+    ),
+  };
+  return componente;
+}
 
 export default function AddMetaAnual({
   MIR,
@@ -27,7 +123,21 @@ export default function AddMetaAnual({
   IdMir: string;
   IdMA: string;
 }) {
-  const [value, setValue] = React.useState(20);
+  const [maPadre, setMAPadre] = useState<IMA>(newMetaAnual(MIR));
+
+  useEffect(() => {
+    console.log("MIR", MIR);
+    console.log("MA", MA);
+    // console.log("showResume",showResume);
+    console.log("IdMir", IdMir);
+    console.log("IdMA", IdMA);
+    //getNumComponents();
+    //console.log("numero de componentes de la mir", getNumComponents());
+    //setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
+    //setMAPadre({...maPadre,componentes: });
+  }, []);
+
+  const [value, setValue] = React.useState(0);
 
   const [showMir, setShowMir] = React.useState(false);
 
@@ -51,135 +161,132 @@ export default function AddMetaAnual({
 
   const jsonMir = JSON.parse(MIR);
 
-  useEffect(() => {
-    let act: number[] = [];
-    let comp: string[] = [];
-    let ambos: any = [];
-    let i = 1;
-    let j = 1;
 
-    jsonMir.componentes.map((x: any) => {
-      comp.push("C" + j);
-      jsonMir.actividades.map((a: any) => {
-        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-          act.push(i);
-          i++;
-        }
+  const setMAcomponentesPadre = (componentesValues: IComponenteMA[]) =>{
+    setMAPadre({
+        ...maPadre,
+          componentes: componentesValues,
+        
       });
-      ambos.push({ actividades: act, componente: "C" + j });
-      act = [];
-      i = 1;
-      j++;
-    });
+  };
 
-    setCompAct(ambos);
+  const setMAActividadesPadre = (componentesActividadesValues: IComponenteMA[]) =>{
+    setMAPadre({
+        ...maPadre,
+          componentes: componentesActividadesValues,
+        
+      });
+  };
+  // useEffect(() => {
+  //   let act: number[] = [];
+  //   let comp: string[] = [];
+  //   let ambos: any = [];
+  //   let i = 1;
+  //   let j = 1;
 
-    jsonMir.componentes.map((value: any, index: number) => {
-      if (index > 1 && index < 6)
-        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   jsonMir.componentes.map((x: any) => {
+  //     comp.push("C" + j);
+  //     jsonMir.actividades.map((a: any) => {
+  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+  //         act.push(i);
+  //         i++;
+  //       }
+  //     });
+  //     ambos.push({ actividades: act, componente: "C" + j });
+  //     act = [];
+  //     i = 1;
+  //     j++;
+  //   });
+
+  //   setCompAct(ambos);
+
+  //   jsonMir.componentes.map((value: any, index: number) => {
+  //     if (index > 1 && index < 6)
+  //       setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // COMPONENTES ------------------ No me sirve para FichaTecnica
-  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+  // const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  const [valoresComponenteMA, setValoresComponenteMA] = useState<
-    Array<IComponenteMA>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
-    })
-  );
-  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-    setValoresComponenteMA(state);
-  };
-
-  // ACTIVIDADES
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  const componenteActividad = [
-    {
-      componentes: noComponentes.map((x) => [1, 2]),
-    },
-  ];
-
-  const [cValorMA, setCValorMA] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "",
-                metaAnual: "",
-                lineaBase: "",
-                metasPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                valorNumerador: "",
-                valorDenominador: "",
-                sentidoDelIndicador: "",
-                unidadResponsable: "",
-                descIndicador: "",
-                descNumerador: "",
-                descDenominador: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  const asignarCValorMA = (state: Array<ICValorMA>) => {
-    setCValorMA(state);
-  };
+  // const [ComponentesMA, setComponentesMA] = useState<IComponenteMA[]>(componentesObligatorios.map((item) => newComponente(item)));
 
   useEffect(() => {
-    let arrayMA = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metaAnual: "",
-        lineaBase: "",
-        metasPorFrecuencia: [
-          {
-            semestre1: "",
-            semestre2: "",
-            trimestre1: "",
-            trimestre2: "",
-            trimestre3: "",
-            trimestre4: "",
-          },
-        ],
-        valorNumerador: "",
-        valorDenominador: "",
-        sentidoDelIndicador: "",
-        unidadResponsable: "",
-        descIndicador: "",
-        descNumerador: "",
-        descDenominador: "",
-      };
-    });
-    setValoresComponenteMA(arrayMA);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (MA !== "") {
+      let auxMA = JSON.parse(MA);
+      setMAPadre(auxMA);
+      // if (isValidIMA(auxMA)) {
+      //   setMAPadre(auxMA);
+      // } else {
+      //   alertaError("La información puede estar dañada");
+      // }
+    }
   }, []);
+
+  useEffect(() => {
+    console.log("maPadre", maPadre);
+  }, [maPadre]);
+
+  // const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
+  //   setComponentesMA(state);
+  // };
+
+  // ACTIVIDADES
+  // const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
+  // const componenteActividad = [
+  //   {
+  //     componentes: noComponentes.map((x) => [1, 2]),
+  //   },
+  // ];
+
+  // const [cValorMA, setCValorMA] = useState(
+  //   componenteActividad.map((item) => {
+  //     return {
+  //       componentes: item.componentes.map((x, index) => {
+  //         return {
+  //           actividades: x.map((c, index2) => {
+  //             return {
+  //               actividad: "",
+  //               metaAnual: "",
+  //               lineaBase: "",
+  //               metasPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //               valorNumerador: "",
+  //               valorDenominador: "",
+  //               sentidoDelIndicador: "",
+  //               unidadResponsable: "",
+  //               descIndicador: "",
+  //               descNumerador: "",
+  //               descDenominador: "",
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   })
+  // );
+
+  // const asignarCValorMA = (state: Array<ICValorMA>) => {
+  //   setCValorMA(state);
+  // };
+
+  // useEffect(() => {
+  //   let arrayMA = noComponentes.map((x, index) => {
+  //     return newComponente(x)
+  //   });
+  //   setComponentesMA(arrayMA);
+  //   eslint-disable-next-line react-hooks/exhaustive-deps
+  //
+  //   console.log("noComponentes: ",noComponentes);
+
+  // }, []);
 
   const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
@@ -242,105 +349,7 @@ export default function AddMetaAnual({
             alignItems: "center",
           }}
         >
-          <Tabs
-            value={value}
-            textColor="inherit"
-            variant={query.isScrollable ? "scrollable" : "standard"}
-            // centered={query.isScrollable ? false : true}
-            scrollButtons="auto"
-            allowScrollButtonsMobile
-            sx={{
-              backgroundColor: "#e0e0e0",
-              borderRadius: "10px 10px 0 0",
-              GridShadow: 20,
-              width: ["300px", "628px", "900px", "1120px", "1250px", "1450px"],
-              //height: ["30px", "20px", "30px", "40px", "50px"],
-            }}
-          >
-            <Tab
-              label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "#af8c55",
-                fontFamily: "MontserratSemiBold",
-                backgroundColor: "#ccc",
-                width: ["0px", "105px", "150px", "190px", "210px"],
-                display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
-              }}
-              onClick={() => {
-                cambiarTab("atras");
-              }}
-            />
-            <Tab
-              label="Fin / Propósito"
-              value={20}
-              onClick={() => {
-                setValue(20);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "105px", "150px", "190px", "210px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-            <Tab
-              label="Componentes"
-              value={30}
-              onClick={() => {
-                setValue(30);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "105px", "150px", "190px", "210px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-            <Tab
-              label="Actividades"
-              value={40}
-              onClick={() => {
-                setValue(40);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "105px", "150px", "190px", "210px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-            <Tab
-              label="Resumen"
-              value={50}
-              onClick={() => {
-                setValue(50);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "105px", "150px", "190px", "210px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-            <Tab
-              label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
-              sx={{
-                //borderRight: "5px solid #b3afaf",
-                color: "#af8c55",
-                backgroundColor: "#ccc",
-                width: ["0px", "105px", "150px", "190px", "210px"],
-                display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
-              }}
-              onClick={() => {
-                cambiarTab("adelante");
-              }}
-            />
-          </Tabs>
+          <GenericTabs tabSelect={setValue} tabsData={tabs} />
 
           <Grid
             sx={{
@@ -354,58 +363,65 @@ export default function AddMetaAnual({
               alignItems: "center",
             }}
           >
-            <TabFinPropositoMA
-              MA={MA}
-              MIR={MIR}
-              setTxtShowFnc={showFnc}
-              show={value === 20 ? true : false}
-              resumenFinMa={resumenFinMa}
-              resumenPropositoMa={resumenPropositoMa}
-              showMirFnc={showMirFnc}
-            ></TabFinPropositoMA>
+            {value === 0 ? (
+              <TabFinPropositoMA
+                MA={MA}
+                MIR={MIR}
+                setTxtShowFnc={showFnc}
+                //show={value === 0 ? true : false}
+                resumenFinMa={resumenFinMa}
+                resumenPropositoMa={resumenPropositoMa}
+                showMirFnc={showMirFnc}
+              />
+            ) : null}
+            {value === 1 ? (
+              <TabComponenteMA
+                setTxtShowFnc={showFnc}
+                showMirFnc={showMirFnc}
+                //show={value === 1 ? true : false}
+                setMAcomponentesPadre= {setMAcomponentesPadre}
+                setComponenteMA={setMAPadre }
+                ComponentesMA={maPadre.componentes}
+                MA={MA}
+                MIR={MIR}
+              />
+            ) : null}
 
-            <TabComponenteMA
-              setTxtShowFnc={showFnc}
-              showMirFnc={showMirFnc}
-              show={value === 30 ? true : false}
-              valoresComponenteMAFnc={valoresComponenteMAFnc}
-              noComponentes={noComponentes}
-              MA={MA}
-              MIR={MIR}
-            ></TabComponenteMA>
+            {value === 2 ? (
+              <TabActividadesMA
+                setTxtShowFnc={showFnc}
+                showMirFnc={showMirFnc}
+                compAct={[]}
+                // show={value === 2 ? true : false}
+                setMAActividadesPadre = {setMAActividadesPadre}
+                ComponentesActividadMA ={maPadre.componentes}
+                asignarCValor={() => {}}
+                MA={MA}
+                MIR={MIR}
+              ></TabActividadesMA>
+            ) : null}
 
-            <TabActividadesMA
-              setTxtShowFnc={showFnc}
-              showMirFnc={showMirFnc}
-              compAct={compAct}
-              show={value === 40 ? true : false}
-              componentes={noComponentes}
-              asignarCValor={asignarCValorMA}
-              MA={MA}
-              MIR={MIR}
-            ></TabActividadesMA>
-
-            <TabResumenMA
-              show={value === 50 ? true : false}
-              componentes={noComponentes}
-              componenteValor={valoresComponenteMA}
-              cValor={cValorMA}
-              fin={ValueFin}
-              proposito={ValueProposito}
-              IdMir={IdMir}
-              IdMA={IdMA}
-              showResume={showResume}
-              MIR={MIR}
-            ></TabResumenMA>
-
-            <TabResumenMIR
+            {value === 3 ? (
+              <TabResumenMA
+                show={value === 3 ? true : false}
+                componentes={[]}
+                componenteValor={maPadre.componentes}
+                cValor={[]}
+                fin={ValueFin}
+                proposito={ValueProposito}
+                IdMir={IdMir}
+                IdMA={IdMA}
+                showResume={showResume}
+                MIR={MIR}
+              ></TabResumenMA>
+            ) : null}
+            {/* <TabResumenMIR
               show={showMir}
               showMirFnc={showMirFnc}
               showSt={showSt}
               MIR={MIR}
-              noComponentes={noComponentes}
-            ></TabResumenMIR>
-            
+              noComponentes={[1, 2]}
+            ></TabResumenMIR> */}
           </Grid>
         </Grid>
       </Grid>
