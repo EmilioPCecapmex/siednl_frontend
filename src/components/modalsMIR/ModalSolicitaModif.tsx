@@ -282,51 +282,54 @@ export default function ModalSolicitaModif({
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MIR)?.actividades.map((actividad: any, index: number) => {
-      if (
-        actividad.resumen === undefined ||
-        actividad.resumen === "" ||
-        actividad.resumen === null
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Resumen Narrativo sin información.`
-        );
-        err = 1;
-      }
-      if (actividad.indicador === undefined || actividad.indicador === "") {
-        err = 1;
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Indicador sin información.`
-        );
-      }
-      if (actividad.formula === undefined || actividad.formula === "") {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Fórmula sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.frecuencia === undefined ||
-        actividad.frecuencia === "" ||
-        actividad.frecuencia.toLowerCase() !== "trimestral"
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Frecuencia sin información.`
-        );
-        err = 1;
-      }
-      if (actividad.medios === undefined || actividad.medios === "") {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Medios de Verificación sin información.`
-        );
-        err = 1;
-      }
-      if (actividad.supuestos === undefined || actividad.supuestos === "") {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Supuestos sin información.`
-        );
-        err = 1;
-      }
+    console.log("actividades",JSON.parse(MIR));
+    JSON.parse(MIR)?.componentes.map((x: any, index: number) => {
+      x.actividades.map((actividad: any, index2: number) => {
+        if (
+          actividad.resumen === undefined ||
+          actividad.resumen === "" ||
+          actividad.resumen === null
+        ) {
+          errores.push(
+            `<strong> Actividad ${actividad.actividad} </strong>: Resumen Narrativo sin información.`
+          );
+          err = 1;
+        }
+        if (actividad.indicador === undefined || actividad.indicador === "") {
+          err = 1;
+          errores.push(
+            `<strong> Actividad ${actividad.actividad} </strong>: Indicador sin información.`
+          );
+        }
+        if (actividad.formula === undefined || actividad.formula === "") {
+          errores.push(
+            `<strong> Actividad ${actividad.actividad} </strong>: Fórmula sin información.`
+          );
+          err = 1;
+        }
+        if (
+          actividad.frecuencia === undefined ||
+          actividad.frecuencia === "" ||
+          actividad.frecuencia.toLowerCase() !== "trimestral"
+        ) {
+          errores.push(
+            `<strong> Actividad ${actividad.actividad} </strong>: Frecuencia sin información.`
+          );
+          err = 1;
+        }
+        if (actividad.medios === undefined || actividad.medios === "") {
+          errores.push(
+            `<strong> Actividad ${actividad.actividad} </strong>: Medios de Verificación sin información.`
+          );
+          err = 1;
+        }
+        if (actividad.supuestos === undefined || actividad.supuestos === "") {
+          errores.push(
+            `<strong> Actividad ${actividad.actividad} </strong>: Supuestos sin información.`
+          );
+          err = 1;
+        }
+      });
     });
     if (err === 0) {
       createMIR(v);

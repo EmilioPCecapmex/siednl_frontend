@@ -76,6 +76,7 @@ export function TabResumen({
     let indexActividades = 0;
     MIRPADRE.componentes.map((v, index) => {
       let aux: Array<IActividad> = [];
+      indexActividades=0;
       v.actividades.map((x) => {
         aux.push(MIRPADRE.componentes[index].actividades[indexActividades]);
         indexActividades++;
@@ -159,6 +160,8 @@ export function TabResumen({
     console.log("idMir", idMir);
   }, [MIRPADRE, idMir]);
 
+  
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -228,7 +231,7 @@ export function TabResumen({
     let arrayEncabezado = Object.entries(editEncabezado);
     let arrayFin = Object.entries(editFin);
     let arrayProposito = Object.entries(editProposito);
-
+    
     let arrayComponentes = editComponentes.map((item) => {
       let a = [
         item.formula,
@@ -242,7 +245,6 @@ export function TabResumen({
       let x = a.every((value) => value === true);
       return x;
     });
-
     let arrayActividad = editActividades.map((item) => {
       let a = [
         //item.actividad,
@@ -280,6 +282,8 @@ export function TabResumen({
     editComponentes,
     editActividades,
   ]);
+
+  
 
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
   const isAutorizador = localStorage.getItem("Rol") === "Administrador";
@@ -1562,6 +1566,7 @@ export function TabResumen({
                     }}
                   >
                     Componente {index + 1}
+                    {JSON.stringify(editComponentes)}
                   </Typography>
                 </Grid>
 
@@ -1589,6 +1594,7 @@ export function TabResumen({
                         value={editComponentes[index - 1]?.resumen}
                         onChange={(v) => {
                           let past = [...editComponentes];
+                          console.log(past);
                           past[index - 1].resumen = v.target.checked;
                           setEditComponentes(past);
                         }}
@@ -1890,9 +1896,9 @@ export function TabResumen({
               Actividades
             </Typography>
           </Grid>
-
           {valoresComponenteActividad.map((comps, index) => {
             return comps.map((acts, index2) => {
+              
               return (
                 <Grid
                   item
@@ -1948,6 +1954,7 @@ export function TabResumen({
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
+                          
                           value={!editComponentes[index - 1]?.resumen}
                           onChange={(v) => {
                             let past = [...editComponentes];
