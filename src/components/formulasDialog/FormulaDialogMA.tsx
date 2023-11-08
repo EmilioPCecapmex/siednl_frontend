@@ -16,6 +16,7 @@ export const FormulaDialogMA = ({
   textoSet,
   tipo,
   elemento,
+  elementoA,
   MIR,
 }: {
   open: boolean;
@@ -23,6 +24,7 @@ export const FormulaDialogMA = ({
   textoSet: Function;
   tipo: string;
   elemento: string;
+  elementoA: string;
   MIR: string;
 }) => {
   const [descA, setDescA] = useState("");
@@ -92,8 +94,15 @@ export const FormulaDialogMA = ({
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ fontFamily: "MontserratBold", fontSize: [10, 10, 10, 15, 18, 18], }}>
-          {elemento} - Fórmula - {tipo}
+        <Typography
+          sx={{
+            fontFamily: "MontserratBold",
+            fontSize: [10, 10, 10, 15, 18, 18],
+          }}
+        >
+          {elementoA
+            ? `${elementoA} - Fórmula - ${tipo}`
+            : `${elemento } - Fórmula - ${tipo}`}
         </Typography>
 
         <Typography
@@ -130,9 +139,10 @@ export const FormulaDialogMA = ({
             : elemento === "Propósito"
             ? JSON.parse(MIR).proposito.formula
             : elemento.includes("Componente")
-            ? JSON.parse(MIR).componentes[noComponente - 1].formula
+            ? JSON.parse(MIR).componentes[noComponente].formula
             : elemento.includes("A")
-            ? JSON.parse(MIR).actividades[noActividad - 1]?.formula
+            ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]
+                ?.formula
             : null}
         </Typography>
       </Grid>
@@ -158,7 +168,12 @@ export const FormulaDialogMA = ({
             <TextField
               type={"number"}
               label={
-                <Typography sx={{ fontFamily: "MontserratBold",fontSize: [10, 10, 10, 14, 15, 18], }}>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratBold",
+                    fontSize: [10, 10, 10, 14, 15, 18],
+                  }}
+                >
                   {"Valor del índice"}
                 </Typography>
               }
@@ -198,7 +213,13 @@ export const FormulaDialogMA = ({
               }}
             />
           ) : (
-            <Grid sx={{ display: "flex", justifyContent: "center" ,fontSize: [10, 10, 10, 14, 15, 18],}}>
+            <Grid
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                fontSize: [10, 10, 10, 14, 15, 18],
+              }}
+            >
               <TextField
                 type={"number"}
                 label={
@@ -232,7 +253,12 @@ export const FormulaDialogMA = ({
               <TextField
                 type={"number"}
                 label={
-                  <Typography sx={{ fontFamily: "MontserratBold", fontSize: [10, 10, 10, 14, 15, 18], }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratBold",
+                      fontSize: [10, 10, 10, 14, 15, 18],
+                    }}
+                  >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
@@ -266,13 +292,29 @@ export const FormulaDialogMA = ({
       <Grid
         sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" }}
       >
-        <Button sx ={queries.buttonCancelarSolicitudInscripcion} onClick={() => close()} >
-          <Typography sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 14, 15, 18], }}>
+        <Button
+          sx={queries.buttonCancelarSolicitudInscripcion}
+          onClick={() => close()}
+        >
+          <Typography
+            sx={{
+              fontFamily: "MontserratMedium",
+              fontSize: [10, 10, 10, 14, 15, 18],
+            }}
+          >
             Cancelar
           </Typography>
         </Button>
-        <Button sx ={queries.buttonContinuarSolicitudInscripcion}  onClick={() => checkValues()} >
-          <Typography sx={{ fontFamily: "MontserratMedium",fontSize: [10, 10, 10, 14, 15, 18], }}>
+        <Button
+          sx={queries.buttonContinuarSolicitudInscripcion}
+          onClick={() => checkValues()}
+        >
+          <Typography
+            sx={{
+              fontFamily: "MontserratMedium",
+              fontSize: [10, 10, 10, 14, 15, 18],
+            }}
+          >
             Agregar
           </Typography>
         </Button>

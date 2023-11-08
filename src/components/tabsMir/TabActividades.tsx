@@ -28,9 +28,11 @@ export const TabActividades = ({
   MIR,
   setMIR,
   idMir,
+  
 }: {
   addActividad: Function;
   removeActividad: Function;
+ 
   MIR: IMIR;
   setMIR: Function;
   idMir: string;
@@ -126,88 +128,7 @@ export const TabActividades = ({
     }
   };
 
-  // const [valoresComponenteActividad, setValoresComponenteActividad] = useState<
-  //   Array<Array<IActividadesMir>>
-  // >([
-  //   [
-  //     {
-  //       actividad: "A1C1",
-  //       resumen: "",
-  //       indicador: "",
-  //       frecuencia: "TRIMESTRAL",
-  //       formula: "",
-  //       medios: "",
-  //       supuestos: "",
-  //     },
-  //     {
-  //       actividad: "A2C1",
-  //       resumen: "",
-  //       indicador: "",
-  //       frecuencia: "TRIMESTRAL",
-  //       formula: "",
-  //       medios: "",
-  //       supuestos: "",
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       actividad: "A1C2",
-  //       resumen: "",
-  //       indicador: "",
-  //       frecuencia: "TRIMESTRAL",
-  //       formula: "",
-  //       medios: "",
-  //       supuestos: "",
-  //     },
-  //     {
-  //       actividad: "A2C2",
-  //       resumen: "",
-  //       indicador: "",
-  //       frecuencia: "TRIMESTRAL",
-  //       formula: "",
-  //       medios: "",
-  //       supuestos: "",
-  //     },
-  //   ],
-  // ]);
-
-  // const [addA, setAddA] = useState(false);
-
-  // useEffect(() => {
-  //   let n: Array<Array<IActividadesMir>> = [];
-
-  //   let indexActividades = 0;
-  //   MIR.componenteActividad.map((v, index) => {
-  //     let aux: Array<IActividadesMir> = [];
-
-  //     v.actividades.map((x) => {
-  //       aux.push(MIR.actividades[indexActividades]);
-  //       indexActividades++;
-  //     });
-
-  //     n.push(aux);
-  //     // n[index] = ;
-  //   });
-  //   setValoresComponenteActividad(n);
-  // //Aqui no se guarda bien ya se esta pusheando mal
-
-  // }, [addA]);
-
-  // useEffect(() => {
-  //   let arr: Array<IActividadesMir> = [];
-  //   valoresComponenteActividad.map((v, index) => {
-  //     v.map((val, index2) => {
-  //       arr.push(val);
-  //     });
-  //   });
-
-  //   setMIR((MIR: IMIR) => ({
-  //     ...MIR,
-  //     ...{
-  //       actividades: arr,
-  //     },
-  //   }));
-  // }, [valoresComponenteActividad]);
+  
   const [componentes, setComponentes] = useState<Array<IComponente>>(
     MIR.componentes
   );
@@ -696,7 +617,7 @@ export const TabActividades = ({
             />
           </Grid>
 
-          <Grid
+           <Grid
             item
             xl={4}
             lg={4}
@@ -750,7 +671,7 @@ export const TabActividades = ({
                 }
               />
             </FormControl>
-          </Grid>
+          </Grid> 
 
           <Grid
             item

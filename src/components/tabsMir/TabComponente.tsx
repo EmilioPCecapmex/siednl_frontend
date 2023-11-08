@@ -37,7 +37,7 @@ export const TabComponente = ({
   setMIR: Function;
   idMir:string;
 }) => {
-  const [componentSelect, setComponentSelect] = useState(1);
+  const [componentSelect, setComponentSelect] = useState(0);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [prevTextFormula, setPrevTextFormula] = useState("");
@@ -46,7 +46,7 @@ export const TabComponente = ({
   const [errorIndicador, setErrorIndicador] = useState(-1);
 
   const handleClickOpen = () => {
-    setPrevTextFormula(MIR.componentes[componentSelect - 1].formula);
+    setPrevTextFormula(MIR.componentes[componentSelect ].formula);
     setOpenFormulaDialog(true);
   };
 
@@ -56,13 +56,13 @@ export const TabComponente = ({
 
   const changeFormula = (txt: string) => {
     let prevLocal = [...MIR.componentes];
-    prevLocal[componentSelect - 1].formula = txt;
+    prevLocal[componentSelect ].formula = txt;
     setComponentes(prevLocal);
   };
 
   const evalueTxtIndicador = () => {
     const cIndicador =
-      MIR.componentes[componentSelect - 1].indicador?.toLowerCase();
+      MIR.componentes[componentSelect ].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
       if (cIndicador.includes("porcentaje" || "PORCENTAJE")) {
         setTipoFormula("Porcentaje");
@@ -85,9 +85,9 @@ export const TabComponente = ({
         handleClickOpen();
         setErrorIndicador(-1);
       } else {
-        setErrorIndicador(componentSelect - 1);
+        setErrorIndicador(componentSelect );
         let prevLocal = [...MIR.componentes];
-        prevLocal[componentSelect - 1].indicador = "";
+        prevLocal[componentSelect ].indicador = "";
         setComponentes(prevLocal);
       }
     }
@@ -99,13 +99,13 @@ export const TabComponente = ({
 
   useEffect(() => {
     setComponentes(MIR.componentes);
-    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
+    // console.log("formula: ", componentes[componentSelect ]?.formula);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR]);
 
   useEffect(() => {
     console.log("MIR desde comp:", MIR);
-    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
+    // console.log("formula: ", componentes[componentSelect ]?.formula);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -126,7 +126,8 @@ export const TabComponente = ({
     // setComponentSelect(1);
     if(MIR.componentes.length>2){
       removeComponente(componentSelect);
-      setComponentSelect(MIR.componentes.length - 1);
+      let num = MIR.componentes.length
+      setComponentSelect(num);
     }else
       alertaError("El minimo de componentes son dos.");
   }
@@ -246,7 +247,7 @@ export const TabComponente = ({
                   <ListItemButton
                     selected={index + 1 === componentSelect ? true : false}
                     key={index + 1}
-                    onClick={() => setComponentSelect(index + 1)}
+                    onClick={() => setComponentSelect(index)}
                     sx={{
                       height: "7vh",
                       "&.Mui-selected ": {
@@ -341,7 +342,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect - 1].resumen}
+              // disabled={mirEdit?.componentes[componentSelect ].resumen}
               rows={8}
               multiline
               sx={{
@@ -362,13 +363,13 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].resumen = c.target.value
+                prevLocal[componentSelect ].resumen = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
                 setComponentes(prevLocal);
               }}
-              value={componentes[componentSelect - 1]?.resumen}
+              value={componentes[componentSelect ]?.resumen}
             />
           </Grid>
 
@@ -386,7 +387,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect - 1].indicador}
+              // disabled={mirEdit?.componentes[componentSelect ].indicador}
               rows={8}
               multiline
               sx={{
@@ -406,22 +407,22 @@ export const TabComponente = ({
               }}
               // onBlur={() => evalueTxtIndicador()}
               label={"INDICADOR"}
-              error={errorIndicador === componentSelect - 1 ? true : false}
+              error={errorIndicador === componentSelect  ? true : false}
               helperText={
-                errorIndicador === componentSelect - 1
+                errorIndicador === componentSelect 
                   ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
                   : null
               }
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].indicador = c.target.value
+                prevLocal[componentSelect ].indicador = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
-                prevLocal[componentSelect - 1].formula = "";
+                prevLocal[componentSelect ].formula = "";
                 setComponentes(prevLocal);
               }}
-              value={componentes[componentSelect - 1]?.indicador}
+              value={componentes[componentSelect ]?.indicador}
             />
           </Grid>
 
@@ -439,7 +440,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect - 1].formula}
+              // disabled={mirEdit?.componentes[componentSelect ].formula}
               rows={8}
               multiline
               variant="filled"
@@ -462,7 +463,7 @@ export const TabComponente = ({
               onClick={() => {
                 evalueTxtIndicador();
               }}
-              value={componentes[componentSelect - 1]?.formula}
+              value={componentes[componentSelect ]?.formula}
             />
           </Grid>
 
@@ -499,12 +500,12 @@ export const TabComponente = ({
                 control={
                   <Radio
                     checked={
-                      componentes[componentSelect - 1]?.frecuencia ===
+                      componentes[componentSelect ]?.frecuencia ===
                       "SEMESTRAL"
                     }
                     onChange={(c) => {
                       let prevLocal = [...componentes];
-                      prevLocal[componentSelect - 1].frecuencia = c.target.value
+                      prevLocal[componentSelect ].frecuencia = c.target.value
                         .replaceAll('"', "")
                         .replaceAll("'", "")
                         .replaceAll("\n", "");
@@ -522,12 +523,12 @@ export const TabComponente = ({
                 control={
                   <Radio
                     checked={
-                      componentes[componentSelect - 1]?.frecuencia ===
+                      componentes[componentSelect ]?.frecuencia ===
                       "TRIMESTRAL"
                     }
                     onChange={(c) => {
                       let prevLocal = [...componentes];
-                      prevLocal[componentSelect - 1].frecuencia = c.target.value
+                      prevLocal[componentSelect ].frecuencia = c.target.value
                         .replaceAll('"', "")
                         .replaceAll("'", "")
                         .replaceAll("\n", "");
@@ -553,7 +554,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect - 1].medios}
+              // disabled={mirEdit?.componentes[componentSelect ].medios}
               rows={8}
               multiline
               variant="filled"
@@ -575,13 +576,13 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].medios = c.target.value
+                prevLocal[componentSelect ].medios = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
                 setComponentes(prevLocal);
               }}
-              value={componentes[componentSelect - 1]?.medios}
+              value={componentes[componentSelect ]?.medios}
             />
           </Grid>
 
@@ -599,7 +600,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect - 1].supuestos}
+              // disabled={mirEdit?.componentes[componentSelect ].supuestos}
               rows={8}
               multiline
               variant="filled"
@@ -621,13 +622,13 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].supuestos = c.target.value
+                prevLocal[componentSelect ].supuestos = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
                 setComponentes(prevLocal);
               }}
-              value={componentes[componentSelect - 1]?.supuestos}
+              value={componentes[componentSelect ]?.supuestos}
             />
           </Grid>
         </Grid>

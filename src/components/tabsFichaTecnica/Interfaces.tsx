@@ -15,7 +15,6 @@ export interface ICValorFT {
     }[];
   }[];
 }
-[];
 
 export interface IEncabezadoFT {
   programaSER: string;
@@ -58,6 +57,7 @@ export interface IComponentesFT {
   monitoreable: string;
   adecuado: string;
   aporte_marginal: string;
+  actividades: IActividadesFT[];
 }
 
 export interface IActividadesFT {
@@ -128,5 +128,5 @@ export interface IFT {
   fin: IFinFT;
   proposito: IPropositoFT;
   componentes: Array<IComponentesFT>;
-  actividades: Array<IActividadesFT>;
+  //actividades: Array<IActividadesFT>;
 }

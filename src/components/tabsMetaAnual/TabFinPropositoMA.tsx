@@ -21,7 +21,7 @@ import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import axios from "axios";
 
 export function TabFinPropositoMA({
-  show,
+  //show,
   resumenFinMa,
   resumenPropositoMa,
   showMirFnc,
@@ -29,7 +29,7 @@ export function TabFinPropositoMA({
   MA,
   MIR,
 }: {
-  show: boolean;
+  //show: boolean;
   resumenFinMa: Function;
   resumenPropositoMa: Function;
   showMirFnc: Function;
@@ -273,8 +273,8 @@ export function TabFinPropositoMA({
 
   return (
     <Grid
-      visibility={show ? "visible" : "hidden"}
-      position="absolute"
+     // visibility={show ? "visible" : "hidden"}
+      //position="absolute"
       sx={{
         display: "flex",
         width: "93vw",
@@ -292,6 +292,7 @@ export function TabFinPropositoMA({
         textoSet={changeFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
+        elementoA={""}
         MIR={MIR}
       />
 
