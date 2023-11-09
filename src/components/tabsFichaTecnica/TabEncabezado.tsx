@@ -65,12 +65,15 @@ export function TabEncabezado({
   },[objetivoODSselected])
 
   useEffect(()=>{
-    console.log("encabezado",encabezado);
-    
     let findMetaODS = catalogoMetasODS.find((item) => item.MetaODS===encabezado.metaODS)
     setMetaODSSelected(findMetaODS||newMetaODS)
-    
   },[catalogoMetasODS])
+
+  useEffect(()=>{
+    if(metaODSSelected.Id!==""){
+    setEncabezado({ ...encabezado, metaODS:metaODSSelected.MetaODS });
+    }
+  },[metaODSSelected])
 
   // useEffect(() => {
   //   console.log("catalogoObjetivosDS: ", catalogoObjetivosDS);
