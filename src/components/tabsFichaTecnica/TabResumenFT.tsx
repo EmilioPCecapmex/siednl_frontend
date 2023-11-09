@@ -47,7 +47,7 @@ export function TabResumenFT({
   setFTPadre: Function;
   ftPadre: IFT;
 }) {
-  const [FT, setFT] = useState<IFT>();
+  const [FT, setFT] = useState<IFT>(ftPadre);
 
   let asignarFT = (
     encabezado: Array<IEncabezadoFT>,
@@ -249,7 +249,7 @@ useEffect(() => {
         }),
       }}
     >
-      {/* <Grid
+       <Grid
         item
         container
         xl={12}
@@ -268,7 +268,7 @@ useEffect(() => {
           }),
         }}
       >
-        <Grid
+        {/* <Grid
           item
           xl={11}
           lg={11}
@@ -463,7 +463,7 @@ useEffect(() => {
               {encabezado[0]?.metaODS}
             </Typography>
           </Grid>
-        </Grid>
+        </Grid> */}
 
       
         <Grid
@@ -528,7 +528,7 @@ useEffect(() => {
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.tipoDeIndicador}
+              {ftPadre.fin?.tipoDeIndicador}
             </Typography>
           </Grid>
         </Grid>
@@ -571,7 +571,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.dimension}
+              {ftPadre.fin?.dimension}
             </Typography>
           </Grid>
         </Grid>
@@ -615,7 +615,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.unidadDeMedida}
+              {ftPadre.fin?.unidadDeMedida}
             </Typography>
           </Grid>
         </Grid>
@@ -659,7 +659,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.claridad}
+              {ftPadre.fin?.claridad}
             </Typography>
           </Grid>
         </Grid>
@@ -703,7 +703,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.relevancia}
+              {ftPadre.fin?.relevancia}
             </Typography>
           </Grid>
         </Grid>
@@ -747,7 +747,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.economia}
+              {ftPadre.fin?.economia}
             </Typography>
           </Grid>
         </Grid>
@@ -791,7 +791,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.monitoreable}
+              {ftPadre.fin?.monitoreable}
             </Typography>
           </Grid>
         </Grid>
@@ -835,7 +835,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.adecuado}
+              {ftPadre.fin?.adecuado}
             </Typography>
           </Grid>
         </Grid>
@@ -879,11 +879,12 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {fin[0]?.aporte_marginal}
+              {ftPadre.fin?.aporte_marginal}
             </Typography>
           </Grid>
         </Grid>
-        {/*FIN DE FIN QUE IRÓNICO NO?
+        
+        
 
        
         <Grid
@@ -918,8 +919,8 @@ useEffect(() => {
           sm={12}
           xs={12}
           sx={{
-            //display: "flex",
-            //flexDirection: "row",
+            display: "flex",
+            flexDirection: "row",
 
             //mt: 1,
             alignItems: "center",
@@ -948,7 +949,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.tipoDeIndicador}
+              {ftPadre.proposito?.tipoDeIndicador}
             </Typography>
           </Grid>
         </Grid>
@@ -990,7 +991,7 @@ useEffect(() => {
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.dimension}
+              {ftPadre.proposito?.dimension}
             </Typography>
           </Grid>
         </Grid>
@@ -1034,7 +1035,7 @@ useEffect(() => {
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.unidadDeMedida}
+              {ftPadre.proposito?.unidadDeMedida}
             </Typography>
           </Grid>
         </Grid>
@@ -1078,7 +1079,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.claridad}
+              {ftPadre.proposito?.claridad}
             </Typography>
           </Grid>
         </Grid>
@@ -1121,7 +1122,7 @@ useEffect(() => {
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.relevancia}
+              {ftPadre.proposito?.relevancia}
             </Typography>
           </Grid>
         </Grid>
@@ -1165,7 +1166,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.economia}
+              {ftPadre.proposito?.economia}
             </Typography>
           </Grid>
         </Grid>
@@ -1208,7 +1209,7 @@ useEffect(() => {
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.monitoreable}
+              {ftPadre.proposito?.monitoreable}
             </Typography>
           </Grid>
         </Grid>
@@ -1252,7 +1253,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.adecuado}
+              {ftPadre.proposito?.adecuado}
             </Typography>
           </Grid>
         </Grid>
@@ -1296,14 +1297,14 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {proposito[0]?.aporte_marginal}
+              {ftPadre.proposito?.aporte_marginal}
             </Typography>
           </Grid>
         </Grid>
        
 
     
-        <Grid
+         <Grid
           item
           xl={11}
           lg={11}
@@ -1327,7 +1328,7 @@ useEffect(() => {
           </Typography>
         </Grid>
 
-        {componentes.map((index) => {
+        {ftPadre.componentes.map((componente, index) => {
           return (
             <Grid
               item
@@ -1357,7 +1358,7 @@ useEffect(() => {
                     textAlign: "center",
                   }}
                 >
-                  COMPONENTE {index}
+                  COMPONENTE {index + 1}
                 </Typography>
               </Grid>
 
@@ -1398,7 +1399,7 @@ useEffect(() => {
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.tipoDeIndicador}
+                    {componente?.tipoDeIndicador}
                   </Typography>
                 </Grid>
               </Grid>
@@ -1441,7 +1442,7 @@ useEffect(() => {
 
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.dimension}
+                    {componente?.dimension}
                   </Typography>
                 </Grid>
               </Grid>
@@ -1483,7 +1484,7 @@ useEffect(() => {
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.unidadDeMedida}
+                    {componente?.unidadDeMedida}
                   </Typography>
                 </Grid>
               </Grid>
@@ -1525,7 +1526,7 @@ useEffect(() => {
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.claridad}
+                    {componente?.claridad}
                   </Typography>
                 </Grid>
               </Grid>
@@ -1568,7 +1569,7 @@ useEffect(() => {
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.relevancia}
+                    {componente?.relevancia}
                   </Typography>
                 </Grid>
               </Grid>
@@ -1610,7 +1611,7 @@ useEffect(() => {
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.economia}
+                    {componente?.economia}
                   </Typography>
                 </Grid>
               </Grid>
@@ -1652,7 +1653,7 @@ useEffect(() => {
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.monitoreable}
+                    {componente?.monitoreable}
                   </Typography>
                 </Grid>
               </Grid>
@@ -1694,7 +1695,7 @@ useEffect(() => {
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.adecuado}
+                    {componente?.adecuado}
                   </Typography>
                 </Grid>
               </Grid>
@@ -1736,16 +1737,16 @@ useEffect(() => {
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                   <Typography sx={{ fontFamily: "MontserratLight" }}>
-                    {componenteValor[index - 1]?.aporte_marginal}
+                    {componente?.aporte_marginal}
                   </Typography>
                 </Grid>
               </Grid>
               
             </Grid>
           );
-        })}
+        })} 
 
-        <Grid
+         <Grid
           item
           xl={11}
           lg={11}
@@ -1769,9 +1770,9 @@ useEffect(() => {
           </Typography>
         </Grid>
 
-        {cValor[0].componentes.map((item, indexComponentes) => {
+        {ftPadre.componentes.map((componente: IComponentesFT, indexComponentes) => {
           let i = 0;
-          return item.actividades.map((value, indexActividades) => {
+          return componente.actividades.map((actividad: IActividadesFT, indexActividades) => {
             i++;
             return (
               <Grid
@@ -1848,9 +1849,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].tipoDeIndicador
+                       actividad.tipoDeIndicador
                       }
                     </Typography>
                   </Grid>
@@ -1894,9 +1893,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].dimension
+                        actividad.dimension
                       }
                     </Typography>
                   </Grid>
@@ -1943,9 +1940,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].unidadDeMedida
+                        actividad.unidadDeMedida
                       }
                     </Typography>
                   </Grid>
@@ -1989,9 +1984,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].claridad
+                       actividad.claridad
                       }
                     </Typography>
                   </Grid>
@@ -2035,9 +2028,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].relevancia
+                        actividad.relevancia
                       }
                     </Typography>
                   </Grid>
@@ -2081,9 +2072,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].economia
+                        actividad.economia
                       }
                     </Typography>
                   </Grid>
@@ -2129,9 +2118,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].monitoreable
+                        actividad.monitoreable
                       }
                     </Typography>
                   </Grid>
@@ -2175,9 +2162,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].adecuado
+                        actividad.adecuado
                       }
                     </Typography>
                   </Grid>
@@ -2224,9 +2209,7 @@ useEffect(() => {
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
                       {
-                        cValor[0].componentes[indexComponentes].actividades[
-                          indexActividades
-                        ].aporte_marginal
+                        actividad.aporte_marginal
                       }
                     </Typography>
                   </Grid>
@@ -2234,8 +2217,8 @@ useEffect(() => {
               </Grid>
             );
           });
-        })}
-      </Grid> */}
+        })} 
+      </Grid> 
 
       <Grid
         item
